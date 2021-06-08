@@ -1,0 +1,37 @@
+.subscribers_subscriptions_main{
+    width: 100%;
+    margin-top: 32px;
+}
+
+.subscribers_subscriptions{
+    display: flex;
+    justify-content:space-between;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+
+    &__user_info{
+        display: flex;
+    }
+
+    &__avatar{
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        margin-right: 12px;
+
+        & img{
+            width: 40px;
+        }
+    }
+    
+    &__user_name{
+        font-weight: 500;
+        font-size: 12px;
+        color: $tp;
+    }
+}

@@ -1,0 +1,54 @@
+.placeaa {
+    display: grid;
+    grid-template-rows: 30px 100px 1fr 40px;
+    min-height: 100vh;
+    &__wrapper {
+        position: relative;
+        display: grid;
+        grid-template-columns: 0.3fr 150px 712px 0.7fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: 64px;
+        grid-row-gap: 0px;
+    }
+    &__verify {
+        width: 100%;
+        position: relative;
+        box-sizing: border-box;
+        grid-area: 1 / 2 / 2 / 3;
+        user-select: none;
+        &__block {
+            margin-top: 60px;
+            width: 150px;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        &__item {
+            color: $tpsl;
+            font-size: 14px;
+            & svg {
+                margin: 0 4px;
+            }
+        }
+        &__connector {
+            width: 2px;
+            height: 15px;
+            margin-right: 17px;
+            border-radius: 1px;
+            background-color: $tpml;
+        }
+    }
+    &__form {
+        width: 100%;
+        box-sizing: border-box;
+        grid-area: 1 / 3 / 2 / 4;
+    }
+}
+
+.verifyHL {
+    color: $prime;
+}
+.verifyC {
+    background-color: $prime;
+}

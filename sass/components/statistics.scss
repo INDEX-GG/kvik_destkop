@@ -1,0 +1,134 @@
+.statistic {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.statistic__header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $darkWhite;
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+
+    &__block_left {
+        &_title {
+            font-size: 18px;
+            font-weight: 500;
+            color: $tp;
+            margin: 0;
+        }
+    }
+
+    &__block_right {
+        display: flex;
+
+        & span {
+            display: flex;
+            font-size: 14px;
+            font-weight: 500;
+            color: $tpl;
+            margin-left: 36px;
+            align-items: center;
+            & img {
+                margin-left: 6px;
+            }
+        }
+    }
+}
+
+.statistic__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid $darkWhite;
+    margin-bottom: 24px;
+
+    & button {
+        position: relative;
+        border: none;
+        background: none;
+        font-weight: 500;
+        font-size: 14px;
+        color: $tpsl;
+        cursor: pointer;
+        width: 50%;
+        padding-bottom: 8px;
+    }
+
+    & button:hover {
+        color: $tp;
+    }
+
+    & button:after {
+        border: none;
+    }
+
+    & button:focus {
+        outline: none;
+    }
+
+    .statistic__active {
+        color: $tp;
+    }
+
+    .statistic__active::after {
+        position: absolute;
+        content: "";
+        display: block;
+        width: 100%;
+        border-bottom: 4px solid $primeyellow;
+        bottom: -3px;
+        left: 0;
+    }
+}
+
+.statistic__footer {
+    & p {
+        font-size: 12px;
+        color: $tpsl;
+    }
+
+    &_date {
+        display: flex;
+        justify-content: center;
+        margin-top: 16px;
+        margin-bottom: 24px;
+
+        & span {
+            font-weight: 500;
+            font-size: 14px;
+            color: $tp;
+            padding: 0 26px;
+        }
+        
+        & .date__btn{
+            background: url(../../icons/chevron_down_grey.svg) center no-repeat;
+
+            width: 16px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        & .date_prev {
+            transform: rotateZ(90deg);
+        }
+
+        & .date_next {
+            transform: rotateZ(-90deg);
+        }
+    }
+}
+.Component-root-1 {
+    padding: 0 !important;
+    border: 0 !important;
+    color: #fff !important;
+    height: 230px !important;
+}
+
+.MuiPaper-elevation1 {
+    box-shadow: none !important;
+}
+
+/* Медия запрпосы */

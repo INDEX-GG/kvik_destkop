@@ -1,0 +1,37 @@
+/* Стили модального окна "отзывы и рейтинг", "подписчики", "подписка" */
+.modal__block__top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $light;
+    padding-bottom: 7px;
+  }
+  
+  .modal__block__top_title {
+    margin: 0;
+    color: $tp;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  .modal__block__middle {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 84px;
+  }
+  
+  .modal__block__middle__title {
+    margin: 0;
+    margin-bottom: 24px;
+    font-weight: 500;
+    font-size: 14px;
+    color: $tpl;
+  }
+  
+  .modal__block__middle_rating_description {
+    font-weight: 400;
+    font-size: 14px;
+    color: $tpsl;
+  }
+  

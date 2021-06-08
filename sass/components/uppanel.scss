@@ -1,0 +1,117 @@
+.upPanel__wrapper{
+  padding: 0 12px;
+  background: $ts;
+}
+
+.upPanel{
+  padding-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 1248px;
+}
+
+.currentLocation{
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: $tp;
+  cursor: pointer;
+}
+
+.notifyContainer{
+  display: flex;
+}
+
+.hrefOffers,
+.hrefDeal,
+.fastCategory,
+.notification,
+.like,
+.notificationMsg{
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.hrefOffers{
+  background: url(../../icons/offers_dark.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.hrefDeal{
+  background: url(../../icons/deal_dark.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.fastCategory{
+  background: url(../../icons/category_dark.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.notification{
+  background: url(../../icons/compare_dark.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.like{
+  background: url(../../icons/like_dark.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.notificationMsg{
+  background: url(../../icons/notif_dark.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.hrefOffers:hover{
+  background: url(../../icons/offers_green.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.hrefDeal:hover{
+  background: url(../../icons/deal_green.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.fastCategory:hover{
+  background: url(../../icons/category_green.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.notification:hover{
+  background: url(../../icons/compare_green.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.like:hover{
+  background: url(../../icons/like_green.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.notificationMsg:hover{
+  background: url(../../icons/notif_green.svg) center no-repeat;
+  transition: 300ms ease-in-out;
+}
+
+.fastCategory,
+.notification,
+.like,
+.notificationMsg,
+.location,
+.hrefDeal{
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 1365px){
+  .upPanel{
+  max-width: 1024px;
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .upPanel__wrapper {
+    display: none;
+  }
+}

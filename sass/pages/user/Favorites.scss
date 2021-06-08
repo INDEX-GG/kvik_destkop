@@ -1,0 +1,319 @@
+.favoritesContainerWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.favoritesContainer {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    width: 48%;
+    margin: 0 0 32px 0;
+    height: 184px;
+}
+
+.favorite__userPageContent {
+    height: calc(515px + (815 - 515) * ((100vh - 920px) / (1200 - 920)));
+}
+
+.favoritesImage {
+    position: relative;
+    background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
+    background-size: cover;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.favoritesImage img {
+    user-select: none;
+    max-height: 100%; /*Решение проблем с вайтспейсом*/
+    min-width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
+
+.favoritesDescription {
+    height: 100%;
+    padding: 0 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.favoritesDescription > * {
+    margin-bottom: 4px;
+}
+
+.favoritesPubCheck {
+    align-self: start;
+    position: relative;
+    top: 4px;
+    left: 4px;
+}
+
+.favoritesCheckMain a {
+    margin-left: 27px;
+    line-height: 16px;
+}
+
+.favoritesCause {
+    width: 98%;
+    padding: 4px 0;
+    text-align: center;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 4px;
+    background-color: #2c2c2cb6;
+    display: inline;
+}
+
+.favoritesUserpic {
+    margin-left: 8px;
+    min-width: 32px;
+    max-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
+    background-size: cover;
+}
+
+.favoritesUserBlock {
+    width: 100%;
+    padding-top: 4px;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.favoritesNote {
+    padding-right: 24px;
+    text-align: right;
+    background: no-repeat right center url(../../../icons/close_grey.svg);
+    transition: all 350ms ease-in-out;
+}
+
+.favoritesNote:hover {
+    cursor: pointer;
+    transition: all 350ms ease-in-out;
+    background-image: url(../../../icons/cross_bright.svg);
+}
+
+.favoritesCompare {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    min-width: 24px;
+    min-height: 24px;
+    background: no-repeat url(../../../icons/compare_dark.svg);
+    transition: all 350ms ease-in-out;
+}
+
+.favoritesCompare:hover {
+    cursor: pointer;
+    transition: all 350ms ease-in-out;
+    background: no-repeat url(../../../icons/compare_o_green.svg);
+}
+
+.favoritesFavorite {
+    position: absolute;
+    top: 42px;
+    right: 8px;
+    min-width: 24px;
+    min-height: 24px;
+    background: no-repeat url(../../../icons/like_o_green.svg);
+    transition: all 350ms ease-in-out;
+}
+
+.favoritesFavorite:hover {
+    cursor: pointer;
+    transition: all 350ms ease-in-out;
+    background: no-repeat url(../../../icons/like_dark.svg);
+}
+
+.sellersWrapper {
+    width: 97%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sellersContainer {
+    padding: 0 0 32px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sellersUser {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sellersUserBlock {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.sellersUserInfo {
+    margin: 0 12px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.sellersUserBlock img {
+    min-width: 32px;
+    max-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
+    background-size: cover;
+}
+
+.sellersOffers {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    flex-wrap: wrap;
+}
+
+.sellersOffer {
+    margin: 5px 9px;
+    width: 88px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 0px 20px #0000001a;
+    border-radius: 1px;
+}
+
+.sellersOffer img {
+    width: 88px;
+    height: 88px;
+    border-radius: 1px;
+    object-fit: cover;
+    object-position: center;
+    background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
+    background-size: cover;
+}
+
+.selersOffer > div {
+    margin: 2px 0;
+}
+
+.searshesCheckMain {
+    width: 100%;
+    display: flex;
+}
+
+.searshesCheckMain *:nth-child(2) {
+    flex-grow: 1;
+}
+
+.searchesWrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0 0 0 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.searchesWrapper > div:last-child {
+    border: none;
+}
+
+.searchersContainer {
+    position: relative;
+    margin: 0 0px 16px 30px;
+    padding: 0 16px 16px 0px;
+    width: 95%;
+    border-bottom: 1px solid $light;
+}
+
+.searchersContainer > * {
+    padding: 4px 0;
+}
+.searchLeftCheck {
+    position: absolute;
+    top: 0;
+    left: -29px;
+}
+.searchRightCheck {
+    position: absolute;
+    top: 0;
+    right: -15px;
+}
+@media (max-width: 1366px) {
+    .favoritesContainer {
+        height: 230px;
+    }
+
+    .favoritesButton {
+        padding: 3px 0px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .favoritesContainer {
+        grid-template-columns: 1fr 2fr;
+        width: 100%;
+    }
+
+    .favoritesButton {
+        max-width: 204px;
+        align-self: center;
+        padding: 3px 0px;
+    }
+}
+
+@media (max-width: 650px) {
+    .searchRightCheck {
+        right: -5px;
+    }
+}
+
+@media (max-width: 600px) {
+    .favoritesContainer {
+    }
+}
+
+@media (max-width: 450px) {
+    .favoritesContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        height: 368px;
+    }
+
+    .favoritesShowes,
+    .favoritesAddFavores {
+        margin: 20px 0px 0px 20px;
+    }
+}

@@ -1,0 +1,25 @@
+  /* Стили модального окна "выйти" */
+  .modal__block_title {
+    font-weight: 500;
+    font-size: 18px;
+    color: $tp;
+    margin: 0;
+    margin-bottom: 32px;
+  }
+  
+  .modal__block_btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  .btn-blue {
+    color: $prime;
+  }
+  
+  .btn-red {
+    color: $primered;
+  }

@@ -1,0 +1,167 @@
+.main__slider {
+        margin: 0 auto;
+        max-width: 1272px;
+}
+
+.slider__category {
+        background: none;
+        position: relative;
+
+        & p {
+                color: $tpl;
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                position: absolute;
+        }
+
+        & img {
+                width: 160px;
+                height: 160px;
+                margin-top: 20px;
+        }
+}
+
+.swiper-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+}
+
+.scrollableOffersHome .swiper-container {
+        border-radius: 8px 8px 0 0;
+}
+
+.swiper-button-prev {
+        display: block;
+        background: url("../../icons/homeSlider/arrowLeft.svg") center no-repeat;
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        z-index: 100;
+        left: 0;
+        cursor: pointer;
+        transition: 300ms ease-in-out;
+}
+
+.swiper-button-next {
+        display: block;
+        background: url("../../icons/homeSlider/arrowRight.svg") center no-repeat;
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        z-index: 100;
+        right: 0;
+        cursor: pointer;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        transition: 300ms ease-in-out;
+}
+
+.category_smartphone {
+        background: url("../../icons/homeSlider/smartphoneBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.category_notebook {
+        background: url("../../icons/homeSlider/notebookBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.category_homeandgarden {
+        background: url("../../icons/homeSlider/homeandgardenBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.category_job {
+        background: url("../../icons/homeSlider/jobBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.category_car {
+        background: url("../../icons/homeSlider/carBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.category_service {
+        background: url("../../icons/homeSlider/serviceBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.category_bike {
+        background: url("../../icons/homeSlider/bikeBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.category_property {
+        background: url("../../icons/homeSlider/propertyBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.category_part {
+        background: url("../../icons/homeSlider/partBack1.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_smartphone {
+        background: url("../../icons/homeSlider/smartphoneBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_notebook {
+        background: url("../../icons/homeSlider/notebookBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_homeandgarden {
+        background: url("../../icons/homeSlider/homeandgardenBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_job {
+        background: url("../../icons/homeSlider/jobBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_car {
+        background: url("../../icons/homeSlider/carBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_service {
+        background: url("../../icons/homeSlider/serviceBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_bike {
+        background: url("../../icons/homeSlider/bikeBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_property {
+        background: url("../../icons/homeSlider/propertyBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+.slider__category:hover .category_part {
+        background: url("../../icons/homeSlider/partBack.svg") center no-repeat;
+        transition: 300ms ease-in-out;
+}
+
+@media screen and (max-width: 1365px) {
+        .main__slider {
+                max-width: 1024px;
+        }
+}
+
+@media screen and (max-width: 1060px) {
+        .swiper-button-prev,
+        .swiper-button-next {
+                display: none;
+        }
+}

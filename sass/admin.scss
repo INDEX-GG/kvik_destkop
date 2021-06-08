@@ -1,0 +1,249 @@
+.admin {
+    background: $light;
+
+    &_menu {
+        margin-top: 42px !important;
+    }
+}
+
+/* Блок "Объявления" */
+
+.ad__wrapper {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 9px;
+    display: flex;
+    position: relative;
+    margin-bottom: 33px;
+}
+.ad {
+    &__check {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        z-index: 1;
+    }
+
+    &_slider {
+        min-width: 280px;
+        width: 280px;
+        height: 224px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 8px;
+        position: relative;
+
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        & .ad__photo_count {
+            position: absolute;
+            color: $ts;
+            background: rgba(44, 44, 44, 0.74);
+            border-radius: 2px;
+            padding: 2px 8px;
+            bottom: 8px;
+            align-self: center;
+        }
+    }
+
+    &__information {
+        display: flex;
+        flex-direction: column;
+        padding: 8px 24px;
+        width: 100%;
+        position: relative;
+        font-weight: 400;
+
+        &__blocks {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__left_block {
+            color: $tp;
+        }
+
+        &_price {
+            margin-bottom: 4px;
+        }
+
+        &_title {
+            margin-bottom: 8px;
+        }
+
+        &_category {
+            color: $tpsl;
+            margin-bottom: 10px;
+
+            & span {
+                border-right: 2px solid $tpsl;
+                padding-right: 8px;
+                margin-right: 8px;
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+
+        &__right_block {
+            & .btn__reject {
+                font-weight: 700;
+                text-decoration: underline;
+                background: none;
+                color: $primered;
+                cursor: pointer;
+            }
+        }
+
+        &__user {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            margin-bottom: 8px;
+
+            &_icon {
+                width: 32px;
+                height: 32px;
+                margin-right: 8px;
+
+                & img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        &__description {
+            font-size: 12px;
+            color: $tpsl;
+            margin-bottom: 50px;
+        }
+
+        & .btn__loer_more {
+            background: url(../icons/chevron_down_green.svg) right no-repeat;
+            color: $prime;
+            align-self: flex-end;
+            padding-right: 24px;
+            cursor: pointer;
+            position: absolute;
+            right: 24px;
+            bottom: 44px;
+            transition: all 150ms ease-in-out;
+        }
+
+        & .btn__loer_more-open {
+            background: url(../icons/chevron_up_green.svg) right no-repeat;
+            transition: all 150ms ease-in-out;
+        }
+
+        & .btn__ad_add {
+            color: $ts;
+            background: $prime;
+            font-weight: 500;
+            padding: 4px 0;
+            width: 224px;
+            height: 24px;
+            border-radius: 8px;
+            align-self: center;
+            cursor: pointer;
+            position: absolute;
+            bottom: 8px;
+        }
+    }
+}
+
+.ad_close, .description__rejected {
+    white-space: nowrap;
+    max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: 300ms ease-in-out;
+}
+
+.description__rejected {
+    color: $primered;
+    position: absolute;
+    bottom: 10px;
+    left: 24px;
+}
+
+/* Блок "Настройки" */
+
+.setting__peronal_wrapper {
+    padding: 0 32px;
+
+    & .setting__peronal_block {
+        display: flex;
+        padding: 32px 0;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: 400;
+        border-bottom: 1px solid $light;
+
+        &:last-child{
+            border: none;
+        }
+
+        & .setting__peronal_title{
+            width: 25%;
+            color: $tpsl;
+        }
+
+        & .setting__peronal_purpose {
+            width: 50%;
+            border: none;
+            font-size: 18px;
+            font-weight: 400;
+
+            &::placeholder{
+                color: $tp;
+                font-size: 18px;
+                font-weight: 400;
+            }
+        }
+
+        & .btn__functional{
+            width: 25%;
+            text-align: right;
+            color: $prime;
+
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.href__admin_page{
+    color: $prime;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+/* Медия блока "Обвяления" */
+@media (max-width: 1365px) {
+    .ad__information_category {
+        overflow: scroll;
+        width: 260px;
+        padding: 5px 0;
+    }
+
+    .description__rejected {
+        max-width: 380px;
+    }
+
+    .ad_close {
+        max-width: 380px;
+    }
+}

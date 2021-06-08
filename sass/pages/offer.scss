@@ -1,0 +1,47 @@
+@font-face {
+    font-family: "ubuntu";
+    src: url("../../fonts/ubuntu/Ubuntu-Bold.ttf");
+    font-style: normal;
+  }
+  
+  @media screen and (min-width: 1024px) and (max-width: 1365px) {
+    .offer {
+      font-family: "ubuntu";
+      display: grid;
+      grid-template-areas:
+        "header"
+        "body"
+        "footer";
+      grid-template-rows: 120px auto 40px;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+    }
+  
+    .bodyOffer {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      max-width: 1024px;
+    }
+  }
+  @media screen and (min-width: 1366px) {
+    .offer {
+      font-family: "ubuntu";
+      display: grid;
+      grid-template-areas:
+        "header"
+        "body"
+        "footer";
+      grid-template-rows: 120px auto 40px;
+      overflow: hidden;
+    }
+  
+    .body {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      max-width: 1248px;
+    }
+  }
+  

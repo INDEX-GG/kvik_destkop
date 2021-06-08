@@ -1,0 +1,155 @@
+.reviewsContainerWrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.reviewsContainer {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 100%;
+    height: 184px;
+    margin-bottom: 24px;
+}
+
+.reviewsImage {
+    position: relative;
+    background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
+    background-size: cover;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reviewsImage img {
+    user-select: none;
+    max-height: 100%; /*Решение проблем с вайтспейсом*/
+    min-width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
+
+.reviewsDescription {
+    height: 100%;
+    padding: 0 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.reviewsDescription > * {
+    margin-bottom: 4px;
+}
+
+.reviewsMiddle > * {
+    margin: 4px 0;
+}
+
+.reviewsPubCheck {
+    align-self: start;
+    position: relative;
+    top: 4px;
+    left: 4px;
+}
+
+.reviewsCheckMain a {
+    margin-left: 27px;
+    line-height: 16px;
+}
+.reviewsButton{
+    width: 204px;
+    align-self: center;
+}
+.reviewsUserpic {
+    margin-left: 8px;
+    min-width: 32px;
+    max-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
+    background-size: cover;
+}
+
+.reviewsUserBlock {
+    width: 100%;
+    padding-top: 4px;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.reviewsWrapper {
+    padding-right: 0 32px;
+}
+
+.reviewContainer {
+    position: relative;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 20px #0000001a;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    padding: 8px 32px;
+    transition: all 350ms ease-in-out;
+}
+
+.reviewContainer:hover {
+    transition: all 350ms ease-in-out;
+    box-shadow: 0px 0px 40px #0000001a;
+}
+
+.reviewCheck {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+
+.reviewContainer > *:first-child {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reviewContainer > *:nth-child(2) {
+    margin: 16px 0;
+}
+
+.reviewContainer > div > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.reviewContainer > div > div > img {
+    min-width: 32px;
+    max-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
+    background-size: cover;
+}
+
+.reviewContainer > div > div > div:nth-child(2) {
+    height: 32px;
+    margin-left: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (max-width: 1024px) { 
+    .reviewsContainer{
+        margin-right: 0;
+    }
+}

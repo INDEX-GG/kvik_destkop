@@ -1,0 +1,117 @@
+.userMenuContainer {
+    width: 176px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0 24px;
+  }
+  
+  .userMenuContainer a {
+    width: 100%;
+    cursor: pointer;
+    padding: 4px 0px;
+    padding-left: 32px;
+    line-height: 24px;
+  }
+  
+  .userMenuContainer a:hover {
+    color: $tpml;
+  }
+  
+  .userMenuContainer a:last-child {
+    border-top: 1px solid $light;
+  }
+  
+  .menuOffers {
+    background: no-repeat left center url(../../icons/offers_dark.svg);
+  }
+  .menuOffers:hover{
+    background: no-repeat left center url(../../icons/offers_grey.svg);
+  }
+  .menuOffersActive {
+    background: no-repeat left center url(../../icons/offers_green.svg);
+  }
+  
+  .menuDeals {
+    background: no-repeat left center url(../../icons/deal_dark.svg);
+  }
+  .menuDeals:hover {
+    background: no-repeat left center url(../../icons/deal_grey.svg);
+  }
+  .menuDealsActive {
+    background: no-repeat left center url(../../icons/deal_green.svg);
+  }
+  
+
+  .menuWallet {
+    background: no-repeat left center url(../../icons/wallet_dark.svg);
+  }
+  .menuWallet:hover {
+    background: no-repeat left center url(../../icons/wallet_grey.svg);
+  }
+  .menuWalletActive {
+    background: no-repeat left center url(../../icons/wallet_green.svg);
+  }
+  
+  .menuFavorites {
+    background: no-repeat left center url(../../icons/like_dark.svg);
+  }
+  .menuFavorites:hover {
+    background: no-repeat left center url(../../icons/like_grey.svg);
+  }
+  .menuFavoritesActive {
+    background: no-repeat left center url(../../icons/like_green.svg);
+  }
+  
+  .menuNotifications {
+    background: no-repeat left center url(../../icons/note_dark.svg);
+  }
+  .menuNotifications:hover {
+    background: no-repeat left center url(../../icons/note_grey.svg);
+  }
+  .menuNotificationsActive {
+    background: no-repeat left center url(../../icons/note_green.svg);
+  }
+  
+  .menuCompare {
+    background: no-repeat left center url(../../icons/compare_dark.svg);
+  }
+  .menuCompare:hover {
+    background: no-repeat left center url(../../icons/compare_grey.svg);
+  }
+  .menuCompareActive {
+    background: no-repeat left center url(../../icons/compare_green.svg);
+  }
+  
+  .menuReviews {
+    background: no-repeat left center url(../../icons/review_dark.svg);
+  }
+  .menuReviews:hover {
+    background: no-repeat left center url(../../icons/review_grey.svg);
+  }
+  .menuReviewsActive {
+    background: no-repeat left center url(../../icons/review_green.svg);
+  }
+  
+  .menuSettings {
+    background: no-repeat left center url(../../icons/settings_dark.svg);
+  }
+  
+  .menuSettings:hover {
+    background: no-repeat left center url(../../icons/settings_grey.svg);
+  }
+  .menuSettingsActive {
+    background: no-repeat left center url(../../icons/settings_green.svg);
+  }
+  
+  .menuLogoff {
+    color: $tp;
+    background: no-repeat left center url(../../icons/quit_dark.svg);
+  }
+  .menuLogoff:hover {
+    background: no-repeat left center url(../../icons/quit_grey.svg);
+  }
+  .menuLogoff:active {
+    background: no-repeat left center url(../../icons/quit_green.svg);
+  }

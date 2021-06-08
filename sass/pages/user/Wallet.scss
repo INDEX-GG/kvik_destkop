@@ -1,0 +1,132 @@
+.walletBalanceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.walletBalanceNum {
+    font-size: 30px;
+    font-weight: 700;
+    color: $prime;
+    margin: 12px 0;
+}
+
+.walletSet {
+    margin: 8px 0;
+}
+
+.walletInfo {
+    margin: 50px;
+}
+
+.walletInfo img {
+    background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
+    background-size: cover;
+    margin: 0 25px 25px 0;
+    float: left;
+    width: 200px;
+    height: 200px;
+    border-radius: 50% 0 0 0;
+    object-fit: cover;
+    object-position: center;
+}
+
+.walletInfo p {
+    text-align: justify;
+    margin-bottom: 18px;
+}
+
+.walletStoryContainer {
+    display: table;
+    margin: 8px 32px;
+}
+
+.walletStoryItem {
+    display: table-row;
+    transition: all 350ms ease-in-out;
+}
+
+.walletStoryItem:hover {
+    cursor: pointer;
+    transition: all 350ms ease-in-out;
+    background-color: $light;
+}
+
+.walletStoryItem div {
+    display: table-cell;
+    padding: 12px 5px;
+}
+
+.walletStoryItem div:first-child {
+    padding-left: 32px;
+    border-radius: 8px 0 0 8px;
+}
+
+.walletStoryItem div:last-child {
+    padding-right: 32px;
+    border-radius: 0 8px 8px 0;
+    text-align: right;
+}
+
+.walletStoryTitles {
+    display: table-row;
+}
+
+.walletStoryTitles div {
+    display: table-cell;
+    padding: 12px 5px;
+}
+.walletStoryTitles div:first-child {
+    padding-left: 32px;
+}
+
+.walletStoryTitles div:last-child {
+    padding-right: 32px;
+    text-align: right;
+}
+
+.walletBonusAlign {
+    text-align: right;
+}
+
+.walletBonusSum {
+    display: table-row;
+    padding: 12px 0;
+}
+
+.walletBonusSum div {
+    display: table-cell;
+}
+
+.walletBonusSum div:last-child {
+    padding-right: 32px;
+    text-align: right;
+}
+
+@media (max-width: 1024px) {
+    .walletInfo {
+        margin: 40px 76px 0;
+    }
+
+    .walletStoryItem div:first-child {
+        padding-left: 0; 
+    }
+    .walletStoryTitles div:first-child {
+        padding-left: 0; 
+    }
+    .walletStoryTitles div:last-child {
+        padding-right: 0;
+    }
+    .walletStoryItem div:last-child {
+        padding-right: 0;
+    }
+    .walletStoryContainer{
+        margin: 8px 18px;
+    }
+}
+
+@media (max-width: 750px) {
+    .walletInfo {
+        margin: 40px 0 0;
+    }
+}

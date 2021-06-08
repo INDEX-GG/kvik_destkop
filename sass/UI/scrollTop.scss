@@ -1,0 +1,28 @@
+.scrollTop {
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    background: no-repeat url(../../icons/chevron_up_grey.svg), $ts;
+    border-radius: 50%;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
+    background-position: left 2px top 3px;
+    background-size: contain;
+    position: fixed;
+    left: 5%;
+    bottom: 50px;
+    transition: all 350ms ease-in-out;
+    animation: showST 350ms ease-in-out;
+    &:hover {
+        transition: all 350ms ease-in-out;
+        box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.6);
+    }
+}
+
+@keyframes showST {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1
+    }
+}

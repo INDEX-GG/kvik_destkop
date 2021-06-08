@@ -1,0 +1,217 @@
+.privateDataWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: auto;
+    margin: 0 32px;
+}
+.privateDataWrapper > div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 18px 0;
+}
+.privateDataWrapper > div:nth-child(2),
+.privateDataWrapper > div:nth-child(5),
+.privateDataWrapper > div:nth-child(6),
+.privateDataWrapper > div:nth-child(7),
+.privateDataWrapper > div:nth-child(8) {
+    border-bottom: 1px solid $light;
+}
+.privateDataWrapper > div > * {
+    display: flex;
+    flex-direction: column;
+}
+.privateDataWrapper > div > *:nth-child(3n-2) {
+    color: $tpsl;
+    min-width: 200px;
+}
+.privateDataWrapper > div > *:nth-child(3n-1) {
+    width: 100%;
+    flex-grow: 1;
+}
+.privateDataWrapper > div > *:nth-child(3n) {
+    white-space: nowrap;
+    color: $prime;
+}
+.privateDataWrapper > div > *:nth-child(3n):hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.pDSocial {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 24px;
+}
+
+.pDVK {
+    background: no-repeat center center url(../../../icons/vk_r_color.svg);
+}
+.pDInstagram {
+    background: no-repeat center center url(../../../icons/ig_r_color.svg);
+}
+.pDFacebook {
+    background: no-repeat center center url(../../../icons/fb_r_color.svg);
+}
+.pDOK {
+    background: no-repeat center center url(../../../icons/ok_r_color.svg);
+}
+
+.pDPassInputWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 296px;
+    border: 1px solid $tpl;
+    border-radius: 8px;
+    padding: 6px 12px;
+    margin: 6px 0;
+}
+.pDPassInputWrapper > input {
+    outline: none;
+    border: none;
+    width: 250px;
+    font-weight: 400;
+}
+.pDPassInputWrapper > a {
+    width: 24px;
+    height: 24px;
+    background: no-repeat center center url(../../../icons/invisible.svg);
+    transition: all 250ms ease-in-out;
+}
+.pDPassInputWrapper > a:hover {
+    transition: all 250ms ease-in-out;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.pDPassInputWrapper > input::placeholder {
+    color: $tpml;
+}
+.pDPassWarning {
+    padding-left: 18px;
+    font-weight: 400;
+    font-size: 12px;
+    color: $tpml;
+    background: no-repeat left center url(../../../icons/activate_grey.svg);
+}
+
+.pDPassError {
+    padding-left: 18px;
+    font-weight: 400;
+    font-size: 12px;
+    color: $primered;
+    background: no-repeat left center url(../../../icons/activate_green.svg);
+}
+
+.settingsNotifWrapper {
+    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: auto;
+}
+
+.settingsNotifWrapper > div {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid $light;
+    margin-bottom: 16px;
+}
+
+.settingsNotifWrapper > div > div:first-child {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 50px;
+}
+.settingsNotifWrapper > div > div:nth-child(2),
+.settingsNotifWrapper > div > div:nth-child(3) {
+    margin: 0 36px;
+}
+
+.settingsBlackList {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: auto;
+}
+
+.settingsBlackList > div {
+    user-select: none;
+    width: 90%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 4px 16px;
+    margin: 0 0 20px 32px;
+    border-radius: 8px;
+    transition: all 300ms ease-in-out;
+}
+.settingsBlackList > div:hover {
+    transition: all 300ms ease-in-out;
+    background-color: $light;
+    cursor: pointer;
+}
+
+.settingsBlackList > div > div:first-child {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+.settingsBlackList > div > div:first-child > img {
+    min-width: 32px;
+    max-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
+    background-size: cover;
+}
+.settingsBlackList > div > div:first-child > *:nth-child(2) {
+    height: 32px;
+    margin-left: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.settingsBLCheck {
+    position: absolute;
+    left: -28px;
+    top: 13px;
+}
+
+@media (max-width: 1024px) {
+    .privateDataWrapper {
+        margin: 0;
+    }
+    .settingsNotifWrapper {
+        padding-left: 0;
+    }
+}
+@media (max-width: 700px) {
+    .privateDataWrapper > div > *:nth-child(3n-2) {
+        min-width: 90px;
+    }
+}
+@media (max-width: 450px) {
+    .settingsBlackList > div {
+        padding: 4px 0px;
+    }
+
+    .settingsBlackList > div > div:first-child > *:nth-child(2) {
+        padding-right: 10px;
+    }
+}

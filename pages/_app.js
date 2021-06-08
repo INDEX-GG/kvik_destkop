@@ -1,6 +1,8 @@
 import App from 'next/app'
 import Head from 'next/head';
-// import '../scss/style.scss';
+import 'swiper/swiper.scss';
+import "swiper/components/thumbs/thumbs.min.css";
+import '../sass/style.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 function MyApp({ Component, pageProps }) {

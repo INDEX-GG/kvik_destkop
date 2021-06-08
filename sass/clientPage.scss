@@ -1,0 +1,341 @@
+.userOffersPage {
+  display: grid;
+  grid-template-rows: 30px 100px 1fr 60px;
+  min-height: 100vh; /* прижимает footer к низу */
+}
+.clientPage__container_bottom{
+  padding: 0 32px;
+}
+
+.clientPage {
+  /* height: 100%; */
+  min-height: 100vh;
+  padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 220px 1000px 1fr;
+  grid-template-rows: 16px auto;
+  grid-column-gap: 24px;
+  grid-row-gap: 32px;
+
+  &__breadcrumbs {
+    grid-area: 1 / 2 / 2 / 4;
+    display: block ;
+  }
+
+  &__menu {
+    position: sticky;
+    height: min-content;
+    top: 100px;
+    grid-area: 2 / 2 / 3 / 3;
+    padding: 21px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    user-select: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0000001a;
+    transition: all 350ms ease-in-out;
+    background: $ts;
+
+    & > * {
+      margin: 21px 0;
+    }
+  }
+
+  &__userinfo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__userpic {
+    width: 80px;
+    height: 80px;
+    min-height: 80px;
+    border-radius: 50%;
+    background: no-repeat center center url(../icons/userPhotoPlaceholder.svg);
+    & img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__userinitials {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    color: $ts;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 35px;
+    text-shadow: 0 0 1px $ts;
+    box-shadow: inset 0px 0px 6px #2c2c2c31;
+  }
+
+  &__username {
+    margin: 8px 0;
+  }
+
+  &__userrate {
+    width: 100%;
+    margin: 8px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    &__num {
+      margin: 5px;
+    }
+  }
+
+  &__userstats {
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & > * {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__container {
+    width: 100%;
+    grid-area: 2 / 3 / 4 / 4;
+    padding-bottom: 32px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0000001a;
+    transition: all 350ms ease-in-out;
+    background: $ts;
+
+    &_top {
+      position: sticky;
+      top: 75px;
+      background-color: $ts;
+      z-index: 1;
+      padding: 0 32px;
+      border-radius: 8px 8px 0 0;
+      z-index: 2;
+    }
+
+    &_nav {
+      width: 100%;
+      padding: 24px 0 15px 0;
+      margin: 0 0 5px 0;
+      border-bottom: 2px solid $light;
+
+      &__wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin: 0 0 28px 0;
+        white-space: nowrap;
+      }
+
+      &__radio {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 0 14px 4px;
+        &_end {
+          position: absolute;
+          right: 0;
+          width: 120px;
+        }
+        & a {
+          font-size: 12px;
+          line-height: 14px;
+          color: $tpsl;
+          margin-right: 6px;
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+
+        & div {
+          display: inline;
+        }
+      }
+
+      & > * {
+        margin: 0 40px 0 0;
+        padding: 0px 0 16px 0;
+        font-size: 18px;
+        color: $tpsl;
+        transition: all 200ms ease-in-out;
+        border-bottom: 2px solid $light;
+
+        &:last-child {
+          margin: 0;
+        }
+
+        &:hover {
+          transition: all 200ms ease-in-out;
+          color: $tpl;
+        }
+      }
+    }
+
+    &_content {
+      width: 100%;
+    }
+  }
+}
+
+.navActive {
+  border-bottom: 4px solid $primeyellow;
+  color: $tp;
+}
+
+.addPhoto {
+  position: relative;
+  top: -88px;
+  left: 58px;
+  background: no-repeat url(../icons/camera.svg);
+  width: 24px;
+  height: 24px;
+  transition: all 350ms ease-in-out;
+}
+
+.addPhoto:hover {
+  transition: all 350ms ease-in-out;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.userInfoStats {
+  margin-top: 8px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfoReviews,
+.userInfoSubscribers,
+.userInfoSubscribtions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userInfoReviews:hover,
+.userInfoSubscribers:hover,
+.userInfoSubscribtions:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 1365px) {
+  .clientPage {
+    grid-template-columns: 1fr 220px 775px 1fr;
+  }
+
+ 
+}
+
+@media (max-width: 1080px) {
+  .clientPage {
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    .clientPage__container_top, .clientPage__container_bottom{
+      padding: 0;
+    }
+
+    &__breadcrumbs {
+      display: none;
+    }
+
+    &__menu {
+      grid-area: 1 / 1 / 1 / 1;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 21px 10px 0 10px;
+      position: relative;
+      top: 0;
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+
+    &__container {
+      grid-area: 2 / 1 / 2 / 3;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0px 12px 12px;
+
+      &_nav {
+        padding: 0 0 15px 0;
+      }
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+
+    &__userstats {
+      max-width: 204px;
+    }
+    &__container_top {
+      position: relative;
+      box-shadow: none;
+      top: 0;
+    }
+  }
+
+  .userMenuContainer {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .clientPage__menu > * {
+    margin: 0 0 21px 0 !important;
+  }
+  .clientPage__menu {
+    padding: 10px !important;
+  }
+
+  .userOffersPage {
+    grid-template-rows: auto;
+    grid-template-columns: 100%;
+  }
+  .reviewsContainer {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .reviewsContainer {
+    grid-template-columns: 1.5fr 2fr;
+  }
+}
+
+@media (max-width: 450px) {
+  .reviewsContainer {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    height: 368px;
+  }
+}

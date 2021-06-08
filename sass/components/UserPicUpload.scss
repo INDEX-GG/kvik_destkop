@@ -1,0 +1,42 @@
+.userPicUpload {
+  &__wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  &__photo {
+    width: 250px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 224px;
+    height: 224px;
+    background: no-repeat center center url(../../icons/photo_upload.svg), $light;
+  }
+  &__range {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    color: $tpl;
+    & input {
+      margin-top: 8px;
+    }
+  }
+  &__input {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+  }
+  &__button {
+    position: relative;
+  }
+}

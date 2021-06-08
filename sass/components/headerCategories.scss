@@ -1,0 +1,293 @@
+
+.headerCategoriesHeader h6,
+.headerCategoriesBack {
+  display: none;
+}
+
+.headerCategoriesButton {
+  cursor: pointer;
+  border-radius: 2px 0 0 2px;
+  padding-left: 32px;
+}
+
+.headerCategoriesButton:hover {
+  background: $light;
+}
+.headerCategoriesButton:focus {
+  background: $light;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1365px) {
+  .headerCategories {
+    position: relative;
+    top: 62px;
+    height: 0;
+    display: grid;
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+  }
+
+  .headerCategoriesContainer {
+    width: 1024px;
+    height: 432px;
+    background-color: $ts;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 10px 4px -4px rgba(133, 133, 133, 0.4);
+  }
+
+  .headerCategoriesListBlock1 {
+    display: inline-block;
+    grid-template-rows: auto;
+    width: 312px;
+    background-color: $ts;
+    border-bottom-left-radius: 8px;
+  }
+  .headerCategoriesListBlock2 {
+    display: inline-block;
+    grid-template-rows: auto;
+    width: 312px;
+    height: 432px;
+    background-color: $ts;
+  }
+
+  .headerCategoriesListBlock3 {
+    display: inline-block;
+    grid-template-rows: auto;
+    width: 312px;
+    height: 432px;
+    background-color: $ts;
+  }
+
+  .headerCategoriesListBlock4 {
+    display: inline-block;
+    grid-template-rows: auto;
+    width: 312px;
+    height: 432px;
+    background-color: $ts;
+    border-bottom-right-radius: 8px;
+  }
+
+  .headerCategoriesTitle {
+    position: relative;
+    left: 10px;
+    display: inline-block;
+    bottom: 5px;
+  }
+
+  .headerCategoriesButton {
+    width: 308px;
+    height: 32px;
+    left: 4px;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    text-align: left;
+    font-family: "ubuntu-medium";
+    font-size: 14px;
+  }
+  .headerCategoriesButton:active {
+    background-color: $light;
+  }
+  /* .headerCategoriesBack {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  background-size: cover;
+  opacity: 0.74;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  z-index: -1;
+} */
+}
+
+@media screen and (min-width: 1366px) {
+  .headerCategories {
+    position: relative;
+    top: 62px;
+    height: 0;
+    display: grid;
+    width: 1248px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+  }
+  .headerCategoriesContainer {
+    width: 1248px;
+    height: 432px;
+    background-color: $ts;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.15);
+  }
+  .headerCategoriesListBlock1 {
+    display: inline-block;
+    grid-template-rows: auto;
+    width: 312px;
+    border-bottom-left-radius: 8px;
+  }
+  .headerCategoriesListBlock2 {
+    display: inline-block;
+    grid-template-rows: auto;
+    width: 312px;
+    height: 432px;
+    background-color: $ts;
+  }
+  .headerCategoriesListBlock3 {
+    display: inline-block;
+    grid-template-rows: auto;
+    width: 312px;
+    height: 432px;
+    background-color: $ts;
+  }
+  .headerCategoriesListBlock4 {
+    display: inline-block;
+    grid-template-rows: auto;
+    width: 312px;
+    height: 432px;
+    background-color: $ts;
+    border-bottom-right-radius: 8px;
+  }
+  .headerCategoriesTitle {
+    position: relative;
+    left: 10px;
+    display: inline-block;
+    bottom: 5px;
+  }
+
+  .headerCategoriesButton {
+    width: 308px;
+    height: 32px;
+    left: 4px;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    text-align: left;
+    font-family: "ubuntu-medium";
+    font-size: 14px;
+  }
+  .headerCategoriesButton:active {
+    background-color: $light;
+  }
+  /* .headerCategoriesBack {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  background-size: cover;
+  opacity: 0.74;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  z-index: -1;
+} */
+}
+
+@media screen and (max-width: 1024px) {
+  .headerCategories {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: rgba(44, 44, 44, 0.74);
+    top: 0;
+    left: 0;
+    z-index: 1;
+    visibility: hidden;
+    transition: all 200ms ease-in-out;
+  }
+  .headerCategories__background {
+    display: block;
+    position: absolute;
+    top: 0;
+    background: $ts;
+    left: 0;
+    width: 80%;
+    min-height: 100vh;
+    z-index: 10;
+    border-radius: 0 10px 10px 0;
+    padding: 24px 8px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: all 300ms ease-in-out;
+  }
+
+  .HeaderCategories-active {
+    transition: all 300ms ease-in-out;
+    visibility: visible;
+  }
+  .headerCategories__background-active {
+    visibility: visible;
+    transition: all 300ms ease-in-out;
+    transform: translateX(0);
+  }
+
+  .headerCategories::before {
+    content: "";
+    display: block;
+  }
+
+  .headerCategoriesHeader {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $light;
+    padding-bottom: 25px;
+    padding-left: 32px;
+  }
+
+  .headerCategoriesHeader h6 {
+    display: block;
+    margin: 0;
+    padding: 0;
+    color: $tp;
+    font-weight: 500;
+    font-size: 18px;
+    margin-left: 13px;
+  }
+
+  .headerCategoriesListBlock1 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .headerCategoriesButton {
+    display: flex;
+    background: none;
+    padding: 0;
+    height: 32px;
+    align-items: center;
+    padding-left: 32px;
+  }
+
+  .headerCategoriesButton:active,
+  .headerCategoriesButton:focus {
+    background: $light;
+    border-radius: 2px;
+  }
+
+  .headerCategoriesTitle {
+    margin-left: 12px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .headerCategoriesBack {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url(../../icons/close_grey.svg) no-repeat center;
+    cursor: pointer;
+  }
+}

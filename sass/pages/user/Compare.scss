@@ -1,0 +1,145 @@
+.scrollTopNav {
+    overflow-x: auto;
+}
+.scrollTopNav::-webkit-scrollbar {
+    height: 8px;
+}
+.scrollTopNav::-webkit-scrollbar-thumb {
+    background-color: $light;
+    border-radius: 8px;
+}
+
+.userPageContentCompare {
+    padding-top: 15px;
+    margin: 0 32px;
+    min-height: 500px;
+    grid-area: 2 / 1 / 3 / 2;
+    overflow: auto;
+}
+.userPageContentCompare::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+.userPageContentCompare::-webkit-scrollbar-thumb {
+    background-color: $light;
+    border-radius: 8px;
+}
+.compareTable {
+    max-width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.compareTable > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 12px;
+}
+.compareCategories {
+    min-width: 200px;
+    margin-left: 0;
+    padding-top: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.compareCard {
+    min-width: 224px;
+    width: 224px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.compareCardPic {
+    user-select: none;
+    position: relative;
+    width: 100%;
+    height: 260px;
+    background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.compareCardPic > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.compareCardNotif {
+    position: absolute;
+    top: 12px;
+    background: rgba(44, 44, 44, 0.74);
+    border-radius: 8px;
+    padding: 5px 8px;
+    color: white;
+}
+.compareCardShut {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: no-repeat center center url(../../../icons/cross_o_light.svg);
+    transition: all 250ms ease-in-out;
+}
+.compareCardShut:hover {
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+    transform: scale(0.8);
+}
+
+.compareCardDes {
+    position: relative;
+    padding: 2px 12px 12px;
+}
+.compareCardDes > div {
+    margin: 5px 0;
+}
+.compareCardDesBottom {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.compareCardDelivery {
+    top: 0;
+    right: 36px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    background: no-repeat center center url(../../../icons/delivery_grey.svg);
+    transition: all 350ms ease-in-out;
+}
+.compareCardDelivery:hover {
+    transition: all 350ms ease-in-out;
+    cursor: pointer;
+    background: url(../../../icons/delivery_green.svg);
+}
+.compareCardDefense {
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    background: no-repeat center center url(../../../icons/defense_grey.svg);
+    transition: all 350ms ease-in-out;
+}
+.compareCardDefense:hover {
+    transition: all 350ms ease-in-out;
+    cursor: pointer;
+    background: no-repeat center center url(../../../icons/defense_green.svg);
+}

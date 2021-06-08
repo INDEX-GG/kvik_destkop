@@ -1,0 +1,215 @@
+.offerContainer {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: 0 0 32px 0;
+    height: 184px;
+}
+
+.offerImage {
+    background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
+    background-size: cover;
+    width: 100%;
+    height: 184px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.offerImage img {
+    user-select: none;
+    min-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
+
+.offerDescription {
+    width: 100%;
+    height: 100%;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: overlay;
+}
+
+.offerDescriptionTop {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.offerDTLeft {
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.offerDTRight a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.offerDTRight a {
+    margin-bottom: 12px;
+}
+
+.offerDTRight {
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.offerTitle,
+.offerDatPub {
+    padding: 8px 0;
+}
+
+.offerDescriptionBottom {
+    width: 100%;
+    padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.offerButtonViews {
+    align-self: center;
+}
+
+.offerEdit {
+    width: 125px;
+    text-align: right;
+}
+
+.offerSocialCount {
+    display: flex;
+    flex-direction: row;
+}
+
+.offerShowes,
+.offerAddFavores {
+    width: 55px;
+    margin: 20px 0px 20px 20px;
+    text-align: left;
+    line-height: 24px;
+}
+
+.offerPubCheck {
+    align-self: start;
+    position: relative;
+    top: 4px;
+    left: 4px;
+}
+
+.offerWaitCause {
+    width: 80%;
+    padding: 4px 0;
+    text-align: center;
+    border-radius: 8px;
+    position: relative;
+    bottom: 30px;
+    background-color: #2c2c2cb6;
+    display: inline;
+}
+
+.offerActivate {
+    width: 112px;
+    text-align: right;
+}
+
+.offerDelete {
+    width: 72px;
+    text-align: right;
+}
+
+.phOffers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phOffers > * {
+    margin: 18px 0;
+}
+
+.phContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.phCard {
+    box-shadow: 0px 0px 20px #0000001a;
+    border-radius: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3px;
+    margin: 0 8px;
+}
+
+.phCardPhoto {
+    width: 88px;
+    height: 88px;
+    border-radius: 1px;
+    background-color: $light;
+}
+
+.phCardTitle {
+    width: 38px;
+    height: 14px;
+    background-color: $light;
+    margin: 2px 0;
+}
+
+.phCardSubtitle {
+    width: 100%;
+    height: 14px;
+    background-color: $light;
+}
+
+@media (max-width: 1024px) {
+    .offerDescription {
+        padding: 0 8px;
+    }
+
+    .DatPub__mobile span {
+        display: none;
+    }
+}
+
+@media (max-width: 750px) {
+    .offerDTRight {
+        padding-top: 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .offerContainer {
+        grid-template-columns: 1.5fr 2fr;
+    }
+}
+
+@media (max-width: 450px) {
+    .offerContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        height: 368px;
+    }
+
+    .offerShowes,
+    .offerAddFavores {
+        margin: 20px 0px 0px 20px;
+    }
+}

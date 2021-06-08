@@ -1,0 +1,54 @@
+/* Front-end */
+/* User Interface */
+@import 'mixins';
+@import 'fonts';
+@import './UI/UI-Kit';
+@import './UI/inputRange';
+@import './UI/loading';
+@import './UI/scrollTop';
+@import 'clientPage';
+@import "useroffers";
+@import "personal_account";
+@import "admin";
+
+/* Components */
+@import './components/header';
+@import './components/headerCategories';
+@import './components/headerCities';
+@import './components/homeSlider';
+@import './components/starRating';
+@import './components/statistics';
+@import './components/UserPicUpload';
+@import './components/userMenu';
+@import './components/adCard';
+@import './components/inDev';
+@import './components/subscribers_subscriptions';
+@import './components/comments';
+@import './components/footer';
+@import './components/uppanel';
+@import './components/signin';
+@import './components/signup';
+
+/* Modal */
+@import './modal/main';
+@import './modal/exit';
+@import './modal/userStats';
+@import './modal/reject.scss';
+
+/* Pages */
+/* Главная */
+@import './pages/about';
+@import './pages/home';
+@import './pages/product';
+@import "./pages/contacts";
+/* Личный кабинет */
+@import './pages/user/Compare';
+@import './pages/user/Deals';
+@import './pages/user/Favorites';
+@import './pages/user/Notifications';
+@import './pages/user/Offers';
+@import './pages/user/Reviews';
+@import './pages//user/Settings';
+@import './pages/user/Wallet';
+/* Подача объявлений */
+@import './pages/placeAnAd/placeAnAd';

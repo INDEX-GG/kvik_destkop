@@ -1,0 +1,36 @@
+ /* Звёздный рейтинг */
+ .rating .stars {
+    position: relative;
+    display: block;
+    float: left;
+    height: 24px;
+    width: 120px;
+    background-image: url(../../icons/stars.svg);
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    margin-right: 5px;
+  }
+  
+  .rating .stars .on {
+    height: 24px;
+    background-image: url(../../icons/stars.svg);
+    background-position: 0 -24px;
+  }
+  
+  .rating .stars .live {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  
+  .rating .stars .live span {
+    display: block;
+    float: left;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    background-image: url(../../icons/stars.svg);
+    background-repeat: no-repeat;
+    background-position: 0 -24px;
+  }

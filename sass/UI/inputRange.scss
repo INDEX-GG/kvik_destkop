@@ -1,0 +1,81 @@
+input[type=range] {
+    height: 23px;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: $prime;
+    border-radius: 2px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px $td;
+    border: 1px solid $tp;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background: $prime;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6.5px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: $prime;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: $prime;
+    border-radius: 2px;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px $td;
+    border: 1px solid $tp;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background: $prime;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: $prime;
+    border-radius: 4px;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: $prime;
+    border-radius: 4px;
+  }
+  input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 0px 0px 0px $td;
+    border: 1px solid $tp;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background: $prime;
+    cursor: pointer;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: $prime;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: $prime;
+  }
