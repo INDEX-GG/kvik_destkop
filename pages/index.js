@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Header from '../components/Header';
 import Footer2 from '../components/Footer2';
 import Footer from '../components/Footer';
-import UpPanel from '../components/UpPanel';
+// import UpPanel from '../components/UpPanel';
 import AdCard_component from '../components/AdCard';
 import ScrollTop from '../UI/ScrollTop';
 import Slider_component from '../layout/Slider_component';
@@ -93,7 +93,7 @@ function Index() {
   return (
     <div className="home" id="home">
       {/* {showFooter()} */}
-      <UpPanel />
+      {/* <UpPanel /> */}
       <Header />
       <h6 className="popular__categories">Популярные категории</h6>
       <Slider_component />
