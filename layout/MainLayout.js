@@ -19,4 +19,4 @@ const MainLayout = ({children , title = ''}) => {
     )
 }
 
-export default MainLayout
+export default MainLayout;
