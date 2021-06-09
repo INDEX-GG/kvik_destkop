@@ -1,5 +1,5 @@
 import React from "react";
-// import geo from "../../images/header/geo.svg";
+import Geo from '../UI/icons/Geo';
 import HeaderCities from './HeaderCities';
 
 /* Если зашел админ то тру и панель меняется */
@@ -20,7 +20,7 @@ function UpPanel() {
     <div className="upPanel__wrapper">
       <div className="upPanel">
         <div onClick={showCities} className="currentLocation">
-          {/* <img src={geo} className="geo" alt="" />{" "} */}
+          <Geo/>
           <div className="location">{location} </div>
         </div>
         <div className="notifyContainer">
