@@ -1,8 +1,7 @@
 import React from 'react';
-
-import UpPanel from '../components/uppanel';
-import Footer from '../components/footer';
-import Header from '../components/header';
+import UpPanel from '../components/UpPanel';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import Verify from '../components/placeOffer/Verify';
 
 function PlaceOffer() {

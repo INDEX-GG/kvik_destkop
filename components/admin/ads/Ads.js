@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-/* import { Loading } from '../../../../components/loader/Loading'; */
+import Loading  from '../../../UI/icons/Loader';
 import RejectedAdmin from './tabs/RejectedAdmin';
 import WaitingAdmin from './tabs/WaitingAdmin';
 
@@ -49,7 +49,7 @@ export const Ads = () => {
        </div>
           {navItems.map(item => {
              return (
-                (itemNav.i === item.id) && (item.content ? item.content : (<div className="userPageContentCompare">{/* <Loading /> */}</div>))
+                (itemNav.i === item.id) && (item.content ? item.content : (<div className="userPageContentCompare"><Loading /></div>))
              )
           })}
        </>

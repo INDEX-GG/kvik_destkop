@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-/* import { Loading } from '../../../../components/loader/Loading'; */
+import Loading  from '../../../UI/icons/Loader';
 
 import PersonalData from './tabs/PersonalData';
 import BlackList from './tabs/BlockList'
@@ -29,7 +29,7 @@ export const Setting = (userInfo) => {
             </div>
             {navItems.map(item => {
                 return (
-                    (itemNav.i === item.id) && (item.content ? item.content : (<div className="userPageContentCompare">{/* <Loading /> */}</div>))
+                    (itemNav.i === item.id) && (item.content ? item.content : (<div className="userPageContentCompare"><Loading /></div>))
                 )
             })}
         </>

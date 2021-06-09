@@ -37,8 +37,7 @@ $inactive: #a1dce0; //Кнопка неактивная
     outline: none;
   }
 body {
-    margin: 0 !important; /* Убираем margin-bottom 8px c body */
-    overflow: auto; /* Адаптировать под ноутбуки */
+  line-height: 1.2 !important;
 }
 
 button {

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-// import business from "../../images/header/headerCategories/business1.svg";
-// import transport from "../../images/header/headerCategories/transport1.svg";
-// import electronics from "../../images/header/headerCategories/electronics1.svg";
-// import hobbies from "../../images/header/headerCategories/hobbies1.svg";
-// import homeAndGarden from "../../images/header/headerCategories/homeAndGarden1.svg";
-// import job from "../../images/header/headerCategories/job1.svg";
-// import property from "../../images/header/headerCategories/property1.svg";
-// import service from "../../images/header/headerCategories/service1.svg";
-// import stuff from "../../images/header/headerCategories/stuff1.svg";
-// import animal from "../../images/header/headerCategories/animal1.svg";
+import Business from '../UI/icons/Business';
+import Transport from '../UI/icons/Transport';
+import Electronics from '../UI/icons/Electronics';
+import Hobbies from '../UI/icons/Hobbies';
+import HomeAndGarden from '../UI/icons/HomeAndGarden';
+import Job from '../UI/icons/Job';
+import Property from '../UI/icons/Property';
+import Service from '../UI/icons/Service';
+import Stuff from '../UI/icons/Stuff';
+import Animal from '../UI/icons/Animal';
 
 function HeaderCategories() {
   function hideHeaderCategories() {
@@ -59,43 +59,43 @@ function HeaderCategories() {
           id="headerCategoriesListBlock1"
         >
           <button onClick={showBlock2} className="headerCategoriesButton">
-            {/* <img src={property} /> */}
+            <Property/>
             <div className="headerCategoriesTitle">Недвижимость</div>
           </button>
           <button className="headerCategoriesButton">
-            {/* <img src={transport} /> */}
+            <Transport/>
             <div className="headerCategoriesTitle">Транспорт</div>
           </button>
           <button className="headerCategoriesButton">
-            {/* <img src={electronics} /> */}
+            <Electronics/>
             <div className="headerCategoriesTitle">Бытовая электроника </div>
           </button>
           <button className="headerCategoriesButton">
-            {/* <img src={job} /> */}
+            <Job/>
             <div className="headerCategoriesTitle">Работа</div>
           </button>
           <button className="headerCategoriesButton">
-            {/* <img src={business} /> */}
+            <Business/>
             <div className="headerCategoriesTitle">Для бизнеса</div>
           </button>
           <button className="headerCategoriesButton">
-            {/* <img src={homeAndGarden} /> */}
+            <HomeAndGarden/>
             <div className="headerCategoriesTitle">Для дома и дачи</div>
           </button>
           <button className="headerCategoriesButton">
-            {/* <img src={animal} /> */}
+            <Animal/>
             <div className="headerCategoriesTitle">Животные</div>
           </button>
           <button className="headerCategoriesButton">
-            {/* <img src={stuff} /> */}
+            <Stuff/>
             <div className="headerCategoriesTitle">Личные вещи</div>
           </button>
           <button className="headerCategoriesButton">
-            {/* <img src={service} /> */}
+            <Service/>
             <div className="headerCategoriesTitle">Услуги</div>
           </button>
           <button className="headerCategoriesButton">
-           {/*  <img src={hobbies} /> */}
+           <Hobbies/>
             <div className="headerCategoriesTitle">Хобби спорт и отдых</div>
           </button>
         </div>

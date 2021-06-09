@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import searchIcon from '../../../icons/search.svg';
-// import closeCities from '../../../icons/close_r.svg';
+import Search from '../UI/icons/Search';
+import Close from '../UI/icons/Close';
 
 function HeaderCities() {
   function hideHeaderCities() {
@@ -77,11 +77,7 @@ function HeaderCities() {
                   placeholder="Ваш населенный пункт, район?"
                 />
                 <button className="headerCitiesSearchSubmit">
-                  <img
-                    className="headerCitiesSearchIcon"
-                    // src={searchIcon}
-                    alt=""
-                  />
+                  <Search/>
                 </button>
               </button>
               <div className="headerCitiesTitle1">или выберите из списка</div>
@@ -126,12 +122,7 @@ function HeaderCities() {
             className="headerCitiesBack"
             onClick={hideHeaderCities}
           />
-          <img
-            className="upCitiesCloseBtnIcon"
-            // src={closeCities}
-            onClick={hideHeaderCities}
-            type="reset"
-          />
+          <Close/>
         </div>
       </div>
     </div>
