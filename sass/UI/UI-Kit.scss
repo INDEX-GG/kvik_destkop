@@ -225,12 +225,14 @@ li {
  }
  
  .checkbox {
-    width: 30px;
+    /* width: 30px; */
+    width: 16px;
+    height: 16px;
  }
  
  .checkbox__text {
     position: relative;
-    padding: 0 0 0 30px;
+    /* padding: 0 0 0 30px; */
     cursor: pointer;
  }
  
@@ -241,7 +243,6 @@ li {
  }
  
  .checkbox__text:after {
-    background: $ts;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
  }
  
@@ -255,12 +256,12 @@ li {
     
  }
  .checkbox input:checked+.checkbox__text:before {
-   
     background: $ts;
  }
  
  .checkbox input:checked+.checkbox__text:after {
     background-color: $prime;
+    border: 1px solid $tp;
  }
  
  .checkbox input:focus+.checkbox__text:before {

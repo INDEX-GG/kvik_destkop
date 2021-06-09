@@ -3,7 +3,7 @@ import React from 'react'
 import { ToRubles } from '../../../services'
 
 function RejectedAdmin(data) {
-   /* const listRef = (e) => {
+   const listRef = (e) => {
       const adInformation = document.querySelectorAll(".ad__information__description")[e.target.value]
       const loerMore = document.querySelectorAll(".btn__loer_more")[e.target.value]
       loerMore.classList.toggle("btn__loer_more-open");
@@ -14,7 +14,7 @@ function RejectedAdmin(data) {
       else {
          loerMore.innerHTML = "Скрыть";
       }
-   } */
+   } 
    return (
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_content">
@@ -59,7 +59,7 @@ function RejectedAdmin(data) {
                            <p value={index} className={"ad__information__description ad_close"}>
                               {offer.description}
                            </p>
-                           <button className="btn__loer_more" value={index} /* onClick={(e) => listRef(e)} */ >Развернуть</button>
+                           <button className="btn__loer_more" value={index} onClick={(e) => listRef(e)}  >Развернуть</button>
                            <p className="description__rejected">Отклонено по причине: <span>Указана контактная информация в названии, тексте или на изображени, еще причина и еще причина</span> </p>
                         </div>
                      </div>
