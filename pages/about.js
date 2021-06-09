@@ -1,14 +1,10 @@
-import UpPanel from '../components/UpPanel';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-
-// import check from "../../images/about/check.svg";
+import MainLayout from "../layout/MainLayout";
+import ActiveIcon from '../UI/icons/ActiveIcon';
 
 function About() {
   return (
     <div className="about">
-        <UpPanel />
-      <Header />
+      <MainLayout>
       <div className="bodyAbout">
         <h2 className="aboutTitle">Продавай и покупай легко с kvik</h2>
         <div className="text1">Огромный ассортимент товаров и услуг</div>
@@ -40,10 +36,10 @@ function About() {
         <br />
         <div className="text2">
           {" "}
-         <img /* src={check} */ alt='' /> до 600 объявлений для малого и среднего бизнеса.{" "}
+         <ActiveIcon /> до 600 объявлений для малого и среднего бизнеса.{" "}
         </div>
         <br />
-        <div className="text2" alt=''>  <img /* src={check} */ />до 200 объявлений для частных лиц </div>
+        <div className="text2" alt=''>  <ActiveIcon />до 200 объявлений для частных лиц </div>
         <br />
         <div className="text1">
           {" "}
@@ -69,7 +65,7 @@ function About() {
         </div>
         <br />
       </div>
-      <Footer />
+      </MainLayout>
     </div>
   );
 }
