@@ -48,9 +48,24 @@ axios(options)
       method: 'POST'
     }
     axios(options) 
-    .then((res)=> {
-      alert('message')
+    .then((res) => {
+    
+        const url = 'http://localhost:3000/testarea'
+
+        const data = {
+
+          'tmp_caller_id': getdata1.tmp_caller_id
+      }
+         const options = {
+          headers: { 'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${getdata.access_token}` },
+          data: qs.stringify(data),
+          url,
+          method: 'POST'
+        }
+        axios(options)
+    
     })
+  
     })
    
   })
