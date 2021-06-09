@@ -1,0 +1,40 @@
+.error__page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_wrapper {
+        text-align: center;
+        padding: 20px 8px;
+    }
+}
+
+.error {
+    &__title {
+        font-size: 144px;
+        font-weight: 500;
+        color: $tpml;
+    }
+
+    &__sub_title{
+        font-size: 22px;
+        font-weight: 500;
+        color: $td;
+        margin-bottom: 20px;
+    }
+    &__description{
+        font-size: 14px;
+        font-weight: 400;
+        color: $td;
+        margin-bottom: 50px;
+    }
+}
+
+
+@media (max-width: 350px) {
+    .error__description{
+        font-size: 12px;
+    }
+  }
