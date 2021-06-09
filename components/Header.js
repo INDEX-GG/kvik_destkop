@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import logo from "../../images/header/logo.svg";
+import Logo from 'next/image';
 // import searchIcon from "../../images/header/searchIcon.svg";
 // import createDealIcon from "../../images/header/plus.svg";
 // import dropMenuIcon from "../../images/header/dropMenu.svg";
@@ -240,7 +240,8 @@ const userAdminInfo = false;
           </div>
 
           <a href="/">
-            <img /* src={logo}  */className="logo" alt="" />
+
+            <Logo width={200} height={100} alt="Picture of the author" src='/icons/logo.svg'/>
           </a>
           <button className="categories" /* onClick={showCategories} */>
             <div className="categoriesTitle">Категории</div>

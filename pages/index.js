@@ -8,8 +8,8 @@ import AdCard_component from '../components/AdCard';
 import ScrollTop from '../UI/ScrollTop';
 import Slider_component from '../layout/Slider_component';
 
-// import adBackground from "../../images/home/adBackground.svg";
-// import rectangle from "../../images/home/rectangle.svg";
+import AdBackground from "../UI/icons/AdBackground";
+import Rectangle from "../UI/icons/Rectangle";
 
 function Index() {
 //   const [showScroll, setShowScroll] = useState(false);
@@ -106,7 +106,7 @@ function Index() {
           <div className="offersTitleHome">Рекомендуемое</div>
           <div className="homeOffersSort">
             <button onClick={showSort} className="settingsOffersHome">
-              {/* По умолчанию <img src={rectangle} /> */}
+              По умолчанию <Rectangle/>
             </button>
             <div id="homeOffersSortContainer" className="homeOffersSortContainer" style={{ display: "none" }}>
               <button className="homeSortButton">По умолчанию</button>
@@ -124,7 +124,7 @@ function Index() {
           <div className="rightColoumn" >
             <div className='rightColoumnContainer'>
               <div className="block1">
-                {/* <img placeholder="text" className="block1Pic" src={adBackground} /> */}
+                <AdBackground/>
               </div>
               <div className="block2">ad block 2</div>
             </div>
