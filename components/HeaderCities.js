@@ -76,9 +76,9 @@ function HeaderCities() {
                   className="headerCitiesSearchInput"
                   placeholder="Ваш населенный пункт, район?"
                 />
-                <button className="headerCitiesSearchSubmit">
+                {/* <button className="headerCitiesSearchSubmit"> */}
                   <Search/>
-                </button>
+                {/* </button> */}
               </button>
               <div className="headerCitiesTitle1">или выберите из списка</div>
             </div>

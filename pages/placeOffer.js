@@ -6,10 +6,10 @@ import Verify from '../components/placeOffer/Verify';
 
 function PlaceOffer() {
     return (
-        <div id="placeAA" class="placeaa">
+        <div id="placeAA" className="placeaa">
             <UpPanel/>
             <Header />
-                <div class="placeaa__wrapper">
+                <div className="placeaa__wrapper">
                     <div className="placeaa__verify">
                         <Verify Verify={3}/>
                     </div>

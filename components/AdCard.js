@@ -29,7 +29,7 @@ function AdCard_component({ objs }) {
       }
 
     return (
-        <a href='#' className={objs.status === 2 ? "card card__lg" : "card"}>
+        <a href='#' key={objs.id} className={objs.status === 2 ? "card card__lg" : "card"}>
             <div className={objs.status !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
                 <div className="card__top">
                     {objs.seen ? <div className="card__top_seen">Просмотрено</div> : ''}
@@ -41,13 +41,13 @@ function AdCard_component({ objs }) {
                             }}
                             slidesPerView = {1}
                         >
-                            {objs.objImg.map(img => { return <SwiperSlide> <img src={img.img} alt="" /></SwiperSlide> })}
+                            {objs.objImg.map(img => { return <SwiperSlide key={objs.id}> <img src={img.img} alt="" /></SwiperSlide> })}
                         </Swiper>
                     </div>
                     <div className="card__top_info">
                         <div className="card__top_info_left">
                             {objs.message ? <span className="card_comment"></span> : ''}
-                            {objs.call ? <a href="#" className="card_call"></a> : ''}
+                            {objs.call ? <span href="#" className="card_call"></span> : ''}
                         </div>
                         <div className="card__top_info_right">
                             <span className="card_compare"></span>
