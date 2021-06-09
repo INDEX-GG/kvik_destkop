@@ -1,15 +1,6 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation } from "swiper/core";
-// import bike from "../../images/home/slider/sliderIcon/bike.svg";
-// import car from "../../images/home/slider/sliderIcon/car.svg";
-// import homeandgarden from "../../images/home/slider/sliderIcon/homeandgarden.svg";
-// import job from "../../images/home/slider/sliderIcon/job.svg";
-// import notebook from "../../images/home/slider/sliderIcon/notebook.svg";
-// import part from "../../images/home/slider/sliderIcon/part.svg";
-// import property from "../../images/home/slider/sliderIcon/property.svg";
-// import service from "../../images/home/slider/sliderIcon/service.svg";
-// import smartphone from "../../images/home/slider/sliderIcon/smartphone.svg";
+import SwiperCore, { Navigation } from 'swiper/core';
 
 SwiperCore.use([Navigation]);
 function Slider_component() {
@@ -19,7 +10,6 @@ function Slider_component() {
             <Swiper
                 spaceBetween={50}
                 navigation={true}
-                loop={true}
                 breakpoints={{
                     300: {
                         slidesPerView: 2
@@ -42,15 +32,15 @@ function Slider_component() {
                     }
                 }}
             >
-                <SwiperSlide><button className="slider__category "><p>Смартфоны</p><img className="category_smartphone" /* src={smartphone} */ alt="" /></button></SwiperSlide>
-                <SwiperSlide><button className="slider__category "><p>Ноутбуки</p><img className="category_notebook" /* src={notebook} */ alt="" /></button></SwiperSlide>
-                <SwiperSlide><button className="slider__category "><p>Квартиры</p><img className="category_property" /* src={property} */ alt="" /></button></SwiperSlide>
-                <SwiperSlide><button className="slider__category "><p>Работа</p><img className="category_job" /* src={job} */ alt="" /></button></SwiperSlide>
-                <SwiperSlide><button className="slider__category "><p>Автомобили</p><img className="category_car" /* src={car} */ alt="" /></button></SwiperSlide>
-                <SwiperSlide><button className="slider__category "><p>Услуги</p><img className="category_service" /* src={service} */ alt="" /></button></SwiperSlide>
-                <SwiperSlide><button className="slider__category "><p>Мотоциклы</p><img className="category_bike" /* src={bike} */ alt="" /></button></SwiperSlide>
-                <SwiperSlide><button className="slider__category "><p>Дома, дачи и коттеджи</p><img className="category_homeandgarden" /* src={homeandgarden} */ alt="" /></button></SwiperSlide>
-                <SwiperSlide><button className="slider__category "><p>Запчасти для автомобилей</p><img className="category_part" /* src={part} */ alt="" /></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Смартфоны</p><div className="category_smartphone"></div></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Ноутбуки</p><div className="category_notebook"></div></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Квартиры</p><div className="category_property"></div></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Работа</p><div className="category_job"></div></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Автомобили</p><div className="category_car"></div></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Услуги</p><div className="category_service"></div></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Мотоциклы</p><div className="category_bike"></div></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Дома, дачи и коттеджи</p><div className="category_homeandgarden"></div></button></SwiperSlide>
+                <SwiperSlide><button className="slider__category"><p>Запчасти для автомобилей</p><div className="category_part"></div></button></SwiperSlide>
             </Swiper>
         </div>
     )

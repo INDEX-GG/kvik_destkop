@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Chart from "react-google-charts";
 
-// import Loader from "../loader/loading.svg";
-// import Views from "../../../icons/visible.svg";
-// import Like from "../../../icons/like_grey.svg";
+import Loader from '../UI/icons/Loader';
+import Views from '../UI/icons/Views';
+import Like from '../UI/icons/Like';
 
 export default function Statistics_component() {
     const initialState = (true);
@@ -16,7 +16,7 @@ export default function Statistics_component() {
                     width={"100%"}
                     height={"100%"}
                     chartType="ColumnChart"
-                    loader={<div> <img /* src={Loader} *//></div>}
+                    loader={<div> <Loader/></div>}
                     data={[
                         ['', 'Просмотров'],
                         ['23, Пн', 32],
@@ -80,8 +80,8 @@ export default function Statistics_component() {
                     <h6 className="statistic__header__block_left_title">Статистика</h6>
                 </div>
                 <div className="statistic__header__block_right">
-                    <span>317 +8 <img /* src={Views} alt={Views} */ /></span>
-                    <span>3 +1 <img /* src={Like} alt={Like}  *//></span>
+                    <span>317 +8 <Views/></span>
+                    <span>3 +1 <Like/></span>
                 </div>
             </div>
             <div className="statistic__buttons">

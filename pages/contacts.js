@@ -2,13 +2,13 @@ import UpPanel from '../components/UpPanel';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-// import GrAndroid from "../../images/contacts/android_contacts.svg";
-// import GrApple from "../../images/contacts/apple_contacts.svg";
-// import instagram from "../../images/contacts/inst_contacts.svg";
-// import vk from "../../images/contacts/vk_contacts.svg";
-// import fb from "../../images/contacts/facebook_contacts.svg";
-// import WhatsUp from "../../images/contacts/whatsUp_contacts.svg";
-// import Odnoklas from "../../images/contacts/odnoklas_contacts.svg";
+import GrAndroid from '../UI/icons/GrAndroid';
+import GrApple from '../UI/icons/GrApple';
+import Instagram from '../UI/icons/Instagram';
+import Vk from '../UI/icons/Vk';
+import Fb from '../UI/icons/Fb';
+import WhatsUp from '../UI/icons/WhatsUp';
+import Odnoklas from '../UI/icons/Odnoklas';
 
 const uluru = { lat: -25.344, lng: 131.036 };
 
@@ -29,24 +29,24 @@ export default function Contacts() {
                             <p>E-mail: <span className="contacts__blocks__block_wrapper_email">support@1kvik.ru</span></p>
                             <h6 className="social__title">Мы в социальных сетях</h6>
                             <div className="social__block">
-                                <a href="https://www.instagram.com/kvik.ru/"><img /* src={instagram} alt={instagram} */ /></a>
-                                <a href="https://vk.com/1kvik_ru"><img /* src={vk} alt={vk} */ /></a>
-                                <a href="https://ok.ru/kvik1"><img /* src={Odnoklas} alt={Odnoklas} */ /></a>
-                                <a href="https://www.facebook.com/1kvik/"><img /* src={fb} alt={fb} */ /></a>
+                                <a href="https://www.instagram.com/kvik.ru/"><Instagram/></a>
+                                <a href="https://vk.com/1kvik_ru"><Vk/></a>
+                                <a href="https://ok.ru/kvik1"><Odnoklas/></a>
+                                <a href="https://www.facebook.com/1kvik/"><Fb/></a>
                             </div>
                         </div>
                         <div className="contacts__blocks__block_wrapper_middle">
                             <h6 className="contacts__blocks__block_wrapper_middle_title">Скачать приложение</h6>
-                            <span><a href="#"><img /* src={GrAndroid} *//></a></span>
-                            <span><a href="#"><img /* src={GrApple} *//></a></span>
+                            <span><a href="#"><GrAndroid/></a></span>
+                            <span><a href="#"><GrApple/></a></span>
                         </div>
                         <div className="contacts__blocks__block_wrapper_bottom">
                             <h6 className="contacts__blocks__block_wrapper_bottom_title">Служба поддержки</h6>
                             <div className="support__block">
-                                <a href="https://vk.com/1kvik_ru"><img /* src={vk} alt={vk} */ /></a>
-                                <a href="https://ok.ru/kvik1"><img /* src={Odnoklas} alt={Odnoklas} */ /></a>
-                                <a href="https://www.facebook.com/1kvik/"><img /* src={fb} alt={fb} */ /></a>
-                                <a href="tel:+79191232395"><img /* src={WhatsUp} alt={WhatsUp} */ /></a>
+                                <a href="https://vk.com/1kvik_ru"><Vk/></a>
+                                <a href="https://ok.ru/kvik1"><Odnoklas/></a>
+                                <a href="https://www.facebook.com/1kvik/"><Fb/></a>
+                                <a href="tel:+79191232395"><WhatsUp/></a>
                             </div>
                             <a className="contacts__index" href="">Разработано студией INDEX</a>
                         </div>
