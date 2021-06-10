@@ -46,7 +46,13 @@ import { createMuiTheme } from '@material-ui/core';
                   root: {
                     
                   }
+               },
+               MuiList: {
+                  root: {
+                     display: 'flex',
+                  }
                }
+
             }
          });
 
