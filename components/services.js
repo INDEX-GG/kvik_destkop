@@ -71,17 +71,17 @@ function ellipsis(string, count) {
 };
 
 function ToRubles(num) {
-        return num.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' })
+    return num.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0, maximumFractionDigits: 0 })
 }
 
 function phoneNumber(num) {
     if (num && num.length === 11) {
-       const number = `+${num.substr(0, 1)} (${num.substr(1, 3)}) ${num.substr(4, 3)} - ${num.substr(6, 2)} - ${num.substr(8, 2)}`;
-       return number;
+        const number = `+${num.substr(0, 1)} (${num.substr(1, 3)}) ${num.substr(4, 3)} - ${num.substr(6, 2)} - ${num.substr(8, 2)}`;
+        return number;
     } else {
-       return num;
+        return num;
     }
- }
+}
 
 function typeChange(filename, type) {
     return filename.replace(/\.[^.]+$/, `.${type}`);

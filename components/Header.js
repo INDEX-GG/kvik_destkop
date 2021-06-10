@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { AppBar, Box, Button, Container, Dialog, IconButton, InputBase, makeStyles, Toolbar } from '@material-ui/core';
+import { useState, useEffect } from 'react';
+import Router from 'next/router';
+import { AppBar, Box, Button, Container, Dialog, IconButton, makeStyles, TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import React from 'react';
+import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import Logo from '../UI/icons/Logo';
 import RegForm from './RegForm';
-
 import Categories from './Categories'
 
 const useStyles = makeStyles((theme) => ({
@@ -16,50 +16,74 @@ const useStyles = makeStyles((theme) => ({
             margin: '0 8px',
         }
     },
+    header: {
+        boxShadow: theme.shadows[0],
+    },
+    shadow: {
+        boxShadow: theme.shadows[5],
+    },
+    logo: {
+        borderRadius: theme.shape.borderRadius,
+    },
     input: {
         flexGrow: 1,
-        padding: '0 24px',
         position: 'relative',
-        border: '1px solid #5A5A5A',
-        borderRadius: '8px',
     },
     icon: {
         position: 'absolute',
-        right: '24px',
+        right: '14px',
         height: '100%',
     },
     
 }));
 
 const Header = () => {
-    const [open, setOpen] = useState();
+    const [openCat, setCategories] = useState();
+    const [openRegForm, setOpenRegForm] = useState(false);
+    const handleRegFormDialog = () => setOpenRegForm(!openRegForm);
     const classes = useStyles();
 
-    const [openCat, setCategories] = useState();
+    const [headerScroll, setHeaderScroll] = useState(classes.header);
+    const listenScroll = () => {
+        if (scrollY > 0) {
+            setHeaderScroll(classes.shadow)
+        } else {
+            setHeaderScroll(classes.header)
+        }
+    };
+    useEffect(() => {
+        document.addEventListener('scroll', listenScroll);
+        return () =>
+            document.removeEventListener('scroll', listenScroll);
+    }, []);
+
+    
     return (
         <>
-            {/* <Toolbar>
-                <Container>
-                    UpPanel
-                </Container>
-            </Toolbar> */}
-            <AppBar position="sticky" color="secondary">
+            <Container>
+                <Button variant='text' size='small'><RoomOutlinedIcon fontSize='small' />Челябинск</Button>
+                <Box>
+
+                </Box>
+            </Container>
+            <AppBar className={headerScroll} position="sticky" color="secondary">
                 <Container className={classes.root}>
-                    <IconButton><Logo /></IconButton>
+                    <IconButton onClick={() => Router.push('/')} className={classes.logo}><Logo /></IconButton>
                     <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>Категории</Button>
                     <Box className={classes.input}>
-                        <InputBase placeholder="Поиск по объявлениям" fullWidth />
+                        <TextField variant='outlined' size='small' placeholder="Поиск по объявлениям" fullWidth />
                         <SearchIcon className={classes.icon} />
                     </Box>
-                    <Button variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    <Button onClick={() => setOpen(!open)} variant="contained">Войти</Button>  
+                    <Button onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
+                    <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>
                 </Container>
-                <Dialog open={open} onClose={() => setOpen(!open)} fullWidth maxWidth='sm'><RegForm /></Dialog>
-               { !openCat ? '' :<Categories/>}             
-
+                <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
+                    <RegForm Close={handleRegFormDialog} />
+                </Dialog>
+                { !openCat ? '' :<Categories/>}  
             </AppBar>
         </>
     )
 }
 
-export default Header
+export default Header;

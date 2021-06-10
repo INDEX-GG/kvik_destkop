@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
+import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from "swiper/core";
-import {ellipsis, ToRubles, ToRusDate} from './services';
+import { ellipsis, ToRubles, ToRusDate } from './services';
 
 SwiperCore.use([Pagination]);
 
@@ -12,36 +13,36 @@ function AdCard_component({ objs }) {
         currentSwiper.current.addEventListener('mousemove', switchSlide);
         return () =>
             currentSwiper.current.removeEventListener('mousemove', switchSlide);
-      });
+    });
 
-      function switchSlide(e) {
-            if (!sheduled) {
-                sheduled = true;
-                setTimeout( () => {
-                    if (e.movementX > 0) {
-                        currentSwiper.current?.swiper.slideNext()
-                    } else if (e.movementX < 0) {
-                        currentSwiper.current?.swiper.slidePrev()
-                    }
-                    sheduled = false;
-                }, 180)
-            }
-      }
+    function switchSlide(e) {
+        if (!sheduled) {
+            sheduled = true;
+            setTimeout(() => {
+                if (e.movementX > 0) {
+                    currentSwiper.current?.swiper.slideNext()
+                } else if (e.movementX < 0) {
+                    currentSwiper.current?.swiper.slidePrev()
+                }
+                sheduled = false;
+            }, 180)
+        }
+    }
 
     return (
-        <a href='#' key={objs.id} className={objs.status === 2 ? "card card__lg" : "card"}>
+        <Link href={`/product/${objs.id}`} key={objs.id} className={objs.status === 2 ? "card card__lg" : "card"}>
             <div className={objs.status !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
                 <div className="card__top">
                     {objs.seen ? <div className="card__top_seen">Просмотрено</div> : ''}
                     <div className="card__top_slider">
                         <Swiper
-                            ref = {currentSwiper}
+                            ref={currentSwiper}
                             pagination={{
                                 "clickable": true
                             }}
-                            slidesPerView = {1}
+                            slidesPerView={1}
                         >
-                            {objs.objImg.map(img => { return <SwiperSlide key={objs.id}> <img src={img.img} alt="" /></SwiperSlide> })}
+                            {objs.objImg.map((img, i) => { return <SwiperSlide key={i}> <img src={img.img} alt="" /></SwiperSlide> })}
                         </Swiper>
                     </div>
                     <div className="card__top_info">
@@ -73,7 +74,7 @@ function AdCard_component({ objs }) {
                     </div>
                 </div>
             </div>
-        </a>
+        </Link>
     )
 }
 
