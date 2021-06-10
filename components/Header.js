@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { AppBar, Box, Button, Container, Dialog, IconButton, InputBase, makeStyles, Toolbar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = () => {
-const [open, setOpen] = useState();
+const [openRegForm, setOpenRegForm] = useState();
+const handleRegFormDialog = () => setOpenRegForm(!openRegForm);
 const classes = useStyles();
 
     return (
@@ -48,12 +49,14 @@ const classes = useStyles();
                         <SearchIcon className={classes.icon} />
                     </Box>
                     <Button variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    <Button onClick={() => setOpen(!open)} variant="contained">Войти</Button>
+                    <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>
                 </Container>
-                <Dialog open={open} onClose={() => setOpen(!open)} fullWidth maxWidth='sm'><RegForm /></Dialog>
+                <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
+                    <RegForm Close={handleRegFormDialog} />
+                </Dialog>
             </AppBar>
         </>
     )
 }
 
-export default Header
+export default Header;
