@@ -1,0 +1,4726 @@
+{
+      "transport": {
+        "id": 61,
+        "name": "Транспорт",
+        "icon": "category/transport.svg",
+        "fields": null,
+        "subCategories": {
+          "trucks_and_special_equipment": {
+            "id": 63,
+            "name": "Грузовики и спецтехника",
+            "icon": "category/trucks_and_special_equipment.svg",
+            "fields": null,
+            "subCategories": {
+              "buses": {
+                "id": 64,
+                "name": "Автобусы",
+                "icon": "category/buses.svg",
+                "fields": {
+                  "buses": {
+                    "box": "null",
+                    "wine": "null",
+                    "model": "null",
+                    "a_type": "null",
+                    "mileage": "null",
+                    "condition": "null",
+                    "documents": "null",
+                    "drive_unit": "null",
+                    "engine_type": "null",
+                    "additionally": "null",
+                    "manufacturer": "null",
+                    "engine_volume": "null",
+                    "wheel_formula": "null",
+                    "year_of_issue": "null",
+                    "steering_wheel": "null",
+                    "number_of_seats": "null"
+                  },
+                  "Автобусы": {
+                    "VIN": "null",
+                    "Тип": "null",
+                    "Руль": "null",
+                    "Марка": "null",
+                    "Модель": "null",
+                    "Привод": "null",
+                    "Пробег": "null",
+                    "Коробка": "null",
+                    "Документы": "null",
+                    "Состояние": "null",
+                    "Год выпуска": "null",
+                    "Тип двигателя": "null",
+                    "Дополнительно": "null",
+                    "Количество мест": "null",
+                    "Объем двигателя": "null",
+                    "Колёсная формула": "null"
+                  }
+                }
+              },
+              "construction_machinery": {
+                "id": 66,
+                "name": "Строительная и дорожная техника",
+                "icon": "category/construction_machinery.svg",
+                "fields": {
+                  "construction_machinery": {
+                    "wine": "null",
+                    "model": "null",
+                    "power": "null",
+                    "a_type": "null",
+                    "weight": "null",
+                    "condition": "null",
+                    "documents": "null",
+                    "manufacturer": "null",
+                    "running_time": "null",
+                    "engine_volume": "null",
+                    "working_width": "null",
+                    "year_of_issue": "null"
+                  },
+                  "Строительная и дорожная техника": {
+                    "VIN": "null",
+                    "Тип": "null",
+                    "Марка": "null",
+                    "Масса": "null",
+                    "Модель": "null",
+                    "Мощность": "null",
+                    "Документы": "null",
+                    "Наработка": "null",
+                    "Состояние": "null",
+                    "Год выпуска": "null",
+                    "Рабочая ширина": "null",
+                    "Объем двигателя": "null"
+                  }
+                }
+              },
+              "Tractors_and_agricultural_machinery": {
+                "id": 67,
+                "name": "Тракторы и сельхозтехника",
+                "icon": "category/Tractors_and_agricultural_machinery.svg",
+                "fields": {
+                  "Tractors_and_agricultural_machinery": {
+                    "wine": "null",
+                    "model": "null",
+                    "power": "null",
+                    "a_type": "null",
+                    "chassis": "null",
+                    "condition": "null",
+                    "documents": "null",
+                    "manufacturer": "null",
+                    "year_of_issue": "null"
+                  },
+                  "Тракторы и сельхозтехника": {
+                    "VIN": "null",
+                    "Тип": "null",
+                    "Марка": "null",
+                    "Модель": "null",
+                    "Мощность": "null",
+                    "Документы": "null",
+                    "Состояние": "null",
+                    "Год выпуска": "null",
+                    "Ходовая часть": "null"
+                  }
+                }
+              },
+              "ATVs": {
+                "id": 68,
+                "name": "Вездеходы",
+                "icon": "category/ATVs.svg",
+                "fields": {
+                  "ATVs": {
+                    "wine": "null",
+                    "model": "null",
+                    "power": "null",
+                    "a_type": "null",
+                    "weight": "null",
+                    "chassis": "null",
+                    "condition": "null",
+                    "documents": "null",
+                    "manufacturer": "null",
+                    "running_time": "null",
+                    "engine_volume": "null",
+                    "year_of_issue": "null",
+                    "carrying_capacity": "null"
+                  },
+                  "Вездеходы": {
+                    "VIN": "null",
+                    "Тип": "null",
+                    "Марка": "null",
+                    "Масса": "null",
+                    "Модель": "null",
+                    "Мощность": "null",
+                    "Документы": "null",
+                    "Наработка": "null",
+                    "Состояние": "null",
+                    "Год выпуска": "null",
+                    "Ходовая часть": "null",
+                    "Объем двигателя": "null",
+                    "Грузоподъёмность": "null"
+                  }
+                }
+              },
+              "House_on_wheels": {
+                "id": 69,
+                "name": "Дом на колесах",
+                "icon": "category/House_on_wheels.svg",
+                "fields": {
+                  "House_on_wheels": {
+                    "wine": "null",
+                    "model": "null",
+                    "power": "null",
+                    "a_type": "null",
+                    "weight": "null",
+                    "chassis": "null",
+                    "condition": "null",
+                    "documents": "null",
+                    "manufacturer": "null",
+                    "running_time": "null",
+                    "engine_volume": "null",
+                    "year_of_issue": "null",
+                    "carrying_capacity": "null"
+                  },
+                  "Дом на колесах": {
+                    "VIN": "null",
+                    "Тип": "null",
+                    "Марка": "null",
+                    "Масса": "null",
+                    "Модель": "null",
+                    "Мощность": "null",
+                    "Документы": "null",
+                    "Наработка": "null",
+                    "Состояние": "null",
+                    "Год выпуска": "null",
+                    "Ходовая часть": "null",
+                    "Объем двигателя": "null",
+                    "Грузоподъёмность": "null"
+                  }
+                }
+              },
+              "trucks": {
+                "id": 65,
+                "name": "Грузовики",
+                "icon": "category/trucks.svg",
+                "fields": {
+                  "trucks": {
+                    "wine": "null",
+                    "model": "null",
+                    "power": "null",
+                    "a_type": "null",
+                    "status": "null",
+                    "mileage": "null",
+                    "body_type": "null",
+                    "condition": "null",
+                    "documents": "null",
+                    "body_volume": "null",
+                    "engine_type": "null",
+                    "additionally": "null",
+                    "manufacturer": "null",
+                    "transmission": "null",
+                    "engine_volume": "null",
+                    "year_of_issue": "null",
+                    "steering_wheel": "null",
+                    "lifting_capacity": "null"
+                  },
+                  "Грузовики": {
+                    "VIN": "null",
+                    "Тип": "null",
+                    "Руль": "null",
+                    "Марка": "null",
+                    "Модель": "null",
+                    "Пробег": "null",
+                    "Статус": "null",
+                    "Мощность": "null",
+                    "Документы": "null",
+                    "Состояние": "null",
+                    "Тип кузова": "null",
+                    "Год выпуска": "null",
+                    "Объем кузова": "null",
+                    "Тип двигателя": "null",
+                    "Дополнительно": "null",
+                    "Коробка передач": "null",
+                    "Объем двигателя": "null",
+                    "Грузоподъемность": "null"
+                  }
+                }
+              }
+            }
+          },
+          "Parts_and_avto": {
+            "id": 77,
+            "name": "Запчасти и автотовары",
+            "icon": "category/Parts_and_avto.svg",
+            "fields": null,
+            "subCategories": {
+              "Tires_and_wheels": {
+                "id": 80,
+                "name": "Шины и диски",
+                "icon": "category/Tires_and_wheels.svg",
+                "fields": null,
+                "subCategories": {
+                  "wheels": {
+                    "id": 82,
+                    "name": "Диски",
+                    "icon": "category/wheels.svg",
+                    "fields": {
+                      "wheels": {
+                        "diameter": "null",
+                        "disc_type": "null",
+                        "rim_width": "null",
+                        "disc_model": "null",
+                        "bolt_distance": "null",
+                        "disk_departure": "null",
+                        "product_condition": "null",
+                        "number_of_discs_included": "null",
+                        "number_of_mounting_holes": "null"
+                      },
+                      "Диски": {
+                        "Диаметр": "null",
+                        "Тип диска": "null",
+                        "Вылет диска": "null",
+                        "Модель диска": "null",
+                        "Ширина обода": "null",
+                        "Состояние товара": "null",
+                        "Межболтовое расстояние": "null",
+                        "Количество дисков в комплекте": "null",
+                        "Количество крепежных отверстий": "null"
+                      }
+                    }
+                  },
+                  "Tires": {
+                    "id": 81,
+                    "name": "Шины",
+                    "icon": "category/Tires.svg",
+                    "fields": {
+                      "Tires": {
+                        "marking": "null",
+                        "bus_type": "null",
+                        "diameter": "null",
+                        "tire_year": "null",
+                        "tire_model": "null",
+                        "appointment": "null",
+                        "seasonality": "null",
+                        "profile_width": "null",
+                        "profile_height": "null",
+                        "number_of_tires": "null",
+                        "product_condition": "null",
+                        "runflat_technology": "null"
+                      },
+                      "Шины": {
+                        "Диаметр": "null",
+                        "Тип шины": "null",
+                        "Маркировка": "null",
+                        "Назначение": "null",
+                        "Сезонность": "null",
+                        "Модель шины": "null",
+                        "Высота профиля": "null",
+                        "Количество шин": "null",
+                        "Ширина профиля": "null",
+                        "Год выпуска шин": "null",
+                        "Технология RunFlat": "null",
+                        "Состояние товара": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "car_goods": {
+                "id": 78,
+                "name": "Автотовары",
+                "icon": "category/car_goods.svg",
+                "fields": {
+                  "car_goods": { "a_type": "null" },
+                  "Автотовары": { "Тип": "null" }
+                }
+              },
+              "trailers": {
+                "id": 79,
+                "name": "Прицепы",
+                "icon": "category/trailers.svg",
+                "fields": {
+                  "trailers": {
+                    "model": "null",
+                    "mileage": "null",
+                    "full_mass": "null",
+                    "brake_type": "null",
+                    "brand_name": "null",
+                    "trailer_type": "null",
+                    "year_of_issue": "null",
+                    "number_of_axles": "null",
+                    "suspension_type": "null",
+                    "lifting_capacity": "null"
+                  },
+                  "Прицепы": {
+                    "Бренд": "null",
+                    "Модель": "null",
+                    "Пробег": "null",
+                    "Год выпуска": "null",
+                    "Тип прицепа": "null",
+                    "Полная масса": "null",
+                    "Тип подвески": "null",
+                    "Тип тормозов": "null",
+                    "Количество осей": "null",
+                    "Грузоподъемность": "null"
+                  }
+                }
+              }
+            }
+          },
+          "Water_transport": {
+            "id": 83,
+            "name": "Водный транспорт",
+            "icon": "category/Water_transport.svg",
+            "fields": null,
+            "subCategories": {
+              "Boats_and_yachts": {
+                "id": 84,
+                "name": "Катера и яхты",
+                "icon": "category/Boats_and_yachts.svg",
+                "fields": {
+                  "Boats_and_yachts": { "model": "null", "manufacturer": "null" },
+                  "Катера и яхты": { "Марка": "null", "Модель": "null" }
+                }
+              },
+              "Parts_and_accessories": {
+                "id": 88,
+                "name": "Запчасти и аксессуары",
+                "icon": "category/Parts_and_accessories.svg",
+                "fields": {
+                  "Parts_and_accessories": {
+                    "condition": "null",
+                    "Product_availability": "null"
+                  },
+                  "Запчасти и аксессуары": {
+                    "Состояние": "null",
+                    "Наличие товара": "null"
+                  }
+                }
+              },
+              "Jet_skis": {
+                "id": 85,
+                "name": "Гидроциклы",
+                "icon": "category/Jet_skis.svg",
+                "fields": {
+                  "Jet_skis": { "model": "null", "manufacturer": "null" },
+                  "Гидроциклы": { "Марка": "null", "Модель": "null" }
+                }
+              },
+              "Motor_boats": {
+                "id": 86,
+                "name": "Моторные и гребные лодки",
+                "icon": "category/Motor_boats.svg",
+                "fields": {
+                  "Motor_boats": {
+                    "power": "null",
+                    "a_type": "null",
+                    "length": "null",
+                    "status": "null",
+                    "housing": "null",
+                    "condition": "null",
+                    "fuel_type": "null",
+                    "engine_type": "null",
+                    "year_of_issue": "null"
+                  },
+                  "Моторные и гребные лодки": {
+                    "Тип": "null",
+                    "Длина": "null",
+                    "Корпус": "null",
+                    "Статус": "null",
+                    "Мощность": "null",
+                    "Состояние": "null",
+                    "Год выпуска": "null",
+                    "Тип топлива": "null",
+                    "Тип двигателя": "null"
+                  }
+                }
+              },
+              "Rent_of_boats_and_yachts": {
+                "id": 87,
+                "name": "Аренда катеров и яхт",
+                "icon": "category/Rent_of_boats_and_yachts.svg",
+                "fields": {
+                  "Rent_of_boats_and_yachts": {
+                    "speed": "null",
+                    "person_capacity": "null",
+                    "hour_rental_cost": "null",
+                    "daily_rental_price": "null"
+                  },
+                  "Аренда катеров и яхт": {
+                    "Скорость": "null",
+                    "Вместимость человек": "null",
+                    "Стоимость аренды дня": "null",
+                    "Стоимость аренды часа": "null"
+                  }
+                }
+              }
+            }
+          },
+          "Motorcycles_and_mototechnics": {
+            "id": 70,
+            "name": "Мотоциклы и мототехника",
+            "icon": "category/Motorcycles_and_mototechnics.svg",
+            "fields": null,
+            "subCategories": {
+              "ATVs_and_Buggy": {
+                "id": 75,
+                "name": "Мотовездеходы и Багги",
+                "icon": "category/ATVs_and_Buggy.svg",
+                "fields": {
+                  "ATVs_and_Buggy": {
+                    "year": "null",
+                    "model": "null",
+                    "power": "null",
+                    "volume": "null",
+                    "mileage": "null",
+                    "engine_type": "null",
+                    "manufacturer": "null"
+                  },
+                  "Мотовездеходы и Багги": {
+                    "Год": "null",
+                    "Объем": "null",
+                    "Модель": "null",
+                    "Пробег": "null",
+                    "Мощность": "null",
+                    "Тип двигателя": "null",
+                    "Производитель": "null"
+                  }
+                }
+              },
+              "Motorcycles": {
+                "id": 71,
+                "name": "Мотоциклы",
+                "icon": "category/Motorcycles.svg",
+                "fields": {
+                  "Motorcycles": {
+                    "new": "null",
+                    "wine": "null",
+                    "brand": "null",
+                    "a_type": "null",
+                    "status": "null",
+                    "mileage": "null",
+                    "condition": "null",
+                    "documents": "null",
+                    "engine_type": "null",
+                    "additionally": "null",
+                    "engine_volume": "null",
+                    "owners_of_pts": "null",
+                    "year_of_issue": "null"
+                  },
+                  "Мотоциклы": {
+                    "VIN": "null",
+                    "Тип": "null",
+                    "Марка": "null",
+                    "Новый": "null",
+                    "Пробег": "null",
+                    "Статус": "null",
+                    "Документы": "null",
+                    "Состояние": "null",
+                    "Год выпуска": "null",
+                    "Тип двигателя": "null",
+                    "Дополнительно": "null",
+                    "Объем двигателя": "null",
+                    "Владельцев по ПТС": "null"
+                  }
+                }
+              },
+              "ATVs_kvadro": {
+                "id": 73,
+                "name": "Квадроциклы",
+                "icon": "category/ATVs_kvadro.svg",
+                "fields": {
+                  "ATVs_kvadro": {
+                    "year": "null",
+                    "model": "null",
+                    "power": "null",
+                    "volume": "null",
+                    "mileage": "null",
+                    "engine_type": "null",
+                    "manufacturer": "null"
+                  },
+                  "Квадроциклы": {
+                    "Год": "null",
+                    "Объем": "null",
+                    "Модель": "null",
+                    "Пробег": "null",
+                    "Мощность": "null",
+                    "Тип двигателя": "null",
+                    "Производитель": "null"
+                  }
+                }
+              },
+              "Karting": {
+                "id": 74,
+                "name": "Картинг",
+                "icon": "category/Karting.svg",
+                "fields": {
+                  "Karting": {
+                    "year": "null",
+                    "model": "null",
+                    "power": "null",
+                    "volume": "null",
+                    "mileage": "null",
+                    "engine_type": "null",
+                    "manufacturer": "null"
+                  },
+                  "Картинг": {
+                    "Год": "null",
+                    "Объем": "null",
+                    "Модель": "null",
+                    "Пробег": "null",
+                    "Мощность": "null",
+                    "Тип двигателя": "null",
+                    "Производитель": "null"
+                  }
+                }
+              },
+              "Snowmobiles": {
+                "id": 76,
+                "name": "Снегоходы",
+                "icon": "category/Snowmobiles.svg",
+                "fields": {
+                  "Snowmobiles": {
+                    "year": "null",
+                    "model": "null",
+                    "power": "null",
+                    "volume": "null",
+                    "mileage": "null",
+                    "engine_type": "null",
+                    "manufacturer": "null"
+                  },
+                  "Снегоходы": {
+                    "Год": "null",
+                    "Объем": "null",
+                    "Модель": "null",
+                    "Пробег": "null",
+                    "Мощность": "null",
+                    "Тип двигателя": "null",
+                    "Производитель": "null"
+                  }
+                }
+              },
+              "Mopeds_and_scooters": {
+                "id": 72,
+                "name": "Мопеды и скутеры",
+                "icon": "category/Mopeds_and_scooters.svg",
+                "fields": {
+                  "Mopeds_and_scooters": {
+                    "year": "null",
+                    "model": "null",
+                    "power": "null",
+                    "volume": "null",
+                    "mileage": "null",
+                    "engine_type": "null",
+                    "manufacturer": "null"
+                  },
+                  "Мопеды и скутеры": {
+                    "Год": "null",
+                    "Объем": "null",
+                    "Модель": "null",
+                    "Пробег": "null",
+                    "Мощность": "null",
+                    "Тип двигателя": "null",
+                    "Производитель": "null"
+                  }
+                }
+              }
+            }
+          },
+          "auto": {
+            "id": 62,
+            "name": "Автомобили",
+            "icon": "category/auto.svg",
+            "fields": {
+              "auto": {
+                "wine": "null",
+                "brand": "null",
+                "model": "null",
+                "power": "null",
+                "salon": "null",
+                "a_type": "null",
+                "colour": "null",
+                "engine": "null",
+                "status": "null",
+                "airbags": "null",
+                "heating": "null",
+                "mileage": "null",
+                "body_type": "null",
+                "condition": "null",
+                "documents": "null",
+                "drive_unit": "null",
+                "generation": "null",
+                "transmission": "null",
+                "engine_volume": "null",
+                "owners_of_pts": "null",
+                "year_of_issue": "null",
+                "steering_wheel": "null",
+                "tires_and_rims": "null",
+                "support_systems": "null",
+                "antitheft_system": "null",
+                "driving_assistance": "null",
+                "winter_tires_and_rims": "null",
+                "multimedia_and_navigation": "null",
+                "separate_check_mark_for_hbo": "null"
+              },
+              "Автомобили": {
+                "VIN": "null",
+                "Тип": "null",
+                "Руль": "null",
+                "Цвет": "null",
+                "Марка": "null",
+                "Салон": "null",
+                "Модель": "null",
+                "Привод": "null",
+                "Пробег": "null",
+                "Статус": "null",
+                "Обогрев": "null",
+                "Мощность": "null",
+                "Двигатель": "null",
+                "Документы": "null",
+                "Модификая": "null",
+                "Состояние": "null",
+                "Тип кузова": "null",
+                "Год выпуска": "null",
+                "Зимние шины": "null",
+                "Шины и диски": "null",
+                "Коробка передач": "null",
+                "Объем двигателя": "null",
+                "Владельцев по ПТС": "null",
+                "Помощь при вождении": "null",
+                "Подушки безопасности": "null",
+                "Отдельная галочка ГБО": "null",
+                "Противоугонная система": "null",
+                "Мультимедиа и навигация": "null",
+                "Вспомогательные системы": "null"
+              }
+            }
+          }
+        }
+      },
+      "job": {
+        "id": 89,
+        "name": "Работа",
+        "icon": "category/job.svg",
+        "fields": null,
+        "subCategories": {
+          "vacancies": {
+            "id": 90,
+            "name": "Вакансии",
+            "icon": "category/vacancies.svg",
+            "fields": {
+              "vacancies": {
+                "wage": "null",
+                "schedule": "null",
+                "vacancy_title": "null",
+                "work_experience": "null"
+              },
+              "Вакансии": {
+                "Стаж работы": "null",
+                "График работы": "null",
+                "Заработная плата": "null",
+                "Название вакансии": "null"
+              }
+            }
+          },
+          "summary": {
+            "id": 91,
+            "name": "Резюме",
+            "icon": "category/summary.svg",
+            "fields": {
+              "summary": {
+                "age": "null",
+                "wage": "null",
+                "floor": "null",
+                "moving": "null",
+                "position": "null",
+                "schedule": "null",
+                "experience": "null",
+                "willingness_to_travel": "null"
+              },
+              "Резюме": {
+                "Пол": "null",
+                "Возраст": "null",
+                "Должность": "null",
+                "График работы": "null",
+                "Возможен переезд": "null",
+                "Заработная плата": "null",
+                "Общий стаж работы": "null",
+                "Готовность к командировкам": "null"
+              }
+            }
+          }
+        }
+      },
+      "Consumer_electronics": {
+        "id": 92,
+        "name": "Бытовая электроника",
+        "icon": "category/Consumer_electronics.svg",
+        "fields": null,
+        "subCategories": {
+          "Smartphones_and_Phones": {
+            "id": 94,
+            "name": "Смартфоны и телефоны",
+            "icon": "category/Smartphones_and_Phones.svg",
+            "fields": null,
+            "subCategories": {
+              "telephones": {
+                "id": 96,
+                "name": "Телефоны",
+                "icon": "category/telephones.svg",
+                "fields": {
+                  "telephones": {
+                    "form_factor": "null",
+                    "manufacturer": "null",
+                    "features_of_the": "null",
+                    "number_of_sim_cards": "null"
+                  },
+                  "Телефоны": {
+                    "Формфактор": "null",
+                    "Особенности": "null",
+                    "Производитель": "null",
+                    "Количество симкарт": "null"
+                  }
+                }
+              },
+              "Smartphones": {
+                "id": 95,
+                "name": "Смартфоны",
+                "icon": "category/Smartphones.svg",
+                "fields": {
+                  "Smartphones": {
+                    "cpu": "null",
+                    "ram_size": "null",
+                    "sim_number": "null",
+                    "form_factor": "null",
+                    "frontcamera": "null",
+                    "main_camera": "null",
+                    "screen_type": "null",
+                    "aspect_ratio": "null",
+                    "manufacturer": "null",
+                    "body_material": "null",
+                    "builtin_memory": "null",
+                    "features_of_the": "null",
+                    "network_support": "null",
+                    "battery_capacity": "null",
+                    "display_diagonal": "null",
+                    "memory_card_slot": "null",
+                    "operating_system": "null",
+                    "front_camera_type": "null",
+                    "number_of_cameras": "null",
+                    "display_resolution": "null",
+                    "connectors_and_interfaces": "null"
+                  },
+                  "Смартфоны": {
+                    "Процессор": "null",
+                    "Тип экрана": "null",
+                    "Форм фактор": "null",
+                    "Особенности": "null",
+                    "Количество sim": "null",
+                    "Производитель": "null",
+                    "Емкость батареи": "null",
+                    "Основная камера": "null",
+                    "Поддержка сетей": "null",
+                    "Количество камер": "null",
+                    "Материал корпуса": "null",
+                    "Диагональ дисплея": "null",
+                    "Разрешение дисплея": "null",
+                    "Соотношение сторон": "null",
+                    "Фронтальная камера": "null",
+                    "Разъемы и интерфейсы": "null",
+                    "Операционная система": "null",
+                    "Слот для карты памяти": "null",
+                    "Тип фронтальной камеры": "null",
+                    "Объем встроенной памяти": "null",
+                    "Объем оперативной памяти": "null"
+                  }
+                }
+              }
+            }
+          },
+          "Tablets_and_e_books": {
+            "id": 97,
+            "name": "Планшеты и электронные книги",
+            "icon": "category/Tablets_and_e_books.svg",
+            "fields": null,
+            "subCategories": {
+              "Tablets": {
+                "id": 98,
+                "name": "Планшеты",
+                "icon": "category/Tablets.svg",
+                "fields": {
+                  "Tablets": {
+                    "cpu": "null",
+                    "ram_size": "null",
+                    "frontcamera": "null",
+                    "main_camera": "null",
+                    "screen_type": "null",
+                    "manufacturer": "null",
+                    "body_material": "null",
+                    "builtin_memory": "null",
+                    "features_of_the": "null",
+                    "network_support": "null",
+                    "battery_capacity": "null",
+                    "display_diagonal": "null",
+                    "operating_system": "null",
+                    "sim_availability": "null",
+                    "display_resolution": "null",
+                    "connectors_and_interfaces": "null"
+                  },
+                  "Планшеты": {
+                    "Наличие sim": "null",
+                    "Процессор": "null",
+                    "Тип экрана": "null",
+                    "Особенности": "null",
+                    "Производитель": "null",
+                    "Емкость батареи": "null",
+                    "Основная камера": "null",
+                    "Поддержка сетей": "null",
+                    "Материал корпуса": "null",
+                    "Диагональ дисплея": "null",
+                    "Разрешение дисплея": "null",
+                    "Фронтальная камера": "null",
+                    "Разъемы и интерфейсы": "null",
+                    "Операционная система": "null",
+                    "Объем встроенной памяти": "null",
+                    "Объем оперативной памяти": "null"
+                  }
+                }
+              },
+              "Electronic_books": {
+                "id": 99,
+                "name": "Электронные книги",
+                "icon": "category/Electronic_books.svg",
+                "fields": {
+                  "Electronic_books": {
+                    "battery_life": "null",
+                    "manufacturer": "null",
+                    "builtin_memory": "null",
+                    "features_of_the": "null",
+                    "display_diagonal": "null",
+                    "display_resolution": "null"
+                  },
+                  "Электронные книги": {
+                    "Особенности": "null",
+                    "Производитель": "null",
+                    "Диагональ дисплея": "null",
+                    "Разрешение дисплея": "null",
+                    "Объем встроенной памяти": "null",
+                    "Продолжительность автономной работы": "null"
+                  }
+                }
+              }
+            }
+          },
+          "Portable_electronics": {
+            "id": 100,
+            "name": "Портативная электроника",
+            "icon": "category/Portable_electronics.svg",
+            "fields": null,
+            "subCategories": {
+              "Tablet_Accessories": {
+                "id": 101,
+                "name": "Аксессуары для планшетов",
+                "icon": "category/Tablet_Accessories.svg",
+                "fields": null
+              },
+              "Smartphone_accessories": {
+                "id": 102,
+                "name": "Аксессуары для смартфонов",
+                "icon": "category/Smartphone_accessories.svg",
+                "fields": null
+              },
+              "Virtual_glasses": {
+                "id": 103,
+                "name": "Виртуальные очки",
+                "icon": "category/Virtual_glasses.svg",
+                "fields": null
+              },
+              "Headset_headphones": {
+                "id": 104,
+                "name": "Гарнитура, наушники",
+                "icon": "category/Headset_headphones.svg",
+                "fields": null
+              },
+              "Spare_parts": {
+                "id": 105,
+                "name": "Запчасти",
+                "icon": "category/Spare_parts.svg",
+                "fields": null
+              },
+              "Protective_glasses_films": {
+                "id": 107,
+                "name": "Защитные стекла, пленки",
+                "icon": "category/Protective_glasses_films.svg",
+                "fields": null
+              },
+              "Smart_speakers": {
+                "id": 109,
+                "name": "Умные колонки",
+                "icon": "category/Smart_speakers.svg",
+                "fields": null
+              },
+              "Hubs_splitters_adapters": {
+                "id": 110,
+                "name": "Хабы, разветвители, адаптеры",
+                "icon": "category/Hubs_splitters_adapters.svg",
+                "fields": null
+              },
+              "Covers_bags_backpacks": {
+                "id": 111,
+                "name": "Чехлы, сумки, рюкзаки",
+                "icon": "category/Covers_bags_backpacks.svg",
+                "fields": null
+              },
+              "Chargers_power_supplies": {
+                "id": 106,
+                "name": "Зарядные устройства, блоки питания",
+                "icon": "category/Chargers_power_supplies.svg",
+                "fields": {
+                  "Chargers_power_supplies": {
+                    "power": "null",
+                    "manufacturer": "null",
+                    "certification": "null"
+                  },
+                  "Зарядные устройства, блоки питания": {
+                    "Мощность": "null",
+                    "Сертификация": "null",
+                    "Производитель": "null"
+                  }
+                }
+              },
+              "Smart_watches_and_fitness_bracelets": {
+                "id": 108,
+                "name": "Смарт_часы и фитнес_браслеты",
+                "icon": "category/Smart_watches_and_fitness_bracelets.svg",
+                "fields": {
+                  "Smart_watches_and_fitness_bracelets": {
+                    "manufacturer": "null",
+                    "communication": "null",
+                    "materials_edit": "null",
+                    "features_of_the": "null",
+                    "choosing_a_gadget": "null",
+                    "the_presence_of_a_sim_card": "null"
+                  },
+                  "Смарт_часы и фитнес_браслеты": {
+                    "Связь": "null",
+                    "Материалы": "null",
+                    "Особенности": "null",
+                    "Выбор гаджета": "null",
+                    "Производитель": "null",
+                    "Наличие сим_карты": "null"
+                  }
+                }
+              }
+            }
+          },
+          "Spare_parts_cat": {
+            "id": 112,
+            "name": "Запчасти",
+            "icon": "category/Spare_parts_cat.svg",
+            "fields": null,
+            "subCategories": {
+              "Displays": {
+                "id": 113,
+                "name": "Дисплеи",
+                "icon": "category/Displays.svg",
+                "fields": null
+              },
+              "Housings": {
+                "id": 114,
+                "name": "Корпусы",
+                "icon": "category/Housings.svg",
+                "fields": null
+              },
+              "Batteries": {
+                "id": 115,
+                "name": "Батареи",
+                "icon": "category/Batteries.svg",
+                "fields": null
+              },
+              "Motherboard_parts": {
+                "id": 116,
+                "name": "Системная плата",
+                "icon": "category/Motherboard_parts.svg",
+                "fields": null
+              },
+              "Keyboard_and_tuch_pads": {
+                "id": 117,
+                "name": "Клавиатура и tuch пады",
+                "icon": "category/Keyboard_and_tuch_pads.svg",
+                "fields": null
+              },
+              "Cooling_systems": {
+                "id": 118,
+                "name": "Системы охлаждения",
+                "icon": "category/Cooling_systems.svg",
+                "fields": null
+              },
+              "Loops_and_cables": {
+                "id": 119,
+                "name": "Шлейфы и кабели",
+                "icon": "category/Loops_and_cables.svg",
+                "fields": null
+              }
+            }
+          },
+          "Computers_accessories_and_peripherals": {
+            "id": 120,
+            "name": "Компьютеры, комплектующие и периферия",
+            "icon": "category/Computers_accessories_and_peripherals.svg",
+            "fields": null,
+            "subCategories": {
+              "Components": {
+                "id": 124,
+                "name": "Комплектующие",
+                "icon": "category/Components.svg",
+                "fields": null,
+                "subCategories": {
+                  "Processors_cat": {
+                    "id": 125,
+                    "name": "Процессоры",
+                    "icon": "category/Processors_cat.svg",
+                    "fields": null
+                  },
+                  "Data_storage": {
+                    "id": 128,
+                    "name": "Накопители данных",
+                    "icon": "category/Data_storage.svg",
+                    "fields": null
+                  },
+                  "Housings_corp": {
+                    "id": 129,
+                    "name": "Корпусы",
+                    "icon": "category/Housings_corp.svg",
+                    "fields": {
+                      "Housings_corp": {
+                        "form_factor": "null",
+                        "backlight_housing": "null"
+                      },
+                      "Корпусы": {
+                        "Формфактор": "null",
+                        "Подсветка корпуса": "null"
+                      }
+                    }
+                  },
+                  "motherboards_perif": {
+                    "id": 126,
+                    "name": "Материнские платы",
+                    "icon": "category/motherboards_perif.svg",
+                    "fields": {
+                      "motherboards_perif": {
+                        "socket": "null",
+                        "chipset": "null",
+                        "form_factor": "null",
+                        "memory_type": "null",
+                        "manufacturer": "null",
+                        "features_of_the": "null",
+                        "number_of_memory_slots": "null"
+                      },
+                      "Материнские платы": {
+                        "Сокет": "null",
+                        "Чипсет": "null",
+                        "Тип памяти": "null",
+                        "Формфактор": "null",
+                        "Особенности": "null",
+                        "Производитель": "null",
+                        "Количество слотов памяти": "null"
+                      }
+                    }
+                  },
+                  "Video_cards_componentsss": {
+                    "id": 130,
+                    "name": "Видеокарты",
+                    "icon": "category/Video_cards_componentsss.svg",
+                    "fields": {
+                      "Видеокарты": {
+                        "Объем видеопамяти": "null",
+                        "Производитель чипа": "null",
+                        "Производитель видеокарты": "null"
+                      },
+                      "Video_cards_componentsss": {
+                        "chip_manufacturer": "null",
+                        "video_memory_size": "null",
+                        "graphics_card_manufacturer": "null"
+                      }
+                    }
+                  },
+                  "other_comp": {
+                    "id": 131,
+                    "name": "Другое",
+                    "icon": "category/other_comp.svg",
+                    "fields": {
+                      "other_comp": { "a_type": "null" },
+                      "Другое": { "Тип": "null" }
+                    }
+                  },
+                  "RAM": {
+                    "id": 127,
+                    "name": "Оперативная память",
+                    "icon": "category/RAM.svg",
+                    "fields": {
+                      "RAM": {
+                        "volume": "null",
+                        "ram_type": "null",
+                        "appointment": "null"
+                      },
+                      "Оперативная память": {
+                        "Объем": "null",
+                        "Назначение": "null",
+                        "Тип оперативной памяти": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "Monoblocks": {
+                "id": 122,
+                "name": "Моноблоки",
+                "icon": "category/Monoblocks.svg",
+                "fields": {
+                  "Monoblocks": { "a_type": "null" },
+                  "Моноблоки": { "Тип": "null" }
+                }
+              },
+              "Monitors": {
+                "id": 123,
+                "name": "Мониторы",
+                "icon": "category/Monitors.svg",
+                "fields": {
+                  "Monitors": { "diagonal": "null", "connectors": "null" },
+                  "Мониторы": { "Разъемы": "null", "Диагональ": "null" }
+                }
+              },
+              "Desktop_computers": {
+                "id": 121,
+                "name": "Настольные компьютеры",
+                "icon": "category/Desktop_computers.svg",
+                "fields": {
+                  "Desktop_computers": {
+                    "socket": "null",
+                    "chipset": "null",
+                    "total_ram": "null",
+                    "form_factor": "null",
+                    "memory_type": "null",
+                    "certification": "null",
+                    "features_of_the": "null",
+                    "power_supply_power": "null",
+                    "hard_drives_and_ssd": "null",
+                    "number_of_memory_slots": "null",
+                    "discrete_graphics_series": "null",
+                    "motherboard_manufacturer": "null",
+                    "graphics_card_manufacturer": "null",
+                    "the_presence_of_a_discrete_video_card": "null"
+                  },
+                  "Настольные компьютеры": {
+                    "Сокет": "null",
+                    "Чипсет": "null",
+                    "Тип памяти": "null",
+                    "Формфактор": "null",
+                    "Особенности": "null",
+                    "Сертификация": "null",
+                    "Жесткие диски и SSD": "null",
+                    "Мощность блока питания": "null",
+                    "Количество слотов памяти": "null",
+                    "Серия дискретной графики": "null",
+                    "Производитель видеокарты": "null",
+                    "Наличие дискретной видеокарты": "null",
+                    "Общий объем оперативной памяти": "null",
+                    "Производитель материнской платы": "null"
+                  }
+                }
+              }
+            }
+          },
+          "Software": {
+            "id": 140,
+            "name": "Программное обеспечение",
+            "icon": "category/Software.svg",
+            "fields": null
+          },
+          "Office_equipment_and_spare_parts": {
+            "id": 142,
+            "name": "Оргтехника и запчасти",
+            "icon": "category/Office_equipment_and_spare_parts.svg",
+            "fields": null,
+            "subCategories": {
+              "Printers": {
+                "id": 143,
+                "name": "Принтеры",
+                "icon": "category/Printers.svg",
+                "fields": null
+              },
+              "MFPs_and_Scanners": {
+                "id": 144,
+                "name": "МФУ и сканеры",
+                "icon": "category/MFPs_and_Scanners.svg",
+                "fields": null
+              },
+              "Consumables_for_office_equipment": {
+                "id": 145,
+                "name": "Расходные материалы для оргтехник",
+                "icon": "category/Consumables_for_office_equipment.svg",
+                "fields": null
+              },
+              "UPS_and_surge_protectors": {
+                "id": 146,
+                "name": "ИБП и сетевые фильтры",
+                "icon": "category/UPS_and_surge_protectors.svg",
+                "fields": null
+              },
+              "Plotters_and_resographs": {
+                "id": 147,
+                "name": "Плоттеры и резографы",
+                "icon": "category/Plotters_and_resographs.svg",
+                "fields": null
+              },
+              "Paper_shredders": {
+                "id": 148,
+                "name": "Уничтожители бумаг",
+                "icon": "category/Paper_shredders.svg",
+                "fields": null
+              },
+              "Chancellery": {
+                "id": 150,
+                "name": "Канцелярия",
+                "icon": "category/Chancellery.svg",
+                "fields": null
+              },
+              "Telephony": {
+                "id": 151,
+                "name": "Телефония",
+                "icon": "category/Telephony.svg",
+                "fields": null
+              },
+              "Spare_parts_for_office_equipment_and_cartridges": {
+                "id": 149,
+                "name": "Запчасти для оргтехники и картриджей",
+                "icon": "category/Spare_parts_for_office_equipment_and_cartridges.svg",
+                "fields": null
+              }
+            }
+          },
+          "Audio_video_equipment": {
+            "id": 152,
+            "name": "Аудио_видео техника",
+            "icon": "category/Audio_video_equipment.svg",
+            "fields": null,
+            "subCategories": {
+              "Portable_speakers": {
+                "id": 153,
+                "name": "Портативные колонки",
+                "icon": "category/Portable_speakers.svg",
+                "fields": null
+              },
+              "TV_sets_cat2": {
+                "id": 154,
+                "name": "Телевизоры",
+                "icon": "category/TV_sets_cat2.svg",
+                "fields": null
+              },
+              "Hi_Fi_technology": {
+                "id": 155,
+                "name": "HI_FI техника",
+                "icon": "category/Hi_Fi_technology.svg",
+                "fields": null
+              },
+              "Satellite_and_digital_TV": {
+                "id": 156,
+                "name": "Спутниковое и цифровое ТВ",
+                "icon": "category/Satellite_and_digital_TV.svg",
+                "fields": null
+              },
+              "Projectors_and_screens": {
+                "id": 157,
+                "name": "Проекторы и экраны",
+                "icon": "category/Projectors_and_screens.svg",
+                "fields": null
+              },
+              "Headphones": {
+                "id": 158,
+                "name": "Наушники",
+                "icon": "category/Headphones.svg",
+                "fields": null
+              },
+              "DVD_and_Blu_ray": {
+                "id": 160,
+                "name": "DVD и Blu_ray плееры",
+                "icon": "category/DVD_and_Blu_ray.svg",
+                "fields": null
+              },
+              "TV_accessories": {
+                "id": 159,
+                "name": "Аксессуары для телевизоров",
+                "icon": "category/TV_accessories.svg",
+                "fields": null
+              }
+            }
+          },
+          "Photo_and_video_equipment": {
+            "id": 161,
+            "name": "Фото и видео техника",
+            "icon": "category/Photo_and_video_equipment.svg",
+            "fields": null,
+            "subCategories": {
+              "SLR Cameras": {
+                "id": 162,
+                "name": "Зеркальные фотоаппарты",
+                "icon": "category/SLR Cameras.svg",
+                "fields": null
+              },
+              "Compact_Cameras": {
+                "id": 163,
+                "name": "Компактные фотоаппарты",
+                "icon": "category/Compact_Cameras.svg",
+                "fields": null
+              },
+              "Lenses": {
+                "id": 164,
+                "name": "Объективы",
+                "icon": "category/Lenses.svg",
+                "fields": null
+              },
+              "Photo_flashes": {
+                "id": 165,
+                "name": "Фотовспышки",
+                "icon": "category/Photo_flashes.svg",
+                "fields": null
+              },
+              "Camcorders": {
+                "id": 167,
+                "name": "Видеокамеры",
+                "icon": "category/Camcorders.svg",
+                "fields": null
+              },
+              "ActionCameras": {
+                "id": 168,
+                "name": "Экшн_камеры",
+                "icon": "category/ActionCameras.svg",
+                "fields": null
+              },
+              "digitalPhotoframes": {
+                "id": 169,
+                "name": "Цифровые фоторамки",
+                "icon": "category/digitalPhotoframes.svg",
+                "fields": null
+              },
+              "Accessories_electronics": {
+                "id": 166,
+                "name": "Аксессуары",
+                "icon": "category/Accessories_electronics.svg",
+                "fields": null
+              },
+              "Studio_equipment": {
+                "id": 170,
+                "name": "Студийное оборудование",
+                "icon": "category/Studio_equipment.svg",
+                "fields": null
+              }
+            }
+          },
+          "Games_consoles_and_programs": {
+            "id": 171,
+            "name": "Игры, приставки и программы",
+            "icon": "category/Games_consoles_and_programs.svg",
+            "fields": null,
+            "subCategories": {
+              "Games_for_consoles": {
+                "id": 172,
+                "name": "Игры для приставок",
+                "icon": "category/Games_for_consoles.svg",
+                "fields": null
+              },
+              "Gaming_consoles_cat1": {
+                "id": 173,
+                "name": "Игровые приставки",
+                "icon": "category/Gaming_consoles_cat1.svg",
+                "fields": null
+              },
+              "Computer_games": {
+                "id": 174,
+                "name": "Компьютерные игры",
+                "icon": "category/Computer_games.svg",
+                "fields": null
+              },
+              "Programs": {
+                "id": 175,
+                "name": "Программы",
+                "icon": "category/Programs.svg",
+                "fields": null
+              }
+            }
+          },
+          "laptops": {
+            "id": 93,
+            "name": "Ноутбуки",
+            "icon": "category/laptops.svg",
+            "fields": {
+              "laptops": {
+                "gpu": "null",
+                "a_type": "null",
+                "features": "null",
+                "ram_size": "null",
+                "model_name": "null",
+                "the_weight": "null",
+                "matrix_type": "null",
+                "manufacturer": "null",
+                "body_material": "null",
+                "display_surface": "null",
+                "display_diagonal": "null",
+                "display_resolution": "null",
+                "processor_manufacturer": "null",
+                "discrete_graphics_manufacturer": "null"
+              },
+              "Ноутбуки": {
+                "Вес": "null",
+                "Тип": "null",
+                "Тип матрицы": "null",
+                "особенности": "null",
+                "Производитель": "null",
+                "Материал корпуса": "null",
+                "Диагональ дисплея": "null",
+                "Разрешение дисплея": "null",
+                "Наименование модели": "null",
+                "Поверхность дисплея": "null",
+                "Графический процессор": "null",
+                "Объем оперативной памяти": "null",
+                "Производитель процессора": "null",
+                "Производитель дискретной графики": "null"
+              }
+            }
+          },
+          "Personal_Computer_Accessories": {
+            "id": 132,
+            "name": "Аксессуары для персонального компьютера",
+            "icon": "category/Personal_Computer_Accessories.svg",
+            "fields": {
+              "Personal_Computer_Accessories": { "a_type": "null" },
+              "Аксессуары для персонального компьютера": { "Тип": "null" }
+            }
+          },
+          "Steering_wheels_gamepads_joysticks": {
+            "id": 141,
+            "name": "Рули, геймпады, джойстики",
+            "icon": "category/Steering_wheels_gamepads_joysticks.svg",
+            "fields": {
+              "Steering_wheels_gamepads_joysticks": { "type": "null" },
+              "Рули, геймпады, джойстики": { "Тип": "null" }
+            }
+          },
+          "Servers_and_server_hardware": {
+            "id": 133,
+            "name": "Серверы и серверное оборудование",
+            "icon": "category/Servers_and_server_hardware.svg",
+            "fields": null,
+            "subCategories": {
+              "Servers": {
+                "id": 134,
+                "name": "Серверы",
+                "icon": "category/Servers.svg",
+                "fields": {
+                  "Servers": { "a_type": "null" },
+                  "Серверы": { "Тип": "null" }
+                }
+              },
+              "Server_hard_drive": {
+                "id": 138,
+                "name": "Жесткий диск для серверов",
+                "icon": "category/Server_hard_drive.svg",
+                "fields": {
+                  "Server_hard_drive": { "a_type": "null" },
+                  "Жесткий диск для серверов": { "Тип": "null" }
+                }
+              },
+              "Controllers_adapters_modules_for_servers": {
+                "id": 136,
+                "name": "Контроллеры, адаптеры, модули для серверов",
+                "icon": "category/Controllers_adapters_modules_for_servers.svg",
+                "fields": {
+                  "Controllers_adapters_modules_for_servers": {
+                    "a_type": "null"
+                  },
+                  "Контроллеры, адаптеры, модули для серверов": { "Тип": "null" }
+                }
+              },
+              "Server_enclosures": {
+                "id": 139,
+                "name": "Корпусы для серверов",
+                "icon": "category/Server_enclosures.svg",
+                "fields": {
+                  "Server_enclosures": { "a_type": "null" },
+                  "Корпусы для серверов": { "Тип": "null" }
+                }
+              },
+              "Server_motherboards": {
+                "id": 135,
+                "name": "Материнские платы для серверов",
+                "icon": "category/Server_motherboards.svg",
+                "fields": {
+                  "Server_motherboards": { "a_type": "null" },
+                  "Материнские платы для серверов": { "Тип": "null" }
+                }
+              },
+              "RAM_for_servers": {
+                "id": 137,
+                "name": "Оперативная память для серверов",
+                "icon": "category/RAM_for_servers.svg",
+                "fields": {
+                  "RAM_for_servers": { "a_type": "null" },
+                  "Оперативная память для серверов": { "Тип": "null" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "for_home_and_d": {
+        "id": 176,
+        "name": "Для дома и дачи",
+        "icon": "category/for_home_and_d.svg",
+        "fields": null,
+        "subCategories": {
+          "Fireplaces_and_heaters": {
+            "id": 221,
+            "name": "Камины и обогреватели",
+            "icon": "category/Fireplaces_and_heaters.svg",
+            "fields": null
+          },
+          "Furniture_and_interior": {
+            "id": 183,
+            "name": "Мебель и интерьер",
+            "icon": "category/Furniture_and_interior.svg",
+            "fields": null,
+            "subCategories": {
+              "Sofas_and_armchairs": {
+                "id": 184,
+                "name": " Диваны и кресла",
+                "icon": "category/Sofas_and_armchairs.svg",
+                "fields": null
+              },
+              "Beds_and_mattresses": {
+                "id": 185,
+                "name": " Кровати и матрасы",
+                "icon": "category/Beds_and_mattresses.svg",
+                "fields": null
+              },
+              "Wardrobes_and_chests_of_drawers": {
+                "id": 186,
+                "name": " Шкафы и комоды",
+                "icon": "category/Wardrobes_and_chests_of_drawers.svg",
+                "fields": null
+              },
+              "Kitchen_sets": {
+                "id": 187,
+                "name": " Кухонные гарнитуры",
+                "icon": "category/Kitchen_sets.svg",
+                "fields": null
+              },
+              "Computer_tables_and_chairs": {
+                "id": 189,
+                "name": " Компьютерные столы и кресла",
+                "icon": "category/Computer_tables_and_chairs.svg",
+                "fields": null
+              },
+              "Tables_and_chairs": {
+                "id": 190,
+                "name": " Столы и стулья",
+                "icon": "category/Tables_and_chairs.svg",
+                "fields": null
+              },
+              "Interior_and_art_items": {
+                "id": 191,
+                "name": " Предметы интерьера и искусства",
+                "icon": "category/Interior_and_art_items.svg",
+                "fields": null
+              },
+              "Textiles_and_carpets": {
+                "id": 192,
+                "name": " Текстиль и ковры",
+                "icon": "category/Textiles_and_carpets.svg",
+                "fields": null
+              },
+              "Lighting": {
+                "id": 193,
+                "name": " Освещение",
+                "icon": "category/Lighting.svg",
+                "fields": null
+              },
+              "Other_light": {
+                "id": 194,
+                "name": " Другое",
+                "icon": "category/Other_light.svg",
+                "fields": null
+              },
+              "Stands_and_pedestals": {
+                "id": 188,
+                "name": " Подставки и тумбы",
+                "icon": "category/Stands_and_pedestals.svg",
+                "fields": null
+              }
+            }
+          },
+          "Renovation_and_construction": {
+            "id": 203,
+            "name": "Ремонт и строительство",
+            "icon": "category/Renovation_and_construction.svg",
+            "fields": null,
+            "subCategories": {
+              "Doors": {
+                "id": 204,
+                "name": " Двери",
+                "icon": "category/Doors.svg",
+                "fields": null
+              },
+              "Tools": {
+                "id": 205,
+                "name": " Инструменты",
+                "icon": "category/Tools.svg",
+                "fields": null
+              },
+              "Windows_and_balconies": {
+                "id": 206,
+                "name": " Окна и балконы",
+                "icon": "category/Windows_and_balconies.svg",
+                "fields": null
+              },
+              "Ceilings": {
+                "id": 207,
+                "name": " Потолки",
+                "icon": "category/Ceilings.svg",
+                "fields": null
+              },
+              "Building_materials": {
+                "id": 208,
+                "name": " Стройматериалы",
+                "icon": "category/Building_materials.svg",
+                "fields": null
+              }
+            }
+          },
+          "Security_systems": {
+            "id": 209,
+            "name": "Системы безопасности",
+            "icon": "category/Security_systems.svg",
+            "fields": null,
+            "subCategories": {
+              "Security_and_fire_alarm": {
+                "id": 213,
+                "name": " Охрано_пожарная сигнализация",
+                "icon": "category/Security_and_fire_alarm.svg",
+                "fields": null
+              },
+              "Baby_monitor": {
+                "id": 211,
+                "name": " Видеоняня",
+                "icon": "category/Baby_monitor.svg",
+                "fields": null
+              },
+              "Intercom_equipment": {
+                "id": 212,
+                "name": " Домофонное оборудование",
+                "icon": "category/Intercom_equipment.svg",
+                "fields": null
+              },
+              "ACS": {
+                "id": 214,
+                "name": " СКУД",
+                "icon": "category/ACS.svg",
+                "fields": null
+              },
+              "Safes": {
+                "id": 215,
+                "name": " Сейфы",
+                "icon": "category/Safes.svg",
+                "fields": null
+              },
+              "Video_surveillance": {
+                "id": 210,
+                "name": " Видеонаблюдение",
+                "icon": "category/Video_surveillance.svg",
+                "fields": {
+                  "Video_surveillance": { "type": "null" },
+                  "Видеонаблюдение": { "Тип": "null" }
+                }
+              }
+            }
+          },
+          "Plants_and_seeds": {
+            "id": 216,
+            "name": "Растения и семена",
+            "icon": "category/Plants_and_seeds.svg",
+            "fields": null,
+            "subCategories": {
+              "plants_seeds": {
+                "id": 217,
+                "name": " растения/семена",
+                "icon": "category/plants_seeds.svg",
+                "fields": {
+                  "plants_seeds": { "type": "null" },
+                  "растения/семена": { "Тип": "null" }
+                }
+              }
+            }
+          },
+          "Food": {
+            "id": 218,
+            "name": "Продукты питания",
+            "icon": "category/Food.svg",
+            "fields": null
+          },
+          "Gardening_equipment": {
+            "id": 219,
+            "name": "Садовая техника",
+            "icon": "category/Gardening_equipment.svg",
+            "fields": null
+          },
+          "Plumbing_and_sauna": {
+            "id": 220,
+            "name": "Сантехника и сауна",
+            "icon": "category/Plumbing_and_sauna.svg",
+            "fields": null
+          },
+          "Pumps": {
+            "id": 222,
+            "name": "Насосы",
+            "icon": "category/Pumps.svg",
+            "fields": null
+          },
+          "Dishes_and_goods_for_the_kitchen": {
+            "id": 195,
+            "name": "Посуда и товары для кухни",
+            "icon": "category/Dishes_and_goods_for_the_kitchen.svg",
+            "fields": null,
+            "subCategories": {
+              "Preparation_of_drinks": {
+                "id": 199,
+                "name": " Приготовление напитков",
+                "icon": "category/Preparation_of_drinks.svg",
+                "fields": null
+              },
+              "Kitchen_accessories": {
+                "id": 201,
+                "name": " Кухонные аксессуары",
+                "icon": "category/Kitchen_accessories.svg",
+                "fields": null
+              },
+              "Other_acces": {
+                "id": 202,
+                "name": " Другое",
+                "icon": "category/Other_acces.svg",
+                "fields": null
+              },
+              "Household_goods": {
+                "id": 200,
+                "name": " Хозяйственные товары",
+                "icon": "category/Household_goods.svg",
+                "fields": {
+                  "Household_goods": { "type": "null" },
+                  "Хозяйственные товары": { "Тип": "null" }
+                }
+              },
+              "Table_setting": {
+                "id": 196,
+                "name": " Сервировка стола",
+                "icon": "category/Table_setting.svg",
+                "fields": {
+                  "Table_setting": { "type": "null" },
+                  "Сервировка стола": { "Тип": "null" }
+                }
+              },
+              "Food_storage": {
+                "id": 198,
+                "name": " Хранение продуктов",
+                "icon": "category/Food_storage.svg",
+                "fields": {
+                  "Food_storage": { "type": "null" },
+                  "Хранение продуктов": { "Тип": "null" }
+                }
+              },
+              "Cooking_food": {
+                "id": 197,
+                "name": " Приготовление пищи",
+                "icon": "category/Cooking_food.svg",
+                "fields": {
+                  "Cooking_food": { "type": "null" },
+                  "Приготовление пищи": { "Тип": "null" }
+                }
+              }
+            }
+          },
+          "Appliances": {
+            "id": 177,
+            "name": "Бытовая техника",
+            "icon": "category/Appliances.svg",
+            "fields": null,
+            "subCategories": {
+              "Other_ob": {
+                "id": 182,
+                "name": " Другое",
+                "icon": "category/Other_ob.svg",
+                "fields": null
+              },
+              "For_personalized_care": {
+                "id": 179,
+                "name": " Для индивидуального ухода",
+                "icon": "category/For_personalized_care.svg",
+                "fields": {
+                  "For_personalized_care": { "type": "null" },
+                  "Для индивидуального ухода": { "Тип": "null" }
+                }
+              },
+              "For_kitchen": {
+                "id": 180,
+                "name": " Для кухни",
+                "icon": "category/For_kitchen.svg",
+                "fields": {
+                  "For_kitchen": { "type": "null" },
+                  "Для кухни": { "Тип": "null" }
+                }
+              },
+              "Climatic_equipment": {
+                "id": 181,
+                "name": " Климатическое оборудование",
+                "icon": "category/Climatic_equipment.svg",
+                "fields": {
+                  "Climatic_equipment": { "type": "null" },
+                  "Климатическое оборудование": { "Тип": "null" }
+                }
+              },
+              "For_home": {
+                "id": 178,
+                "name": " Для дома",
+                "icon": "category/For_home.svg",
+                "fields": {
+                  "For_home": { "type": "null" },
+                  "Для дома": { "Тип": "null" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Animals": {
+        "id": 223,
+        "name": "Животные",
+        "icon": "category/Animals.svg",
+        "fields": null,
+        "subCategories": {
+          "Others_animals": {
+            "id": 230,
+            "name": " Другие",
+            "icon": "category/Others_animals.svg",
+            "fields": null
+          },
+          "Cats": {
+            "id": 224,
+            "name": " Кошки",
+            "icon": "category/Cats.svg",
+            "fields": null
+          },
+          "Dogs": {
+            "id": 225,
+            "name": " Собаки",
+            "icon": "category/Dogs.svg",
+            "fields": null
+          },
+          "Birds": {
+            "id": 226,
+            "name": " Птицы",
+            "icon": "category/Birds.svg",
+            "fields": null
+          },
+          "Agricultural_animals": {
+            "id": 227,
+            "name": " С/х животные",
+            "icon": "category/Agricultural_animals.svg",
+            "fields": null
+          },
+          "Rodents": {
+            "id": 228,
+            "name": " Грызуны",
+            "icon": "category/Rodents.svg",
+            "fields": null
+          },
+          "Goods_for_pets": {
+            "id": 229,
+            "name": " Товары для животных",
+            "icon": "category/Goods_for_pets.svg",
+            "fields": null
+          }
+        }
+      },
+      "personal_floops": {
+        "id": 231,
+        "name": "Личные вещи",
+        "icon": "category/personal_floops.svg",
+        "fields": null,
+        "subCategories": {
+          "Watches_jewelry": {
+            "id": 240,
+            "name": "Часы, украшения",
+            "icon": "category/Watches_jewelry.svg",
+            "fields": null,
+            "subCategories": {
+              "Jewelry_clock": {
+                "id": 241,
+                "name": " Ювелирные изделия",
+                "icon": "category/Jewelry_clock.svg",
+                "fields": null
+              },
+              "Clock": {
+                "id": 242,
+                "name": " Часы",
+                "icon": "category/Clock.svg",
+                "fields": null
+              },
+              "Jewelry_bushitery": {
+                "id": 243,
+                "name": " Бижутерия",
+                "icon": "category/Jewelry_bushitery.svg",
+                "fields": null
+              }
+            }
+          },
+          "beauty_and_health_cat1": {
+            "id": 244,
+            "name": "Красота и здоровье",
+            "icon": "category/beauty_and_health_cat1.svg",
+            "fields": null,
+            "subCategories": {
+              "Cosmetics": {
+                "id": 245,
+                "name": " Косметика",
+                "icon": "category/Cosmetics.svg",
+                "fields": null
+              },
+              "Perfumery": {
+                "id": 246,
+                "name": " Парфюмерия",
+                "icon": "category/Perfumery.svg",
+                "fields": null
+              },
+              "Devices_and_accessories": {
+                "id": 247,
+                "name": " Приборы и аксессуары",
+                "icon": "category/Devices_and_accessories.svg",
+                "fields": null
+              },
+              "Hygiene_products": {
+                "id": 248,
+                "name": " Средства гигиены",
+                "icon": "category/Hygiene_products.svg",
+                "fields": null
+              },
+              "Hair_products": {
+                "id": 249,
+                "name": " Средства для волос",
+                "icon": "category/Hair_products.svg",
+                "fields": null
+              },
+              "Medical_devices": {
+                "id": 250,
+                "name": " Медицинские изделия",
+                "icon": "category/Medical_devices.svg",
+                "fields": null
+              }
+            }
+          },
+          "Clothes_shoes_accessories": {
+            "id": 232,
+            "name": "Одежда, обувь, аксессуары",
+            "icon": "category/Clothes_shoes_accessories.svg",
+            "fields": null,
+            "subCategories": {
+              "Accessories_flip": {
+                "id": 235,
+                "name": " Аксессуары",
+                "icon": "category/Accessories_flip.svg",
+                "fields": null
+              },
+              "Womens_clothing": {
+                "id": 233,
+                "name": " Женская одежда",
+                "icon": "category/Womens_clothing.svg",
+                "fields": null
+              },
+              "Mens_clothing": {
+                "id": 234,
+                "name": " Мужская одежда",
+                "icon": "category/Mens_clothing.svg",
+                "fields": null
+              }
+            }
+          },
+          "Childrens_clothing_footwear_accessories": {
+            "id": 236,
+            "name": "Детская одежда, обувь, аксессуары",
+            "icon": "category/Childrens_clothing_footwear_accessories.svg",
+            "fields": null,
+            "subCategories": {
+              "For_girls": {
+                "id": 237,
+                "name": " Для девочек",
+                "icon": "category/For_girls.svg",
+                "fields": null
+              },
+              "For_boys": {
+                "id": 238,
+                "name": " Для мальчиков",
+                "icon": "category/For_boys.svg",
+                "fields": null
+              },
+              "Goods_for_children_toys": {
+                "id": 239,
+                "name": " Товары для детей, игрушки",
+                "icon": "category/Goods_for_children_toys.svg",
+                "fields": {
+                  "Goods_for_children_toys": { "type": "null" },
+                  "Товары для детей, игрушки": { "Тип": "null" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "for_busines": {
+        "id": 251,
+        "name": "Для бизнеса",
+        "icon": "category/for_busines.svg",
+        "fields": null,
+        "subCategories": {
+          "Ready_business": {
+            "id": 252,
+            "name": "Готовый бизнес",
+            "icon": "category/Ready_business.svg",
+            "fields": null,
+            "subCategories": {
+              "Hotels_and_hostels": {
+                "id": 254,
+                "name": "Гостиницы и хостелы",
+                "icon": "category/Hotels_and_hostels.svg",
+                "fields": null
+              },
+              "Beauty_studios": {
+                "id": 255,
+                "name": "Студии красоты",
+                "icon": "category/Beauty_studios.svg",
+                "fields": null
+              },
+              "Trade": {
+                "id": 256,
+                "name": "Торговля",
+                "icon": "category/Trade.svg",
+                "fields": null
+              },
+              "Entertainment": {
+                "id": 258,
+                "name": "Развлечения",
+                "icon": "category/Entertainment.svg",
+                "fields": null
+              },
+              "Catering": {
+                "id": 259,
+                "name": "Общественное питание",
+                "icon": "category/Catering.svg",
+                "fields": null
+              },
+              "Production": {
+                "id": 260,
+                "name": "Производство",
+                "icon": "category/Production.svg",
+                "fields": null
+              },
+              "Agriculture": {
+                "id": 262,
+                "name": "Сельское хозяйство",
+                "icon": "category/Agriculture.svg",
+                "fields": null
+              },
+              "Building_archit": {
+                "id": 263,
+                "name": "Строительство",
+                "icon": "category/Building_archit.svg",
+                "fields": null
+              },
+              "Franchise": {
+                "id": 264,
+                "name": "Франшиза",
+                "icon": "category/Franchise.svg",
+                "fields": null
+              },
+              "Car_washes_and_car_services": {
+                "id": 253,
+                "name": "Автомойки и автосервисы",
+                "icon": "category/Car_washes_and_car_services.svg",
+                "fields": null
+              },
+              "Services_sector": {
+                "id": 257,
+                "name": "Сфера услуг",
+                "icon": "category/Services_sector.svg",
+                "fields": null
+              },
+              "Online_store": {
+                "id": 261,
+                "name": "Интернет_магазин",
+                "icon": "category/Online_store.svg",
+                "fields": null
+              },
+              "Other_franshise": {
+                "id": 265,
+                "name": "Другое",
+                "icon": "category/Other_franshise.svg",
+                "fields": null
+              }
+            }
+          },
+          "Business_equipment": {
+            "id": 266,
+            "name": "Оборудование для бизнеса",
+            "icon": "category/Business_equipment.svg",
+            "fields": null,
+            "subCategories": {
+              "For_shops": {
+                "id": 267,
+                "name": "Для магазинов",
+                "icon": "category/For_shops.svg",
+                "fields": null
+              },
+              "For_office": {
+                "id": 268,
+                "name": "Для офиса",
+                "icon": "category/For_office.svg",
+                "fields": null
+              },
+              "For_catering": {
+                "id": 270,
+                "name": "Для общественного питания",
+                "icon": "category/For_catering.svg",
+                "fields": null
+              },
+              "For_the_beauty_and_sports_industry": {
+                "id": 271,
+                "name": "Для индустрии красоты и спорта",
+                "icon": "category/For_the_beauty_and_sports_industry.svg",
+                "fields": null
+              },
+              "For_car_services": {
+                "id": 272,
+                "name": "Для автосервисов",
+                "icon": "category/For_car_services.svg",
+                "fields": null
+              },
+              "Mining_farms": {
+                "id": 274,
+                "name": "Фермы для майнинга",
+                "icon": "category/Mining_farms.svg",
+                "fields": null
+              },
+              "Cleaning_and_washing_technique": {
+                "id": 275,
+                "name": "Чистящая и моющая техника",
+                "icon": "category/Cleaning_and_washing_technique.svg",
+                "fields": null
+              },
+              "Stage_equipment": {
+                "id": 276,
+                "name": "Сценическое оборудование",
+                "icon": "category/Stage_equipment.svg",
+                "fields": null
+              },
+              "Pavilions_and_stands": {
+                "id": 269,
+                "name": "Павильоны и стойки",
+                "icon": "category/Pavilions_and_stands.svg",
+                "fields": null
+              },
+              "Industrial_equipment": {
+                "id": 273,
+                "name": "Промышленное оборудование",
+                "icon": "category/Industrial_equipment.svg",
+                "fields": null
+              }
+            }
+          },
+          "Investors": {
+            "id": 277,
+            "name": "Инвесторам",
+            "icon": "category/Investors.svg",
+            "fields": null
+          }
+        }
+      },
+      "Hobbies_sports_and_leisure": {
+        "id": 278,
+        "name": "Хобби, спорт и отдых",
+        "icon": "category/Hobbies_sports_and_leisure.svg",
+        "fields": null,
+        "subCategories": {
+          "Tickets_and_travel": {
+            "id": 279,
+            "name": "Билеты и путешествия",
+            "icon": "category/Tickets_and_travel.svg",
+            "fields": null,
+            "subCategories": {
+              "Cards_coupons": {
+                "id": 280,
+                "name": "Карты, купоны",
+                "icon": "category/Cards_coupons.svg",
+                "fields": null
+              },
+              "Travels": {
+                "id": 282,
+                "name": "Путешествия",
+                "icon": "category/Travels.svg",
+                "fields": null
+              },
+              "Sports": {
+                "id": 283,
+                "name": "Спорт",
+                "icon": "category/Sports.svg",
+                "fields": null
+              },
+              "Circus_cinema": {
+                "id": 285,
+                "name": "Цирк, кино",
+                "icon": "category/Circus_cinema.svg",
+                "fields": null
+              },
+              "Show_musical": {
+                "id": 286,
+                "name": "Шоу, мюзикл",
+                "icon": "category/Show_musical.svg",
+                "fields": null
+              },
+              "Concerts": {
+                "id": 281,
+                "name": "Концерты",
+                "icon": "category/Concerts.svg",
+                "fields": null
+              },
+              "Theater_opera_ballet": {
+                "id": 284,
+                "name": "Театр, опера, балет",
+                "icon": "category/Theater_opera_ballet.svg",
+                "fields": null
+              }
+            }
+          },
+          "Sports_and_recreation": {
+            "id": 287,
+            "name": "Спорт и отдых",
+            "icon": "category/Sports_and_recreation.svg",
+            "fields": null,
+            "subCategories": {
+              "Billiards_and_bowling": {
+                "id": 288,
+                "name": "Бильярд и боулинг",
+                "icon": "category/Billiards_and_bowling.svg",
+                "fields": null
+              },
+              "Martial_arts": {
+                "id": 290,
+                "name": "Единоборства",
+                "icon": "category/Martial_arts.svg",
+                "fields": null
+              },
+              "Winter_sports": {
+                "id": 291,
+                "name": "Зимние виды спорта",
+                "icon": "category/Winter_sports.svg",
+                "fields": null
+              },
+              "Ball_games": {
+                "id": 292,
+                "name": "Игры с мячом",
+                "icon": "category/Ball_games.svg",
+                "fields": null
+              },
+              "Table_games": {
+                "id": 293,
+                "name": "Настольные игры",
+                "icon": "category/Table_games.svg",
+                "fields": null
+              },
+              "Paintball_and_airsoft": {
+                "id": 294,
+                "name": "Пейнтбол и страйкбол",
+                "icon": "category/Paintball_and_airsoft.svg",
+                "fields": null
+              },
+              "Tennis_badminton_ping_pong": {
+                "id": 296,
+                "name": "Теннис, бадминтон, пинг_понг",
+                "icon": "category/Tennis_badminton_ping_pong.svg",
+                "fields": null
+              },
+              "Tourism": {
+                "id": 297,
+                "name": "Туризм",
+                "icon": "category/Tourism.svg",
+                "fields": null
+              },
+              "Fitness_and_exercise_equipment": {
+                "id": 298,
+                "name": "Фитнес и тренажёры",
+                "icon": "category/Fitness_and_exercise_equipment.svg",
+                "fields": null
+              },
+              "Sports_nutrition": {
+                "id": 299,
+                "name": "Спортивное питание",
+                "icon": "category/Sports_nutrition.svg",
+                "fields": null
+              },
+              "Diving_and_water_sports": {
+                "id": 289,
+                "name": "Дайвинг и водный спорт",
+                "icon": "category/Diving_and_water_sports.svg",
+                "fields": null
+              },
+              "Rollers_and_skateboarding": {
+                "id": 295,
+                "name": "Ролики и скейтбординг",
+                "icon": "category/Rollers_and_skateboarding.svg",
+                "fields": null
+              },
+              "Bicycles": {
+                "id": 300,
+                "name": "Велосипеды",
+                "icon": "category/Bicycles.svg",
+                "fields": {
+                  "Bicycles": { "type": "null" },
+                  "Велосипеды": { "Тип": "null" }
+                }
+              }
+            }
+          },
+          "Books_and_magazines": {
+            "id": 301,
+            "name": "Книги и журналы",
+            "icon": "category/Books_and_magazines.svg",
+            "fields": null,
+            "subCategories": {
+              "Books": {
+                "id": 303,
+                "name": "Книги",
+                "icon": "category/Books.svg",
+                "fields": null
+              },
+              "Educational_literature": {
+                "id": 304,
+                "name": "Учебная литература",
+                "icon": "category/Educational_literature.svg",
+                "fields": null
+              },
+              "Magazines_newspapers_brochures": {
+                "id": 302,
+                "name": "Журналы, газеты, брошюры",
+                "icon": "category/Magazines_newspapers_brochures.svg",
+                "fields": null
+              }
+            }
+          },
+          "Collecting": {
+            "id": 305,
+            "name": "Коллекционирование",
+            "icon": "category/Collecting.svg",
+            "fields": null,
+            "subCategories": {
+              "Banknotes": {
+                "id": 306,
+                "name": "Банкноты",
+                "icon": "category/Banknotes.svg",
+                "fields": null
+              },
+              "Tickets": {
+                "id": 307,
+                "name": "Билеты",
+                "icon": "category/Tickets.svg",
+                "fields": null
+              },
+              "Military_stuff": {
+                "id": 309,
+                "name": "Военные вещи",
+                "icon": "category/Military_stuff.svg",
+                "fields": null
+              },
+              "Gramplastinki": {
+                "id": 310,
+                "name": "Грампластинки",
+                "icon": "category/Gramplastinki.svg",
+                "fields": null
+              },
+              "Documents": {
+                "id": 311,
+                "name": "Документы",
+                "icon": "category/Documents.svg",
+                "fields": null
+              },
+              "Tokens_medals_badges": {
+                "id": 312,
+                "name": "Жетоны, медали, значки",
+                "icon": "category/Tokens_medals_badges.svg",
+                "fields": null
+              },
+              "Games": {
+                "id": 313,
+                "name": "Игры",
+                "icon": "category/Games.svg",
+                "fields": null
+              },
+              "Calendars": {
+                "id": 314,
+                "name": "Календари",
+                "icon": "category/Calendars.svg",
+                "fields": null
+              },
+              "Paintings": {
+                "id": 315,
+                "name": "Картины",
+                "icon": "category/Paintings.svg",
+                "fields": null
+              },
+              "Stamps": {
+                "id": 319,
+                "name": "Марки",
+                "icon": "category/Stamps.svg",
+                "fields": null
+              },
+              "Models": {
+                "id": 320,
+                "name": "Модели",
+                "icon": "category/Models.svg",
+                "fields": null
+              },
+              "Coins": {
+                "id": 321,
+                "name": "Монеты",
+                "icon": "category/Coins.svg",
+                "fields": null
+              },
+              "Ashtrays_lighters": {
+                "id": 323,
+                "name": "Пепельницы, зажигалки",
+                "icon": "category/Ashtrays_lighters.svg",
+                "fields": null
+              },
+              "Plastic_cards": {
+                "id": 324,
+                "name": "Пластиковые карточки",
+                "icon": "category/Plastic_cards.svg",
+                "fields": null
+              },
+              "Photos_letters": {
+                "id": 326,
+                "name": "Фотографии, письма",
+                "icon": "category/Photos_letters.svg",
+                "fields": null
+              },
+              "Labels_bottles_corks": {
+                "id": 327,
+                "name": "Этикетки, бутылки, пробки",
+                "icon": "category/Labels_bottles_corks.svg",
+                "fields": null
+              },
+              "Other_labels": {
+                "id": 328,
+                "name": "Другое",
+                "icon": "category/Other_labels.svg",
+                "fields": null
+              },
+              "Celebrity_things_autographs": {
+                "id": 308,
+                "name": "Вещи знаменитостей, автографы",
+                "icon": "category/Celebrity_things_autographs.svg",
+                "fields": null
+              },
+              "Kinder_Surprise": {
+                "id": 316,
+                "name": "Киндер_сюрприз",
+                "icon": "category/Kinder_Surprise.svg",
+                "fields": null
+              },
+              "Envelopes_and_postcards": {
+                "id": 317,
+                "name": "Конверты и почтовые карточки",
+                "icon": "category/Envelopes_and_postcards.svg",
+                "fields": null
+              },
+              "Postcards": {
+                "id": 322,
+                "name": "Открытки",
+                "icon": "category/Postcards.svg",
+                "fields": null
+              },
+              "Sports_cards": {
+                "id": 325,
+                "name": "Спортивные карточки",
+                "icon": "category/Sports_cards.svg",
+                "fields": null
+              },
+              "Weapon_layouts": {
+                "id": 318,
+                "name": "Макеты оружия",
+                "icon": "category/Weapon_layouts.svg",
+                "fields": null
+              }
+            }
+          },
+          "Musical_instruments": {
+            "id": 329,
+            "name": "Музыкальные инструменты",
+            "icon": "category/Musical_instruments.svg",
+            "fields": null,
+            "subCategories": {
+              "Guitars_and_other_strings": {
+                "id": 331,
+                "name": "Гитары и другие струнные",
+                "icon": "category/Guitars_and_other_strings.svg",
+                "fields": null
+              },
+              "Wind_instruments": {
+                "id": 332,
+                "name": "Духовые",
+                "icon": "category/Wind_instruments.svg",
+                "fields": null
+              },
+              "Pianos_and_other_keyboards": {
+                "id": 333,
+                "name": "Пианино и другие клавишные",
+                "icon": "category/Pianos_and_other_keyboards.svg",
+                "fields": null
+              },
+              "Violins_and_other_bows": {
+                "id": 334,
+                "name": "Скрипки и другие смычковые",
+                "icon": "category/Violins_and_other_bows.svg",
+                "fields": null
+              },
+              "Drums": {
+                "id": 335,
+                "name": "Ударные",
+                "icon": "category/Drums.svg",
+                "fields": null
+              },
+              "Accessories_stud": {
+                "id": 337,
+                "name": "Аксессуары",
+                "icon": "category/Accessories_stud.svg",
+                "fields": null
+              },
+              "Other_mus": {
+                "id": 338,
+                "name": "Другое",
+                "icon": "category/Other_mus.svg",
+                "fields": null
+              },
+              "Accordions_harmonies_statements": {
+                "id": 330,
+                "name": "Аккордеоны, гармони, баяны",
+                "icon": "category/Accordions_harmonies_statements.svg",
+                "fields": null
+              },
+              "For_studio_and_concerts": {
+                "id": 336,
+                "name": "Для студии и концертов",
+                "icon": "category/For_studio_and_concerts.svg",
+                "fields": null
+              }
+            }
+          },
+          "Hunting_and_fishing": {
+            "id": 339,
+            "name": "Охота и рыбалка",
+            "icon": "category/Hunting_and_fishing.svg",
+            "fields": null,
+            "subCategories": {
+              "Accessories_and_components": {
+                "id": 340,
+                "name": "Аксессуары и комплектующие",
+                "icon": "category/Accessories_and_components.svg",
+                "fields": null
+              },
+              "Fishing_equipment": {
+                "id": 341,
+                "name": "Рыболовные принадлежности",
+                "icon": "category/Fishing_equipment.svg",
+                "fields": null
+              },
+              "Clothes_and_footwear": {
+                "id": 342,
+                "name": "Одежда и обувь",
+                "icon": "category/Clothes_and_footwear.svg",
+                "fields": null
+              },
+              "Manki": {
+                "id": 343,
+                "name": "Манки",
+                "icon": "category/Manki.svg",
+                "fields": null
+              },
+              "Other_adv": {
+                "id": 345,
+                "name": "Другое",
+                "icon": "category/Other_adv.svg",
+                "fields": null
+              },
+              "Echo_sounders": {
+                "id": 344,
+                "name": "Эхолоты",
+                "icon": "category/Echo_sounders.svg",
+                "fields": null
+              }
+            }
+          },
+          "Handmade": {
+            "id": 346,
+            "name": "Хендмейд",
+            "icon": "category/Handmade.svg",
+            "fields": null,
+            "subCategories": {
+              "Embroidery": {
+                "id": 347,
+                "name": "Вышивка",
+                "icon": "category/Embroidery.svg",
+                "fields": null
+              },
+              "Handicraft": {
+                "id": 349,
+                "name": "Товары для рукоделия",
+                "icon": "category/Handicraft.svg",
+                "fields": null
+              },
+              "Other_hand": {
+                "id": 350,
+                "name": "Другое",
+                "icon": "category/Other_hand.svg",
+                "fields": null
+              },
+              "Knitting": {
+                "id": 348,
+                "name": "Вязание",
+                "icon": "category/Knitting.svg",
+                "fields": null
+              }
+            }
+          }
+        }
+      },
+      "services": {
+        "id": 351,
+        "name": "Услуги",
+        "icon": "category/services.svg",
+        "fields": null,
+        "subCategories": {
+          "Domestic_services": {
+            "id": 357,
+            "name": "Бытовые услуги",
+            "icon": "category/Domestic_services.svg",
+            "fields": null,
+            "subCategories": {
+              "Production_of_keys": {
+                "id": 358,
+                "name": "Изготовление ключей",
+                "icon": "category/Production_of_keys.svg",
+                "fields": null
+              },
+              "Clothing_sewing_and_repair": {
+                "id": 359,
+                "name": "Пошив и ремонт одежды",
+                "icon": "category/Clothing_sewing_and_repair.svg",
+                "fields": null
+              },
+              "Watch_repair": {
+                "id": 360,
+                "name": "Ремонт часов",
+                "icon": "category/Watch_repair.svg",
+                "fields": null
+              },
+              "Dry_cleaning_washing": {
+                "id": 361,
+                "name": "Химчистка, стирка",
+                "icon": "category/Dry_cleaning_washing.svg",
+                "fields": null
+              },
+              "Jewelry_services": {
+                "id": 362,
+                "name": "Ювелирные услуги",
+                "icon": "category/Jewelry_services.svg",
+                "fields": null
+              }
+            }
+          },
+          "Business_services": {
+            "id": 363,
+            "name": "Деловые услуги",
+            "icon": "category/Business_services.svg",
+            "fields": null,
+            "subCategories": {
+              "Consulting": {
+                "id": 365,
+                "name": "Консультирование",
+                "icon": "category/Consulting.svg",
+                "fields": null
+              },
+              "Typesetting_and_correcting_text": {
+                "id": 366,
+                "name": "Набор и коррекция текста",
+                "icon": "category/Typesetting_and_correcting_text.svg",
+                "fields": null
+              },
+              "Transfer": {
+                "id": 367,
+                "name": "Перевод",
+                "icon": "category/Transfer.svg",
+                "fields": null
+              },
+              "Accounting_finance": {
+                "id": 364,
+                "name": "Бухгалтерия, финансы",
+                "icon": "category/Accounting_finance.svg",
+                "fields": null
+              },
+              "Legal_services": {
+                "id": 368,
+                "name": "Юридические услуги",
+                "icon": "category/Legal_services.svg",
+                "fields": null
+              }
+            }
+          },
+          "beauty_and_health_cat2": {
+            "id": 369,
+            "name": "Красота и здоровье",
+            "icon": "category/beauty_and_health_cat2.svg",
+            "fields": null,
+            "subCategories": {
+              "Hairdresser_services": {
+                "id": 370,
+                "name": "Услуги парикмахера",
+                "icon": "category/Hairdresser_services.svg",
+                "fields": null
+              },
+              "Manicure_pedicure": {
+                "id": 371,
+                "name": "Маникюр, педикюр",
+                "icon": "category/Manicure_pedicure.svg",
+                "fields": null
+              },
+              "Makeup": {
+                "id": 372,
+                "name": "Макияж",
+                "icon": "category/Makeup.svg",
+                "fields": null
+              },
+              "SPA_services_health": {
+                "id": 374,
+                "name": "СПА_услуги, здоровье",
+                "icon": "category/SPA_services_health.svg",
+                "fields": null
+              },
+              "Tattoo_piercing": {
+                "id": 375,
+                "name": "Тату, пирсинг",
+                "icon": "category/Tattoo_piercing.svg",
+                "fields": null
+              },
+              "Other_serv": {
+                "id": 376,
+                "name": "Другое",
+                "icon": "category/Other_serv.svg",
+                "fields": null
+              },
+              "Cosmetology_hair_removal": {
+                "id": 373,
+                "name": "Косметология, эпиляция",
+                "icon": "category/Cosmetology_hair_removal.svg",
+                "fields": null
+              }
+            }
+          },
+          "Equipment_production": {
+            "id": 377,
+            "name": "Оборудование, производство",
+            "icon": "category/Equipment_production.svg",
+            "fields": null,
+            "subCategories": {
+              "Equipment_rent": {
+                "id": 378,
+                "name": "Аренда оборудования",
+                "icon": "category/Equipment_rent.svg",
+                "fields": null
+              },
+              "Production_processing": {
+                "id": 380,
+                "name": "Производство, обработка",
+                "icon": "category/Production_processing.svg",
+                "fields": null
+              },
+              "Installation_and_maintenance_of_equipment": {
+                "id": 379,
+                "name": "Монтаж и обслуживание оборудования",
+                "icon": "category/Installation_and_maintenance_of_equipment.svg",
+                "fields": null
+              }
+            }
+          },
+          "Training_courses": {
+            "id": 381,
+            "name": "Обучение, курсы",
+            "icon": "category/Training_courses.svg",
+            "fields": null,
+            "subCategories": {
+              "School_and_university_subjects": {
+                "id": 382,
+                "name": "Предметы школы и ВУЗа",
+                "icon": "category/School_and_university_subjects.svg",
+                "fields": null
+              },
+              "Foreign_languages": {
+                "id": 383,
+                "name": "Иностранные языки",
+                "icon": "category/Foreign_languages.svg",
+                "fields": null
+              },
+              "Driving": {
+                "id": 384,
+                "name": "Вождение",
+                "icon": "category/Driving.svg",
+                "fields": null
+              },
+              "Music_theater": {
+                "id": 385,
+                "name": "Музыка, театр",
+                "icon": "category/Music_theater.svg",
+                "fields": null
+              },
+              "Sports_dancing": {
+                "id": 386,
+                "name": "Спорт, танцы",
+                "icon": "category/Sports_dancing.svg",
+                "fields": null
+              },
+              "Drawing_design_handicraft": {
+                "id": 387,
+                "name": "Рисование, дизайн, рукоделие",
+                "icon": "category/Drawing_design_handicraft.svg",
+                "fields": null
+              },
+              "Professional_training": {
+                "id": 388,
+                "name": "Профессиональная подготовка",
+                "icon": "category/Professional_training.svg",
+                "fields": null
+              },
+              "Child_development_speech_therapists": {
+                "id": 389,
+                "name": "Детское развитие, логопеды",
+                "icon": "category/Child_development_speech_therapists.svg",
+                "fields": null
+              }
+            }
+          },
+          "Advertising_printing": {
+            "id": 390,
+            "name": "Реклама, полиграфия",
+            "icon": "category/Advertising_printing.svg",
+            "fields": null,
+            "subCategories": {
+              "Marketing_advertising_PR": {
+                "id": 391,
+                "name": "Маркетинг, реклама, PR",
+                "icon": "category/Marketing_advertising_PR.svg",
+                "fields": null
+              },
+              "Printing_design": {
+                "id": 392,
+                "name": "Полиграфия, дизайн",
+                "icon": "category/Printing_design.svg",
+                "fields": null
+              }
+            }
+          },
+          "Repair_and_maintenance_of_equipment": {
+            "id": 393,
+            "name": "Ремонт и обслуживание техники",
+            "icon": "category/Repair_and_maintenance_of_equipment.svg",
+            "fields": null,
+            "subCategories": {
+              "TV_sets_cat1": {
+                "id": 394,
+                "name": "Телевизоры",
+                "icon": "category/TV_sets_cat1.svg",
+                "fields": null
+              },
+              "Mobile_devices": {
+                "id": 395,
+                "name": "Мобильные устройства",
+                "icon": "category/Mobile_devices.svg",
+                "fields": null
+              },
+              "Small_household_appliances": {
+                "id": 396,
+                "name": "Мелкая бытовая техника",
+                "icon": "category/Small_household_appliances.svg",
+                "fields": null
+              },
+              "Photo_audio_and_video_equipment": {
+                "id": 397,
+                "name": "Фото_, аудио_ и видеотехника",
+                "icon": "category/Photo_audio_and_video_equipment.svg",
+                "fields": null
+              },
+              "Computer_technology": {
+                "id": 398,
+                "name": "Компьютерная техника",
+                "icon": "category/Computer_technology.svg",
+                "fields": null
+              },
+              "Gaming_consoles_cat2": {
+                "id": 399,
+                "name": "Игровые приставки",
+                "icon": "category/Gaming_consoles_cat2.svg",
+                "fields": null
+              },
+              "Large_home_appliances": {
+                "id": 400,
+                "name": "Крупная бытовая техника",
+                "icon": "category/Large_home_appliances.svg",
+                "fields": null
+              }
+            }
+          },
+          "Transport_transportation": {
+            "id": 401,
+            "name": "Транспорт, перевозки",
+            "icon": "category/Transport_transportation.svg",
+            "fields": null,
+            "subCategories": {
+              "Car_service": {
+                "id": 402,
+                "name": "Автосервис",
+                "icon": "category/Car_service.svg",
+                "fields": null
+              },
+              "Rent_a_Car": {
+                "id": 403,
+                "name": "Аренда авто",
+                "icon": "category/Rent_a_Car.svg",
+                "fields": null
+              },
+              "Commercial_transportation": {
+                "id": 404,
+                "name": "Коммерческие перевозки",
+                "icon": "category/Commercial_transportation.svg",
+                "fields": null
+              },
+              "Movers": {
+                "id": 405,
+                "name": "Грузчики",
+                "icon": "category/Movers.svg",
+                "fields": null
+              },
+              "Moving": {
+                "id": 406,
+                "name": "Переезды",
+                "icon": "category/Moving.svg",
+                "fields": null
+              },
+              "Special_equipment": {
+                "id": 407,
+                "name": "Спецтехника",
+                "icon": "category/Special_equipment.svg",
+                "fields": null
+              }
+            }
+          },
+          "Cleaning": {
+            "id": 408,
+            "name": "Уборка",
+            "icon": "category/Cleaning.svg",
+            "fields": null,
+            "subCategories": {
+              "Garbage_removal": {
+                "id": 409,
+                "name": "Вывоз мусора",
+                "icon": "category/Garbage_removal.svg",
+                "fields": null
+              },
+              "spring_cleaning": {
+                "id": 410,
+                "name": "Генеральная уборка",
+                "icon": "category/spring_cleaning.svg",
+                "fields": null
+              },
+              "Washing_windows": {
+                "id": 411,
+                "name": "Мойка окон",
+                "icon": "category/Washing_windows.svg",
+                "fields": null
+              },
+              "Cleaning_after_renovation": {
+                "id": 413,
+                "name": "Уборка после ремонта",
+                "icon": "category/Cleaning_after_renovation.svg",
+                "fields": null
+              },
+              "Carpet_cleaning": {
+                "id": 414,
+                "name": "Чистка ковров",
+                "icon": "category/Carpet_cleaning.svg",
+                "fields": null
+              },
+              "Simple_cleaning": {
+                "id": 412,
+                "name": "Простая уборка",
+                "icon": "category/Simple_cleaning.svg",
+                "fields": null
+              },
+              "Cleaning_of_upholstered_furniture": {
+                "id": 415,
+                "name": "Чистка мягкой мебели",
+                "icon": "category/Cleaning_of_upholstered_furniture.svg",
+                "fields": null
+              }
+            }
+          },
+          "Courier_orders": {
+            "id": 416,
+            "name": "Курьерские поручения",
+            "icon": "category/Courier_orders.svg",
+            "fields": null
+          },
+          "Master_for_an_hour": {
+            "id": 417,
+            "name": "Мастер на час",
+            "icon": "category/Master_for_an_hour.svg",
+            "fields": null
+          },
+          "Babysitters_nurses": {
+            "id": 418,
+            "name": "Няни, сиделки",
+            "icon": "category/Babysitters_nurses.svg",
+            "fields": null
+          },
+          "Security_safety": {
+            "id": 419,
+            "name": "Охрана, безопасность",
+            "icon": "category/Security_safety.svg",
+            "fields": null
+          },
+          "Catering_catering": {
+            "id": 420,
+            "name": "Питание, кейтеринг",
+            "icon": "category/Catering_catering.svg",
+            "fields": null
+          },
+          "Holidays_events": {
+            "id": 421,
+            "name": "Праздники, мероприятия",
+            "icon": "category/Holidays_events.svg",
+            "fields": null
+          },
+          "Repair_construction": {
+            "id": 422,
+            "name": "Ремонт, строительство",
+            "icon": "category/Repair_construction.svg",
+            "fields": null
+          },
+          "Installation_of_equipment": {
+            "id": 424,
+            "name": "Установка техники",
+            "icon": "category/Installation_of_equipment.svg",
+            "fields": null
+          },
+          "Animal_care": {
+            "id": 425,
+            "name": "Уход за животными",
+            "icon": "category/Animal_care.svg",
+            "fields": null
+          },
+          "Photo_and_video_filming": {
+            "id": 426,
+            "name": "Фото и видеосъёмка",
+            "icon": "category/Photo_and_video_filming.svg",
+            "fields": null
+          },
+          "IT_internet_telecom": {
+            "id": 352,
+            "name": "IT, интернет, телеком",
+            "icon": "category/IT_internet_telecom.svg",
+            "fields": null,
+            "subCategories": {
+              "Website_development_and_promotion": {
+                "id": 353,
+                "name": "Создание и продвижение сайтов",
+                "icon": "category/Website_development_and_promotion.svg",
+                "fields": null
+              },
+              "Installing_and_configuring_software": {
+                "id": 354,
+                "name": "Установка и настройка ПО",
+                "icon": "category/Installing_and_configuring_software.svg",
+                "fields": null
+              },
+              "Programming": {
+                "id": 356,
+                "name": "Программирование",
+                "icon": "category/Programming.svg",
+                "fields": null
+              },
+              "Setting_up_the_Internet_and_networks": {
+                "id": 355,
+                "name": "Настройка интернета и сетей",
+                "icon": "category/Setting_up_the_Internet_and_networks.svg",
+                "fields": null
+              }
+            }
+          },
+          "Garden_landscaping": {
+            "id": 423,
+            "name": "Сад, благоустройство",
+            "icon": "category/Garden_landscaping.svg",
+            "fields": null
+          }
+        }
+      },
+      "real_estate": {
+        "id": 1,
+        "name": "Недвижимость",
+        "icon": "category/real_estate.svg",
+        "fields": null,
+        "subCategories": {
+          "rooms": {
+            "id": 7,
+            "name": "Комнаты",
+            "icon": "category/rooms.svg",
+            "fields": null,
+            "subCategories": {
+              "sell_rooms": {
+                "id": 8,
+                "name": "Продать",
+                "icon": "category/sell_rooms.svg",
+                "fields": {
+                  "sell_rooms": {
+                    "area": "null",
+                    "floor": "null",
+                    "owner": "null",
+                    "floorH": "null",
+                    "layout": "null",
+                    "tenure": "null",
+                    "bargain": "null",
+                    "repairs": "null",
+                    "seriesH": "null",
+                    "bathroom": "null",
+                    "ceilingH": "null",
+                    "elevator": "null",
+                    "material": "null",
+                    "saleType": "null",
+                    "roomCount": "null",
+                    "year_built": "null",
+                    "balconyLoggia": "null",
+                    "infrastructure": "null"
+                  },
+                  "Продать": {
+                    "Лифт": "null",
+                    "Торг": "null",
+                    "Этаж": "null",
+                    "Ремонт": "null",
+                    "Площадь": "null",
+                    "Санузел": "null",
+                    "Материал": "null",
+                    "Серия дома": "null",
+                    "Планировка": "null",
+                    "Тип продажи": "null",
+                    "Год постройки": "null",
+                    "Срок владения": "null",
+                    "Высота потолка": "null",
+                    "Этажность дома": "null",
+                    "Инфраструктура": "null",
+                    "Балкон или лоджия": "null",
+                    "Владелец объявления": "null",
+                    "Количество комнат в квартире": "null"
+                  }
+                }
+              },
+              "rent_rooms": {
+                "id": 9,
+                "name": "Сдать в аренду",
+                "icon": "category/rent_rooms.svg",
+                "fields": {
+                  "rent_rooms": {
+                    "area": "null",
+                    "floor": "null",
+                    "owner": "null",
+                    "floorH": "null",
+                    "layout": "null",
+                    "pledge": "null",
+                    "bargain": "null",
+                    "repairs": "null",
+                    "seriesH": "null",
+                    "bathroom": "null",
+                    "elevator": "null",
+                    "material": "null",
+                    "furniture": "null",
+                    "roomCount": "null",
+                    "commission": "null",
+                    "facilities": "null",
+                    "lease_term": "null",
+                    "prepayment": "null",
+                    "balconyLoggia": "null",
+                    "accommodations": "null",
+                    "Communal_payments": "null"
+                  },
+                  "Сдать в аренду": {
+                    "Лифт": "null",
+                    "Торг": "null",
+                    "Этаж": "null",
+                    "Залог": "null",
+                    "Мебель": "null",
+                    "Ремонт": "null",
+                    "Площадь": "null",
+                    "Санузел": "null",
+                    "Комиссия": "null",
+                    "Материал": "null",
+                    "Удобства": "null",
+                    "Серия дома": "null",
+                    "Планировка": "null",
+                    "Предоплата": "null",
+                    "Срок аренды": "null",
+                    "Этажность дома": "null",
+                    "Балкон или лоджия": "null",
+                    "Условия проживания": "null",
+                    "Владелец объявления": "null",
+                    "Коммунальные платежи": "null",
+                    "Количество комнат в квартире": "null"
+                  }
+                }
+              }
+            }
+          },
+          "houses_and_cottages": {
+            "id": 10,
+            "name": "дома, дачи и коттеджи",
+            "icon": "category/houses_and_cottages.svg",
+            "fields": null,
+            "subCategories": {
+              "sell_houses_and_cottages": {
+                "id": 11,
+                "name": "Продать",
+                "icon": "category/sell_houses_and_cottages.svg",
+                "fields": {
+                  "Продать": {
+                    "Газ": "null",
+                    "Гараж": "null",
+                    "Тип дома": "null",
+                    "Отопление": "null",
+                    "Этажность": "null",
+                    "Тип продажи": "null",
+                    "Площадь дома": "null",
+                    "Коммуникации": "null",
+                    "Год постройки": "null",
+                    "Материал стен": "null",
+                    "Срок владения": "null",
+                    "Водоснабжение": "null",
+                    "Дополнительно": "null",
+                    "Электричество": "null",
+                    "Площадь участка": "null",
+                    "Количество комнат": "null",
+                    "Владелец объявления": "null",
+                    "Количество балконов": "null",
+                    "Количество санузлов": "null",
+                    "Тип земельного участка": "null"
+                  },
+                  "sell_houses_and_cottages": {
+                    "gas": "null",
+                    "area": "null",
+                    "owner": "null",
+                    "garage": "null",
+                    "tenure": "null",
+                    "heating": "null",
+                    "landType": "null",
+                    "saleType": "null",
+                    "land_area": "null",
+                    "roomCount": "null",
+                    "house_type": "null",
+                    "year_built": "null",
+                    "electricity": "null",
+                    "additionally": "null",
+                    "water_supply": "null",
+                    "balconyLoggia": "null",
+                    "wall_material": "null",
+                    "communications": "null",
+                    "NumberBathrooms": "null",
+                    "number_of_storeys": "null"
+                  }
+                }
+              },
+              "rent_houses_and_cottages": {
+                "id": 12,
+                "name": "Сдать в аренду",
+                "icon": "category/rent_houses_and_cottages.svg",
+                "fields": {
+                  "rent_houses_and_cottages": {
+                    "gas": "null",
+                    "area": "null",
+                    "owner": "null",
+                    "garage": "null",
+                    "pledge": "null",
+                    "bargain": "null",
+                    "heating": "null",
+                    "landType": "null",
+                    "land_area": "null",
+                    "roomCount": "null",
+                    "commission": "null",
+                    "facilities": "null",
+                    "house_type": "null",
+                    "lease_term": "null",
+                    "multimedia": "null",
+                    "numberBeds": "null",
+                    "prepayment": "null",
+                    "electricity": "null",
+                    "additionally": "null",
+                    "water_supply": "null",
+                    "balconyLoggia": "null",
+                    "wall_material": "null",
+                    "accommodations": "null",
+                    "communications": "null",
+                    "NumberBathrooms": "null",
+                    "Communal_payments": "null",
+                    "number_of_storeys": "null"
+                  },
+                  "Сдать в аренду": {
+                    "Газ": "null",
+                    "Торг": "null",
+                    "Гараж": "null",
+                    "Залог": "null",
+                    "Тип дома": "null",
+                    "Комиссия": "null",
+                    "Удобства": "null",
+                    "Отопление": "null",
+                    "Этажность": "null",
+                    "Предоплата": "null",
+                    "Срок аренды": "null",
+                    "Мультимедиа": "null",
+                    "Площадь дома": "null",
+                    "Коммуникации": "null",
+                    "Материал стен": "null",
+                    "Водоснабжение": "null",
+                    "Дополнительно": "null",
+                    "Электричество": "null",
+                    "Площадь участка": "null",
+                    "Количество комнат": "null",
+                    "Условия проживания": "null",
+                    "Владелец объявления": "null",
+                    "Количество балконов": "null",
+                    "Количество санузлов": "null",
+                    "Коммунальные платежи": "null",
+                    "Тип земельного участка": "null",
+                    "Количество спальных мест": "null"
+                  }
+                }
+              }
+            }
+          },
+          "commercial_property_second": {
+            "id": 13,
+            "name": "Коммерческая недвижимость",
+            "icon": "category/commercial_property_second.svg",
+            "fields": null,
+            "subCategories": {
+              "Office_space": {
+                "id": 14,
+                "name": "Офисное помещение",
+                "icon": "category/Office_space.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_office_space ": {
+                    "id": 15,
+                    "name": "Продать",
+                    "icon": "category/sell_office_space .svg",
+                    "fields": null
+                  },
+                  "rent_office_space": {
+                    "id": 16,
+                    "name": "Сдать в аренду",
+                    "icon": "category/rent_office_space.svg",
+                    "fields": {
+                      "rent_office_space": {
+                        "area": "null",
+                        "class": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "access": "null",
+                        "floorH": "null",
+                        "layout": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "elevator": "null",
+                        "entrance": "null",
+                        "included": "null",
+                        "furniture": "null",
+                        "commission": "null",
+                        "prepayment": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null",
+                        "typeTransaction": "null",
+                        "security_payment": "null"
+                      },
+                      "Сдать в аренду": {
+                        "Вход": "null",
+                        "Лифт": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Доступ": "null",
+                        "Мебель": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Включено": "null",
+                        "Комиссия": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Тип сделки": "null",
+                        "Планировка": "null",
+                        "Предоплата": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Владелец объявления": "null",
+                        "Обеспечительный платеж": "null",
+                        "Электрическая мощность": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "commercial_premises_second": {
+                "id": 17,
+                "name": "Торговое помещение",
+                "icon": "category/commercial_premises_second.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_commercial_premises": {
+                    "id": 18,
+                    "name": "Продать",
+                    "icon": "category/sell_commercial_premises.svg",
+                    "fields": {
+                      "Продать": {
+                        "Вход": "null",
+                        "Лифт": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Мебель": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Инфраструктура": "null",
+                        "Условия продажи": "null",
+                        "Этажней в здании": "null",
+                        "Владелец объявления": "null",
+                        "Электрическая мощность": "null"
+                      },
+                      "sell_commercial_premises": {
+                        "area": "null",
+                        "class": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "elevator": "null",
+                        "entrance": "null",
+                        "saleType": "null",
+                        "furniture": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null"
+                      }
+                    }
+                  },
+                  "rent_commercial_premises": {
+                    "id": 19,
+                    "name": "Сдать в аренду",
+                    "icon": "category/rent_commercial_premises.svg",
+                    "fields": {
+                      "rent_commercial_premises": {
+                        "area": "null",
+                        "class": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "elevator": "null",
+                        "entrance": "null",
+                        "included": "null",
+                        "furniture": "null",
+                        "commission": "null",
+                        "prepayment": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null",
+                        "typeTransaction": "null",
+                        "security_payment": "null"
+                      },
+                      "Сдать в аренду": {
+                        "Вход": "null",
+                        "Лифт": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Мебель": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Включено": "null",
+                        "Комиссия": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Тип сделки": "null",
+                        "Предоплата": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Инфраструктура": "null",
+                        "Этажней в здании": "null",
+                        "Владелец объявления": "null",
+                        "Обеспечительный платеж": "null",
+                        "Электрическая мощность": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "warehouse_space": {
+                "id": 20,
+                "name": "Складское помещение",
+                "icon": "category/warehouse_space.svg",
+                "fields": null,
+                "subCategories": {
+                  "rent_warehouse_space": {
+                    "id": 22,
+                    "name": "Сдать в аренду",
+                    "icon": "category/rent_warehouse_space.svg",
+                    "fields": {
+                      "rent_warehouse_space": {
+                        "area": "null",
+                        "class": "null",
+                        "crane": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "elevator": "null",
+                        "entrance": "null",
+                        "included": "null",
+                        "commission": "null",
+                        "prepayment": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null",
+                        "typeTransaction": "null",
+                        "security_payment": "null"
+                      },
+                      "Сдать в аренду": {
+                        "Вход": "null",
+                        "Кран": "null",
+                        "Лифт": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Включено": "null",
+                        "Комиссия": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Тип сделки": "null",
+                        "Предоплата": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Владелец объявления": "null",
+                        "Обеспечительный платеж": "null",
+                        "Электрическая мощность": "null"
+                      }
+                    }
+                  },
+                  "sell_warehouse_space": {
+                    "id": 21,
+                    "name": "Продать",
+                    "icon": "category/sell_warehouse_space.svg",
+                    "fields": {
+                      "Продать": {
+                        "Вход": "null",
+                        "Кран": "null",
+                        "Лифт": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Условия продажи": "null",
+                        "Владелец объявления": "null",
+                        "Электрическая мощность": "null"
+                      },
+                      "sell_warehouse_space": {
+                        "area": "null",
+                        "class": "null",
+                        "crane": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "elevator": "null",
+                        "entrance": "null",
+                        "saleType": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "production_room_second": {
+                "id": 23,
+                "name": "Производственное помещение",
+                "icon": "category/production_room_second.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_production_room": {
+                    "id": 24,
+                    "name": "Продать",
+                    "icon": "category/sell_production_room.svg",
+                    "fields": {
+                      "Продать": {
+                        "Вход": "null",
+                        "Кран": "null",
+                        "Лифт": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Условия продажи": "null",
+                        "Владелец объявления": "null",
+                        "Электрическая мощность": "null"
+                      },
+                      "sell_production_room": {
+                        "area": "null",
+                        "class": "null",
+                        "crane": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "elevator": "null",
+                        "entrance": "null",
+                        "saleType": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null"
+                      }
+                    }
+                  },
+                  "rent_production_room": {
+                    "id": 25,
+                    "name": "Сдать в аренду",
+                    "icon": "category/rent_production_room.svg",
+                    "fields": {
+                      "rent_production_room": {
+                        "area": "null",
+                        "class": "null",
+                        "crane": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "elevator": "null",
+                        "entrance": "null",
+                        "included": "null",
+                        "commission": "null",
+                        "prepayment": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null",
+                        "typeTransaction": "null",
+                        "security_payment": "null"
+                      },
+                      "Сдать в аренду": {
+                        "Вход": "null",
+                        "Кран": "null",
+                        "Лифт": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Включено": "null",
+                        "Комиссия": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Тип сделки": "null",
+                        "Предоплата": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Владелец объявления": "null",
+                        "Обеспечительный платеж": "null",
+                        "Электрическая мощность": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "free_premises_second": {
+                "id": 26,
+                "name": "Помещение свободного назначения",
+                "icon": "category/free_premises_second.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_free_premises": {
+                    "id": 27,
+                    "name": "Продать",
+                    "icon": "category/sell_free_premises.svg",
+                    "fields": {
+                      "Продать": {
+                        "Вход": "null",
+                        "Этаж": "null",
+                        "Мебель": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Условия продажи": "null",
+                        "Владелец объявления": "null",
+                        "Возможное назначение": "null",
+                        "Электрическая мощность": "null"
+                      },
+                      "sell_free_premises": {
+                        "area": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "entrance": "null",
+                        "saleType": "null",
+                        "furniture": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null",
+                        "possible_appointment": "null"
+                      }
+                    }
+                  },
+                  "rent_free_premises": {
+                    "id": 28,
+                    "name": "Сдать в аренду",
+                    "icon": "category/rent_free_premises.svg",
+                    "fields": {
+                      "rent_free_premises": {
+                        "area": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "entrance": "null",
+                        "included": "null",
+                        "furniture": "null",
+                        "commission": "null",
+                        "prepayment": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null",
+                        "typeTransaction": "null",
+                        "security_payment": "null",
+                        "possible_appointment": "null"
+                      },
+                      "Сдать в аренду": {
+                        "Вход": "null",
+                        "Этаж": "null",
+                        "Мебель": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Включено": "null",
+                        "Комиссия": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Тип сделки": "null",
+                        "Предоплата": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Владелец объявления": "null",
+                        "Возможное назначение": "null",
+                        "Обеспечительный платеж": "null",
+                        "Электрическая мощность": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "Building_estate": {
+                "id": 29,
+                "name": "Здание",
+                "icon": "category/Building_estate.svg",
+                "fields": null,
+                "subCategories": {
+                  "rent_building": {
+                    "id": 31,
+                    "name": "Сдать в аренду",
+                    "icon": "category/rent_building.svg",
+                    "fields": {
+                      "rent_building": {
+                        "area": "null",
+                        "class": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "entrance": "null",
+                        "included": "null",
+                        "furniture": "null",
+                        "commission": "null",
+                        "prepayment": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null",
+                        "typeTransaction": "null",
+                        "security_payment": "null",
+                        "possible_appointment": "null"
+                      },
+                      "Сдать в аренду": {
+                        "Вход": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Мебель": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Включено": "null",
+                        "Комиссия": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Тип сделки": "null",
+                        "Предоплата": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Владелец объявления": "null",
+                        "Возможное назначение": "null",
+                        "Обеспечительный платеж": "null",
+                        "Электрическая мощность": "null"
+                      }
+                    }
+                  },
+                  "sell_building": {
+                    "id": 30,
+                    "name": "Продать",
+                    "icon": "category/sell_building.svg",
+                    "fields": {
+                      "sell_building": {
+                        "area": "null",
+                        "class": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "parking": "null",
+                        "repairs": "null",
+                        "ceilingH": "null",
+                        "entrance": "null",
+                        "saleType": "null",
+                        "furniture": "null",
+                        "year_built": "null",
+                        "additionally": "null",
+                        "buildingType": "null",
+                        "electricPower": "null",
+                        "communications": "null",
+                        "infrastructure": "null",
+                        "possible_appointment": "null"
+                      },
+                      "Продать": {
+                        "Вход": "null",
+                        "Этаж": "null",
+                        "Класс": "null",
+                        "Мебель": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Парковка": "null",
+                        "Тип здания": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Дополнительно": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Условия продажи": "null",
+                        "Владелец объявления": "null",
+                        "Возможное назначение": "null",
+                        "Электрическая мощность": "null"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "land": {
+            "id": 32,
+            "name": "Земельные участки",
+            "icon": "category/land.svg",
+            "fields": null,
+            "subCategories": {
+              "izhs": {
+                "id": 33,
+                "name": "ИЖС",
+                "icon": "category/izhs.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_izhs": {
+                    "id": 34,
+                    "name": "Продать",
+                    "icon": "category/sell_izhs.svg",
+                    "fields": {
+                      "sell_izhs": {
+                        "area": "null",
+                        "road": "null",
+                        "owner": "null",
+                        "typeLaw": "null",
+                        "termsSale": "null",
+                        "communications": "null",
+                        "distanceToCity": "null",
+                        "projectAvailability": "null",
+                        "AvailabilityBuildings": "null"
+                      },
+                      "Продать": {
+                        "Дорога": "null",
+                        "Площадь": "null",
+                        "Вид права": "null",
+                        "Наличие проекта": "null",
+                        "Условия продажи": "null",
+                        "Наличие построек": "null",
+                        "Владелец объявления": "null",
+                        "Расстояние до города": "null",
+                        "Наличие коммуникаций": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "SNT": {
+                "id": 35,
+                "name": "СНТ",
+                "icon": "category/SNT.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_SNT": {
+                    "id": 36,
+                    "name": "Продать",
+                    "icon": "category/sell_SNT.svg",
+                    "fields": {
+                      "sell_SNT": {
+                        "area": "null",
+                        "road": "null",
+                        "owner": "null",
+                        "typeLaw": "null",
+                        "termsSale": "null",
+                        "communications": "null",
+                        "distanceToCity": "null",
+                        "AvailabilityBuildings": "null"
+                      },
+                      "Продать": {
+                        "Дорога": "null",
+                        "Площадь": "null",
+                        "Вид права": "null",
+                        "Условия продажи": "null",
+                        "Наличие построек": "null",
+                        "Владелец объявления": "null",
+                        "Расстояние до города": "null",
+                        "Наличие коммуникаций": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "AgriculturalLand": {
+                "id": 37,
+                "name": "Сельско_хозяйственные земли",
+                "icon": "category/AgriculturalLand.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_agriculturalLand": {
+                    "id": 38,
+                    "name": "Продать",
+                    "icon": "category/sell_agriculturalLand.svg",
+                    "fields": {
+                      "Продать": {
+                        "Дорога": "null",
+                        "Площадь": "null",
+                        "Вид права": "null",
+                        "Наличие проекта": "null",
+                        "Условия продажи": "null",
+                        "Наличие построек": "null",
+                        "Владелец объявления": "null",
+                        "Расстояние до города": "null",
+                        "Наличие коммуникаций": "null"
+                      },
+                      "sell_agriculturalLand": {
+                        "area": "null",
+                        "road": "null",
+                        "owner": "null",
+                        "typeLaw": "null",
+                        "termsSale": "null",
+                        "communications": "null",
+                        "distanceToCity": "null",
+                        "projectAvailability": "null",
+                        "AvailabilityBuildings": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "commercialLand": {
+                "id": 39,
+                "name": "Земли коммерческого назначения",
+                "icon": "category/commercialLand.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_commercialLand": {
+                    "id": 40,
+                    "name": "Продать",
+                    "icon": "category/sell_commercialLand.svg",
+                    "fields": {
+                      "Продать": {
+                        "Дорога": "null",
+                        "Площадь": "null",
+                        "Вид права": "null",
+                        "Наличие проекта": "null",
+                        "Условия продажи": "null",
+                        "Наличие построек": "null",
+                        "Владелец объявления": "null",
+                        "Расстояние до города": "null",
+                        "Наличие коммуникаций": "null"
+                      },
+                      "sell_commercialLand": {
+                        "area": "null",
+                        "road": "null",
+                        "owner": "null",
+                        "typeLaw": "null",
+                        "termsSale": "null",
+                        "communications": "null",
+                        "distanceToCity": "null",
+                        "projectAvailability": "null",
+                        "AvailabilityBuildings": "null"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "garages_and_parking_spaces_second": {
+            "id": 41,
+            "name": "Гаражи и парковочные места",
+            "icon": "category/garages_and_parking_spaces_second.svg",
+            "fields": null,
+            "subCategories": {
+              "garage": {
+                "id": 42,
+                "name": "Гараж",
+                "icon": "category/garage.svg",
+                "fields": {
+                  "garage": {
+                    "area": "null",
+                    "owner": "null",
+                    "material": "null",
+                    "saleType": "null",
+                    "additionally": "null",
+                    "communications": "null",
+                    "infrastructure": "null"
+                  },
+                  "Гараж": {
+                    "Площадь": "null",
+                    "Материал": "null",
+                    "Коммуникации": "null",
+                    "Дополнительно": "null",
+                    "Инфраструктура": "null",
+                    "Условия продажи": "null",
+                    "Владелец объявления": "null"
+                  }
+                }
+              },
+              "parkingPlace": {
+                "id": 43,
+                "name": "Машиноместо",
+                "icon": "category/parkingPlace.svg",
+                "fields": {
+                  "parkingPlace": {
+                    "area": "null",
+                    "owner": "null",
+                    "typeLaw": "null",
+                    "saleType": "null",
+                    "typePark": "null",
+                    "additionally": "null",
+                    "communications": "null",
+                    "infrastructure": "null"
+                  },
+                  "Машиноместо": {
+                    "Тип": "null",
+                    "Площадь": "null",
+                    "Вид права": "null",
+                    "Коммуникации": "null",
+                    "Дополнительно": "null",
+                    "Инфраструктура": "null",
+                    "Условия продажи": "null",
+                    "Владелец объявления": "null"
+                  }
+                }
+              }
+            }
+          },
+          "Real_estate_abroad": {
+            "id": 44,
+            "name": "Недвижимость за рубежом",
+            "icon": "category/Real_estate_abroad.svg",
+            "fields": null,
+            "subCategories": {
+              "apartments": {
+                "id": 45,
+                "name": "Апартаменты",
+                "icon": "category/apartments.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_apartments_abroad": {
+                    "id": 46,
+                    "name": "Продать",
+                    "icon": "category/sell_apartments_abroad.svg",
+                    "fields": null
+                  },
+                  "rent_apartments_abroad": {
+                    "id": 47,
+                    "name": "Сдать в аренду",
+                    "icon": "category/rent_apartments_abroad.svg",
+                    "fields": {
+                      "rent_apartments_abroad": {
+                        "area": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "layout": "null",
+                        "pledge": "null",
+                        "bargain": "null",
+                        "repairs": "null",
+                        "seriesH": "null",
+                        "bathroom": "null",
+                        "elevator": "null",
+                        "material": "null",
+                        "furniture": "null",
+                        "commission": "null",
+                        "facilities": "null",
+                        "lease_term": "null",
+                        "prepayment": "null",
+                        "roomNumber": "null",
+                        "balconyLoggia": "null",
+                        "accommodations": "null",
+                        "Communal_payments": "null"
+                      },
+                      "Сдать в аренду": {
+                        "Лифт": "null",
+                        "Торг": "null",
+                        "Этаж": "null",
+                        "Залог": "null",
+                        "Мебель": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Санузел": "null",
+                        "Комиссия": "null",
+                        "Материал": "null",
+                        "Удобства": "null",
+                        "Серия дома": "null",
+                        "Планировка": "null",
+                        "Предоплата": "null",
+                        "Срок аренды": "null",
+                        "Этажность дома": "null",
+                        "Балкон или лоджия": "null",
+                        "Количество комнат": "null",
+                        "Условия проживания": "null",
+                        "Владелец объявления": "null",
+                        "Коммунальные платежи": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "houses_and_cottages_second": {
+                "id": 48,
+                "name": "дома, вилла",
+                "icon": "category/houses_and_cottages_second.svg",
+                "fields": null,
+                "subCategories": {
+                  "sell_houses_and_cottages_abroad": {
+                    "id": 49,
+                    "name": "Продать",
+                    "icon": "category/sell_houses_and_cottages_abroad.svg",
+                    "fields": {
+                      "Продать": {
+                        "Газ": "null",
+                        "Гараж": "null",
+                        "Тип дома": "null",
+                        "Отопление": "null",
+                        "Этажность": "null",
+                        "Тип продажи": "null",
+                        "Площадь дома": "null",
+                        "Коммуникации": "null",
+                        "Год постройки": "null",
+                        "Материал стен": "null",
+                        "Срок владения": "null",
+                        "Водоснабжение": "null",
+                        "Дополнительно": "null",
+                        "Электричество": "null",
+                        "Площадь участка": "null",
+                        "Количество комнат": "null",
+                        "Владелец объявления": "null",
+                        "Количество балконов": "null",
+                        "Количество санузлов": "null",
+                        "Тип земельного участка": "null"
+                      },
+                      "sell_houses_and_cottages_abroad": {
+                        "gas": "null",
+                        "area": "null",
+                        "owner": "null",
+                        "garage": "null",
+                        "tenure": "null",
+                        "heating": "null",
+                        "landType": "null",
+                        "saleType": "null",
+                        "land_area": "null",
+                        "roomCount": "null",
+                        "house_type": "null",
+                        "year_built": "null",
+                        "electricity": "null",
+                        "additionally": "null",
+                        "water_supply": "null",
+                        "balconyLoggia": "null",
+                        "wall_material": "null",
+                        "communications": "null",
+                        "NumberBathrooms": "null",
+                        "number_of_storeys": "null"
+                      }
+                    }
+                  },
+                  "rent_houses_and_cottages_abroad": {
+                    "id": 50,
+                    "name": "Сдать в аренду",
+                    "icon": "category/rent_houses_and_cottages_abroad.svg",
+                    "fields": {
+                      "Сдать в аренду": {
+                        "Газ": "null",
+                        "Торг": "null",
+                        "Гараж": "null",
+                        "Залог": "null",
+                        "Тип дома": "null",
+                        "Комиссия": "null",
+                        "Удобства": "null",
+                        "Отопление": "null",
+                        "Этажность": "null",
+                        "Предоплата": "null",
+                        "Срок аренды": "null",
+                        "Мультимедиа": "null",
+                        "Площадь дома": "null",
+                        "Коммуникации": "null",
+                        "Материал стен": "null",
+                        "Водоснабжение": "null",
+                        "Дополнительно": "null",
+                        "Электричество": "null",
+                        "Площадь участка": "null",
+                        "Количество комнат": "null",
+                        "Условия проживания": "null",
+                        "Владелец объявления": "null",
+                        "Количество балконов": "null",
+                        "Количество санузлов": "null",
+                        "Коммунальные платежи": "null",
+                        "Тип земельного участка": "null",
+                        "Количество спальных мест": "null"
+                      },
+                      "rent_houses_and_cottages_abroad": {
+                        "gas": "null",
+                        "area": "null",
+                        "owner": "null",
+                        "garage": "null",
+                        "pledge": "null",
+                        "bargain": "null",
+                        "heating": "null",
+                        "landType": "null",
+                        "land_area": "null",
+                        "roomCount": "null",
+                        "commission": "null",
+                        "facilities": "null",
+                        "house_type": "null",
+                        "lease_term": "null",
+                        "multimedia": "null",
+                        "numberBeds": "null",
+                        "prepayment": "null",
+                        "electricity": "null",
+                        "additionally": "null",
+                        "water_supply": "null",
+                        "balconyLoggia": "null",
+                        "wall_material": "null",
+                        "accommodations": "null",
+                        "communications": "null",
+                        "NumberBathrooms": "null",
+                        "Communal_payments": "null",
+                        "number_of_storeys": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "commercial_property": {
+                "id": 51,
+                "name": "Коммерческая недвижимость",
+                "icon": "category/commercial_property.svg",
+                "fields": null,
+                "subCategories": {
+                  "Office_space_second": {
+                    "id": 52,
+                    "name": "Офисное помещение",
+                    "icon": "category/Office_space_second.svg",
+                    "fields": null
+                  },
+                  "commercial_premises": {
+                    "id": 53,
+                    "name": "Торговое помещение",
+                    "icon": "category/commercial_premises.svg",
+                    "fields": null
+                  },
+                  "warehouse_space_second": {
+                    "id": 54,
+                    "name": "Складское помещение",
+                    "icon": "category/warehouse_space_second.svg",
+                    "fields": null
+                  },
+                  "production_room": {
+                    "id": 55,
+                    "name": "Производственное помещение",
+                    "icon": "category/production_room.svg",
+                    "fields": null
+                  },
+                  "free_premises": {
+                    "id": 56,
+                    "name": "Помещение свободного назначения",
+                    "icon": "category/free_premises.svg",
+                    "fields": null
+                  },
+                  "Building_second": {
+                    "id": 57,
+                    "name": "Здание",
+                    "icon": "category/Building_second.svg",
+                    "fields": null
+                  }
+                }
+              },
+              "garages_and_parking_spaces": {
+                "id": 58,
+                "name": "Гаражи и парковочные места",
+                "icon": "category/garages_and_parking_spaces.svg",
+                "fields": null,
+                "subCategories": {
+                  "garageabroad": {
+                    "id": 59,
+                    "name": "Гараж",
+                    "icon": "category/garageabroad.svg",
+                    "fields": {
+                      "Гараж": {
+                        "Площадь": "null",
+                        "Материал": "null",
+                        "Коммуникации": "null",
+                        "Дополнительно": "null",
+                        "Инфраструктура": "null",
+                        "Условия продажи": "null",
+                        "Владелец объявления": "null"
+                      },
+                      "garageabroad": {
+                        "area": "null",
+                        "owner": "null",
+                        "material": "null",
+                        "saleType": "null",
+                        "additionally": "null",
+                        "communications": "null",
+                        "infrastructure": "null"
+                      }
+                    }
+                  },
+                  "parkingPlaceabroad": {
+                    "id": 60,
+                    "name": "Машиноместо",
+                    "icon": "category/parkingPlaceabroad.svg",
+                    "fields": {
+                      "parkingPlaceabroad": {
+                        "area": "null",
+                        "owner": "null",
+                        "typeLaw": "null",
+                        "saleType": "null",
+                        "typePark": "null",
+                        "additionally": "null",
+                        "communications": "null",
+                        "infrastructure": "null"
+                      },
+                      "Машиноместо": {
+                        "Тип": "null",
+                        "Площадь": "null",
+                        "Вид права": "null",
+                        "Коммуникации": "null",
+                        "Дополнительно": "null",
+                        "Инфраструктура": "null",
+                        "Условия продажи": "null",
+                        "Владелец объявления": "null"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "apartments_kv": {
+            "id": 2,
+            "name": "квартиры",
+            "icon": "category/apartments_kv.svg",
+            "fields": null,
+            "subCategories": {
+              "sell_apartments": {
+                "id": 3,
+                "name": "Продать",
+                "icon": "category/sell_apartments.svg",
+                "fields": null,
+                "subCategories": {
+                  "new_building": {
+                    "id": 4,
+                    "name": "Новостройка",
+                    "icon": "category/new_building.svg",
+                    "fields": {
+                      "new_building": {
+                        "area": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "layout": "null",
+                        "seriesH": "null",
+                        "bathroom": "null",
+                        "ceilingH": "null",
+                        "deadline": "null",
+                        "elevator": "null",
+                        "material": "null",
+                        "saleType": "null",
+                        "finishing": "null",
+                        "roomNumber": "null",
+                        "balconyLoggia": "null",
+                        "infrastructure": "null"
+                      },
+                      "Новостройка": {
+                        "Лифт": "null",
+                        "Этаж": "null",
+                        "Отделка": "null",
+                        "Площадь": "null",
+                        "Санузел": "null",
+                        "Материал": "null",
+                        "Серия дома": "null",
+                        "Срок сдачи": "null",
+                        "Планировка": "null",
+                        "Тип продажи": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Балкон или лоджия": "null",
+                        "Количество комнат": "null",
+                        "Владелец объявления": "null"
+                      }
+                    }
+                  },
+                  "secondary_housing": {
+                    "id": 5,
+                    "name": "Вторичное жилье",
+                    "icon": "category/secondary_housing.svg",
+                    "fields": {
+                      "secondary_housing": {
+                        "area": "null",
+                        "floor": "null",
+                        "owner": "null",
+                        "floorH": "null",
+                        "layout": "null",
+                        "tenure": "null",
+                        "bargain": "null",
+                        "repairs": "null",
+                        "seriesH": "null",
+                        "bathroom": "null",
+                        "ceilingH": "null",
+                        "elevator": "null",
+                        "material": "null",
+                        "saleType": "null",
+                        "roomNumber": "null",
+                        "year_built": "null",
+                        "balconyLoggia": "null",
+                        "infrastructure": "null"
+                      },
+                      "Вторичное жилье": {
+                        "Лифт": "null",
+                        "Торг": "null",
+                        "Этаж": "null",
+                        "Ремонт": "null",
+                        "Площадь": "null",
+                        "Санузел": "null",
+                        "Материал": "null",
+                        "Серия дома": "null",
+                        "Планировка": "null",
+                        "Тип продажи": "null",
+                        "Год постройки": "null",
+                        "Срок владения": "null",
+                        "Высота потолка": "null",
+                        "Этажность дома": "null",
+                        "Инфраструктура": "null",
+                        "Балкон или лоджия": "null",
+                        "Количество комнат": "null",
+                        "Владелец объявления": "null"
+                      }
+                    }
+                  }
+                }
+              },
+              "rent_apartments": {
+                "id": 6,
+                "name": "Сдать в аренду",
+                "icon": "category/rent_apartments.svg",
+                "fields": {
+                  "rent_apartments": {
+                    "area": "null",
+                    "floor": "null",
+                    "owner": "null",
+                    "floorH": "null",
+                    "layout": "null",
+                    "pledge": "null",
+                    "bargain": "null",
+                    "repairs": "null",
+                    "seriesH": "null",
+                    "bathroom": "null",
+                    "elevator": "null",
+                    "material": "null",
+                    "furniture": "null",
+                    "commission": "null",
+                    "facilities": "null",
+                    "lease_term": "null",
+                    "prepayment": "null",
+                    "roomNumber": "null",
+                    "balconyLoggia": "null",
+                    "accommodations": "null",
+                    "Communal_payments": "null"
+                  },
+                  "Сдать в аренду": {
+                    "Лифт": "null",
+                    "Торг": "null",
+                    "Этаж": "null",
+                    "Залог": "null",
+                    "Мебель": "null",
+                    "Ремонт": "null",
+                    "Площадь": "null",
+                    "Санузел": "null",
+                    "Комиссия": "null",
+                    "Материал": "null",
+                    "Удобства": "null",
+                    "Серия дома": "null",
+                    "Планировка": "null",
+                    "Предоплата": "null",
+                    "Срок аренды": "null",
+                    "Этажность дома": "null",
+                    "Балкон или лоджия": "null",
+                    "Количество комнат": "null",
+                    "Условия проживания": "null",
+                    "Владелец объявления": "null",
+                    "Коммунальные платежи": "null"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  
+  

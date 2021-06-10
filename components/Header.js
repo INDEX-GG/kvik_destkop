@@ -6,6 +6,7 @@ import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import Logo from '../UI/icons/Logo';
 import RegForm from './RegForm';
+import Categories from './Categories'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,9 +34,11 @@ const useStyles = makeStyles((theme) => ({
         right: '14px',
         height: '100%',
     },
+    
 }));
 
 const Header = () => {
+    const [openCat, setCategories] = useState();
     const [openRegForm, setOpenRegForm] = useState(false);
     const handleRegFormDialog = () => setOpenRegForm(!openRegForm);
     const classes = useStyles();
@@ -54,6 +57,7 @@ const Header = () => {
             document.removeEventListener('scroll', listenScroll);
     }, []);
 
+    
     return (
         <>
             <Container>
@@ -65,7 +69,7 @@ const Header = () => {
             <AppBar className={headerScroll} position="sticky" color="secondary">
                 <Container className={classes.root}>
                     <IconButton onClick={() => Router.push('/')} className={classes.logo}><Logo /></IconButton>
-                    <Button variant="contained" color="primary">Категории</Button>
+                    <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>Категории</Button>
                     <Box className={classes.input}>
                         <TextField variant='outlined' size='small' placeholder="Поиск по объявлениям" fullWidth />
                         <SearchIcon className={classes.icon} />
@@ -76,6 +80,7 @@ const Header = () => {
                 <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
                     <RegForm Close={handleRegFormDialog} />
                 </Dialog>
+                { !openCat ? '' :<Categories/>}  
             </AppBar>
         </>
     )

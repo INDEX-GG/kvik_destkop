@@ -63,9 +63,14 @@ const theme = createMuiTheme({
             display: 'flex',
          },
       },
+      MuiList: {
+                  root: {
+                     display: 'flex',
+                  }
+               },
       MuiButton: {
          root: {
-
+           
          }
       },
 
