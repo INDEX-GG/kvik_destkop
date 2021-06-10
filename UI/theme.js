@@ -39,7 +39,7 @@ import { createMuiTheme } from '@material-ui/core';
                },
                MuiBox: {
                    root: {
-                    display: 'flex',
+                    display: 'flex !important',
                    },
                },
                MuiButton: {
