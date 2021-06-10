@@ -1,12 +1,13 @@
-import { AppBar, Box, Button, Container, IconButton, InputBase, makeStyles, Toolbar } from '@material-ui/core';
+import {useState} from 'react';
+import { AppBar, Box, Button, Container, Dialog, IconButton, InputBase, makeStyles, Toolbar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import React from 'react'
-import Logo from '../UI/icons/Logo'
+import React from 'react';
+import Logo from '../UI/icons/Logo';
+import RegForm from './RegForm';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         '&>*': {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = () => {
-
+const [open, setOpen] = useState();
 const classes = useStyles();
 
     return (
@@ -38,7 +39,7 @@ const classes = useStyles();
                     UpPanel
                 </Container>
             </Toolbar> */}
-            <AppBar position="sticky" color="transparent">
+            <AppBar position="sticky" color="secondary">
                 <Container className={classes.root}>
                     <IconButton><Logo /></IconButton>
                     <Button variant="contained" color="primary">Категории</Button>
@@ -47,8 +48,9 @@ const classes = useStyles();
                         <SearchIcon className={classes.icon} />
                     </Box>
                     <Button variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    <Button variant="contained">Войти</Button>
+                    <Button onClick={() => setOpen(!open)} variant="contained">Войти</Button>
                 </Container>
+                <Dialog open={open} onClose={() => setOpen(!open)} fullWidth maxWidth='sm'><RegForm /></Dialog>
             </AppBar>
         </>
     )
