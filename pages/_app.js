@@ -5,31 +5,10 @@ import "swiper/components/thumbs/thumbs.min.css";
 import '../sass/style.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core';
+import theme from '../UI/theme';
+
 
 function MyApp({ Component, pageProps }) {
-
-   const theme = createMuiTheme({
-      palette: {
-         primary: {
-            main: '#00A0AB',
-         },
-      },
-      typography: {
-         button: {
-            textTransform: "none",
-            whiteSpace: 'none'
-         }
-      },
-      overrides: {
-         MuiButton: {
-            root: {
-               borderRadius: '8px',
-            }
-         }
-      }
-   });
-
 
    return (
       <>
