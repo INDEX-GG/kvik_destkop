@@ -1,12 +1,10 @@
 import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import MainLayout from '../layout/MainLayout';
 import Router from 'next/router';
 
 function Error404() {
     return (
-        <MainLayout>
             <div className="error__page">
                 <div className="error__page_wrapper">
                     <h5 className="error__title">404</h5>
@@ -15,7 +13,6 @@ function Error404() {
                     <Button onClick={() => Router.push('/')} variant="contained" color='primary'>Назад</Button>
                 </div>
             </div>
-        </MainLayout>
     )
 }
 

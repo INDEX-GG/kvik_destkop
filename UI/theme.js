@@ -30,6 +30,9 @@ const theme = createMuiTheme({
       background: {
          default: '#fff',
       },
+      grey: {
+         A100: '#2c2c2c',
+      }
    },
    typography: {
       button: {
@@ -40,6 +43,7 @@ const theme = createMuiTheme({
          color: '#C7C7C7',
          fontWeight: 400,
          fontSize: '14px',
+
       },
       subtitle2: {
          color: '#C7C7C7',
@@ -54,8 +58,8 @@ const theme = createMuiTheme({
       MuiContainer: {
          root: {
             display: 'flex',
-            paddingLeft: 0,
-            paddingRight: 0,
+            paddingLeft: '0',
+            paddingRight: '0',
          },
       },
       MuiBox: {
@@ -64,15 +68,15 @@ const theme = createMuiTheme({
          },
       },
       MuiList: {
-                  root: {
-                     display: 'flex',
-                  }
-               },
-      MuiButton: {
          root: {
-           
+            display: 'flex',
          }
       },
+      MuiButton: {
+         root: {
+         }
+      },
+
 
    }
 });

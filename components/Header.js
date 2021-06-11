@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         right: '14px',
         height: '100%',
     },
-    
+
 }));
 
 const Header = () => {
@@ -57,7 +57,7 @@ const Header = () => {
             document.removeEventListener('scroll', listenScroll);
     }, []);
 
-    
+
     return (
         <>
             <Container>
@@ -67,21 +67,24 @@ const Header = () => {
                 </Box>
             </Container>
             <AppBar className={headerScroll} position="sticky" color="secondary">
-                <Container className={classes.root}>
-                    <IconButton onClick={() => Router.push('/')} className={classes.logo}><Logo /></IconButton>
-                    <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>Категории</Button>
-                    <Box className={classes.input}>
-                        <TextField variant='outlined' size='small' placeholder="Поиск по объявлениям" fullWidth />
-                        <SearchIcon className={classes.icon} />
-                    </Box>
-                    <Button onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>
+                <Container>
+                    <Container className={classes.root}>
+                        <IconButton onClick={() => Router.push('/')} className={classes.logo}><Logo /></IconButton>
+                        <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>Категории</Button>
+                        <Box className={classes.input}>
+                            <TextField variant='outlined' size='small' placeholder="Поиск по объявлениям" fullWidth />
+                            <SearchIcon className={classes.icon} />
+                        </Box>
+                        <Button onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
+                        <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>
+                    </Container>
+                    <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
+                        <RegForm Close={handleRegFormDialog} />
+                    </Dialog>
                 </Container>
-                <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
-                    <RegForm Close={handleRegFormDialog} />
-                </Dialog>
-                { !openCat ? '' :<Categories/>}  
+                {!openCat ? '' : <Categories />}
             </AppBar>
+
         </>
     )
 }
