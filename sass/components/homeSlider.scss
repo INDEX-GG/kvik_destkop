@@ -11,7 +11,7 @@
                 color: $tpl;
                 font-size: 18px;
                 font-weight: 700;
-                text-align: center;
+                width: 100%;
                 position: absolute;
         }
 
@@ -58,99 +58,117 @@
 
 .slider__category {
         cursor: pointer;
-        display: flex;
-        justify-content: center;
         transition: 300ms ease-in-out;
+        width: 100%;
+        height: 192px;
 }
 
 .category_smartphone {
-        background: url("../../icons/homeSlider/smartphoneBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/smartphone.svg") center no-repeat, url("../../icons/homeSlider/smartphoneBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .category_notebook {
-        background: url("../../icons/homeSlider/notebookBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/notebook.svg") center no-repeat ,url("../../icons/homeSlider/notebookBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .category_homeandgarden {
-        background: url("../../icons/homeSlider/homeandgardenBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/homeandgarden.svg") center no-repeat ,url("../../icons/homeSlider/homeandgardenBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .category_job {
-        background: url("../../icons/homeSlider/jobBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/job.svg") center no-repeat ,url("../../icons/homeSlider/jobBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .category_car {
-        background: url("../../icons/homeSlider/carBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/car.svg") center no-repeat, url("../../icons/homeSlider/carBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .category_service {
-        background: url("../../icons/homeSlider/serviceBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/service.svg") center no-repeat, url("../../icons/homeSlider/serviceBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .category_bike {
-        background: url("../../icons/homeSlider/bikeBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/bike.svg") center no-repeat, url("../../icons/homeSlider/bikeBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .category_property {
-        background: url("../../icons/homeSlider/propertyBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/property.svg") center no-repeat, url("../../icons/homeSlider/propertyBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .category_part {
-        background: url("../../icons/homeSlider/partBack1.svg") center no-repeat;
+        background: url("../../icons/homeSlider/part.svg") center no-repeat, url("../../icons/homeSlider/partBack1.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_smartphone {
-        background: url("../../icons/homeSlider/smartphoneBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/smartphone.svg") center no-repeat, url("../../icons/homeSlider/smartphoneBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_notebook {
-        background: url("../../icons/homeSlider/notebookBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/notebook.svg") center no-repeat, url("../../icons/homeSlider/notebookBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_homeandgarden {
-        background: url("../../icons/homeSlider/homeandgardenBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/homeandgarden.svg") center no-repeat, url("../../icons/homeSlider/homeandgardenBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_job {
-        background: url("../../icons/homeSlider/jobBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/job.svg") center no-repeat, url("../../icons/homeSlider/jobBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_car {
-        background: url("../../icons/homeSlider/carBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/car.svg") center no-repeat, url("../../icons/homeSlider/carBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_service {
-        background: url("../../icons/homeSlider/serviceBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/service.svg") center no-repeat, url("../../icons/homeSlider/serviceBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_bike {
-        background: url("../../icons/homeSlider/bikeBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/bike.svg") center no-repeat, url("../../icons/homeSlider/bikeBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_property {
-        background: url("../../icons/homeSlider/propertyBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/property.svg") center no-repeat, url("../../icons/homeSlider/propertyBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 .slider__category:hover .category_part {
-        background: url("../../icons/homeSlider/partBack.svg") center no-repeat;
+        background: url("../../icons/homeSlider/part.svg") center no-repeat, url("../../icons/homeSlider/partBack.svg") center no-repeat;
         transition: 300ms ease-in-out;
+        height: 100%;
 }
 
 @media screen and (max-width: 1365px) {

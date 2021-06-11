@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-
 import Modal from '../../components/Modal';
-import UpPanel from '../../components/UpPanel';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
-import {ToRubles} from '../../components/services';
-
+import { ToRubles } from '../../components/services';
 import Statistics from '../../components/Statistics';
-// import IconCall from "../../../icons/phone_light.svg"
-// import IconMess from "../../../icons/notif_light.svg"
+import IconCall from '../../UI/icons/IconCall';
+import IconMess from '../../UI/icons/IconMess';
 
 const obj = [{ title: "Toyota Mark II jxz90", objImg: [{ img: "https://source.unsplash.com/random?cars" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 200000, newPrice: 180000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: true, status: 0, call: true, message: true, like: true, compare: false, delivery: true, security: true },
 { title: "Toyota Altezza", objImg: [{ img: "https://source.unsplash.com/random?forest" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: '', newPrice: 400000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 1, call: true, message: false, like: true, compare: false, delivery: false, security: true },
@@ -160,7 +157,6 @@ export default function Product() {
     // const false = `${width}` > 752;
     return (
         <div className="productPage" id="productPage">
-            <UpPanel />
             <Header />
             <div className="productPageContainer text">
                 {true ? <div className="breadcrumbs thin">Хлебные крошки</div> : ''}
@@ -206,8 +202,8 @@ export default function Product() {
                                     {objP.adstatus === 1 ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ''}
                                     {objP.adstatus === 1 ? <span className="service_days_left">Осталось 30 дней</span> : ''}
                                     <div className="SellerInfo__adaptive_buttons__top">
-                                        {objP.adstatus === 8 ? <a className="SellerInfoMess button contained"><img /* src={IconMess} */ alt="" />  Написать продавцу</a> : ''}
-                                        {objP.adstatus === 8 ? <a className="SellerInfoCall button contained"><img /* src={IconCall}  */alt="" /> Показать номер</a> : ''}
+                                        {objP.adstatus === 8 ? <a className="SellerInfoMess button contained"><IconMess /> Написать продавцу</a> : ''}
+                                        {objP.adstatus === 8 ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
                                     </div>
                                     {objP.adstatus === 1 || objP.adstatus === 8 ? <div className="SellerInfo__adaptive_information">
                                         <div className="SellerInfoSecure superLight">Безопасная сделка</div>
@@ -291,8 +287,8 @@ export default function Product() {
                                     <div className="SellerInfoBargain dark thin">
                                         {(objP.bargain) && (<p>Торг уместен</p>)}
                                     </div> : ""}
-                                {objP.adstatus === 8 ? <a className="SellerInfoMess button contained"><img /* src={IconMess} */ alt="" />Написать продавцу</a> : ''}
-                                {objP.adstatus === 8 ? <a className="SellerInfoCall button contained"><img /* src={IconCall} */ alt="" />Показать номер</a> : ''}
+                                {objP.adstatus === 8 ? <a className="SellerInfoMess button contained"><IconMess /> Написать продавцу</a> : ''}
+                                {objP.adstatus === 8 ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
                                 {objP.adstatus !== 7 ?
                                     <div className="SellerInfoAboutDeal">
                                         <div>
@@ -430,7 +426,7 @@ export default function Product() {
                         <div className={`SimilarOffersColl highlight underline ${collSO && 'SOCColl'}`} onClick={e => handleCollSO(e)}>{collSO && 'Показать ещё' || 'Скрыть'}</div>
                     </div>
                 </div>
-                { true ?
+                {true ?
                     <div className="showsmthWrapper">
                         <div className="freedomBlock_1"></div>
                         <div className="freedomBlock_2"></div>

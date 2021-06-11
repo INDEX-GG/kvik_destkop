@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-
-import UpPanel from '../../components/UpPanel';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import StarRating from '../../components/StarRating';
@@ -67,7 +65,6 @@ function Account() {
 
   return (
     <div className="userOffersPage" id="user">
-      <UpPanel />
       <Header />
       <div className="clientPage text">
         <div className="clientPage__breadcrumbs thin">
@@ -79,7 +76,7 @@ function Account() {
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
               {userInfo.userPic && <img src={userInfo.userPic} /> || <div className="clientPage__userinitials" style={{ backgroundColor: `${userInfo.userName.toColor()}` }}>{userInfo.userName.initials()}</div>}
-              <button onClick={e => { modalOlen(e, 'md', <UserPicUpload {...{route: '', imageType: 'webp', optimiztionLevel: 0.7, maxScale: 5}}/>) }} className="addPhoto"></button>
+              <button onClick={e => { modalOlen(e, 'md', <UserPicUpload {...{ route: '', imageType: 'webp', optimiztionLevel: 0.7, maxScale: 5 }} />) }} className="addPhoto"></button>
             </div>
             <div className="clientPage__username">
               {userInfo.userName}
@@ -89,7 +86,7 @@ function Account() {
             </div>
             <div className="clientPage__userrate">
               <div className="clientPage__userrate__num">{userInfo.userRate}</div>
-              <StarRating {...{rating: userInfo.userRate}} />
+              <StarRating {...{ rating: userInfo.userRate }} />
             </div>
             <div className="clientPage__userstats highlight small">
               <a onClick={e => { modalOlen(e, 'lg', modalRating(userInfo.userRate)) }} className="offerUnpublish thin superLight" className="userInfoReviews">

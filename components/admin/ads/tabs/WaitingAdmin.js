@@ -4,7 +4,7 @@ import { btnReject } from '../../../Modals';
 import { ToRubles } from '../../../services';
 
 function WaitingAdmin(data) {
-   /* const listRef = (e) => {
+    const listRef = (e) => {
       const adInformation = document.querySelectorAll(".ad__information__description")[e.target.value]
       const loerMore = document.querySelectorAll(".btn__loer_more")[e.target.value]
       adInformation.classList.toggle("ad_close");
@@ -15,7 +15,7 @@ function WaitingAdmin(data) {
       else {
          loerMore.innerHTML = "Скрыть";
       }
-   } */
+   } 
    
 const [modal, setModal] = useState({});
 function modalOlen(e, size, content, title) {
@@ -42,7 +42,7 @@ setTimeout(smf, 500);
             <div className="ads__container">
                {data.offers.map((offer, index) => {
                   return (
-                     <div className="ad__wrapper">
+                     <div key={offer.id} className="ad__wrapper">
                         <div className="ad__check">
                            <label className="checkbox">
                               <input type="checkbox" />
@@ -51,17 +51,17 @@ setTimeout(smf, 500);
                         </div>
                         <a className="ad_slider">
                            <img src={(offer.imgs)[0]} alt="" />
-                           <div className="ad__photo_count">1/{(offer.imgs).length}</div>
+                           <div  className="ad__photo_count">1/{(offer.imgs).length}</div>
                         </a>
                         <div className="ad__information">
                            <div className="ad__information__blocks">
                               <div className="ad__information__left_block">
-                                 <div className="ad__information_price">{ToRubles(offer.price)}</div>
+                                 <div  className="ad__information_price">{ToRubles(offer.price)}</div>
                                  <div className="ad__information_title">{offer.title}</div>
                                  <div className="ad__information_category">
                                     {offer.categorys.map(category => {
                                        return (
-                                          <span>{category.category}</span>
+                                          <span key={category.id}>{category.category}</span>
                                        );
                                     })
                                     }
@@ -80,7 +80,7 @@ setTimeout(smf, 500);
                            <p value={index} className="ad__information__description ad_close">
                               {offer.description}
                            </p>
-                           <button className="btn__loer_more" value={index} /* onClick={(e, index) => listRef(e, index)} */ >Развернуть</button>
+                           <button className="btn__loer_more" value={index} onClick={(e, index) => listRef(e, index)} >Развернуть</button>
                            <button className="btn__ad_add">Одобрить</button>
                         </div>
                      </div>

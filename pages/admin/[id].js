@@ -59,9 +59,9 @@ function Admin() {
       <Header />
       <div className="clientPage text">
 
-        <div className="clientPage__menu">
-          <div key={userInfo.userId} className="clientPage__userinfo">
-            <div className="clientPage__userpic">
+        <div className="clientPage__menu" >
+          <div  className="clientPage__userinfo">
+            <div key={userInfo} className="clientPage__userpic">
               {userInfo.userPic && <img src={userInfo.userPic} /> || <div className="clientPage__userinitials" style={{ backgroundColor: `${userInfo.userName.toColor()}` }}>{userInfo.userName.initials()}</div>}
               <button onClick={e => { modalOlen(e, 'md', photoUpload()) }} className="addPhoto"></button>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-/* import { Loading } from '../../../../components/loader/Loading'; */
+import Loading  from '../../../UI/icons/Loader';
 import RejectedAdmin from './tabs/RejectedAdmin';
 import WaitingAdmin from './tabs/WaitingAdmin';
 
@@ -41,7 +41,7 @@ export const Ads = () => {
              <div className="clientPage__container_nav">
                 {navItems.map(item => {
                    return (
-                      <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} { item.count.brooklyn()}</a>
+                      <a key={item.Itemid} className={(itemNav.i === item.id) ? ('navActive') : ('')} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} { item.count.brooklyn()}</a>
                    )
                 })}
              </div>
@@ -49,7 +49,7 @@ export const Ads = () => {
        </div>
           {navItems.map(item => {
              return (
-                (itemNav.i === item.id) && (item.content ? item.content : (<div className="userPageContentCompare">{/* <Loading /> */}</div>))
+                (itemNav.i === item.id) && (item.content ? item.content : (<div key={item.id} className="userPageContentCompare"><Loading /> </div>))
              )
           })}
        </>
