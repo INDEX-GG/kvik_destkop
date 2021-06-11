@@ -6,7 +6,8 @@ import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import Logo from '../UI/icons/Logo';
 import RegForm from './RegForm';
-import Categories from './Categories'
+import Categories from './Categories';
+import {useMedia} from '../hooks/useMedia';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = () => {
+
+    const {matchesTablet, matchesLaptop} = useMedia();
+
     const [openCat, setCategories] = useState();
     const [openRegForm, setOpenRegForm] = useState(false);
     const handleRegFormDialog = () => setOpenRegForm(!openRegForm);
@@ -63,7 +67,7 @@ const Header = () => {
             <Container>
                 <Button variant='text' size='small'><RoomOutlinedIcon fontSize='small' />Челябинск</Button>
                 <Box>
-
+    
                 </Box>
             </Container>
             <AppBar className={headerScroll} position="sticky" color="secondary">
