@@ -1,15 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { PrismaClient } from "@prisma/client";
 import axios from "axios";
+
 var qs =  require('qs');
 
+
 export default function handler(req, res) {
-  function enterCode() {
-  
-  } 
 
   if (req.method === 'POST') {
-
+    const phone = JSON.parse(JSON.stringify(req.body.phone));
 
 const url = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/auth'
 
@@ -24,7 +24,7 @@ axios(options)
   .then((res)=> {
     const url = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/call-auth'
     var getdata = res.data;
-    const data = {'caller_id': req.body.phone}
+    const data = {'caller_id': phone}
     const options = {
       headers: { 'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${getdata.access_token}` },
       data: qs.stringify(data),
@@ -47,29 +47,19 @@ axios(options)
       url,
       method: 'POST'
     }
+
     axios(options) 
-    .then((res) => {
-    
-        const url = 'http://localhost:3000/testarea'
-
-        const data = {
-
-          'tmp_caller_id': getdata1.tmp_caller_id
-      }
-         const options = {
-          headers: { 'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${getdata.access_token}` },
-          data: qs.stringify(data),
-          url,
-          method: 'POST'
-        }
-        axios(options)
-    
+    .then(() => {
+      axios.post('/')
+   
     })
+
   
     })
    
   })
-  } else {
-    // Handle any other HTTP method
+  }
+  else {
+  return res.status(405).json({message: 'method not allowed'})
   }
 }
