@@ -7,7 +7,7 @@
 [MaterialUI](https://material-ui.com/ru/) / 
 
 ## Пакеты
-[Swiper](https://swiperjs.com/react)
+[Swiper](https://swiperjs.com/react) / 
 [react-hook-form](https://react-hook-form.com/api) / 
 [react-input-mask](https://www.npmjs.com/package/react-input-mask) / 
 [react-google-charts](https://react-google-charts.com/) / 
