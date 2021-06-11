@@ -1,4 +1,4 @@
-import {Box, Button, Dialog, makeStyles, TextField, Typography } from '@material-ui/core';
+import {Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import React, {useState, useEffect} from 'react';
 import { useForm, Controller } from 'react-hook-form';
@@ -44,23 +44,26 @@ function PhoneNumberFormat(props) {
   }
 
 export default function RegForm({Close}) {
-  const classes = useStyles();
-  const { handleSubmit, control, watch } = useForm();
-  const onSubmit = data => {
-      data.phone = `+${data.phone.replace(/\D+/g, '')}`;
-      console.log(data);
-      Close();
+    const [checkPhone, setCheckPhone] = useState(false);
+    const classes = useStyles();
+    const { handleSubmit, control, watch } = useForm();
+    const onSubmit = data => {
+        data.phone = `+${data.phone.replace(/\D+/g, '')}`;
+        console.log(data);
+        setCheckPhone(true);
+        //Close();
 };
 
   return (
-    <>{<Box className={classes.root}>
+    <>{checkPhone && <Box className={classes.root}>
         <Typography variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
         <TextField label='4 последние цифры' variant="outlined" size='small' type='text' error={true} helperText='Неверный код подтверждения'></TextField>
-    </Box> &&
-    <Box className={classes.root}>
+    </Box>}
+    {!checkPhone && <Box className={classes.root}>
         <Box className={classes.reg}>
             <Typography  className={classes.title} variant="h6">Регистрация</Typography>
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                        
                         <Controller
                         name="name"
                         control={control}
