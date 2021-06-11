@@ -32,6 +32,13 @@ const theme = createMuiTheme({
       },
    },
    typography: {
+      h1: {
+
+      },
+      h2: {
+         fontSize: '18px',
+         fontWeight: 400,
+      },
       button: {
          textTransform: "none",
          whiteSpace: 'none',

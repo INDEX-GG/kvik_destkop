@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, {useState, useEffect} from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         marginBottom: theme.spacing(4),
     },
+    submitNumber: {
+        display: 'flex',
+        padding: theme.spacing(4),
+        width: '100%',
+        flexDirection: 'column',
+        alignItems: 'center',
+    }
 }));
 
 function PhoneNumberFormat(props) {
@@ -44,20 +52,35 @@ function PhoneNumberFormat(props) {
   }
 
 export default function RegForm({Close}) {
+    const [sendData, setSendData] = useState({});
     const [checkPhone, setCheckPhone] = useState(false);
+    const [verifyNum, setVerifyNum] = useState();
     const classes = useStyles();
     const { handleSubmit, control, watch } = useForm();
     const onSubmit = data => {
         data.phone = `+${data.phone.replace(/\D+/g, '')}`;
         console.log(data);
+        setSendData(data);
+        console.log(sendData);
         setCheckPhone(true);
         //Close();
 };
 
+useEffect(() => {
+    console.log(sendData);
+    console.log(verifyNum);
+},[sendData, verifyNum]);
+
+const handleSubmitNumber = (e) => {
+    e.preventDefault();
+    
+}
+
   return (
-    <>{checkPhone && <Box className={classes.root}>
+    <>{checkPhone && <Box className={classes.submitNumber}>
         <Typography variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
-        <TextField label='4 последние цифры' variant="outlined" size='small' type='text' error={true} helperText='Неверный код подтверждения'></TextField>
+        <TextField value={verifyNum} onChange={(e) => setVerifyNum(e.target.value)} label='4 последние цифры' variant="outlined" size='small' type='text' error={true} helperText='Неверный код подтверждения'></TextField>
+        <Button variant='contained' color='primary' onClick={e => handleSubmitNumber(e)}>Подтвердить</Button>
     </Box>}
     {!checkPhone && <Box className={classes.root}>
         <Box className={classes.reg}>
