@@ -1,17 +1,28 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { AppBar, Box, Menu, MenuItem, Dialog, Button, InputBase, makeStyles, Toolbar } from '@material-ui/core';
+import { Box, Link, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import NavObj from './json/navobj.json';
 
 const useStyles = makeStyles((theme) => ({
+    categories__block_main: {
+        maxWidth: '1248px',
+        margin: '0 auto',
+        position: 'relative',
+        width: '100%',
+    },
 
     categories__block: {
-        maxWidth: '1272px',
         width: '100%',
-        margin: '0 auto',
+        padding: '8px',
         display: 'flex',
+        background: theme.palette.secondary.main,
+        position: 'absolute',
+        left: '0',
+        borderRadius: '2px 2px 8px 8px',
+        boxShadow: '0px 20px 20px rgb(0 0 0 / 10%)',
     },
+
     categories__menu: {
         position: 'relative',
         width: '100%',
@@ -19,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 'unset',
         maxWidth: 'unset',
     },
+
     popoverPaper: {
         width: '100%',
         maxWidth: '1272px',
@@ -29,72 +41,91 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         borderRadius: '2px 2px 8px 8px',
     },
+
     categories__menu_item: {
         width: '25%',
     },
+
+    categories__menu_item__gray_line: {
+        width: '25%',
+        borderRight: '1px solid #E9E9E9',
+    },
+
     categories__menu_item_btn: {
         width: '100%',
-        justifyContent: 'left',
-    }
+        display: "block",
+        color: theme.palette.grey.A100,
+        padding: '8px 0',
+        fontWeight: '500',
+        paddingLeft: '32px',
+
+        '&:hover': {
+            textDecoration: 'none',
+        },
+    },
+    categories__menu_item_link: {
+        width: '100%',
+        display: "block",
+        color: theme.palette.grey.A100,
+        padding: '8px 0',
+        fontWeight: '500',
+        paddingLeft: '32px',
+
+        '&:hover': {
+            color: theme.palette.primary.main,
+        },
+    },
 }));
 
 
-
-
 function Categories() {
-
     const classes = useStyles();
     const [category, setCategory] = useState(undefined);
+    const [category2, setCategory2] = useState(undefined);
+
+    function setCategoryColor(index) {
+        for (var i = 0; i < index.target.parentElement.children.length; i++) {
+            index.target.parentElement.children[i].style.background = '';
+        }
+        index.target.style.background = '#E9E9E9';
+    }
 
     return (
         <>
-            <Box className={classes.categories__block} >
-                <Box className={classes.categories__menu_item}>
-                    {
-                        Object.keys(NavObj).map(key => {
-                            /* console.log(NavObj[key].name) */
+            <Box className={classes.categories__block_main}>
+                <Box className={classes.categories__block} >
+                    <Box className={classes.categories__menu_item__gray_line}>
+                        {Object.keys(NavObj).map((key, index) => {
                             return (
-                                <Button onClick={() => setCategory(NavObj[key])} className={classes.categories__menu_item_btn}>  {NavObj[key].name}</Button>
+                                <Link href="#" value={index} onMouseOver={(index) => { setCategoryColor(index); setCategory(NavObj[key]); setCategory2(undefined); }} className={classes.categories__menu_item_btn}>  {NavObj[key].name}</Link>
                             );
-                        })
-                    }
+                        })}
+                    </Box>
 
-                </Box>
-
-                <Box className={classes.categories__menu_item}>
                     {typeof category !== 'undefined' ?
-                        console.log(
-                            category
-                            /* Object.keys(category).map(key => {
-                                
-                                    category[key]
-                                
-                            }) */
-                            )
-                        
+                        <Box className={classes.categories__menu_item__gray_line}>
+                            {Object.keys(category.subCategories).map((key, index) => {
+                                return (
+                                    <Link value={index} href="#" onMouseOver={(index) => { setCategoryColor(index); setCategory2(category.subCategories[key]) }} className={classes.categories__menu_item_btn}>  {category.subCategories[key].name}</Link>
+                                );
+                            }
+                            )}
+                        </Box>
+                        : ''}
 
-                     
+                    {typeof category2 !== 'undefined' && category2.subCategories !== undefined ?
+                        <Box className={classes.categories__menu_item}>
+                            {Object.keys(category2.subCategories).map(key => {
+                                return (
+                                    <Link href="#" className={classes.categories__menu_item_link}>  {category2.subCategories[key].name}</Link>
+                                );
+                            }
+                            )}
+                        </Box>
+                        : ''}
 
-
-: ''}
-                </Box>
-                <Box className={classes.categories__menu_item}>
-                    <MenuItem >33333</MenuItem>
-                    <MenuItem >My account</MenuItem>
-                    <MenuItem >Logout</MenuItem>
-                </Box>
-                <Box className={classes.categories__menu_item}>
-                    <MenuItem >44444</MenuItem>
-                    <MenuItem >My account</MenuItem>
-                    <MenuItem >Logout</MenuItem>
-                </Box>
-                <Box className={classes.categories__menu_item}>
-                    <MenuItem >55555</MenuItem>
-                    <MenuItem >My account</MenuItem>
-                    <MenuItem >Logout</MenuItem>
                 </Box>
             </Box>
-
         </>
     )
 }
