@@ -49,9 +49,9 @@ axios(options)
     }
 
     axios(options) 
-    .then(() => {
-      axios.post('/')
-   
+    .then((res) => {
+      var options = 
+      axios.post('/api/regconfirm', {data: {caller: getdata1.tmp_caller_id, phone: getdata1.caller_id}})
     })
 
   
