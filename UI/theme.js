@@ -31,7 +31,7 @@ const theme = createMuiTheme({
          default: '#fff',
       },
       grey: {
-         A100: '#2c2c2c',
+         '100': '#2c2c2c'
       }
    },
    typography: {
