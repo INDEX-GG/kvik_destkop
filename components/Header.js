@@ -7,6 +7,7 @@ import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import Logo from '../UI/icons/Logo';
 import RegForm from './RegForm';
 import Categories from './Categories';
+import CategoriesMobile from './CategoriesMobile';
 import {useMedia} from '../hooks/useMedia';
 
 const useStyles = makeStyles((theme) => ({
@@ -86,7 +87,9 @@ const Header = () => {
                         <RegForm Close={handleRegFormDialog} />
                     </Dialog>
                 </Container>
-                {!openCat ? '' : <Categories />}
+              {/*   {!openCat ? '' : <Categories />} */}
+
+                {!openCat ? '' : <CategoriesMobile />}
             </AppBar>
 
         </>
