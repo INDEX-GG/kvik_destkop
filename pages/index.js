@@ -10,6 +10,28 @@ import Slider_component from '../layout/Slider_component';
 import AdBackground from "../UI/icons/AdBackground";
 import Rectangle from "../UI/icons/Rectangle";
 
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+  footer_media_lg_down: {
+    [theme.breakpoints.down('lg')]: {
+      display: 'block',
+    },
+    [theme.breakpoints.up('lg')]: {
+      display: 'none',
+    },
+  }
+
+}));
+
+
+
+
+
 function Index() {
   //   const [showScroll, setShowScroll] = useState(false);
   //   const checkScrollTop = () => {
@@ -53,6 +75,8 @@ function Index() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const classes = useStyles();
 
 
   //   function showFooter() {
@@ -129,15 +153,20 @@ function Index() {
               </div>
               <div className="block2">ad block 2</div>
             </div>
-            <div className='footer2' id='footer2' style={{ position: 'relative', display: 'none' }}>
-              {`${width}` >= 1000 ? <Footer2 /> : ''}
+            <div className='footer2' id='footer2'>
+              <Footer2 />
             </div>
           </div>{" "}
+          
           <ScrollTop />
-
+       
         </div>
       </div>
-      {`${width}` < 1000 ? <Footer /> : ''}
+
+<div className={classes.footer_media_lg_down}><Footer /></div>
+   
+
+
     </div>
 
   );

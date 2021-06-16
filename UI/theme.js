@@ -56,7 +56,7 @@ const theme = createMuiTheme({
          color: '#C7C7C7',
          fontWeight: 500,
          fontSize: '12px',
-      }
+      },
    },
    shape: {
       borderRadius: 8,
@@ -83,8 +83,11 @@ const theme = createMuiTheme({
          root: {
          }
       },
-
-
+      MuiAppBar:{
+         root: {
+            zIndex: '1',
+         },
+      },
    }
 });
 

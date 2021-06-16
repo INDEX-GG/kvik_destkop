@@ -7,6 +7,7 @@ import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import Logo from '../UI/icons/Logo';
 import RegForm from './RegForm';
 import Categories from './Categories';
+import CategoriesMobile from './CategoriesMobile';
 import {useMedia} from '../hooks/useMedia';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,6 +65,7 @@ const Header = () => {
 
     return (
         <>
+        {!openCat ? '' : <CategoriesMobile />}
             <Container>
                 <Button variant='text' size='small'><RoomOutlinedIcon fontSize='small' />Челябинск</Button>
                 <Box>
@@ -86,7 +88,9 @@ const Header = () => {
                         <RegForm Close={handleRegFormDialog} />
                     </Dialog>
                 </Container>
-                {!openCat ? '' : <Categories />}
+                {/* {!openCat ? '' : <Categories />} */}
+                
+                
             </AppBar>
 
         </>

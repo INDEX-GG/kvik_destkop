@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     categories__menu_item_btn: {
         width: '100%',
         display: "block",
-        color: theme.palette.grey.A100,
+        color: theme.palette.grey['100'],
         padding: '8px 0',
         fontWeight: '500',
         paddingLeft: '32px',
