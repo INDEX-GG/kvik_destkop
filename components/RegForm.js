@@ -1,6 +1,6 @@
 import {Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
 import Link from 'next/link';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import axios from 'axios';
@@ -57,9 +57,8 @@ function PhoneNumberFormat(props) {
         maskChar= ''
       />
     );
-  }
-  const n = '12345678';
-  console.log(n.slice(-4))
+}
+
 export default function RegForm({Close}) {
     const [sendData, setSendData] = useState({}),
     [checkPhone, setCheckPhone] = useState(false),
@@ -92,7 +91,9 @@ const verifyNumber = (e) => {
 
 const handleSubmitNumber = (e) => {
     e.preventDefault();
-    //Close();
+    axios.post('/api/setApi', sendData).then((res) => console.log(res.data));
+    //Место для логики ошибок и логина
+    Close();
 }
 
   return (
