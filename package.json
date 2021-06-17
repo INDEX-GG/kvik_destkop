@@ -35,7 +35,7 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
-    "prisma": "^2.24.1",
+    "prisma": "^2.25.0",
     "webpack-node-externals": "^3.0.0"
   }
 }
