@@ -1,33 +1,17 @@
 import React, { useState, useEffect } from "react";
-
-import Header from '../components/Header';
 import Footer2 from '../components/Footer2';
 import Footer from '../components/Footer';
 import AdCard_component from '../components/AdCard';
 import ScrollTop from '../UI/ScrollTop';
 import Slider_component from '../layout/Slider_component';
-
 import AdBackground from "../UI/icons/AdBackground";
 import Rectangle from "../UI/icons/Rectangle";
+import { useMedia } from '../hooks/useMedia';
+import MainLayout from '../layout/MainLayout';
 
 function Index() {
-  //   const [showScroll, setShowScroll] = useState(false);
-  //   const checkScrollTop = () => {
-  //     if (!showScroll && window.pageYOffset > 400) {
-  //       setShowScroll(true);
-  //     } else if (showScroll && window.pageYOffset <= 400) {
-  //       setShowScroll(false);
-  //     }
-  //   };
-  //   const [checkLoader, setCheckLoader] = useState(true);
 
-  //   window.addEventListener("load", () =>
-  //   setTimeout(function () {
-  //       setCheckLoader(false);
-  //   }, 200)
-  // );
-
-  //   window.addEventListener("scroll", checkScrollTop);
+  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
   function showSort() {
     var showSort = document.getElementById("homeOffersSortContainer");
@@ -54,28 +38,6 @@ function Index() {
     };
   }, []);
 
-
-  //   function showFooter() {
-  //     var footer2 = document.getElementById("footer2");
-  //     if (scrollPosition >= 580 && footer2 !== null) {
-
-  //       footer2.style.position = 'fixed'
-  //       footer2.style.display = 'block'
-  //       footer2.style.bottom = '0'
-  //     } if (scrollPosition < 580 && footer2 !== null) {
-  //       footer2.style.display = 'none'
-  //     }
-  //   }
-
-  const [width, setWidth] = useState();
-  useEffect(() => {
-    window.addEventListener("resize", updateWidthAndHeight);
-  });
-  const updateWidthAndHeight = () => {
-    setWidth(window.innerWidth);
-    window.removeEventListener;
-  };
-
   const obj = [
     { id: 1, title: "Toyota Mark II jxz90", objImg: [{ img: "https://source.unsplash.com/random?cars" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 200000, newPrice: 180000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: true, status: 0, call: true, message: true, like: true, compare: false, delivery: true, security: true },
     { id: 2, title: "Toyota Altezza", objImg: [{ img: "https://source.unsplash.com/random?forest" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: '', newPrice: 400000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 1, call: true, message: false, like: true, compare: false, delivery: false, security: true },
@@ -92,17 +54,10 @@ function Index() {
   ];
 
   return (
-    <div className="home" id="home">
-      {/* {showFooter()} */}
-      {/* <UpPanel /> */}
-      <Header />
+    <MainLayout footer={true} title={'Доска объявлений'}>
       <h6 className="popular__categories">Популярные категории</h6>
       <Slider_component />
       <div className="bodyHome" id="bodyHome">
-        <div className="sliderHome1248render">
-        </div>
-        {/* <div className="sliderHome1024render"> 
-        </div>*/}
         <div className="offersTitleLine">
           <div className="offersTitleHome">Рекомендуемое</div>
           <div className="homeOffersSort">
@@ -122,25 +77,23 @@ function Index() {
           <div className="scrollableOffersHome">
             {obj.map((obj) => <AdCard_component objs={obj} />)}
           </div>
-          <div className="rightColoumn" >
-            <div className='rightColoumnContainer'>
-              <div className="block1">
-                <AdBackground />
+          {!matchesMobile && !matchesTablet &&
+            <div className="rightColoumn" >
+              <div className='rightColoumnContainer'>
+                <div className="block1">
+                  <AdBackground />
+                </div>
+                <div className="block2">ad block 2</div>
               </div>
-              <div className="block2">ad block 2</div>
-            </div>
-            <div className='footer2' id='footer2' style={{ position: 'relative', display: 'none' }}>
-              {`${width}` >= 1000 ? <Footer2 /> : ''}
-            </div>
-          </div>{" "}
+              <div className='footer2' id='footer2'>
+                <Footer2 />
+              </div>
+            </div>}
           <ScrollTop />
-
         </div>
       </div>
-      {`${width}` < 1000 ? <Footer /> : ''}
-    </div>
-
-  );
+      {!matchesLaptop && !matchesDesktop && !matchesHD && <Footer />}
+    </MainLayout >
+  )
 }
-
 export default Index;

@@ -259,7 +259,6 @@
 .messageInput {
     width: 500px;
     padding: 5px;
-    font-family: "Ubuntu";
     color: $tpll;
     font-size: 14px;
     border: none;
@@ -267,7 +266,6 @@
 }
 
 .messageInput::placeholder {
-    font-family: "Ubuntu";
     color: $tpml;
     font-size: 14px;
 }

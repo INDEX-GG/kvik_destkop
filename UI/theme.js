@@ -81,7 +81,10 @@ const theme = createMuiTheme({
       },
       MuiButton: {
          root: {
-         }
+         },
+         contained: {
+            boxShadow: 'none',
+         },
       },
 
 

@@ -12,7 +12,7 @@
   min-height: 100vh;
   padding-bottom: 20px;
   display: grid;
-  grid-template-columns: 1fr 220px 1000px 1fr;
+  grid-template-columns: 1fr 220px 1014px 1fr;
   grid-template-rows: 16px auto;
   grid-column-gap: 24px;
   grid-row-gap: 32px;
@@ -123,7 +123,7 @@
 
     &_top {
       position: sticky;
-      top: 75px;
+      top: 65px;
       background-color: $ts;
       z-index: 1;
       padding: 0 32px;

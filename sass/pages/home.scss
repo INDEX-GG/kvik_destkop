@@ -1,7 +1,7 @@
 .bodyHome,
 .popular__categories {
   margin: 0 auto;
-  max-width: 1272px;
+  max-width: 1280px;
   padding: 0 12px;
   padding-bottom: 30px;
 }
@@ -97,6 +97,14 @@
   height: 100vh;
 }
 
+.rightColoumnContainer{
+  background: $ts;
+  z-index: 1;
+  position: relative;
+  width: 225px;
+  border-radius: 8px;
+}
+
 .block1 {
   width: 225px;
   height: 432px;
@@ -104,6 +112,7 @@
   border-radius: 8px;
   z-index: 1;
   position: relative;
+  background: $ts;
 }
 
 .block1Pic {
@@ -122,6 +131,10 @@
 
 .main__block__footer {
   text-align: center;
+}
+
+.mySwiper .swiper-wrapper {
+  height: 88px !important;
 }
 
 @media (max-width: 1365px) {
@@ -153,7 +166,7 @@
   }
 }
 
-@media (max-width: 970px) {
+@media (max-width: 959px) {
   .offersTitleLine {
     width: 100%;
   }
@@ -162,9 +175,7 @@
     grid-template-columns: 100%;
   }
 
-  .rightColoumn {
-    display: none;
-  }
+  
 }
 
 @media (max-width: 730px) {

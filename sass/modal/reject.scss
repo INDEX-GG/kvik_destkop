@@ -1,3 +1,7 @@
+.modal__wrapper_reject{
+    padding: 8px 12px 32px ;
+}
+
 .modal__header{
     font-size: 18px;
     padding-bottom: 10px;
@@ -17,6 +21,8 @@
 
     & .checkbox__text{
         margin-bottom: 16px;
+        padding-left: 32px;
+        font-weight: 500;
     }
 }
 
