@@ -6,6 +6,7 @@ import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import Logo from '../UI/icons/Logo';
 import RegForm from './RegForm';
+import Login from './Login';
 import Categories from './Categories';
 import CategoriesMobile from './CategoriesMobile';
 import {useMedia} from '../hooks/useMedia';
@@ -84,7 +85,8 @@ const Header = () => {
                         <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>
                     </Container>
                     <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
-                        <RegForm Close={handleRegFormDialog} />
+                        {/* <RegForm Close={handleRegFormDialog} /> */}
+                        <Login Close={handleRegFormDialog}/>
                     </Dialog>
                 </Container>
               {/*   {!openCat ? '' : <Categories />} */}

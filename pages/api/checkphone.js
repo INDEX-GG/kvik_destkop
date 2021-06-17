@@ -12,7 +12,6 @@ export default function handler(req, resolve) {
           dataAuth = qs.stringify({ 'grant_type': 'password', 'scope': 'users', 'client_id': '1kvik', 'client_secret': 'bqnqxnhwdb4' }),
           phoneNumber = qs.stringify({'caller_id': JSON.parse(JSON.stringify(req.body.phone))});
 
-    console.log(phoneNumber)
 axios.post(urlAuth, dataAuth, {headers: {
   'content-type': 'application/x-www-form-urlencoded'
 }})

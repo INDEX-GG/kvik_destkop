@@ -25,10 +25,7 @@ if (req.method === 'POST'){
 
           if(result) {
               console.log("Уже есть");
-              error={
-                  status:true
-              }
-              return resolve.json(error);
+              return res.json({error: true});
           } else {
               add();
           }
@@ -44,7 +41,7 @@ if (req.method === 'POST'){
             let D = req.body;
         const obj = {
             data: {
-                name: req.body.name,
+                name: `${req.body.name} ${req.body.surname}`,
                 password:req.body.password,
                 phone: req.body.phone
             }
