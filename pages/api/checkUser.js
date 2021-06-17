@@ -17,16 +17,19 @@ if (req.method === 'POST'){
         async function check()
         {
             const result = await prisma.users.findUnique({
-                where: {
-                    phone: req.body.phone,
-                    password:req.body.password
-                },
-              })
 
-            if(result){
-                return res.json({idUser:result.id});
-            }
-            else{
+                where: {
+                    loginUS: {
+                        phone: req.body.phone,
+                        password: req.body.password
+                    }
+                }
+              })
+            
+              console.log(result);
+            if (result) {
+                return res.json({idUser: result.id});
+            } else {
                 return res.json({ isset: false});
             }
         }

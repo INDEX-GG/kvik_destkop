@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import axios from 'axios';
+import Login from './Login';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,7 +65,8 @@ export default function RegForm({Close}) {
     [checkPhone, setCheckPhone] = useState(false),
     [errorVerify, setErrorVerify] = useState({error: true, message: 'Введите цифры'}),
     [phoneNum, setPhoneNum] = useState(),
-    [buttonSubmit, setButtonSubmit] = useState(true);
+    [buttonSubmit, setButtonSubmit] = useState(true),
+    [login, setLogin] = useState(false);
 
     const classes = useStyles();
     const { handleSubmit, control, watch } = useForm();
@@ -102,7 +104,7 @@ const handleSubmitNumber = (e) => {
         <TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>
         <Button disabled={buttonSubmit} variant='contained' color='primary' onClick={e => handleSubmitNumber(e)}>Подтвердить</Button>
     </Box>}
-    {!checkPhone && <Box className={classes.root}>
+    {!checkPhone && !login && <Box className={classes.root}>
         <Box className={classes.reg}>
             <Typography  className={classes.title} variant="h6">Регистрация</Typography>
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -193,8 +195,9 @@ const handleSubmitNumber = (e) => {
         </Typography>
         <Link href='#'>Лицензионным соглашением</Link>
         <Typography variant='subtitle2'>Уже есть аккаунт?</Typography>
-        <Button variant='text' size='large' color='primary'>Войти</Button>
+        <Button onClick={() => setLogin(!login)} variant='text' size='large' color='primary'>Войти</Button>
     </Box>}
+    {login && <Login />}
     </>
   );
 }
