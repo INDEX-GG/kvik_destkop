@@ -27,13 +27,13 @@ export default function TestArea(req, res) {
     const [code, setCode] = useState();
     const [name, setName] = useState();
     const [password, setPassword] = useState();
-    const [id, setId] = useState(4)
+  //  const [id, setId] = useState(4)
 
     let phoneData = {
       phone: phone,
     }
     let regdata = {
-      id: id,
+   //   id: id,
       name: name,
       phone: phone,
       password: password,
@@ -46,7 +46,7 @@ export default function TestArea(req, res) {
         .catch((err) => ('err', err))
     }
     const submitNum = () => {
-      axios.post('/api/regconfirm', regdata)
+      axios.post('/api/setApi', regdata)
         .then((res) => (console.log(res)))
         .catch((err) => ('err', err))
     }
@@ -80,7 +80,7 @@ export default function TestArea(req, res) {
         </form>
         <form>
           <div>Код подтверждения <input onChange={(event) => setCode(event.target.value)} /></div>
-          <button onClick={submitNum} style={{ color: 'black', width: '100px', height: '100px' }} />
+          <button onClick={() => submitNum()} style={{ color: 'black', width: '100px', height: '100px' }} />
         </form>
       </div>
     )
