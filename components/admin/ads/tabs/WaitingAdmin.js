@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import Modal from '../../../Modal';
-import { btnReject } from '../../../Modals';
+import React, { useState } from 'react';
+import { BtnReject } from '../../../Modals';
 import { ToRubles } from '../../../services';
+import { Dialog } from '@material-ui/core';
 
 function WaitingAdmin(data) {
-    const listRef = (e) => {
+   const listRef = (e) => {
       const adInformation = document.querySelectorAll(".ad__information__description")[e.target.value]
       const loerMore = document.querySelectorAll(".btn__loer_more")[e.target.value]
       adInformation.classList.toggle("ad_close");
@@ -15,19 +15,10 @@ function WaitingAdmin(data) {
       else {
          loerMore.innerHTML = "Скрыть";
       }
-   } 
-   
-const [modal, setModal] = useState({});
-function modalOlen(e, size, content, title) {
-  function smf() {
-    setModal({ title: title, content: content, size: size, isOpen: false });
-    console.log(modal)
-  }
-  e.preventDefault();
-setModal({ title: title, content: content, size: size, isOpen: true });
-console.log(modal);
-setTimeout(smf, 500);
-}
+   }
+
+   const [openWaitForm, setOpenWaitForm] = useState(false);
+   const handleWaitFormDialog = () => setOpenWaitForm(!openWaitForm);
 
    return (
       <div className="clientPage__container_bottom">
@@ -51,12 +42,12 @@ setTimeout(smf, 500);
                         </div>
                         <a className="ad_slider">
                            <img src={(offer.imgs)[0]} alt="" />
-                           <div  className="ad__photo_count">1/{(offer.imgs).length}</div>
+                           <div className="ad__photo_count">1/{(offer.imgs).length}</div>
                         </a>
                         <div className="ad__information">
                            <div className="ad__information__blocks">
                               <div className="ad__information__left_block">
-                                 <div  className="ad__information_price">{ToRubles(offer.price)}</div>
+                                 <div className="ad__information_price">{ToRubles(offer.price)}</div>
                                  <div className="ad__information_title">{offer.title}</div>
                                  <div className="ad__information_category">
                                     {offer.categorys.map(category => {
@@ -68,7 +59,7 @@ setTimeout(smf, 500);
                                  </div>
                               </div>
                               <div className="ad__information__right_block">
-                                 <button onClick={e => { modalOlen(e, 'lg', btnReject() ) }} className="btn__reject">Отклонить</button>
+                                 <button onClick={() => setOpenWaitForm(!openWaitForm)} className="btn__reject">Отклонить</button>
                               </div>
                            </div>
                            <div className="ad__information__user">
@@ -87,7 +78,9 @@ setTimeout(smf, 500);
                   )
                })}</div>
          </div>
-         <Modal {...modal} /> 
+         <Dialog open={openWaitForm} onClose={() => setOpenWaitForm(!openWaitForm)} fullWidth maxWidth='md'>
+            <BtnReject Close={handleWaitFormDialog} />
+         </Dialog>
       </div>
    )
 }

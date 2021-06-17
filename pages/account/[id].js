@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import MainLayout from '../../layout/MainLayout';
 import StarRating from '../../components/StarRating';
 import Offers from '../../components/account/Offers/Offers';
 import Deals from '../../components/account/Deals/Deals';
@@ -64,8 +63,8 @@ function Account() {
   }
 
   return (
-    <div className="userOffersPage" id="user">
-      <Header />
+    <MainLayout title={'Личный кабинет'}>
+      {/* <div className="userOffersPage" id="user"> */}
       <div className="clientPage text">
         <div className="clientPage__breadcrumbs thin">
           <a className="breadCrumb light" href="/">Главная</a>
@@ -126,10 +125,9 @@ function Account() {
         </div>
       </div>
       <div className="userPageWhiteSpace"></div>
-      <Footer />
       <Modal {...modal} />
-    </div >
 
+    </MainLayout>
   );
 }
 export default Account;

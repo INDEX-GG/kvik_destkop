@@ -12,6 +12,7 @@
     bottom: 50px;
     transition: all 350ms ease-in-out;
     animation: showST 350ms ease-in-out;
+    z-index: 1;
     &:hover {
         transition: all 350ms ease-in-out;
         box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.6);

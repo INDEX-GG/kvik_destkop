@@ -8,6 +8,7 @@ import { ToRubles } from '../../components/services';
 import Statistics from '../../components/Statistics';
 import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
+import { useMedia } from '../../hooks/useMedia';
 
 const obj = [{ title: "Toyota Mark II jxz90", objImg: [{ img: "https://source.unsplash.com/random?cars" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 200000, newPrice: 180000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: true, status: 0, call: true, message: true, like: true, compare: false, delivery: true, security: true },
 { title: "Toyota Altezza", objImg: [{ img: "https://source.unsplash.com/random?forest" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: '', newPrice: 400000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 1, call: true, message: false, like: true, compare: false, delivery: false, security: true },
@@ -95,6 +96,8 @@ const similarOffersBox = [
 
 export default function Product() {
 
+    const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+
     const [collapsed, setCollapsed] = useState(true);
     const handleCollapse = e => {
         e.preventDefault();
@@ -143,36 +146,24 @@ export default function Product() {
         setTimeout(smf, 500);
     }
 
-    // const [width, setWidth] = useState(window.innerWidth);
-    // useEffect(() => {
-    //     window.addEventListener("resize", updateWidthAndHeight);
-    // });
-    // const updateWidthAndHeight = () => {
-    //     setWidth(window.innerWidth);
-    //     window.removeEventListener;
-    // };
-
-    // const true = `${width}` > 1365;
-    // const false = `${width}` <= 1366;
-    // const false = `${width}` > 752;
     return (
         <div className="productPage" id="productPage">
             <Header />
             <div className="productPageContainer text">
-                {true ? <div className="breadcrumbs thin">Хлебные крошки</div> : ''}
+                {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin">Хлебные крошки</div>}
                 {/* Блок объявления */}
                 <div className="productPageWrapper">
                     <div className="productPageDescription">
-                        {true ? <div className="productPageTitle xl">{objP.title}</div> : ''}
-                        {objP.adstatus === 8 && false ?
+                        {!matchesMobile && !matchesTablet && <div className="productPageTitle xl">{objP.title}</div>}
+                        {objP.adstatus === 8 && !matchesLaptop && !matchesDesktop && !matchesHD &&
                             <div className="SellerInfoTopButtons">
                                 <input className="SellerInfoNoteInput" placeholder="Заметка к объявлению" />
                                 <a className="SellerInfoNote"></a>
                                 <a className="SellerInfoFavorite"></a>
-                            </div> : ""}
+                            </div>}
                         <ProductCarousel {...objP} />
-                        {false ? <div className="productPageTitle xl">{objP.title}</div> : ''}
-                        {false ? <div className="productPageAdaptive">
+                        {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{objP.title}</div>}
+                        {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageAdaptive">
                             <div className="SellerInfoOldPrice__adaptive">
                                 <div className="SellerInfoOldPrice thin dark crossed">
                                     {ToRubles(objP.oldprice)}
@@ -191,8 +182,8 @@ export default function Product() {
                                 <div className="SellerInfoDate">Размещено {objP.date}</div>
                                 {objP.adstatus === 1 ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ''}
                             </div></div>
-                            : ''}
-                        {false ?
+                        }
+                        {!matchesLaptop && !matchesDesktop && !matchesHD &&
                             <div className="SellerInfo__adaptive_button">
                                 {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ''}
                                 {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ''}
@@ -211,10 +202,10 @@ export default function Product() {
                                     </div> : ''}
                                     {objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ''}
                                     {objP.adstatus === 4 ? <p className="reason__rejection">Причина отклонения: <span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ
-                                    / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях
-                                / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span></p> : ''}
+                                        / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях
+                                        / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span></p> : ''}
                                     {objP.adstatus === 6 ? <p className="ad__last__edit">Дата последнего редактирования 00.00.00
-                            <span>Будет удалено навсегда через 00 дней</span></p> : ''}
+                                        <span>Будет удалено навсегда через 00 дней</span></p> : ''}
                                     {objP.adstatus === 8 ? <div className="SellerInfoBuy buy_btn__adaptive">Купить</div> : ''}
                                     <div className="SellerInfo__adaptive_buttons">
                                         {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ''}
@@ -224,10 +215,10 @@ export default function Product() {
                                     </div>
                                 </div>
                             </div>
-                            : ''}
+                        }
                         <div className="productPageCharacterMapBlock" style={collMap ? { paddingBottom: 0 } : { paddingBottom: '18px' }} >
                             <div className="productPageCharacterLocality">
-                                {true ? <div>Местоположение</div> : ''}
+                                {!matchesMobile && !matchesTablet && <div>Местоположение</div>}
                                 <div>{objP.locality}</div>
                                 <a className={`productPageCharacterMapSwitch highlight underline ${collMap ? ('') : ('collMapSw')}`} onClick={e => handleCollMap(e)}>На карте</a>
                             </div>
@@ -260,7 +251,7 @@ export default function Product() {
                     </div>
                     {/* Блок информации*/}
                     <div className="block__my_active_ad" >
-                        {true ?
+                        {!matchesMobile && !matchesTablet &&
                             <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
                                 {objP.adstatus !== 7 & objP.adstatus !== 8 ?
                                     <div className="SellerInfoTopButtons">
@@ -297,9 +288,9 @@ export default function Product() {
                                         </div>
                                         <div className="SellerInfoSeen dark">48 +4</div>
                                     </div> : ""}
-                            </div> : ''}
-                        {objP.adstatus === 8 && true ? <div className="SellerInfoBuy">Купить</div> : ''}
-                        {objP.adstatus !== 7 && true ?
+                            </div>}
+                        {objP.adstatus === 8 && !matchesMobile && !matchesTablet && <div className="SellerInfoBuy">Купить</div>}
+                        {objP.adstatus !== 7 && !matchesMobile && !matchesTablet &&
                             <div className="ad__block_middle">
                                 {objP.adstatus === 1 ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ''}
                                 {objP.adstatus === 1 ? <div className="ad__block_middle__description_service">
@@ -313,13 +304,13 @@ export default function Product() {
                                 {objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ''}
                                 {objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ''}
                                 {objP.adstatus === 4 ? <p className="reason__rejection">Причина отклонения: <span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ
-                                / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях
-                                / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span></p> : ''}
+                                    / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях
+                                    / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span></p> : ''}
                                 {objP.adstatus === 4 || objP.adstatus === 6 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ''}
                                 {objP.adstatus === 4 || objP.adstatus === 6 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ''}
                                 {objP.adstatus === 6 ? <p className="ad__last__edit">Дата последнего редактирования 00.00.00
-                            <span>Будет удалено навсегда через 00 дней</span></p> : ''}
-                            </div> : ''}
+                                    <span>Будет удалено навсегда через 00 дней</span></p> : ''}
+                            </div>}
                         {objP.adstatus === 1 || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ?
                             <div className="ad__block_bottom">
                                 <div className="SellerInfoUserBlock">
@@ -344,7 +335,7 @@ export default function Product() {
                                         </div>
                                     </div>
                                 </div>
-                                {false ? <a className="SellerInfoloarmore"></a> : ''}
+                                {!matchesLaptop && !matchesDesktop && !matchesHD && <a className="SellerInfoloarmore"></a>}
                             </div> : ''}
                         {objP.adstatus === 7 || objP.adstatus === 8 ?
                             <div className="main_ad__dottom">
@@ -368,10 +359,10 @@ export default function Product() {
                                             </div>
                                         </div>
                                     </div>
-                                    {true ? <a className="SellerInfoUserAdd"></a> : ''}
-                                    {false ? <a className="SellerInfoloarmore"></a> : ''}
+                                    {!matchesMobile && !matchesTablet && <a className="SellerInfoUserAdd"></a>}
+                                    {!matchesLaptop && !matchesDesktop && !matchesHD && <a className="SellerInfoloarmore"></a>}
                                 </div>
-                                {true ? <div className="SellerInfoOffers">
+                                {!matchesMobile && !matchesTablet && <div className="SellerInfoOffers">
                                     {(collapsed) &&
                                         (objP.userOffers.slice(0, 3).map(offer => {
                                             return (
@@ -393,15 +384,15 @@ export default function Product() {
                                             )
                                         }))
                                     }
-                                </div> : ""}
-                                {true ? <a className="SellerInfoUserOffersCollapse highlight underline" onClick={e => { handleCollapse(e) }}>{(collapsed) && `Все объявления продавца (${objP.userOffers.length})` || `Скрыть`}</a> : ""}
-                                {true ? <a className="SellerInfoShutUp small light underline">Заблокировать пользователя</a> : ""}
+                                </div>}
+                                {!matchesMobile && !matchesTablet && <a className="SellerInfoUserOffersCollapse highlight underline" onClick={e => { handleCollapse(e) }}>{(collapsed) && `Все объявления продавца (${objP.userOffers.length})` || `Скрыть`}</a>}
+                                {!matchesMobile && !matchesTablet && <a className="SellerInfoShutUp small light underline">Заблокировать пользователя</a>}
                             </div> : ''}
                         {objP.adstatus === 7 || objP.adstatus === 8 ?
                             <div className="ad__block_bottom__adaptive">
-                                {false ? <div className="ad__block_bottom__adaptive_left"> <a className="SellerInfoUserAdd"></a>Подписаться</div> : ''}
+                                {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="ad__block_bottom__adaptive_left"> <a className="SellerInfoUserAdd"></a>Подписаться</div>}
                                 <div className="ad__block_bottom__adaptive_right">
-                                    {false ? <a className="SellerInfoShutUp small light underline">Заблокировать пользователя</a> : ""}
+                                    {!matchesLaptop && !matchesDesktop && !matchesHD && <a className="SellerInfoShutUp small light underline">Заблокировать пользователя</a>}
                                     {objP.adstatus === 8 ? <a className="SellerInfoComplain small light underline">Пожаловаться</a> : ""}
                                 </div>
                             </div>
@@ -418,19 +409,19 @@ export default function Product() {
                             })}
                         </div>
                         <div className="productPageSimilar__advertisement">
-                            {false ? <div className="showsmthWrapper">
+                            {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="showsmthWrapper">
                                 <div className="freedomBlock_1"></div>
                                 <div className="freedomBlock_2"></div>
-                            </div> : ''}
+                            </div>}
                         </div>
                         <div className={`SimilarOffersColl highlight underline ${collSO && 'SOCColl'}`} onClick={e => handleCollSO(e)}>{collSO && 'Показать ещё' || 'Скрыть'}</div>
                     </div>
                 </div>
-                {true ?
+                {!matchesMobile && !matchesTablet &&
                     <div className="showsmthWrapper">
                         <div className="freedomBlock_1"></div>
                         <div className="freedomBlock_2"></div>
-                    </div> : ''}
+                    </div>}
             </div>
             <div className="productPageWhiteSpace"></div>
             <Modal {...modal} />

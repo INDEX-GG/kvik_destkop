@@ -6,7 +6,7 @@ import NavObj from './json/navobj.json';
 
 const useStyles = makeStyles((theme) => ({
     categories__block_main: {
-        maxWidth: '1248px',
+        maxWidth: '1260px',
         margin: '0 auto',
         position: 'relative',
         width: '100%',

@@ -95,7 +95,7 @@ export function modalDeletHistory() {
 }
 
 /* Модальное окно админа"Отклонение" */
-export function btnReject() {
+export function BtnReject({Close}) {
   return (
     <div className="modal__wrapper_reject">
       <div className="modal__header">

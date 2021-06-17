@@ -76,7 +76,6 @@
 }
 .signUpTitle {
   position: relative;
-  font-family: "ubuntu-medium";
   margin-top: 25px;
   font-size: 22px;
 }
@@ -98,7 +97,6 @@
 .name,
 .surname,
 .phoneSignUp {
-  font-family: "ubuntu-regular";
   font-size: 14px;
   position: relative;
   font-size: 14px;
@@ -109,7 +107,6 @@
 }
 .passwordSignUp,
 .passwordRepeat {
-  font-family: "ubuntu-regular";
   font-size: 14px;
   position: relative;
   left: 5px;
@@ -128,7 +125,6 @@
   color: $tpsl;
 }
 .subSignUp {
-  font-family: "ubuntu-regular";
   font-size: 14px;
   color: $ts;
   background-color: $prime;
@@ -143,7 +139,6 @@
   cursor: pointer;
 }
 .unSubSignUp {
-  font-family: "ubuntu-regular";
   font-size: 14px;
   color: $ts;
   background-color: $inactive;
@@ -165,12 +160,10 @@
 .licenseLink {
   position: relative;
   color: $tpml;
-  font-family: "ubuntu-regular";
   font-size: 14px;
 }
 .alreadySign {
   position: relative;
-  font-family: "ubuntu-regular";
   font-size: 14px;
   top: 50px;
   margin-left: auto;
@@ -179,7 +172,6 @@
   color: $tpml;
 }
 .signInBtn {
-  font-family: "ubuntu-medium";
   font-size: 18px;
   position: relative;
   width: 64px;
@@ -214,7 +206,6 @@
 }
 .checkСorrectnessPassword {
   color: $primered;
-  font-family: 'ubuntu-medium';
   font-size: 12px;
   text-align: left;
   position: relative;

@@ -2,7 +2,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Head from 'next/head';
 
-const MainLayout = ({ children, title = '' }) => {
+const MainLayout = ({ children, title = '', footer }) => {
     return (
         <>
             <Head>
@@ -12,7 +12,7 @@ const MainLayout = ({ children, title = '' }) => {
             <>
                 {children}
             </>
-            <Footer />
+            {!footer && <Footer />}
         </>
     )
 }

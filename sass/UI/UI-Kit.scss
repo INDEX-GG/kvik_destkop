@@ -1,5 +1,3 @@
-$ff: 'Ubuntu', sans-serif; // шрифт
-
 /* Цвета */
 $tp: #2c2c2c; //Текст главный
 $tpll: #2a2a2a;
@@ -69,7 +67,6 @@ li {
 
 // Старый css ui-kit
 .buttonGrey {
-    font-family: $ff;
     padding: 3px 8px;
     background-color: $light;
     border-radius: 8px;
@@ -87,7 +84,6 @@ li {
   
   .contained {
     color: $superlight;
-    font-family: $ff;
     font-size: 14px;
     font-weight: 500;
     background-color: $prime;
@@ -109,7 +105,6 @@ li {
     padding: 8px 20px;
   }
   .plusButton {
-    font-family: 'Ubuntu';
     font-weight: 500;
     border-radius: 8px;
     color: $ts;
@@ -125,7 +120,6 @@ li {
     background-color: #51B6C2;
   }
   .text {
-    font-family: 'ubuntu';
     font-weight: 500;
     font-size: 14px;
     color: $tp;
@@ -253,7 +247,7 @@ li {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    
+    left: 0;
  }
  .checkbox input:checked+.checkbox__text:before {
     background: $ts;
