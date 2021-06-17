@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { resolveHref } from 'next/dist/next-server/lib/router/router';
 
 
 export default function handler(req, res){
@@ -24,7 +25,10 @@ if (req.method === 'POST'){
 
           if(result) {
               console.log("Уже есть");
-              return "Уже есть в базе данных.";
+              error={
+                  status:true
+              }
+              return resolve.json(error);
           } else {
               add();
           }
