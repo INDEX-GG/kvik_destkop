@@ -16,6 +16,8 @@ if (req.method === 'POST'){
 
         async function check()
         {
+
+            // Передлать для определния того,что не правильно, логин или пароль 
             const result = await prisma.users.findUnique({
                 where: {
                     phone: req.body.phone,
