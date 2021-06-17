@@ -34,6 +34,14 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         flexDirection: 'column',
         alignItems: 'center',
+        '&>*': {
+            margin: theme.spacing(1),
+        }
+    },
+    inputSubmit: {
+        '& input': {
+            textAlign: 'center',
+        }
     }
 }));
 
@@ -50,37 +58,48 @@ function PhoneNumberFormat(props) {
       />
     );
   }
-
+  const n = '12345678';
+  console.log(n.slice(-4))
 export default function RegForm({Close}) {
-    const [sendData, setSendData] = useState({});
-    const [checkPhone, setCheckPhone] = useState(false);
-    const [verifyNum, setVerifyNum] = useState();
+    const [sendData, setSendData] = useState({}),
+    [checkPhone, setCheckPhone] = useState(false),
+    [errorVerify, setErrorVerify] = useState({error: true, message: 'Введите цифры'}),
+    [phoneNum, setPhoneNum] = useState(),
+    [buttonSubmit, setButtonSubmit] = useState(true);
+
     const classes = useStyles();
     const { handleSubmit, control, watch } = useForm();
     const onSubmit = data => {
         data.phone = `+${data.phone.replace(/\D+/g, '')}`;
         console.log(data);
         setSendData(data);
-        console.log(sendData);
-        setCheckPhone(true);
-        //Close();
+        axios.post('/api/checkphone', {phone: data.phone}).then((res) => {
+           console.log(res.data)
+           setPhoneNum(res.data)
+           setCheckPhone(true)
+        })
 };
 
-useEffect(() => {
-    console.log(sendData);
-    console.log(verifyNum);
-},[sendData, verifyNum]);
+const verifyNumber = (e) => {
+    if (e.target.value === String(phoneNum).slice(-4)) {
+        setButtonSubmit(false);
+        setErrorVerify({error: false, message: 'Код совпал'});
+    } else {
+        setButtonSubmit(true);
+        setErrorVerify({error: true, message: 'Неверный код подтверждения'})
+    }
+}
 
 const handleSubmitNumber = (e) => {
     e.preventDefault();
-    
+    //Close();
 }
 
   return (
     <>{checkPhone && <Box className={classes.submitNumber}>
-        <Typography variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
-        <TextField value={verifyNum} onChange={(e) => setVerifyNum(e.target.value)} label='4 последние цифры' variant="outlined" size='small' type='text' error={true} helperText='Неверный код подтверждения'></TextField>
-        <Button variant='contained' color='primary' onClick={e => handleSubmitNumber(e)}>Подтвердить</Button>
+        <Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
+        <TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>
+        <Button disabled={buttonSubmit} variant='contained' color='primary' onClick={e => handleSubmitNumber(e)}>Подтвердить</Button>
     </Box>}
     {!checkPhone && <Box className={classes.root}>
         <Box className={classes.reg}>

@@ -1,65 +1,48 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { PrismaClient } from "@prisma/client";
-import axios from "axios";
+import axios from 'axios';
+import qs from 'qs';
 
-var qs =  require('qs');
-
-
-export default function handler(req, res) {
+export default function handler(req, resolve) {
 
   if (req.method === 'POST') {
-    const phone = JSON.parse(JSON.stringify(req.body.phone));
 
-const url = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/auth'
+    const urlAuth = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/auth',
+          urlCall = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/call-auth',
+          urlApprove = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/approve',
+          dataAuth = qs.stringify({ 'grant_type': 'password', 'scope': 'users', 'client_id': '1kvik', 'client_secret': 'bqnqxnhwdb4' }),
+          phoneNumber = qs.stringify({'caller_id': JSON.parse(JSON.stringify(req.body.phone))});
 
-const data = { 'grant_type': 'password', 'scope': 'users', 'client_id': '1kvik', 'client_secret': 'bqnqxnhwdb4' };
-const options = {
-  headers: { 'content-type': 'application/x-www-form-urlencoded' },
-  data: qs.stringify(data),
-  url,
-  method: 'POST'
-};
-axios(options)
-  .then((res)=> {
-    const url = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/call-auth'
-    var getdata = res.data;
-    const data = {'caller_id': phone}
-    const options = {
-      headers: { 'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${getdata.access_token}` },
-      data: qs.stringify(data),
-      url,
-      method: 'POST'
-    }
-    axios(options)
+    console.log(phoneNumber)
+axios.post(urlAuth, dataAuth, {headers: {
+  'content-type': 'application/x-www-form-urlencoded'
+}})
+.then((res)=> {
+    // console.log('Первый then:', res.data)
+    const token = res.data.access_token;
+    axios.post(urlCall, phoneNumber, {headers: {
+      'content-type': 'application/x-www-form-urlencoded', 'Authorization': `Bearer ${token}`
+    }})
     .then((res) => {
-      const url = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/approve'
-    var getdata1 = res.data;
-    const data = {
-      'action': 'call-auth',
-      'caller_id': getdata1.caller_id,
-      'tmp_caller_id': getdata1.tmp_caller_id
-  }
-
-     const options = {
-      headers: { 'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${getdata.access_token}` },
-      data: qs.stringify(data),
-      url,
-      method: 'POST'
-    }
-
-    axios(options) 
+    // console.log('Второй then:', res.data)
+    
+    const callerId = res.data.caller_id,
+          tmpCallerId = res.data.tmp_caller_id,
+          dataApprove = qs.stringify({
+            'action': 'call-auth',
+            'caller_id': callerId,
+            'tmp_caller_id': tmpCallerId
+          });
+          
+    axios.post(urlApprove, dataApprove, {headers: {
+      'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${token}`
+    }}) 
     .then((res) => {
-      var options = 
-      axios.post('/api/regconfirm', {data: {caller: getdata1.tmp_caller_id, phone: getdata1.caller_id}})
+      // console.log('Третий then:', res.data)
+      return (resolve.json(tmpCallerId))
+      })
     })
-
-  
-    })
-   
   })
-  }
-  else {
-  return res.status(405).json({message: 'method not allowed'})
+  } else {
+    return resolve.status(405).json({message: 'method not allowed'})
   }
 }
