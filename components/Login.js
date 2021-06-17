@@ -49,6 +49,10 @@ const Login = ({Close}) => {
     const onSubmit = data => {
         data.phone = `+${data.phone.replace(/\D+/g, '')}`;
         console.log(data);
+        axios.post('/api/checkUser', data).then((res) => {
+            console.log(res.data);
+            //Сделать отладку ошибок
+        })
     };
 
     return (
