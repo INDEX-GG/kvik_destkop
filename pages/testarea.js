@@ -50,6 +50,20 @@ export default function TestArea(req, res) {
         .then((res) => (console.log(res)))
         .catch((err) => ('err', err))
     }
+
+
+
+    const submitBut = () => {
+      regdata = {
+        of:0,
+        userID:34
+        
+      }
+      axios.post('/api/getPosts', regdata)
+      .then((res) => (console.log(res)))
+      .catch((err) => ('err', err))
+  }
+
     /*   function sendRegData(event) {
         event.preventDefault()
        let data = {
@@ -80,9 +94,15 @@ export default function TestArea(req, res) {
         </form>
         <form>
           <div>Код подтверждения <input onChange={(event) => setCode(event.target.value)} /></div>
-          <button onClick={() => submitNum()} style={{ color: 'black', width: '100px', height: '100px' }} />
+          <button onClick={() => submitBut()} style={{ color: 'black', width: '100px', height: '100px' }} />
+
+
+          <button onClick={() => submitBut()} style={{ color: 'black', width: '100px', height: '100px' }} />
         </form>
       </div>
+
+
+
     )
   }
 
