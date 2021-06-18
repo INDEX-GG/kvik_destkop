@@ -18,7 +18,20 @@ if (req.method === 'POST'){
         {
             const results =  await prisma.posts.findMany({
                     skip:req.body.of,
-                    take:2
+                    take:2,
+                    select: {
+                        category_id:true,
+                        photo: true,
+                        rating: true,
+                        created_at: true,
+                        delivery: true,
+                        reviewed: true,
+                        address:true,
+                        phone:true,
+                        trade:true,
+                        verify_moderator:true,
+                        commercial:true
+                      }
                 }
             )
             console.log(results);
