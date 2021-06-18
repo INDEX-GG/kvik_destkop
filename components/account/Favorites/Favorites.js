@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Offers from './tabs/offers';
+import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 
