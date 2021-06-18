@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
             marginRight: '34px',
             [theme.breakpoints.down('md')]: {
                 marginRight: '18px',
-
+                
             },
         },
         '& span': {
