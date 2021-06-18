@@ -8,8 +8,9 @@ import AdBackground from "../UI/icons/AdBackground";
 import Rectangle from "../UI/icons/Rectangle";
 import { useMedia } from '../hooks/useMedia';
 import MainLayout from '../layout/MainLayout';
+import axios from "axios";
 
-function Index() {
+function Index({post}) {
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
@@ -21,7 +22,13 @@ function Index() {
     setScrollPosition(position);
   };
 
+
+
+
   useEffect(() => {
+    axios.post('./api/getPosts', {of: 0})
+    .then((res) => console.log(res))
+
     window.addEventListener('scroll', handleScroll, { passive: false });
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -87,4 +94,17 @@ function Index() {
     </MainLayout >
   )
 }
+
+/* Index.getInitialProps = async (ctx) => {
+  axios.post('./api/getPosts', {of: 0})
+  .then((res) => console.log(res))
+  return(
+    
+
+{qwe: 1232}
+   
+  )
+
+} */
+
 export default Index;
