@@ -18,7 +18,7 @@ if (req.method === 'POST'){
         {
             const results =  await prisma.posts.findMany({
                     skip:req.body.of,
-                    take:2,
+                    take:10,
                     select: {
                         category_id:true,
                         photo: true,
