@@ -12,19 +12,21 @@ if (req.method === 'POST'){
 
     async function main() 
     {
-        getPost();
-        async function getPost()
-        {
-            const res = await prisma.posts.findUnique({ 
-                    where: {
-                        user_id: req.body.userID
-                        } 
-                }
-                );
-                console.log('tyt',res);
-        }
 
         
+        async function getPost()   //Этот запрос нужно будет связать с таблицей
+        {
+            const results =  await prisma.posts.findMany({
+                    skip:0,
+                    take:2
+                }
+            )
+            console.log(results);
+            return  results;
+        }
+
+        const results = await getPost();
+        return res.json({result:results});
     }
 
     main()

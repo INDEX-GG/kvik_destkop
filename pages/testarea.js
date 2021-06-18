@@ -94,7 +94,7 @@ export default function TestArea(req, res) {
         </form>
         <form>
           <div>Код подтверждения <input onChange={(event) => setCode(event.target.value)} /></div>
-          <button onClick={() => submitBut()} style={{ color: 'black', width: '100px', height: '100px' }} />
+          <button onClick={() => submitBust()} style={{ color: 'black', width: '100px', height: '100px' }} />
 
 
           <button onClick={() => submitBut()} style={{ color: 'black', width: '100px', height: '100px' }} />
