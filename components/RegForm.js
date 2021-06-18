@@ -108,7 +108,6 @@ const handleSubmitNumber = (e) => {
         <Box className={classes.reg}>
             <Typography  className={classes.title} variant="h6">Регистрация</Typography>
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-                        
                         <Controller
                         name="name"
                         control={control}
@@ -197,7 +196,7 @@ const handleSubmitNumber = (e) => {
         <Typography variant='subtitle2'>Уже есть аккаунт?</Typography>
         <Button onClick={() => setLogin(!login)} variant='text' size='large' color='primary'>Войти</Button>
     </Box>}
-    {login && <Login />}
+    {login && <Login Close={Close}/>}
     </>
   );
 }

@@ -1,17 +1,24 @@
-import App from 'next/app'
 import Head from 'next/head';
+import { SWRConfig } from 'swr'
 import 'swiper/swiper.scss';
 import "swiper/components/thumbs/thumbs.min.css";
 import '../sass/style.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from '../UI/theme';
+import fetch from '../lib/fetchJson'
 
 
 function MyApp({ Component, pageProps }) {
 
    return (
-      <>
+      <SWRConfig 
+      value={{
+         fetcher: fetch,
+         onError: (err) => {
+           console.error(err)
+         },}}
+       >
          <Head>
             <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
          </Head>
@@ -19,7 +26,7 @@ function MyApp({ Component, pageProps }) {
             <CssBaseline/>
             <Component {...pageProps} />
          </ThemeProvider>
-      </>
+      </SWRConfig>
    )
 }
 
