@@ -1,6 +1,6 @@
 .productPage {
     display: grid;
-    grid-template-rows: 30px 100px auto 1fr 40px;
+    /* grid-template-rows: 30px 100px auto 1fr 40px; */
     min-height: 100vh;
 }
 .productPageContainer {
@@ -470,6 +470,7 @@
 .ad__block_top {
     text-align: center;
     margin-bottom: 32px;
+    position: relative;
 }
 
 .ad__block_top__publication_date {

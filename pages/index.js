@@ -13,17 +13,7 @@ function Index() {
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
-  function showSort() {
-    var showSort = document.getElementById("homeOffersSortContainer");
-    var showCloser = document.getElementById('homeOffersSortContainerCloser')
-    if (showSort.style.display === "none") {
-      showSort.style.display = "flex";
-      showCloser.style.display = 'block';
-    } else {
-      showSort.style.display = "none";
-      showCloser.style.display = 'none';
-    }
-  }
+  const [openSort, setShowSort] = useState();
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
@@ -61,16 +51,16 @@ function Index() {
         <div className="offersTitleLine">
           <div className="offersTitleHome">Рекомендуемое</div>
           <div className="homeOffersSort">
-            <button onClick={showSort} className="settingsOffersHome">
-              По умолчанию <Rectangle />
-            </button>
-            <div id="homeOffersSortContainer" className="homeOffersSortContainer" style={{ display: "none" }}>
-              <button className="homeSortButton">По умолчанию</button>
-              <button className="homeSortButton">Сначала новые</button>
-              <button className="homeSortButton">Дешевле</button>
-              <button className="homeSortButton">Дороже</button>
-              <button className="homeSortButton">По удаленности</button>
-            </div>
+            <button onClick={() => setShowSort(!openSort)} className="settingsOffersHome">По умолчанию <Rectangle /></button>
+            {openSort &&
+              <div id="homeOffersSortContainer" className="homeOffersSortContainer" >
+                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">По умолчанию</button>
+                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">Сначала новые</button>
+                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">Дешевле</button>
+                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">Дороже</button>
+                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">По удаленности</button>
+              </div>
+            }
           </div>
         </div>
         <div className="containerHome">
@@ -88,7 +78,8 @@ function Index() {
               <div className='footer2' id='footer2'>
                 <Footer2 />
               </div>
-            </div>}
+            </div>
+          }
           <ScrollTop />
         </div>
       </div>

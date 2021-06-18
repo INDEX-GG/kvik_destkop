@@ -16,21 +16,19 @@ import LikeDark from '../UI/icons/LikeDark';
 import NotifDark from '../UI/icons/NotifDark';
 import Filter from '../UI/icons/Filter';
 import FiltersApplied from '../UI/icons/FiltersApplied';
+import { withStyles } from "@material-ui/core/styles";
 
-
-
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0 12px',
+        paddingBottom: '8px',
     },
     up_panel: {
         background: theme.palette.background.paper,
@@ -73,10 +71,44 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
     },
-    input: {
+    main_block__input: {
         flexGrow: 1,
-        position: 'relative',
         marginRight: '12px',
+        position: 'relative',
+    },
+    input: {
+        position: 'relative',
+    },
+    main_block__input__radio: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        position: 'absolute',
+        width: '100%',
+    },
+    input__radio: {
+        color: '#C7C7C7',
+        marginLeft: '0px',
+        marginRight: '0px',
+
+        '&:first-child': {
+            marginRight: '34px',
+            [theme.breakpoints.down('md')]: {
+                marginRight: '18px',
+
+            },
+        },
+        '& span': {
+            fontSize: '12px',
+        },
+    },
+    input__radio_right: {
+        color: '#C7C7C7',
+        marginLeft: '0px',
+        marginRight: '0px',
+
+        '& span': {
+            fontSize: '12px',
+        },
     },
     icon: {
         position: 'absolute',
@@ -106,18 +138,36 @@ const useStyles = makeStyles((theme) => ({
     btn__out: {
         marginLeft: '12px',
     },
-    
+
+   
 }));
 
-const Header = () => {
+const GreenCheckbox = withStyles({
+    root: {
+        padding: 0,
+        color: '#C7C7C7',
+        '&$checked': {
+            color: '#C7C7C7',
+        },
+    },
+    MuiFormControlLabel: {
+        root: {
+            color: '#C7C7C7',
+        },
+    },
 
+    checked: {},
+})((props) => <Checkbox color="default" {...props} />);
+
+
+const Header = () => {
     const classes = useStyles();
-    const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+    const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
 
     const [openCat, setCategories] = useState();
+    const [openPanel, setOpenRadioPanel] = useState();
     const [openRegForm, setOpenRegForm] = useState(false);
     const handleRegFormDialog = () => setOpenRegForm(!openRegForm);
-
     const [headerScroll, setHeaderScroll] = useState(classes.header);
     const listenScroll = () => {
         if (scrollY > 0) {
@@ -132,21 +182,7 @@ const Header = () => {
             document.removeEventListener('scroll', listenScroll);
     }, []);
 
-
-
-    const [state, setState] = useState({
-        checkedA: true,
-        checkedB: true,
-        checkedF: true,
-        checkedG: true,
-      });
-    
-      const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-      };
-
-
-    return (    
+    return (
         <>
             {!matchesMobile && !matchesTablet &&
                 <Box className={classes.up_panel}>
@@ -165,12 +201,21 @@ const Header = () => {
                 <Container className={classes.root}>
                     <IconButton onClick={() => Router.push('/')} className={classes.logo}><Logo /></IconButton>
                     <Button className={classes.menu__categorys} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>Категории <ExpandMoreIcon /></Button>
-                   
-                        <Box className={classes.input}>
-                            <TextField variant='outlined' size='small' placeholder="Поиск по объявлениям" fullWidth />
+                    <Box className={classes.main_block__input}>
+                        <Box className={classes.input} >
+                            <TextField onClick={() => setOpenRadioPanel(!openPanel)} variant='outlined' size='small' placeholder="Поиск по объявлениям" fullWidth />
                             <SearchIcon className={classes.icon} />
                         </Box>
-                       
+                        {openPanel && !matchesCustom1100 && !matchesMobile && !matchesTablet &&
+                            <Box className={classes.main_block__input__radio}>
+                                <Box>
+                                    <FormControlLabel className={classes.input__radio} control={<GreenCheckbox icon={<FiberManualRecordOutlinedIcon />} checkedIcon={<FiberManualRecordIcon />} name="checkedH" />} label="Только с фото" />
+                                    <FormControlLabel className={classes.input__radio} control={<GreenCheckbox icon={<FiberManualRecordOutlinedIcon />} checkedIcon={<FiberManualRecordIcon />} name="checkedH" />} label="Безопасная сделка" />
+                                </Box>
+                                <FormControlLabel className={classes.input__radio_right} control={<GreenCheckbox icon={<FiberManualRecordOutlinedIcon />} checkedIcon={<FiberManualRecordIcon />} name="checkedH" />} label="Сохранить поиск" />
+                            </Box>
+                        }
+                    </Box>
                     {!matchesLaptop && !matchesDesktop && !matchesHD &&
                         <Button className={classes.btn__filter}>
                             <Filter />
