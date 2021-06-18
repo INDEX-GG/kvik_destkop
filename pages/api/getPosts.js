@@ -17,7 +17,7 @@ if (req.method === 'POST'){
         async function getPost()   //Этот запрос нужно будет связать с таблицей
         {
             const results =  await prisma.posts.findMany({
-                    skip:req.body.of,
+                    skip:0,
                     take:2
                 }
             )
