@@ -9,6 +9,7 @@ SwiperCore.use([Pagination]);
 function AdCard_component({ objs }) {
     const currentSwiper = useRef();
     let sheduled = false;
+
     useEffect(() => {
         currentSwiper.current.addEventListener('mousemove', switchSlide);
         return () =>
@@ -29,12 +30,18 @@ function AdCard_component({ objs }) {
         }
     }
 
+    /* console.log(objs.map(objs => (objs.title))) */
+    const call = true;
+    const like = true;
+
+   
     return (
-        <Link href={`/product/${objs.id}`} >
-            <div className={objs.status === 2 ? "card card__lg" : "card"}>
-                <div className={objs.status !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
+        objs.map(objs => (
+        <Link href={`/product/${objs.category_id}`} >
+            <div className={objs.commercial === 2 ? "card card__lg" : "card"}>
+                <div className={objs.commercial !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
                     <div className="card__top">
-                        {objs.seen ? <div className="card__top_seen">Просмотрено</div> : ''}
+                        {objs.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ''}
                         <div className="card__top_slider">
                             <Swiper
                                 ref={currentSwiper}
@@ -43,41 +50,41 @@ function AdCard_component({ objs }) {
                                 }}
                                 slidesPerView={1}
                             >
-                                {objs.objImg.map((img, i) => { return <SwiperSlide key={i}> <img src={img.img} alt="" /></SwiperSlide> })}
+                                {/* {objs.objsImg.map((img, i) => { return <SwiperSlide key={i}> <img src={img.img} alt="" /></SwiperSlide> })} */}
                             </Swiper>
                         </div>
                         <div className="card__top_info">
                             <div className="card__top_info_left">
-                                {objs.message ? <span className="card_comment"></span> : ''}
-                                {objs.call ? <span href="#" className="card_call"></span> : ''}
+                                {objs.email ? <span className="card_comment"></span> : ''}
+                                {call ? <span href="#" className="card_call"></span> : ''}
                             </div>
                             <div className="card__top_info_right">
                                 <span className="card_compare"></span>
-                                {objs.like ? <span className="card_like"></span> : ''}
+                                {like ? <span className="card_like"></span> : ''}
                             </div>
                         </div>
                     </div>
-                    <div className={objs.seen ? "card__bottom card__bottom-seen" : 'card__bottom'}>
+                    <div className={objs.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
                         <div className="card__bottom_info">
                             <div className="card__bottom_info_left">
-                                <span className="old__price">{ToRubles(objs.oldPrice)}</span>
-                                <span className="new__price">{ToRubles(objs.newPrice)}</span>
+                                <span className="old__price">{ /* {ToRubles(objs.oldPrice)}  */}</span>
+                                <span className="new__price">{ ToRubles (objs.price)}</span>
                             </div>
                             <div className="card__bottom_info_right">
-                                {objs.delivery ? <span className={!objs.status == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
-                                {objs.security ? <span className={!objs.status == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
+                                {objs.delivery ? <span className={!objs.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
+                                {objs.secure_transaction ? <span className={!objs.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
                             </div>
                         </div>
                         <div className="card__bottom_info_middle">{objs.title}</div>
                         <div className="card__bottom_info_footer">
-                            <div className="card__bottom_info_footer_left">{objs.status === 2 ? objs.city : ellipsis(objs.city, 15)}</div>
-                            <div className="card__bottom_info_footer_right">{ToRusDate(objs.date)}</div>
+                            <div className="card__bottom_info_footer_left">{objs.commercial === 2 ? objs.address :  ellipsis (objs.address, 15)}</div>
+                            <div className="card__bottom_info_footer_right">{ ToRusDate (objs.created_at)}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </Link>
-    )
+    )))
 }
 
 export default AdCard_component;
