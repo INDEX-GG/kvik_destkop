@@ -1,20 +1,341 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model users {
+  id                      Int       @id @default(autoincrement())
+  user_type_id            Int?      @db.SmallInt
+  gender_id               Int?
+  name                    String    @db.VarChar(100)
+  photo                   String?   @db.VarChar(255)
+  about                   String?   @db.VarChar(255)
+  phone                   String    @unique @db.VarChar(60)
+  phone_hidden            Boolean?  @default(false)
+  username                String?   @db.VarChar(100)
+  email                   String?   @db.VarChar(100)
+  phone_verified_at       DateTime? @db.Timestamp(0)
+  password                String
+  remember_token          String?   @db.VarChar(100)
+  role                    Int?      @default(0) @db.SmallInt
+  permission              Json?
+  can_be_impersonated     Boolean?  @default(true)
+  disable_comments        Boolean?  @default(false)
+  ip_addr                 String?   @db.VarChar(50)
+  provider                String?   @db.VarChar(50)
+  provider_id             String?   @db.VarChar(50)
+  email_token             String?   @db.VarChar(50)
+  phone_token             String?   @db.VarChar(50)
+  verified_email          Boolean?  @default(false)
+  verified_phone          Boolean?  @default(true)
+  accept_terms            Boolean?  @default(false)
+  accept_marketing_offers Boolean?  @default(false)
+  blocked                 Boolean?  @default(false)
+  closed                  Boolean?  @default(false)
+  last_login_at           DateTime? @db.Timestamp(0)
+  deleted_at              DateTime? @db.Timestamp(0)
+  createdAt               DateTime? @db.Timestamp(0)
+  updatedAt               DateTime? @db.Timestamp(0)
+
+  @@index([can_be_impersonated], name: "users_can_be_impersonated_index")
+  @@index([email], name: "users_email_index")
+  @@index([gender_id], name: "users_gender_id_index")
+  @@index([phone], name: "users_phone_index")
+  @@index([role], name: "users_role_index")
+  @@index([user_type_id], name: "users_user_type_id_index")
+  @@index([username], name: "users_username_index")
+  @@index([verified_email], name: "users_verified_email_index")
+  @@index([verified_phone], name: "users_verified_phone_index")
 }
 
-model users {
-  id Int @id @default(autoincrement())
-  name     String @db.VarChar(100)
-  phone    String @db.VarChar(60) @unique
-  password String @db.VarChar(60) 
+model posts {
+  id                    Int    @id @default(autoincrement())
+  country_code          Int?
+  category_id           Int?
+  user_id               Int?      @unique
+  post_type_id          Int?
+  title                 String    @db.VarChar(255)
+  slug                  String    @db.VarChar(255)
+  description           String
+  tags                  String?   @db.VarChar(255)
+  price                 Decimal?  @db.Decimal(17, 2)
+  trade                 Boolean?  @default(false)
+  photo                 Json?     @db.Json
+  video                 String?
+  phone                 String?   @db.VarChar(50)
+  communication         Json?     @db.Json
+  phone_token           String?   @db.VarChar(32)
+  phone_hidden          Boolean?  @default(false)
+  email                 String?   @db.VarChar(100)
+  email_token           String?   @db.VarChar(32)
+  tmp_token             String?   @db.VarChar(32)
+  address               String?   @db.VarChar(255)
+  lon                   Float?
+  lat                   Float?
+  visits                Int?      @default(0)
+  commercial            Int?
+  date_start_commercial DateTime? @db.Timestamp(0)
+  date_stop_commercial  DateTime? @db.Timestamp(0)
+  reviewed              Int?      @default(0)
+  featured              Int?      @default(0)
+  rating                Int?      @default(0)
+  delivery              Boolean?  @default(false)
+  secure_transaction    Boolean?  @default(false)
+  add_fields            Json?
+  archived              Boolean?  @default(false)
+  archived_time         DateTime? @db.Timestamp(0)
+  archived_manually     Boolean?  @default(false)
+  draft                 Boolean?  @default(false)
+  created_at            DateTime? @db.Timestamp(0)
+  updated_at            DateTime? @db.Timestamp(0)
+  deleted_at            DateTime? @db.Timestamp(0)
+  verify                Int?      @default(0)
+  date_verify           DateTime? @db.Timestamp(0)
+  verify_moderator      Int?
 
-  @@unique(fields: [phone, password], name: "loginUS")
+  @@index([address], name: "posts_address_index")
+  @@index([archived], name: "posts_archived_index")
+  @@index([category_id], name: "posts_category_id_index")
+  @@index([commercial], name: "posts_commercial_index")
+  @@index([country_code], name: "posts_country_code_index")
+  @@index([featured], name: "posts_featured_index")
+  @@index([lon, lat], name: "posts_lon_lat_index")
+  @@index([price], name: "posts_price_index")
+  @@index([reviewed], name: "posts_reviewed_index")
+  @@index([tags], name: "posts_tags_index")
+  @@index([title], name: "posts_title_index")
+  @@index([user_id], name: "posts_user_id_index")
+  @@index([verify], name: "posts_verify_index")
+  @@index([verify_moderator], name: "posts_verify_moderator_index")
+}
+
+model categories {
+  id               BigInt                @id @default(autoincrement())
+  name             String?               @db.VarChar(100)
+  alias            String                @unique @db.VarChar(150)
+  parent_id        BigInt?               @default(0)
+  add_fields       Json?                 @db.Json
+  path             Unsupported("ltree")?
+  icon             String?               @db.VarChar(255)
+  tag              Json?
+  categories       categories?           @relation("categoriesTocategories_parent_id", fields: [parent_id], references: [id])
+  other_categories categories[]          @relation("categoriesTocategories_parent_id")
+
+  @@index([alias], name: "categories_alias_index")
+  @@index([parent_id], name: "categories_parent_id_index")
+  @@index([path], name: "categories_path_index")
+  @@index([tag], name: "categories_tag_index")
+}
+
+model failed_jobs {
+  id         BigInt   @id @default(autoincrement())
+  uuid       String   @unique @db.VarChar(255)
+  connection String
+  queue      String
+  payload    String
+  exception  String
+  failed_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model leaves {
+  id           BigInt                @id @default(autoincrement())
+  alias        String?               @db.VarChar(150)
+  parent_id    BigInt?               @default(0)
+  path         Unsupported("ltree")?
+  name         String?               @db.VarChar(100)
+  type         String?               @db.VarChar(30)
+  data         Json?
+  leaves       leaves?               @relation("leavesToleaves_parent_id", fields: [parent_id], references: [id])
+  other_leaves leaves[]              @relation("leavesToleaves_parent_id")
+
+  @@index([alias], name: "leaves_alias_index")
+  @@index([data], name: "leaves_data_index")
+  @@index([parent_id], name: "leaves_parent_id_index")
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement())
+  migration String @db.VarChar(255)
+  batch     Int
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model password_resets {
+  email      String    @db.VarChar(255)
+  token      String    @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+
+  @@index([email], name: "password_resets_email_index")
+  @@ignore
+}
+
+model personal_access_tokens {
+  id             BigInt    @id @default(autoincrement())
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   BigInt
+  name           String    @db.VarChar(255)
+  token          String    @unique @db.VarChar(64)
+  abilities      String?
+  last_used_at   DateTime? @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id], name: "personal_access_tokens_tokenable_type_tokenable_id_index")
+}
+
+model pictures {
+  id         BigInt    @id @default(autoincrement())
+  post_id    Int?
+  filename   String    @db.VarChar(255)
+  position   Int?
+  active     Boolean?  @default(false)
+  deleted_at DateTime? @db.Timestamp(0)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model posts_fields {
+  id                                    Int      @default(autoincrement())
+  post_id                               Int
+  deadline                              String?
+  owner                                 String?
+  finishing                             String?
+  roomnumber                            String?
+  seriesh                               String?
+  elevator                              String?
+  material                              String?
+  layout                                String?
+  bathroom                              String?
+  balconyloggia                         String?
+  infrastructure                        String?
+  saletype                              String?
+  repairs                               String?
+  tenure                                String?
+  lease_term                            String?
+  furniture                             Boolean?
+  facilities                            String?
+  communal_payments                     Boolean?
+  prepayment                            String?
+  house_type                            String?
+  landtype                              String?
+  numberbathrooms                       String?
+  communications                        String?
+  additionally                          String?
+  garage                                Boolean?
+  electricity                           String?
+  heating                               String?
+  gas                                   String?
+  water_supply                          String?
+  multimedia                            String?
+  class                                 String?
+  buildingtype                          String?
+  entrance                              String?
+  access                                String?
+  parking                               String?
+  included                              String?
+  typetransaction                       String?
+  crane                                 String?
+  possible_appointment                  String?
+  road                                  String?
+  projectavailability                   Boolean?
+  availabilitybuildings                 Boolean?
+  typelaw                               String?
+  termssale                             String?
+  typepark                              String?
+  a_type                                Int?
+  documents                             String?
+  condition                             String?
+  status                                String?
+  steering_wheel                        String?
+  driving_assistance                    String?
+  antitheft_system                      String?
+  salon                                 String?
+  support_systems                       String?
+  airbags                               String?
+  multimedia_and_navigation             String?
+  exchange_is_possible                  String?
+  wheel_formula                         String?
+  chassis                               String?
+  brand                                 String?
+  engine_type                           String?
+  suspension_type                       String?
+  brake_type                            String?
+  trailer_type                          String?
+  appointment                           String?
+  tire_model                            String?
+  product_condition                     String?
+  seasonality                           String?
+  bus_type                              String?
+  runflat_technology                    String?
+  disc_type                             String?
+  diameter                              String?
+  model                                 String?
+  fuel_type                             String?
+  housing                               String?
+  product_availability                  String?
+  schedule                              String?
+  floor                                 String?
+  willingness_to_travel                 String?
+  moving                                String?
+  manufacturer                          String?
+  processor_manufacturer                String?
+  display_diagonal                      String?
+  display_resolution                    String?
+  display_surface                       String?
+  body_material                         String?
+  gpu                                   String?
+  features                              String?
+  ram_size                              Int?
+  matrix_type                           String?
+  cpu                                   String?
+  builtin_memory                        String?
+  form_factor                           String?
+  aspect_ratio                          String?
+  screen_type                           String?
+  number_of_cameras                     String?
+  front_camera_type                     String?
+  main_camera                           String?
+  frontcamera                           String?
+  network_support                       String?
+  sim_number                            String?
+  battery_capacity                      String?
+  operating_system                      String?
+  memory_card_slot                      String?
+  connectors_and_interfaces             String?
+  features_of_the                       String?
+  number_of_sim_cards                   Int?
+  sim_availability                      String?
+  battery_life                          String?
+  certification                         String?
+  choosing_a_gadget                     String?
+  the_presence_of_a_sim_card            String?
+  communication                         String?
+  materials_edit                        String?
+  the_presence_of_a_discrete_video_card String?
+  motherboard_manufacturer              String?
+  number_of_memory_slots                String?
+  chipset                               String?
+  socket                                String?
+  memory_type                           String?
+  power_supply_power                    String?
+  diagonal                              String?
+  connectors                            String?
+  ram_type                              String?
+  volume                                String?
+  backlight_housing                     String?
+  graphics_card_manufacturer            String?
+  chip_manufacturer                     String?
+  type                                  String?
+
+  @@ignore
+}
+
+model verifed {
+  id          BigInt @id @default(autoincrement())
+  description String @db.VarChar(255)
 }
