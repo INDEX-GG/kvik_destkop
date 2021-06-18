@@ -8,6 +8,8 @@ const theme = createMuiTheme({
          2: 'md',
          3: 'lg',
          4: 'xl',
+         5: 'custom1100',
+         6: 'custom1365',
       },
       values: {
          xs: 0,
@@ -15,7 +17,10 @@ const theme = createMuiTheme({
          md: 960,
          lg: 1280,
          xl: 1920,
-      }
+         custom1100: 1100,
+         custom1365: 1365,
+
+      },
    },
    palette: {
       primary: {
@@ -68,6 +73,21 @@ const theme = createMuiTheme({
             paddingLeft: '0',
             paddingRight: '0',
          },
+         maxWidthLg: {
+               maxWidth: '1048px',
+            },
+         
+         MuiContainer: {
+            root: {
+               display: 'flex',
+               paddingLeft: '0',
+               paddingRight: '0',
+            },
+            maxWidthLg: {
+               
+                  maxWidth: '1048px',
+               },
+            },
       },
       MuiBox: {
          root: {

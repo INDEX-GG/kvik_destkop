@@ -15,7 +15,7 @@ export default function Contacts() {
             <div className="contacts">
                 <div className="contacts__blocks">
                     <div className="contacts__blocks__block">
-                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor:de278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="" height="" frameborder="0"></iframe>
+                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor:de278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="" height="" frameBorder="0"></iframe>
                     </div>
                     <div className="contacts__blocks__block contacts__block">
                         <div className="contacts__blocks__block_wrapper_top">
