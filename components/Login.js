@@ -52,6 +52,10 @@ const Login = ({Close}) => {
         axios.post('/api/checkUser', data).then((res) => {
             console.log(res.data);
             //Сделать отладку ошибок
+            const user = { isAuth: true, id: res.data.idUser }
+            console.log(user);
+            axios.post('api/login', user).then(res=>console.log(res))
+            // Close();
         })
     };
 
