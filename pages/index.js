@@ -23,17 +23,20 @@ function Index({post}) {
   };
 
 
+  const [data, setData] = useState([]);
+
 
 
   useEffect(() => {
     axios.post('./api/getPosts', {of: 0})
-    .then((res) => console.log(res))
+    .then((res) => setData(res.data.result))
 
     window.addEventListener('scroll', handleScroll, { passive: false });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
 
   const obj = [
     { id: 1, title: "Toyota Mark II jxz90", objImg: [{ img: "https://source.unsplash.com/random?cars" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 200000, newPrice: 180000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: true, status: 0, call: true, message: true, like: true, compare: false, delivery: true, security: true },
@@ -72,7 +75,7 @@ function Index({post}) {
         </div>
         <div className="containerHome">
           <div className="scrollableOffersHome">
-            {obj.map((obj) => <AdCard_component objs={obj} />)}
+            {data.map((objs) => <AdCard_component objs={data} />)}
           </div>
           {!matchesMobile && !matchesTablet &&
             <div className="rightColoumn" >

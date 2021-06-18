@@ -22,6 +22,7 @@ if (req.method === 'POST'){
                     take:10,
                     select: {
                         category_id:true,
+                        price:true,
                         photo: true,
                         rating: true,
                         created_at: true,
@@ -31,7 +32,10 @@ if (req.method === 'POST'){
                         phone:true,
                         trade:true,
                         verify_moderator:true,
-                        commercial:true
+                        commercial:true,
+                        secure_transaction:true,
+                        title:true,
+                        email:true
                       }
 
                    
