@@ -29,7 +29,8 @@ function Index({post}) {
 
   useEffect(() => {
     axios.post('./api/getPosts', {of: 0})
-    .then((res) => setData(res.data.result))
+    .then((res) => setData(res.data.result)
+    )
 
     window.addEventListener('scroll', handleScroll, { passive: false });
     return () => {
@@ -99,15 +100,9 @@ function Index({post}) {
 }
 
 /* Index.getInitialProps = async (ctx) => {
-  axios.post('./api/getPosts', {of: 0})
-  .then((res) => console.log(res))
-  return(
-    
-
-{qwe: 1232}
-   
-  )
-
+  const res = await fetch('https://api.github.com/repos/vercel/next.js')
+  const json = await res.json()
+  return { stars: json.stargazers_count }
 } */
 
 export default Index;
