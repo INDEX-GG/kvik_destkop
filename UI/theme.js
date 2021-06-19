@@ -73,21 +73,9 @@ const theme = createMuiTheme({
             paddingLeft: '0',
             paddingRight: '0',
          },
-         maxWidthLg: {
-               maxWidth: '1048px',
-            },
-         
-         MuiContainer: {
-            root: {
-               display: 'flex',
-               paddingLeft: '0',
-               paddingRight: '0',
-            },
-            maxWidthLg: {
-               
-                  maxWidth: '1048px',
-               },
-            },
+         // maxWidthLg: {
+         //       maxWidth: '1048px',
+         //    },
       },
       MuiBox: {
          root: {

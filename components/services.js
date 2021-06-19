@@ -71,6 +71,7 @@ function ellipsis(string, count) {
 };
 
 function ToRubles(num) {
+    num = +num;
     return num.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0, maximumFractionDigits: 0 })
 }
 
@@ -87,4 +88,16 @@ function typeChange(filename, type) {
     return filename.replace(/\.[^.]+$/, `.${type}`);
 }
 
-export { initials, stringToColor, brooklyn, standartDate, addZero, ellipsis, ToRubles, ToRusDate, phoneNumber, typeChange };
+async function getDataByQuery(url, query) {
+    const response = await fetch(`${process.env.HOST}${url}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(query)
+    })
+    const result = await response.json()
+    return result;
+}
+
+export { initials, stringToColor, brooklyn, standartDate, addZero, ellipsis, ToRubles, ToRusDate, phoneNumber, typeChange, getDataByQuery };
