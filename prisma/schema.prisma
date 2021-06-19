@@ -50,6 +50,7 @@ model users {
   @@index([username], name: "users_username_index")
   @@index([verified_email], name: "users_verified_email_index")
   @@index([verified_phone], name: "users_verified_phone_index")
+  @@unique(fields: [phone, password], name: "login")
 }
 
 model posts {
