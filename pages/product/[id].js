@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { getDataByQuery } from '../../components/services';
+import axios from 'axios';
 import Modal from '../../components/Modal';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -9,19 +11,6 @@ import Statistics from '../../components/Statistics';
 import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
-
-const obj = [{ title: "Toyota Mark II jxz90", objImg: [{ img: "https://source.unsplash.com/random?cars" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 200000, newPrice: 180000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: true, status: 0, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Toyota Altezza", objImg: [{ img: "https://source.unsplash.com/random?forest" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: '', newPrice: 400000, city: "Челябинск", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 1, call: true, message: false, like: true, compare: false, delivery: false, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?land" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 2, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?tools" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 0, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?cars" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 1, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?moto" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: true, status: 0, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?house" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 2, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?dog" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: true, status: 2, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?smail" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 1, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?animals" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 1, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?boat" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: true, status: 1, call: true, message: true, like: true, compare: false, delivery: true, security: true },
-{ title: "Lexus RX350", objImg: [{ img: "https://source.unsplash.com/random?region" }, { img: "https://source.unsplash.com/random" }, { img: "https://source.unsplash.com/random?interior" }], oldPrice: 800000, newPrice: 790000, city: "Александровск-Сахалинский", date: "2021-05-19T12:03:51.000000Z", seen: false, status: 1, call: true, message: true, like: true, compare: false, delivery: true, security: true }]
 
 const objP = {
     id: 1,
@@ -94,7 +83,10 @@ const similarOffersBox = [
     { id: 30, oldPrice: 76, price: 5, title: 'Мороженное', img: 'https://source.unsplash.com/random', seen: false, locality: 'Челябинск', date: '21.12.2020 00:12' },
 ];
 
-export default function Product() {
+const Product = ({ offers }) => {
+    // console.log(offers);
+
+    const [data, setData] = useState();
 
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
@@ -127,12 +119,6 @@ export default function Product() {
             setCollSO(true);
         }
     }
-    let similarOffers = [];
-    if (collSO) {
-        similarOffers = obj.slice(0, 16);
-    } else {
-        similarOffers = obj;
-    }
 
     const [modal, setModal] = useState({});
     function modalOlen(e, size, content, title) {
@@ -145,6 +131,12 @@ export default function Product() {
         console.log(modal);
         setTimeout(smf, 500);
     }
+
+    useEffect(() => {
+        axios.post('/api/getPosts', { of: 0 })
+            .then((res) => setData(res.data.result))
+        return () => { }
+    }, [])
 
     return (
         <div className="productPage" id="productPage">
@@ -402,9 +394,9 @@ export default function Product() {
                     <div className="productPageSimilarOffers">
                         <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
                         <div className="productPageSimilarOffersContainer">
-                            {similarOffers.map(obj => {
+                            {data && data.map((obj, i) => {
                                 return (
-                                    <AdCard_component objs={obj} />
+                                    <AdCard_component key={i} offer={obj} />
                                 )
                             })}
                         </div>
@@ -429,3 +421,22 @@ export default function Product() {
         </div >
     )
 }
+
+// export async function getStaticPaths() {
+//     const offers = await getDataByQuery('/api/getPosts', { of: 0 })
+//     const paths = offers.result.map((offer) => ({
+//         params: { id: String(offer.id) },
+//     }))
+//     // { fallback: false } несуществующие страницы упадут на 404
+//     return { paths, fallback: false }
+// }
+
+// export async function getStaticProps({ params }) {
+//     const res = await fetch(`${process.env.HOST}/product/${params.id}`)
+//     const offer = await res.json()
+//     //Протестировать
+
+//     return { props: { offer } }
+// }
+
+export default Product;
