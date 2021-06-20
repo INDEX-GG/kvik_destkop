@@ -1,5 +1,3 @@
-import React from 'react'
-
 function PersonalData(userInfo) {
     return (
         <div className="setting__peronal">

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Loading  from '../../../UI/icons/Loader';
+import { useState } from 'react';
+import Loading from '../../../UI/icons/Loader';
 
 import PersonalData from './tabs/PersonalData';
 import BlackList from './tabs/BlockList'
@@ -10,7 +10,7 @@ export const Setting = (userInfo) => {
 
     const navItems = [
         { id: 1, title: 'Личные данные', content: < PersonalData {...userInfo} /> },
-        { id: 2, title: 'Заблокированные пользователи', content: < BlackList />}
+        { id: 2, title: 'Заблокированные пользователи', content: < BlackList /> }
     ];
 
 

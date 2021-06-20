@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const Modal = ({ title, content, size, isOpen }) => {
     const [opened, setOpened] = useState('');
-    
+
 
     useEffect(() => {
         if (isOpen) {
@@ -15,7 +15,7 @@ const Modal = ({ title, content, size, isOpen }) => {
         e.preventDefault();
         setOpened('');
     }
-    
+
     useEffect(() => {
         let blackout = document.querySelector(".blackout");
         window.onclick = function (e) {

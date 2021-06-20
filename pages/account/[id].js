@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import MainLayout from '../../layout/MainLayout';
 import StarRating from '../../components/StarRating';
 import Offers from '../../components/account/Offers/Offers';
@@ -11,7 +11,7 @@ import Reviews from '../../components/account/Reviews/Reviews';
 import Settings from '../../components/account/Settings/Settings';
 import UserPicUpload from '../../components/UserPicUpload';
 import Modal from '../../components/Modal';
-import { standartDate } from '../../components/services';
+import { standartDate } from '../../lib/services';
 import { modalRating, modalSubscribers, modalSubscription, modalLogout } from '../../components/Modals';
 
 let userInfo = {};

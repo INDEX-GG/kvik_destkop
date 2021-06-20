@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BtnReject } from '../../../Modals';
-import { ToRubles } from '../../../services';
+import { ToRubles } from '../../../../lib/services';
 import { Dialog } from '@material-ui/core';
 
 function WaitingAdmin(data) {

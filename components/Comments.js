@@ -1,37 +1,37 @@
-import React, { useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 
-  let userInfo = {};
-  if (typeof userAuth !== 'undefined') {
+let userInfo = {};
+if (typeof userAuth !== 'undefined') {
     userInfo = {
-      userId: 1,
-      userPic: '',
-      userName: userAuth.name,
-      userDateReg: standartDate(userAuth.created_at),
-      userRate: 3.5,
-      userReviews: 0,
-      userSubscribers: 0,
-      userSubscriptions: 0
+        userId: 1,
+        userPic: '',
+        userName: userAuth.name,
+        userDateReg: standartDate(userAuth.created_at),
+        userRate: 3.5,
+        userReviews: 0,
+        userSubscribers: 0,
+        userSubscriptions: 0
     };
-  } else {
+} else {
     userInfo = {
-      userId: 1,
-      userPic: '',
-      userName: 'Имя пользователя',
-      userDateReg: '21.56.7676',
-      userRate: 3.2,
-      userReviews: 0,
-      userSubscribers: 0,
-      userSubscriptions: 0
+        userId: 1,
+        userPic: '',
+        userName: 'Имя пользователя',
+        userDateReg: '21.56.7676',
+        userRate: 3.2,
+        userReviews: 0,
+        userSubscribers: 0,
+        userSubscriptions: 0
     };
-  }
+}
 
 
 function Comments() {
     const string = 'Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв';
     const setref = useRef(null);
     const [menuItem, readMore] = useState("Читать дальше");
-    const listRef = () =>{
-        readMore( (menuItem == "Читать дальше") ? "Скрыть" : 'Читать дальше')
+    const listRef = () => {
+        readMore((menuItem == "Читать дальше") ? "Скрыть" : 'Читать дальше')
     }
     return (
         <div className="comments">
@@ -63,7 +63,7 @@ function Comments() {
                     <div className="comment__block_middle">
                         Название объявления, на который составлен отзыв
                     </div>
-                    <p ref={setref} className={"comment__block_bottom" + ((menuItem == "Читать дальше") ?  " comment__block_bottom-close" :  '') }>
+                    <p ref={setref} className={"comment__block_bottom" + ((menuItem == "Читать дальше") ? " comment__block_bottom-close" : '')}>
                         {string}
                     </p>
                     <button className="btn-lore_more" onClick={listRef} >{menuItem}</button>

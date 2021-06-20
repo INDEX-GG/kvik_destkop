@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Footer2 from '../components/Footer2';
 import Footer from '../components/Footer';
 import AdCard_component from '../components/AdCard';
@@ -9,7 +9,7 @@ import Rectangle from "../UI/icons/Rectangle";
 import { useMedia } from '../hooks/useMedia';
 import MainLayout from '../layout/MainLayout';
 import axios from "axios";
-import { getDataByQuery } from "../components/services";
+import { getDataByQuery } from '../lib/services';
 
 const Index = ({ offers }) => {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();

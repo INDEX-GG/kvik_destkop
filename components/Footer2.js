@@ -1,5 +1,3 @@
-import React from "react";
-
 function Footer2() {
   return (
     <div className="main__block__footer">

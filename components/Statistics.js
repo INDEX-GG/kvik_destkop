@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Chart from "react-google-charts";
 
 import Loader from '../UI/icons/Loader';
@@ -16,7 +16,7 @@ export default function Statistics_component() {
                     width={"100%"}
                     height={"100%"}
                     chartType="ColumnChart"
-                    loader={<div> <Loader/></div>}
+                    loader={<div> <Loader /></div>}
                     data={[
                         ['', 'Просмотров'],
                         ['23, Пн', 32],
@@ -80,8 +80,8 @@ export default function Statistics_component() {
                     <h6 className="statistic__header__block_left_title">Статистика</h6>
                 </div>
                 <div className="statistic__header__block_right">
-                    <span>317 +8 <Views/></span>
-                    <span>3 +1 <Like/></span>
+                    <span>317 +8 <Views /></span>
+                    <span>3 +1 <Like /></span>
                 </div>
             </div>
             <div className="statistic__buttons">

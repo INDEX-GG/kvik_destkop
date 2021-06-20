@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Link from 'next/link';
 import { Swiper } from 'swiper/react';
 import SwiperCore, { Pagination } from "swiper/core";
-import { ellipsis, ToRubles, ToRusDate } from './services';
+import { ellipsis, ToRubles, ToRusDate } from '../lib/services';
 
 SwiperCore.use([Pagination]);
 
