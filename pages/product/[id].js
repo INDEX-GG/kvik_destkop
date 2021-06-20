@@ -6,7 +6,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
-import { ToRubles } from '../../components/services';
+import { ToRubles } from '../../lib/services';
 import Statistics from '../../components/Statistics';
 import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';

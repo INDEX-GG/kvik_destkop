@@ -31,18 +31,18 @@ const useStyles = makeStyles((theme) => ({
 function PhoneNumberFormat(props) {
     const { inputRef, ...other } = props;
     return (
-      <InputMask
-        {...other}
-        ref={(ref) => {
-          inputRef(ref ? ref.inputElement : null);
-        }}
-        mask="+7 (999) 999-99-99"
-        maskChar= ''
-      />
+        <InputMask
+            {...other}
+            ref={(ref) => {
+                inputRef(ref ? ref.inputElement : null);
+            }}
+            mask="+7 (999) 999-99-99"
+            maskChar=''
+        />
     );
 }
 
-const Login = ({Close}) => {
+const Login = ({ Close }) => {
 
     const classes = useStyles();
     const { handleSubmit, control } = useForm();
@@ -54,8 +54,8 @@ const Login = ({Close}) => {
             //Сделать отладку ошибок
             const user = { isAuth: true, id: res.data.idUser }
             console.log(user);
-            axios.post('api/login', user).then(res=>console.log(res))
-            // Close();
+            axios.post('api/login', user).then(res => console.log(res))
+            Close();
         })
     };
 
@@ -69,31 +69,31 @@ const Login = ({Close}) => {
                         control={control}
                         defaultValue=''
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <TextField label='Номер телефона'  
-                            variant='outlined' size='small' 
-                            type="tel" 
-                            value={value}
-                            onChange={onChange}
-                            InputProps={{
-                                inputComponent: PhoneNumberFormat,
-                            }}
-                            error={!!error} helperText={error ? error.message : ' '} />
+                            <TextField label='Номер телефона'
+                                variant='outlined' size='small'
+                                type="tel"
+                                value={value}
+                                onChange={onChange}
+                                InputProps={{
+                                    inputComponent: PhoneNumberFormat,
+                                }}
+                                error={!!error} helperText={error ? error.message : ' '} />
                         )}
-                        rules={{required: 'Введите номер телефона'}}
+                        rules={{ required: 'Введите номер телефона' }}
                     />
                     <Controller
                         name="password"
                         control={control}
                         defaultValue=''
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <TextField label='Введите пароль'  
-                            variant='outlined' size='small' 
-                            type="password" 
-                            value={value}
-                            onChange={onChange}
-                            error={!!error} helperText={error ? error.message : ' '} />
+                            <TextField label='Введите пароль'
+                                variant='outlined' size='small'
+                                type="password"
+                                value={value}
+                                onChange={onChange}
+                                error={!!error} helperText={error ? error.message : ' '} />
                         )}
-                        rules={{required: 'Введите пароль'}}
+                        rules={{ required: 'Введите пароль' }}
                     />
                     <Button type='submit' disabled={false} variant="contained" color="primary">Войти</Button>
                 </form>

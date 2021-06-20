@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Loading  from '../../../UI/icons/Loader';
+import Loading from '../../../UI/icons/Loader';
 import objNav from './navigateObject.json';
 // import Develop from '../../../../components/inDev/Develop';
-import {ToRubles} from '../../services';
+import { ToRubles } from '../../../lib/services';
 
 const products = [
    { id: 1, img: 'https://source.unsplash.com/random?car', oldPrice: 850000, price: 760000, offerTitle: 'Название товарной позиции', locality: 'Челябинск', date: '00.00.00 00:00', mark: 'Toyota', model: 'Auris', type: 'Хэтчбэк', mileage: 120000, drive: 'Задний', transmition: 'Механическая', engine: 'Бензин, 1.6л', side: 'Правый', power: '124 л.с.', color: 'Серебристый', state: 'Не битый', gen: '1st', equip: 'Полная', inter: 'Ткань' },
@@ -19,11 +19,11 @@ const autoSubsKeys = Object.keys(autoSubs);
 const compareList = (
    <div className="clientPage__container_bottom">
       <div className="clientPage__container_nav__radio">
-            <label className="checkbox">
-               <input type="checkbox" />
-               <div className="checkbox__text"><a>Только различия</a></div>
-            </label>
-            
+         <label className="checkbox">
+            <input type="checkbox" />
+            <div className="checkbox__text"><a>Только различия</a></div>
+         </label>
+
       </div>
       <div className="userPageContentCompare">
          <div className="compareTable">
@@ -92,23 +92,23 @@ const navItems = [
 ];
 
 const Compare = () => {
-   
+
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Транспорт' });
 
    return (
-    'Hello World' ||
+      'Hello World' ||
       <>
-      <div className="clientPage__container_top">
-         <div className="clientPage__container_nav__wrapper">
-            <div className="clientPage__container_nav">
-               {navItems.map(item => {
-                  return (
-                     <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} { item.count.brooklyn()}</a>
-                  )
-               })}
+         <div className="clientPage__container_top">
+            <div className="clientPage__container_nav__wrapper">
+               <div className="clientPage__container_nav">
+                  {navItems.map(item => {
+                     return (
+                        <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {item.count.brooklyn()}</a>
+                     )
+                  })}
+               </div>
             </div>
          </div>
-      </div>
 
          {navItems.map(item => {
             return (

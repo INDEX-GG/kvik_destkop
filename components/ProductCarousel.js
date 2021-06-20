@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
 
 SwiperCore.use([Navigation, Thumbs, Pagination]);
 
 export default function ProductCarousel(objP) {
-      
+
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     let picData = objP.offerImg.map(pic => {
         return (
@@ -20,7 +20,7 @@ export default function ProductCarousel(objP) {
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 className="mySwiper2"
-                pagination={{"type": "fraction"}}
+                pagination={{ "type": "fraction" }}
             >
                 <div className='seen__ad'>Просмотрено</div>
                 {picData}

@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Чёрный список
 const blackListBox = [
     { id: 1, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00', adminname: 'Кулумбаев А.С' },
@@ -18,44 +16,44 @@ const blackListBox = [
     { id: 14, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00', adminname: 'Кулумбаев А.С' },
     { id: 15, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00', adminname: 'Кулумбаев А.С' },
     { id: 16, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00', adminname: 'Супредко Я.А' },
-  ];
+];
 
 function BlackList() {
     return (
-    <div className="clientPage__container_bottom">
-        <div className="clientPage__container_nav__radio">
+        <div className="clientPage__container_bottom">
+            <div className="clientPage__container_nav__radio">
                 <label className="checkbox">
-                <input type="checkbox" />
-                <div className="checkbox__text"></div>
+                    <input type="checkbox" />
+                    <div className="checkbox__text"></div>
                 </label>
                 <a className="small light underline">Разблокировать</a>
-        </div>
-        <div className="clientPage__container_content">
-            <div className="settingsBlackList">
+            </div>
+            <div className="clientPage__container_content">
+                <div className="settingsBlackList">
 
-               {blackListBox.map(item => {
-                return (
-                    <div key={item.id}>
-                        <div>
-                            <img src={`${item.userPic}?${item.id}`} />
-                            <div>
-                            <div>{item.username}</div>
-                            <div className="light">Заблокирован {item.date}, Заблокировал - <a className="href__admin_page">{item.adminname}</a></div>
+                    {blackListBox.map(item => {
+                        return (
+                            <div key={item.id}>
+                                <div>
+                                    <img src={`${item.userPic}?${item.id}`} />
+                                    <div>
+                                        <div>{item.username}</div>
+                                        <div className="light">Заблокирован {item.date}, Заблокировал - <a className="href__admin_page">{item.adminname}</a></div>
+                                    </div>
+                                </div>
+                                <a className="highlight underline">Разблокировать</a>
+                                <div className="settingsBLCheck">
+                                    <label className="checkbox">
+                                        <input type="checkbox" />
+                                        <div className="checkbox__text"></div>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <a className="highlight underline">Разблокировать</a>
-                        <div className="settingsBLCheck">
-                            <label className="checkbox">
-                            <input type="checkbox" />
-                            <div className="checkbox__text"></div>
-                            </label>
-                        </div>
-                    </div>
-                )
-                })} 
+                        )
+                    })}
+                </div>
             </div>
         </div>
-    </div>
     )
 }
 

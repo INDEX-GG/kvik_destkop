@@ -1,27 +1,25 @@
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
-import { AppBar, Box, Button, Container, Dialog, IconButton, makeStyles, TextField } from '@material-ui/core';
+import Link from 'next/link';
+import useUser from '../../hooks/useUser';
+import { AppBar, Avatar, Box, Button, Container, Dialog, IconButton, makeStyles, TextField } from '@material-ui/core';
+import UpPanel from './UpPanel';
 import SearchIcon from '@material-ui/icons/Search';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
-import Logo from '../UI/icons/Logo';
-import RegForm from './RegForm';
+import Logo from '../../UI/icons/Logo';
+import RegForm from '../RegForm';
 import Categories from './Categories';
 import CategoriesMobile from './CategoriesMobile';
-import { useMedia } from '../hooks/useMedia';
+import { useMedia } from '../../hooks/useMedia';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CategoryDark from '../UI/icons/CategoryDark';
-import CompareDark from '../UI/icons/CompareDark';
-import LikeDark from '../UI/icons/LikeDark';
-import NotifDark from '../UI/icons/NotifDark';
-import Filter from '../UI/icons/Filter';
-import FiltersApplied from '../UI/icons/FiltersApplied';
+import Filter from '../../UI/icons/Filter';
+import FiltersApplied from '../../UI/icons/FiltersApplied';
 import { withStyles } from "@material-ui/core/styles";
-
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,28 +27,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         padding: '0 12px',
         paddingBottom: '8px',
-    },
-    up_panel: {
-        background: theme.palette.background.paper,
-    },
-    up_panel__wrapper: {
-        padding: '9px 12px',
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-    btns__uppanel: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    btn__uppanel: {
-        padding: 0,
-        minWidth: '24px',
-        height: '24px',
-        marginLeft: '10px',
-
-        '&:hover span svg': {
-            fill: theme.palette.primary.main,
-        },
     },
     header: {
         boxShadow: theme.shadows[0],
@@ -61,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     logo: {
         borderRadius: theme.shape.borderRadius,
         marginRight: '24px',
-        padding: '8px 0',
+        padding: '8px',
         position: 'relative',
         bottom: '6px',
     },
@@ -94,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
             marginRight: '34px',
             [theme.breakpoints.down('md')]: {
                 marginRight: '18px',
-                
+
             },
         },
         '& span': {
@@ -138,8 +114,6 @@ const useStyles = makeStyles((theme) => ({
     btn__out: {
         marginLeft: '12px',
     },
-
-   
 }));
 
 const GreenCheckbox = withStyles({
@@ -159,11 +133,12 @@ const GreenCheckbox = withStyles({
     checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-
 const Header = () => {
+    const { user } = useUser();
+
+    const [userInfo, setUserInfo] = useState();
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
-
     const [openCat, setCategories] = useState();
     const [openPanel, setOpenRadioPanel] = useState();
     const [openRegForm, setOpenRegForm] = useState(false);
@@ -177,26 +152,17 @@ const Header = () => {
         }
     };
     useEffect(() => {
+        console.log(user)
+        console.log(userInfo)
+        axios.post('/api/getUser', user).then(res => setUserInfo(res.data.user))
         document.addEventListener('scroll', listenScroll);
         return () =>
             document.removeEventListener('scroll', listenScroll);
-    }, []);
+    }, [user]);
 
     return (
         <>
-            {!matchesMobile && !matchesTablet &&
-                <Box className={classes.up_panel}>
-                    <Container className={classes.up_panel__wrapper}>
-                        <Button className={classes.btn__add_location} variant='text' size='small'><RoomOutlinedIcon fontSize='small' />Челябинск</Button>
-                        <Box className={classes.btns__uppanel}>
-                            <Button className={classes.btn__uppanel}><CategoryDark /></Button>
-                            <Button className={classes.btn__uppanel}><CompareDark /></Button>
-                            <Button className={classes.btn__uppanel}><LikeDark /></Button>
-                            <Button className={classes.btn__uppanel}><NotifDark /></Button>
-                        </Box>
-                    </Container>
-                </Box>
-            }
+            <UpPanel />
             <AppBar className={headerScroll} position="sticky" color="secondary">
                 <Container className={classes.root}>
                     <IconButton onClick={() => Router.push('/')} className={classes.logo}><Logo /></IconButton>
@@ -223,7 +189,8 @@ const Header = () => {
                         </Button>
                     }
                     <Button className={classes.btn__add_ad} onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>
+                    {!userInfo && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
+                    {userInfo && <Link href={`/account/${user.id}`}><Avatar style={{ backgroundColor: `${userInfo.name.toColor()}` }}>{userInfo && userInfo.name.initials()}</Avatar></Link>}
                 </Container>
                 <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
                     <RegForm Close={handleRegFormDialog} />

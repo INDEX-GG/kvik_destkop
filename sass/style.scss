@@ -7,15 +7,11 @@
 @import './UI/loading';
 @import './UI/scrollTop';
 @import 'clientPage';
-@import "useroffers";
 @import "personal_account";
 @import "admin";
 @import './errors';
 
 /* Components */
-@import './components/header';
-@import './components/headerCategories';
-@import './components/headerCities';
 @import './components/homeSlider';
 @import './components/starRating';
 @import './components/statistics';
@@ -26,9 +22,6 @@
 @import './components/subscribers_subscriptions';
 @import './components/comments';
 @import './components/footer';
-@import './components/uppanel';
-@import './components/signin';
-@import './components/signup';
 
 /* Modal */
 @import './modal/main';
@@ -51,5 +44,3 @@
 @import './pages/user/Reviews';
 @import './pages//user/Settings';
 @import './pages/user/Wallet';
-/* Подача объявлений */
-@import './pages/placeAnAd/placeAnAd';

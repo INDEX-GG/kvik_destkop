@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { ToRubles } from '../../../services'
+import { ToRubles } from '../../../../lib/services';
 
 function RejectedAdmin(data) {
    const listRef = (e) => {
@@ -14,7 +12,7 @@ function RejectedAdmin(data) {
       else {
          loerMore.innerHTML = "Скрыть";
       }
-   } 
+   }
    return (
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_content">

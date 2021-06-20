@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useState } from 'react'
 import { Box, Link, makeStyles } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import NavObj from './json/navobj.json';
+import NavObj from '../json/navobj.json';
 
 const useStyles = makeStyles((theme) => ({
     categories__block_main: {
-        maxWidth: '1260px',
+        maxWidth: '1248px',
         margin: '0 auto',
         position: 'relative',
         width: '100%',
@@ -90,47 +88,41 @@ function Categories() {
         index.target.style.background = '#E9E9E9';
     }
 
-
-
-    function setCat(index, e) {
-
-        console.log(index)
-
-    }
-    console.log(category)
-
     return (
         <>
             <Box className={classes.categories__block_main}>
-                {Object.keys(NavObj).map((key, index) => {
-                    return (
-                        <>
-                            <ul >
-                                <Link href="#" value={index} onClick={(e, index) => { setCategory(NavObj[key]); setCategory2(undefined); setCat(e, index) }} className={classes.categories__menu_item_btn}>  {NavObj[key].name}</Link>
+                <Box className={classes.categories__block} >
+                    <Box className={classes.categories__menu_item__gray_line}>
+                        {Object.keys(NavObj).map((key, index) => {
+                            return (
+                                <Link href="#" value={index} onMouseOver={(index) => { setCategoryColor(index); setCategory(NavObj[key]); setCategory2(undefined); }} className={classes.categories__menu_item_btn}>  {NavObj[key].name}</Link>
+                            );
+                        })}
+                    </Box>
 
-                                {typeof category !== 'undefined' ?
-                                    <li value={index}>
-                                        <ul>
+                    {typeof category !== 'undefined' ?
+                        <Box className={classes.categories__menu_item__gray_line}>
+                            {Object.keys(category.subCategories).map((key, index) => {
+                                return (
+                                    <Link value={index} href="#" onMouseOver={(index) => { setCategoryColor(index); setCategory2(category.subCategories[key]) }} className={classes.categories__menu_item_btn}>  {category.subCategories[key].name}</Link>
+                                );
+                            }
+                            )}
+                        </Box>
+                        : ''}
 
-                                            {Object.keys(category.subCategories).map((key, index) => {
+                    {typeof category2 !== 'undefined' && category2.subCategories !== undefined ?
+                        <Box className={classes.categories__menu_item}>
+                            {Object.keys(category2.subCategories).map(key => {
+                                return (
+                                    <Link href="#" className={classes.categories__menu_item_link}>  {category2.subCategories[key].name}</Link>
+                                );
+                            }
+                            )}
+                        </Box>
+                        : ''}
 
-
-                                                return (
-                                                    <>
-                                                        <Link value={index} href="#" className={classes.categories__menu_item_btn}> {category.subCategories[key].name} </Link>
-                                                    </>
-                                                );
-                                            }
-                                            )}
-                                        </ul>
-                                    </li>
-                                    : ''}
-                            </ul>
-
-                        </>
-                    );
-                })}
-
+                </Box>
             </Box>
         </>
     )
