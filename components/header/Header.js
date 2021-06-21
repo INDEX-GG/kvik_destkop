@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import Link from 'next/link';
-import useUser from '../../hooks/useUser';
+import { useUser } from '../../hooks/useUser';
 import { AppBar, Avatar, Box, Button, Container, Dialog, IconButton, makeStyles, TextField } from '@material-ui/core';
 import UpPanel from './UpPanel';
 import SearchIcon from '@material-ui/icons/Search';
@@ -124,18 +124,11 @@ const GreenCheckbox = withStyles({
             color: '#C7C7C7',
         },
     },
-    MuiFormControlLabel: {
-        root: {
-            color: '#C7C7C7',
-        },
-    },
-
     checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
 const Header = () => {
     const { user } = useUser();
-
     const [userInfo, setUserInfo] = useState();
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
@@ -155,6 +148,8 @@ const Header = () => {
         console.log(user)
         console.log(userInfo)
         axios.post('/api/getUser', user).then(res => setUserInfo(res.data.user))
+
+
         document.addEventListener('scroll', listenScroll);
         return () =>
             document.removeEventListener('scroll', listenScroll);
