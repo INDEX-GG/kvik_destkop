@@ -19,6 +19,7 @@ import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordO
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { stringToColor, initials } from '../../lib/services';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -185,7 +186,7 @@ const Header = () => {
                     }
                     <Button className={classes.btn__add_ad} onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
                     {!userInfo && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
-                    {userInfo && <Link href={`/account/${user.id}`}><Avatar style={{ backgroundColor: `${userInfo.name.toColor()}` }}>{userInfo && userInfo.name.initials()}</Avatar></Link>}
+                    {userInfo && <Link href={`/account/${user.id}`}><Avatar style={{ backgroundColor: `${userInfo && userInfo.name && userInfo.name.toColor()}` }}>{userInfo && userInfo.name && userInfo.name.initials()}</Avatar></Link>}
                 </Container>
                 <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
                     <RegForm Close={handleRegFormDialog} />
