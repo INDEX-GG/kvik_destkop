@@ -17,7 +17,7 @@ export default function handler(req, res) {
                     }
                 })
 
-                console.log(user);
+         
                 if (user) {
                     return res.json({ idUser: user.id });
                 } else {

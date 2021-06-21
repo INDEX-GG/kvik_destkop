@@ -8,7 +8,7 @@ datasource db {
 }
 
 model users {
-  id                      Int       @id @default(autoincrement())
+  id                      Int       @unique@id@default(autoincrement())
   user_type_id            Int?      @db.SmallInt
   gender_id               Int?
   name                    String    @db.VarChar(100)
@@ -51,6 +51,7 @@ model users {
   @@index([verified_email], name: "users_verified_email_index")
   @@index([verified_phone], name: "users_verified_phone_index")
   @@unique(fields: [phone, password], name: "login")
+
 }
 
 model posts {

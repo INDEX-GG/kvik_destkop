@@ -39,11 +39,13 @@ if (req.method === 'POST'){
     {
         //Заносим в таблицу 
             let D = req.body;
+            var now = new Date()
         const obj = {
             data: {
                 name: `${req.body.name} ${req.body.surname}`,
                 password:req.body.password,
-                phone: req.body.phone
+                phone: req.body.phone,
+                createdAt:now
             }
         }
         let i = 1;

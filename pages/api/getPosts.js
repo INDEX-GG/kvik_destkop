@@ -35,7 +35,8 @@ export default function handler(req, res) {
             }
 
             const results = await getPost();
-            return res.json({ result: results });
+            res.json({ result: results });
+        
         }
 
         main()
@@ -48,6 +49,11 @@ export default function handler(req, res) {
             })
     }
     else {
-        return res.status(405).json({ message: 'method not allowed' })
+  
+        res.status(405).json({ message: 'method not allowed' })
+      
     }
+
+
+
 }
