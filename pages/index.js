@@ -22,7 +22,7 @@ const Index = ({ offers }) => {
     setScrollPosition(position);
   };
 
-  const [data, setData] = useState(offers.result);
+  const [data, setData] = useState(offers);
 
   useEffect(() => {
     axios.post('/api/getPosts', { of: 0 })
@@ -79,16 +79,6 @@ const Index = ({ offers }) => {
 }
 
 
-
-// export async function getStaticProps() {
-
-//  const offers = await getDataByQuery('/api/getPosts', { of: 0 })
-//  return { props: { offers } }
-// }
-
-
-
-
 export async function getStaticProps() 
 {
 
@@ -137,8 +127,6 @@ export async function getStaticProps()
           await prisma.$disconnect()
       })
 
-//       console.log(res) 
-// const result = 2
  const offers = JSON.parse(JSON.stringify(res))
 
  return { props: { offers } }
