@@ -20,6 +20,7 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { stringToColor, initials } from '../../lib/services';
+import Loader from '../../UI/icons/Loader';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -128,7 +129,7 @@ const GreenCheckbox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Header = () => {
-    const {isAuth, id, isLoading, username, photo } = useUser();
+    const { isAuth, id, isLoading, username, photo } = useUser();
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
     const [openCat, setCategories] = useState();
@@ -178,7 +179,8 @@ const Header = () => {
                         </Button>
                     }
                     <Button className={classes.btn__add_ad} onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    {!isAuth  && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
+                    {isLoading && <Loader size={40} />}
+                    {!isAuth && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
                     {isAuth && !isLoading && <Link href={`/account/${id}`}><Avatar src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar></Link>}
                 </Container>
                 <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>

@@ -31,7 +31,7 @@ function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, max
       sendData.append('image', img)
       axios.post(route, sendData, {
         headers: {
-          "Content-Type": "application/octet-stream"
+          'Content-Type': 'multipart/form-data'
         }
       })
     }, `image/${imageType}`, optimiztionLevel);
