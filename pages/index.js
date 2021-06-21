@@ -10,6 +10,7 @@ import { useMedia } from '../hooks/useMedia';
 import MainLayout from '../layout/MainLayout';
 import axios from "axios";
 import { getDataByQuery } from '../lib/services';
+import { PrismaClient } from '@prisma/client';
 
 const Index = ({ offers }) => {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -77,9 +78,70 @@ const Index = ({ offers }) => {
   )
 }
 
-export async function getStaticProps() {
-  const offers = await getDataByQuery('/api/getPosts', { of: 0 })
-  return { props: { offers } }
+
+
+// export async function getStaticProps() {
+
+//  const offers = await getDataByQuery('/api/getPosts', { of: 0 })
+//  return { props: { offers } }
+// }
+
+
+
+
+export async function getStaticProps() 
+{
+
+  const prisma = new PrismaClient();
+
+  async function main(of) 
+  {
+      //Этот запрос нужно будет связать с таблицей
+      async function getPost() {
+          const results = await prisma.posts.findMany({
+              skip: of,
+              take: 10,
+              select: {
+                  id: true,
+                  category_id: true,
+                  price: true,
+                  photo: true,
+                  rating: true,
+                  created_at: true,
+                  delivery: true,
+                  reviewed: true,
+                  address: true,
+                  phone: true,
+                  trade: true,
+                  verify_moderator: true,
+                  commercial: true,
+                  secure_transaction: true,
+                  title: true,
+                  email: true
+              }
+          })
+          return results;
+      }
+
+      const results = await getPost();
+      return results;
+  }
+
+  
+    let res = await main(0)
+      .catch((e) => {
+          console.log("error: " + e);
+          throw e
+      })
+      .finally(async () => {
+          await prisma.$disconnect()
+      })
+
+//       console.log(res) 
+// const result = 2
+ const offers = JSON.parse(JSON.stringify(res))
+
+ return { props: { offers } }
 }
 
 export default Index;

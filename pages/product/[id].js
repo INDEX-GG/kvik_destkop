@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getDataByQuery } from '../../components/services';
 import axios from 'axios';
 import Modal from '../../components/Modal';
-import Header from '../../components/Header';
+import Header from '../../components/header/Header';
 import Footer from '../../components/Footer';
 import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
