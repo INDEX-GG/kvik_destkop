@@ -39,6 +39,11 @@ const theme = createMuiTheme({
          '100': '#2c2c2c'
       }
    },
+   shadows: [ //вызываются theme.spacing[порядковый номер в этом массиве]
+      'none',
+      "0px 0px 20px rgba(0, 0, 0, 0.1)",
+      "0px 0px 40px rgba(0, 0, 0, 0.1)",
+   ],
    typography: {
       h1: {
 
