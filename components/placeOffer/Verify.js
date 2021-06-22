@@ -12,11 +12,16 @@ const useStyles = makeStyles((theme) => ({
             textAlign: 'right',
         }
     },
+    text: {
+        '&>*:first-child': {
+           marginLeft: theme.spacing(1), 
+        }
+    },
     divider: {
         width: '2px',
         height: '16px',
         position: 'relative',
-        left: '142px',
+        left: '150px',
     },  
 }));
 
@@ -31,7 +36,7 @@ const Verify = ({Verify = 0}) => {
             {items.map((item, i) => {
                 return (
                     <Fragment key={i}>
-                        <Typography color={i + 1 <= Verify ? 'primary' : 'initial'}>
+                        <Typography className={classes.text} color={i + 1 <= Verify ? 'primary' : 'initial'}>
                             {item}
                             <ActiveIcon  Color={(i + 1 <= Verify) ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>

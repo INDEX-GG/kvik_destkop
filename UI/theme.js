@@ -43,6 +43,23 @@ const theme = createMuiTheme({
       'none',
       "0px 0px 20px rgba(0, 0, 0, 0.1)",
       "0px 0px 40px rgba(0, 0, 0, 0.1)",
+      'none',
+      'none',
+      'none',
+      'none',
+      'none',
+      '0px 0px 10px rgba(0, 0, 0, 0.3)', //используется выпадашки из селектов TextField
+      'none',
+      'none',
+      'none',
+      'none',
+      'none',
+      'none',
+      'none',
+      'none',
+      'none',
+      'none',
+      'none',
    ],
    typography: {
       h1: {
@@ -87,17 +104,18 @@ const theme = createMuiTheme({
             display: 'flex',
          },
       },
-      MuiList: {
-         root: {
-            display: 'flex',
-         }
-      },
+      // MuiList: {
+      //    root: {
+      //       display: 'flex',
+      //    }
+      // },
       MuiAvatar: {
          root: {
             width: '100%',
             height: '100%',
          },
       },
+
       MuiButton: {
          root: {
          },
@@ -105,6 +123,14 @@ const theme = createMuiTheme({
             boxShadow: 'none',
          },
       },
+      MuiOutlinedInput: {
+         input: {
+            paddingTop: '8px',
+            paddingRight: '16px',
+            paddingBottom: '8px',
+            paddingLeft: '16px',
+         }
+      }
 
 
    }

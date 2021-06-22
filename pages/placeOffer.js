@@ -4,6 +4,7 @@ import MainLayout from '../layout/MainLayout';
 import { useMedia } from '../hooks/useMedia';
 import { useForm, FormProvider } from 'react-hook-form';
 import Title from '../components/placeOffer/Title';
+import Category from '../components/placeOffer/Category';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
             alignItems: 'flex-end',
         },
+    },
+    fg: {
+        flexGrow: 1,
     },
     title: {
         marginBottom: theme.spacing(1),
@@ -28,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[2],
         marginBottom: theme.spacing(4),
     },
+    submit: {
+        display: 'flex',
+    }
 }));
 
 function PlaceOffer() {
@@ -50,9 +57,13 @@ function PlaceOffer() {
                         <form onSubmit={methods.handleSubmit(onSubmit)}>
                             <Box className={classes.formPart}>
                                 <Title />
+                                <Category />
                             </Box>
                             <Box className={classes.formPart}>
-                                <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
+                                <Box className={classes.submit}>
+                                    <Typography variant='subtitle2' className={classes.fg}>Заполните все обязательные поля</Typography>
+                                    <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
+                                </Box>
                             </Box>
                         </form>
                     </FormProvider>

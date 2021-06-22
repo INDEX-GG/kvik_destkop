@@ -14,17 +14,12 @@ const useStyles = makeStyles((theme) => ({
    formInputField: {
       width: '490px',
    },
-   input: {
-      '& input': {
-         padding: '8px 16px',
-      },
-   }
 }));
 
 const Title = () => {
 
    const classes = useStyles();
-   const { control } = useFormContext();
+   const methods = useFormContext();
 
    return (
       <Box className={classes.formElem}>
@@ -32,11 +27,10 @@ const Title = () => {
          <Box className={classes.formInputField}>
             <Controller
                name="title"
-               control={control}
+               control={methods.control}
                defaultValue=''
                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
-                     className={classes.input}
                      variant='outlined'
                      type="text"
                      fullWidth
@@ -45,7 +39,7 @@ const Title = () => {
                      onChange={onChange}
                      error={!!error} helperText={error ? error.message : ' '} />
                )}
-               rules={{ required: 'Введите название товара' }}
+               rules={{ required: 'Введите название Товара' }}
             />
          </Box>
       </Box>
