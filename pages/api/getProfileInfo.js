@@ -8,12 +8,9 @@ export default function handler(req, res) {
       {
 
          //Реализованны поля отношений и сделан запрос к таблице posts и users.
-         const getProfileDate = await prisma.users.findUnique({
+         const getProfileDate = await prisma.posts.findUnique({
             where: {
               id: req.body.id
-            },
-            include: {
-              posts: true
             },
             select:{
                
