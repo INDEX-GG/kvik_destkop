@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         bottom: '6px',
     },
+    avatar: {
+        cursor: 'pointer',
+    },
     menu__categorys: {
         width: '222px',
         marginRight: '24px',
@@ -181,7 +184,7 @@ const Header = () => {
                     <Button className={classes.btn__add_ad} onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
                     {isLoading && <Loader size={40} />}
                     {!isAuth && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
-                    {isAuth && !isLoading && <Link href={`/account/${id}`}><Avatar src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar></Link>}
+                    {isAuth && !isLoading && <Link href={`/account/${id}`}><Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar></Link>}
                 </Container>
                 <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
                     <RegForm Close={handleRegFormDialog} />
