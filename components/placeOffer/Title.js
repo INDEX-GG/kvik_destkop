@@ -1,10 +1,11 @@
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
    formElem: {
       display: 'flex',
       flexDirection: 'row',
+      marginBottom: theme.spacing(3),
    },
    formTitleField: {
       flexGrow: 1,
@@ -16,14 +17,14 @@ const useStyles = makeStyles((theme) => ({
    input: {
       '& input': {
          padding: '8px 16px',
-      }
+      },
    }
 }));
 
 const Title = () => {
 
    const classes = useStyles();
-   const { control } = useForm();
+   const { control } = useFormContext();
 
    return (
       <Box className={classes.formElem}>
