@@ -44,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         cursor: 'pointer',
+        width: '40px',
+        height: '40px',
     },
     menu__categorys: {
         width: '222px',
@@ -117,10 +119,6 @@ const useStyles = makeStyles((theme) => ({
     },
     btn__out: {
         marginLeft: '12px',
-    },
-    btn__avatar: {
-        width: '40px',
-        height: '40px',
     },
 }));
 

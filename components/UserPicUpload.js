@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { typeChange } from '../lib/services';
+import { useUser } from '../hooks/useUser';
 import axios from 'axios';
 import qs from 'qs';
 
 function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, maxScale = 3 }) {
+  const {isLoading, id} = useUser();
   const fileInput = useRef(),
     editorRef = useRef(),
     [photo, setPhoto] = useState(),
@@ -30,7 +32,8 @@ function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, max
       })
       console.log(img);
       const sendData = new FormData;
-      sendData.append('image', img)
+      sendData.append('image', img);
+      sendData.append('id', id);
       axios.post("/api/avatar", sendData, {
         headers: {
           "Content-Type": "multipart/form-data"

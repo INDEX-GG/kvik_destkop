@@ -31,15 +31,15 @@ export default function handler(req, res)
           //  console.log(req.files[0].originalname)
             async function main(namePhoto) 
             {   
-                
+                console.log(req.body.id)
                     var now = new Date()
                 const obj = {
                     where:
                     {
-                        id:34
+                        id:+req.body.id
                     },
                     data: {
-                        photo:"/public/profile/"+namePhoto,
+                        photo:"/profile/"+namePhoto,
           
                     }
                 }
