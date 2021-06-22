@@ -31,9 +31,10 @@ const Category = () => {
 
     const classes = useStyles();
     const methods = useFormContext();
-    const {categoryMain} = useCategory();
+    const {categoryMain, categoriesById} = useCategory();
 
     console.log(methods.watch('category_1'))
+    console.log(methods.watch('category_2'))
     return (
     <Box className={classes.formElem}>
          <Typography className={classes.formTitleField}>Категория</Typography>
@@ -51,8 +52,8 @@ const Category = () => {
                         onChange={onChange}
                         error={!!error} 
                         helperText={error ? error.message : ' '}>
-                            {categoryMain.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
+                            {categoryMain.map((option, i) => (
+                                <MenuItem key={i} value={option.value}>
                                     {option.label}
                                 </MenuItem>
                         ))}
@@ -60,6 +61,30 @@ const Category = () => {
                )}
                rules={{ required: 'Выбирите Категорию' }}
             />
+
+            {methods.watch('category_1') && <Controller
+               name="category_2"
+               control={methods.control}
+               defaultValue=''
+               render={({ field: { onChange, value }, fieldState: { error } }) => (
+                    <TextField
+                        select
+                        className={classes.input}
+                        variant='outlined'
+                        value={value}
+                        onChange={onChange}
+                        error={!!error} 
+                        helperText={error ? error.message : ' '}>
+                            {categoriesById(methods.watch('category_1')).map((option, i) => (
+                                <MenuItem key={i} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                        ))}
+                    </TextField>
+               )}
+               rules={{ required: 'Выбирите Категорию' }}
+            />}
+
          </Box>
     </Box>
     )

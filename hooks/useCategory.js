@@ -12,7 +12,7 @@ export const useCategory = () => {
         c1.forEach(category => {
             c2 =[...c2, {value: category.id, label: category.name}]
         })
-        return (c2.sort((a, b)=> a.value - b.value ));
+        return (c2.sort((a, b) => a.value - b.value ));
     }
 
     const categoriesById = (id) => {
@@ -35,13 +35,13 @@ export const useCategory = () => {
         if ( c2[0] !== undefined ) {
             console.log(categoryFirstLevelwithId(c2[0].subCategories))
         } else {
-            console.log(c2[0])
+            console.log('ошибка катеории второго уровня')
         }
-
+        return categoryFirstLevelwithId(c2[0].subCategories);
     }
-    console.log(categoriesById(1))
+    console.log(categoriesById(61))
 
     const categoryMain = (categoryFirstLevelwithId(navObj));
 
-    return { categoryMain }
+    return { categoryMain, categoriesById }
 }
