@@ -92,6 +92,12 @@ const theme = createMuiTheme({
             display: 'flex',
          }
       },
+      MuiAvatar: {
+         root: {
+            width: '100%',
+            height: '100%',
+         },
+      },
       MuiButton: {
          root: {
          },
