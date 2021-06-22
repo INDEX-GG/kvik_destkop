@@ -15,6 +15,9 @@ export default function handler(req, res) {
             include: {
               posts: true
             },
+            select:{
+               
+            }
           });
        
       }
