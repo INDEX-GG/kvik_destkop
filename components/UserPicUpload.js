@@ -31,9 +31,9 @@ function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, max
       console.log(img);
       const sendData = new FormData;
       sendData.append('image', img)
-      axios.post("/api/setAvatar", sendData, {
+      axios.post("/api/avatar", sendData, {
         headers: {
-
+          "Content-Type": "multipart/form-data"
         }
       })
       console.log(sendData)
