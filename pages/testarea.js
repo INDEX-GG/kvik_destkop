@@ -43,24 +43,9 @@ export default function TestArea(req, res) {
       .then((res) => (console.log(res)))
       .catch((err) => ('err', err))
   }
-  const submitNum = () => {
-    axios.post('/api/setApi', regdata)
-      .then((res) => (console.log(res)))
-      .catch((err) => ('err', err))
-  }
 
 
 
-  const submitBut = () => {
-    regdata = {
-      of: 0,
-      userID: 34
-
-    }
-    axios.post('/api/getPosts', regdata)
-      .then((res) => (console.log(res)))
-      .catch((err) => ('err', err))
-  }
 
   /*   function sendRegData(event) {
       event.preventDefault()
