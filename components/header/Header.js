@@ -118,6 +118,10 @@ const useStyles = makeStyles((theme) => ({
     btn__out: {
         marginLeft: '12px',
     },
+    btn__avatar: {
+        width: '40px',
+        height: '40px',
+    },
 }));
 
 const GreenCheckbox = withStyles({

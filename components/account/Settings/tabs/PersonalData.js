@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import Modal from '../../../Modal';
 import { phoneNumber } from '../../../../lib/services';
 import { modalDeletHistory, modalDeleteAccount } from '../../../Modals';
+import { useUser } from '../../../../hooks/useUser';
 
 function PersonalData() {
 
+   const { isAuth, id, phone, username, email } = useUser();
    const [modal, setModal] = useState({});
    function modalOlen(e, size, content, title) {
       function smf() {
@@ -16,13 +18,13 @@ function PersonalData() {
    }
 
    let userSettings = {};
-   if (typeof userAuth !== 'undefined') {
+   if (typeof isAuth !== 'undefined') {
       userSettings = {
-         phone: phoneNumber(userAuth.phone),
+         phone: phoneNumber(phone),
       };
    } else {
       userSettings = {
-         phone: phoneNumber('71234567890'),
+         phone: phoneNumber(phone),
       }
    }
 
@@ -32,7 +34,7 @@ function PersonalData() {
             <div className="privateDataWrapper thin">
                <div>
                   <div>Профиль</div>
-                  <div>Имя пользователя</div>
+                  <div>{username}</div>
                   <a>Редактировать</a>
                </div>
                <div>
@@ -51,7 +53,7 @@ function PersonalData() {
                <div>
                   <div>E-mail</div>
                   <div>
-                     <p>E-mail не указан</p>
+                     <p>{email === null ? 'E-mail не указан' : email}</p>
                      <p className="error small">E-mail не подтвержден</p>
                      <p className="light small">Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту </p>
                   </div>
