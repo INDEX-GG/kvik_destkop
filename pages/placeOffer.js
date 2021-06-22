@@ -1,8 +1,10 @@
-import { Box, Container, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import { Box, Button, Container, makeStyles, TextField, Typography } from '@material-ui/core';
 import Verify from '../components/placeOffer/Verify';
 import MainLayout from '../layout/MainLayout';
-import {useMedia} from '../hooks/useMedia';
+import { useMedia } from '../hooks/useMedia';
+import { useForm, FormProvider } from 'react-hook-form';
+import Title from '../components/placeOffer/Title';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,27 +16,49 @@ const useStyles = makeStyles((theme) => ({
             alignItems: 'flex-end',
         },
     },
+    title: {
+        marginBottom: theme.spacing(1),
+    },
     offersBox: {
         width: '712px',
     },
- 
+    formPart: {
+        padding: theme.spacing(4),
+        borderRadius: theme.shape.borderRadius,
+        boxShadow: theme.shadows[2],
+        marginBottom: theme.spacing(4),
+    },
 }));
 
 function PlaceOffer() {
 
     const classes = useStyles();
-    const { matchesMobile, matchesTablet} = useMedia();
+    const { matchesMobile, matchesTablet } = useMedia();
+    const methods = useForm();
+
+    const onSubmit = data => {
+        console.log(data);
+    }
 
     return (
-            <MainLayout title={'Подать объявление'}>
-                {!matchesMobile && !matchesTablet && <Container className={classes.root}>
-                    <Verify Verify={4} />
-                    <Box className={classes.offersBox}>
-                        <Typography variant='h2'>Новое объявление</Typography>
-                        <form>Форма</form>
-                    </Box>
-                </Container>}
-            </MainLayout>
+        <MainLayout title={'Подать объявление'}>
+            {!matchesMobile && !matchesTablet && <Container className={classes.root}>
+                <Verify Verify={1} />
+                <Box className={classes.offersBox}>
+                    <Typography className={classes.title} variant='h2'>Новое объявление</Typography>
+                    <FormProvider {...methods} >
+                        <form onSubmit={methods.handleSubmit(onSubmit)}>
+                            <Box className={classes.formPart}>
+                                <Title />
+                            </Box>
+                            <Box className={classes.formPart}>
+                                <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
+                            </Box>
+                        </form>
+                    </FormProvider>
+                </Box>
+            </Container>}
+        </MainLayout>
     )
 }
 

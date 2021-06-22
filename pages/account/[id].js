@@ -11,8 +11,10 @@ import Reviews from '../../components/account/Reviews/Reviews';
 import Settings from '../../components/account/Settings/Settings';
 import UserPicUpload from '../../components/UserPicUpload';
 import Modal from '../../components/Modal';
-import { standartDate } from '../../lib/services';
+import { standartDate, ToRusAccountDate } from '../../lib/services';
 import { modalRating, modalSubscribers, modalSubscription, modalLogout } from '../../components/Modals';
+import { useUser } from '../../hooks/useUser';
+import { Avatar } from '@material-ui/core';
 
 let userInfo = {};
 if (typeof userAuth !== 'undefined') {
@@ -39,6 +41,9 @@ if (typeof userAuth !== 'undefined') {
   };
 }
 
+const datareg = '2021-06-21 07:10:50' /* нужно будет поменять на createdAt */
+
+
 const menuItems = [
   { id: 1, name: 'menuOffers', title: 'Мои объявления' },
   { id: 2, name: 'menuDeals', title: 'Сделки' },
@@ -51,6 +56,7 @@ const menuItems = [
 ];
 
 function Account() {
+  const { isAuth, isLoading, username, photo, createdAt} = useUser();
   const [menuItem, setMenuItem] = useState({ i: 1, itm: 'menuOffers', ttl: 'Мои объявления' });
   const [modal, setModal] = useState({});
   function modalOlen(e, size, content, title) {
@@ -61,6 +67,7 @@ function Account() {
     setModal({ title: title, content: content, size: size, isOpen: true });
     setTimeout(smf, 500);
   }
+
 
   return (
     <MainLayout title={'Личный кабинет'}>
@@ -74,14 +81,14 @@ function Account() {
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
-              {userInfo.userPic && <img src={userInfo.userPic} /> || <div className="clientPage__userinitials" style={{ backgroundColor: `${userInfo.userName.toColor()}` }}>{userInfo.userName.initials()}</div>}
+            {isAuth && !isLoading && <Avatar src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar>}
               <button onClick={e => { modalOlen(e, 'md', <UserPicUpload {...{ route: '', imageType: 'webp', optimiztionLevel: 0.7, maxScale: 5 }} />) }} className="addPhoto"></button>
             </div>
             <div className="clientPage__username">
-              {userInfo.userName}
+              {username}
             </div>
             <div className="clientPage__userRegDate light small">
-              на Kvik c {userInfo.userDateReg}
+              на Kvik c {ToRusAccountDate(datareg)}
             </div>
             <div className="clientPage__userrate">
               <div className="clientPage__userrate__num">{userInfo.userRate}</div>
@@ -120,7 +127,7 @@ function Account() {
               ((menuItem.i === 5) && <Notifications />) ||
               ((menuItem.i === 6) && <Compare />) ||
               ((menuItem.i === 7) && <Reviews />) ||
-              ((menuItem.i === 8) && <Settings />))
+              ((menuItem.i === 8) && <Settings username/>))
           }
         </div>
       </div>

@@ -19,7 +19,8 @@ import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordO
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import axios from 'axios';
+import { stringToColor, initials } from '../../lib/services';
+import Loader from '../../UI/icons/Loader';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -114,6 +115,10 @@ const useStyles = makeStyles((theme) => ({
     btn__out: {
         marginLeft: '12px',
     },
+    btn__avatar: {
+        width: '40px',
+        height: '40px',
+    },
 }));
 
 const GreenCheckbox = withStyles({
@@ -128,8 +133,7 @@ const GreenCheckbox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Header = () => {
-    const { user } = useUser();
-    const [userInfo, setUserInfo] = useState();
+    const { isAuth, id, isLoading, username, photo } = useUser();
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
     const [openCat, setCategories] = useState();
@@ -145,15 +149,10 @@ const Header = () => {
         }
     };
     useEffect(() => {
-        console.log(user)
-        console.log(userInfo)
-        axios.post('/api/getUser', user).then(res => setUserInfo(res.data.user))
-
-
         document.addEventListener('scroll', listenScroll);
         return () =>
             document.removeEventListener('scroll', listenScroll);
-    }, [user]);
+    }, []);
 
     return (
         <>
@@ -184,8 +183,9 @@ const Header = () => {
                         </Button>
                     }
                     <Button className={classes.btn__add_ad} onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    {!userInfo && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
-                    {userInfo && <Link href={`/account/${user.id}`}><Avatar style={{ backgroundColor: `${userInfo.name.toColor()}` }}>{userInfo && userInfo.name.initials()}</Avatar></Link>}
+                    {isLoading && <Loader size={40} />}
+                    {!isAuth && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
+                    {isAuth && !isLoading && <Link href={`/account/${id}`}><Avatar className={classes.btn__avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar></Link>}
                 </Container>
                 <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
                     <RegForm Close={handleRegFormDialog} />
