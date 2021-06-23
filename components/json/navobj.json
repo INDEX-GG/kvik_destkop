@@ -951,7 +951,7 @@
           },
           "Smart_watches_and_fitness_bracelets": {
             "id": 108,
-            "name": "Смарт_часы и фитнес_браслеты",
+            "name": "Смарт часы и фитнес браслеты",
             "fields": {
               "Smart_watches_and_fitness_bracelets": {
                 "manufacturer": "null",
@@ -1622,7 +1622,7 @@
         "subCategories": {
           "Security_and_fire_alarm": {
             "id": 213,
-            "name": " Охрано_пожарная сигнализация",
+            "name": " Охранно-пожарная сигнализация",
             "fields": null
           },
           "Baby_monitor": {
@@ -3032,7 +3032,7 @@
       },
       "houses_and_cottages": {
         "id": 10,
-        "name": "дома, дачи и коттеджи",
+        "name": "Дома, дачи и коттеджи",
         "fields": null,
         "subCategories": {
           "sell_houses_and_cottages": {
@@ -3834,7 +3834,7 @@
           },
           "AgriculturalLand": {
             "id": 37,
-            "name": "Сельско_хозяйственные земли",
+            "name": "Сельско хозяйственные земли",
             "fields": null,
             "subCategories": {
               "sell_agriculturalLand": {
@@ -4032,7 +4032,7 @@
           },
           "houses_and_cottages_second": {
             "id": 48,
-            "name": "дома, вилла",
+            "name": "Дома, виллы",
             "fields": null,
             "subCategories": {
               "sell_houses_and_cottages_abroad": {

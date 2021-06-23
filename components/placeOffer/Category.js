@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import { useCategory } from '../../hooks/useCategory';
@@ -33,8 +32,6 @@ const Category = () => {
     const methods = useFormContext();
     const { categoryMain, categoriesById } = useCategory();
 
-    console.log(methods.watch('category_1'))
-    console.log(methods.watch('category_2'))
     return (
         <Box className={classes.formElem}>
             <Typography className={classes.formTitleField}>Категория</Typography>
@@ -50,7 +47,11 @@ const Category = () => {
                             variant='outlined'
                             value={value}
                             onChange={onChange}
-                            onClick={() => methods.setValue('category_2', '')}
+                            onClick={() => {
+                                methods.setValue('category_2', '');
+                                methods.setValue('category_3', '');
+                                methods.setValue('category_4', '');
+                            }}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
                             {categoryMain.map((option, i) => (
@@ -73,10 +74,70 @@ const Category = () => {
                             className={classes.input}
                             variant='outlined'
                             value={value}
+                            onClick={() => {
+                                methods.setValue('category_3', '');
+                                methods.unregister('category_3');
+                                methods.setValue('category_4', '');
+                                methods.unregister('category_4');
+                            }}
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
                             {categoriesById(methods.watch('category_1')).map((option, i) => (
+                                <MenuItem key={i} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    )}
+                    rules={{ required: 'Выбирите Категорию' }}
+                />}
+
+                {categoriesById(methods.watch('category_1'), methods.watch('category_2')) &&
+                methods.watch('category_2') && 
+                <Controller
+                    name="category_3"
+                    control={methods.control}
+                    defaultValue=''
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField
+                            select
+                            className={classes.input}
+                            variant='outlined'
+                            value={value}
+                            onChange={onChange}
+                            onClick={() => {
+                                methods.setValue('category_4', '');
+                                methods.unregister('category_4');
+                            }}
+                            error={!!error}
+                            helperText={error ? error.message : ' '}>
+                            {categoriesById(methods.watch('category_1'), methods.watch('category_2')).map((option, i) => (
+                                <MenuItem key={i} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    )}
+                    rules={{ required: 'Выбирите Категорию' }}
+                />}
+
+                {categoriesById(methods.watch('category_1'), methods.watch('category_2'), methods.watch('category_3')) &&
+                methods.watch('category_3') && 
+                <Controller
+                    name="category_4"
+                    control={methods.control}
+                    defaultValue=''
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField
+                            select
+                            className={classes.input}
+                            variant='outlined'
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : ' '}>
+                            {categoriesById(methods.watch('category_1'), methods.watch('category_2'), methods.watch('category_3')).map((option, i) => (
                                 <MenuItem key={i} value={option.value}>
                                     {option.label}
                                 </MenuItem>
