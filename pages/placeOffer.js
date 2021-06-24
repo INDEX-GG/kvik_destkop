@@ -5,7 +5,8 @@ import { useMedia } from '../hooks/useMedia';
 import { useForm, FormProvider } from 'react-hook-form';
 import Title from '../components/placeOffer/Title';
 import Category from '../components/placeOffer/Category';
-
+import Description from '../components/placeOffer/Description';
+import Price from '../components/placeOffer/Price';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,6 +59,10 @@ function PlaceOffer() {
                             <Box className={classes.formPart}>
                                 <Title />
                                 <Category />
+                            </Box>
+                            <Box className={classes.formPart}>
+                                <Description />
+                                <Price />
                             </Box>
                             <Box className={classes.formPart}>
                                 <Box className={classes.submit}>

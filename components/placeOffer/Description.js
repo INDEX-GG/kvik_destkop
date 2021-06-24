@@ -16,34 +16,37 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-const Title = () => {
+const Description = () => {
 
    const classes = useStyles();
    const methods = useFormContext();
 
    return (
       <Box className={classes.formElem}>
-         <Typography className={classes.formTitleField}>Название</Typography>
+         <Typography className={classes.formTitleField}>Описание</Typography>
          <Box className={classes.formInputField}>
             <Controller
-               name="title"
+               name="description"
                control={methods.control}
                defaultValue=''
                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                      variant='outlined'
                      type="text"
+                     multiline
+                     rows='4'
+                     rowsMax='6'
                      fullWidth
                      autoComplete="on"
                      value={value}
                      onChange={onChange}
                      error={!!error} helperText={error ? error.message : ' '} />
                )}
-               rules={{ required: 'Введите название Товара' }}
+               rules={{ required: `Опишите ${methods.watch('title')}` }}
             />
          </Box>
       </Box>
    )
 }
 
-export default Title
+export default Description;
