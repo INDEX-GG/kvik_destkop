@@ -119,6 +119,8 @@ const useStyles = makeStyles((theme) => ({
     },
     btn__out: {
         marginLeft: '12px',
+        backgroundColor: theme.palette.grey[500],
+        color: 'black',
     },
 }));
 
@@ -135,6 +137,7 @@ const GreenCheckbox = withStyles({
 
 const Header = () => {
     const { isAuth, id, isLoading, username, photo } = useUser();
+    console.log(isAuth, id)
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
     const [openCat, setCategories] = useState();

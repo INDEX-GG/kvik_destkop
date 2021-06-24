@@ -8,6 +8,7 @@ import Category from '../components/placeOffer/Category';
 import Description from '../components/placeOffer/Description';
 import Price from '../components/placeOffer/Price/Price';
 import Photoes from '../components/placeOffer/Photoes';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,13 +41,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PlaceOffer() {
-
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
+    let photoes = [];
+    const photoesCtx = (obj) => {
+        console.log(obj);
+        return photoes = obj;
+    }
 
     const onSubmit = data => {
+        console.log(photoes, photoes.length)
+        data.price = data.price.replace(/\D+/g, '');
+        let id = Math.max(
+            data.category_1, 
+            data.category_2, 
+            data.category_3 !== undefined ? data.category_3 : 0, 
+            data.category_4 !== undefined ? data.category_4 : 0);
+        data = {...data, category_id: id}
         console.log(data);
+        const sendData = new FormData;
+        sendData.append('title', data.title);
+        sendData.append('category_id', data.category_id);
+        sendData.append('description', data.description);
+        sendData.append('price', data.price);
+        sendData.append('trade', data.trade);
+        sendData.append('safedeal', data.safedeal);
+        sendData.append('delivery', data.delivery);
+        if (photoes.length > 1) {
+            photoes.forEach(photo => sendData.append('image', photo));
+        } else if (photoes.length === 1) {
+            sendData.append('image', photoes[0]);
+        }
+        console.log(sendData);
     }
 
     return (
@@ -64,7 +91,7 @@ function PlaceOffer() {
                             <Box className={classes.formPart}>
                                 <Description />
                                 <Price />
-                                <Photoes />
+                                <Photoes ctx={photoesCtx}/>
                             </Box>
                             <Box className={classes.formPart}>
                                 <Box className={classes.submit}>

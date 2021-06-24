@@ -40,6 +40,7 @@ const theme = createMuiTheme({
          '200': '#5A5A5A',
          '300': '#8F8F8F',
          '400': '#C4C4C4',
+         '500': '#E9E9E9',
       }
    },
    shadows: [ //вызываются theme.spacing[порядковый номер в этом массиве]

@@ -11,13 +11,13 @@ export function useUser() {
     [phone, setPhone] = useState(),
     [email, setEmail] = useState(),
     [isLoading, setLoading] = useState(true),
-    [isAuth, setAuth] = useState(true),
+    [isAuth, setAuth] = useState(false),
     [id, setId] = useState();
-
+console.log(user)
   useEffect(() => {
     axios.post('/api/getUser', user)
       .then((res) => {
-        setAuth(true);
+        setAuth(user.isAuth);
         setId(user.id);
         setUsername(res.data.user.name);
         setPhoto(res.data.user.photo);

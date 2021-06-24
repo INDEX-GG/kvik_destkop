@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
+
 const useStyles = makeStyles((theme) => ({
    formElem: {
       display: 'flex',
@@ -31,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
         height: '130px',
         minHeight: '130px',
         maxHeight: '130px',
-        background: 'no-repeat center top 24px url(../../icons/photocard_placeholder.svg), #E9E9E9',
+        background: 'no-repeat url(../../icons/photocard_placeholder.svg), #E9E9E9',
+        backgroundSize: 'contain',
+        backgroundPosition: 'top 30px',
         borderRadius: '1px',
         overflow: 'hidden',
         '& img': {
@@ -73,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         zIndex: 7,
         top: 0,
-        left: 0,
+        right: 0,
         width: '24px',
         height: '24px',
         background: 'no-repeat center center url(../../icons/cross_o_light.svg)',
@@ -137,8 +140,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-const Photoes = () => {
-
+const Photoes = ({ctx}) => {
    const classes = useStyles();
    const methods = useFormContext();
 
@@ -325,7 +327,7 @@ const Photoes = () => {
        setSelectedFiles([file, ...selectedFiles]);
    };
 
-// console.log(validFiles);
+ctx(validFiles);
 let size = 0;
 
    return (
@@ -349,7 +351,8 @@ let size = 0;
                 onClick={fileInputClicked}>
                 <div className={classes.notif}>{errorMessage}</div>
                 <input
-                    name="photoes"
+
+                    
                     ref={fileInputRef}
                     className={classes.fi}
                     type="file"
