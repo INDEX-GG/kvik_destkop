@@ -10,26 +10,13 @@ import Compare from '../../components/account/Compare/Compare';
 import Reviews from '../../components/account/Reviews/Reviews';
 import Settings from '../../components/account/Settings/Settings';
 import UserPicUpload from '../../components/UserPicUpload';
-import Modal from '../../components/Modal';
 import { standartDate, ToRusAccountDate } from '../../lib/services';
 import { modalRating, modalSubscribers, modalSubscription, modalLogout } from '../../components/Modals';
 import { useUser } from '../../hooks/useUser';
 import { Avatar } from '@material-ui/core';
+import { Dialog } from "@material-ui/core";
 
-let userInfo = {};
-if (typeof userAuth !== 'undefined') {
-  userInfo = {
-    userId: 1,
-    userPic: '',
-    userName: userAuth.name,
-    userDateReg: standartDate(userAuth.created_at),
-    userRate: 3.5,
-    userReviews: 0,
-    userSubscribers: 0,
-    userSubscriptions: 0
-  };
-} else {
-  userInfo = {
+const userInfo = {
     userId: 1,
     userPic: '',
     userName: 'Имя пользователя',
@@ -39,7 +26,7 @@ if (typeof userAuth !== 'undefined') {
     userSubscribers: 0,
     userSubscriptions: 0
   };
-}
+
 
 const datareg = '2021-06-21 07:10:50' /* нужно будет поменять на createdAt */
 
@@ -58,16 +45,7 @@ const menuItems = [
 function Account() {
   const { isAuth, isLoading, username, photo, createdAt} = useUser();
   const [menuItem, setMenuItem] = useState({ i: 1, itm: 'menuOffers', ttl: 'Мои объявления' });
-  const [modal, setModal] = useState({});
-  function modalOlen(e, size, content, title) {
-    function smf() {
-      setModal({ title: title, content: content, size: size, isOpen: false });
-    }
-    e.preventDefault();
-    setModal({ title: title, content: content, size: size, isOpen: true });
-    setTimeout(smf, 500);
-  }
-
+  const [openPicUpload, setPicUpload] = useState(false);
 
   return (
     <MainLayout title={'Личный кабинет'}>
@@ -82,7 +60,7 @@ function Account() {
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
             {isAuth && !isLoading && <Avatar src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar>}
-              <button onClick={e => { modalOlen(e, 'md', <UserPicUpload {...{ route: '', imageType: 'webp', optimiztionLevel: 0.7, maxScale: 5 }} />) }} className="addPhoto"></button>
+              <button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"></button>
             </div>
             <div className="clientPage__username">
               {username}
@@ -132,7 +110,9 @@ function Account() {
         </div>
       </div>
       <div className="userPageWhiteSpace"></div>
-      <Modal {...modal} />
+      <Dialog open={openPicUpload} onClose={() => setPicUpload(!openPicUpload)} fullWidth maxWidth='xs'>
+        <UserPicUpload {...{ route: '', imageType: 'webp', optimiztionLevel: 0.7, maxScale: 5 }} />
+      </Dialog>
 
     </MainLayout>
   );

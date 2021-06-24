@@ -13,7 +13,6 @@ export function useUser() {
     [isLoading, setLoading] = useState(true),
     [isAuth, setAuth] = useState(false),
     [id, setId] = useState();
-console.log(user)
   useEffect(() => {
     axios.post('/api/getUser', user)
       .then((res) => {
