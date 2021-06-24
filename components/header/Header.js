@@ -137,7 +137,7 @@ const GreenCheckbox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Header = () => {
-    const {user} = useSession();
+    const { user } = useSession();
     const { isAuth, id, isLoading, username, photo } = useUser();
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
@@ -187,10 +187,10 @@ const Header = () => {
                             <FiltersApplied /><span className={classes.btn__filter_count}>99</span>
                         </Button>
                     }
+
                     <Button className={classes.btn__add_ad} onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    {isLoading && <Loader size={40} />}
                     {!isAuth && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
-                    {isAuth && !isLoading && <Link href={`/account/${id}`}><Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar></Link>}
+                    {isAuth && <Loader size={40} /> && !isLoading && <Link href={`/account/${id}`}><Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar></Link>}
                 </Container>
                 <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
                     <RegForm Close={handleRegFormDialog} />
