@@ -46,7 +46,6 @@ function PlaceOffer() {
     const methods = useForm();
     let photoes = [];
     const photoesCtx = (obj) => {
-        console.log(obj);
         return photoes = obj;
     }
 
@@ -79,10 +78,11 @@ function PlaceOffer() {
     return (
         <MainLayout title={'Подать объявление'}>
             {!matchesMobile && !matchesTablet && <Container className={classes.root}>
-                <Verify Verify={1} />
+                
                 <Box className={classes.offersBox}>
                     <Typography className={classes.title} variant='h2'>Новое объявление</Typography>
                     <FormProvider {...methods} >
+                    <Verify/>
                         <form onSubmit={methods.handleSubmit(onSubmit)}>
                             <Box className={classes.formPart}>
                                 <Title />

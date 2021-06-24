@@ -1,6 +1,8 @@
+import {useState, useEffect} from 'react';
 import { Box, Divider, makeStyles, Typography } from '@material-ui/core';
 import { Fragment } from 'react';
 import ActiveIcon from '../../UI/icons/ActiveIcon';
+import { useFormContext } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
         '&>*': {
             textAlign: 'right',
         }
+    },
+    wrapper: {
+        position: 'fixed',
     },
     text: {
         '&>*:first-child': {
@@ -25,25 +30,39 @@ const useStyles = makeStyles((theme) => ({
     },  
 }));
 
-const items = ["Категория", "Параметры", "Описание", "Цена", "Фотографии", "Местоположение", "Контакты"];
+const items = ["Категория", "Описание", "Цена", "Фотографии", "Местоположение", "Контакты"];
 
-const Verify = ({Verify = 0}) => {
-
+const Verify = () => {
+    const methods = useFormContext();
     const classes = useStyles();
+    const [verify, setVerify] = useState(0);
+
+
+    // console.log(methods.formState)
+
+    const formVerfy = () => {
+        
+    }
+
+    useEffect(() => {
+        formVerfy()
+    })
 
       return  (
         <Box className={classes.root}>
+            <Box className={classes.wrapper}>
             {items.map((item, i) => {
                 return (
                     <Fragment key={i}>
-                        <Typography className={classes.text} color={i + 1 <= Verify ? 'primary' : 'initial'}>
+                        <Typography className={classes.text} color={i + 1 <= verify ? 'primary' : 'initial'}>
                             {item}
-                            <ActiveIcon  Color={(i + 1 <= Verify) ? '#00a0ab' : '#c7c7c7'}/>
+                            <ActiveIcon  Color={(i + 1 <= verify) ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
-                        {(items.length !== i + 1) && <Divider className={classes.divider} style={{backgroundColor: `${(i + 2 <= Verify) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>}
+                        {(items.length !== i + 1) && <Divider className={classes.divider} style={{backgroundColor: `${(i + 2 <= verify) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>}
                     </Fragment>
                 )
             })}
+            </Box>
         </Box>
         )
 }
