@@ -21,6 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { stringToColor, initials } from '../../lib/services';
 import Loader from '../../UI/icons/Loader';
+import { useSession } from '../../hooks/useSession';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -136,8 +137,8 @@ const GreenCheckbox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Header = () => {
+    const {user} = useSession();
     const { isAuth, id, isLoading, username, photo } = useUser();
-    console.log(isAuth, id)
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
     const [openCat, setCategories] = useState();
