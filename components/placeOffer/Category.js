@@ -51,6 +51,9 @@ const Category = () => {
                                 methods.setValue('category_2', '');
                                 methods.setValue('category_3', '');
                                 methods.setValue('category_4', '');
+                                methods.unregister('category_2', '');
+                                methods.unregister('category_3', '');
+                                methods.unregister('category_4', '');
                             }}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
@@ -76,8 +79,8 @@ const Category = () => {
                             value={value}
                             onClick={() => {
                                 methods.setValue('category_3', '');
-                                methods.unregister('category_3');
                                 methods.setValue('category_4', '');
+                                methods.unregister('category_3');
                                 methods.unregister('category_4');
                             }}
                             onChange={onChange}
