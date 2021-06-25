@@ -73,6 +73,11 @@ function PlaceOffer() {
             sendData.append('image', photoes[0]);
         }
         console.log(sendData);
+        axios.post('/api/setPosts', sendData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
     }
 
     return (
