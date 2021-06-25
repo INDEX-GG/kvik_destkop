@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
    formInputField: {
       width: '490px',
    },
+   map: {
+       height: '224px',
+       borderRadius: theme.shape.borderRadius,
+   }
 }));
 
 const Location = () => {
@@ -39,8 +43,9 @@ const Location = () => {
                      onChange={onChange}
                      error={!!error} helperText={error ? error.message : ' '} />
                )}
-               rules={{ required: 'заполните тест' }}
+               rules={{ required: 'Укажите ваше местоположение...' }}
             />
+            <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe>
          </Box>
       </Box>
    )

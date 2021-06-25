@@ -9,6 +9,7 @@ import Description from '../components/placeOffer/Description';
 import Price from '../components/placeOffer/Price/Price';
 import Photoes from '../components/placeOffer/Photoes';
 import Location from '../components/placeOffer/Location';
+import Contacts from '../components/placeOffer/Contacts';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -100,8 +101,7 @@ function PlaceOffer() {
                             </Box>
                             <Box className={classes.formPart}>
                                 <Location />
-                            </Box>
-                            <Box className={classes.formPart}>
+                                <Contacts />
                                 <Box className={classes.submit}>
                                     <Typography variant='subtitle2' className={classes.fg}>Заполните все обязательные поля</Typography>
                                     <Button type='submit' color='primary' variant='contained'>Продолжить</Button>

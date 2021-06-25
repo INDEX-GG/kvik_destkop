@@ -36,6 +36,7 @@ const Verify = () => {
     const [verifyDesription, setVerifyDescription] = useState(false);
     const [verifyPrice, setVerifyPrice] = useState(false);
     const [verifyPhotoes, setVerifyPhotoes] = useState(false);
+    const [verifyLocation, setVerifyLocation] = useState(false);
     const verify = 0;
 
     useEffect(() => {
@@ -43,6 +44,7 @@ const Verify = () => {
         setVerifyDescription(verifyCategory && !!methods.watch('description'));
         setVerifyPrice(verifyDesription && !!methods.watch('price'));
         setVerifyPhotoes(verifyPrice && !!methods.watch('photoes'));
+        setVerifyLocation(verifyPhotoes && !!methods.watch('location'));
     })
     
       return  (
@@ -71,11 +73,11 @@ const Verify = () => {
                             Фотографии
                             <ActiveIcon  Color={verifyPhotoes ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
-                        <Divider className={classes.divider} style={{backgroundColor: `${(verify) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
+                        <Divider className={classes.divider} style={{backgroundColor: `${(verifyLocation) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
-                        <Typography className={classes.text} color={verify ? 'primary' : 'initial'}>
+                        <Typography className={classes.text} color={verifyLocation ? 'primary' : 'initial'}>
                             Местоположение
-                            <ActiveIcon  Color={verify ? '#00a0ab' : '#c7c7c7'}/>
+                            <ActiveIcon  Color={verifyLocation ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
                         <Divider className={classes.divider} style={{backgroundColor: `${(verify) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
