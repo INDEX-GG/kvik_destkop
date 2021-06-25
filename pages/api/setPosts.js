@@ -19,7 +19,7 @@ var storage = multer.diskStorage({
     
     cb(null, req.name)
 
-    return names = [...names, "/public/offerImage/"+req.name];
+    return names = [...names, "/offersImage/"+req.name];
   },
 })
 
@@ -49,6 +49,14 @@ export default function handler(req, res)
                 }
                 console.log("in main",JSON.stringify(photo))
                     var now = new Date()
+                
+                const text2Bool = (string) => {
+                  if (string === 'true') {
+                    return true
+                  } else {
+                    return false
+                  }
+                }
 
                 const obj = {
                     data: {
@@ -58,9 +66,9 @@ export default function handler(req, res)
                         title:req.body.title,
                         description:req.body.description,
                         price:req.body.price,
-                        trade:Boolean(req.body.trade),
-                        delivery:Boolean(req.body.delivery),
-                        secure_transaction:Boolean(req.body.safedeal),
+                        trade:text2Bool(req.body.trade),
+                        delivery:text2Bool(req.body.delivery),
+                        secure_transaction:text2Bool(req.body.safedeal),
                         photo:JSON.stringify(photo),
                         slug:"slug",
                         communication:JSON.stringify(communication),

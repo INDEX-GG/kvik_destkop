@@ -24,7 +24,6 @@ const Index = ({ offers }) => {
   };
 
   const [data, setData] = useState(offers);
-
   useEffect(() => {
     axios.post('/api/getPosts', { of: 0 })
       .then((res) => setData(res.data.result))

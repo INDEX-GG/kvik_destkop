@@ -137,6 +137,12 @@ const useStyles = makeStyles((theme) => ({
    },
    fi: {
         display: 'none',
+   },
+   error: {
+       width: '100%',
+       paddingLeft: theme.spacing(1),
+       color: theme.palette.error.main,
+       fontSize: '12px',
    }
 }));
 
@@ -161,6 +167,15 @@ const Photoes = ({ctx}) => {
        }, []);
        setValidFiles([...filteredArr]);
    }, [selectedFiles]);
+
+   useEffect(() => {
+       if (validFiles && validFiles.length > 0) {
+           methods.setValue('photoes', 'ok')
+       } else {
+            methods.setValue('photoes', '')
+            
+       }
+   }, [validFiles])
 
 
    const preventDefault = (e) => {
@@ -351,8 +366,9 @@ let size = 0;
                 onClick={fileInputClicked}>
                 <div className={classes.notif}>{errorMessage}</div>
                 <input
-
-                    
+                    {...methods.register('photoes', {
+                        required: 'Загрузите хотя бы одну фотографию'
+                    })}
                     ref={fileInputRef}
                     className={classes.fi}
                     type="file"
@@ -360,7 +376,9 @@ let size = 0;
                     onChange={filesSelected}
                 />
             </div>
+            <Typography className={classes.error}>{methods.formState.errors && methods.formState.errors.photoes && methods.formState.errors.photoes.message}</Typography>
         </Box>
+        
       </Box>
    )
 }

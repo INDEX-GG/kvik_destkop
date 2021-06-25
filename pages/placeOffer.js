@@ -8,6 +8,7 @@ import Category from '../components/placeOffer/Category';
 import Description from '../components/placeOffer/Description';
 import Price from '../components/placeOffer/Price/Price';
 import Photoes from '../components/placeOffer/Photoes';
+import Location from '../components/placeOffer/Location';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -73,11 +74,11 @@ function PlaceOffer() {
             sendData.append('image', photoes[0]);
         }
         console.log(sendData);
-        axios.post('/api/setPosts', sendData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
+        // axios.post('/api/setPosts', sendData, {
+        //     headers: {
+        //         "Content-Type": "multipart/form-data"
+        //     }
+        // })
     }
 
     return (
@@ -96,6 +97,9 @@ function PlaceOffer() {
                                 <Description />
                                 <Price />
                                 <Photoes ctx={photoesCtx}/>
+                            </Box>
+                            <Box className={classes.formPart}>
+                                <Location />
                             </Box>
                             <Box className={classes.formPart}>
                                 <Box className={classes.submit}>

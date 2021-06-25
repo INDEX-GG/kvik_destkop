@@ -32,24 +32,26 @@ const useStyles = makeStyles((theme) => ({
 const Verify = () => {
     const methods = useFormContext();
     const classes = useStyles();
+    const [verifyCategory, setVerifyCategory] = useState(false);
     const [verifyDesription, setVerifyDescription] = useState(false);
     const [verifyPrice, setVerifyPrice] = useState(false);
+    const [verifyPhotoes, setVerifyPhotoes] = useState(false);
     const verify = 0;
 
     useEffect(() => {
-        setVerifyDescription(methods.watch('category_2') && methods.watch('description'));
-        setVerifyPrice(verifyDesription && methods.watch('price'));
+        setVerifyCategory(!!methods.watch('title') && !!methods.watch('category_2'));
+        setVerifyDescription(verifyCategory && !!methods.watch('description'));
+        setVerifyPrice(verifyDesription && !!methods.watch('price'));
+        setVerifyPhotoes(verifyPrice && !!methods.watch('photoes'));
     })
     
-    // console.log(methods.formState)
-
       return  (
         <Box className={classes.root}>
             <Box className={classes.wrapper}>
 
-                        <Typography className={classes.text} color={methods.watch('category_2') ? 'primary' : 'initial'}>
+                        <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
                             Категория
-                            <ActiveIcon  Color={methods.watch('category_2') ? '#00a0ab' : '#c7c7c7'}/>
+                            <ActiveIcon  Color={verifyCategory ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
                         <Divider className={classes.divider} style={{backgroundColor: `${(verifyDesription) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
@@ -63,11 +65,11 @@ const Verify = () => {
                             Цена
                             <ActiveIcon  Color={verifyPrice ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
-                        <Divider className={classes.divider} style={{backgroundColor: `${(verify) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
+                        <Divider className={classes.divider} style={{backgroundColor: `${(verifyPhotoes) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
-                        <Typography className={classes.text} color={verify ? 'primary' : 'initial'}>
+                        <Typography className={classes.text} color={verifyPhotoes ? 'primary' : 'initial'}>
                             Фотографии
-                            <ActiveIcon  Color={verify ? '#00a0ab' : '#c7c7c7'}/>
+                            <ActiveIcon  Color={verifyPhotoes ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
                         <Divider className={classes.divider} style={{backgroundColor: `${(verify) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
