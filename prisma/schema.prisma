@@ -8,7 +8,6 @@ datasource db {
 }
 
 model users {
-  RelationUser            posts[]
   id                      Int       @unique@id@default(autoincrement())
   user_type_id            Int?      @db.SmallInt
   gender_id               Int?
