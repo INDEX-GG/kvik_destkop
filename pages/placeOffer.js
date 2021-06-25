@@ -78,9 +78,8 @@ function PlaceOffer() {
     return (
         <MainLayout title={'Подать объявление'}>
             {!matchesMobile && !matchesTablet && <Container className={classes.root}>
-                
                 <Box className={classes.offersBox}>
-                    <Typography className={classes.title} variant='h2'>Новое объявление</Typography>
+                    <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
                     <FormProvider {...methods} >
                     <Verify/>
                         <form onSubmit={methods.handleSubmit(onSubmit)}>

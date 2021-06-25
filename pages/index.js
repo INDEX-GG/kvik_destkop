@@ -11,6 +11,7 @@ import MainLayout from '../layout/MainLayout';
 import axios from "axios";
 import { getDataByQuery } from '../lib/services';
 import { PrismaClient } from '@prisma/client';
+import { Container, Typography } from "@material-ui/core";
 
 const Index = ({ offers }) => {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -35,7 +36,9 @@ const Index = ({ offers }) => {
 
   return (
     <MainLayout footer={true} title={'Доска объявлений'}>
-      <h6 className="popular__categories">Популярные категории</h6>
+      <Container>
+      <Typography variant='h2'>Популярные категории</Typography>
+      </Container>
       <Slider_component />
       <div className="bodyHome" id="bodyHome">
         <div className="offersTitleLine">
