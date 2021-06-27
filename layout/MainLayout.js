@@ -8,11 +8,11 @@ const MainLayout = ({ children, title = '', footer }) => {
             <Head>
                 <title>KVIK {title}</title>
             </Head>
-                <Header />
-                <>
-                    {children}
-                </>
-                {!footer && <Footer />}
+            <Header />
+            <>
+                {children}
+            </>
+            {!footer && <Footer />}
         </>
     )
 }

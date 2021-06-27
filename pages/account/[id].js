@@ -13,19 +13,21 @@ import UserPicUpload from '../../components/UserPicUpload';
 import { standartDate, ToRusAccountDate } from '../../lib/services';
 import { modalRating, modalSubscribers, modalSubscription, modalLogout } from '../../components/Modals';
 import { useUser } from '../../hooks/useUser';
-import { Avatar } from '@material-ui/core';
-import { Dialog } from "@material-ui/core";
+import { Avatar, Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core';
+import axios from "axios";
+import { useRouter } from 'next/router';
+import { mutate } from 'swr';
 
 const userInfo = {
-    userId: 1,
-    userPic: '',
-    userName: 'Имя пользователя',
-    userDateReg: '21.56.7676',
-    userRate: 3.2,
-    userReviews: 0,
-    userSubscribers: 0,
-    userSubscriptions: 0
-  };
+  userId: 1,
+  userPic: '',
+  userName: 'Имя пользователя',
+  userDateReg: '21.56.7676',
+  userRate: 3.2,
+  userReviews: 0,
+  userSubscribers: 0,
+  userSubscriptions: 0
+};
 
 
 const datareg = '2021-06-21 07:10:50' /* нужно будет поменять на createdAt */
@@ -42,10 +44,24 @@ const menuItems = [
   { id: 8, name: 'menuSettings', title: 'Настройки' }
 ];
 
+
+
 function Account() {
-  const { isAuth, isLoading, username, photo, createdAt} = useUser();
+  const router = useRouter();
+  const { isAuth, isLoading, username, photo, createdAt } = useUser();
   const [menuItem, setMenuItem] = useState({ i: 1, itm: 'menuOffers', ttl: 'Мои объявления' });
   const [openPicUpload, setPicUpload] = useState(false);
+  const [logout, setLogout] = useState(false);
+
+  const signOut = () => {
+    axios.get('/api/logout')
+      .then(() => {
+        mutate('/api/user');
+        router.push('/');
+      })
+
+
+  }
 
   return (
     <MainLayout title={'Личный кабинет'}>
@@ -59,7 +75,7 @@ function Account() {
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
-            {isAuth && !isLoading && <Avatar src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar>}
+              {isAuth && !isLoading && <Avatar src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar>}
               <button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"></button>
             </div>
             <div className="clientPage__username">
@@ -93,7 +109,7 @@ function Account() {
                 <a key={item.id} onClick={() => setMenuItem({ i: item.id, itm: item.name, ttl: item.title })} className={item.name + ((item.title === menuItem.ttl) ? (` ${item.name}Active highlight smooth`) : (' smooth'))}>{item.title}</a>
               )
             })}
-            <a onClick={e => { modalOlen(e, 'sm', modalLogout()) }} className="offerUnpublish thin superLight" className="menuLogoff smooth">Выход</a>
+            <a onClick={() => setLogout(!logout)} className="offerUnpublish thin superLight" className="menuLogoff smooth">Выход</a>
           </div>
         </div>
         <div className="clientPage__container">
@@ -105,13 +121,24 @@ function Account() {
               ((menuItem.i === 5) && <Notifications />) ||
               ((menuItem.i === 6) && <Compare />) ||
               ((menuItem.i === 7) && <Reviews />) ||
-              ((menuItem.i === 8) && <Settings username/>))
+              ((menuItem.i === 8) && <Settings username />))
           }
         </div>
       </div>
       <div className="userPageWhiteSpace"></div>
       <Dialog open={openPicUpload} onClose={() => setPicUpload(!openPicUpload)} fullWidth maxWidth='xs'>
         <UserPicUpload {...{ route: '', imageType: 'webp', optimiztionLevel: 0.7, maxScale: 5 }} />
+      </Dialog>
+      <Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth='xs'>
+        <DialogTitle>Вы уверены, что хотите выйти?</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => setLogout(!logout)} color='primary' variant='text'>
+            Отмена
+          </Button>
+          <Button onClick={() => signOut()}>
+            Выйти
+          </Button>
+        </DialogActions>
       </Dialog>
 
     </MainLayout>

@@ -4,29 +4,36 @@ import axios from 'axios'
 
 export function useUser() {
   const { data: user, mutate: mutateUser } = useSWR('/api/user'),
-    [username, setUsername] = useState(),
-    [photo, setPhoto] = useState(),
-    [about, setAbout] = useState(),
-    [createdAt, setCreatedAt] = useState(),
-    [phone, setPhone] = useState(),
-    [email, setEmail] = useState(),
-    [isLoading, setLoading] = useState(true),
-    [isAuth, setAuth] = useState(false),
-    [id, setId] = useState();
+    [isAuth, setIsAuth] = useState(false),
+    [userInfo, setUserInfo] = useState({}),
+    [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    axios.post('/api/getUser', user)
+    user && setIsAuth(user.isAuth)
+    isAuth && axios.post('/api/getUser', user)
       .then((res) => {
-        setAuth(user.isAuth);
-        setId(user.id);
-        setUsername(res.data.user.name);
-        setPhoto(res.data.user.photo);
-        setAbout(res.data.user.about);
-        setCreatedAt(res.data.user.createdAt);
-        setPhone(res.data.user.phone);
-        setEmail(res.data.user.email);
+        setUserInfo({
+          id: user.id,
+          username: res.data.user.name,
+          photo: res.data.user.photo,
+          about: res.data.user.about,
+          createdAt: res.data.user.createdAt,
+          phone: res.data.user.phone,
+          email: res.data.user.email
+        })
         setLoading(false);
       })
-  }, [user])
+  }, [user, isAuth])
 
-  return { isAuth, id, isLoading, username, photo, about, createdAt, phone, email, mutateUser }
+  return {
+    isAuth,
+    id: userInfo.id,
+    isLoading,
+    username: userInfo.username,
+    photo: userInfo.photo,
+    about: userInfo.about,
+    createdAt: userInfo.createdAt,
+    phone: userInfo.phone,
+    email: userInfo.email,
+    mutateUser
+  }
 }
