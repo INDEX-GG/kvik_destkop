@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from "swiper/core";
 import { ellipsis, ToRubles, ToRusDate } from '../lib/services';
+import Image from 'next/image'
 
 SwiperCore.use([Pagination]);
 
@@ -48,7 +49,7 @@ function AdCard_component({ offer }) {
                                 }}
                                 slidesPerView={1}
                             >
-                                {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} alt='' onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
+                                {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
                             </Swiper>
                         </div>
                         <div className="card__top_info">
