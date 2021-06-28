@@ -17,6 +17,7 @@ const Index = ({ offers }) => {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   const [openSort, setShowSort] = useState();
   const [data, setData] = useState(offers);
+  
   useEffect(() => {
     axios.post('/api/getPosts', { of: 0 })
       .then((res) => setData(res.data.result))

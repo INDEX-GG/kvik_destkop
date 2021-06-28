@@ -11,7 +11,7 @@ export default function handler(req, res) {
             async function getPost() {
                 const results = await prisma.posts.findMany({
                     skip: req.body.of,
-                    take: 10,
+                    take: 20,
                     select: {
                         id: true,
                         category_id: true,

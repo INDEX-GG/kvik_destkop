@@ -37,6 +37,7 @@ const Verify = () => {
     const [verifyPrice, setVerifyPrice] = useState(false);
     const [verifyPhotoes, setVerifyPhotoes] = useState(false);
     const [verifyLocation, setVerifyLocation] = useState(false);
+    const [verifyContacts, setVerifyContacts] = useState(false);
     const verify = 0;
 
     useEffect(() => {
@@ -45,6 +46,7 @@ const Verify = () => {
         setVerifyPrice(verifyDesription && !!methods.watch('price'));
         setVerifyPhotoes(verifyPrice && !!methods.watch('photoes'));
         setVerifyLocation(verifyPhotoes && !!methods.watch('location'));
+        setVerifyContacts(verifyLocation && !!methods.watch('contact') && (!!methods.watch('bymessages') || !!methods.watch('byphone')) );
     })
     
       return  (
@@ -79,11 +81,11 @@ const Verify = () => {
                             Местоположение
                             <ActiveIcon  Color={verifyLocation ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
-                        <Divider className={classes.divider} style={{backgroundColor: `${(verify) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
+                        <Divider className={classes.divider} style={{backgroundColor: `${(verifyContacts) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
-                        <Typography className={classes.text} color={verify ? 'primary' : 'initial'}>
+                        <Typography className={classes.text} color={verifyContacts ? 'primary' : 'initial'}>
                             Контакты
-                            <ActiveIcon  Color={verify ? '#00a0ab' : '#c7c7c7'}/>
+                            <ActiveIcon  Color={verifyContacts ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
             </Box>
         </Box>

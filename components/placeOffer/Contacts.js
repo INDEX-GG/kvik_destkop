@@ -49,7 +49,7 @@ useEffect(() => {
          <Typography className={classes.formTitleField}>Контакты</Typography>
          <Box className={classes.formInputField}>
          <Controller
-                    name="contacts"
+                    name="contact"
                     control={methods.control}
                     defaultValue=''
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -73,7 +73,7 @@ useEffect(() => {
                 <Controller
                     name='bymessages'
                     control={methods.control}
-                    defaultValue={false}
+                    defaultValue={true}
                     render={({ field: { onChange, value }}) => (
                         <FormControlLabel
                         className={classes.label}
@@ -93,7 +93,7 @@ useEffect(() => {
                 <Controller
                     name='byphone'
                     control={methods.control}
-                    defaultValue={false}
+                    defaultValue={true}
                     render={({ field: { onChange, value }}) => (
                         <FormControlLabel
                         className={classes.label}

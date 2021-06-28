@@ -138,7 +138,7 @@ const GreenCheckbox = withStyles({
 
 const Header = () => {
     // const { user } = useSession();
-    const { isAuth, id, isLoading, username, photo } = useUser();
+    const { isAuth, id, isLoading, username, photo, mutateUser } = useUser();
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
     const [openCat, setCategories] = useState();

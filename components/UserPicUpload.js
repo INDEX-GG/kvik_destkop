@@ -5,13 +5,12 @@ import { useUser } from '../hooks/useUser';
 import axios from 'axios';
 
 function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, maxScale = 3 }) {
-  const { isLoading, id, photo } = useUser();
+  const { id, photo } = useUser();
   const fileInput = useRef(),
     editorRef = useRef(),
     [Photo, setPhoto] = useState(),
     [scale, setScale] = useState(1),
     [rotate, setRotate] = useState(0);
-  console.log(photo)
   //Получаем файл
   const fileSelect = () => {
     if (fileInput.current.files.length) {
@@ -42,12 +41,13 @@ function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, max
           "Content-Type": "multipart/form-data"
         }
       })
-      console.log(sendData)
+      
+      console.log(sendData);
+
     }, `image/${imageType}`, optimiztionLevel);
   }
 
   return (
-
     <div className="userPicUpload__wrapper">
       <div className="userPicUpload__photo">
         <AvatarEditor
