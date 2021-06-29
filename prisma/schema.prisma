@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
+model users{
   id                      Int       @unique@id@default(autoincrement())
   user_type_id            Int?      @db.SmallInt
   gender_id               Int?
@@ -54,7 +54,7 @@ model users {
 
 }
 
-model posts {
+model posts{
   id                    Int    @id @default(autoincrement())
   country_code          Int?
   category_id           Int?
