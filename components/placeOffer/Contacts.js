@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
    },
    formInputField: {
       width: '490px',
+      display: 'flex',
+      flexDirection: 'row', 
    },
    input: {
     width: '230px',
@@ -31,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
        '& span': {
             fontSize: '14px',
        }
+    },
+    error: {
+        color: theme.palette.error.main,
+        fontSize: '12px',
+        paddingTop: '2px',
+        marginLeft: '24px',
     },
 }));
 
@@ -49,27 +57,28 @@ useEffect(() => {
          <Typography className={classes.formTitleField}>Контакты</Typography>
          <Box className={classes.formInputField}>
          <Controller
-                    name="contact"
-                    control={methods.control}
-                    defaultValue=''
-                    render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <TextField
-                            select
-                            className={classes.input}
-                            variant='outlined'
-                            value={value}
-                            onChange={onChange}
-                            error={!!error}
-                            helperText={error ? error.message : ' '}>
-                            {phones.map((option, i) => (
-                                <MenuItem key={i} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    )}
-                    rules={{ required: 'Выбирите номер для связи' }}
+                name="contact"
+                control={methods.control}
+                defaultValue=''
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                    <TextField
+                        select
+                        className={classes.input}
+                        variant='outlined'
+                        value={value}
+                        onChange={onChange}
+                        error={!!error}
+                        helperText={error ? error.message : ' '}>
+                        {phones.map((option, i) => (
+                            <MenuItem key={i} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                )}
+                rules={{ required: 'Выбирите номер для связи' }}
             />
+            <Box>
                 <Controller
                     name='bymessages'
                     control={methods.control}
@@ -89,6 +98,7 @@ useEffect(() => {
                         label="Сообщения"
                     />
                     )}
+                    rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выбирите способ для обратной связи' : null }}
                 />
                 <Controller
                     name='byphone'
@@ -109,7 +119,10 @@ useEffect(() => {
                         label="Телефон"
                     />
                     )}
+                    rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выбирите способ для обратной связи' : null }}
                 />
+                <Typography className={classes.error}>{methods.formState.errors?.byphone?.message}</Typography>
+            </Box>
          </Box>
       </Box>
    )

@@ -173,25 +173,21 @@ const Photoes = ({ctx}) => {
            methods.setValue('photoes', 'ok')
        } else {
             methods.setValue('photoes', '')
-            
        }
    }, [validFiles])
 
 
    const preventDefault = (e) => {
        e.preventDefault();
-       // e.stopPropagation();
    };
 
    const dragOver = (e) => {
        preventDefault(e);
-
        setErrorMessage('Поместите ваши фото сюда');
    };
 
    const dragEnter = (e) => {
        preventDefault(e);
-
    };
 
    const dragLeave = (e) => {
@@ -376,9 +372,8 @@ let size = 0;
                     onChange={filesSelected}
                 />
             </div>
-            <Typography className={classes.error}>{methods.formState.errors && methods.formState.errors.photoes && methods.formState.errors.photoes.message}</Typography>
+            <Typography className={classes.error}>{methods.formState.errors?.photoes?.message}</Typography>
         </Box>
-        
       </Box>
    )
 }

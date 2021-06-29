@@ -59,8 +59,6 @@ function Account() {
         mutate('/api/user');
         router.push('/');
       })
-
-
   }
 
   return (
