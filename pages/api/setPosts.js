@@ -19,7 +19,8 @@ var storage = multer.diskStorage({
     
     cb(null, req.name)
 
-    return names = [...names, "/offerImage/"+req.name];
+    return names = [...names, "/offersImage/"+req.name];
+
   },
 })
 
@@ -50,6 +51,14 @@ export default function handler(req, res)
 
                 console.log("in main",JSON.stringify(photo))
                     var now = new Date()
+                
+                const text2Bool = (string) => {
+                  if (string === 'true') {
+                    return true
+                  } else {
+                    return false
+                  }
+                }
 
                 const obj = {
                     data: {

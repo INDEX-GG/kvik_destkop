@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Link from 'next/link';
-import { Swiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination } from "swiper/core";
 import { ellipsis, ToRubles, ToRusDate } from '../lib/services';
+import Image from 'next/image'
 
 SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
+
     const currentSwiper = useRef();
     let sheduled = false;
 
@@ -26,7 +28,7 @@ function AdCard_component({ offer }) {
                     currentSwiper.current?.swiper.slidePrev()
                 }
                 sheduled = false;
-            }, 180)
+            }, 220)
         }
     }
 
@@ -47,7 +49,7 @@ function AdCard_component({ offer }) {
                                 }}
                                 slidesPerView={1}
                             >
-                                {/*  {obj.objImg.map((img, i) => { return <SwiperSlide key={i}> <img src={img.img} alt="" /></SwiperSlide> })}  */}
+                                {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
                             </Swiper>
                         </div>
                         <div className="card__top_info">
@@ -65,7 +67,7 @@ function AdCard_component({ offer }) {
                         <div className="card__bottom_info">
                             <div className="card__bottom_info_left">
                                 <span className="old__price">{ /* {ToRubles(offer.oldPrice)}  */}</span>
-                                <span className="new__price">{ToRubles(offer.price)}</span>
+                                <span className="new__price">{ellipsis(ToRubles(offer.price), 12)}</span>
                             </div>
                             <div className="card__bottom_info_right">
                                 {offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
