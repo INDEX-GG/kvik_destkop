@@ -26,6 +26,13 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage })
 
+const text2Bool = (string) => {
+  if (string === 'true') {
+    return true
+  } else {
+    return false
+  }
+}
 
 export default function handler(req, res) 
 {
@@ -45,32 +52,24 @@ export default function handler(req, res)
 
                const communication = 
                 {
-                  phone:req.body.byphone,
-                  message:req.body.bymessage
+                  phone: text2Bool(req.body.byphone),
+                  message: text2Bool(req.body.bymessage)
                 }
 
                 console.log("in main",JSON.stringify(photo))
                     var now = new Date()
-                
-                const text2Bool = (string) => {
-                  if (string === 'true') {
-                    return true
-                  } else {
-                    return false
-                  }
-                }
 
                 const obj = {
                     data: {
                       country_code:7,
-                      user_id:req.body.user_id,
+                      user_id:+req.body.user_id,
                       category_id:+req.body.category_id,
                       title:req.body.title,
                       description:req.body.description,
                       price:req.body.price,
-                      trade:Boolean(req.body.trade),
-                      delivery:Boolean(req.body.delivery),
-                      secure_transaction:Boolean(req.body.safedeal),
+                      trade:text2Bool(req.body.trade),
+                      delivery:text2Bool(req.body.delivery),
+                      secure_transaction:text2Bool(req.body.safedeal),
                       photo:JSON.stringify(photo),
                       slug:"slug",
                       communication:JSON.stringify(communication),
