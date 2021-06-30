@@ -42,8 +42,6 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
-    "eslint": "^7.29.0",
-    "eslint-plugin-react": "^7.24.0",
     "prisma": "^2.25.0",
     "webpack-node-externals": "^3.0.0"
   }

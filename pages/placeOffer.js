@@ -1,4 +1,4 @@
-import { Box, Button, Container, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 import Verify from '../components/placeOffer/Verify';
 import MainLayout from '../layout/MainLayout';
 import { useMedia } from '../hooks/useMedia';
