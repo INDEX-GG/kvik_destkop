@@ -14,7 +14,7 @@ import ProductAction from '../../components/product/ProductAction';
 import ProductUserInfo from '../../components/product/ProductUserInfo';
 import { Dialog } from '@material-ui/core';
 
-const objP = {
+const objP = { 
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',
     offerImg: [
@@ -70,8 +70,10 @@ const Product = ({ offers }) => {
     const [data, setData] = useState();
     useEffect(() => {
         axios.post('/api/getPosts', { of: 0 })
-            .then((res) => setData(res.data.result))
-        return () => { }
+            .then((res) => setData(res.data.result) 
+            )
+            
+        return () => {}
     }, [])
 
     return (
