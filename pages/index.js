@@ -104,6 +104,7 @@ export async function getStaticProps() {
     }
 
     const results = await getPost();
+    
     return results;
   }
 
@@ -118,8 +119,8 @@ export async function getStaticProps() {
     })
 
   const offers = JSON.parse(JSON.stringify(res))
-
-  return { props: { offers } }
+  return { props: { offers }}
+  
 }
 
 export default Index;

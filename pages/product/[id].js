@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { Dialog } from '@material-ui/core';
 import axios from 'axios';
 import Header from '../../components/header/Header';
 import Footer from '../../components/Footer';
 import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
-import { ToRubles } from '../../lib/services';
 import Statistics from '../../components/Statistics';
-import IconCall from '../../UI/icons/IconCall';
-import IconMess from '../../UI/icons/IconMess';
-import { useMedia } from '../../hooks/useMedia';
 import ProductInformation from '../../components/product/ProductInformation';
 import ProductAction from '../../components/product/ProductAction';
 import ProductUserInfo from '../../components/product/ProductUserInfo';
-import { Dialog } from '@material-ui/core';
+import { ToRubles } from '../../lib/services';
+import IconCall from '../../UI/icons/IconCall';
+import IconMess from '../../UI/icons/IconMess';
+import { useMedia } from '../../hooks/useMedia';
+import { useProduct } from '../../hooks/useProduct';
+
 
 const objP = {
     id: 1,
@@ -52,6 +55,25 @@ const objP = {
 
 const Product = ({ offers }) => {
 
+    const router = useRouter();
+
+  const { address, title } = useProduct({router});    
+
+    /* const router = useRouter();
+    useEffect(() => {
+    axios.post('/api/getPost', { product_id: router.query.id } )
+        .then((result) =>
+            result.data.result.map((item) =>
+            console.log(item)
+             ) 
+        )
+    }) */
+
+ 
+
+
+
+
     const [openStatForm, setopenStatForm] = useState(false);
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 
@@ -67,12 +89,22 @@ const Product = ({ offers }) => {
         }
     }
 
+
+
+
+
     const [data, setData] = useState();
     useEffect(() => {
         axios.post('/api/getPosts', { of: 0 })
-            .then((res) => setData(res.data.result))
+            .then((res) => setData(res.data.result)
+            )
+
         return () => { }
     }, [])
+
+
+
+
 
     return (
         <div className="productPage" id="productPage">
@@ -84,7 +116,7 @@ const Product = ({ offers }) => {
                     <div className="productPageWrapper">
                         <div className="product__main_block">
                             <div className="productPageDescription">
-                                {!matchesMobile && !matchesTablet && <div className="productPageTitle xl">{objP.title}</div>}
+                                {!matchesMobile && !matchesTablet && <div className="productPageTitle xl">{title}</div>}
                                 {objP.adstatus === 8 && !matchesLaptop && !matchesDesktop && !matchesHD &&
                                     <div className="SellerInfoTopButtons">
                                         <input className="SellerInfoNoteInput" placeholder="Заметка к объявлению" />
@@ -92,7 +124,7 @@ const Product = ({ offers }) => {
                                         <a className="SellerInfoFavorite"></a>
                                     </div>}
                                 <ProductCarousel {...objP} />
-                                {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{objP.title}</div>}
+                                {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageAdaptive">
                                     <div className="SellerInfoOldPrice__adaptive">
                                         <div className="SellerInfoOldPrice thin dark crossed">
@@ -146,7 +178,7 @@ const Product = ({ offers }) => {
                                         </div>
                                     </div>
                                 }
-                                {/* адрес, карта, свойства и значения */} <ProductInformation {...objP} />
+                                {/* адрес, карта, свойства и значения */} <ProductInformation obj={address} />
                             </div>
                             {/* Блок информации*/}
                             <div className="block__my_active_ad" >
@@ -188,6 +220,7 @@ const Product = ({ offers }) => {
         </div >
     )
 }
+
 // export async function getStaticPaths() {
 //     const offers = await getDataByQuery('/api/getPosts', { of: 0 })
 //     const paths = offers.result.map((offer) => ({
