@@ -9,6 +9,7 @@ import { Box, Container, Button, makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
    up_panel: {
       background: theme.palette.background.paper,
+	  marginBottom: '77px'
    },
    up_panel__wrapper: {
       padding: '9px 12px',
