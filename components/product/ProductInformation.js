@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMedia } from '../../hooks/useMedia';
 
-export default function ProductInformation({obj}) {
+export default function ProductInformation(data) {
     const [collMap, setCollMap] = useState(true);
     const handleCollMap = e => {
         e.preventDefault();
@@ -19,7 +19,7 @@ export default function ProductInformation({obj}) {
             <div className="productPageCharacterMapBlock" style={collMap ? { paddingBottom: 0 } : { paddingBottom: '18px' }} >
                 <div className="productPageCharacterLocality">
                     {!matchesMobile && !matchesTablet && <div>Местоположение</div>}
-                    <div>{obj}</div>
+                    <div>{data.address}</div>
                     <a className={`productPageCharacterMapSwitch highlight underline ${collMap ? ('') : ('collMapSw')}`} onClick={e => handleCollMap(e)}>На карте</a>
                 </div>
                 <div className="productPageCharacterMap" style={collMap ? { height: 0 } : { height: '400px' }}>
@@ -36,8 +36,8 @@ export default function ProductInformation({obj}) {
                     <div>Значение</div>
                 </div>
                 <div>
-                    <div>Свойство</div>
-                    <div>Значение</div>
+                    <div>Описание</div>
+                    <div>{data.description}</div>
                 </div>
                 <div>
                     <div>Поделиться</div>

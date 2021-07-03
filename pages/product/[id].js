@@ -10,7 +10,7 @@ import Statistics from '../../components/Statistics';
 import ProductInformation from '../../components/product/ProductInformation';
 import ProductAction from '../../components/product/ProductAction';
 import ProductUserInfo from '../../components/product/ProductUserInfo';
-import { ToRubles } from '../../lib/services';
+import { ToRubles, ToRusDate } from '../../lib/services';
 import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
@@ -53,26 +53,9 @@ const objP = {
     ]
 };
 
-const Product = ({ offers }) => {
+const Product = () => {
 
     const router = useRouter();
-
-  const { address, title } = useProduct({router});    
-
-    /* const router = useRouter();
-    useEffect(() => {
-    axios.post('/api/getPost', { product_id: router.query.id } )
-        .then((result) =>
-            result.data.result.map((item) =>
-            console.log(item)
-             ) 
-        )
-    }) */
-
- 
-
-
-
 
     const [openStatForm, setopenStatForm] = useState(false);
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -89,10 +72,6 @@ const Product = ({ offers }) => {
         }
     }
 
-
-
-
-
     const [data, setData] = useState();
     useEffect(() => {
         axios.post('/api/getPosts', { of: 0 })
@@ -103,9 +82,26 @@ const Product = ({ offers }) => {
     }, [])
 
 
+const {address, category_id, commercial, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, user_id, price, verify_moderator} = useProduct({router});
 
 
-
+console.log(category_id)
+console.log(email)
+console.log(phone)
+console.log(id)
+console.log(commercial)
+console.log(user_id)
+console.log(verify_moderator)
+console.log(rating)
+// console.log(description)
+// console.log(created_at)
+// console.log(delivery)
+// console.log(reviewed)
+// console.log(secure_transaction)
+// console.log(trade) 
+// console.log(price)
+// console.log(title)
+// console.log(address)
     return (
         <div className="productPage" id="productPage">
             <Header />
@@ -123,7 +119,7 @@ const Product = ({ offers }) => {
                                         <a className="SellerInfoNote"></a>
                                         <a className="SellerInfoFavorite"></a>
                                     </div>}
-                                <ProductCarousel {...objP} />
+                                <ProductCarousel photo={photo} /> 
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageAdaptive">
                                     <div className="SellerInfoOldPrice__adaptive">
@@ -131,17 +127,17 @@ const Product = ({ offers }) => {
                                             {ToRubles(objP.oldprice)}
                                         </div>
                                         <div className="SellerInfoPrice thin xxl">
-                                            {ToRubles(objP.price)}
+                                            {ToRubles(price)}
                                         </div>
                                         <div className="SellerInfoBargain dark thin">
-                                            {(objP.bargain) && (<p>Торг уместен</p>)}
+                                            {(trade) && (<p>Торг уместен</p>)}
                                         </div>
                                     </div>
                                     <div className="SellerInfo__adaptive_info">
                                         <div className="SellerInfo__adaptive_info_top">
-                                            <div className="SellerInfoSeen dark"> 48 +4</div>{objP.adstatus === 8 ? "" : <a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)} >Статистика</a>}
+                                            <div className="SellerInfoSeen dark"> {reviewed} +4</div>{objP.adstatus === 8 ? "" : <a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)} >Статистика</a>}
                                         </div>
-                                        <div className="SellerInfoDate">Размещено {objP.date}</div>
+                                        <div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div>
                                         {objP.adstatus === 1 ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ''}
                                     </div></div>
                                 }
@@ -159,8 +155,8 @@ const Product = ({ offers }) => {
                                                 {objP.adstatus === 8 ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
                                             </div>
                                             {objP.adstatus === 1 || objP.adstatus === 8 ? <div className="SellerInfo__adaptive_information">
-                                                <div className="SellerInfoSecure superLight">Безопасная сделка</div>
-                                                <div className="SellerInfoDelivery superLight">Возможна доставка</div>
+                                            {secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
+                                                {delivery && (<div className="SellerInfoDelivery superLight">Возможна доставка</div>)}
                                             </div> : ''}
                                             {objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ''}
                                             {objP.adstatus === 4 ? <p className="reason__rejection">Причина отклонения: <span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ
@@ -178,11 +174,11 @@ const Product = ({ offers }) => {
                                         </div>
                                     </div>
                                 }
-                                {/* адрес, карта, свойства и значения */} <ProductInformation obj={address} />
+                                {/* адрес, карта, свойства и значения */} <ProductInformation address={address} description={description} />
                             </div>
                             {/* Блок информации*/}
                             <div className="block__my_active_ad" >
-                                {/* статус объявления, кнопки */} <ProductAction {...objP} />
+                                {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction}/>
                                 {/* пользователь и его объявления */}
                                 <ProductUserInfo {...objP} />
                             </div>

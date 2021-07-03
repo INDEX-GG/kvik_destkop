@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMedia } from '../../hooks/useMedia';
 import { ToRubles } from '../../lib/services';
 
-export default function ProductUserInfo(objP) {
+export default function ProductUserInfo({data}) {
 
     const [collapsed, setCollapsed] = useState(true);
     const handleCollapse = e => {
@@ -14,20 +14,22 @@ export default function ProductUserInfo(objP) {
         }
     }
 
+    const objP={adstatus: 8}
+    
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
     return (
         <>
             <div className="ad__block_bottom">
                 <div className="SellerInfoUserBlock">
-                    <img className="SellerInfoUserPic" src={objP.userpic} />
+                    <img className="SellerInfoUserPic" /* src={objP.userpic} */ />
                     <div>
-                        <div>{objP.username}</div>
+                        <div>{/* {objP.username} */}</div>
                         <div>
-                            <div className="SellerInfoRateNumber">{objP.userrate}</div>
+                            <div className="SellerInfoRateNumber">{/* {objP.userrate} */}</div>
                             <div className="rating">
                                 <div className="stars">
-                                    <div className="on" style={{ width: `${objP.userrate * 20}%` }}></div>
+                                    <div className="on" style={{ width: `${/* objP.userrate */2 * 20}%` }}></div>
                                     <div className="live">
                                         <span data-rate="1"></span>
                                         <span data-rate="2"></span>
@@ -49,29 +51,29 @@ export default function ProductUserInfo(objP) {
 
                 {objP.adstatus === 7 || objP.adstatus === 8 ?
                     !matchesMobile && !matchesTablet ? <div className="SellerInfoOffers">
-                        {(collapsed) &&
+                       {/*  {(collapsed) &&
                             (objP.userOffers.slice(0, 3).map(offer => {
                                 return (
-                                    <div key={offer.id} className="SellerInfoOfferCard small">
-                                        <img src={offer.offerimg} />
-                                        <div>{ToRubles(offer.offerprice)}</div>
-                                        <div>{offer.offertitle}</div>
+                                    <div  key= {offer.id}  className="SellerInfoOfferCard small">
+                                        <img  src={offer.offerimg} />
+                                        <div>{ {ToRubles(offer.offerprice)} }</div>
+                                        <div>{ {offer.offertitle} }</div>
                                     </div>
                                 )
                             }))
                             ||
                             (objP.userOffers.map(offer => {
                                 return (
-                                    <div key={offer.id} className="SellerInfoOfferCard small">
-                                        <img src={offer.offerimg} />
-                                        <div>{ToRubles(offer.offerprice)}</div>
-                                        <div>{offer.offertitle}</div>
+                                    <div key= {offer.id} className="SellerInfoOfferCard small">
+                                        <img src= {offer.offerimg}  />
+                                        <div>{ {ToRubles(offer.offerprice)} }</div>
+                                        <div>{ {offer.offertitle} }</div>
                                     </div>
                                 )
                             }))
-                        }
+                        } */}
                     </div> : "" : ''}
-                {objP.adstatus === 7 || objP.adstatus === 8 ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserOffersCollapse highlight underline" onClick={e => { handleCollapse(e) }}>{(collapsed) && `Все объявления продавца (${objP.userOffers.length})` || `Скрыть`}</a> : '' : ''}
+                {objP.adstatus === 7 || objP.adstatus === 8 ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserOffersCollapse highlight underline" onClick={e => { handleCollapse(e) }}>{(collapsed) && `Все объявления продавца (123)` || `Скрыть`}</a> : '' : ''}
             </div>
             {objP.adstatus === 7 || objP.adstatus === 8 ?
                 <div className="ad__block_bottom__adaptive">

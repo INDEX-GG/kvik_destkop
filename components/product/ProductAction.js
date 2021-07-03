@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useMedia } from '../../hooks/useMedia';
-import { ToRubles } from '../../lib/services';
+import { ToRubles, ToRusDate } from '../../lib/services';
 import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import Statistics from '../../components/Statistics';
 import { Dialog } from '@material-ui/core';
 
-export default function ProductAction(objP) {
-
+export default function ProductAction(data) {
     const [openStatForm, setOpenStatForm] = useState(false);
     const handleStatFormDialog = () => setOpenStatForm(!openStatForm);
 
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-
+    const objP={adstatus: 8}
     return (
         <>
             {!matchesMobile && !matchesTablet &&
@@ -29,28 +28,28 @@ export default function ProductAction(objP) {
                             <a className="SellerInfoFavorite"></a>
                         </div> : ""}
                     {objP.adstatus === 8 ?
-                        <div className="SellerInfoDate">Размещено {objP.date}</div> : ""}
-                    {objP.adstatus !== 8 ? <span className={objP.adstatus !== 1 ? "ad__block_top__publication_date ad__posted" : "ad__block_top__publication_date"}>Размещено {objP.date}</span> : ""}
+                        <div className="SellerInfoDate">Размещено { ToRusDate(data.created_at)}</div> : ""}
+                    {objP.adstatus !== 8 ? <span className={objP.adstatus !== 1 ? "ad__block_top__publication_date ad__posted" : "ad__block_top__publication_date"}>Размещено {ToRusDate(data.created_at)}</span> : ""}
                     {objP.adstatus === 1 ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ''}
                     <div className="SellerInfoOldPrice thin dark crossed">
-                        {ToRubles(objP.oldprice)}
+                        {ToRubles(data.price)}
                     </div>
                     <div className="SellerInfoPrice thin xxl">
-                        {ToRubles(objP.price)}
+                        {ToRubles(data.price)}
                     </div>
                     {objP.adstatus !== 7 ?
                         <div className="SellerInfoBargain dark thin">
-                            {(objP.bargain) && (<p>Торг уместен</p>)}
+                            {(data.trade) && (<p>Торг уместен</p>)}
                         </div> : ""}
                     {objP.adstatus === 8 ? <a className="SellerInfoMess button contained"><IconMess /> Написать продавцу</a> : ''}
                     {objP.adstatus === 8 ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
                     {objP.adstatus !== 7 ?
                         <div className="SellerInfoAboutDeal">
                             <div>
-                                <div className="SellerInfoSecure superLight">Безопасная сделка</div>
-                                <div className="SellerInfoDelivery superLight">Возможна доставка</div>
+                            {data.secure_transaction &&<div className="SellerInfoSecure superLight">Безопасная сделка</div>}
+                               {data.delivery && (<div className="SellerInfoDelivery superLight">Возможна доставка</div>)}
                             </div>
-                            <div className="SellerInfoSeen dark">48 +4</div>
+                            <div className="SellerInfoSeen dark">{data.reviewed} +4</div>
                         </div> : ""}
                 </div>}
             {objP.adstatus === 8 && !matchesMobile && !matchesTablet && <div className="SellerInfoBuy">Купить</div>}

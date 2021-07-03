@@ -26,7 +26,8 @@ export function useProduct({ router }) {
                         title: items.title,
                         trade: items.trade,
                         user_id: items.user_id,
-                        verify_moderator: items.verify_moderator
+                        price: items.price,
+                        verify_moderator: items.verify_moderator,
                     })
                 })
                 setLoading(false)
@@ -49,6 +50,7 @@ export function useProduct({ router }) {
         title: productInfo.title,
         trade: productInfo.trade,
         user_id: productInfo.user_id,
+        price: productInfo.price,
         verify_moderator: productInfo.verify_moderator,
         isLoading,
     }
