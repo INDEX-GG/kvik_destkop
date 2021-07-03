@@ -4,14 +4,18 @@ import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
 
 SwiperCore.use([Navigation, Thumbs, Pagination]);
 
-export default function ProductCarousel(objP) {
+export default function ProductCarousel({photo}) {
+    
 
+   
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    let picData = objP.offerImg.map(pic => {
+/*   console.log(photo.photo.map((img, i) => {img}))   */
+
+    /* const picData = JSON.parse(photo.photo).photos.map((img, i) => {
         return (
-            <SwiperSlide> <img src={`${pic.offerpic}?${pic.id}`} /></SwiperSlide>
+            
         )
-    })
+    }) */
     return (
         <>
             <Swiper
@@ -23,7 +27,8 @@ export default function ProductCarousel(objP) {
                 pagination={{ "type": "fraction" }}
             >
                 <div className='seen__ad'>Просмотрено</div>
-                {picData}
+                {/* {picData} */}
+                 {/* {JSON.parse(photo).photos.map((img, i) =><SwiperSlide> <img src={img} /></SwiperSlide>)} */}
             </Swiper>
 
             <Swiper
@@ -36,7 +41,8 @@ export default function ProductCarousel(objP) {
                 watchSlidesProgress={true}
                 className="mySwiper"
             >
-                {picData}
+              {/*   {picData} */}
+                 {/* {JSON.parse(photo).photos.map((img, i) =><SwiperSlide> <img src={img} /></SwiperSlide>)} */}
             </Swiper>
         </>
     );
