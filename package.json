@@ -10,7 +10,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
-    "@prisma/client": "^2.24.1",
+    "@prisma/client": "^2.26.0",
     "axios": "^0.21.1",
     "buffer": "^6.0.3",
     "dotenv": "^10.0.0",
@@ -42,7 +42,9 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
-    "prisma": "^2.25.0",
+    "eslint": "^7.30.0",
+    "eslint-config-next": "^11.0.1",
+    "prisma": "^2.26.0",
     "webpack-node-externals": "^3.0.0"
   }
 }

@@ -31,10 +31,14 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '8px',
     },
     header: {
+		top: '36px',
         boxShadow: theme.shadows[0],
+		transition: 'top 150ms',
     },
     shadow: {
+		top: '0px',
         boxShadow: '0px 9px 14px 0px rgb(0 0 0 / 12%)',
+		transition: 'top 150ms',
     },
     logo: {
         borderRadius: theme.shape.borderRadius,
@@ -137,8 +141,8 @@ const GreenCheckbox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const Header = () => {
-    const { user } = useSession();
-    const { isAuth, id, isLoading, username, photo } = useUser();
+    // const { user } = useSession();
+    const { isAuth, id, isLoading, username, photo, mutateUser } = useUser();
     const classes = useStyles();
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1100 } = useMedia();
     const [openCat, setCategories] = useState();
@@ -162,7 +166,7 @@ const Header = () => {
     return (
         <>
             <UpPanel />
-            <AppBar className={headerScroll} position="sticky" color="secondary">
+            <AppBar className={headerScroll} position="fixed" color="secondary">
                 <Container className={classes.root}>
                     <IconButton onClick={() => Router.push('/')} className={classes.logo}><Logo /></IconButton>
                     <Button className={classes.menu__categorys} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>Категории <ExpandMoreIcon /></Button>
@@ -190,7 +194,7 @@ const Header = () => {
 
                     <Button className={classes.btn__add_ad} onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
                     {!isAuth && <Button className={classes.btn__out} onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
-                    {isAuth && <Loader size={40} /> && !isLoading && <Link href={`/account/${id}`}><Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar></Link>}
+                    {isAuth && (isLoading && <Loader size={40} /> || <Link href={`/account/${id}`}><Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar></Link>)}
                 </Container>
                 <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
                     <RegForm Close={handleRegFormDialog} />

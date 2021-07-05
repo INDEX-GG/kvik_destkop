@@ -2,42 +2,24 @@ import { PrismaClient } from '@prisma/client';
 
 export default function handler(req, res) {
 
+
     if (req.method === 'POST') {
 
         const prisma = new PrismaClient();
 
         async function main() {
             //Этот запрос нужно будет связать с таблицей
-            async function getPost() {
-                const results = await prisma.posts.findMany({
-                    where:
-                    {
-                        user_id:req.body.user_id
-                    },
-                    select: {
-                        id: true,
-                        category_id: true,
-                        price: true,
-                        photo: true,
-                        rating: true,
-                        created_at: true,
-                        delivery: true,
-                        reviewed: true,
-                        address: true,
-                        phone: true,
-                        trade: true,
-                        verify_moderator: true,
-                        commercial: true,
-                        secure_transaction: true,
-                        title: true,
-                        email: true,
-                        description:true
-                    }
-                })
+        
+            async function getPost(ids) {
+                
+                const results = await prisma.$queryRaw(`WITH ver AS ( SELECT * FROM "posts" WHERE id = ${ids}) SELECT users.raiting, users.id,posts.secure_transaction,posts.description,verifed.desc,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email FROM "ver","posts","verifed","users" WHERE (ver.verify = verifed.id) AND (posts.id = ${ids}) AND (users.id = posts.user_id)`)
+
+            
                 return results;
             }
 
-            const results = await getPost();
+            const results = await getPost(+req.body.product_id);
+            console.log(results)
             res.json({ result: results });
         
         }
@@ -56,6 +38,7 @@ export default function handler(req, res) {
         res.status(405).json({ message: 'method not allowed' })
       
     }
+
 
 
 

@@ -1,18 +1,16 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { typeChange } from '../lib/services';
 import { useUser } from '../hooks/useUser';
 import axios from 'axios';
-import qs from 'qs';
 
 function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, maxScale = 3 }) {
-  const {isLoading, id} = useUser();
+  const { id, photo } = useUser();
   const fileInput = useRef(),
     editorRef = useRef(),
-    [photo, setPhoto] = useState(),
+    [Photo, setPhoto] = useState(),
     [scale, setScale] = useState(1),
     [rotate, setRotate] = useState(0);
-
   //Получаем файл
   const fileSelect = () => {
     if (fileInput.current.files.length) {
@@ -21,6 +19,10 @@ function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, max
       setRotate(0);
     }
   }
+
+  useEffect(() => {
+    setPhoto(photo)
+  }, [photo])
 
   //Получаем отредактированное изображение и отправляем на route
   const saveEditedPic = () => {
@@ -39,18 +41,19 @@ function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, max
           "Content-Type": "multipart/form-data"
         }
       })
-      console.log(sendData)
+      
+      console.log(sendData);
+
     }, `image/${imageType}`, optimiztionLevel);
   }
 
   return (
-    
     <div className="userPicUpload__wrapper">
       <div className="userPicUpload__photo">
         <AvatarEditor
           ref={editorRef}
           className="userPicUpload__editor"
-          image={photo}
+          image={Photo}
           border={25}
           color={[255, 255, 255, 0.8]}
           borderRadius={100}
@@ -66,8 +69,8 @@ function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, max
           <input type="range" min="0" max="360" value={rotate} onChange={e => setRotate(+e.target.value)} />
         </label>
       </div>
-      <label className={photo ? "userPicUpload__button highlight underline" : "userPicUpload__button button contained bhigh"}>
-        {photo ? 'Загрузить новое фото' : 'Загрузить фото'}
+      <label className={Photo ? "userPicUpload__button highlight underline" : "userPicUpload__button button contained bhigh"}>
+        {Photo ? 'Загрузить новое фото' : 'Загрузить фото'}
         <input
           ref={fileInput}
           onChange={fileSelect}
@@ -75,7 +78,7 @@ function photoUpload({ route = "", imageType = "webp", optimiztionLevel = 1, max
           type="file"
           accept="image/png, image/jpg, image/jpeg, image/webp, image/heic, image/heif" />
       </label>
-      {photo ? <button onClick={() => saveEditedPic()} className="userPicUpload__button button contained bhigh">Сохранить</button> : ''}
+      {Photo ? <button onClick={() => saveEditedPic()} className="userPicUpload__button button contained bhigh">Сохранить</button> : ''}
     </div>
   )
 }

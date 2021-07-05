@@ -19,12 +19,20 @@ var storage = multer.diskStorage({
     
     cb(null, req.name)
 
-    return names = [...names, "/public/offerImage/"+req.name];
+    return names = [...names, "/offersImage/"+req.name];
+
   },
 })
 
 var upload = multer({ storage: storage })
 
+const text2Bool = (string) => {
+  if (string === 'true') {
+    return true
+  } else {
+    return false
+  }
+}
 
 export default function handler(req, res) 
 {
@@ -44,51 +52,53 @@ export default function handler(req, res)
 
                const communication = 
                 {
-                  phone:true,
-                  message:true
+                  phone: text2Bool(req.body.byphone),
+                  message: text2Bool(req.body.bymessage)
                 }
+
                 console.log("in main",JSON.stringify(photo))
                     var now = new Date()
 
                 const obj = {
                     data: {
-                        country_code:7,
-                        user_id:36,
-                        category_id:+req.body.category_id,
-                        title:req.body.title,
-                        description:req.body.description,
-                        price:req.body.price,
-                        trade:Boolean(req.body.trade),
-                        delivery:Boolean(req.body.delivery),
-                        secure_transaction:Boolean(req.body.safedeal),
-                        photo:JSON.stringify(photo),
-                        slug:"slug",
-                        communication:JSON.stringify(communication),
-                        address:"Челябинск",
-                        phone_hidden:false,
-                        lon:12334.00,
-                        lat:1234.00,
-                        visits:0,
-                        commercial:0,
-                        date_start_commercial:now,
-                        date_stop_commercial:now,
-                        add_fields:{"fields":"none"},
-                        archived_time:now,
-                        created_at:now,
-                        updated_at:now,
-                        deleted_at:now,
-                        date_verify:now,
-                        verify_moderator:1
+                      country_code:7,
+                      user_id:+req.body.user_id,
+                      category_id:+req.body.category_id,
+                      title:req.body.title,
+                      description:req.body.description,
+                      price:req.body.price,
+                      trade:text2Bool(req.body.trade),
+                      delivery:text2Bool(req.body.delivery),
+                      secure_transaction:text2Bool(req.body.safedeal),
+                      photo:JSON.stringify(photo),
+                      slug:"slug",
+                      communication:JSON.stringify(communication),
+                      address:req.body.address,
+                      phone_hidden:false,
+                      lon:1234.00,
+                      lat:1234.00,
+                      visits:0,
+                      commercial:0,
+                      date_start_commercial:now,
+                      date_stop_commercial:now,
+                      add_fields:{"fields":"none"},
+                      archived_time:now,
+                      created_at:now,
+                      updated_at:now,
+                      deleted_at:now,
+                      date_verify:now,
+                      verify:1,
+                      verify_moderator:1
                     }
                 }
                // const allUsers = await prisma.users.update(obj);
                const allUsers = await prisma.posts.create(obj);
-                console.log(req.body)
+              //  console.log(req.body)
             }
        
             main(req.name)
             .catch((e) => {
-                console.log("error: " +e);
+                console.log("error: " + e);
                 throw e
             })
             .finally(async () => {

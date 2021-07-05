@@ -1,4 +1,4 @@
-import { Box, Button, Container, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 import Verify from '../components/placeOffer/Verify';
 import MainLayout from '../layout/MainLayout';
 import { useMedia } from '../hooks/useMedia';
@@ -8,7 +8,10 @@ import Category from '../components/placeOffer/Category';
 import Description from '../components/placeOffer/Description';
 import Price from '../components/placeOffer/Price/Price';
 import Photoes from '../components/placeOffer/Photoes';
+import Location from '../components/placeOffer/Location';
+import Contacts from '../components/placeOffer/Contacts';
 import axios from 'axios';
+import useSWR from 'swr';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PlaceOffer() {
+    const { data: user } = useSWR('/api/user');
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
@@ -60,6 +64,7 @@ function PlaceOffer() {
         data = {...data, category_id: id}
         console.log(data);
         const sendData = new FormData;
+        sendData.append('user_id', user.id);
         sendData.append('title', data.title);
         sendData.append('category_id', data.category_id);
         sendData.append('description', data.description);
@@ -67,6 +72,9 @@ function PlaceOffer() {
         sendData.append('trade', data.trade);
         sendData.append('safedeal', data.safedeal);
         sendData.append('delivery', data.delivery);
+        sendData.append('address', data.location);
+        sendData.append('byphone', data.byphone);
+        sendData.append('bymessage', data.bymessages);
         if (photoes.length > 1) {
             photoes.forEach(photo => sendData.append('image', photo));
         } else if (photoes.length === 1) {
@@ -83,9 +91,8 @@ function PlaceOffer() {
     return (
         <MainLayout title={'Подать объявление'}>
             {!matchesMobile && !matchesTablet && <Container className={classes.root}>
-                
                 <Box className={classes.offersBox}>
-                    <Typography className={classes.title} variant='h2'>Новое объявление</Typography>
+                    <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
                     <FormProvider {...methods} >
                     <Verify/>
                         <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -99,6 +106,8 @@ function PlaceOffer() {
                                 <Photoes ctx={photoesCtx}/>
                             </Box>
                             <Box className={classes.formPart}>
+                                <Location />
+                                <Contacts />
                                 <Box className={classes.submit}>
                                     <Typography variant='subtitle2' className={classes.fg}>Заполните все обязательные поля</Typography>
                                     <Button type='submit' color='primary' variant='contained'>Продолжить</Button>

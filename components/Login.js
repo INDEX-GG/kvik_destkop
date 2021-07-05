@@ -2,6 +2,8 @@ import { Box, Button, makeStyles, Typography, TextField } from "@material-ui/cor
 import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import axios from 'axios';
+import { useRouter } from "next/router";
+import { mutate } from 'swr';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +45,7 @@ function PhoneNumberFormat(props) {
 }
 
 const Login = ({ Close }) => {
-
+    const router = useRouter();
     const classes = useStyles();
     const { handleSubmit, control } = useForm();
     const onSubmit = data => {
@@ -54,7 +56,7 @@ const Login = ({ Close }) => {
             //Сделать отладку ошибок
             const user = { isAuth: true, id: res.data.idUser }
             console.log(user);
-            axios.post('api/login', user).then(res => console.log(res))
+            axios.post('api/login', user).then(() => mutate('/api/user'))
             Close();
         })
     };
