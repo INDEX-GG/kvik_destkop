@@ -12,14 +12,14 @@ export default function handler(req, res) {
         
             async function getPost(ids) {
                 
-                const results = await prisma.$queryRaw(`SELECT posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email FROM "posts" WHERE user_id = ${ids}`)
+                const results = await prisma.$queryRaw(`SELECT users."userPhoto",posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email FROM "posts","users" WHERE (user_id = ${ids}) AND (users.id = user_id)` )
 
-            
+
                 return results;
             }
 
-            const results = await getPost(+req.body.product_id);
-            console.log(results)
+            const results = await getPost(+req.body.user_id);
+            console.log("qweqweqeqeweq",results)
             res.json({ result: results });
         
         }

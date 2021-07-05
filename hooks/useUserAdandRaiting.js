@@ -2,19 +2,15 @@ import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 
-
-
-
 export function useProduct({ router }) {
     const [productInfo, setProductInfo] = useState({});
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
-        axios.post('/api/getPost', { product_id: router.query.id })
+        axios.post('/api/getProductOfUser', { product_id: router.query.id })
             .then((result) => {
                 result.data.result.map((items) => {
                     setProductInfo({
                         name: items.name,
-                        userPhoto: items.userPhoto,
                         user_id: items.user_id,
                         raiting: items.raiting,
                         address: items.address,
@@ -41,7 +37,6 @@ export function useProduct({ router }) {
     }, [router])
     return {
         name: productInfo.name,
-        userPhoto: productInfo.userPhoto,
         user_id: productInfo.user_id,
         raiting: productInfo.raiting,
         address: productInfo.address,

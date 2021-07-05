@@ -17,7 +17,7 @@ export default function handler(req, res) {
                select:
                {
                   name:true,
-                  photo:true,
+                  userPhoto:true,
                   about:true,
                   createdAt:true,
                   phone:true,

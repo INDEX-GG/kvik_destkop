@@ -81,27 +81,20 @@ const Product = () => {
         return () => { }
     }, [])
 
+const {name, raiting ,address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator} = useProduct({router});
 
-const {address, category_id, commercial, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, user_id, price, oldprice, verify_moderator} = useProduct({router});
 
 
-console.log(category_id)
-console.log(email)
-console.log(phone)
-console.log(id)
-console.log(commercial)
-console.log(user_id)
-console.log(verify_moderator)
-console.log(rating)
-// console.log(description)
-// console.log(created_at)
-// console.log(delivery)
-// console.log(reviewed)
-// console.log(secure_transaction)
-// console.log(trade) 
-// console.log(price)
-// console.log(title)
-// console.log(address)
+const [userAd, setUserAd] = useState();
+useEffect(() => {
+    axios.post('/api/getProductOfUser', { user_id: user_id })
+        .then((res) => setUserAd(res.data.result))
+        return () => { }
+}, [user_id]);
+
+console.log(userPhoto)
+
+
     return (
         <div className="productPage" id="productPage">
             <Header />
@@ -180,7 +173,7 @@ console.log(rating)
                             <div className="block__my_active_ad" >
                                 {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction}/>
                                 {/* пользователь и его объявления */}
-                                <ProductUserInfo {...objP} />
+                                <ProductUserInfo /* {...objP}*/ name={name} userPhoto={userPhoto} raiting={raiting} userAd={userAd}/>
                             </div>
                         </div>
                         {!matchesMobile && !matchesTablet && !matchesLaptop &&
@@ -194,7 +187,7 @@ console.log(rating)
                         <div className="product__carts__wrapper">
                             <div className="productPageSimilarOffersContainer">
                                 {data && data.map((obj, i) => {
-                                    return (<AdCard_component key={i} offer={obj} />)
+                                    return (<AdCard_component key={i} offer={obj} user_id={user_id} />)
                                 })}
                             </div>
                             <div className={`SimilarOffersColl highlight underline ${collSO && 'SOCColl'}`} onClick={e => handleCollSO(e)}>{collSO && 'Показать ещё' || 'Скрыть'}</div>
