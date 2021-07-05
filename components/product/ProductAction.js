@@ -32,10 +32,10 @@ export default function ProductAction(data) {
                     {objP.adstatus !== 8 ? <span className={objP.adstatus !== 1 ? "ad__block_top__publication_date ad__posted" : "ad__block_top__publication_date"}>Размещено {ToRusDate(data.created_at)}</span> : ""}
                     {objP.adstatus === 1 ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ''}
                     <div className="SellerInfoOldPrice thin dark crossed">
-                        {ToRubles(data.price)}
+                    {data.oldprice == undefined ? '' : ToRubles(data.oldprice)}
                     </div>
                     <div className="SellerInfoPrice thin xxl">
-                        {ToRubles(data.price)}
+                    { ToRubles(data.price)}
                     </div>
                     {objP.adstatus !== 7 ?
                         <div className="SellerInfoBargain dark thin">

@@ -9,13 +9,6 @@ export default function ProductCarousel({photo}) {
 
    
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-/*   console.log(photo.photo.map((img, i) => {img}))   */
-
-    /* const picData = JSON.parse(photo.photo).photos.map((img, i) => {
-        return (
-            
-        )
-    }) */
     return (
         <>
             <Swiper
@@ -27,8 +20,8 @@ export default function ProductCarousel({photo}) {
                 pagination={{ "type": "fraction" }}
             >
                 <div className='seen__ad'>Просмотрено</div>
-                {/* {picData} */}
-                 {/* {JSON.parse(photo).photos.map((img, i) =><SwiperSlide> <img src={img} /></SwiperSlide>)} */}
+
+                 {photo == undefined ? '' : JSON.parse(photo).photos.map((img, i) =><SwiperSlide> <img src={img} /></SwiperSlide>)} 
             </Swiper>
 
             <Swiper
@@ -41,8 +34,8 @@ export default function ProductCarousel({photo}) {
                 watchSlidesProgress={true}
                 className="mySwiper"
             >
-              {/*   {picData} */}
-                 {/* {JSON.parse(photo).photos.map((img, i) =><SwiperSlide> <img src={img} /></SwiperSlide>)} */}
+
+                 {photo == undefined ? '' : JSON.parse(photo).photos.map((img, i) =><SwiperSlide> <img src={img} /></SwiperSlide>)} 
             </Swiper>
         </>
     );

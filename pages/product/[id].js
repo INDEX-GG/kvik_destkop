@@ -82,7 +82,7 @@ const Product = () => {
     }, [])
 
 
-const {address, category_id, commercial, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, user_id, price, verify_moderator} = useProduct({router});
+const {address, category_id, commercial, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, user_id, price, oldprice, verify_moderator} = useProduct({router});
 
 
 console.log(category_id)
@@ -124,7 +124,7 @@ console.log(rating)
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageAdaptive">
                                     <div className="SellerInfoOldPrice__adaptive">
                                         <div className="SellerInfoOldPrice thin dark crossed">
-                                            {ToRubles(objP.oldprice)}
+                                            {oldprice == undefined ? '' : ToRubles(oldprice)}
                                         </div>
                                         <div className="SellerInfoPrice thin xxl">
                                             {ToRubles(price)}
@@ -178,7 +178,7 @@ console.log(rating)
                             </div>
                             {/* Блок информации*/}
                             <div className="block__my_active_ad" >
-                                {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction}/>
+                                {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction}/>
                                 {/* пользователь и его объявления */}
                                 <ProductUserInfo {...objP} />
                             </div>
