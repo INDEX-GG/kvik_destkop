@@ -39,7 +39,7 @@ export default function handler(req, res)
                         id:+req.body.id
                     },
                     data: {
-                        photo:"/profile/"+namePhoto,
+                      userPhoto:"/profile/"+namePhoto,
           
                     }
                 }
