@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useMedia } from '../../hooks/useMedia';
 import { ToRubles } from '../../lib/services';
+import Link from 'next/link';
 import axios from "axios";
+import { useRouter } from 'next/router';
 
 export default function ProductUserInfo(data) {
+
+    const router = useRouter();
 
     const [collapsed, setCollapsed] = useState(true);
     const handleCollapse = e => {
@@ -18,12 +22,13 @@ export default function ProductUserInfo(data) {
     const objP = { adstatus: 8 }
 
     const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-
+    let userSmallAd;
+    
     return (
         <>
             <div className="ad__block_bottom">
                 <div className="SellerInfoUserBlock">
-                    <img className="SellerInfoUserPic"  src={data.userPhoto} />
+                    <img className="SellerInfoUserPic" src={data.userPhoto} />
                     <div>
                         <div>  {data.name} </div>
                         <div>
@@ -47,34 +52,45 @@ export default function ProductUserInfo(data) {
                         </div>
                     </div>
                     {objP.adstatus === 7 && objP.adstatus === 8 ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : '' : ''}
-                    {!matchesLaptop && !matchesDesktop && !matchesHD && !matchesMobile && !matchesTablet ? <> <span className="count__ad">00 объявлений</span> <a className="SellerInfoloarmore"></a></> : ''}
+                    {!matchesLaptop && !matchesDesktop && !matchesHD? <> <span className="count__ad">{data.userAd == undefined ? '' :data.userAd.length} объявлений</span> <a className="SellerInfoloarmore"></a></> : ''}
                 </div>
-
-                { data.userAd == undefined? '' : objP.adstatus === 7 || objP.adstatus === 8 ?
+                {data.userAd == undefined ? '' : objP.adstatus === 7 || objP.adstatus === 8 ?
                     !matchesMobile && !matchesTablet ? <div className="SellerInfoOffers">
-                         { (collapsed) &&
-                            (data.userAd.slice(0, 3).map(userAd => {
+                        {(collapsed) && (userSmallAd = data.userAd.filter((item) => item.id != router.query.id)) &&
+                            (userSmallAd.slice(0, 3).map(userAd => {
+
                                 return (
+                                    <Link href={`/product/${userAd.id}`} >
                                     <div key={userAd.id} className="SellerInfoOfferCard small">
-                                        <img src />
+
+                                        {JSON.parse(userAd.photo).photos.slice(0, 1).map((imgs) => {
+                                            return (
+                                                <img src={imgs} />
+                                            )
+                                        })}
                                         <div>{ToRubles(userAd.price)}</div>
-                                        <div>{userAd.title}</div>
-                                    </div>
+                                        <div>{ (userAd.title).length > 15 ? userAd.title.slice(0, 12)+'...' :userAd.title}</div>
+                                    </div></Link>
                                 )
                             }))
                             ||
                             (data.userAd.map(userAd => {
                                 return (
+                                    <Link href={`/product/${userAd.id}`} >
                                     <div key={userAd.id} className="SellerInfoOfferCard small">
-                                        <img src />
+                                         {JSON.parse(userAd.photo).photos.slice(0, 1).map((imgs) => {
+                                            return (
+                                                <img src={imgs} />
+                                            )
+                                        })}
                                         <div>{ToRubles(userAd.price)}</div>
-                                        <div>{userAd.title}</div>
-                                    </div>
+                                        <div>{ (userAd.title).length > 15 ? userAd.title.slice(0, 12)+'...' :userAd.title}</div>
+                                    </div></Link>
                                 )
                             }))
-                        } 
+                        }
                     </div> : "" : ''}
-                {objP.adstatus === 7 || objP.adstatus === 8 ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserOffersCollapse highlight underline" onClick={e => { handleCollapse(e) }}>{(collapsed) && `Все объявления продавца (${data.userAd == undefined? '0' : data.userAd.length})` || `Скрыть`}</a> : '' : ''}
+                {userSmallAd == undefined ? '' : userSmallAd.length <= 4 ? '' : objP.adstatus === 7 || objP.adstatus === 8 ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserOffersCollapse highlight underline" onClick={e => { handleCollapse(e) }}>{(collapsed) && `Все объявления продавца (${userSmallAd == undefined ? '0' : userSmallAd.length})` || `Скрыть`}</a> : '' : ''}
             </div>
             {objP.adstatus === 7 || objP.adstatus === 8 ?
                 <div className="ad__block_bottom__adaptive">

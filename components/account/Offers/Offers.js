@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Active from './tabs/Active';
 import Wait from './tabs/Wait';
 import Archive from './tabs/Archive';
 import Placeholder from './tabs/Placeholder';
+import { useAd } from '../../../hooks/useAd';
+import { useRouter } from 'next/router';
 
 const causes = 'Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик';
 
@@ -23,23 +25,49 @@ const OffersBox = [
    { id: 15, img: 'https://source.unsplash.com/random?salt', title: 'Соль', price: 0.22, date: '00.00.00 00.00', status: 0 },
 ];
 
-// Активные объявления
 
-const activeOffersBox = OffersBox.filter(offer => offer.status === 0)
 
-// Ждут действия
-const waitOffersBox = OffersBox.filter(offer => offer.status === 1)
 
-// Архив
-const archiveOffersBox = OffersBox.filter(offer => offer.status === 2)
 
-// Пагинация
-const navItems = [
-   { id: 1, title: 'Активные', content: <Active offers={OffersBox}/>, count: activeOffersBox.length },
-   { id: 2, title: 'Ждут действия', content: <Wait offers={OffersBox}/>, count: waitOffersBox.length },
-   { id: 3, title: 'Архив', content: <Archive offers={OffersBox} />, count: archiveOffersBox.length }
-];
 const Offers = () => {
+
+   const router = useRouter(); 
+/* console.log(router.query.id) */
+
+const [rout, setRout] = useState(router.query.id)
+useEffect(() => {
+   setRout(router.query.id)
+})
+
+const { userInfo } = useAd( rout )
+/* console.log(userInfo) */
+
+
+
+   
+
+
+
+
+   // Активные объявления
+   // const activeOffersBox = userInfo.filter(offer => offer.verify_moderator === 1)  
+
+   // Ждут действия
+   // const waitOffersBox = OffersBox.filter(offer => offer.status === 1)
+
+   // Архив
+   // const archiveOffersBox = OffersBox.filter(offer => offer.status === 2)
+
+   // Пагинация
+
+   const navItems = [
+      { id: 1, title: 'Активные', content: <Active offers={userInfo} /> /*, count: activeOffersBox.length  */ },
+      { id: 2, title: 'Ждут действия', content: <Wait offers={userInfo} />/* , count: waitOffersBox.length  */ },
+      { id: 3, title: 'Архив', content: <Archive offers={userInfo} />/* , count: archiveOffersBox.length */ }
+   ];
+
+
+
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Активные' });
    return (
       <>
@@ -48,7 +76,8 @@ const Offers = () => {
                <div className="clientPage__container_nav">
                   {navItems.map(item => {
                      return (
-                        <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} { item.count.brooklyn()}</a>
+                        
+                        <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title}  {item.count == undefined ? '' : item.count.brooklyn()} </a>
                      )
                   })}
                </div>

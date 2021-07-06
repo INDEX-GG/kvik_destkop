@@ -21,13 +21,13 @@ export default function handler(req, res) {
                   about:true,
                   createdAt:true,
                   phone:true,
-                  email:true
+                  email:true,
+                  raiting:true,
 
                }
 
             })
 
-            console.log(user)
             if (user) {
                return res.json({ user: user });
             } else {

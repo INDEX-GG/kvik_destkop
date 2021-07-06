@@ -40,6 +40,7 @@ model users{
   deleted_at              DateTime? @db.Timestamp(0)
   createdAt               DateTime? @db.Timestamp(0)
   updatedAt               DateTime? @db.Timestamp(0)
+  raiting                 Float?    @db.Real
 
   @@index([can_be_impersonated], name: "users_can_be_impersonated_index")
   @@index([email], name: "users_email_index")

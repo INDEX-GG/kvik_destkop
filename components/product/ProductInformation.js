@@ -19,7 +19,7 @@ export default function ProductInformation(data) {
             <div className="productPageCharacterMapBlock" style={collMap ? { paddingBottom: 0 } : { paddingBottom: '18px' }} >
                 <div className="productPageCharacterLocality">
                     {!matchesMobile && !matchesTablet && <div>Местоположение</div>}
-                    <div>{data.address}</div>
+                    <div>{data.address == undefined ? '' : data.address.length > 45 ? data.address.slice(0, 45)+'...' :data.address }</div>
                     <a className={`productPageCharacterMapSwitch highlight underline ${collMap ? ('') : ('collMapSw')}`} onClick={e => handleCollMap(e)}>На карте</a>
                 </div>
                 <div className="productPageCharacterMap" style={collMap ? { height: 0 } : { height: '400px' }}>

@@ -83,16 +83,12 @@ const Product = () => {
 
 const {name, raiting ,address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator} = useProduct({router});
 
-
-
 const [userAd, setUserAd] = useState();
 useEffect(() => {
     axios.post('/api/getProductOfUser', { user_id: user_id })
         .then((res) => setUserAd(res.data.result))
         return () => { }
 }, [user_id]);
-
-console.log(userPhoto)
 
 
     return (

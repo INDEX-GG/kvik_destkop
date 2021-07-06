@@ -19,7 +19,6 @@ export default function handler(req, res) {
             }
 
             const results = await getPost(+req.body.user_id);
-            console.log("qweqweqeqeweq",results)
             res.json({ result: results });
         
         }

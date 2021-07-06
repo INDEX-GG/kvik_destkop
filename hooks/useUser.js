@@ -18,7 +18,8 @@ export function useUser() {
           about: res.data.user.about,
           createdAt: res.data.user.createdAt,
           phone: res.data.user.phone,
-          email: res.data.user.email
+          email: res.data.user.email,
+          raiting: res.data.user.raiting,
         })
         setLoading(false);
       })
@@ -34,6 +35,7 @@ export function useUser() {
     createdAt: userInfo.createdAt,
     phone: userInfo.phone,
     email: userInfo.email,
+    raiting: userInfo.raiting,
     mutateUser
   }
 }

@@ -13,10 +13,13 @@ import UserPicUpload from '../../components/UserPicUpload';
 import { standartDate, ToRusAccountDate } from '../../lib/services';
 import { modalRating, modalSubscribers, modalSubscription, modalLogout } from '../../components/Modals';
 import { useUser } from '../../hooks/useUser';
+import { useAd } from '../../hooks/useAd';
 import { Avatar, Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core';
 import axios from "axios";
 import { useRouter } from 'next/router';
 import { mutate } from 'swr';
+
+
 
 const userInfo = {
   userId: 1,
@@ -28,9 +31,6 @@ const userInfo = {
   userSubscribers: 0,
   userSubscriptions: 0
 };
-
-
-const datareg = '2021-06-21 07:10:50' /* нужно будет поменять на createdAt */
 
 
 const menuItems = [
@@ -47,8 +47,14 @@ const menuItems = [
 
 
 function Account() {
-  const router = useRouter();
-  const { isAuth, isLoading, username, photo, createdAt } = useUser();
+  const router = useRouter(); 
+  
+  
+
+  const { isAuth, isLoading, username, photo, createdAt, raiting } = useUser();
+
+  /* console.log(userInfo)  */
+
   const [menuItem, setMenuItem] = useState({ i: 1, itm: 'menuOffers', ttl: 'Мои объявления' });
   const [openPicUpload, setPicUpload] = useState(false);
   const [logout, setLogout] = useState(false);
@@ -80,14 +86,14 @@ function Account() {
               {username}
             </div>
             <div className="clientPage__userRegDate light small">
-              на Kvik c {ToRusAccountDate(datareg)}
+              на Kvik c {ToRusAccountDate(createdAt)}
             </div>
             <div className="clientPage__userrate">
-              <div className="clientPage__userrate__num">{userInfo.userRate}</div>
-              <StarRating {...{ rating: userInfo.userRate }} />
+              <div className="clientPage__userrate__num">{raiting}</div>
+              <StarRating {...{ rating: raiting }} />
             </div>
             <div className="clientPage__userstats highlight small">
-              <a onClick={e => { modalOlen(e, 'lg', modalRating(userInfo.userRate)) }} className="offerUnpublish thin superLight" className="userInfoReviews">
+              <a onClick={e => { modalOlen(e, 'lg', modalRating(raiting)) }} className="offerUnpublish thin superLight" className="userInfoReviews">
                 {userInfo.userReviews}
                 <p>отзывов</p>
               </a>
@@ -112,7 +118,7 @@ function Account() {
         </div>
         <div className="clientPage__container">
           {
-            (((menuItem.i === 1) && <Offers />) ||
+            (((menuItem.i === 1) && <Offers router={router}/>) ||
               ((menuItem.i === 2) && <Deals />) ||
               ((menuItem.i === 3) && <Wallet />) ||
               ((menuItem.i === 4) && <Favorites />) ||
