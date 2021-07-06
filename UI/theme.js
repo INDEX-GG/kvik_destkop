@@ -97,6 +97,12 @@ const theme = createMuiTheme({
       borderRadius: 8,
    },
    overrides: {
+	   MuiCssBaseline: {
+		   root: {
+				width: '100%',
+				height: '100%',
+		   }
+	   },
       MuiContainer: {
          root: {
             display: 'flex',

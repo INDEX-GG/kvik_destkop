@@ -14,7 +14,7 @@ export function useUser() {
         setUserInfo({
           id: user.id,
           username: res.data.user.name,
-          photo: res.data.user.photo,
+          photo: res.data.user.userPhoto,
           about: res.data.user.about,
           createdAt: res.data.user.createdAt,
           phone: res.data.user.phone,
