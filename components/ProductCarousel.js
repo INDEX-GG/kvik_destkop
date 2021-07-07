@@ -21,12 +21,17 @@ export default function ProductCarousel({ photo }) {
     modal: {
       backgroundColor: "#E5E5E5",
       display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
     },
     item: {
       width: "1248px",
       height: "680px",
+    },
+    navImgBlock: {
+      width: "102px",
+      height: "88px",
     },
   }));
 
@@ -36,6 +41,7 @@ export default function ProductCarousel({ photo }) {
     setModal(!modal);
 
     //! Изменить
+    document.querySelectorAll(".seen__ad")[1].style.display = "none";
 
     // !
   }
@@ -54,9 +60,18 @@ export default function ProductCarousel({ photo }) {
               </SwiperSlide>
             ))}
       </Swiper>
-      {/* {photo == undefined ? "" : JSON.parse(photo).photos.map((img) => {
-          return <div className={classes.ImageItem}}></div>
-      })} */}
+      {photo == undefined
+        ? ""
+        : JSON.parse(photo).photos.map((img, index) => {
+            return (
+              <div key={index + 1} id={index + 1} className={classes.navImgBlock}>
+                <img className={"productNavImg"} src={img} alt="ProductPhoto" />
+              </div>
+            );
+          })}
+      <div>
+        <h1>Hello</h1>
+      </div>
     </>
   );
 
