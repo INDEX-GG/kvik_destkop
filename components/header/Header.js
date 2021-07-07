@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useUser } from '../../hooks/useUser';
 import { AppBar, Avatar, Button, Container, Dialog, IconButton, makeStyles } from '@material-ui/core';
 import UpPanel from './UpPanel';
+import Logo from './Logo';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import Logo from '../../UI/icons/Logo';
 import RegForm from '../RegForm';
 import Categories from './Categories';
 import CategoriesMobile from './CategoriesMobile';
@@ -39,10 +39,6 @@ const useStyles = makeStyles((theme) => ({
 		top: '0px',
         boxShadow: '0px 9px 14px 0px rgb(0 0 0 / 12%)',
 		transition: 'top 150ms',
-    },
-    logo: {
-        borderRadius: theme.shape.borderRadius,
-        padding: '8px 8px 28px 8px',
     },
     avatar: {
         cursor: 'pointer',
@@ -86,7 +82,7 @@ const Header = () => {
             <UpPanel />
             <AppBar className={headerScroll} position="fixed" color="secondary">
                 <Container className={classes.root}>
-                    <IconButton onClick={() => Router.push('/')} className={classes.logo}><Logo /></IconButton>
+					<Logo />
                     <Button 
 						className={classes.menu__categorys} 
 						variant="contained" 

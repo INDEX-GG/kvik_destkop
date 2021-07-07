@@ -6,10 +6,13 @@ const useStyles = makeStyles(() => ({
     input: {
         position: 'relative',
 		flexGrow: 1,
+		'& input': {
+			padding: '7px 24px',
+		}
     },
     icon: {
         position: 'absolute',
-        right: '14px',
+        right: '24px',
         height: '100%',
     },
 }));

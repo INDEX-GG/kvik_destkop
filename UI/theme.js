@@ -19,7 +19,6 @@ const theme = createMuiTheme({
          xl: 1920,
          custom1100: 1100,
          custom1365: 1365,
-
       },
    },
    palette: {
@@ -38,9 +37,9 @@ const theme = createMuiTheme({
       grey: {
          '100': '#2c2c2c',
          '200': '#5A5A5A',
-         '300': '#8F8F8F',
+         '300': '#E9E9E9',
          '400': '#C4C4C4',
-         '500': '#E9E9E9',
+         '500': '#8F8F8F',
       }
    },
    shadows: [ //вызываются theme.spacing[порядковый номер в этом массиве]
@@ -98,7 +97,7 @@ const theme = createMuiTheme({
    },
    overrides: {
 	   MuiCssBaseline: {
-		   root: {
+		   '@global': {
 				width: '100%',
 				height: '100%',
 		   }
@@ -132,6 +131,7 @@ const theme = createMuiTheme({
 
       MuiButton: {
          root: {
+			 padding: '4px 16px',
          },
          contained: {
             boxShadow: 'none',
@@ -145,8 +145,6 @@ const theme = createMuiTheme({
             paddingLeft: '16px',
          }
       }
-
-
    }
 });
 
