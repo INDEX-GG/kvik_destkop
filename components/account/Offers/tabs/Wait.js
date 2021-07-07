@@ -1,8 +1,9 @@
 import React from 'react';
 import { ToRubles } from '../../../../lib/services';
+import VerifyModerator from '../../../json/verifyModerator.json';
+import Verify from '../../../json/verify.json';
 
 function Wait(data) {
-   const waitOffersBox = data.offers.filter(offer => offer.status === 1)
    return (
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_nav__radio">
@@ -14,7 +15,7 @@ function Wait(data) {
             <a>Удалить</a>
          </div>
          <div className="clientPage__container_content">
-            {waitOffersBox.map(offer => {
+            {data.offers.map(offer => {
                return (
                   <div key={offer.id} className="offerContainer boxWrapper">
                      <div className="offerImage">
@@ -24,9 +25,15 @@ function Wait(data) {
                               <div className="checkbox__text"></div>
                            </label>
                         </div>
+                        {JSON.parse(offer.photo).photos.slice(0, 1).map((imgs) => {
+                           return (
+                              <img src={imgs} />
+                           )
+                        })}
 
-                        <img src={offer.img} />
-                        <div className="offerWaitCause megaLight">Отклонено</div>
+                     
+                        <div className="offerWaitCause megaLight">{Verify[offer.verify]}</div>
+                     
                      </div>
                      <div className="offerDescription">
                         <div className="offerDescriptionTop">
@@ -48,9 +55,9 @@ function Wait(data) {
                         </div>
                         <div className="offerDescriptionBottom">
 
-                           <div className="offerCauses small thin error">
-                              <span className="light">Причина отклонения: </span>{offer.cause}
-                           </div>
+                          {offer.verify !== 5 ? '' :<div className="offerCauses small thin error">
+                              <span className="light">Причина отклонения:  </span>{VerifyModerator[offer.verify_moderator]}
+                           </div>}
 
                            <div className="thin">
                               Будет удалено навсегда через 30 дней

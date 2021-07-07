@@ -2,8 +2,6 @@ import React from 'react';
 import { ToRubles, ToFullDate } from '../../../../lib/services';
 
 function Active(data) {
-   let activeOffersBox;
-   data.offers.filter == undefined ? '' : activeOffersBox = data.offers.filter(offer => offer.verify_moderator === 1) 
    return (
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_nav__radio">
@@ -14,8 +12,7 @@ function Active(data) {
             <a>Снять с публикации</a>
          </div>
          <div className="clientPage__container_content">
-            {activeOffersBox == undefined ? '' : activeOffersBox.map(offer => {
-
+            {data.offers?.map(offer => {
                return (
                   <div key={offer.id} className="offerContainer boxWrapper">
                      <div className="offerImage">
