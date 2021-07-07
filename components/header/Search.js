@@ -7,12 +7,15 @@ const useStyles = makeStyles(() => ({
 	input: {
 		position: 'relative',
 		flexGrow: 1,
-	},
-	icon: {
-		position: 'absolute',
-		right: '14px',
-		height: '100%',
-	},
+		'& input': {
+			padding: '7px 24px',
+		}
+    },
+    icon: {
+        position: 'absolute',
+        right: '24px',
+        height: '100%',
+    },
 }));
 
 const Search = () => {
