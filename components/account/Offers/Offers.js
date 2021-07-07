@@ -4,10 +4,9 @@ import Wait from './tabs/Wait';
 import Archive from './tabs/Archive';
 import Placeholder from './tabs/Placeholder';
 import { useAd } from '../../../hooks/useAd';
-import { useRouter } from 'next/router';
+import{ useRouter } from 'next/router';
 
 const causes = 'Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик';
-
 const OffersBox = [
    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00 00.00', status: 1, cause: causes },
    { id: 2, img: 'https://source.unsplash.com/random?cars', title: 'Mitsubishi Delica', price: 199999, date: '00.00.00 00.00', status: 0 },
@@ -27,44 +26,34 @@ const OffersBox = [
 
 const Offers = () => {
 
-
-
-
+   const [activeOffersBox, setActiveOffersBox] = useState([]);
+   const [waitOffersBox, setWaitOffersBox] = useState([]);
+   const [archiveOffersBox, setArchiveOffersBox] = useState([]);
 
    const router = useRouter();
-   console.log(router.query.id)
-
-
    const [rout, setRout] = useState(router.query.id)
+   const { userInfo } = useAd(rout)
 
    useEffect(() => {
       setRout(router.query.id)
-   })
-
-   const { userInfo } = useAd(rout)
-   console.log(userInfo)
-
-
-   // Активные объявления
-   // const activeOffersBox = userInfo.filter(offer => offer.verify === 0)  
-
-   // Ждут действия
-   // const waitOffersBox = userInfo.filter(offer => offer.verify === 1)
-
-   // Архив
-   // const archiveOffersBox = userInfo.filter(offer => offer.verify === 2)
+      if (userInfo?.length > 0) {
+         // Активные объявления
+         setActiveOffersBox(userInfo?.filter(offer => offer.verify_moderator === 1))
+         // Ждут действия
+         setWaitOffersBox(userInfo?.filter(offer => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5))
+         // Архив
+         setArchiveOffersBox(userInfo?.filter(offer => offer.verify === 6 || offer.verify === 7))
+      }
+   }, [router, userInfo])
 
    // Пагинация
-
    const navItems = [
-      { id: 1, title: 'Активные', content: <Active offers={userInfo} /> /* , count: activeOffersBox.length */ },
-      { id: 2, title: 'Ждут действия', content: <Wait offers={userInfo} />/* , count: waitOffersBox.length  */ },
-      { id: 3, title: 'Архив', content: <Archive offers={userInfo} />/* , count: archiveOffersBox.length */ }
+      { id: 1, title: 'Активные', content: <Active offers={activeOffersBox} />, count: activeOffersBox?.length },
+      { id: 2, title: 'Ждут действия', content: <Wait offers={waitOffersBox} />, count: waitOffersBox?.length },
+      { id: 3, title: 'Архив', content: <Archive offers={archiveOffersBox} />, count: archiveOffersBox?.length }
    ];
-
-
-
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Активные' });
+
    return (
       <>
          <div className="clientPage__container_top">
@@ -72,7 +61,6 @@ const Offers = () => {
                <div className="clientPage__container_nav">
                   {navItems.map(item => {
                      return (
-
                         <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title}  {item.count == undefined ? '' : item.count.brooklyn()} </a>
                      )
                   })}
