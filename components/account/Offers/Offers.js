@@ -25,43 +25,39 @@ const OffersBox = [
    { id: 15, img: 'https://source.unsplash.com/random?salt', title: 'Соль', price: 0.22, date: '00.00.00 00.00', status: 0 },
 ];
 
-
-
-
-
 const Offers = () => {
 
-   const router = useRouter(); 
-/* console.log(router.query.id) */
-
-const [rout, setRout] = useState(router.query.id)
-useEffect(() => {
-   setRout(router.query.id)
-})
-
-const { userInfo } = useAd( rout )
-/* console.log(userInfo) */
 
 
 
-   
+
+   const router = useRouter();
+   console.log(router.query.id)
 
 
+   const [rout, setRout] = useState(router.query.id)
+
+   useEffect(() => {
+      setRout(router.query.id)
+   })
+
+   const { userInfo } = useAd(rout)
+   console.log(userInfo)
 
 
    // Активные объявления
-   // const activeOffersBox = userInfo.filter(offer => offer.verify_moderator === 1)  
+   // const activeOffersBox = userInfo.filter(offer => offer.verify === 0)  
 
    // Ждут действия
-   // const waitOffersBox = OffersBox.filter(offer => offer.status === 1)
+   // const waitOffersBox = userInfo.filter(offer => offer.verify === 1)
 
    // Архив
-   // const archiveOffersBox = OffersBox.filter(offer => offer.status === 2)
+   // const archiveOffersBox = userInfo.filter(offer => offer.verify === 2)
 
    // Пагинация
 
    const navItems = [
-      { id: 1, title: 'Активные', content: <Active offers={userInfo} /> /*, count: activeOffersBox.length  */ },
+      { id: 1, title: 'Активные', content: <Active offers={userInfo} /> /* , count: activeOffersBox.length */ },
       { id: 2, title: 'Ждут действия', content: <Wait offers={userInfo} />/* , count: waitOffersBox.length  */ },
       { id: 3, title: 'Архив', content: <Archive offers={userInfo} />/* , count: archiveOffersBox.length */ }
    ];
@@ -76,7 +72,7 @@ const { userInfo } = useAd( rout )
                <div className="clientPage__container_nav">
                   {navItems.map(item => {
                      return (
-                        
+
                         <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title}  {item.count == undefined ? '' : item.count.brooklyn()} </a>
                      )
                   })}

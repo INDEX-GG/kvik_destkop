@@ -1,9 +1,10 @@
 import React from 'react';
 import { ToRubles, ToFullDate } from '../../../../lib/services';
+import Link from 'next/link';
 
 function Active(data) {
    let activeOffersBox;
-   data.offers.filter == undefined ? '' : activeOffersBox = data.offers.filter(offer => offer.verify_moderator === 1) 
+   data.offers.filter == undefined ? '' : activeOffersBox = data.offers.filter(offer => offer.verify === 0) 
    return (
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_nav__radio">
@@ -17,6 +18,7 @@ function Active(data) {
             {activeOffersBox == undefined ? '' : activeOffersBox.map(offer => {
 
                return (
+                  <Link href={`/product/${offer.id}`} >
                   <div key={offer.id} className="offerContainer boxWrapper">
                      <div className="offerImage">
                         <div className="offerPubCheck">
@@ -57,6 +59,7 @@ function Active(data) {
                         </div>
                      </div>
                   </div>
+                  </Link>
                )
           })}
         
