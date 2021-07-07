@@ -344,3 +344,10 @@ model verifed {
   description String @db.VarChar(255)
 
 }
+
+model cities{
+  id                    Int @unique
+  name                  String
+  parent_id             Int
+
+}
