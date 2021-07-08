@@ -30,7 +30,8 @@ export default function handler(req, res)
             // do error handling here
           //  console.log(req.files[0].originalname)
             async function main(namePhoto) 
-            {   
+            {
+
                 console.log(req.body.id)
                     var now = new Date()
                 const obj = {

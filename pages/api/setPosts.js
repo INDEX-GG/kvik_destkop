@@ -96,8 +96,11 @@ export default function handler(req, res)
                       updated_at:now,
                       deleted_at:now,
                       date_verify:now,
-                      verify:1,
-                      verify_moderator:1
+                      verify:1,  ////временное поле
+                      verify_moderator:{"verify":['1']},
+                      active:true,
+                  
+
                     }
                 }
                // const allUsers = await prisma.users.update(obj);

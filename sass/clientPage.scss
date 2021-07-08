@@ -51,6 +51,7 @@
   }
 
   &__userpic {
+    position: relative;
     width: 80px;
     height: 80px;
     min-height: 80px;
@@ -205,9 +206,9 @@
 }
 
 .addPhoto {
-  position: relative;
-  top: -88px;
-  left: 58px;
+  position: absolute;
+  top: 0;
+  right: 0;
   background: no-repeat url(../icons/camera.svg);
   width: 24px;
   height: 24px;

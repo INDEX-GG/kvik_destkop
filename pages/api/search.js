@@ -9,18 +9,17 @@ export default function handler(req, res) {
 
         async function main() {
             //Этот запрос нужно будет связать с таблицей
-        
+
             async function getPost(ids) {
-                
-                const results = await prisma.$queryRaw(`SELECT posts.archived,users."userPhoto",posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator,posts.title,posts.email FROM "posts","users" WHERE (user_id = ${ids}) AND (users.id = user_id)` )
 
-
+                const results = await prisma.$queryRaw(`SELECT title,category_id,name FROM posts JOIN categories ON title ~* '${ids}' AND categories.id = posts.category_id AND posts.active = true AND posts.verify = 1 GROUP BY title,category_id,name`)
                 return results;
             }
-
-            const results = await getPost(+req.body.user_id);
+            console.log("data",req.body)
+            const results = await getPost(req.body.product_name);
+            console.log(results)
             res.json({ result: results });
-        
+
         }
 
         main()
@@ -33,9 +32,9 @@ export default function handler(req, res) {
             })
     }
     else {
-  
+
         res.status(405).json({ message: 'method not allowed' })
-      
+
     }
 
 

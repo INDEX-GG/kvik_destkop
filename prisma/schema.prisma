@@ -98,7 +98,7 @@ model posts{
   deleted_at            DateTime? @db.Timestamp(0)
   verify                Int?      @default(0)
   date_verify           DateTime? @db.Timestamp(0)
-  verify_moderator      Int?
+  verify_moderator      Json?
 
 
   @@index([address], name: "posts_address_index")
@@ -342,5 +342,12 @@ model posts_fields {
 model verifed {
   id          BigInt @id @default(autoincrement())
   description String @db.VarChar(255)
+
+}
+
+model cities{
+  id                    Int @unique
+  name                  String
+  parent_id             Int
 
 }
