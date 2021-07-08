@@ -56,6 +56,15 @@ export default function handler(req, res)
                   message: text2Bool(req.body.bymessage)
                 }
 
+                // const category = await prisma.categories.findFirst({
+                //     where: {
+                //         alias: req.body.category_id
+                //     }
+                // })
+
+
+
+
                 console.log("in main",JSON.stringify(photo))
                     var now = new Date()
 
@@ -63,7 +72,7 @@ export default function handler(req, res)
                     data: {
                       country_code:7,
                       user_id:+req.body.user_id,
-                      category_id:+req.body.category_id,
+                      category_id:+req.body.category_id,  //req.body.category
                       title:req.body.title,
                       description:req.body.description,
                       price:req.body.price,
