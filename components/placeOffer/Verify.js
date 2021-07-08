@@ -38,7 +38,6 @@ const Verify = () => {
     const [verifyPhotoes, setVerifyPhotoes] = useState(false);
     const [verifyLocation, setVerifyLocation] = useState(false);
     const [verifyContacts, setVerifyContacts] = useState(false);
-    const verify = 0;
 
     useEffect(() => {
         setVerifyCategory(!!methods.watch('title') && !!methods.watch('category_2'));

@@ -1,8 +1,9 @@
 import React from 'react'
 import { ToRubles } from '../../../../lib/services';
+import VerifyModerator from '../../../json/verifyModerator.json';
+import Verify from '../../../json/verify.json';
 
 function Archive(data) {
-   const archiveOffersBox = data.offers.filter(offer => offer.status === 2)
    return (
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_nav__radio">
@@ -14,7 +15,7 @@ function Archive(data) {
             <a>Удалить</a>
          </div>
          <div className="clientPage__container_content">
-            {archiveOffersBox.map(offer => {
+            {data.offers.map(offer => {
                return (
                   <div key={offer.id} className="offerContainer boxWrapper">
                      <div className="offerImage">
@@ -24,8 +25,13 @@ function Archive(data) {
                               <div className="checkbox__text"></div>
                            </label>
                         </div>
-                        <img src={offer.img} />
-                        <div className="offerWaitCause megaLight">Продано</div>
+                        {JSON.parse(offer.photo).photos.slice(0, 1).map((imgs) => {
+                           return (
+                              <img src={imgs} />
+                           )
+                        })}
+
+                       { offer.verify === 7 ? '' : <div className="offerWaitCause megaLight">{Verify[offer.verify]}</div>}
                      </div>
                      <div className="offerDescription">
                         <div className="offerDescriptionTop">
