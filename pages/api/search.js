@@ -12,7 +12,7 @@ export default function handler(req, res) {
 
             async function getPost(ids) {
 
-                const results = await prisma.$queryRaw(`SELECT title,category_id,name FROM posts JOIN categories ON title ~* '${ids}' AND categories.id = posts.category_id GROUP BY title,category_id,name`)
+                const results = await prisma.$queryRaw(`SELECT title,category_id,name FROM posts JOIN categories ON title ~* '${ids}' AND categories.id = posts.category_id AND posts.active = true AND posts.verify = 1 GROUP BY title,category_id,name`)
                 return results;
             }
             console.log("data",req.body)

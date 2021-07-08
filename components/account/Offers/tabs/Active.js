@@ -1,8 +1,15 @@
 import React from 'react';
 import { ToRubles, ToFullDate } from '../../../../lib/services';
+import { useForm } from 'react-hook-form';
+
+
 
 function Active(data) {
+   const { register, handleSubmit, formState: { errors } } = useForm();
+   const onSubmit = data => console.log(data);
+
    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_nav__radio">
             <label className="checkbox">
@@ -59,6 +66,7 @@ function Active(data) {
         
          </div>
       </div>
+      </form>
    )
 }
 export default Active;
