@@ -12,11 +12,23 @@ export default function ProductCarousel({ photo }) {
 
   //  !!
   const [modal, setModal] = useState(false);
-  try {
-    JSON.parse(photo).photos.map((item) => console.log(item));
-  } catch (error) {
-    console.log(1);
-  }
+  const swiper = new Swiper(".swiper-container", {
+    on: {
+      init: function () {
+        console.log("swipe start");
+      },
+    },
+  });
+
+  swiper.on("slideChange", function () {
+    console.log("slide changer");
+  });
+
+  // try {
+  //   JSON.parse(photo).photos.map((item) => console.log(item));
+  // } catch (error) {
+  //   console.log(1);
+  // }
   const useStyles = makeStyles(() => ({
     modal: {
       backgroundColor: "#E5E5E5",
@@ -25,30 +37,24 @@ export default function ProductCarousel({ photo }) {
       justifyContent: "center",
       alignItems: "center",
     },
-    item: {
-      width: "1248px",
-      height: "680px",
-    },
-    navImgBlock: {
-      width: "102px",
-      height: "88px",
-    },
   }));
 
   const classes = useStyles();
 
   function openModal(e) {
     setModal(!modal);
+    console.log(e);
+    console.log(e.activeIndex);
 
     //! Изменить
-    document.querySelectorAll(".seen__ad")[1].style.display = "none";
+    // document.querySelectorAll(".seen__ad")[1].style.display = "none";
 
     // !
   }
 
   const body = (
     <>
-      <Swiper loop={true} spaceBetween={1} thumbs={{ swiper: thumbsSwiper }} className={classes.item} pagination={{ type: "fraction" }} onClick={(e) => openModal(e)}>
+      <Swiper loop={true} spaceBetween={1} thumbs={{ swiper: thumbsSwiper }} pagination={{ type: "fraction" }} autoHeight={true}>
         <div className="seen__ad">Просмотрено</div>
 
         {photo == undefined
@@ -60,7 +66,7 @@ export default function ProductCarousel({ photo }) {
               </SwiperSlide>
             ))}
       </Swiper>
-      {photo == undefined
+      {/*      {photo == undefined
         ? ""
         : JSON.parse(photo).photos.map((img, index) => {
             return (
@@ -68,10 +74,7 @@ export default function ProductCarousel({ photo }) {
                 <img className={"productNavImg"} src={img} alt="ProductPhoto" />
               </div>
             );
-          })}
-      <div>
-        <h1>Hello</h1>
-      </div>
+          })} */}
     </>
   );
 
