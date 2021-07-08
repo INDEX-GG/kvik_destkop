@@ -80,38 +80,43 @@ const Header = () => {
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
 
-    return (
-        <>
-            <UpPanel />
-            <AppBar className={headerScroll} position="fixed" color="secondary">
-                <Container className={classes.root}>
-					<Logo />
-                    <Button 
-						className={classes.menu__categorys} 
-						variant="contained" 
-						color="primary" 
-						aria-controls="simple-menu" 
-						aria-haspopup="true" 
-						onClick={() => setCategories(!openCat)}>
-							Категории 
-						<ExpandMoreIcon />
-					</Button>
-                    <Search />
-					<Button onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
-                    {!isAuth && <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
-                    {isAuth && (isLoading && <Loader size={40} /> || 
-					<Link href={`/account/${id}`}>
-						<Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar>
-					</Link>)}
-                </Container>
-                {openCat && !matchesMobile && !matchesTablet && <Categories />}
-                {openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
-            </AppBar>
-			<Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth='sm'>
-                <RegForm Close={handleRegFormDialog} />
-            </Dialog>
-        </>
-    )
-}
+  return (
+    <>
+      <UpPanel />
+      <AppBar className={headerScroll} position="fixed" color="secondary">
+        <Container className={classes.root}>
+          <Logo />
+          <Button className={classes.menu__categorys} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>
+            Категории
+            <ExpandMoreIcon />
+          </Button>
+          <Search />
+          <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+            <AddRoundedIcon />
+            Подать объявление
+          </Button>
+          {!isAuth && (
+            <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">
+              Войти
+            </Button>
+          )}
+          {isAuth &&
+            ((isLoading && <Loader size={40} />) || (
+              <Link href={`/account/${id}`}>
+                <Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>
+                  {username.initials()}
+                </Avatar>
+              </Link>
+            ))}
+        </Container>
+        {openCat && !matchesMobile && !matchesTablet && <Categories />}
+        {openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
+      </AppBar>
+      <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth="sm">
+        <RegForm Close={handleRegFormDialog} />
+      </Dialog>
+    </>
+  );
+};
 
 export default Header;
