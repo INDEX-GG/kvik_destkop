@@ -1,10 +1,15 @@
 import React from 'react';
 import { ToRubles, ToFullDate } from '../../../../lib/services';
+import { useForm } from 'react-hook-form';
+
+
 
 function Active(data) {
-   let activeOffersBox;
-   data.offers.filter == undefined ? '' : activeOffersBox = data.offers.filter(offer => offer.verify_moderator === 1) 
+   const { register, handleSubmit, formState: { errors } } = useForm();
+   const onSubmit = data => console.log(data);
+
    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_nav__radio">
             <label className="checkbox">
@@ -14,8 +19,7 @@ function Active(data) {
             <a>Снять с публикации</a>
          </div>
          <div className="clientPage__container_content">
-            {activeOffersBox == undefined ? '' : activeOffersBox.map(offer => {
-
+            {data.offers?.map(offer => {
                return (
                   <div key={offer.id} className="offerContainer boxWrapper">
                      <div className="offerImage">
@@ -62,6 +66,7 @@ function Active(data) {
         
          </div>
       </div>
+      </form>
    )
 }
 export default Active;

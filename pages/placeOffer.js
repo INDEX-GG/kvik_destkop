@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexGrow: 1,
         [theme.breakpoints.down('md')]: {
-            alignItems: 'flex-end',
+			paddingLeft: '220px',
         },
     },
     fg: {

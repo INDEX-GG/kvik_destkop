@@ -70,7 +70,6 @@ const Index = ({ offers }) => {
   )
 }
 
-
 export async function getStaticProps() {
 
   const prisma = new PrismaClient();
