@@ -11,7 +11,17 @@ export default function handler(req, res) {
             const idint = req.body.id
             const id = Number(idint)
             const ver = req.body.verify_moderator
-            const verify = {"verify":ver}
+
+
+
+            const array = []
+            let arr = ver
+            for (let value of arr) {
+                array.push(value.toString())
+            }
+
+
+            const verify = {"verify":array}
 
 
             const obj = {
@@ -21,7 +31,6 @@ export default function handler(req, res) {
                     },
                 data: {
                     verify_moderator: verify
-
                 }
             }
             await prisma.posts.update(obj);
