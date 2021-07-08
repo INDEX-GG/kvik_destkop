@@ -5,7 +5,7 @@ import { useUser } from "../../hooks/useUser";
 import { AppBar, Avatar, Button, Container, Dialog, IconButton, makeStyles } from "@material-ui/core";
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
-import Logo from "../../UI/icons/Logo";
+import Logo from "./Logo";
 import RegForm from "../RegForm";
 import Categories from "./Categories";
 import CategoriesMobile from "./CategoriesMobile";
