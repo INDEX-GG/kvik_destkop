@@ -12,7 +12,7 @@ export default function handler(req, res) {
             })
             if (exist === null) {
                 res.status(200).json({message: 'the city does not exist'})
-            } else if (parent_id === "0") {
+            } else if (parent_id == "0") {
                 res.status(200).json({message: 'this is country'})
             } else {
                 const parentNum = parseInt(parent_id)

@@ -58,7 +58,7 @@ export default function handler(req, res)
 
                 // const results1 = await prisma.categories.findFirst({
                 //     where: {
-                //         alias: req.body.qqqqqq
+                //         alias: req.body. //alias
                 //     }
                 // })
                 // console.log(results1)
