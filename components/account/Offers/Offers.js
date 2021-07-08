@@ -40,8 +40,7 @@ const Offers = () => {
      
       if (userInfo?.length > 0) {
          // Активные объявления
-         setActiveOffersBox(userInfo?.filter(offer => console.log(offer.verify_moderator) ))
-         setActiveOffersBox(userInfo?.filter(offer => offer.verify_moderator ))
+         setActiveOffersBox(userInfo?.filter(offer => offer.verify_moderator.verify[0] === '1' ))
          // Ждут действия
          setWaitOffersBox(userInfo?.filter(offer => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5))
          // Архив
