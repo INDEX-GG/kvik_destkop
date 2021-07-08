@@ -98,7 +98,7 @@ model posts{
   deleted_at            DateTime? @db.Timestamp(0)
   verify                Int?      @default(0)
   date_verify           DateTime? @db.Timestamp(0)
-  verify_moderator      Int?
+  verify_moderator      Json?
 
 
   @@index([address], name: "posts_address_index")
