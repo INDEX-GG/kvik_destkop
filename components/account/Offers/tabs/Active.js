@@ -10,9 +10,7 @@ function Active(data) {
    const { register, watch, handleSubmit, formState: { errors } } = useForm();
 
    const [idAd, setIdAd] = useState([]);
-   
-
-
+   const [arrForm, setArrForm] = useState()
 
    const handelRemoveFromPublic = (e) => {
       setIdAd(e.target.value)
@@ -20,14 +18,19 @@ function Active(data) {
 
    const handelRemoveFromPublicFull = () => {
       const watchShowAge = watch("id");
-
       console.log(watchShowAge)
    }
+
 
    const onSubmit = data => {
       data.id = idAd
       data.active = 0
-      console.log(data);
+      data.title = watch('title')
+      data.price = watch('price')
+      
+      data.imgs = watch('imgs', 'imgs')
+      var arr = data 
+      setArrForm(arr)
       /* axios.post('/api/qwe', sendData, {
          headers: {
             "Content-Type": "multipart/form-data"
@@ -65,15 +68,15 @@ function Active(data) {
                            </div>
                            {JSON.parse(offer.photo).photos.slice(0, 1).map((imgs) => {
                               return (
-                                 <img src={imgs} />
+                                 <img src={imgs} {...register("imgs")}  value={offer.imgs}/>
                               )
                            })}
                         </div>
                         <div className="offerDescription">
                            <div className="offerDescriptionTop">
                               <div className="offerDTLeft thin">
-                                 <div>{ToRubles(offer.price)}</div>
-                                 <div className="offerTitle">{offer.title}</div>
+                                 <div {...register("price")} value={offer.price}>{ToRubles(offer.price)}  </div>
+                                 <div className="offerTitle" {...register("title")} value={offer.title}>{offer.title} </div>
                                  <div className="offerDatPub small light DatPub__mobile"><span> Дата публикации </span>{ToFullDate(offer.created_at)}</div>
                                  <div>Осталось 30 дней</div>
                               </div>
@@ -98,7 +101,7 @@ function Active(data) {
          </div>
 
          <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth='xs'>
-               <UnpublishForm Close={handleUnpublishFormDialog} /> 
+               <UnpublishForm {...arrForm} Close={handleUnpublishFormDialog} /> 
               
             </Dialog>
 
