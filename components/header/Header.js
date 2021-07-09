@@ -13,7 +13,7 @@ import { useMedia } from "../../hooks/useMedia";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Loader from "../../UI/icons/Loader";
 import Search from "./Search";
-
+import HeaderMobile from "../../layout/HeaderMobile";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -79,6 +79,7 @@ const Header = () => {
     document.addEventListener("scroll", listenScroll);
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
+
     return (
         <>
             <UpPanel />
