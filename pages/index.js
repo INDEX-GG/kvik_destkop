@@ -11,12 +11,30 @@ import MainLayout from '../layout/MainLayout';
 import axios from "axios";
 import { getDataByQuery } from '../lib/services';
 import { PrismaClient } from '@prisma/client';
-import { Container, Typography } from "@material-ui/core";
+import { Box, Container, makeStyles, Typography } from "@material-ui/core";
+import PopularCategories from "../components/PopularCategories/PopularCategories";
+import OffersRender from "../components/OffersRender";
+import JokerBlock from "../components/JokerBlock";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        padding: '0 12px',
+		display: 'flex',
+		flexDirection: 'column',
+    },
+	main: {
+		display: 'flex',
+	},
+	offers: {
+		flexGrow: 1,
+	}
+}));
 
 const Index = ({ offers }) => {
+	console.log(offers)
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-  const [openSort, setShowSort] = useState();
   const [data, setData] = useState(offers);
+  const classes = useStyles();
   
   useEffect(() => {
     axios.post('/api/getPosts', { of: 0 })
@@ -25,55 +43,20 @@ const Index = ({ offers }) => {
 
   return (
     <MainLayout footer={true} title={'Доска объявлений'}>
-      <Container>
-        <Typography variant='h2'>Популярные категории</Typography>
-      </Container>
-      <Slider_component />
-      <div className="bodyHome" id="bodyHome">
-        <div className="offersTitleLine">
-          <div className="offersTitleHome">Рекомендуемое</div>
-          <div className="homeOffersSort">
-            <button onClick={() => setShowSort(!openSort)} className="settingsOffersHome">По умолчанию <Rectangle /></button>
-            {openSort &&
-              <div id="homeOffersSortContainer" className="homeOffersSortContainer" >
-                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">По умолчанию</button>
-                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">Сначала новые</button>
-                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">Дешевле</button>
-                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">Дороже</button>
-                <button onClick={() => setShowSort(!openSort)} className="homeSortButton">По удаленности</button>
-              </div>
-            }
-          </div>
-        </div>
-        <div className="containerHome">
-          <div className="scrollableOffersHome">
-            {data && data.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
-          </div>
-          {!matchesMobile && !matchesTablet &&
-            <div className="rightColoumn" >
-              <div className='rightColoumnContainer'>
-                <div className="block1">
-                  <AdBackground />
-                </div>
-                <div className="block2">ad block 2</div>
-              </div>
-              <div className='footer2' id='footer2'>
-                <Footer2 />
-              </div>
-            </div>
-          }
-          <ScrollTop />
-        </div>
-      </div>
-      {!matchesLaptop && !matchesDesktop && !matchesHD && <Footer />}
+      <Container className={classes.root}>
+        <PopularCategories/>
+		<Box className={classes.main}>
+			<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'}/></Box>
+			<Box><JokerBlock /></Box>
+		</Box>
+	  </Container>
     </MainLayout >
   )
 }
 
+
 export async function getStaticProps() {
-
   const prisma = new PrismaClient();
-
   async function main(of) {
     //Этот запрос нужно будет связать с таблицей
     async function getPost() {
@@ -101,12 +84,9 @@ export async function getStaticProps() {
       })
       return results;
     }
-
     const results = await getPost();
-    
     return results;
   }
-
 
   let res = await main(0)
     .catch((e) => {
