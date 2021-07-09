@@ -12,7 +12,7 @@ import axios from "axios";
 import { getDataByQuery } from '../lib/services';
 import { PrismaClient } from '@prisma/client';
 import { Container, makeStyles, Typography } from "@material-ui/core";
-import PopularCategories from "../components/PopularCategories";
+import PopularCategories from "../components/PopularCategories/PopularCategories";
 
 const useStyles = makeStyles((theme) => ({
     root: {

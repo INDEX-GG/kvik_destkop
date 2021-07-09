@@ -13,7 +13,7 @@ import { useMedia } from "../../hooks/useMedia";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Loader from "../../UI/icons/Loader";
 import Search from "./Search";
-
+import HeaderMobile from "../../layout/HeaderMobile";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     cursor: "pointer",
-    width: "40px",
-    height: "40px",
+    width: "32px",
+    height: "32px",
   },
   input: {
     position: "relative",
@@ -99,7 +99,7 @@ const Header = () => {
                     <Search />
 					<Button onClick={() => Router.push('/placeOffer')} variant="contained" color="primary"><AddRoundedIcon />Подать объявление</Button>
                     {!isAuth && <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">Войти</Button>}
-                    {isAuth && (isLoading && <Loader size={40} /> || 
+                    {isAuth && (isLoading && <Loader size={32} /> || 
 					<Link href={`/account/${id}`}>
 						<Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>{username.initials()}</Avatar>
 					</Link>)}

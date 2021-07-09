@@ -7,7 +7,10 @@ export default function handler(req, res) {
             const id = req.body.id
             const idInt = Number(id)
             if (req.body.id === undefined || req.body.verify_moderator === undefined) {
+
                 res.status(400).json({ message: 'Insufficient body data' })
+
+              
 
             }
             const exist = await prisma.posts.findFirst({
