@@ -79,7 +79,6 @@ const Header = () => {
     document.addEventListener("scroll", listenScroll);
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
-
     return (
         <>
             <UpPanel />
