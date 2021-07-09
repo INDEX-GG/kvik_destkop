@@ -31,7 +31,7 @@ function Wait(data) {
                            )
                         })}
 
-                     
+                     {console.log(offer)}
                         <div className="offerWaitCause megaLight">{Verify[offer.verify]}</div>
                      
                      </div>

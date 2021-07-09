@@ -36,9 +36,11 @@ const Offers = () => {
 
    useEffect(() => {
       setRout(router.query.id)
+
+     
       if (userInfo?.length > 0) {
          // Активные объявления
-         setActiveOffersBox(userInfo?.filter(offer => offer.verify_moderator === 1))
+         setActiveOffersBox(userInfo?.filter(offer => offer.verify_moderator.verify[0] === '1' ))
          // Ждут действия
          setWaitOffersBox(userInfo?.filter(offer => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5))
          // Архив
