@@ -56,6 +56,13 @@ export default function handler(req, res)
                   message: text2Bool(req.body.bymessage)
                 }
 
+                // const results1 = await prisma.categories.findFirst({
+                //     where: {
+                //         alias: req.body. //alias
+                //     }
+                // })
+                // console.log(results1)
+
                 console.log("in main",JSON.stringify(photo))
                     var now = new Date()
 
@@ -63,7 +70,7 @@ export default function handler(req, res)
                     data: {
                       country_code:7,
                       user_id:+req.body.user_id,
-                      category_id:+req.body.category_id,
+                      category_id:+req.body.category_id,  //results1.id
                       title:req.body.title,
                       description:req.body.description,
                       price:req.body.price,
@@ -87,8 +94,11 @@ export default function handler(req, res)
                       updated_at:now,
                       deleted_at:now,
                       date_verify:now,
-                      verify:1,
-                      verify_moderator:{"verify":['1']}
+                      verify:1,  ////временное поле
+                      verify_moderator:{"verify":['1']},
+                      active:true,
+                  
+
                     }
                 }
                // const allUsers = await prisma.users.update(obj);
