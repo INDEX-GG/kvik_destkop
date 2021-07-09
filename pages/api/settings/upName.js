@@ -4,10 +4,19 @@ export default function handler(req, res){
     if (req.method === 'POST'){
         const prisma = new PrismaClient();
         async function main() {
-            const {id, reason} = req.body
-            //Добавить причину перемещения в архив
-            await prisma.$queryRaw(`UPDATE posts SET active = false ,archived = true WHERE ID IN (${id})`)  //UPDATE posts SET ArchReason = ${reason}
-            res.json({ message: 'successfully update' })
+            const {id, name} = req.body
+            const idInt = Number(id)
+            const obj = {
+                where:
+                    {
+                        id: idInt
+                    },
+                data: {
+                    name: name
+                }
+            }
+            await prisma.users.update(obj);
+            res.json({message : "successfully update"})
         }
         main()
             .catch((e) => {
