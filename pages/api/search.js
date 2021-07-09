@@ -1,17 +1,18 @@
 import { PrismaClient } from '@prisma/client';
-
 export default function handler(req, res) {
 
 
     if (req.method === 'POST') {
-
         const prisma = new PrismaClient();
-
         async function main() {
+            const name = 'комнаты'
+
+            const searchResults = await prisma.$queryRaw(`SELECT name FROM categories WHERE name LIKE '%${name}%' LIMIT 5`)
+            console.log(searchResults)
+
+
             //Этот запрос нужно будет связать с таблицей
-
             async function getPost(ids) {
-
                 const results = await prisma.$queryRaw(`SELECT title,category_id,name FROM posts JOIN categories ON title ~* '${ids}' AND categories.id = posts.category_id AND posts.active = true AND posts.verify = 1 GROUP BY title,category_id,name`)
                 return results;
             }
@@ -20,8 +21,16 @@ export default function handler(req, res) {
             console.log(results)
             res.json({ result: results });
 
-        }
 
+
+
+
+
+
+
+
+
+        }
         main()
             .catch((e) => {
                 console.log("error: " + e);
@@ -32,12 +41,6 @@ export default function handler(req, res) {
             })
     }
     else {
-
         res.status(405).json({ message: 'method not allowed' })
-
     }
-
-
-
-
 }
