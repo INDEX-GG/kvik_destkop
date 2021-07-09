@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 	title: {
 		position: 'absolute',
 		top: 0,
+		width: '150px',
+		textAlign: 'center'
 	}
 }));
 
