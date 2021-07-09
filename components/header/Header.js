@@ -13,7 +13,7 @@ import { useMedia } from "../../hooks/useMedia";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Loader from "../../UI/icons/Loader";
 import Search from "./Search";
-
+import HeaderMobile from "../../layout/HeaderMobile";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -91,7 +91,7 @@ const Header = () => {
             <ExpandMoreIcon />
           </Button>
           <Search />
-          <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+          <Button onClick={() => fRouter.push("/placeOffer")} variant="contained" color="primary">
             <AddRoundedIcon />
             Подать объявление
           </Button>
