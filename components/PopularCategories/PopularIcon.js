@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import { Box, makeStyles } from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import Bg from '../../UI/icons/popularCategories/Bg';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'relative',
-		width: '180px',
-		height: '180px',
+		width: '210px',
+		height: '210px',
 		cursor: 'pointer',
 		backgroundColor: 'transparent',
 		display: 'flex',
@@ -28,10 +28,16 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		zIndex: -1,
 		transition: 'all 650ms ease-in-out'
+	},
+	title: {
+		position: 'absolute',
+		top: 0,
+		width: '150px',
+		textAlign: 'center'
 	}
 }));
 
-const PopularIcon = ({icon}) => {
+const PopularIcon = (icon) => {
 
 	const [hover, setHover] = useState(false);
 	const classes = useStyles();
@@ -42,15 +48,15 @@ const PopularIcon = ({icon}) => {
 			onMouseEnter={() => setHover(!hover)}
 			onMouseLeave={() => setHover(!hover)}
 		>
-			<Box className={classes.icon}>{icon}</Box>
+			<Box className={classes.icon}>{icon?.icon.icon}</Box>
 			<Box 
 				className={classes.bg} 
 				style={{transform: `rotate(${Math.round(Math.random()*360)}deg)`, }}>
 					<Bg color={hover ? '#e9e9e9' : '#f7f7f7'}/>
 			</Box>
-			
+			<Typography className={classes.title}>{icon?.icon.title}</Typography>
 		</button>
 	)
 }
 
-export default PopularIcon
+export default PopularIcon;
