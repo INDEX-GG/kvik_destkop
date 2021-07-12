@@ -34,15 +34,14 @@ function PersonalData() {
   const [inputProfile, setInputProfile] = useState(true);
   const [valueName, setValueName] = useState("");
   const limit = useRef(0);
-
-  //   const regExp = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g;
-  //   const rgExp1 = /(?=.*[0-9])/g;
-  //   const rgExp2 = /])(?=.*[a-z])/g;
-  //   const rgExp3 = /(?=.*[A-Z])/g;
-  //   s;
-  //   const rgExp4 = /[0-9a-zA-Z!@#$%^&*]/g;
-  //   const rgExp5 = /{8,}/g;
-  //   match
+  const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [passwordOne, setPasswordOne] = useState("");
+  const [passwordTwo, setPasswordTwo] = useState("");
+  const [passwordSend, setPasswordSend] = useState("");
+  const [passwordCoincidence, setPasswordCoincidence] = useState(null);
+  const [inputFirstEye, setInputFirstEye] = useState(true);
+  const [inputSecondEye, setInputSecondEye] = useState(true);
 
   username === undefined ? "" : test();
 
@@ -65,74 +64,110 @@ function PersonalData() {
   }
 
   //!! Валидация формы
-  const [validateCheck, setValidateCheck] = useState(["#C7C7C7", "#C7C7C7", "#C7C7C7", "#C7C7C7"]);
-  const [passwordValid, setPasswordValid] = useState(false);
-  const [passwordOne, setPasswordOne] = useState("");
-  const [passwordCoincidence, setPasswordCoincidence] = useState(null);
-  const inputFirstEye = useRef(true);
-  const inputSecondEye = useRef(true);
 
   function changePasswordInput(e) {
-    setPasswordOne(e.target.value);
     let length = false;
     let number = false;
-    let language = false;
     let registr = false;
-
-    function passwordLength() {
-      if (e.target.value.length >= 8) {
-        length = true;
-      }
-    }
-    passwordLength();
-
-    function passwordLanguage() {
-      if (e.target.value.match(/(?=.*[a-z])/g) || e.target.value.match(/(?=.*[A-Z])/g) != null) {
-        language = true;
-      }
-    }
-    passwordLanguage();
-
-    function passwordNumber() {
-      if (e.target.value.match(/[\d.,:]/g)) {
-        number = true;
-      }
-    }
-    passwordNumber();
-
-    function passwordRegistr() {
-      if (e.target.value.match(/(?=.*[a-z])/g) && e.target.value.match(/(?=.*[A-Z])/g) != null) {
-        registr = true;
-      }
-    }
-    passwordRegistr();
-
-    function passwordSpec() {
-      if (e.target.value.match(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g)) {
-        setPasswordValid(true);
-      } else {
-        setPasswordValid(false);
-      }
+    let languageEu = false;
+    let lenguageRu = false;
+    // ! Проверка на длинну
+    if (e.target.value.length >= 8) {
+      length = true;
     }
 
-    passwordSpec();
+    // ! Проверка на Латиницу
+    if (e.target.value.match(/(?=.*[a-z])/g) || e.target.value.match(/(?=.*[A-Z])/g) != null) {
+      languageEu = true;
+    }
+    // ! Провека на цифру
+    if (e.target.value.match(/[\d.,:]/g)) {
+      number = true;
+    }
+    //! Проверка на регистр
+    if (e.target.value.match(/(?=.*[a-z])/g) && e.target.value.match(/(?=.*[A-Z])/g) != null) {
+      registr = true;
+    }
+    //! Проверка на пробел
+    if (!e.target.value.match(/^\S*$/g)) {
+      e.target.value = e.target.value
+        .split("")
+        .splice(0, e.target.value.length - 1)
+        .join("");
+    }
+    //! Проверка на кириллицу
+    if (e.target.value.match(/[а-яё]/g)) {
+      lenguageRu = true;
+    }
+
+    if (lenguageRu) {
+      setPasswordValid(false);
+    }
+
+    //! Конец валидации
+    if (e.target.value.match(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g) && !lenguageRu) {
+      setPasswordOne(e.target.value);
+      setPasswordValid(true);
+    } else {
+      setPasswordValid(false);
+    }
 
     function createArr() {
-      return [length ? "#F44545" : "#C7C7C7", language ? "#F44545" : "#C7C7C7", number ? "#F44545" : "#C7C7C7", registr ? "#F44545" : "#C7C7C7"];
+      return [length ? "#C7C7C7" : "#F44545", languageEu ? "#C7C7C7" : "#F44545", number ? "#C7C7C7" : "#F44545", registr ? "#C7C7C7" : "#F44545"];
     }
-
+    confirmPassword(e, "input1");
     setValidateCheck(createArr());
   }
 
-  function confirmPassword(e) {
+  function confirmPassword(e, field = null) {
+    if (field === "input1") {
+      if (e.target.value == passwordTwo) {
+        setPasswordCoincidence("send");
+      } else {
+        if (passwordTwo.length > 0) {
+          setPasswordCoincidence(false);
+        } else {
+          setPasswordCoincidence(null);
+        }
+      }
+
+      return;
+    }
+
+    setPasswordTwo(e.target.value);
+
+    if (!e.target.value.match(/^\S*$/g)) {
+      e.target.value = e.target.value
+        .split("")
+        .splice(0, e.target.value.length - 1)
+        .join("");
+    }
+
+    if (e.target.value.length === 0) {
+      setPasswordCoincidence(null);
+      return;
+    }
+
+    if (!passwordValid && e.target.value.length > 0) {
+      setPasswordCoincidence("noValid");
+      return;
+    }
+
     if (passwordValid && e.target.value.length > 0) {
       if (e.target.value == passwordOne) {
-        setPasswordCoincidence(true);
+        setPasswordCoincidence("send");
+        setPasswordSend(passwordOne);
       } else {
         setPasswordCoincidence(false);
       }
-    } else {
-      setPasswordCoincidence(null);
+    }
+  }
+
+  function passwordSubmit(e) {
+    e.preventDefault();
+    if (passwordSend.length > 0) {
+      const obj = { id: id, password: passwordOne };
+      axios.post("/api/settings/upPassword", obj).then((res) => console.log(res));
     }
   }
 
@@ -226,8 +261,8 @@ function PersonalData() {
             <div>
               <div className="privateDataPass">
                 <div className="pDPassInputWrapper">
-                  <input placeholder="Введите новый пароль" type={inputSecondEye.current ? "text" : "password"} onChange={(e) => changePasswordInput(e)} />
-                  <a className="pDPassInvis" onClick={() => (inputSecondEye.current = !inputSecondEye.current)}></a>
+                  <input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} onChange={(e) => changePasswordInput(e)} />
+                  <a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)}></a>
                 </div>
                 {/* <p className="pDPassWarning">Минимум 8 символов</p>
                 <p className="pDPassWarning">Только латинские символы</p>
@@ -250,12 +285,22 @@ function PersonalData() {
                   &nbsp;Строчные и заглавные буквы
                 </p>
                 <div className="pDPassInputWrapper">
-                  <input placeholder="Повторите пароль еще раз" onChange={(e) => confirmPassword(e)} />
-                  <a className="pDPassInvis"></a>
+                  <input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} onChange={(e) => confirmPassword(e)} />
+                  <a
+                    className="pDPassInvis"
+                    onClick={() => {
+                      setInputSecondEye(!inputSecondEye);
+                    }}
+                  ></a>
                 </div>
-                {passwordCoincidence == null ? null : passwordCoincidence ? <p className="success small">Пароли совподают</p> : <p className="error small">Пароли не совпадают</p>}
+                {passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совподают</p> : <p className="error small">Пароли не совпадают</p>}
               </div>
             </div>
+            {passwordCoincidence == "send" ? (
+              <a href="#" className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
+                Изменить пароль
+              </a>
+            ) : null}
           </div>
         </div>
       </div>
