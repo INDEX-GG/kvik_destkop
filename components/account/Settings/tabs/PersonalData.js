@@ -182,6 +182,7 @@ function PersonalData() {
               <div>{valueName}</div>
             ) : (
               <input
+                className="clientPage__input-profile"
                 type="text"
                 value={valueName}
                 onKeyDown={(e) => {

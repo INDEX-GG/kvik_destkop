@@ -1,9 +1,9 @@
 import { AppBar, Avatar, Button, Container, makeStyles } from "@material-ui/core";
-import Logo from "../components/header/Logo";
-import Search from "../components/header/Search";
-import MobileMenu from "../UI/icons/MobileMenu";
+import Logo from "./Logo";
+import Search from "./Search";
+import MobileMenu from "../../UI/icons/MobileMenu";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
-import MobileFilter from "../UI/icons/MobileFilter";
+import MobileFilter from "../../UI/icons/MobileFilter";
 
 const useStyles = makeStyles(() => ({
   container: {

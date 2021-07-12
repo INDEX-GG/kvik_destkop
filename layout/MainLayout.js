@@ -1,7 +1,7 @@
 import Footer from "../components/Footer";
 import Header from "../components/header/Header";
 import Head from "next/head";
-import HeaderMobile from "./HeaderMobile";
+import HeaderMobile from "../components/header/HeaderMobile";
 import { useMedia } from "../hooks/useMedia";
 
 const MainLayout = ({ children, title = "", footer }) => {

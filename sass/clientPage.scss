@@ -3,7 +3,7 @@
   grid-template-rows: 30px 100px 1fr 60px;
   min-height: 100vh; /* прижимает footer к низу */
 }
-.clientPage__container_bottom{
+.clientPage__container_bottom {
   padding: 0 32px;
 }
 
@@ -19,7 +19,7 @@
 
   &__breadcrumbs {
     grid-area: 1 / 2 / 2 / 4;
-    display: block ;
+    display: block;
   }
 
   &__menu {
@@ -48,6 +48,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  &__input-profile {
+    border: 0;
   }
 
   &__userpic {
@@ -248,8 +252,6 @@
   .clientPage {
     grid-template-columns: 1fr 220px 775px 1fr;
   }
-
- 
 }
 
 @media (max-width: 1080px) {
@@ -260,7 +262,8 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
 
-    .clientPage__container_top, .clientPage__container_bottom{
+    .clientPage__container_top,
+    .clientPage__container_bottom {
       padding: 0;
     }
 
