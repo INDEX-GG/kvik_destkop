@@ -106,7 +106,6 @@ function PersonalData() {
 
     //! Конец валидации
     if (e.target.value.match(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g) && !lenguageRu) {
-      setPasswordOne(e.target.value);
       setPasswordValid(true);
     } else {
       setPasswordValid(false);
@@ -115,6 +114,7 @@ function PersonalData() {
     function createArr() {
       return [length ? "#C7C7C7" : "#F44545", languageEu ? "#C7C7C7" : "#F44545", number ? "#C7C7C7" : "#F44545", registr ? "#C7C7C7" : "#F44545"];
     }
+    setPasswordOne(e.target.value);
     confirmPassword(e, "input1");
     setValidateCheck(createArr());
   }
@@ -137,6 +137,7 @@ function PersonalData() {
     setPasswordTwo(e.target.value);
 
     if (!e.target.value.match(/^\S*$/g)) {
+      console.log(1);
       e.target.value = e.target.value
         .split("")
         .splice(0, e.target.value.length - 1)
@@ -166,6 +167,8 @@ function PersonalData() {
   function passwordSubmit(e) {
     e.preventDefault();
     if (passwordSend.length > 0) {
+      setPasswordOne("");
+      setPasswordTwo("");
       const obj = { id: id, password: passwordOne };
       axios.post("/api/settings/upPassword", obj).then((res) => console.log(res));
     }
@@ -261,7 +264,7 @@ function PersonalData() {
             <div>
               <div className="privateDataPass">
                 <div className="pDPassInputWrapper">
-                  <input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} onChange={(e) => changePasswordInput(e)} />
+                  <input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} value={passwordOne} onChange={(e) => changePasswordInput(e)} />
                   <a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)}></a>
                 </div>
                 {/* <p className="pDPassWarning">Минимум 8 символов</p>
@@ -285,7 +288,7 @@ function PersonalData() {
                   &nbsp;Строчные и заглавные буквы
                 </p>
                 <div className="pDPassInputWrapper">
-                  <input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} onChange={(e) => confirmPassword(e)} />
+                  <input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} value={passwordTwo} onChange={(e) => confirmPassword(e)} />
                   <a
                     className="pDPassInvis"
                     onClick={() => {
