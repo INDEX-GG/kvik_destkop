@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Footer2 from '../components/Footer2';
-import Footer from '../components/Footer';
 import { useMedia } from '../hooks/useMedia';
 import MainLayout from '../layout/MainLayout';
 import axios from "axios";
@@ -21,6 +20,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	offers: {
 		flexGrow: 1,
+	},
+	rightBlock: {
+		height:'100%',
+		marginLeft: '56px',
+	},
+	footer: {
+		top: 'calc(100% - 205px)',
+		position: 'sticky',
 	}
 }));
 
@@ -41,7 +48,12 @@ const Index = ({ offers }) => {
         <PopularCategories/>
 		<Box className={classes.main}>
 			<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'}/></Box>
-			<Box><JokerBlock /></Box>
+			{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
+				<JokerBlock />
+				<Box className={classes.footer}>
+					<Footer2/>
+				</Box>
+			</Box>}
 		</Box>
 	  </Container>
     </MainLayout >
