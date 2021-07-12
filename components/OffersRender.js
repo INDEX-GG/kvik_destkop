@@ -1,4 +1,4 @@
-import React, {useState, useReducer, useEffect} from 'react';
+import React, {useReducer} from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
@@ -55,7 +55,6 @@ const sortItems = [
 const OffersRender = (data) => {
 	const [state, dispatch] = useReducer(sortReducer, {value: 'default', sorting: byInit})
 	const classes = useStyles();
-	console.log(data.data)
 
 	return (
 		<>
