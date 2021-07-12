@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import Footer2 from '../components/Footer2';
 import Footer from '../components/Footer';
-import AdCard_component from '../components/AdCard';
-import ScrollTop from '../UI/ScrollTop';
-import Slider_component from '../layout/Slider_component';
-import AdBackground from "../UI/icons/AdBackground";
-import Rectangle from "../UI/icons/Rectangle";
 import { useMedia } from '../hooks/useMedia';
 import MainLayout from '../layout/MainLayout';
 import axios from "axios";
-import { getDataByQuery } from '../lib/services';
 import { PrismaClient } from '@prisma/client';
 import { Box, Container, makeStyles, Typography } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
@@ -53,7 +47,6 @@ const Index = ({ offers }) => {
     </MainLayout >
   )
 }
-
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();

@@ -55,6 +55,7 @@ const sortItems = [
 const OffersRender = (data) => {
 	const [state, dispatch] = useReducer(sortReducer, {value: 'default', sorting: byInit})
 	const classes = useStyles();
+	console.log(data.data)
 
 	return (
 		<>
