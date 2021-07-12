@@ -5,7 +5,6 @@ import HeaderMobile from "./HeaderMobile";
 import { useMedia } from "../hooks/useMedia";
 
 const MainLayout = ({ children, title = "", isIndex }) => {
-	console.log(isIndex)
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
   return (

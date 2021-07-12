@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
 		display: 'flex',
 		flexDirection: 'column',
-		marginLeft: '56px',
 		marginTop: '29px',
 		minWidth: '224px',
 		'&>*': {

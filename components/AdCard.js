@@ -50,7 +50,13 @@ function AdCard_component({ offer }) {
                                 slidesPerView={1}
                             >
 
-                                
+								{/* {JSON.parse(offer.photo).photos.map((img, i) => {
+									return (
+										<SwiperSlide 
+										key={i}>
+											<Image src={img} layout='fill'/>
+										</SwiperSlide>
+								)})} */}
                                 {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
                             </Swiper>
                         </div>
