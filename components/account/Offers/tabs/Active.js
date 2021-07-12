@@ -31,6 +31,7 @@ function Active(data) {
     data.active = 0;
     console.log(data);
     /* axios.post('/api/qwe', sendData, {
+
          headers: {
             "Content-Type": "multipart/form-data"
          }
@@ -145,5 +146,6 @@ function Active(data) {
       </Dialog>
     </form>
   );
+
 }
 export default Active;

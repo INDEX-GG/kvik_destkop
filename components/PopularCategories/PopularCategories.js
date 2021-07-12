@@ -7,27 +7,35 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const useStyles = makeStyles((theme) => ({
     root: {
 		display: 'flex',
-		flexDirection: 'column'
+		flexDirection: 'column',
+		width: '100%',
+		overflow: 'hidden',
+		'&>*': {
+			marginBottom: '15px',
+		}
     },
 	slider: {
-		display: 'flex',
-		flexDirection: 'row',
+		width: '100%',
+	},
+	slide: {
+		width: '210px',
 	}
 }));
 
 const PopularCategories = () => {
 	const classes = useStyles();
 	return (
-		<Box>
+		<Box className={classes.root}>
 			<Typography variant='h2'>Популярные категории</Typography>
 			<Swiper 
 				className={classes.slider}
 				spaceBetween={0}
-				slidesPerView={7}
+				slidesPerView={'auto'}
+				loop={true}
 				>
 				{Icons.map((icon, i) => {
 					return(
-						<SwiperSlide>
+						<SwiperSlide className={classes.slide}>
 							<PopularIcon icon={icon} />
 						</SwiperSlide>
 					)			

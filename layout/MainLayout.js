@@ -4,7 +4,8 @@ import Head from "next/head";
 import HeaderMobile from "../components/header/HeaderMobile";
 import { useMedia } from "../hooks/useMedia";
 
-const MainLayout = ({ children, title = "", footer }) => {
+const MainLayout = ({ children, title = "", isIndex }) => {
+	console.log(isIndex)
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
   return (
@@ -16,7 +17,7 @@ const MainLayout = ({ children, title = "", footer }) => {
       {matchesTablet && <HeaderMobile chageMenu={true} />}
       {matchesMobile && <HeaderMobile />}
       <>{children}</>
-      {!footer && <Footer />}
+      {!isIndex && <Footer />}
     </>
   );
 };

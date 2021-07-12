@@ -76,7 +76,7 @@ function AdCard_component({ offer }) {
                                 {offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
                             </div>
                         </div>
-                        <div className="card__bottom_info_middle">{offer.title}</div>
+                        <div className="card__bottom_info_middle">{ellipsis(offer.title, 25)}</div>
                         <div className="card__bottom_info_footer">
                             <div className="card__bottom_info_footer_left">{offer.commercial === 2 ? offer.address : ellipsis(offer.address, 15)}</div>
                             <div className="card__bottom_info_footer_right">{ToRusDate(offer.created_at)}</div>
