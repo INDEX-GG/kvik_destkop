@@ -34,6 +34,7 @@ function PersonalData() {
   const [inputProfile, setInputProfile] = useState(true);
   const [valueName, setValueName] = useState("");
   const limit = useRef(0);
+
   const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
   const [passwordValid, setPasswordValid] = useState(false);
   const [passwordOne, setPasswordOne] = useState("");
@@ -98,6 +99,7 @@ function PersonalData() {
     //! Проверка на кириллицу
     if (e.target.value.match(/[а-яё]/g)) {
       lenguageRu = true;
+      languageEu = false;
     }
 
     if (lenguageRu) {
@@ -134,14 +136,10 @@ function PersonalData() {
       return;
     }
 
-    setPasswordTwo(e.target.value);
-
     if (!e.target.value.match(/^\S*$/g)) {
-      console.log(1);
-      e.target.value = e.target.value
-        .split("")
-        .splice(0, e.target.value.length - 1)
-        .join("");
+      return;
+    } else {
+      setPasswordTwo(e.target.value);
     }
 
     if (e.target.value.length === 0) {
@@ -169,7 +167,7 @@ function PersonalData() {
     if (passwordSend.length > 0) {
       setPasswordOne("");
       setPasswordTwo("");
-      const obj = { id: id, password: passwordOne };
+      const obj = { id: id, password: passwordSend };
       axios.post("/api/settings/upPassword", obj).then((res) => console.log(res));
     }
   }
