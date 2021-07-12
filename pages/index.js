@@ -36,7 +36,7 @@ const Index = ({ offers }) => {
   }, []);
 
   return (
-    <MainLayout footer={true} title={'Доска объявлений'}>
+    <MainLayout isIndex title={'Доска объявлений'}>
       <Container className={classes.root}>
         <PopularCategories/>
 		<Box className={classes.main}>
