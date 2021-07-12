@@ -34,9 +34,11 @@ function PersonalData() {
   const [inputProfile, setInputProfile] = useState(true);
   const [valueName, setValueName] = useState("");
   const limit = useRef(0);
-  const [validateCheck, setValidateCheck] = useState(["#C7C7C7", "#C7C7C7", "#C7C7C7", "#C7C7C7"]);
+  const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
   const [passwordValid, setPasswordValid] = useState(false);
   const [passwordOne, setPasswordOne] = useState("");
+  const [passwordTwo, setPasswordTwo] = useState("");
+  const [passwordSend, setPasswordSend] = useState("");
   const [passwordCoincidence, setPasswordCoincidence] = useState(null);
   const [inputFirstEye, setInputFirstEye] = useState(true);
   const [inputSecondEye, setInputSecondEye] = useState(true);
@@ -111,13 +113,29 @@ function PersonalData() {
     }
 
     function createArr() {
-      return [length ? "#F44545" : "#C7C7C7", languageEu ? "#F44545" : "#C7C7C7", number ? "#F44545" : "#C7C7C7", registr ? "#F44545" : "#C7C7C7"];
+      return [length ? "#C7C7C7" : "#F44545", languageEu ? "#C7C7C7" : "#F44545", number ? "#C7C7C7" : "#F44545", registr ? "#C7C7C7" : "#F44545"];
     }
-
+    confirmPassword(e, "input1");
     setValidateCheck(createArr());
   }
 
-  function confirmPassword(e) {
+  function confirmPassword(e, field = null) {
+    if (field === "input1") {
+      if (e.target.value == passwordTwo) {
+        setPasswordCoincidence("send");
+      } else {
+        if (passwordTwo.length > 0) {
+          setPasswordCoincidence(false);
+        } else {
+          setPasswordCoincidence(null);
+        }
+      }
+
+      return;
+    }
+
+    setPasswordTwo(e.target.value);
+
     if (!e.target.value.match(/^\S*$/g)) {
       e.target.value = e.target.value
         .split("")
@@ -137,10 +155,19 @@ function PersonalData() {
 
     if (passwordValid && e.target.value.length > 0) {
       if (e.target.value == passwordOne) {
-        setPasswordCoincidence(true);
+        setPasswordCoincidence("send");
+        setPasswordSend(passwordOne);
       } else {
         setPasswordCoincidence(false);
       }
+    }
+  }
+
+  function passwordSubmit(e) {
+    e.preventDefault();
+    if (passwordSend.length > 0) {
+      const obj = { id: id, password: passwordOne };
+      axios.post("/api/settings/upPassword", obj).then((res) => console.log(res));
     }
   }
 
@@ -266,9 +293,14 @@ function PersonalData() {
                     }}
                   ></a>
                 </div>
-                {passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence ? <p className="success small">Пароли совподают</p> : <p className="error small">Пароли не совпадают</p>}
+                {passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совподают</p> : <p className="error small">Пароли не совпадают</p>}
               </div>
             </div>
+            {passwordCoincidence == "send" ? (
+              <a href="#" className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
+                Изменить пароль
+              </a>
+            ) : null}
           </div>
         </div>
       </div>
