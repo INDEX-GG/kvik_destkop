@@ -4,24 +4,25 @@ $tpll: #2a2a2a;
 $tpl: #5a5a5a; //Текст легкий
 $tpsl: #8f8f8f; //Текст супер легкий
 $tpml: #c7c7c7; //Текст мега легкий
-$greyl :#C4C4C4;
+$greyl: #c4c4c4;
 $ts: #ffffff;
 $td: #000000;
 $light: #e9e9e9; // Легкий
 $superlight: #f7f7f7; // Самый легкий
-$prime: #00A0AB; //Главный
+$prime: #00a0ab; //Главный
 $primeyellow: #fff6a5; //Наш желтый
 $primered: #f44545; //наш красный
 $darkWhite: #e5e5e5;
 $primelight: #52b9c5; //Прошлый и в лого
 $inactive: #a1dce0; //Кнопка неактивная
 
-html, body{
+html,
+body {
   height: 100%;
   width: 100%;
 }
-#__next  {
-	width: 100%;
+#__next {
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -45,233 +46,234 @@ html, body{
   -webkit-tap-highlight-color: transparent;
 }
 *:focus {
-    outline: none;
-  }
+  outline: none;
+}
 body {
   line-height: 1.2 !important;
 }
 
 button {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
-img { 
-    pointer-events: none;
+img {
+  pointer-events: none;
 }
 p {
-    margin: 0;
+  margin: 0;
 }
 a {
-    text-decoration: none;
-    cursor: pointer;
+  text-decoration: none;
+  cursor: pointer;
 }
 ul {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 li {
-    list-style: none;
+  list-style: none;
 }
 .button {
-    cursor: pointer;
-    padding: 4px 35px;
-    border-radius: 8px;
+  cursor: pointer;
+  padding: 4px 35px;
+  border-radius: 8px;
 }
 
 // Старый css ui-kit
 .buttonGrey {
-    padding: 3px 8px;
-    background-color: $light;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 400;
-    border: 1px solid $light;
-    transition: all 500ms ease-out;
-    text-align: center;
+  padding: 3px 8px;
+  background-color: $light;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid $light;
+  transition: all 500ms ease-out;
+  text-align: center;
 }
-  .buttonGrey:hover {
-    cursor: pointer;
-    transition: all 500ms ease-out;
-    border: 1px solid $tp;
-  }
-  
-  .contained {
-    color: $superlight;
-    font-size: 14px;
-    font-weight: 500;
-    background-color: $prime;
-    transition: all 500ms ease;
-    border: 1px solid transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.buttonGrey:hover {
+  cursor: pointer;
+  transition: all 500ms ease-out;
+  border: 1px solid $tp;
+}
 
-  .contained:hover {
-    background-color: $primelight;
-    transition: all 500ms ease;
-  }
-  .contained:active {
-    border: 1px solid $tp;
-  }
-  .bhigh {
-    padding: 8px 20px;
-  }
-  .plusButton {
-    font-weight: 500;
-    border-radius: 8px;
-    color: $ts;
-    background: no-repeat left 15px center url(../../icons/plus_light.svg), $prime;
-    padding: 8px 16px 8px 42px;
-    margin: 12px 0;
-    transition: all 350ms ease-in-out;
-  }
-  
-  .plusButton:hover { 
-    transition: all 350ms ease-in-out;
-    cursor: pointer;
-    background-color: #51B6C2;
-  }
-  .text {
-    font-weight: 500;
-    font-size: 14px;
-    color: $tp;
-  }
-  .bold {
-    font-weight: 700;
-  }
-  .xl {
-    font-size: 25px;
-  }
-  .xxl {
-    font-size: 30px;
-  }
-  .thin {
-    font-weight: 400;
-  }
-  .highlight {
-    color: $prime;
-  }
-  .dark {
-    color: $tpl;
-  }
-  .light {
-    color: $tpsl;
-  }
-  .superLight {
-    color: $tpml;
-  }
-  .megaLight {
-    color: $ts;
-  }
-  .megaDark {
-    color: $td;
-  }
-  .crossed {
-    text-decoration: line-through;
-  }
-  .error {
-    color: $primered;
-  }
-  .large {
-    font-size: 18px;
-  }
-  .small {
-    font-size: 12px;
-  }
-  .underline:hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  .line::before {
-    margin: 0 5px;
-    color: $tpsl;
-    content: '|';
-  }
-  .breadCrumb:hover {
-    text-decoration: underline;
-  }
-  .boxWrapper {
-    border-radius: 10px;
-    box-shadow: 0 0 20px #0000001a;
-    transition: all 350ms ease-in-out;
-  }
-  .boxWrapper:hover {
-    transition: all 350ms ease-in-out;
-    box-shadow: 0 0 30px #00000026;
-  }
-  
-  .smooth {
-    transition: all 350ms ease-in-out;
-  }
-  
-  .editIcon {
-    background: no-repeat left center url(../../icons/edit.svg);
-    border: none;
-  }
-  .likeIcon {
-    background: no-repeat right center url(../../icons/like_dark.svg);
-  }
-  .showesIcon {
-    background: no-repeat right center url(../../icons/showes.svg);
-  }
-  .checkMarkIcon {
-    background: no-repeat left center url(../../icons/activate_grey.svg);
-    background-size: contain;
-  }
-  .binIcon {
-    background: no-repeat left center url(../../icons/bin.svg);
-    background-size: contain;
-  }
-  
-  /* Чекбокс */
-  .checkbox input {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-    margin: 10px 0 0 20px;
- }
- 
- .checkbox {
-    /* width: 30px; */
-    width: 16px;
-    height: 16px;
- }
- 
- .checkbox__text {
-    position: relative;
-    /* padding: 0 0 0 30px; */
-    cursor: pointer;
- }
- 
- .checkbox__text:before {
-    background: $ts;
-    box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2);
-    border: 1px solid $tp;
- }
- 
- .checkbox__text:after {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
- }
- 
- .checkbox__text:before, .checkbox__text:after{
-    transition: .2s; 
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    left: 0;
- }
- .checkbox input:checked+.checkbox__text:before {
-    background: $ts;
- }
- 
- .checkbox input:checked+.checkbox__text:after {
-    background-color: $prime;
-    border: 1px solid $tp;
- }
- 
- .checkbox input:focus+.checkbox__text:before {
-    box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2);
- }
+.contained {
+  color: $superlight;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: $prime;
+  transition: all 500ms ease;
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contained:hover {
+  background-color: $primelight;
+  transition: all 500ms ease;
+}
+.contained:active {
+  border: 1px solid $tp;
+}
+.bhigh {
+  padding: 8px 20px;
+}
+.plusButton {
+  font-weight: 500;
+  border-radius: 8px;
+  color: $ts;
+  background: no-repeat left 15px center url(../../icons/plus_light.svg), $prime;
+  padding: 8px 16px 8px 42px;
+  margin: 12px 0;
+  transition: all 350ms ease-in-out;
+}
+
+.plusButton:hover {
+  transition: all 350ms ease-in-out;
+  cursor: pointer;
+  background-color: #51b6c2;
+}
+.text {
+  font-weight: 500;
+  font-size: 14px;
+  color: $tp;
+}
+.bold {
+  font-weight: 700;
+}
+.xl {
+  font-size: 25px;
+}
+.xxl {
+  font-size: 30px;
+}
+.thin {
+  font-weight: 400;
+}
+.highlight {
+  color: $prime;
+}
+.dark {
+  color: $tpl;
+}
+.light {
+  color: $tpsl;
+}
+.superLight {
+  color: $tpml;
+}
+.megaLight {
+  color: $ts;
+}
+.megaDark {
+  color: $td;
+}
+.crossed {
+  text-decoration: line-through;
+}
+.error {
+  color: $primered;
+}
+.large {
+  font-size: 18px;
+}
+.small {
+  font-size: 12px;
+}
+.underline:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.line::before {
+  margin: 0 5px;
+  color: $tpsl;
+  content: "|";
+}
+.breadCrumb:hover {
+  text-decoration: underline;
+}
+.boxWrapper {
+  border-radius: 10px;
+  box-shadow: 0 0 20px #0000001a;
+  transition: all 350ms ease-in-out;
+}
+.boxWrapper:hover {
+  transition: all 350ms ease-in-out;
+  box-shadow: 0 0 30px #00000026;
+}
+
+.smooth {
+  transition: all 350ms ease-in-out;
+}
+
+.editIcon {
+  background: no-repeat left center url(../../icons/edit.svg);
+  border: none;
+}
+.likeIcon {
+  background: no-repeat right center url(../../icons/like_dark.svg);
+}
+.showesIcon {
+  background: no-repeat right center url(../../icons/showes.svg);
+}
+.checkMarkIcon {
+  background: no-repeat left center url(../../icons/activate_grey.svg);
+  background-size: contain;
+}
+.binIcon {
+  background: no-repeat left center url(../../icons/bin.svg);
+  background-size: contain;
+}
+
+/* Чекбокс */
+.checkbox input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  margin: 10px 0 0 20px;
+}
+
+.checkbox {
+  /* width: 30px; */
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox__text {
+  position: relative;
+  /* padding: 0 0 0 30px; */
+  cursor: pointer;
+}
+
+.checkbox__text:before {
+  background: $ts;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+  border: 1px solid $tp;
+}
+
+.checkbox__text:after {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.checkbox__text:before,
+.checkbox__text:after {
+  transition: 0.2s;
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  left: 0;
+}
+.checkbox input:checked + .checkbox__text:before {
+  background: $ts;
+}
+
+.checkbox input:checked + .checkbox__text:after {
+  background-color: $prime;
+  border: 1px solid $tp;
+}
+
+.checkbox input:focus + .checkbox__text:before {
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+}
