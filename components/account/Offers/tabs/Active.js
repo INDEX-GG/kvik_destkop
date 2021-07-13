@@ -31,6 +31,7 @@ function Active(data) {
     data.active = 0;
     console.log(data);
     /* axios.post('/api/qwe', sendData, {
+
          headers: {
             "Content-Type": "multipart/form-data"
          }
@@ -40,10 +41,7 @@ function Active(data) {
   const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 
-  //   !
-  const arr = [];
-
-  if (arr.length == 0) {
+  if (data.offers.lenght == 0) {
     return (
       <div className="clientPage__placeholder-container">
         <div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>
