@@ -59,7 +59,6 @@ const Offers = () => {
   ];
 
   // Пагинация
-  console.log(waitOffersBox);
   const navItems = [
     { id: 1, title: "Активные", content: <Active offers={activeOffersBox} />, count: activeOffersBox?.length },
     { id: 2, title: "Ждут действия", content: <Wait offers={dataWait} />, count: waitOffersBox?.length },
