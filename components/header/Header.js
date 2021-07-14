@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = () => {
+const Header = ({category}) => {
   const { isAuth, id, isLoading, username, photo, mutateUser } = useUser();
   const classes = useStyles();
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -87,7 +87,7 @@ const Header = () => {
         <Container className={classes.root}>
           <Logo />
           <Button className={classes.menu__categorys} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>
-            Категории
+            {category || "Категории"}
             <ExpandMoreIcon />
           </Button>
           <Search />
