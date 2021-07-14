@@ -5,6 +5,7 @@ import NotifDark from '../../UI/icons/NotifDark';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import { useMedia } from '../../hooks/useMedia';
 import { Box, Container, Button, makeStyles } from '@material-ui/core';
+import { useUser } from "../../hooks/useUser";
 
 const useStyles = makeStyles((theme) => ({
    up_panel: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const UpPanel = () => {
    const classes = useStyles();
    const { matchesMobile, matchesTablet } = useMedia();
+   const { isAuth, id, isLoading, username, photo, mutateUser } = useUser();
 
    return (
       <>
@@ -41,12 +43,12 @@ const UpPanel = () => {
             <Box className={classes.up_panel}>
                <Container className={classes.up_panel__wrapper}>
                   <Button className={classes.btn__add_location} variant='text' size='small'><RoomOutlinedIcon fontSize='small' />Челябинск</Button>
-                  <Box className={classes.btns__uppanel}>
+                {isAuth &&  <Box className={classes.btns__uppanel}>
                      <Button className={classes.btn__uppanel}><CategoryDark /></Button>
                      <Button className={classes.btn__uppanel}><CompareDark /></Button>
                      <Button className={classes.btn__uppanel}><LikeDark /></Button>
                      <Button className={classes.btn__uppanel}><NotifDark /></Button>
-                  </Box>
+                  </Box>}
                </Container>
             </Box>
          }

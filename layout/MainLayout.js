@@ -12,10 +12,11 @@ const MainLayout = ({ children, title = "", isIndex }) => {
       <Head>
         <title>KVIK {title}</title>
       </Head>
-      {!matchesMobile && !matchesTablet && <Header />}
-      {matchesTablet && <HeaderMobile chageMenu={true} />}
-      {matchesMobile && <HeaderMobile />}
-      <>{children}</>
+      <div>{!matchesMobile && !matchesTablet && <Header />}
+        {matchesTablet && <HeaderMobile chageMenu={true} />}
+        {matchesMobile && <HeaderMobile />}
+        <>{children}</>
+      </div >
       {!isIndex && <Footer />}
     </>
   );

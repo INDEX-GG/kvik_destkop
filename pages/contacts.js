@@ -43,7 +43,7 @@ export default function Contacts() {
                                 <a href="https://www.facebook.com/1kvik/"><Fb /></a>
                                 <a href="tel:+79191232395"><WhatsUp /></a>
                             </div>
-                            <a className="contacts__index" href="">Разработано студией INDEX</a>
+                            <a className="contacts__index" href="https://vk.com/index_ds">Разработано студией INDEX</a>
                         </div>
                     </div>
                 </div>

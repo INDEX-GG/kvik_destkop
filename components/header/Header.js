@@ -91,10 +91,12 @@ const Header = () => {
             <ExpandMoreIcon />
           </Button>
           <Search />
-          <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+
+          {isAuth &&  <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
             <AddRoundedIcon />
             Подать объявление
-          </Button>
+          </Button>}
+
           {!isAuth && (
             <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">
               Войти
