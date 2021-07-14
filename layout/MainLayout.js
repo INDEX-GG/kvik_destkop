@@ -4,7 +4,7 @@ import Head from "next/head";
 import HeaderMobile from "../components/header/HeaderMobile";
 import { useMedia } from "../hooks/useMedia";
 
-const MainLayout = ({ children, title = "", isIndex, category }) => {
+const MainLayout = ({ children, title = "", isIndex }) => {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
   return (
@@ -12,10 +12,11 @@ const MainLayout = ({ children, title = "", isIndex, category }) => {
       <Head>
         <title>KVIK {title}</title>
       </Head>
-      {!matchesMobile && !matchesTablet && <Header category={category} />}
-      {matchesTablet && <HeaderMobile chageMenu={true} />}
-      {matchesMobile && <HeaderMobile />}
-      <>{children}</>
+      <div>{!matchesMobile && !matchesTablet && <Header />}
+        {matchesTablet && <HeaderMobile chageMenu={true} />}
+        {matchesMobile && <HeaderMobile />}
+        <>{children}</>
+      </div >
       {!isIndex && <Footer />}
     </>
   );

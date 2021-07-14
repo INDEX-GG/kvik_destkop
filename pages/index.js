@@ -14,9 +14,11 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 12px',
 		display: 'flex',
 		flexDirection: 'column',
+    height: '100%',
     },
 	main: {
 		display: 'flex',
+    height: '100%',
 	},
 	offers: {
 		flexGrow: 1,

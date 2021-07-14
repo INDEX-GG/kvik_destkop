@@ -11,31 +11,33 @@ export default function ProductCarousel({ photo }) {
 
   return (
     <>
-      <Swiper loop={true} spaceBetween={1} navigation={true} thumbs={{ swiper: thumbsSwiper }} className="mySwiper2" pagination={{ type: "fraction" }} onClick={() => setModal(!modal)}>
+      <Swiper loop={true} spaceBetween={1} navigation={true} thumbs={{ swiper: thumbsSwiper }} className="mySwiper2" pagination={{ type: "fraction" }}>
         <div className="seen__ad">Просмотрено</div>
 
         {photo == undefined
           ? ""
           : JSON.parse(photo).photos.map((img, i) => (
-              <SwiperSlide>
-                {" "}
-                <img src={img} />
-              </SwiperSlide>
-            ))}
+            <SwiperSlide onClick={() => setModal(!modal)}>
+              {" "}
+              <img src={img} />
+            </SwiperSlide>
+          ))}
       </Swiper>
 
       <Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
         {photo == undefined
           ? ""
           : JSON.parse(photo).photos.map((img, i) => (
-              <SwiperSlide>
-                {" "}
-                <img src={img} />
-              </SwiperSlide>
-            ))}
+            <SwiperSlide>
+              {" "}
+              <img src={img} />
+            </SwiperSlide>
+          ))}
       </Swiper>
       <Modal className="productModal" open={modal} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-        <ProductModalCarousel />
+
+        <ProductModalCarousel photo={photo} />
+
       </Modal>
     </>
   );

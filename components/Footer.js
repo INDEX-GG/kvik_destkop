@@ -5,7 +5,7 @@ function Footer() {
       <div className='footerMainContainer'>
         <div className="linkContainerFooter">
           <a className='aboutLinkFooter' href="/about">О компании</a>
-          <a className='contactsLinkFooter' href="/contacts">Обратная связь</a>
+          <a className='contactsLinkFooter' href="/contacts">Контакты</a>
           <a className='offerLinkFooter' href="/offer">Оферта</a>
         </div>
         <div className="socialNetworksFooter">
@@ -29,7 +29,7 @@ function Footer() {
             </a>
           </div>
         </div>
-        <div className='indexTitleFooter'> <a href=""> Разработано студией INDEX</a></div>
+        <div className='indexTitleFooter'> <a href="https://vk.com/index_ds"> Разработано студией INDEX</a></div>
       </div>
       <div className='footerRightVoid'></div>
     </div>
