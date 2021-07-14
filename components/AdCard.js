@@ -1,55 +1,53 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper/core";
-import { ellipsis, ToRubles, ToRusDate } from '../lib/services';
-import Image from 'next/image'
+import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
+import Image from "next/image";
 
 SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
+  const currentSwiper = useRef();
+  let sheduled = false;
 
-    const currentSwiper = useRef();
-    let sheduled = false;
+  useEffect(() => {
+    currentSwiper.current.addEventListener("mousemove", switchSlide);
+    return () => currentSwiper.current.removeEventListener("mousemove", switchSlide);
+  });
 
-    useEffect(() => {
-        currentSwiper.current.addEventListener('mousemove', switchSlide);
-        return () =>
-            currentSwiper.current.removeEventListener('mousemove', switchSlide);
-    });
-
-    function switchSlide(e) {
-        if (!sheduled) {
-            sheduled = true;
-            setTimeout(() => {
-                if (e.movementX > 0) {
-                    currentSwiper.current?.swiper.slideNext()
-                } else if (e.movementX < 0) {
-                    currentSwiper.current?.swiper.slidePrev()
-                }
-                sheduled = false;
-            }, 220)
+  function switchSlide(e) {
+    if (!sheduled) {
+      sheduled = true;
+      setTimeout(() => {
+        if (e.movementX > 0) {
+          currentSwiper.current?.swiper.slideNext();
+        } else if (e.movementX < 0) {
+          currentSwiper.current?.swiper.slidePrev();
         }
+        sheduled = false;
+      }, 220);
     }
+  }
 
-    const call = true;
-    const like = true;
+  const call = true;
+  const like = true;
 
-    return (
-        <Link href={`/product/${offer.id}`} >
-            <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
-                <div className={offer.commercial !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
-                    <div className="card__top">
-                        {offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ''}
-                        <div className="card__top_slider">
-                            <Swiper
-                                ref={currentSwiper}
-                                pagination={{
-                                    "clickable": true
-                                }}
-                                slidesPerView={1}
-                            >
 
+  return (
+    <Link href={`/product/${offer.id}`}>
+      <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
+        <div className={offer.commercial !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
+          <div className="card__top">
+            {offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
+            <div className="card__top_slider">
+              <Swiper
+                ref={currentSwiper}
+                pagination={{
+                  clickable: true,
+                }}
+                slidesPerView={1}
+              >
 								{/* {JSON.parse(offer.photo).photos.map((img, i) => {
 									return (
 										<SwiperSlide 
@@ -89,9 +87,13 @@ function AdCard_component({ offer }) {
                         </div>
                     </div>
                 </div>
+
             </div>
-        </Link>
-    )
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
 }
 
 export default AdCard_component;

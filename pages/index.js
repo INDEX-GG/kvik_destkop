@@ -35,11 +35,11 @@ const Index = ({ offers }) => {
 	console.log(offers)
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   const [data, setData] = useState(offers);
+
   const classes = useStyles();
   
   useEffect(() => {
-    axios.post('/api/getPosts', { of: 0 })
-      .then((res) => setData(res.data.result))
+    axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
   }, []);
 
   return (
@@ -84,27 +84,27 @@ export async function getStaticProps() {
           commercial: true,
           secure_transaction: true,
           title: true,
-          email: true
-        }
-      })
+          email: true,
+        },
+      });
       return results;
     }
     const results = await getPost();
+
     return results;
   }
 
   let res = await main(0)
     .catch((e) => {
       console.log("error: " + e);
-      throw e
+      throw e;
     })
     .finally(async () => {
-      await prisma.$disconnect()
-    })
+      await prisma.$disconnect();
+    });
 
-  const offers = JSON.parse(JSON.stringify(res))
-  return { props: { offers }}
-  
+  const offers = JSON.parse(JSON.stringify(res));
+  return { props: { offers } };
 }
 
 export default Index;
