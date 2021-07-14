@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const JokerBlock = () => {
+const JokerBlock = ({reverse = false}) => {
 
 	const classes = useStyles();
 
