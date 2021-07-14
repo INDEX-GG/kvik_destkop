@@ -64,7 +64,6 @@ let MD5 = function(e) {
 };
 
 
-
 export default function handler(req, res){
 
 console.log("inAPI");
