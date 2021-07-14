@@ -33,7 +33,6 @@ export default function handler(req, res) {
                 await prisma.$disconnect()
             })
 
-
     }
     else {
         res.status(405).json({ message: 'method not allowed' })
