@@ -69,7 +69,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function UnpublishForm() {
+export default function UnpublishForm(data) {
+
+
+    console.log(data)
 
     const classes = useStyles();
     return (
@@ -80,13 +83,11 @@ export default function UnpublishForm() {
                     <Typography className={classes.unpublish_form__item__price}>0000 ₽</Typography>
                     <Typography className={classes.unpublish_form__item__title}>Назван т. (15 с)</Typography>
                 </Box>
-
                 <Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
                 <Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
                 <Button className={classes.unpublish_form__btn}>Продано на Kvik</Button>
                 <Button className={classes.unpublish_form__btn}>Продано в другом месте</Button>
                 <Button className={classes.unpublish_form__btn}>Другая причина</Button>
-
             </Box>
         </>
     )
