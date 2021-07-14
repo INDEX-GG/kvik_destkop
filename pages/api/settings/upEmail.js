@@ -6,8 +6,6 @@ export default function handler(req, res){
         async function main() {
             const {id, email} = req.body
             const idInt = Number(id)
-
-            console.log(idInt, email)
             const obj = {
                 where:
                     {
