@@ -36,7 +36,7 @@ const PopularCategories = () => {
 				{Icons.map((icon, i) => {
 					return(
 						<SwiperSlide className={classes.slide}>
-							<PopularIcon icon={icon} />
+							<PopularIcon icon={icon} random={Math.round(Math.random() * 360)} />
 						</SwiperSlide>
 					)			
 				})}
