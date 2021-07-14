@@ -57,6 +57,7 @@ function Account() {
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
 
+
   const signOut = () => {
     axios.get("/api/logout").then(() => {
       mutate("/api/user");

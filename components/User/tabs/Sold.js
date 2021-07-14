@@ -6,8 +6,8 @@ function Sold(data) {
     <div className="userProduct">
       {data.offers.map((item, i) => {
         return (
-          <div className="userProductItem sold">
-            <AdCard_component key={i} offer={item} />
+          <div key={i} className="userProductItem">
+            <AdCard_component offer={item} />
           </div>
         );
       })}

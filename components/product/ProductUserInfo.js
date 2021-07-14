@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useMedia } from "../../hooks/useMedia";
 import { ToRubles } from "../../lib/services";
 import Link from "next/link";
-import axios from "axios";
 import { useRouter } from "next/router";
+import { useUser } from "../../hooks/useUser";
 
 export default function ProductUserInfo(data) {
   const router = useRouter();
@@ -23,13 +23,22 @@ export default function ProductUserInfo(data) {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   let userSmallAd;
 
+  const {id} = useUser()
+  console.log(id)
+
   return (
     <>
       <div className="ad__block_bottom">
         <div className="SellerInfoUserBlock">
-          <img className="SellerInfoUserPic" src={data.userPhoto} />
+          <img onClick={() => router.push({
+            pathname: "/user/[id]",
+            query: {id}
+          })} className="SellerInfoUserPic" src={data.userPhoto} />
           <div>
-            <div> {data.name} </div>
+            <div onClick={() => router.push({
+            pathname: "/user/[id]",
+            query: {id}
+          })}> {data.name} </div>
             <div>
               <div className="SellerInfoRateNumber">{/* {objP.userrate} */}</div>
               <div className="rating">

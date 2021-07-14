@@ -2,14 +2,13 @@ import { useState } from "react";
 import MainLayout from "../../layout/MainLayout";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
-import { standartDate, ToRusAccountDate } from "../../lib/services";
+import { ToRusAccountDate } from "../../lib/services";
 import { useUser } from "../../hooks/useUser";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Dialog } from "@material-ui/core";
 import { useRouter } from "next/router";
-
-// !!!
 import UserLock from "../../UI/icons/UserLock";
 import UserReport from "../../UI/icons/UserReport";
+import { modalRating, modalSubscribers, modalSubscription} from "../../components/Modals";
 
 const userInfo = {
   userId: 1,
@@ -26,13 +25,13 @@ function UserPage() {
   const router = useRouter();
 
   const { isAuth, isLoading, username, photo, createdAt, raiting } = useUser();
-
-  //!! Modal
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
 
-  const star = 4;
+
+  console.log(router)
+
 
   return (
     <MainLayout title={"Личный кабинет"}>
@@ -41,7 +40,7 @@ function UserPage() {
           <a className="breadCrumb light" href="/">
             Главная
           </a>
-          <a className="breadCrumb line light" href="/product/42">
+          <a className="breadCrumb line light" onClick={() => router.back()}>
             Название объявления с которого перешел
           </a>
           <a className="line">{username}</a>
@@ -94,6 +93,15 @@ function UserPage() {
           <User router={router} />
         </div>
       </div>
+      <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)}>
+        {modalRating(2, 2)}
+      </Dialog>
+      <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)}>
+        {modalSubscribers(4, 2)}
+      </Dialog>
+      <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)}>
+        {modalSubscription(3, 4)}
+      </Dialog>
     </MainLayout>
   );
 }

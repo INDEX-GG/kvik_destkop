@@ -33,12 +33,16 @@ function AdCard_component({ offer }) {
   const call = true;
   const like = true;
 
+  let sold = null
+  if (offer.sold == true) {
+    sold = "sold"
+  }
 
   return (
     <Link href={`/product/${offer.id}`}>
       <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
         <div className={offer.commercial !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
-          <div className="card__top">
+          <div className={"card__top " + sold}>
             {offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
             <div className="card__top_slider">
               <Swiper
