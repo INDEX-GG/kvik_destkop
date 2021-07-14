@@ -9,6 +9,7 @@ export default function handler(req, res) {
             const text = req.body.text
             const lowerText = text.toLowerCase()
 
+
             // Поиск по всем категориям по совпадениям title, description
             if (categoryId == undefined || categoryId == '') {
                 const results = await prisma.$queryRaw(`SELECT id, category_id, price, photo, rating, created_at, delivery, reviewed, address, phone, trade, verify_moderator, commercial, secure_transaction, title, email FROM posts WHERE LOWER (title) LIKE '%${lowerText}%' OR LOWER (description) LIKE '%${lowerText}%'`)
