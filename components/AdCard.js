@@ -91,12 +91,8 @@ function AdCard_component({ offer }) {
                         </div>
                     </div>
                 </div>
-
             </div>
-          </div>
-        </div>
-      </div>
-    </Link>
+          </Link>
   );
 }
 
