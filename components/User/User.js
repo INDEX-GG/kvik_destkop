@@ -185,14 +185,17 @@ const UsersPage = () => {
 
   const router = useRouter();
 
-  const [rout, setRout] = useState(router.query);
   // push
-  const { userInfo } = useAd(rout.id);
-
+ 
+  const { userInfo, isLoading } = useAd(router.query.id);
+console.log(userInfo, isLoading)
+  
   useEffect(() => {
     setActiveBox(ContentBox.filter(item => item.sold == undefined))
     setSoldBox(ContentBox.filter(item => item.sold))
-  }, [router, userInfo])
+
+  }, [router, isLoading])
+
 
 
   const navItems = [

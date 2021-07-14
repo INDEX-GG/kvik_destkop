@@ -43,35 +43,41 @@ const useStyles = makeStyles(() => ({
     display: "none",
     transition: "0.2s all linear",
   },
+  test: {
+    marginBottom: "144px",
+  }
 }));
 
 function HeaderMobile({ chageMenu = false }) {
   const classes = useStyles();
   return (
-    <AppBar position="fixed" color="secondary">
-      <Container className={classes.container}>
-        <div className={classes.info}>
-          <div className={classes.menu}>
-            <MobileMenu />
-          </div>
-          <Logo className={classes.logo} />
-          <Avatar className={classes.avatar} alt="photo" />
-        </div>
-        <div className={classes.block2}>
-          <Search />
-          {chageMenu ? (
-            <Button className={classes.changeMenu} variant="contained" color="primary">
-              <AddRoundedIcon />
-              Подать объявление
-            </Button>
-          ) : (
-            <div className={classes.changeMenu}>
-              <MobileFilter className={classes.filter} number={10} />
+    <>
+      <AppBar position="fixed" color="secondary">
+        <Container className={classes.container}>
+          <div className={classes.info}>
+            <div className={classes.menu}>
+              <MobileMenu />
             </div>
-          )}
-        </div>
-      </Container>
-    </AppBar>
+            <Logo className={classes.logo} />
+            <Avatar className={classes.avatar} alt="photo" />
+          </div>
+          <div className={classes.block2}>
+            <Search />
+            {chageMenu ? (
+              <Button className={classes.changeMenu} variant="contained" color="primary">
+                <AddRoundedIcon />
+                Подать объявление
+              </Button>
+            ) : (
+              <div className={classes.changeMenu}>
+                <MobileFilter className={classes.filter} number={10} />
+              </div>
+            )}
+          </div>
+        </Container>
+      </AppBar>
+      <div className={classes.test}></div>
+    </>
   );
 }
 export default HeaderMobile;
