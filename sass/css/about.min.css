@@ -1,0 +1,2 @@
+.about{display:-ms-grid;display:grid;-ms-grid-rows:auto auto auto;grid-template-rows:auto auto auto;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;overflow:hidden}.aboutTitle{text-align:center}.text1{font-size:14px;text-align:left}.text2{font-size:14px;text-align:left}.bodyAbout{margin-left:auto;margin-right:auto;padding:12px;max-width:1280px}@media (max-width: 1280px){.bodyAbout{max-width:1048px}}
+/*# sourceMappingURL=about.min.css.map */

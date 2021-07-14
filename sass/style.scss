@@ -29,6 +29,7 @@
 @import "./modal/userStats";
 @import "./modal/reject.scss";
 @import "./modal/product.scss";
+@import "./modal/account.scss";
 
 /* Pages */
 /* Главная */
@@ -45,3 +46,6 @@
 @import "./pages/user/Reviews";
 @import "./pages//user/Settings";
 @import "./pages/user/Wallet";
+@import "./pages/user/NotInformations.scss";
+/* Профиль пользователя */
+@import "./pages/user/user.scss";

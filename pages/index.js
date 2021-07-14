@@ -1,15 +1,8 @@
 import { useState, useEffect } from "react";
 import Footer2 from '../components/Footer2';
-import Footer from '../components/Footer';
-import AdCard_component from '../components/AdCard';
-import ScrollTop from '../UI/ScrollTop';
-import Slider_component from '../layout/Slider_component';
-import AdBackground from "../UI/icons/AdBackground";
-import Rectangle from "../UI/icons/Rectangle";
 import { useMedia } from '../hooks/useMedia';
 import MainLayout from '../layout/MainLayout';
 import axios from "axios";
-import { getDataByQuery } from '../lib/services';
 import { PrismaClient } from '@prisma/client';
 import { Box, Container, makeStyles, Typography } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
@@ -27,6 +20,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	offers: {
 		flexGrow: 1,
+	},
+	rightBlock: {
+		height:'100%',
+		marginLeft: '56px',
+	},
+	footer: {
+		top: 'calc(100% - 205px)',
+		position: 'sticky',
 	}
 }));
 
@@ -34,26 +35,30 @@ const Index = ({ offers }) => {
 	console.log(offers)
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   const [data, setData] = useState(offers);
+
   const classes = useStyles();
   
   useEffect(() => {
-    axios.post('/api/getPosts', { of: 0 })
-      .then((res) => setData(res.data.result))
+    axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
   }, []);
 
   return (
-    <MainLayout footer={true} title={'Доска объявлений'}>
+    <MainLayout isIndex title={'Доска объявлений'}>
       <Container className={classes.root}>
         <PopularCategories/>
 		<Box className={classes.main}>
 			<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'}/></Box>
-			<Box><JokerBlock /></Box>
+			{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
+				<JokerBlock />
+				<Box className={classes.footer}>
+					<Footer2/>
+				</Box>
+			</Box>}
 		</Box>
 	  </Container>
     </MainLayout >
   )
 }
-
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
@@ -79,27 +84,27 @@ export async function getStaticProps() {
           commercial: true,
           secure_transaction: true,
           title: true,
-          email: true
-        }
-      })
+          email: true,
+        },
+      });
       return results;
     }
     const results = await getPost();
+
     return results;
   }
 
   let res = await main(0)
     .catch((e) => {
       console.log("error: " + e);
-      throw e
+      throw e;
     })
     .finally(async () => {
-      await prisma.$disconnect()
-    })
+      await prisma.$disconnect();
+    });
 
-  const offers = JSON.parse(JSON.stringify(res))
-  return { props: { offers }}
-  
+  const offers = JSON.parse(JSON.stringify(res));
+  return { props: { offers } };
 }
 
 export default Index;

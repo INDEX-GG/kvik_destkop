@@ -1,0 +1,16 @@
+.notInfContainer {
+  text-align: center;
+}
+
+.notInf {
+  &__title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #5a5a5a;
+    margin: 100px 0 24px;
+  }
+  &__subtitle {
+    font-size: 14px;
+    color: #8f8f8f;
+  }
+}
