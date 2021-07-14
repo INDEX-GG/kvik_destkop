@@ -1,10 +1,13 @@
-import { Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
+import {useContext} from 'react';
+import { Box, Button, Dialog, makeStyles, TextField, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import axios from 'axios';
 import Login from './Login';
+import { DialogCTX, RegistrationCTX } from '../../lib/Context/DialogCTX';
+import ConfirmNumber from './ConfirmNumber';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,13 +63,11 @@ function PhoneNumberFormat(props) {
     );
 }
 
-export default function RegForm({ Close }) {
+export default function RegForm() {
     const [sendData, setSendData] = useState({}),
-        [checkPhone, setCheckPhone] = useState(false),
-        [errorVerify, setErrorVerify] = useState({ error: true, message: 'Введите цифры' }),
+        [openConfirmNum, setOpenConfirmNum] = useState(false),
         [phoneNum, setPhoneNum] = useState(),
-        [buttonSubmit, setButtonSubmit] = useState(true),
-        [login, setLogin] = useState(false);
+		{openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm} = useContext(DialogCTX);
 
     const classes = useStyles();
     const { handleSubmit, control, watch } = useForm();
@@ -75,36 +76,25 @@ export default function RegForm({ Close }) {
         console.log(data);
         setSendData(data);
         axios.post('/api/checkphone', { phone: data.phone }).then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             setPhoneNum(res.data)
-            setCheckPhone(true)
+			setOpenRegForm(!openRegForm);
+            setOpenConfirmNum(true);
         })
     };
 
-    const verifyNumber = (e) => {
-        if (e.target.value === String(phoneNum).slice(-4)) {
-            setButtonSubmit(false);
-            setErrorVerify({ error: false, message: 'Код совпал' });
-        } else {
-            setButtonSubmit(true);
-            setErrorVerify({ error: true, message: 'Неверный код подтверждения' })
-        }
-    }
-
-    const handleSubmitNumber = (e) => {
-        e.preventDefault();
-        axios.post('/api/setApi', sendData).then((res) => console.log(res.data));
-        //Место для логики ошибок и логина
-        Close();
-    }
-
     return (
-        <>{checkPhone && <Box className={classes.submitNumber}>
+		<>
+        <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth="sm">
+
+		
+			{/* <Box className={classes.submitNumber}>
             <Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
             <TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>
             <Button disabled={buttonSubmit} variant='contained' color='primary' onClick={e => handleSubmitNumber(e)}>Подтвердить</Button>
-        </Box>}
-            {!checkPhone && !login && <Box className={classes.root}>
+        	</Box> */}
+
+            <Box className={classes.root}>
                 <Box className={classes.reg}>
                     <Typography className={classes.title} variant="h6">Регистрация</Typography>
                     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -199,9 +189,13 @@ export default function RegForm({ Close }) {
                 </Typography>
                 <Link href='#'>Лицензионным соглашением</Link>
                 <Typography variant='subtitle2'>Уже есть аккаунт?</Typography>
-                <Button onClick={() => setLogin(!login)} variant='text' size='large' color='primary'>Войти</Button>
-            </Box>}
-            {login && <Login Close={Close} />}
-        </>
+                <Button onClick={() => {setOpenRegForm(!openRegForm); setOpenLoginForm(!openLoginForm)}} variant='text' size='large' color='primary'>Войти</Button>
+            </Box>
+        </Dialog>
+		<RegistrationCTX.Provider value={{openConfirmNum, setOpenConfirmNum, phoneNum, sendData}}>
+			<ConfirmNumber/>
+		</RegistrationCTX.Provider>
+		<Login/>
+		</>
     );
 }

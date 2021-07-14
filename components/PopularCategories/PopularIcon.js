@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PopularIcon = (icon) => {
-
 	const [hover, setHover] = useState(false);
 	const classes = useStyles();
 
@@ -51,7 +50,7 @@ const PopularIcon = (icon) => {
 			<Box className={classes.icon}>{icon?.icon.icon}</Box>
 			<Box 
 				className={classes.bg} 
-				style={{transform: `rotate(${Math.round(Math.random()*360)}deg)`, }}>
+				style={{transform: `rotate(${icon.random}deg)`, }}>
 					<Bg color={hover ? '#e9e9e9' : '#f7f7f7'}/>
 			</Box>
 			<Typography className={classes.title}>{icon?.icon.title}</Typography>
