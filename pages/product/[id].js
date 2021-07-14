@@ -205,4 +205,21 @@ const Product = () => {
         </div >
     )
 }
+
+// export async function getStaticPaths() {
+//     const offers = await getDataByQuery('/api/getPosts', { of: 0 })
+//     const paths = offers.result.map((offer) => ({
+//         params: { id: String(offer.id) },
+//     }))
+//     // { fallback: false } несуществующие страницы упадут на 404
+//     return { paths, fallback: false }
+// }
+
+// export async function getStaticProps({ params }) {
+//     const res = await fetch(`${process.env.HOST}/product/${params.id}`)
+//     const offer = await res.json()
+//     //Протестировать
+
+//     return { props: { offer } }
+// }
 export default Product;
