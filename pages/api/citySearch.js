@@ -5,8 +5,8 @@ export default function handler(req, res) {
         async function main() {
             let {name, parent_id} = req.body
             const lowername = name.toLowerCase()
-                const cities = await prisma.$queryRaw(`SELECT name, parent_id FROM cities WHERE LOWER (name) LIKE '${lowername}%' LIMIT 15`)     // LIMIT?
-                const citiesMiddle = await prisma.$queryRaw(`SELECT name, parent_id FROM cities WHERE LOWER (name) LIKE '%${lowername}%' AND LOWER (name) NOT LIKE '${lowername}%' LIMIT 15`)
+                const cities = await prisma.$queryRaw(`SELECT id, name, parent_id FROM cities WHERE LOWER (name) LIKE '${lowername}%' LIMIT 15`)     // LIMIT?
+                const citiesMiddle = await prisma.$queryRaw(`SELECT id, name, parent_id FROM cities WHERE LOWER (name) LIKE '%${lowername}%' AND LOWER (name) NOT LIKE '${lowername}%' LIMIT 15`)
                 const RES = []
                     for (let value of cities) {
                         if (value.parent_id == "0") {
