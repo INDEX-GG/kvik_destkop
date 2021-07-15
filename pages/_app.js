@@ -6,10 +6,13 @@ import '../sass/style.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from '../UI/theme';
-import fetch from '../lib/fetchJson'
-
+import fetch from '../lib/fetchJson';
+import useSWR from 'swr';
+import { AuthCTX } from '../lib/Context/AuthCTX';
 
 function MyApp({ Component, pageProps }) {
+
+const { data: user } = useSWR('/api/user');
 
    return (
       <SWRConfig 
@@ -22,10 +25,12 @@ function MyApp({ Component, pageProps }) {
          <Head>
             <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
          </Head>
-         <ThemeProvider theme={theme}>
-            <CssBaseline/>
-            <Component {...pageProps} />
-         </ThemeProvider>
+		 <AuthCTX.Provider value={user}>
+			<ThemeProvider theme={theme}>
+				<CssBaseline/>
+				<Component {...pageProps} />
+			</ThemeProvider>
+		</AuthCTX.Provider>
       </SWRConfig>
    )
 }

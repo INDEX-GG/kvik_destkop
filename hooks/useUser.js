@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 export function useUser() {
   const { data: user, mutate: mutateUser } = useSWR('/api/user'),
