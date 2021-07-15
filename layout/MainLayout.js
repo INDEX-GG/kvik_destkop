@@ -17,7 +17,7 @@ const MainLayout = ({ children, title = "", isIndex }) => {
         {matchesMobile && <HeaderMobile />}
         <>{children}</>
       </div >
-      {!isIndex && <Footer />}
+      {!matchesLaptop && !matchesDesktop && !matchesHD && <Footer />}
     </>
   );
 };
