@@ -86,7 +86,8 @@ const useStyles = makeStyles(() => ({
         textAlign: "center",
         color: "#2C2C2C",
         fontWeight: "400",
-        fontSize: "14px"
+        fontSize: "14px",
+        marginBottom: "20px"
     }
 }))
 
@@ -122,9 +123,9 @@ function Buy() {
                         </div>
                     </div>
                     <h5 className={classes.buyGetTitle}>Выберите способ получения</h5>
-                    <BuyDelivery/>
-                    <BuyDelivery/>
-                    <BuyDelivery/>
+                    <BuyDelivery other={true}/>
+                    <BuyDelivery courier={true}/>
+                    <BuyDelivery pickup={true}/>
                 </Box>
                 <Box className={classes.buyAd}>
                     <Image src='/img/joker1.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
