@@ -175,10 +175,7 @@
   .containerHome {
     grid-template-columns: 100%;
   }
-
-  
 }
-
 @media (max-width: 730px) {
   .scrollableOffersHome {
     grid-template-columns: repeat(2, 1fr);
@@ -194,9 +191,16 @@
   }
 }
 
-@media (max-width: 483px) {
+@media (max-width: 430px) {
   .scrollableOffersHome {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(auto-fill, 172px);
+    place-content: center;
+  }
+}
+
+@media (max-width: 372px) {
+  .scrollableOffersHome {
+  grid-template-columns: repeat(auto-fill, 146px);
   }
 }
 

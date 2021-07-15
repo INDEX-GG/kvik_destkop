@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     top: {
 		marginBottom: '15px',
 		display: 'flex',
+		alignItems: 'center',
     },
 	title: {
 		flexGrow: 1,

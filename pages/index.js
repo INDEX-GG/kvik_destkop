@@ -10,27 +10,30 @@ import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: '0 12px',
-		display: 'flex',
-		flexDirection: 'column',
+  root: {
+    padding: '0 12px',
+    display: 'flex',
+    flexDirection: 'column',
     height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0 8px',
     },
-	main: {
-		display: 'flex',
+  },
+  main: {
+    display: 'flex',
     height: '100%',
-	},
-	offers: {
-		flexGrow: 1,
-	},
-	rightBlock: {
-		height:'100%',
-		marginLeft: '56px',
-	},
-	footer: {
-		top: 'calc(100% - 205px)',
-		position: 'sticky',
-	}
+  },
+  offers: {
+    flexGrow: 1,
+  },
+  rightBlock: {
+    height: '100%',
+    marginLeft: '56px',
+  },
+  footer: {
+    top: 'calc(100% - 205px)',
+    position: 'sticky',
+  }
 }));
 
 const Index = ({ offers }) => {
@@ -39,7 +42,7 @@ const Index = ({ offers }) => {
   const [data, setData] = useState(offers);
 
   const classes = useStyles();
-  
+
   useEffect(() => {
     axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
   }, []);
@@ -47,17 +50,17 @@ const Index = ({ offers }) => {
   return (
     <MainLayout isIndex title={'Доска объявлений'}>
       <Container className={classes.root}>
-        <PopularCategories/>
-		<Box className={classes.main}>
-			<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'}/></Box>
-			{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
-				<JokerBlock />
-				<Box className={classes.footer}>
-					<Footer2/>
-				</Box>
-			</Box>}
-		</Box>
-	  </Container>
+        <PopularCategories />
+        <Box className={classes.main}>
+          <Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
+          {!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
+            <JokerBlock />
+            <Box className={classes.footer}>
+              <Footer2 />
+            </Box>
+          </Box>}
+        </Box>
+      </Container>
     </MainLayout >
   )
 }
@@ -74,6 +77,7 @@ export async function getStaticProps() {
           id: true,
           category_id: true,
           price: true,
+          old_price: true,
           photo: true,
           rating: true,
           created_at: true,

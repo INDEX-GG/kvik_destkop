@@ -33,6 +33,7 @@ function AdCard_component({ offer }) {
   const call = true;
   const like = true;
 
+
   let sold = null
   if (offer.sold == true) {
     sold = "sold"
@@ -52,47 +53,51 @@ function AdCard_component({ offer }) {
                 }}
                 slidesPerView={1}
               >
-								{/* {JSON.parse(offer.photo).photos.map((img, i) => {
+                {/* {JSON.parse(offer.photo).photos.map((img, i) => {
 									return (
 										<SwiperSlide 
 										key={i}>
 											<Image src={img} layout='fill'/>
 										</SwiperSlide>
 								)})} */}
-                                {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
-                            </Swiper>
-                        </div>
-                        <div className="card__top_info">
-                            <div className="card__top_info_left">
-                                {offer.email ? <span className="card_comment"></span> : ''}
-                                {call ? <span href="#" className="card_call"></span> : ''}
-                            </div>
-                            <div className="card__top_info_right">
-                                <span className="card_compare"></span>
-                                {like ? <span className="card_like"></span> : ''}
-                            </div>
-                        </div>
-                    </div>
-                    <div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
-                        <div className="card__bottom_info">
-                            <div className="card__bottom_info_left">
-                                <span className="old__price">{ /* {ToRubles(offer.oldPrice)}  */}</span>
-                                <span className="new__price">{ellipsis(ToRubles(offer.price), 12)}</span>
-                            </div>
-                            <div className="card__bottom_info_right">
-                                {offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
-                                {offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
-                            </div>
-                        </div>
-                        <div className="card__bottom_info_middle">{ellipsis(offer.title, 25)}</div>
-                        <div className="card__bottom_info_footer">
-                            <div className="card__bottom_info_footer_left">{offer.commercial === 2 ? offer.address : ellipsis(offer.address, 15)}</div>
-                            <div className="card__bottom_info_footer_right">{ToRusDate(offer.created_at)}</div>
-                        </div>
-                    </div>
-                </div>
+                {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
+              </Swiper>
             </div>
-          </Link>
+            <div className="card__top_info">
+              <div className="card__top_info_left">
+                {offer.email ? <span className="card_comment"></span> : ''}
+                {call ? <span href="#" className="card_call"></span> : ''}
+              </div>
+              <div className="card__top_info_right">
+                <span className="card_compare"></span>
+                {like ? <span className="card_like"></span> : ''}
+              </div>
+            </div>
+          </div>
+          <div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
+            <div className="card__bottom_info">
+              <div className="card__bottom_info_right">
+                <span className="old__price">{offer.old_price == null ? ' ' : ellipsis(ToRubles(offer.old_price), 15)}</span>
+                <div className="card__bottom_info_right_commercial">
+                  {offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
+                  {offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
+                </div>
+              </div>
+              <div className="card__bottom_info_left">
+                <span className="new__price">{ellipsis(ToRubles(offer.price), 15)}</span>
+              </div>
+
+
+            </div>
+            <div className="card__bottom_info_middle">{ellipsis(offer.title, 24)}</div>
+            <div className="card__bottom_info_footer">
+              <div className="card__bottom_info_footer_left">{offer.commercial === 2 ? offer.address : ellipsis(offer.address, 25)}</div>
+              <div className="card__bottom_info_footer_right">{ToRusDate(offer.created_at)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
   );
 }
 

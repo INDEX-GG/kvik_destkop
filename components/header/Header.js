@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import { useUser } from "../../hooks/useUser";
-import { AppBar, Avatar, Button, Container, makeStyles } from "@material-ui/core";
+import { AppBar, Avatar, Button, Container, Box, makeStyles } from "@material-ui/core";
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import Logo from "./Logo";
@@ -59,9 +59,17 @@ const useStyles = makeStyles((theme) => ({
     right: "14px",
     height: "100%",
   },
+  categories__back: {
+    width: '100%',
+    minHeight: '110vh',
+    position: 'absolute',
+    left: '0px',
+    top: '0px',
+    zIndex: '0',
+  },
 }));
 
-const Header = ({category}) => {
+const Header = ({ category }) => {
   const { isAuth, id, isLoading, username, photo, mutateUser } = useUser();
   const classes = useStyles();
 
@@ -94,7 +102,7 @@ const Header = ({category}) => {
           </Button>
           <Search />
 
-          {isAuth &&  <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+          {isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
             <AddRoundedIcon />
             Подать объявление
           </Button>}
@@ -113,12 +121,16 @@ const Header = ({category}) => {
               </Link>
             ))}
         </Container>
-        {openCat && !matchesMobile && !matchesTablet && <Categories />}
+
+
+        {openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}
+
+
         {openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
-      	</AppBar>
-		<DialogCTX.Provider value={{openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm}}>
-    		<RegForm/>
-		</DialogCTX.Provider>
+      </AppBar>
+      <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
+        <RegForm />
+      </DialogCTX.Provider>
     </>
   );
 };

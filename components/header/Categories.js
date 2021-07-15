@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Link, makeStyles } from '@material-ui/core';
+import { Box, Link, Button, makeStyles } from '@material-ui/core';
 import NavObj from '../json/navobj.json';
 
 const useStyles = makeStyles((theme) => ({
@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 auto',
         position: 'relative',
         width: '100%',
+        zIndex: '1',
     },
-
     categories__block: {
         width: '100%',
         padding: '8px',
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
         left: '0',
         borderRadius: '2px 2px 8px 8px',
         boxShadow: '0px 20px 20px rgb(0 0 0 / 10%)',
+        top: '70px',
     },
 
     categories__menu: {
@@ -121,7 +122,6 @@ function Categories() {
                             )}
                         </Box>
                         : ''}
-
                 </Box>
             </Box>
         </>
