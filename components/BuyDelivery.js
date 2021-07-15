@@ -1,18 +1,23 @@
-import React from "react"
-import { makeStyles } from "@material-ui/core"
+import React, { useState } from "react"
+import { makeStyles, Collapse, TextField } from "@material-ui/core"
+import { Controller } from "react-hook-form"
 
 const useStyles = makeStyles(() => ({
     buyDilevery: {
         marginBottom: "32px",
+        maxWidth: "976px"
+    },
+    buyDileveryBox: {
         padding: "4px 0",
         backgroundColor: "#E9E9E9",
         borderRadius: "8px",
         position: "relative",
+        cursor: "pointer"
     },
     buyDileveryInf: {
         display: "flex",
         alignItems: "center",
-        marginLeft: "12px"
+        marginLeft: "12px",
     },
     buyDileveryCircle: {
         width: "16px",
@@ -39,34 +44,237 @@ const useStyles = makeStyles(() => ({
         fontSize: "14px",
         color: "#8F8F8F",
         margin: "8px 0 0 12px"
+    },
+    buyDileveryDesc: {
+        color: "#00A0AB",
+        textDecoration: "underline"
+    },
+    buyDileverySend: {
+        marginTop: "24px",
+        position: "relative"
+    },
+    buyDileveryOneTitle: {
+        color: "#8F8F8F",
+        fontSize: "14px",
+        fontWeight: "500"
+    },
+    buyDileveryOneAdressBox: {
+        marginTop: "24px",
+    },
+    buyDileveryOneAdress: {
+        color: "#2C2C2C",
+        fontSize: "18px",
+        marginBottom: "8px"
+    },
+    buyDileveryOneAdressInf: {
+        color: "#7C7C7C",
+        fontSize: "14px"
+    },
+    buyDileveryOneParagraph: {
+        color: "#00A0AB",
+        fontSize: "14px",
+        textDecoration: "underline",
+        margin: "40px 0 32px",
+        cursor: "pointer"
+    },
+    buyDileveryMap :{
+        backgroundColor: "#2C2C2C",
+        width: "488px",
+        height: "164px",
+        position: "absolute",
+        right: "0",
+        top: "0",
+        borderRadius: "8px"
+    },
+    buyDileveryInputTitel: {
+        color: "#2C2C2C",
+        fontSize: "14px",
+        fontWeight: "500",
+        marginBottom: "12px"
+    },
+    buyDileveryInputBox: {
+        width: "100%",
+        display: "flex",
+        flexWrap: "wrap",
+    },
+    buyDileveryInputItem: {
+        width: "288px",
+        paddingLeft: "24px",
+        margin: "0 49px 16px 0",
+        "&:nth-of-type(3)": {
+            marginRight: "0px"
+        }
+    },
+    buyDileveryInput: {
+        width: "100%",
+    },
+    buyDileveryInputDesc: {
+        color: "#C7C7C7"  
+    },
+    buyDileveryPickupDesc: {
+        color: "#C7C7C7",
+        fontSize: "14px",
+        marginTop: "8px"
+    },
+    mt24: {
+        marginTop: "32px"
     }
 }))
 
 function BuyDelivery({other, courier, pickup}) {
+
+    const [dilevery, setDelivery] = useState(true)
+
+
     const classes = useStyles()
     if (other) {
         return (
-        <div className={classes.buyDilevery}>
-            <div className={classes.buyDileveryInf}>
-                <span className={classes.buyDileveryCircle}></span>
-                <div className={classes.buyDileveryTitle}>Доставка номер один</div>
-            </div>
-            <div className={classes.buyDileveryPrice}>500 &#8381;</div>
-            <p className={classes.buyDileverySubtitle}>От двух до 7 рабочих дней. Примерное время доставки, и цена рассчитаны <span className={classes.buyDileveryDesc}>для вашего города</span></p>
-        </div>
+            <section className={classes.buyDilevery}>
+                <div className={classes.buyDileveryBox} onClick={() => setDelivery(!dilevery) }>
+                    <div className={classes.buyDileveryInf}>
+                        <span className={classes.buyDileveryCircle}></span>
+                        <div className={classes.buyDileveryTitle}>Доставка номер один</div>
+                    </div>
+                    <div className={classes.buyDileveryPrice}>500 &#8381;</div>
+                    <p className={classes.buyDileverySubtitle}>От двух до 7 рабочих дней. Примерное время доставки, и цена рассчитаны <span className={classes.buyDileveryDesc}>для вашего города</span></p>
+                </div>
+                <Collapse in={dilevery} timeout="auto" unmountOnExit >
+                    <div className={classes.buyDileverySend}>
+                        <h4 className={classes.buyDileveryOneTitle}>Пункт самомывоза</h4>
+                        <div className={classes.buyDileveryOneAdressBox}>
+                            <div className={classes.buyDileveryOneAdress}>Челябинск, ул. Елькина, 92в</div>
+                            <div className={classes.buyDileveryOneAdressInf}>Расписание пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                            <div className={classes.buyDileveryOneAdressInf}>Номер для связи +7 (000) 000-00-00</div>
+                            <div className={classes.buyDileveryOneParagraph}>Выбрать другой пункт из 00 в вашем городе</div>
+                        </div>
+                        <div className={classes.buyDileveryMap}></div>
+                        <h3 className={classes.buyDileveryInputTitel}>Данные покупателя для получения заказа</h3>
+                        <form className={classes.buyDileveryInputBox}>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Имя'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    Данные как в паспорте, посылку выдадут только лично вам
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Фамилия'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    ....
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Отчество'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    ...
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Телефон'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    На указанный номер телефона будут приходить SMS сообщения о статусе доставки и оплаты
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Почта'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    На этот адрес придёт чек
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </Collapse>
+            </section>
         )
     }
 
     if (courier) {
         return (
-            <div className={classes.buyDilevery}>
-                <div className={classes.buyDileveryInf}>
-                    <span className={classes.buyDileveryCircle}></span>
-                    <div className={classes.buyDileveryTitle}>Доставка номер два (курьером например)</div>
+            <section className={classes.buyDilevery}>
+                <div className={classes.buyDileveryBox}>
+                    <div className={classes.buyDileveryInf}>
+                        <span className={classes.buyDileveryCircle}></span>
+                        <div className={classes.buyDileveryTitle}>Доставка номер два (курьером например)</div>
+                    </div>
+                    <div className={classes.buyDileveryPrice}>1000 &#8381;</div>
+                    <p className={classes.buyDileverySubtitle}>Доставка будет осуществляться в течении 00 дней из расчета <span  className={classes.buyDileveryDesc}>по вашему городу</span></p>
                 </div>
-                <div className={classes.buyDileveryPrice}>1000 &#8381;</div>
-                <p className={classes.buyDileverySubtitle}>Доставка будет осуществляться в течении 00 дней из расчета <span  className={classes.buyDileveryDesc}>по вашему городу</span></p>
-            </div>
+                <Collapse in={dilevery} timeout="auto" unmountOnExit >
+                    <div className={classes.buyDileverySend}> 
+                        <h3 className={classes.buyDileveryInputTitel}>Данные покупателя для получения заказа</h3>
+                        <form className={classes.buyDileveryInputBox}>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Имя'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    Данные как в паспорте, посылку выдадут только лично вам
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Фамилия'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    ....
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Отчество'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    ...
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Телефон'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    На указанный номер телефона будут приходить SMS сообщения о статусе доставки и оплаты
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Почта'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    На этот адрес придёт чек
+                                </p>
+                            </div>
+                        </form>
+                        <h3 className={`${classes.buyDileveryInputTitel} ${classes.mt24}`}>Адрес доставки для курьера</h3>
+                        <form className={classes.buyDileveryInputBox}>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Улица'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    Данные как в паспорте, посылку выдадут только лично вам
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Номер дома'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    ....
+                                </p>
+                            </div>
+                            <div className={classes.buyDileveryInputItem}>
+                                <TextField className={classes.buyDileveryInput} label='Квартира/Офис'variant='outlined' size='small' type="text"/>
+                                 <p className={classes.buyDileveryInputDesc}>
+                                    ...
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </Collapse>
+            </section>
+        )
+    }
+
+    if (pickup) {
+        return (
+            <section className={classes.buyDilevery}>
+                <div className={classes.buyDileveryBox}>
+                    <div className={classes.buyDileveryInf}>
+                        <span className={classes.buyDileveryCircle}></span>
+                        <div className={classes.buyDileveryTitle}>Заберу сам у продавца</div>
+                    </div>
+                    <div className={classes.buyDileveryPrice}>Бесплатно</div>
+                    <p className={classes.buyDileverySubtitle}>Договоритесь об условиях самовызова с продавцом по телефону или в чате самостоятельно</p>
+                </div>
+                <Collapse in={true} timeout="auto" unmountOnExit >
+                    <p className={classes.buyDileveryPickupDesc}>Договаривайтесь с продавцом о месте и времени передачи товара самостоятельно. Деньги за оплату товара продавец получит только после того, как вы подтвердите успешное получение товара. А в случае возникновения спорной ситуации, уладить возникшие разногласия поможет сервис «Безопасная сделка».</p>
+                </Collapse>
+            </section>
         )
     }
 }

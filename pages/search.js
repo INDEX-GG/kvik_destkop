@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import Footer2 from "../../components/Footer2"
-import { useMedia } from "../../hooks/useMedia";
-import MainLayout from '../../layout/MainLayout';
+import Footer2 from "../components/Footer2"
+import { useMedia } from "../hooks/useMedia";
+import MainLayout from '../layout/MainLayout';
 import { PrismaClient } from '@prisma/client';
 import axios from "axios";
 import { Box, Container, makeStyles } from "@material-ui/core";
-import FilterBlock from "../../components/FilterBlock"
-import SearchRender from "../../components/SearchRender"
+import FilterBlock from "../components/FilterBlock"
+import SearchRender from "../components/SearchRender"
 
 const useStyles = makeStyles((theme) => ({
     root: {

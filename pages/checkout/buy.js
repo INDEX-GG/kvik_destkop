@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
     buyAd: {
         display: "flex",
         flexDirection: "column",
+        width: "224px"
     },
     buyTitle: {
         fontWeight: "500",
@@ -88,6 +89,39 @@ const useStyles = makeStyles(() => ({
         fontWeight: "400",
         fontSize: "14px",
         marginBottom: "20px"
+    },
+    buyPayment: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+    },
+    buyPaymentPrice: {
+        color: "#00A0AB",
+        fontSize: "30px",
+        fontWeight: "700"
+    },
+    buyPaymentDil: {
+        color: "#00A0AB",
+        fontSize: "14px",
+        fontWeight: "500"
+    },
+    buyPaymentWay: {
+        margin: "28px 0 16px",
+        width: "264px",
+    },
+    buyPaymentChoice: {
+        color: "#2C2C2C",
+        fontSize: "14px",
+        marginBottom: "16px"
+    },
+    buyPaymentList: {
+        display: "block",
+        width: "100%",
+        height: "32px",
+        borderRadius: "8px",
+    },
+    buyPaymentRules: {
+        margin: "16px 0 56px"
     }
 }))
 
@@ -99,8 +133,8 @@ function Buy() {
         <MainLayout>
             <Container className={classes.buyContainer}>
                 <Box className={classes.buyProduct}>
-                    <h4 className={classes.buyTitle}>Оформление и оплата</h4>
-                    <div className={classes.buyItem}>
+                    <h1 className={classes.buyTitle}>Оформление и оплата</h1>
+                    <section className={classes.buyItem}>
                         <Image className={classes.buyItemImg} src="/offersImage/25374offer-28374.webp" alt="Img-product" width={88} height={88}/>
                         <div className={classes.buyItemInf}>
                             <div className={classes.buyItemPrice}>1000 &#8381;</div>
@@ -121,16 +155,30 @@ function Buy() {
                                 <StarRating rating={raiting}/>
                             </div>
                         </div>
-                    </div>
-                    <h5 className={classes.buyGetTitle}>Выберите способ получения</h5>
+                    </section>
+                    <h2 className={classes.buyGetTitle}>Выберите способ получения</h2>
                     <BuyDelivery other={true}/>
                     <BuyDelivery courier={true}/>
                     <BuyDelivery pickup={true}/>
+                    <div className={classes.buyPayment}>
+                        <h2 className={classes.buyPaymentPrice}>1500 &#8381;</h2>
+                        <h3 className={classes.buyPaymentDil}>С учетом стоимости доставки 500 &#8381;</h3>
+                        <div className={classes.buyPaymentWay}>
+                            <div className={classes.buyPaymentChoice}>Выбор способ оплаты</div>
+                            <select className={classes.buyPaymentList}>
+                                <option className={classes.buyPaymentItem}>Вариант 1</option>
+                                <option className={classes.buyPaymentItem}>Вариант 2</option>
+                                <option className={classes.buyPaymentItem}>Вариант 3</option>
+                            </select>
+                        </div>
+                        <button className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" type="submit">Перейти к оплате</button>
+                        <div className={classes.buyPaymentRules}>Оплачивая заказ вы соглашаетесь с <a href="/">Правилами сервиса</a> и офертой <a href="/">Службы доставки</a></div>
+                    </div>
                 </Box>
-                <Box className={classes.buyAd}>
+                <aside className={classes.buyAd}>
                     <Image src='/img/joker1.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
                     <Image src='/img/joker2.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
-                </Box>
+                </aside>
             </Container>
         </MainLayout>
     )
