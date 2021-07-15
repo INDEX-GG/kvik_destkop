@@ -1,31 +1,41 @@
 import React, { useState } from "react"
-import { makeStyles, Collapse, TextField } from "@material-ui/core"
+import { makeStyles, Collapse, TextField, Dialog } from "@material-ui/core"
 import { Controller } from "react-hook-form"
 
 const useStyles = makeStyles(() => ({
     buyDilevery: {
         marginBottom: "32px",
-        maxWidth: "976px"
+        width: "100%",
+        maxWidth: "976px",
     },
     buyDileveryBox: {
         padding: "4px 0",
-        backgroundColor: "#E9E9E9",
         borderRadius: "8px",
         position: "relative",
-        cursor: "pointer"
+        cursor: "pointer",
+        transition: ".2s all linear",
+        "&:hover": {
+            backgroundColor: "#E9E9E9"
+        }
+    },
+    buyDeliveryName: {
+        display: "flex"
     },
     buyDileveryInf: {
         display: "flex",
+        justifyContent: "space-between",
         alignItems: "center",
-        marginLeft: "12px",
     },
     buyDileveryCircle: {
         width: "16px",
         height: "16px",
         borderRadius: "50%",
-        backgroundColor: "#fff",
         border: "1px solid #000",
-        marginRight: "12px"
+        marginRight: "12px",
+        marginLeft: "12px",
+        "&:hover": {
+            backgroundColor: "#00A0AB"
+        }
     },
     buyDileveryTitle: {
         fontWeight: "500",
@@ -33,15 +43,13 @@ const useStyles = makeStyles(() => ({
         fontSize: "18px"
     },
     buyDileveryPrice: {
-        position: "absolute",
-        top: "4px",
-        right: "12px",
         color: "#00A0AB",
         fontWeight: "500",
-        fontSize: "18px"
+        fontSize: "18px",
+        marginRight: "5px",
     },
     buyDileverySubtitle: {
-        fontSize: "14px",
+        fontSize: "12px",
         color: "#8F8F8F",
         margin: "8px 0 0 12px"
     },
@@ -57,6 +65,12 @@ const useStyles = makeStyles(() => ({
         color: "#8F8F8F",
         fontSize: "14px",
         fontWeight: "500"
+    },
+    buyDileveryOneAdressBlock: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap"
     },
     buyDileveryOneAdressBox: {
         marginTop: "24px",
@@ -79,11 +93,9 @@ const useStyles = makeStyles(() => ({
     },
     buyDileveryMap :{
         backgroundColor: "#2C2C2C",
-        width: "488px",
+        maxWidth: "488px",
+        width: "100%",
         height: "164px",
-        position: "absolute",
-        right: "0",
-        top: "0",
         borderRadius: "8px"
     },
     buyDileveryInputTitel: {
@@ -118,36 +130,81 @@ const useStyles = makeStyles(() => ({
     },
     mt24: {
         marginTop: "32px"
-    }
+    },
+    paragraph: {
+        height: "585px",
+        padding: "8px 12px",
+    },
+    paragraphTitle: {
+        color: "#2C2C2C",
+        fontSize: "18px",
+        fontWeight: "500",
+        borderBottom: "1px solid #E9E9E9",
+        marginBottom: "12px"
+
+    },
+    paragraphBox: {
+        display: "flex",
+    },
+    paragraphList: {
+        marginRight: "10px"
+    },
+    paragraphItem: {
+        fontSize: "12px",
+        color: "#8F8F8F",
+        width: "194px",
+        height :"98px",
+        borderRadius: "8px",
+        padding: "8px",
+        transition: ".2s all linear",
+        "&:hover": {
+            backgroundColor: "#E9E9E9"
+        }
+    },
+    paragraphAdress: {
+        color: "#2C2C2C",
+        fontWeight: "500"
+    },
+    paragraphMap: {
+        width: "362px",
+        height: "522px",
+        backgroundColor: "#2C2C2C",
+        borderRadius: "8px"
+    },
 }))
 
-function BuyDelivery({other, courier, pickup}) {
-
-    const [dilevery, setDelivery] = useState(true)
-
+function BuyDelivery({other, courier, pickup, buy}) {
+    const [deliveryOther, setDeliveryOther] = useState(false)
+    const [deliveryCourier, setDeliveryCourier] = useState(false)
+    const [deliveryPickup, setDeliveryPickup] = useState(false)
+    const [modalParagraph, setModalParagraph] = useState (false)
 
     const classes = useStyles()
     if (other) {
         return (
             <section className={classes.buyDilevery}>
-                <div className={classes.buyDileveryBox} onClick={() => setDelivery(!dilevery) }>
+                <div className={classes.buyDileveryBox} style={{backgroundColor: deliveryOther ? "#E9E9E9" : null}} onClick={() => setDeliveryOther(!deliveryOther)}>
                     <div className={classes.buyDileveryInf}>
-                        <span className={classes.buyDileveryCircle}></span>
-                        <div className={classes.buyDileveryTitle}>Доставка номер один</div>
+                        <div className={classes.buyDeliveryName}>
+                            <span className={classes.buyDileveryCircle} style={{backgroundColor: deliveryOther ? "#00A0AB" : null}}></span>
+                            <div className={classes.buyDileveryTitle}>Доставка номер один</div>
+                        </div>
+                        <div className={classes.buyDileveryPrice}>500&nbsp;&#8381;</div>
                     </div>
-                    <div className={classes.buyDileveryPrice}>500 &#8381;</div>
-                    <p className={classes.buyDileverySubtitle}>От двух до 7 рабочих дней. Примерное время доставки, и цена рассчитаны <span className={classes.buyDileveryDesc}>для вашего города</span></p>
+                    <p className={classes.buyDileverySubtitle}>От двух до 7 рабочих дней. Примерное время доставки, и цена рассчитаны <a href="/" className={classes.buyDileveryDesc}>для вашего города</a></p>
                 </div>
-                <Collapse in={dilevery} timeout="auto" unmountOnExit >
+                <Collapse in={deliveryOther} timeout="auto" unmountOnExit >
                     <div className={classes.buyDileverySend}>
                         <h4 className={classes.buyDileveryOneTitle}>Пункт самомывоза</h4>
-                        <div className={classes.buyDileveryOneAdressBox}>
-                            <div className={classes.buyDileveryOneAdress}>Челябинск, ул. Елькина, 92в</div>
-                            <div className={classes.buyDileveryOneAdressInf}>Расписание пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
-                            <div className={classes.buyDileveryOneAdressInf}>Номер для связи +7 (000) 000-00-00</div>
-                            <div className={classes.buyDileveryOneParagraph}>Выбрать другой пункт из 00 в вашем городе</div>
+                        <div className={classes.buyDileveryOneAdressBlock}>
+                            <div className={classes.buyDileveryOneAdressBox}>
+                                <div className={classes.buyDileveryOneAdress}>Челябинск, ул. Елькина, 92в</div>
+                                <div className={classes.buyDileveryOneAdressInf}>Расписание пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                                <div className={classes.buyDileveryOneAdressInf}>Номер для связи +7 (000) 000-00-00</div>
+                                <div className={classes.buyDileveryOneParagraph}onClick={() => setModalParagraph(!modalParagraph)}>Выбрать другой пункт из 00 в вашем городе</div>
+                            </div>
+                            <div className={classes.buyDileveryMap}></div>
                         </div>
-                        <div className={classes.buyDileveryMap}></div>
                         <h3 className={classes.buyDileveryInputTitel}>Данные покупателя для получения заказа</h3>
                         <form className={classes.buyDileveryInputBox}>
                             <div className={classes.buyDileveryInputItem}>
@@ -183,6 +240,41 @@ function BuyDelivery({other, courier, pickup}) {
                         </form>
                     </div>
                 </Collapse>
+                <Dialog open={modalParagraph} onClose={() => setModalParagraph(!modalParagraph)}>
+                    <div className={classes.paragraph}>
+                        <div className={classes.paragraphTitle}>Выбор пункта самовызова товара</div>
+                        <div className={classes.paragraphBox}>
+                            <div className={classes.paragraphList}>
+                                <div className={classes.paragraphItem}>
+                                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                                </div>
+                                <div className={classes.paragraphItem}>
+                                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                                </div>
+                                <div className={classes.paragraphItem}>
+                                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                                </div>
+                                <div className={classes.paragraphItem}>
+                                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                                </div>
+                                <div className={classes.paragraphItem}>
+                                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                                </div>
+                            </div>
+                            <div className={classes.paragraphMap}></div>
+                        </div>
+                    </div>
+                </Dialog>
             </section>
         )
     }
@@ -190,15 +282,17 @@ function BuyDelivery({other, courier, pickup}) {
     if (courier) {
         return (
             <section className={classes.buyDilevery}>
-                <div className={classes.buyDileveryBox}>
+                <div className={classes.buyDileveryBox} style={{backgroundColor: deliveryOther ? "#E9E9E9" : null}} onClick={() => setDeliveryCourier(!deliveryCourier)}>
                     <div className={classes.buyDileveryInf}>
-                        <span className={classes.buyDileveryCircle}></span>
-                        <div className={classes.buyDileveryTitle}>Доставка номер два (курьером например)</div>
+                        <div className={classes.buyDeliveryName}>
+                            <span className={classes.buyDileveryCircle} style={{backgroundColor: deliveryOther ? "#00A0AB" : null}}></span>
+                            <div className={classes.buyDileveryTitle}>Доставка номер два (курьером например)</div>
+                        </div>
+                        <div className={classes.buyDileveryPrice}>1000&nbsp;&#8381;</div>
                     </div>
-                    <div className={classes.buyDileveryPrice}>1000 &#8381;</div>
-                    <p className={classes.buyDileverySubtitle}>Доставка будет осуществляться в течении 00 дней из расчета <span  className={classes.buyDileveryDesc}>по вашему городу</span></p>
+                    <p className={classes.buyDileverySubtitle}>Доставка будет осуществляться в течении 00 дней из расчета <a href="/"  className={classes.buyDileveryDesc}>по вашему городу</a></p>
                 </div>
-                <Collapse in={dilevery} timeout="auto" unmountOnExit >
+                <Collapse in={deliveryCourier} timeout="auto" unmountOnExit >
                     <div className={classes.buyDileverySend}> 
                         <h3 className={classes.buyDileveryInputTitel}>Данные покупателя для получения заказа</h3>
                         <form className={classes.buyDileveryInputBox}>
@@ -263,15 +357,17 @@ function BuyDelivery({other, courier, pickup}) {
     if (pickup) {
         return (
             <section className={classes.buyDilevery}>
-                <div className={classes.buyDileveryBox}>
+                <div className={classes.buyDileveryBox} style={{backgroundColor: deliveryOther ? "#E9E9E9" : null}} onClick={() => setDeliveryPickup(!deliveryPickup)}>
                     <div className={classes.buyDileveryInf}>
-                        <span className={classes.buyDileveryCircle}></span>
-                        <div className={classes.buyDileveryTitle}>Заберу сам у продавца</div>
+                        <div className={classes.buyDeliveryName}>
+                            <span className={classes.buyDileveryCircle} style={{backgroundColor: deliveryOther ? "#00A0AB" : null}}></span>
+                            <div className={classes.buyDileveryTitle}>Заберу сам у продавца</div>
+                        </div>
+                        <div className={classes.buyDileveryPrice}>Бесплатно</div>
                     </div>
-                    <div className={classes.buyDileveryPrice}>Бесплатно</div>
                     <p className={classes.buyDileverySubtitle}>Договоритесь об условиях самовызова с продавцом по телефону или в чате самостоятельно</p>
                 </div>
-                <Collapse in={true} timeout="auto" unmountOnExit >
+                <Collapse in={deliveryPickup} timeout="auto" unmountOnExit >
                     <p className={classes.buyDileveryPickupDesc}>Договаривайтесь с продавцом о месте и времени передачи товара самостоятельно. Деньги за оплату товара продавец получит только после того, как вы подтвердите успешное получение товара. А в случае возникновения спорной ситуации, уладить возникшие разногласия поможет сервис «Безопасная сделка».</p>
                 </Collapse>
             </section>
