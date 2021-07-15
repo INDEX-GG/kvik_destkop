@@ -1,23 +1,39 @@
+import React from "react";
 import MainLayout from "../../layout/MainLayout"
 import User from "../../components/User/User";
 import { Avatar, Box, Container, makeStyles } from "@material-ui/core";
 import Image from "next/image"
 import StarRating from "../../components/StarRating"
-import { borderTop, fontSize, fontWeight } from "@material-ui/system";
 import BuyDelivery from "../../components/BuyDelivery";
+import Card from "../../UI/icons/Card"
+import SelectBuy from "../../components/SelectBuy";
+import theme from "../../UI/theme"
+import { useMedia } from "../../hooks/useMedia";
 
 const useStyles = makeStyles(() => ({
     buyContainer: {
-        display: "flex"
+        display: "flex",
+        [theme.breakpoints.down("xs")]: {
+            padding: "0 12px"
+        }
     },
     buyProduct: {
         flexGrow: 1,
-        paddingRight: "48px"
+        paddingRight: "48px",
+        [theme.breakpoints.down("sm")]: {
+            paddingRight: "0px"
+        }
     },
     buyAd: {
         display: "flex",
         flexDirection: "column",
-        width: "224px"
+        width: "224px",
+        "& > div": {
+            marginBottom: "24px"
+        },
+        [theme.breakpoints.down("sm")]: {
+            display: "none"
+        }
     },
     buyTitle: {
         fontWeight: "500",
@@ -40,7 +56,12 @@ const useStyles = makeStyles(() => ({
     },
 
     buyItemInf: {
-        marginLeft: "12px"
+        marginLeft: "12px",
+        [theme.breakpoints.down("sm")]: {
+            position: "absolute",
+            left: "80px",
+            bottom: "4px"
+        }
     },
     buyItemPrice: {
         color: "#2C2C2C",
@@ -50,10 +71,21 @@ const useStyles = makeStyles(() => ({
     buyItemName: {
         color: "#2C2C2C",
         fontWeight: 500,
-        marginBottom: "14px"
+        marginBottom: "14px",
+        [theme.breakpoints.down("sm")]: {
+            marginBottom: "0"
+        }
     },
     buyItemDate: {
-        marginBottom: "4px"
+        marginBottom: "4px",
+        [theme.breakpoints.down("sm")]: {
+            display: "none"
+        }
+    },
+    buyItemCity: {
+        [theme.breakpoints.down("sm")]: {
+            display: "none"
+        }
     },
     buyOwner: {
         position: "absolute",
@@ -71,6 +103,10 @@ const useStyles = makeStyles(() => ({
         flexDirection: "column",
         marginRight: "8px"
     },
+    buyOwnerName: {
+        color: "#2C2C2C",
+        fontWeight: "500"
+    },
     buyOwnerDate: {
         alignSelf: "flex-end"
     },
@@ -81,7 +117,10 @@ const useStyles = makeStyles(() => ({
     buyOwnerRaiting: {
         display: "flex",
         alignItems: "center",
-        marginLeft: "25px"
+        marginLeft: "20px"
+    },
+    buyOwnerRaitingNumber: {
+        marginRight: "4px"
     },
     buyGetTitle: {
         textAlign: "center",
@@ -90,46 +129,15 @@ const useStyles = makeStyles(() => ({
         fontSize: "14px",
         marginBottom: "20px"
     },
-    buyPayment: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    },
-    buyPaymentPrice: {
-        color: "#00A0AB",
-        fontSize: "30px",
-        fontWeight: "700"
-    },
-    buyPaymentDil: {
-        color: "#00A0AB",
-        fontSize: "14px",
-        fontWeight: "500"
-    },
-    buyPaymentWay: {
-        margin: "28px 0 16px",
-        width: "264px",
-    },
-    buyPaymentChoice: {
-        color: "#2C2C2C",
-        fontSize: "14px",
-        marginBottom: "16px"
-    },
-    buyPaymentList: {
-        display: "block",
-        width: "100%",
-        height: "32px",
-        borderRadius: "8px",
-    },
-    buyPaymentRules: {
-        margin: "16px 0 56px"
-    }
 }))
 
 
 function Buy() {
+
     const raiting = 4
     const classes = useStyles()
-    return (
+
+    return (  
         <MainLayout>
             <Container className={classes.buyContainer}>
                 <Box className={classes.buyProduct}>
@@ -160,24 +168,15 @@ function Buy() {
                     <BuyDelivery other={true}/>
                     <BuyDelivery courier={true}/>
                     <BuyDelivery pickup={true}/>
-                    <div className={classes.buyPayment}>
-                        <h2 className={classes.buyPaymentPrice}>1500 &#8381;</h2>
-                        <h3 className={classes.buyPaymentDil}>С учетом стоимости доставки 500 &#8381;</h3>
-                        <div className={classes.buyPaymentWay}>
-                            <div className={classes.buyPaymentChoice}>Выбор способ оплаты</div>
-                            <select className={classes.buyPaymentList}>
-                                <option className={classes.buyPaymentItem}>Вариант 1</option>
-                                <option className={classes.buyPaymentItem}>Вариант 2</option>
-                                <option className={classes.buyPaymentItem}>Вариант 3</option>
-                            </select>
-                        </div>
-                        <button className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" type="submit">Перейти к оплате</button>
-                        <div className={classes.buyPaymentRules}>Оплачивая заказ вы соглашаетесь с <a href="/">Правилами сервиса</a> и офертой <a href="/">Службы доставки</a></div>
-                    </div>
+                    <SelectBuy/>
                 </Box>
                 <aside className={classes.buyAd}>
-                    <Image src='/img/joker1.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
-                    <Image src='/img/joker2.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
+                    <div className={classes.buyAdItem}>
+                        <Image src='/img/joker1.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
+                    </div>
+                    <div className={classes.buyAdItem}>
+                        <Image src='/img/joker2.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
+                    </div>
                 </aside>
             </Container>
         </MainLayout>
