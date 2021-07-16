@@ -57,7 +57,6 @@ export function modalSubscribers(data, subscribers = 0) {
 
 /* Модальное окно "Подписка" */
 export function modalSubscription(data, subscription = 0) {
-  console.log(subscription);
   return (
     <div className="modal__wrapper_md">
       <div className="modal__block__top">

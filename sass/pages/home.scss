@@ -98,7 +98,7 @@
   height: 100vh;
 }
 
-.rightColoumnContainer{
+.rightColoumnContainer {
   background: $ts;
   z-index: 1;
   position: relative;
@@ -191,18 +191,19 @@
   }
 }
 
-@media (max-width: 430px) {
+/* @media (max-width: 410px) {
   .scrollableOffersHome {
     grid-template-columns: repeat(auto-fill, 172px);
     place-content: center;
   }
-}
+} */
 
-@media (max-width: 372px) {
+/* @media (max-width: 372px) {
   .scrollableOffersHome {
-  grid-template-columns: repeat(auto-fill, 146px);
+    grid-template-columns: repeat(auto-fill, 146px);
+    place-content: center;
   }
-}
+} */
 
 @media (max-width: 350px) {
   .offersTitleHome {

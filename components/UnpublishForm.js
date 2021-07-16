@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Typography, Button, Container, Dialog, Box, CardMedia, makeStyles } from "@material-ui/core";
+import { UnpublishCTX } from '../lib/Context/DialogCTX';
+import { ToRubles, ToFullDate } from "../lib/services";
 
 const useStyles = makeStyles((theme) => ({
     unpublish_form: {
@@ -71,24 +73,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UnpublishForm(data) {
 
+    const { idAd, filteredData } = useContext(UnpublishCTX);
 
-    console.log(data)
+    console.log(filteredData)
 
     const classes = useStyles();
     return (
         <>
-            <Box className={classes.unpublish_form}>
-                <Box className={classes.unpublish_form__item}>
-                    <CardMedia className={classes.unpublish_form__item__img} image='https://source.unsplash.com/random?interior' />
-                    <Typography className={classes.unpublish_form__item__price}>0000 ₽</Typography>
-                    <Typography className={classes.unpublish_form__item__title}>Назван т. (15 с)</Typography>
+            {filteredData.map((item) => 
+                <Box className={classes.unpublish_form}>
+                    <Box className={classes.unpublish_form__item}>
+                        <CardMedia className={classes.unpublish_form__item__img} image='https://source.unsplash.com/random?interior' />
+                        <Typography className={classes.unpublish_form__item__price}>{ToRubles(item.price)}</Typography>
+                        <Typography className={classes.unpublish_form__item__title}>{item.title}</Typography>
+                    </Box>
+                    <Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
+                    <Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
+                    <Button className={classes.unpublish_form__btn}>Продано на Kvik</Button>
+                    <Button className={classes.unpublish_form__btn}>Продано в другом месте</Button>
+                    <Button className={classes.unpublish_form__btn}>Другая причина</Button>
                 </Box>
-                <Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
-                <Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
-                <Button className={classes.unpublish_form__btn}>Продано на Kvik</Button>
-                <Button className={classes.unpublish_form__btn}>Продано в другом месте</Button>
-                <Button className={classes.unpublish_form__btn}>Другая причина</Button>
-            </Box>
+             )}
         </>
     )
 }

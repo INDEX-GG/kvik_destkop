@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper/core";
 import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import Image from "next/image";
+import { useMedia } from '../hooks/useMedia';
 
 SwiperCore.use([Pagination]);
 
@@ -39,6 +40,8 @@ function AdCard_component({ offer }) {
     sold = "sold"
   }
 
+  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+
   return (
     <Link href={`/product/${offer.id}`}>
       <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
@@ -69,7 +72,7 @@ function AdCard_component({ offer }) {
                 {call ? <span href="#" className="card_call"></span> : ''}
               </div>
               <div className="card__top_info_right">
-                <span className="card_compare"></span>
+                {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> :''}
                 {like ? <span className="card_like"></span> : ''}
               </div>
             </div>
@@ -79,8 +82,8 @@ function AdCard_component({ offer }) {
               <div className="card__bottom_info_right">
                 <span className="old__price">{offer.old_price == null ? ' ' : ellipsis(ToRubles(offer.old_price), 15)}</span>
                 <div className="card__bottom_info_right_commercial">
-                  {offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
-                  {offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
+                  {!matchesMobile && offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
+                  {!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
                 </div>
               </div>
               <div className="card__bottom_info_left">
@@ -89,9 +92,9 @@ function AdCard_component({ offer }) {
 
 
             </div>
-            <div className="card__bottom_info_middle">{ellipsis(offer.title, 24)}</div>
+            <div className="card__bottom_info_middle">{offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 24)}</div>
             <div className="card__bottom_info_footer">
-              <div className="card__bottom_info_footer_left">{offer.commercial === 2 ? offer.address : ellipsis(offer.address, 25)}</div>
+              <div className="card__bottom_info_footer_left">{offer.address/* offer.commercial === 2 ? offer.address : ellipsis(offer.address, 25) */}</div>
               <div className="card__bottom_info_footer_right">{ToRusDate(offer.created_at)}</div>
             </div>
           </div>
