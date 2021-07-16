@@ -18,12 +18,14 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         '&>*': {
             marginBottom: theme.spacing(2),
-        }
+        },
+		'&>*:last-child': {
+			marginBottom: 0,
+		},
     },
     input: {
         width: '264px',
     },
-
 }));
 
 const Category = () => {
