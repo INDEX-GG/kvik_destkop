@@ -27,15 +27,8 @@ export function useUser() {
 
   return {
     isAuth,
-    id: userInfo.id,
+    ...userInfo,
     isLoading,
-    username: userInfo.username,
-    photo: userInfo.photo,
-    about: userInfo.about,
-    createdAt: userInfo.createdAt,
-    phone: userInfo.phone,
-    email: userInfo.email,
-    raiting: userInfo.raiting,
     mutateUser
   }
 }

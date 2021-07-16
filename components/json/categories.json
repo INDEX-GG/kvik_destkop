@@ -1,1 +1,1775 @@
-{"category": [{"name": "Недвижимость", "alias": "real_estate", "children": [{"name": "квартиры", "alias": "apartments_kv", "children": [{"name": "Продать", "alias": "sell_apartments", "children": [{"name": "Новостройка", "alias": "new_building", "children": []}, {"name": "Вторичное жилье", "alias": "secondary_housing", "children": []}]}, {"name": "Сдать в аренду", "alias": "rent_apartments", "children": []}]}, {"name": "Комнаты", "alias": "rooms", "children": [{"name": "Продать", "alias": "sell_rooms", "children": []}, {"name": "Сдать в аренду", "alias": "rent_rooms", "children": []}]}, {"name": "дома, дачи и коттеджи", "alias": "houses_and_cottages", "children": [{"name": "Продать", "alias": "sell_houses_and_cottages", "children": []}, {"name": "Сдать в аренду", "alias": "rent_houses_and_cottages", "children": []}]}, {"name": "Коммерческая недвижимость", "alias": "commercial_property_second", "children": [{"name": "Офисное помещение", "alias": "Office_space", "children": [{"name": "Продать", "alias": "sell_office_space ", "children": []}, {"name": "Сдать в аренду", "alias": "rent_office_space", "children": []}]}, {"name": "Торговое помещение", "alias": "commercial_premises_second", "children": [{"name": "Продать", "alias": "sell_commercial_premises", "children": []}, {"name": "Сдать в аренду", "alias": "rent_commercial_premises", "children": []}]}, {"name": "Складское помещение", "alias": "warehouse_space", "children": [{"name": "Продать", "alias": "sell_warehouse_space", "children": []}, {"name": "Сдать в аренду", "alias": "rent_warehouse_space", "children": []}]}, {"name": "Производственное помещение", "alias": "production_room_second", "children": [{"name": "Продать", "alias": "sell_production_room", "children": []}, {"name": "Сдать в аренду", "alias": "rent_production_room", "children": []}]}, {"name": "Помещение свободного назначения", "alias": "free_premises_second", "children": [{"name": "Продать", "alias": "sell_free_premises", "children": []}, {"name": "Сдать в аренду", "alias": "rent_free_premises", "children": []}]}, {"name": "Здание", "alias": "Building_estate", "children": [{"name": "Продать", "alias": "sell_building", "children": []}, {"name": "Сдать в аренду", "alias": "rent_building", "children": []}]}]}, {"name": "Земельные участки", "alias": "land", "children": [{"name": "ИЖС", "alias": "izhs", "children": [{"name": "Продать", "alias": "sell_izhs", "children": []}]}, {"name": "СНТ", "alias": "SNT", "children": [{"name": "Продать", "alias": "sell_SNT", "children": []}]}, {"name": "Сельско_хозяйственные земли", "alias": "AgriculturalLand", "children": [{"name": "Продать", "alias": "sell_agriculturalLand", "children": []}]}, {"name": "Земли коммерческого назначения", "alias": "commercialLand", "children": [{"name": "Продать", "alias": "sell_commercialLand", "children": []}]}]}, {"name": "Гаражи и парковочные места", "alias": "garages_and_parking_spaces_second", "children": [{"name": "Гараж", "alias": "garage", "children": []}, {"name": "Машиноместо", "alias": "parkingPlace", "children": []}]}]}, {"name": "Недвижимость за рубежом", "alias": "Real_estate_abroad", "children": [{"name": "Апартаменты", "alias": "apartments", "children": [{"name": "Продать", "alias": "sell_apartments_abroad", "children": [{"name": "Новостройка", "alias": "new_building_abroad", "children": []}, {"name": "Вторичное жилье", "alias": "secondary_housing_abroad", "children": []}]}, {"name": "Сдать в аренду", "alias": "rent_apartments_abroad", "children": []}]}, {"name": "дома, вилла", "alias": "houses_and_cottages_second", "children": [{"name": "Продать", "alias": "sell_houses_and_cottages_abroad", "children": []}, {"name": "Сдать в аренду", "alias": "rent_houses_and_cottages_abroad", "children": []}]}, {"name": "Коммерческая недвижимость", "alias": "commercial_property", "children": [{"name": "Офисное помещение", "alias": "Office_space_second", "children": [{"name": "Продать", "alias": "sell_office_space_abroad", "children": []}, {"name": "Сдать в аренду", "alias": "rent_office_space_abroad", "children": []}]}, {"name": "Торговое помещение", "alias": "commercial_premises", "children": [{"name": "Продать", "alias": "sell_commercial_premises_abroad", "children": []}, {"name": "Сдать в аренду", "alias": "rent_commercial_premises_abroad", "children": []}]}, {"name": "Складское помещение", "alias": "warehouse_space_second", "children": [{"name": "Продать", "alias": "sell_warehouse_space_abroad", "children": []}, {"name": "Сдать в аренду", "alias": "rent_warehouse_space_abroad", "children": []}]}, {"name": "Производственное помещение", "alias": "production_room", "children": [{"name": "Продать", "alias": "sell_production_room_abroad", "children": []}, {"name": "Сдать в аренду", "alias": "rent_production_room_abroad", "children": []}]}, {"name": "Помещение свободного назначения", "alias": "free_premises", "children": [{"name": "Продать", "alias": "sell_free_premises_abroad", "children": []}, {"name": "Сдать в аренду", "alias": "rent_free_premises_abroad", "children": []}]}, {"name": "Здание", "alias": "Building_second", "children": [{"name": "Продать", "alias": "sell_building_abroad", "children": []}, {"name": "Сдать в аренду", "alias": "rent_building_abroad", "children": []}]}]}, {"name": "Гаражи и парковочные места", "alias": "garages_and_parking_spaces", "children": [{"name": "Гараж", "alias": "garageabroad", "children": []}, {"name": "Машиноместо", "alias": "parkingPlaceabroad", "children": []}]}]}, {"name": "Транспорт", "alias": "transport", "children": [{"name": "Автомобили", "alias": "auto", "children": []}, {"name": "Грузовики и спецтехника", "alias": "trucks_and_special_equipment", "children": [{"name": "Автобусы", "alias": "buses", "children": []}, {"name": "Грузовики", "alias": "trucks", "children": []}, {"name": "Строительная и дорожная техника", "alias": "construction_machinery", "children": []}, {"name": "Тракторы и сельхозтехника", "alias": "Tractors_and_agricultural_machinery", "children": []}, {"name": "Вездеходы", "alias": "ATVs", "children": []}, {"name": "Дом на колесах", "alias": "House_on_wheels", "children": []}]}, {"name": "Мотоциклы и мототехника", "alias": "Motorcycles_and_mototechnics", "children": [{"name": "Мотоциклы", "alias": "Motorcycles", "children": []}, {"name": "Мопеды и скутеры", "alias": "Mopeds_and_scooters", "children": []}, {"name": "Квадроциклы", "alias": "ATVs_kvadro", "children": []}, {"name": "Картинг", "alias": "Karting", "children": []}, {"name": "Мотовездеходы и Багги", "alias": "ATVs_and_Buggy", "children": []}, {"name": "Снегоходы", "alias": "Snowmobiles", "children": []}]}, {"name": "Запчасти и автотовары", "alias": "Parts_and_avto", "children": [{"name": "Автотовары", "alias": "car_goods", "children": []}, {"name": "Прицепы", "alias": "trailers", "children": []}, {"name": "Шины и диски", "alias": "Tires_and_wheels", "children": [{"name": "Шины", "alias": "Tires", "children": []}, {"name": "Диски", "alias": "wheels", "children": []}]}]}, {"name": "Водный транспорт", "alias": "Water_transport", "children": [{"name": "Катера и яхты", "alias": "Boats_and_yachts", "children": []}, {"name": "Гидроциклы", "alias": "Jet_skis", "children": []}, {"name": "Моторные и гребные лодки", "alias": "Motor_boats", "children": []}, {"name": "Аренда катеров и яхт", "alias": "Rent_of_boats_and_yachts", "children": []}, {"name": "Запчасти и аксессуары", "alias": "Parts_and_accessories", "children": []}]}]}, {"name": "Работа", "alias": "job", "children": [{"name": "Вакансии", "alias": "vacancies", "children": []}, {"name": "Резюме", "alias": "summary", "children": []}]}, {"name": "Бытовая электроника", "alias": "Consumer_electronics", "children": [{"name": "Ноутбуки", "alias": "laptops", "children": []}, {"name": "Смартфоны и телефоны", "alias": "Smartphones_and_Phones", "children": [{"name": "Смартфоны", "alias": "Smartphones", "children": []}, {"name": "Телефоны", "alias": "telephones", "children": []}]}, {"name": "Планшеты и электронные книги", "alias": "Tablets_and_e_books", "children": [{"name": "Планшеты", "alias": "Tablets", "children": []}, {"name": "Электронные книги", "alias": "Electronic_books", "children": []}]}, {"name": "Портативная электроника", "alias": "Portable_electronics", "children": [{"name": "Аксессуары для планшетов", "alias": "Tablet_Accessories", "children": []}, {"name": "Аксессуары для смартфонов", "alias": "Smartphone_accessories", "children": []}, {"name": "Виртуальные очки", "alias": "Virtual_glasses", "children": []}, {"name": "Гарнитура, наушники", "alias": "Headset_headphones", "children": []}, {"name": "Запчасти", "alias": "Spare_parts", "children": []}, {"name": "Зарядные устройства, блоки питания", "alias": "Chargers_power_supplies", "children": []}, {"name": "Защитные стекла, пленки", "alias": "Protective_glasses_films", "children": []}, {"name": "Смарт часы и фитнес браслеты", "alias": "Smart_watches_and_fitness_bracelets", "children": []}, {"name": "Умные колонки", "alias": "Smart_speakers", "children": []}, {"name": "Хабы, разветвители, адаптеры", "alias": "Hubs_splitters_adapters", "children": []}, {"name": "Чехлы, сумки, рюкзаки", "alias": "Covers_bags_backpacks", "children": []}]}, {"name": "Запчасти", "alias": "Spare_parts_cat", "children": [{"name": "Дисплеи", "alias": "Displays", "children": []}, {"name": "Корпусы", "alias": "Housings", "children": []}, {"name": "Батареи", "alias": "Batteries", "children": []}, {"name": "Системная плата", "alias": "Motherboard_parts", "children": []}, {"name": "Клавиатура и tuch пады", "alias": "Keyboard_and_tuch_pads", "children": []}, {"name": "Системы охлаждения", "alias": "Cooling_systems", "children": []}, {"name": "Шлейфы и кабели", "alias": "Loops_and_cables", "children": []}]}, {"name": "Компьютеры, комплектующие и периферия", "alias": "Computers_accessories_and_peripherals", "children": [{"name": "Настольные компьютеры", "alias": "Desktop_computers", "children": []}, {"name": "Моноблоки", "alias": "Monoblocks", "children": []}, {"name": "Мониторы", "alias": "Monitors", "children": []}, {"name": "Комплектующие", "alias": "Components", "children": [{"name": "Процессоры", "alias": "Processors_cat", "children": []}, {"name": "Материнские платы", "alias": "motherboards_perif", "children": []}, {"name": "Оперативная память", "alias": "RAM", "children": []}, {"name": "Накопители данных", "alias": "Data_storage", "children": [{"name": "Жесткий диск", "alias": "HDD", "children": []}, {"name": "Компакт диск", "alias": "CD", "children": []}, {"name": "USB Флеш_накопитель", "alias": "Flash_drive", "children": []}, {"name": "Карта памяти", "alias": "Memory_card", "children": []}]}, {"name": "Корпусы", "alias": "Housings_corp", "children": []}, {"name": "Видеокарты", "alias": "Video_cards_componentsss", "children": []}, {"name": "Другое", "alias": "other_comp", "children": []}]}]}, {"name": "Аксессуары для персонального компьютера", "alias": "Personal_Computer_Accessories", "children": []}, {"name": "Серверы и серверное оборудование", "alias": "Servers_and_server_hardware", "children": [{"name": "Серверы", "alias": "Servers", "children": []}, {"name": "Материнские платы для серверов", "alias": "Server_motherboards", "children": []}, {"name": "Контроллеры, адаптеры, модули для серверов", "alias": "Controllers_adapters_modules_for_servers", "children": []}, {"name": "Оперативная память для серверов", "alias": "RAM_for_servers", "children": []}, {"name": "Жесткий диск для серверов", "alias": "Server_hard_drive", "children": []}, {"name": "Корпусы для серверов", "alias": "Server_enclosures", "children": []}]}, {"name": "Программное обеспечение", "alias": "Software", "children": []}, {"name": "Рули, геймпады, джойстики", "alias": "Steering_wheels_gamepads_joysticks", "children": []}, {"name": "Оргтехника и запчасти", "alias": "Office_equipment_and_spare_parts", "children": [{"name": "Принтеры", "alias": "Printers", "children": []}, {"name": "МФУ и сканеры", "alias": "MFPs_and_Scanners", "children": []}, {"name": "Расходные материалы для оргтехник", "alias": "Consumables_for_office_equipment", "children": []}, {"name": "ИБП и сетевые фильтры", "alias": "UPS_and_surge_protectors", "children": []}, {"name": "Плоттеры и резографы", "alias": "Plotters_and_resographs", "children": []}, {"name": "Уничтожители бумаг", "alias": "Paper_shredders", "children": []}, {"name": "Запчасти для оргтехники и картриджей", "alias": "Spare_parts_for_office_equipment_and_cartridges", "children": []}, {"name": "Канцелярия", "alias": "Chancellery", "children": []}, {"name": "Телефония", "alias": "Telephony", "children": []}]}, {"name": "Аудио-видео техника", "alias": "Audio_video_equipment", "children": [{"name": "Портативные колонки", "alias": "Portable_speakers", "children": []}, {"name": "Телевизоры", "alias": "TV_sets_cat2", "children": []}, {"name": "HI-FI техника", "alias": "Hi_Fi_technology", "children": []}, {"name": "Спутниковое и цифровое ТВ", "alias": "Satellite_and_digital_TV", "children": []}, {"name": "Проекторы и экраны", "alias": "Projectors_and_screens", "children": []}, {"name": "Наушники", "alias": "Headphones", "children": []}, {"name": "Аксессуары для телевизоров", "alias": "TV_accessories", "children": []}, {"name": "DVD и Blu-ray плееры", "alias": "DVD_and_Blu_ray", "children": []}]}, {"name": "Фото и видео техника", "alias": "Photo_and_video_equipment", "children": [{"name": "Зеркальные фотоаппарты", "alias": "SLR Cameras", "children": []}, {"name": "Компактные фотоаппарты", "alias": "Compact_Cameras", "children": []}, {"name": "Объективы", "alias": "Lenses", "children": []}, {"name": "Фотовспышки", "alias": "Photo_flashes", "children": []}, {"name": "Аксессуары", "alias": "Accessories_electronics", "children": []}, {"name": "Видеокамеры", "alias": "Camcorders", "children": []}, {"name": "Экшн-камеры", "alias": "ActionCameras", "children": []}, {"name": "Цифровые фоторамки", "alias": "digitalPhotoframes", "children": []}, {"name": "Студийное оборудование", "alias": "Studio_equipment", "children": []}]}, {"name": "Игры, приставки и программы", "alias": "Games_consoles_and_programs", "children": [{"name": "Игры для приставок", "alias": "Games_for_consoles", "children": []}, {"name": "Игровые приставки", "alias": "Gaming_consoles_cat1", "children": []}, {"name": "Компьютерные игры", "alias": "Computer_games", "children": []}, {"name": "Программы", "alias": "Programs", "children": []}]}]}, {"name": "Для дома и дачи", "alias": "for_home_and_d", "children": [{"name": "Бытовая техника", "alias": "Appliances", "children": [{"name": " Для дома", "alias": "For_home", "children": []}, {"name": " Для индивидуального ухода", "alias": "For_personalized_care", "children": []}, {"name": " Для кухни", "alias": "For_kitchen", "children": []}, {"name": " Климатическое оборудование", "alias": "Climatic_equipment", "children": []}, {"name": " Другое", "alias": "Other_ob", "children": []}]}, {"name": "Мебель и интерьер", "alias": "Furniture_and_interior", "children": [{"name": " Диваны и кресла", "alias": "Sofas_and_armchairs", "children": []}, {"name": " Кровати и матрасы", "alias": "Beds_and_mattresses", "children": []}, {"name": " Шкафы и комоды", "alias": "Wardrobes_and_chests_of_drawers", "children": []}, {"name": " Кухонные гарнитуры", "alias": "Kitchen_sets", "children": []}, {"name": " Подставки и тумбы", "alias": "Stands_and_pedestals", "children": []}, {"name": " Компьютерные столы и кресла", "alias": "Computer_tables_and_chairs", "children": []}, {"name": " Столы и стулья", "alias": "Tables_and_chairs", "children": []}, {"name": " Предметы интерьера и искусства", "alias": "Interior_and_art_items", "children": []}, {"name": " Текстиль и ковры", "alias": "Textiles_and_carpets", "children": []}, {"name": " Освещение", "alias": "Lighting", "children": []}, {"name": " Другое", "alias": "Other_light", "children": []}]}, {"name": "Посуда и товары для кухни", "alias": "Dishes_and_goods_for_the_kitchen", "children": [{"name": " Сервировка стола", "alias": "Table_setting", "children": []}, {"name": " Приготовление пищи", "alias": "Cooking_food", "children": []}, {"name": " Хранение продуктов", "alias": "Food_storage", "children": []}, {"name": " Приготовление напитков", "alias": "Preparation_of_drinks", "children": []}, {"name": " Хозяйственные товары", "alias": "Household_goods", "children": []}, {"name": " Кухонные аксессуары", "alias": "Kitchen_accessories", "children": []}, {"name": " Другое", "alias": "Other_acces", "children": []}]}, {"name": "Ремонт и строительство", "alias": "Renovation_and_construction", "children": [{"name": " Двери", "alias": "Doors", "children": []}, {"name": " Инструменты", "alias": "Tools", "children": []}, {"name": " Окна и балконы", "alias": "Windows_and_balconies", "children": []}, {"name": " Потолки", "alias": "Ceilings", "children": []}, {"name": " Стройматериалы", "alias": "Building_materials", "children": []}]}, {"name": "Системы безопасности", "alias": "Security_systems", "children": [{"name": " Видеонаблюдение", "alias": "Video_surveillance", "children": []}, {"name": " Видеоняня", "alias": "Baby_monitor", "children": []}, {"name": " Домофонное оборудование", "alias": "Intercom_equipment", "children": []}, {"name": " Охрано-пожарная сигнализация", "alias": "Security_and_fire_alarm", "children": []}, {"name": " СКУД", "alias": "ACS", "children": []}, {"name": " Сейфы", "alias": "Safes", "children": []}]}, {"name": "Растения и семена", "alias": "Plants_and_seeds", "children": []}, {"name": "Продукты питания", "alias": "Food", "children": []}, {"name": "Садовая техника", "alias": "Gardening_equipment", "children": []}, {"name": "Сантехника и сауна", "alias": "Plumbing_and_sauna", "children": []}, {"name": "Камины и обогреватели", "alias": "Fireplaces_and_heaters", "children": []}, {"name": "Насосы", "alias": "Pumps", "children": []}]}, {"name": "Животные", "alias": "Animals", "children": [{"name": " Кошки", "alias": "Cats", "children": []}, {"name": " Собаки", "alias": "Dogs", "children": []}, {"name": " Птицы", "alias": "Birds", "children": []}, {"name": " С/х животные", "alias": "Agricultural_animals", "children": []}, {"name": " Грызуны", "alias": "Rodents", "children": []}, {"name": " Товары для животных", "alias": "Goods_for_pets", "children": []}, {"name": " Другие", "alias": "Others_animals", "children": []}]}, {"name": "Личные вещи", "alias": "personal_floops", "children": [{"name": "Одежда, обувь, аксессуары", "alias": "Clothes_shoes_accessories", "children": [{"name": " Женская одежда", "alias": "Womens_clothing", "children": []}, {"name": " Мужская одежда", "alias": "Mens_clothing", "children": []}, {"name": " Аксессуары", "alias": "Accessories_flip", "children": []}]}, {"name": "Детская одежда, обувь, аксессуары", "alias": "Childrens_clothing_footwear_accessories", "children": [{"name": " Для девочек", "alias": "For_girls", "children": []}, {"name": " Для мальчиков", "alias": "For_boys", "children": []}, {"name": " Товары для детей, игрушки", "alias": "Goods_for_children_toys", "children": []}]}, {"name": "Часы, украшения", "alias": "Watches_jewelry", "children": [{"name": " Ювелирные изделия", "alias": "Jewelry_clock", "children": []}, {"name": " Часы", "alias": "Clock", "children": []}, {"name": " Бижутерия", "alias": "Jewelry_bushitery", "children": []}]}, {"name": "Красота и здоровье", "alias": "beauty_and_health_cat1", "children": [{"name": " Косметика", "alias": "Cosmetics", "children": []}, {"name": " Парфюмерия", "alias": "Perfumery", "children": []}, {"name": " Приборы и аксессуары", "alias": "Devices_and_accessories", "children": []}, {"name": " Средства гигиены", "alias": "Hygiene_products", "children": []}, {"name": " Средства для волос", "alias": "Hair_products", "children": []}, {"name": " Медицинские изделия", "alias": "Medical_devices", "children": []}]}]}, {"name": "Для бизнеса", "alias": "for_busines", "children": [{"name": "Готовый бизнес", "alias": "Ready_business", "children": [{"name": "Автомойки и автосервисы", "alias": "Car_washes_and_car_services", "children": []}, {"name": "Гостиницы и хостелы", "alias": "Hotels_and_hostels", "children": []}, {"name": "Студии красоты", "alias": "Beauty_studios", "children": []}, {"name": "Торговля", "alias": "Trade", "children": []}, {"name": "Сфера услуг", "alias": "Services_sector", "children": []}, {"name": "Развлечения", "alias": "Entertainment", "children": []}, {"name": "Общественное питание", "alias": "Catering", "children": []}, {"name": "Производство", "alias": "Production", "children": []}, {"name": "Интернет_магазин", "alias": "Online_store", "children": []}, {"name": "Сельское хозяйство", "alias": "Agriculture", "children": []}, {"name": "Строительство", "alias": "Building_archit", "children": []}, {"name": "Франшиза", "alias": "Franchise", "children": []}, {"name": "Другое", "alias": "Other_franshise", "children": []}]}, {"name": "Оборудование для бизнеса", "alias": "Business_equipment", "children": [{"name": "Для магазинов", "alias": "For_shops", "children": []}, {"name": "Для офиса", "alias": "For_office", "children": []}, {"name": "Павильоны и стойки", "alias": "Pavilions_and_stands", "children": []}, {"name": "Для общественного питания", "alias": "For_catering", "children": []}, {"name": "Для индустрии красоты и спорта", "alias": "For_the_beauty_and_sports_industry", "children": []}, {"name": "Для автосервисов", "alias": "For_car_services", "children": []}, {"name": "Промышленное оборудование", "alias": "Industrial_equipment", "children": []}, {"name": "Фермы для майнинга", "alias": "Mining_farms", "children": []}, {"name": "Чистящая и моющая техника", "alias": "Cleaning_and_washing_technique", "children": []}, {"name": "Сценическое оборудование", "alias": "Stage_equipment", "children": []}]}, {"name": "Инвесторам", "alias": "Investors", "children": []}]}, {"name": "Хобби, спорт и отдых", "alias": "Hobbies_sports_and_leisure", "children": [{"name": "Билеты и путешествия", "alias": "Tickets_and_travel", "children": [{"name": "Карты, купоны", "alias": "Cards_coupons", "children": []}, {"name": "Концерты", "alias": "Concerts", "children": []}, {"name": "Путешествия", "alias": "Travels", "children": []}, {"name": "Спорт", "alias": "Sports", "children": []}, {"name": "Театр, опера, балет", "alias": "Theater_opera_ballet", "children": []}, {"name": "Цирк, кино", "alias": "Circus_cinema", "children": []}, {"name": "Шоу, мюзикл", "alias": "Show_musical", "children": []}]}, {"name": "Спорт и отдых", "alias": "Sports_and_recreation", "children": [{"name": "Бильярд и боулинг", "alias": "Billiards_and_bowling", "children": []}, {"name": "Дайвинг и водный спорт", "alias": "Diving_and_water_sports", "children": []}, {"name": "Единоборства", "alias": "Martial_arts", "children": []}, {"name": "Зимние виды спорта", "alias": "Winter_sports", "children": []}, {"name": "Игры с мячом", "alias": "Ball_games", "children": []}, {"name": "Настольные игры", "alias": "Table_games", "children": []}, {"name": "Пейнтбол и страйкбол", "alias": "Paintball_and_airsoft", "children": []}, {"name": "Ролики и скейтбординг", "alias": "Rollers_and_skateboarding", "children": []}, {"name": "Теннис, бадминтон, пинг-понг", "alias": "Tennis_badminton_ping_pong", "children": []}, {"name": "Туризм", "alias": "Tourism", "children": []}, {"name": "Фитнес и тренажёры", "alias": "Fitness_and_exercise_equipment", "children": []}, {"name": "Спортивное питание", "alias": "Sports_nutrition", "children": []}, {"name": "Велосипеды", "alias": "Bicycles", "children": []}]}, {"name": "Книги и журналы", "alias": "Books_and_magazines", "children": [{"name": "Журналы, газеты, брошюры", "alias": "Magazines_newspapers_brochures", "children": []}, {"name": "Книги", "alias": "Books", "children": []}, {"name": "Учебная литература", "alias": "Educational_literature", "children": []}]}, {"name": "Коллекционирование", "alias": "Collecting", "children": [{"name": "Банкноты", "alias": "Banknotes", "children": []}, {"name": "Билеты", "alias": "Tickets", "children": []}, {"name": "Вещи знаменитостей, автографы", "alias": "Celebrity_things_autographs", "children": []}, {"name": "Военные вещи", "alias": "Military_stuff", "children": []}, {"name": "Грампластинки", "alias": "Gramplastinki", "children": []}, {"name": "Документы", "alias": "Documents", "children": []}, {"name": "Жетоны, медали, значки", "alias": "Tokens_medals_badges", "children": []}, {"name": "Игры", "alias": "Games", "children": []}, {"name": "Календари", "alias": "Calendars", "children": []}, {"name": "Картины", "alias": "Paintings", "children": []}, {"name": "Киндер-сюрприз", "alias": "Kinder_Surprise", "children": []}, {"name": "Конверты и почтовые карточки", "alias": "Envelopes_and_postcards", "children": []}, {"name": "Макеты оружия", "alias": "Weapon_layouts", "children": []}, {"name": "Марки", "alias": "Stamps", "children": []}, {"name": "Модели", "alias": "Models", "children": []}, {"name": "Монеты", "alias": "Coins", "children": []}, {"name": "Открытки", "alias": "Postcards", "children": []}, {"name": "Пепельницы, зажигалки", "alias": "Ashtrays_lighters", "children": []}, {"name": "Пластиковые карточки", "alias": "Plastic_cards", "children": []}, {"name": "Спортивные карточки", "alias": "Sports_cards", "children": []}, {"name": "Фотографии, письма", "alias": "Photos_letters", "children": []}, {"name": "Этикетки, бутылки, пробки", "alias": "Labels_bottles_corks", "children": []}, {"name": "Другое", "alias": "Other_labels", "children": []}]}, {"name": "Музыкальные инструменты", "alias": "Musical_instruments", "children": [{"name": "Аккордеоны, гармони, баяны", "alias": "Accordions_harmonies_statements", "children": []}, {"name": "Гитары и другие струнные", "alias": "Guitars_and_other_strings", "children": []}, {"name": "Духовые", "alias": "Wind_instruments", "children": []}, {"name": "Пианино и другие клавишные", "alias": "Pianos_and_other_keyboards", "children": []}, {"name": "Скрипки и другие смычковые", "alias": "Violins_and_other_bows", "children": []}, {"name": "Ударные", "alias": "Drums", "children": []}, {"name": "Для студии и концертов", "alias": "For_studio_and_concerts", "children": []}, {"name": "Аксессуары", "alias": "Accessories_stud", "children": []}, {"name": "Другое", "alias": "Other_mus", "children": []}]}, {"name": "Охота и рыбалка", "alias": "Hunting_and_fishing", "children": [{"name": "Аксессуары и комплектующие", "alias": "Accessories_and_components", "children": []}, {"name": "Рыболовные принадлежности", "alias": "Fishing_equipment", "children": []}, {"name": "Одежда и обувь", "alias": "Clothes_and_footwear", "children": []}, {"name": "Манки", "alias": "Manki", "children": []}, {"name": "Эхолоты", "alias": "Echo_sounders", "children": []}, {"name": "Другое", "alias": "Other_adv", "children": []}]}, {"name": "Хендмейд", "alias": "Handmade", "children": [{"name": "Вышивка", "alias": "Embroidery", "children": []}, {"name": "Вязание", "alias": "Knitting", "children": []}, {"name": "Товары для рукоделия", "alias": "Handicraft", "children": []}, {"name": "Другое", "alias": "Other_hand", "children": []}]}]}, {"name": "Услуги", "alias": "services", "children": [{"name": "IT, интернет, телеком", "alias": "IT_internet_telecom", "children": [{"name": "Создание и продвижение сайтов", "alias": "Website_development_and_promotion", "children": []}, {"name": "Установка и настройка ПО", "alias": "Installing_and_configuring_software", "children": []}, {"name": "Настройка интернета и сетей", "alias": "Setting_up_the_Internet_and_networks", "children": []}, {"name": "Программирование", "alias": "Programming", "children": []}]}, {"name": "Бытовые услуги", "alias": "Domestic_services", "children": [{"name": "Изготовление ключей", "alias": "Production_of_keys", "children": []}, {"name": "Пошив и ремонт одежды", "alias": "Clothing_sewing_and_repair", "children": []}, {"name": "Ремонт часов", "alias": "Watch_repair", "children": []}, {"name": "Химчистка, стирка", "alias": "Dry_cleaning_washing", "children": []}, {"name": "Ювелирные услуги", "alias": "Jewelry_services", "children": []}]}, {"name": "Деловые услуги", "alias": "Business_services", "children": [{"name": "Бухгалтерия, финансы", "alias": "Accounting_finance", "children": []}, {"name": "Консультирование", "alias": "Consulting", "children": []}, {"name": "Набор и коррекция текста", "alias": "Typesetting_and_correcting_text", "children": []}, {"name": "Перевод", "alias": "Transfer", "children": []}, {"name": "Юридические услуги", "alias": "Legal_services", "children": []}]}, {"name": "Красота и здоровье", "alias": "beauty_and_health_cat2", "children": [{"name": "Услуги парикмахера", "alias": "Hairdresser_services", "children": []}, {"name": "Маникюр, педикюр", "alias": "Manicure_pedicure", "children": []}, {"name": "Макияж", "alias": "Makeup", "children": []}, {"name": "Косметология, эпиляция", "alias": "Cosmetology_hair_removal", "children": []}, {"name": "СПА-услуги, здоровье", "alias": "SPA_services_health", "children": []}, {"name": "Тату, пирсинг", "alias": "Tattoo_piercing", "children": []}, {"name": "Другое", "alias": "Other_serv", "children": []}]}, {"name": "Оборудование, производство", "alias": "Equipment_production", "children": [{"name": "Аренда оборудования", "alias": "Equipment_rent", "children": []}, {"name": "Монтаж и обслуживание оборудования", "alias": "Installation_and_maintenance_of_equipment", "children": []}, {"name": "Производство, обработка", "alias": "Production_processing", "children": []}]}, {"name": "Обучение, курсы", "alias": "Training_courses", "children": [{"name": "Предметы школы и ВУЗа", "alias": "School_and_university_subjects", "children": []}, {"name": "Иностранные языки", "alias": "Foreign_languages", "children": []}, {"name": "Вождение", "alias": "Driving", "children": []}, {"name": "Музыка, театр", "alias": "Music_theater", "children": []}, {"name": "Спорт, танцы", "alias": "Sports_dancing", "children": []}, {"name": "Рисование, дизайн, рукоделие", "alias": "Drawing_design_handicraft", "children": []}, {"name": "Профессиональная подготовка", "alias": "Professional_training", "children": []}, {"name": "Детское развитие, логопеды", "alias": "Child_development_speech_therapists", "children": []}]}, {"name": "Реклама, полиграфия", "alias": "Advertising_printing", "children": [{"name": "Маркетинг, реклама, PR", "alias": "Marketing_advertising_PR", "children": []}, {"name": "Полиграфия, дизайн", "alias": "Printing_design", "children": []}]}, {"name": "Ремонт и обслуживание техники", "alias": "Repair_and_maintenance_of_equipment", "children": [{"name": "Телевизоры", "alias": "TV_sets_cat1", "children": []}, {"name": "Мобильные устройства", "alias": "Mobile_devices", "children": []}, {"name": "Мелкая бытовая техника", "alias": "Small_household_appliances", "children": []}, {"name": "Фото, аудио и видеотехника", "alias": "Photo_audio_and_video_equipment", "children": []}, {"name": "Компьютерная техника", "alias": "Computer_technology", "children": []}, {"name": "Игровые приставки", "alias": "Gaming_consoles_cat2", "children": []}, {"name": "Крупная бытовая техника", "alias": "Large_home_appliances", "children": []}]}, {"name": "Транспорт, перевозки", "alias": "Transport_transportation", "children": [{"name": "Автосервис", "alias": "Car_service", "children": []}, {"name": "Аренда авто", "alias": "Rent_a_Car", "children": []}, {"name": "Коммерческие перевозки", "alias": "Commercial_transportation", "children": []}, {"name": "Грузчики", "alias": "Movers", "children": []}, {"name": "Переезды", "alias": "Moving", "children": []}, {"name": "Спецтехника", "alias": "Special_equipment", "children": []}]}, {"name": "Уборка", "alias": "Cleaning", "children": [{"name": "Вывоз мусора", "alias": "Garbage_removal", "children": []}, {"name": "Генеральная уборка", "alias": "spring_cleaning", "children": []}, {"name": "Мойка окон", "alias": "Washing_windows", "children": []}, {"name": "Простая уборка", "alias": "Simple_cleaning", "children": []}, {"name": "Уборка после ремонта", "alias": "Cleaning_after_renovation", "children": []}, {"name": "Чистка ковров", "alias": "Carpet_cleaning", "children": []}, {"name": "Чистка мягкой мебели", "alias": "Cleaning_of_upholstered_furniture", "children": []}]}, {"name": "Курьерские поручения", "alias": "Courier_orders", "children": []}, {"name": "Мастер на час", "alias": "Master_for_an_hour", "children": []}, {"name": "Няни, сиделки", "alias": "Babysitters_nurses", "children": []}, {"name": "Охрана, безопасность", "alias": "Security_safety", "children": []}, {"name": "Питание, кейтеринг", "alias": "Catering_catering", "children": []}, {"name": "Праздники, мероприятия", "alias": "Holidays_events", "children": []}, {"name": "Ремонт, строительство", "alias": "Repair_construction", "children": []}, {"name": "Сад, благоустройство", "alias": "Garden_landscaping", "children": []}, {"name": "Установка техники", "alias": "Installation_of_equipment", "children": []}, {"name": "Уход за животными", "alias": "Animal_care", "children": []}, {"name": "Фото и видеосъёмка", "alias": "Photo_and_video_filming", "children": []}]}]}
+{
+	"category": [{
+		"name": "Недвижимость",
+		"alias": "real_estate",
+		"children": [{
+			"name": "квартиры",
+			"alias": "apartments_kv",
+			"children": [{
+				"name": "Продать",
+				"alias": "sell_apartments",
+				"children": [{
+					"name": "Новостройка",
+					"alias": "new_building",
+					"children": []
+				}, {
+					"name": "Вторичное жилье",
+					"alias": "secondary_housing",
+					"children": []
+				}]
+			}, {
+				"name": "Сдать в аренду",
+				"alias": "rent_apartments",
+				"children": []
+			}]
+		}, {
+			"name": "Комнаты",
+			"alias": "rooms",
+			"children": [{
+				"name": "Продать",
+				"alias": "sell_rooms",
+				"children": []
+			}, {
+				"name": "Сдать в аренду",
+				"alias": "rent_rooms",
+				"children": []
+			}]
+		}, {
+			"name": "дома, дачи и коттеджи",
+			"alias": "houses_and_cottages",
+			"children": [{
+				"name": "Продать",
+				"alias": "sell_houses_and_cottages",
+				"children": []
+			}, {
+				"name": "Сдать в аренду",
+				"alias": "rent_houses_and_cottages",
+				"children": []
+			}]
+		}, {
+			"name": "Коммерческая недвижимость",
+			"alias": "commercial_property_second",
+			"children": [{
+				"name": "Офисное помещение",
+				"alias": "Office_space",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_office_space ",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_office_space",
+					"children": []
+				}]
+			}, {
+				"name": "Торговое помещение",
+				"alias": "commercial_premises_second",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_commercial_premises",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_commercial_premises",
+					"children": []
+				}]
+			}, {
+				"name": "Складское помещение",
+				"alias": "warehouse_space",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_warehouse_space",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_warehouse_space",
+					"children": []
+				}]
+			}, {
+				"name": "Производственное помещение",
+				"alias": "production_room_second",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_production_room",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_production_room",
+					"children": []
+				}]
+			}, {
+				"name": "Помещение свободного назначения",
+				"alias": "free_premises_second",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_free_premises",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_free_premises",
+					"children": []
+				}]
+			}, {
+				"name": "Здание",
+				"alias": "Building_estate",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_building",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_building",
+					"children": []
+				}]
+			}]
+		}, {
+			"name": "Земельные участки",
+			"alias": "land",
+			"children": [{
+				"name": "ИЖС",
+				"alias": "izhs",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_izhs",
+					"children": []
+				}]
+			}, {
+				"name": "СНТ",
+				"alias": "SNT",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_SNT",
+					"children": []
+				}]
+			}, {
+				"name": "Сельско_хозяйственные земли",
+				"alias": "AgriculturalLand",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_agriculturalLand",
+					"children": []
+				}]
+			}, {
+				"name": "Земли коммерческого назначения",
+				"alias": "commercialLand",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_commercialLand",
+					"children": []
+				}]
+			}]
+		}, {
+			"name": "Гаражи и парковочные места",
+			"alias": "garages_and_parking_spaces_second",
+			"children": [{
+				"name": "Гараж",
+				"alias": "garage",
+				"children": []
+			}, {
+				"name": "Машиноместо",
+				"alias": "parkingPlace",
+				"children": []
+			}]
+		}]
+	}, {
+		"name": "Недвижимость за рубежом",
+		"alias": "Real_estate_abroad",
+		"children": [{
+			"name": "Апартаменты",
+			"alias": "apartments",
+			"children": [{
+				"name": "Продать",
+				"alias": "sell_apartments_abroad",
+				"children": [{
+					"name": "Новостройка",
+					"alias": "new_building_abroad",
+					"children": []
+				}, {
+					"name": "Вторичное жилье",
+					"alias": "secondary_housing_abroad",
+					"children": []
+				}]
+			}, {
+				"name": "Сдать в аренду",
+				"alias": "rent_apartments_abroad",
+				"children": []
+			}]
+		}, {
+			"name": "дома, вилла",
+			"alias": "houses_and_cottages_second",
+			"children": [{
+				"name": "Продать",
+				"alias": "sell_houses_and_cottages_abroad",
+				"children": []
+			}, {
+				"name": "Сдать в аренду",
+				"alias": "rent_houses_and_cottages_abroad",
+				"children": []
+			}]
+		}, {
+			"name": "Коммерческая недвижимость",
+			"alias": "commercial_property",
+			"children": [{
+				"name": "Офисное помещение",
+				"alias": "Office_space_second",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_office_space_abroad",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_office_space_abroad",
+					"children": []
+				}]
+			}, {
+				"name": "Торговое помещение",
+				"alias": "commercial_premises",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_commercial_premises_abroad",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_commercial_premises_abroad",
+					"children": []
+				}]
+			}, {
+				"name": "Складское помещение",
+				"alias": "warehouse_space_second",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_warehouse_space_abroad",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_warehouse_space_abroad",
+					"children": []
+				}]
+			}, {
+				"name": "Производственное помещение",
+				"alias": "production_room",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_production_room_abroad",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_production_room_abroad",
+					"children": []
+				}]
+			}, {
+				"name": "Помещение свободного назначения",
+				"alias": "free_premises",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_free_premises_abroad",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_free_premises_abroad",
+					"children": []
+				}]
+			}, {
+				"name": "Здание",
+				"alias": "Building_second",
+				"children": [{
+					"name": "Продать",
+					"alias": "sell_building_abroad",
+					"children": []
+				}, {
+					"name": "Сдать в аренду",
+					"alias": "rent_building_abroad",
+					"children": []
+				}]
+			}]
+		}, {
+			"name": "Гаражи и парковочные места",
+			"alias": "garages_and_parking_spaces",
+			"children": [{
+				"name": "Гараж",
+				"alias": "garageabroad",
+				"children": []
+			}, {
+				"name": "Машиноместо",
+				"alias": "parkingPlaceabroad",
+				"children": []
+			}]
+		}]
+	}, {
+		"name": "Транспорт",
+		"alias": "transport",
+		"children": [{
+			"name": "Автомобили",
+			"alias": "auto",
+			"children": []
+		}, {
+			"name": "Грузовики и спецтехника",
+			"alias": "trucks_and_special_equipment",
+			"children": [{
+				"name": "Автобусы",
+				"alias": "buses",
+				"children": []
+			}, {
+				"name": "Грузовики",
+				"alias": "trucks",
+				"children": []
+			}, {
+				"name": "Строительная и дорожная техника",
+				"alias": "construction_machinery",
+				"children": []
+			}, {
+				"name": "Тракторы и сельхозтехника",
+				"alias": "Tractors_and_agricultural_machinery",
+				"children": []
+			}, {
+				"name": "Вездеходы",
+				"alias": "ATVs",
+				"children": []
+			}, {
+				"name": "Дом на колесах",
+				"alias": "House_on_wheels",
+				"children": []
+			}]
+		}, {
+			"name": "Мотоциклы и мототехника",
+			"alias": "Motorcycles_and_mototechnics",
+			"children": [{
+				"name": "Мотоциклы",
+				"alias": "Motorcycles",
+				"children": []
+			}, {
+				"name": "Мопеды и скутеры",
+				"alias": "Mopeds_and_scooters",
+				"children": []
+			}, {
+				"name": "Квадроциклы",
+				"alias": "ATVs_kvadro",
+				"children": []
+			}, {
+				"name": "Картинг",
+				"alias": "Karting",
+				"children": []
+			}, {
+				"name": "Мотовездеходы и Багги",
+				"alias": "ATVs_and_Buggy",
+				"children": []
+			}, {
+				"name": "Снегоходы",
+				"alias": "Snowmobiles",
+				"children": []
+			}]
+		}, {
+			"name": "Запчасти и автотовары",
+			"alias": "Parts_and_avto",
+			"children": [{
+				"name": "Автотовары",
+				"alias": "car_goods",
+				"children": []
+			}, {
+				"name": "Прицепы",
+				"alias": "trailers",
+				"children": []
+			}, {
+				"name": "Шины и диски",
+				"alias": "Tires_and_wheels",
+				"children": [{
+					"name": "Шины",
+					"alias": "Tires",
+					"children": []
+				}, {
+					"name": "Диски",
+					"alias": "wheels",
+					"children": []
+				}]
+			}]
+		}, {
+			"name": "Водный транспорт",
+			"alias": "Water_transport",
+			"children": [{
+				"name": "Катера и яхты",
+				"alias": "Boats_and_yachts",
+				"children": []
+			}, {
+				"name": "Гидроциклы",
+				"alias": "Jet_skis",
+				"children": []
+			}, {
+				"name": "Моторные и гребные лодки",
+				"alias": "Motor_boats",
+				"children": []
+			}, {
+				"name": "Аренда катеров и яхт",
+				"alias": "Rent_of_boats_and_yachts",
+				"children": []
+			}, {
+				"name": "Запчасти и аксессуары",
+				"alias": "Parts_and_accessories",
+				"children": []
+			}]
+		}]
+	}, {
+		"name": "Работа",
+		"alias": "job",
+		"children": [{
+			"name": "Вакансии",
+			"alias": "vacancies",
+			"children": []
+		}, {
+			"name": "Резюме",
+			"alias": "summary",
+			"children": []
+		}]
+	}, {
+		"name": "Бытовая электроника",
+		"alias": "Consumer_electronics",
+		"children": [{
+			"name": "Ноутбуки",
+			"alias": "laptops",
+			"children": []
+		}, {
+			"name": "Смартфоны и телефоны",
+			"alias": "Smartphones_and_Phones",
+			"children": [{
+				"name": "Смартфоны",
+				"alias": "Smartphones",
+				"children": []
+			}, {
+				"name": "Телефоны",
+				"alias": "telephones",
+				"children": []
+			}]
+		}, {
+			"name": "Планшеты и электронные книги",
+			"alias": "Tablets_and_e_books",
+			"children": [{
+				"name": "Планшеты",
+				"alias": "Tablets",
+				"children": []
+			}, {
+				"name": "Электронные книги",
+				"alias": "Electronic_books",
+				"children": []
+			}]
+		}, {
+			"name": "Портативная электроника",
+			"alias": "Portable_electronics",
+			"children": [{
+				"name": "Аксессуары для планшетов",
+				"alias": "Tablet_Accessories",
+				"children": []
+			}, {
+				"name": "Аксессуары для смартфонов",
+				"alias": "Smartphone_accessories",
+				"children": []
+			}, {
+				"name": "Виртуальные очки",
+				"alias": "Virtual_glasses",
+				"children": []
+			}, {
+				"name": "Гарнитура, наушники",
+				"alias": "Headset_headphones",
+				"children": []
+			}, {
+				"name": "Запчасти",
+				"alias": "Spare_parts",
+				"children": []
+			}, {
+				"name": "Зарядные устройства, блоки питания",
+				"alias": "Chargers_power_supplies",
+				"children": []
+			}, {
+				"name": "Защитные стекла, пленки",
+				"alias": "Protective_glasses_films",
+				"children": []
+			}, {
+				"name": "Смарт часы и фитнес браслеты",
+				"alias": "Smart_watches_and_fitness_bracelets",
+				"children": []
+			}, {
+				"name": "Умные колонки",
+				"alias": "Smart_speakers",
+				"children": []
+			}, {
+				"name": "Хабы, разветвители, адаптеры",
+				"alias": "Hubs_splitters_adapters",
+				"children": []
+			}, {
+				"name": "Чехлы, сумки, рюкзаки",
+				"alias": "Covers_bags_backpacks",
+				"children": []
+			}]
+		}, {
+			"name": "Запчасти",
+			"alias": "Spare_parts_cat",
+			"children": [{
+				"name": "Дисплеи",
+				"alias": "Displays",
+				"children": []
+			}, {
+				"name": "Корпусы",
+				"alias": "Housings",
+				"children": []
+			}, {
+				"name": "Батареи",
+				"alias": "Batteries",
+				"children": []
+			}, {
+				"name": "Системная плата",
+				"alias": "Motherboard_parts",
+				"children": []
+			}, {
+				"name": "Клавиатура и tuch пады",
+				"alias": "Keyboard_and_tuch_pads",
+				"children": []
+			}, {
+				"name": "Системы охлаждения",
+				"alias": "Cooling_systems",
+				"children": []
+			}, {
+				"name": "Шлейфы и кабели",
+				"alias": "Loops_and_cables",
+				"children": []
+			}]
+		}, {
+			"name": "Компьютеры, комплектующие и периферия",
+			"alias": "Computers_accessories_and_peripherals",
+			"children": [{
+				"name": "Настольные компьютеры",
+				"alias": "Desktop_computers",
+				"children": []
+			}, {
+				"name": "Моноблоки",
+				"alias": "Monoblocks",
+				"children": []
+			}, {
+				"name": "Мониторы",
+				"alias": "Monitors",
+				"children": []
+			}, {
+				"name": "Комплектующие",
+				"alias": "Components",
+				"children": [{
+					"name": "Процессоры",
+					"alias": "Processors_cat",
+					"children": []
+				}, {
+					"name": "Материнские платы",
+					"alias": "motherboards_perif",
+					"children": []
+				}, {
+					"name": "Оперативная память",
+					"alias": "RAM",
+					"children": []
+				}, {
+					"name": "Накопители данных",
+					"alias": "Data_storage",
+					"children": [{
+						"name": "Жесткий диск",
+						"alias": "HDD",
+						"children": []
+					}, {
+						"name": "Компакт диск",
+						"alias": "CD",
+						"children": []
+					}, {
+						"name": "USB Флеш_накопитель",
+						"alias": "Flash_drive",
+						"children": []
+					}, {
+						"name": "Карта памяти",
+						"alias": "Memory_card",
+						"children": []
+					}]
+				}, {
+					"name": "Корпусы",
+					"alias": "Housings_corp",
+					"children": []
+				}, {
+					"name": "Видеокарты",
+					"alias": "Video_cards_componentsss",
+					"children": []
+				}, {
+					"name": "Другое",
+					"alias": "other_comp",
+					"children": []
+				}]
+			}]
+		}, {
+			"name": "Аксессуары для персонального компьютера",
+			"alias": "Personal_Computer_Accessories",
+			"children": []
+		}, {
+			"name": "Серверы и серверное оборудование",
+			"alias": "Servers_and_server_hardware",
+			"children": [{
+				"name": "Серверы",
+				"alias": "Servers",
+				"children": []
+			}, {
+				"name": "Материнские платы для серверов",
+				"alias": "Server_motherboards",
+				"children": []
+			}, {
+				"name": "Контроллеры, адаптеры, модули для серверов",
+				"alias": "Controllers_adapters_modules_for_servers",
+				"children": []
+			}, {
+				"name": "Оперативная память для серверов",
+				"alias": "RAM_for_servers",
+				"children": []
+			}, {
+				"name": "Жесткий диск для серверов",
+				"alias": "Server_hard_drive",
+				"children": []
+			}, {
+				"name": "Корпусы для серверов",
+				"alias": "Server_enclosures",
+				"children": []
+			}]
+		}, {
+			"name": "Программное обеспечение",
+			"alias": "Software",
+			"children": []
+		}, {
+			"name": "Рули, геймпады, джойстики",
+			"alias": "Steering_wheels_gamepads_joysticks",
+			"children": []
+		}, {
+			"name": "Оргтехника и запчасти",
+			"alias": "Office_equipment_and_spare_parts",
+			"children": [{
+				"name": "Принтеры",
+				"alias": "Printers",
+				"children": []
+			}, {
+				"name": "МФУ и сканеры",
+				"alias": "MFPs_and_Scanners",
+				"children": []
+			}, {
+				"name": "Расходные материалы для оргтехник",
+				"alias": "Consumables_for_office_equipment",
+				"children": []
+			}, {
+				"name": "ИБП и сетевые фильтры",
+				"alias": "UPS_and_surge_protectors",
+				"children": []
+			}, {
+				"name": "Плоттеры и резографы",
+				"alias": "Plotters_and_resographs",
+				"children": []
+			}, {
+				"name": "Уничтожители бумаг",
+				"alias": "Paper_shredders",
+				"children": []
+			}, {
+				"name": "Запчасти для оргтехники и картриджей",
+				"alias": "Spare_parts_for_office_equipment_and_cartridges",
+				"children": []
+			}, {
+				"name": "Канцелярия",
+				"alias": "Chancellery",
+				"children": []
+			}, {
+				"name": "Телефония",
+				"alias": "Telephony",
+				"children": []
+			}]
+		}, {
+			"name": "Аудио-видео техника",
+			"alias": "Audio_video_equipment",
+			"children": [{
+				"name": "Портативные колонки",
+				"alias": "Portable_speakers",
+				"children": []
+			}, {
+				"name": "Телевизоры",
+				"alias": "TV_sets_cat2",
+				"children": []
+			}, {
+				"name": "HI-FI техника",
+				"alias": "Hi_Fi_technology",
+				"children": []
+			}, {
+				"name": "Спутниковое и цифровое ТВ",
+				"alias": "Satellite_and_digital_TV",
+				"children": []
+			}, {
+				"name": "Проекторы и экраны",
+				"alias": "Projectors_and_screens",
+				"children": []
+			}, {
+				"name": "Наушники",
+				"alias": "Headphones",
+				"children": []
+			}, {
+				"name": "Аксессуары для телевизоров",
+				"alias": "TV_accessories",
+				"children": []
+			}, {
+				"name": "DVD и Blu-ray плееры",
+				"alias": "DVD_and_Blu_ray",
+				"children": []
+			}]
+		}, {
+			"name": "Фото и видео техника",
+			"alias": "Photo_and_video_equipment",
+			"children": [{
+				"name": "Зеркальные фотоаппарты",
+				"alias": "SLR Cameras",
+				"children": []
+			}, {
+				"name": "Компактные фотоаппарты",
+				"alias": "Compact_Cameras",
+				"children": []
+			}, {
+				"name": "Объективы",
+				"alias": "Lenses",
+				"children": []
+			}, {
+				"name": "Фотовспышки",
+				"alias": "Photo_flashes",
+				"children": []
+			}, {
+				"name": "Аксессуары",
+				"alias": "Accessories_electronics",
+				"children": []
+			}, {
+				"name": "Видеокамеры",
+				"alias": "Camcorders",
+				"children": []
+			}, {
+				"name": "Экшн-камеры",
+				"alias": "ActionCameras",
+				"children": []
+			}, {
+				"name": "Цифровые фоторамки",
+				"alias": "digitalPhotoframes",
+				"children": []
+			}, {
+				"name": "Студийное оборудование",
+				"alias": "Studio_equipment",
+				"children": []
+			}]
+		}, {
+			"name": "Игры, приставки и программы",
+			"alias": "Games_consoles_and_programs",
+			"children": [{
+				"name": "Игры для приставок",
+				"alias": "Games_for_consoles",
+				"children": []
+			}, {
+				"name": "Игровые приставки",
+				"alias": "Gaming_consoles_cat1",
+				"children": []
+			}, {
+				"name": "Компьютерные игры",
+				"alias": "Computer_games",
+				"children": []
+			}, {
+				"name": "Программы",
+				"alias": "Programs",
+				"children": []
+			}]
+		}]
+	}, {
+		"name": "Для дома и дачи",
+		"alias": "for_home_and_d",
+		"children": [{
+			"name": "Бытовая техника",
+			"alias": "Appliances",
+			"children": [{
+				"name": " Для дома",
+				"alias": "For_home",
+				"children": []
+			}, {
+				"name": " Для индивидуального ухода",
+				"alias": "For_personalized_care",
+				"children": []
+			}, {
+				"name": " Для кухни",
+				"alias": "For_kitchen",
+				"children": []
+			}, {
+				"name": " Климатическое оборудование",
+				"alias": "Climatic_equipment",
+				"children": []
+			}, {
+				"name": " Другое",
+				"alias": "Other_ob",
+				"children": []
+			}]
+		}, {
+			"name": "Мебель и интерьер",
+			"alias": "Furniture_and_interior",
+			"children": [{
+				"name": " Диваны и кресла",
+				"alias": "Sofas_and_armchairs",
+				"children": []
+			}, {
+				"name": " Кровати и матрасы",
+				"alias": "Beds_and_mattresses",
+				"children": []
+			}, {
+				"name": " Шкафы и комоды",
+				"alias": "Wardrobes_and_chests_of_drawers",
+				"children": []
+			}, {
+				"name": " Кухонные гарнитуры",
+				"alias": "Kitchen_sets",
+				"children": []
+			}, {
+				"name": " Подставки и тумбы",
+				"alias": "Stands_and_pedestals",
+				"children": []
+			}, {
+				"name": " Компьютерные столы и кресла",
+				"alias": "Computer_tables_and_chairs",
+				"children": []
+			}, {
+				"name": " Столы и стулья",
+				"alias": "Tables_and_chairs",
+				"children": []
+			}, {
+				"name": " Предметы интерьера и искусства",
+				"alias": "Interior_and_art_items",
+				"children": []
+			}, {
+				"name": " Текстиль и ковры",
+				"alias": "Textiles_and_carpets",
+				"children": []
+			}, {
+				"name": " Освещение",
+				"alias": "Lighting",
+				"children": []
+			}, {
+				"name": " Другое",
+				"alias": "Other_light",
+				"children": []
+			}]
+		}, {
+			"name": "Посуда и товары для кухни",
+			"alias": "Dishes_and_goods_for_the_kitchen",
+			"children": [{
+				"name": " Сервировка стола",
+				"alias": "Table_setting",
+				"children": []
+			}, {
+				"name": " Приготовление пищи",
+				"alias": "Cooking_food",
+				"children": []
+			}, {
+				"name": " Хранение продуктов",
+				"alias": "Food_storage",
+				"children": []
+			}, {
+				"name": " Приготовление напитков",
+				"alias": "Preparation_of_drinks",
+				"children": []
+			}, {
+				"name": " Хозяйственные товары",
+				"alias": "Household_goods",
+				"children": []
+			}, {
+				"name": " Кухонные аксессуары",
+				"alias": "Kitchen_accessories",
+				"children": []
+			}, {
+				"name": " Другое",
+				"alias": "Other_acces",
+				"children": []
+			}]
+		}, {
+			"name": "Ремонт и строительство",
+			"alias": "Renovation_and_construction",
+			"children": [{
+				"name": " Двери",
+				"alias": "Doors",
+				"children": []
+			}, {
+				"name": " Инструменты",
+				"alias": "Tools",
+				"children": []
+			}, {
+				"name": " Окна и балконы",
+				"alias": "Windows_and_balconies",
+				"children": []
+			}, {
+				"name": " Потолки",
+				"alias": "Ceilings",
+				"children": []
+			}, {
+				"name": " Стройматериалы",
+				"alias": "Building_materials",
+				"children": []
+			}]
+		}, {
+			"name": "Системы безопасности",
+			"alias": "Security_systems",
+			"children": [{
+				"name": " Видеонаблюдение",
+				"alias": "Video_surveillance",
+				"children": []
+			}, {
+				"name": " Видеоняня",
+				"alias": "Baby_monitor",
+				"children": []
+			}, {
+				"name": " Домофонное оборудование",
+				"alias": "Intercom_equipment",
+				"children": []
+			}, {
+				"name": " Охрано-пожарная сигнализация",
+				"alias": "Security_and_fire_alarm",
+				"children": []
+			}, {
+				"name": " СКУД",
+				"alias": "ACS",
+				"children": []
+			}, {
+				"name": " Сейфы",
+				"alias": "Safes",
+				"children": []
+			}]
+		}, {
+			"name": "Растения и семена",
+			"alias": "Plants_and_seeds",
+			"children": []
+		}, {
+			"name": "Продукты питания",
+			"alias": "Food",
+			"children": []
+		}, {
+			"name": "Садовая техника",
+			"alias": "Gardening_equipment",
+			"children": []
+		}, {
+			"name": "Сантехника и сауна",
+			"alias": "Plumbing_and_sauna",
+			"children": []
+		}, {
+			"name": "Камины и обогреватели",
+			"alias": "Fireplaces_and_heaters",
+			"children": []
+		}, {
+			"name": "Насосы",
+			"alias": "Pumps",
+			"children": []
+		}]
+	}, {
+		"name": "Животные",
+		"alias": "Animals",
+		"children": [{
+			"name": " Кошки",
+			"alias": "Cats",
+			"children": []
+		}, {
+			"name": " Собаки",
+			"alias": "Dogs",
+			"children": []
+		}, {
+			"name": " Птицы",
+			"alias": "Birds",
+			"children": []
+		}, {
+			"name": " С/х животные",
+			"alias": "Agricultural_animals",
+			"children": []
+		}, {
+			"name": " Грызуны",
+			"alias": "Rodents",
+			"children": []
+		}, {
+			"name": " Товары для животных",
+			"alias": "Goods_for_pets",
+			"children": []
+		}, {
+			"name": " Другие",
+			"alias": "Others_animals",
+			"children": []
+		}]
+	}, {
+		"name": "Личные вещи",
+		"alias": "personal_floops",
+		"children": [{
+			"name": "Одежда, обувь, аксессуары",
+			"alias": "Clothes_shoes_accessories",
+			"children": [{
+				"name": " Женская одежда",
+				"alias": "Womens_clothing",
+				"children": []
+			}, {
+				"name": " Мужская одежда",
+				"alias": "Mens_clothing",
+				"children": []
+			}, {
+				"name": " Аксессуары",
+				"alias": "Accessories_flip",
+				"children": []
+			}]
+		}, {
+			"name": "Детская одежда, обувь, аксессуары",
+			"alias": "Childrens_clothing_footwear_accessories",
+			"children": [{
+				"name": " Для девочек",
+				"alias": "For_girls",
+				"children": []
+			}, {
+				"name": " Для мальчиков",
+				"alias": "For_boys",
+				"children": []
+			}, {
+				"name": " Товары для детей, игрушки",
+				"alias": "Goods_for_children_toys",
+				"children": []
+			}]
+		}, {
+			"name": "Часы, украшения",
+			"alias": "Watches_jewelry",
+			"children": [{
+				"name": " Ювелирные изделия",
+				"alias": "Jewelry_clock",
+				"children": []
+			}, {
+				"name": " Часы",
+				"alias": "Clock",
+				"children": []
+			}, {
+				"name": " Бижутерия",
+				"alias": "Jewelry_bushitery",
+				"children": []
+			}]
+		}, {
+			"name": "Красота и здоровье",
+			"alias": "beauty_and_health_cat1",
+			"children": [{
+				"name": " Косметика",
+				"alias": "Cosmetics",
+				"children": []
+			}, {
+				"name": " Парфюмерия",
+				"alias": "Perfumery",
+				"children": []
+			}, {
+				"name": " Приборы и аксессуары",
+				"alias": "Devices_and_accessories",
+				"children": []
+			}, {
+				"name": " Средства гигиены",
+				"alias": "Hygiene_products",
+				"children": []
+			}, {
+				"name": " Средства для волос",
+				"alias": "Hair_products",
+				"children": []
+			}, {
+				"name": " Медицинские изделия",
+				"alias": "Medical_devices",
+				"children": []
+			}]
+		}]
+	}, {
+		"name": "Для бизнеса",
+		"alias": "for_busines",
+		"children": [{
+			"name": "Готовый бизнес",
+			"alias": "Ready_business",
+			"children": [{
+				"name": "Автомойки и автосервисы",
+				"alias": "Car_washes_and_car_services",
+				"children": []
+			}, {
+				"name": "Гостиницы и хостелы",
+				"alias": "Hotels_and_hostels",
+				"children": []
+			}, {
+				"name": "Студии красоты",
+				"alias": "Beauty_studios",
+				"children": []
+			}, {
+				"name": "Торговля",
+				"alias": "Trade",
+				"children": []
+			}, {
+				"name": "Сфера услуг",
+				"alias": "Services_sector",
+				"children": []
+			}, {
+				"name": "Развлечения",
+				"alias": "Entertainment",
+				"children": []
+			}, {
+				"name": "Общественное питание",
+				"alias": "Catering",
+				"children": []
+			}, {
+				"name": "Производство",
+				"alias": "Production",
+				"children": []
+			}, {
+				"name": "Интернет_магазин",
+				"alias": "Online_store",
+				"children": []
+			}, {
+				"name": "Сельское хозяйство",
+				"alias": "Agriculture",
+				"children": []
+			}, {
+				"name": "Строительство",
+				"alias": "Building_archit",
+				"children": []
+			}, {
+				"name": "Франшиза",
+				"alias": "Franchise",
+				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "Other_franshise",
+				"children": []
+			}]
+		}, {
+			"name": "Оборудование для бизнеса",
+			"alias": "Business_equipment",
+			"children": [{
+				"name": "Для магазинов",
+				"alias": "For_shops",
+				"children": []
+			}, {
+				"name": "Для офиса",
+				"alias": "For_office",
+				"children": []
+			}, {
+				"name": "Павильоны и стойки",
+				"alias": "Pavilions_and_stands",
+				"children": []
+			}, {
+				"name": "Для общественного питания",
+				"alias": "For_catering",
+				"children": []
+			}, {
+				"name": "Для индустрии красоты и спорта",
+				"alias": "For_the_beauty_and_sports_industry",
+				"children": []
+			}, {
+				"name": "Для автосервисов",
+				"alias": "For_car_services",
+				"children": []
+			}, {
+				"name": "Промышленное оборудование",
+				"alias": "Industrial_equipment",
+				"children": []
+			}, {
+				"name": "Фермы для майнинга",
+				"alias": "Mining_farms",
+				"children": []
+			}, {
+				"name": "Чистящая и моющая техника",
+				"alias": "Cleaning_and_washing_technique",
+				"children": []
+			}, {
+				"name": "Сценическое оборудование",
+				"alias": "Stage_equipment",
+				"children": []
+			}]
+		}, {
+			"name": "Инвесторам",
+			"alias": "Investors",
+			"children": []
+		}]
+	}, {
+		"name": "Хобби, спорт и отдых",
+		"alias": "Hobbies_sports_and_leisure",
+		"children": [{
+			"name": "Билеты и путешествия",
+			"alias": "Tickets_and_travel",
+			"children": [{
+				"name": "Карты, купоны",
+				"alias": "Cards_coupons",
+				"children": []
+			}, {
+				"name": "Концерты",
+				"alias": "Concerts",
+				"children": []
+			}, {
+				"name": "Путешествия",
+				"alias": "Travels",
+				"children": []
+			}, {
+				"name": "Спорт",
+				"alias": "Sports",
+				"children": []
+			}, {
+				"name": "Театр, опера, балет",
+				"alias": "Theater_opera_ballet",
+				"children": []
+			}, {
+				"name": "Цирк, кино",
+				"alias": "Circus_cinema",
+				"children": []
+			}, {
+				"name": "Шоу, мюзикл",
+				"alias": "Show_musical",
+				"children": []
+			}]
+		}, {
+			"name": "Спорт и отдых",
+			"alias": "Sports_and_recreation",
+			"children": [{
+				"name": "Бильярд и боулинг",
+				"alias": "Billiards_and_bowling",
+				"children": []
+			}, {
+				"name": "Дайвинг и водный спорт",
+				"alias": "Diving_and_water_sports",
+				"children": []
+			}, {
+				"name": "Единоборства",
+				"alias": "Martial_arts",
+				"children": []
+			}, {
+				"name": "Зимние виды спорта",
+				"alias": "Winter_sports",
+				"children": []
+			}, {
+				"name": "Игры с мячом",
+				"alias": "Ball_games",
+				"children": []
+			}, {
+				"name": "Настольные игры",
+				"alias": "Table_games",
+				"children": []
+			}, {
+				"name": "Пейнтбол и страйкбол",
+				"alias": "Paintball_and_airsoft",
+				"children": []
+			}, {
+				"name": "Ролики и скейтбординг",
+				"alias": "Rollers_and_skateboarding",
+				"children": []
+			}, {
+				"name": "Теннис, бадминтон, пинг-понг",
+				"alias": "Tennis_badminton_ping_pong",
+				"children": []
+			}, {
+				"name": "Туризм",
+				"alias": "Tourism",
+				"children": []
+			}, {
+				"name": "Фитнес и тренажёры",
+				"alias": "Fitness_and_exercise_equipment",
+				"children": []
+			}, {
+				"name": "Спортивное питание",
+				"alias": "Sports_nutrition",
+				"children": []
+			}, {
+				"name": "Велосипеды",
+				"alias": "Bicycles",
+				"children": []
+			}]
+		}, {
+			"name": "Книги и журналы",
+			"alias": "Books_and_magazines",
+			"children": [{
+				"name": "Журналы, газеты, брошюры",
+				"alias": "Magazines_newspapers_brochures",
+				"children": []
+			}, {
+				"name": "Книги",
+				"alias": "Books",
+				"children": []
+			}, {
+				"name": "Учебная литература",
+				"alias": "Educational_literature",
+				"children": []
+			}]
+		}, {
+			"name": "Коллекционирование",
+			"alias": "Collecting",
+			"children": [{
+				"name": "Банкноты",
+				"alias": "Banknotes",
+				"children": []
+			}, {
+				"name": "Билеты",
+				"alias": "Tickets",
+				"children": []
+			}, {
+				"name": "Вещи знаменитостей, автографы",
+				"alias": "Celebrity_things_autographs",
+				"children": []
+			}, {
+				"name": "Военные вещи",
+				"alias": "Military_stuff",
+				"children": []
+			}, {
+				"name": "Грампластинки",
+				"alias": "Gramplastinki",
+				"children": []
+			}, {
+				"name": "Документы",
+				"alias": "Documents",
+				"children": []
+			}, {
+				"name": "Жетоны, медали, значки",
+				"alias": "Tokens_medals_badges",
+				"children": []
+			}, {
+				"name": "Игры",
+				"alias": "Games",
+				"children": []
+			}, {
+				"name": "Календари",
+				"alias": "Calendars",
+				"children": []
+			}, {
+				"name": "Картины",
+				"alias": "Paintings",
+				"children": []
+			}, {
+				"name": "Киндер-сюрприз",
+				"alias": "Kinder_Surprise",
+				"children": []
+			}, {
+				"name": "Конверты и почтовые карточки",
+				"alias": "Envelopes_and_postcards",
+				"children": []
+			}, {
+				"name": "Макеты оружия",
+				"alias": "Weapon_layouts",
+				"children": []
+			}, {
+				"name": "Марки",
+				"alias": "Stamps",
+				"children": []
+			}, {
+				"name": "Модели",
+				"alias": "Models",
+				"children": []
+			}, {
+				"name": "Монеты",
+				"alias": "Coins",
+				"children": []
+			}, {
+				"name": "Открытки",
+				"alias": "Postcards",
+				"children": []
+			}, {
+				"name": "Пепельницы, зажигалки",
+				"alias": "Ashtrays_lighters",
+				"children": []
+			}, {
+				"name": "Пластиковые карточки",
+				"alias": "Plastic_cards",
+				"children": []
+			}, {
+				"name": "Спортивные карточки",
+				"alias": "Sports_cards",
+				"children": []
+			}, {
+				"name": "Фотографии, письма",
+				"alias": "Photos_letters",
+				"children": []
+			}, {
+				"name": "Этикетки, бутылки, пробки",
+				"alias": "Labels_bottles_corks",
+				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "Other_labels",
+				"children": []
+			}]
+		}, {
+			"name": "Музыкальные инструменты",
+			"alias": "Musical_instruments",
+			"children": [{
+				"name": "Аккордеоны, гармони, баяны",
+				"alias": "Accordions_harmonies_statements",
+				"children": []
+			}, {
+				"name": "Гитары и другие струнные",
+				"alias": "Guitars_and_other_strings",
+				"children": []
+			}, {
+				"name": "Духовые",
+				"alias": "Wind_instruments",
+				"children": []
+			}, {
+				"name": "Пианино и другие клавишные",
+				"alias": "Pianos_and_other_keyboards",
+				"children": []
+			}, {
+				"name": "Скрипки и другие смычковые",
+				"alias": "Violins_and_other_bows",
+				"children": []
+			}, {
+				"name": "Ударные",
+				"alias": "Drums",
+				"children": []
+			}, {
+				"name": "Для студии и концертов",
+				"alias": "For_studio_and_concerts",
+				"children": []
+			}, {
+				"name": "Аксессуары",
+				"alias": "Accessories_stud",
+				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "Other_mus",
+				"children": []
+			}]
+		}, {
+			"name": "Охота и рыбалка",
+			"alias": "Hunting_and_fishing",
+			"children": [{
+				"name": "Аксессуары и комплектующие",
+				"alias": "Accessories_and_components",
+				"children": []
+			}, {
+				"name": "Рыболовные принадлежности",
+				"alias": "Fishing_equipment",
+				"children": []
+			}, {
+				"name": "Одежда и обувь",
+				"alias": "Clothes_and_footwear",
+				"children": []
+			}, {
+				"name": "Манки",
+				"alias": "Manki",
+				"children": []
+			}, {
+				"name": "Эхолоты",
+				"alias": "Echo_sounders",
+				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "Other_adv",
+				"children": []
+			}]
+		}, {
+			"name": "Хендмейд",
+			"alias": "Handmade",
+			"children": [{
+				"name": "Вышивка",
+				"alias": "Embroidery",
+				"children": []
+			}, {
+				"name": "Вязание",
+				"alias": "Knitting",
+				"children": []
+			}, {
+				"name": "Товары для рукоделия",
+				"alias": "Handicraft",
+				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "Other_hand",
+				"children": []
+			}]
+		}]
+	}, {
+		"name": "Услуги",
+		"alias": "services",
+		"children": [{
+			"name": "IT, интернет, телеком",
+			"alias": "IT_internet_telecom",
+			"children": [{
+				"name": "Создание и продвижение сайтов",
+				"alias": "Website_development_and_promotion",
+				"children": []
+			}, {
+				"name": "Установка и настройка ПО",
+				"alias": "Installing_and_configuring_software",
+				"children": []
+			}, {
+				"name": "Настройка интернета и сетей",
+				"alias": "Setting_up_the_Internet_and_networks",
+				"children": []
+			}, {
+				"name": "Программирование",
+				"alias": "Programming",
+				"children": []
+			}]
+		}, {
+			"name": "Бытовые услуги",
+			"alias": "Domestic_services",
+			"children": [{
+				"name": "Изготовление ключей",
+				"alias": "Production_of_keys",
+				"children": []
+			}, {
+				"name": "Пошив и ремонт одежды",
+				"alias": "Clothing_sewing_and_repair",
+				"children": []
+			}, {
+				"name": "Ремонт часов",
+				"alias": "Watch_repair",
+				"children": []
+			}, {
+				"name": "Химчистка, стирка",
+				"alias": "Dry_cleaning_washing",
+				"children": []
+			}, {
+				"name": "Ювелирные услуги",
+				"alias": "Jewelry_services",
+				"children": []
+			}]
+		}, {
+			"name": "Деловые услуги",
+			"alias": "Business_services",
+			"children": [{
+				"name": "Бухгалтерия, финансы",
+				"alias": "Accounting_finance",
+				"children": []
+			}, {
+				"name": "Консультирование",
+				"alias": "Consulting",
+				"children": []
+			}, {
+				"name": "Набор и коррекция текста",
+				"alias": "Typesetting_and_correcting_text",
+				"children": []
+			}, {
+				"name": "Перевод",
+				"alias": "Transfer",
+				"children": []
+			}, {
+				"name": "Юридические услуги",
+				"alias": "Legal_services",
+				"children": []
+			}]
+		}, {
+			"name": "Красота и здоровье",
+			"alias": "beauty_and_health_cat2",
+			"children": [{
+				"name": "Услуги парикмахера",
+				"alias": "Hairdresser_services",
+				"children": []
+			}, {
+				"name": "Маникюр, педикюр",
+				"alias": "Manicure_pedicure",
+				"children": []
+			}, {
+				"name": "Макияж",
+				"alias": "Makeup",
+				"children": []
+			}, {
+				"name": "Косметология, эпиляция",
+				"alias": "Cosmetology_hair_removal",
+				"children": []
+			}, {
+				"name": "СПА-услуги, здоровье",
+				"alias": "SPA_services_health",
+				"children": []
+			}, {
+				"name": "Тату, пирсинг",
+				"alias": "Tattoo_piercing",
+				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "Other_serv",
+				"children": []
+			}]
+		}, {
+			"name": "Оборудование, производство",
+			"alias": "Equipment_production",
+			"children": [{
+				"name": "Аренда оборудования",
+				"alias": "Equipment_rent",
+				"children": []
+			}, {
+				"name": "Монтаж и обслуживание оборудования",
+				"alias": "Installation_and_maintenance_of_equipment",
+				"children": []
+			}, {
+				"name": "Производство, обработка",
+				"alias": "Production_processing",
+				"children": []
+			}]
+		}, {
+			"name": "Обучение, курсы",
+			"alias": "Training_courses",
+			"children": [{
+				"name": "Предметы школы и ВУЗа",
+				"alias": "School_and_university_subjects",
+				"children": []
+			}, {
+				"name": "Иностранные языки",
+				"alias": "Foreign_languages",
+				"children": []
+			}, {
+				"name": "Вождение",
+				"alias": "Driving",
+				"children": []
+			}, {
+				"name": "Музыка, театр",
+				"alias": "Music_theater",
+				"children": []
+			}, {
+				"name": "Спорт, танцы",
+				"alias": "Sports_dancing",
+				"children": []
+			}, {
+				"name": "Рисование, дизайн, рукоделие",
+				"alias": "Drawing_design_handicraft",
+				"children": []
+			}, {
+				"name": "Профессиональная подготовка",
+				"alias": "Professional_training",
+				"children": []
+			}, {
+				"name": "Детское развитие, логопеды",
+				"alias": "Child_development_speech_therapists",
+				"children": []
+			}]
+		}, {
+			"name": "Реклама, полиграфия",
+			"alias": "Advertising_printing",
+			"children": [{
+				"name": "Маркетинг, реклама, PR",
+				"alias": "Marketing_advertising_PR",
+				"children": []
+			}, {
+				"name": "Полиграфия, дизайн",
+				"alias": "Printing_design",
+				"children": []
+			}]
+		}, {
+			"name": "Ремонт и обслуживание техники",
+			"alias": "Repair_and_maintenance_of_equipment",
+			"children": [{
+				"name": "Телевизоры",
+				"alias": "TV_sets_cat1",
+				"children": []
+			}, {
+				"name": "Мобильные устройства",
+				"alias": "Mobile_devices",
+				"children": []
+			}, {
+				"name": "Мелкая бытовая техника",
+				"alias": "Small_household_appliances",
+				"children": []
+			}, {
+				"name": "Фото, аудио и видеотехника",
+				"alias": "Photo_audio_and_video_equipment",
+				"children": []
+			}, {
+				"name": "Компьютерная техника",
+				"alias": "Computer_technology",
+				"children": []
+			}, {
+				"name": "Игровые приставки",
+				"alias": "Gaming_consoles_cat2",
+				"children": []
+			}, {
+				"name": "Крупная бытовая техника",
+				"alias": "Large_home_appliances",
+				"children": []
+			}]
+		}, {
+			"name": "Транспорт, перевозки",
+			"alias": "Transport_transportation",
+			"children": [{
+				"name": "Автосервис",
+				"alias": "Car_service",
+				"children": []
+			}, {
+				"name": "Аренда авто",
+				"alias": "Rent_a_Car",
+				"children": []
+			}, {
+				"name": "Коммерческие перевозки",
+				"alias": "Commercial_transportation",
+				"children": []
+			}, {
+				"name": "Грузчики",
+				"alias": "Movers",
+				"children": []
+			}, {
+				"name": "Переезды",
+				"alias": "Moving",
+				"children": []
+			}, {
+				"name": "Спецтехника",
+				"alias": "Special_equipment",
+				"children": []
+			}]
+		}, {
+			"name": "Уборка",
+			"alias": "Cleaning",
+			"children": [{
+				"name": "Вывоз мусора",
+				"alias": "Garbage_removal",
+				"children": []
+			}, {
+				"name": "Генеральная уборка",
+				"alias": "spring_cleaning",
+				"children": []
+			}, {
+				"name": "Мойка окон",
+				"alias": "Washing_windows",
+				"children": []
+			}, {
+				"name": "Простая уборка",
+				"alias": "Simple_cleaning",
+				"children": []
+			}, {
+				"name": "Уборка после ремонта",
+				"alias": "Cleaning_after_renovation",
+				"children": []
+			}, {
+				"name": "Чистка ковров",
+				"alias": "Carpet_cleaning",
+				"children": []
+			}, {
+				"name": "Чистка мягкой мебели",
+				"alias": "Cleaning_of_upholstered_furniture",
+				"children": []
+			}]
+		}, {
+			"name": "Курьерские поручения",
+			"alias": "Courier_orders",
+			"children": []
+		}, {
+			"name": "Мастер на час",
+			"alias": "Master_for_an_hour",
+			"children": []
+		}, {
+			"name": "Няни, сиделки",
+			"alias": "Babysitters_nurses",
+			"children": []
+		}, {
+			"name": "Охрана, безопасность",
+			"alias": "Security_safety",
+			"children": []
+		}, {
+			"name": "Питание, кейтеринг",
+			"alias": "Catering_catering",
+			"children": []
+		}, {
+			"name": "Праздники, мероприятия",
+			"alias": "Holidays_events",
+			"children": []
+		}, {
+			"name": "Ремонт, строительство",
+			"alias": "Repair_construction",
+			"children": []
+		}, {
+			"name": "Сад, благоустройство",
+			"alias": "Garden_landscaping",
+			"children": []
+		}, {
+			"name": "Установка техники",
+			"alias": "Installation_of_equipment",
+			"children": []
+		}, {
+			"name": "Уход за животными",
+			"alias": "Animal_care",
+			"children": []
+		}, {
+			"name": "Фото и видеосъёмка",
+			"alias": "Photo_and_video_filming",
+			"children": []
+		}]
+	}]
+}

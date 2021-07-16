@@ -101,31 +101,25 @@ const Header = ({ category }) => {
             <ExpandMoreIcon />
           </Button>
           <Search />
-
           {isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
             <AddRoundedIcon />
             Подать объявление
           </Button>}
 
-          {!isAuth && (
-            <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">
-              Войти
-            </Button>
-          )}
-          {isAuth &&
-            ((isLoading && <Loader size={32} />) || (
-              <Link href={`/account/${id}`}>
-                <Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>
-                  {username.initials()}
-                </Avatar>
-              </Link>
-            ))}
+			
+
+			{!isAuth && <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">
+				Войти
+			</Button>
+			|| isLoading && <Loader size={32} /> || !isLoading &&
+			<Link href={`/account/${id}`}>
+			<Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>
+				{username.initials()}
+			</Avatar>
+			</Link>}
+
         </Container>
-
-
         {openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}
-
-
         {openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
       </AppBar>
       <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
