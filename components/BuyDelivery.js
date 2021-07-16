@@ -33,9 +33,6 @@ const useStyles = makeStyles(() => ({
         border: "1px solid #000",
         marginRight: "12px",
         marginLeft: "12px",
-        "&:hover": {
-            backgroundColor: "#00A0AB"
-        }
     },
     buyDileveryTitle: {
         fontWeight: "500",
@@ -282,7 +279,7 @@ function BuyDelivery({other, courier, pickup, buy}) {
     if (courier) {
         return (
             <section className={classes.buyDilevery}>
-                <div className={classes.buyDileveryBox} style={{backgroundColor: deliveryOther ? "#E9E9E9" : null}} onClick={() => setDeliveryCourier(!deliveryCourier)}>
+                <div className={classes.buyDileveryBox} style={{backgroundColor: deliveryCourier ? "#E9E9E9" : null}} onClick={() => setDeliveryCourier(!deliveryCourier)}>
                     <div className={classes.buyDileveryInf}>
                         <div className={classes.buyDeliveryName}>
                             <span className={classes.buyDileveryCircle} style={{backgroundColor: deliveryOther ? "#00A0AB" : null}}></span>
