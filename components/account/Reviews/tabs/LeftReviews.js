@@ -34,14 +34,14 @@ function LeftReviews(data) {
                     <img src={`${item.userPic}?${item.id}`} />
                     <div className="small">
                       <div>{item.userName}</div>
-                      <div className="light DatPub__mobile">
+                      <div className="light DatPub__mobile reviewsDate">
                         <spam>Дата публикации</spam> {item.date}
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <div className="RateNumber">{item.rate}</div>
+                    <div className="reveiwsNumber">{item.rate}</div>
                     <StarRating {...{ rating: item.rate }} />
                   </div>
                 </div>

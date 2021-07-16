@@ -60,6 +60,7 @@
 
 .offerDTRight a {
   margin-bottom: 12px;
+  color: #00A0AB
 }
 
 .offerDTRight {
@@ -100,13 +101,13 @@
 .offerSocialCountPos {
   position: absolute;
   right: 15px;
-  bottom: -16px;
+  bottom: 10px;
 }
 
 .offerShowes,
 .offerAddFavores {
   width: 55px;
-  margin: 20px 0px 20px 20px;
+  margin: 20px 0px 0px 20px;
   text-align: left;
   line-height: 24px;
 }
@@ -193,7 +194,7 @@
   }
   .offerSocialCountPos {
     top: 0;
-    left: 0;
+    left: 350px;
   }
 
   .DatPub__mobile span {

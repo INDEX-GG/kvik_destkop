@@ -330,3 +330,13 @@
 .notifDate {
   margin-left: 10px;
 }
+
+
+@media (max-width: 1080px) {
+  .notifContainer{
+    padding: 0px 0px;
+  }
+  .notifWrapper {
+    padding-right: 0px;
+  }
+}

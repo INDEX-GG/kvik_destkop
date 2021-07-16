@@ -5,6 +5,7 @@ import { modalDeletHistory, modalDeleteAccount } from "../../../Modals";
 import { useUser } from "../../../../hooks/useUser";
 import Active_icon from "../../../../UI/icons/ActiveIcon";
 import axios from "axios";
+import useMedia from "../../../../hooks/useMedia"
 
 function PersonalData() {
   const { isAuth, id, phone, username, email } = useUser();
