@@ -66,6 +66,7 @@ model posts{
   description           String
   tags                  String?   @db.VarChar(255)
   price                 Decimal?  @db.Decimal(17, 2)
+  old_price             Int?
   trade                 Boolean?  @default(false)
   photo                 Json?     @db.Json
   video                 String?
@@ -98,6 +99,7 @@ model posts{
   deleted_at            DateTime? @db.Timestamp(0)
   verify                Int?      @default(0)
   date_verify           DateTime? @db.Timestamp(0)
+  
   verify_moderator      Json?
 
 
@@ -346,6 +348,13 @@ model verifed {
 }
 
 model cities{
+  id                    Int @unique
+  name                  String
+  parent_id             Int
+
+}
+
+model districts{
   id                    Int @unique
   name                  String
   parent_id             Int

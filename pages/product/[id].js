@@ -81,14 +81,14 @@ const Product = () => {
         return () => { }
     }, [])
 
-const {name, raiting ,address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator} = useProduct({router});
+    const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
 
-const [userAd, setUserAd] = useState();
-useEffect(() => {
-    axios.post('/api/getProductOfUser', { user_id: user_id })
-        .then((res) => setUserAd(res.data.result))
+    const [userAd, setUserAd] = useState();
+    useEffect(() => {
+        axios.post('/api/getProductOfUser', { user_id: user_id })
+            .then((res) => setUserAd(res.data.result))
         return () => { }
-}, [user_id]);
+    }, [user_id]);
 
 
     return (
@@ -108,7 +108,7 @@ useEffect(() => {
                                         <a className="SellerInfoNote"></a>
                                         <a className="SellerInfoFavorite"></a>
                                     </div>}
-                                <ProductCarousel photo={photo} /> 
+                                <ProductCarousel photo={photo} />
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageAdaptive">
                                     <div className="SellerInfoOldPrice__adaptive">
@@ -144,7 +144,7 @@ useEffect(() => {
                                                 {objP.adstatus === 8 ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
                                             </div>
                                             {objP.adstatus === 1 || objP.adstatus === 8 ? <div className="SellerInfo__adaptive_information">
-                                            {secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
+                                                {secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
                                                 {delivery && (<div className="SellerInfoDelivery superLight">Возможна доставка</div>)}
                                             </div> : ''}
                                             {objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ''}
@@ -167,9 +167,9 @@ useEffect(() => {
                             </div>
                             {/* Блок информации*/}
                             <div className="block__my_active_ad" >
-                                {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction}/>
+                                {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
                                 {/* пользователь и его объявления */}
-                                <ProductUserInfo /* {...objP}*/ name={name} userPhoto={userPhoto} raiting={raiting} userAd={userAd}/>
+                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} userAd={userAd} />
                             </div>
                         </div>
                         {!matchesMobile && !matchesTablet && !matchesLaptop &&

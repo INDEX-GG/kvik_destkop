@@ -21,10 +21,10 @@ function Footer2() {
         </div>
         <div className="linkContainerFooter2">
           <a className='aboutLinkFooter2' href="http://192.168.8.62:3000/about">О компании</a>
-          <a className='contactsLinkFooter2' href="http://192.168.8.62:3000/contacts">Обратная связь</a>
+          <a className='contactsLinkFooter2' href="http://192.168.8.62:3000/contacts">Контакты</a>
           <a className='offerLinkFooter2' href="http://192.168.8.62:3000/offer">Оферта</a>
         </div>
-        <div className='indexTitleFooter2'> <a href=""> Разработано студией INDEX</a></div>
+        <div className='indexTitleFooter2'> <a href="https://vk.com/index_ds"> Разработано студией INDEX</a></div>
       </div>
     </div>
   );

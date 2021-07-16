@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     top: {
 		marginBottom: '15px',
 		display: 'flex',
+		alignItems: 'center',
     },
 	title: {
 		flexGrow: 1,
@@ -52,15 +53,14 @@ const sortItems = [
 	{value: 'remote', label: 'По удалённости'}
 ];
 
-const OffersRender = (data) => {
+const OffersRender = ({data, title}) => {
 	const [state, dispatch] = useReducer(sortReducer, {value: 'default', sorting: byInit})
 	const classes = useStyles();
-	console.log(data.data)
 
 	return (
 		<>
 			<Box className={classes.top}>
-				<Typography  className={classes.title} variant='h2' >{data?.title || 'Рекомендуемое'}</Typography>
+				<Typography  className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
 				<TextField
 					select
 					value={state.value}
@@ -74,7 +74,7 @@ const OffersRender = (data) => {
 				</TextField>
 			</Box>
 			<div className="scrollableOffersHome">
-				{state.sorting(data?.data).map((obj, i) => <AdCard_component key={i} offer={obj} />)}
+				{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
 			</div>
 			<ScrollTop/>
 		</>

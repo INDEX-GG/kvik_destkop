@@ -16,6 +16,7 @@ export default function handler(req, res) {
                         id: true,
                         category_id: true,
                         price: true,
+                        old_price: true,
                         photo: true,
                         rating: true,
                         created_at: true,

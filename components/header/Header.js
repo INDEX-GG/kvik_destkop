@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import { useUser } from "../../hooks/useUser";
-import { AppBar, Avatar, Button, Container, Dialog, IconButton, makeStyles } from "@material-ui/core";
+import { AppBar, Avatar, Button, Container, Box, makeStyles } from "@material-ui/core";
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import Logo from "./Logo";
-import RegForm from "../RegForm";
+import RegForm from "../auth/RegForm";
 import Categories from "./Categories";
 import CategoriesMobile from "./CategoriesMobile";
 import { useMedia } from "../../hooks/useMedia";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Loader from "../../UI/icons/Loader";
+import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
-import HeaderMobile from "./HeaderMobile";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -58,15 +59,24 @@ const useStyles = makeStyles((theme) => ({
     right: "14px",
     height: "100%",
   },
+  categories__back: {
+    width: '100%',
+    minHeight: '110vh',
+    position: 'absolute',
+    left: '0px',
+    top: '0px',
+    zIndex: '0',
+  },
 }));
 
-const Header = ({category}) => {
+const Header = ({ category }) => {
   const { isAuth, id, isLoading, username, photo, mutateUser } = useUser();
   const classes = useStyles();
+
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   const [openCat, setCategories] = useState();
   const [openRegForm, setOpenRegForm] = useState(false);
-  const handleRegFormDialog = () => setOpenRegForm(!openRegForm);
+  const [openLoginForm, setOpenLoginForm] = useState(false);
   const [headerScroll, setHeaderScroll] = useState(classes.header);
   const listenScroll = () => {
     if (scrollY > 0) {
@@ -91,10 +101,12 @@ const Header = ({category}) => {
             <ExpandMoreIcon />
           </Button>
           <Search />
-          <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+
+          {isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
             <AddRoundedIcon />
             Подать объявление
-          </Button>
+          </Button>}
+
           {!isAuth && (
             <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">
               Войти
@@ -109,12 +121,16 @@ const Header = ({category}) => {
               </Link>
             ))}
         </Container>
-        {openCat && !matchesMobile && !matchesTablet && <Categories />}
+
+
+        {openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}
+
+
         {openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
       </AppBar>
-      <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth="sm">
-        <RegForm Close={handleRegFormDialog} />
-      </Dialog>
+      <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
+        <RegForm />
+      </DialogCTX.Provider>
     </>
   );
 };
