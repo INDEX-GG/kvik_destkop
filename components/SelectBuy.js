@@ -21,9 +21,6 @@ const useStyles = makeStyles(() => ({
         color: "#00A0AB",
         fontSize: "14px",
         fontWeight: "500",
-        [theme.breakpoints.down("sm")] : {
-            display: "none"
-        }
     },
     buyPaymentWay: {
         margin: "28px 0 40px",
@@ -42,10 +39,10 @@ const useStyles = makeStyles(() => ({
         borderRadius: "8px",
         fontSize: "14px",
         color:"#2C2C2C",
-        paddingLeft: "65px" 
     },
     buyPaymentRules: {
         margin: "16px 0 56px",
+        textAlign: "center",
         "& > a": {
             color: "#00A0AB",
             textDecoration: "underline"
@@ -55,18 +52,30 @@ const useStyles = makeStyles(() => ({
         position: "absolute",
         top: "36px",
         left: "16px"
+    },
+    buyPaymentButton: {
+        backgroundColor: "#00A0AB",
+        padding: "8px 20px",
+        color: "#fff",
+        borderRadius: "8px",
+        cursor: "pointer",
+        fontWeight: "500",
+        transition: ".2s all linear",
+        "&:hover": {
+            backgroundColor: "#087474"
+        }
     }
 }))
 function SelectBuy() {
 
     const classes = useStyles()
 
-    const [selectImg, setSelectImg] = useState(undefined)
+    const [selectImg, setSelectImg] = useState(false)
 
     function changePayMethod(e) {
 
         if (e.target.value == 0) {
-            setSelectImg(null)
+            setSelectImg(false)
         }
         if (e.target.value == 1) {
             setSelectImg(<Card/>)
@@ -85,15 +94,15 @@ function SelectBuy() {
         <h3 className={classes.buyPaymentDil}>С учетом стоимости доставки 500 &#8381;</h3>
         <div className={classes.buyPaymentWay}>
             <div className={classes.buyPaymentChoice}>Выбор способ оплаты</div>
-            <select className={classes.buyPaymentList} onChange={(e) => changePayMethod(e)}>
+            <select className={classes.buyPaymentList} style={{paddingLeft: selectImg ? "65px": "16px", color: selectImg ? null : "#C7C7C7"}} onChange={(e) => changePayMethod(e)}>
                 <option className={classes.buyPaymentItem} value={0}>Выберите спопсоб оплаты</option>
-                <option className={classes.buyPaymentItem} value={1}>Ванковская карта</option>
+                <option className={classes.buyPaymentItem} value={1}>Банковская карта</option>
                 <option className={classes.buyPaymentItem} value={2}>Вариант 2</option>
                 <option className={classes.buyPaymentItem} value={3}>Вариант 3</option>
             </select>
             <div className={classes.test}>{selectImg}</div>
         </div>
-        <button className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" type="submit">Перейти к оплате</button>
+        <button className={classes.buyPaymentButton} type="submit">Перейти к оплате</button>
         <div className={classes.buyPaymentRules}>Оплачивая заказ вы соглашаетесь с <a href="/">Правилами сервиса</a> и офертой <a href="/">Службы доставки</a></div>
     </div>
     )
