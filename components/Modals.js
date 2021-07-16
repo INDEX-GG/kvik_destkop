@@ -7,7 +7,7 @@ export function modalRating(rate, comments = 0) {
   return (
     <div className="modal__wrapper_md">
       <div className="modal__block__top">
-        <h6 className="modal__block__top_title">Рейтинг и отзывы</h6>
+        <h6 className="modal__block__top_title accountModalTitle">Рейтинг и отзывы</h6>
         <StarRating rating={rate} />
       </div>
       {comments == 0 ? (

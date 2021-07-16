@@ -165,10 +165,7 @@ function Buy() {
                         </div>
                     </section>
                     <h2 className={classes.buyGetTitle}>Выберите способ получения</h2>
-                    <BuyDelivery other={true}/>
-                    <BuyDelivery courier={true}/>
-                    <BuyDelivery pickup={true}/>
-                    <SelectBuy/>
+                    <BuyDelivery/>
                 </Box>
                 <aside className={classes.buyAd}>
                     <div className={classes.buyAdItem}>

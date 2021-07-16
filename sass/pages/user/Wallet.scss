@@ -26,7 +26,7 @@
     float: left;
     width: 200px;
     height: 200px;
-    border-radius: 50% 0 0 0;
+    border-radius: 0 0 0 0;
     object-fit: cover;
     object-position: center;
 }
@@ -109,24 +109,36 @@
     }
 
     .walletStoryItem div:first-child {
-        padding-left: 0; 
+        padding-left: 8px; 
     }
     .walletStoryTitles div:first-child {
-        padding-left: 0; 
+        padding-left: 10px; 
     }
     .walletStoryTitles div:last-child {
-        padding-right: 0;
+        padding-right: 10px;
     }
     .walletStoryItem div:last-child {
-        padding-right: 0;
+        padding-right: 8px;
     }
     .walletStoryContainer{
-        margin: 8px 18px;
+        margin: 8px 12px;
     }
 }
 
 @media (max-width: 750px) {
     .walletInfo {
         margin: 40px 0 0;
+    }
+}
+
+@media (max-width: 430px) {
+    .walletStoryContainer{
+       margin: 8px 0px;
+    }
+    .walletStoryItem > * {
+    font-size: 12px;
+    }
+    .walletStoryTime {
+        display: none;
     }
 }

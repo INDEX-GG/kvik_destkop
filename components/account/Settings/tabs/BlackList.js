@@ -1,5 +1,4 @@
 import React from 'react';
-
 function BlackList(data) {
     return (
     <div className="clientPage__container_bottom">
@@ -19,7 +18,7 @@ function BlackList(data) {
                             <img src={`${item.userPic}?${item.id}`} />
                             <div>
                             <div>{item.username}</div>
-                            <div className="light">Заблокирован {item.date}</div>
+                            <div className="light blockItem">Заблокирован {item.date}</div>
                             </div>
                         </div>
                         <a className="highlight underline">Разблокировать</a>

@@ -72,8 +72,12 @@ function Wait(data) {
 
                   {offer.delete ? <div className="thin">Будет удалено навсегда через 30 дней</div> : null}
 
-                  <div className="thin light small DatPub__mobile">
+                  <div className="thin light small DatPub__mobile offerStats">
                     <span>Дата последнего редактирования:</span> {offer.date}
+                    <div className="offerSocialCount offerSocialCountPos">
+                      <div className="offerShowes showesIcon">0 +0</div>
+                      <div className="offerAddFavores likeIcon">0 +0</div>
+                    </div>
                   </div>
                 </div>
               </div>
