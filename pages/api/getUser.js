@@ -23,7 +23,7 @@ export default function handler(req, res) {
                   phone:true,
                   email:true,
                   raiting:true,
-
+                  favorites:true
                }
 
             })
