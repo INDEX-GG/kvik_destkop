@@ -82,8 +82,6 @@ function Active(data) {
   const checkItem = (offer) => () => {
     setOfferInfo((state) => ({
       ...state,
-
-
      [offer.id]: state[offer.id]
         ? ''
         : {
@@ -91,7 +89,6 @@ function Active(data) {
           title: offer.title,
           verify: 0,
         }
-
     }));
   };
 

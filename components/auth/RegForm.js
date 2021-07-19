@@ -3,9 +3,8 @@ import { Box, Button, Dialog, makeStyles, TextField, Typography } from '@materia
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import InputMask from 'react-input-mask';
 import axios from 'axios';
-import Login from './Login';
+
 import { DialogCTX, RegistrationCTX } from '../../lib/Context/DialogCTX';
 import ConfirmNumber from './ConfirmNumber';
 
@@ -49,18 +48,22 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function PhoneNumberFormat(props) {
-    const { inputRef, ...other } = props;
-    return (
-        <InputMask
-            {...other}
-            ref={(ref) => {
-                inputRef(ref ? ref.inputElement : null);
-            }}
-            mask="+7 (999) 999-99-99"
-            maskChar=''
-        />
-    );
+const phoneMask = e => {
+	let number = e.target.value;
+	// number = number.replace(/[^0-9]/g, '');
+	// const area = number.substr(0, 3),
+	// 	pre = number.substr(3, 3),
+	// 	tel = number.substr(6, 4);
+	// if (area.length === 0) {
+	// 	number = '';
+	// } else if (area.length < 3 || pre.length === 0) {
+	// 	number = `(${area}`;
+	// } else if (area.length === 3 && pre.length < 3 || tel.length === 0) {
+	// 	number = `(${area}) ${pre}`;
+	// } else if (area.length === 3 && pre.length === 3) {
+	// 	number = `(${area}) ${pre}-${tel}`;
+	// }
+	return number;
 }
 
 export default function RegForm() {
@@ -86,14 +89,6 @@ export default function RegForm() {
     return (
 		<>
         <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth="sm">
-
-		
-			{/* <Box className={classes.submitNumber}>
-            <Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
-            <TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>
-            <Button disabled={buttonSubmit} variant='contained' color='primary' onClick={e => handleSubmitNumber(e)}>Подтвердить</Button>
-        	</Box> */}
-
             <Box className={classes.root}>
                 <Box className={classes.reg}>
                     <Typography className={classes.title} variant="h6">Регистрация</Typography>
@@ -140,10 +135,7 @@ export default function RegForm() {
                                     type="tel"
                                     autoComplete="on"
                                     value={value}
-                                    onChange={onChange}
-                                    InputProps={{
-                                        inputComponent: PhoneNumberFormat,
-                                    }}
+                                    onChange={e => onChange(phoneMask(e))}
                                     error={!!error} helperText={error ? error.message : ' '} />
                             )}
                             rules={{ required: 'Введите номер телефона' }}
@@ -195,7 +187,7 @@ export default function RegForm() {
 		<RegistrationCTX.Provider value={{openConfirmNum, setOpenConfirmNum, phoneNum, sendData}}>
 			<ConfirmNumber/>
 		</RegistrationCTX.Provider>
-		<Login/>
+		
 		</>
     );
 }

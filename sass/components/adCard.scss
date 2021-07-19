@@ -140,7 +140,7 @@
             }
         }
     }
-
+    
     &__bottom {
         padding: 2px 12px 12px;
 
@@ -225,6 +225,10 @@
             }
         }
     }
+}
+
+.like-active {
+    background: url(../../icons/new_like_active.svg) center no-repeat !important;
 }
 
 .card__top_slider .swiper-container .swiper-slide {
