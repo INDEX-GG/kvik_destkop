@@ -12,7 +12,7 @@ model users{
   user_type_id            Int?      @db.SmallInt
   gender_id               Int?
   name                    String    @db.VarChar(100)
-  userPhoto                   String?   @db.VarChar(255)
+  userPhoto               String?   @db.VarChar(255)
   about                   String?   @db.VarChar(255)
   phone                   String    @unique @db.VarChar(60)
   phone_hidden            Boolean?  @default(false)
@@ -41,7 +41,7 @@ model users{
   createdAt               DateTime? @db.Timestamp(0)
   updatedAt               DateTime? @db.Timestamp(0)
   raiting                 Float?    @db.Real
-  favorites
+  favorites               String?
 
   @@index([can_be_impersonated], name: "users_can_be_impersonated_index")
   @@index([email], name: "users_email_index")
