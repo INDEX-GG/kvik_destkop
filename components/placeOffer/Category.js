@@ -32,7 +32,7 @@ const Category = () => {
 
     const classes = useStyles();
     const methods = useFormContext();
-    const { categoryMain, categoriesById } = useCategory();
+    const { categoryMainAlias, categoriesByAlias } = useCategory();
 
     return (
         <Box className={classes.formElem}>
@@ -59,8 +59,8 @@ const Category = () => {
                             }}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
-                            {categoryMain.map((option, i) => (
-                                <MenuItem key={i} value={option.value}>
+                            {categoryMainAlias.map((option, i) => (
+                                <MenuItem key={i} value={option.alias}>
                                     {option.label}
                                 </MenuItem>
                             ))}
@@ -88,8 +88,8 @@ const Category = () => {
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
-                            {categoriesById(methods.watch('category_1')).map((option, i) => (
-                                <MenuItem key={i} value={option.value}>
+                            {categoriesByAlias(methods.watch('category_1')).map((option, i) => (
+                                <MenuItem key={i} value={option.alias}>
                                     {option.label}
                                 </MenuItem>
                             ))}
@@ -98,7 +98,7 @@ const Category = () => {
                     rules={{ required: 'Выбирите Категорию' }}
                 />}
 
-                {categoriesById(methods.watch('category_1'), methods.watch('category_2')) &&
+                {categoriesByAlias(methods.watch('category_1'), methods.watch('category_2')) &&
                 methods.watch('category_2') && 
                 <Controller
                     name="category_3"
@@ -117,8 +117,8 @@ const Category = () => {
                             }}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
-                            {categoriesById(methods.watch('category_1'), methods.watch('category_2')).map((option, i) => (
-                                <MenuItem key={i} value={option.value}>
+                            {categoriesByAlias(methods.watch('category_1'), methods.watch('category_2')).map((option, i) => (
+                                <MenuItem key={i} value={option.alias}>
                                     {option.label}
                                 </MenuItem>
                             ))}
@@ -127,7 +127,7 @@ const Category = () => {
                     rules={{ required: 'Выбирите Категорию' }}
                 />}
 
-                {categoriesById(methods.watch('category_1'), methods.watch('category_2'), methods.watch('category_3')) &&
+                {categoriesByAlias(methods.watch('category_1'), methods.watch('category_2'), methods.watch('category_3')) &&
                 methods.watch('category_3') && 
                 <Controller
                     name="category_4"
@@ -142,8 +142,8 @@ const Category = () => {
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
-                            {categoriesById(methods.watch('category_1'), methods.watch('category_2'), methods.watch('category_3')).map((option, i) => (
-                                <MenuItem key={i} value={option.value}>
+                            {categoriesByAlias(methods.watch('category_1'), methods.watch('category_2'), methods.watch('category_3')).map((option, i) => (
+                                <MenuItem key={i} value={option.alias}>
                                     {option.label}
                                 </MenuItem>
                             ))}

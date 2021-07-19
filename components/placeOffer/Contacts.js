@@ -43,14 +43,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Contacts = () => {
-    const [phones, setPhones] = useState([]);
     const {phone, isLoading} = useUser(); 
+	const [phones, setPhones] = useState([]);
+	const [defaultVal, setDefaultVal] = useState({});
     const classes = useStyles();
     const methods = useFormContext();
 
 useEffect(() => {
-    setPhones([{value: phone, label: phoneNumber(phone)}]) 
-}, [isLoading])
+    setPhones([{value: phone, label: phoneNumber(phone)}]);
+	console.log(phones)	
+}, [phone, isLoading])
+
+useEffect(() => {
+	setDefaultVal(phones[0]);
+	console.log(defaultVal);
+}, [phones])
 
    return (
       <Box className={classes.formElem}>
@@ -59,7 +66,7 @@ useEffect(() => {
          <Controller
                 name="contact"
                 control={methods.control}
-                defaultValue=''
+                defaultValue={defaultVal?.value}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <TextField
                         select

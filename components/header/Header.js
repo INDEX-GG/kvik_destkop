@@ -6,7 +6,6 @@ import { AppBar, Avatar, Button, Container, Box, makeStyles } from "@material-ui
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import Logo from "./Logo";
-import RegForm from "../auth/RegForm";
 import Categories from "./Categories";
 import CategoriesMobile from "./CategoriesMobile";
 import { useMedia } from "../../hooks/useMedia";
@@ -14,6 +13,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Loader from "../../UI/icons/Loader";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
+import Login from "../auth/Login";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,9 +106,7 @@ const Header = ({ category }) => {
             Подать объявление
           </Button>}
 
-			
-
-			{!isAuth && <Button onClick={() => setOpenRegForm(!openRegForm)} variant="contained">
+			{!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
 				Войти
 			</Button>
 			|| isLoading && <Loader size={32} /> || !isLoading &&
@@ -123,7 +121,7 @@ const Header = ({ category }) => {
         {openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
       </AppBar>
       <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
-        <RegForm />
+        <Login />
       </DialogCTX.Provider>
     </>
   );
