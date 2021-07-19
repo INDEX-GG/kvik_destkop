@@ -7,8 +7,9 @@ function Searches(data) {
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
           <div className="notInfContainer">
-            <div className="notInf__title">Здесь будет ваша история поиска</div>
-            <p className="notInf__subtitle">Текст</p>
+            <div className="notInf__title">Сохраните поиск для того, чтобы получать уведомления и сохранить параметры ваших запросов </div>
+            <p className="notInf__subtitle">Поставьте галочку (отметку) напротив " сохранить поиск", чтобы получать уведомления и сохранить параметры ваших запросов(поиска)</p>
+            <img className="notInf__img" src="/accountImage/SearchNone.png"></img>
           </div>
         </div>
       </div>

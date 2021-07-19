@@ -269,7 +269,8 @@
 .searchRightCheck {
     position: absolute;
     top: 0;
-    right: 10px;
+    right: 0px;
+    padding-right: 30px;
 }
 @media (max-width: 1366px) {
     .favoritesContainer {
@@ -294,23 +295,15 @@
     }
 }
 
-@media (max-width: 650px) {
-    .searchRightCheck {
-        right: 15px;
-    }
-}
-
-@media (max-width: 600px) {
-    .favoritesContainer {
+@media (max-width: 620px) {
+    .favoritesContainer{
+        height: 184px;
     }
 }
 
 @media (max-width: 540px) {
     .favoritesNote{
         text-align: left;
-    }
-    .searchRightCheck {
-        right: 20px;
     }
 }
 

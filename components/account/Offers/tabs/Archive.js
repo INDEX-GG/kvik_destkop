@@ -2,6 +2,7 @@ import React from "react";
 import { ToRubles } from "../../../../lib/services";
 import VerifyModerator from "../../../json/verifyModerator.json";
 import Verify from "../../../json/verify.json";
+import {useMedia} from "../../../../hooks/useMedia"
 
 function Archive(data) {
   if (data.offers.lenght == 0) {
@@ -16,6 +17,9 @@ function Archive(data) {
       </div>
     );
   }
+
+
+  const {matchesMobile, matchesTablet} = useMedia()
 
   return (
     <div className="clientPage__container_bottom">
@@ -60,7 +64,7 @@ function Archive(data) {
                 </div>
                 <div className="offerDescriptionBottom">
                   <div className="thin light small DatPub__mobile">
-                    <span> Дата последнего редактирования: {offer.date}</span>
+                    <span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.date}</span>
                     <div className="offerSocialCount offerSocialCountPos">
                       <div className="offerShowes showesIcon">0 +0</div>
                       <div className="offerAddFavores likeIcon">0 +0</div>
