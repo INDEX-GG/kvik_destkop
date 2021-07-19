@@ -20,6 +20,7 @@ export function useUser() {
           phone: res.data.user.phone,
           email: res.data.user.email,
           raiting: res.data.user.raiting,
+          favorites: res.data.user.favorites,
         })
         setLoading(false);
       })

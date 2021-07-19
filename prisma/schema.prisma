@@ -12,7 +12,7 @@ model users{
   user_type_id            Int?      @db.SmallInt
   gender_id               Int?
   name                    String    @db.VarChar(100)
-  userPhoto                   String?   @db.VarChar(255)
+  userPhoto               String?   @db.VarChar(255)
   about                   String?   @db.VarChar(255)
   phone                   String    @unique @db.VarChar(60)
   phone_hidden            Boolean?  @default(false)
