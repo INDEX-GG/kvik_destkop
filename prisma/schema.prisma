@@ -41,7 +41,7 @@ model users{
   createdAt               DateTime? @db.Timestamp(0)
   updatedAt               DateTime? @db.Timestamp(0)
   raiting                 Float?    @db.Real
-  favorites               String
+  favorites               String?
 
   @@index([can_be_impersonated], name: "users_can_be_impersonated_index")
   @@index([email], name: "users_email_index")
