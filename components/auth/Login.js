@@ -1,11 +1,11 @@
 import {useContext} from 'react';
 import {Dialog, Box, Button, makeStyles, Typography, TextField } from "@material-ui/core";
 import { useForm, Controller } from 'react-hook-form';
-import InputMask from 'react-input-mask';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { mutate } from 'swr';
 import { DialogCTX } from '../../lib/Context/DialogCTX';
+import RegForm from './RegForm';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,20 +32,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function PhoneNumberFormat(props) {
-    const { inputRef, ...other } = props;
-    return (
-        <InputMask
-            {...other}
-            ref={(ref) => {
-                inputRef(ref ? ref.inputElement : null);
-            }}
-            mask="+7 (999) 999-99-99"
-            maskChar=''
-        />
-    );
-}
-
 const Login = () => {
     const router = useRouter();
     const classes = useStyles();
@@ -65,48 +51,48 @@ const Login = () => {
     };
 
     return (
-		<Dialog open={openLoginForm} onClose={() => setOpenLoginForm(!openLoginForm)} fullWidth maxWidth="sm">
-			<Box className={classes.root}>
-				<Box className={classes.reg}>
-					<Typography className={classes.title} variant="h6">Вход</Typography>
-					<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-						<Controller
-							name="phone"
-							control={control}
-							defaultValue=''
-							render={({ field: { onChange, value }, fieldState: { error } }) => (
-								<TextField label='Номер телефона'
-									variant='outlined' size='small'
-									type="tel"
-									value={value}
-									onChange={onChange}
-									InputProps={{
-										inputComponent: PhoneNumberFormat,
-									}}
-									error={!!error} helperText={error ? error.message : ' '} />
-							)}
-							rules={{ required: 'Введите номер телефона' }}
-						/>
-						<Controller
-							name="password"
-							control={control}
-							defaultValue=''
-							render={({ field: { onChange, value }, fieldState: { error } }) => (
-								<TextField label='Введите пароль'
-									variant='outlined' size='small'
-									type="password"
-									value={value}
-									onChange={onChange}
-									error={!!error} helperText={error ? error.message : ' '} />
-							)}
-							rules={{ required: 'Введите пароль' }}
-						/>
-						<Button type='submit' disabled={false} variant="contained" color="primary">Войти</Button>
-						<Button onClick={() => {setOpenLoginForm(!openLoginForm); setOpenRegForm(!openRegForm) }} variant='text' size='large' color='primary'>Регистрация</Button>
-					</form>
+		<>
+			<Dialog open={openLoginForm} onClose={() => setOpenLoginForm(!openLoginForm)} fullWidth maxWidth="sm">
+				<Box className={classes.root}>
+					<Box className={classes.reg}>
+						<Typography className={classes.title} variant="h6">Вход</Typography>
+						<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+							<Controller
+								name="phone"
+								control={control}
+								defaultValue=''
+								render={({ field: { onChange, value }, fieldState: { error } }) => (
+									<TextField label='Номер телефона'
+										variant='outlined' size='small'
+										type="tel"
+										value={value}
+										onChange={onChange}
+										error={!!error} helperText={error ? error.message : ' '} />
+								)}
+								rules={{ required: 'Введите номер телефона' }}
+							/>
+							<Controller
+								name="password"
+								control={control}
+								defaultValue=''
+								render={({ field: { onChange, value }, fieldState: { error } }) => (
+									<TextField label='Введите пароль'
+										variant='outlined' size='small'
+										type="password"
+										value={value}
+										onChange={onChange}
+										error={!!error} helperText={error ? error.message : ' '} />
+								)}
+								rules={{ required: 'Введите пароль' }}
+							/>
+							<Button type='submit' disabled={false} variant="contained" color="primary">Войти</Button>
+							<Button onClick={() => {setOpenLoginForm(!openLoginForm); setOpenRegForm(!openRegForm) }} variant='text' size='large' color='primary'>Регистрация</Button>
+						</form>
+					</Box>
 				</Box>
-			</Box>
-		</Dialog>
+			</Dialog>
+			<RegForm/>
+		</>
     )
 }
 
