@@ -78,7 +78,7 @@ function AdCard_component({ offer }) {
             </div>
             <div className="card__top_info_right">
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
-              <Favorits  offer= {offer}></Favorits>
+              <Favorits isCard offer= {offer}></Favorits>
             </div>
           </div>
 

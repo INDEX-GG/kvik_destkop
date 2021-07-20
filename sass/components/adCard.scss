@@ -122,21 +122,6 @@
                         background: url(../../icons/new_compare_active.svg) center no-repeat;
                     }
                 }
-
-                & .card_like {
-                    display: block;
-                    width: 24px;
-                    height: 24px;
-                    background: url(../../icons/new_like.svg) center no-repeat;
-                    cursor: pointer;
-                    transform: translateX(100px);
-                    transition: 180ms ease-in-out;
-
-                    &:hover {
-                        transform: scale(1.2) !important;
-                        // background: url(../../icons/new_like_active.svg) center no-repeat;
-                    }
-                }
             }
         }
     }
@@ -219,9 +204,6 @@
     }
 }
 
-.like-active {
-    background: url(../../icons/new_like_active.svg) center no-repeat !important;
-}
 
 .card__top_slider .swiper-container .swiper-slide {
     width: 100% !important;

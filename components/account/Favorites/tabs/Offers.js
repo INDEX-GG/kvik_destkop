@@ -1,5 +1,6 @@
 import React from "react";
 import { ToRubles } from "../../../../lib/services";
+import Favorits from '../../../../UI/Favorits';
 
 function Offers(data) {
   if (data.offers.lenght == 0) {
@@ -37,7 +38,7 @@ function Offers(data) {
                     </label>
                   </div>
                   <a className="favoritesCompare"></a>
-                  <a className="favoritesFavorite"></a>
+                  <Favorits offer={offer} isAccountCard />
                   <img src={`${offer.img}?${offer.id}`} />
                   <div className="favoritesCause megaLight">Пользователь заблокирован</div>
                 </div>
