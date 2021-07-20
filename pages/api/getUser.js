@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client';
 export default function handler(req, res) {
    const prisma = new PrismaClient();
    if (req.method === 'POST') {
-    
       async function main() 
       {
             await check();

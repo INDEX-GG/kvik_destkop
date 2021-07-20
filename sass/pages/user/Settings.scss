@@ -40,6 +40,10 @@
     cursor: pointer;
 }
 
+.pDSocialBox{
+    display: flex;
+}
+
 .pDSocial {
     display: inline-block;
     width: 24px;
@@ -193,6 +197,33 @@
     top: 13px;
 }
 
+.arrowRight{
+    position: relative;
+    padding-right: 20px;
+    &::after{
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+        background-color: #C7C7C7;
+        width: 13px;
+        height: 3px;
+        transform: rotate(-40deg);
+        border-radius: 5px;
+    }
+    &::before{
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 1.4px;
+        background-color: #C7C7C7;
+        width: 13px;
+        height: 3px;
+        transform: rotate(40deg);
+        border-radius: 5px;
+    }
+}
+
 @media (max-width: 1024px) {
     .privateDataWrapper {
         margin: 0;
@@ -201,6 +232,21 @@
         padding-left: 0;
     }
 }
+
+
+@media (max-width: 960px) {
+    .settingsNotifWrapper > div > div:nth-child(2), .settingsNotifWrapper > div > div:nth-child(3) {
+        margin: 0 11px;
+    }
+    .privateDataWrapper > div > *:nth-child(3n-1){
+        display: none;
+    }
+    .privateDataWrapper > div {
+        justify-content: space-between;
+    }
+}
+
+
 @media (max-width: 700px) {
     .privateDataWrapper > div > *:nth-child(3n-2) {
         min-width: 90px;

@@ -4,6 +4,9 @@ import axios from 'axios';
 
 export function useUser() {
   const { data: user, mutate: mutateUser } = useSWR('/api/user'),
+
+
+
     [isAuth, setIsAuth] = useState(false),
     [userInfo, setUserInfo] = useState({}),
     [isLoading, setLoading] = useState(true);

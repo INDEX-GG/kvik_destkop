@@ -5,7 +5,8 @@ import { modalDeletHistory, modalDeleteAccount } from "../../../Modals";
 import { useUser } from "../../../../hooks/useUser";
 import Active_icon from "../../../../UI/icons/ActiveIcon";
 import axios from "axios";
-import useMedia from "../../../../hooks/useMedia"
+import {useMedia} from "../../../../hooks/useMedia"
+import RightArrow from "../../../../UI/icons/RightArrow"
 
 function PersonalData() {
   const { isAuth, id, phone, username, email } = useUser();
@@ -31,6 +32,8 @@ function PersonalData() {
   }
 
   // !!!!!
+
+  const {matchesTablet, matchesMobile, matchesCustom1100} = useMedia()
 
   const [inputProfile, setInputProfile] = useState(true);
   const [valueName, setValueName] = useState("");
@@ -180,7 +183,7 @@ function PersonalData() {
           <div>
             <div>Профиль</div>
             {inputProfile ? (
-              <div>{valueName}</div>
+              <div className="clientPage__name">{valueName}</div>
             ) : (
               <input
                 className="clientPage__input-profile"
@@ -194,20 +197,20 @@ function PersonalData() {
                 onChange={(e) => changeInput(e)}
               />
             )}
-            {inputProfile ? <a onClick={() => setInputProfile(!inputProfile)}>Редактировать</a> : <a onClick={nameSubmit}>Сохранить</a>}
+            {matchesMobile || matchesTablet ? <a href="/">Имя пользователя</a> : inputProfile ? <a onClick={() => setInputProfile(!inputProfile)}>Редактировать</a> : <a onClick={nameSubmit}>Сохранить</a>}
           </div>
           <div>
             <div>Город</div>
-            <div>Город, Район, Улица</div>
-            <a>Изменить</a>
+            <div className="clientPage__city">Город, Район, Улица</div>
+            {matchesMobile || matchesTablet ? <a className="arrowRight">Город</a> : <a>Изменить</a>}
           </div>
           <div>
             <div>Телефон</div>
             <div>
               <p>{userSettings.phone}</p>
-              <a className="small highlight underline">Добавить ещё телефон</a>
+              <a className="small highlight underline clientPage__phone">Добавить ещё телефон</a>
             </div>
-            <a>Изменить</a>
+            {matchesMobile || matchesTablet ? <a className="arrowRight">+7 (000) 000-00-00</a> : <a>Изменить</a>}
           </div>
           <div>
             <div>E-mail</div>
@@ -229,9 +232,23 @@ function PersonalData() {
               </p>
               <p className="light small">Привяжите к своему профилю социальные сети для того чтобы???</p>
             </div>
+            {matchesTablet || matchesMobile ?
+            <>
+              <div> 
+                <p>
+                  <a className="pDSocial pDVK"></a>
+                  <a className="pDSocial pDInstagram"></a>
+                  <a className="pDSocial pDFacebook"></a>
+                  <a className="pDSocial pDOK"></a>
+                </p>
+              </div>
+              <div style={{display: "block"}}>
+                <p className="light small">Привяжите к своему профилю социальные сети для того чтобы???</p>
+              </div>
+            </> : null}
           </div>
           <div>
-            <div>История</div>
+            {matchesTablet || matchesMobile ? <div>Очистить историю поиска</div> : <div>История</div>}
             <a
               onClick={(e) => {
                 modalOlen(e, "sm", modalDeletHistory());
@@ -240,24 +257,25 @@ function PersonalData() {
             >
               Очистить историю поиска
             </a>
-            <div>Очистить</div>
+            {matchesTablet || matchesMobile ? <RightArrow/>: <div>Очистить</div>}
           </div>
+          {matchesTablet || matchesMobile ? null : 
           <div>
             <div>Выход</div>
             <div>Выйти</div>
             <div>Выйти со всех устройств</div>
-          </div>
+          </div>}
           <div>
-            <div>Аккаунт</div>
+            {matchesMobile || matchesTablet ? <div>Удалить аккаунт</div> : <div>Аккаунт</div>}
             <div>Удалить аккаунт</div>
-            <a
+            {matchesMobile || matchesTablet ? <RightArrow/> : <a
               onClick={(e) => {
                 modalOlen(e, "sm", modalDeleteAccount());
               }}
               className="offerUnpublish thin superLight"
             >
               Удалить навсегда
-            </a>
+            </a>}
           </div>
           <div>
             <div>Сменить пароль</div>
@@ -299,6 +317,7 @@ function PersonalData() {
                 {passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совподают</p> : <p className="error small">Пароли не совпадают</p>}
               </div>
             </div>
+            {matchesTablet || matchesMobile ? <RightArrow/> : null}
             {passwordCoincidence == "send" ? (
               <a href="#" className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
                 Изменить пароль

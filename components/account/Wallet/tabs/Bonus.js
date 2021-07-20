@@ -19,7 +19,7 @@ function Bonus(data) {
     <div className="walletStoryContainer">
       <div className="walletStoryTitles megaDark">
         <div>Дата</div>
-        <div>Время</div>
+        <div className="walletStoryTime">Время</div>
         <div>Описание</div>
         <div className="walletBonusAlign">Сумма</div>
         <div>Бонусы</div>
@@ -28,7 +28,7 @@ function Bonus(data) {
         return (
           <div key={data.id} className="walletStoryItem thin">
             <div>{data.date}</div>
-            <div className="walletStoryTime">{data.time}</div>
+            <div className="walletStoryTimeItem">{data.time}</div>
             <div>{ellipsis(data.describe, 30)}</div>
             <div className="walletBonusAlign">{ToRubles(data.sum)}</div>
             <div>{ToRubles(data.bonus)}</div>

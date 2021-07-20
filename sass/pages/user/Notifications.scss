@@ -330,6 +330,9 @@
 .notifDate {
   margin-left: 10px;
 }
+.messageMobile{
+  display: none
+}
 
 
 @media (max-width: 1080px) {
@@ -338,5 +341,23 @@
   }
   .notifWrapper {
     padding-right: 0px;
+  }
+}
+
+@media (max-width: 960px) {
+  .messageContainer{
+    display: block;
+  }
+  .messageWindow{
+    display: none;
+  }
+  .messageMobile{
+    grid-area: 1 / 2 / 2 / 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    padding: 0 12px
   }
 }

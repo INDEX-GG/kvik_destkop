@@ -103,6 +103,13 @@
     text-align: right;
 }
 
+@media (max-width: 1080px) {
+    .walletStoryContainer{
+        width: 100%;
+        padding-right: 12px;
+    }
+}
+
 @media (max-width: 1024px) {
     .walletInfo {
         margin: 40px 76px 0;
@@ -138,7 +145,20 @@
     .walletStoryItem > * {
     font-size: 12px;
     }
-    .walletStoryTime {
+}
+
+@media (max-width:400px) {
+    .walletInfo img{
+        float: none;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .walletStoryTitles div.walletStoryTime{
+        display: none;
+    }
+    
+    .walletStoryItem div.walletStoryTimeItem{
         display: none;
     }
 }

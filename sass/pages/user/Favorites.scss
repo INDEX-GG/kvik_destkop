@@ -124,22 +124,6 @@
     background: no-repeat url(../../../icons/compare_o_green.svg);
 }
 
-.favoritesFavorite {
-    position: absolute;
-    top: 42px;
-    right: 8px;
-    min-width: 24px;
-    min-height: 24px;
-    background: no-repeat url(../../../icons/like_o_green.svg);
-    transition: all 350ms ease-in-out;
-}
-
-.favoritesFavorite:hover {
-    cursor: pointer;
-    transition: all 350ms ease-in-out;
-    background: no-repeat url(../../../icons/like_dark.svg);
-}
-
 .sellersWrapper {
     width: 97%;
     height: 100%;
@@ -269,7 +253,8 @@
 .searchRightCheck {
     position: absolute;
     top: 0;
-    right: 10px;
+    right: 0px;
+    padding-right: 30px;
 }
 @media (max-width: 1366px) {
     .favoritesContainer {
@@ -294,23 +279,15 @@
     }
 }
 
-@media (max-width: 650px) {
-    .searchRightCheck {
-        right: 15px;
-    }
-}
-
-@media (max-width: 600px) {
-    .favoritesContainer {
+@media (max-width: 620px) {
+    .favoritesContainer{
+        height: 184px;
     }
 }
 
 @media (max-width: 540px) {
-    .favoritesNote{
+    .favoritesNote {
         text-align: left;
-    }
-    .searchRightCheck {
-        right: 20px;
     }
 }
 

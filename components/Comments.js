@@ -48,6 +48,7 @@ function Comments() {
                             </div>
                         </div>
                         <div className="rating">
+                            <div className="comment__user_number">4</div>
                             <div className="stars">
                                 <div className="on" style={{ width: `${userInfo.userRate * 20}%` }}></div>
                                 <div className="live">

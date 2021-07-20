@@ -6,9 +6,13 @@
 .reviewsContainer {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    width: 100%;
+    width: 48%;
     height: 184px;
-    margin-bottom: 24px;
+    margin: 0 20px 24px 0;
+
+    &:nth-of-type(2n) {
+        margin-right: 0;
+    }
 }
 
 .reviewsImage {
@@ -102,8 +106,9 @@
 }
 
 
-.reveiwsNumber {
+.reviewsNumber {
     padding-top: 5px;
+    color: #C7C7C7
 }
 
 .reviewContainer:hover {
@@ -153,14 +158,23 @@
     justify-content: space-between;
 }
 
-@media (max-width: 1024px) { 
+@media (max-width: 1080px) { 
     .reviewsContainer{
-        margin-right: 0;
+        width: 100%;
+        margin-right: 0px;
+    }
+    .reviewCheck{
+        display: none;
+    }
+    .reviewsDelete{
+        display: none;
     }
 }
 
-@media (max-width: 400px) {
-    .reviewsDate{
-        display: none;
+@media (max-width: 480px) {
+    .reviewsContainer{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        height: 368px;
     }
 }

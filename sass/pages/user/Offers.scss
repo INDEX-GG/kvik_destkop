@@ -35,6 +35,7 @@
   display: flex;
   flex-direction: column;
   overflow: overlay;
+  position: relative;
 }
 
 .offerDescriptionTop {
@@ -140,6 +141,10 @@
   text-align: right;
 }
 
+.offerCauses{
+  padding-bottom: 20px;
+}
+
 .phOffers {
   display: flex;
   flex-direction: column;
@@ -188,18 +193,43 @@
   background-color: $light;
 }
 
+@media (max-width: 1080px) {
+  .offerDTLeft{
+    padding-top: 110px;
+  }
+  .offerDescription{
+    padding: 0 8px;
+  }
+
+  .offerTitle, .offerDatPub{
+    padding-bottom: 0;
+  }
+
+  .offerSocialCountPos {
+    top: 0;
+    left: 0px;  
+    flex-direction: column;
+    margin-top: 0;
+    height: 48px;
+    width: 63px;
+  }
+  .offerShowes, .offerAddFavores{
+    margin-top: 0;
+    margin-left: 8px;
+  }
+  .offerCauses{
+    padding-bottom: 8px;
+  }
+}
+
 @media (max-width: 1024px) {
   .offerDescription {
     padding: 0 8px;
   }
-  .offerSocialCountPos {
-    top: 0;
-    left: 350px;
-  }
 
-  .DatPub__mobile span {
-    display: none;
-  }
+  // .DatPub__mobile span {
+  //   display: none;
+  // }
 }
 
 @media (max-width: 750px) {
@@ -223,6 +253,6 @@
 
   .offerShowes,
   .offerAddFavores {
-    margin: 20px 0px 0px 20px;
+    margin: 8px 0px 0px 8px;
   }
 }
