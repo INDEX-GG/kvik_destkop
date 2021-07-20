@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainLayout from "../../layout/MainLayout";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
 import { ToRusAccountDate } from "../../lib/services";
-import { useUser } from "../../hooks/useUser";
 import { Avatar, Dialog } from "@material-ui/core";
 import { useRouter } from "next/router";
 import UserLock from "../../UI/icons/UserLock";
 import UserReport from "../../UI/icons/UserReport";
 import { ModalRating, ModalSubscribers, ModalSubscription} from "../../components/Modals";
 import { useAd } from "../../hooks/useAd";
+import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
+import { useOutherUser } from "../../hooks/useOutherUser";
 
 const userInfo = {
   userId: 1,
@@ -26,14 +27,29 @@ const userInfo = {
 function UserPage() {
   const router = useRouter();
 
-  const { isAuth, isLoading, username, photo, createdAt, raiting } = useUser();
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
+  const [userData, setUserData] = useState({})
+  const [userLoading, setUserLoading] = useState(true)
 
-  const userInfo = (useAd(router.query.id))
+  const userInfo = useAd(router.query.id)
+
+  const {username, photo, raiting, createdAt, isLoading, subscription} = useOutherUser(router.query.id)
 
   const {matchesMobile, matchesTablet} = useMedia()
+
+
+  function modal(modal, changeModal) {
+    changeModal(!modal)
+  }
+
+  function subscribeUser() {
+    axios.post("/api/getUser", {id: router.query.id, subscribe: true}).then(res => console.log(res))
+  }
+
+  console.log(subscription)
+
 
 
   return (
@@ -51,11 +67,9 @@ function UserPage() {
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
-              {isAuth && !isLoading && (
-                <Avatar src={photo} style={{ backgroundColor: `${username.toColor()}` }}>
-                  {username.initials()}
-                </Avatar>
-              )}
+              {isLoading ? null : <Avatar src={photo} style={{ backgroundColor: username.toColor() }}>
+                {username.initials()}
+              </Avatar>}
             </div>
             <div className="clientPage__username">{username}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>
@@ -77,7 +91,7 @@ function UserPage() {
                 <p>подписок</p>
               </a>
             </div>
-            <button className="btnSubscribe">Подписаться</button>
+            <button className="btnSubscribe" onClick={subscribeUser}>Подписаться</button>
             <div className="btnActive">
               <a className="userActive">Заблокировать пользователя</a>
               <div className="userIconBlock">
@@ -96,14 +110,14 @@ function UserPage() {
           <User />
         </div>
       </div>
-      <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)}>
-        {/* {modalRating(2, 2)} */}
+      <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+        <ModalRating rate={raiting} comments={2} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(reviewsModal, setReviewsModal)} />
       </Dialog>
-      <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)}>
-        {/* {modalSubscribers(4, 2)} */}
+      <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+        <ModalSubscribers mobile={ matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscribersModal, setSubscribersModal)} />
       </Dialog>
-      <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)}>
-        {/* {modalSubscription(3, 4)} */}
+      <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+        <ModalSubscription mobile={ matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscriptionsModal, setSubscriptionsModal)}/>
       </Dialog>
     </MainLayout>
   );

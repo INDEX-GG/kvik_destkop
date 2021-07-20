@@ -12,7 +12,7 @@ export function ModalRating({rate = 0, comments = 0, modal, mobile}) {
           <h6 className="modal__block__top_title accountTitle">Рейтинг и отзывы</h6>
         </>
         <div className="accountRatingBox">
-          <div className="accountRaitingNumber">{rate}.0</div>
+          <div className="accountRaitingNumber">{rate ? rate + "." : null}0</div>
           <StarRating rating={rate} />
         </div>
       </div>
@@ -42,7 +42,7 @@ export function ModalSubscribers({data, subscribers = 0, modal, mobile}) {
       <div className="modal__block__top accountTop">
         <>
           {mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
-          <h6 className="modal__block__top_title accountTitle">00 подписчиков</h6>
+          <h6 className="modal__block__top_title accountTitle">{subscribers} подписчиков</h6>
         </>
       </div>
       {subscribers == 0 ? (
@@ -71,7 +71,7 @@ export function ModalSubscription({data, subscription = 0, modal, mobile}) {
       <div className="modal__block__top accountTop">
         <>
           {mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
-          <h6 className="modal__block__top_title accountTitle">00 подписок</h6>
+          <h6 className="modal__block__top_title accountTitle">{subscription} подписок</h6>
         </>
       </div>
       {subscription == 0 ? (
