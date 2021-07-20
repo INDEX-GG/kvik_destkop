@@ -184,16 +184,16 @@ const UsersPage = () => {
   const [soldBox, setSoldBox] = useState([]);
 
   const router = useRouter();
-
-  // push
  
   const { userInfo, isLoading } = useAd(router.query.id);
-console.log(userInfo, isLoading)
+  // console.log(userInfo.filter(item => item.archived))
+  console.log(userInfo)
   
   useEffect(() => {
-    setActiveBox(ContentBox.filter(item => item.sold == undefined))
-    setSoldBox(ContentBox.filter(item => item.sold))
-
+    if( userInfo.length > 0) {
+      setActiveBox(userInfo.filter(item => item.archived == false))
+      setSoldBox(userInfo.filter(item => item.archived))
+    }
   }, [router, isLoading])
 
 

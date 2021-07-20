@@ -224,6 +224,11 @@
     }
 }
 
+.changeMobile{
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 1024px) {
     .privateDataWrapper {
         margin: 0;
@@ -244,6 +249,24 @@
     .privateDataWrapper > div {
         justify-content: space-between;
     }
+    .privateDataWrapper > div{
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .socialItemBox{
+    width: 70%;
+    flex-grow: 1;
+    margin: 12px 0;
+    & > p {
+        display: flex;
+        justify-content: flex-end;
+        & > .pDSocial {
+            &:last-child{
+                margin-right: 0px;
+            }
+        }
+    }
+}
 }
 
 
@@ -262,5 +285,13 @@
     }
     .blockItem{
         display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .socialItemBox{
+        & > p{
+            justify-content: flex-start;
+        }
     }
 }

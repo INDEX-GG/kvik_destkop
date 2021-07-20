@@ -197,12 +197,12 @@ function PersonalData() {
                 onChange={(e) => changeInput(e)}
               />
             )}
-            {matchesMobile || matchesTablet ? <a href="/">Имя пользователя</a> : inputProfile ? <a onClick={() => setInputProfile(!inputProfile)}>Редактировать</a> : <a onClick={nameSubmit}>Сохранить</a>}
+            {matchesMobile || matchesTablet ? <a href="/"><div className="changeMobile"><div>Имя пользователя</div><RightArrow/></div></a> : inputProfile ? <a onClick={() => setInputProfile(!inputProfile)}>Редактировать</a> : <a onClick={nameSubmit}>Сохранить</a>}
           </div>
           <div>
             <div>Город</div>
             <div className="clientPage__city">Город, Район, Улица</div>
-            {matchesMobile || matchesTablet ? <a className="arrowRight">Город</a> : <a>Изменить</a>}
+            {matchesMobile || matchesTablet ? <a><div className="changeMobile"><div>Город</div><RightArrow/></div></a> : <a>Изменить</a>}
           </div>
           <div>
             <div>Телефон</div>
@@ -210,16 +210,21 @@ function PersonalData() {
               <p>{userSettings.phone}</p>
               <a className="small highlight underline clientPage__phone">Добавить ещё телефон</a>
             </div>
-            {matchesMobile || matchesTablet ? <a className="arrowRight">+7 (000) 000-00-00</a> : <a>Изменить</a>}
+            {matchesMobile || matchesTablet ? <a><div className="changeMobile"><div>+7 (000) 000-00-00</div><RightArrow/></div></a> : <a>Изменить</a>}
           </div>
           <div>
             <div>E-mail</div>
             <div>
               <p>{email === null ? "E-mail не указан" : email}</p>
               <p className="error small">E-mail не подтвержден</p>
-              <p className="light small">Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту </p>
+              <p className="light small">Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чегоуказывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту </p> 
             </div>
-            <a>Указать</a>
+            {matchesTablet || matchesMobile ? (
+              <>
+                <a><div className="changeMobile"><p className="error small">E-mail не подтвержден</p><RightArrow/></div></a>
+                <p className="light small">Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чегоуказывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту </p> 
+              </>
+            ): <a>Указать</a>}
           </div>
           <div>
             <div>Социальные сети</div>
@@ -234,7 +239,7 @@ function PersonalData() {
             </div>
             {matchesTablet || matchesMobile ?
             <>
-              <div> 
+              <div className="socialItemBox"> 
                 <p>
                   <a className="pDSocial pDVK"></a>
                   <a className="pDSocial pDInstagram"></a>
@@ -242,7 +247,7 @@ function PersonalData() {
                   <a className="pDSocial pDOK"></a>
                 </p>
               </div>
-              <div style={{display: "block"}}>
+              <div className="socialText">
                 <p className="light small">Привяжите к своему профилю социальные сети для того чтобы???</p>
               </div>
             </> : null}

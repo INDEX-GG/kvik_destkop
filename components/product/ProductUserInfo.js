@@ -23,21 +23,16 @@ export default function ProductUserInfo(data) {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   let userSmallAd;
 
-  const {id} = useUser()
-  console.log(id)
-
   return (
     <>
       <div className="ad__block_bottom">
         <div className="SellerInfoUserBlock">
           <img onClick={() => router.push({
-            pathname: "/user/[id]",
-            query: {id}
+            pathname: `/user/${data.id}`,
           })} className="SellerInfoUserPic" src={data.userPhoto} />
           <div>
             <div onClick={() => router.push({
-            pathname: "/user/[id]",
-            query: {id}
+            pathname: `/user/${data.id}`
           })}> {data.name} </div>
             <div>
               <div className="SellerInfoRateNumber">{/* {objP.userrate} */}</div>

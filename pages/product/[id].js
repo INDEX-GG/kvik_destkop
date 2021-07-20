@@ -15,9 +15,8 @@ import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
+import {useAd} from "../../hooks/useAd"
 import Favorits from '../../UI/Favorits';
-
-
 
 const objP = {
     id: 1,
@@ -84,6 +83,10 @@ const Product = () => {
     }, [])
 
     const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
+
+    console.log(router)
+    console.log("USER ID" + user_id)
+    console.log(useProduct({router}))
 
     const [userAd, setUserAd] = useState();
     useEffect(() => {
@@ -172,7 +175,7 @@ const Product = () => {
                             <div className="block__my_active_ad" >
                                 {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
                                 {/* пользователь и его объявления */}
-                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} userAd={userAd} />
+                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} id={user_id} userAd={userAd} />
                             </div>
                         </div>
                         {!matchesMobile && !matchesTablet && !matchesLaptop &&
