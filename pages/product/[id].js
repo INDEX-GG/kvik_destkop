@@ -16,6 +16,7 @@ import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
 import {useAd} from "../../hooks/useAd"
+import Favorits from '../../UI/Favorits';
 const objP = {
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',
@@ -82,7 +83,8 @@ const Product = () => {
 
     const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
 
-    console.log("USER ID" + id)
+    console.log(router)
+    console.log("USER ID" + user_id)
     console.log(useProduct({router}))
 
     const [userAd, setUserAd] = useState();

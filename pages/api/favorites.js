@@ -8,7 +8,9 @@ export default function handler(req, res) {
             const post_id = req.body.post_id
             const userIdInt = Number(user_id)
             const postIdInt = Number(post_id)
+            const comment = req.body.comment
 
+            // Проверка и заполнение пустого поля
             let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
             if (fav[0].favorites == null || fav[0].favorites === ''){
                 const obj = {
@@ -22,6 +24,8 @@ export default function handler(req, res) {
                 }
                 await prisma.users.update(obj);
             }
+
+            // Запрос поля
             const favorites = await prisma.users.findFirst({
                 where: {
                     id: userIdInt
@@ -32,23 +36,33 @@ export default function handler(req, res) {
                     }
             })
 
-            var preList = favorites['favorites'].substring(1)
-            var preList2 = preList.substring(0, preList.length - 1)
+            // Преобразование строки в список
+            let preList = favorites['favorites'].substring(1)
+            let preList2 = preList.substring(0, preList.length - 1)
             let list = preList2.split(',')
-            if (list.includes(post_id)){
-                var index = list.indexOf(post_id)
-                if (index > -1) {
-                    list.splice(index, 1)
+
+            // Проверка наличия в списке входящих данных
+
+            const firstExist =  preList2.split(',').join(':').split(':')
+            if (firstExist.includes(post_id)) {
+                for (let index in list) {
+                    let secondLevel = (list[index]).split(':')
+                    if (secondLevel.includes(post_id)) {
+
+                        list.splice(index,1)
+                    }
                 }
             } else {
-                list.push(post_id)
+                list.push(post_id + ":" + comment)
             }
 
-            var index = list.indexOf('')
-            if (index > -1) {
-                list.splice(index, 1)
+            // Удаление пустых значений
+            let nothIndex = list.indexOf('')
+            if (nothIndex > -1) {
+                list.splice(nothIndex, 1)
                 }
 
+            // Отправка данных
             const obj = {
                 where:
                     {
