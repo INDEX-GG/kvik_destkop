@@ -1,8 +1,11 @@
 import React from "react";
 import { ToRubles } from "../../../../lib/services";
-
-function Offers(data) {
-  if (data.offers.lenght == 0) {
+import Favorits from '../../../../UI/Favorits';
+import { useFavorits } from "../../../../hooks/useFavorits";
+function Offers(data, ...id) {
+  const {i, items, productId, address, archived_time, photo } = useFavorits(id);
+console.log(id)
+  if (i == 0) {
     return (
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
@@ -28,7 +31,7 @@ function Offers(data) {
         <div className="favoritesContainerWrapper">
           {data.offers.map((offer) => {
             return (
-              <div key={offer.id} className="favoritesContainer boxWrapper">
+              <div key={productId} className="favoritesContainer boxWrapper">
                 <div className="favoritesImage">
                   <div className="favoritesPubCheck">
                     <label className="checkbox">
@@ -37,7 +40,7 @@ function Offers(data) {
                     </label>
                   </div>
                   <a className="favoritesCompare"></a>
-                  <a className="favoritesFavorite"></a>
+                  <Favorits offer={offer} isAccountCard />
                   <img src={`${offer.img}?${offer.id}`} />
                   <div className="favoritesCause megaLight">Пользователь заблокирован</div>
                 </div>
