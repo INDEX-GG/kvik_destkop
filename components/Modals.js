@@ -3,12 +3,18 @@ import Subscribes from "./Subscribes";
 import StarRating from "./StarRating";
 
 /* Модальное окно "отзывы и рейтинг" */
-export function modalRating(rate, comments = 0) {
+export function ModalRating({rate = 0, comments = 0, modal, mobile}) {
   return (
-    <div className="modal__wrapper_md">
-      <div className="modal__block__top">
-        <h6 className="modal__block__top_title accountModalTitle">Рейтинг и отзывы</h6>
-        <StarRating rating={rate} />
+    <div className="modal__wrapper_md accountContainer">
+      <div className="modal__block__top accountTop">
+        <>
+          {mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
+          <h6 className="modal__block__top_title accountTitle">Рейтинг и отзывы</h6>
+        </>
+        <div className="accountRatingBox">
+          <div className="accountRaitingNumber">{rate}.0</div>
+          <StarRating rating={rate} />
+        </div>
       </div>
       {comments == 0 ? (
         <div className="modal__block__middle">
@@ -19,22 +25,25 @@ export function modalRating(rate, comments = 0) {
           </p>
         </div>
       ) : (
-        <>
+        <div className="comment__block">
           <Comments />
           <Comments />
           <Comments />
-        </>
+        </div>
       )}
     </div>
   );
 }
 
 /* Модальное окно "Подписчики" */
-export function modalSubscribers(data, subscribers = 0) {
+export function ModalSubscribers({data, subscribers = 0, modal, mobile}) {
   return (
-    <div className="modal__wrapper_md">
-      <div className="modal__block__top">
-        <h6 className="modal__block__top_title">00 подписчиков</h6>
+    <div className="modal__wrapper_md acoountContainer">
+      <div className="modal__block__top accountTop">
+        <>
+          {mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
+          <h6 className="modal__block__top_title accountTitle">00 подписчиков</h6>
+        </>
       </div>
       {subscribers == 0 ? (
         <div className="modal__block__middle_wrepper">
@@ -44,23 +53,26 @@ export function modalSubscribers(data, subscribers = 0) {
           </div>
         </div>
       ) : (
-        <>
+        <div className="comment__block">
           <Subscribes data={data} />
           <Subscribes data={data} />
           <Subscribes data={data} />
           <Subscribes data={data} />
-        </>
+        </div>
       )}
     </div>
   );
 }
 
 /* Модальное окно "Подписка" */
-export function modalSubscription(data, subscription = 0) {
+export function ModalSubscription({data, subscription = 0, modal, mobile}) {
   return (
-    <div className="modal__wrapper_md">
-      <div className="modal__block__top">
-        <h6 className="modal__block__top_title">00 подписок</h6>
+    <div className="modal__wrapper_md acoountContainer">
+      <div className="modal__block__top accountTop">
+        <>
+          {mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
+          <h6 className="modal__block__top_title accountTitle">00 подписок</h6>
+        </>
       </div>
       {subscription == 0 ? (
         <div className="modal__block__middle">
@@ -68,26 +80,117 @@ export function modalSubscription(data, subscription = 0) {
           <p className="modal__block__middle_rating_description">Здесь будет отображаться список пользователей на которых вы подпишетесь</p>
         </div>
       ) : (
-        <>
+        <div className="comment__block">
           <Subscribes data={data} />
           <Subscribes data={data} />
           <Subscribes data={data} />
-        </>
+        </div>
       )}
     </div>
   );
+}
+/* Модальное окно "Диалог" */ 
+export function ModalMessage({modal}) {
+  return (
+    <div className="modal__wrapper_md acoountContainer">
+      <div className="modal__block__top accountTop">
+        <>
+          <div className="accountArrowLeft" onClick={() => modal()}></div>
+          <h6 className="modal__block__top_title accountTitle">Диалоги</h6>
+        </>
+      </div>
+      {1 == 0 ? (
+        <div className="modal__block__middle">
+          <h6 className="modal__block__middle__title">У Вас еще нет сообщений</h6>
+          <p className="modal__block__middle_rating_description">Здесь будет отображаться все ваши диалоги</p>
+        </div>
+      ) : (
+        <div className="messageMobile">
+              <div className="messageHeader small">
+                <img src="https://source.unsplash.com/random" />
+                <div>
+                  <div>
+                    <div>
+                      <div>Имя пользователя</div>
+                      <div className="light">00.00.00 00:00</div>
+                    </div>
+                    <img src="https://source.unsplash.com/random?portrait" />
+                  </div>
+                  <div>0000</div>
+                  <div>Название товара</div>
+                </div>
+              </div>
+              <div className="messageChats">
+                <div className="messageChat">
+                  <div className="chatDate small light">00.00.00</div>
+                  <div className="chatLocutor">
+                    <img src="https://source.unsplash.com/random?portrait" />
+                    <div>ТекстТекстТекстТекстТексТекстТекст</div>
+                    <div>00:00</div>
+                  </div>
+                  <div className="chatUser">
+                    <div>ТекстТе кстТек стТекс тТе ксТекстТекст ТекстТе кстТек стТекс тТе ксТекстТекст ТекстТе кстТек стТекс тТе ксТекстТекст ТекстТе кстТек стТекс тТе ксТекстТекст</div>
+                    <div>00:00</div>
+                  </div>
+                </div>
+                <div className="messageChat">
+                  <div className="chatDate small light">00.00.00</div>
+                  <div className="chatLocutor">
+                    <img src="https://source.unsplash.com/random?portrait" />
+                    <div>ТекстТекстТекстТекстТексТекстТекст</div>
+                    <div>00:00</div>
+                  </div>
+                  <div className="chatUser">
+                    <div>ТекстТекстТекстТекстТексТекстТекст</div>
+                    <div>00:00</div>
+                  </div>
+                </div>
+                <div className="messageChat">
+                  <div className="chatDate small light">Вчера</div>
+                  <div className="chatLocutor">
+                    <img src="https://source.unsplash.com/random?portrait" />
+                    <div>ТекстТекстТекстТекстТексТекстТекст ТекстТекстТекстТекстТексТекстТекст ТекстТекстТекстТекстТексТекстТекст</div>
+                    <div>00:00</div>
+                  </div>
+                  <div className="chatUser">
+                    <div>ТекстТекстТекстТекстТексТекстТекст</div>
+                    <div>00:00</div>
+                  </div>
+                </div>
+                <div className="messageChat">
+                  <div className="chatDate small light">Сегодня</div>
+                  <div className="chatLocutor">
+                    <img src="https://source.unsplash.com/random?portrait" />
+                    <div>ТекстТекстТекстТекстТексТекстТекст</div>
+                    <div>00:00</div>
+                  </div>
+                  <div className="chatUser">
+                    <div>ТекстТекстТекстТекстТексТекстТекст</div>
+                    <div>00:00</div>
+                  </div>
+                </div>
+              </div>
+              <div className="messageChatInput">
+                <button className="messageFile"></button>
+                <input className="messageInput" type="text" placeholder="Написать сообщение" />
+                <button className="messageSend"></button>
+              </div>
+            </div>
+      )}
+    </div>
+  )
 }
 
 /* Модальное окно "Выход" */
 export function modalLogout() {
   return (
     <div className="modal__wrapper">
-      <h6 className="modal__block_title">Вы уверены что хотите выйти?</h6>
+      <h6 className="modal__block_title accountLogout">Вы уверены что хотите выйти?</h6>
       <div className="modal__block_btn ">
-        <a className="btn-blue" href="">
+        <a className="btn-blue accountLogoutButtonYes" href="">
           ОТМЕНА
         </a>
-        <a className="btn-red" href="">
+        <a className="btn-red accountLogoutButtonNo" href="">
           ВЫЙТИ
         </a>
       </div>

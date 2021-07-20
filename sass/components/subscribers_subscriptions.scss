@@ -47,3 +47,14 @@
     color: $tp;
   }
 }
+
+
+@media (max-width: 380px) {
+  .subscribers_subscriptions{
+    display: block;
+    &__user_rating{
+      justify-content: flex-start;
+      margin-top: 5px;
+    }
+  }
+}

@@ -17,7 +17,7 @@ function LeftReviews(data) {
 
   return (
     <div className="clientPage__container_bottom">
-      <div className="clientPage__container_nav__radio">
+      <div className="clientPage__container_nav__radio reviewsDelete">
         <label className="checkbox">
           <input type="checkbox" />
           <div className="checkbox__text"></div>
@@ -41,7 +41,7 @@ function LeftReviews(data) {
                   </div>
 
                   <div>
-                    <div className="reveiwsNumber">{item.rate}</div>
+                    <div className="reviewsNumber">{item.rate}</div>
                     <StarRating {...{ rating: item.rate }} />
                   </div>
                 </div>

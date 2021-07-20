@@ -11,13 +11,14 @@ import Reviews from "../../components/account/Reviews/Reviews";
 import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
 import { standartDate, ToRusAccountDate } from "../../lib/services";
-import { modalRating, modalSubscribers, modalSubscription, modalLogout } from "../../components/Modals";
+import { modalRating, modalSubscribers, modalSubscription, modalLogout, ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useUser } from "../../hooks/useUser";
 import { useAd } from "../../hooks/useAd";
 import { Avatar, Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
+import { useMedia } from "../../hooks/useMedia";
 
 const userInfo = {
   userId: 1,
@@ -56,6 +57,12 @@ function Account() {
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
+
+  const {matchesMobile, matchesTablet} = useMedia()
+
+  function closeModal(modal, changeModal) {
+    changeModal(!modal)
+  }
 
 
   const signOut = () => {
@@ -129,22 +136,22 @@ function Account() {
         <UserPicUpload {...{ route: "", imageType: "webp", optimiztionLevel: 0.7, maxScale: 5 }} />
       </Dialog>
       <Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
-        <DialogTitle>Вы уверены, что хотите выйти?</DialogTitle>
-        <DialogActions>
-          <Button onClick={() => setLogout(!logout)} color="primary" variant="text">
+        <DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
+        <div className="accountLogoutBtnBox">
+          <Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{textTransform:"uppercase"}}>
             Отмена
           </Button>
-          <Button onClick={() => signOut()}>Выйти</Button>
-        </DialogActions>
+          <Button onClick={() => signOut()} className="accountLogoutYes" style={{color:"red", textTransform:"uppercase"}}>Выйти</Button>
+        </div>
       </Dialog>
-      <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)}>
-        {modalRating(2, 2)}
+      <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+        {<ModalRating rate={2} comments={2} modal={() => closeModal(reviewsModal, setReviewsModal)} mobile={matchesTablet || matchesMobile}/>}
       </Dialog>
-      <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)}>
-        {modalSubscribers(4, 2)}
+      <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+        <ModalSubscribers data={5} subscribers={10} modal={() => closeModal(subscribersModal, setSubscribersModal)} mobile={matchesTablet || matchesMobile}/>
       </Dialog>
-      <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)}>
-        {modalSubscription(3, 4)}
+      <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+        <ModalSubscription data={5} subscription={1} modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesTablet || matchesMobile}/>
       </Dialog>
     </MainLayout>
   );

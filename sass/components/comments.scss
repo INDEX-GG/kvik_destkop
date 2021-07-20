@@ -1,6 +1,6 @@
 .comments{
     width: 100%;
-    margin-top: 32px;
+    margin-top: 24px;
 }
 
 .comment{
@@ -58,6 +58,12 @@
         margin-bottom: 4px;
     }
 
+    &__user_number{
+        color: #8F8F8F;
+        font-size: 14px;
+        margin-right: 4px;
+    }
+
     &__date{
         font-size: 12px;
         line-height: 14px;
@@ -85,4 +91,13 @@
         text-overflow: ellipsis;
         transition: 300ms ease-in-out;
     }
+
+    &__block{
+        padding: 0 12px;
+    }
+}
+
+.rating{
+    display: flex;
+    align-items: center;
 }
