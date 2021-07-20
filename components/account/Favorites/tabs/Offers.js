@@ -8,8 +8,8 @@ function Offers(data) {
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
           <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши объявления</div>
-            <p className="notInf__subtitle">Текст</p>
+            <div className="notInf__title">Добавьте объявление в избранное, чтобы не потерять</div>
+            <p className="notInf__subtitle">Нажмите на соответствующую кнопку( на кнопку добавления, на сердечко, на 💙️), чтобы добавить объявление в избранное</p>
           </div>
         </div>
       </div>

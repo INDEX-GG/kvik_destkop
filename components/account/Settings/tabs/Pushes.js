@@ -10,11 +10,11 @@ function Pushes() {
               </div>
               <div> <label className="checkbox">
                  <input type="checkbox" />
-                 <div className="checkbox__text">Сайт</div>
+                 <div className="checkbox__text checkbox__pr">Сайт</div>
               </label></div>
               <div> <label className="checkbox">
                  <input type="checkbox" />
-                 <div className="checkbox__text">E-mail</div>
+                 <div className="checkbox__text checkbox__pr">E-mail</div>
               </label></div>     
            </div>
         )

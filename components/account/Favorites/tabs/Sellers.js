@@ -7,8 +7,9 @@ function Sellers(data) {
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
           <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду продавцы, на которых вы подписанны</div>
-            <p className="notInf__subtitle">Текст</p>
+            <div className="notInf__title">Здесь будут ваши избранные продавцы</div>
+            <p className="notInf__subtitle">Подпишитесь на продавца, чтобы видеть больше его объявлений</p>
+            <img className="notInf__img" src="/accountImage/SellerNone.png"></img>
           </div>
         </div>
       </div>

@@ -1,5 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 // import Develop from '../../../../../components/inDev/Develop';
+import { Dialog } from "@material-ui/core";
+import { ModalMessage } from "../../../Modals";
+import { useMedia } from "../../../../hooks/useMedia"
 
 function Messages(data) {
   function ellipsis(string, count) {
@@ -9,19 +12,29 @@ function Messages(data) {
       return string;
     }
   }
+
+  const [messageModal, setMessageModal] = useState(false)
+
+  const {matchesTablet, matchesMobile} = useMedia()
+
+  function changeModal() {
+    setMessageModal(!messageModal)
+  }
+
   return (
     (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши диалоги</div>
-            <p className="notInf__subtitle">
-              Нажмите на иконку чата, чтобы договориться
-              <br /> о покупке или продаже товаров и услуг
-            </p>
-          </div>
-        </div>
-      </div>
+      // <div className="clientPage__container_bottom">
+      //   <div className="clientPage__container_content">
+      //     <div className="notInfContainer">
+      //       <div className="notInf__title">Здесь буду ваши диалоги</div>
+      //       <p className="notInf__subtitle">
+      //         Нажмите на иконку чата, чтобы договориться
+      //         <br /> о покупке или продаже товаров и услуг
+      //       </p>
+      //     </div>
+      //   </div>
+      // </div>
+      false
     ) || (
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_nav__radio">
@@ -37,7 +50,7 @@ function Messages(data) {
             <div className="messageDialogs">
               {data.data.map((item) => {
                 return (
-                  <a className="messageDialog">
+                  <a className="messageDialog" onClick={() => {matchesMobile || matchesTablet ? changeModal() : null}}>
                     <div className="messageOffer small">
                       <div className="messageDiaCheck">
                         <label className="checkbox">
@@ -136,6 +149,9 @@ function Messages(data) {
             </div>
           </div>
         </div>
+        <Dialog open={messageModal} onClose={() => setMessageModal(!messageModal)} fullScreen={true}>
+          <ModalMessage modal={changeModal}/>
+        </Dialog>
       </div>
     )
   );

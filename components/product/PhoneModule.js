@@ -4,9 +4,12 @@ import StarRating from "../StarRating";
 import Active_icon from "../../UI/icons/ActiveIcon";
 import Router from "next/router";
 import { useProduct } from "../../hooks/useProduct";
+import {useUser} from "../../hooks/useUser"
 
 export default function PhoneModule() {
-  const { name, userPhoto, phone, raiting, isLoading } = useProduct(Router);
+  const { name, userPhoto, raiting, isLoading } = useProduct(Router);
+  const {phone} = useUser()
+  console.log(useUser())
 
   const useStyles = makeStyles(() => ({
     modalNumber: {
