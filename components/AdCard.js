@@ -35,10 +35,9 @@ function AdCard_component({ offer }) {
   const call = true;
   const like = true;
 
-
-  let sold = null
-  if (offer.sold == true) {
-    sold = "sold"
+  let archived = null
+  if (offer.archived == true) {
+    archived = "sold"
   }
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -47,7 +46,7 @@ function AdCard_component({ offer }) {
 
     <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
       <div className={offer.commercial !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
-        <div className={"card__top " + sold}>
+        <div className={"card__top " + archived}>
           {offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
           <Link href={`/product/${offer.id}`}>
             <a target="_blank" rel="noreferrer">

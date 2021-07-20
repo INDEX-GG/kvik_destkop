@@ -2,6 +2,7 @@ import React from "React";
 import AdCard_component from "../../AdCard";
 
 function Active(data) {
+  console.log(data)
   return (
     <div className="userProduct">
       {data.offers.map((item, i) => {

@@ -8,7 +8,9 @@ import { Avatar, Dialog } from "@material-ui/core";
 import { useRouter } from "next/router";
 import UserLock from "../../UI/icons/UserLock";
 import UserReport from "../../UI/icons/UserReport";
-import { modalRating, modalSubscribers, modalSubscription} from "../../components/Modals";
+import { ModalRating, ModalSubscribers, ModalSubscription} from "../../components/Modals";
+import { useAd } from "../../hooks/useAd";
+import { useMedia } from "../../hooks/useMedia";
 
 const userInfo = {
   userId: 1,
@@ -29,8 +31,9 @@ function UserPage() {
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
 
+  const userInfo = (useAd(router.query.id))
 
-  console.log(router)
+  const {matchesMobile, matchesTablet} = useMedia()
 
 
   return (
@@ -90,17 +93,17 @@ function UserPage() {
           </div>
         </div>
         <div className="clientPage__container">
-          <User router={router} />
+          <User />
         </div>
       </div>
       <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)}>
-        {modalRating(2, 2)}
+        {/* {modalRating(2, 2)} */}
       </Dialog>
       <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)}>
-        {modalSubscribers(4, 2)}
+        {/* {modalSubscribers(4, 2)} */}
       </Dialog>
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)}>
-        {modalSubscription(3, 4)}
+        {/* {modalSubscription(3, 4)} */}
       </Dialog>
     </MainLayout>
   );
