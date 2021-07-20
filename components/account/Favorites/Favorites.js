@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
-
+import axios from 'axios';
 // Объявления
 const OffersBox = [
    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00', username: 'Ну прямо очень весьма и весьма длинное имя', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Центральный административный округ, Москва' },
@@ -121,6 +121,14 @@ const SearchesBox = [
 ];
 
 
+
+
+
+
+
+
+
+
 // Пагинация
 const navItems = [
    { id: 1, title: 'Объявления', content: <Offers offers={OffersBox} />, count: OffersBox.length },
@@ -128,23 +136,30 @@ const navItems = [
    { id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
 ];
 
-const Favorites = () => {
+const Favorites = ({ id }) => {
+
+   axios.post("/api/favorites", id)
+      .then((res) => { })
+
+
+
+   console.log(id)
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
 
    return (
       <>
-      <div className="clientPage__container_top">
-         <div className="clientPage__container_nav__wrapper">
-            <div className="clientPage__container_nav">
-            {navItems.map(item => {
-               return (
-                  <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} { item.count.brooklyn() }</a>
-               )
-            })}
+         <div className="clientPage__container_top">
+            <div className="clientPage__container_nav__wrapper">
+               <div className="clientPage__container_nav">
+                  {navItems.map(item => {
+                     return (
+                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {item.count.brooklyn()}</a>
+                     )
+                  })}
+               </div>
             </div>
          </div>
-      </div>
          {navItems.map(item => {
             return (
                (itemNav.i === item.id) && (item.content)

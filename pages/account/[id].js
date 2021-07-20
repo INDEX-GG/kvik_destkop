@@ -45,9 +45,9 @@ const menuItems = [
 function Account() {
   const router = useRouter();
 
-  const { isAuth, isLoading, username, photo, createdAt, raiting } = useUser();
+  const { isAuth, isLoading, username, photo, createdAt, raiting, id } = useUser();
 
-  /* console.log(userInfo)  */
+
 
   const [menuItem, setMenuItem] = useState({ i: 1, itm: "menuOffers", ttl: "Мои объявления" });
   const [openPicUpload, setPicUpload] = useState(false);
@@ -129,7 +129,7 @@ function Account() {
             </a>
           </div>
         </div>
-        <div className="clientPage__container">{(menuItem.i === 1 && <Offers router={router} />) || (menuItem.i === 2 && <Deals />) || (menuItem.i === 3 && <Wallet />) || (menuItem.i === 4 && <Favorites />) || (menuItem.i === 5 && <Notifications />) || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}</div>
+        <div className="clientPage__container">{(menuItem.i === 1 && <Offers router={router} />) || (menuItem.i === 2 && <Deals />) || (menuItem.i === 3 && <Wallet />) || (menuItem.i === 4 && <Favorites id={id}/>) || (menuItem.i === 5 && <Notifications />) || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}</div>
       </div>
       <div className="userPageWhiteSpace"></div>
       <Dialog open={openPicUpload} onClose={() => setPicUpload(!openPicUpload)} fullWidth maxWidth="xs">

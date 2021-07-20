@@ -15,7 +15,7 @@ import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
-
+import Favorits from '../../';
 
 const objP = {
     id: 1,
@@ -107,6 +107,7 @@ const Product = () => {
                                         <input className="SellerInfoNoteInput" placeholder="Заметка к объявлению" />
                                         <a className="SellerInfoNote"></a>
                                         <a className="SellerInfoFavorite"></a>
+                                        
                                     </div>}
                                 <ProductCarousel photo={photo} />
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}

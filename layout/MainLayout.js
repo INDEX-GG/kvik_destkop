@@ -7,6 +7,7 @@ import { useMedia } from "../hooks/useMedia";
 const MainLayout = ({ children, title = "", isIndex }) => {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
+
   return (
     <>
       <Head>
