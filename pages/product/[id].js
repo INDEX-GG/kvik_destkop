@@ -15,7 +15,9 @@ import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
-import Favorits from '../../';
+import Favorits from '../../UI/Favorits';
+
+
 
 const objP = {
     id: 1,
