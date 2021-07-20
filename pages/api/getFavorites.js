@@ -31,14 +31,22 @@ export default function handler(req, res) {
             var preList2 = preList.substring(0, preList.length - 1)
             let list = preList2.split(',')
 
-            var posts = []
+            let posts = []
 
-            for (var index in list) {
-                const post = await prisma.posts.findFirst({
+            for (let index in list) {
+                let post = []
+                const postData = await prisma.posts.findFirst({
                     where: {
                         id: Number(list[index])
                     }
                 })
+                const userData = await prisma.users.findFirst({
+                    where: {
+                        id: Number(postData.user_id)
+                    }
+                })
+                post.push(postData)
+                post.push(userData)
                 posts.push(post)
             }
 
