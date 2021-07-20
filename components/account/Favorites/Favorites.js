@@ -3,6 +3,8 @@ import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 import axios from 'axios';
+import { useFavorits } from '../../../hooks/useFavorits';
+
 // Объявления
 const OffersBox = [
    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00', username: 'Ну прямо очень весьма и весьма длинное имя', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Центральный административный округ, Москва' },
@@ -120,33 +122,21 @@ const SearchesBox = [
    },
 ];
 
-
-
-
-
-
-
-
-
-
 // Пагинация
-const navItems = [
-   { id: 1, title: 'Объявления', content: <Offers offers={OffersBox} />, count: OffersBox.length },
-   { id: 2, title: 'Продавцы', content: <Sellers sellers={SellersBox} />, count: SellersBox.length },
-   { id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
-];
+
 
 const Favorites = ({ id }) => {
 
-   axios.post("/api/favorites", id)
-      .then((res) => { })
+   const {i, items, productId, address, archived_time, photo } = useFavorits(id);
 
-
-
-   console.log(id)
+console.log(id)
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
-
+   const navItems = [
+      { id: 1, title: 'Объявления', content: <Offers offers={OffersBox}  id={id}/>,  count: i },
+      { id: 2, title: 'Продавцы', content: <Sellers sellers={SellersBox} />, count: SellersBox.length },
+      { id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
+   ];
    return (
       <>
          <div className="clientPage__container_top">
@@ -154,7 +144,7 @@ const Favorites = ({ id }) => {
                <div className="clientPage__container_nav">
                   {navItems.map(item => {
                      return (
-                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {item.count.brooklyn()}</a>
+                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {item.count && item.count.brooklyn()}</a>
                      )
                   })}
                </div>
