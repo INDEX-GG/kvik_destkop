@@ -7,42 +7,41 @@ export default function handler(req, res) {
             const user_id = req.body.user_id
             const userIdInt = Number(user_id)
 
-            let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
-            if (fav[0].favorites == null || fav[0].favorites === ''){
+            let sub = await prisma.$queryRaw(`SELECT subscriptions FROM users WHERE id = ${userIdInt}`)
+            if (sub[0].subscriptions == null || sub[0].subscriptions === ''){
                 const obj = {
                     where:
                         {
                             id:userIdInt
                         },
                     data: {
-                        favorites: '[]'
+                        subscriptions: '[]'
                     }
                 }
                 await prisma.users.update(obj);
             }
 
-            const favorites = await prisma.users.findFirst({
+            const subscriptions = await prisma.users.findFirst({
                 where: {
                     id: userIdInt
                 }
             })
-
-            var preList = favorites['favorites'].substring(1)
+            var preList = subscriptions['subscriptions'].substring(1)
             var preList2 = preList.substring(0, preList.length - 1)
             let list = preList2.split(',')
 
-            var posts = []
+            var sellers = []
 
             for (var index in list) {
-                const post = await prisma.posts.findFirst({
+                const seller = await prisma.users.findFirst({
                     where: {
                         id: Number(list[index])
                     }
                 })
-                posts.push(post)
+                sellers.push(seller)
             }
 
-            res.json(posts)
+            res.json(sellers)
         }
         main()
             .catch((e) => {
