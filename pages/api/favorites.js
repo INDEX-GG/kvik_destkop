@@ -9,7 +9,7 @@ export default function handler(req, res) {
             const userIdInt = Number(user_id)
             let comment = req.body.comment
             const condition = req.body.condition
-            if (req.body.comment === null || req.body.comment === undefined){
+            if (req.body.comment === null || req.body.comment === undefined || req.body.comment === "undefined"){
                 comment = ''
             }
 
