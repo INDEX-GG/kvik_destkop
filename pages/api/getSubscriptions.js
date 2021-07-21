@@ -21,6 +21,13 @@ export default function handler(req, res) {
                 await prisma.users.update(obj);
             }
 
+
+
+
+
+
+
+
             const subscriptions = await prisma.users.findFirst({
                 where: {
                     id: userIdInt
@@ -36,13 +43,44 @@ export default function handler(req, res) {
                 const seller = await prisma.users.findFirst({
                     where: {
                         id: Number(list[index])
+
+                    },
+                    select: {
+                        id: true,
+                        name: true,
+                        userPhoto: true,
                     }
                 })
+                const products = await prisma.posts.findMany({
+                    where: {
+                        user_id: Number(seller.id)
+                    },
+                    select: {
+                        id: true,
+                        title: true,
+                        price: true,
+                        photo: true
+                    }
+                })
+                console.log(products);
+                console.log(products[0].photo);
+                seller.poducts = products
+
                 sellers.push(seller)
             }
 
             res.json(sellers)
         }
+
+
+
+
+
+
+
+
+
+
         main()
             .catch((e) => {
                 console.log("error: " + e);
