@@ -17,7 +17,6 @@ import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
 import {useAd} from "../../hooks/useAd"
 import Favorits from '../../UI/Favorits';
-
 const objP = {
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',

@@ -12,6 +12,7 @@ import { useAd } from "../../hooks/useAd";
 import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
+import { useUser } from "../../hooks/useUser";
 
 const userInfo = {
   userId: 1,
@@ -35,7 +36,9 @@ function UserPage() {
 
   const userInfo = useAd(router.query.id)
 
-  const {username, photo, raiting, createdAt, isLoading, subscription} = useOutherUser(router.query.id)
+  const {username, photo, raiting, createdAt, isLoading, sellerId} = useOutherUser(router.query.id)
+
+  const {id} = useUser()
 
   const {matchesMobile, matchesTablet} = useMedia()
 
@@ -45,11 +48,8 @@ function UserPage() {
   }
 
   function subscribeUser() {
-    axios.post("/api/getUser", {id: router.query.id, subscribe: true}).then(res => console.log(res))
+    axios.post("/api/subscriptions", {user_id: String(id), seller_id: String(sellerId)}).then(res => console.log(res))
   }
-
-  console.log(subscription)
-
 
 
   return (
