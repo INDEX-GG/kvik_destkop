@@ -26,11 +26,11 @@ export default function handler(req, res) {
                     id: userIdInt
                 }
             })
-            var preList = subscriptions['subscriptions'].substring(1)
-            var preList2 = preList.substring(0, preList.length - 1)
+            let preList = subscriptions['subscriptions'].substring(1)
+            let preList2 = preList.substring(0, preList.length - 1)
             let list = preList2.split(',')
 
-            var sellers = []
+            let sellers = []
 
             for (var index in list) {
                 const seller = await prisma.users.findFirst({

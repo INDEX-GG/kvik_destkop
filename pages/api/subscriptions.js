@@ -31,17 +31,19 @@ export default function handler(req, res) {
                         subscriptions:true
                     }
             })
-
-            var preList = subscriptions['subscriptions'].substring(1)
-            var preList2 = preList.substring(0, preList.length - 1)
+            let answer = 'none'
+            let preList = subscriptions['subscriptions'].substring(1)
+            let preList2 = preList.substring(0, preList.length - 1)
             let list = preList2.split(',')
             if (list.includes(seller_id)){
                 var index = list.indexOf(seller_id)
                 if (index > -1) {
                     list.splice(index, 1)
+                    answer = 'delete'
                 }
             } else {
                 list.push(seller_id)
+                answer = 'post'
             }
 
             var index = list.indexOf('')
@@ -59,7 +61,7 @@ export default function handler(req, res) {
                 }
             }
             await prisma.users.update(obj);
-            res.json('success')
+            res.json(answer)
         }
         main()
             .catch((e) => {
