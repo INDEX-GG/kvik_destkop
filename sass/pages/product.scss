@@ -865,6 +865,14 @@
         grid-template-columns: 100%;
         grid-column-gap: 0;
     }
+    .seen__ad{
+        top: auto;
+        bottom: 24px;
+    }
+
+    .swiper-pagination{
+        display: none
+    }
 
     .productPageSimilarOffersContainer {
         grid-template-columns: repeat(3, 1fr);

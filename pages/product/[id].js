@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Dialog } from '@material-ui/core';
 import axios from 'axios';
-// import Header from '../../components/header/Header';
-// import Footer from '../../components/Footer';
 import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
 import Statistics from '../../components/Statistics';
@@ -17,6 +15,10 @@ import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
 import {useAd} from "../../hooks/useAd"
 import Favorits from '../../UI/Favorits';
+import MainLayout from "../../layout/MainLayout"
+
+
+
 const objP = {
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',
@@ -96,8 +98,8 @@ const Product = () => {
 
 
     return (
+        <MainLayout>
         <div className="productPage" id="productPage">
-            <Header />
             <div className="productPageContainer text">
                 {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin">Хлебные крошки</div>}
                 {/* Блок объявления */}
@@ -206,8 +208,8 @@ const Product = () => {
             </div>
             <div className="productPageWhiteSpace"></div>
             <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth='sm'> <Statistics Close={handleStatFormDialog} /> </Dialog>
-            <Footer />
         </div >
+        </MainLayout>
     )
 }
 

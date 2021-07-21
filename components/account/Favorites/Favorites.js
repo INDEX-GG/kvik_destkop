@@ -4,6 +4,7 @@ import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 import axios from 'axios';
 import { useFavorits } from '../../../hooks/useFavorits';
+import SellerData from './data/SellersData';
 
 // Объявления
 const OffersBox = [
@@ -77,6 +78,8 @@ const SellersBox = [
       ]
    },
 ];
+
+
 
 // Поиски
 const SearchesBox = [

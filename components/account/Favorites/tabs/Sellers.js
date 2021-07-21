@@ -1,7 +1,21 @@
 import React from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
 
+
+import { useSubList } from "../../../../hooks/useSubscriptions"
+import { useAd } from "../../../../hooks/useAd";
+import router from "next/router";
+import SellerData from "../data/SellersData";
+
+
 function Sellers(data) {
+
+  // const {subList} = useSubList(router.query.id)
+  // console.log(subList)
+  const data1 = SellerData()
+
+  console.log(data1)
+
   if (data.sellers.lenght == 0) {
     return (
       <div className="clientPage__container_bottom">
