@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import AdCard_component from "../../AdCard";
 
 function Active(data) {
