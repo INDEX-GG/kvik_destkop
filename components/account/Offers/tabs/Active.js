@@ -100,8 +100,7 @@ function Active(data) {
 
   const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
-
-  if (data.offers.lenght == 0) {
+  if (data.offers.length == 0) {
     return (
       <div className="clientPage__placeholder-container">
         <div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>
