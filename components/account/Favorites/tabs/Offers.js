@@ -2,9 +2,13 @@ import React from "react";
 import { ToRubles } from "../../../../lib/services";
 import Favorits from '../../../../UI/Favorits';
 import { useFavorits } from "../../../../hooks/useFavorits";
-function Offers(data, ...id) {
-  const {i, items, productId, address, archived_time, photo } = useFavorits(id);
-console.log(id)
+function Offers(data) {
+  const { i, itemsUser, itemsPost, address, userFavorite, photo } = useFavorits(data.router);
+
+  console.log(userFavorite.map((items) => items.map((item) => item)))
+
+  
+
   if (i == 0) {
     return (
       <div className="clientPage__container_bottom">
@@ -18,6 +22,7 @@ console.log(id)
     );
   }
 
+
   return (
     <div className="clientPage__container_bottom">
       <div className="clientPage__container_nav__radio">
@@ -29,9 +34,13 @@ console.log(id)
       </div>
       <div className="clientPage__container_content">
         <div className="favoritesContainerWrapper">
-          {data.offers.map((offer) => {
-            return (
-              <div key={productId} className="favoritesContainer boxWrapper">
+
+          {
+            userFavorite && (
+
+
+
+              <div /* key={data.itemsPost.id} */ className="favoritesContainer boxWrapper">
                 <div className="favoritesImage">
                   <div className="favoritesPubCheck">
                     <label className="checkbox">
@@ -40,36 +49,39 @@ console.log(id)
                     </label>
                   </div>
                   <a className="favoritesCompare"></a>
-                  <Favorits offer={offer} isAccountCard />
-                  <img src={`${offer.img}?${offer.id}`} />
+                  <Favorits isAccountCard />
+
+                  <img /* src={`${offer.img}?${offer.id}`} */ />
                   <div className="favoritesCause megaLight">Пользователь заблокирован</div>
                 </div>
                 <div className="favoritesDescription">
                   <div className="favoritesUserBlock small">
                     <div>
-                      <div>{offer.username}</div>
+                      <div>{/* {offer.username}*/}</div>
                       <div className="favoritesDatPub light DatPub__mobile">
                         {" "}
-                        <span> Дата публикации</span> {offer.date}
+                        <span> Дата публикации</span> {/* data.itemsPost.created_at */}
                       </div>
                     </div>
-                    <img className="favoritesUserpic" src={`${offer.userpic}?${offer.id}`} />
+                    <img className="favoritesUserpic" /* src={`${offer.userpic}?${offer.id}`} */ />
                   </div>
                   <div className="favoritesMiddle">
-                    <div>{ToRubles(offer.price)}</div>
-                    <div>{offer.title}</div>
-                    <div className="thin small light">{offer.locality}</div>
+                    <div>{ToRubles(/* data.itemsPost.price */)}</div>
+                    <div>{/* data.itemsPost.title */}</div>
+                    <div className="thin small light">{/* data.itemsPost.address */}</div>
                   </div>
                   <div className="favoritesNote">Заметка по объявлению, которую я написал</div>
                   <a className="favoritesButton buttonGrey small">Сообщить об изменении цены</a>
                 </div>
               </div>
-            );
-          })}
+            )
+          }
+
         </div>
       </div>
     </div>
   );
 }
+
 
 export default Offers;
