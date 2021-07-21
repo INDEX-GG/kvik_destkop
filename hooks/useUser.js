@@ -2,10 +2,10 @@ import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
+
 export function useUser() {
   const { data: user, mutate: mutateUser } = useSWR('/api/user'),
-
-
 
     [isAuth, setIsAuth] = useState(false),
     [userInfo, setUserInfo] = useState({}),
@@ -14,6 +14,7 @@ export function useUser() {
     user && setIsAuth(user.isAuth)
     isAuth && axios.post('/api/getUser', user)
       .then((res) => {
+		console.log('not ok')
         setUserInfo({
           id: user.id,
           username: res.data.user.name,
@@ -27,7 +28,7 @@ export function useUser() {
         })
         setLoading(false);
       })
-  }, [user, isAuth])
+  }, [user])
 
   return {
     isAuth,
