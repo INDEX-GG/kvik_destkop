@@ -7,8 +7,11 @@ export default function handler(req, res) {
             const user_id = req.body.user_id
             const post_id = req.body.post_id
             const userIdInt = Number(user_id)
-            const postIdInt = Number(post_id)
-            const comment = req.body.comment
+            let comment = req.body.comment
+            const condition = req.body.condition
+            if (req.body.comment === null || req.body.comment === undefined){
+                comment = ''
+            }
 
             // Проверка и заполнение пустого поля
             let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
@@ -48,12 +51,20 @@ export default function handler(req, res) {
                 for (let index in list) {
                     let secondLevel = (list[index]).split(':')
                     if (secondLevel.includes(post_id)) {
-
-                        list.splice(index,1)
+                        if (condition === 'false') {
+                            list.splice(index,1)
+                            list.push(post_id + ":" + comment + ":" + condition)
+                            if (comment === '') {
+                                list.splice(index,1)
+                            }
+                        } else{
+                            list.splice(index,1)
+                            list.push(post_id + ":" + comment + ":" + condition)
+                        }
                     }
                 }
             } else {
-                list.push(post_id + ":" + comment)
+                list.push(post_id + ":" + comment + ":" + condition)
             }
 
             // Удаление пустых значений
