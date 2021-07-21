@@ -6,6 +6,7 @@ import IconCall from "../../UI/icons/IconCall";
 import IconMess from "../../UI/icons/IconMess";
 import Statistics from "../../components/Statistics";
 import PhoneModule from "./PhoneModule";
+import Favorits from "../../UI/Favorits";
 
 export default function ProductAction(data) {
   const [openStatForm, setOpenStatForm] = useState(false);
@@ -14,6 +15,14 @@ export default function ProductAction(data) {
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   const objP = { adstatus: 8 };
+
+
+
+
+
+  
+
+
 
   return (
     <>
@@ -30,10 +39,8 @@ export default function ProductAction(data) {
           )}
           {objP.adstatus === 8 ? (
             <div className="SellerInfoTopButtons">
-              <input className="SellerInfoNoteInput" placeholder="Заметка к объявлению" />
-              <a className="SellerInfoNote"></a>
+              <Favorits isProduct />
               <a className="SellerInfoCompare"></a>
-              <a className="SellerInfoFavorite"></a>
             </div>
           ) : (
             ""
