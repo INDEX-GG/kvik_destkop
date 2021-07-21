@@ -5,6 +5,7 @@ import { useUser } from '../../hooks/useUser';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import { phoneNumber } from '../../lib/services';
+import Loader from '../../UI/icons/Loader';
 
 const useStyles = makeStyles((theme) => ({
    formElem: {
@@ -51,22 +52,29 @@ const Contacts = () => {
 
 useEffect(() => {
     setPhones([{value: phone, label: phoneNumber(phone)}]);
-	console.log(phones)	
 }, [phone, isLoading])
 
 useEffect(() => {
-	setDefaultVal(phones[0]);
-	console.log(defaultVal);
+	if (phones.length > 0) {
+		setDefaultVal(phones[0].value);
+	}
 }, [phones])
+
+useEffect(() => {
+	if (defaultVal) {
+		methods.setValue('contact', defaultVal)
+	}
+}, [defaultVal])
 
    return (
       <Box className={classes.formElem}>
          <Typography className={classes.formTitleField}>Контакты</Typography>
          <Box className={classes.formInputField}>
-         <Controller
+		 {!defaultVal && <Loader size={32}/>}
+         {defaultVal && <Controller
                 name="contact"
+				// defaultValue={defaultVal}
                 control={methods.control}
-                defaultValue={defaultVal?.value}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <TextField
                         select
@@ -84,7 +92,7 @@ useEffect(() => {
                     </TextField>
                 )}
                 rules={{ required: 'Выбирите номер для связи' }}
-            />
+            />}
             <Box>
                 <Controller
                     name='bymessages'

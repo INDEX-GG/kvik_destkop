@@ -51,6 +51,7 @@ const Price = () => {
                     defaultValue=''
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField
+							
                             variant='outlined'
                             type="text"
                             autoComplete="on"
@@ -59,7 +60,7 @@ const Price = () => {
                             onChange={e => onChange(priceFormat(e))}
                             error={!!error} helperText={error ? error.message : ' '} />
                     )}
-                    rules={{ required: `Введите цену ${methods.watch('title')}` }}
+                    rules={{ required: `Введите цену ${methods.watch('title')}`, max: 10 }}
                 />
 
                 <Controller

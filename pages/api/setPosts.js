@@ -56,21 +56,23 @@ export default function handler(req, res)
                         message: text2Bool(req.body.bymessage)
                     }
 
-                // const results1 = await prisma.categories.findFirst({
-                //     where: {
-                //         alias: req.body. //alias
-                //     }
-                // })
-                // console.log(results1)
-
-                console.log("in main",JSON.stringify(photo))
+                const results1 = await prisma.categories.findMany({
+                    where: {
+                        alias: req.body.alias //alias
+                    }
+                })
+				let str = results1[0].id + "n";
+              
+				
+				
+                //console.log("in main",JSON.stringify(photo))
                 var now = new Date()
 
                 const obj = {
                     data: {
                         country_code:7,
                         user_id:+req.body.user_id,
-                        category_id:+req.body.category_id,  //results1.id
+                        category_id:+str.replace('n',''),  //results1.id
                         title:req.body.title,
                         description:req.body.description,
                         price:req.body.price,
@@ -99,8 +101,8 @@ export default function handler(req, res)
                     }
                 }
                 // const allUsers = await prisma.users.update(obj);
-                const allUsers = await prisma.posts.create(obj);
-                //  console.log(req.body)
+               const allUsers = await prisma.posts.create(obj);
+                // console.log(req.body)
             }
 
             main(req.name)

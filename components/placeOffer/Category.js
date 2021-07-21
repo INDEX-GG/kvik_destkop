@@ -39,7 +39,7 @@ const Category = () => {
             <Typography className={classes.formTitleField}>Категория</Typography>
             <Box className={classes.formInputField}>
                 <Controller
-                    name="category_1"
+                    name="alias1"
                     control={methods.control}
                     defaultValue=''
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -50,12 +50,12 @@ const Category = () => {
                             value={value}
                             onChange={onChange}
                             onClick={() => {
-                                methods.setValue('category_2', '');
-                                methods.setValue('category_3', '');
-                                methods.setValue('category_4', '');
-                                methods.unregister('category_2', '');
-                                methods.unregister('category_3', '');
-                                methods.unregister('category_4', '');
+                                methods.setValue('alias2', '');
+                                methods.setValue('alias3', '');
+                                methods.setValue('alias4', '');
+                                methods.unregister('alias2', '');
+                                methods.unregister('alias3', '');
+                                methods.unregister('alias4', '');
                             }}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
@@ -69,8 +69,8 @@ const Category = () => {
                     rules={{ required: 'Выбирите Категорию' }}
                 />
 
-                {methods.watch('category_1') && <Controller
-                    name="category_2"
+                {methods.watch('alias1') && <Controller
+                    name="alias2"
                     control={methods.control}
                     defaultValue=''
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -80,15 +80,15 @@ const Category = () => {
                             variant='outlined'
                             value={value}
                             onClick={() => {
-                                methods.setValue('category_3', '');
-                                methods.setValue('category_4', '');
-                                methods.unregister('category_3');
-                                methods.unregister('category_4');
+                                methods.setValue('alias3', '');
+                                methods.setValue('alias4', '');
+                                methods.unregister('alias3');
+                                methods.unregister('alias4');
                             }}
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
-                            {categoriesByAlias(methods.watch('category_1')).map((option, i) => (
+                            {categoriesByAlias(methods.watch('alias1')).map((option, i) => (
                                 <MenuItem key={i} value={option.alias}>
                                     {option.label}
                                 </MenuItem>
@@ -98,10 +98,10 @@ const Category = () => {
                     rules={{ required: 'Выбирите Категорию' }}
                 />}
 
-                {categoriesByAlias(methods.watch('category_1'), methods.watch('category_2')) &&
-                methods.watch('category_2') && 
+                {categoriesByAlias(methods.watch('alias1'), methods.watch('alias2')) &&
+                methods.watch('alias2') && 
                 <Controller
-                    name="category_3"
+                    name="alias3"
                     control={methods.control}
                     defaultValue=''
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -112,12 +112,12 @@ const Category = () => {
                             value={value}
                             onChange={onChange}
                             onClick={() => {
-                                methods.setValue('category_4', '');
-                                methods.unregister('category_4');
+                                methods.setValue('alias4', '');
+                                methods.unregister('alias4');
                             }}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
-                            {categoriesByAlias(methods.watch('category_1'), methods.watch('category_2')).map((option, i) => (
+                            {categoriesByAlias(methods.watch('alias1'), methods.watch('alias2')).map((option, i) => (
                                 <MenuItem key={i} value={option.alias}>
                                     {option.label}
                                 </MenuItem>
@@ -127,10 +127,10 @@ const Category = () => {
                     rules={{ required: 'Выбирите Категорию' }}
                 />}
 
-                {categoriesByAlias(methods.watch('category_1'), methods.watch('category_2'), methods.watch('category_3')) &&
-                methods.watch('category_3') && 
+                {categoriesByAlias(methods.watch('alias1'), methods.watch('alias2'), methods.watch('alias3')) &&
+                methods.watch('alias3') && 
                 <Controller
-                    name="category_4"
+                    name="alias4"
                     control={methods.control}
                     defaultValue=''
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -142,7 +142,7 @@ const Category = () => {
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : ' '}>
-                            {categoriesByAlias(methods.watch('category_1'), methods.watch('category_2'), methods.watch('category_3')).map((option, i) => (
+                            {categoriesByAlias(methods.watch('alias1'), methods.watch('alias2'), methods.watch('alias3')).map((option, i) => (
                                 <MenuItem key={i} value={option.alias}>
                                     {option.label}
                                 </MenuItem>

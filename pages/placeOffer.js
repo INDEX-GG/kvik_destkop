@@ -10,8 +10,10 @@ import Price from '../components/placeOffer/Price/Price';
 import Photoes from '../components/placeOffer/Photoes';
 import Location from '../components/placeOffer/Location';
 import Contacts from '../components/placeOffer/Contacts';
+import ErrorMessages from '../components/placeOffer/ErrorMessages';
 import axios from 'axios';
 import useSWR from 'swr';
+import {useRouter} from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
 			paddingLeft: '220px',
         },
-    },
-    fg: {
-        flexGrow: 1,
     },
     title: {
         marginBottom: theme.spacing(1),
@@ -40,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         display: 'flex',
+		alignItems: 'center'
     }
 }));
 
@@ -48,6 +48,7 @@ function PlaceOffer() {
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
+	const router = useRouter();
     let photoes = [];
     const photoesCtx = (obj) => {
         return photoes = obj;
@@ -56,17 +57,11 @@ function PlaceOffer() {
     const onSubmit = data => {
         console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
-        let id = Math.max(
-            data.category_1, 
-            data.category_2, 
-            data.category_3 !== undefined ? data.category_3 : 0, 
-            data.category_4 !== undefined ? data.category_4 : 0);
-        data = {...data, category_id: id}
-        console.log(data);
+		const alias = data?.alias4 || data?.alias3 || data?.alias2;
         const sendData = new FormData;
         sendData.append('user_id', user.id);
         sendData.append('title', data.title);
-        sendData.append('category_id', data.category_id);
+		sendData.append('alias', alias);
         sendData.append('description', data.description);
         sendData.append('price', data.price);
         sendData.append('trade', data.trade);
@@ -86,6 +81,7 @@ function PlaceOffer() {
                 "Content-Type": "multipart/form-data"
             }
         })
+		router.push('/');
     }
 
     return (
@@ -109,7 +105,7 @@ function PlaceOffer() {
                                 <Location />
                                 <Contacts />
                                 <Box className={classes.submit}>
-                                    <Typography variant='subtitle2' className={classes.fg}>Заполните все обязательные поля</Typography>
+									<ErrorMessages />
                                     <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
                                 </Box>
                             </Box>
