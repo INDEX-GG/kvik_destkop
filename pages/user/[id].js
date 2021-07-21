@@ -13,6 +13,7 @@ import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
 import { useUser } from "../../hooks/useUser";
+import { useSubList, useSubBool } from "../../hooks/useSubscriotions";
 
 const userInfo = {
   userId: 1,
@@ -31,24 +32,42 @@ function UserPage() {
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-  const [userData, setUserData] = useState({})
-  const [userLoading, setUserLoading] = useState(true)
+  const [subTest, setSubTest] = useState(null)
 
   const userInfo = useAd(router.query.id)
-
   const {username, photo, raiting, createdAt, isLoading, sellerId} = useOutherUser(router.query.id)
-
   const {id} = useUser()
-
   const {matchesMobile, matchesTablet} = useMedia()
+  const [userBool, setUserBool] = useState(false)
+
+  const {userLoading, userSub} =  useSubBool(id, sellerId)
+
+  useEffect(() => {
+    setUserBool(userSub)
+  }, [userLoading])
 
 
   function modal(modal, changeModal) {
     changeModal(!modal)
   }
 
+
   function subscribeUser() {
-    axios.post("/api/subscriptions", {user_id: String(id), seller_id: String(sellerId)}).then(res => console.log(res))
+
+    const subscribe = {
+      user_id: id + "", 
+      seller_id: sellerId + ""
+    }
+
+    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+
+    axios.post("/api/subscriptions", subscribe)
+    .then(res => console.log(res.data))
+    .catch(error => cosnole.log(error))
+
+    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+
+    setUserBool(!userBool)
   }
 
 
@@ -91,7 +110,7 @@ function UserPage() {
                 <p>подписок</p>
               </a>
             </div>
-            <button className="btnSubscribe" onClick={subscribeUser}>Подписаться</button>
+            {userBool == null ? null : <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>}
             <div className="btnActive">
               <a className="userActive">Заблокировать пользователя</a>
               <div className="userIconBlock">
