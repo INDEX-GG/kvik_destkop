@@ -40,7 +40,7 @@ const Verify = () => {
     const [verifyContacts, setVerifyContacts] = useState(false);
 
     useEffect(() => {
-        setVerifyCategory(!!methods.watch('title') && !!methods.watch('category_2'));
+        setVerifyCategory(!!methods.watch('title') && (!!methods.watch('alias4') && !!methods.watch('alias3') && !!methods.watch('alias2')));
         setVerifyDescription(verifyCategory && !!methods.watch('description'));
         setVerifyPrice(verifyDesription && !!methods.watch('price'));
         setVerifyPhotoes(verifyPrice && !!methods.watch('photoes'));

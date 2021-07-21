@@ -21,30 +21,28 @@ const useStyles = makeStyles(() => ({
 const Search = () => {
 
 	const classes = useStyles();
-	const [search, setSearch] = useState();
-	const [result, setRes] = useState();
+	// const [search, setSearch] = useState();
+	// const [result, setRes] = useState();
 
-	const handelSearch = e => {
-		setSearch(e.target.value)
-		if (search?.length > 2) {
-			setRes(search)
-		}
-	}
+	// const handelSearch = e => {
+	// 	setSearch(e.target.value)
+	// 	if (search?.length > 2) {
+	// 		setRes(search)
+	// 	}
+	// }
 
-	useEffect(() => {
-		axios.post('/api/search', { product_name: result })
-			.then(res => console.log(res))
-	}, [result])
+	// useEffect(() => {
+	// 	axios.post('/api/search', { product_name: result })
+	// 		.then(res => console.log(res))
+	// }, [result])
 
-	console.log(result)
-
-
+	// console.log(result)
 
 	return (
 		<Box className={classes.input} >
 			<TextField
-				value={search}
-				onChange={e => handelSearch(e)}
+				// value={search}
+				// onChange={e => handelSearch(e)}
 				variant='outlined' size='small'
 				placeholder="Поиск по объявлениям"
 				fullWidth className={classes.searchInput} />
