@@ -59,6 +59,7 @@ function PlaceOffer() {
         data.price = data.price.replace(/\D+/g, '');
 		const alias = data?.alias4 || data?.alias3 || data?.alias2;
         const sendData = new FormData;
+		const photoData = new FormData;
         sendData.append('user_id', id);
         sendData.append('title', data.title);
 		sendData.append('alias', alias);
@@ -71,16 +72,23 @@ function PlaceOffer() {
         sendData.append('byphone', data.byphone);
         sendData.append('bymessage', data.bymessages);
         if (photoes.length > 1) {
-            photoes.forEach(photo => sendData.append('image', photo));
+            photoes.forEach(photo => photoData.append('files[]', photo));
         } else if (photoes.length === 1) {
-            sendData.append('image', photoes[0]);
+            photoData.append('files[]', photoes[0]);
         }
         console.log(sendData);
+		console.log(photoData);
         axios.post('/api/setPosts', sendData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
-        }).then(r => console.log(r.data.id))
+        }).then(r => {
+			axios.post(`http://192.168.8.111:6001/post/${r.data.id}`, photoData, {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			})
+		})
 		// router.push('/');
     }
 
