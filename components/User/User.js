@@ -4,6 +4,7 @@ import Sold from "./tabs/Sold";
 import Placeholder from "./tabs/Placeholder";
 import { useAd } from "../../hooks/useAd";
 import { useRouter } from "next/router";
+import { brooklyn } from "../../lib/services";
 
 const UsersPage = () => {
   const [activeBox, setActiveBox] = useState([]);
@@ -38,7 +39,7 @@ const UsersPage = () => {
             {navItems.map((item) => {
               return (
                 <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>
-                  {item.title} {item.count == undefined ? "" : item.count.brooklyn()}
+                  {item.title} {brooklyn(item.count)}
                 </a>
               );
             })}

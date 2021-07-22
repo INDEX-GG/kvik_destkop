@@ -1,5 +1,5 @@
 import React from "react";
-import MainLayout from "../../layout/MainLayout"
+import MetaLayout from "../../layout/MainLayout"
 import User from "../../components/User/User";
 import { Avatar, Box, Container, makeStyles } from "@material-ui/core";
 import Image from "next/image"
@@ -138,7 +138,7 @@ function Buy() {
     const classes = useStyles()
 
     return (  
-        <MainLayout>
+        <MetaLayout>
             <Container className={classes.buyContainer}>
                 <Box className={classes.buyProduct}>
                     <h1 className={classes.buyTitle}>Оформление и оплата</h1>
@@ -176,7 +176,7 @@ function Buy() {
                     </div>
                 </aside>
             </Container>
-        </MainLayout>
+        </MetaLayout>
     )
 }
 

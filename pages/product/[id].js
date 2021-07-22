@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Dialog } from '@material-ui/core';
 import axios from 'axios';
-import Header from '../../components/header/Header';
-import Footer from '../../components/Footer';
+import MetaLayout from '../../layout/MetaLayout';
 import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
 import Statistics from '../../components/Statistics';
@@ -96,8 +95,9 @@ const Product = () => {
 
 
     return (
+		<MetaLayout>
         <div className="productPage" id="productPage">
-            <Header />
+
             <div className="productPageContainer text">
                 {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin">Хлебные крошки</div>}
                 {/* Блок объявления */}
@@ -206,8 +206,8 @@ const Product = () => {
             </div>
             <div className="productPageWhiteSpace"></div>
             <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth='sm'> <Statistics Close={handleStatFormDialog} /> </Dialog>
-            <Footer />
         </div >
+		</MetaLayout>
     )
 }
 

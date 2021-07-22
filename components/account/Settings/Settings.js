@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PersonalData from './tabs/PersonalData';
 import Pushes from './tabs/Pushes';
 import BlackList from './tabs/BlackList';
+import { brooklyn } from '../../../lib/services';
 
 // Чёрный список
 const blackListBox = [
@@ -42,7 +43,7 @@ const Settings = () => {
                <div className="clientPage__container_nav">
                   {navItems.map(item => {
                      return (
-                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {item.count.brooklyn()}</a>
+                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {brooklyn(item.count)}</a>
                      )
                   })}
                </div>

@@ -14,6 +14,8 @@ import Loader from "../../UI/icons/Loader";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
 import Login from "../auth/Login";
+import { useAuth } from "../../lib/Context/AuthCTX";
+import { initials, stringToColor } from "../../lib/services";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,9 +72,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ category }) => {
-  const { isAuth, id, isLoading, username, photo, mutateUser } = useUser();
-  const classes = useStyles();
+	const {isAuth, id} = useAuth();
+	const { isLoading, name, userPhoto } = useUser();
 
+  const classes = useStyles();
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   const [openCat, setCategories] = useState();
   const [openRegForm, setOpenRegForm] = useState(false);
@@ -111,8 +114,8 @@ const Header = ({ category }) => {
 			</Button>
 			|| isLoading && <Loader size={32} /> || !isLoading &&
 			<Link href={`/account/${id}`}>
-			<Avatar className={classes.avatar} src={photo} style={{ backgroundColor: `${username.toColor()}` }}>
-				{username.initials()}
+			<Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
+				{initials(name)}
 			</Avatar>
 			</Link>}
 

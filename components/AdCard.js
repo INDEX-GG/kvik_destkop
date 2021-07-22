@@ -13,10 +13,11 @@ function AdCard_component({ offer }) {
   const currentSwiper = useRef();
   let sheduled = false;
 
+  console.log('offerRender')
+
   useEffect(() => {
-    currentSwiper.current.addEventListener("mousemove", switchSlide);
-    return () => currentSwiper.current.removeEventListener("mousemove", switchSlide);
-  });
+    currentSwiper.current.addEventListener("mousemove", switchSlide);	
+  }, [currentSwiper]);
 
   function switchSlide(e) {
     if (!sheduled) {
@@ -49,7 +50,6 @@ function AdCard_component({ offer }) {
         <div className={"card__top " + archived}>
           {offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
           <Link href={`/product/${offer.id}`}>
-            <a target="_blank" rel="noreferrer">
               <div className="card__top_slider">
                 <Swiper
                   ref={currentSwiper}
@@ -68,7 +68,6 @@ function AdCard_component({ offer }) {
                   {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
                 </Swiper>
               </div>
-            </a>
           </Link>
           <div className="card__top_info">
             <div className="card__top_info_left">
@@ -77,13 +76,12 @@ function AdCard_component({ offer }) {
             </div>
             <div className="card__top_info_right">
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
-              <Favorits isCard offer= {offer}></Favorits>
+              {/* <Favorits isCard offer= {offer}></Favorits> */}
             </div>
           </div>
 
         </div>
         <Link href={`/product/${offer.id}`}>
-          <a target="_blank" rel="noreferrer">
             <div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
               <div className="card__bottom_info">
                 <div className="card__bottom_info_right">
@@ -105,7 +103,6 @@ function AdCard_component({ offer }) {
                 <div className="card__bottom_info_footer_right">{ToRusDate(offer.created_at)}</div>
               </div>
             </div>
-          </a>
         </Link>
       </div>
     </div>

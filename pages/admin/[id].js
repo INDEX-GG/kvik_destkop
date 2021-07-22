@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import MainLayout from '../../layout/MainLayout';
+import MetaLayout from '../../layout/MainLayout';
 import Modal from '../../components/Modal';
 import { modalLogout } from '../../components/Modals';
 import { Ads } from "../../components/admin/ads/Ads";
 import { Setting } from '../../components/admin/Setting/Setting';
+import { initials, stringToColor } from '../../lib/services';
 
 const userInfo = {
   userId: 1,
@@ -49,13 +50,13 @@ function Admin() {
   }
 
   return (
-    <MainLayout title={'Панель администратора'} >
+    <MetaLayout title={'Панель администратора'} >
       <div className="admin">
         <div className="clientPage text">
           <div className="clientPage__menu" >
             <div className="clientPage__userinfo">
               <div key={userInfo} className="clientPage__userpic">
-                {userInfo.userPic && <img src={userInfo.userPic} /> || <div className="clientPage__userinitials" style={{ backgroundColor: `${userInfo.userName.toColor()}` }}>{userInfo.userName.initials()}</div>}
+                {userInfo.userPic && <img src={userInfo.userPic} /> || <div className="clientPage__userinitials" style={{ backgroundColor: `${stringToColor(userInfo.userName)}` }}>{initials(userInfo.userName)}</div>}
                 <button onClick={e => { modalOlen(e, 'md', photoUpload()) }} className="addPhoto"></button>
               </div>
               <div className="clientPage__username">
@@ -82,7 +83,7 @@ function Admin() {
         </div>
         <Modal {...modal} />
       </div>
-    </MainLayout>
+    </MetaLayout>
   )
 }
 
