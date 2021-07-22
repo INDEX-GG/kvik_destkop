@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
+import axios from "axios";
 
-function Sellers(data) {
-  if (data.sellers.lenght == 0) {
+
+function Sellers({sellers, sellerSub}) {
+
+  if (sellers?.message) {
     return (
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
@@ -16,30 +19,31 @@ function Sellers(data) {
     );
   }
 
+
   return (
     <div className="clientPage__container_bottom">
-      <div className="clientPage__container_content">
+       <div className="clientPage__container_content">
         <div className="sellersWrapper small">
-          {data.sellers.map((seller) => {
+          {sellers.map((seller) => {
             return (
               <div key={seller.id} className="sellersContainer">
                 <div className="sellersUser">
                   <div className="sellersUserBlock">
-                    <img src={`${seller.sellerPic}?${seller.id}`} />
+                    <img src={`${seller.userPhoto}?${seller.id}`} />
                     <div className="sellersUserInfo">
-                      <div className="sellersUserName">{seller.sellerName}</div>
-                      <div className="sellersOffersCount light">{seller.offers.length} объявлений</div>
+                      <div className="sellersUserName">{seller.name}</div>
+                       <div className="sellersOffersCount light">{seller.poducts.length} объявлений</div>
                     </div>
                   </div>
-                  <button className="buttonGrey">Отписаться</button>
+                  <button onClick={() => sellerSub(58, seller.id)} className="buttonGrey">Отписаться</button>
                 </div>
-                <div className="sellersOffers">
-                  {seller.offers.map((offer) => {
+                  <div className="sellersOffers">
+                  {seller.poducts.map((offer) => {
                     return (
                       <div className="sellersOffer">
-                        <img src={`${offer.offerImg}?${offer.id}`} />
+                        <img src={`${JSON.parse(offer.photo).photos[0]}?${offer.id}`} />
                         <div>{ellipsis(ToRubles(offer.price), 15)}</div>
-                        <div>{ellipsis(offer.offerName, 10)}</div>
+                        <div>{ellipsis(offer.title, 10)}</div>
                       </div>
                     );
                   })}

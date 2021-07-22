@@ -8,26 +8,10 @@ export default function handler(req, res) {
             const userIdInt = Number(user_id)
 
             let sub = await prisma.$queryRaw(`SELECT subscriptions FROM users WHERE id = ${userIdInt}`)
-            if (sub[0].subscriptions == null || sub[0].subscriptions === ''){
-                const obj = {
-                    where:
-                        {
-                            id:userIdInt
-                        },
-                    data: {
-                        subscriptions: '[]'
-                    }
-                }
-                await prisma.users.update(obj);
+            if (sub[0].subscriptions == null || sub[0].subscriptions === '' || sub[0].subscriptions === '[]'){
+
+                res.json({"message":"nothing"})
             }
-
-
-
-
-
-
-
-
             const subscriptions = await prisma.users.findFirst({
                 where: {
                     id: userIdInt
@@ -62,13 +46,9 @@ export default function handler(req, res) {
                         photo: true
                     }
                 })
-                console.log(products);
-                console.log(products[0].photo);
                 seller.poducts = products
-
                 sellers.push(seller)
             }
-
             res.json(sellers)
         }
 

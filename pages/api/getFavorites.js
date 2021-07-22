@@ -5,20 +5,19 @@ export default function handler(req, res) {
         async function main() {
 
             const user_id = req.body.user_id
-            const userIdInt = Number(user_id)
+            const userIdInt = Number(req.body.user_id)
+
+
+            console.log('data',req.body)
 
             let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
-            if (fav[0].favorites == null || fav[0].favorites === ''){
-                const obj = {
-                    where:
-                        {
-                            id:userIdInt
-                        },
-                    data: {
-                        favorites: '[]'
-                    }
-                }
-                await prisma.users.update(obj);
+            console.log('!@!@!@!@!@' + fav);
+
+            console.log('asf' + fav[0].favorites);
+
+            if (fav[0].favorites == null || fav[0].favorites === '' || fav[0].favorites === '[]'){
+
+                res.json({"message":"nothing"})
             }
 
             const favorites = await prisma.users.findFirst({
@@ -28,7 +27,6 @@ export default function handler(req, res) {
             })
 
             let posts = []
-
             let preList = favorites['favorites'].substring(1)
             let preList2 = preList.substring(0, preList.length - 1)
             let list = preList2.split(',')
@@ -39,6 +37,7 @@ export default function handler(req, res) {
                                 id: Number(secondLevel[0])
                             }
                         })
+                postData.log
                 const userData = await prisma.users.findFirst({
                             where: {
                                 id: Number(postData.user_id)
@@ -55,8 +54,8 @@ export default function handler(req, res) {
 
                 posts.push(postData)
             }
-
-            res.json(posts)
+            
+           return res.json({ posts: posts });
 
         }
         main()
