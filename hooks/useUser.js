@@ -5,8 +5,6 @@ import axios from 'axios';
 export function useUser() {
   const { data: user, mutate: mutateUser } = useSWR('/api/user'),
 
-
-
     [isAuth, setIsAuth] = useState(false),
     [userInfo, setUserInfo] = useState({}),
     [isLoading, setLoading] = useState(true);
@@ -14,6 +12,7 @@ export function useUser() {
     user && setIsAuth(user.isAuth)
     isAuth && axios.post('/api/getUser', user)
       .then((res) => {
+		console.log('not ok')
         setUserInfo({
           id: user.id,
           username: res.data.user.name,

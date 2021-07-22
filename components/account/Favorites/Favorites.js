@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 import axios from 'axios';
-import { useFavorits } from '../../../hooks/useFavorits';
+// import { useFavorits } from '../../../hooks/useFavorits';
 import SellerData from './data/SellersData';
 
 // Объявления
-const OffersBox = [
-   { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00', username: 'Ну прямо очень весьма и весьма длинное имя', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Центральный административный округ, Москва' },
-   { id: 2, img: 'https://source.unsplash.com/random?cars', title: 'Mitsubishi Delica', price: 199999, date: '00.00.00', username: 'Стивен Фрай', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Лондон' },
-   { id: 3, img: 'https://source.unsplash.com/random?phone', title: 'Samsung Galaxy S21 Ultra', price: 99999, date: '00.00.00', username: 'Алекс Ф.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Санкт-Петербург' },
-   { id: 4, img: 'https://source.unsplash.com/random?fridge', title: 'Холодильник для пивка', price: 78500, date: '00.00.00', username: 'Мо', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Спрингфилд' },
-   { id: 5, img: 'https://source.unsplash.com/random?beer', title: 'Пивко', price: 59.5, date: '00.00.00', username: 'Гомер С.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Спрингфилд' },
-   { id: 6, img: 'https://source.unsplash.com/random?cat', title: 'Кот', price: 999.95, date: '00.00.00', username: 'Леопольд Д.Ж.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Саратов' },
-   { id: 8, img: 'https://source.unsplash.com/random?ship', title: 'Корабль', price: 9992234453422, date: '00.00.00', username: 'Суэц К.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Гиза' },
-   { id: 9, img: 'https://source.unsplash.com/random?wheels', title: 'Колеса', price: 34921.22, date: '00.00.00', username: 'Доминик Т.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Куба' },
-   { id: 10, img: 'https://source.unsplash.com/random?elephant', title: 'Слон', price: 100500, date: '00.00.00', username: 'Карбофос', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Бердичев' },
-   { id: 11, img: 'https://source.unsplash.com/random?starship', title: 'Сокол Тысячелетия', price: 1000000000000, date: '00.00.00', username: 'Хан Соло', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Далёкая-далёкая галактика, Кореллия' },
-   { id: 12, img: 'https://source.unsplash.com/random?book', title: 'Книга', price: 100, date: '00.00.00', username: 'Илай', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Сан-Франциско' },
-   { id: 13, img: 'https://source.unsplash.com/random?island', title: 'Остров', price: 74347533, date: '00.00.00', username: 'Николас Кейдж', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Лос-Анжелес' },
-   { id: 14, img: 'https://source.unsplash.com/random?scyscraper', title: 'Небоскрёб', price: 777777777777, date: '00.00.00', username: 'Уолтер Митти', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Нью-Йорк' },
-];
+// const OffersBox = [
+//    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00', username: 'Ну прямо очень весьма и весьма длинное имя', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Центральный административный округ, Москва' },
+//    { id: 2, img: 'https://source.unsplash.com/random?cars', title: 'Mitsubishi Delica', price: 199999, date: '00.00.00', username: 'Стивен Фрай', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Лондон' },
+//    { id: 3, img: 'https://source.unsplash.com/random?phone', title: 'Samsung Galaxy S21 Ultra', price: 99999, date: '00.00.00', username: 'Алекс Ф.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Санкт-Петербург' },
+//    { id: 4, img: 'https://source.unsplash.com/random?fridge', title: 'Холодильник для пивка', price: 78500, date: '00.00.00', username: 'Мо', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Спрингфилд' },
+//    { id: 5, img: 'https://source.unsplash.com/random?beer', title: 'Пивко', price: 59.5, date: '00.00.00', username: 'Гомер С.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Спрингфилд' },
+//    { id: 6, img: 'https://source.unsplash.com/random?cat', title: 'Кот', price: 999.95, date: '00.00.00', username: 'Леопольд Д.Ж.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Саратов' },
+//    { id: 8, img: 'https://source.unsplash.com/random?ship', title: 'Корабль', price: 9992234453422, date: '00.00.00', username: 'Суэц К.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Гиза' },
+//    { id: 9, img: 'https://source.unsplash.com/random?wheels', title: 'Колеса', price: 34921.22, date: '00.00.00', username: 'Доминик Т.', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Куба' },
+//    { id: 10, img: 'https://source.unsplash.com/random?elephant', title: 'Слон', price: 100500, date: '00.00.00', username: 'Карбофос', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Бердичев' },
+//    { id: 11, img: 'https://source.unsplash.com/random?starship', title: 'Сокол Тысячелетия', price: 1000000000000, date: '00.00.00', username: 'Хан Соло', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Далёкая-далёкая галактика, Кореллия' },
+//    { id: 12, img: 'https://source.unsplash.com/random?book', title: 'Книга', price: 100, date: '00.00.00', username: 'Илай', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Сан-Франциско' },
+//    { id: 13, img: 'https://source.unsplash.com/random?island', title: 'Остров', price: 74347533, date: '00.00.00', username: 'Николас Кейдж', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Лос-Анжелес' },
+//    { id: 14, img: 'https://source.unsplash.com/random?scyscraper', title: 'Небоскрёб', price: 777777777777, date: '00.00.00', username: 'Уолтер Митти', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Нью-Йорк' },
+// ];
 
 // Продавцы
 const SellersBox = [
@@ -128,18 +128,23 @@ const SearchesBox = [
 // Пагинация
 
 
-const Favorites = ({ id }) => {
-
-   const {i, items, productId, address, archived_time, photo } = useFavorits(id);
-
-console.log(id)
+const Favorites = ({router}) => {
+   // const { i, itemsPost } = useFavorits(router);
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
+   const [seller, setSeller] = useState(0)
+
+   useEffect(() => {
+      axios.post("/api/getFavorites", {user_id: "53"}).then(res => setSeller(res.data))
+   }, [])
+
+
    const navItems = [
-      { id: 1, title: 'Объявления', content: <Offers offers={OffersBox}  id={id}/>,  count: i },
-      { id: 2, title: 'Продавцы', content: <Sellers sellers={SellersBox} />, count: SellersBox.length },
+      { id: 1, title: 'Объявления', content: <h1>Test</h1> /* <Offers router={router} itemsPost={itemsPost} />,*/ /* count: i */ },
+      { id: 2, title: 'Продавцы', content: <Sellers sellers={seller} />, count: SellersBox.length },
       { id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
    ];
+
    return (
       <>
          <div className="clientPage__container_top">

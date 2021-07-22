@@ -1,22 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
-
-
-import { useSubList } from "../../../../hooks/useSubscriptions"
-import { useAd } from "../../../../hooks/useAd";
-import router from "next/router";
 import SellerData from "../data/SellersData";
+import axios from "axios";
 
 
-function Sellers(data) {
+function Sellers({sellers}) {
 
-  // const {subList} = useSubList(router.query.id)
-  // console.log(subList)
-  const data1 = SellerData()
+  function test() {
+    console.log(sellers.posts)
+  }
 
-  console.log(data1)
-
-  if (data.sellers.lenght == 0) {
+  if (sellers.posts.length == 0) {
     return (
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
@@ -32,22 +26,23 @@ function Sellers(data) {
 
   return (
     <div className="clientPage__container_bottom">
-      <div className="clientPage__container_content">
+      <button onClick={test}>Test</button>
+       <div className="clientPage__container_content">
         <div className="sellersWrapper small">
-          {data.sellers.map((seller) => {
+          {sellers.posts.map((seller) => {
             return (
-              <div key={seller.id} className="sellersContainer">
+              <div key={seller.user_id} className="sellersContainer">
                 <div className="sellersUser">
                   <div className="sellersUserBlock">
-                    <img src={`${seller.sellerPic}?${seller.id}`} />
+                    <img src={`${seller.user_photo}?${seller.user_id}`} />
                     <div className="sellersUserInfo">
-                      <div className="sellersUserName">{seller.sellerName}</div>
+                      <div className="sellersUserName">{seller.user_name}</div>
                       <div className="sellersOffersCount light">{seller.offers.length} объявлений</div>
                     </div>
                   </div>
                   <button className="buttonGrey">Отписаться</button>
                 </div>
-                <div className="sellersOffers">
+                {/* <div className="sellersOffers">
                   {seller.offers.map((offer) => {
                     return (
                       <div className="sellersOffer">
@@ -57,7 +52,7 @@ function Sellers(data) {
                       </div>
                     );
                   })}
-                </div>
+                </div> */}
               </div>
             );
           })}

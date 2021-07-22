@@ -5,7 +5,10 @@ export default function handler(req, res) {
         async function main() {
 
             const user_id = req.body.user_id
-            const userIdInt = Number(user_id)
+            const userIdInt = Number(req.body.user_id)
+
+
+            console.log('data',req.body)
 
             let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
             if (fav[0].favorites == null || fav[0].favorites === ''){
@@ -27,30 +30,37 @@ export default function handler(req, res) {
                 }
             })
 
-            var preList = favorites['favorites'].substring(1)
-            var preList2 = preList.substring(0, preList.length - 1)
-            let list = preList2.split(',')
-
             let posts = []
 
+            let preList = favorites['favorites'].substring(1)
+            let preList2 = preList.substring(0, preList.length - 1)
+            let list = preList2.split(',')
             for (let index in list) {
-                let post = []
-                const postData = await prisma.posts.findFirst({
-                    where: {
-                        id: Number(list[index])
-                    }
-                })
+                let secondLevel = (list[index]).split(':')
+                let postData = await prisma.posts.findFirst({
+                            where: {
+                                id: Number(secondLevel[0])
+                            }
+                        })
                 const userData = await prisma.users.findFirst({
-                    where: {
-                        id: Number(postData.user_id)
-                    }
-                })
-                post.push(postData)
-                post.push(userData)
-                posts.push(post)
-            }
+                            where: {
+                                id: Number(postData.user_id)
+                            },
+                            select: {
+                                id: true,
+                                name: true,
+                                userPhoto: true,
+                            }
+                        })
+                postData.user_name = userData.name
+                postData.user_photo = userData.userPhoto
+                postData.comment = secondLevel[1]
 
-            res.json(posts)
+                posts.push(postData)
+            }
+            
+           return res.json({ posts: posts });
+
         }
         main()
             .catch((e) => {
