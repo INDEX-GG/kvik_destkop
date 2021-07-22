@@ -26,6 +26,7 @@ function Active(data) {
       </div>
     )
   }
+  
   return (
     <div className="userProduct">
       {data.offers.map((item, i) => {

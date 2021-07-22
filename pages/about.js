@@ -1,10 +1,10 @@
-import MainLayout from "../layout/MainLayout";
+import MetaLayout from "../layout/MainLayout";
 import ActiveIcon from '../UI/icons/ActiveIcon';
 
 function About() {
   return (
     <div className="about">
-      <MainLayout title={'Информация о компании'}>
+      <MetaLayout title={'Информация о компании'}>
         <div className="bodyAbout">
           <h2 className="aboutTitle">Продавай и покупай легко с kvik</h2>
           <div className="text1">Огромный ассортимент товаров и услуг</div>
@@ -65,7 +65,7 @@ function About() {
           </div>
           <br />
         </div>
-      </MainLayout>
+      </MetaLayout>
     </div>
   );
 }

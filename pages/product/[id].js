@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Dialog } from '@material-ui/core';
 import axios from 'axios';
+import MetaLayout from '../../layout/MetaLayout';
 import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
 import Statistics from '../../components/Statistics';
@@ -13,11 +14,10 @@ import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
-import {useAd} from "../../hooks/useAd"
+import { useAd } from "../../hooks/useAd"
 import Favorits from '../../UI/Favorits';
+import { Style } from '@material-ui/icons';
 import MainLayout from "../../layout/MainLayout"
-
-
 
 const objP = {
     id: 1,
@@ -87,7 +87,7 @@ const Product = () => {
 
     console.log(router)
     console.log("USER ID" + user_id)
-    console.log(useProduct({router}))
+    console.log(useProduct({ router }))
 
     const [userAd, setUserAd] = useState();
     useEffect(() => {
@@ -98,10 +98,12 @@ const Product = () => {
 
 
     return (
-        <MainLayout>
+
+		<MetaLayout>
         <div className="productPage" id="productPage">
             <div className="productPageContainer text">
                 {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin">Хлебные крошки</div>}
+
                 {/* Блок объявления */}
                 <div className="product__wrapper">
                     <div className="productPageWrapper">
@@ -113,7 +115,7 @@ const Product = () => {
                                         <input className="SellerInfoNoteInput" placeholder="Заметка к объявлению" />
                                         <a className="SellerInfoNote"></a>
                                         <a className="SellerInfoFavorite"></a>
-                                        
+
                                     </div>}
                                 <ProductCarousel photo={photo} />
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}
@@ -209,7 +211,9 @@ const Product = () => {
             <div className="productPageWhiteSpace"></div>
             <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth='sm'> <Statistics Close={handleStatFormDialog} /> </Dialog>
         </div >
-        </MainLayout>
+
+		</MetaLayout>
+
     )
 }
 

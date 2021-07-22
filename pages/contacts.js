@@ -1,4 +1,4 @@
-import MainLayout from '../layout/MainLayout';
+import MetaLayout from '../layout/MainLayout';
 import GrAndroid from '../UI/icons/GrAndroid';
 import GrApple from '../UI/icons/GrApple';
 import Instagram from '../UI/icons/Instagram';
@@ -11,7 +11,7 @@ const uluru = { lat: -25.344, lng: 131.036 };
 
 export default function Contacts() {
     return (
-        <MainLayout title={'Контакты'}>
+        <MetaLayout title={'Контакты'}>
             <div className="contacts">
                 <div className="contacts__blocks">
                     <div className="contacts__blocks__block">
@@ -48,6 +48,6 @@ export default function Contacts() {
                     </div>
                 </div>
             </div>
-        </MainLayout>
+        </MetaLayout>
     );
 }

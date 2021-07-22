@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Loading from "../../../UI/icons/Loader";
 import objNav from "./navigateObject.json";
 // import Develop from '../../../../components/inDev/Develop';
-import { ToRubles } from "../../../lib/services";
+import { brooklyn, ToRubles } from "../../../lib/services";
 
 const products = [
   {
@@ -241,7 +241,7 @@ const Compare = () => {
             {navItems.map((item) => {
               return (
                 <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>
-                  {item.title} {item.count.brooklyn()}
+                  {item.title} {brooklyn(item.count)}
                 </a>
               );
             })}

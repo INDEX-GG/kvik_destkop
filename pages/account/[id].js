@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MainLayout from "../../layout/MainLayout";
+import MetaLayout from "../../layout/MetaLayout";
 import StarRating from "../../components/StarRating";
 import Offers from "../../components/account/Offers/Offers";
 import Deals from "../../components/account/Deals/Deals";
@@ -10,7 +10,7 @@ import Compare from "../../components/account/Compare/Compare";
 import Reviews from "../../components/account/Reviews/Reviews";
 import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
-import { standartDate, ToRusAccountDate } from "../../lib/services";
+import { initials, standartDate, stringToColor, ToRusAccountDate } from "../../lib/services";
 import { modalRating, modalSubscribers, modalSubscription, modalLogout, ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useUser } from "../../hooks/useUser";
 import { useAd } from "../../hooks/useAd";
@@ -19,6 +19,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
 import { useMedia } from "../../hooks/useMedia";
+import { useAuth } from "../../lib/Context/AuthCTX";
 
 const userInfo = {
   userId: 1,
@@ -44,10 +45,8 @@ const menuItems = [
 
 function Account() {
   const router = useRouter();
-
-  const { isAuth, isLoading, username, photo, createdAt, raiting, id } = useUser();
-
-
+  const { isLoading, name, userPhoto, createdAt, raiting } = useUser();
+  const {signOut} = useAuth();
 
   const [menuItem, setMenuItem] = useState({ i: 1, itm: "menuOffers", ttl: "Мои объявления" });
   const [openPicUpload, setPicUpload] = useState(false);
@@ -65,15 +64,16 @@ function Account() {
   }
 
 
-  const signOut = () => {
+  const logOut = () => {
     axios.get("/api/logout").then(() => {
       mutate("/api/user");
+	  signOut();
       router.push("/");
     });
   };
 
   return (
-    <MainLayout title={"Личный кабинет"}>
+    <MetaLayout title={"Личный кабинет"}>
       {/* <div className="userOffersPage" id="user"> */}
       <div className="clientPage text">
         <div className="clientPage__breadcrumbs thin">
@@ -88,14 +88,14 @@ function Account() {
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
-              {isAuth && !isLoading && (
-                <Avatar src={photo} style={{ backgroundColor: `${username.toColor()}` }}>
-                  {username.initials()}
+              {!isLoading && (
+                <Avatar src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
+                  {initials(name)}
                 </Avatar>
               )}
               <button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"></button>
             </div>
-            <div className="clientPage__username">{username}</div>
+            <div className="clientPage__username">{name}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>
             <div className="clientPage__userrate">
               <div className="clientPage__userrate__num">{raiting}</div>
@@ -133,7 +133,7 @@ function Account() {
       </div>
       <div className="userPageWhiteSpace"></div>
       <Dialog open={openPicUpload} onClose={() => setPicUpload(!openPicUpload)} fullWidth maxWidth="xs">
-        <UserPicUpload {...{ route: "", imageType: "webp", optimiztionLevel: 0.7, maxScale: 5 }} />
+        <UserPicUpload {...{ imageType: "webp", optimiztionLevel: 0.7, maxScale: 5 }} />
       </Dialog>
       <Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
         <DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
@@ -141,7 +141,7 @@ function Account() {
           <Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{textTransform:"uppercase"}}>
             Отмена
           </Button>
-          <Button onClick={() => signOut()} className="accountLogoutYes" style={{color:"red", textTransform:"uppercase"}}>Выйти</Button>
+          <Button onClick={() => logOut()} className="accountLogoutYes" style={{color:"red", textTransform:"uppercase"}}>Выйти</Button>
         </div>
       </Dialog>
       <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
@@ -153,7 +153,7 @@ function Account() {
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalSubscription data={5} subscription={1} modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesTablet || matchesMobile}/>
       </Dialog>
-    </MainLayout>
+    </MetaLayout>
   );
 }
 export default Account;

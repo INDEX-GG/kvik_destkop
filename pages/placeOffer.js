@@ -1,6 +1,6 @@
 import { Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 import Verify from '../components/placeOffer/Verify';
-import MainLayout from '../layout/MainLayout';
+import MetaLayout from '../layout/MetaLayout';
 import { useMedia } from '../hooks/useMedia';
 import { useForm, FormProvider } from 'react-hook-form';
 import Title from '../components/placeOffer/Title';
@@ -12,8 +12,8 @@ import Location from '../components/placeOffer/Location';
 import Contacts from '../components/placeOffer/Contacts';
 import ErrorMessages from '../components/placeOffer/ErrorMessages';
 import axios from 'axios';
-import useSWR from 'swr';
 import {useRouter} from 'next/router';
+import { useAuth } from '../lib/Context/AuthCTX';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PlaceOffer() {
-    const { data: user } = useSWR('/api/user');
+    const {id} = useAuth();
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
@@ -59,7 +59,7 @@ function PlaceOffer() {
         data.price = data.price.replace(/\D+/g, '');
 		const alias = data?.alias4 || data?.alias3 || data?.alias2;
         const sendData = new FormData;
-        sendData.append('user_id', user.id);
+        sendData.append('user_id', id);
         sendData.append('title', data.title);
 		sendData.append('alias', alias);
         sendData.append('description', data.description);
@@ -85,7 +85,7 @@ function PlaceOffer() {
     }
 
     return (
-        <MainLayout title={'Подать объявление'}>
+        <MetaLayout title={'Подать объявление'}>
             {!matchesMobile && !matchesTablet && <Container className={classes.root}>
                 <Box className={classes.offersBox}>
                     <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
@@ -113,7 +113,7 @@ function PlaceOffer() {
                     </FormProvider>
                 </Box>
             </Container>}
-        </MainLayout>
+        </MetaLayout>
     )
 }
 

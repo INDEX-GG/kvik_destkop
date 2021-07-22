@@ -3,7 +3,6 @@ import { useMedia } from "../../hooks/useMedia";
 import { ToRubles } from "../../lib/services";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useUser } from "../../hooks/useUser";
 
 export default function ProductUserInfo(data) {
   const router = useRouter();
