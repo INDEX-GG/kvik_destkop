@@ -60,7 +60,7 @@ const OffersRender = ({ data, title }) => {
 
 	return (
 		<>
-			<FavProvider>
+			<FavProvider >
 				<Box className={classes.top}>
 					<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
 					<TextField
@@ -76,7 +76,7 @@ const OffersRender = ({ data, title }) => {
 					</TextField>
 				</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
+					{state.sorting(data)?.map((obj, i) => <AdCard_component  key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
 			</FavProvider>
