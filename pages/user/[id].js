@@ -42,9 +42,15 @@ function UserPage() {
 
   const {userLoading, userSub} =  useSubBool("58", sellerId)
 
+
   useEffect(() => {
-    setUserBool(userSub)
+    setUserBool(flase)
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    console.log(userSub)
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    console.log(userBool)
   }, [userLoading])
+
 
 
   function modal(modal, changeModal) {

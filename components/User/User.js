@@ -13,7 +13,7 @@ const UsersPage = () => {
  
   const { userInfo, isLoading } = useAd(router.query.id);
   // console.log(userInfo.filter(item => item.archived))
-  console.log(userInfo)
+  // console.log(userInfo)
   
   useEffect(() => {
     if( userInfo.length > 0) {
