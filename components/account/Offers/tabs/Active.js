@@ -40,9 +40,6 @@ function Active(data) {
   const [idAd, setIdAd] = useState([]);
   const [filteredData, setFilteredData] = useState({});
 
-
-
-
   const handelRemoveFromPublic = (e) => {
     e.preventDefault();
     setIdAd(e.target.value);

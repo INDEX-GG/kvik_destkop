@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Footer2 from "../components/Footer2"
 import { useMedia } from "../hooks/useMedia";
-import MainLayout from '../layout/MainLayout';
+import MetaLayout from '../layout/MainLayout';
 import { PrismaClient } from '@prisma/client';
 import axios from "axios";
 import { Box, Container, makeStyles } from "@material-ui/core";
@@ -48,7 +48,7 @@ const Index = () => {
   }, []);
 
   return (
-    <MainLayout isIndex title={'Доска объявлений'} category={"Транспорт"}>
+    <MetaLayout isIndex title={'Доска объявлений'} category={"Транспорт"}>
       <Container className={classes.root}>
         <div className={classes.bread}>
             <div className="clientPage__breadcrumbs thin">
@@ -76,7 +76,7 @@ const Index = () => {
 			</Box>}
 		</Box>
 	  </Container>
-    </MainLayout >
+    </MetaLayout >
   )
 }
 

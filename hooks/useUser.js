@@ -1,37 +1,27 @@
-import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../lib/Context/AuthCTX';
 
 export function useUser() {
-  const { data: user, mutate: mutateUser } = useSWR('/api/user'),
-
-    [isAuth, setIsAuth] = useState(false),
-    [userInfo, setUserInfo] = useState({}),
+	const { id } = useAuth();
+    const [userInfo, setUserInfo] = useState({}),
     [isLoading, setLoading] = useState(true);
+
   useEffect(() => {
-    user && setIsAuth(user.isAuth)
-    isAuth && axios.post('/api/getUser', user)
-      .then((res) => {
-		console.log('not ok')
-        setUserInfo({
-          id: user.id,
-          username: res.data.user.name,
-          photo: res.data.user.userPhoto,
-          about: res.data.user.about,
-          createdAt: res.data.user.createdAt,
-          phone: res.data.user.phone,
-          email: res.data.user.email,
-          raiting: res.data.user.raiting,
-          favorites: res.data.user.favorites,
-        })
-        setLoading(false);
-      })
-  }, [user, isAuth])
+	const getUser = async() => {
+		const data = await axios.post('/api/getUser/', {id: id})
+		.then(r => r.data.user)
+		.catch(e => console.error(e));
+		setUserInfo(data);
+		setLoading(false);
+	}
+	if (id !== undefined) {
+		getUser();
+	}
+  }, [id])
 
   return {
-    isAuth,
     ...userInfo,
-    isLoading,
-    mutateUser
+    isLoading
   }
 }

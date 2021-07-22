@@ -3,7 +3,10 @@ import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 import axios from 'axios';
+import { useFavorits } from '../../../hooks/useFavorits';
+import { brooklyn } from '../../../lib/services';
 import { useSubList } from '../../../hooks/useSubscriptions';
+
 
 // Объявления
 // const OffersBox = [
@@ -171,7 +174,7 @@ const Favorites = ({router}) => {
                <div className="clientPage__container_nav">
                   {navItems.map(item => {
                      return (
-                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {item.count && item.count.brooklyn()}</a>
+                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {brooklyn(item.count)}</a>
                      )
                   })}
                </div>

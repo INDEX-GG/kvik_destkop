@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
-import MainLayout from '../layout/MainLayout';
 import axios from "axios";
 import { PrismaClient } from '@prisma/client';
 import { Box, Container, makeStyles, Typography } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
 import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
+import MetaLayout from "../layout/MetaLayout";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +48,7 @@ const Index = ({ offers }) => {
   }, []);
 
   return (
-    <MainLayout isIndex title={'Доска объявлений'}>
+    <MetaLayout title={'Доска объявлений'}>
       <Container className={classes.root}>
         <PopularCategories />
         <Box className={classes.main}>
@@ -61,7 +61,7 @@ const Index = ({ offers }) => {
           </Box>}
         </Box>
       </Container>
-    </MainLayout >
+    </MetaLayout >
   )
 }
 

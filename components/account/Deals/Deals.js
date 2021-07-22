@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sales from './tabs/Sales';
 import Purch from './tabs/Purch';
+import { brooklyn } from '../../../lib/services';
 
 const DealsBox = [
    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00 00.00', status: 1 },
@@ -42,7 +43,7 @@ const Deals = () => {
             <div className="clientPage__container_nav">
             {navItems.map(item => {
                return (
-                  <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} { item.count.brooklyn()}</a>
+                  <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {brooklyn(item.count)}</a>
                )
             })}
             </div>

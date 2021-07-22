@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { brooklyn } from "../../../lib/services";
 import Messages from "./tabs/Messages";
 import Notifs from "./tabs/Notifs";
 
@@ -63,7 +64,7 @@ const Notifications = () => {
             {navItems.map((item) => {
               return (
                 <a className={itemNav.i === item.id ? "navActive" : ""} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>
-                  {item.title} {item.count.brooklyn()}
+                  {item.title} {brooklyn(item.count)}
                 </a>
               );
             })}

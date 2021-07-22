@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import MainLayout from "../../layout/MainLayout";
+import MetaLayout from "../../layout/MainLayout";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
-import { ToRusAccountDate } from "../../lib/services";
+import { initials, stringToColor, ToRusAccountDate } from "../../lib/services";
 import { Avatar, Dialog } from "@material-ui/core";
 import { useRouter } from "next/router";
 import UserLock from "../../UI/icons/UserLock";
@@ -72,7 +72,7 @@ function UserPage() {
 
 
   return (
-    <MainLayout title={"Личный кабинет"}>
+    <MetaLayout title={"Личный кабинет"}>
       <div className="clientPage text">
         <div className="clientPage__breadcrumbs thin">
           <a className="breadCrumb light" href="/">
@@ -86,8 +86,8 @@ function UserPage() {
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
-              {isLoading ? null : <Avatar src={sellerPhoto} style={{ backgroundColor: sellerName.toColor() }}>
-                {sellerName.initials()}
+              {isLoading ? null : <Avatar src={photo} style={{ backgroundColor: stringToColor(username) }}>
+                {initials(username)}
               </Avatar>}
             </div>
             <div className="clientPage__username">{sellerName}</div>
@@ -147,7 +147,7 @@ function UserPage() {
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalSubscription mobile={ matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscriptionsModal, setSubscriptionsModal)}/>
       </Dialog>
-    </MainLayout>
+    </MetaLayout>
   );
 }
 export default UserPage;

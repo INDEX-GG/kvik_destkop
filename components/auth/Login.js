@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { mutate } from 'swr';
 import { DialogCTX } from '../../lib/Context/DialogCTX';
 import RegForm from './RegForm';
+import { useAuth } from '../../lib/Context/AuthCTX';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = () => {
+	const {signIn} = useAuth();
     const router = useRouter();
     const classes = useStyles();
     const { handleSubmit, control } = useForm();
@@ -42,10 +44,11 @@ const Login = () => {
         console.log(data);
         axios.post('/api/checkUser', data).then((res) => {
             console.log(res.data);
-            //Сделать отладку ошибок
+            //Сделать отладку ошибок и вообще!
             const user = { isAuth: true, id: res.data.idUser }
             console.log(user);
-            axios.post('/api/login', user).then(() => mutate('/api/user'))
+            axios.post('/api/login', user).then(() => mutate('/api/user'));
+			signIn();
             setOpenLoginForm(!openLoginForm);
         })
     };
