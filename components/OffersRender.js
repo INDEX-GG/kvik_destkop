@@ -1,14 +1,15 @@
-import React, {useReducer} from 'react';
+import React, { useReducer } from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
+import FavProvider from '../lib/Context/FavoritesCTX';
 
 const useStyles = makeStyles((theme) => ({
-    top: {
+	top: {
 		marginBottom: '15px',
 		display: 'flex',
 		alignItems: 'center',
-    },
+	},
 	title: {
 		flexGrow: 1,
 	}
@@ -31,52 +32,54 @@ const byExpensive = arr => {
 const sortReducer = (state, action) => {
 	switch (action.type) {
 		case 'default':
-			return {value: 'default', sorting: byDefault};
+			return { value: 'default', sorting: byDefault };
 		case 'new':
-			return {value: 'new', sorting: byNew};
+			return { value: 'new', sorting: byNew };
 		case 'cheap':
-			return {value: 'cheap', sorting: byCheap};
+			return { value: 'cheap', sorting: byCheap };
 		case 'expensive':
-			return {value: 'expensive', sorting: byExpensive};
+			return { value: 'expensive', sorting: byExpensive };
 		case 'remote':
-			return {value: 'remote', sorting: byDefault};
+			return { value: 'remote', sorting: byDefault };
 		default:
-			return {value: 'default', sorting: byInit};
+			return { value: 'default', sorting: byInit };
 	}
 };
 
 const sortItems = [
-	{value: 'default', label: 'По умолчанию'},
-	{value: 'new', label: 'Сначала новые'},
-	{value: 'cheap', label: 'Дешевле'},
-	{value: 'expensive', label: 'Дороже'},
-	{value: 'remote', label: 'По удалённости'}
+	{ value: 'default', label: 'По умолчанию' },
+	{ value: 'new', label: 'Сначала новые' },
+	{ value: 'cheap', label: 'Дешевле' },
+	{ value: 'expensive', label: 'Дороже' },
+	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({data, title}) => {
-	const [state, dispatch] = useReducer(sortReducer, {value: 'default', sorting: byInit})
+const OffersRender = ({ data, title }) => {
+	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
 
 	return (
 		<>
-			<Box className={classes.top}>
-				<Typography  className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
-				<TextField
-					select
-					value={state.value}
-					onChange={(e) => dispatch({type: e.target.value})}
-				>
-				{sortItems.map((option, i) => (
-					<MenuItem key={i} value={option.value}>
-						{option.label}
-					</MenuItem>
-                            ))}
-				</TextField>
-			</Box>
-			<div className="scrollableOffersHome">
-				{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
-			</div>
-			<ScrollTop/>
+			<FavProvider>
+				<Box className={classes.top}>
+					<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
+					<TextField
+						select
+						value={state.value}
+						onChange={(e) => dispatch({ type: e.target.value })}
+					>
+						{sortItems.map((option, i) => (
+							<MenuItem key={i} value={option.value}>
+								{option.label}
+							</MenuItem>
+						))}
+					</TextField>
+				</Box>
+				<div className="scrollableOffersHome">
+					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
+				</div>
+				<ScrollTop />
+			</FavProvider>
 		</>
 	);
 };
