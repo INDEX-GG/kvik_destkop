@@ -195,7 +195,8 @@
 
 @media (max-width: 1080px) {
   .offerDTLeft{
-    padding-top: 110px;
+    align-self: flex-end;
+
   }
   .offerDescription{
     padding: 0 8px;
@@ -219,6 +220,8 @@
   }
   .offerCauses{
     padding-bottom: 8px;
+    position: absolute;
+    top: 80px;
   }
 }
 

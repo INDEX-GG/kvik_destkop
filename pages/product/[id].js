@@ -18,7 +18,7 @@ import { useAd } from "../../hooks/useAd"
 import Favorits from '../../UI/Favorits';
 import { Style } from '@material-ui/icons';
 import MainLayout from "../../layout/MainLayout"
-
+import OffersRender from '../../components/OffersRender';
 const objP = {
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',
@@ -187,7 +187,7 @@ const Product = () => {
                                 <div className="freedomBlock_2"></div>
                             </div>}</div>
 
-                    <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
+                    {/* <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
                     <div className="productPageSimilarOffers">
                         <div className="product__carts__wrapper">
                             <div className="productPageSimilarOffersContainer">
@@ -205,6 +205,13 @@ const Product = () => {
                             </div>}
                         </div>
 
+                    </div> */}
+                    <OffersRender data={data} title={'Похожие объявления'} />
+                    <div className="productPageSimilar__advertisement">
+                            {!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && <div className="showsmthWrapper">
+                                <div className="freedomBlock_1"></div>
+                                <div className="freedomBlock_2"></div>
+                            </div>}
                     </div>
                 </div>
             </div>
