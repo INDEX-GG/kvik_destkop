@@ -46,13 +46,9 @@ export default function handler(req, res) {
                         photo: true
                     }
                 })
-                console.log(products);
-                console.log(products[0].photo);
                 seller.poducts = products
-
                 sellers.push(seller)
             }
-
             res.json(sellers)
         }
 
