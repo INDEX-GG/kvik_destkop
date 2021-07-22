@@ -55,17 +55,17 @@ function UserPage() {
   function subscribeUser() {
 
     const subscribe = {
-      user_id: id + "", 
+      user_id: 58 + "", 
       seller_id: sellerId + ""
     }
 
-    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+    axios.post("/api/getSubscriptions", {user_id: String(58)}).then(data => console.log(data.data))
 
     axios.post("/api/subscriptions", subscribe)
     .then(res => console.log(res.data))
     .catch(error => cosnole.log(error))
 
-    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+    axios.post("/api/getSubscriptions", {user_id: String(58)}).then(data => console.log(data.data))
 
     setUserBool(!userBool)
   }
@@ -119,7 +119,7 @@ function UserPage() {
                 </div>
               </a>
             </div>
-            {userBool == null ? null : <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>}
+            {userBool == <button className="btnSubscribe" onClick={() => subscribeUser()}>Test</button> ? null : <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>}
             <div className="btnActive">
               <a className="userActive">Заблокировать пользователя</a>
               <div className="userIconBlock">

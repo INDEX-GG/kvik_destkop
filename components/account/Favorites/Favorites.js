@@ -4,7 +4,6 @@ import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 import axios from 'axios';
 // import { useFavorits } from '../../../hooks/useFavorits';
-import SellerData from './data/SellersData';
 
 // Объявления
 // const OffersBox = [
@@ -135,7 +134,8 @@ const Favorites = ({router}) => {
    const [seller, setSeller] = useState(0)
 
    useEffect(() => {
-      axios.post("/api/getFavorites", {user_id: "53"}).then(res => setSeller(res.data))
+      axios.post("/api/getFavorites", {user_id: "58"}).then(res => setSeller(res.data))
+      console.log(seller)
    }, [])
 
 
