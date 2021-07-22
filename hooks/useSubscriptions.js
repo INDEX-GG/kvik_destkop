@@ -36,7 +36,6 @@ export function useSubBool(user_id, seller_id) {
             setLoading(false);
         })
     }, [user_id])
-
     if (userInfo.length > 0) {
         if (userInfo.filter(item => item.id == seller_id).length > 0) {
             return {
