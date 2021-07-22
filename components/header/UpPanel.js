@@ -5,15 +5,14 @@ import NotifDark from '../../UI/icons/NotifDark';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import { useMedia } from '../../hooks/useMedia';
 import { Box, Container, Button, makeStyles } from '@material-ui/core';
-import { useUser } from "../../hooks/useUser";
+import { useAuth } from '../../lib/Context/AuthCTX';
 
 const useStyles = makeStyles((theme) => ({
    up_panel: {
       background: theme.palette.background.paper,
-	  marginBottom: '77px'
    },
    up_panel__wrapper: {
-      padding: '9px 12px',
+      padding: '0 12px',
       display: 'flex',
       justifyContent: 'space-between',
    },
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const UpPanel = () => {
    const classes = useStyles();
    const { matchesMobile, matchesTablet } = useMedia();
-   const { isAuth, id, isLoading, username, photo, mutateUser } = useUser();
+   const { isAuth} = useAuth();
 
    return (
       <>
