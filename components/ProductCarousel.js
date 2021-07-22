@@ -10,18 +10,19 @@ export default function ProductCarousel({ photo }) {
   const [modal, setModal] = useState(false);
 
   let settingsCarousele = true
-  
+  let paginationCarousel = { type: "fraction" }
   if (photo == undefined) {
     return null;
   } else {
     if (JSON.parse(photo).photos.length == 1) {
       settingsCarousele = false
+      paginationCarousel = false
     }
   }
 
   return (
     <>
-      <Swiper loop={settingsCarousele} spaceBetween={1} navigation={settingsCarousele} thumbs={{ swiper: thumbsSwiper }} className="mySwiper2" pagination={{ type: "fraction" }}>
+      <Swiper loop={settingsCarousele} spaceBetween={1} navigation={settingsCarousele} thumbs={{ swiper: thumbsSwiper }} className="mySwiper2" pagination={paginationCarousel}>
         <div className="seen__ad">Просмотрено</div>
 
         {photo == undefined

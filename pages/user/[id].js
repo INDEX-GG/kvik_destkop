@@ -40,7 +40,7 @@ function UserPage() {
   const {matchesMobile, matchesTablet} = useMedia()
   const [userBool, setUserBool] = useState(false)
 
-  const {userLoading, userSub} =  useSubBool(id, sellerId)
+  const {userLoading, userSub} =  useSubBool("58", sellerId)
 
   useEffect(() => {
     setUserBool(userSub)
@@ -119,7 +119,7 @@ function UserPage() {
                 </div>
               </a>
             </div>
-            {userBool == <button className="btnSubscribe" onClick={() => subscribeUser()}>Test</button> ? null : <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>}
+            {userBool == null ? <button className="btnSubscribe" onClick={() => subscribeUser()}>TEST</button> : <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>}
             <div className="btnActive">
               <a className="userActive">Заблокировать пользователя</a>
               <div className="userIconBlock">

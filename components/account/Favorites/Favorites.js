@@ -3,7 +3,7 @@ import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 import axios from 'axios';
-// import { useFavorits } from '../../../hooks/useFavorits';
+import { useSubList } from '../../../hooks/useSubscriptions';
 
 // Объявления
 // const OffersBox = [
@@ -132,16 +132,35 @@ const Favorites = ({router}) => {
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
    const [seller, setSeller] = useState(0)
+   const [sellerSubBool, setSellerSubBool] = useState(null)
+
+   const {subList, isLoading} = useSubList("58")
 
    useEffect(() => {
-      axios.post("/api/getFavorites", {user_id: "58"}).then(res => setSeller(res.data))
-      console.log(seller)
-   }, [])
+      setSeller(subList)
+   }, [isLoading])
+
+   async function subscribeUser(id = 58, sellerID) {
+    const subscribe = {
+      user_id: id + "", 
+      seller_id: sellerID + ""
+    }
+
+    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+
+    await axios.post("/api/subscriptions", subscribe)
+    .then(res => console.log(res.data))
+    .catch(error => cosnole.log(error))
+
+    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => setSeller(data.data))
+
+  }
+
 
 
    const navItems = [
       { id: 1, title: 'Объявления', content: <h1>Test</h1> /* <Offers router={router} itemsPost={itemsPost} />,*/ /* count: i */ },
-      { id: 2, title: 'Продавцы', content: <Sellers sellers={seller} />, count: SellersBox.length },
+      { id: 2, title: 'Продавцы', content: <Sellers sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length: 0},
       { id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
    ];
 
