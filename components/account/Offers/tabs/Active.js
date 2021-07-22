@@ -164,7 +164,7 @@ function Active(data) {
                       </label> */}
                     </div>
                     {JSON.parse(offer.photo)
-                      .photos.slice(0, 1)
+                      ?.photos?.slice(0, 1)
                       .map((imgs) => {
                         return <img src={imgs} />;
                       })}
