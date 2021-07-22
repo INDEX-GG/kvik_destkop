@@ -65,7 +65,7 @@ function AdCard_component({ offer }) {
 											<Image src={img} layout='fill'/>
 										</SwiperSlide>
 								)})} */}
-                  {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
+                  {/* {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)} */}
                 </Swiper>
               </div>
           </Link>
@@ -76,7 +76,7 @@ function AdCard_component({ offer }) {
             </div>
             <div className="card__top_info_right">
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
-              {/* <Favorits isCard offer= {offer}></Favorits> */}
+              <Favorits isCard offer= {offer}></Favorits>
             </div>
           </div>
 

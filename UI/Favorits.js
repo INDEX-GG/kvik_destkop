@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useUser } from '../hooks/useUser';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useAuth } from '../lib/Context/AuthCTX';
 
 
 export default function Favorits({ offer, isCard, isProduct, isAccountCard }) {
 
-    const { id, favorites } = useUser();
+    const {id} = useAuth();
+console.log()
+
+    const {favorites } = useUser();
     const router = useRouter();
 
     let note
