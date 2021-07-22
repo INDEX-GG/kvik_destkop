@@ -15,8 +15,9 @@ import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
-import {useAd} from "../../hooks/useAd"
+import { useAd } from "../../hooks/useAd"
 import Favorits from '../../UI/Favorits';
+import { Style } from '@material-ui/icons';
 const objP = {
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',
@@ -85,7 +86,7 @@ const Product = () => {
 
     console.log(router)
     console.log("USER ID" + user_id)
-    console.log(useProduct({router}))
+    console.log(useProduct({ router }))
 
     const [userAd, setUserAd] = useState();
     useEffect(() => {
@@ -100,6 +101,11 @@ const Product = () => {
             <Header />
             <div className="productPageContainer text">
                 {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin">Хлебные крошки</div>}
+
+
+
+
+
                 {/* Блок объявления */}
                 <div className="product__wrapper">
                     <div className="productPageWrapper">
@@ -111,7 +117,7 @@ const Product = () => {
                                         <input className="SellerInfoNoteInput" placeholder="Заметка к объявлению" />
                                         <a className="SellerInfoNote"></a>
                                         <a className="SellerInfoFavorite"></a>
-                                        
+
                                     </div>}
                                 <ProductCarousel photo={photo} />
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}

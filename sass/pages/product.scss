@@ -85,11 +85,19 @@
 }
 
 .SellerInfoNoteInput {
-    width: 154px;
     margin-right: 5px;
-    padding: 4px 16px;
     border: 1px solid $tpsl;
     border-radius: 8px;
+    padding: 3px 0;
+    transition: width 150ms ease-in-out, opacity 400ms ease-in-out ;
+    width: 0;
+    opacity: 0;
+}
+.SellerInfoTopButtons .note-active {
+    opacity: 1;
+    padding: 3px 16px;
+    transition: width 250ms ease-in-out;
+    width: 154px;
 }
 
 .SellerInfoNoteInput::placeholder {
