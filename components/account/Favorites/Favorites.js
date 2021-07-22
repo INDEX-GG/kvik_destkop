@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 import axios from 'axios';
 import { useFavorits } from '../../../hooks/useFavorits';
 import { brooklyn } from '../../../lib/services';
+import { useSubList } from '../../../hooks/useSubscriptions';
+
 
 // Объявления
 // const OffersBox = [
@@ -79,6 +81,8 @@ const SellersBox = [
    },
 ];
 
+
+
 // Поиски
 const SearchesBox = [
    {
@@ -127,14 +131,42 @@ const SearchesBox = [
 
 
 const Favorites = ({router}) => {
-   const { i, itemsPost } = useFavorits(router);
+   // const { i, itemsPost } = useFavorits(router);
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
+   const [seller, setSeller] = useState(0)
+   const [sellerSubBool, setSellerSubBool] = useState(null)
+
+   const {subList, isLoading} = useSubList("58")
+
+   useEffect(() => {
+      setSeller(subList)
+   }, [isLoading])
+
+   async function subscribeUser(id = 58, sellerID) {
+    const subscribe = {
+      user_id: id + "", 
+      seller_id: sellerID + ""
+    }
+
+    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+
+    await axios.post("/api/subscriptions", subscribe)
+    .then(res => console.log(res.data))
+    .catch(error => cosnole.log(error))
+
+    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => setSeller(data.data))
+
+  }
+
+
+
    const navItems = [
-      { id: 1, title: 'Объявления', content: <Offers router={router} /* itemsPost={itemsPost} *//>, /* count: i */ },
-      { id: 2, title: 'Продавцы', content: <Sellers sellers={SellersBox} />, count: SellersBox.length },
+      { id: 1, title: 'Объявления', content: <h1>Test</h1> /* <Offers router={router} itemsPost={itemsPost} />,*/ /* count: i */ },
+      { id: 2, title: 'Продавцы', content: <Sellers sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length: 0},
       { id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
    ];
+
    return (
       <>
          <div className="clientPage__container_top">

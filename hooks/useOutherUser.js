@@ -11,8 +11,8 @@ export function useOutherUser(user_id) {
         .then((res) => {
             setUserInfo({
             sellerId: user.id,
-            username: res.data.user.name,
-            photo: res.data.user.userPhoto,
+            sellerName: res.data.user.name,
+            sellerPhoto: res.data.user.userPhoto,
             createdAt: res.data.user.createdAt,
             raiting: res.data.user.raiting,
             })

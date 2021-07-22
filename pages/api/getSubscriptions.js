@@ -8,19 +8,10 @@ export default function handler(req, res) {
             const userIdInt = Number(user_id)
 
             let sub = await prisma.$queryRaw(`SELECT subscriptions FROM users WHERE id = ${userIdInt}`)
-            if (sub[0].subscriptions == null || sub[0].subscriptions === ''){
-                const obj = {
-                    where:
-                        {
-                            id:userIdInt
-                        },
-                    data: {
-                        subscriptions: '[]'
-                    }
-                }
-                await prisma.users.update(obj);
-            }
+            if (sub[0].subscriptions == null || sub[0].subscriptions === '' || sub[0].subscriptions === '[]'){
 
+                res.json({"message":"nothing"})
+            }
             const subscriptions = await prisma.users.findFirst({
                 where: {
                     id: userIdInt
@@ -36,13 +27,40 @@ export default function handler(req, res) {
                 const seller = await prisma.users.findFirst({
                     where: {
                         id: Number(list[index])
+
+                    },
+                    select: {
+                        id: true,
+                        name: true,
+                        userPhoto: true,
                     }
                 })
+                const products = await prisma.posts.findMany({
+                    where: {
+                        user_id: Number(seller.id)
+                    },
+                    select: {
+                        id: true,
+                        title: true,
+                        price: true,
+                        photo: true
+                    }
+                })
+                seller.poducts = products
                 sellers.push(seller)
             }
-
             res.json(sellers)
         }
+
+
+
+
+
+
+
+
+
+
         main()
             .catch((e) => {
                 console.log("error: " + e);
