@@ -315,34 +315,17 @@
     }
   }
   
-  @media (max-width: 483px) {
-    .footerMainContainer{
-      flex-wrap: wrap;
-      height: 108px;
+  @media (max-width: 335px) {
+    .aboutLinkFooter, .contactsLinkFooter, .offerLinkFooter {
+      font-size: 11px;
     }
-  
-    .linkContainerFooter{
-      order: 3;
-      width: 100%;
-      flex-direction: row;
-      justify-content: space-between;
-      
-      margin-top: 24px;
+    .rightContainer a{
+      margin-left: 10px;
     }
-  
-    .socialNetworksFooter{
-      order: 1;
-      width: 50%;
+    .vkLinkFooter{
+      padding: 0 8px;
     }
-    
-    .rightContainer{
-      order: 2;
-      width: 50%;
-    }
-    
-    .indexTitleFooter {
-      width: 100%;
-      left: 0;
-      text-align: center;
+    .indexTitleFooter a{
+      font-size: 10px;
     }
   }

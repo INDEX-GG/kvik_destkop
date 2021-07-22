@@ -5,7 +5,10 @@ export default function handler(req, res) {
         async function main() {
 
             const user_id = req.body.user_id
-            const userIdInt = Number(user_id)
+            const userIdInt = Number(req.body.user_id)
+
+
+            console.log('data',req.body)
 
             let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
             console.log('!@!@!@!@!@' + fav);
@@ -51,8 +54,8 @@ export default function handler(req, res) {
 
                 posts.push(postData)
             }
-
-            res.json(posts)
+            
+           return res.json({ posts: posts });
 
         }
         main()

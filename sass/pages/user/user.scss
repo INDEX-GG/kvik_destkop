@@ -35,6 +35,9 @@
   width: 224px;
   height: 366px;
   margin: 0 24px 24px;
+  & > div.card {
+    border-radius: 8px;
+  } 
 }
 
 .sold {

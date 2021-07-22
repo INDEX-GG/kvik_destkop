@@ -13,7 +13,7 @@ import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
 import { useUser } from "../../hooks/useUser";
-import { useSubList, useSubBool } from "../../hooks/useSubscriotions";
+import { useSubList, useSubBool } from "../../hooks/useSubscriptions";
 
 const userInfo = {
   userId: 1,
@@ -35,12 +35,12 @@ function UserPage() {
   const [subTest, setSubTest] = useState(null)
 
   const userInfo = useAd(router.query.id)
-  const {username, photo, raiting, createdAt, isLoading, sellerId} = useOutherUser(router.query.id)
+  const {sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId} = useOutherUser(router.query.id)
   const {id} = useUser()
   const {matchesMobile, matchesTablet} = useMedia()
   const [userBool, setUserBool] = useState(false)
 
-  const {userLoading, userSub} =  useSubBool(id, sellerId)
+  const {userLoading, userSub} =  useSubBool("58", sellerId)
 
   useEffect(() => {
     setUserBool(userSub)
@@ -55,17 +55,17 @@ function UserPage() {
   function subscribeUser() {
 
     const subscribe = {
-      user_id: id + "", 
+      user_id: 58 + "", 
       seller_id: sellerId + ""
     }
 
-    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+    axios.post("/api/getSubscriptions", {user_id: String(58)}).then(data => console.log(data.data))
 
     axios.post("/api/subscriptions", subscribe)
     .then(res => console.log(res.data))
     .catch(error => cosnole.log(error))
 
-    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+    axios.post("/api/getSubscriptions", {user_id: String(58)}).then(data => console.log(data.data))
 
     setUserBool(!userBool)
   }
@@ -81,16 +81,16 @@ function UserPage() {
           <a className="breadCrumb line light" onClick={() => router.back()}>
             Название объявления с которого перешел
           </a>
-          <a className="line">{username}</a>
+          <a className="line">{sellerName}</a>
         </div>
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
-              {isLoading ? null : <Avatar src={photo} style={{ backgroundColor: username.toColor() }}>
-                {username.initials()}
+              {isLoading ? null : <Avatar src={sellerPhoto} style={{ backgroundColor: sellerName.toColor() }}>
+                {sellerName.initials()}
               </Avatar>}
             </div>
-            <div className="clientPage__username">{username}</div>
+            <div className="clientPage__username">{sellerName}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>
             <div className="clientPage__userrate">
               <div className="clientPage__userrate__num">{raiting}</div>
@@ -99,18 +99,27 @@ function UserPage() {
             <div className="clientPage__userstats highlight small">
               <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight" className="userInfoReviews">
                 {userInfo.userReviews}
-                <p>отзывов</p>
+                <div style={{textAlign: "center"}}>
+                  <div>0</div>
+                  <p>отзывов</p>
+                </div>
               </a>
               <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribers">
                 {userInfo.userSubscribers}
-                <p>подписчиков</p>
+                <div style={{textAlign: "center"}}>
+                  <div>0</div>
+                  <p>подписчиков</p>
+                </div>
               </a>
               <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribtions">
                 {userInfo.userSubscriptions}
-                <p>подписок</p>
+                <div style={{textAlign: "center"}}>
+                  <div>0</div>
+                  <p>подписок</p>
+                </div>
               </a>
             </div>
-            {userBool == null ? null : <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>}
+            {userBool == null ? <button className="btnSubscribe" onClick={() => subscribeUser()}>TEST</button> : <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>}
             <div className="btnActive">
               <a className="userActive">Заблокировать пользователя</a>
               <div className="userIconBlock">
