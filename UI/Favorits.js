@@ -5,18 +5,17 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
 
 
-export default function Favorits({ offer, isCard, isProduct, isAccountCard }) {
+export default function Favorits({ offer, isCard, isProduct, isAccountCard, favorites }) {
 
     const {id} = useAuth();
-console.log()
 
-    const {favorites } = useUser();
+
     const router = useRouter();
 
     let note
     let condition = (favorites && ((favorites?.replace('[', '')).replace(']', '')).split(':')[2])
 
-
+console.log(condition)
     // Запрос на api со страницы объявления
     const openNote = e => {
         e.target.parentElement.childNodes[0].classList.toggle('note-active')
@@ -43,6 +42,7 @@ console.log()
     // Запрос на api с карточек
     const getFavorits = (e) => {
         e.target.classList.toggle('like-active')
+        condition = condition === true || condition === 'true' ? false : true
         let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': `${note === undefined ? ((favorites?.replace('[', '')).replace(']', '')).split(':')[1] : note}`, 'condition': `${condition}` };
         axios.post("/api/favorites", arrFavorits);
         console.log(arrFavorits)
@@ -51,14 +51,20 @@ console.log()
 
 
     if (isCard) {
+        const qwe = favorites
+        console.log(favorites&& JSON.parse(favorites).map((item, i)))
+        console.log(offer.id)
+        console.log(favorites && +((((favorites?.replace('[', '')).replace(']', '')).split(':')[0])) === offer.id )
+        // ((((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === true) || favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === 'true')
         return (
             <div>
-                <span onClick={(e) => getFavorits(e)} className={favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === true) || favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === 'true') ? "card_like like-active" : "card_like"}></span>
+                <span onClick={(e) => getFavorits(e)} className={(favorites && +((((favorites?.replace('[', '')).replace(']', '')).split(':')[0])) === offer.id) && favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === 'true')  ? "card_like like-active" : "card_like"}></span>
             </div>
         )
     }
 
     if (isAccountCard) {
+        console.log(((((favorites?.replace('[', '')).replace(']', '')).split(':')[0])))
         return (
             <span onClick={(e) => getFavorits(e)} className={favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[0]) !== true) ? "favoritesFavorite" : "favoritesFavorite like-active"}></span>
         )

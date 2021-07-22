@@ -6,10 +6,14 @@ import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import Image from "next/image";
 import { useMedia } from '../hooks/useMedia';
 import Favorits from '../UI/Favorits';
-
+import { useFaverits } from '../lib/Context/FavoritesCTX';
 SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
+
+  const {favorites} = useFaverits();
+
+
   const currentSwiper = useRef();
   let sheduled = false;
 
@@ -32,6 +36,11 @@ function AdCard_component({ offer }) {
       }, 220);
     }
   }
+
+
+
+
+
 
   const call = true;
   const like = true;
@@ -80,7 +89,7 @@ function AdCard_component({ offer }) {
             </div>
             <div className="card__top_info_right">
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
-              <Favorits isCard offer= {offer}></Favorits>
+              <Favorits isCard favorites={favorites} offer= {offer}></Favorits>
             </div>
           </div>
 
