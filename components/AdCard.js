@@ -43,6 +43,7 @@ function AdCard_component({ offer }) {
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
+//   const myLoader = ({src, width, quality}) => `${src}`;
   return (
 
     <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
@@ -58,16 +59,13 @@ function AdCard_component({ offer }) {
                   }}
                   slidesPerView={1}
                 >
-                  {/* {JSON.parse(offer.photo).photos.map((img, i) => {
+                  	{/* {JSON.parse(offer.photo).photos.map((img, i) => {
 									return (
 										<SwiperSlide 
 										key={i}>
-											<Image src={img} layout='fill'/>
+											<Image loader={myLoader} src={img} layout='fill'/>
 										</SwiperSlide>
-								)})} */}
-
-                  {/* {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)} */}
-
+						)})} */}
                   {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
 
                 </Swiper>
@@ -80,7 +78,7 @@ function AdCard_component({ offer }) {
             </div>
             <div className="card__top_info_right">
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
-              <Favorits isCard offer= {offer}></Favorits>
+              {/* <Favorits isCard offer= {offer}></Favorits> */}
             </div>
           </div>
 
