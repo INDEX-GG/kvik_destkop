@@ -10,11 +10,16 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favo
     const { id } = useAuth();
     const router = useRouter();
 
-    const [like, setLike]= useState(true)
+    // const [like, setLike]= useState(true)
+
+    let comment = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.comment))
+    let condition = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.condition))
 
 
-    let comment;
-    let condition;
+    let like = condition?.length == 0 || condition?.join() == 'false' ? true : false
+
+    // comment;
+    //  condition;
 
     // const jsonFav = userFav && (userFav?.replace('[', ''))?.replace(']', '');
     // console.log(jsonFav)
@@ -56,29 +61,18 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favo
 
     // Запрос на api с карточек
     const getFavorits = (e) => {
-
-
-
-        comment = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.comment))
-        condition = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.condition))
-
-
-        console.log(condition.join() === 'true' ? true : condition.join() === 'false' ? false : condition.join())
-
-        setLike(condition.join() == '' ? true :condition.join() === 'true' ? true : condition.join() === 'false' ? false : condition.join())
-        console.log('====>' + like)
+        // console.log('До====>', condition.join())
+        // console.log('====>' + like)
 
         let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': comment.join(), 'condition': `${like}` }
-
-
         e.target.classList.toggle('like-active')
-
-        // condition = condition === true || condition === 'true' ? false : true
-
-        // let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': `${note === undefined ? ((favorites?.replace('[', '')).replace(']', '')).split(':')[1] : note}`, 'condition': `${condition}` };
-        // axios.post("/api/favorites", arrFavorits);
-        console.log(arrFavorits)
-
+        axios.post("/api/favorites", arrFavorits)
+            .then(r => r.data.user.favorites,)
+            .catch(e => console.error(e))
+            .finally(function () {
+                setQuery(p => !p)
+            })
+        // console.log(arrFavorits)
     }
 
 
@@ -87,7 +81,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favo
 
         return (
             <div>
-                <span onClick={(e) => { getFavorits(e); setQuery(p => !p) }} className={userFav && (JSON.parse(userFav).some((item) => +item.post_id === offer.id && item.condition === 'true')) ? "card_like like-active" : "card_like"}></span>
+                <span onClick={(e) => getFavorits(e)} className={userFav && (JSON.parse(userFav).some((item) => +item.post_id === offer.id && item.condition === 'true')) ? "card_like like-active" : "card_like"}></span>
             </div>
         )
     }
