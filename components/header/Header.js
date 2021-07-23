@@ -34,14 +34,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   header: {
-    top: "36px",
     boxShadow: theme.shadows[0],
-    transition: "top 150ms",
   },
   shadow: {
-    top: "0px",
     boxShadow: "0px 9px 14px 0px rgb(0 0 0 / 12%)",
-    transition: "top 150ms",
   },
   logo: {
     borderRadius: theme.shape.borderRadius,
@@ -96,7 +92,7 @@ const Header = ({ category }) => {
   return (
     <>
       <UpPanel />
-      <AppBar className={headerScroll} position="fixed" color="secondary">
+      <AppBar className={headerScroll} position="sticky" color="secondary">
         <Container className={classes.root}>
           <Logo />
           <Button className={classes.menu__categorys} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>

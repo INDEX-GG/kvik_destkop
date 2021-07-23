@@ -1,4 +1,5 @@
-import { Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
+import { useState } from 'react';
+import { Backdrop, Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 import Verify from '../components/placeOffer/Verify';
 import MetaLayout from '../layout/MetaLayout';
 import { useMedia } from '../hooks/useMedia';
@@ -14,6 +15,8 @@ import ErrorMessages from '../components/placeOffer/ErrorMessages';
 import axios from 'axios';
 import {useRouter} from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
+import Loader from '../UI/icons/Loader';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,12 +43,18 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         display: 'flex',
 		alignItems: 'center'
-    }
+    },
+	backdrop: {
+		// backdropFilter: 'blur(2px)',
+		zIndex: 2000,
+		backgroundColor: 'rgba(255, 255, 255, 0.85)',
+	}
 }));
 
 function PlaceOffer() {
     const {id} = useAuth();
     const classes = useStyles();
+	const [loading, setLoading] = useState(false);
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
 	const router = useRouter();
@@ -59,6 +68,7 @@ function PlaceOffer() {
         data.price = data.price.replace(/\D+/g, '');
 		const alias = data?.alias4 || data?.alias3 || data?.alias2;
         const sendData = new FormData;
+		const photoData = new FormData;
         sendData.append('user_id', id);
         sendData.append('title', data.title);
 		sendData.append('alias', alias);
@@ -71,17 +81,24 @@ function PlaceOffer() {
         sendData.append('byphone', data.byphone);
         sendData.append('bymessage', data.bymessages);
         if (photoes.length > 1) {
-            photoes.forEach(photo => sendData.append('image', photo));
+            photoes.forEach(photo => photoData.append('files[]', photo));
         } else if (photoes.length === 1) {
-            sendData.append('image', photoes[0]);
+            photoData.append('files[]', photoes[0]);
         }
         console.log(sendData);
+		console.log(photoData);
+		setLoading(true);
         axios.post('/api/setPosts', sendData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
-        })
-		router.push('/');
+        }).then(r => {
+			axios.post(`http://192.168.8.111:6001/post/${r.data.id}`, photoData, {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			}).then(() => router.push('/'))
+		})
     }
 
     return (
@@ -113,6 +130,9 @@ function PlaceOffer() {
                     </FormProvider>
                 </Box>
             </Container>}
+			<Backdrop className={classes.backdrop} open={loading}>
+				<Loader size={64}/>
+			</Backdrop>
         </MetaLayout>
     )
 }

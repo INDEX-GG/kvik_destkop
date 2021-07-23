@@ -79,7 +79,7 @@ export default function handler(req, res)
                         trade:text2Bool(req.body.trade),
                         delivery:text2Bool(req.body.delivery),
                         secure_transaction:text2Bool(req.body.safedeal),
-                        photo:JSON.stringify(photo),
+                        // photo:JSON.stringify(photo),
                         slug:"slug",
                         communication:JSON.stringify(communication),
                         address:req.body.address,
@@ -102,7 +102,9 @@ export default function handler(req, res)
                 }
                 // const allUsers = await prisma.users.update(obj);
                const allUsers = await prisma.posts.create(obj);
-                // console.log(req.body)
+		
+			   return res.json({id: allUsers.id})
+    
             }
 
             main(req.name)
