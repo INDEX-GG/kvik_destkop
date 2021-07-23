@@ -93,7 +93,7 @@ function PlaceOffer() {
                 "Content-Type": "multipart/form-data"
             }
         }).then(r => {
-			axios.post(`http://192.168.8.111:6001/post/${r.data.id}`, photoData, {
+			axios.post(`http://192.168.8.111:6001/post/${r?.data?.id}`, photoData, {
 				headers: {
 					"Content-Type": "multipart/form-data"
 				}
