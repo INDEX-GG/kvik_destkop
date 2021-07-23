@@ -7,6 +7,7 @@ import { mutate } from 'swr';
 import { DialogCTX } from '../../lib/Context/DialogCTX';
 import RegForm from './RegForm';
 import { useAuth } from '../../lib/Context/AuthCTX';
+import PhoneMask from '../../lib/phoneMask';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,7 +61,7 @@ const Login = () => {
 					<Box className={classes.reg}>
 						<Typography className={classes.title} variant="h6">Вход</Typography>
 						<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-							<Controller
+							{/* <Controller
 								name="phone"
 								control={control}
 								defaultValue=''
@@ -69,11 +70,12 @@ const Login = () => {
 										variant='outlined' size='small'
 										type="tel"
 										value={value}
-										onChange={onChange}
+										onChange={e => (onChange(phoneMask(e)))}
 										error={!!error} helperText={error ? error.message : ' '} />
 								)}
 								rules={{ required: 'Введите номер телефона' }}
-							/>
+							/> */}
+							<PhoneMask/>
 							<Controller
 								name="password"
 								control={control}

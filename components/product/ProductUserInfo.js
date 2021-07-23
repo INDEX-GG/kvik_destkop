@@ -33,7 +33,7 @@ export default function ProductUserInfo(data) {
           <div>
             <div onClick={() => router.push({
             pathname: `/user/${data.id}`
-          })}> {data.name} </div>
+            })}> {data.name} </div>
             <div>
               <div className="SellerInfoRateNumber">{/* {objP.userrate} */}</div>
               <div className="rating">
@@ -62,6 +62,11 @@ export default function ProductUserInfo(data) {
               )}
             </div>
           </div>
+          {matchesTablet || matchesMobile ? null : (
+            <div className="ad__block_bottom__adaptive_left">
+              <a className="SellerInfoUserAdd"></a>
+            </div>
+          )}
           {objP.adstatus === 7 && objP.adstatus === 8 ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : "" : ""}
           {!matchesLaptop && !matchesDesktop && !matchesHD ? (
             <>

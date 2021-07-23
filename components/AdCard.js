@@ -72,11 +72,10 @@ function AdCard_component({ offer }) {
 										</SwiperSlide>
 
 								)})} */}
+                  {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
+                </Swiper>
+              </div>
 
-                {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
-
-              </Swiper>
-            </div>
           </Link>
           <div className="card__top_info">
             <div className="card__top_info_left">
