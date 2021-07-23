@@ -3,6 +3,7 @@ import { useMedia } from "../../hooks/useMedia";
 import { ToRubles } from "../../lib/services";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Avatar } from "@material-ui/core";
 
 export default function ProductUserInfo(data) {
   const router = useRouter();
@@ -26,9 +27,9 @@ export default function ProductUserInfo(data) {
     <>
       <div className="ad__block_bottom">
         <div className="SellerInfoUserBlock">
-          <img onClick={() => router.push({
+          <Avatar alt="User" src={data.userPhoto} className="SellerInfoUserPic" onClick={() => router.push({
             pathname: `/user/${data.id}`,
-          })} className="SellerInfoUserPic" src={data.userPhoto} />
+          })}/>
           <div>
             <div onClick={() => router.push({
             pathname: `/user/${data.id}`
