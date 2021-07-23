@@ -150,6 +150,8 @@
     text-align: center;
     width: 100%;
     padding: 8px 0;
+    font-family:'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 14px;
 }
 .SellerInfoCall svg, .SellerInfoMess svg{
     margin-right: 8px;
@@ -214,6 +216,10 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 18px;
+}
+.SellerInfoUserBlock > div.MuiAvatar-root {
+    width: 56px;
+    height: 56px;
 }
 .SellerInfoUserBlock *:nth-child(2) {
     height: 100%;
@@ -372,6 +378,9 @@
     grid-column-gap: 24px;
     grid-row-gap: 24px;
     display: grid;
+}
+.productPageSimilarOffersContainer > div {
+    border-radius: 8px;
 }
 .productPageSimilarOffersTitle {
     margin: 8px 0;
@@ -766,11 +775,21 @@
 }
 
 @media (max-width: 1280px) {
+    .product__main_block{
+        justify-content: flex-start;
+    }
     .showsmthWrapper{
         padding: 0;
     }
     .productPageSimilarOffersContainer {
         grid-template-columns: repeat(3, 1fr);
+    }
+    .productPageSimilarOffersContainer{
+        max-width: 968px;
+        width: 100%;
+    }
+    .showsmthWrapper{
+        margin: 0 84px 56px;
     }
 }
 
@@ -782,9 +801,6 @@
         max-width: 100%;
     }
     
-    .product__main_block{
-        justify-content: space-between;
-    }
 }
 
 @media (max-width: 1060px) {

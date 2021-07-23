@@ -7,19 +7,19 @@ import { useRouter } from "next/router";
 const MainLayout = ({ children}) => {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 	const router = useRouter();
-	// console.log(router);
 
   return (
     <>
       <div>
-		{!matchesMobile && !matchesTablet && <Header />}
+		    {!matchesMobile && !matchesTablet && <Header />}
         {matchesTablet && <HeaderMobile chageMenu={true} />}
         {matchesMobile && <HeaderMobile />}
         <>{children}</>
-      </div >
-      {!matchesLaptop && !matchesDesktop && !matchesHD && <Footer />}
+      </div>
+      {router.pathname == "/" ? matchesTablet || matchesMobile ? <Footer/> : null : <Footer/>}
     </>
   );
+  //.makeStyles-root-114
 };
 
 export default MainLayout;
