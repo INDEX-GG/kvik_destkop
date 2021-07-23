@@ -61,7 +61,7 @@ const Login = () => {
 					<Box className={classes.reg}>
 						<Typography className={classes.title} variant="h6">Вход</Typography>
 						<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-							{/* <Controller
+							<Controller
 								name="phone"
 								control={control}
 								defaultValue=''
@@ -70,11 +70,11 @@ const Login = () => {
 										variant='outlined' size='small'
 										type="tel"
 										value={value}
-										onChange={e => (onChange(phoneMask(e)))}
+										onChange={onChange}
 										error={!!error} helperText={error ? error.message : ' '} />
 								)}
 								rules={{ required: 'Введите номер телефона' }}
-							/> */}
+							/>
 							<PhoneMask/>
 							<Controller
 								name="password"
