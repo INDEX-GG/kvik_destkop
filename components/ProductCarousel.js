@@ -23,7 +23,7 @@ export default function ProductCarousel({ photo }) {
   return (
     <>
       <Swiper loop={settingsCarousele} spaceBetween={1} navigation={settingsCarousele} thumbs={{ swiper: thumbsSwiper }} className="mySwiper2" pagination={paginationCarousel}>
-        <div className="seen__ad">Просмотрено</div>
+        {/* <div className="seen__ad">Просмотрено</div> */}
 
         {photo == undefined
           ? ""
