@@ -97,7 +97,7 @@ function PlaceOffer() {
 				headers: {
 					"Content-Type": "multipart/form-data"
 				}
-			}).finally(() => router.push('/'))
+			}).then(() => router.push('/'))
 		})
     }
 
