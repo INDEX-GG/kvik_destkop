@@ -19,6 +19,8 @@ import Favorits from '../../UI/Favorits';
 import { Style } from '@material-ui/icons';
 import MainLayout from "../../layout/MainLayout"
 import OffersRender from '../../components/OffersRender';
+import FavProvider from '../../lib/Context/FavoritesCTX';
+
 const objP = {
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',
@@ -85,9 +87,9 @@ const Product = () => {
 
     const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
 
-    console.log(router)
-    console.log("USER ID" + user_id)
-    console.log(useProduct({ router }))
+    // console.log(router)
+    // console.log("USER ID" + user_id)
+    // console.log(useProduct({ router }))
 
     const [userAd, setUserAd] = useState();
     useEffect(() => {
@@ -100,6 +102,7 @@ const Product = () => {
     return (
 
 		<MetaLayout>
+        <FavProvider>
         <div className="productPage" id="productPage">
             <div className="productPageContainer text">
                 {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin">Хлебные крошки</div>}
@@ -112,10 +115,7 @@ const Product = () => {
                                 {!matchesMobile && !matchesTablet && <div className="productPageTitle xl">{title}</div>}
                                 {objP.adstatus === 8 && !matchesLaptop && !matchesDesktop && !matchesHD &&
                                     <div className="SellerInfoTopButtons">
-                                        <input className="SellerInfoNoteInput" placeholder="Заметка к объявлению" />
-                                        <a className="SellerInfoNote"></a>
-                                        <a className="SellerInfoFavorite"></a>
-
+                                          <Favorits isProduct />
                                     </div>}
                                 <ProductCarousel photo={photo} />
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}
@@ -187,7 +187,6 @@ const Product = () => {
                                 <div className="freedomBlock_2"></div>
                             </div>}</div>
 
-                    {/* СТАРАЯ ВЁРСТКА */}
 
                     {/* <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
                     <div className="productPageSimilarOffers">
@@ -208,6 +207,7 @@ const Product = () => {
                         </div>
 
                     </div> */}
+
                     <div className="productPageContent">
                         <div className="productPageCard">
                             <OffersRender data={data} title={'Похожие объявления'} />
@@ -220,13 +220,14 @@ const Product = () => {
                                 <div className="freedomBlock_2"></div>
                             </div>}
                         </div>
+
                     </div>
                 </div>
             </div>
             <div className="productPageWhiteSpace"></div>
             <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth='sm'> <Statistics Close={handleStatFormDialog} /> </Dialog>
         </div >
-
+        </FavProvider >
 		</MetaLayout>
 
     )

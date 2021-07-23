@@ -9,7 +9,7 @@ export function useUser() {
 
   useEffect(() => {
 	const getUser = async() => {
-		const data = await axios.post('/api/getUser/', {id: id})
+		const data = await axios.post('/api/getUser', {id: id})
 		.then(r => r.data.user)
 		.catch(e => console.error(e));
 		setUserInfo(data);

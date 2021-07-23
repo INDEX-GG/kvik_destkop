@@ -4,22 +4,23 @@ export default function handler(req, res) {
         const prisma = new PrismaClient();
         async function main() {
 
+            let message = 'error'
             const user_id = req.body.user_id
             const post_id = req.body.post_id
             const userIdInt = Number(user_id)
             let comment = req.body.comment
             const condition = req.body.condition
-            if (req.body.comment === null || req.body.comment === undefined || req.body.comment === "undefined"){
+            if (req.body.comment === null || req.body.comment === undefined || req.body.comment === "undefined") {
                 comment = ''
             }
 
             // Проверка и заполнение пустого поля
             let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
-            if (fav[0].favorites == null || fav[0].favorites === ''){
+            if (fav[0].favorites == null || fav[0].favorites === '') {
                 const obj = {
                     where:
                         {
-                            id:userIdInt
+                            id: userIdInt
                         },
                     data: {
                         favorites: '[]'
@@ -35,56 +36,53 @@ export default function handler(req, res) {
                 },
                 select:
                     {
-                        favorites:true
+                        favorites: true
                     }
             })
 
-            // Преобразование строки в список
-            let preList = favorites['favorites'].substring(1)
-            let preList2 = preList.substring(0, preList.length - 1)
-            let list = preList2.split(',')
+            // Преобразование строки в json
+            let list = JSON.parse(favorites['favorites'])
 
-            // Проверка наличия в списке входящих данных
 
-            const firstExist =  preList2.split(',').join(':').split(':')
-            if (firstExist.includes(post_id)) {
+            if (list.some(item => item.post_id === post_id)) {
                 for (let index in list) {
-                    let secondLevel = (list[index]).split(':')
-                    if (secondLevel.includes(post_id)) {
-                        if (condition === 'false') {
-                            list.splice(index,1)
-                            list.push(post_id + ":" + comment + ":" + condition)
-                            if (comment === '') {
-                                list.splice(index,1)
-                            }
-                        } else{
-                            list.splice(index,1)
-                            list.push(post_id + ":" + comment + ":" + condition)
+                    if (list[index].post_id === post_id) {
+                        if (condition === 'false' && comment === '') {
+                            list.splice(index, 1)
+                            message = 'succesfully delete'
+
+                        } else {
+                            list.splice(index, 1)
+                            list.push({ post_id : post_id, comment : comment, condition : condition })
+                            message = 'succesfully update'
                         }
                     }
                 }
             } else {
-                list.push(post_id + ":" + comment + ":" + condition)
-            }
 
-            // Удаление пустых значений
-            let nothIndex = list.indexOf('')
-            if (nothIndex > -1) {
-                list.splice(nothIndex, 1)
+                list.push({ post_id : post_id, comment : comment, condition : condition })
+                message = 'succesfully add'
+                if (condition === 'false' && comment === '') {
+                    list.pop()
+                    message = 'nothing reasons for add'
                 }
+            }
 
             // Отправка данных
             const obj = {
+
                 where:
                     {
                         id:userIdInt
                     },
                 data: {
-                    favorites: '[' + list.join() + ']'
+                    favorites: JSON.stringify(list)
                 }
             }
             await prisma.users.update(obj);
-            res.json('success')
+
+
+            res.json({ "message" : message })
         }
         main()
             .catch((e) => {

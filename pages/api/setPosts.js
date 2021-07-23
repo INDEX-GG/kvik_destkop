@@ -63,8 +63,6 @@ export default function handler(req, res)
                 })
 				let str = results1[0].id + "n";
               
-				
-				
                 //console.log("in main",JSON.stringify(photo))
                 var now = new Date()
 
@@ -102,7 +100,6 @@ export default function handler(req, res)
                 }
                 // const allUsers = await prisma.users.update(obj);
                const allUsers = await prisma.posts.create(obj);
-		
 			   return res.json({id: allUsers.id})
     
             }
