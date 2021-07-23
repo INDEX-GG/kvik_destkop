@@ -48,7 +48,7 @@ const Login = () => {
             const user = { isAuth: true, id: res.data.idUser }
             console.log(user);
             axios.post('/api/login', user).then(() => mutate('/api/user'));
-			// signIn();
+			signIn();
             setOpenLoginForm(!openLoginForm);
         })
     };
