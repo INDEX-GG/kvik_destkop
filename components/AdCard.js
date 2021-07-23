@@ -11,13 +11,13 @@ SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
 
-  const {favorites} = useFaverits();
+  const {userFav, setQuery} = useFaverits();
 
 
   const currentSwiper = useRef();
   let sheduled = false;
 
-  console.log('offerRender')
+  // console.log('offerRender')
 
   useEffect(() => {
     currentSwiper.current.addEventListener("mousemove", switchSlide);	
@@ -86,7 +86,9 @@ function AdCard_component({ offer }) {
             <div className="card__top_info_right">
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
 
-              {/* <Favorits isCard favorites={favorites} offer= {offer}></Favorits> */}
+
+              <Favorits isCard  offer= {offer}></Favorits>
+
 
             </div>
           </div>
