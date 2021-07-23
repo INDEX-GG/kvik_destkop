@@ -35,19 +35,21 @@ export default function handler(req, res) {
                         userPhoto: true,
                     }
                 })
-                const products = await prisma.posts.findMany({
-                    where: {
-                        user_id: Number(seller.id)
-                    },
-                    select: {
-                        id: true,
-                        title: true,
-                        price: true,
-                        photo: true
-                    }
-                })
-                seller.poducts = products
-                sellers.push(seller)
+                if (seller !== null) {
+                    const products = await prisma.posts.findMany({
+                        where: {
+                            user_id: Number(seller.id)
+                        },
+                        select: {
+                            id: true,
+                            title: true,
+                            price: true,
+                            photo: true
+                        }
+                    })
+                    seller.poducts = products
+                    sellers.push(seller)
+                }
             }
             res.json(sellers)
         }

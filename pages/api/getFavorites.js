@@ -25,7 +25,6 @@ export default function handler(req, res) {
                     id: Number(list[index].post_id)
                 }
             })
-                console.log(postData);
                 if (postData !== null) {
 
                          const userData = await prisma.users.findFirst({
