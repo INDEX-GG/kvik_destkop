@@ -10,13 +10,9 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favo
     const { id } = useAuth();
     const router = useRouter();
 
-    // const [like, setLike]= useState(true)
-
-    let comment = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.comment))
-    let condition = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.condition))
 
 
-    let like = condition?.length == 0 || condition?.join() == 'false' ? true : false
+
 
     // comment;
     //  condition;
@@ -59,25 +55,30 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favo
     // }
 
 
-    // Запрос на api с карточек
-    const getFavorits = (e) => {
-        // console.log('До====>', condition.join())
-        // console.log('====>' + like)
 
-        let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': comment.join(), 'condition': `${like}` }
-        e.target.classList.toggle('like-active')
-        axios.post("/api/favorites", arrFavorits)
-            .then(r => r.data.user.favorites,)
-            .catch(e => console.error(e))
-            .finally(function () {
-                setQuery(p => !p)
-            })
-        // console.log(arrFavorits)
-    }
 
 
 
     if (isCard) {
+
+        let comment = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.comment))
+        let condition = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.condition))
+        let like = condition?.length == 0 || condition?.join() == 'false' ? true : false
+        // Запрос на api с карточек
+        const getFavorits = (e) => {
+            // console.log('До====>', condition.join())
+            // console.log('====>' + like)
+
+
+            let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': comment.join(), 'condition': `${like}` }
+            e.target.classList.toggle('like-active')
+            axios.post("/api/favorites", arrFavorits)
+                .then(r => r.data)
+                .finally(function () {
+                    setQuery(p => !p)
+                })
+            console.log(arrFavorits)
+        }
 
         return (
             <div>
