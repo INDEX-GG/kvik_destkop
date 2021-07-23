@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: "0 12px",
+    padding: "8px 12px ",
+    display: 'flex',
+    alignItems: "flex-end",
     "&>*": {
       margin: "0 12px",
     },
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     borderRadius: theme.shape.borderRadius,
-    padding: "8px 8px 28px 8px",
+    padding: "8px 8px 0px 8px",
   },
   avatar: {
     cursor: "pointer",

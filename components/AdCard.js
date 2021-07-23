@@ -20,7 +20,7 @@ function AdCard_component({ offer }) {
   // console.log('offerRender')
 
   useEffect(() => {
-    currentSwiper.current.addEventListener("mousemove", switchSlide);	
+    currentSwiper.current.addEventListener("mousemove", switchSlide);
   }, [currentSwiper]);
 
   function switchSlide(e) {
@@ -48,7 +48,7 @@ function AdCard_component({ offer }) {
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
-//   const myLoader = ({src, width, quality}) => `${src}`;
+  //   const myLoader = ({src, width, quality}) => `${src}`;
   return (
 
     <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
@@ -56,15 +56,15 @@ function AdCard_component({ offer }) {
         <div className={"card__top " + archived}>
           {offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
           <Link href={`/product/${offer.id}`}>
-              <div className="card__top_slider">
-                <Swiper
-                  ref={currentSwiper}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  slidesPerView={1}
-                >
-                  	{/* {JSON.parse(offer.photo).photos.map((img, i) => {
+            <div className="card__top_slider">
+              <Swiper
+                ref={currentSwiper}
+                pagination={{
+                  clickable: true,
+                }}
+                slidesPerView={1}
+              >
+                {/* {JSON.parse(offer.photo).photos.map((img, i) => {
 									return (
 										<SwiperSlide 
 										key={i}>
@@ -73,10 +73,10 @@ function AdCard_component({ offer }) {
 
 								)})} */}
 
-                  {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
+                {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
 
-                </Swiper>
-              </div>
+              </Swiper>
+            </div>
           </Link>
           <div className="card__top_info">
             <div className="card__top_info_left">
@@ -87,7 +87,7 @@ function AdCard_component({ offer }) {
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
 
 
-              <Favorits isCard  offer= {offer}></Favorits>
+              <Favorits isCard offer={offer}></Favorits>
 
 
             </div>
@@ -95,27 +95,27 @@ function AdCard_component({ offer }) {
 
         </div>
         <Link href={`/product/${offer.id}`}>
-            <div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
-              <div className="card__bottom_info">
-                <div className="card__bottom_info_right">
-                  <span className="old__price">{offer.old_price == null ? ' ' : ellipsis(ToRubles(offer.old_price), 15)}</span>
-                  <div className="card__bottom_info_right_commercial">
-                    {!matchesMobile && offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
-                    {!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
-                  </div>
+          <div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
+            <div className="card__bottom_info">
+              <div className="card__bottom_info_right">
+                <span className="old__price">{offer.old_price == null ? ' ' : ellipsis(ToRubles(offer.old_price), 15)}</span>
+                <div className="card__bottom_info_right_commercial">
+                  {!matchesMobile && offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
+                  {!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
                 </div>
-                <div className="card__bottom_info_left">
-                  <span className="new__price">{ellipsis(ToRubles(offer.price), 15)}</span>
-                </div>
+              </div>
+              <div className="card__bottom_info_left">
+                <span className="new__price">{ellipsis(ToRubles(offer.price), 15)}</span>
+              </div>
 
 
-              </div>
-              <div className="card__bottom_info_middle">{offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 24)}</div>
-              <div className="card__bottom_info_footer">
-                <div className="card__bottom_info_footer_left">{offer.address/* offer.commercial === 2 ? offer.address : ellipsis(offer.address, 25) */}</div>
-                <div className="card__bottom_info_footer_right">{ToRusDate(offer.created_at)}</div>
-              </div>
             </div>
+            <div className="card__bottom_info_middle">{offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 24)}</div>
+            <div className="card__bottom_info_footer">
+              <div className="card__bottom_info_footer_left">{offer.address/* offer.commercial === 2 ? offer.address : ellipsis(offer.address, 25) */}</div>
+              <div className="card__bottom_info_footer_right">{ToRusDate(offer.created_at)}</div>
+            </div>
+          </div>
         </Link>
       </div>
     </div>

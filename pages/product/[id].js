@@ -15,11 +15,10 @@ import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
 import { useAd } from "../../hooks/useAd"
-// import Favorits from '../../UI/Favorits';
+import Favorits from '../../UI/Favorits';
 import { Style } from '@material-ui/icons';
 import MainLayout from "../../layout/MainLayout"
 import OffersRender from '../../components/OffersRender';
-
 import FavProvider from '../../lib/Context/FavoritesCTX';
 const objP = {
     id: 1,
@@ -115,10 +114,7 @@ const Product = () => {
                                 {!matchesMobile && !matchesTablet && <div className="productPageTitle xl">{title}</div>}
                                 {objP.adstatus === 8 && !matchesLaptop && !matchesDesktop && !matchesHD &&
                                     <div className="SellerInfoTopButtons">
-                                        <input className="SellerInfoNoteInput" placeholder="Заметка к объявлению" />
-                                        <a className="SellerInfoNote"></a>
-                                        <a className="SellerInfoFavorite"></a>
-
+                                          <Favorits isProduct />
                                     </div>}
                                 <ProductCarousel photo={photo} />
                                 {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}

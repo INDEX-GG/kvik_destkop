@@ -104,6 +104,40 @@
     color: $tpml;
 }
 
+.main__input_note{
+    position: relative;
+}
+
+.delete__note{
+    display: block;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 0;
+    top: 0;
+}
+
+.delete__note::after, .delete__note::before{
+    display: block;
+    content: '';
+    height: 12px;
+    width: 2px;
+    background: $primered;
+    position: absolute;
+    top: 5px;
+    right: 14px;
+}
+
+.delete__note::after{
+    transform: rotate(45deg);
+}
+.delete__note::before{
+    transform: rotate(-45deg);
+}
+
+
+
+
 .SellerInfoNote {
     display: inline-block;
     width: 24px;
@@ -721,9 +755,6 @@
         background: no-repeat center center url(../../icons/note_dark.svg);
     }
 
-    .SellerInfoNoteInput {
-        margin-right: 8px;
-    }
 
     .SellerInfo__adaptive_buttons__top {
         display: flex;
