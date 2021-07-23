@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
-import axios from "axios";
 
 
 function Sellers({sellers, sellerSub}) {
@@ -24,7 +23,7 @@ function Sellers({sellers, sellerSub}) {
     <div className="clientPage__container_bottom">
        <div className="clientPage__container_content">
         <div className="sellersWrapper small">
-          {sellers.map((seller) => {
+          {sellers?.map((seller) => {
             return (
               <div key={seller.id} className="sellersContainer">
                 <div className="sellersUser">

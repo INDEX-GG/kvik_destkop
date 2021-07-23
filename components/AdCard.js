@@ -38,10 +38,6 @@ function AdCard_component({ offer }) {
   }
 
 
-
-
-
-
   const call = true;
   const like = true;
 
@@ -74,7 +70,9 @@ function AdCard_component({ offer }) {
 										key={i}>
 											<Image loader={myLoader} src={img} layout='fill'/>
 										</SwiperSlide>
-						)})} */}
+
+								)})} */}
+
                   {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
 
                 </Swiper>
