@@ -1,70 +1,99 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from '../hooks/useUser';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
-
+import { useFaverits } from '../lib/Context/FavoritesCTX';
 
 export default function Favorits({ offer, isCard, isProduct, isAccountCard, favorites }) {
 
-    const {id} = useAuth();
-
-
+    const { userFav, setQuery } = useFaverits(true)
+    const { id } = useAuth();
     const router = useRouter();
 
-    let note
-    let condition = (favorites && ((favorites?.replace('[', '')).replace(']', '')).split(':')[2])
+    const [like, setLike]= useState(true)
 
-console.log(condition)
+
+    let comment;
+    let condition;
+
+    // const jsonFav = userFav && (userFav?.replace('[', ''))?.replace(']', '');
+    // console.log(jsonFav)
+    // console.log(userFav && JSON.parse(userFav).map((item) => item))
+    // console.log(userFav && JSON.parse(userFav).map((item) => item.post_id))
+    // console.log(userFav && JSON.parse(userFav).map((item) => item.comment))
+    // console.log(userFav && JSON.parse(userFav).map((item) => item.condition))
+    // const qwe = userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id)
+    // console.log(qwe.map((item) => item.comment))
+    // let condition = (userFav && JSON.parse(userFav).map((item) => item.comment))
+    // console.log(condition)
+
+
+
+
+
     // Запрос на api со страницы объявления
-    const openNote = e => {
-        e.target.parentElement.childNodes[0].classList.toggle('note-active')
-    }
+    // const openNote = e => {
+    //     e.target.parentElement.childNodes[0].classList.toggle('note-active')
+    // }
 
-    const getFavoritsPost = (e) => {
-        condition = condition === true || condition === 'true' ? false : true
-        let arrFavorits = { 'user_id': `${id}`, 'post_id': `${router.query.id}`, 'comment': `${note === undefined ? ((favorites?.replace('[', '')).replace(']', '')).split(':')[1] : note}`, 'condition': `${condition}` };
-        axios.post("/api/favorites", arrFavorits)
-    }
+    // const getFavoritsPost = (e) => {
+    //     condition = condition === true || condition === 'true' ? false : true
+    //     let arrFavorits = { 'user_id': `${id}`, 'post_id': `${router.query.id}`, 'comment': `${note === undefined ? ((favorites?.replace('[', '')).replace(']', '')).split(':')[1] : note}`, 'condition': `${condition}` };
+    //     axios.post("/api/favorites", arrFavorits)
+    // }
 
-    const getNote = e => {
-        note = e.target.value
-        e.target.parentElement.childNodes[2].classList.toggle('like-active')
-        getFavoritsPost(e)
-        openNote(e)
-    }
+    // const getNote = e => {
+    //     note = e.target.value
+    //     e.target.parentElement.childNodes[2].classList.toggle('like-active')
+    //     getFavoritsPost(e)
+    //     openNote(e)
+    // }
 
-    const getLike = (e) => {
-        e.target.classList.toggle('like-active')
-    }
+    // const getLike = (e) => {
+    //     e.target.classList.toggle('like-active')
+    // }
 
 
     // Запрос на api с карточек
     const getFavorits = (e) => {
+
+
+
+        comment = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.comment))
+        condition = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === offer.id).map((item) => item.condition))
+
+
+        console.log(condition.join() === 'true' ? true : condition.join() === 'false' ? false : condition.join())
+
+        setLike(condition.join() == '' ? true :condition.join() === 'true' ? true : condition.join() === 'false' ? false : condition.join())
+        console.log('====>' + like)
+
+        let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': comment.join(), 'condition': `${like}` }
+
+
         e.target.classList.toggle('like-active')
-        condition = condition === true || condition === 'true' ? false : true
-        let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': `${note === undefined ? ((favorites?.replace('[', '')).replace(']', '')).split(':')[1] : note}`, 'condition': `${condition}` };
-        axios.post("/api/favorites", arrFavorits);
+
+        // condition = condition === true || condition === 'true' ? false : true
+
+        // let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': `${note === undefined ? ((favorites?.replace('[', '')).replace(']', '')).split(':')[1] : note}`, 'condition': `${condition}` };
+        // axios.post("/api/favorites", arrFavorits);
         console.log(arrFavorits)
+
     }
 
 
 
     if (isCard) {
-        const qwe = favorites
-        console.log(favorites&& JSON.parse(favorites).map((item, i)))
-        console.log(offer.id)
-        console.log(favorites && +((((favorites?.replace('[', '')).replace(']', '')).split(':')[0])) === offer.id )
-        // ((((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === true) || favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === 'true')
+
         return (
             <div>
-                <span onClick={(e) => getFavorits(e)} className={(favorites && +((((favorites?.replace('[', '')).replace(']', '')).split(':')[0])) === offer.id) && favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === 'true')  ? "card_like like-active" : "card_like"}></span>
+                <span onClick={(e) => { getFavorits(e); setQuery(p => !p) }} className={userFav && (JSON.parse(userFav).some((item) => +item.post_id === offer.id && item.condition === 'true')) ? "card_like like-active" : "card_like"}></span>
             </div>
         )
     }
 
     if (isAccountCard) {
-        console.log(((((favorites?.replace('[', '')).replace(']', '')).split(':')[0])))
+        // console.log(((((favorites?.replace('[', '')).replace(']', '')).split(':')[0])))
         return (
             <span onClick={(e) => getFavorits(e)} className={favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[0]) !== true) ? "favoritesFavorite" : "favoritesFavorite like-active"}></span>
         )
@@ -73,7 +102,7 @@ console.log(condition)
     if (isProduct) {
         return (
             <>
-                <input title={favorites && (((favorites?.replace('[', '')).replace(']', '')).split(':')[1])} onBlur={e => getNote(e)} className="SellerInfoNoteInput" placeholder={favorites && (((favorites?.replace('[', '')).replace(']', '')).split(':') === '') || favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[1]) === '') || (favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[1]) === undefined)) ? 'Заметка к объявлению' : favorites && (((favorites?.replace('[', '')).replace(']', '')).split(':')[1])} /> 
+                <input title={favorites && (((favorites?.replace('[', '')).replace(']', '')).split(':')[1])} onBlur={e => getNote(e)} className="SellerInfoNoteInput" placeholder={favorites && (((favorites?.replace('[', '')).replace(']', '')).split(':') === '') || favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[1]) === '') || (favorites && ((((favorites?.replace('[', '')).replace(']', '')).split(':')[1]) === undefined)) ? 'Заметка к объявлению' : favorites && (((favorites?.replace('[', '')).replace(']', '')).split(':')[1])} />
                 <a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
                 <span onClick={(e) => { getFavoritsPost(e); getLike(e) }} className={favorites && (((favorites?.replace('[', '')).replace(']', '')).split(':')[2]) === 'true' ? "SellerInfoFavorite like-active" : "SellerInfoFavorite"}></span>
             </>
