@@ -15,7 +15,7 @@ import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
 import { useAd } from "../../hooks/useAd"
-import Favorits from '../../UI/Favorits';
+// import Favorits from '../../UI/Favorits';
 import { Style } from '@material-ui/icons';
 import MainLayout from "../../layout/MainLayout"
 import OffersRender from '../../components/OffersRender';
