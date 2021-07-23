@@ -13,25 +13,25 @@ import MainLayout from '../layout/MainLayout';
 function MyApp({ Component, pageProps }) {
 
    return (
-      <SWRConfig 
-      value={{
-         fetcher: fetch,
-         onError: (err) => {
-           console.error(err)
-         },}}
-       >
-         <Head>
-            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-         </Head>
-		 <AuthProvider>
-			<ThemeProvider theme={theme}>
-		 		<MainLayout>
-					<CssBaseline/>
-					<Component {...pageProps} />
-				</MainLayout>
-			</ThemeProvider>
-		</AuthProvider>
-      </SWRConfig>
+		<SWRConfig 
+		value={{
+			fetcher: fetch,
+			onError: (err) => {
+			console.error(err)
+			},}}
+		>
+			<Head>
+				<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+			</Head>
+			<AuthProvider>
+				<ThemeProvider theme={theme}>
+					<MainLayout>
+						<CssBaseline/>
+						<Component {...pageProps} />
+					</MainLayout>
+				</ThemeProvider>
+			</AuthProvider>
+		</SWRConfig>
    )
 }
 
