@@ -6,7 +6,7 @@ import { useFaverits } from '../lib/Context/FavoritesCTX';
 
 export default function Favorits({ offer, isCard, isProduct, isAccountCard, favorites }) {
 
-    const { userFav, setQuery } = useFaverits(true)
+    const { userFav, setQuery } = useFaverits()
     const { id } = useAuth();
     const router = useRouter();
 

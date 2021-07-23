@@ -11,7 +11,7 @@ SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
 
-  const {userFav, setQuery} = useFaverits();
+  const { userFav, setQuery } = useFaverits()
 
 
   const currentSwiper = useRef();
