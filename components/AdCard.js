@@ -6,10 +6,14 @@ import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import Image from "next/image";
 import { useMedia } from '../hooks/useMedia';
 import Favorits from '../UI/Favorits';
-
+import { useFaverits } from '../lib/Context/FavoritesCTX';
 SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
+
+  const {favorites} = useFaverits();
+
+
   const currentSwiper = useRef();
   let sheduled = false;
 
@@ -33,6 +37,11 @@ function AdCard_component({ offer }) {
     }
   }
 
+
+
+
+
+
   const call = true;
   const like = true;
 
@@ -43,6 +52,7 @@ function AdCard_component({ offer }) {
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
+//   const myLoader = ({src, width, quality}) => `${src}`;
   return (
 
     <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
@@ -58,16 +68,13 @@ function AdCard_component({ offer }) {
                   }}
                   slidesPerView={1}
                 >
-                  {/* {JSON.parse(offer.photo).photos.map((img, i) => {
+                  	{/* {JSON.parse(offer.photo).photos.map((img, i) => {
 									return (
 										<SwiperSlide 
 										key={i}>
-											<Image src={img} layout='fill'/>
+											<Image loader={myLoader} src={img} layout='fill'/>
 										</SwiperSlide>
-								)})} */}
-
-                  {/* {JSON.parse(offer.photo).photos.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)} */}
-
+						)})} */}
                   {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
 
                 </Swiper>
@@ -80,7 +87,9 @@ function AdCard_component({ offer }) {
             </div>
             <div className="card__top_info_right">
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
-              <Favorits isCard offer= {offer}></Favorits>
+
+              <Favorits isCard favorites={favorites} offer= {offer}></Favorits>
+
             </div>
           </div>
 
