@@ -47,8 +47,11 @@ const Index = () => {
     axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
   }, []);
 
+
+  console.log("TEEEEEEEEEEEEEEEEEEEEEEEEEEST")
+  console.log("TEEEEEEEEEEEEEEEEEEEEEEEEEEST")
   return (
-    <MetaLayout isIndex title={'Доска объявлений'} category={"Транспорт"}>
+    // <MetaLayout isIndex title={'Доска объявлений'} category={"Транспорт"}>
       <Container className={classes.root}>
         <div className={classes.bread}>
             <div className="clientPage__breadcrumbs thin">
@@ -76,7 +79,7 @@ const Index = () => {
 			</Box>}
 		</Box>
 	  </Container>
-    </MetaLayout >
+    // </MetaLayout >
   )
 }
 
