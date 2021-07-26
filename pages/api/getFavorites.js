@@ -17,7 +17,6 @@ export default function handler(req, res) {
             let posts = []
 
             for (let index in list) {
-                console.log(list[index]);
                 let postData = await prisma.posts.findFirst({
                 where: {
                     id: Number(list[index].post_id)
@@ -46,7 +45,6 @@ export default function handler(req, res) {
             }
 
             return res.json({ posts: posts });
-
         }
         main()
             .catch((e) => {
