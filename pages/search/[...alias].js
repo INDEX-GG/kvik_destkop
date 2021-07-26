@@ -40,27 +40,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Index = () => {
-  const { matchesMobile, matchesTablet } = useMedia();
-  const [data, setData] = useState();
-
-  const classes = useStyles();
 
   const router = useRouter()
+
+  const { matchesMobile, matchesTablet } = useMedia();
+  const [data, setData] = useState(null);
+
+  const classes = useStyles();
 
   const {categoryMainAlias, categoriesByAlias} = useCategory()
 
   const breadСrumbs = router.asPath.split("/").splice(2,)
 
   let cardTitle = null
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
   useEffect(() => {
-    // axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
-    axios.post("/api/postCategorySearch", {data: breadСrumbs.join(",")}).then(res => {
-      console.log(res.data)
-      return setData(res.data)
-    })
-  });
+      axios.post("/api/postCategorySearch", {data: breadСrumbs.join(",")}).then(res => setData(res.data))
+  }, [router]);
 
 
   return (
@@ -72,43 +68,23 @@ const Index = () => {
                   Главная
                 </a>
                 {breadСrumbs.map((item, index) => {
-
                   let url = breadСrumbs[0]
                   let label = null
 
-                  if (index >= 1) {
-                    url += `/${breadСrumbs[1]}`
-                  }
-
-                  if (index >= 2) {
-                    url += `/${breadСrumbs[2]}`
-                  }
-
-                  if (index >= 3) {
-                    url += `/${breadСrumbs[3]}`
-                  }
-
-                  if (index == 0) {
-                    label = categoryMainAlias.filter(itemAl => itemAl.alias == item)[0]
-                  }
-
-                  if (index == 1) {
-                    label = categoriesByAlias(breadСrumbs[0]).filter(itemAl => itemAl.alias == item)[0]
-                  }
-
-                  if (index == 2) {
-                    label = categoriesByAlias(breadСrumbs[0], breadСrumbs[1]).filter(itemAl => itemAl.alias == item)[0]
-                  }
-
-                  if (index == 3) {
-                    label = categoriesByAlias(breadСrumbs[0], breadСrumbs[1], breadСrumbs[2]).filter(itemAl => itemAl.alias == item)[0]
-                  }
+                  if (index >= 1) url += `/${breadСrumbs[1]}`
+                  if (index >= 2) url += `/${breadСrumbs[2]}`
+                  if (index >= 3) url += `/${breadСrumbs[3]}`
+                
+                  if (index == 0) label = categoryMainAlias.filter(itemAl => itemAl.alias == item)[0]
+                  if (index == 1) label = categoriesByAlias(breadСrumbs[0]).filter(itemAl => itemAl.alias == item)[0]
+                  if (index == 2) label = categoriesByAlias(breadСrumbs[0], breadСrumbs[1]).filter(itemAl => itemAl.alias == item)[0]                
+                  if (index == 3) label = categoriesByAlias(breadСrumbs[0], breadСrumbs[1], breadСrumbs[2]).filter(itemAl => itemAl.alias == item)[0]
                   
                   cardTitle = label
 
                   return (
                     <a className={`breadCrumb light line ${index == breadСrumbs.length - 1 ? classes.breadActiveItem : "null"}`} href={`/search/${url}`}>
-                    {label == null ? "TEST" : label.label}
+                    {label == null ? "loading...." : label.label}
                     </a>
                   )
                 })}
