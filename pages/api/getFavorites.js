@@ -14,41 +14,37 @@ export default function handler(req, res) {
                 res.json({"message":"nothing"})
             }
 
-
-
-
             let posts = []
 
             for (let index in list) {
-            let postData = await prisma.posts.findFirst({
+                let postData = await prisma.posts.findFirst({
                 where: {
                     id: Number(list[index].post_id)
                 }
             })
                 if (postData !== null) {
 
-                         const userData = await prisma.users.findFirst({
-                                     where: {
-                                         id: Number(postData.user_id)
-                                     },
-                                     select: {
-                                         id: true,
-                                         name: true,
-                                         userPhoto: true,
-                                     }
-                                 })
+                     const userData = await prisma.users.findFirst({
+                                 where: {
+                                     id: Number(postData.user_id)
+                                 },
+                                 select: {
+                                     id: true,
+                                     name: true,
+                                     userPhoto: true,
+                                 }
+                             })
+                     if (userData !== null) {
                          postData.user_name = userData.name
                          postData.user_photo = userData.userPhoto
                          postData.comment = list[index].comment
                          postData.condition = list[index].condition
-
                          posts.push(postData)
-
+                     }
                 }
             }
 
             return res.json({ posts: posts });
-
         }
         main()
             .catch((e) => {

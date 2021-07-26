@@ -1,4 +1,4 @@
-import MetaLayout from "../layout/MainLayout";
+import MetaLayout from "../layout/MetaLayout";
 import ActiveIcon from '../UI/icons/ActiveIcon';
 
 function About() {

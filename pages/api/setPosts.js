@@ -2,8 +2,6 @@ import multer from "multer"
 import { PrismaClient } from '@prisma/client';
 
 let names = [];
-console.log("tyt" , names)
-
 export const config = {
     api: {
         bodyParser: false,
@@ -42,8 +40,6 @@ export default function handler(req, res)
         upload.array("image", 20)(req, {}, err => {
 
 
-            // do error handling here
-            //  console.log(req.files[0].originalname)
             async function main(namePhoto)
             {
                 const photo = {
@@ -61,16 +57,16 @@ export default function handler(req, res)
                         alias: req.body.alias //alias
                     }
                 })
-				let str = results1[0].id + "n";
-              
-                //console.log("in main",JSON.stringify(photo))
+				//let str = results1[0].id + "n";
+                const alias = (req.body.alias).toString()
+
                 var now = new Date()
 
                 const obj = {
                     data: {
                         country_code:7,
                         user_id:+req.body.user_id,
-                        category_id:+str.replace('n',''),  //results1.id
+                        category_id: alias,          //+str.replace('n',''),  //results1.id
                         title:req.body.title,
                         description:req.body.description,
                         price:req.body.price,
@@ -101,7 +97,7 @@ export default function handler(req, res)
                 // const allUsers = await prisma.users.update(obj);
                const allUsers = await prisma.posts.create(obj);
 			   return res.json({id: allUsers.id})
-    
+
             }
 
             main(req.name)

@@ -1,5 +1,5 @@
 import React from "react";
-import MetaLayout from "../../layout/MainLayout"
+import MetaLayout from "../../layout/MetaLayout"
 import User from "../../components/User/User";
 import { Avatar, Box, Container, makeStyles } from "@material-ui/core";
 import Image from "next/image"

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Box, Link, Button, makeStyles } from '@material-ui/core';
-import NavObj from '../json/navobj.json';
+// import NavObj from '../json/navobj.json';
+import { useCategory } from '../../hooks/useCategory';
+import { useRouter } from "next/router"
 
 const useStyles = makeStyles((theme) => ({
     categories__block_main: {
@@ -81,6 +83,15 @@ function Categories() {
     const classes = useStyles();
     const [category, setCategory] = useState(undefined);
     const [category2, setCategory2] = useState(undefined);
+    const [category3, setCategory3] = useState(undefined)
+    const [category4, setCategory4] = useState(undefined)
+    const [valueOne, setValueOne] = useState(undefined)
+    const [valueTwo, setValueTwo] = useState(undefined)
+    const [valueThree, setValueThree] = useState(undefined)
+    const [valutFour, setValueFour] = useState(undefined)
+
+    const {categoryMainAlias, categoriesByAlias} = useCategory()
+    const router = useRouter()
 
     function setCategoryColor(index) {
         for (var i = 0; i < index.target.parentElement.children.length; i++) {
@@ -94,32 +105,65 @@ function Categories() {
             <Box className={classes.categories__block_main}>
                 <Box className={classes.categories__block} >
                     <Box className={classes.categories__menu_item__gray_line}>
-                        {Object.keys(NavObj).map((key, index) => {
+                        {categoryMainAlias.map((item, index) => {
                             return (
-                                <Link href="#" value={index} onMouseOver={(index) => { setCategoryColor(index); setCategory(NavObj[key]); setCategory2(undefined); }} className={classes.categories__menu_item_btn}>  {NavObj[key].name}</Link>
-                            );
+                                <Link href="#" value={item.alias}
+                                onMouseOver={(e) => {
+                                    setValueOne(e.target.getAttribute("value"))
+                                    setCategoryColor(e);
+                                    setCategory(categoriesByAlias(e.target.getAttribute("value")))
+                                    setCategory2(undefined)
+                                }}
+                                onClick={() => router.push(`/search/${valueOne}`)}
+                                className={classes.categories__menu_item_btn}>{item.label}</Link>
+                            )
                         })}
                     </Box>
 
                     {typeof category !== 'undefined' ?
                         <Box className={classes.categories__menu_item__gray_line}>
-                            {Object.keys(category.subCategories).map((key, index) => {
+                            {category.map(item => {
                                 return (
-                                    <Link value={index} href="#" onMouseOver={(index) => { setCategoryColor(index); setCategory2(category.subCategories[key]) }} className={classes.categories__menu_item_btn}>  {category.subCategories[key].name}</Link>
-                                );
-                            }
-                            )}
+                                    <Link value={item.alias} href="#"
+                                    onMouseOver={(e) => {
+                                        setValueTwo(e.target.getAttribute("value"))
+                                        setCategoryColor(e);
+                                        setCategory2(categoriesByAlias(valueOne, e.target.getAttribute("value")))
+                                    }}
+                                    onClick={() => router.push(`/search/${valueOne}/${valueTwo}`)} 
+                                    className={classes.categories__menu_item_btn}>{item.label}</Link>
+                                )
+                            })}
                         </Box>
                         : ''}
 
-                    {typeof category2 !== 'undefined' && category2.subCategories !== undefined ?
+                    {typeof category2 !== 'undefined' && category2 != null ?
                         <Box className={classes.categories__menu_item}>
-                            {Object.keys(category2.subCategories).map(key => {
-                                return (
-                                    <Link href="#" className={classes.categories__menu_item_link}>  {category2.subCategories[key].name}</Link>
-                                );
-                            }
-                            )}
+                            {category2.map(item => {
+                                return (<Link value={item.alias} href="#"
+                                    onMouseOver={(e) => {
+                                        setValueThree(e.target.getAttribute("value"))
+                                        setCategoryColor(e);
+                                        setCategory3(categoriesByAlias(valueOne, valueTwo, e.target.getAttribute("value")))
+                                    }}
+                                    onClick={(e) => router.push(`/search/${valueOne}/${valueTwo}/${valueThree}`)} 
+                                    className={classes.categories__menu_item_btn}>{item.label}</Link>)
+                            })}
+                        </Box>
+                        : ''}
+
+                    {typeof category3 !== 'undefined' && category3 != null ?
+                        <Box className={classes.categories__menu_item}>
+                            {category3.map(item => {
+                                return (<Link value={item.alias} href="#"
+                                    onMouseOver={(e) => {
+                                        setValueFour(e.target.getAttribute("value"))
+                                        setCategoryColor(e);
+                                        setCategory4(categoriesByAlias(valueOne, valueTwo, valueThree, e.target.getAttribute("value")))
+                                    }}
+                                    onClick={(e) => router.push(`/search/${valueOne}/${valueTwo}/${valueThree}/${valutFour}`)} 
+                                    className={classes.categories__menu_item_btn}>{item.label}</Link>)
+                            })}
                         </Box>
                         : ''}
                 </Box>
