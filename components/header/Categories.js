@@ -115,7 +115,7 @@ function Categories() {
                                     setCategory2(undefined)
                                 }}
                                 onClick={() => router.push(`/search/${valueOne}`)}
-                                className={classes.categories__menu_item_btn}>{item.label}</Link>
+                                className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>
                             )
                         })}
                     </Box>
@@ -132,7 +132,7 @@ function Categories() {
                                         setCategory3(undefined)
                                     }}
                                     onClick={() => router.push(`/search/${valueOne}/${valueTwo}`)} 
-                                    className={classes.categories__menu_item_btn}>{item.label}</Link>
+                                    className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>
                                 )
                             })}
                         </Box>
@@ -148,7 +148,7 @@ function Categories() {
                                         setCategory3(categoriesByAlias(valueOne, valueTwo, e.target.getAttribute("value")))
                                     }}
                                     onClick={(e) => router.push(`/search/${valueOne}/${valueTwo}/${valueThree}`)} 
-                                    className={classes.categories__menu_item_btn}>{item.label}</Link>)
+                                    className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>)
                             })}
                         </Box>
                         : ''}
@@ -163,7 +163,7 @@ function Categories() {
                                         setCategory4(categoriesByAlias(valueOne, valueTwo, valueThree, e.target.getAttribute("value")))
                                     }}
                                     onClick={(e) => router.push(`/search/${valueOne}/${valueTwo}/${valueThree}/${valutFour}`)} 
-                                    className={classes.categories__menu_item_btn}>{item.label}</Link>)
+                                    className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>)
                             })}
                         </Box>
                         : ''}
