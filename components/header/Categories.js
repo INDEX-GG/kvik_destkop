@@ -113,6 +113,7 @@ function Categories() {
                                     setCategoryColor(e);
                                     setCategory(categoriesByAlias(e.target.getAttribute("value")))
                                     setCategory2(undefined)
+                                    setCategory3(undefined)
                                 }}
                                 onClick={() => router.push(`/search/${valueOne}`)}
                                 className={classes.categories__menu_item_btn}>{item.label}</Link>
