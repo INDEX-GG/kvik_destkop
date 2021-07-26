@@ -113,7 +113,6 @@ function Categories() {
                                     setCategoryColor(e);
                                     setCategory(categoriesByAlias(e.target.getAttribute("value")))
                                     setCategory2(undefined)
-                                    setCategory3(undefined)
                                 }}
                                 onClick={() => router.push(`/search/${valueOne}`)}
                                 className={classes.categories__menu_item_btn}>{item.label}</Link>
@@ -130,6 +129,7 @@ function Categories() {
                                         setValueTwo(e.target.getAttribute("value"))
                                         setCategoryColor(e);
                                         setCategory2(categoriesByAlias(valueOne, e.target.getAttribute("value")))
+                                        setCategory3(undefined)
                                     }}
                                     onClick={() => router.push(`/search/${valueOne}/${valueTwo}`)} 
                                     className={classes.categories__menu_item_btn}>{item.label}</Link>
