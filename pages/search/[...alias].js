@@ -9,7 +9,7 @@ import FilterBlock from "../../components/FilterBlock"
 import SearchRender from "../../components/SearchRender"
 import { useRouter } from "next/router"
 import { useCategory } from "../../hooks/useCategory";
-import Categories from "../../components/header/Categories";
+// import Categories from "../../components/header/Categories";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,11 +52,15 @@ const Index = () => {
   const breadСrumbs = router.asPath.split("/").splice(2,)
 
   let cardTitle = null
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
-  
   useEffect(() => {
-    axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
-  }, []);
+    // axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
+    axios.post("/api/postCategorySearch", {data: breadСrumbs.join(",")}).then(res => {
+      console.log(res.data)
+      return setData(res.data)
+    })
+  });
 
 
   return (
