@@ -4,9 +4,9 @@ export default function handler(req, res) {
         const prisma = new PrismaClient();
         async function main() {
 
-            let data = req.body.data
-
-            const posts = await prisma.$queryRaw(`SELECT * FROM posts WHERE category_id LIKE '${data}%' LIMIT 15`)     // LIMIT?
+            const data = req.body.data
+            const lowerData = data.toLowerCase()
+            const posts = await prisma.$queryRaw(`SELECT * FROM posts WHERE LOWER (category_id) LIKE '${lowerData}%' LIMIT 15`)     // LIMIT?
             res.json(posts)
         }
         main()
