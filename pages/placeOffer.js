@@ -66,7 +66,14 @@ function PlaceOffer() {
     const onSubmit = data => {
         console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
-		const alias = data?.alias4 || data?.alias3 || data?.alias2;
+		// const alias = data?.alias4 || data?.alias3 || data?.alias2;
+		const alias = [data?.alias1, data?.alias2];
+		if (data?.alias3) {
+			alias.push(data.alias3);
+		}
+		if (data?.alias4) {
+			alias.push(data.alias4);
+		}
         const sendData = new FormData;
 		const photoData = new FormData;
         sendData.append('user_id', id);
