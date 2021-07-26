@@ -23,7 +23,10 @@ function AdCard_component({ offer }) {
     currentSwiper.current.addEventListener("mousemove", switchSlide);
   }, [currentSwiper]);
 
+
+
   function switchSlide(e) {
+
     if (!sheduled) {
       sheduled = true;
       setTimeout(() => {
@@ -36,7 +39,6 @@ function AdCard_component({ offer }) {
       }, 220);
     }
   }
-
 
   const call = true;
   const like = true;
@@ -72,9 +74,9 @@ function AdCard_component({ offer }) {
 										</SwiperSlide>
 
 								)})} */}
-                  {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
-                </Swiper>
-              </div>
+                {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
+              </Swiper>
+            </div>
 
           </Link>
           <div className="card__top_info">

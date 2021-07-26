@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Dialog } from '@material-ui/core';
 import axios from 'axios';
+import Link from "next/link";
 import MetaLayout from '../../layout/MetaLayout';
 import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
@@ -85,6 +86,8 @@ const Product = () => {
         return () => { }
     }, [])
 
+
+
     const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
 
     // console.log(router)
@@ -105,7 +108,9 @@ const Product = () => {
         <FavProvider>
         <div className="productPage" id="productPage">
             <div className="productPageContainer text">
-                {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin">Хлебные крошки</div>}
+                {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin"><Link  href={`/`}>Главная</Link>
+                
+                </div>}
 
                 {/* Блок объявления */}
                 <div className="product__wrapper">

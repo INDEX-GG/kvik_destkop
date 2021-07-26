@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MetaLayout from '../../layout/MainLayout';
+import MetaLayout from '../../layout/MetaLayout';
 import Modal from '../../components/Modal';
 import { modalLogout } from '../../components/Modals';
 import { Ads } from "../../components/admin/ads/Ads";

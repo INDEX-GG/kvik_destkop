@@ -1,4 +1,4 @@
-import MetaLayout from '../layout/MainLayout';
+import MetaLayout from '../layout/MetaLayout';
 import GrAndroid from '../UI/icons/GrAndroid';
 import GrApple from '../UI/icons/GrApple';
 import Instagram from '../UI/icons/Instagram';

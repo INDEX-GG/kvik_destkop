@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import MainLayout from "../../layout/MainLayout";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
-import { ToRusAccountDate } from "../../lib/services";
+import { ToRusAccountDate, stringToColor, initials } from "../../lib/services";
 import { Avatar, Dialog } from "@material-ui/core";
 import { useRouter } from "next/router";
 import UserLock from "../../UI/icons/UserLock";
 import UserReport from "../../UI/icons/UserReport";
-import { ModalRating, ModalSubscribers, ModalSubscription} from "../../components/Modals";
+import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useAd } from "../../hooks/useAd";
 import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
@@ -15,19 +15,25 @@ import { useOutherUser } from "../../hooks/useOutherUser";
 import { useUser } from "../../hooks/useUser";
 import { useSubList, useSubBool } from "../../hooks/useSubscriptions";
 
-const userInfo = {
-  userId: 1,
-  userPic: "",
-  userName: "Имя пользователя",
-  userDateReg: "21.56.7676",
-  userRate: 3.2,
-  userReviews: 0,
-  userSubscribers: 0,
-  userSubscriptions: 0,
-};
+import MetaLayout from "../../layout/MetaLayout";
+
+
+
+
+// const userInfo = {
+//   userId: 1,
+//   userPic: "",
+//   userName: "Имя пользователя",
+//   userDateReg: "21.56.7676",
+//   userRate: 3.2,
+//   userReviews: 0,
+//   userSubscribers: 0,
+//   userSubscriptions: 0,
+// };
 
 function UserPage() {
   const router = useRouter();
+
 
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
@@ -35,16 +41,17 @@ function UserPage() {
   const [subTest, setSubTest] = useState(null)
 
   const userInfo = useAd(router.query.id)
-  const {sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId} = useOutherUser(router.query.id)
-  const {id} = useUser()
-  const {matchesMobile, matchesTablet} = useMedia()
+  const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
+  const { id } = useUser()
+  const { matchesMobile, matchesTablet } = useMedia()
   const [userBool, setUserBool] = useState(false)
 
-  const {userLoading, userSub} =  useSubBool("58", sellerId)
+  const { userLoading, userSub } = useSubBool("58", sellerId)
+
 
 
   useEffect(() => {
-    setUserBool(flase)
+    setUserBool(false)
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     console.log(userSub)
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
@@ -61,24 +68,24 @@ function UserPage() {
   function subscribeUser() {
 
     const subscribe = {
-      user_id: 58 + "", 
+      user_id: 58 + "",
       seller_id: sellerId + ""
     }
 
-    axios.post("/api/getSubscriptions", {user_id: String(58)}).then(data => console.log(data.data))
+    axios.post("/api/getSubscriptions", { user_id: String(58) }).then(data => console.log(data.data))
 
     axios.post("/api/subscriptions", subscribe)
-    .then(res => console.log(res.data))
-    .catch(error => cosnole.log(error))
+      .then(res => console.log(res.data))
+      .catch(error => cosnole.log(error))
 
-    axios.post("/api/getSubscriptions", {user_id: String(58)}).then(data => console.log(data.data))
+    axios.post("/api/getSubscriptions", { user_id: String(58) }).then(data => console.log(data.data))
 
     setUserBool(!userBool)
   }
 
 
   return (
-    <MainLayout title={"Личный кабинет"}>
+    <MetaLayout>
       <div className="clientPage text">
         <div className="clientPage__breadcrumbs thin">
           <a className="breadCrumb light" href="/">
@@ -92,9 +99,7 @@ function UserPage() {
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
-              {isLoading ? null : <Avatar src={sellerPhoto} style={{ backgroundColor: sellerName.toColor() }}>
-                {sellerName.initials()}
-              </Avatar>}
+              {isLoading ? null : <Avatar src={sellerPhoto} style={{ backgroundColor: `${stringToColor(sellerName)}` }}>{initials(sellerName)}</Avatar>}
             </div>
             <div className="clientPage__username">{sellerName}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>
@@ -105,21 +110,21 @@ function UserPage() {
             <div className="clientPage__userstats highlight small">
               <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight" className="userInfoReviews">
                 {userInfo.userReviews}
-                <div style={{textAlign: "center"}}>
+                <div style={{ textAlign: "center" }}>
                   <div>0</div>
                   <p>отзывов</p>
                 </div>
               </a>
               <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribers">
                 {userInfo.userSubscribers}
-                <div style={{textAlign: "center"}}>
+                <div style={{ textAlign: "center" }}>
                   <div>0</div>
                   <p>подписчиков</p>
                 </div>
               </a>
               <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribtions">
                 {userInfo.userSubscriptions}
-                <div style={{textAlign: "center"}}>
+                <div style={{ textAlign: "center" }}>
                   <div>0</div>
                   <p>подписок</p>
                 </div>
@@ -148,12 +153,12 @@ function UserPage() {
         <ModalRating rate={raiting} comments={2} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(reviewsModal, setReviewsModal)} />
       </Dialog>
       <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscribers mobile={ matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscribersModal, setSubscribersModal)} />
+        <ModalSubscribers mobile={matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscribersModal, setSubscribersModal)} />
       </Dialog>
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscription mobile={ matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscriptionsModal, setSubscriptionsModal)}/>
+        <ModalSubscription mobile={matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} />
       </Dialog>
-    </MainLayout>
+    </MetaLayout>
   );
 }
 export default UserPage;

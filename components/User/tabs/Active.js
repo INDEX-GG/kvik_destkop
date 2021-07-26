@@ -1,6 +1,6 @@
 import React from "react";
 import AdCard_component from "../../AdCard";
-
+import FavProvider from "../../../lib/Context/FavoritesCTX";
 function Active(data) {
   if (data.offers.length == 0) {
     return (
@@ -26,14 +26,14 @@ function Active(data) {
       </div>
     )
   }
-  
+
   return (
     <div className="userProduct">
       {data.offers.map((item, i) => {
         return (
-          <div key={i} className="userProductItem">
-            <AdCard_component offer={item} />
-          </div>
+            <FavProvider >
+              <AdCard_component offer={item} />
+            </FavProvider>
         );
       })}
     </div>

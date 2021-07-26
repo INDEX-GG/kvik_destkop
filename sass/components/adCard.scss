@@ -1,5 +1,6 @@
 .card {
     width: 100%;
+    border-radius: 8px;
     filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.1));
     position: relative;
     cursor: pointer;
@@ -7,15 +8,15 @@
 
     &:hover &__top_info_left {
         transform: translateY(0);
-        transition: 100ms ease-in-out;
+        transition-delay: 200ms ;
     }
     &:hover &__top_info_right .card_compare {
         transform: translateX(0);
-        transition: 110ms ease-in-out;
+        transition-delay: 210ms ;
     }
     &:hover &__top_info_right .card_like {
         transform: translateX(0);
-        transition: 180ms ease-in-out;
+        transition-delay: 280ms ;
     }
 
     &__lg {
