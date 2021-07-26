@@ -59,7 +59,7 @@ model users{
 model posts{
   id                    Int    @id @default(autoincrement())
   country_code          Int?
-  category_id           Int?
+  category_id           String?
   user_id               Int?      @unique
   post_type_id          Int?
   title                 String    @db.VarChar(255)
