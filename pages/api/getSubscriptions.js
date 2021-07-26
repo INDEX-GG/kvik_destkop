@@ -54,15 +54,6 @@ export default function handler(req, res) {
             res.json(sellers)
         }
 
-
-
-
-
-
-
-
-
-
         main()
             .catch((e) => {
                 console.log("error: " + e);
