@@ -26,20 +26,23 @@
 }
 
 .userProduct {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 92px;
+  max-width: 720px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 24px;
+  grid-row-gap: 24px;
 }
 
-.userProductItem {
-  width: 224px;
-  height: 366px;
-  margin: 0 24px 24px;
-  & > div.card {
-    border-radius: 8px;
-  } 
-}
+// .userProductItem {
+//   width: 224px;
+//   height: 366px;
+//   margin: 0 24px 24px;
+//   & > div.card {
+//     border-radius: 8px;
+//   }
+// }
 
-.sold {
-  opacity: 0.4;
-}
+// .sold {
+//   opacity: 0.4;
+// }

@@ -9,14 +9,14 @@ export default function ProductUserInfo(data) {
   const router = useRouter();
 
   const [collapsed, setCollapsed] = useState(true);
-  const handleCollapse = (e) => {
-    e.preventDefault();
-    if (collapsed) {
-      setCollapsed(false);
-    } else {
-      setCollapsed(true);
-    }
-  };
+  // const handleCollapse = (e) => {
+  //   e.preventDefault();
+  //   if (collapsed) {
+  //     setCollapsed(false);
+  //   } else {
+  //     setCollapsed(true);
+  //   }
+  // };
 
   const objP = { adstatus: 8 };
 
@@ -123,16 +123,12 @@ export default function ProductUserInfo(data) {
         )}
         {userSmallAd == undefined ? (
           ""
-        ) : userSmallAd.length <= 4 ? (
-          ""
         ) : objP.adstatus === 7 || objP.adstatus === 8 ? (
           !matchesMobile && !matchesTablet ? (
-            <a
-              className="SellerInfoUserOffersCollapse highlight underline"
-              onClick={(e) => {
-                handleCollapse(e);
-              }}
-            >
+            <a className="SellerInfoUserOffersCollapse highlight underline" target="_blank" onClick={() => router.push({
+              pathname: `/user/${data.id}`, title: userAd.title
+              })}
+              /* onClick={(e) => { handleCollapse(e)}} */>
               {(collapsed && `Все объявления продавца (${userSmallAd == undefined ? "0" : userSmallAd.length})`) || `Скрыть`}
             </a>
           ) : (

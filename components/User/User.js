@@ -7,10 +7,13 @@ import { useRouter } from "next/router";
 import { brooklyn } from "../../lib/services";
 
 const UsersPage = () => {
+
+
   const [activeBox, setActiveBox] = useState([]);
   const [soldBox, setSoldBox] = useState([]);
 
   const router = useRouter();
+console.log(router)
  
   const { userInfo, isLoading } = useAd(router.query.id);
   // console.log(userInfo.filter(item => item.archived))

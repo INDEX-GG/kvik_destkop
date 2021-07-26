@@ -829,7 +829,7 @@
     }
 
     .showsmthWrapper{
-        margin: 0 84px 56px;
+        margin: 47px 0 0 56px;
     }
     .productPageContent{
         display: flex;
@@ -882,9 +882,9 @@
     .productPageSimilarOffersContainer {
         grid-template-columns: repeat(2, 1fr);
     }
-    .showsmthWrapper{
-        margin: 0 54px 36px;
-    }
+    // .showsmthWrapper{
+    //     margin: 0 54px 36px;
+    // }
 }
 
 @media (max-width: 959px) {

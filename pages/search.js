@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Footer2 from "../components/Footer2"
 import { useMedia } from "../hooks/useMedia";
-import MetaLayout from '../layout/MainLayout';
+import MetaLayout from '../layout/MetaLayout';
 import { PrismaClient } from '@prisma/client';
 import axios from "axios";
 import { Box, Container, makeStyles } from "@material-ui/core";
