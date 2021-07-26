@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import {Dialog, Box, Button, makeStyles, Typography, TextField } from "@material-ui/core";
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
@@ -40,6 +40,7 @@ const Login = () => {
     const classes = useStyles();
     const { handleSubmit, control } = useForm();
 	const {openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm} = useContext(DialogCTX);
+
     const onSubmit = data => {
         data.phone = `+${data.phone.replace(/\D+/g, '')}`;
         console.log(data);
@@ -53,6 +54,9 @@ const Login = () => {
             setOpenLoginForm(!openLoginForm);
         })
     };
+
+	const [valueInp, setValueInp] = useState("")
+
 
     return (
 		<>
@@ -69,13 +73,17 @@ const Login = () => {
 									<TextField label='Номер телефона'
 										variant='outlined' size='small'
 										type="tel"
-										value={value}
-										onChange={onChange}
+										value={valueInp}
+										onChange={(e) => onChange(PhoneMask(e, valueInp, setValueInp))}
+										onKeyDown={(e) => {
+											if (e.key == "Backspace" && e.target.value.length === 3) {
+											setValueInp("");
+											}
+										}}
 										error={!!error} helperText={error ? error.message : ' '} />
 								)}
 								rules={{ required: 'Введите номер телефона' }}
 							/>
-							<PhoneMask/>
 							<Controller
 								name="password"
 								control={control}

@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import { DialogCTX, RegistrationCTX } from '../../lib/Context/DialogCTX';
 import ConfirmNumber from './ConfirmNumber';
+import PhoneMask from '../../lib/phoneMask';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,6 +75,7 @@ export default function RegForm() {
 
     const classes = useStyles();
     const { handleSubmit, control, watch } = useForm();
+    const [valueInp, setValueInp] = useState("")
     const onSubmit = data => {
         data.phone = `+${data.phone.replace(/\D+/g, '')}`;
         console.log(data);
@@ -124,7 +126,6 @@ export default function RegForm() {
                             )}
                             rules={{ required: 'Введите фамилию' }}
                         />
-
                         <Controller
                             name="phone"
                             control={control}
@@ -134,13 +135,17 @@ export default function RegForm() {
                                     variant='outlined' size='small'
                                     type="tel"
                                     autoComplete="on"
-                                    value={value}
-                                    onChange={e => onChange(phoneMask(e))}
+                                    value={valueInp}
+                                    onChange={e => onChange(PhoneMask(e, valueInp, setValueInp))}
+                                    onKeyDown={(e) => {
+											if (e.key == "Backspace" && e.target.value.length === 3) {
+											setValueInp("");
+											}
+									}}
                                     error={!!error} helperText={error ? error.message : ' '} />
                             )}
                             rules={{ required: 'Введите номер телефона' }}
                         />
-
                         <Controller
                             name="password"
                             control={control}
