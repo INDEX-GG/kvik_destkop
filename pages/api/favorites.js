@@ -49,19 +49,19 @@ export default function handler(req, res) {
                     if (list[index].post_id === post_id) {
                         if (condition === 'false' && comment === '') {
                             list.splice(index, 1)
-                            message = 'succesfully delete'
+                            message = 'successfully delete'
 
                         } else {
                             list.splice(index, 1)
                             list.push({ post_id : post_id, comment : comment, condition : condition })
-                            message = 'succesfully update'
+                            message = 'successfully update'
                         }
                     }
                 }
             } else {
 
                 list.push({ post_id : post_id, comment : comment, condition : condition })
-                message = 'succesfully add'
+                message = 'successfully add'
                 if (condition === 'false' && comment === '') {
                     list.pop()
                     message = 'nothing reasons for add'
