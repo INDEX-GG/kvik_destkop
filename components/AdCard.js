@@ -11,7 +11,7 @@ SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
 
-  // const { userFav, setQuery } = useFaverits()
+  const { userFav, setQuery } = useFaverits()
 
 
   const currentSwiper = useRef();
@@ -52,7 +52,6 @@ function AdCard_component({ offer }) {
 
   //   const myLoader = ({src, width, quality}) => `${src}`;
   return (
-
     <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
       <div className={offer.commercial !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
         <div className={"card__top " + archived}>
@@ -88,7 +87,7 @@ function AdCard_component({ offer }) {
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
 
 
-              {/* <Favorits isCard offer={offer}></Favorits> */}
+               <Favorits isCard offer={offer}></Favorits> 
 
 
             </div>
