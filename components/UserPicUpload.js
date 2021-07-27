@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { typeChange } from '../lib/services';
-import { useUser } from '../hooks/useUser';
 import axios from 'axios';
 import { useAuth } from '../lib/Context/AuthCTX';
 
@@ -21,10 +20,6 @@ function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3 })
     }
   }
 
-//   useEffect(() => {
-//     setPhoto(photo)
-//   }, [photo])
-
   //Получаем отредактированное изображение и отправляем на route
   const saveEditedPic = () => {
     const canvas = editorRef.current.getImageScaledToCanvas();
@@ -36,20 +31,12 @@ function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3 })
       console.log(img);
       const sendData = new FormData;
       sendData.append('files[]', img);
-    //   sendData.append('id', id);
-    //   axios.post("/api/avatar", sendData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data"
-    //     }
-    //   })
+
 	  axios.post(`http://192.168.8.111:6001/avatar/${id}`, sendData, {
 		headers: {
 			"Content-Type": "multipart/form-data"
 		  }
 	  })
-      
-      console.log(sendData);
-
     }, `image/${imageType}`, optimiztionLevel);
   }
 

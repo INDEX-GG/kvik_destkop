@@ -38,29 +38,39 @@ const Login = () => {
 	const {signIn} = useAuth();
     const router = useRouter();
     const classes = useStyles();
-    const { handleSubmit, control } = useForm();
+    const { handleSubmit, control, setError, setValue } = useForm();
 	const {openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm} = useContext(DialogCTX);
-
     const onSubmit = data => {
         data.phone = `+${data.phone.replace(/\D+/g, '')}`;
         console.log(data);
         axios.post('/api/checkUser', data).then((res) => {
             console.log(res.data);
-            //Сделать отладку ошибок и вообще!
-            const user = { isAuth: true, id: res.data.idUser }
-            console.log(user);
-            axios.post('/api/login', user).then(() => mutate('/api/user'));
-			signIn();
+            if (res?.data?.isset === false) {
+					setError('phone', {type: 'validate', message: ' '})
+					setError('password', {type: 'validate', message: 'Неверный номер или пароль'})
+				} else {
+            axios.post('/api/login', { id: res.data?.idUser }).then(() => mutate('/api/user'));
+				signIn();
             setOpenLoginForm(!openLoginForm);
+				setValueInp("");
+				setValue('password', '');
+				}
         })
     };
 
 	const [valueInp, setValueInp] = useState("")
 
-
     return (
 		<>
-			<Dialog open={openLoginForm} onClose={() => setOpenLoginForm(!openLoginForm)} fullWidth maxWidth="sm">
+			<Dialog 
+				open={openLoginForm} 
+				onClose={() => {
+					setValueInp('');
+					setValue('password', '');
+					setOpenLoginForm(!openLoginForm);
+
+				}} 
+				fullWidth maxWidth="sm">
 				<Box className={classes.root}>
 					<Box className={classes.reg}>
 						<Typography className={classes.title} variant="h6">Вход</Typography>
@@ -96,7 +106,7 @@ const Login = () => {
 										onChange={onChange}
 										error={!!error} helperText={error ? error.message : ' '} />
 								)}
-								rules={{ required: 'Введите пароль' }}
+								rules={{ required: 'Введите пароль'}}
 							/>
 							<Button type='submit' disabled={false} variant="contained" color="primary">Войти</Button>
 							<Button onClick={() => {setOpenLoginForm(!openLoginForm); setOpenRegForm(!openRegForm) }} variant='text' size='large' color='primary'>Регистрация</Button>
