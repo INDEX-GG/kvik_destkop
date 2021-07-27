@@ -6,12 +6,12 @@ import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import Image from "next/image";
 import { useMedia } from '../hooks/useMedia';
 import Favorits from '../UI/Favorits';
-import { useFaverits } from '../lib/Context/FavoritesCTX';
+import { useFavorits } from '../lib/Context/FavoritesCTX';
 SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
 
-  const { userFav, setQuery } = useFaverits()
+  const { userFav, setQuery } = useFavorits()
 
 
   const currentSwiper = useRef();

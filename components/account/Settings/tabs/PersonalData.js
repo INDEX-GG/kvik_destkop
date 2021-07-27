@@ -217,12 +217,12 @@ function PersonalData() {
             <div>
               <p>{email === null ? "E-mail не указан" : email}</p>
               <p className="error small">E-mail не подтвержден</p>
-              <p className="light small">Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чегоуказывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту </p> 
+              <p className="light small">Укажите E-mail для получения уведомлений, новостей, спец.предложений и для восстановления пароля.</p> 
             </div>
             {matchesTablet || matchesMobile ? (
               <>
                 <a><div className="changeMobile"><p className="error small">E-mail не подтвержден</p><RightArrow/></div></a>
-                <p className="light small">Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чегоуказывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту Для чего указывать почту </p> 
+                <p className="light small">Укажите E-mail для получения уведомлений, новостей, спец.предложений и для восстановления пароля.</p> 
               </>
             ): <a>Указать</a>}
           </div>
@@ -248,7 +248,7 @@ function PersonalData() {
                 </p>
               </div>
               <div className="socialText">
-                <p className="light small">Привяжите к своему профилю социальные сети для того чтобы???</p>
+                <p className="light small">Привяжите к своему профилю социальные сети для быстрой авторизации.</p>
               </div>
             </> : null}
           </div>
@@ -319,7 +319,7 @@ function PersonalData() {
                     }}
                   ></a>
                 </div>
-                {passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совподают</p> : <p className="error small">Пароли не совпадают</p>}
+                {passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
               </div>
             </div>
             {matchesTablet || matchesMobile ? <RightArrow/> : null}

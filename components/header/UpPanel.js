@@ -5,6 +5,7 @@ import NotifDark from '../../UI/icons/NotifDark';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import { useMedia } from '../../hooks/useMedia';
 import { Box, Container, Button, makeStyles } from '@material-ui/core';
+import Router from "next/router";
 import { useAuth } from '../../lib/Context/AuthCTX';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const UpPanel = () => {
    const classes = useStyles();
    const { matchesMobile, matchesTablet } = useMedia();
-   const { isAuth} = useAuth();
+   const {isAuth, id} = useAuth();
 
    return (
       <>
@@ -45,7 +46,7 @@ const UpPanel = () => {
                 {isAuth &&  <Box className={classes.btns__uppanel}>
                      <Button className={classes.btn__uppanel}><CategoryDark /></Button>
                      <Button className={classes.btn__uppanel}><CompareDark /></Button>
-                     <Button className={classes.btn__uppanel}><LikeDark /></Button>
+                     <Button onClick={() => Router.push(`/account/${id}`)} className={classes.btn__uppanel}><LikeDark /></Button>
                      <Button className={classes.btn__uppanel}><NotifDark /></Button>
                   </Box>}
                </Container>
