@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Search = () => {
+const Search = ({text = false}) => {
 
 	const classes = useStyles();
 	// const [search, setSearch] = useState();
@@ -44,7 +44,7 @@ const Search = () => {
 				// value={search}
 				// onChange={e => handelSearch(e)}
 				variant='outlined' size='small'
-				placeholder="Поиск по объявлениям"
+				placeholder={text ? text : "Поиск по объявлениям"}
 				fullWidth className={classes.searchInput} />
 			<SearchIcon className={classes.icon} />
 		</Box>

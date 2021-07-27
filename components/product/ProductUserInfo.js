@@ -27,13 +27,17 @@ export default function ProductUserInfo(data) {
     <>
       <div className="ad__block_bottom">
         <div className="SellerInfoUserBlock">
-          <Avatar alt="User" src={data.userPhoto} className="SellerInfoUserPic" onClick={() => router.push({
-            pathname: `/user/${data.id}`,
-          })}/>
+          <Avatar alt="User" src={data.userPhoto} className="SellerInfoUserPic" onClick={() => {
+            localStorage.setItem("Title", data.productTitle)
+            localStorage.setItem("Query", router.query.id)
+            router.push(`/user/${data.id}`)
+          }}/>
           <div>
-            <div onClick={() => router.push({
-            pathname: `/user/${data.id}`
-            })}> {data.name} </div>
+            <div onClick={() => {
+              localStorage.setItem("Title", data.productTitle)
+              localStorage.setItem("Query", router.query.id)
+              router.push(`/user/${data.id}`)
+            }}> {data.name} </div>
             <div>
               <div className="SellerInfoRateNumber">{/* {objP.userrate} */}</div>
               <div className="rating">

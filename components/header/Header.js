@@ -88,6 +88,7 @@ const Header = ({ category }) => {
   };
   useEffect(() => {
     document.addEventListener("scroll", listenScroll);
+    console.log("!@!@!@!@!@!@!")
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
 

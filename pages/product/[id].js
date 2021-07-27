@@ -21,6 +21,8 @@ import { Style } from '@material-ui/icons';
 import MainLayout from "../../layout/MainLayout"
 import OffersRender from '../../components/OffersRender';
 import FavProvider from '../../lib/Context/FavoritesCTX';
+import BreadCrumbsProduct from '../../components/product/BreadCrumbsProduct';
+import BreadCrumbs from '../../components/header/BreadСrumbs';
 
 const objP = {
     id: 1,
@@ -90,10 +92,6 @@ const Product = () => {
 
     const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
 
-    // console.log(router)
-    // console.log("USER ID" + user_id)
-    // console.log(useProduct({ router }))
-
     const [userAd, setUserAd] = useState();
     useEffect(() => {
         axios.post('/api/getProductOfUser', { user_id: user_id })
@@ -102,15 +100,20 @@ const Product = () => {
     }, [user_id]);
 
 
+
+    let breadData = null
+
+    if (category_id != undefined) {
+        breadData = BreadCrumbsProduct(category_id)
+    }
+
     return (
 
 		<MetaLayout>
         <FavProvider>
         <div className="productPage" id="productPage">
             <div className="productPageContainer text">
-                {!matchesMobile && !matchesTablet && <div className="breadcrumbs thin"><Link  href={`/`}>Главная</Link>
-                
-                </div>}
+                {!matchesMobile && !matchesTablet && breadData != null && <BreadCrumbs data={breadData} product={title}/>}
 
                 {/* Блок объявления */}
                 <div className="product__wrapper">
@@ -183,7 +186,7 @@ const Product = () => {
                             <div className="block__my_active_ad" >
                                 {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
                                 {/* пользователь и его объявления */}
-                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} id={user_id} userAd={userAd} />
+                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} id={user_id} userAd={userAd} productTitle={title} />
                             </div>
                         </div>
                         {!matchesMobile && !matchesTablet && !matchesLaptop &&
