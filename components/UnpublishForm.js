@@ -80,8 +80,8 @@ export default function UnpublishForm(data) {
     const classes = useStyles();
     return (
         <>
-            {filteredData.map((item) => 
-                <Box className={classes.unpublish_form}>
+            {filteredData.map((item, i) => 
+                <Box key={i}  className={classes.unpublish_form}>
                     <Box className={classes.unpublish_form__item}>
                         <CardMedia className={classes.unpublish_form__item__img} image='https://source.unsplash.com/random?interior' />
                         <Typography className={classes.unpublish_form__item__price}>{ToRubles(item.price)}</Typography>

@@ -28,7 +28,7 @@ export default function ProductCarousel({ photo }) {
         {photo == undefined
           ? ""
           : JSON.parse(photo).photos.map((img, i) => (
-            <SwiperSlide onClick={() => setModal(!modal)}>
+            <SwiperSlide key={i} onClick={() => setModal(!modal)}>
               {" "}
               <img src={img} />
             </SwiperSlide>
@@ -39,7 +39,7 @@ export default function ProductCarousel({ photo }) {
         {photo == undefined
           ? ""
           : JSON.parse(photo).photos.map((img, i) => (
-            <SwiperSlide>
+            <SwiperSlide key={i}>
               {" "}
               <img src={img} />
             </SwiperSlide>
