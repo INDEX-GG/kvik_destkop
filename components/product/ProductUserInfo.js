@@ -31,7 +31,7 @@ export default function ProductUserInfo(data) {
             pathname: `/user/${data.id}`,
           })}/>
           <div>
-            <div onClick={() => router.push({
+            <div className='productUserName' onClick={() => router.push({
             pathname: `/user/${data.id}`
             })}> {data.name} </div>
             <div>

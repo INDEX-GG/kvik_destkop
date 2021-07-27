@@ -7,6 +7,16 @@
     margin: auto;
 }
 
+.productUserName{
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+
+    &:hover{
+        transition: all 150ms ease-in-out;
+        text-decoration: underline;
+    }
+}
+
 .productPageWrapper {
     display: flex;
     justify-content: space-between;

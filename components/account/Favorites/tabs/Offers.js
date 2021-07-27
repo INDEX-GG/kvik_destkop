@@ -1,15 +1,16 @@
 import React from "react";
-import { ToRubles } from "../../../../lib/services";
+import { ToRubles, ToRusDate } from "../../../../lib/services";
 import Favorits from '../../../../UI/Favorits';
-import { useFavorits } from "../../../../hooks/useFavorits";
+import  { useFavorits } from "../../../../lib/Context/FavoritesCTX";
+
+
 function Offers(data) {
-  const { i, itemsUser, itemsPost, address, userFavorite, photo } = useFavorits(data.router);
 
-  console.log(userFavorite.map((items) => items.map((item) => item)))
+  console.log(data.itemsPost?.posts)
+  const { userFav, setQuery } = useFavorits()
 
-  
 
-  if (i == 0) {
+  if (data.itemsPost?.posts.length === undefined) {
     return (
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
@@ -35,12 +36,12 @@ function Offers(data) {
       <div className="clientPage__container_content">
         <div className="favoritesContainerWrapper">
 
-          {
-            userFavorite && (
+          {data.itemsPost?.posts.map((offer, i) => 
 
 
 
-              <div /* key={data.itemsPost.id} */ className="favoritesContainer boxWrapper">
+           
+              <div key={i} className="favoritesContainer boxWrapper">
                 <div className="favoritesImage">
                   <div className="favoritesPubCheck">
                     <label className="checkbox">
@@ -49,6 +50,7 @@ function Offers(data) {
                     </label>
                   </div>
                   <a className="favoritesCompare"></a>
+
                   <Favorits isAccountCard />
 
                   <img /* src={`${offer.img}?${offer.id}`} */ />
@@ -57,25 +59,24 @@ function Offers(data) {
                 <div className="favoritesDescription">
                   <div className="favoritesUserBlock small">
                     <div>
-                      <div>{/* {offer.username}*/}</div>
+                      <div>{offer.user_name}</div>
                       <div className="favoritesDatPub light DatPub__mobile">
                         {" "}
-                        <span> Дата публикации</span> {/* data.itemsPost.created_at */}
+                        <span> Дата публикации</span> { ToRusDate(offer.created_at) }
                       </div>
                     </div>
-                    <img className="favoritesUserpic" /* src={`${offer.userpic}?${offer.id}`} */ />
+                    <img className="favoritesUserpic"  src={offer.user_photo} />
                   </div>
                   <div className="favoritesMiddle">
-                    <div>{ToRubles(/* data.itemsPost.price */)}</div>
-                    <div>{/* data.itemsPost.title */}</div>
-                    <div className="thin small light">{/* data.itemsPost.address */}</div>
+                    <div>{ToRubles(offer.price)}</div>
+                    <div>{offer.title}</div>
+                    <div className="thin small light">{offer.address}</div>
                   </div>
                   <div className="favoritesNote">Заметка по объявлению, которую я написал</div>
                   <a className="favoritesButton buttonGrey small">Сообщить об изменении цены</a>
                 </div>
               </div>
-            )
-          }
+          )}
 
         </div>
       </div>

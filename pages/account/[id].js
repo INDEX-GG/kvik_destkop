@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import { mutate } from "swr";
 import { useMedia } from "../../hooks/useMedia";
 import { useAuth } from "../../lib/Context/AuthCTX";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 const userInfo = {
   userId: 1,
@@ -47,7 +48,6 @@ function Account() {
   const router = useRouter();
   const { isLoading, name, userPhoto, createdAt, raiting } = useUser();
   const {signOut} = useAuth();
-
   const [menuItem, setMenuItem] = useState({ i: 1, itm: "menuOffers", ttl: "Мои объявления" });
   const [openPicUpload, setPicUpload] = useState(false);
   const [logout, setLogout] = useState(false);

@@ -7,7 +7,8 @@ import { useFavorits } from '../../../hooks/useFavorits';
 import { brooklyn } from '../../../lib/services';
 import { useSubList } from '../../../hooks/useSubscriptions';
 
-
+import { useAuth } from '../../../lib/Context/AuthCTX';
+import FavProvider from '../../../lib/Context/FavoritesCTX';
 // Объявления
 // const OffersBox = [
 //    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00', username: 'Ну прямо очень весьма и весьма длинное имя', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Центральный административный округ, Москва' },
@@ -130,40 +131,50 @@ const SearchesBox = [
 // Пагинация
 
 
-const Favorites = ({router}) => {
-   // const { i, itemsPost } = useFavorits(router);
+const Favorites = () => {
 
+   const { id } = useAuth();
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
+
+
+   const [offetFav, setOfferFav] = useState()
+   useEffect(() => {
+      axios.post('/api/getFavorites', { user_id: id })
+         .then(data => setOfferFav(data.data))
+         .catch(error => cosnole.log(error))
+   }, [id])
+
+
    const [seller, setSeller] = useState(0)
    const [sellerSubBool, setSellerSubBool] = useState(null)
 
-   const {subList, isLoading} = useSubList("58")
+   const { subList, isLoading } = useSubList("58")
 
    useEffect(() => {
       setSeller(subList)
-   }, [isLoading])
+   }, [id])
 
    async function subscribeUser(id = 58, sellerID) {
-    const subscribe = {
-      user_id: id + "", 
-      seller_id: sellerID + ""
-    }
+      const subscribe = {
+         user_id: id + "",
+         seller_id: sellerID + ""
+      }
 
-    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => console.log(data.data))
+      axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => console.log(data.data))
 
-    await axios.post("/api/subscriptions", subscribe)
-    .then(res => console.log(res.data))
-    .catch(error => cosnole.log(error))
+      await axios.post("/api/subscriptions", subscribe)
+         .then(res => console.log(res.data))
+         .catch(error => cosnole.log(error))
 
-    axios.post("/api/getSubscriptions", {user_id: String(id)}).then(data => setSeller(data.data))
+      axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => setSeller(data.data))
 
-  }
+   }
 
 
 
    const navItems = [
-      { id: 1, title: 'Объявления', content: <h1>Test</h1> /* <Offers router={router} itemsPost={itemsPost} />,*/ /* count: i */ },
-      { id: 2, title: 'Продавцы', content: <Sellers sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length: 0},
+      { id: 1, title: 'Объявления', content: <FavProvider> <Offers itemsPost={offetFav} /></FavProvider>, count: offetFav != undefined ? offetFav.posts?.length : 0 },
+      { id: 2, title: 'Продавцы', content: <Sellers sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length : 0 },
       { id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
    ];
 
