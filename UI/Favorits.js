@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
-import { useFaverits } from '../lib/Context/FavoritesCTX';
+import { useFavorits } from '../lib/Context/FavoritesCTX';
 import { ContactsOutlined } from '@material-ui/icons';
 
 export default function Favorits({ offer, isCard, isProduct, isAccountCard, favorites }) {
 
-    const { userFav, setQuery } = useFaverits()
+    const { userFav, setQuery } = useFavorits()
     const { id } = useAuth();
     const router = useRouter();
 
@@ -96,6 +96,8 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favo
         let like = condition?.length == 0 || condition?.join() == 'false' ? true : false;
         let note;
 
+
+        
         const openNote = e => {
             e.target.parentElement.childNodes[0].childNodes[0].classList.toggle('note-active')
         }
@@ -122,7 +124,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favo
         return (
             <>
                 <div className='main__input_note'>
-                    <input title onBlur={e => getNote(e)} title={comment?.length == 0 ? comment : 'Ваша заметка'} className="SellerInfoNoteInput" placeholder={comment?.length == 0 ? comment : 'Заметка к объявлению'} />
+                    <input title onBlur={e => getNote(e)} title={`${comment}` !== '' ? comment : 'Ваша заметка'} className="SellerInfoNoteInput" placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'} />
                 </div>
                 {/* {<span className='delete__note'></span>} */}
                 <a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>

@@ -123,7 +123,7 @@ function Categories() {
 
                     {typeof category !== 'undefined' ?
                         <Box className={classes.categories__menu_item__gray_line}>
-                            {category.map(item => {
+                            {category.map((item, i) => {
                                 return (
                                     <Link value={item.alias}
                                     onMouseOver={(e) => {
@@ -143,6 +143,7 @@ function Categories() {
                         <Box className={classes.categories__menu_item}>
                             {category2.map(item => {
                                 return (<Link value={item.alias}
+
                                     onMouseOver={(e) => {
                                         setValueThree(e.target.getAttribute("value"))
                                         setCategoryColor(e);
@@ -158,6 +159,7 @@ function Categories() {
                         <Box className={classes.categories__menu_item}>
                             {category3.map(item => {
                                 return (<Link value={item.alias}
+
                                     onMouseOver={(e) => {
                                         setValueFour(e.target.getAttribute("value"))
                                         setCategoryColor(e);

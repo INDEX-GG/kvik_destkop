@@ -90,12 +90,12 @@ export default function ProductUserInfo(data) {
                 (userSmallAd = data.userAd.filter((item) => item.id != router.query.id)) &&
                 userSmallAd.slice(0, 3).map((userAd) => {
                   return (
-                    <Link href={`/product/${userAd.id}`}>
-                      <div key={userAd.id} className="SellerInfoOfferCard small">
+                    <Link key={userAd.id} href={`/product/${userAd.id}`}>
+                      <div  className="SellerInfoOfferCard small">
                         {JSON.parse(userAd.photo)
                           .photos.slice(0, 1)
-                          .map((imgs) => {
-                            return <img src={imgs} />;
+                          .map((imgs, i) => {
+                            return <img key={i} src={imgs} />;
                           })}
                         <div>{ToRubles(userAd.price)}</div>
                         <div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
@@ -105,12 +105,12 @@ export default function ProductUserInfo(data) {
                 })) ||
                 data.userAd.map((userAd) => {
                   return (
-                    <Link href={`/product/${userAd.id}`}>
-                      <div key={userAd.id} className="SellerInfoOfferCard small">
+                    <Link key={userAd.id} href={`/product/${userAd.id}`}>
+                      <div  className="SellerInfoOfferCard small">
                         {JSON.parse(userAd.photo)
                           .photos.slice(0, 1)
-                          .map((imgs) => {
-                            return <img src={imgs} />;
+                          .map((imgs, i) => {
+                            return <img key={i} src={imgs} />;
                           })}
                         <div>{ToRubles(userAd.price)}</div>
                         <div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
@@ -130,7 +130,7 @@ export default function ProductUserInfo(data) {
         ) : objP.adstatus === 7 || objP.adstatus === 8 ? (
           !matchesMobile && !matchesTablet ? (
             <a className="SellerInfoUserOffersCollapse highlight underline" target="_blank" onClick={() => router.push({
-              pathname: `/user/${data.id}`, title: userAd.title
+              pathname: `/user/${data.id}`
               })}
               /* onClick={(e) => { handleCollapse(e)}} */>
               {(collapsed && `Все объявления продавца (${userSmallAd == undefined ? "0" : userSmallAd.length})`) || `Скрыть`}
