@@ -9,6 +9,7 @@ import FilterBlock from "../../components/FilterBlock"
 import SearchRender from "../../components/SearchRender"
 import { useRouter } from "next/router"
 import { useCategory } from "../../hooks/useCategory";
+import Link from "next/link"
 // import Categories from "../../components/header/Categories";
 
 const useStyles = makeStyles((theme) => ({
@@ -64,9 +65,9 @@ const Index = () => {
       <Container className={classes.root}>
         <div className={classes.bread}>
             <div className="clientPage__breadcrumbs thin">
-                <a className="breadCrumb light" href="/">
-                  Главная
-                </a>
+                <Link href="/">
+                  <a className="breadCrumb light">Главная</a>
+                </Link>
                 {breadСrumbs.map((item, index) => {
                   let url = breadСrumbs[0]
                   let label = null
@@ -83,9 +84,9 @@ const Index = () => {
                   cardTitle = label
 
                   return (
-                    <a className={`breadCrumb light line ${index == breadСrumbs.length - 1 ? classes.breadActiveItem : "null"}`} href={`/search/${url}`}>
-                    {label == null ? "loading...." : label.label}
-                    </a>
+                    <Link href={`/search/${url}`}>
+                    <a className={`breadCrumb light line ${index == breadСrumbs.length - 1 ? classes.breadActiveItem : "null"}`}>{label == null ? "loading...." : label.label}</a>
+                    </Link>
                   )
                 })}
             </div>
