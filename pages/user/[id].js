@@ -52,10 +52,6 @@ function UserPage() {
 
   useEffect(() => {
     setUserBool(false)
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    console.log(userSub)
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    console.log(userBool)
   }, [userLoading])
 
 
@@ -91,8 +87,8 @@ function UserPage() {
           <a className="breadCrumb light" href="/">
             Главная
           </a>
-          <a className="breadCrumb line light" onClick={() => router.back()}>
-            Название объявления с которого перешел
+          <a className="breadCrumb line light" onClick={() => router.push(`/product/${localStorage.getItem("Query")}`)}>
+            {localStorage.getItem("Title")}
           </a>
           <a className="line">{sellerName}</a>
         </div>

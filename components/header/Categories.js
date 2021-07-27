@@ -88,7 +88,7 @@ function Categories() {
     const [valueOne, setValueOne] = useState(undefined)
     const [valueTwo, setValueTwo] = useState(undefined)
     const [valueThree, setValueThree] = useState(undefined)
-    const [valutFour, setValueFour] = useState(undefined)
+    const [valueFour, setValueFour] = useState(undefined)
 
     const {categoryMainAlias, categoriesByAlias} = useCategory()
     const router = useRouter()
@@ -107,7 +107,7 @@ function Categories() {
                     <Box className={classes.categories__menu_item__gray_line}>
                         {categoryMainAlias.map((item, index) => {
                             return (
-                                <Link href="#" key={index} value={item.alias}
+                                <Link value={item.alias}
                                 onMouseOver={(e) => {
                                     setValueOne(e.target.getAttribute("value"))
                                     setCategoryColor(e);
@@ -115,7 +115,8 @@ function Categories() {
                                     setCategory2(undefined)
                                 }}
                                 onClick={() => router.push(`/search/${valueOne}`)}
-                                className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>
+                                className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}
+                                </Link>
                             )
                         })}
                     </Box>
@@ -124,14 +125,14 @@ function Categories() {
                         <Box className={classes.categories__menu_item__gray_line}>
                             {category.map((item, i) => {
                                 return (
-                                    <Link key={i}  value={item.alias} href="#"
+                                    <Link value={item.alias}
                                     onMouseOver={(e) => {
                                         setValueTwo(e.target.getAttribute("value"))
                                         setCategoryColor(e);
                                         setCategory2(categoriesByAlias(valueOne, e.target.getAttribute("value")))
                                         setCategory3(undefined)
                                     }}
-                                    onClick={() => router.push(`/search/${valueOne}/${valueTwo}`)} 
+                                    onClick={() => router.push(`/search/${valueTwo}`)} 
                                     className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>
                                 )
                             })}
@@ -140,14 +141,15 @@ function Categories() {
 
                     {typeof category2 !== 'undefined' && category2 != null ?
                         <Box className={classes.categories__menu_item}>
-                            {category2.map((item, i) => {
-                                return (<Link value={item.alias} key={i}  href="#"
+                            {category2.map(item => {
+                                return (<Link value={item.alias}
+
                                     onMouseOver={(e) => {
                                         setValueThree(e.target.getAttribute("value"))
                                         setCategoryColor(e);
                                         setCategory3(categoriesByAlias(valueOne, valueTwo, e.target.getAttribute("value")))
                                     }}
-                                    onClick={(e) => router.push(`/search/${valueOne}/${valueTwo}/${valueThree}`)} 
+                                    onClick={(e) => router.push(`/search/${valueThree}`)} 
                                     className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>)
                             })}
                         </Box>
@@ -155,14 +157,15 @@ function Categories() {
 
                     {typeof category3 !== 'undefined' && category3 != null ?
                         <Box className={classes.categories__menu_item}>
-                            {category3.map((item, i)=> {
-                                return (<Link value={item.alias} key={i}  href="#"
+                            {category3.map(item => {
+                                return (<Link value={item.alias}
+
                                     onMouseOver={(e) => {
                                         setValueFour(e.target.getAttribute("value"))
                                         setCategoryColor(e);
                                         setCategory4(categoriesByAlias(valueOne, valueTwo, valueThree, e.target.getAttribute("value")))
                                     }}
-                                    onClick={(e) => router.push(`/search/${valueOne}/${valueTwo}/${valueThree}/${valutFour}`)} 
+                                    onClick={(e) => router.push(`/search/${valueFour}`)} 
                                     className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>)
                             })}
                         </Box>
