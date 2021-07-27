@@ -27,17 +27,25 @@ function AdCard_component({ offer }) {
 
   function switchSlide(e) {
 
-    if (!sheduled) {
-      sheduled = true;
-      setTimeout(() => {
-        if (e.movementX > 0) {
-          currentSwiper.current?.swiper.slideNext();
-        } else if (e.movementX < 0) {
-          currentSwiper.current?.swiper.slidePrev();
-        }
-        sheduled = false;
-      }, 220);
-    }
+
+
+      if (!sheduled) {
+        sheduled = true;
+        setTimeout(() => {
+          if (currentSwiper.current != null) {
+            console.log(currentSwiper.current)
+            if (e.movementX > 0) {
+              currentSwiper.current?.swiper.slideNext();
+
+            } else if (e.movementX < 0) {
+              currentSwiper.current?.swiper.slidePrev();
+
+            }
+            sheduled = false;
+          }
+        }, 320);
+      }
+
   }
 
   const call = true;
@@ -87,7 +95,7 @@ function AdCard_component({ offer }) {
               {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
 
 
-               <Favorits isCard offer={offer}></Favorits> 
+              <Favorits isCard offer={offer}></Favorits>
 
 
             </div>
