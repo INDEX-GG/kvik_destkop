@@ -126,7 +126,7 @@ export default function ProductUserInfo(data) {
         ) : objP.adstatus === 7 || objP.adstatus === 8 ? (
           !matchesMobile && !matchesTablet ? (
             <a className="SellerInfoUserOffersCollapse highlight underline" target="_blank" onClick={() => router.push({
-              pathname: `/user/${data.id}`, title: userAd.title
+              pathname: `/user/${data.id}`
               })}
               /* onClick={(e) => { handleCollapse(e)}} */>
               {(collapsed && `Все объявления продавца (${userSmallAd == undefined ? "0" : userSmallAd.length})`) || `Скрыть`}
