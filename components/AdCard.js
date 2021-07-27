@@ -33,7 +33,6 @@ function AdCard_component({ offer }) {
         sheduled = true;
         setTimeout(() => {
           if (currentSwiper.current != null) {
-            console.log(currentSwiper.current)
             if (e.movementX > 0) {
               currentSwiper.current?.swiper.slideNext();
 
