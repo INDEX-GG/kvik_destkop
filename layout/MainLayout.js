@@ -1,9 +1,9 @@
+import { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/header/Header";
 import HeaderMobile from "../components/header/HeaderMobile";
 import { useMedia } from "../hooks/useMedia";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import aliasName from "../components/header/CategoriesAliaseName";
 import { ellipsis } from "../lib/services";
 
@@ -12,7 +12,6 @@ const MainLayout = ({ children}) => {
 	const router = useRouter();
   const aliasQuery = router.asPath.split("/").splice(2,).join("")
   const [alias, setAlias] = useState("test")
-
 
   if (router.pathname == "/search/[alias]") {
     if (alias != aliasQuery) {

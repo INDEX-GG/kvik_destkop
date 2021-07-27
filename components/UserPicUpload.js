@@ -3,76 +3,79 @@ import AvatarEditor from 'react-avatar-editor';
 import { typeChange } from '../lib/services';
 import axios from 'axios';
 import { useAuth } from '../lib/Context/AuthCTX';
+import { useRouter } from 'next/router';
 
 function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3 }) {
-  const {id} = useAuth();
-  const fileInput = useRef(),
-    editorRef = useRef(),
-    [Photo, setPhoto] = useState(),
-    [scale, setScale] = useState(1),
-    [rotate, setRotate] = useState(0);
-  //Получаем файл
-  const fileSelect = () => {
-    if (fileInput.current.files.length) {
-      setPhoto(fileInput.current.files[0]);
-      setScale(1);
-      setRotate(0);
-    }
-  }
+const {id} = useAuth();
+const router = useRouter();
+const fileInput = useRef(),
+	editorRef = useRef(),
+	[Photo, setPhoto] = useState(),
+	[scale, setScale] = useState(1),
+	[rotate, setRotate] = useState(0);
+//Получаем файл
+const fileSelect = () => {
+	if (fileInput.current.files.length) {
+	setPhoto(fileInput.current.files[0]);
+	setScale(1);
+	setRotate(0);
+	}
+}
 
-  //Получаем отредактированное изображение и отправляем на route
-  const saveEditedPic = () => {
-    const canvas = editorRef.current.getImageScaledToCanvas();
-    canvas.toBlob(blob => {
-      const img = new File([blob], typeChange(fileInput.current.files[0].name, `${imageType}`), {
-        type: `image/${imageType}`,
-        lastModified: Date.now(),
-      })
-      console.log(img);
-      const sendData = new FormData;
-      sendData.append('files[]', img);
+//Получаем отредактированное изображение и отправляем на route
+const saveEditedPic = () => {
+	const canvas = editorRef.current.getImageScaledToCanvas();
+	canvas.toBlob(blob => {
+	const img = new File([blob], typeChange(fileInput.current.files[0].name, `${imageType}`), {
+		type: `image/${imageType}`,
+		lastModified: Date.now(),
+	})
+	console.log(img);
+	const sendData = new FormData;
+	sendData.append('files[]', img);
 
-	  axios.post(`http://192.168.8.111:6001/avatar/${id}`, sendData, {
-		headers: {
-			"Content-Type": "multipart/form-data"
-		  }
-	  })
-    }, `image/${imageType}`, optimiztionLevel);
-  }
+	axios.post(`http://192.168.8.111:6001/avatar/${id}`, sendData, {
+	headers: {
+		"Content-Type": "multipart/form-data"
+		}
+	}).then(() => router.replace(`/account/${id}`))
+	}, `image/${imageType}`, optimiztionLevel);
+}
 
-  return (
-    <div className="userPicUpload__wrapper">
-      <div className="userPicUpload__photo">
-        <AvatarEditor
-          ref={editorRef}
-          className="userPicUpload__editor"
-          image={Photo}
-          border={25}
-          color={[255, 255, 255, 0.8]}
-          borderRadius={100}
-          scale={scale}
-          rotate={rotate}
-        />
-      </div>
-      <div>
-        <label className="userPicUpload__range">Приблизить
-          <input type="range" min="1" max={maxScale} step="0.05" value={scale} onChange={e => setScale(+e.target.value)} />
-        </label>
-        <label className="userPicUpload__range">Повернуть
-          <input type="range" min="0" max="360" value={rotate} onChange={e => setRotate(+e.target.value)} />
-        </label>
-      </div>
-      <label className={Photo ? "userPicUpload__button highlight underline" : "userPicUpload__button button contained bhigh"}>
-        {Photo ? 'Загрузить новое фото' : 'Загрузить фото'}
-        <input
-          ref={fileInput}
-          onChange={fileSelect}
-          className="userPicUpload__input"
-          type="file"
-          accept="image/png, image/jpg, image/jpeg, image/webp, image/heic, image/heif" />
-      </label>
-      {Photo ? <button onClick={() => saveEditedPic()} className="userPicUpload__button button contained bhigh">Сохранить</button> : ''}
-    </div>
-  )
+return (
+	<div className="userPicUpload__wrapper">
+		<div className="userPicUpload__photo">
+			<AvatarEditor
+				onClick={() => fileInput.current.click()}
+				ref={editorRef}
+				className="userPicUpload__editor"
+				image={Photo}
+				border={25}
+				color={[255, 255, 255, 0.8]}
+				borderRadius={100}
+				scale={scale}
+				rotate={rotate}
+			/>
+		</div>
+		<div>
+			<label className="userPicUpload__range">Приблизить
+				<input type="range" min="1" max={maxScale} step="0.05" value={scale} onChange={e => setScale(+e.target.value)} />
+			</label>
+			<label className="userPicUpload__range">Повернуть
+				<input type="range" min="0" max="360" value={rotate} onChange={e => setRotate(+e.target.value)} />
+			</label>
+		</div>
+		<label className={Photo ? "userPicUpload__button highlight underline" : "userPicUpload__button button contained bhigh"}>
+			{Photo ? 'Загрузить новое фото' : 'Загрузить фото'}
+			<input
+				ref={fileInput}
+				onChange={fileSelect}
+				className="userPicUpload__input"
+				type="file"
+				accept="image/png, image/jpg, image/jpeg, image/webp, image/heic, image/heif" />
+		</label>
+		{Photo ? <button onClick={() => saveEditedPic()} className="userPicUpload__button button contained bhigh">Сохранить</button> : ''}
+	</div>
+)
 }
 export default photoUpload;

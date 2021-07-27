@@ -14,6 +14,7 @@ export function useUser() {
 		.catch(e => console.error(e));
 		setUserInfo(data);
 		setLoading(false);
+		
 	}
 	if (id !== undefined) {
 		getUser();

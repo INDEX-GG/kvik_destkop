@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({ category }) => {
 	const {isAuth, id} = useAuth();
 	const { isLoading, name, userPhoto } = useUser();
-
   const classes = useStyles();
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   const [openCat, setCategories] = useState();
@@ -88,7 +87,6 @@ const Header = ({ category }) => {
   };
   useEffect(() => {
     document.addEventListener("scroll", listenScroll);
-    console.log("!@!@!@!@!@!@!")
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
 
