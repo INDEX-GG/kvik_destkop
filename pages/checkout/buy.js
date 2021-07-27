@@ -1,14 +1,9 @@
-import React from "react";
 import MetaLayout from "../../layout/MetaLayout"
-import User from "../../components/User/User";
 import { Avatar, Box, Container, makeStyles } from "@material-ui/core";
 import Image from "next/image"
 import StarRating from "../../components/StarRating"
 import BuyDelivery from "../../components/BuyDelivery";
-import Card from "../../UI/icons/Card"
-import SelectBuy from "../../components/SelectBuy";
 import theme from "../../UI/theme"
-import { useMedia } from "../../hooks/useMedia";
 
 const useStyles = makeStyles(() => ({
     buyContainer: {

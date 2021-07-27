@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import MainLayout from "../../layout/MainLayout";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
 import { ToRusAccountDate, stringToColor, initials } from "../../lib/services";
-import { Avatar, Dialog } from "@material-ui/core";
+import { Avatar, Dialog, NoSsr } from "@material-ui/core";
 import { useRouter } from "next/router";
 import UserLock from "../../UI/icons/UserLock";
 import UserReport from "../../UI/icons/UserReport";
@@ -16,20 +15,6 @@ import { useUser } from "../../hooks/useUser";
 import { useSubList, useSubBool } from "../../hooks/useSubscriptions";
 
 import MetaLayout from "../../layout/MetaLayout";
-
-
-
-
-// const userInfo = {
-//   userId: 1,
-//   userPic: "",
-//   userName: "Имя пользователя",
-//   userDateReg: "21.56.7676",
-//   userRate: 3.2,
-//   userReviews: 0,
-//   userSubscribers: 0,
-//   userSubscriptions: 0,
-// };
 
 function UserPage() {
   const router = useRouter();
@@ -54,12 +39,9 @@ function UserPage() {
     setUserBool(false)
   }, [userLoading])
 
-
-
   function modal(modal, changeModal) {
     changeModal(!modal)
   }
-
 
   function subscribeUser() {
 
@@ -87,9 +69,9 @@ function UserPage() {
           <a className="breadCrumb light" href="/">
             Главная
           </a>
-          <a className="breadCrumb line light" onClick={() => router.push(`/product/${localStorage.getItem("Query")}`)}>
-            {localStorage.getItem("Title")}
-          </a>
+				 {/* <a className="breadCrumb line light" onClick={() => router.push(`/product/${localStorage.getItem("Query")}`)}>
+            	{localStorage.getItem("Title")}
+          	</a> */} 
           <a className="line">{sellerName}</a>
         </div>
         <div className="clientPage__menu">

@@ -4,7 +4,6 @@ import HeaderMobile from "../components/header/HeaderMobile";
 import { useMedia } from "../hooks/useMedia";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { route } from "next/dist/next-server/server/router";
 import aliasName from "../components/header/CategoriesAliaseName";
 import { ellipsis } from "../lib/services";
 

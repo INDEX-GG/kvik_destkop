@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { makeStyles, Collapse, TextField, Dialog } from "@material-ui/core"
 import theme from "../UI/theme"
 import SelectBuy from "./SelectBuy"
-import { textAlign, width } from "@material-ui/system"
 import { useMedia } from "../hooks/useMedia"
 
 const useStyles = makeStyles(() => ({

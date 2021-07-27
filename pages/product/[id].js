@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Dialog } from '@material-ui/core';
 import axios from 'axios';
-import Link from "next/link";
 import MetaLayout from '../../layout/MetaLayout';
-import AdCard_component from '../../components/AdCard';
 import ProductCarousel from '../../components/ProductCarousel';
 import Statistics from '../../components/Statistics';
 import ProductInformation from '../../components/product/ProductInformation';
@@ -15,10 +13,7 @@ import IconCall from '../../UI/icons/IconCall';
 import IconMess from '../../UI/icons/IconMess';
 import { useMedia } from '../../hooks/useMedia';
 import { useProduct } from '../../hooks/useProduct';
-import { useAd } from "../../hooks/useAd"
 import Favorits from '../../UI/Favorits';
-import { Style } from '@material-ui/icons';
-import MainLayout from "../../layout/MainLayout"
 import OffersRender from '../../components/OffersRender';
 import FavProvider from '../../lib/Context/FavoritesCTX';
 import BreadCrumbsProduct from '../../components/product/BreadCrumbsProduct';

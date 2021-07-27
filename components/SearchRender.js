@@ -3,6 +3,7 @@ import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
 import FavProvider from "../lib/Context/FavoritesCTX";
+
 const useStyles = makeStyles((theme) => ({
 	top: {
 		marginBottom: '15px',
