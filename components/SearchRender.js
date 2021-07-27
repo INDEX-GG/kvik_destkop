@@ -76,7 +76,7 @@ const OffersRender = ({ data, title }) => {
 			</Box>
 			
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) =><FavProvider> <AdCard_component key={i} offer={obj} /></FavProvider>)}
+					{state.sorting(data)?.map((obj, i) =><FavProvider key={i}> <AdCard_component  offer={obj} /></FavProvider>)}
 				</div>
 			
 			<ScrollTop />

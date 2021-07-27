@@ -107,7 +107,7 @@ function Categories() {
                     <Box className={classes.categories__menu_item__gray_line}>
                         {categoryMainAlias.map((item, index) => {
                             return (
-                                <Link href="#" value={item.alias}
+                                <Link href="#" key={index} value={item.alias}
                                 onMouseOver={(e) => {
                                     setValueOne(e.target.getAttribute("value"))
                                     setCategoryColor(e);
@@ -122,9 +122,9 @@ function Categories() {
 
                     {typeof category !== 'undefined' ?
                         <Box className={classes.categories__menu_item__gray_line}>
-                            {category.map(item => {
+                            {category.map((item, i) => {
                                 return (
-                                    <Link value={item.alias} href="#"
+                                    <Link key={i}  value={item.alias} href="#"
                                     onMouseOver={(e) => {
                                         setValueTwo(e.target.getAttribute("value"))
                                         setCategoryColor(e);
@@ -140,8 +140,8 @@ function Categories() {
 
                     {typeof category2 !== 'undefined' && category2 != null ?
                         <Box className={classes.categories__menu_item}>
-                            {category2.map(item => {
-                                return (<Link value={item.alias} href="#"
+                            {category2.map((item, i) => {
+                                return (<Link value={item.alias} key={i}  href="#"
                                     onMouseOver={(e) => {
                                         setValueThree(e.target.getAttribute("value"))
                                         setCategoryColor(e);
@@ -155,8 +155,8 @@ function Categories() {
 
                     {typeof category3 !== 'undefined' && category3 != null ?
                         <Box className={classes.categories__menu_item}>
-                            {category3.map(item => {
-                                return (<Link value={item.alias} href="#"
+                            {category3.map((item, i)=> {
+                                return (<Link value={item.alias} key={i}  href="#"
                                     onMouseOver={(e) => {
                                         setValueFour(e.target.getAttribute("value"))
                                         setCategoryColor(e);
