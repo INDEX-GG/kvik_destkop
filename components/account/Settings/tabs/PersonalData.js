@@ -235,7 +235,7 @@ function PersonalData() {
                 <a className="pDSocial pDFacebook"></a>
                 <a className="pDSocial pDOK"></a>
               </p>
-              <p className="light small">Привяжите к своему профилю социальные сети для того чтобы???</p>
+              <p className="light small">Привяжите к своему профилю социальные сети для быстрой авторизации.</p>
             </div>
             {matchesTablet || matchesMobile ?
             <>
