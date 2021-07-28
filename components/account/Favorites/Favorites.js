@@ -138,11 +138,14 @@ const Favorites = () => {
 
 
    const [offetFav, setOfferFav] = useState()
+   const favAciveOffer = offetFav?.posts.filter((item) => item.condition === 'true')
+
    useEffect(() => {
       axios.post('/api/getFavorites', { user_id: id })
          .then(data => setOfferFav(data.data))
          .catch(error => cosnole.log(error))
    }, [id])
+
 
 
    const [seller, setSeller] = useState(0)
@@ -173,7 +176,7 @@ const Favorites = () => {
 
 
    const navItems = [
-      { id: 1, title: 'Объявления', content: <FavProvider> <Offers itemsPost={offetFav} /></FavProvider>, count: offetFav != undefined ? offetFav.posts?.length : 0 },
+      { id: 1, title: 'Объявления', content: <FavProvider> <Offers itemsPost={favAciveOffer} /></FavProvider>, count: favAciveOffer != undefined ? favAciveOffer?.length : 0 },
       { id: 2, title: 'Продавцы', content: <Sellers sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length : 0 },
       { id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
    ];
