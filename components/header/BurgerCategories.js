@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,7 +23,7 @@ import BurgerServices from "../../UI/icons/BurgerServices"
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: "384px"
   },
   fullList: {
     width: 'auto',
@@ -35,10 +35,10 @@ export default function BurgerCategories() {
   const { categoryMainAlias, categoriesByAlias } = useCategory()
 
   const [state, setState] = useState({left: false});
-  const [collapseOpen, setCollapseOpen] = useState(false)
   const [aliasArray, setAliasArray] = useState([])
   const [aliasArray2, setAliasArrayTwo] = useState([])
   const [aliasArray3, setAliasArrayThre] = useState([])
+  const [aliasDataArray2, setAliasDataArrayTwo] = useState([])
 
   const aliasIcon = [<BurgerRealEstate/>, <BurgerRealEstate/>, <BurgerAuto/>, <BurgerWork/> , <BurgerElectronic/>, <BurgerHome/>, <BurgerAnimal/>, <BurgerThing/>, <BurgerBusiness/>, <BurgerHobby/>, <BurgerServices/>]
 
@@ -56,25 +56,38 @@ export default function BurgerCategories() {
 
     if (aliasArray2.length == 0) {
       const arr = []
+      const dataArr = []
+      let id = 0
       
       for (let inner = 0; inner < categoryMainAlias.length; inner++) {
         for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
           arr.push(false)
+          const aliasData = categoriesByAlias(categoryMainAlias[inner].alias)[inner2]
+          const obj = {label: aliasData.label, alias: aliasData.alias, id}
+          dataArr.push(obj)
+          id++
         }
       }
+      setAliasDataArrayTwo(dataArr)
       setAliasArrayTwo(arr)
     }
 
-    // if (aliasArray3.length == 0) {
-    //   const arr = []
+    if (aliasArray3.length == 0) {
+      const arr = []
       
-    //   for (let inner = 0; inner < categoryMainAlias.length; inner++) {
-    //     for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
-    //       // for (let inner3 = 0; inner3 < categoriesByAlias(categoryMainAlias[in]))
-    //     }
-    //   }
-    //   setAliasArrayTwo(arr)
-    // }
+      for (let inner = 0; inner < categoryMainAlias.length; inner++) {
+        for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
+
+          const queryData3 = categoriesByAlias(categoryMainAlias[inner].alias, categoriesByAlias(categoryMainAlias[inner].alias)[inner2].alias)
+          
+          if (queryData3 != null) {
+            arr.push(false)
+          }
+        }
+      }
+      console.log(arr)
+      setAliasArrayThre(arr)
+    }
 
   })
 
@@ -88,13 +101,31 @@ export default function BurgerCategories() {
     })
 
     setArr(newArr)
-
   }
 
-  function test(item, item2) {
-    console.log(categoriesByAlias(item, item2))
-  }
 
+
+  // async function createAliasArray() {
+  //    const arr = []
+  //    let id = 0
+      
+  //     for (let inner = 0; inner < categoryMainAlias.length; inner++) {
+  //       for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
+  //         const aliasData = categoriesByAlias(categoryMainAlias[inner].alias)[inner2]
+  //         const obj = {label: aliasData.label, alias: aliasData.alias, id}
+  //         arr.push(obj)
+  //         id++
+  //       }
+  //     }
+
+  //   console.log(arr)
+  // }
+
+  // createAliasArray()
+
+  if (aliasDataArray2 != undefined) {
+    console.log(aliasDataArray2)
+  }
 
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -123,25 +154,25 @@ export default function BurgerCategories() {
               <ListItemIcon>
                 {aliasIcon[index]}
               </ListItemIcon>
-              <ListItemText primary={item.label[0].toUpperCase() + item.label.substring(1,)} />
+              <ListItemText className="categoryTest" primary={item.label[0].toUpperCase() + item.label.substring(1,)} />
             </ListItem>
             <Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   {categoriesByAlias(item.alias).map((item2, index2) => {
                     return (
                       <>
-                        <ListItem key={index2 + 1} button onClick={() => generateArray(index2, aliasArray2, setAliasArrayTwo)}>
-                          <ListItemText primary={item2.label[0].toUpperCase() + item2.label.substring(1,)} />
+                        <ListItem key={index2 + 1} button onClick={() => generateArray(0, aliasArray2, setAliasArrayTwo)}>
+                          <ListItemText style={{color: "red"}} primary={item2.label[0].toUpperCase() + item2.label.substring(1,)} />
                         </ListItem>
                         <Collapse in={aliasArray2[index2]}>
                           {categoriesByAlias(item.alias, item2.alias) == null ? null : 
                           categoriesByAlias(item.alias, item2.alias).map((item3, index3) => {
                             return (
                              <>
-                              <ListItem key={index3 + 1} button>
-                                <ListItemText primary={item3.label[0].toUpperCase() + item3.label.substring(1,)} />
+                              <ListItem key={index3 + 1} button onClick={() => generateArray(index3, aliasArray3, setAliasArrayThre)}>
+                                <ListItemText style={{color: "green"}} primary={item3.label[0].toUpperCase() + item3.label.substring(1,)} />
                               </ListItem>
-                              <Collapse in={false}>
+                              <Collapse in={aliasArray3[index3]}>
                                 {categoriesByAlias(item.alias, item2.alias, item3.alias) == null ? null :
                                   categoriesByAlias(item.alias, item2.alias, item3.alias).map((item4, index4) => {
                                     return (
@@ -164,14 +195,6 @@ export default function BurgerCategories() {
           </div>)
         })}
       </List>
-      {/* <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
     </div>
   );
 
