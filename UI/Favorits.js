@@ -21,7 +21,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
         
         const getFavorits = (e) => {
             let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': comment?.join(), 'condition': `${like}` }
-            console.log(arrFavorits)
+            // console.log(arrFavorits)
             e.target.classList.toggle('like-active')
             axios.post("/api/favorites", arrFavorits)
                 .then(r => r.data)
@@ -49,7 +49,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
             comment;
             like;
             let arrFavorits = { 'user_id': `${id}`, 'post_id': `${favId}`, 'comment': comment.join(), 'condition': `${like}` }
-            console.log(arrFavorits)
+            // console.log(arrFavorits)
 
             axios.post("/api/favorites", arrFavorits)
                 .then(r => r.data)
@@ -93,7 +93,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
                 .finally(function () {
                     setQuery(p => !p)
                 })
-            console.log(arrFavorits)
+            // console.log(arrFavorits)
         }
 
         return (

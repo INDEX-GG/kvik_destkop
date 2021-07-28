@@ -38,7 +38,7 @@ const Deals = () => {
 
    return (
       <>
-      <div className="clientPage__container_top">
+      <div className="clientPage__container_bottom">
          <div className="clientPage__container_nav__wrapper">
             <div className="clientPage__container_nav">
             {navItems.map(item => {

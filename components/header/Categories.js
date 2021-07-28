@@ -90,9 +90,11 @@ function Categories() {
     const [valueThree, setValueThree] = useState(undefined)
     const [valueFour, setValueFour] = useState(undefined)
 
+
+
     const {categoryMainAlias, categoriesByAlias} = useCategory()
     const router = useRouter()
-
+console.log(categoryMainAlias)
     function setCategoryColor(index) {
         for (var i = 0; i < index.target.parentElement.children.length; i++) {
             index.target.parentElement.children[i].style.background = '';

@@ -135,7 +135,8 @@ export default function ProductUserInfo(data) {
               pathname: `/user/${data.id}`
               })}
               /* onClick={(e) => { handleCollapse(e)}} */>
-              {(collapsed && `Все объявления продавца (${userSmallAd == undefined ? "0" : userSmallAd.length})`) || `Скрыть`}
+                {console.log(userSmallAd)}
+              {(collapsed && `Все объявления продавца (${userSmallAd == undefined ? "0" : data.userAd.length})`) || `Скрыть`}
             </a>
           ) : (
             ""
