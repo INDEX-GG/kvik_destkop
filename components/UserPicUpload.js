@@ -3,11 +3,11 @@ import AvatarEditor from 'react-avatar-editor';
 import { typeChange } from '../lib/services';
 import axios from 'axios';
 import { useAuth } from '../lib/Context/AuthCTX';
-import { useRouter } from 'next/router';
+import { useMutate } from '../lib/Context/MutateCTX';
 
 function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3 }) {
 const {id} = useAuth();
-const router = useRouter();
+const {setMutateAvatar} = useMutate();
 const fileInput = useRef(),
 	editorRef = useRef(),
 	[Photo, setPhoto] = useState(),
@@ -30,7 +30,6 @@ const saveEditedPic = () => {
 		type: `image/${imageType}`,
 		lastModified: Date.now(),
 	})
-	console.log(img);
 	const sendData = new FormData;
 	sendData.append('files[]', img);
 
@@ -38,7 +37,7 @@ const saveEditedPic = () => {
 	headers: {
 		"Content-Type": "multipart/form-data"
 		}
-	}).then(() => console.log('upload'))
+	}).then(() => {console.log('upload'), setMutateAvatar(p => !p)})
 	}, `image/${imageType}`, optimiztionLevel);
 }
 

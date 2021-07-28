@@ -16,6 +16,7 @@ import Search from "./Search";
 import Login from "../auth/Login";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import { initials, stringToColor } from "../../lib/services";
+import { useMutate } from "../../lib/Context/MutateCTX";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,8 +71,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ category }) => {
-	console.log('header');
 	const {isAuth, id} = useAuth();
+	const {mutateAvatar} = useMutate();
 	const { isLoading, name, userPhoto } = useUser();
   	const classes = useStyles();
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -92,6 +93,11 @@ const Header = ({ category }) => {
     document.addEventListener("scroll", listenScroll);
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
+
+  useEffect(() => {
+	setAvatar(`${userPhoto}?${Date.now()}`)
+  }, [userPhoto, mutateAvatar]);
+
 
   return (
     <>
@@ -114,7 +120,7 @@ const Header = ({ category }) => {
 			</Button>
 			|| isLoading && <Loader size={32} /> || !isLoading &&
 			<Link href={`/account/${id}`}>
-			<Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
+			<Avatar className={classes.avatar} src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
 				{initials(name)}
 			</Avatar>
 			</Link>}
