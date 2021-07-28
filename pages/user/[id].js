@@ -33,7 +33,14 @@ function UserPage() {
 
   const { userLoading, userSub } = useSubBool("58", sellerId)
 
+  const [productTitle, setProductTitle] = useState(null)
+  const [productQuery, setProductQuery] = useState(null)
 
+
+  useEffect(() => {
+    setProductTitle(localStorage.getItem("Title"))
+    setProductQuery(localStorage.getItem("Query"))
+  }, [])
 
   useEffect(() => {
     setUserBool(false)
@@ -69,9 +76,9 @@ function UserPage() {
           <a className="breadCrumb light" href="/">
             Главная
           </a>
-				 {/* <a className="breadCrumb line light" onClick={() => router.push(`/product/${localStorage.getItem("Query")}`)}>
-            	{localStorage.getItem("Title")}
-          	</a> */} 
+				  <a className="breadCrumb line light" onClick={() => router.push(`/product/${productQuery}`)}>
+            	{productTitle}
+          </a>  
           <a className="line">{sellerName}</a>
         </div>
         <div className="clientPage__menu">

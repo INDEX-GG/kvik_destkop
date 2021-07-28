@@ -55,10 +55,22 @@ function AdCard_component({ offer }) {
     archived = "sold"
   }
 
+  let pagination = { clickable: true}
+
+
+  if (JSON.parse(offer?.photo).photos.length == 1) {
+    pagination = false
+  }
+
+  if (JSON.parse(offer?.photo).photos.length > 10) {
+    pagination = { clickable: true}
+  }
+
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
   //   const myLoader = ({src, width, quality}) => `${src}`;
   return (
+
     <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
       <div className={offer.commercial !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
         <div className={"card__top " + archived}>
@@ -67,9 +79,7 @@ function AdCard_component({ offer }) {
             <div className="card__top_slider">
               <Swiper
                 ref={currentSwiper}
-                pagination={{
-                  clickable: true,
-                }}
+                pagination={pagination}
                 slidesPerView={1}
               >
                 {/* {JSON.parse(offer.photo).photos.map((img, i) => {
