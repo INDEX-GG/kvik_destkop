@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MetaLayout from "../../layout/MetaLayout";
 import StarRating from "../../components/StarRating";
 import Offers from "../../components/account/Offers/Offers";
@@ -10,17 +10,17 @@ import Compare from "../../components/account/Compare/Compare";
 import Reviews from "../../components/account/Reviews/Reviews";
 import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
-import { initials, standartDate, stringToColor, ToRusAccountDate } from "../../lib/services";
-import { modalRating, modalSubscribers, modalSubscription, modalLogout, ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
+import { initials, stringToColor, ToRusAccountDate } from "../../lib/services";
+import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useUser } from "../../hooks/useUser";
-import { useAd } from "../../hooks/useAd";
-import { Avatar, Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
+import { Avatar, Button, Dialog, DialogTitle } from "@material-ui/core";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
 import { useMedia } from "../../hooks/useMedia";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import { ContactSupportOutlined } from "@material-ui/icons";
+import { useMutate } from "../../lib/Context/MutateCTX";
+
 
 const userInfo = {
   userId: 1,
@@ -46,6 +46,8 @@ const menuItems = [
 
 function Account() {
   const router = useRouter();
+  const {mutateAvatar} = useMutate();
+  const [avatar, setAvatar] = useState();
   const { isLoading, name, userPhoto, createdAt, raiting } = useUser();
   const {signOut} = useAuth();
   const [menuItem, setMenuItem] = useState({ i: 1, itm: "menuOffers", ttl: "Мои объявления" });
@@ -63,6 +65,9 @@ function Account() {
     changeModal(!modal)
   }
 
+  useEffect(() => {
+	setAvatar(`${userPhoto}?${Date.now()}`)
+  }, [userPhoto, mutateAvatar]);
 
   const logOut = () => {
     axios.get("/api/logout").then(() => {
@@ -89,7 +94,7 @@ function Account() {
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
               {!isLoading && (
-                <Avatar src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
+                <Avatar src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
                   {initials(name)}
                 </Avatar>
               )}

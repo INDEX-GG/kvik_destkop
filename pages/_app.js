@@ -9,6 +9,7 @@ import theme from '../UI/theme';
 import fetch from '../lib/fetchJson';
 import AuthProvider from '../lib/Context/AuthCTX';
 import MainLayout from '../layout/MainLayout';
+import MutateProvider from '../lib/Context/MutateCTX';
 
 function MyApp({ Component, pageProps }) {
 
@@ -25,10 +26,12 @@ function MyApp({ Component, pageProps }) {
 			</Head>
 			<AuthProvider>
 				<ThemeProvider theme={theme}>
-					<MainLayout>
-						<CssBaseline/>
-						<Component {...pageProps} />
-					</MainLayout>
+					<MutateProvider>
+						<MainLayout>
+							<CssBaseline/>
+							<Component {...pageProps} />
+						</MainLayout>
+					</MutateProvider>
 				</ThemeProvider>
 			</AuthProvider>
 		</SWRConfig>
