@@ -92,9 +92,8 @@ function Categories() {
 
 
 
-    const {categoryMainAlias, categoriesByAlias} = useCategory()
+    const { categoryMainAlias, categoriesByAlias } = useCategory()
     const router = useRouter()
-console.log(categoryMainAlias)
     function setCategoryColor(index) {
         for (var i = 0; i < index.target.parentElement.children.length; i++) {
             index.target.parentElement.children[i].style.background = '';
@@ -110,14 +109,14 @@ console.log(categoryMainAlias)
                         {categoryMainAlias.map((item, index) => {
                             return (
                                 <Link key={index} value={item.alias}
-                                onMouseOver={(e) => {
-                                    setValueOne(e.target.getAttribute("value"))
-                                    setCategoryColor(e);
-                                    setCategory(categoriesByAlias(e.target.getAttribute("value")))
-                                    setCategory2(undefined)
-                                }}
-                                onClick={() => router.push(`/search/${valueOne}`)}
-                                className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}
+                                    onMouseOver={(e) => {
+                                        setValueOne(e.target.getAttribute("value"))
+                                        setCategoryColor(e);
+                                        setCategory(categoriesByAlias(e.target.getAttribute("value")))
+                                        setCategory2(undefined)
+                                    }}
+                                    onClick={() => router.push(`/search/${valueOne}`)}
+                                    className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}
                                 </Link>
                             )
                         })}
@@ -128,14 +127,14 @@ console.log(categoryMainAlias)
                             {category.map((item, i) => {
                                 return (
                                     <Link key={i} value={item.alias}
-                                    onMouseOver={(e) => {
-                                        setValueTwo(e.target.getAttribute("value"))
-                                        setCategoryColor(e);
-                                        setCategory2(categoriesByAlias(valueOne, e.target.getAttribute("value")))
-                                        setCategory3(undefined)
-                                    }}
-                                    onClick={() => router.push(`/search/${valueTwo}`)} 
-                                    className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>
+                                        onMouseOver={(e) => {
+                                            setValueTwo(e.target.getAttribute("value"))
+                                            setCategoryColor(e);
+                                            setCategory2(categoriesByAlias(valueOne, e.target.getAttribute("value")))
+                                            setCategory3(undefined)
+                                        }}
+                                        onClick={() => router.push(`/search/${valueTwo}`)}
+                                        className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>
                                 )
                             })}
                         </Box>
@@ -151,7 +150,7 @@ console.log(categoryMainAlias)
                                         setCategoryColor(e);
                                         setCategory3(categoriesByAlias(valueOne, valueTwo, e.target.getAttribute("value")))
                                     }}
-                                    onClick={(e) => router.push(`/search/${valueThree}`)} 
+                                    onClick={(e) => router.push(`/search/${valueThree}`)}
                                     className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>)
                             })}
                         </Box>
@@ -167,7 +166,7 @@ console.log(categoryMainAlias)
                                         setCategoryColor(e);
                                         setCategory4(categoriesByAlias(valueOne, valueTwo, valueThree, e.target.getAttribute("value")))
                                     }}
-                                    onClick={(e) => router.push(`/search/${valueFour}`)} 
+                                    onClick={(e) => router.push(`/search/${valueFour}`)}
                                     className={classes.categories__menu_item_btn}>{item.label[0].toUpperCase() + item.label.substring(1,)}</Link>)
                             })}
                         </Box>

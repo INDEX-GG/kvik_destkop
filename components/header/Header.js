@@ -17,7 +17,7 @@ import Login from "../auth/Login";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import { initials, stringToColor } from "../../lib/services";
 import { useMutate } from "../../lib/Context/MutateCTX";
-
+import { useRouter } from "next/router";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -71,23 +71,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ category }) => {
-	const {isAuth, id} = useAuth();
-	const {mutateAvatar} = useMutate();
-	const { isLoading, name, userPhoto } = useUser();
-  	const classes = useStyles();
-	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-	const [avatar, setAvatar] = useState();
-	const [openCat, setCategories] = useState();
-	const [openRegForm, setOpenRegForm] = useState(false);
-	const [openLoginForm, setOpenLoginForm] = useState(false);
-	const [headerScroll, setHeaderScroll] = useState(classes.header);
-	const listenScroll = () => {
-		if (scrollY > 0) {
-			setHeaderScroll(classes.shadow);
-		} else {
-			setHeaderScroll(classes.header);
-		}
-	};
+  const { isAuth, id } = useAuth();
+  const router = useRouter();
+  const { mutateAvatar } = useMutate();
+  const { isLoading, name, userPhoto } = useUser();
+  const classes = useStyles();
+  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+  const [avatar, setAvatar] = useState();
+  const [openCat, setCategories] = useState();
+  const [openRegForm, setOpenRegForm] = useState(false);
+  const [openLoginForm, setOpenLoginForm] = useState(false);
+  const [headerScroll, setHeaderScroll] = useState(classes.header);
+  const listenScroll = () => {
+    if (scrollY > 0) {
+      setHeaderScroll(classes.shadow);
+    } else {
+      setHeaderScroll(classes.header);
+    }
+  };
 
   useEffect(() => {
     document.addEventListener("scroll", listenScroll);
@@ -95,7 +96,7 @@ const Header = ({ category }) => {
   }, []);
 
   useEffect(() => {
-	setAvatar(`${userPhoto}?${Date.now()}`)
+    setAvatar(`${userPhoto}?${Date.now()}`)
   }, [userPhoto, mutateAvatar]);
 
 
@@ -106,7 +107,7 @@ const Header = ({ category }) => {
         <Container className={classes.root}>
           <Logo />
           <Button className={classes.menu__categorys} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>
-            {category || "Категории"}
+            {router.route === '/search/[alias]' ? category : "Категории"}
             <ExpandMoreIcon />
           </Button>
           <Search />
@@ -115,15 +116,15 @@ const Header = ({ category }) => {
             Подать объявление
           </Button>}
 
-			{!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
-				Войти
-			</Button>
-			|| isLoading && <Loader size={32} /> || !isLoading &&
-			<Link href={`/account/${id}`}>
-			<Avatar className={classes.avatar} src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
-				{initials(name)}
-			</Avatar>
-			</Link>}
+          {!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
+            Войти
+          </Button>
+            || isLoading && <Loader size={32} /> || !isLoading &&
+            <Link href={`/account/${id}`}>
+              <Avatar className={classes.avatar} src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
+                {initials(name)}
+              </Avatar>
+            </Link>}
 
         </Container>
         {openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}
