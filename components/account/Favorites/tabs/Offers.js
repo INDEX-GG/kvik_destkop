@@ -9,7 +9,7 @@ import axios from "axios";
 function Offers(data) {
   const { id } = useAuth();
 
-  // console.log(data.itemsPost)
+  console.log(data)
   const { userFav, setQuery } = useFavorits()
 
   function deleteNote(e) {
