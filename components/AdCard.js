@@ -55,15 +55,16 @@ function AdCard_component({ offer }) {
     archived = "sold"
   }
 
-  let pagination = { clickable: true}
+  let pagination = { 
+    clickable: true,
+    renderBullet: function (index, className) {
+      if (index >= 5) return '<span style="display: none"></span>';
+      return '<span class="' + className + '">'+"</span>"}
+  }
 
 
   if (JSON.parse(offer?.photo).photos.length == 1) {
     pagination = false
-  }
-
-  if (JSON.parse(offer?.photo).photos.length > 10) {
-    pagination = { clickable: true}
   }
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();

@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useMedia } from "../../hooks/useMedia"
 import Link from "next/link"
 import Login from "../auth/Login";
+import BurgerCategories from "./BurgerCategories";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -72,9 +73,7 @@ function HeaderMobile({ chageMenu = false }) {
       <AppBar position="fixed" color="secondary">
         <Container className={classes.container}>
           <div className={classes.info}>
-            <div className={classes.menu}>
-              <MobileMenu />
-            </div>
+            <BurgerCategories/>
             <Logo className={classes.logo} />
             {isAuth ?
               <Link href={`/account/${id}`}>

@@ -11,30 +11,25 @@ import { useAd } from "../../hooks/useAd";
 import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
-import { useUser } from "../../hooks/useUser";
 import { useSubList, useSubBool } from "../../hooks/useSubscriptions";
 
 import MetaLayout from "../../layout/MetaLayout";
+import { useAuth } from "../../lib/Context/AuthCTX";
 
 function UserPage() {
   const router = useRouter();
-
-
+  const { id } = useAuth()
+  const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
+  const userInfo = useAd(router.query.id)
+   const { userSub } = useSubBool(id, sellerId)
+  
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-  const [subTest, setSubTest] = useState(null)
-
-  const userInfo = useAd(router.query.id)
-  const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
-  const { id } = useUser()
-  const { matchesMobile, matchesTablet } = useMedia()
-  const [userBool, setUserBool] = useState(false)
-
-  const { userLoading, userSub } = useSubBool("58", sellerId)
-
   const [productTitle, setProductTitle] = useState(null)
   const [productQuery, setProductQuery] = useState(null)
+  const { matchesMobile, matchesTablet } = useMedia()
+  const [userBool, setUserBool] = useState(false)
 
 
   useEffect(() => {
@@ -43,8 +38,9 @@ function UserPage() {
   }, [])
 
   useEffect(() => {
-    setUserBool(false)
-  }, [userLoading])
+    setUserBool(userSub)
+  }, [isLoading])
+
 
   function modal(modal, changeModal) {
     changeModal(!modal)
@@ -53,21 +49,23 @@ function UserPage() {
   function subscribeUser() {
 
     const subscribe = {
-      user_id: 58 + "",
+      user_id: id + "",
       seller_id: sellerId + ""
     }
 
-    axios.post("/api/getSubscriptions", { user_id: String(58) }).then(data => console.log(data.data))
+    axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => console.log(data.data))
 
     axios.post("/api/subscriptions", subscribe)
       .then(res => console.log(res.data))
       .catch(error => cosnole.log(error))
 
-    axios.post("/api/getSubscriptions", { user_id: String(58) }).then(data => console.log(data.data))
+    axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => console.log(data.data))
 
     setUserBool(!userBool)
   }
 
+
+  console.log(id, sellerId, userSub)
 
   return (
     <MetaLayout>
@@ -115,7 +113,7 @@ function UserPage() {
                 </div>
               </a>
             </div>
-            {userBool == null ? <button className="btnSubscribe" onClick={() => subscribeUser()}>TEST</button> : <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>}
+            <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
             <div className="btnActive">
               <a className="userActive">Заблокировать пользователя</a>
               <div className="userIconBlock">
