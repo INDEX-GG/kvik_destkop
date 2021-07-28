@@ -14,8 +14,6 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-console.log(Icons)
-
 const PopularCategories = () => {
 	const router = useRouter()
 	const classes = useStyles();
