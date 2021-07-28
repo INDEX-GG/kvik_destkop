@@ -19,7 +19,7 @@ function RejectedAdmin(data) {
             <div className="ads__container">
                {data.offers.map((offer, index) => {
                   return (
-                     <div className="ad__wrapper">
+                     <div key={index} className="ad__wrapper">
                         <div className="ad__check">
                            <label className="checkbox">
                               <input type="checkbox" />
@@ -37,9 +37,9 @@ function RejectedAdmin(data) {
                                  <div className="ad__information_title">{offer.title}</div>
                                  <div className="ad__information_category">
                                     {
-                                       offer.categorys.map(category => {
+                                       offer.categorys.map((category, i) => {
                                           return (
-                                             <span>{category.category}</span>
+                                             <span key={i}>{category.category}</span>
                                           );
                                        })
                                     }

@@ -74,7 +74,7 @@ const Offers = () => {
           <div className="clientPage__container_nav">
             {navItems.map((item) => {
               return (
-                <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>
+                <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>
                   {item.title} {brooklyn(item.count)}{" "}
                 </a>
               );
@@ -82,7 +82,7 @@ const Offers = () => {
           </div>
         </div>
       </div>
-      {navItems.map((item) => itemNav.i === item.id && (OffersBox.length > 0 ? item.content : <Placeholder />))}
+      {navItems.map((item) => itemNav.i === item.id && (OffersBox.length > 0 ? item.content : <Placeholder key={item.id}/>))}
     </>
   );
 };

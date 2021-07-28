@@ -26,9 +26,9 @@ function WaitReviews(data) {
       </div>
       <div className="clientPage__container_content">
         <div className="reviewsContainerWrapper">
-          {data.data.map((offer) => {
+          {data.data.map((offer, i) => {
             return (
-              <div className="reviewsContainer boxWrapper">
+              <div key={i} className="reviewsContainer boxWrapper">
                 <div className="reviewsImage">
                   <div className="reviewsPubCheck">
                     <label className="checkbox">

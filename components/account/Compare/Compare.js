@@ -161,14 +161,14 @@ const compareList = (
     <div className="userPageContentCompare">
       <div className="compareTable">
         <div className="compareCategories thin light">
-          {autoSubsKeys.map((item) => {
-            return <div>{item}</div>;
+          {autoSubsKeys.map((item, i) => {
+            return <div key={i}>{item}</div>;
           })}
         </div>
 
-        {products.map((item) => {
+        {products.map((item, i) => {
           return (
-            <div>
+            <div key={i}>
               <div className="compareCard boxWrapper">
                 <div className="compareCardPic">
                   <img src={`${item.img}?${item.id}`} />

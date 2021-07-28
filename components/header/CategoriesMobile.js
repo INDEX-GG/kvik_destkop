@@ -116,7 +116,7 @@ function Categories() {
 
                                                 return (
                                                     <>
-                                                        <Link value={index} href="#" className={classes.categories__menu_item_btn}> {category.subCategories[key].name} </Link>
+                                                        <Link key={index} value={index} href="#" className={classes.categories__menu_item_btn}> {category.subCategories[key].name} </Link>
                                                     </>
                                                 );
                                             }

@@ -141,9 +141,9 @@ function Active(data) {
             <button onClick={handelRemoveFromPublicFull()}>Снять с публикации</button>
           </div>
           <div className="clientPage__container_content">
-            {data.offers?.map((offer) => {
+            {data.offers?.map((offer, i) => {
               return (
-                <div {...register("active")} className="offerContainer boxWrapper">
+                <div key={i} {...register("active")} className="offerContainer boxWrapper">
                   <div className="offerImage">
                     <div className="offerPubCheck">
 
@@ -165,8 +165,8 @@ function Active(data) {
                     </div>
                     {JSON.parse(offer.photo)
                       ?.photos?.slice(0, 1)
-                      .map((imgs) => {
-                        return <img src={imgs} />;
+                      .map((imgs, i) => {
+                        return <img key={i} src={imgs} />;
                       })}
                   </div>
                   <div className="offerDescription">
