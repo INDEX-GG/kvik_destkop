@@ -1,0 +1,29 @@
+.burgerTitle{
+    margin: 26px 0px 25px 77px;
+    color: #2C2C2C;
+    font-weight: 500;
+    font-size: 18px;
+    position: relative;
+    &::before{
+        content: "";
+        background-color: #C7C7C7;
+        border-radius: 10px;
+        width: 18px;
+        height: 3px;
+        position: absolute;
+        top: 8px;
+        left: -30px;
+        transform: rotate(45deg)
+    }
+    &::after{
+        content: "";
+        background-color:#C7C7C7;
+        border-radius: 10px;
+        width: 18px;
+        height: 3px;
+        position: absolute;
+        top: 8px;
+        left: -30px;
+        transform: rotate(-45deg)
+    }
+}
