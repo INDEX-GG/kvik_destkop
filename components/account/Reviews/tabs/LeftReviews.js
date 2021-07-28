@@ -26,9 +26,9 @@ function LeftReviews(data) {
       </div>
       <div className="clientPage__container_content">
         <div className="reviewsWrapper">
-          {data.data.map((item) => {
+          {data.data.map((item, i) => {
             return (
-              <div className="reviewContainer">
+              <div key={i} className="reviewContainer">
                 <div>
                   <div>
                     <img src={`${item.userPic}?${item.id}`} />

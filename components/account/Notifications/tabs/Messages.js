@@ -48,9 +48,9 @@ function Messages(data) {
         <div className="clientPage__container_content">
           <div className="messageContainer">
             <div className="messageDialogs">
-              {data.data.map((item) => {
+              {data.data.map((item, i) => {
                 return (
-                  <a className="messageDialog" onClick={() => {matchesMobile || matchesTablet ? changeModal() : null}}>
+                  <a key={i} className="messageDialog" onClick={() => {matchesMobile || matchesTablet ? changeModal() : null}}>
                     <div className="messageOffer small">
                       <div className="messageDiaCheck">
                         <label className="checkbox">

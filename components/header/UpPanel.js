@@ -46,7 +46,7 @@ const UpPanel = () => {
                 {isAuth &&  <Box className={classes.btns__uppanel}>
                      <Button className={classes.btn__uppanel}><CategoryDark /></Button>
                      <Button className={classes.btn__uppanel}><CompareDark /></Button>
-                     <Button onClick={() => Router.push(`/account/${id}`)} className={classes.btn__uppanel}><LikeDark /></Button>
+                     <Button onClick={() => Router.push(`/account/${id}?favorite`)} className={classes.btn__uppanel}><LikeDark /></Button>
                      <Button className={classes.btn__uppanel}><NotifDark /></Button>
                   </Box>}
                </Container>

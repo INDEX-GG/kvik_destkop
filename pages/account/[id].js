@@ -49,8 +49,12 @@ function Account() {
   const {mutateAvatar} = useMutate();
   const [avatar, setAvatar] = useState();
   const { isLoading, name, userPhoto, createdAt, raiting } = useUser();
-  const {signOut} = useAuth();
-  const [menuItem, setMenuItem] = useState({ i: 1, itm: "menuOffers", ttl: "Мои объявления" });
+  const {signOut, id} = useAuth();
+
+
+
+  const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "Избранное" } : { i: 1, itm: "menuOffers", ttl: "Мои объявления" });
+
   const [openPicUpload, setPicUpload] = useState(false);
   const [logout, setLogout] = useState(false);
 
@@ -89,7 +93,7 @@ function Account() {
           <a className="breadCrumb light" href="/">
             Главная
           </a>
-          <a className="breadCrumb line light" href="/user">
+          <a className="breadCrumb line light" href={id}>
             Личный кабинет
           </a>
           {menuItem && <a className="line">{menuItem.ttl}</a>}

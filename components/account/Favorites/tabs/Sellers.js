@@ -37,9 +37,9 @@ function Sellers({sellers, sellerSub}) {
                   <button onClick={() => sellerSub(58, seller.id)} className="buttonGrey">Отписаться</button>
                 </div>
                   <div className="sellersOffers">
-                  {seller.poducts.map((offer) => {
+                  {seller.poducts.map((offer, i) => {
                     return (
-                      <div className="sellersOffer">
+                      <div key={i} className="sellersOffer">
                         <img src={`${JSON.parse(offer.photo).photos[0]}?${offer.id}`} />
                         <div>{ellipsis(ToRubles(offer.price), 15)}</div>
                         <div>{ellipsis(offer.title, 10)}</div>

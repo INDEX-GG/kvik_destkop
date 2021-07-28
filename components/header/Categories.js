@@ -107,7 +107,7 @@ function Categories() {
                     <Box className={classes.categories__menu_item__gray_line}>
                         {categoryMainAlias.map((item, index) => {
                             return (
-                                <Link value={item.alias}
+                                <Link key={index} value={item.alias}
                                 onMouseOver={(e) => {
                                     setValueOne(e.target.getAttribute("value"))
                                     setCategoryColor(e);
@@ -125,7 +125,7 @@ function Categories() {
                         <Box className={classes.categories__menu_item__gray_line}>
                             {category.map((item, i) => {
                                 return (
-                                    <Link value={item.alias}
+                                    <Link key={i} value={item.alias}
                                     onMouseOver={(e) => {
                                         setValueTwo(e.target.getAttribute("value"))
                                         setCategoryColor(e);
@@ -141,8 +141,8 @@ function Categories() {
 
                     {typeof category2 !== 'undefined' && category2 != null ?
                         <Box className={classes.categories__menu_item}>
-                            {category2.map(item => {
-                                return (<Link value={item.alias}
+                            {category2.map((item, i) => {
+                                return (<Link key={i} value={item.alias}
 
                                     onMouseOver={(e) => {
                                         setValueThree(e.target.getAttribute("value"))
@@ -157,8 +157,8 @@ function Categories() {
 
                     {typeof category3 !== 'undefined' && category3 != null ?
                         <Box className={classes.categories__menu_item}>
-                            {category3.map(item => {
-                                return (<Link value={item.alias}
+                            {category3.map((item, i) => {
+                                return (<Link key={i} value={item.alias}
 
                                     onMouseOver={(e) => {
                                         setValueFour(e.target.getAttribute("value"))
