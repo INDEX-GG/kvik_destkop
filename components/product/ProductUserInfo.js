@@ -23,19 +23,21 @@ export default function ProductUserInfo(data) {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   let userSmallAd;
 
+  useEffect(() => {
+    localStorage.setItem("Title", data.productTitle)
+    localStorage.setItem("Query", router.query.id)
+  })
+
+
   return (
     <>
       <div className="ad__block_bottom">
         <div className="SellerInfoUserBlock">
           <Avatar alt="User" src={data.userPhoto} className="SellerInfoUserPic" onClick={() => {
-            localStorage.setItem("Title", data.productTitle)
-            localStorage.setItem("Query", router.query.id)
             router.push(`/user/${data.id}`)
           }}/>
           <div>
             <div onClick={() => {
-              localStorage.setItem("Title", data.productTitle)
-              localStorage.setItem("Query", router.query.id)
               router.push(`/user/${data.id}`)
             }}> {data.name} </div>
             <div>
