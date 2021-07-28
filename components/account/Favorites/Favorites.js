@@ -146,6 +146,7 @@ const Favorites = () => {
          .catch(error => cosnole.log(error))
    }, [id])
 
+   
 
 
    const [seller, setSeller] = useState(0)
