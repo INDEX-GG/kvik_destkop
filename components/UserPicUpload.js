@@ -38,7 +38,7 @@ const saveEditedPic = () => {
 	headers: {
 		"Content-Type": "multipart/form-data"
 		}
-	}).then(() => router.replace(`/account/${id}`))
+	}).then(() => console.log('upload'))
 	}, `image/${imageType}`, optimiztionLevel);
 }
 

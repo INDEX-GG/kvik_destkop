@@ -70,21 +70,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ category }) => {
+	console.log('header');
 	const {isAuth, id} = useAuth();
 	const { isLoading, name, userPhoto } = useUser();
-  const classes = useStyles();
-  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-  const [openCat, setCategories] = useState();
-  const [openRegForm, setOpenRegForm] = useState(false);
-  const [openLoginForm, setOpenLoginForm] = useState(false);
-  const [headerScroll, setHeaderScroll] = useState(classes.header);
-  const listenScroll = () => {
-    if (scrollY > 0) {
-      setHeaderScroll(classes.shadow);
-    } else {
-      setHeaderScroll(classes.header);
-    }
-  };
+  	const classes = useStyles();
+	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+	const [avatar, setAvatar] = useState();
+	const [openCat, setCategories] = useState();
+	const [openRegForm, setOpenRegForm] = useState(false);
+	const [openLoginForm, setOpenLoginForm] = useState(false);
+	const [headerScroll, setHeaderScroll] = useState(classes.header);
+	const listenScroll = () => {
+		if (scrollY > 0) {
+			setHeaderScroll(classes.shadow);
+		} else {
+			setHeaderScroll(classes.header);
+		}
+	};
+
   useEffect(() => {
     document.addEventListener("scroll", listenScroll);
     return () => document.removeEventListener("scroll", listenScroll);

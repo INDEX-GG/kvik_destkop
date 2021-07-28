@@ -8,13 +8,14 @@ export function useUser() {
     [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
+	  console.log('useUser')
 	const getUser = async() => {
+		console.log('useUser')
 		const data = await axios.post('/api/getUser', {id: id})
 		.then(r => r.data.user)
 		.catch(e => console.error(e));
 		setUserInfo(data);
 		setLoading(false);
-		
 	}
 	if (id !== undefined) {
 		getUser();
