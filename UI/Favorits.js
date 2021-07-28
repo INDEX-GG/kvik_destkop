@@ -38,19 +38,12 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
     }
 
 
+
+
     if (isAccountCard) {
         let comment = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === favId).map((item) => item.comment));
         let condition = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === favId).map((item) => item.condition))
         let like = condition?.length == 0 || condition?.join() == 'false' ? true : false;
-        // console.log(comment)
-        // console.log(condition)
-        // console.log(like)
-
-
-
-
-
-
 
         const getFavoritsUser = e => {
             comment;
@@ -66,9 +59,11 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
         }
 
         return (
-            <span onClick={(e) => getFavoritsUser(e)} className={JSON?.parse(userFav).some((item) => +item.post_id === favId && item.condition === 'true') ? "favoritesFavorite like-active" : "favoritesFavorite"}></span>
+            <span onClick={(e) => getFavoritsUser(e)} className={userFav&& JSON?.parse(userFav).some((item) => +item.post_id === favId && item.condition === 'true') ? "favoritesFavorite like-active" : "favoritesFavorite"}></span>
         )
     }
+
+
 
 
     if (isProduct) {
