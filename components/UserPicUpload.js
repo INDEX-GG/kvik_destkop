@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useAuth } from '../lib/Context/AuthCTX';
 import { useMutate } from '../lib/Context/MutateCTX';
 
-function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3 }) {
+function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, Close }) {
 const {id} = useAuth();
 const {setMutateAvatar} = useMutate();
 const fileInput = useRef(),
@@ -37,15 +37,21 @@ const saveEditedPic = () => {
 	headers: {
 		"Content-Type": "multipart/form-data"
 		}
-	}).then(() => {console.log('upload'), setMutateAvatar(p => !p)})
+	}).then(() => {setMutateAvatar(p => !p), Close()})
 	}, `image/${imageType}`, optimiztionLevel);
+}
+
+const twinClick = () => {
+	if (fileInput.current.files?.length === 0) {
+		fileInput.current.click();
+	}
 }
 
 return (
 	<div className="userPicUpload__wrapper">
 		<div className="userPicUpload__photo">
 			<AvatarEditor
-				onClick={() => fileInput.current.click()}
+				onClick={twinClick}
 				ref={editorRef}
 				className="userPicUpload__editor"
 				image={Photo}

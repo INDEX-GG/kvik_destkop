@@ -65,6 +65,10 @@ function Account() {
     changeModal(!modal)
   }
 
+  const closePicUpload = () => {
+	  setPicUpload(p => !p)
+  }
+
   useEffect(() => {
 	setAvatar(`${userPhoto}?${Date.now()}`)
   }, [userPhoto, mutateAvatar]);
@@ -137,8 +141,8 @@ function Account() {
         <div className="clientPage__container">{(menuItem.i === 1 && <Offers router={router} />) || (menuItem.i === 2 && <Deals />) || (menuItem.i === 3 && <Wallet />) || (menuItem.i === 4 && <Favorites router={router.query.id}/>) || (menuItem.i === 5 && <Notifications />) || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}</div>
       </div>
       <div className="userPageWhiteSpace"></div>
-      <Dialog open={openPicUpload} onClose={() => setPicUpload(!openPicUpload)} fullWidth maxWidth="xs">
-        <UserPicUpload {...{ imageType: "webp", optimiztionLevel: 0.7, maxScale: 5 }} />
+      <Dialog open={openPicUpload} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
+        <UserPicUpload {...{ imageType: "webp", optimiztionLevel: 0.7, maxScale: 5, Close: closePicUpload }} />
       </Dialog>
       <Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
         <DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
