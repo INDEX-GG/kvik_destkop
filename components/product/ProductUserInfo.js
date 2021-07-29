@@ -4,10 +4,12 @@ import { ToRubles } from "../../lib/services";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Avatar } from "@material-ui/core";
-
+import { useAuth } from "../../lib/Context/AuthCTX";
 export default function ProductUserInfo(data) {
-  const router = useRouter();
 
+
+  const router = useRouter();
+  const { id } = useAuth();
   const [collapsed, setCollapsed] = useState(true);
   // const handleCollapse = (e) => {
   //   e.preventDefault();
@@ -35,13 +37,13 @@ export default function ProductUserInfo(data) {
         <div className="SellerInfoUserBlock">
           <Avatar alt="User" src={data.userPhoto} className="SellerInfoUserPic" onClick={() => {
             router.push(`/user/${data.id}`)
-          }}/>
+          }} />
           <div>
             <div className='productUserName' onClick={() => {
               router.push(`/user/${data.id}`)
             }}> {data.name} </div>
             <div>
-              <div className="SellerInfoRateNumber">{/* {objP.userrate} */}</div>
+              <div className="SellerInfoRateNumber">{objP.userrate} </div>
               <div className="rating">
                 <div className="stars">
                   <div className="on" style={{ width: `${data.raiting * 20}%` }}></div>
@@ -54,26 +56,23 @@ export default function ProductUserInfo(data) {
                   </div>
                 </div>
               </div>
-              {objP.adstatus === 1 || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ? (
-                !matchesLaptop && !matchesDesktop && !matchesHD ? (
+              {data.user_id === id || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ? (
+                matchesLaptop || matchesDesktop || matchesHD ? (
                   <>
-                    <span className="count__ad">00 объявлений</span>
-                    <a className="SellerInfoloarmore"></a>{" "}
+                    <span className="count__ad">{data.userAd == undefined ? "" : data.userAd.length} объявлений</span>
+                    <a className="SellerInfoloarmore"></a>
                   </>
-                ) : (
-                  ""
-                )
-              ) : (
-                ""
-              )}
+                ) : ("")) : ("")}
             </div>
           </div>
-          {matchesTablet || matchesMobile ? null : (
-            <div className="ad__block_bottom__adaptive_left">
-              <a className="SellerInfoUserAdd"></a>
-            </div>
-          )}
-          {objP.adstatus === 7 && objP.adstatus === 8 ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : "" : ""}
+          {data.user_id !== id ?
+            matchesTablet || matchesMobile ? '' :
+              <div className="ad__block_bottom__adaptive_left">
+                <a className="SellerInfoUserAdd"></a>
+              </div>
+            : ''
+          }
+          {/* {objP.adstatus === 7 && data.user_id === id ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : "" : ""} */}
           {!matchesLaptop && !matchesDesktop && !matchesHD ? (
             <>
               {" "}
@@ -85,7 +84,7 @@ export default function ProductUserInfo(data) {
         </div>
         {data.userAd == undefined ? (
           ""
-        ) : objP.adstatus === 7 || objP.adstatus === 8 ? (
+        ) : objP.adstatus === 7 || data.user_id != id ? (
           !matchesMobile && !matchesTablet ? (
             <div className="SellerInfoOffers">
               {(collapsed &&
@@ -93,7 +92,7 @@ export default function ProductUserInfo(data) {
                 userSmallAd.slice(0, 3).map((userAd) => {
                   return (
                     <Link key={userAd.id} href={`/product/${userAd.id}`}>
-                      <div  className="SellerInfoOfferCard small">
+                      <div className="SellerInfoOfferCard small">
                         {JSON.parse(userAd.photo)
                           .photos.slice(0, 1)
                           .map((imgs, i) => {
@@ -108,7 +107,7 @@ export default function ProductUserInfo(data) {
                 data.userAd.map((userAd) => {
                   return (
                     <Link key={userAd.id} href={`/product/${userAd.id}`}>
-                      <div  className="SellerInfoOfferCard small">
+                      <div className="SellerInfoOfferCard small">
                         {JSON.parse(userAd.photo)
                           .photos.slice(0, 1)
                           .map((imgs, i) => {
@@ -129,13 +128,13 @@ export default function ProductUserInfo(data) {
         )}
         {userSmallAd == undefined ? (
           ""
-        ) : objP.adstatus === 7 || objP.adstatus === 8 ? (
+        ) : data.user_id != id ? (
           !matchesMobile && !matchesTablet ? (
             <a className="SellerInfoUserOffersCollapse highlight underline" target="_blank" onClick={() => router.push({
               pathname: `/user/${data.id}`
-              })}
+            })}
               /* onClick={(e) => { handleCollapse(e)}} */>
-                {console.log(userSmallAd)}
+              {console.log(userSmallAd)}
               {(collapsed && `Все объявления продавца (${userSmallAd == undefined ? "0" : data.userAd.length})`) || `Скрыть`}
             </a>
           ) : (
@@ -145,7 +144,7 @@ export default function ProductUserInfo(data) {
           ""
         )}
       </div>
-      {objP.adstatus === 7 || objP.adstatus === 8 ? (
+      {data.user_id != id ? (
         <div className="ad__block_bottom__adaptive">
           {!matchesLaptop && !matchesDesktop && !matchesHD && (
             <div className="ad__block_bottom__adaptive_left">
@@ -155,7 +154,7 @@ export default function ProductUserInfo(data) {
           )}
           <div className="ad__block_bottom__adaptive_right">
             <a className="SellerInfoShutUp small light underline">Заблокировать пользователя</a>
-            {objP.adstatus === 8 ? <a className="SellerInfoComplain small light underline">Пожаловаться</a> : ""}
+            {data.user_id != id ? <a className="SellerInfoComplain small light underline">Пожаловаться</a> : ""}
           </div>
         </div>
       ) : (

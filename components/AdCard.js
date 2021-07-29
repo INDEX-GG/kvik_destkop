@@ -7,12 +7,15 @@ import Image from "next/image";
 import { useMedia } from '../hooks/useMedia';
 import Favorits from '../UI/Favorits';
 import { useFavorits } from '../lib/Context/FavoritesCTX';
+import { useAuth } from "../lib/Context/AuthCTX";
+
+
 SwiperCore.use([Pagination]);
 
 function AdCard_component({ offer }) {
 
   const { userFav, setQuery } = useFavorits()
-
+  const { signOut, id } = useAuth();
 
   const currentSwiper = useRef();
   let sheduled = false;
@@ -29,21 +32,21 @@ function AdCard_component({ offer }) {
 
 
 
-      if (!sheduled) {
-        sheduled = true;
-        setTimeout(() => {
-          if (currentSwiper.current != null) {
-            if (e.movementX > 0) {
-              currentSwiper.current?.swiper.slideNext();
+    if (!sheduled) {
+      sheduled = true;
+      setTimeout(() => {
+        if (currentSwiper.current != null) {
+          if (e.movementX > 0) {
+            currentSwiper.current?.swiper.slideNext();
 
-            } else if (e.movementX < 0) {
-              currentSwiper.current?.swiper.slidePrev();
+          } else if (e.movementX < 0) {
+            currentSwiper.current?.swiper.slidePrev();
 
-            }
-            sheduled = false;
           }
-        }, 320);
-      }
+          sheduled = false;
+        }
+      }, 320);
+    }
 
   }
 
@@ -55,11 +58,12 @@ function AdCard_component({ offer }) {
     archived = "sold"
   }
 
-  let pagination = { 
+  let pagination = {
     clickable: true,
     renderBullet: function (index, className) {
       if (index >= 5) return '<span style="display: none"></span>';
-      return '<span class="' + className + '">'+"</span>"}
+      return '<span class="' + className + '">' + "</span>"
+    }
   }
 
 
@@ -68,7 +72,6 @@ function AdCard_component({ offer }) {
   }
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-
   //   const myLoader = ({src, width, quality}) => `${src}`;
   return (
 
@@ -98,15 +101,14 @@ function AdCard_component({ offer }) {
           </Link>
           <div className="card__top_info">
             <div className="card__top_info_left">
-              {offer.email ? <span className="card_comment"></span> : ''}
-              {call ? <span href="#" className="card_call"></span> : ''}
+
+              {offer.email && offer.user_id != id ? <span className="card_comment"></span> : ''}
+              {call && offer.user_id != id ? <span href="#" className="card_call"></span> : ''}
             </div>
             <div className="card__top_info_right">
-              {!matchesMobile && !matchesTablet ? <span className="card_compare"></span> : ''}
+              {!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''}
 
-
-              <Favorits isCard offer={offer}></Favorits>
-
+              {offer.user_id != id ? <Favorits isCard offer={offer}></Favorits> : ''}
 
             </div>
           </div>

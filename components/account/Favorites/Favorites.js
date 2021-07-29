@@ -27,60 +27,60 @@ import FavProvider from '../../../lib/Context/FavoritesCTX';
 // ];
 
 // Продавцы
-const SellersBox = [
-   {
-      id: 1, sellerPic: 'https://source.unsplash.com/random?portrait', sellerName: 'Гомер С.', offers: [
-         { id: 1, offerName: 'Дом', offerImg: 'https://source.unsplash.com/random?house', price: 123000003433, },
-         { id: 2, offerName: 'Автомобиль Чайка Волга Лимузин', offerImg: 'https://source.unsplash.com/random?car', price: 550000, },
-         { id: 3, offerName: 'Журжунжужьжапрож', offerImg: 'https://source.unsplash.com/random?garage', price: 220000, },
-         { id: 4, offerName: 'Гитара', offerImg: 'https://source.unsplash.com/random?guitar', price: 5000, },
-         { id: 5, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
-         { id: 6, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
-         { id: 7, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
-         { id: 8, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, },
-         { id: 9, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
-         { id: 10, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
-         { id: 11, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
-         { id: 12, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, }
-      ]
-   },
-   {
-      id: 2, sellerPic: 'https://source.unsplash.com/random?portrait', sellerName: 'Иван Петров', offers: [
-         { id: 11, offerName: 'Дом', offerImg: 'https://source.unsplash.com/random?house', price: 12303433, },
-         { id: 21, offerName: 'Автомобиль', offerImg: 'https://source.unsplash.com/random?car', price: 550000, },
-         { id: 31, offerName: 'Гараж', offerImg: 'https://source.unsplash.com/random?garage', price: 220000, },
-         { id: 41, offerName: 'Гитара', offerImg: 'https://source.unsplash.com/random?guitar', price: 5000, },
-         { id: 51, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
-         { id: 61, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
-         { id: 71, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
-         { id: 81, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, }
-      ]
-   },
-   {
-      id: 3, sellerPic: 'https://source.unsplash.com/random?portrait', sellerName: 'Василий П.', offers: [
-         { id: 12, offerName: 'Дом', offerImg: 'https://source.unsplash.com/random?house', price: 12303433, },
-         { id: 22, offerName: 'Автомобиль', offerImg: 'https://source.unsplash.com/random?car', price: 550000, },
-         { id: 32, offerName: 'Гараж', offerImg: 'https://source.unsplash.com/random?garage', price: 220000, },
-         { id: 42, offerName: 'Гитара', offerImg: 'https://source.unsplash.com/random?guitar', price: 5000, },
-         { id: 52, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
-         { id: 62, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
-         { id: 72, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
-         { id: 82, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, }
-      ]
-   },
-   {
-      id: 4, sellerPic: 'https://source.unsplash.com/random?portrait', sellerName: 'Роза М.', offers: [
-         { id: 13, offerName: 'Дом', offerImg: 'https://source.unsplash.com/random?house', price: 12303433, },
-         { id: 23, offerName: 'Автомобиль', offerImg: 'https://source.unsplash.com/random?car', price: 550000, },
-         { id: 33, offerName: 'Гараж', offerImg: 'https://source.unsplash.com/random?garage', price: 220000, },
-         { id: 43, offerName: 'Гитара', offerImg: 'https://source.unsplash.com/random?guitar', price: 5000, },
-         { id: 53, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
-         { id: 63, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
-         { id: 73, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
-         { id: 83, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, }
-      ]
-   },
-];
+// const SellersBox = [
+//    {
+//       id: 1, sellerPic: 'https://source.unsplash.com/random?portrait', sellerName: 'Гомер С.', offers: [
+//          { id: 1, offerName: 'Дом', offerImg: 'https://source.unsplash.com/random?house', price: 123000003433, },
+//          { id: 2, offerName: 'Автомобиль Чайка Волга Лимузин', offerImg: 'https://source.unsplash.com/random?car', price: 550000, },
+//          { id: 3, offerName: 'Журжунжужьжапрож', offerImg: 'https://source.unsplash.com/random?garage', price: 220000, },
+//          { id: 4, offerName: 'Гитара', offerImg: 'https://source.unsplash.com/random?guitar', price: 5000, },
+//          { id: 5, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
+//          { id: 6, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
+//          { id: 7, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
+//          { id: 8, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, },
+//          { id: 9, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
+//          { id: 10, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
+//          { id: 11, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
+//          { id: 12, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, }
+//       ]
+//    },
+//    {
+//       id: 2, sellerPic: 'https://source.unsplash.com/random?portrait', sellerName: 'Иван Петров', offers: [
+//          { id: 11, offerName: 'Дом', offerImg: 'https://source.unsplash.com/random?house', price: 12303433, },
+//          { id: 21, offerName: 'Автомобиль', offerImg: 'https://source.unsplash.com/random?car', price: 550000, },
+//          { id: 31, offerName: 'Гараж', offerImg: 'https://source.unsplash.com/random?garage', price: 220000, },
+//          { id: 41, offerName: 'Гитара', offerImg: 'https://source.unsplash.com/random?guitar', price: 5000, },
+//          { id: 51, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
+//          { id: 61, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
+//          { id: 71, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
+//          { id: 81, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, }
+//       ]
+//    },
+//    {
+//       id: 3, sellerPic: 'https://source.unsplash.com/random?portrait', sellerName: 'Василий П.', offers: [
+//          { id: 12, offerName: 'Дом', offerImg: 'https://source.unsplash.com/random?house', price: 12303433, },
+//          { id: 22, offerName: 'Автомобиль', offerImg: 'https://source.unsplash.com/random?car', price: 550000, },
+//          { id: 32, offerName: 'Гараж', offerImg: 'https://source.unsplash.com/random?garage', price: 220000, },
+//          { id: 42, offerName: 'Гитара', offerImg: 'https://source.unsplash.com/random?guitar', price: 5000, },
+//          { id: 52, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
+//          { id: 62, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
+//          { id: 72, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
+//          { id: 82, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, }
+//       ]
+//    },
+//    {
+//       id: 4, sellerPic: 'https://source.unsplash.com/random?portrait', sellerName: 'Роза М.', offers: [
+//          { id: 13, offerName: 'Дом', offerImg: 'https://source.unsplash.com/random?house', price: 12303433, },
+//          { id: 23, offerName: 'Автомобиль', offerImg: 'https://source.unsplash.com/random?car', price: 550000, },
+//          { id: 33, offerName: 'Гараж', offerImg: 'https://source.unsplash.com/random?garage', price: 220000, },
+//          { id: 43, offerName: 'Гитара', offerImg: 'https://source.unsplash.com/random?guitar', price: 5000, },
+//          { id: 53, offerName: 'Пивко', offerImg: 'https://source.unsplash.com/random?beer', price: 60, },
+//          { id: 63, offerName: 'Собака', offerImg: 'https://source.unsplash.com/random?dog', price: 3400, },
+//          { id: 73, offerName: 'Бассейн', offerImg: 'https://source.unsplash.com/random?waterpool', price: 50000, },
+//          { id: 83, offerName: 'Телевизор', offerImg: 'https://source.unsplash.com/random?TV', price: 80000, }
+//       ]
+//    },
+// ];
 
 
 
@@ -129,8 +129,6 @@ const SearchesBox = [
 ];
 
 // Пагинация
-
-
 const Favorites = () => {
 
    const { id } = useAuth();
@@ -146,7 +144,6 @@ const Favorites = () => {
          .catch(error => cosnole.log(error))
    }, [id])
 
-   
 
 
    const [seller, setSeller] = useState(0)
@@ -156,7 +153,7 @@ const Favorites = () => {
 
    useEffect(() => {
       setSeller(subList)
-   }, [id])
+   })
 
    async function subscribeUser(id = 58, sellerID) {
       const subscribe = {

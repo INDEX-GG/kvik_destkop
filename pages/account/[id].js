@@ -48,10 +48,11 @@ function Account() {
   const router = useRouter();
   const {mutateAvatar} = useMutate();
   const [avatar, setAvatar] = useState();
-  const { isLoading, name, userPhoto, createdAt, raiting } = useUser();
+  const { isLoading, name, userPhoto, createdAt, raiting, subscriptions } = useUser();
+  
+
+
   const {signOut, id} = useAuth();
-
-
 
   const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "Избранное" } : { i: 1, itm: "menuOffers", ttl: "Мои объявления" });
 
@@ -99,7 +100,7 @@ function Account() {
           {menuItem && <a className="line">{menuItem.ttl}</a>}
         </div>
         <div className="clientPage__menu">
-          <div key={userInfo.userId} className="clientPage__userinfo">
+          <div className="clientPage__userinfo">
             <div className="clientPage__userpic">
               {!isLoading && (
                 <Avatar src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
@@ -124,7 +125,7 @@ function Account() {
                 <p>подписчиков</p>
               </a>
               <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribtions">
-                {userInfo.userSubscriptions}
+                { subscriptions && JSON.parse(subscriptions)?.length}
                 <p>подписок</p>
               </a>
             </div>

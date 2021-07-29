@@ -32,11 +32,13 @@ export default function handler(req, res) {
                                      id: true,
                                      name: true,
                                      userPhoto: true,
+                                     blocked: true,
                                  }
                              })
                      if (userData !== null) {
                          postData.user_name = userData.name
                          postData.user_photo = userData.userPhoto
+                         postData.user_blocked = userData.blocked
                          postData.comment = list[index].comment
                          postData.condition = list[index].condition
                          posts.push(postData)

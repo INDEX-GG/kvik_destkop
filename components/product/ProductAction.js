@@ -7,8 +7,10 @@ import IconMess from "../../UI/icons/IconMess";
 import Statistics from "../../components/Statistics";
 import PhoneModule from "./PhoneModule";
 import Favorits from "../../UI/Favorits";
+import { useAuth } from "../../lib/Context/AuthCTX";
 
 export default function ProductAction(data) {
+  const { id } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
   const [PhoneModuleState, setPhoneModuleState] = useState(false);
   const handleStatFormDialog = () => setOpenStatForm(!openStatForm);
@@ -16,19 +18,12 @@ export default function ProductAction(data) {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   const objP = { adstatus: 8 };
 
-
-
-
-
   
-
-
-
   return (
     <>
       {!matchesMobile && !matchesTablet && (
         <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
-          {(objP.adstatus !== 7) & (objP.adstatus !== 8) ? (
+          {(objP.adstatus !== 7) & (data.user_id === id) ? (
             <div className="SellerInfoTopButtons">
               <a className="SellerInfoStatShow underline highlight" onClick={() => setOpenStatForm(!openStatForm)}>
                 Статистика
@@ -37,7 +32,7 @@ export default function ProductAction(data) {
           ) : (
             ""
           )}
-          {objP.adstatus === 8 ? (
+          {data.user_id !== id ? (
             <div className="SellerInfoTopButtons">
               <Favorits isProduct />
               <a className="SellerInfoCompare"></a>
@@ -45,20 +40,20 @@ export default function ProductAction(data) {
           ) : (
             ""
           )}
-          {objP.adstatus === 8 ? <div className="SellerInfoDate">Размещено {ToRusDate(data.created_at)}</div> : ""}
-          {objP.adstatus !== 8 ? <span className={objP.adstatus !== 1 ? "ad__block_top__publication_date ad__posted" : "ad__block_top__publication_date"}>Размещено {ToRusDate(data.created_at)}</span> : ""}
-          {objP.adstatus === 1 ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
+          <div className={data.user_id === id  ? 'SellerInfoDate' :'SellerInfoDate_active'  }>Размещено {ToRusDate(data.created_at)}</div>
+          {/* { <span className={data.user_id === id  ? "ad__block_top__publication_date ad__posted" : "ad__block_top__publication_date"}>Размещено {ToRusDate(data.created_at)}</span> } */}
+          {data.user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
           <div className="SellerInfoOldPrice thin dark crossed">{data.oldprice == undefined ? "" : ToRubles(data.oldprice)}</div>
           <div className="SellerInfoPrice thin xxl">{ToRubles(data.price)}</div>
           {objP.adstatus !== 7 ? <div className="SellerInfoBargain dark thin">{data.trade && <p>Торг уместен</p>}</div> : ""}
-          {objP.adstatus === 8 ? (
+          {data.user_id !== id ? (
             <a className="SellerInfoMess button contained">
               <IconMess /> Написать продавцу
             </a>
           ) : (
             ""
           )}
-          {objP.adstatus === 8 ? (
+          {data.user_id !== id ? (
             <button className="SellerInfoCall button contained" onClick={() => setPhoneModuleState(!PhoneModuleState)}>
               <IconCall /> Показать номер
             </button>
@@ -78,11 +73,11 @@ export default function ProductAction(data) {
           )}
         </div>
       )}
-      {objP.adstatus === 8 && !matchesMobile && !matchesTablet && <div className="SellerInfoBuy">Купить</div>}
+      {data.user_id !== id && !matchesMobile && !matchesTablet && <div className="SellerInfoBuy">Купить</div>}
       {objP.adstatus !== 7 && !matchesMobile && !matchesTablet && (
         <div className="ad__block_middle">
-          {objP.adstatus === 1 ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""}
-          {objP.adstatus === 1 ? (
+          {data.user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""}
+          {data.user_id === id ? (
             <div className="ad__block_middle__description_service">
               <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span>
               <span className="service_days_left">Осталось 30 дней</span>
@@ -90,8 +85,8 @@ export default function ProductAction(data) {
           ) : (
             ""
           )}
-          {objP.adstatus === 1 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
-          {objP.adstatus === 1 ? <a className="ad_btn buttonGrey button">Снять с публикации</a> : ""}
+          {data.user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
+          {data.user_id === id ? <a className="ad_btn buttonGrey button">Снять с публикации</a> : ""}
           {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
           {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
           {objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}

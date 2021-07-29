@@ -11,6 +11,7 @@
     width: 48%;
     margin: 0 0 32px 0;
     height: 184px;
+    color: $tp;
 }
 
 .favorite__userPageContent {
@@ -93,8 +94,11 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-end;
+    color: $tp;
 }
-
+.favoritesUserBlock:hover .favoritesDescriptionUserName{
+    text-decoration: underline;
+}
 .favoritesNote {
     padding-right: 24px;
     text-align: right;
@@ -164,6 +168,12 @@
     justify-content: space-between;
     align-items: flex-start;
 }
+.sellersUserName {
+    color: $tp;
+}
+.sellersUserBlock:hover .sellersUserName{
+    text-decoration: underline;
+}
 
 .sellersUserBlock img {
     min-width: 32px;
@@ -181,13 +191,12 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-
     flex-wrap: wrap;
 }
 
 .sellersOffer {
     margin: 5px 9px;
-    width: 88px;
+    width: 94px;
     padding: 3px;
     display: flex;
     flex-direction: column;
@@ -195,6 +204,13 @@
     align-items: center;
     box-shadow: 0px 0px 20px #0000001a;
     border-radius: 1px;
+    color: $tp;
+    transition: all 150ms ease-in-out;
+}
+
+.sellersOffer:hover{
+    transition: all 200ms ease-in-out;
+    box-shadow: 0px 0px 30px #00000026;
 }
 
 .sellersOffer img {
@@ -280,7 +296,7 @@
 }
 
 @media (max-width: 620px) {
-    .favoritesContainer{
+    .favoritesContainer {
         height: 184px;
     }
 }
@@ -297,7 +313,7 @@
         grid-template-rows: repeat(2, 1fr);
         height: 368px;
     }
-    .sellersOffers{
+    .sellersOffers {
         justify-content: center;
     }
 

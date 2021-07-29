@@ -14,6 +14,7 @@ export default function handler(req, res) {
                     take: 50,
                     select: {
                         id: true,
+                        user_id: true,
                         category_id: true,
                         price: true,
                         old_price: true,
