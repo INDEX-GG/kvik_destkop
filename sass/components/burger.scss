@@ -28,9 +28,42 @@
     }
 }
 
-.categoryTest{
+.burgerContainer{
+    padding: 0 8px ! important;
+    & > div > div {
+        border-radius: 2px;
+    }
+}
+
+.burgerList {
+    padding-left: 37px !important;
+    height: 32px;
+    & > .MuiListItemIcon-root{
+        min-width: 32px;
+    }
+}
+
+.pl-1{
+    padding-left: 74px !important;
+}
+.pl-2{
+    padding-left: 110px !important;
+}
+
+.burgerItem > span{
     color: #2C2C2C;
     font-weight: 500;
     font-size: 14px;
     font-family: "Roboto";
+}
+
+.burgerItemActive > span {
+    color: #00A0AB
+}
+
+.burgerLink {
+    color: #00A0AB;
+    text-decoration: underline;
+    font-weight: 500;
+    font-size: 14px;
 }

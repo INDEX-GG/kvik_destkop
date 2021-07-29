@@ -152,11 +152,11 @@ const Favorites = () => {
    const [seller, setSeller] = useState(0)
    const [sellerSubBool, setSellerSubBool] = useState(null)
 
-   const { subList, isLoading } = useSubList("58")
+   const { subList, isLoading } = useSubList(id)
 
    useEffect(() => {
       setSeller(subList)
-   }, [id])
+   })
 
    async function subscribeUser(id = 58, sellerID) {
       const subscribe = {
@@ -171,6 +171,8 @@ const Favorites = () => {
          .catch(error => cosnole.log(error))
 
       axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => setSeller(data.data))
+
+      console.log(seller)
 
    }
 
