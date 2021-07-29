@@ -8,7 +8,6 @@ export default function ProductModalCarousel({ photo }) {
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeSlide , setActiveSlide] = useState([])
-  const [controlledSwiper, setControlledSwiper] = useState(null)
   
   let CarouselPag = { type: "fraction" }
   let CarouselInf = true
@@ -45,7 +44,7 @@ export default function ProductModalCarousel({ photo }) {
 
   return (
     <>
-      <Swiper className="productSliderWrapper" loop={CarouselInf} pagination={CarouselPag} navigation={true} autoHeight={true} thumbs={{ swiper: thumbsSwiper }} centeredSlides={true}>
+      <Swiper className="productSliderWrapper" thumbs={{ swiper: thumbsSwiper }} loop={CarouselInf} pagination={CarouselPag} navigation={true} autoHeight={true} centeredSlides={true}>
         {photo == undefined
           ? ""
           : JSON.parse(photo).photos.map((img, i) => (
@@ -56,7 +55,7 @@ export default function ProductModalCarousel({ photo }) {
       </Swiper>
       {SecondCarousel ? 
       (
-        <Swiper className="mySwiper productSliderNav" onSwiper={setThumbsSwiper} slidesPerView={"auto"}  slidesPerView={"auto"} freeMode={true} watchSlidesVisibility={true} >
+        <Swiper className="mySwiper productSliderNav" onSwiper={setThumbsSwiper} slidesPerView={"auto"} freeMode={true} watchSlidesVisibility={true} >
         {photo == undefined
           ? ""
           : JSON.parse(photo).photos.map((img, i) => (
