@@ -33,6 +33,7 @@ export default function handler(req, res) {
                         id: true,
                         name: true,
                         userPhoto: true,
+                        raiting: true
                     }
                 })
                 if (seller !== null) {
