@@ -25,24 +25,27 @@ const ConfirmNumber = () => {
 
     const classes = useStyles();
 	const [errorVerify, setErrorVerify] = useState({ error: true, message: 'Введите цифры' }),
-		  [buttonSubmit, setButtonSubmit] = useState(true),
-		  {openConfirmNum, setOpenConfirmNum, phoneNum, sendData} = useContext(RegistrationCTX);
+		  	{openConfirmNum, setOpenConfirmNum, phoneNum, sendData} = useContext(RegistrationCTX);
+
+	const regUser = () => {
+		axios.post('/api/setApi', sendData).then((r) => {
+			console.log(r.data)
+			if (r.data?.error) {
+				alert('Вы уже зарегестрированы') //Сделать модалку
+			} else {
+				alert('Регистрация прошла успешно') //Не тестировалось!!!
+			}
+		});
+		setOpenConfirmNum(!openConfirmNum);
+	}
 
 	const verifyNumber = (e) => {
 		if (e.target.value === String(phoneNum).slice(-4)) {
-			setButtonSubmit(false);
 			setErrorVerify({ error: false, message: 'Код совпал' });
+			regUser();
 		} else {
-			setButtonSubmit(true);
 			setErrorVerify({ error: true, message: 'Неверный код подтверждения' })
 		}
-	}
-
-	const handleSubmitNumber = (e) => {
-		e.preventDefault();
-		axios.post('/api/setApi', sendData).then((res) => console.log(res.data));
-		//Место для логики ошибок и логина
-		setOpenConfirmNum(!openConfirmNum);
 	}
 
 	return (       
@@ -50,7 +53,6 @@ const ConfirmNumber = () => {
 			<Box className={classes.submitNumber}>
 				<Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
 				<TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>
-				<Button disabled={buttonSubmit} variant='contained' color='primary' onClick={e => handleSubmitNumber(e)}>Подтвердить</Button>
 			</Box>
 		</Dialog>
 	)

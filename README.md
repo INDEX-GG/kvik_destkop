@@ -9,7 +9,6 @@
 ## Пакеты
 [Swiper](https://swiperjs.com/react) / 
 [react-hook-form](https://react-hook-form.com/api) / 
-[react-input-mask](https://www.npmjs.com/package/react-input-mask) / 
 [react-google-charts](https://react-google-charts.com/) / 
 [react-avatar-editor](https://www.npmjs.com/package/react-avatar-editor) / 
 [materialUI-icons](https://material-ui.com/components/material-icons/) / 

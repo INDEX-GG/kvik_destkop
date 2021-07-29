@@ -2,8 +2,6 @@ import {useContext, useState} from 'react';
 import {Dialog, Box, Button, makeStyles, Typography, TextField } from "@material-ui/core";
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
-import { useRouter } from "next/router";
-import { mutate } from 'swr';
 import { DialogCTX } from '../../lib/Context/DialogCTX';
 import RegForm from './RegForm';
 import { useAuth } from '../../lib/Context/AuthCTX';
@@ -36,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
 	const {signIn} = useAuth();
-    const router = useRouter();
     const classes = useStyles();
     const { handleSubmit, control, setError, setValue } = useForm();
 	const {openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm} = useContext(DialogCTX);
@@ -49,7 +46,7 @@ const Login = () => {
 					setError('phone', {type: 'validate', message: ' '})
 					setError('password', {type: 'validate', message: 'Неверный номер или пароль'})
 				} else {
-            axios.post('/api/login', { id: res.data?.idUser }).then(() => mutate('/api/user'));
+            axios.post('/api/login', { id: res.data?.idUser });
 				signIn();
             setOpenLoginForm(!openLoginForm);
 				setValueInp("");
@@ -102,6 +99,7 @@ const Login = () => {
 									<TextField label='Введите пароль'
 										variant='outlined' size='small'
 										type="password"
+										autoComplete='current-password'
 										value={value}
 										onChange={onChange}
 										error={!!error} helperText={error ? error.message : ' '} />

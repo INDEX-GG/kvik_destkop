@@ -48,48 +48,38 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const phoneMask = e => {
-	let number = e.target.value;
-	// number = number.replace(/[^0-9]/g, '');
-	// const area = number.substr(0, 3),
-	// 	pre = number.substr(3, 3),
-	// 	tel = number.substr(6, 4);
-	// if (area.length === 0) {
-	// 	number = '';
-	// } else if (area.length < 3 || pre.length === 0) {
-	// 	number = `(${area}`;
-	// } else if (area.length === 3 && pre.length < 3 || tel.length === 0) {
-	// 	number = `(${area}) ${pre}`;
-	// } else if (area.length === 3 && pre.length === 3) {
-	// 	number = `(${area}) ${pre}-${tel}`;
-	// }
-	return number;
-}
-
 export default function RegForm() {
-    const [sendData, setSendData] = useState({}),
-        [openConfirmNum, setOpenConfirmNum] = useState(false),
-        [phoneNum, setPhoneNum] = useState(),
+	const [sendData, setSendData] = useState({}),
+		[openConfirmNum, setOpenConfirmNum] = useState(false),
+		[phoneNum, setPhoneNum] = useState(),
 		{openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm} = useContext(DialogCTX);
 
-    const classes = useStyles();
-    const { handleSubmit, control, watch } = useForm();
-    const [valueInp, setValueInp] = useState("")
-    const onSubmit = data => {
-        data.phone = `+${data.phone.replace(/\D+/g, '')}`;
-        console.log(data);
-        setSendData(data);
-        axios.post('/api/checkphone', { phone: data.phone }).then((res) => {
-            // console.log(res.data)
-            setPhoneNum(res.data)
-			setOpenRegForm(!openRegForm);
-            setOpenConfirmNum(true);
-        })
-    };
+	const classes = useStyles();
+	const { handleSubmit, control, watch, setValue } = useForm();
+	const [valueInp, setValueInp] = useState("")
+	const closeRegForm = () => {
+		setValue('name', '');
+		setValue('surname', '');
+		setValue('phone', '');
+		setValue('password', '');
+		setValue('password_check', '');
+		setOpenRegForm(p => !p);
+	}
+
+	const onSubmit = data => {
+		data.phone = `+${valueInp.replace(/\D+/g, '')}`;
+		console.log(data);
+		setSendData(data);
+		axios.post('/api/checkphone', { phone: data.phone }).then((res) => {
+			setPhoneNum(res.data)
+			closeRegForm();
+			setOpenConfirmNum(true);
+		})
+	};
 
     return (
 		<>
-        <Dialog open={openRegForm} onClose={() => setOpenRegForm(!openRegForm)} fullWidth maxWidth="sm">
+        <Dialog open={openRegForm} onClose={() => closeRegForm()} fullWidth maxWidth="sm">
             <Box className={classes.root}>
                 <Box className={classes.reg}>
                     <Typography className={classes.title} variant="h6">Регистрация</Typography>
@@ -153,7 +143,7 @@ export default function RegForm() {
                                 <TextField label='Введите пароль'
                                     variant='outlined' size='small'
                                     type="password"
-                                    autoComplete="on"
+                                    autoComplete="current-password"
                                     value={value}
                                     onChange={onChange}
                                     error={!!error} helperText={error ? error.message : ' '} />
@@ -169,7 +159,7 @@ export default function RegForm() {
                                 <TextField label='Повторите пароль'
                                     variant='outlined' size='small'
                                     type="password"
-                                    autoComplete="on"
+                                    autoComplete="current-password"
                                     value={value}
                                     onChange={onChange}
                                     error={!!error} helperText={error ? error.message : ' '} />
@@ -185,7 +175,7 @@ export default function RegForm() {
                 </Typography>
                 <Link href='#'>Лицензионным соглашением</Link>
                 <Typography variant='subtitle2'>Уже есть аккаунт?</Typography>
-                <Button onClick={() => {setOpenRegForm(!openRegForm); setOpenLoginForm(!openLoginForm)}} variant='text' size='large' color='primary'>Войти</Button>
+                <Button onClick={() => {closeRegForm(); setOpenLoginForm(!openLoginForm)}} variant='text' size='large' color='primary'>Войти</Button>
             </Box>
         </Dialog>
 		<RegistrationCTX.Provider value={{openConfirmNum, setOpenConfirmNum, phoneNum, sendData}}>

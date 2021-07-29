@@ -24,7 +24,6 @@ export default function handler(req, res) {
                   raiting:true,
                   favorites:true
                }
-
             })
 
             if (user) {
@@ -32,9 +31,7 @@ export default function handler(req, res) {
             } else {
                return res.json({ isset: false });
             }
-            
          }
-       
       }
 
       main()
