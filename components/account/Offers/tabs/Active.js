@@ -90,7 +90,7 @@ function Active(data) {
   };
 
   useEffect(() => {
-    console.log(offerInfo);
+    // console.log(offerInfo);
   }, [offerInfo]);
 
 
@@ -143,7 +143,7 @@ function Active(data) {
           <div className="clientPage__container_content">
             {data.offers?.map((offer, i) => {
               return (
-                <div key={i} {...register("active")} className="offerContainer boxWrapper">
+                <a href={`/product/${offer.id}`} key={i} {...register("active")} className="offerContainer boxWrapper">
                   <div className="offerImage">
                     <div className="offerPubCheck">
 
@@ -156,12 +156,6 @@ function Active(data) {
                         onClick={checkItem(offer)}
                         value={offerInfo[offer.id]}
                       />
-
-
-                      {/* <label className="checkbox">
-                        <input type="checkbox"  {...register("id")} value={offer.id} />
-                        <div className="checkbox__text"></div>
-                      </label> */}
                     </div>
                     {JSON.parse(offer.photo)
                       ?.photos?.slice(0, 1)
@@ -204,7 +198,7 @@ function Active(data) {
                       <button className="offerButtonViews button contained">Увеличить просмотры</button>
                     </div>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>

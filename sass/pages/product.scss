@@ -7,11 +7,11 @@
     margin: auto;
 }
 
-.productUserName{
+.productUserName {
     cursor: pointer;
     transition: all 150ms ease-in-out;
 
-    &:hover{
+    &:hover {
         transition: all 150ms ease-in-out;
         text-decoration: underline;
     }
@@ -42,7 +42,7 @@
 }
 
 .productPageTitle {
-    margin: 18px 0;
+    margin-bottom: 18px;
 }
 .productPageCharacter {
     width: 100%;
@@ -83,7 +83,7 @@
 
 .SellerInfoTopButtons {
     width: 100%;
-    margin: 22px 0;
+    margin-bottom: 18px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -99,7 +99,7 @@
     border: 1px solid $tpsl;
     border-radius: 8px;
     padding: 3px 0;
-    transition: width 150ms ease-in-out, opacity 400ms ease-in-out ;
+    transition: width 150ms ease-in-out, opacity 400ms ease-in-out;
     width: 0;
     opacity: 0;
 }
@@ -114,11 +114,11 @@
     color: $tpml;
 }
 
-.main__input_note{
+.main__input_note {
     position: relative;
 }
 
-.delete__note{
+.delete__note {
     display: block;
     position: absolute;
     width: 24px;
@@ -127,9 +127,10 @@
     top: 0;
 }
 
-.delete__note::after, .delete__note::before{
+.delete__note::after,
+.delete__note::before {
     display: block;
-    content: '';
+    content: "";
     height: 12px;
     width: 2px;
     background: $primered;
@@ -138,15 +139,12 @@
     right: 14px;
 }
 
-.delete__note::after{
+.delete__note::after {
     transform: rotate(45deg);
 }
-.delete__note::before{
+.delete__note::before {
     transform: rotate(-45deg);
 }
-
-
-
 
 .SellerInfoNote {
     display: inline-block;
@@ -172,9 +170,16 @@
 
 .SellerInfoDate {
     align-self: flex-start;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     text-align: left;
     color: $tpsl;
+}
+
+.SellerInfoDate_active {
+    align-self: flex-start;
+    margin-bottom: 12px;
+    text-align: left;
+    color: $tp;
 }
 .SellerInfoPrice {
     margin: 4px 0;
@@ -194,10 +199,11 @@
     text-align: center;
     width: 100%;
     padding: 8px 0;
-    font-family:'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 14px;
 }
-.SellerInfoCall svg, .SellerInfoMess svg{
+.SellerInfoCall svg,
+.SellerInfoMess svg {
     margin-right: 8px;
 }
 .SellerInfoAboutDeal {
@@ -372,7 +378,7 @@
 }
 .productPageCharacterMapSwitch {
     background: no-repeat center right 5px url(../../icons/chevron_down_green.svg);
-    padding-right: 25px;
+    padding-right: 28px;
     transition: all 150ms ease-in-out;
 }
 .collMapSw {
@@ -457,7 +463,8 @@
     height: 400px !important;
     position: relative;
 }
-.mySwiper2 .swiper-slide img, .mySwiper .swiper-slide img  {
+.mySwiper2 .swiper-slide img,
+.mySwiper .swiper-slide img {
     object-fit: cover;
     width: 100%;
     border-radius: 2px;
@@ -495,7 +502,7 @@
     font-weight: 400;
 }
 
-.product__main_block{
+.product__main_block {
     display: flex;
 }
 
@@ -637,7 +644,7 @@
     margin-left: auto;
 }
 
-.productPageCard{
+.productPageCard {
     max-width: 968px;
     width: 100%;
 }
@@ -770,7 +777,6 @@
         background: no-repeat center center url(../../icons/note_dark.svg);
     }
 
-
     .SellerInfo__adaptive_buttons__top {
         display: flex;
         justify-content: space-between;
@@ -821,32 +827,28 @@
 }
 
 @media (max-width: 1280px) {
-    .product__main_block{
+    .product__main_block {
         justify-content: flex-start;
     }
-    .showsmthWrapper{
+    .showsmthWrapper {
         padding: 0;
     }
-
 }
 
 @media (max-width: 1279px) {
-    .productPageWrapper{
+    .productPageWrapper {
         display: block;
     }
-    .productPageDescription{
+    .productPageDescription {
         max-width: 100%;
     }
 
-    .showsmthWrapper{
+    .showsmthWrapper {
         margin: 47px 0 0 56px;
     }
-    .productPageContent{
+    .productPageContent {
         display: flex;
     }
-    
-
-    
 }
 
 @media (max-width: 1060px) {
@@ -898,26 +900,26 @@
 }
 
 @media (max-width: 959px) {
-    .SellerInfoTopButtons{
+    .SellerInfoTopButtons {
         position: absolute;
         right: 0;
         padding: 0 30px;
     }
-    .productPageDescription{
+    .productPageDescription {
         margin: 0;
     }
-    .product__main_block{
+    .product__main_block {
         display: block;
     }
     .SellerInfoOfferCard:nth-child(3n-1) {
         margin: 0 0px 10px;
     }
-    .block__my_active_ad{
+    .block__my_active_ad {
         max-width: 0;
         min-width: 100%;
     }
 
-    .count__ad{
+    .count__ad {
         color: $tpl;
     }
 }
@@ -926,7 +928,7 @@
         grid-template-columns: 100%;
         grid-column-gap: 0;
     }
-    .seen__ad{
+    .seen__ad {
         top: auto;
         bottom: 24px;
     }
@@ -943,7 +945,7 @@
 }
 
 @media (max-width: 650px) {
-    .SellerInfo__adaptive_buttons__top{
+    .SellerInfo__adaptive_buttons__top {
         display: block;
     }
 }

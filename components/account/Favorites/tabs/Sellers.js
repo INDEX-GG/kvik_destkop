@@ -4,6 +4,7 @@ import { ToRubles, ellipsis } from "../../../../lib/services";
 
 function Sellers({sellers, sellerSub}) {
 
+
   if (sellers?.message) {
     return (
       <div className="clientPage__container_bottom">
@@ -27,23 +28,23 @@ function Sellers({sellers, sellerSub}) {
             return (
               <div key={seller.id} className="sellersContainer">
                 <div className="sellersUser">
-                  <div className="sellersUserBlock">
+                  <a href={`/user/${seller.id}`} className="sellersUserBlock">
                     <img src={`${seller.userPhoto}?${seller.id}`} />
                     <div className="sellersUserInfo">
                       <div className="sellersUserName">{seller.name}</div>
                        <div className="sellersOffersCount light">{seller.poducts.length} объявлений</div>
                     </div>
-                  </div>
+                  </a>
                   <button onClick={() => sellerSub(58, seller.id)} className="buttonGrey">Отписаться</button>
                 </div>
                   <div className="sellersOffers">
                   {seller.poducts.map((offer, i) => {
                     return (
-                      <div key={i} className="sellersOffer">
+                      <a href={`/product/${offer.id}`} key={i} className="sellersOffer">
                         <img src={`${JSON.parse(offer.photo).photos[0]}?${offer.id}`} />
                         <div>{ellipsis(ToRubles(offer.price), 15)}</div>
                         <div>{ellipsis(offer.title, 10)}</div>
-                      </div>
+                      </a>
                     );
                   })}
                 </div>

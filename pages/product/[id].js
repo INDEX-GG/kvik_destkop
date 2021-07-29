@@ -18,6 +18,7 @@ import OffersRender from '../../components/OffersRender';
 import FavProvider from '../../lib/Context/FavoritesCTX';
 import BreadCrumbsProduct from '../../components/product/BreadCrumbsProduct';
 import BreadCrumbs from '../../components/header/BreadСrumbs';
+import { useAuth } from '../../lib/Context/AuthCTX';
 
 const objP = {
     id: 1,
@@ -58,6 +59,7 @@ const objP = {
 const Product = () => {
 
     const router = useRouter();
+    const {id} = useAuth();
 
     const [openStatForm, setopenStatForm] = useState(false);
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -85,7 +87,7 @@ const Product = () => {
 
 
 
-    const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
+    const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, product_id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
 
     const [userAd, setUserAd] = useState();
     useEffect(() => {
@@ -98,7 +100,7 @@ const Product = () => {
 
     let breadData = null
 
-    if (category_id != undefined) {
+    if (category_id !== undefined) {
         breadData = BreadCrumbsProduct(category_id)
     }
 
@@ -108,7 +110,7 @@ const Product = () => {
         <FavProvider>
         <div className="productPage" id="productPage">
             <div className="productPageContainer text">
-                {!matchesMobile && !matchesTablet && breadData != null && <BreadCrumbs data={breadData} product={title}/>}
+                {!matchesMobile && !matchesTablet && breadData !== null && <BreadCrumbs data={breadData} product={title}/>}
 
                 {/* Блок объявления */}
                 <div className="product__wrapper">
@@ -116,7 +118,7 @@ const Product = () => {
                         <div className="product__main_block">
                             <div className="productPageDescription">
                                 {!matchesMobile && !matchesTablet && <div className="productPageTitle xl">{title}</div>}
-                                {objP.adstatus === 8 && !matchesLaptop && !matchesDesktop && !matchesHD &&
+                                {user_id !== id && !matchesLaptop && !matchesDesktop && !matchesHD &&
                                     <div className="SellerInfoTopButtons">
                                           <Favorits isProduct />
                                     </div>}
@@ -136,10 +138,10 @@ const Product = () => {
                                     </div>
                                     <div className="SellerInfo__adaptive_info">
                                         <div className="SellerInfo__adaptive_info_top">
-                                            <div className="SellerInfoSeen dark"> {reviewed} +4</div>{objP.adstatus === 8 ? "" : <a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)} >Статистика</a>}
+                                            <div className="SellerInfoSeen dark"> {reviewed} +4</div>{user_id !== id ? "" : <a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)} >Статистика</a>}
                                         </div>
                                         <div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div>
-                                        {objP.adstatus === 1 ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ''}
+                                        {user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ''}
                                     </div></div>
                                 }
                                 {!matchesLaptop && !matchesDesktop && !matchesHD &&
@@ -147,15 +149,15 @@ const Product = () => {
                                         {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ''}
                                         {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ''}
                                         {objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ''}
-                                        {objP.adstatus === 1 ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ''}
+                                        {user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ''}
                                         <div className="ad__block_middle__description_service">
-                                            {objP.adstatus === 1 ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ''}
-                                            {objP.adstatus === 1 ? <span className="service_days_left">Осталось 30 дней</span> : ''}
+                                            {user_id === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ''}
+                                            {user_id === id ? <span className="service_days_left">Осталось 30 дней</span> : ''}
                                             <div className="SellerInfo__adaptive_buttons__top">
-                                                {objP.adstatus === 8 ? <a className="SellerInfoMess button contained"><IconMess /> Написать продавцу</a> : ''}
-                                                {objP.adstatus === 8 ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
+                                                {user_id !== id ? <a className="SellerInfoMess button contained"><IconMess /> Написать продавцу</a> : ''}
+                                                {user_id !== id ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
                                             </div>
-                                            {objP.adstatus === 1 || objP.adstatus === 8 ? <div className="SellerInfo__adaptive_information">
+                                            {user_id === id || user_id !== id ? <div className="SellerInfo__adaptive_information">
                                                 {secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
                                                 {delivery && (<div className="SellerInfoDelivery superLight">Возможна доставка</div>)}
                                             </div> : ''}
@@ -165,23 +167,23 @@ const Product = () => {
                                                 / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span></p> : ''}
                                             {objP.adstatus === 6 ? <p className="ad__last__edit">Дата последнего редактирования 00.00.00
                                                 <span>Будет удалено навсегда через 00 дней</span></p> : ''}
-                                            {objP.adstatus === 8 ? <div className="SellerInfoBuy buy_btn__adaptive">Купить</div> : ''}
+                                            {user_id !== id ? <div className="SellerInfoBuy buy_btn__adaptive">Купить</div> : ''}
                                             <div className="SellerInfo__adaptive_buttons">
                                                 {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ''}
                                                 {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn">Удалить</a> : ''}
-                                                {objP.adstatus === 1 ? <a className="ad_btn ad_btn_edit buttonGrey button btn-left">Редактировать</a> : ''}
-                                                {objP.adstatus === 1 ? <a className="ad_btn ad_btn_edit buttonGrey button">Снять с публикации</a> : ''}
+                                                {user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button btn-left">Редактировать</a> : ''}
+                                                {user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Снять с публикации</a> : ''}
                                             </div>
                                         </div>
                                     </div>
                                 }
-                                {/* адрес, карта, свойства и значения */} <ProductInformation address={address} description={description} />
+                                {/* адрес, карта, свойства и значения */} <ProductInformation user_id={user_id} address={address} description={description} />
                             </div>
                             {/* Блок информации*/}
                             <div className="block__my_active_ad" >
-                                {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+                                {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
                                 {/* пользователь и его объявления */}
-                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} id={user_id} userAd={userAd} productTitle={title} />
+                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
                             </div>
                         </div>
                         {!matchesMobile && !matchesTablet && !matchesLaptop &&
