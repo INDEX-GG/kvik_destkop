@@ -20,6 +20,7 @@ import BurgerThing from '../../UI/icons/BurgerThing';
 import BurgerBusiness from "../../UI/icons/BurgerBusiness"
 import BurgerHobby from "../../UI/icons/BurgerHobby"
 import BurgerServices from "../../UI/icons/BurgerServices"
+import Link from "next/link"
 
 const useStyles = makeStyles({
   list: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
   },
   fullList: {
     width: 'auto',
-  },
+  }
 });
 
 export default function BurgerCategories() {
@@ -37,8 +38,9 @@ export default function BurgerCategories() {
   const [state, setState] = useState({left: false});
   const [aliasArray, setAliasArray] = useState([])
   const [aliasArray2, setAliasArrayTwo] = useState([])
-  const [aliasArray3, setAliasArrayThre] = useState([])
-  const [aliasDataArray2, setAliasDataArrayTwo] = useState([])
+  const [aliasArray3, setAliasArrayThree] = useState([])
+  let aliasItemId = -1
+  let aliasItemIdTwo = -1
 
   const aliasIcon = [<BurgerRealEstate/>, <BurgerRealEstate/>, <BurgerAuto/>, <BurgerWork/> , <BurgerElectronic/>, <BurgerHome/>, <BurgerAnimal/>, <BurgerThing/>, <BurgerBusiness/>, <BurgerHobby/>, <BurgerServices/>]
 
@@ -56,19 +58,12 @@ export default function BurgerCategories() {
 
     if (aliasArray2.length == 0) {
       const arr = []
-      const dataArr = []
-      let id = 0
       
       for (let inner = 0; inner < categoryMainAlias.length; inner++) {
         for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
           arr.push(false)
-          const aliasData = categoriesByAlias(categoryMainAlias[inner].alias)[inner2]
-          const obj = {label: aliasData.label, alias: aliasData.alias, id}
-          dataArr.push(obj)
-          id++
         }
       }
-      setAliasDataArrayTwo(dataArr)
       setAliasArrayTwo(arr)
     }
 
@@ -85,8 +80,7 @@ export default function BurgerCategories() {
           }
         }
       }
-      console.log(arr)
-      setAliasArrayThre(arr)
+      setAliasArrayThree(arr)
     }
 
   })
@@ -99,32 +93,20 @@ export default function BurgerCategories() {
     }
       return item
     })
-
     setArr(newArr)
   }
 
+  function generateID(e, id, arr, setArr) {
+    if (e.target.tagName === "SPAN") {
+      id = +e.target.parentNode.getAttribute("id")
+    } else {
+      id = +e.target.childNodes[0].getAttribute("id")
+    }
+    generateArray(id, arr, setArr)                         
+  }
 
-
-  // async function createAliasArray() {
-  //    const arr = []
-  //    let id = 0
-      
-  //     for (let inner = 0; inner < categoryMainAlias.length; inner++) {
-  //       for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
-  //         const aliasData = categoriesByAlias(categoryMainAlias[inner].alias)[inner2]
-  //         const obj = {label: aliasData.label, alias: aliasData.alias, id}
-  //         arr.push(obj)
-  //         id++
-  //       }
-  //     }
-
-  //   console.log(arr)
-  // }
-
-  // createAliasArray()
-
-  if (aliasDataArray2 != undefined) {
-    console.log(aliasDataArray2)
+  function generateStr(str) {
+    return str[0].toUpperCase() + str.substring(1,)
   }
 
 
@@ -146,38 +128,56 @@ export default function BurgerCategories() {
     >
       <div className="burgerTitle" onClick={toggleDrawer("left", false)}>Категории</div>
       <Divider />
-      <List>
+      <List className="burgerContainer">
         {categoryMainAlias.map((item, index) => {
           return (
           <div>
-            <ListItem key={index + 1} button onClick={() => generateArray(index, aliasArray, setAliasArray)}>
+            <ListItem key={index + 1} className="burgerList" style={{backgroundColor: aliasArray[index] ? "#E9E9E9" : "#fff"}} button onClick={() => generateArray(index, aliasArray, setAliasArray)}>
               <ListItemIcon>
                 {aliasIcon[index]}
               </ListItemIcon>
-              <ListItemText className="categoryTest" primary={item.label[0].toUpperCase() + item.label.substring(1,)} />
+              <ListItemText className="burgerItem" primary={generateStr(item.label)} />
             </ListItem>
             <Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   {categoriesByAlias(item.alias).map((item2, index2) => {
+                    {aliasItemId += 1}
+                    if (categoriesByAlias(item.alias, item2.alias) == null) {
+                      return (
+                        <ListItem className="burgerList" onClick={toggleDrawer("left", false)}>
+                          <Link href={`/search/${item2.alias}`}><a className="burgerItem burgerLink">{item2.label}</a></Link>
+                        </ListItem>
+                      )
+                    }
                     return (
                       <>
-                        <ListItem key={index2 + 1} button onClick={() => generateArray(0, aliasArray2, setAliasArrayTwo)}>
-                          <ListItemText style={{color: "red"}} primary={item2.label[0].toUpperCase() + item2.label.substring(1,)} />
+                        <ListItem className="burgerList" key={index2 + 1} button onClick={(e) => generateID(e, aliasItemId, aliasArray2, setAliasArrayTwo)}>
+                          <ListItemText id={aliasItemId} className={`burgerItem ${aliasArray2[aliasItemId]? "burgerItemActive" : ""}`} primary={generateStr(item2.label)} />
                         </ListItem>
-                        <Collapse in={aliasArray2[index2]}>
+                        <Collapse in={aliasArray2[aliasItemId]}>
                           {categoriesByAlias(item.alias, item2.alias) == null ? null : 
                           categoriesByAlias(item.alias, item2.alias).map((item3, index3) => {
+                            {aliasItemIdTwo += 1}
+
+                            if (categoriesByAlias(item.alias, item2.alias, item3.alias) == null) {
+                               return (
+                                  <ListItem className="burgerList pl-1" onClick={toggleDrawer("left", false)}>
+                                    <Link href={`/search/${item3.alias}`}><a className="burgerItem burgerLink">{generateStr(item3.label)}</a></Link>
+                                  </ListItem>
+                                )
+                            }
+
                             return (
                              <>
-                              <ListItem key={index3 + 1} button onClick={() => generateArray(index3, aliasArray3, setAliasArrayThre)}>
-                                <ListItemText style={{color: "green"}} primary={item3.label[0].toUpperCase() + item3.label.substring(1,)} />
+                              <ListItem className="burgerList pl-1" key={index3 + 1} button onClick={(e) => generateID(e, aliasItemIdTwo, aliasArray3, setAliasArrayThree)}>
+                                <ListItemText className="burgerItem" id={aliasItemIdTwo} style={{color: "orange"}} primary={generateStr(item3.label)} />
                               </ListItem>
-                              <Collapse in={aliasArray3[index3]}>
+                              <Collapse in={aliasArray3[aliasItemIdTwo]}>
                                 {categoriesByAlias(item.alias, item2.alias, item3.alias) == null ? null :
                                   categoriesByAlias(item.alias, item2.alias, item3.alias).map((item4, index4) => {
                                     return (
-                                      <ListItem key={index4 + 1} button>
-                                        <ListItemText primary={item4.label[0].toUpperCase() + item4.label.substring(1,)} />
+                                      <ListItem className="burgerList pl-2" key={index4 + 1} onClick={toggleDrawer("left", false)}>
+                                        <Link href={`/search/${item4.alias}`}><a className="burgerItem burgerLink">{generateStr(item4.label)}</a></Link>
                                       </ListItem>
                                     )
                                   })
