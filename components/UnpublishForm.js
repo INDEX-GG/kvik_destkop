@@ -71,16 +71,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function UnpublishForm(data) {
-
-    const { idAd, filteredData } = useContext(UnpublishCTX);
-
-    console.log(filteredData)
-
+export default function UnpublishForm() {
     const classes = useStyles();
+    const { offerId } = useContext(UnpublishCTX);
+    console.log(offerId)
+
+
     return (
         <>
-            {filteredData.map((item, i) => 
+            {/* {filteredData.map((item, i) => 
                 <Box key={i}  className={classes.unpublish_form}>
                     <Box className={classes.unpublish_form__item}>
                         <CardMedia className={classes.unpublish_form__item__img} image='https://source.unsplash.com/random?interior' />
@@ -93,7 +92,7 @@ export default function UnpublishForm(data) {
                     <Button className={classes.unpublish_form__btn}>Продано в другом месте</Button>
                     <Button className={classes.unpublish_form__btn}>Другая причина</Button>
                 </Box>
-             )}
+             )} */}
         </>
     )
 }
