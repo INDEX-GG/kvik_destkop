@@ -1,5 +1,199 @@
 import React, { useState, useEffect } from "react";
 import { ToRubles, ToFullDate } from "../../../../lib/services";
+// import { useForm } from "react-hook-form";
+import { Checkbox, Button, Dialog, makeStyles } from "@material-ui/core";
+
+import UnpublishForm from "../../../UnpublishForm";
+import AddRounded from "@material-ui/icons/AddRounded";
+import Router from "next/router";
+import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+// import { func } from "prop-types";
+
+
+const useStyles = makeStyles((theme) => ({
+  check: {
+    padding: '0px',
+    background: theme.palette.secondary.main,
+    width: '14px',
+    height: '14px',
+
+    '&:hover': {
+      background: theme.palette.secondary.main,
+    },
+  },
+}));
+
+function Active(data) {
+
+  const classes = useStyles();
+
+  const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
+  const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+
+  const [qwe, setQwe] = useState()
+  const [offerId, setOfferId] = useState()
+
+  useEffect(() => {
+    setQwe(data.offers?.map((offer => { return offer.id })))
+  }, [data])
+
+  let mainArr = [];
+
+  function setCheck(e) {
+    console.log(e.target.value)
+    if (e.target.value === '' && mainArr.length === 0) {
+      console.log('добавляет все')
+      mainArr = qwe
+    } else if (e.target.value === '' && mainArr.length !== 0) {
+      console.log('удаляет все')
+      mainArr = []
+    } else if (mainArr.includes(+e.target.value)) {
+      mainArr = mainArr.filter((item) => { return item !== +e.target.value })
+    } else {
+      mainArr.push(+e.target.value)
+    }
+    console.log('после', mainArr)
+  }
+
+  function pushCheck(e) {
+    if (e.target.value === '') {
+      setOfferId(mainArr)
+    } else {
+      setOfferId(+e.target.value)
+    }
+    setOpenUnpublishForm(!openUnpublishForm)
+    handleUnpublishFormDialog()
+  }
+
+  if (data.offers.length == 0) {
+    return (
+      <div className="clientPage__placeholder-container">
+        <div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>
+        <div className="clientPage__placeholder-ads">
+          <div className="clientPage__placeholder-item">
+            <div className="clientPage__placeholder-item-1"></div>
+            <div className="clientPage__placeholder-item-2"></div>
+            <div className="clientPage__placeholder-item-3"></div>
+          </div>
+          <div className="clientPage__placeholder-item">
+            <div className="clientPage__placeholder-item-1"></div>
+            <div className="clientPage__placeholder-item-2"></div>
+            <div className="clientPage__placeholder-item-3"></div>
+          </div>
+          <div className="clientPage__placeholder-item">
+            <div className="clientPage__placeholder-item-1"></div>
+            <div className="clientPage__placeholder-item-2"></div>
+            <div className="clientPage__placeholder-item-3"></div>
+          </div>
+        </div>
+        <Button onClick={() => Router.push("/placeOffer")} className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" variant="contained" color="primary">
+          <AddRounded />
+          Подать объявление
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <UnpublishCTX.Provider value={{ mainArr, offerId }}>
+      <div className="clientPage__container_bottom">
+        <div className="clientPage__container_nav__radio">
+          <Checkbox
+            className={classes.check}
+            color='primary'
+            icon={<FiberManualRecordOutlinedIcon />}
+            checkedIcon={<FiberManualRecordSharpIcon />}
+            onChange={(e) => setCheck(e)}
+
+          />
+
+          <button onClick={(e) => pushCheck(e)}>Снять с публикации</button>
+        </div>
+        <div className="clientPage__container_content">
+          {data.offers?.map((offer, i) => {
+            return (
+              <a /* href={`/product/${offer.id}`} */ key={i} className="offerContainer boxWrapper">
+                <div className="offerImage">
+                  <div className="offerPubCheck">
+                    <Checkbox
+                      className={classes.check}
+                      color='primary'
+                      icon={<FiberManualRecordOutlinedIcon />}
+                      checkedIcon={<FiberManualRecordSharpIcon />}
+                      value={offer.id}
+
+                      onChange={(e) => setCheck(e)}
+
+                    />
+                  </div>
+                  {JSON.parse(offer.photo)
+                    ?.photos?.slice(0, 1)
+                    .map((imgs, i) => {
+                      return <img key={i} src={imgs} />;
+                    })}
+                </div>
+                <div className="offerDescription">
+                  <div className="offerDescriptionTop">
+                    <div className="offerDTLeft thin">
+                      <div>{ToRubles(offer.price)}</div>
+                      <div className="offerTitle">{offer.title}</div>
+                      <div className="offerDatPub small light DatPub__mobile">
+                        <span> Дата публикации </span>
+                        {ToFullDate(offer.created_at)}
+                      </div>
+                      <div>Осталось 30 дней</div>
+                    </div>
+                    <div className="offerDTRight">
+                      <button type="submit" className="offerEdit thin superLight editIcon">
+                        Редактировать
+                      </button>
+                      <button
+                        value={offer.id}
+                        onClick={(e) => pushCheck(e)}
+                        className="offerUnpublish thin superLight"
+                      >
+                        Снять с публикации
+                      </button>
+                      <div className="offerSocialCount">
+                        <div className="offerShowes showesIcon">0 +0</div>
+                        <div className="offerAddFavores likeIcon">0 +0</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="offerDescriptionBottom">
+                    <button className="offerButtonViews button contained">Увеличить просмотры</button>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
+        <UnpublishForm Close={handleUnpublishFormDialog} />
+      </Dialog>
+    </UnpublishCTX.Provider>
+  );
+
+}
+export default Active;
+
+
+
+
+
+
+
+
+
+
+
+
+/* import React, { useState, useEffect } from "react";
+import { ToRubles, ToFullDate } from "../../../../lib/services";
 import { useForm } from "react-hook-form";
 import { Box, Checkbox, Button, Container, Dialog, IconButton, makeStyles } from "@material-ui/core";
 
@@ -62,7 +256,7 @@ function Active(data) {
 
 
   const checkItemFull = (data) => () => {
-    let idItem = data.offers.map((offer) => 
+    let idItem = data.offers.map((offer) =>
     setOfferInfo((state) => ({
       ...state,
       [offer.id]: state[offer.id]
@@ -74,6 +268,8 @@ function Active(data) {
         }
     })))
   }
+
+
 
   const [offerInfo, setOfferInfo] = useState({});
   const checkItem = (offer) => () => {
@@ -87,10 +283,12 @@ function Active(data) {
           verify: 0,
         }
     }));
-  };
 
+
+  };
+ console.log(offerInfo);
   useEffect(() => {
-    // console.log(offerInfo);
+
   }, [offerInfo]);
 
 
@@ -146,7 +344,6 @@ function Active(data) {
                 <a href={`/product/${offer.id}`} key={i} {...register("active")} className="offerContainer boxWrapper">
                   <div className="offerImage">
                     <div className="offerPubCheck">
-
                       <Checkbox
                         className={classes.check}
                         color='primary'
@@ -213,3 +410,4 @@ function Active(data) {
 
 }
 export default Active;
+ */

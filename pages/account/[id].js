@@ -125,7 +125,7 @@ function Account() {
                 <p>подписчиков</p>
               </a>
               <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribtions">
-                { subscriptions && JSON.parse(subscriptions)?.length}
+                { subscriptions ? JSON.parse(subscriptions)?.length: '0'}
                 <p>подписок</p>
               </a>
             </div>
