@@ -16,6 +16,7 @@ import axios from 'axios';
 import {useRouter} from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
 import Loader from '../UI/icons/Loader';
+import PlaceOfferMobile from '../components/placeOffer/placeOfferMobile';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
 		// backdropFilter: 'blur(2px)',
 		zIndex: 2000,
 		backgroundColor: 'rgba(255, 255, 255, 0.85)',
-	}
+	},
+
 }));
 
 function PlaceOffer() {
@@ -108,6 +110,7 @@ function PlaceOffer() {
 		})
     }
 
+
     return (
         <MetaLayout title={'Подать объявление'}>
             {!matchesMobile && !matchesTablet && <Container className={classes.root}>
@@ -137,6 +140,8 @@ function PlaceOffer() {
                     </FormProvider>
                 </Box>
             </Container>}
+            {matchesMobile || matchesTablet ? <PlaceOfferMobile/> : null}
+
 			<Backdrop className={classes.backdrop} open={loading}>
 				<Loader size={64}/>
 			</Backdrop>

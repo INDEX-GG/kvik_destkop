@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Thumbs } from "swiper/core";
+import SwiperCore, { Navigation, Thumbs, Controller } from "swiper/core";
 
-SwiperCore.use([Navigation, Thumbs]);
+SwiperCore.use([Navigation, Thumbs, Controller]);
 
 export default function ProductModalCarousel({ photo }) {
 
