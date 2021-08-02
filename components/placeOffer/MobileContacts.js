@@ -2,8 +2,10 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { Box, Button, Collapse, makeStyles, TextField, Typography, FormControlLabel, Checkbox } from '@material-ui/core';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MenuItem } from '@material-ui/core';
+import { useUser } from '../../hooks/useUser';
+import { phoneNumber } from '../../lib/services'
 
 const useStyles = makeStyles((theme) => ({
    plaseOfferBox: {
@@ -19,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         "&:nth-of-type(1)": {
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            borderBottom: "1px solid #E9E9E9"
         },
         "&:nth-of-type(2)": {
             justifyContent: "flex-end"
@@ -83,7 +86,26 @@ export default function MobileContact() {
    const classes = useStyles();
    const methods = useFormContext();
    const [collapsed, setCollapsed] = useState(false)
-   const [phones, setPhones] = useState([])
+   const {phone, isLoading} = useUser(); 
+	const [phones, setPhones] = useState([]);
+	const [defaultVal, setDefaultVal] = useState({});
+
+   useEffect(() => {
+      setPhones([{value: phone, label: phoneNumber(phone)}]);
+   }, [phone, isLoading])
+
+   useEffect(() => {
+      if (phones.length > 0) {
+         setDefaultVal(phones[0].value);
+      }
+   }, [phones])
+
+   useEffect(() => {
+      if (defaultVal) {
+         methods.setValue('contact', defaultVal)
+      }
+   }, [defaultVal])
+
 
    return (
       <Box className={classes.plaseOfferBox}>
@@ -139,11 +161,12 @@ export default function MobileContact() {
             <Box className={classes.placeOfferMapBox}>
                <Controller
                 name="contact"
-				// defaultValue={defaultVal}
+				    defaultValue=""
                 control={methods.control}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <TextField
                         select
+                        fullWidth
                         className={classes.input}
                         variant='outlined'
                         value={value}
@@ -160,7 +183,7 @@ export default function MobileContact() {
                 rules={{ required: 'Выбирите номер для связи' }}
             />
             </Box>
-            <Button className={classes.buttonSend} color='primary' variant='contained'>Сохранить</Button>
+            <Button onClick={() => setCollapsed(!collapsed)} className={classes.buttonSend} color='primary' variant='contained'>Сохранить</Button>
          </Collapse>
       </Box>
    )

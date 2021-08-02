@@ -1,8 +1,15 @@
 import { Button, Dialog, Box, makeStyles } from "@material-ui/core"
+import { useRouter } from "next/router";
 import { useForm, FormProvider } from 'react-hook-form';
+import { useMedia } from "../../hooks/useMedia";
+import { useAuth } from "../../lib/Context/AuthCTX";
 import MobileContact from "./MobileContacts";
 import MobileLocation from "./MobileLocation";
 import MobilePrice from "./MobilePrice/MobilePrice"
+import MobileProduct from "./MobileProduct";
+import { useState } from "react";
+import axios from "axios";
+import Promotion from "./Promotion";
 
 const useStyles = makeStyles(theme => ({
     buttonSend: {
@@ -12,7 +19,11 @@ const useStyles = makeStyles(theme => ({
         maxWidth: "460px",
         margin: "32px 0px",
         height: "32px",
-        transform: "translateX(-50%)"
+        transform: "translateX(-50%)",
+    },
+    buttonContainer: {
+        padding: "0 10px",
+        position: "relative"
     },
     plaseOfferTitle: {
         textAlign: "center",
@@ -25,14 +36,6 @@ const useStyles = makeStyles(theme => ({
         color: "#8F8F8F",
         textAlign: "center"
     },
-    plaseOfferInput: {
-        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
-        width: "100%",
-        height: "48px",
-        border: "0",
-        paddingLeft: "11px",
-        marginBottom: "32px"
-    },
     plaseOfferBox: {
         width: "100%",
         padding: "0 12px",
@@ -41,33 +44,92 @@ const useStyles = makeStyles(theme => ({
     },
 })) 
 
-export default function ContentPlaseOffer({dialog}) {
-    const classes = useStyles()
+export default function ContentPlaseOffer({dialog, title, backFunc, product}) {
+    const {id} = useAuth();
+    const classes = useStyles();
+	const [loading, setLoading] = useState(false);
+    const [promotionProduct, setPromotionProduct] = useState({})
+    const [promotion, setPromotion] = useState(false)
     const methods = useForm();
+	const router = useRouter();
+    let photoes = [];
+    const photoesCtx = (obj) => {
+        return photoes = obj;
+    }
 
+    const onSubmit = data => {
+        data.price = data.price.replace(/\D+/g, '');
+		const alias = [...title.split(",")]
+
+        const sendData = new FormData;
+		const photoData = new FormData;
+        data.alias1 = alias[0]
+        data.alias2 = alias[1]
+        if (alias.length > 2) {
+            data.alias3 = alias[2]
+            if (alias.length > 3) {
+                data.alias4 = alias[3]
+            }
+        }
+        sendData.append('user_id', id);
+        sendData.append('title', data.title);
+		sendData.append('alias', alias);
+        sendData.append('description', data.description);
+        sendData.append('price', data.price);
+        sendData.append('trade', data.trade);
+        sendData.append('safedeal', data.safedeal);
+        sendData.append('delivery', data.delivery);
+        sendData.append('address', data.location);
+        sendData.append('byphone', data.byphone);
+        sendData.append('bymessage', data.bymessages);
+        if (photoes.length > 1) {
+            photoes.forEach(photo => photoData.append('files[]', photo));
+        } else if (photoes.length === 1) {
+            photoData.append('files[]', photoes[0]);
+        }
+		setLoading(true);
+        axios.post('/api/setPosts', sendData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(r => {
+			axios.post(`http://192.168.8.111:6001/post/${r?.data?.id}`, photoData, {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			}).then(() => {
+                setPromotionProduct({title: data.title, price: data.price, id: r?.data?.id})
+                setPromotion(true)
+            })
+		})
+    }
+
+    console.log(product)
     return(
+        promotion ? (
+            <Promotion product={promotionProduct}/>
+        ) : 
         <Dialog open={dialog} fullScreen={true}>
                 <div className="modal__wrapper_md accountContainer">
                     <div className="modal__block__top accountTop">
                         <>
-                            <div className="accountArrowLeft"></div>
+                            <div onClick={() => backFunc()} className="accountArrowLeft"></div>
                             <div className={classes.plaseOfferTitle}>
                                 <h6 className="modal__block__top_title">Новое объявление</h6>
                                 <div className={classes.plaseOfferSubTitle}>2/2</div>
                             </div>
                         </>
-                        <Box>
+                        <Box className={classes.plaseOfferContent}>
                             <FormProvider {...methods}>
-                                <form>
-                                    <Box>
-                                        <input placeholder="Введите название товара" type="text" className={classes.plaseOfferInput}/>
-                                        <div>PHOTO</div>
-                                        <input placeholder="Введите описание товара (до 4 000 символов)" type="text" className={classes.plaseOfferInput}/>
-                                    </Box>
+                                <form onSubmit={methods.handleSubmit(onSubmit)}>
+                                    <MobileProduct ctx={photoesCtx}/>
                                     <MobilePrice/>
                                     <MobileLocation/>
                                     <MobileContact/>
-                                    <Button className={classes.buttonSend} color='primary' variant='contained'>Продолжить</Button>
+                                    <div className={classes.buttonContainer}>
+                                        <Button className={classes.buttonSend} color='primary'
+                                        type="submit" variant='contained'>Продолжить</Button>
+                                    </div>
                                 </form>
                             </FormProvider>
                         </Box>
