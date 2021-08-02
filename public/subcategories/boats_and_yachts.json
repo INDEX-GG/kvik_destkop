@@ -1,1 +1,1 @@
-{"boats-and-yachts": ["{'alias': 'mark', 'name': 'Производитель', 'fields': 'NULL'}", "{'alias': 'model', 'name': 'Модель', 'fields': 'NULL'}", "{'alias': 'type', 'name': 'Тип', 'fields': ['Катер', 'Яхта']}"]}
+{"boats_and_yachts": ["{'alias': 'mark', 'name': 'Производитель', 'fields': 'NULL'}", "{'alias': 'model', 'name': 'Модель', 'fields': 'NULL'}", "{'alias': 'type', 'name': 'Тип', 'fields': ['Катер', 'Яхта']}"]}
