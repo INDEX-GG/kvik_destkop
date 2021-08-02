@@ -363,8 +363,8 @@ model districts{
 
 }
 
-model atvs-and-buggy{
-  post_id                                           String?
+model atvs_and_buggy {
+  post_id                                           Int @unique
   manufacturer                                      String?
   model                                             String?
   year                                              String?
@@ -374,8 +374,8 @@ model atvs-and-buggy{
   engine_type                                       String?
 }
 
-model atvs-kvadro{
-  post_id                                           String?
+model atvs_kvadro {
+  post_id                                           Int @unique
   manufacturer                                      String?
   model                                             String?
   year                                              String?
@@ -385,8 +385,8 @@ model atvs-kvadro{
   power                                             String?
 }
 
-model atvs{
-  post_id                                           String?
+model atvs {
+  post_id                                           Int @unique
   vine                                              String?
   type_park                                         String?
   brand                                             String?
@@ -402,8 +402,8 @@ model atvs{
   power                                             String?
 }
 
-model auto{
-  post_id                                           String?
+model auto {
+  post_id                                           Int @unique
   type_park                                         String?
   vine                                              String?
   mileage                                           String?
@@ -435,20 +435,20 @@ model auto{
   car_model                                         String?
 }
 
-model bicycles{
-  post_id                                           String?
+model bicycles {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model boats-and-yachts{
-  post_id                                           String?
+model boats_and_yachts {
+  post_id                                           Int @unique
   mark                                              String?
   model                                             String?
   type                                              String?
 }
 
-model buses{
-  post_id                                           String?
+model buses {
+  post_id                                           Int @unique
   type_park                                         String?
   condition                                         String?
   wheel_formula                                     String?
@@ -468,30 +468,30 @@ model buses{
   bus_type                                          String?
 }
 
-model car-goods{
-  post_id                                           String?
+model car_goods {
+  post_id                                           Int @unique
   type                                              String?
 }
 
-model cats{
-  post_id                                           String?
+model cats {
+  post_id                                           Int @unique
   breed                                             String?
 }
 
-model chargers-power-supplies{
-  post_id                                           String?
+model chargers_power_supplies {
+  post_id                                           Int @unique
   manufacturer                                      String?
   power                                             String?
   certification                                     String?
 }
 
-model climatic-equipment{
-  post_id                                           String?
+model climatic_equipment {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model construction-machinery{
-  post_id                                           String?
+model construction_machinery {
+  post_id                                           Int @unique
   type_park                                         String?
   documents                                         String?
   condition                                         String?
@@ -505,18 +505,18 @@ model construction-machinery{
   model                                             String?
 }
 
-model controllers-adapters-modules-for-servers{
-  post_id                                           String?
+model controllers_adapters_modules_for_servers {
+  post_id                                           Int @unique
   type                                              String?
 }
 
-model cooking-food{
-  post_id                                           String?
+model cooking_food {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model desktop-computers{
-  post_id                                           String?
+model desktop_computers {
+  post_id                                           Int @unique
   certification                                     String?
   the_presence_of_a_discrete_video_card             String?
   graphics_card_manufacturer                        String?
@@ -535,13 +535,13 @@ model desktop-computers{
   processor                                         String?
 }
 
-model dogs{
-  post_id                                           String?
+model dogs {
+  post_id                                           Int @unique
   breed                                             String?
 }
 
-model electronic-books{
-  post_id                                           String?
+model electronic_books {
+  post_id                                           Int @unique
   manufacturer                                      String?
   display_diagonal                                  String?
   display_resolution                                String?
@@ -550,33 +550,33 @@ model electronic-books{
   builtin_memory                                    String?
 }
 
-model flash-drive{
-  post_id                                           String?
+model flash_drive {
+  post_id                                           Int @unique
   volume                                            String?
 }
 
-model food-storage{
-  post_id                                           String?
+model food_storage {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model for-home{
-  post_id                                           String?
+model for_home {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model for-kitchen{
-  post_id                                           String?
+model for_kitchen {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model for-personalized-care{
-  post_id                                           String?
+model for_personalized_care {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model garage{
-  post_id                                           String?
+model garage {
+  post_id                                           Int @unique
   geopos                                            String?
   communications                                    String?
   infrastructure                                    String?
@@ -587,8 +587,8 @@ model garage{
   additionally                                      String?
 }
 
-model garageabroad{
-  post_id                                           String?
+model garageabroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   material                                          String?
@@ -599,19 +599,19 @@ model garageabroad{
   type_sale                                         String?
 }
 
-model goods-for-children-toys{
-  post_id                                           String?
+model goods_for_children_toys {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model hdd{
-  post_id                                           String?
+model hdd {
+  post_id                                           Int @unique
   volume                                            String?
   form_factor                                       String?
 }
 
-model house-on-wheels{
-  post_id                                           String?
+model house_on_wheels {
+  post_id                                           Int @unique
   vine                                              String?
   type_park                                         String?
   documents                                         String?
@@ -623,25 +623,25 @@ model house-on-wheels{
   power                                             String?
 }
 
-model household-goods{
-  post_id                                           String?
+model household_goods {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model housings-corp{
-  post_id                                           String?
+model housings_corp {
+  post_id                                           Int @unique
   form_factor                                       String?
   backlight_housing                                 String?
 }
 
-model jet-skis{
-  post_id                                           String?
+model jet_skis {
+  post_id                                           Int @unique
   brand                                             String?
   model                                             String?
 }
 
-model karting{
-  post_id                                           String?
+model karting {
+  post_id                                           Int @unique
   manufacturer                                      String?
   model                                             String?
   year                                              String?
@@ -651,8 +651,8 @@ model karting{
   power                                             String?
 }
 
-model laptops{
-  post_id                                           String?
+model laptops {
+  post_id                                           Int @unique
   model_name                                        String?
   manufacturer                                      String?
   type                                              String?
@@ -669,19 +669,19 @@ model laptops{
   display_resolution                                String?
 }
 
-model memory-card{
-  post_id                                           String?
+model memory_card {
+  post_id                                           Int @unique
   volume                                            String?
 }
 
-model monitors{
-  post_id                                           String?
+model monitors {
+  post_id                                           Int @unique
   diagonal                                          String?
   connectors                                        String?
 }
 
-model mopeds-and-scooters{
-  post_id                                           String?
+model mopeds_and_scooters {
+  post_id                                           Int @unique
   manufacturer                                      String?
   model                                             String?
   year                                              String?
@@ -691,8 +691,8 @@ model mopeds-and-scooters{
   power                                             String?
 }
 
-model motherboards-perif{
-  post_id                                           String?
+model motherboards_perif {
+  post_id                                           Int @unique
   manufacturer                                      String?
   number_of_memory_slots                            String?
   form_factor                                       String?
@@ -702,8 +702,8 @@ model motherboards-perif{
   chipset                                           String?
 }
 
-model motor-boats{
-  post_id                                           String?
+model motor_boats {
+  post_id                                           Int @unique
   type_park                                         String?
   engine_type                                       String?
   fuel_type                                         String?
@@ -717,14 +717,14 @@ model motor-boats{
   model                                             String?
 }
 
-model parts-and-accessories{
-  post_id                                           String?
+model motorcycles_parts_and_accessories {
+  post_id                                           Int @unique
   condition                                         String?
   product_availability                              String?
 }
 
-model motorcycles{
-  post_id                                           String?
+model motorcycles {
+  post_id                                           Int @unique
   owners_of_pts                                     String?
   type_park                                         String?
   vine                                              String?
@@ -740,8 +740,8 @@ model motorcycles{
   engine_type                                       String?
 }
 
-model new-building-abroad{
-  post_id                                           String?
+model new_building_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   deadline                                          String?
   owner                                             String?
@@ -761,8 +761,8 @@ model new-building-abroad{
   infrastructure                                    String?
 }
 
-model new-building{
-  post_id                                           String?
+model new_building {
+  post_id                                           Int @unique
   finishing                                         String?
   room_number                                       String?
   series_home                                       String?
@@ -782,13 +782,13 @@ model new-building{
   deadline                                          String?
 }
 
-model other-comp{
-  post_id                                           String?
+model other_comp {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model parkingplace{
-  post_id                                           String?
+model parkingplace {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   type_park                                         String?
@@ -800,8 +800,8 @@ model parkingplace{
   type_sale                                         String?
 }
 
-model parkingplaceabroad{
-  post_id                                           String?
+model parkingplaceabroad {
+  post_id                                           Int @unique
   additionally                                      String?
   geopos                                            String?
   owner                                             String?
@@ -813,41 +813,41 @@ model parkingplaceabroad{
   type_law                                          String?
 }
 
-model parts-and-accessories{
-  post_id                                           String?
+model parts_and_accessories {
+  post_id                                           Int @unique
   condition                                         String?
   product_availability                              String?
 }
 
-model personal-computer-accessories{
-  post_id                                           String?
+model personal_computer_accessories {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model plants-and-seeds{
-  post_id                                           String?
+model plants_and_seeds {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model bicycles{
-  post_id                                           String?
+model processors_cat {
+  post_id                                           Int @unique
   processor_family                                  String?
 }
 
-model ram-for-servers{
-  post_id                                           String?
+model ram_for_servers {
+  post_id                                           Int @unique
   type                                              String?
 }
 
-model ram{
-  post_id                                           String?
+model ram {
+  post_id                                           Int @unique
   appointment                                       String?
   ram_type                                          String?
   volume                                            String?
 }
 
-model rent-apartments-abroad{
-  post_id                                           String?
+model rent_apartments_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   lease_term                                        String?
@@ -872,8 +872,8 @@ model rent-apartments-abroad{
   prepayment                                        String?
 }
 
-model rent-apartments{
-  post_id                                           String?
+model rent_apartments {
+  post_id                                           Int @unique
   geopos                                            String?
   lease_term                                        String?
   accommodations                                    String?
@@ -898,8 +898,8 @@ model rent-apartments{
   series_home                                       String?
 }
 
-model rent-building-abroad{
-  post_id                                           String?
+model rent_building_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -925,8 +925,8 @@ model rent-building-abroad{
   possible_appointment                              String?
 }
 
-model rent-building{
-  post_id                                           String?
+model rent_building {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -952,8 +952,8 @@ model rent-building{
   possible_appointment                              String?
 }
 
-model rent-commercial-premises-abroad{
-  post_id                                           String?
+model rent_commercial_premises_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -979,8 +979,8 @@ model rent-commercial-premises-abroad{
   infrastructure                                    String?
 }
 
-model rent-commercial-premises{
-  post_id                                           String?
+model rent_commercial_premises {
+  post_id                                           Int @unique
   owner                                             String?
   class                                             String?
   building_type                                     String?
@@ -1006,8 +1006,8 @@ model rent-commercial-premises{
   geopos                                            String?
 }
 
-model rent-free-premises-abroad{
-  post_id                                           String?
+model rent_free_premises_abroad {
+  post_id                                           Int @unique
   parking                                           String?
   build_year                                        String?
   additionally                                      String?
@@ -1032,8 +1032,8 @@ model rent-free-premises-abroad{
   infrastructure                                    String?
 }
 
-model rent-free-premises{
-  post_id                                           String?
+model rent_free_premises {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   entrance                                          String?
@@ -1058,8 +1058,8 @@ model rent-free-premises{
   possible_appointment                              String?
 }
 
-model rent-houses-and-cottages-abroad{
-  post_id                                           String?
+model rent_houses_and_cottages_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   house_type                                        String?
@@ -1090,8 +1090,8 @@ model rent-houses-and-cottages-abroad{
   prepayment                                        String?
 }
 
-model rent-houses-and-cottages{
-  post_id                                           String?
+model rent_houses_and_cottages {
+  post_id                                           Int @unique
   heating                                           String?
   geopos                                            String?
   owner                                             String?
@@ -1122,8 +1122,8 @@ model rent-houses-and-cottages{
   communal_payments                                 String?
 }
 
-model rent-of-boats-and-yachts{
-  post_id                                           String?
+model rent_of_boats_and_yachts {
+  post_id                                           Int @unique
   person_capacity                                   String?
   hour_rental_cost                                  String?
   speeds                                            String?
@@ -1132,8 +1132,8 @@ model rent-of-boats-and-yachts{
   model                                             String?
 }
 
-model rent-office-space-abroad{
-  post_id                                           String?
+model rent_office_space_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1161,8 +1161,8 @@ model rent-office-space-abroad{
   infrastructure                                    String?
 }
 
-model rent-office-space{
-  post_id                                           String?
+model rent_office_space {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1190,8 +1190,8 @@ model rent-office-space{
   infrastructure                                    String?
 }
 
-model rent-production-room-abroad{
-  post_id                                           String?
+model rent_production_room_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1217,8 +1217,8 @@ model rent-production-room-abroad{
   building_type                                     String?
 }
 
-model rent-production-room{
-  post_id                                           String?
+model rent_production_room {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1244,8 +1244,8 @@ model rent-production-room{
   infrastructure                                    String?
 }
 
-model rent-rooms{
-  post_id                                           String?
+model rent_rooms {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   lease_term                                        String?
@@ -1270,8 +1270,8 @@ model rent-rooms{
   series_home                                       String?
 }
 
-model rent-warehouse-space-abroad{
-  post_id                                           String?
+model rent_warehouse_space_abroad {
+  post_id                                           Int @unique
   floor_home                                        String?
   geopos                                            String?
   owner                                             String?
@@ -1297,8 +1297,8 @@ model rent-warehouse-space-abroad{
   infrastructure                                    String?
 }
 
-model rent-warehouse-space{
-  post_id                                           String?
+model rent_warehouse_space {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1324,8 +1324,8 @@ model rent-warehouse-space{
   building_type                                     String?
 }
 
-model secondary-housing-abroad{
-  post_id                                           String?
+model secondary_housing_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   ceiling_height                                    String?
@@ -1347,8 +1347,8 @@ model secondary-housing-abroad{
   infrastructure                                    String?
 }
 
-model secondary-housing{
-  post_id                                           String?
+model secondary_housing {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   series_home                                       String?
@@ -1370,8 +1370,8 @@ model secondary-housing{
   tenure                                            String?
 }
 
-model sell-agriculturalland{
-  post_id                                           String?
+model sell_agriculturalland {
+  post_id                                           Int @unique
   geopos                                            String?
   area                                              String?
   road                                              String?
@@ -1384,8 +1384,8 @@ model sell-agriculturalland{
   owner                                             String?
 }
 
-model sell-building-abroad{
-  post_id                                           String?
+model sell_building_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1407,8 +1407,8 @@ model sell-building-abroad{
   possible_appointment                              String?
 }
 
-model sell-building{
-  post_id                                           String?
+model sell_building {
+  post_id                                           Int @unique
   floor_home                                        String?
   entrance                                          String?
   ceiling_height                                    String?
@@ -1430,8 +1430,8 @@ model sell-building{
   possible_appointment                              String?
 }
 
-model sell-commercial-premises-abroad{
-  post_id                                           String?
+model sell_commercial_premises_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   floor                                             String?
@@ -1453,8 +1453,8 @@ model sell-commercial-premises-abroad{
   building_type                                     String?
 }
 
-model sell-commercial-premises{
-  post_id                                           String?
+model sell_commercial_premises {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1476,8 +1476,8 @@ model sell-commercial-premises{
   infrastructure                                    String?
 }
 
-model sell-commercialland{
-  post_id                                           String?
+model sell_commercialland {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   area                                              String?
@@ -1490,8 +1490,8 @@ model sell-commercialland{
   type_sale                                         String?
 }
 
-model sell-free-premises-abroad{
-  post_id                                           String?
+model sell_free_premises_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   building_type                                     String?
@@ -1512,8 +1512,8 @@ model sell-free-premises-abroad{
   possible_appointment                              String?
 }
 
-model sell-free-premises{
-  post_id                                           String?
+model sell_free_premises {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   building_type                                     String?
@@ -1534,8 +1534,8 @@ model sell-free-premises{
   possible_appointment                              String?
 }
 
-model sell-houses-and-cottages-abroad{
-  post_id                                           String?
+model sell_houses_and_cottages_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   house_type                                        String?
@@ -1559,8 +1559,8 @@ model sell-houses-and-cottages-abroad{
   sale_type                                         String?
 }
 
-model sell-houses-and-cottages{
-  post_id                                           String?
+model sell_houses_and_cottages {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   house_type                                        String?
@@ -1584,8 +1584,8 @@ model sell-houses-and-cottages{
   sale_type                                         String?
 }
 
-model sell-izhs{
-  post_id                                           String?
+model sell_izhs {
+  post_id                                           Int @unique
   road                                              String?
   distance_to_city                                  String?
   project_availability                              String?
@@ -1598,8 +1598,8 @@ model sell-izhs{
   owner                                             String?
 }
 
-model sell-office-space {
-  post_id                                           String?
+model sell_office_space  {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1623,8 +1623,8 @@ model sell-office-space {
   building_type                                     String?
 }
 
-model sell-office-space-abroad{
-  post_id                                           String?
+model sell_office_space_abroad {
+  post_id                                           Int @unique
   furniture                                         String?
   geopos                                            String?
   owner                                             String?
@@ -1648,8 +1648,8 @@ model sell-office-space-abroad{
   building_type                                     String?
 }
 
-model sell-production-room-abroad{
-  post_id                                           String?
+model sell_production_room_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1671,8 +1671,8 @@ model sell-production-room-abroad{
   building_type                                     String?
 }
 
-model sell-production-room{
-  post_id                                           String?
+model sell_production_room {
+  post_id                                           Int @unique
   owner                                             String?
   class                                             String?
   area                                              String?
@@ -1694,8 +1694,8 @@ model sell-production-room{
   building_type                                     String?
 }
 
-model sell-rooms{
-  post_id                                           String?
+model sell_rooms {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   room_count                                        String?
@@ -1717,8 +1717,8 @@ model sell-rooms{
   infrastructure                                    String?
 }
 
-model sell-snt{
-  post_id                                           String?
+model sell_snt {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   area                                              String?
@@ -1730,8 +1730,8 @@ model sell-snt{
   type_sale                                         String?
 }
 
-model sell-warehouse-space-abroad{
-  post_id                                           String?
+model sell_warehouse_space_abroad {
+  post_id                                           Int @unique
   geopos                                            String?
   owner                                             String?
   class                                             String?
@@ -1753,8 +1753,8 @@ model sell-warehouse-space-abroad{
   floor_home                                        String?
 }
 
-model sell-warehouse-space{
-  post_id                                           String?
+model sell_warehouse_space {
+  post_id                                           Int @unique
   floor_home                                        String?
   geopos                                            String?
   owner                                             String?
@@ -1776,28 +1776,28 @@ model sell-warehouse-space{
   infrastructure                                    String?
 }
 
-model server-enclosures{
-  post_id                                           String?
+model server_enclosures {
+  post_id                                           Int @unique
   type                                              String?
 }
 
-model server-hard-drive{
-  post_id                                           String?
+model server_hard_drive {
+  post_id                                           Int @unique
   type                                              String?
 }
 
-model server-motherboards{
-  post_id                                           String?
+model server_motherboards {
+  post_id                                           Int @unique
   type                                              String?
 }
 
-model servers{
-  post_id                                           String?
+model servers {
+  post_id                                           Int @unique
   type                                              String?
 }
 
-model smart-watches-and-fitness-bracelets{
-  post_id                                           String?
+model smart_watches_and_fitness_bracelets {
+  post_id                                           Int @unique
   choosing_a_gadget                                 String?
   manufacturer                                      String?
   sim_exist                                         String?
@@ -1806,8 +1806,8 @@ model smart-watches-and-fitness-bracelets{
   materials_edit                                    String?
 }
 
-model smartphones{
-  post_id                                           String?
+model smartphones {
+  post_id                                           Int @unique
   manufacturer                                      String?
   cpu                                               String?
   ram_size                                          String?
@@ -1831,8 +1831,8 @@ model smartphones{
   features_of_the                                   String?
 }
 
-model snowmobiles{
-  post_id                                           String?
+model snowmobiles {
+  post_id                                           Int @unique
   manufacturer                                      String?
   model                                             String?
   year                                              String?
@@ -1842,13 +1842,13 @@ model snowmobiles{
   power                                             String?
 }
 
-model steering-wheels-gamepads-joysticks{
-  post_id                                           String?
+model steering_wheels_gamepads_joysticks {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model summary{
-  post_id                                           String?
+model summary {
+  post_id                                           Int @unique
   position                                          String?
   floor                                             String?
   age                                               String?
@@ -1860,13 +1860,13 @@ model summary{
   special                                           String?
 }
 
-model table-setting{
-  post_id                                           String?
+model table_setting {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model tablets{
-  post_id                                           String?
+model tablets {
+  post_id                                           Int @unique
   manufacturer                                      String?
   cpu                                               String?
   ram_size                                          String?
@@ -1885,16 +1885,16 @@ model tablets{
   features_of_the                                   String?
 }
 
-model telephones{
-  post_id                                           String?
+model telephones {
+  post_id                                           Int @unique
   manufacturer                                      String?
   form_factor                                       String?
   number_of_sim_cards                               String?
   features_of_the                                   String?
 }
 
-model tires{
-  post_id                                           String?
+model tires {
+  post_id                                           Int @unique
   appointment                                       String?
   number_of_tires                                   String?
   product_condition                                 String?
@@ -1909,8 +1909,8 @@ model tires{
   profile_height                                    String?
 }
 
-model tractors-and-agricultural-machinery{
-  post_id                                           String?
+model tractors_and_agricultural_machinery {
+  post_id                                           Int @unique
   vine                                              String?
   brand                                             String?
   model                                             String?
@@ -1922,8 +1922,8 @@ model tractors-and-agricultural-machinery{
   type_park                                         String?
 }
 
-model trailers{
-  post_id                                           String?
+model trailers {
+  post_id                                           Int @unique
   brake_type                                        String?
   mark                                              String?
   model                                             String?
@@ -1936,8 +1936,8 @@ model trailers{
   trailer_type                                      String?
 }
 
-model trucks{
-  post_id                                           String?
+model trucks {
+  post_id                                           Int @unique
   vine                                              String?
   type_park                                         String?
   documents                                         String?
@@ -1958,8 +1958,8 @@ model trucks{
   body_type                                         String?
 }
 
-model vacancies{
-  post_id                                           String?
+model vacancies {
+  post_id                                           Int @unique
   vacancy_title                                     String?
   work_experience                                   String?
   wage                                              String?
@@ -1967,20 +1967,20 @@ model vacancies{
   special                                           String?
 }
 
-model video-cards-componentsss{
-  post_id                                           String?
+model video_cards_componentsss {
+  post_id                                           Int @unique
   graphics_card_manufacturer                        String?
   chip_manufacturer                                 String?
   video_memory_size                                 String?
 }
 
-model video-surveillance{
-  post_id                                           String?
+model video_surveillance {
+  post_id                                           Int @unique
   type_park                                         String?
 }
 
-model wheels{
-  post_id                                           String?
+model wheels {
+  post_id                                           Int @unique
   disc_model                                        String?
   disc_type                                         String?
   number_of_discs_included                          String?
