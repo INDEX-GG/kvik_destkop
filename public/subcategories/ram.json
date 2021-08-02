@@ -1,0 +1,1 @@
+{"ram": ["{'alias': 'appointment', 'name': 'Назначение', 'fields': ['Для компьютеров(DIMM)', 'Для ноутбуков(SODIMM)', 'Для серверов']}", "{'alias': 'ram_type', 'name': 'Тип оперативной памяти', 'fields': ['DDR2', 'DDR3', 'DDR3L', 'DDR4']}", "{'alias': 'volume', 'name': 'Объем', 'fields': ['2 Гб', '4 Гб', '8 Гб', '16 Гб', '32 ГБ']}"]}
