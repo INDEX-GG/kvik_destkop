@@ -67,6 +67,7 @@ export default function ContentPlaseOffer({dialog}) {
                                     <MobilePrice/>
                                     <MobileLocation/>
                                     <MobileContact/>
+                                    <Button className={classes.buttonSend} color='primary' variant='contained'>Продолжить</Button>
                                 </form>
                             </FormProvider>
                         </Box>

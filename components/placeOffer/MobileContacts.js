@@ -1,6 +1,9 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, Button, Collapse, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Collapse, makeStyles, TextField, Typography, FormControlLabel, Checkbox } from '@material-ui/core';
+import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
+import Filledicon from '@material-ui/icons/Brightness1';
 import { useState } from 'react';
+import { MenuItem } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
    plaseOfferBox: {
@@ -14,8 +17,13 @@ const useStyles = makeStyles((theme) => ({
         height: "48px",
         padding: "12px 0",
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
+        "&:nth-of-type(1)": {
+            justifyContent: "space-between"
+        },
+        "&:nth-of-type(2)": {
+            justifyContent: "flex-end"
+        }
     },
    plaseOfferMore: {
       color: "#00A0AB",
@@ -82,6 +90,50 @@ export default function MobileContact() {
          <Box className={classes.plaseOfferBoxItem}>
             <Typography className={classes.plaseOfferTitle}>Контакты</Typography>
             <div className={`${classes.plaseOfferMore} ${collapsed ? classes.placeOfferMoreActive : ""}`} onClick={() => setCollapsed(!collapsed)}>+7 (000) 000 - 00 - 00</div>
+         </Box>
+         <Box className={classes.plaseOfferBoxItem}>
+             <Controller
+                    name='bymessages'
+                    control={methods.control}
+                    defaultValue={false}
+                    render={({ field: { onChange, value }}) => (
+                        <FormControlLabel
+                        className={classes.label}
+                        control={
+                           <Checkbox
+                                 className={classes.check}
+                                 color='primary'
+                                 icon={<OutlinedIcon/>}
+                                 checkedIcon={<Filledicon/>}
+                                 checked={value}
+                                 onChange={(e) => onChange(e.target.checked)}
+                           />}
+                        label="Сообщения"
+                    />
+                    )}
+                    rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выбирите способ для обратной связи' : null }}
+                />
+                <Controller
+                    name='byphone'
+                    control={methods.control}
+                    defaultValue={false}
+                    render={({ field: { onChange, value }}) => (
+                        <FormControlLabel
+                        className={classes.label}
+                        control={
+                           <Checkbox
+                                 className={classes.check}
+                                 color='primary'
+                                 icon={<OutlinedIcon/>}
+                                 checkedIcon={<Filledicon/>}
+                                 checked={value}
+                                 onChange={(e) => onChange(e.target.checked)}
+                           />}
+                        label="Телефон"
+                    />
+                    )}
+                    rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выбирите способ для обратной связи' : null }}
+                />
          </Box>
          <Collapse in={collapsed}>
             <Box className={classes.placeOfferMapBox}>
