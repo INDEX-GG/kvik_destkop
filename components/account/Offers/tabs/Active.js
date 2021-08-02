@@ -50,6 +50,8 @@ function Active(data) {
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 
   const [qwe, setQwe] = useState()
+
+
   const [offerId, setOfferId] = useState()
 
   useEffect(() => {
@@ -59,8 +61,8 @@ function Active(data) {
   let mainArr = [];
 
   function setCheck(e) {
-    console.log(e)
-    console.log(event.target.checked)
+    // console.log(e)
+    // console.log(event.target.checked)
     if (e.target.value === '' && mainArr.length === 0) {
       console.log('добавляет все')
       mainArr = qwe
@@ -85,10 +87,15 @@ function Active(data) {
     handleUnpublishFormDialog()
   }
 
+
+
   function fullSetCheck(e) {
-    console.log(checkF.current.childNodes[0].childNodes[0].target)
-    console.log(checkF.current.childNodes[0].childNodes[0].target)
+    console.log(checkF)
+    console.log(checkF.current.childNodes[0].childNodes[0])
   }
+
+
+
 
   if (data.offers.length == 0) {
     return (
