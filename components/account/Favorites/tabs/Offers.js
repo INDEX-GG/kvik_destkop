@@ -5,7 +5,17 @@ import { useFavorits } from "../../../../lib/Context/FavoritesCTX";
 import { useAuth } from '../../../../lib/Context/AuthCTX';
 import axios from "axios";
 
+
+
+
+
+
+
 function Offers(data) {
+  
+
+
+
   const { id } = useAuth();
   const { userFav, setQuery } = useFavorits()
 

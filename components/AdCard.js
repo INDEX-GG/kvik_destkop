@@ -67,9 +67,9 @@ function AdCard_component({ offer }) {
   }
 
 
-  if (JSON.parse(offer?.photo).photos.length == 1) {
+ /*  if (JSON.parse(offer?.photo).photos.length == 1) {
     pagination = false
-  }
+  } */
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   //   const myLoader = ({src, width, quality}) => `${src}`;
