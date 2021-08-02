@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ToRubles, ToFullDate } from "../../../../lib/services";
 // import { useForm } from "react-hook-form";
 import { Checkbox, Button, Dialog, makeStyles } from "@material-ui/core";
@@ -23,11 +23,28 @@ const useStyles = makeStyles((theme) => ({
       background: theme.palette.secondary.main,
     },
   },
+  btn__unpublish: {
+    marginLeft: '12px',
+    background: 'none',
+    color: theme.palette.grey[200],
+    cursor: 'pointer',
+    transition: 'all 200ms ease-in-out',
+
+    '&:hover': {
+      transition: 'all 200ms ease-in-out',
+      textDecoration: 'underline',
+    },
+  }
 }));
+
+
+
+
 
 function Active(data) {
 
   const classes = useStyles();
+  const checkF = useRef()
 
   const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
@@ -42,7 +59,8 @@ function Active(data) {
   let mainArr = [];
 
   function setCheck(e) {
-    console.log(e.target.value)
+    console.log(e)
+    console.log(event.target.checked)
     if (e.target.value === '' && mainArr.length === 0) {
       console.log('добавляет все')
       mainArr = qwe
@@ -61,10 +79,15 @@ function Active(data) {
     if (e.target.value === '') {
       setOfferId(mainArr)
     } else {
-      setOfferId(+e.target.value)
+      setOfferId([+e.target.value])
     }
     setOpenUnpublishForm(!openUnpublishForm)
     handleUnpublishFormDialog()
+  }
+
+  function fullSetCheck(e) {
+    console.log(checkF.current.childNodes[0].childNodes[0].target)
+    console.log(checkF.current.childNodes[0].childNodes[0].target)
   }
 
   if (data.offers.length == 0) {
@@ -97,7 +120,7 @@ function Active(data) {
   }
 
   return (
-    <UnpublishCTX.Provider value={{ mainArr, offerId }}>
+    <UnpublishCTX.Provider value={{ offerId, data }}>
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_nav__radio">
           <Checkbox
@@ -105,11 +128,11 @@ function Active(data) {
             color='primary'
             icon={<FiberManualRecordOutlinedIcon />}
             checkedIcon={<FiberManualRecordSharpIcon />}
-            onChange={(e) => setCheck(e)}
+            onChange={(e) => { setCheck(e); fullSetCheck(e) }}
 
           />
 
-          <button onClick={(e) => pushCheck(e)}>Снять с публикации</button>
+          <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>Снять с публикации</button>
         </div>
         <div className="clientPage__container_content">
           {data.offers?.map((offer, i) => {
@@ -123,16 +146,14 @@ function Active(data) {
                       icon={<FiberManualRecordOutlinedIcon />}
                       checkedIcon={<FiberManualRecordSharpIcon />}
                       value={offer.id}
-
+                      ref={checkF}
                       onChange={(e) => setCheck(e)}
 
                     />
                   </div>
-                  {JSON.parse(offer.photo)
-                    ?.photos?.slice(0, 1)
-                    .map((imgs, i) => {
-                      return <img key={i} src={imgs} />;
-                    })}
+                  {JSON.parse(offer.photo)?.photos?.slice(0, 1).map((imgs, i) => {
+                    return <img key={i} src={imgs} />;
+                  })}
                 </div>
                 <div className="offerDescription">
                   <div className="offerDescriptionTop">

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Typography, Button, Container, Dialog, Box, CardMedia, makeStyles } from "@material-ui/core";
 import { UnpublishCTX } from '../lib/Context/DialogCTX';
 import { ToRubles, ToFullDate } from "../lib/services";
@@ -70,29 +70,51 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 export default function UnpublishForm() {
     const classes = useStyles();
-    const { offerId } = useContext(UnpublishCTX);
-    console.log(offerId)
+    const { offerId, data } = useContext(UnpublishCTX);
 
 
-    return (
-        <>
-            {/* {filteredData.map((item, i) => 
-                <Box key={i}  className={classes.unpublish_form}>
-                    <Box className={classes.unpublish_form__item}>
-                        <CardMedia className={classes.unpublish_form__item__img} image='https://source.unsplash.com/random?interior' />
-                        <Typography className={classes.unpublish_form__item__price}>{ToRubles(item.price)}</Typography>
-                        <Typography className={classes.unpublish_form__item__title}>{item.title}</Typography>
+    function PushBDVerify(e) {
+        var arr = { 'id': [offerId], 'verify': `${e.target.parentElement.id}` }
+        console.log(arr)
+    }
+
+
+    
+    if (offerId.length === 1) {
+        const offerAction = data.offers.filter((item) => item.id === +offerId.join())
+        return (
+            <>
+                {offerAction.map((item, i) =>
+                    <Box key={i} className={classes.unpublish_form}>
+                        <Box className={classes.unpublish_form__item}>
+                            {JSON.parse(item.photo)?.photos?.slice(0, 1).map((imgs, i) => {
+                                return <CardMedia className={classes.unpublish_form__item__img} key={i} image={imgs} />
+                            })}
+                            <Typography className={classes.unpublish_form__item__price}>{ToRubles(item.price)}</Typography>
+                            <Typography className={classes.unpublish_form__item__title}>{item.title}</Typography>
+                        </Box>
+                        <Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
+                        <Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
+                        <Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано на Kvik</Button>
+                        <Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано в другом месте</Button>
+                        <Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Другая причина</Button>
                     </Box>
+                )}
+            </>
+        )
+    } else {
+        return (
+            <>
+                <Box className={classes.unpublish_form}>
                     <Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
                     <Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
-                    <Button className={classes.unpublish_form__btn}>Продано на Kvik</Button>
-                    <Button className={classes.unpublish_form__btn}>Продано в другом месте</Button>
-                    <Button className={classes.unpublish_form__btn}>Другая причина</Button>
+                    <Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано на Kvik</Button>
+                    <Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано в другом месте</Button>
+                    <Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Другая причина</Button>
                 </Box>
-             )} */}
-        </>
-    )
+            </>
+        )
+    }
 }
