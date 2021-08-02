@@ -1,1 +1,1 @@
-{"steering-wheels-gamepads-joysticks": ["{'alias': 'type_park', 'name': 'Тип', 'fields': ['Рули', 'Геймпады', 'Джойстики']}"]}
+{"steering_wheels_gamepads_joysticks": ["{'alias': 'type_park', 'name': 'Тип', 'fields': ['Рули', 'Геймпады', 'Джойстики']}"]}
