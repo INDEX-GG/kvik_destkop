@@ -23,7 +23,7 @@ export default function handler(req, res) {
                   email:true,
                   raiting:true,
                   favorites:true,
-                  subscriptions: true
+                  subscriptions: true,
                }
             })
 

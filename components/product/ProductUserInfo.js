@@ -58,8 +58,9 @@ export default function ProductUserInfo(data) {
               {data.user_id === id || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ? (
                 matchesLaptop || matchesDesktop || matchesHD ? (
                   <>
-                    <span className="count__ad" onClick={() => router.push(`/user/${data.user_id}`)}>
-                      {data.userAd == undefined ? "" : data.userAd.length} объявлений</span>
+
+                    <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>
+
                     <a className="SellerInfoloarmore"></a>
                   </>
                 ) : ("")) : ("")}
@@ -76,9 +77,9 @@ export default function ProductUserInfo(data) {
           {!matchesLaptop && !matchesDesktop && !matchesHD ? (
             <>
               {" "}
-              <span className="count__ad" onClick={() => router.push(`/user/${data.user_id}`)}>
-                {data.userAd == undefined ? "" : data.userAd.length} объявлений</span>
-              <a className="SellerInfoloarmore"></a>
+
+              <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span> <a className="SellerInfoloarmore"></a>
+
             </>
           ) : (
             ""
@@ -136,7 +137,7 @@ export default function ProductUserInfo(data) {
               pathname: `/user/${data.user_id}`
             })}
               /* onClick={(e) => { handleCollapse(e)}} */>
-              {console.log(userSmallAd)}
+      
               {(collapsed && `Все объявления продавца (${userSmallAd == undefined ? "0" : data.userAd.length})`) || `Скрыть`}
             </a>
           ) : (

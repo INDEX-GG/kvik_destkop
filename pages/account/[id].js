@@ -22,6 +22,8 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { useMutate } from "../../lib/Context/MutateCTX";
 
 
+import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
+
 const userInfo = {
   userId: 1,
   userPic: "",
@@ -143,7 +145,7 @@ function Account() {
             </a>
           </div>
         </div>
-        <div className="clientPage__container">{(menuItem.i === 1 && <Offers router={router} />) || (menuItem.i === 2 && <Deals />) || (menuItem.i === 3 && <Wallet />) || (menuItem.i === 4 && <Favorites router={router.query.id}/>) || (menuItem.i === 5 && <Notifications />) || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}</div>
+        <div className="clientPage__container">{(menuItem.i === 1 && <OfferAccountProvider> <Offers router={router} /> </OfferAccountProvider>) || (menuItem.i === 2 && <Deals />) || (menuItem.i === 3 && <Wallet />) || (menuItem.i === 4 && <Favorites router={router.query.id}/>) || (menuItem.i === 5 && <Notifications />) || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}</div>
       </div>
       <div className="userPageWhiteSpace"></div>
       <Dialog open={openPicUpload} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">

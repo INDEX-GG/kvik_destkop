@@ -7,8 +7,10 @@ import UnpublishForm from "../../../UnpublishForm";
 import AddRounded from "@material-ui/icons/AddRounded";
 import Router from "next/router";
 import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
+
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+// import { useFavorits } from "../../../../lib/Context/FavoritesCTX";
 // import { func } from "prop-types";
 
 
@@ -43,9 +45,13 @@ const useStyles = makeStyles((theme) => ({
 
 function Active(data) {
 
-  const classes = useStyles();
-  const checkF = useRef()
 
+
+
+
+  const classes = useStyles();
+
+  const checkF = useRef()
   const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 
@@ -61,8 +67,6 @@ function Active(data) {
   let mainArr = [];
 
   function setCheck(e) {
-    // console.log(e)
-    // console.log(event.target.checked)
     if (e.target.value === '' && mainArr.length === 0) {
       console.log('добавляет все')
       mainArr = qwe
@@ -74,9 +78,17 @@ function Active(data) {
     } else {
       mainArr.push(+e.target.value)
     }
-    console.log('после', mainArr)
+
+    setMainArr()
   }
 
+  function setMainArr() {
+    console.log('после ==============>', mainArr)
+  }
+
+
+
+  /* Модальное окно */
   function pushCheck(e) {
     if (e.target.value === '') {
       setOfferId(mainArr)
@@ -86,16 +98,6 @@ function Active(data) {
     setOpenUnpublishForm(!openUnpublishForm)
     handleUnpublishFormDialog()
   }
-
-
-
-  function fullSetCheck(e) {
-    console.log(checkF)
-    console.log(checkF.current.childNodes[0].childNodes[0])
-  }
-
-
-
 
   if (data.offers.length == 0) {
     return (
@@ -127,24 +129,23 @@ function Active(data) {
   }
 
   return (
-    <UnpublishCTX.Provider value={{ offerId, data }}>
+    <UnpublishCTX.Provider value={{ offerId, data, openUnpublishForm, setOpenUnpublishForm }}>
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_nav__radio">
           <Checkbox
             className={classes.check}
             color='primary'
+            value=''
             icon={<FiberManualRecordOutlinedIcon />}
             checkedIcon={<FiberManualRecordSharpIcon />}
-            onChange={(e) => { setCheck(e); fullSetCheck(e) }}
-
+            onChange={(e) => { setCheck(e); }}
           />
-
           <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>Снять с публикации</button>
         </div>
         <div className="clientPage__container_content">
           {data.offers?.map((offer, i) => {
             return (
-              <a /* href={`/product/${offer.id}`} */ key={i} className="offerContainer boxWrapper">
+              <a href={`/product/${offer.id}`} key={i} className="offerContainer boxWrapper">
                 <div className="offerImage">
                   <div className="offerPubCheck">
                     <Checkbox
@@ -155,7 +156,7 @@ function Active(data) {
                       value={offer.id}
                       ref={checkF}
                       onChange={(e) => setCheck(e)}
-
+                    // checked={qqq}
                     />
                   </div>
                   {JSON.parse(offer.photo)?.photos?.slice(0, 1).map((imgs, i) => {
@@ -177,17 +178,21 @@ function Active(data) {
                       <button type="submit" className="offerEdit thin editIcon offerSocialAction">
                         Редактировать
                       </button>
-                      <button
-                        value={offer.id}
-                        onClick={(e) => pushCheck(e)}
-                        className="offerUnpublish thin offerSocialAction"
-                      >
-                        Снять с публикации
-                      </button>
-                      <div className="offerSocialCount offerSocialCountPos offerSocialCountPosActive">
-                      <div className="offerShowes showesIcon">0 +0</div>
-                      <div className="offerAddFavores likeIcon">0 +0</div>
-                    </div>
+
+                      <a href = "javascript:void(0);">
+                        <button
+                          value={offer.id}
+                          onClick={(e) => pushCheck(e)}
+                          className="offerUnpublish thin superLight"
+                        >
+                          Снять с публикации
+                        </button>
+                      </a>
+                      <div className="offerSocialCount">
+                        <div className="offerShowes showesIcon">0 +0</div>
+                        <div className="offerAddFavores likeIcon">0 +0</div>
+                      </div>
+
                     </div>
                   </div>
                   <div className="offerDescriptionBottom">
@@ -200,9 +205,14 @@ function Active(data) {
         </div>
       </div>
 
-      <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
+
+    
+      <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth='md'>
         <UnpublishForm Close={handleUnpublishFormDialog} />
-      </Dialog>
+        </Dialog>
+      
+
+
     </UnpublishCTX.Provider>
   );
 
