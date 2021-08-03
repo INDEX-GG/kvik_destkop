@@ -233,6 +233,8 @@ export default function Promotion({product}) {
         setFree(false)
     }
 
+    console.log(product)
+
     const classes = useStyles()
     return (
         <>
@@ -279,7 +281,8 @@ export default function Promotion({product}) {
             <Dialog open={productModal} onClose={() => setProductModal(!productModal)}>
                 <div className={classes.productContainer}>
                     <div className={classes.productCard}>
-                        <img src="https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300" className={classes.productImg} alt="product photo"/>
+                        {/* !!!!!!!!!! Change */}
+                        <img src={`http://192.168.8.111:6001/static/posts/${product.id}/post(1).webp?${product.id}`} className={classes.productImg} alt="product photo"/>
                         <div className={classes.productPrice}>{product.price} ₽</div>
                         <div className={classes.productName}>{product.title}</div>
                     </div>
