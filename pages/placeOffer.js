@@ -58,6 +58,7 @@ function PlaceOffer() {
 	const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false)
     const [product, setProduct] = useState({})
+    const [photo, setPhoto] = useState(null)
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
 	const router = useRouter();
@@ -110,8 +111,8 @@ function PlaceOffer() {
 				}
 			}).then(() => {
                 console.log(r?.data?.id, photoData)
-                setProduct({title: data.title, price: data.price, id: r?.data?.id})
-                console.log(photoData)
+                setProduct({title: data.title, price: data.price, id: r?.data?.id, photo: photoes[0].name})
+                console.log(product)
                 setPromotion(true)
             })
 		})
