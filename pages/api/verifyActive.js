@@ -8,7 +8,7 @@ export default function handler(req, res) {
             const verify = "'" + req.body.verify + "'"
 
 
-            await prisma.$queryRaw(`UPDATE posts SET verify = ${verify} WHERE ID IN (${id})`)
+            await prisma.$queryRaw(`UPDATE posts SET active = ${verify} WHERE ID IN (${id})`)
             res.json({ message: 'successfully update' })
         }
         main()
