@@ -1,10 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, TextField, Checkbox, FormControlLabel, makeStyles } from "@material-ui/core"
+import { Box, InputBase, Checkbox, FormControlLabel, makeStyles, TextField } from "@material-ui/core"
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import MobileSafeDeal from './MobileSafeDeal';
 import MobileDelivery from './MobileDelivery';
-
+import { cursorReplace, priceFormat } from '../../../lib/priceFormat';
 const useStyles = makeStyles(theme => ({
     plaseOfferBox: {
         width: "100%",
@@ -27,7 +27,8 @@ const useStyles = makeStyles(theme => ({
         color: "#5A5A5A"
     },
     plaseOfferPriceInput: {
-        border: "0",
+        paddingTop: "25px",
+        width: "60px"
     },
     plaseOfferAuction: {
         justifyContent: "flex-end"
@@ -56,7 +57,10 @@ export default function MobilePrice() {
                                 value={value}
                                 onKeyDown={e => cursorReplace(e)}
                                 onChange={e => onChange(priceFormat(e))}
-                                error={!!error} helperText={error ? error.message : ' '} />
+                                error={!!error} helperText={error ? error.message : ' '}
+                                InputProps={{
+                                    disableUnderline: true
+                                }} />
                         )}
                         rules={{ required: `Введите цену ${methods.watch('title')}`, max: 10 }}
                     />

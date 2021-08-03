@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         padding: "12px 0",
         display: "flex",
         justifyContent: "space-between",
+        flexWrap: "wrap",
         alignItems: "center",
     },
    plaseOfferMore: {
@@ -75,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#C7C7C7",
       fontSize: "12px",
       position: "absolute",
-      top: "40px"
+      top: "55px"
    },
    buttonSend: {
         position: "absolut",
@@ -108,6 +109,7 @@ export default function MobileLocation() {
                   defaultValue=''
                   render={({ field: { onChange, value }, fieldState: { error } }) => (
                      <TextField
+                        placeholder="Введите город, улицу, дом"
                         variant='outlined'
                         type="text"
                         fullWidth
@@ -121,7 +123,7 @@ export default function MobileLocation() {
                <p className={classes.placeOfferMapDesc}>Введите название и выберете из списка населенный пункт и улицу</p>
                <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe>
             </Box>
-            <Button className={classes.buttonSend} color='primary' variant='contained'>Сохранить</Button>
+            <Button onClick={() => setCollapsed(!collapsed)} className={classes.buttonSend} color='primary' variant='contained'>Сохранить</Button>
          </Collapse>
       </Box>
    )
