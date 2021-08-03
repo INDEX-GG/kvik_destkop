@@ -71,7 +71,7 @@ function AdCard_component({ offer }) {
   return (
 
     <div className={offer.commercial === 2 ? "card card__lg" : "card"}>
-      <div className={offer.commercial !== 0 ? "card__wrapper card__wrapper-yellow" : "card__wrapper"}>
+      <div className={"card__wrapper"}>
         <div className={"card__top " + archived}>
           {offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
           <Link href={`/product/${offer.id}`}>

@@ -130,6 +130,9 @@
     .walletStoryContainer{
         margin: 8px 12px;
     }
+    .walletBonusSum div:last-child{
+        padding-right: 0;
+    }
 }
 
 @media (max-width: 750px) {

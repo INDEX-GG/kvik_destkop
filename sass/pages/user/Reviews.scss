@@ -177,4 +177,22 @@
         grid-template-rows: repeat(2, 1fr);
         height: 368px;
     }
+    .reviewPadding{
+        padding: 8px 12px;
+    }
+    .reviewContainer > *:first-child{
+        flex-wrap: wrap;
+    }
+    .reviewContainer > *:nth-child(2){
+        margin: 7px 0 16px;
+    }
+    .reviewsLeftRaiting{
+        & > *:first-child {
+            display: none;
+        }
+        & > .rating{
+            margin-top: 5px;
+            margin-left: 0px !important;
+        }
+    }
 }

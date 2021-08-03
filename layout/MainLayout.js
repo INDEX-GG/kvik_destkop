@@ -28,8 +28,8 @@ const MainLayout = ({ children}) => {
         {matchesTablet && <HeaderMobile chageMenu={true} />}
         {matchesMobile && <HeaderMobile />}
         <>{children}</>
-        {router.pathname == "/" ? matchesTablet || matchesMobile ? <Footer/> : null : <Footer/>}
       </div>
+      {router.pathname == "/" ? matchesTablet || matchesMobile ? <Footer/> : null : <Footer/>}
     </>
   );
   //.makeStyles-root-114

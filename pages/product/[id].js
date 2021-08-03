@@ -19,6 +19,7 @@ import FavProvider from '../../lib/Context/FavoritesCTX';
 import BreadCrumbsProduct from '../../components/product/BreadCrumbsProduct';
 import BreadCrumbs from '../../components/header/BreadСrumbs';
 import { useAuth } from '../../lib/Context/AuthCTX';
+import PhoneModule from '../../components/product/PhoneModule';
 
 const objP = {
     id: 1,
@@ -90,6 +91,7 @@ const Product = () => {
     const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, product_id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
 
     const [userAd, setUserAd] = useState();
+    const [phoneModal, setPhoneModal] = useState()
     useEffect(() => {
         axios.post('/api/getProductOfUser', { user_id: user_id })
             .then((res) => setUserAd(res.data.result))
@@ -155,7 +157,7 @@ const Product = () => {
                                             {user_id === id ? <span className="service_days_left">Осталось 30 дней</span> : ''}
                                             <div className="SellerInfo__adaptive_buttons__top">
                                                 {user_id !== id ? <a className="SellerInfoMess button contained"><IconMess /> Написать продавцу</a> : ''}
-                                                {user_id !== id ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
+                                                {user_id !== id ? <a className="SellerInfoCall button contained" onClick={() => setPhoneModal(!phoneModal)}><IconCall /> Показать номер</a> : ''}
                                             </div>
                                             {user_id === id || user_id !== id ? <div className="SellerInfo__adaptive_information">
                                                 {secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
@@ -231,10 +233,10 @@ const Product = () => {
             </div>
             <div className="productPageWhiteSpace"></div>
             <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth='sm'> <Statistics Close={handleStatFormDialog} /> </Dialog>
+            <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
         </div >
         </FavProvider >
 		</MetaLayout>
-
     )
 }
 

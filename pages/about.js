@@ -1,7 +1,11 @@
+import { useMedia } from "../hooks/useMedia";
 import MetaLayout from "../layout/MetaLayout";
 import ActiveIcon from '../UI/icons/ActiveIcon';
 
 function About() {
+
+  const {matchesMobile} = useMedia()
+
   return (
     <div className="about">
       <MetaLayout title={'Информация о компании'}>
@@ -36,10 +40,10 @@ function About() {
           <br />
           <div className="text2">
             {" "}
-            <ActiveIcon /> до 600 объявлений для малого и среднего бизнеса.{" "}
+            {matchesMobile ? null : <ActiveIcon />} <span>до 600 объявлений для малого и среднего бизнеса.</span>{" "}
           </div>
           <br />
-          <div className="text2" alt=''>  <ActiveIcon />до 200 объявлений для частных лиц </div>
+          <div className="text2" alt=''>  {matchesMobile ? null : <ActiveIcon />} <span>до 200 объявлений для частных лиц</span></div>
           <br />
           <div className="text1">
             {" "}
@@ -54,7 +58,7 @@ function About() {
           <br />
           <div className="text2">
             {" "}
-            Сайт 1kvik.ru – это удобный и эффективный инструмент для бизнеса.
+            <span className="webInfo">Сайт 1kvik.ru</span> – это удобный и эффективный инструмент для бизнеса.
             Подавайте объявления и находите новых клиентов бесплатно!
           </div>
           <br />

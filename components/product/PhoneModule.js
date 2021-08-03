@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar, makeStyles } from "@material-ui/core";
 import StarRating from "../StarRating";
 import Active_icon from "../../UI/icons/ActiveIcon";
 import Router from "next/router";
 import { useProduct } from "../../hooks/useProduct";
-import {useUser} from "../../hooks/useUser"
+import { useOutherUser } from "../../hooks/useOutherUser"
+import { Dialog } from "@material-ui/core";
 
-export default function PhoneModule() {
-  const { name, userPhoto, raiting, isLoading } = useProduct(Router);
-  const {phone} = useUser()
-  console.log(useUser())
+export default function PhoneModule({dialog, setDialog}) {
+
+
+  const [infoSeller, setInfoSeller] = useState({})
+  const { name, userPhoto, raiting, user_id, isLoading } = useProduct(Router);
+  const {sellerPhone} = useOutherUser(user_id)
+
+  // useEffect(() => {
+  //   setInfoSeller({name: name, userPhoto, raiting, user_id, sellerPhone})
+  //   console.log(infoSeller.length)
+  //   console.log(infoSeller)
+  //   console.log("2")
+  // })
 
   const useStyles = makeStyles(() => ({
     modalNumber: {
@@ -69,42 +79,44 @@ export default function PhoneModule() {
   }));
   const classes = useStyles();
   return (
-    <div className={classes.modalNumber}>
-      <div className={classes.userProfile}>
-        {isLoading || (
-          <Avatar alt="User" className={classes.small} src={userPhoto}>
-            {name}
-          </Avatar>
-        )}
-        <div className={classes.userInf}>
-          <div className={classes.userName}>{name}</div>
-          <div className={classes.userStar}>
-            <div className={classes.numberStar}>{(raiting + "").split("").splice(0, 4).join("")}</div>
-            <StarRating rating={raiting} />
+    <Dialog open={dialog} onClose={() => setDialog(!dialog)} fullWidth maxWidth="sm">
+      <div className={classes.modalNumber}>
+        <div className={classes.userProfile}>
+          {isLoading || (
+            <Avatar alt="User" className={classes.small} src={userPhoto}>
+              {name}
+            </Avatar>
+          )}
+          <div className={classes.userInf}>
+            <div className={classes.userName}>{name}</div>
+            <div className={classes.userStar}>
+              {raiting == null ? null : <div className={classes.numberStar}>{(raiting + "").split("").splice(0, 4).join("")}</div>}
+              <StarRating rating={raiting} />
+            </div>
           </div>
         </div>
+        <h2 className={classes.userPhone}>{sellerPhone || "Не указан"}</h2>
+        <p className={classes.userMessage}>Сообщите продавцу, что это объявление Вы нашли с помощью KVIK</p>
+        <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
+        <ul className={classes.warningBlock}>
+          <li className={classes.warningItem}>
+            <Active_icon Size={12} Color="#5A5A5A" />
+            &nbsp;Никому не сообщайте платежные данные
+          </li>
+          <li className={classes.warningItem}>
+            <Active_icon Size={12} Color="#5A5A5A" />
+            &nbsp;Храните в тайне персональные данные
+          </li>
+          <li className={classes.warningItem}>
+            <Active_icon Size={12} Color="#5A5A5A" />
+            &nbsp;Не переходите по незнакомым ссылкам
+          </li>
+          <li className={classes.warningItem}>
+            <Active_icon Size={12} Color="#5A5A5A" />
+            &nbsp;Не переходите в другие мессенджеры
+          </li>
+        </ul>
       </div>
-      <h2 className={classes.userPhone}>{phone || "Не указан"}</h2>
-      <p className={classes.userMessage}>Сообщите продавцу, что это объявление Вы нашли с помощью KVIK</p>
-      <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
-      <ul className={classes.warningBlock}>
-        <li className={classes.warningItem}>
-          <Active_icon Size={12} Color="#5A5A5A" />
-          &nbsp;Никому не сообщайте платежные данные
-        </li>
-        <li className={classes.warningItem}>
-          <Active_icon Size={12} Color="#5A5A5A" />
-          &nbsp;Храните в тайне персональные данные
-        </li>
-        <li className={classes.warningItem}>
-          <Active_icon Size={12} Color="#5A5A5A" />
-          &nbsp;Не переходите по незнакомым ссылкам
-        </li>
-        <li className={classes.warningItem}>
-          <Active_icon Size={12} Color="#5A5A5A" />
-          &nbsp;Не переходите в другие мессенджеры
-        </li>
-      </ul>
-    </div>
+    </Dialog>
   );
 }

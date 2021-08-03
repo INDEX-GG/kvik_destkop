@@ -6,6 +6,7 @@ import { DialogCTX } from '../../lib/Context/DialogCTX';
 import RegForm from './RegForm';
 import { useAuth } from '../../lib/Context/AuthCTX';
 import PhoneMask from '../../lib/phoneMask';
+import { useMedia } from "../../hooks/useMedia"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         marginBottom: theme.spacing(4),
     },
+	modalContainer: {
+		textAlign: "center",
+        padding: "16px 0px 27px",
+        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+        marginBottom: "24px"
+	}
 }));
 
 const Login = () => {
@@ -37,6 +44,7 @@ const Login = () => {
     const classes = useStyles();
     const { handleSubmit, control, setError, setValue } = useForm();
 	const {openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm} = useContext(DialogCTX);
+	const {matchesMobile} = useMedia()
     const onSubmit = data => {
         data.phone = `+${data.phone.replace(/\D+/g, '')}`;
         console.log(data);
@@ -60,7 +68,8 @@ const Login = () => {
     return (
 		<>
 			<Dialog 
-				open={openLoginForm} 
+				open={openLoginForm}
+				fullScreen={matchesMobile ? true : false} 
 				onClose={() => {
 					setValueInp('');
 					setValue('password', '');
@@ -68,9 +77,19 @@ const Login = () => {
 
 				}} 
 				fullWidth maxWidth="sm">
+
+				{matchesMobile ? 
+				<div className="modal__block__top accountTop">
+                        <>
+                            <div onClick={() => setOpenLoginForm(!openLoginForm)} className="accountArrowLeft"></div>
+                            <div className={classes.modalContainer}>
+                                <h6 className="modal__block__top_title">Вход</h6>
+                            </div>
+                        </>
+				</div> : null}
 				<Box className={classes.root}>
 					<Box className={classes.reg}>
-						<Typography className={classes.title} variant="h6">Вход</Typography>
+						{matchesMobile ? null : <Typography className={classes.title} variant="h6">Вход</Typography>}
 						<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 							<Controller
 								name="phone"

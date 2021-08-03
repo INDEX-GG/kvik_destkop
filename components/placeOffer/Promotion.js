@@ -163,11 +163,12 @@ const useStyles = makeStyles(theme => ({
         color: "#00A0AB",
         fontWeight :"500",
         textDecoration: "underline",
-        margin: "0 60px 24px"
+        marginBottom: "24px",
     },
     productPublished: {
         fontSize: "18px",
         fontWeight: "500",
+        margin: "0 20px",
         color: "#2C2C2C",
         textAlign: "center",
         marginBottom: "24px"

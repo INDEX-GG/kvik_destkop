@@ -30,17 +30,16 @@ export default function ProductUserInfo(data) {
     localStorage.setItem("Query", router.query.id)
   })
 
-
   return (
     <>
       <div className="ad__block_bottom">
         <div className="SellerInfoUserBlock">
           <Avatar alt="User" src={data.userPhoto} className="SellerInfoUserPic" onClick={() => {
-            router.push(`/user/${data.id}`)
+            router.push(`/user/${data.user_id}`)
           }} />
           <div>
             <div className='productUserName' onClick={() => {
-              router.push(`/user/${data.id}`)
+              router.push(`/user/${data.user_id}`)
             }}> {data.name} </div>
             <div>
               <div className="SellerInfoRateNumber">{objP.userrate} </div>
@@ -59,7 +58,8 @@ export default function ProductUserInfo(data) {
               {data.user_id === id || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ? (
                 matchesLaptop || matchesDesktop || matchesHD ? (
                   <>
-                    <span className="count__ad">{data.userAd == undefined ? "" : data.userAd.length} объявлений</span>
+                    <span className="count__ad" onClick={() => router.push(`/user/${data.user_id}`)}>
+                      {data.userAd == undefined ? "" : data.userAd.length} объявлений</span>
                     <a className="SellerInfoloarmore"></a>
                   </>
                 ) : ("")) : ("")}
@@ -76,7 +76,9 @@ export default function ProductUserInfo(data) {
           {!matchesLaptop && !matchesDesktop && !matchesHD ? (
             <>
               {" "}
-              <span className="count__ad">{data.userAd == undefined ? "" : data.userAd.length} объявлений</span> <a className="SellerInfoloarmore"></a>
+              <span className="count__ad" onClick={() => router.push(`/user/${data.user_id}`)}>
+                {data.userAd == undefined ? "" : data.userAd.length} объявлений</span>
+              <a className="SellerInfoloarmore"></a>
             </>
           ) : (
             ""
@@ -131,7 +133,7 @@ export default function ProductUserInfo(data) {
         ) : data.user_id != id ? (
           !matchesMobile && !matchesTablet ? (
             <a className="SellerInfoUserOffersCollapse highlight underline" target="_blank" onClick={() => router.push({
-              pathname: `/user/${data.id}`
+              pathname: `/user/${data.user_id}`
             })}
               /* onClick={(e) => { handleCollapse(e)}} */>
               {console.log(userSmallAd)}

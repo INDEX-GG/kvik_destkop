@@ -12,7 +12,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 export default function ProductAction(data) {
   const { id } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
-  const [PhoneModuleState, setPhoneModuleState] = useState(false);
+  const [phoneModuleState, setPhoneModuleState] = useState(false);
   const handleStatFormDialog = () => setOpenStatForm(!openStatForm);
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -54,7 +54,7 @@ export default function ProductAction(data) {
             ""
           )}
           {data.user_id !== id ? (
-            <button className="SellerInfoCall button contained" onClick={() => setPhoneModuleState(!PhoneModuleState)}>
+            <button className="SellerInfoCall button contained" onClick={() => setPhoneModuleState(!phoneModuleState)}>
               <IconCall /> Показать номер
             </button>
           ) : (
@@ -114,9 +114,7 @@ export default function ProductAction(data) {
         <Statistics Close={handleStatFormDialog} />
       </Dialog>
       {/*  */}
-      <Dialog open={PhoneModuleState} onClose={() => setPhoneModuleState(!PhoneModuleState)} fullWidth maxWidth="sm">
-        <PhoneModule />
-      </Dialog>
+      <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState}/>
     </>
   );
 }
