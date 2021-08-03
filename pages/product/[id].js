@@ -181,7 +181,7 @@ const Product = () => {
                             </div>
                             {/* Блок информации*/}
                             <div className="block__my_active_ad" >
-                                {/* статус объявления, кнопки */} <ProductAction reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+                                {/* статус объявления, кнопки */} <ProductAction router={router} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
                                 {/* пользователь и его объявления */}
                                 <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
                             </div>

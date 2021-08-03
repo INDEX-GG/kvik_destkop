@@ -61,8 +61,6 @@ function Active(data) {
   let mainArr = [];
 
   function setCheck(e) {
-    // console.log(e)
-    // console.log(event.target.checked)
     if (e.target.value === '' && mainArr.length === 0) {
       console.log('добавляет все')
       mainArr = qwe
@@ -74,9 +72,22 @@ function Active(data) {
     } else {
       mainArr.push(+e.target.value)
     }
-    console.log('после', mainArr)
+
+    setMainArr()
   }
 
+
+
+
+
+
+
+  function setMainArr() {
+    console.log('после ==============>', mainArr)
+  }
+
+
+  /* Модальное окно */
   function pushCheck(e) {
     if (e.target.value === '') {
       setOfferId(mainArr)
@@ -86,16 +97,6 @@ function Active(data) {
     setOpenUnpublishForm(!openUnpublishForm)
     handleUnpublishFormDialog()
   }
-
-
-
-  function fullSetCheck(e) {
-    console.log(checkF)
-    console.log(checkF.current.childNodes[0].childNodes[0])
-  }
-
-
-
 
   if (data.offers.length == 0) {
     return (
@@ -133,12 +134,11 @@ function Active(data) {
           <Checkbox
             className={classes.check}
             color='primary'
+            value=''
             icon={<FiberManualRecordOutlinedIcon />}
             checkedIcon={<FiberManualRecordSharpIcon />}
-            onChange={(e) => { setCheck(e); fullSetCheck(e) }}
-
+            onChange={(e) => { setCheck(e); }}
           />
-
           <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>Снять с публикации</button>
         </div>
         <div className="clientPage__container_content">
@@ -155,7 +155,7 @@ function Active(data) {
                       value={offer.id}
                       ref={checkF}
                       onChange={(e) => setCheck(e)}
-
+                    // checked={qqq}
                     />
                   </div>
                   {JSON.parse(offer.photo)?.photos?.slice(0, 1).map((imgs, i) => {

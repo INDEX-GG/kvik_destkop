@@ -29,7 +29,7 @@ const Offers = () => {
   const [activeOffersBox, setActiveOffersBox] = useState([]);
   const [waitOffersBox, setWaitOffersBox] = useState([]);
   const [archiveOffersBox, setArchiveOffersBox] = useState([]);
-
+console.log(activeOffersBox)
   const router = useRouter();
   const [rout, setRout] = useState(router.query.id);
   const { userInfo } = useAd(rout);

@@ -4,9 +4,11 @@ export default function handler(req, res) {
     if (req.method === 'POST') {
         const prisma = new PrismaClient();
         async function main() {
+            console.log(req.body)
             const id = req.body.id
             const verify = "'" + req.body.verify + "'"
 
+            
 
             await prisma.$queryRaw(`UPDATE posts SET active = ${verify} WHERE ID IN (${id})`)
             res.json({ message: 'successfully update' })
