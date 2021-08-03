@@ -62,7 +62,7 @@
 
 .offerDTRight a {
   margin-bottom: 12px;
-  color: #00A0AB
+  color: #00a0ab;
 }
 
 .offerDTRight {
@@ -76,6 +76,19 @@
 .offerTitle,
 .offerDatPub {
   padding: 8px 0;
+}
+
+.offerUnpublish {
+  background: none;
+  margin-top: 12px;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transition: all 200ms ease-in-out;
+    color: $primelight;
+    text-decoration: underline;
+  }
 }
 
 .offerDescriptionBottom {
@@ -142,7 +155,7 @@
   text-align: right;
 }
 
-.offerCauses{
+.offerCauses {
   padding-bottom: 20px;
 }
 
@@ -195,31 +208,32 @@
 }
 
 @media (max-width: 1080px) {
-  .offerDTLeft{
+  .offerDTLeft {
     align-self: flex-end;
-
   }
-  .offerDescription{
+  .offerDescription {
     padding: 0 8px;
   }
 
-  .offerTitle, .offerDatPub{
+  .offerTitle,
+  .offerDatPub {
     padding-bottom: 0;
   }
 
   .offerSocialCountPos {
     top: 0;
-    left: 0px;  
+    left: 0px;
     flex-direction: column;
     margin-top: 0;
     height: 48px;
     width: 63px;
   }
-  .offerShowes, .offerAddFavores{
+  .offerShowes,
+  .offerAddFavores {
     margin-top: 0;
     margin-left: 8px;
   }
-  .offerCauses{
+  .offerCauses {
     padding-bottom: 8px;
     position: absolute;
     top: 80px;

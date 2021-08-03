@@ -26,11 +26,7 @@ function AdCard_component({ offer }) {
     currentSwiper.current.addEventListener("mousemove", switchSlide);
   }, [currentSwiper]);
 
-
-
   function switchSlide(e) {
-
-
 
     if (!sheduled) {
       sheduled = true;

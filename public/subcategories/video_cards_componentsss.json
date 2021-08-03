@@ -1,0 +1,1 @@
+{"video_cards_componentsss": ["{'alias': 'graphics_card_manufacturer', 'name': 'Производитель видеокарты', 'fields': ['ASUS', 'DELL', 'GIGABYTE', 'MSI', 'PALIT', 'POWERCOLOR', 'SAPPHIRE', 'Другой']}", "{'alias': 'chip_manufacturer', 'name': 'Производитель чипа', 'fields': ['AMD', 'nVidia']}", "{'alias': 'video_memory_size', 'name': 'Объем видеопамяти', 'fields': 'NULL'}"]}
