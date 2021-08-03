@@ -13,7 +13,7 @@ export default function handler(req, res) {
                     where:{
                         user_id:req.body.user_id,
                         archived:false,
-                        verify:0
+                        verify:true
                     },
                     select: {
                         id: true,

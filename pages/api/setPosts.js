@@ -90,7 +90,7 @@ export default function handler(req, res)
                         updated_at:now,
                         deleted_at:now,
                         date_verify:now,
-                        verify:1,
+                        verify:now,
                         verify_moderator:{"verify":['1']}
                     }
                 }
