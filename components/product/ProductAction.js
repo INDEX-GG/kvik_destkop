@@ -33,7 +33,7 @@ export default function ProductAction(data) {
 
   return (
     <>
-      <UnpublishCTX.Provider value={{ offerId }}>
+      <UnpublishCTX.Provider value={{ offerId, openUnpublishForm, setOpenUnpublishForm }}>
         {!matchesMobile && !matchesTablet && (
           <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
             {(objP.adstatus !== 7) & (data.user_id === id) ? (
@@ -132,7 +132,7 @@ export default function ProductAction(data) {
         </Dialog>
 
         <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
-          <UnpublishForm Close={handleUnpublishFormDialog} />
+          <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
         </Dialog>
       </UnpublishCTX.Provider>
     </>
