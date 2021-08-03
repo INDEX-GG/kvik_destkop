@@ -41,7 +41,8 @@ function Sellers({sellers, sellerSub}) {
                   {seller.poducts.map((offer, i) => {
                     return (
                       <a href={`/product/${offer.id}`} key={i} className="sellersOffer">
-                        <img src={`${JSON.parse(offer.photo).photos[0]}?${offer.id}`} />
+                        
+                         <img src={JSON.parse(offer.photo)?.photos[0]} /> 
                         <div>{ellipsis(ToRubles(offer.price), 15)}</div>
                         <div>{ellipsis(offer.title, 10)}</div>
                       </a>

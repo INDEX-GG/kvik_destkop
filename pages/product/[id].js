@@ -19,7 +19,7 @@ import FavProvider from '../../lib/Context/FavoritesCTX';
 import BreadCrumbsProduct from '../../components/product/BreadCrumbsProduct';
 import BreadCrumbs from '../../components/header/BreadСrumbs';
 import { useAuth } from '../../lib/Context/AuthCTX';
-
+import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 const objP = {
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',
@@ -59,7 +59,10 @@ const objP = {
 const Product = () => {
 
     const router = useRouter();
-    const {id} = useAuth();
+    const { id } = useAuth();
+
+
+
 
     const [openStatForm, setopenStatForm] = useState(false);
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -106,94 +109,95 @@ const Product = () => {
 
     return (
 
-		<MetaLayout>
-        <FavProvider>
-        <div className="productPage" id="productPage">
-            <div className="productPageContainer text">
-                {!matchesMobile && !matchesTablet && breadData !== null && <BreadCrumbs data={breadData} product={title}/>}
+        <MetaLayout>
+            <FavProvider>
+                <OfferAccountProvider>
+                    <div className="productPage" id="productPage">
+                        <div className="productPageContainer text">
+                            {!matchesMobile && !matchesTablet && breadData !== null && <BreadCrumbs data={breadData} product={title} />}
 
-                {/* Блок объявления */}
-                <div className="product__wrapper">
-                    <div className="productPageWrapper">
-                        <div className="product__main_block">
-                            <div className="productPageDescription">
-                                {!matchesMobile && !matchesTablet && <div className="productPageTitle xl">{title}</div>}
-                                {user_id !== id && !matchesLaptop && !matchesDesktop && !matchesHD &&
-                                    <div className="SellerInfoTopButtons">
-                                          <Favorits isProduct />
-                                    </div>}
-                                <ProductCarousel photo={photo} />
-                                {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}
-                                {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageAdaptive">
-                                    <div className="SellerInfoOldPrice__adaptive">
-                                        <div className="SellerInfoOldPrice thin dark crossed">
-                                            {oldprice == undefined ? '' : ToRubles(oldprice)}
+                            {/* Блок объявления */}
+                            <div className="product__wrapper">
+                                <div className="productPageWrapper">
+                                    <div className="product__main_block">
+                                        <div className="productPageDescription">
+                                            {!matchesMobile && !matchesTablet && <div className="productPageTitle xl">{title}</div>}
+                                            {user_id !== id && !matchesLaptop && !matchesDesktop && !matchesHD &&
+                                                <div className="SellerInfoTopButtons">
+                                                    <Favorits isProduct />
+                                                </div>}
+                                            <ProductCarousel photo={photo} />
+                                            {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageTitle xl">{title}</div>}
+                                            {!matchesLaptop && !matchesDesktop && !matchesHD && <div className="productPageAdaptive">
+                                                <div className="SellerInfoOldPrice__adaptive">
+                                                    <div className="SellerInfoOldPrice thin dark crossed">
+                                                        {oldprice == undefined ? '' : ToRubles(oldprice)}
+                                                    </div>
+                                                    <div className="SellerInfoPrice thin xxl">
+                                                        {ToRubles(price)}
+                                                    </div>
+                                                    <div className="SellerInfoBargain dark thin">
+                                                        {(trade) && (<p>Торг уместен</p>)}
+                                                    </div>
+                                                </div>
+                                                <div className="SellerInfo__adaptive_info">
+                                                    <div className="SellerInfo__adaptive_info_top">
+                                                        <div className="SellerInfoSeen dark"> {reviewed} +4</div>{user_id !== id ? "" : <a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)} >Статистика</a>}
+                                                    </div>
+                                                    <div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div>
+                                                    {user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ''}
+                                                </div></div>
+                                            }
+                                            {!matchesLaptop && !matchesDesktop && !matchesHD &&
+                                                <div className="SellerInfo__adaptive_button">
+                                                    {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ''}
+                                                    {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ''}
+                                                    {objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ''}
+                                                    {user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ''}
+                                                    <div className="ad__block_middle__description_service">
+                                                        {user_id === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ''}
+                                                        {user_id === id ? <span className="service_days_left">Осталось 30 дней</span> : ''}
+                                                        <div className="SellerInfo__adaptive_buttons__top">
+                                                            {user_id !== id ? <a className="SellerInfoMess button contained"><IconMess /> Написать продавцу</a> : ''}
+                                                            {user_id !== id ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
+                                                        </div>
+                                                        {user_id === id || user_id !== id ? <div className="SellerInfo__adaptive_information">
+                                                            {secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
+                                                            {delivery && (<div className="SellerInfoDelivery superLight">Возможна доставка</div>)}
+                                                        </div> : ''}
+                                                        {objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ''}
+                                                        {objP.adstatus === 4 ? <p className="reason__rejection">Причина отклонения: <span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ
+                                                            / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях
+                                                            / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span></p> : ''}
+                                                        {objP.adstatus === 6 ? <p className="ad__last__edit">Дата последнего редактирования 00.00.00
+                                                            <span>Будет удалено навсегда через 00 дней</span></p> : ''}
+                                                        {user_id !== id ? <div className="SellerInfoBuy buy_btn__adaptive">Купить</div> : ''}
+                                                        <div className="SellerInfo__adaptive_buttons">
+                                                            {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ''}
+                                                            {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn">Удалить</a> : ''}
+                                                            {user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button btn-left">Редактировать</a> : ''}
+                                                            {user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Снять с публикации</a> : ''}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            {/* адрес, карта, свойства и значения */} <ProductInformation user_id={user_id} address={address} description={description} />
                                         </div>
-                                        <div className="SellerInfoPrice thin xxl">
-                                            {ToRubles(price)}
-                                        </div>
-                                        <div className="SellerInfoBargain dark thin">
-                                            {(trade) && (<p>Торг уместен</p>)}
+                                        {/* Блок информации*/}
+                                        <div className="block__my_active_ad" >
+                                            {/* статус объявления, кнопки */} <ProductAction router={router} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+                                            {/* пользователь и его объявления */}
+                                            <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
                                         </div>
                                     </div>
-                                    <div className="SellerInfo__adaptive_info">
-                                        <div className="SellerInfo__adaptive_info_top">
-                                            <div className="SellerInfoSeen dark"> {reviewed} +4</div>{user_id !== id ? "" : <a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)} >Статистика</a>}
-                                        </div>
-                                        <div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div>
-                                        {user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ''}
-                                    </div></div>
-                                }
-                                {!matchesLaptop && !matchesDesktop && !matchesHD &&
-                                    <div className="SellerInfo__adaptive_button">
-                                        {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ''}
-                                        {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ''}
-                                        {objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ''}
-                                        {user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ''}
-                                        <div className="ad__block_middle__description_service">
-                                            {user_id === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ''}
-                                            {user_id === id ? <span className="service_days_left">Осталось 30 дней</span> : ''}
-                                            <div className="SellerInfo__adaptive_buttons__top">
-                                                {user_id !== id ? <a className="SellerInfoMess button contained"><IconMess /> Написать продавцу</a> : ''}
-                                                {user_id !== id ? <a className="SellerInfoCall button contained"><IconCall /> Показать номер</a> : ''}
-                                            </div>
-                                            {user_id === id || user_id !== id ? <div className="SellerInfo__adaptive_information">
-                                                {secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
-                                                {delivery && (<div className="SellerInfoDelivery superLight">Возможна доставка</div>)}
-                                            </div> : ''}
-                                            {objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ''}
-                                            {objP.adstatus === 4 ? <p className="reason__rejection">Причина отклонения: <span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ
-                                                / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях
-                                                / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span></p> : ''}
-                                            {objP.adstatus === 6 ? <p className="ad__last__edit">Дата последнего редактирования 00.00.00
-                                                <span>Будет удалено навсегда через 00 дней</span></p> : ''}
-                                            {user_id !== id ? <div className="SellerInfoBuy buy_btn__adaptive">Купить</div> : ''}
-                                            <div className="SellerInfo__adaptive_buttons">
-                                                {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ''}
-                                                {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn">Удалить</a> : ''}
-                                                {user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button btn-left">Редактировать</a> : ''}
-                                                {user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Снять с публикации</a> : ''}
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                {/* адрес, карта, свойства и значения */} <ProductInformation user_id={user_id} address={address} description={description} />
-                            </div>
-                            {/* Блок информации*/}
-                            <div className="block__my_active_ad" >
-                                {/* статус объявления, кнопки */} <ProductAction router={router} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
-                                {/* пользователь и его объявления */}
-                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
-                            </div>
-                        </div>
-                        {!matchesMobile && !matchesTablet && !matchesLaptop &&
-                            <div className="showsmthWrapper">
-                                <div className="freedomBlock_1"></div>
-                                <div className="freedomBlock_2"></div>
-                            </div>}</div>
+                                    {!matchesMobile && !matchesTablet && !matchesLaptop &&
+                                        <div className="showsmthWrapper">
+                                            <div className="freedomBlock_1"></div>
+                                            <div className="freedomBlock_2"></div>
+                                        </div>}</div>
 
 
-                    {/* <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
+                                {/* <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
                     <div className="productPageSimilarOffers">
                         <div className="product__carts__wrapper">
                             <div className="productPageSimilarOffersContainer">
@@ -213,27 +217,28 @@ const Product = () => {
 
                     </div> */}
 
-                    <div className="productPageContent">
-                        <div className="productPageCard">
-                            <OffersRender data={data} title={'Похожие объявления'} />
-                            <div className={`SimilarOffersColl highlight underline ${collSO && 'SOCColl'}`} onClick={e => handleCollSO(e)}>{collSO && 'Показать ещё' || 'Скрыть'}</div>
-                        </div>
-                        <div className="productPageSimilar__advertisement">
-                            {!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && 
-                            <div className="showsmthWrapper">
-                                <div className="freedomBlock_1"></div>
-                                <div className="freedomBlock_2"></div>
-                            </div>}
-                        </div>
+                                <div className="productPageContent">
+                                    <div className="productPageCard">
+                                        <OffersRender data={data} title={'Похожие объявления'} />
+                                        <div className={`SimilarOffersColl highlight underline ${collSO && 'SOCColl'}`} onClick={e => handleCollSO(e)}>{collSO && 'Показать ещё' || 'Скрыть'}</div>
+                                    </div>
+                                    <div className="productPageSimilar__advertisement">
+                                        {!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD &&
+                                            <div className="showsmthWrapper">
+                                                <div className="freedomBlock_1"></div>
+                                                <div className="freedomBlock_2"></div>
+                                            </div>}
+                                    </div>
 
-                    </div>
-                </div>
-            </div>
-            <div className="productPageWhiteSpace"></div>
-            <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth='sm'> <Statistics Close={handleStatFormDialog} /> </Dialog>
-        </div >
-        </FavProvider >
-		</MetaLayout>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="productPageWhiteSpace"></div>
+                        <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth='sm'> <Statistics Close={handleStatFormDialog} /> </Dialog>
+                    </div >
+                </OfferAccountProvider>
+            </FavProvider >
+        </MetaLayout>
 
     )
 }
