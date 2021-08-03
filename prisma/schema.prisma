@@ -101,6 +101,7 @@ model posts{
   deleted_at            DateTime? @db.Timestamp(0)
   verify                Int?
   date_verify           DateTime? @db.Timestamp(0)
+  active                Int?
   
   verify_moderator      Json?
 
