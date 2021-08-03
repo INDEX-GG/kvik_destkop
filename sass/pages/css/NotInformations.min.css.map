@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,gBAAgB,AAAC,CACf,UAAU,CAAE,MAAM,CACnB,AAGE,AAAD,cAAQ,AAAC,CACP,WAAW,CAAE,GAAG,CAChB,SAAS,CAAE,IAAI,CACf,KAAK,CAAE,OAAO,CACd,MAAM,CAAE,YAAY,CACrB,AACA,AAAD,iBAAW,AAAC,CACV,SAAS,CAAE,IAAI,CACf,KAAK,CAAE,OAAO,CACf",
-    "sources": [
-        "../user/NotInformations.scss"
-    ],
-    "names": [],
-    "file": "NotInformations.min.css"
-}

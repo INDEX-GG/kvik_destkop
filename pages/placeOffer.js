@@ -19,7 +19,6 @@ import Loader from '../UI/icons/Loader';
 import PlaceOfferMobile from '../components/placeOffer/placeOfferMobile';
 import Promotion from '../components/placeOffer/Promotion';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'relative',
@@ -47,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center'
     },
 	backdrop: {
-		// backdropFilter: 'blur(2px)',
 		zIndex: 2000,
 		backgroundColor: 'rgba(255, 255, 255, 0.85)',
 	},
@@ -71,7 +69,6 @@ function PlaceOffer() {
     const onSubmit = data => {
         console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
-		// const alias = data?.alias4 || data?.alias3 || data?.alias2;
 		const alias = [data?.alias1, data?.alias2];
 		if (data?.alias3) {
 			alias.push(data.alias3);
@@ -120,9 +117,6 @@ function PlaceOffer() {
 		})
     }   
 
-    console.log(product)
-
-
     return (
         promotion ? <Promotion product={product}/> : 
         <MetaLayout title={'Подать объявление'}>
@@ -145,7 +139,7 @@ function PlaceOffer() {
                                 <Location />
                                 <Contacts />
                                 <Box className={classes.submit}>
-									<ErrorMessages />
+												<ErrorMessages />
                                     <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
                                 </Box>
                             </Box>
