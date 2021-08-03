@@ -7,6 +7,7 @@ import axios from 'axios';
 import { DialogCTX, RegistrationCTX } from '../../lib/Context/DialogCTX';
 import ConfirmNumber from './ConfirmNumber';
 import PhoneMask from '../../lib/phoneMask';
+import { useMedia } from '../../hooks/useMedia';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +46,13 @@ const useStyles = makeStyles((theme) => ({
         '& input': {
             textAlign: 'center',
         }
-    }
+    },
+    modalContainer: {
+		textAlign: "center",
+        padding: "16px 0px 27px",
+        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+        marginBottom: "24px"
+	}
 }));
 
 export default function RegForm() {
@@ -56,6 +63,7 @@ export default function RegForm() {
 
 	const classes = useStyles();
 	const { handleSubmit, control, watch, setValue } = useForm();
+    const { matchesMobile } = useMedia()
 	const [valueInp, setValueInp] = useState("")
 	const closeRegForm = () => {
 		setValue('name', '');
@@ -79,10 +87,19 @@ export default function RegForm() {
 
     return (
 		<>
-        <Dialog open={openRegForm} onClose={() => closeRegForm()} fullWidth maxWidth="sm">
+        <Dialog open={openRegForm} onClose={() => closeRegForm()} fullWidth maxWidth="sm" fullScreen={matchesMobile ? true : false}>
+            {matchesMobile ? 
+				<div className="modal__block__top accountTop">
+                        <>
+                            <div onClick={() => setOpenRegForm(!openRegForm)} className="accountArrowLeft"></div>
+                            <div className={classes.modalContainer}>
+                                <h6 className="modal__block__top_title">Регистрация</h6>
+                            </div>
+                        </>
+			</div> : null}
             <Box className={classes.root}>
                 <Box className={classes.reg}>
-                    <Typography className={classes.title} variant="h6">Регистрация</Typography>
+                    {matchesMobile ? null : <Typography className={classes.title} variant="h6">Регистрация</Typography>}
                     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                         <Controller
                             name="name"

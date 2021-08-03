@@ -175,9 +175,10 @@ function Active(data) {
                       <div>Осталось 30 дней</div>
                     </div>
                     <div className="offerDTRight">
-                      <button type="submit" className="offerEdit thin superLight editIcon">
+                      <button type="submit" className="offerEdit thin editIcon offerSocialAction">
                         Редактировать
                       </button>
+
                       <a href = "javascript:void(0);">
                         <button
                           value={offer.id}
@@ -191,6 +192,7 @@ function Active(data) {
                         <div className="offerShowes showesIcon">0 +0</div>
                         <div className="offerAddFavores likeIcon">0 +0</div>
                       </div>
+
                     </div>
                   </div>
                   <div className="offerDescriptionBottom">

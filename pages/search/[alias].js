@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 12px',
 		display: 'flex',
 		flexDirection: 'column',
+		marginBottom: "92px"
     },
 	main: {
 		display: 'flex',
@@ -68,7 +69,8 @@ const Index = () => {
       <Container className={classes.root}>
         <BreadCrumbs data={aliasData?.aliasBread}/>
 		<Box className={classes.main}>
-			<Box className={classes.offers} ><SearchRender data={data} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() +  aliasData.aliasName[0].label.substring(1,) }/></Box>
+			<Box className={classes.offers} >
+				<SearchRender data={data} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() +  aliasData.aliasName[0].label.substring(1,) }/></Box>
 			{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 				<FilterBlock />
 				<Box className={classes.footer}>

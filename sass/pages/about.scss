@@ -6,14 +6,19 @@
 }
 .aboutTitle {
   text-align: center;
+  margin-bottom: 23px;
 }
 .text1 {
   font-size: 14px;
   text-align: left;
+  color: "#2C2C2C";
+  font-weight: 600;
+  padding-left: 20px;
 }
 .text2 {
   font-size: 14px;
   text-align: left;
+  text-indent: 20px;
 }
 .bodyAbout {
   margin-left: auto;
@@ -21,12 +26,23 @@
   padding: 12px;
   max-width: 1280px;
 }
+.webInfo{
+  color: #2C2C2C;
+  font-weight: 600;
+}
 @media (max-width: 1280px) {
   .bodyAbout {
     max-width: 1048px;
   }
 }
 
+@media (max-width: 599px) {
+  .text2 {
+    & > span {
+      padding-left: 20px;
+    }
+  }
+}
 
 
 

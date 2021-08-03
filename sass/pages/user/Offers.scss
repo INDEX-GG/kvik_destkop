@@ -97,6 +97,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 8px;
 }
 
 .offerButtonViews {
@@ -117,6 +118,20 @@
   position: absolute;
   right: 15px;
   bottom: 10px;
+  font-weight: 400;
+  color: #5A5A5A
+}
+
+.offerSocialCountPosActive{
+  top: 50px;
+  bottom: auto
+}
+
+.offerSocialAction {
+  color: #52B9C5;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .offerShowes,
@@ -214,6 +229,9 @@
   .offerDescription {
     padding: 0 8px;
   }
+  .offerTitle, .offerDatPub{
+    padding: 0;
+  }
 
   .offerTitle,
   .offerDatPub {
@@ -258,7 +276,7 @@
 
 @media (max-width: 600px) {
   .offerContainer {
-    grid-template-columns: 1.5fr 2fr;
+    grid-template-columns: 1fr 2fr;
   }
 }
 
@@ -268,7 +286,6 @@
     grid-template-rows: repeat(2, 1fr);
     height: 368px;
   }
-
   .offerShowes,
   .offerAddFavores {
     margin: 8px 0px 0px 8px;

@@ -19,7 +19,9 @@ import FavProvider from '../../lib/Context/FavoritesCTX';
 import BreadCrumbsProduct from '../../components/product/BreadCrumbsProduct';
 import BreadCrumbs from '../../components/header/BreadСrumbs';
 import { useAuth } from '../../lib/Context/AuthCTX';
+import PhoneModule from '../../components/product/PhoneModule';
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
+
 const objP = {
     id: 1,
     title: 'Продам 2-комню квартиру, 95м в центре',
@@ -93,6 +95,7 @@ const Product = () => {
     const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, product_id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
 
     const [userAd, setUserAd] = useState();
+    const [phoneModal, setPhoneModal] = useState()
     useEffect(() => {
         axios.post('/api/getProductOfUser', { user_id: user_id })
             .then((res) => setUserAd(res.data.result))
@@ -183,11 +186,13 @@ const Product = () => {
                                             }
                                             {/* адрес, карта, свойства и значения */} <ProductInformation user_id={user_id} address={address} description={description} />
                                         </div>
+
                                         {/* Блок информации*/}
                                         <div className="block__my_active_ad" >
                                             {/* статус объявления, кнопки */} <ProductAction router={router} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
                                             {/* пользователь и его объявления */}
                                             <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
+
                                         </div>
                                     </div>
                                     {!matchesMobile && !matchesTablet && !matchesLaptop &&
@@ -239,6 +244,7 @@ const Product = () => {
                 </OfferAccountProvider>
             </FavProvider >
         </MetaLayout>
+
 
     )
 }

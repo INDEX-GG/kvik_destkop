@@ -28,20 +28,20 @@ function LeftReviews(data) {
         <div className="reviewsWrapper">
           {data.data.map((item, i) => {
             return (
-              <div key={i} className="reviewContainer">
+              <div key={i} className="reviewContainer reviewPadding">
                 <div>
                   <div>
                     <img src={`${item.userPic}?${item.id}`} />
                     <div className="small">
                       <div>{item.userName}</div>
-                      <div className="light DatPub__mobile reviewsDate">
+                      <div className="light DatPub__mobile reviewsDate reviewsDateLeft">
                         <spam>Дата публикации</spam> {item.date}
                       </div>
                     </div>
                   </div>
 
-                  <div>
-                    <div className="reviewsNumber">{item.rate}</div>
+                  <div className="reviewsLeftRaiting">
+                    <div className="reviewsNumber reviesNumberNone">{item.rate}</div>
                     <StarRating {...{ rating: item.rate }} />
                   </div>
                 </div>

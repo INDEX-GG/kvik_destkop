@@ -15,6 +15,7 @@ export function useOutherUser(user_id) {
             sellerPhoto: res.data.user.userPhoto,
             createdAt: res.data.user.createdAt,
             raiting: res.data.user.raiting,
+            sellerPhone: res.data.user.phone
             })
             setLoading(false);
         })

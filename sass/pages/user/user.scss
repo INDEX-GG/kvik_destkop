@@ -46,3 +46,20 @@
 // .sold {
 //   opacity: 0.4;
 // }
+
+
+@media (max-width: 1080px) {
+  .btnSubscribe{
+    margin: 16px 0;
+  }
+  .btnActive {
+    align-self: center
+  }
+}
+
+
+@media (max-width: 600px) {
+  .userProduct {
+    grid-template-columns: repeat(2, 1fr)
+  }
+}

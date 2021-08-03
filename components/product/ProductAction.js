@@ -13,7 +13,7 @@ import { UnpublishCTX } from "../../lib/Context/DialogCTX";
 export default function ProductAction(data) {
   const { id } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
-  const [PhoneModuleState, setPhoneModuleState] = useState(false);
+  const [phoneModuleState, setPhoneModuleState] = useState(false);
   const handleStatFormDialog = () => setOpenStatForm(!openStatForm);
 
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -63,6 +63,7 @@ export default function ProductAction(data) {
               <a className="SellerInfoMess button contained">
                 <IconMess /> Написать продавцу
               </a>
+
             ) : (
               ""
             )}
@@ -135,6 +136,7 @@ export default function ProductAction(data) {
           <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
         </Dialog>
       </UnpublishCTX.Provider>
+
     </>
   );
 }
