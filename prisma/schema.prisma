@@ -99,7 +99,7 @@ model posts{
   created_at            DateTime? @db.Timestamp(0)
   updated_at            DateTime? @db.Timestamp(0)
   deleted_at            DateTime? @db.Timestamp(0)
-  verify                String?      @default("0")
+  verify                Int?
   date_verify           DateTime? @db.Timestamp(0)
   
   verify_moderator      Json?
