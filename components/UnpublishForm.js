@@ -2,7 +2,8 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Typography, Button, Container, Dialog, Box, CardMedia, makeStyles } from "@material-ui/core";
 import { UnpublishCTX } from '../lib/Context/DialogCTX';
 import { ToRubles, ToFullDate } from "../lib/services";
-
+import axios from 'axios';
+import { useFavorits } from '../lib/Context/FavoritesCTX';
 const useStyles = makeStyles((theme) => ({
     unpublish_form: {
         display: 'flex',
@@ -73,15 +74,20 @@ const useStyles = makeStyles((theme) => ({
 export default function UnpublishForm() {
     const classes = useStyles();
     const { offerId, data } = useContext(UnpublishCTX);
-
-
+    const { userFav, setQuery } = useFavorits()
+console.log(offerId)
     function PushBDVerify(e) {
         var arr = { 'id': [offerId], 'verify': `${e.target.parentElement.id}` }
+        axios.post("/api/verifyActive", arr)
+            .then(r => r.data)
+            .finally(function () {
+                setQuery(p => !p)
+            })
         console.log(arr)
     }
 
 
-    
+
     if (offerId.length === 1) {
         const offerAction = data.offers.filter((item) => item.id === +offerId.join())
         return (
