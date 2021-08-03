@@ -63,6 +63,11 @@ const theme = createMuiTheme({
       'none',
       'none',
       'none',
+		'none',
+		'none',
+		'none',
+		'none',
+		'none'
    ],
    typography: {
       h1: {
