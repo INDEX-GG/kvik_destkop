@@ -114,7 +114,7 @@ export default function CategoriesContent({toggleDrawer, changeCategories}) {
 
                       return (
                         toggleDrawer == false ? (
-                            <ListItem className="burgerList" onClick={() => changeCategories(`${generateStr(item.alias)},${generateStr(item2.alias)}`)}>
+                            <ListItem className="burgerList" onClick={() => changeCategories(`${item.alias},${item2.alias}`)}>
                                  <ListItemText><div className="burgerItem burgerLink">{item2.label}</div></ListItemText>
                             </ListItem>
                         ) : (
@@ -138,7 +138,7 @@ export default function CategoriesContent({toggleDrawer, changeCategories}) {
 
                                 return (
                                     toggleDrawer == false ? (
-                                        <ListItem className="burgerList pl-1" onClick={() => changeCategories(`${generateStr(item.alias)},${generateStr(item2.alias)},${generateStr(item3.alias)}`)}>
+                                        <ListItem className="burgerList pl-1" onClick={() => changeCategories(`${item.alias},${item2.alias},${item3.alias}`)}>
                                              <ListItemText><div className="burgerItem burgerLink">{item3.label}</div></ListItemText>
                                         </ListItem>
                                     ) : (
@@ -162,7 +162,7 @@ export default function CategoriesContent({toggleDrawer, changeCategories}) {
 
                                     return (
                                         toggleDrawer == false ? (
-                                            <ListItem className="burgerList pl-2" onClick={() => changeCategories(`${generateStr(item.alias)},${generateStr(item2.alias)},${generateStr(item3.alias)},${generateStr(item4.alias)}`)}>
+                                            <ListItem className="burgerList pl-2" onClick={() => changeCategories(`${item.alias},${item2.alias},${item3.alias},${item4.alias}`)}>
                                                 <ListItemText><div className="burgerItem burgerLink">{item4.label}</div></ListItemText>
                                             </ListItem>
                                         ) : (

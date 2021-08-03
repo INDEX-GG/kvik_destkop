@@ -66,13 +66,17 @@ const useStyles = makeStyles(() => ({
         }
     }
 }))
-function SelectBuy() {
+function SelectBuy({promotion = false, align = false, value = false}) {
 
     const classes = useStyles()
 
     const [selectImg, setSelectImg] = useState(false)
 
     function changePayMethod(e) {
+
+        if (value) {
+            value(e.target.value)
+        }
 
         if (e.target.value == 0) {
             setSelectImg(false)
@@ -87,6 +91,22 @@ function SelectBuy() {
             setSelectImg("Image 3")
         }
     }
+
+    if (promotion) {
+        return (
+            <div className={classes.buyPaymentWay}>
+                <div style={{textAlign: align ? "right" : "left"}} className={classes.buyPaymentChoice}>Выбор способ оплаты</div>
+                <select className={classes.buyPaymentList} style={{paddingLeft: selectImg ? "65px": "16px", color: selectImg ? null : "#C7C7C7"}} onChange={(e) => changePayMethod(e)}>
+                    <option className={classes.buyPaymentItem} value={0}>Выберите спопсоб оплаты</option>
+                    <option className={classes.buyPaymentItem} value={1}>Банковская карта</option>
+                    <option className={classes.buyPaymentItem} value={2}>Вариант 2</option>
+                    <option className={classes.buyPaymentItem} value={3}>Вариант 3</option>
+                </select>
+                <div className={classes.test}>{selectImg}</div>
+            </div>
+        )
+    }
+
 
    return (
    <div className={classes.buyPayment}>

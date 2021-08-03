@@ -10,31 +10,33 @@ import fetch from '../lib/fetchJson';
 import AuthProvider from '../lib/Context/AuthCTX';
 import MainLayout from '../layout/MainLayout';
 import MutateProvider from '../lib/Context/MutateCTX';
-
+import {ErrorBoundary} from '../components/ErrorBoundary';
 function MyApp({ Component, pageProps }) {
 
    return (
-		<SWRConfig 
-		value={{
-			fetcher: fetch,
-			onError: (err) => {
-			console.error(err)
-			},}}
-		>
-			<Head>
-				<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-			</Head>
-			<AuthProvider>
-				<ThemeProvider theme={theme}>
-					<MutateProvider>
-						<MainLayout>
-							<CssBaseline/>
-							<Component {...pageProps} />
-						</MainLayout>
-					</MutateProvider>
-				</ThemeProvider>
-			</AuthProvider>
-		</SWRConfig>
+		<ErrorBoundary>
+			<SWRConfig 
+			value={{
+				fetcher: fetch,
+				onError: (err) => {
+				console.error(err)
+				},}}
+			>
+				<Head>
+					<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+				</Head>
+				<AuthProvider>
+					<ThemeProvider theme={theme}>
+						<MutateProvider>
+							<MainLayout>
+								<CssBaseline/>
+								<Component {...pageProps} />
+							</MainLayout>
+						</MutateProvider>
+					</ThemeProvider>
+				</AuthProvider>
+			</SWRConfig>
+		</ErrorBoundary>
    )
 }
 

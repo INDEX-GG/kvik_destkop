@@ -26,11 +26,7 @@ function AdCard_component({ offer }) {
     currentSwiper.current.addEventListener("mousemove", switchSlide);
   }, [currentSwiper]);
 
-
-
   function switchSlide(e) {
-
-
 
     if (!sheduled) {
       sheduled = true;
@@ -66,11 +62,10 @@ function AdCard_component({ offer }) {
     }
   }
 
-
- /*  if (JSON.parse(offer?.photo).photos.length == 1) {
-    pagination = false
-  } */
-
+  // if (JSON.parse(offer?.photo).photos.length == 1) {
+      // pagination = false
+  // }
+  
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   //   const myLoader = ({src, width, quality}) => `${src}`;
   return (

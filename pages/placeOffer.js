@@ -17,7 +17,7 @@ import {useRouter} from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
 import Loader from '../UI/icons/Loader';
 import PlaceOfferMobile from '../components/placeOffer/placeOfferMobile';
-
+import Promotion from '../components/placeOffer/Promotion';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center'
     },
 	backdrop: {
-		// backdropFilter: 'blur(2px)',
 		zIndex: 2000,
 		backgroundColor: 'rgba(255, 255, 255, 0.85)',
 	},
@@ -57,6 +56,8 @@ function PlaceOffer() {
     const {id} = useAuth();
     const classes = useStyles();
 	const [loading, setLoading] = useState(false);
+    const [promotion, setPromotion] = useState(false)
+    const [product, setProduct] = useState({})
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
 	const router = useRouter();
@@ -68,7 +69,6 @@ function PlaceOffer() {
     const onSubmit = data => {
         console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
-		// const alias = data?.alias4 || data?.alias3 || data?.alias2;
 		const alias = [data?.alias1, data?.alias2];
 		if (data?.alias3) {
 			alias.push(data.alias3);
@@ -76,6 +76,7 @@ function PlaceOffer() {
 		if (data?.alias4) {
 			alias.push(data.alias4);
 		}
+        
         const sendData = new FormData;
 		const photoData = new FormData;
         sendData.append('user_id', id);
@@ -89,14 +90,15 @@ function PlaceOffer() {
         sendData.append('address', data.location);
         sendData.append('byphone', data.byphone);
         sendData.append('bymessage', data.bymessages);
+        console.log(photoes)
+        console.log(photoes[0])
         if (photoes.length > 1) {
             photoes.forEach(photo => photoData.append('files[]', photo));
         } else if (photoes.length === 1) {
             photoData.append('files[]', photoes[0]);
         }
-        console.log(sendData);
-		console.log(photoData);
-		setLoading(true);
+        console.log(data, alias)
+		// setLoading(true);
         axios.post('/api/setPosts', sendData, {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -106,14 +108,19 @@ function PlaceOffer() {
 				headers: {
 					"Content-Type": "multipart/form-data"
 				}
-			}).then(() => router.push('/'))
+			}).then(() => {
+                console.log(r?.data?.id, photoData)
+                setProduct({title: data.title, price: data.price, id: r?.data?.id})
+                console.log(photoData)
+                setPromotion(true)
+            })
 		})
-    }
-
+    }   
 
     return (
+        promotion ? <Promotion product={product}/> : 
         <MetaLayout title={'Подать объявление'}>
-            {!matchesMobile && !matchesTablet && <Container className={classes.root}>
+            {!matchesMobile && !matchesTablet && <Container className={classes.root}> 
                 <Box className={classes.offersBox}>
                     <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
                     <FormProvider {...methods} >
@@ -132,7 +139,7 @@ function PlaceOffer() {
                                 <Location />
                                 <Contacts />
                                 <Box className={classes.submit}>
-									<ErrorMessages />
+												<ErrorMessages />
                                     <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
                                 </Box>
                             </Box>
