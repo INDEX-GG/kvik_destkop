@@ -73,8 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UnpublishForm() {
     const classes = useStyles();
-    const { offerId, data, openUnpublishForm, setOpenUnpublishForm } = useContext(UnpublishCTX);
-
+    const { offerId, offer, openUnpublishForm, setOpenUnpublishForm } = useContext(UnpublishCTX);
 
 
     const { setQuery, userAccountProvider } = useOfferAccount()
@@ -92,7 +91,8 @@ export default function UnpublishForm() {
     // console.log(offerId)
 
     if (offerId?.length === 1) {
-        const offerAction = data.offers.filter((item) => item.id === +offerId.join())
+        const offerAction = (offer)?.filter((item) => item.id === +offerId.join())
+        console.log(offerAction)
         return (
             <>
                 {offerAction.map((item, i) =>
