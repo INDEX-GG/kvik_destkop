@@ -10,8 +10,11 @@ import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
 
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+
+import OfferActive from "../card/offerActive";
 // import { useFavorits } from "../../../../lib/Context/FavoritesCTX";
 // import { func } from "prop-types";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,61 +45,42 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
 function Active(data) {
-
-
-
-
 
   const classes = useStyles();
 
-  const checkF = useRef()
-  const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
-  const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+  // function setCheck(e) {
+  //   if (e.target.value === '' && mainArr.length === 0) {
+  //     console.log('добавляет все')
+  //     mainArr = qwe
+  //   } else if (e.target.value === '' && mainArr.length !== 0) {
+  //     console.log('удаляет все')
+  //     mainArr = []
+  //   } else if (mainArr.includes(+e.target.value)) {
+  //     mainArr = mainArr.filter((item) => { return item !== +e.target.value })
+  //   } else {
+  //     mainArr.push(+e.target.b)
+  //   }
 
-  const [qwe, setQwe] = useState()
-
-
-  const [offerId, setOfferId] = useState()
-
-  useEffect(() => {
-    setQwe(data.offers?.map((offer => { return offer.id })))
-  }, [data])
-
-  let mainArr = [];
-
-  function setCheck(e) {
-    if (e.target.value === '' && mainArr.length === 0) {
-      console.log('добавляет все')
-      mainArr = qwe
-    } else if (e.target.value === '' && mainArr.length !== 0) {
-      console.log('удаляет все')
-      mainArr = []
-    } else if (mainArr.includes(+e.target.value)) {
-      mainArr = mainArr.filter((item) => { return item !== +e.target.value })
-    } else {
-      mainArr.push(+e.target.value)
-    }
-
-    setMainArr()
-  }
-
-  function setMainArr() {
-    console.log('после ==============>', mainArr)
-  }
+  //   setMainArr()
+  // }
 
 
 
-  /* Модальное окно */
-  function pushCheck(e) {
-    if (e.target.value === '') {
-      setOfferId(mainArr)
-    } else {
-      setOfferId([+e.target.value])
-    }
-    setOpenUnpublishForm(!openUnpublishForm)
-    handleUnpublishFormDialog()
+  // function setMainArr() {
+  //   console.log('после ==============>', mainArr)
+  // }
+
+
+  const [check, setCheck] = useState(false)
+  const [checkValue, setcheckValue] = useState()
+const [checkAll, setCheckAll] = useState(false)
+
+
+  const handleCheckAll = e => {
+    setCheck(e.target.checked)
+    setcheckValue(e.target.value)
+    setCheckAll(e.target.checked)
   }
 
   if (data.offers.length == 0) {
@@ -129,7 +113,7 @@ function Active(data) {
   }
 
   return (
-    <UnpublishCTX.Provider value={{ offerId, data, openUnpublishForm, setOpenUnpublishForm }}>
+    <>
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_nav__radio">
           <Checkbox
@@ -138,82 +122,26 @@ function Active(data) {
             value=''
             icon={<FiberManualRecordOutlinedIcon />}
             checkedIcon={<FiberManualRecordSharpIcon />}
-            onChange={(e) => { setCheck(e); }}
+            onChange={(e) => handleCheckAll(e)}
+            checked={check}
           />
           <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>Снять с публикации</button>
         </div>
         <div className="clientPage__container_content">
           {data.offers?.map((offer, i) => {
             return (
-              <a href={`/product/${offer.id}`} key={i} className="offerContainer boxWrapper">
-                <div className="offerImage">
-                  <div className="offerPubCheck">
-                    <Checkbox
-                      className={classes.check}
-                      color='primary'
-                      icon={<FiberManualRecordOutlinedIcon />}
-                      checkedIcon={<FiberManualRecordSharpIcon />}
-                      value={offer.id}
-                      ref={checkF}
-                      onChange={(e) => setCheck(e)}
-                    // checked={qqq}
-                    />
-                  </div>
-                  {JSON.parse(offer.photo)?.photos?.slice(0, 1).map((imgs, i) => {
-                    return <img key={i} src={imgs} />;
-                  })}
-                </div>
-                <div className="offerDescription">
-                  <div className="offerDescriptionTop">
-                    <div className="offerDTLeft thin">
-                      <div>{ToRubles(offer.price)}</div>
-                      <div className="offerTitle">{offer.title}</div>
-                      <div className="offerDatPub small light DatPub__mobile">
-                        <span> Дата публикации </span>
-                        {ToFullDate(offer.created_at)}
-                      </div>
-                      <div>Осталось 30 дней</div>
-                    </div>
-                    <div className="offerDTRight">
-                      <button type="submit" className="offerEdit thin editIcon offerSocialAction">
-                        Редактировать
-                      </button>
-
-                      <a href = "javascript:void(0);">
-                        <button
-                          value={offer.id}
-                          onClick={(e) => pushCheck(e)}
-                          className="offerUnpublish thin superLight"
-                        >
-                          Снять с публикации
-                        </button>
-                      </a>
-                      <div className="offerSocialCount">
-                        <div className="offerShowes showesIcon">0 +0</div>
-                        <div className="offerAddFavores likeIcon">0 +0</div>
-                      </div>
-
-                    </div>
-                  </div>
-                  <div className="offerDescriptionBottom">
-                    <button className="offerButtonViews button contained">Увеличить просмотры</button>
-                  </div>
-                </div>
-              </a>
+              <OfferActive offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue}/>
             );
           })}
         </div>
       </div>
 
 
-    
-      <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth='md'>
-        <UnpublishForm Close={handleUnpublishFormDialog} />
-        </Dialog>
+
       
 
+    </>
 
-    </UnpublishCTX.Provider>
   );
 
 }
