@@ -635,6 +635,7 @@
 .ad__block_bottom__adaptive {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 60px;
 }
 .swiper-pagination {
     display: none;
@@ -649,6 +650,10 @@
 .productPageCard {
     max-width: 968px;
     width: 100%;
+}
+
+.SellerProductInfo{
+    display: flex;
 }
 
 @media (max-width: 1365px) {
@@ -973,6 +978,12 @@
     .productPageSimilarOffersContainer {
         grid-template-columns: repeat(1, 1fr);
     }
+    .SellerInfoMess{
+        padding: 6px 0;
+    }
+    .SellerInfoCall{
+        padding: 6px 0;
+    }
 }
 
 @media (max-width: 400px) {
@@ -1001,8 +1012,28 @@
     }
 }
 
+
+@media (max-width: 380px) {
+    .SellerInfoUserBlock {
+        flex-wrap: wrap;
+        padding: 0;
+    }
+    .productUserName{
+        padding-top: 8px
+    }
+    .ad__block_bottom{
+        height: 90px;
+    }
+    .SellerProductInfo{
+        padding-top: 3px;
+    }
+}
+
 @media (max-width: 350px) {
     .ad__block_bottom__adaptive_left {
         font-size: 0;
+    }
+    .mySwiper2 .swiper-wrapper{
+        height: 300px !important;
     }
 }

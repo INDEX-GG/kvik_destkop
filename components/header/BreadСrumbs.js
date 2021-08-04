@@ -5,7 +5,10 @@ import { makeStyles } from "@material-ui/core"
 const useStyles = makeStyles((theme) => ({
     bread: {
         marginBottom: '32px',
-        marginTop: '20px'
+        marginTop: '20px',
+        [theme.breakpoints.down("1080")]: {
+            marginBottom: "0px"
+	    }
     },
 
     breadActiveItem: {

@@ -3,6 +3,7 @@ import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
 import FavProvider from '../lib/Context/FavoritesCTX';
+import EndMessage from './EndMessage';
 
 const useStyles = makeStyles((theme) => ({
 	top: {
@@ -12,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		flexGrow: 1,
+		marginRight: "2px",
+		[theme.breakpoints.down("350")]: {
+			fontSize: "20px"
+		}
 	}
 }));
 
@@ -79,6 +84,7 @@ const OffersRender = ({ data, title }) => {
 					{state.sorting(data)?.map((obj, i) => <AdCard_component  key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
+				{/* <EndMessage/> */}
 			</FavProvider>
 		</>
 	);

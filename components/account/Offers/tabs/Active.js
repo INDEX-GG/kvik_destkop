@@ -8,95 +8,88 @@ import AddRounded from "@material-ui/icons/AddRounded";
 import Router from "next/router";
 import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
 
-import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
-import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
+import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 // import { useFavorits } from "../../../../lib/Context/FavoritesCTX";
 // import { func } from "prop-types";
 
-
 const useStyles = makeStyles((theme) => ({
   check: {
-    padding: '0px',
+    padding: "0px",
     background: theme.palette.secondary.main,
-    width: '14px',
-    height: '14px',
+    width: "14px",
+    height: "14px",
 
-    '&:hover': {
+    "&:hover": {
       background: theme.palette.secondary.main,
     },
   },
   btn__unpublish: {
-    marginLeft: '12px',
-    background: 'none',
+    marginLeft: "12px",
+    background: "none",
     color: theme.palette.grey[200],
-    cursor: 'pointer',
-    transition: 'all 200ms ease-in-out',
+    cursor: "pointer",
+    transition: "all 200ms ease-in-out",
 
-    '&:hover': {
-      transition: 'all 200ms ease-in-out',
-      textDecoration: 'underline',
+    "&:hover": {
+      transition: "all 200ms ease-in-out",
+      textDecoration: "underline",
     },
-  }
+  },
 }));
 
-
-
-
-
 function Active(data) {
-
-
-
-
-
   const classes = useStyles();
 
-  const checkF = useRef()
+  const checkF = useRef();
   const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 
-  const [qwe, setQwe] = useState()
+  const [qwe, setQwe] = useState();
 
-
-  const [offerId, setOfferId] = useState()
+  const [offerId, setOfferId] = useState();
 
   useEffect(() => {
-    setQwe(data.offers?.map((offer => { return offer.id })))
-  }, [data])
+    setQwe(
+      data.offers?.map((offer) => {
+        return offer.id;
+      })
+    );
+  }, [data]);
 
   let mainArr = [];
 
   function setCheck(e) {
-    if (e.target.value === '' && mainArr.length === 0) {
-      console.log('добавляет все')
-      mainArr = qwe
-    } else if (e.target.value === '' && mainArr.length !== 0) {
-      console.log('удаляет все')
-      mainArr = []
+    if (e.target.value === "" && mainArr.length === 0) {
+      console.log("добавляет все");
+      mainArr = qwe;
+    } else if (e.target.value === "" && mainArr.length !== 0) {
+      console.log("удаляет все");
+      mainArr = [];
     } else if (mainArr.includes(+e.target.value)) {
-      mainArr = mainArr.filter((item) => { return item !== +e.target.value })
+      mainArr = mainArr.filter((item) => {
+        return item !== +e.target.value;
+      });
     } else {
-      mainArr.push(+e.target.value)
+      mainArr.push(+e.target.value);
     }
 
-    setMainArr()
+    setMainArr();
   }
 
   function setMainArr() {
-    console.log('после ==============>', mainArr)
+    console.log("после ==============>", mainArr);
   }
-
-
 
   /* Модальное окно */
   function pushCheck(e) {
-    if (e.target.value === '') {
-      setOfferId(mainArr)
+    if (e.target.value === "") {
+      setOfferId(mainArr);
     } else {
-      setOfferId([+e.target.value])
+      setOfferId([+e.target.value]);
     }
-    setOpenUnpublishForm(!openUnpublishForm)
-    handleUnpublishFormDialog()
+    setOpenUnpublishForm(!openUnpublishForm);
+    handleUnpublishFormDialog();
   }
 
   if (data.offers.length == 0) {
@@ -134,13 +127,17 @@ function Active(data) {
         <div className="clientPage__container_nav__radio">
           <Checkbox
             className={classes.check}
-            color='primary'
-            value=''
+            color="primary"
+            value=""
             icon={<FiberManualRecordOutlinedIcon />}
             checkedIcon={<FiberManualRecordSharpIcon />}
-            onChange={(e) => { setCheck(e); }}
+            onChange={(e) => {
+              setCheck(e);
+            }}
           />
-          <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>Снять с публикации</button>
+          <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>
+            Снять с публикации
+          </button>
         </div>
         <div className="clientPage__container_content">
           {data.offers?.map((offer, i) => {
@@ -150,18 +147,20 @@ function Active(data) {
                   <div className="offerPubCheck">
                     <Checkbox
                       className={classes.check}
-                      color='primary'
+                      color="primary"
                       icon={<FiberManualRecordOutlinedIcon />}
                       checkedIcon={<FiberManualRecordSharpIcon />}
                       value={offer.id}
                       ref={checkF}
                       onChange={(e) => setCheck(e)}
-                    // checked={qqq}
+                      // checked={qqq}
                     />
                   </div>
-                  {JSON.parse(offer.photo)?.photos?.slice(0, 1).map((imgs, i) => {
-                    return <img key={i} src={imgs} />;
-                  })}
+                  {JSON.parse(offer.photo)
+                    ?.photos?.slice(0, 1)
+                    .map((imgs, i) => {
+                      return <img key={i} src={imgs} />;
+                    })}
                 </div>
                 <div className="offerDescription">
                   <div className="offerDescriptionTop">
@@ -179,20 +178,15 @@ function Active(data) {
                         Редактировать
                       </button>
 
-                      <a href = "javascript:void(0);">
-                        <button
-                          value={offer.id}
-                          onClick={(e) => pushCheck(e)}
-                          className="offerUnpublish thin superLight"
-                        >
+                      <a href="javascript:void(0);">
+                        <button value={offer.id} onClick={(e) => pushCheck(e)} className="offerUnpublish thin offerSocialAction">
                           Снять с публикации
                         </button>
                       </a>
-                      <div className="offerSocialCount">
+                      <div className="offerSocialCount offerSocialCountPos offerSocialCountPosActive">
                         <div className="offerShowes showesIcon">0 +0</div>
                         <div className="offerAddFavores likeIcon">0 +0</div>
                       </div>
-
                     </div>
                   </div>
                   <div className="offerDescriptionBottom">
@@ -205,30 +199,13 @@ function Active(data) {
         </div>
       </div>
 
-
-    
-      <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth='md'>
+      <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
         <UnpublishForm Close={handleUnpublishFormDialog} />
-        </Dialog>
-      
-
-
+      </Dialog>
     </UnpublishCTX.Provider>
   );
-
 }
 export default Active;
-
-
-
-
-
-
-
-
-
-
-
 
 /* import React, { useState, useEffect } from "react";
 import { ToRubles, ToFullDate } from "../../../../lib/services";

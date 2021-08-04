@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
 }
-.productModal > div{
+.productModal > div {
   backdrop-filter: blur(8px);
 }
 
@@ -19,7 +19,8 @@
     display: block;
     color: white;
   }
-  & > .swiper-button-prev,.swiper-button-next {
+  & > .swiper-button-prev,
+  .swiper-button-next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -51,6 +52,5 @@
 }
 
 // .productSliderNav .swiper-slide-thumb-active {
-  // border: 6px solid #52b9c5;
+// border: 6px solid #52b9c5;
 // }
-

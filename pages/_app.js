@@ -11,6 +11,10 @@ import AuthProvider from '../lib/Context/AuthCTX';
 import MainLayout from '../layout/MainLayout';
 import MutateProvider from '../lib/Context/MutateCTX';
 import {ErrorBoundary} from '../components/ErrorBoundary';
+import CityProvider from '../lib/Context/CityCTX';
+
+
+
 function MyApp({ Component, pageProps }) {
 
    return (
@@ -27,12 +31,14 @@ function MyApp({ Component, pageProps }) {
 				</Head>
 				<AuthProvider>
 					<ThemeProvider theme={theme}>
-						<MutateProvider>
-							<MainLayout>
-								<CssBaseline/>
-								<Component {...pageProps} />
-							</MainLayout>
-						</MutateProvider>
+						<CityProvider>
+							<MutateProvider>
+								<MainLayout>
+									<CssBaseline/>
+									<Component {...pageProps} />
+								</MainLayout>
+							</MutateProvider>
+						</CityProvider>
 					</ThemeProvider>
 				</AuthProvider>
 			</SWRConfig>

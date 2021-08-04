@@ -6,20 +6,12 @@ import Router from "next/router";
 import { useProduct } from "../../hooks/useProduct";
 import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
+import { useMedia } from "../../hooks/useMedia";
 
 export default function PhoneModule({dialog, setDialog}) {
 
-
-  const [infoSeller, setInfoSeller] = useState({})
   const { name, userPhoto, raiting, user_id, isLoading } = useProduct(Router);
   const {sellerPhone} = useOutherUser(user_id)
-
-  // useEffect(() => {
-  //   setInfoSeller({name: name, userPhoto, raiting, user_id, sellerPhone})
-  //   console.log(infoSeller.length)
-  //   console.log(infoSeller)
-  //   console.log("2")
-  // })
 
   const useStyles = makeStyles(() => ({
     modalNumber: {
@@ -27,7 +19,7 @@ export default function PhoneModule({dialog, setDialog}) {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      paddingTop: "16px",
+      padding: "16px 8px 0px",
     },
     userProfile: {
       display: "flex",

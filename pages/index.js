@@ -3,11 +3,14 @@ import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
 import axios from "axios";
 import { PrismaClient } from '@prisma/client';
-import { Box, Container, makeStyles, Typography } from "@material-ui/core";
+import { Box, Container, makeStyles, Typography, } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
 import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
 import MetaLayout from "../layout/MetaLayout";
+import PlaceOfferButton from "../components/PlaceOfferButton";
+import EndMessage from "../components/EndMessage";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +66,7 @@ const Index = ({ offers }) => {
           </Box>}
         </Box>
       </Container>
+      {matchesMobile ? <PlaceOfferButton/> : null}
     </MetaLayout >
   )
 }

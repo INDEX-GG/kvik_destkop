@@ -10,6 +10,7 @@ import Favorits from "../../UI/Favorits";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import UnpublishForm from "../UnpublishForm";
 import { UnpublishCTX } from "../../lib/Context/DialogCTX";
+import router from "next/router";
 export default function ProductAction(data) {
   const { id } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
@@ -19,16 +20,16 @@ export default function ProductAction(data) {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
   const objP = { adstatus: 8 };
-  const [offerId, setOfferId] = useState()
+  const [offerId, setOfferId] = useState();
 
   const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 
   /* Модальное окно */
   function pushCheck(e) {
-    setOfferId(+data.router.query.id)
-    setOpenUnpublishForm(!openUnpublishForm)
-    handleUnpublishFormDialog()
+    setOfferId(+data.router.query.id);
+    setOpenUnpublishForm(!openUnpublishForm);
+    handleUnpublishFormDialog();
   }
 
   return (
@@ -53,7 +54,7 @@ export default function ProductAction(data) {
             ) : (
               ""
             )}
-            <div className={data.user_id === id ? 'SellerInfoDate' : 'SellerInfoDate_active'}>Размещено {ToRusDate(data.created_at)}</div>
+            <div className={data.user_id === id ? "SellerInfoDate" : "SellerInfoDate_active"}>Размещено {ToRusDate(data.created_at)}</div>
             {/* { <span className={data.user_id === id  ? "ad__block_top__publication_date ad__posted" : "ad__block_top__publication_date"}>Размещено {ToRusDate(data.created_at)}</span> } */}
             {data.user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
             <div className="SellerInfoOldPrice thin dark crossed">{data.oldprice == undefined ? "" : ToRubles(data.oldprice)}</div>
@@ -63,12 +64,11 @@ export default function ProductAction(data) {
               <a className="SellerInfoMess button contained">
                 <IconMess /> Написать продавцу
               </a>
-
             ) : (
               ""
             )}
             {data.user_id !== id ? (
-              <button className="SellerInfoCall button contained" onClick={() => setPhoneModuleState(!PhoneModuleState)}>
+              <button className="SellerInfoCall button contained" onClick={() => setPhoneModuleState(!phoneModuleState)}>
                 <IconCall /> Показать номер
               </button>
             ) : (
@@ -87,7 +87,7 @@ export default function ProductAction(data) {
             )}
           </div>
         )}
-        {data.user_id !== id && !matchesMobile && !matchesTablet && <div className="SellerInfoBuy">Купить</div>}
+        {data.user_id !== id && !matchesMobile && !matchesTablet && <div className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")} >Купить</div>}
         {objP.adstatus !== 7 && !matchesMobile && !matchesTablet && (
           <div className="ad__block_middle">
             {data.user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""}
@@ -100,7 +100,13 @@ export default function ProductAction(data) {
               ""
             )}
             {data.user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
-            {data.user_id === id ? <a onClick={(e) => pushCheck(e)} className="ad_btn buttonGrey button">Снять с публикации</a> : ""}
+            {data.user_id === id ? (
+              <a onClick={(e) => pushCheck(e)} className="ad_btn buttonGrey button">
+                Снять с публикации
+              </a>
+            ) : (
+              ""
+            )}
             {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
             {objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
             {objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}
@@ -128,15 +134,12 @@ export default function ProductAction(data) {
           <Statistics Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
-        <Dialog open={PhoneModuleState} onClose={() => setPhoneModuleState(!PhoneModuleState)} fullWidth maxWidth="sm">
-          <PhoneModule />
-        </Dialog>
+        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
 
         <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
           <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
         </Dialog>
       </UnpublishCTX.Provider>
-
     </>
   );
 }

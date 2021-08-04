@@ -22,6 +22,7 @@ const useStyles = makeStyles(() => ({
     buyAd: {
         display: "flex",
         flexDirection: "column",
+        marginTop: "50px",
         width: "224px",
         "& > div": {
             marginBottom: "24px"
