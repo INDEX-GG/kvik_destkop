@@ -110,7 +110,7 @@ function HeaderMobile({ chageMenu = false }) {
           <Login />
         </DialogCTX.Provider>
       </AppBar>
-      <div style={{marginBottom: matchesCustom1024 ? "20px" : "auto"}} className={classes.test}></div>
+      <div style={{marginBottom: matchesCustom1024 ? "25px" : "124px"}} className={classes.test}></div>
     </>
   );
 }
