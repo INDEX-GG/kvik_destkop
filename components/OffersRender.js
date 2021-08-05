@@ -7,17 +7,21 @@ import EndMessage from './EndMessage';
 
 const useStyles = makeStyles((theme) => ({
 	top: {
-		marginBottom: '15px',
+		marginBottom: '7px',
 		display: 'flex',
 		alignItems: 'center',
 	},
 	title: {
 		flexGrow: 1,
 		marginRight: "2px",
+		fontSize: "22px",
 		[theme.breakpoints.down("350")]: {
-			fontSize: "20px"
+			fontSize: "20px",
 		}
-	}
+	},
+	title_filter: {
+		fontSize: '14px',
+	},
 }));
 
 const byInit = arr => arr;
@@ -68,6 +72,7 @@ const OffersRender = ({ data, title, isProduct }) => {
 			<FavProvider >
 				<Box className={classes.top}>
 					<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
+
 					{!isProduct &&
 						<TextField
 							select
@@ -75,18 +80,19 @@ const OffersRender = ({ data, title, isProduct }) => {
 							onChange={(e) => dispatch({ type: e.target.value })}
 						>
 							{sortItems.map((option, i) => (
-								<MenuItem key={i} value={option.value}>
+								<MenuItem key={i} className={classes.title_filter} value={option.value}>
 									{option.label}
 								</MenuItem>
 							))}
 						</TextField>
 					}
+
 				</Box>
 				<div className="scrollableOffersHome">
 					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
-				{/* <EndMessage/> */}
+				<EndMessage/>
 			</FavProvider>
 		</>
 	);

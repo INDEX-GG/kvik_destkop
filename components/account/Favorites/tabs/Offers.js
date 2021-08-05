@@ -93,7 +93,7 @@ function Offers(data) {
                   <div>{offer.title}</div>
                   <div className="thin small light">{offer.address}</div>
                 </div>
-                <span id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote">{offer.comment}</span>
+                <a href='javascript:void(0)'> <span id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote">{offer.comment}</span></a>
                 <a className="favoritesButton buttonGrey small">Сообщить об изменении цены</a>
               </div>
             </a>

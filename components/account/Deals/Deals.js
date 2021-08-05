@@ -48,12 +48,13 @@ const Deals = () => {
             })}
             </div>
          </div>
-      </div>
+     
          {navItems.map(item => {
             return (
                (itemNav.i === item.id) && (<div key={item.id} className="clientPage__container_content">{item.content}</div>)
             )
          })}
+          </div>
       </>
    )
 }

@@ -138,10 +138,10 @@ export default function offerActive(offer) {
                             <div>{ToRubles(offer.offer.price)}</div>
                             <div className="offerTitle">{offer.offer.title}</div>
                             <div className="offerDatPub small light DatPub__mobile">
-                                <span> Дата публикации </span>
+                                <span className="offerDate"> Дата публикации </span>
                                 {ToFullDate(offer.offer.created_at)}
                             </div>
-                            <div>Осталось 30 дней</div>
+                            <div className="offerLastDays">Осталось 30 дней</div>
                         </div>
                         <div className="offerDTRight">
                             <button type="submit" className="offerEdit thin editIcon offerSocialAction">
@@ -157,7 +157,7 @@ export default function offerActive(offer) {
                                     Снять с публикации
                                 </button>
                             </a>
-                            <div className="offerSocialCount">
+                            <div className="offerSocialCount offerSocialCountPos offerSocialCountPosActive">
                                 <div className="offerShowes showesIcon">0 +0</div>
                                 <div className="offerAddFavores likeIcon">0 +0</div>
                             </div>

@@ -56,13 +56,21 @@ export default function ProductUserInfo(data) {
                 </div>
               </div>
               {data.user_id === id || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ? (
-                matchesLaptop || matchesDesktop || matchesHD ? (
+
+                matchesLaptop || matchesDesktop || matchesHD && !matchesMobile? (
                   <>
                    {data.user_id != id && <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
                    {data.user_id != id && <a className="SellerInfoloarmore"></a>}
                   </>
+
                 ) : ("")) : ("")}
             </div>
+            {matchesMobile ? 
+            (
+              <>
+                <span style={{marginLeft: "0px"}} className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>
+              </>
+            ) : null}
           </div>
           {data.user_id !== id ?
             matchesTablet || matchesMobile ? '' :
@@ -73,12 +81,14 @@ export default function ProductUserInfo(data) {
           }
           {/* {objP.adstatus === 7 && data.user_id === id ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : "" : ""} */}
           {!matchesLaptop && !matchesDesktop && !matchesHD ? (
-            <>
+            matchesMobile ? null : (
+              <>
               <div className="SellerProductInfo">
               {data.user_id != id && <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
               {data.user_id != id &&  <a className="SellerInfoloarmore">&nbsp;</a>}
               </div>
             </>
+            )
           ) : (
             ""
           )}

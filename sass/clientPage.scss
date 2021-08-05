@@ -13,13 +13,14 @@
   padding-bottom: 20px;
   display: grid;
   grid-template-columns: 1fr 220px 1014px 1fr;
-  grid-template-rows: 16px auto;
+  grid-template-rows: 50px auto;
   grid-column-gap: 24px;
   grid-row-gap: 32px;
 
   &__breadcrumbs {
     grid-area: 1 / 2 / 2 / 4;
-    display: block;
+    display: flex;
+    align-items: flex-end;
   }
 
   &__menu {
