@@ -40,6 +40,7 @@
 }
 
 .offerDescriptionTop {
+  position: relative;
   flex-grow: 1;
   display: flex;
   flex-direction: row;
@@ -125,6 +126,7 @@
 .offerSocialCountPosActive {
   position: absolute;
   top: 50px;
+  right: 0;
   bottom: auto;
 }
 
@@ -238,10 +240,24 @@
   .offerTitle,
   .offerDatPub {
     padding-bottom: 0;
+    margin-top: 8px;
+  }
+
+
+  .offerDatPub > div{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  .offerLastDays{
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 
   .offerSocialCountPos {
-    top: 0;
+    top: 10px;
     left: 0px;
     flex-direction: column;
     margin-top: 0;
@@ -251,7 +267,7 @@
   .offerShowes,
   .offerAddFavores {
     margin-top: 0;
-    margin-left: 8px;
+    margin-left: 0;
   }
   .offerCauses {
     padding-bottom: 8px;
@@ -288,8 +304,7 @@
     grid-template-rows: repeat(2, 1fr);
     height: 368px;
   }
-  .offerShowes,
-  .offerAddFavores {
-    margin: 8px 0px 0px 8px;
+  .offerDate{
+    display: none;
   }
 }

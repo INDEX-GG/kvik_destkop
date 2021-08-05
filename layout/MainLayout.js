@@ -25,8 +25,8 @@ const MainLayout = ({ children}) => {
     <>
       <div>
 		    {!matchesMobile && !matchesTablet && <Header category={finalName == null ? null : ellipsis(finalName[0].toUpperCase() + finalName.substring(1, ), 20)}/>}
-        {matchesCustom1024 || matchesTablet ? <HeaderMobile chageMenu={true}/> : null}
-        {matchesMobile && <HeaderMobile />}
+        {matchesCustom1024 || matchesTablet && router.pathname != "/404" && router.pathname != "/500" ? <HeaderMobile chageMenu={true}/> : null}
+        {matchesMobile && router.pathname != "/404" && router.pathname != "/500" && <HeaderMobile />}
         <>{children}</>
       </div>
       {router.pathname == "/" ? matchesTablet || matchesMobile ? <Footer/> : null : <Footer/>}

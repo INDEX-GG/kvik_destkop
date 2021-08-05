@@ -121,6 +121,7 @@ const useStyles = makeStyles(() => ({
         },
         [theme.breakpoints.down("xs")] : {
             width: "100%",
+            paddingLeft: "0",
         },
     },
     buyDileveryInput: {
