@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import MetaLayout from "../../layout/MetaLayout";
 import StarRating from "../../components/StarRating";
 import Offers from "../../components/account/Offers/Offers";
@@ -51,12 +51,17 @@ function Account() {
   const {mutateAvatar} = useMutate();
   const [avatar, setAvatar] = useState();
   const { isLoading, name, userPhoto, createdAt, raiting, subscriptions } = useUser();
+  const countRender = useRef(0)
+  const firstPanelId = null
   
-
-
   const {signOut, id} = useAuth();
 
   const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "Избранное" } : { i: 1, itm: "menuOffers", ttl: "Мои объявления" });
+
+   useEffect(() => {
+    countRender.current += 1
+    console.log(localStorage.getItem("account"))
+  }, [menuItem])
 
   const [openPicUpload, setPicUpload] = useState(false);
   const [logout, setLogout] = useState(false);
@@ -145,7 +150,32 @@ function Account() {
             </a>
           </div>
         </div>
-        <div className="clientPage__container">{(menuItem.i === 1 && <OfferAccountProvider> <Offers router={router} /> </OfferAccountProvider>) || (menuItem.i === 2 && <Deals />) || (menuItem.i === 3 && <Wallet />) || (menuItem.i === 4 && <Favorites router={router.query.id}/>) || (menuItem.i === 5 && <Notifications />) || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}</div>
+        <div className="clientPage__container">
+          {countRender.current > 1 ? (
+            <>
+              {(menuItem.i === 1 && 
+              <OfferAccountProvider> 
+                <Offers router={router} /> 
+              </OfferAccountProvider>) 
+              || (menuItem.i === 2 && <Deals />) 
+              || (menuItem.i === 3 && <Wallet />) 
+              || (menuItem.i === 4 && <Favorites router={router.query.id}/>) 
+              || (menuItem.i === 5 && <Notifications />) 
+              || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}
+            </>
+          ) : 
+          <>
+            {(menuItem.i === 1 && 
+              <OfferAccountProvider> 
+                <Offers router={router} /> 
+              </OfferAccountProvider>) 
+              || (menuItem.i === 2 && <Deals />) 
+              || (menuItem.i === 3 && <Wallet />) 
+              || (menuItem.i === 4 && <Favorites router={router.query.id}/>) 
+              || (menuItem.i === 5 && <Notifications />) 
+              || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}
+          </>}
+        </div>
       </div>
       <div className="userPageWhiteSpace"></div>
       <Dialog open={openPicUpload} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">

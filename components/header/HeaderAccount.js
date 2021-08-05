@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -9,9 +9,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Divider, Dialog, DialogTitle } from '@material-ui/core';
 import { initials, stringToColor } from '../../lib/services';
 import { useState } from 'react';
+import axios from 'axios';
+import { mutate } from "swr";
+import { useAuth } from '../../lib/Context/AuthCTX';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
   list: {
@@ -23,18 +27,109 @@ const useStyles = makeStyles({
   avatar: {
     width: "32px",
     height: "32px",
+  },
+  accountItem: {
+    paddingLeft: "33px",
+    "& > span": {
+        fontSize: "14px",
+        fontWeight: "500"
+    }
+  },
+  accountItemActive: {
+    "& > span": {
+        color: "#00A0AB",
+    }
+  },
+  accountTitle: {
+      margin: "26px 0 25px 40px",
+      color: "#2C2C2C",
+      fontWeight: "500",
+      fontSize: "18px",
+      position: "relative",
+      "&::before": {
+          content: "''",
+          backgroundColor: "#C7C7C7",
+          borderRadius: "10px",
+          width: "18px",
+          height: "3px",
+          position: "absolute",
+          top: "8px",
+          right: "100px",
+          transform: "rotate(45deg)"
+      },
+      "&::after": {
+          content: "''",
+          backgroundColor: "#C7C7C7",
+          borderRadius: "10px",
+          width: "18px",
+          height: "3px",
+          position: "absolute",
+          top: "8px",
+          right: "100px",
+          transform: "rotate(-45deg)"
+      }
+  },
+  logout: {
+      marginLeft: "10px"
   }
 });
 
 export default function HeaderAccount({userPhoto, name}) {
+
+  const router = useRouter()
+
   const classes = useStyles();
   const [state, setState] = useState({
     right: false,
   });
 
+  const [active, setActive] = useState(-1)
+  const [logout, setLogout] = useState(false);
+  const {signOut, id} = useAuth();
 
-  const accountTitleArr =  ["Мои объявления", "Сделки", "Кошелёк", "Изьранное", "Уведомления", "Сравнить", "Отзывы", "Настройки", "Выход"]
-  const accountIcon = []
+
+  useEffect(() => {
+     localStorage.setItem("account", active)
+  })
+
+
+  if (router.pathname == "/account/[id]") {
+      return (
+          <Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
+            {initials(name)}
+          </Avatar>
+      )
+  }
+
+
+
+
+  const menuItems = [
+  { id: 1, name: "menuOffers", title: "Мои объявления" },
+  { id: 2, name: "menuDeals", title: "Сделки" },
+  { id: 3, name: "menuWallet", title: "Кошелек" },
+  { id: 4, name: "menuFavorites", title: "Избранное" },
+  { id: 5, name: "menuNotifications", title: "Уведомления" },
+  { id: 6, name: "menuCompare", title: "Сравнить" },
+  { id: 7, name: "menuReviews", title: "Отзывы" },
+  { id: 8, name: "menuSettings", title: "Настройки" },
+  ];
+
+  const getId = (e) => {
+    
+    if (e.target.getAttribute("id")) {
+        setActive(+e.target.getAttribute("id"))
+        return;
+    } else if (e.target.parentNode.getAttribute("id")) {
+        setActive(+e.target.parentNode.getAttribute("id"))
+        return;
+    }
+
+    if (e.target.tagName == "SPAN") {
+        setActive(+e.target.parentNode.parentNode.getAttribute("id"))
+        return;
+    }
+  }
 
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -45,33 +140,57 @@ export default function HeaderAccount({userPhoto, name}) {
     setState({ ...state, [anchor]: open });
   };
 
+  const logOut = () => {
+    axios.get("/api/logout").then(() => {
+      mutate("/api/user");
+	  signOut();
+      router.push("/");
+    });
+  };
+
   const list = (anchor) => (
+    <>
     <div
       className={clsx(classes.list, {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role="presentation"
-    //   onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+      <List className="burgerContainer">
+        <div onClick={toggleDrawer("right", false)} className={classes.accountTitle}>Аккаунт</div>
+        <Divider/>
+        {menuItems.map(item => (
+          <ListItem onClick={(e) => {
+              getId(e)
+              router.push(`/account/${id}`)
+          }} button id={item.id} key={item.id} className="burgerList">
+            <ListItemText className={`${item.id == active ? item.name + "Active" : item.name} ${item.id == active ? `${classes.accountItem} ${classes.accountItemActive}`: classes.accountItem} ${item.id == active ? classes.activeItem : ""}`} primary={item.title} />
           </ListItem>
         ))}
       </List>
+        <ListItem onClick={() => setLogout(!logout)} button id={"10"} className="burgerList">
+            <ListItemText className={`${classes.accountItem} 
+            ${classes.logout} menuLogoff`} primary={"Выход"} />
+        </ListItem>
     </div>
+    <Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
+        <DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
+        <div className="accountLogoutBtnBox">
+          <Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{textTransform:"uppercase"}}>
+            Отмена
+          </Button>
+          <Button onClick={() => logOut()} className="accountLogoutYes" style={{color:"red", textTransform:"uppercase"}}>Выйти</Button>
+        </div>
+      </Dialog>
+    </>
   );
 
   return (
     <>
-        <Button onClick={toggleDrawer("right", true)}>
-            <Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
-                {initials(name)}
-            </Avatar> 
-        </Button>
+        <Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
+            {initials(name)}
+        </Avatar> 
         <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
         {list("right")}
         </Drawer>
