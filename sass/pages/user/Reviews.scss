@@ -5,7 +5,7 @@
 
 .reviewsContainer {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1.7fr 2fr;
     width: 48%;
     height: 184px;
     margin: 0 20px 24px 0;
@@ -66,6 +66,7 @@
 .reviewsButton{
     width: 204px;
     align-self: center;
+    font-weight: 500;
 }
 .reviewsUserpic {
     margin-left: 8px;
@@ -162,6 +163,7 @@
     .reviewsContainer{
         width: 100%;
         margin-right: 0px;
+        grid-template-columns: 0.6fr 2fr;
     }
     .reviewCheck{
         display: none;
@@ -169,8 +171,16 @@
     .reviewsDelete{
         display: none;
     }
-}
 
+    .reviewContainer{
+        padding: 8px 8px;
+    }
+}
+@media (max-width: 690px) {
+    .reviewsContainer{
+        grid-template-columns: 1fr 2fr;
+    }
+}
 @media (max-width: 480px) {
     .reviewsContainer{
         grid-template-columns: 1fr;

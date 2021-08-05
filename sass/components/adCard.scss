@@ -244,7 +244,6 @@
     }
 
     .card__top_info_right {
-        bottom: 8px;
         right: 8px;
     }
 }
@@ -287,6 +286,10 @@
 
     .card__bottom_info_middle {
         height: 22px;
+    }
+
+    .card__top_info_right {
+        bottom: 8px;
     }
 
     .card__bottom_info_left .new__price {

@@ -7,17 +7,21 @@ import EndMessage from './EndMessage';
 
 const useStyles = makeStyles((theme) => ({
 	top: {
-		marginBottom: '15px',
+		marginBottom: '7px',
 		display: 'flex',
 		alignItems: 'center',
 	},
 	title: {
 		flexGrow: 1,
 		marginRight: "2px",
+		fontSize: "22px",
 		[theme.breakpoints.down("350")]: {
-			fontSize: "20px"
+			fontSize: "20px",
 		}
-	}
+	},
+	title_filter: {
+		fontSize: '14px',
+	},
 }));
 
 const byInit = arr => arr;
@@ -74,7 +78,7 @@ const OffersRender = ({ data, title }) => {
 						onChange={(e) => dispatch({ type: e.target.value })}
 					>
 						{sortItems.map((option, i) => (
-							<MenuItem key={i} value={option.value}>
+							<MenuItem key={i} className={classes.title_filter} value={option.value}>
 								{option.label}
 							</MenuItem>
 						))}
@@ -84,7 +88,7 @@ const OffersRender = ({ data, title }) => {
 					{state.sorting(data)?.map((obj, i) => <AdCard_component  key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
-				{/* <EndMessage/> */}
+				<EndMessage/>
 			</FavProvider>
 		</>
 	);

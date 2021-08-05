@@ -14,11 +14,12 @@ import { useMedia } from "../../hooks/useMedia"
 import Link from "next/link"
 import Login from "../auth/Login";
 import BurgerCategories from "./BurgerCategories";
+import HeaderAccount from "./HeaderAccount";
 
 const useStyles = makeStyles(() => ({
   container: {
     flexDirection: "column",
-    padding: "0 24px",
+    padding: "0 12px",
   },
   info: {
     display: "flex",
@@ -79,12 +80,8 @@ function HeaderMobile({ chageMenu = false }) {
             <BurgerCategories/>
             <Logo className={classes.logo} />
             {isAuth ?
-              <Link href={`/account/${id}`}>
-                <Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
-                  {initials(name)}
-                </Avatar>
-              </Link> : 
-              <div className={classes.avatar}></div>}
+              <HeaderAccount name={name} userPhoto={userPhoto}/> :
+              <Avatar onClick={() => setOpenLoginForm(!openLoginForm)} className={classes.avatar}/>}
           </div>
           <div className={classes.block2}>
             <Search text={matchesMobile ? "Поиск" : false} />
@@ -98,12 +95,7 @@ function HeaderMobile({ chageMenu = false }) {
               <div className={classes.changeMenu}>
                 <MobileFilter className={classes.filter} number={10} />
               </div>
-            )) :  
-            <div className={classes.changeMenu}>
-              <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
-                Войти
-              </Button>
-            </div>}
+            )) :  null}
           </div>
         </Container>
         <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>

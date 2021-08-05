@@ -139,10 +139,10 @@ function Buy() {
                 <Box className={classes.buyProduct}>
                     <h1 className={classes.buyTitle}>Оформление и оплата</h1>
                     <section className={classes.buyItem}>
-                        <Image className={classes.buyItemImg} src="/offersImage/25374offer-28374.webp" alt="Img-product" width={88} height={88}/>
+                        <Image className={classes.buyItemImg} src="/" alt="Img-product" width={88} height={88}/>
                         <div className={classes.buyItemInf}>
-                            <div className={classes.buyItemPrice}>1000 &#8381;</div>
-                            <div className={classes.buyItemName}>Test12345</div>
+                            <div className={classes.buyItemPrice}>10 000 000 &#8381;</div>
+                            <div className={classes.buyItemName}>Очень длинное название товара</div>
                             <div className={classes.buyItemDate}>Дата публикации 00.00.00.00.00</div>
                             <div className={classes.buyItemCity}>Челябинск</div>
                         </div>
