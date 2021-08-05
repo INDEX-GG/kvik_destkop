@@ -75,8 +75,8 @@ const useStyles = makeStyles((theme) => ({
    placeOfferMapDesc: {
       color: "#C7C7C7",
       fontSize: "12px",
-      position: "absolute",
-      top: "55px"
+      // position: "absolute",
+      // top: "45px"
    },
    buttonSend: {
         position: "absolut",
@@ -116,7 +116,7 @@ export default function MobileLocation() {
                         autoComplete="on"
                         value={value}
                         onChange={onChange}
-                        error={!!error} helperText={error ? error.message : ' '} />
+                         error={!!error} helperText={error ? error.message : ' '}   />
                   )}
                   rules={{ required: 'Укажите ваше местоположение...' }}
                />

@@ -8,7 +8,7 @@ import aliasName from "../components/header/CategoriesAliaseName";
 import { ellipsis } from "../lib/services";
 
 const MainLayout = ({ children}) => {
-  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1024 } = useMedia();
 	const router = useRouter();
   const aliasQuery = router.asPath.split("/").splice(2,).join("")
   const [alias, setAlias] = useState("test")
@@ -25,7 +25,7 @@ const MainLayout = ({ children}) => {
     <>
       <div>
 		    {!matchesMobile && !matchesTablet && <Header category={finalName == null ? null : ellipsis(finalName[0].toUpperCase() + finalName.substring(1, ), 20)}/>}
-        {matchesTablet && <HeaderMobile chageMenu={true} />}
+        {matchesCustom1024 || matchesTablet ? <HeaderMobile chageMenu={true}/> : null}
         {matchesMobile && <HeaderMobile />}
         <>{children}</>
       </div>

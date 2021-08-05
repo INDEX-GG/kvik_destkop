@@ -17,6 +17,14 @@ import CityProvider from '../lib/Context/CityCTX';
 
 function MyApp({ Component, pageProps }) {
 
+
+	//! Проверка на мобилки
+	// setTimeout(() => {
+	// 	if(/Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent)){
+	// 	console.log("Location: Ваш сайт моб. версия");
+	// 	} else { console.log("Not mobile") }
+	// }, 1500)
+
    return (
 		<ErrorBoundary>
 			<SWRConfig 
