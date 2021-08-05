@@ -376,6 +376,12 @@
   }
 }
 
+@media (max-width: 1080px) {
+  .clientPage__placeholder-container {
+    margin-top: 50px;
+  }
+}
+
 @media (max-width: 1024px) {
   .clientPage__menu > * {
     margin: 0 0 21px 0 !important;
@@ -413,5 +419,14 @@
   }
   .clientPage__container_nav > * {
     font-size: 11px;
+  }
+}
+
+@media (max-width: 350px) {
+  .clientPage__placeholder-ads {
+    padding: 0 8px;
+  }
+  .clientPage__placeholder-title {
+    font-size: 13px;
   }
 }

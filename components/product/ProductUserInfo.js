@@ -58,8 +58,8 @@ export default function ProductUserInfo(data) {
               {data.user_id === id || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ? (
                 matchesLaptop || matchesDesktop || matchesHD ? (
                   <>
-                    <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>
-                    <a className="SellerInfoloarmore"></a>
+                   {data.user_id != id && <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
+                   {data.user_id != id && <a className="SellerInfoloarmore"></a>}
                   </>
                 ) : ("")) : ("")}
             </div>
@@ -75,8 +75,8 @@ export default function ProductUserInfo(data) {
           {!matchesLaptop && !matchesDesktop && !matchesHD ? (
             <>
               <div className="SellerProductInfo">
-                <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>
-                <a className="SellerInfoloarmore">&nbsp;</a>
+              {data.user_id != id && <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
+              {data.user_id != id &&  <a className="SellerInfoloarmore">&nbsp;</a>}
               </div>
             </>
           ) : (

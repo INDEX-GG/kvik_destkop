@@ -84,7 +84,7 @@ const [checkAll, setCheckAll] = useState(false)
 
   }
 
-  if (data.offers.length == 0) {
+  if (data.offers.length !== 0) {
     return (
       <div className="clientPage__placeholder-container">
         <div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>

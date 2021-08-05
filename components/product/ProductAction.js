@@ -59,7 +59,7 @@ export default function ProductAction(data) {
             {data.user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
             <div className="SellerInfoOldPrice thin dark crossed">{data.oldprice == undefined ? "" : ToRubles(data.oldprice)}</div>
             <div className="SellerInfoPrice thin xxl">{ToRubles(data.price)}</div>
-            {objP.adstatus !== 7 ? <div className="SellerInfoBargain dark thin">{data.trade && <p>Торг уместен</p>}</div> : ""}
+            {objP.adstatus !== 7 ? <div className="SellerInfoBargain dark thin">{ data.user_id != id && data.trade && <p>Торг уместен</p>}</div> : ""}
             {data.user_id !== id ? (
               <a className="SellerInfoMess button contained">
                 <IconMess /> Написать продавцу

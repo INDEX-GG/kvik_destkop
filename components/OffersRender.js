@@ -59,7 +59,7 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({ data, title }) => {
+const OffersRender = ({ data, title, isProduct }) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
 
@@ -68,20 +68,22 @@ const OffersRender = ({ data, title }) => {
 			<FavProvider >
 				<Box className={classes.top}>
 					<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
-					<TextField
-						select
-						value={state.value}
-						onChange={(e) => dispatch({ type: e.target.value })}
-					>
-						{sortItems.map((option, i) => (
-							<MenuItem key={i} value={option.value}>
-								{option.label}
-							</MenuItem>
-						))}
-					</TextField>
+					{!isProduct &&
+						<TextField
+							select
+							value={state.value}
+							onChange={(e) => dispatch({ type: e.target.value })}
+						>
+							{sortItems.map((option, i) => (
+								<MenuItem key={i} value={option.value}>
+									{option.label}
+								</MenuItem>
+							))}
+						</TextField>
+					}
 				</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) => <AdCard_component  key={i} offer={obj} />)}
+					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
 				{/* <EndMessage/> */}

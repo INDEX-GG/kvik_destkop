@@ -88,10 +88,11 @@ export default function UnpublishForm() {
             })
     }
 
-    // console.log(offerId)
+    console.log(offerId)
+    console.log(offer)
 
     if (offerId?.length === 1) {
-        const offerAction = (offer)?.filter((item) => item.id === +offerId.join())
+        const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join())
         console.log(offerAction)
         return (
             <>
