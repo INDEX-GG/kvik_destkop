@@ -66,7 +66,10 @@ function HeaderMobile({ chageMenu = false }) {
     const [openRegForm, setOpenRegForm] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
   const Router = useRouter()
-  const {matchesMobile} = useMedia()
+  const {matchesMobile, matchesCustom1024} = useMedia()
+
+
+
 
   return (
     <>
@@ -107,7 +110,7 @@ function HeaderMobile({ chageMenu = false }) {
           <Login />
         </DialogCTX.Provider>
       </AppBar>
-      <div className={classes.test}></div>
+      <div style={{marginBottom: matchesCustom1024 ? "20px" : "auto"}} className={classes.test}></div>
     </>
   );
 }
