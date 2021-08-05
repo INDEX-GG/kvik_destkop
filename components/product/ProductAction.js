@@ -134,7 +134,9 @@ export default function ProductAction(data) {
           <Statistics Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
+
         <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
+
 
         <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
           <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
