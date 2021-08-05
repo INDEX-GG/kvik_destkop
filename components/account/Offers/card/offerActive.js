@@ -92,8 +92,8 @@ export default function offerActive(offer) {
         console.log('Что хранится uio==>', uio)
         console.log('==================================')
 
-       console.log(qwe.filter((item) => item.id === data.map((items, i) => items)))
-console.log(data.map((item, i) => item.id))
+        console.log(qwe.filter((item) => item.id === data.map((items, i) => items)))
+        console.log(data.map((item, i) => item.id))
 
 
         setUio(zxc)
@@ -105,14 +105,12 @@ console.log(data.map((item, i) => item.id))
     /* Модальное окно */
     function pushCheck(e) {
         if (e.target.value === '') {
-            setOfferId(mainArr)
         } else {
             setOfferId([+e.target.value])
         }
         setOpenUnpublishForm(!openUnpublishForm)
         handleUnpublishFormDialog()
     }
-
 
 
     return (

@@ -125,7 +125,7 @@ const Product = () => {
                           <div className="SellerInfoOldPrice__adaptive">
                             <div className="SellerInfoOldPrice thin dark crossed">{oldprice == undefined ? "" : ToRubles(oldprice)}</div>
                             <div className="SellerInfoPrice thin xxl">{ToRubles(price)}</div>
-                            <div className="SellerInfoBargain dark thin">{trade && <p>Торг уместен</p>}</div>
+                            <div className="SellerInfoBargain dark thin">{user_id != id && trade && <p>Торг уместен</p>}</div>
                           </div>
                           <div className="SellerInfo__adaptive_info">
                             <div className="SellerInfo__adaptive_info_top">
@@ -243,7 +243,7 @@ const Product = () => {
 
                 <div className="productPageContent">
                   <div className="productPageCard">
-                    <OffersRender data={data} title={"Похожие объявления"} />
+                    <OffersRender isProduct data={data} title={"Похожие объявления"} />
                     <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
                       {(collSO && "Показать ещё") || "Скрыть"}
                     </div>
