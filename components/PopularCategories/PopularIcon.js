@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		top: 0,
 		width: '150px',
-		textAlign: 'center'
+		textAlign: 'center',
+		fontWeight: "500"
 	}
 }));
 

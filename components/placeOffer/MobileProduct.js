@@ -2,6 +2,7 @@ import React from "react"
 import { Box, makeStyles, InputBase, TextField } from "@material-ui/core"
 import { Controller, useFormContext } from "react-hook-form"
 import MobilePhotoes from "./MobilePhotoes";
+import { useMedia } from "../../hooks/useMedia";
 
 const useStyles = makeStyles((theme) => ({
     plaseOfferInput: {
@@ -23,6 +24,7 @@ export default function MobileProduct({ctx}) {
 
     const classes = useStyles();
     const methods = useFormContext();
+    const {matchesMobile} = useMedia()
     let photoes = [];
     const photoesCtx = (obj) => {
         return photoes = obj;
@@ -57,7 +59,7 @@ export default function MobileProduct({ctx}) {
                defaultValue=''
                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
-                     placeholder="Введите описание товара (до 4 000 символов)"
+                     placeholder={matchesMobile ? "Описание товара" : "Введите описание товара (до 4 000 символов)"}
                      className={classes.plaseOfferInput}
                      type="text"
                      autoComplete="on"

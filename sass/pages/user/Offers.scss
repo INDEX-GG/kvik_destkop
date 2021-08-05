@@ -119,16 +119,17 @@
   right: 15px;
   bottom: 10px;
   font-weight: 400;
-  color: #5A5A5A
+  color: #5a5a5a;
 }
 
-.offerSocialCountPosActive{
+.offerSocialCountPosActive {
+  position: absolute;
   top: 50px;
-  bottom: auto
+  bottom: auto;
 }
 
 .offerSocialAction {
-  color: #52B9C5;
+  color: #52b9c5;
   &:hover {
     text-decoration: underline;
   }
@@ -229,7 +230,8 @@
   .offerDescription {
     padding: 0 8px;
   }
-  .offerTitle, .offerDatPub{
+  .offerTitle,
+  .offerDatPub {
     padding: 0;
   }
 

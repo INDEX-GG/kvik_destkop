@@ -8,6 +8,7 @@ import AddRounded from "@material-ui/icons/AddRounded";
 import Router from "next/router";
 import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
 
+
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 
@@ -15,32 +16,31 @@ import OfferActive from "../card/offerActive";
 // import { useFavorits } from "../../../../lib/Context/FavoritesCTX";
 // import { func } from "prop-types";
 
-
-
 const useStyles = makeStyles((theme) => ({
   check: {
-    padding: '0px',
+    padding: "0px",
     background: theme.palette.secondary.main,
-    width: '14px',
-    height: '14px',
+    width: "14px",
+    height: "14px",
 
-    '&:hover': {
+    "&:hover": {
       background: theme.palette.secondary.main,
     },
   },
   btn__unpublish: {
-    marginLeft: '12px',
-    background: 'none',
+    marginLeft: "12px",
+    background: "none",
     color: theme.palette.grey[200],
-    cursor: 'pointer',
-    transition: 'all 200ms ease-in-out',
+    cursor: "pointer",
+    transition: "all 200ms ease-in-out",
 
-    '&:hover': {
-      transition: 'all 200ms ease-in-out',
-      textDecoration: 'underline',
+    "&:hover": {
+      transition: "all 200ms ease-in-out",
+      textDecoration: "underline",
     },
-  }
+  },
 }));
+
 
 
 
@@ -81,6 +81,7 @@ const [checkAll, setCheckAll] = useState(false)
     setCheck(e.target.checked)
     setcheckValue(e.target.value)
     setCheckAll(e.target.checked)
+
   }
 
   if (data.offers.length == 0) {
@@ -118,23 +119,88 @@ const [checkAll, setCheckAll] = useState(false)
         <div className="clientPage__container_nav__radio">
           <Checkbox
             className={classes.check}
-            color='primary'
-            value=''
+            color="primary"
+            value=""
             icon={<FiberManualRecordOutlinedIcon />}
             checkedIcon={<FiberManualRecordSharpIcon />}
+
             onChange={(e) => handleCheckAll(e)}
             checked={check}
+
           />
-          <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>Снять с публикации</button>
+          <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>
+            Снять с публикации
+          </button>
         </div>
         <div className="clientPage__container_content">
           {data.offers?.map((offer, i) => {
             return (
+
+              <a href={`/product/${offer.id}`} key={i} className="offerContainer boxWrapper">
+                <div className="offerImage">
+                  <div className="offerPubCheck">
+                    <Checkbox
+                      className={classes.check}
+                      color="primary"
+                      icon={<FiberManualRecordOutlinedIcon />}
+                      checkedIcon={<FiberManualRecordSharpIcon />}
+                      value={offer.id}
+                      ref={checkF}
+                      onChange={(e) => setCheck(e)}
+                      // checked={qqq}
+                    />
+                  </div>
+                  {JSON.parse(offer.photo)
+                    ?.photos?.slice(0, 1)
+                    .map((imgs, i) => {
+                      return <img key={i} src={imgs} />;
+                    })}
+                </div>
+                <div className="offerDescription">
+                  <div className="offerDescriptionTop">
+                    <div className="offerDTLeft thin">
+                      <div>{ToRubles(offer.price)}</div>
+                      <div className="offerTitle">{offer.title}</div>
+                      <div className="offerDatPub small light DatPub__mobile">
+                        <span> Дата публикации </span>
+                        {ToFullDate(offer.created_at)}
+                      </div>
+                      <div>Осталось 30 дней</div>
+                    </div>
+                    <div className="offerDTRight">
+                      <button type="submit" className="offerEdit thin editIcon offerSocialAction">
+                        Редактировать
+                      </button>
+
+                      <a href="javascript:void(0);">
+                        <button value={offer.id} onClick={(e) => pushCheck(e)} className="offerUnpublish thin offerSocialAction">
+                          Снять с публикации
+                        </button>
+                      </a>
+                      <div className="offerSocialCount offerSocialCountPos offerSocialCountPosActive">
+                        <div className="offerShowes showesIcon">0 +0</div>
+                        <div className="offerAddFavores likeIcon">0 +0</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="offerDescriptionBottom">
+                    <button className="offerButtonViews button contained">Увеличить просмотры</button>
+                  </div>
+                </div>
+              </a>
+
               <OfferActive offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue}/>
+
             );
           })}
         </div>
       </div>
+
+
+      <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
+        <UnpublishForm Close={handleUnpublishFormDialog} />
+      </Dialog>
+    </UnpublishCTX.Provider>
 
 
 
@@ -143,20 +209,8 @@ const [checkAll, setCheckAll] = useState(false)
     </>
 
   );
-
 }
 export default Active;
-
-
-
-
-
-
-
-
-
-
-
 
 /* import React, { useState, useEffect } from "react";
 import { ToRubles, ToFullDate } from "../../../../lib/services";

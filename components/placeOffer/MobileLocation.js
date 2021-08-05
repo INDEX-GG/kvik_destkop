@@ -99,7 +99,7 @@ export default function MobileLocation() {
       <Box className={classes.plaseOfferBox}>
          <Box className={classes.plaseOfferBoxItem}>
             <Typography className={classes.plaseOfferTitle}>Местоположение</Typography>
-            <div className={`${classes.plaseOfferMore} ${collapsed ? classes.placeOfferMoreActive : ""}`} onClick={() => setCollapsed(!collapsed)}>Город, автоматически определенный</div>
+            <div className={`${classes.plaseOfferMore} ${collapsed ? classes.placeOfferMoreActive : ""}`} onClick={() => setCollapsed(!collapsed)}>Выберите город</div>
          </Box>
          <Collapse in={collapsed}>
             <Box className={classes.placeOfferMapBox}>

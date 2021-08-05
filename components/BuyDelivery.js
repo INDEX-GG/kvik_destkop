@@ -239,7 +239,9 @@ function BuyDelivery() {
     const [modalParagraph, setModalParagraph] = useState (false)
     const [paragraphContent, setParagraphContent] = useState(true)
 
-    const {matchesMobile} = useMedia()
+    const {matchesMobile, matchesTablet} = useMedia()
+
+    const classes = useStyles()
 
 
     function paragraphBox(map = false, xs = false, buttonName = "Перейти к оплате") {
@@ -287,8 +289,6 @@ function BuyDelivery() {
         ) 
     }
 
-
-    const classes = useStyles()
     return (
         <>
             <section className={classes.buyDilevery}>
@@ -349,7 +349,7 @@ function BuyDelivery() {
                         </form>
                     </div>
                 </Collapse>
-                <Dialog open={modalParagraph} onClose={() => setModalParagraph(!modalParagraph)}>
+                <Dialog open={modalParagraph} fullScreen={matchesMobile ? true : false} onClose={() => setModalParagraph(!modalParagraph)}>
                     <div className={classes.paragraph}>
                         <div className={classes.paragraphTitle}>Выбор пункта самовызова товара</div>
                         {matchesMobile ? <div className={classes.paragraphMenu}>

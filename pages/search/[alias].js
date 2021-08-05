@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 		position: 'sticky',
 	},
   bread: {
-    marginBottom: "40px"
+    marginBottom: "40px",
   },
   breadActiveItem: {
     color: "#2C2C2C"
