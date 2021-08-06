@@ -107,7 +107,7 @@ export default function ContentPlaseOffer({dialog, title, backFunc, product}) {
     console.log(product)
     return(
         promotion ? (
-            <Promotion product={promotionProduct}/>
+            <Promotion dialog={promotion} product={promotionProduct}/>
         ) : 
         <Dialog open={dialog} fullScreen={true}>
                 <div className="modal__wrapper_md accountContainer">
