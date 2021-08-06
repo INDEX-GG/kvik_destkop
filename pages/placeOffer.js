@@ -13,7 +13,7 @@ import Location from '../components/placeOffer/Location';
 import Contacts from '../components/placeOffer/Contacts';
 import ErrorMessages from '../components/placeOffer/ErrorMessages';
 import axios from 'axios';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
 import Loader from '../UI/icons/Loader';
 import PlaceOfferMobile from '../components/placeOffer/placeOfferMobile';
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexGrow: 1,
         [theme.breakpoints.down('md')]: {
-			paddingLeft: '220px',
+            paddingLeft: '220px',
         },
     },
     title: {
@@ -43,25 +43,25 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         display: 'flex',
-		alignItems: 'center'
+        alignItems: 'center'
     },
-	backdrop: {
-		zIndex: 2000,
-		backgroundColor: 'rgba(255, 255, 255, 0.85)',
-	},
+    backdrop: {
+        zIndex: 2000,
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    },
 
 }));
 
 function PlaceOffer() {
-    const {id} = useAuth();
+    const { id } = useAuth();
     const classes = useStyles();
-	const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false)
     const [product, setProduct] = useState({})
     const [photo, setPhoto] = useState(null)
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
-	const router = useRouter();
+    const router = useRouter();
     let photoes = [];
     const photoesCtx = (obj) => {
         return photoes = obj;
@@ -70,19 +70,19 @@ function PlaceOffer() {
     const onSubmit = data => {
         console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
-		const alias = [data?.alias1, data?.alias2];
-		if (data?.alias3) {
-			alias.push(data.alias3);
-		}
-		if (data?.alias4) {
-			alias.push(data.alias4);
-		}
-        
+        const alias = [data?.alias1, data?.alias2];
+        if (data?.alias3) {
+            alias.push(data.alias3);
+        }
+        if (data?.alias4) {
+            alias.push(data.alias4);
+        }
+
         const sendData = new FormData;
-		const photoData = new FormData;
+        const photoData = new FormData;
         sendData.append('user_id', id);
         sendData.append('title', data.title);
-		sendData.append('alias', alias);
+        sendData.append('alias', alias);
         sendData.append('description', data.description);
         sendData.append('price', data.price);
         sendData.append('trade', data.trade);
@@ -99,61 +99,61 @@ function PlaceOffer() {
             photoData.append('files[]', photoes[0]);
         }
         console.log(data, alias)
-		// setLoading(true);
+        // setLoading(true);
         axios.post('/api/setPosts', sendData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
         }).then(r => {
-			axios.post(`http://192.168.8.111:6001/post/${r?.data?.id}`, photoData, {
-				headers: {
-					"Content-Type": "multipart/form-data"
-				}
-			}).then(() => {
+            axios.post(`http://192.168.8.111:6001/post/${r?.data?.id}`, photoData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then(() => {
                 console.log(r?.data?.id, photoData)
-                setProduct({title: data.title, price: data.price, id: r?.data?.id, photo: photoes[0].name})
+                setProduct({ title: data.title, price: data.price, id: r?.data?.id, photo: photoes[0].name })
                 console.log(product)
                 setPromotion(true)
             })
-		})
-    }   
+        })
+    }
 
     return (
-        promotion ? <Promotion product={product}/> : 
-        <MetaLayout title={'Подать объявление'}>
-            {!matchesMobile && !matchesTablet && <Container className={classes.root}> 
-                <Box className={classes.offersBox}>
-                    <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
-                    <FormProvider {...methods} >
-                    <Verify/>
-                        <form onSubmit={methods.handleSubmit(onSubmit)}>
-                            <Box className={classes.formPart}>
-                                <Title />
-                                <Category />
-                            </Box>
-                            <Box className={classes.formPart}>
-                                <Description />
-                                <Price />
-                                <Photoes ctx={photoesCtx}/>
-                            </Box>
-                            <Box className={classes.formPart}>
-                                <Location />
-                                <Contacts />
-                                <Box className={classes.submit}>
-												<ErrorMessages />
-                                    <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
+        promotion ? <Promotion product={product} /> :
+            <MetaLayout title={'Подать объявление'}>
+                {!matchesMobile && !matchesTablet && <Container className={classes.root}>
+                    <Box className={classes.offersBox}>
+                        <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
+                        <FormProvider {...methods} >
+                            <Verify />
+                            <form onSubmit={methods.handleSubmit(onSubmit)}>
+                                <Box className={classes.formPart}>
+                                    <Title />
+                                    <Category />
                                 </Box>
-                            </Box>
-                        </form>
-                    </FormProvider>
-                </Box>
-            </Container>}
-            {matchesMobile || matchesTablet ? <PlaceOfferMobile/> : null}
+                                <Box className={classes.formPart}>
+                                    <Description />
+                                    <Price />
+                                    <Photoes ctx={photoesCtx} />
+                                </Box>
+                                <Box className={classes.formPart}>
+                                    <Location />
+                                    <Contacts />
+                                    <Box className={classes.submit}>
+                                        <ErrorMessages />
+                                        <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
+                                    </Box>
+                                </Box>
+                            </form>
+                        </FormProvider>
+                    </Box>
+                </Container>}
+                {matchesMobile || matchesTablet ? <PlaceOfferMobile /> : null}
 
-			<Backdrop className={classes.backdrop} open={loading}>
-				<Loader size={64}/>
-			</Backdrop>
-        </MetaLayout>
+                <Backdrop className={classes.backdrop} open={loading}>
+                    <Loader size={64} />
+                </Backdrop>
+            </MetaLayout>
     )
 }
 
