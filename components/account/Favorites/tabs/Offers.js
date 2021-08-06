@@ -12,7 +12,7 @@ import axios from "axios";
 
 
 function Offers(data) {
-  
+
 
 
 
@@ -83,7 +83,7 @@ function Offers(data) {
                     <div className='favoritesDescriptionUserName'>{offer.user_name}</div>
                     <div className="favoritesDatPub light DatPub__mobile">
                       {" "}
-                      <span> Дата публикации</span> {ToRusDate(offer.created_at)}
+                       {ToRusDate(offer.created_at)}
                     </div>
                   </div>
                   <img className="favoritesUserpic" src={offer.user_photo} />
@@ -93,7 +93,7 @@ function Offers(data) {
                   <div>{offer.title}</div>
                   <div className="thin small light">{offer.address}</div>
                 </div>
-                <a href='javascript:void(0)'> <span id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote">{offer.comment}</span></a>
+                <a href='javascript:void(0)' id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote">{offer.comment}</a>
                 <a className="favoritesButton buttonGrey small">Сообщить об изменении цены</a>
               </div>
             </a>

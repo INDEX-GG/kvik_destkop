@@ -296,6 +296,9 @@
   .offerContainer {
     grid-template-columns: 1fr 2fr;
   }
+  .offerDate-sales{
+    display: none;
+  }
 }
 
 @media (max-width: 450px) {

@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: "9px",
         marginBottom: "32px",
         border: 0,
-        outline: 0
+        outline: 0,
+        position: 'absolute'
     }
 }));
 

@@ -96,7 +96,7 @@
     justify-content: flex-end;
     color: $tp;
 }
-.favoritesUserBlock:hover .favoritesDescriptionUserName{
+.favoritesUserBlock:hover .favoritesDescriptionUserName {
     text-decoration: underline;
 }
 .favoritesNote {
@@ -104,6 +104,7 @@
     text-align: right;
     background: no-repeat right center url(../../../icons/close_grey.svg);
     transition: all 350ms ease-in-out;
+    color: $tp;
 }
 
 .favoritesNote:hover {
@@ -171,7 +172,7 @@
 .sellersUserName {
     color: $tp;
 }
-.sellersUserBlock:hover .sellersUserName{
+.sellersUserBlock:hover .sellersUserName {
     text-decoration: underline;
 }
 
@@ -208,7 +209,7 @@
     transition: all 150ms ease-in-out;
 }
 
-.sellersOffer:hover{
+.sellersOffer:hover {
     transition: all 200ms ease-in-out;
     box-shadow: 0px 0px 30px #00000026;
 }
@@ -276,10 +277,6 @@
     .favoritesContainer {
         height: 230px;
     }
-
-    .favoritesButton {
-        padding: 3px 0px !important;
-    }
 }
 
 @media (max-width: 1024px) {
@@ -288,10 +285,19 @@
         width: 100%;
     }
 
+    .favoritesCompare {
+        display: none;
+    }
+
+    .favoritesFavorite {
+        top: 8px;
+        right: 8px;
+    }
+
     .favoritesButton {
         max-width: 204px;
         align-self: center;
-        padding: 3px 0px;
+        padding: 3px 8px;
     }
 }
 
@@ -301,17 +307,15 @@
     }
 }
 
-@media (max-width: 540px) {
-    .favoritesNote {
-        text-align: left;
-    }
-}
+// @media (max-width: 540px) {
+//     .favoritesNote {
+//         text-align: left;
+//     }
+// }
 
 @media (max-width: 450px) {
     .favoritesContainer {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(2, 1fr);
-        height: 368px;
+        grid-template-columns: 1.5fr 2fr;
     }
     .sellersOffers {
         justify-content: center;
@@ -320,5 +324,16 @@
     .favoritesShowes,
     .favoritesAddFavores {
         margin: 20px 0px 0px 20px;
+    }
+    .favoritesButton {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 370px) {
+    .favoritesContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1.5fr 1fr;
+        height: 368px;
     }
 }
