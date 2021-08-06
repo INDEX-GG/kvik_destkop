@@ -186,3 +186,12 @@
         }
     }
 }
+
+@media (max-width: 400px) {
+ .contacts__blocks__block_wrapper_top > p >a {
+     font-size: 20px;
+ }
+ .contacts__blocks__block_wrapper_adress{
+     font-size: 13px;
+ }
+}

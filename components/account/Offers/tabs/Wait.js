@@ -76,7 +76,7 @@ function Wait(data) {
                   {offer.verify == 1 || offer.verify == 4 || offer.verify == 6 ? (
                   <div className="thin light small DatPub__mobile offerStats">
                     <span>Дата последнего редактирования:</span> {offer.date}
-                    <div className="offerSocialCount offerSocialCountPos">
+                    <div className="offerSocialCount offerSocialCountPos offerSocialCountLeft">
                       <div className="offerShowes showesIcon">0 +0</div>
                       <div className="offerAddFavores likeIcon">0 +0</div>
                     </div>

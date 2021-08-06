@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { makeStyles, Collapse, TextField, Dialog } from "@material-ui/core"
+import { makeStyles, Collapse, TextField, Dialog, Button } from "@material-ui/core"
 import theme from "../UI/theme"
 import SelectBuy from "./SelectBuy"
 import { useMedia } from "../hooks/useMedia"
@@ -42,13 +42,22 @@ const useStyles = makeStyles(() => ({
         color: "#2C2C2C",
         fontSize: "18px",
         position: "relative",
-        marginLeft: "38px"
+        marginLeft: "38px",
+        [theme.breakpoints.down("410")]: {
+            fontSize: "16px"
+        },
+        [theme.breakpoints.down("375")]: {
+            fontSize: "14px"
+        }
     },
     buyDileveryPrice: {
         color: "#00A0AB",
         fontWeight: "500",
         fontSize: "18px",
         marginRight: "5px",
+        [theme.breakpoints.down("410")]: {
+            fontSize: "15px"
+        },
     },
     buyDileverySubtitle: {
         fontSize: "12px",
@@ -153,10 +162,6 @@ const useStyles = makeStyles(() => ({
         fontWeight: "500",
         borderBottom: "1px solid #E9E9E9",
         marginBottom: "12px",
-        [theme.breakpoints.down("xs")]: {
-            textAlign: "center",
-            padding: "16px 0 27px"
-        }
 
     },
     paragraphMenu: {
@@ -164,10 +169,10 @@ const useStyles = makeStyles(() => ({
         marginBottom: "32px"
     },
     paragraphMenuItem: {
-        width: "250px",
+        width: "100%",
         textAlign: "center",
         paddingBottom: "8px",
-        borderBottom: "2px solid gray",
+        borderBottom: "2px solid #E9E9E9",
         borderRadius: "2px"
     },
     paragraphMenuItemActive: {
@@ -177,11 +182,8 @@ const useStyles = makeStyles(() => ({
         display: "flex",
     },
     paragraphList: {
-        marginRight: "10px",
-        [theme.breakpoints.down("xs")]: {
-            maxWidth: "500px",
-            width: "100%",
-        }
+        width: "100%",
+        paddingRight: "12px"
     },
     paragraphItem: {
         fontSize: "12px",
@@ -195,7 +197,6 @@ const useStyles = makeStyles(() => ({
             backgroundColor: "#E9E9E9"
         },
         [theme.breakpoints.down("xs")]: {
-            maxWidth: "500px",
             width: "100%"
         }
     },
@@ -209,11 +210,9 @@ const useStyles = makeStyles(() => ({
         backgroundColor: "#2C2C2C",
         borderRadius: "8px",
         [theme.breakpoints.down("xs")] : {
-            margin: "0 auto",
             width: "100%",
-            maxWidth: "500px",
             height: "400px",
-            marginBottom: "24px"
+            marginBottom: "24px",
         }
     },
     buyPaymentButton: {
@@ -221,15 +220,28 @@ const useStyles = makeStyles(() => ({
         left: "50%",
         transform: "translateX(-50%)",
         backgroundColor: "#00A0AB",
-        padding: "8px 20px",
         color: "#fff",
-        borderRadius: "8px",
-        cursor: "pointer",
         fontWeight: "500",
-        transition: ".2s all linear",
         "&:hover": {
-            backgroundColor: "#087474"
+            backgroundColor: "#00A0AB"
         }
+    },
+    dialogTitle: {
+        textAlign: "center",
+        padding: "16px 0px 12px",
+        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+        marginBottom: "24px"
+    },
+    paragraphNumber: {
+        marginBottom: "4px"
+    },
+    containerMap: {
+        [theme.breakpoints.down(600)]: {
+            padding: "0 24px"
+        }
+    },
+    paragraphContainer: {
+        padding: "8px 12px 12px"
     }
 }))
 
@@ -247,36 +259,24 @@ function BuyDelivery() {
 
     function paragraphBox(map = false, xs = false, buttonName = "Перейти к оплате") {
         return (
-        <div className={classes.paragraphBox}>
+        <div className={`${classes.paragraphBox} ${matchesMobile ? classes.paragraphContainer : ""}`}>
             <div className={classes.paragraphList}>
                 <div className={classes.paragraphItem}>
                     <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
-                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
-                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
-                    {xs ? <button className={classes.buyPaymentButton} type="submit">{buttonName}</button> : null}
+                    <div className={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                    <div className={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                    {xs ? <Button className={classes.buyPaymentButton} type="submit">{buttonName}</Button> : null}
                 </div>
                 <div className={classes.paragraphItem}>
                     <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
-                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
-                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
-                </div>
-                <div className={classes.paragraphItem}>
-                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
-                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
-                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
-                </div>
-                <div className={classes.paragraphItem}>
-                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
-                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
-                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
-                </div>
-                <div className={classes.paragraphItem}>
-                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
-                    <div calssName={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
-                    <div calssName={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                    <div className={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                    <div className={classes.paragraphNumber}>+7 (000) 000-00-00</div>
                 </div>
             </div>
-            {map ? <div className={classes.paragraphMap}></div> : null}
+            {map ? 
+            <div className={classes.containerMap}>
+                <div className={classes.paragraphMap}></div>
+            </div> : null}
         </div>
         )
     }
@@ -284,7 +284,9 @@ function BuyDelivery() {
     function paragraphMap() {
         return (
             <>
-                <div className={classes.paragraphMap}></div>
+                <div className={classes.paragraphContainer}>
+                    <div className={classes.paragraphMap}></div>
+                </div>
                 {paragraphBox(false, true, "Выбрать этот пункт")}
             </>
         ) 
@@ -351,16 +353,25 @@ function BuyDelivery() {
                     </div>
                 </Collapse>
                 <Dialog open={modalParagraph} fullScreen={matchesMobile ? true : false} onClose={() => setModalParagraph(!modalParagraph)}>
-                    <div className={classes.paragraph}>
-                        <div className={classes.paragraphTitle}>Выбор пункта самовызова товара</div>
-                        {matchesMobile ? <div className={classes.paragraphMenu}>
-                            <div className={`${classes.paragraphMenuItem} ${paragraphContent ? classes.paragraphMenuItemActive : null}`} onClick={() => setParagraphContent(!paragraphContent)}>Список</div>
-                            <div className={`${classes.paragraphMenuItem} ${paragraphContent ?  null : classes.paragraphMenuItemActive}`} onClick={() => {
-                                setParagraphContent(!paragraphContent)
-                            }}>Карта</div>
-                        </div> : null }
-                        {matchesMobile ? paragraphContent ? paragraphBox(false, true) : paragraphMap() :  paragraphBox(true)}
-                    </div>
+                        <div className={matchesMobile ? "modal__block__top accountTop" : classes.paragraphContainer } >
+                            {matchesMobile ? 
+                            <>
+                                <div className="accountArrowLeft"></div>
+                                <div className={classes.dialogTitle}>
+                                    <h6 className="modal__block__top_title">Выбор пункта самовызова товара</h6>
+                                </div>
+                            </> : <div className={classes.paragraphTitle}>Выбор пункта самовызова товара</div>}
+                            {matchesMobile ? <div className={classes.paragraphMenu}>
+                                <div 
+                                className={`${classes.paragraphMenuItem} ${paragraphContent ? classes.paragraphMenuItemActive : null}`} onClick={() => setParagraphContent(!paragraphContent)}>Список</div>
+                                <div 
+                                className={`${classes.paragraphMenuItem} ${paragraphContent ?  null : classes.paragraphMenuItemActive}`} 
+                                onClick={() => {
+                                    setParagraphContent(!paragraphContent)
+                                }}>Карта</div>
+                                </div> : null }
+                            {matchesMobile ? paragraphContent ? paragraphBox(false, true) : paragraphMap() :  paragraphBox(true)}
+                        </div>
                 </Dialog>
             </section>
             <section className={classes.buyDilevery}>
@@ -368,7 +379,7 @@ function BuyDelivery() {
                     <div className={classes.buyDileveryInf}>
                         <div className={classes.buyDeliveryName}>
                             <div className={classes.buyDileveryCircle} style={{backgroundColor: deliveryCourier ? "#00A0AB" : null}}></div>
-                            <div className={classes.buyDileveryTitle}>Доставка номер два (курьером например)</div>
+                            <div className={classes.buyDileveryTitle}>Доставка номер два (курьером)</div>
                         </div>
                         <div className={classes.buyDileveryPrice}>1000&nbsp;&#8381;</div>
                     </div>

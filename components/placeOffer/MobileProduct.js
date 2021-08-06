@@ -15,7 +15,18 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "32px",
         border: 0,
         outline: 0,
-        position: 'absolute'
+    },
+    inputError1: {
+        "& > p": {
+            position: "absolute",
+            bottom: "-22px"
+        }
+    },
+    inputError3: {
+        "& > p": {
+            position: "absolute",
+            bottom: "-20px"
+        }
     }
 }));
 
@@ -41,7 +52,7 @@ export default function MobileProduct({ctx}) {
                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                      placeholder="Введите название товара"
-                     className={classes.plaseOfferInput}
+                     className={`${classes.plaseOfferInput} ${classes.inputError1}`}
                      type="text"
                      autoComplete="on"
                      value={value}
@@ -61,7 +72,7 @@ export default function MobileProduct({ctx}) {
                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                      placeholder={matchesMobile ? "Описание товара" : "Введите описание товара (до 4 000 символов)"}
-                     className={classes.plaseOfferInput}
+                     className={`${classes.plaseOfferInput} ${classes.inputError3}`}
                      type="text"
                      autoComplete="on"
                      value={value}

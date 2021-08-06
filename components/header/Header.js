@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: "8px 12px ",
+    padding: "9px 12px ",
     display: 'flex',
     alignItems: "flex-end",
     "&>*": {
@@ -69,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
     top: '0px',
     zIndex: '0',
   },
+  menu__categorys: {
+    minWidth: "220px",
+    justifyContent: "space-between"
+  }
 }));
 
 const Header = ({ category }) => {

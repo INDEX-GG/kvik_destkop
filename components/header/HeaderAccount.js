@@ -176,7 +176,9 @@ export default function HeaderAccount({userPhoto, name}) {
                 }
               })
           }} button id={item.id} key={item.id} className="burgerList">
-            <ListItemText className={`${item.id == active ? item.name + "Active" : item.name} ${item.id == active ? `${classes.accountItem} ${classes.accountItemActive}`: classes.accountItem} ${item.id == active ? classes.activeItem : ""}`} primary={item.title} />
+            <ListItemText 
+            style={{height: "30px", display: "flex", alignItems: "center"}} 
+            className={`${item.id == active ? item.name + "Active" : item.name} ${item.id == active ? `${classes.accountItem} ${classes.accountItemActive}`: classes.accountItem} ${item.id == active ? classes.activeItem : ""}`} primary={item.title} />
           </ListItem>
         ))}
       </List>

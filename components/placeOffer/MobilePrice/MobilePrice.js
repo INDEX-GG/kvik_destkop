@@ -33,6 +33,14 @@ const useStyles = makeStyles(theme => ({
     plaseOfferAuction: {
         justifyContent: "flex-end"
     },
+    inputError4: {
+        "& > p": {
+            position: "absolute",
+            bottom: "-70px",
+            left: "-20px",
+            width: "100px"
+        }
+    },
 })) 
 
 export default function MobilePrice() {
@@ -50,7 +58,7 @@ export default function MobilePrice() {
                         defaultValue=''
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <TextField
-                                className={classes.plaseOfferPriceInput}
+                                className={`${classes.plaseOfferPriceInput} ${classes.inputError4}`}
                                 placeholder="Ввести"
                                 type="text"
                                 autoComplete="on"
