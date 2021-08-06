@@ -37,105 +37,135 @@ export default function ProductUserInfo(data) {
           <Avatar alt="User" src={data.userPhoto} className="SellerInfoUserPic" onClick={() => {
             router.push(`/user/${data.user_id}`)
           }} />
-          <div>
-            <div className='productUserName' onClick={() => {
-              router.push(`/user/${data.user_id}`)
-            }}> {data.name} </div>
-            <div>
-              <div className="SellerInfoRateNumber">{objP.userrate} </div>
-              <div className="rating">
-                <div className="stars">
-                  <div className="on" style={{ width: `${data.raiting * 20}%` }}></div>
-                  <div className="live">
-                    <span data-rate="1"></span>
-                    <span data-rate="2"></span>
-                    <span data-rate="3"></span>
-                    <span data-rate="4"></span>
-                    <span data-rate="5"></span>
+
+          {data.user_id === undefined ? <div className="placeholder_animation product__placeholder_userinfo"></div> :
+            <>
+              <div>
+                <div className='productUserName' onClick={() => {
+                  router.push(`/user/${data.user_id}`)
+                }}> {data.name} </div>
+                <div>
+                  <div className="SellerInfoRateNumber">{objP.userrate} </div>
+                  <div className="rating">
+                    <div className="stars">
+                      <div className="on" style={{ width: `${data.raiting * 20}%` }}></div>
+                      <div className="live">
+                        <span data-rate="1"></span>
+                        <span data-rate="2"></span>
+                        <span data-rate="3"></span>
+                        <span data-rate="4"></span>
+                        <span data-rate="5"></span>
+                      </div>
+                    </div>
                   </div>
+                  {data.user_id === id || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ? (
+
+                    matchesLaptop || matchesDesktop || matchesHD && !matchesMobile ? (
+                      <>
+                        {data.user_id != id && <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
+                        {data.user_id != id && <a className="SellerInfoloarmore"></a>}
+                      </>
+
+                    ) : ("")) : ("")}
                 </div>
+                {matchesMobile ?
+                  (
+                    <>
+                      <span style={{ marginLeft: "0px" }} className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>
+                    </>
+                  ) : null}
               </div>
-              {data.user_id === id || objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 4 || objP.adstatus === 5 || objP.adstatus === 6 ? (
 
-                matchesLaptop || matchesDesktop || matchesHD && !matchesMobile? (
+
+              {data.user_id !== id ?
+                matchesTablet || matchesMobile ? '' :
+                  <div className="ad__block_bottom__adaptive_left">
+                    <a className="SellerInfoUserAdd"></a>
+                  </div>
+                : ''
+              }
+
+              {/* {objP.adstatus === 7 && data.user_id === id ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : "" : ""} */}
+
+              {!matchesLaptop && !matchesDesktop && !matchesHD ? (
+                matchesMobile ? null : (
                   <>
-                   {data.user_id != id && <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
-                   {data.user_id != id && <a className="SellerInfoloarmore"></a>}
+                    <div className="SellerProductInfo">
+                      {data.user_id != id && <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
+                      {data.user_id != id && <a className="SellerInfoloarmore">&nbsp;</a>}
+                    </div>
                   </>
-
-                ) : ("")) : ("")}
-            </div>
-            {matchesMobile ? 
-            (
-              <>
-                <span style={{marginLeft: "0px"}} className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>
-              </>
-            ) : null}
-          </div>
-          {data.user_id !== id ?
-            matchesTablet || matchesMobile ? '' :
-              <div className="ad__block_bottom__adaptive_left">
-                <a className="SellerInfoUserAdd"></a>
-              </div>
-            : ''
-          }
-          {/* {objP.adstatus === 7 && data.user_id === id ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : "" : ""} */}
-          {!matchesLaptop && !matchesDesktop && !matchesHD ? (
-            matchesMobile ? null : (
-              <>
-              <div className="SellerProductInfo">
-              {data.user_id != id && <span className="count__ad">{data.userAd == undefined ? "" : ((data.userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
-              {data.user_id != id &&  <a className="SellerInfoloarmore">&nbsp;</a>}
-              </div>
+                )
+              ) : (
+                ""
+              )}
             </>
-            )
-          ) : (
-            ""
-          )}
+          }
         </div>
-        {data.userAd == undefined ? (
-          ""
-        ) : objP.adstatus === 7 || data.user_id != id ? (
-          !matchesMobile && !matchesTablet ? (
-            <div className="SellerInfoOffers">
-              {(collapsed &&
-                (userSmallAd = data.userAd.filter((item) => item.id != router.query.id)) &&
-                userSmallAd.slice(0, 3).map((userAd) => {
-                  return (
-                    <Link key={userAd.id} href={`/product/${userAd.id}`}>
-                      <div className="SellerInfoOfferCard small">
-                        {console.log(userAd)}
-                        {JSON.parse(userAd.photo)?.photos.slice(0, 1).map((imgs, i) => {
-                            return <img key={i} src={imgs} />;
-                          })}
-                        <div>{ToRubles(userAd.price)}</div>
-                        <div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
-                      </div>
-                    </Link>
-                  );
-                })) ||
-                data.userAd.map((userAd) => {
-                  return (
-                    <Link key={userAd.id} href={`/product/${userAd.id}`}>
-                      <div className="SellerInfoOfferCard small">
-                        {JSON.parse(userAd.photo)
-                          .photos.slice(0, 1)
-                          .map((imgs, i) => {
-                            return <img key={i} src={imgs} />;
-                          })}
-                        <div>{ToRubles(userAd.price)}</div>
-                        <div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
-                      </div>
-                    </Link>
-                  );
-                })}
-            </div>
-          ) : (
-            ""
-          )
-        ) : (
-          ""
-        )}
+        {
+          objP.adstatus === 7 || data.user_id != id ? (
+            !matchesMobile && !matchesTablet ? (
+              data.user_id === undefined ?
+                <>
+                  <div className="SellerInfoOffers">
+                    <div className='placeholder_animation product__placeholder_useroffer'>
+                      <div className="placeholder_animation product__placeholder_useroffer_block-top"></div>
+                      <div className="placeholder_animation product__placeholder_useroffer_block-bottom"></div>
+                    </div>
+                    <div className='placeholder_animation product__placeholder_useroffer'>
+                      <div className="placeholder_animation product__placeholder_useroffer_block-top"></div>
+                      <div className="placeholder_animation product__placeholder_useroffer_block-bottom"></div>
+                    </div>
+                    <div className='placeholder_animation product__placeholder_useroffer'>
+                      <div className="placeholder_animation product__placeholder_useroffer_block-top"></div>
+                      <div className="placeholder_animation product__placeholder_useroffer_block-bottom"></div>
+                    </div>
+                  </div>
+                </>
+                :
+                <div className="SellerInfoOffers">
+
+                  {collapsed &&
+                    (userSmallAd = data.userAd?.filter((item) => item.id != router.query.id)) &&
+                    userSmallAd.slice(0, 3).map((userAd) => {
+                      return (
+                        <Link key={userAd.id} href={`/product/${userAd.id}`}>
+                          <div className="SellerInfoOfferCard small">
+                            {console.log(userAd)}
+                            {JSON.parse(userAd.photo)?.photos.slice(0, 1).map((imgs, i) => {
+                              return <img key={i} src={imgs} />;
+                            })}
+                            <div>{ToRubles(userAd.price)}</div>
+                            <div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
+                          </div>
+                        </Link>
+                      );
+                    }
+                    )
+                    // ||
+                    // data.userAd.map((userAd) => {
+                    //   return (
+                    //     <Link key={userAd.id} href={`/product/${userAd.id}`}>
+                    //       <div className="SellerInfoOfferCard small">
+                    //         {JSON.parse(userAd.photo)
+                    //           .photos.slice(0, 1)
+                    //           .map((imgs, i) => {
+                    //             return <img key={i} src={imgs} />;
+                    //           })}
+                    //         <div>{ToRubles(userAd.price)}</div>
+                    //         <div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
+                    //       </div>
+                    //     </Link>
+                    //   );
+                    // })
+                  }
+
+                </div>
+            ) : (
+              ""
+            )
+          ) : ("")
+        }
         {userSmallAd == undefined ? (
           ""
         ) : data.user_id != id ? (
@@ -144,7 +174,7 @@ export default function ProductUserInfo(data) {
               pathname: `/user/${data.user_id}`
             })}
               /* onClick={(e) => { handleCollapse(e)}} */>
-      
+
               {(collapsed && `Все объявления продавца (${userSmallAd == undefined ? "0" : data.userAd.length})`) || `Скрыть`}
             </a>
           ) : (
