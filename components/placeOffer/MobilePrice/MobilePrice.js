@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
         color: "#5A5A5A"
     },
     plaseOfferPriceInput: {
-        paddingTop: "25px",
         width: "60px"
     },
     plaseOfferAuction: {
@@ -36,8 +35,9 @@ const useStyles = makeStyles(theme => ({
     inputError4: {
         "& > p": {
             position: "absolute",
-            bottom: "-70px",
-            left: "-20px",
+            bottom: "-10px",
+            fontSize: "11px",
+            left: "-18px",
             width: "100px"
         }
     },

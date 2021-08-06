@@ -13,6 +13,7 @@ import Link from "next/link"
 import MainLayout from "../../layout/MainLayout";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import aliasName from "../../components/header/CategoriesAliaseName";
+import Image from "next/image"
 // import Categories from "../../components/header/Categories";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
   },
   breadActiveItem: {
     color: "#2C2C2C"
+  },
+  ad: {
+	  "& > *:nth-of-type(1)": {
+		  marginBottom: "10px !important"
+	  },
+	  marginBottom: "17px"
   }
 }));
 
@@ -73,6 +80,10 @@ const Index = () => {
 				<SearchRender data={data} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() +  aliasData.aliasName[0].label.substring(1,) }/></Box>
 			{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 				<FilterBlock />
+				<div className={classes.ad}>
+					<Image src={"/img/joker1.png"} width={224} height={480} />
+					<Image src={"/img/joker2.png"} width={224} height={480} />
+				</div>
 				<Box className={classes.footer}>
 					<Footer2/>
 				</Box>

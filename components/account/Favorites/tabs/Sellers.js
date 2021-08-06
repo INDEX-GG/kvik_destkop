@@ -1,8 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
 
 
 function Sellers({sellers, sellerSub}) {
+
+  const [btnSellerArr, setBtnSellerArr] = useState([])
+
+  useEffect(() => {
+    if (sellers != undefined && btnSellerArr.length == 0) {
+      const newArr = []
+      for (let count = 0; count < sellers.length; count++) {
+        newArr.push(true)
+      }
+      setBtnSellerArr(newArr)
+    }
+  })
+
+  function changeSubscribe(i) {
+    const arr = btnSellerArr
+
+    const newArr = arr.map((item, index) => {
+      if (i == index) {
+        return !item
+      }
+      return item
+    })
+
+    setBtnSellerArr(newArr)
+  }
+
+  console.log(btnSellerArr)
+
 
 
   if (sellers?.message) {
@@ -24,7 +52,7 @@ function Sellers({sellers, sellerSub}) {
     <div className="clientPage__container_bottom">
        <div className="clientPage__container_content">
         <div className="sellersWrapper small">
-          {sellers?.map((seller) => {
+          {sellers?.map((seller, index) => {
             return (
               <div key={seller.id} className="sellersContainer">
                 <div className="sellersUser">
@@ -35,7 +63,10 @@ function Sellers({sellers, sellerSub}) {
                        <div className="sellersOffersCount light">{seller.poducts.length} объявлений</div>
                     </div>
                   </a>
-                  <button onClick={() => sellerSub(58, seller.id)} className="buttonGrey">Отписаться</button>
+                  <button onClick={() => {
+                    sellerSub(58, seller.id)
+                    changeSubscribe(index)
+                  }} className="buttonGrey">{btnSellerArr[index] ? "Отписать" : "Подписаться"}</button>
                 </div>
                   <div className="sellersOffers">
                   {seller.poducts.map((offer, i) => {
