@@ -293,6 +293,6 @@ export default function Promotion({dialog,product}) {
                 </div>
                     
             </Dialog>
-        </В>
+        </Dialog>
     )
 }
