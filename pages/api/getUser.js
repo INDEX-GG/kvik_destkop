@@ -4,33 +4,29 @@ export default function handler(req, res) {
 
    const prisma = new PrismaClient();
    if (req.method === 'POST') {
-      console.log(req.body.id)
-      async function main() 
-     
-      
-      {
-         console.log(req.body.id)
-            await check();
+
+      async function main() {
+         await check();
          //Проверяем на наличие в таблице
          async function check() {
-            console.log(req.body.id)
+
             // Передлать для определния того,что не правильно, логин или пароль 
-            const user =  await prisma.users.findUnique({
-               
+            const user = await prisma.users.findUnique({
+
                where: {
                   id: req.body.id
-                    
+
                },
                select:
                {
-                  name:true,
-                  userPhoto:true,
-                  about:true,
-                  createdAt:true,
-                  phone:true,
-                  email:true,
-                  raiting:true,
-                  favorites:true,
+                  name: true,
+                  userPhoto: true,
+                  about: true,
+                  createdAt: true,
+                  phone: true,
+                  email: true,
+                  raiting: true,
+                  favorites: true,
                   subscriptions: true
                }
             })

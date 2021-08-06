@@ -214,12 +214,26 @@ export default function HeaderAccount({userPhoto, name}) {
     </Avatar>
     : 
     <>
-      <Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
-          {initials(name)}
-      </Avatar> 
-      <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
-      {list("right")}
-      </Drawer>
+     {matchesMobile ||  matchesTablet || matchesCustom1024 || matchesCustom1080 ? (
+        <>
+          <Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
+            {initials(name)}
+        </Avatar> 
+        <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
+        {list("right")}
+        </Drawer>
+        </>
+      ) : <Avatar onClick={() => {
+        toggleDrawer("right", true)
+        router.push({
+          pathname: `/account/${id}`,
+          query: {
+            account: "1"
+          }
+        })
+      }} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
+      {initials(name)}
+  </Avatar>} 
     </>
   );
 }
