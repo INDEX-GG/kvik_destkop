@@ -6,10 +6,10 @@ import { useMedia } from "../hooks/useMedia";
 const useStyles = makeStyles((theme) => ({
     buttonContainer: {
         position: "fixed",
-        // width: "20px",
-        top: "85%",
+        top: "80%",
         left: "50%",
-        transform: "translateX(-50%)"
+        transform: "translateX(-50%)",
+        zIndex: 1
     },
     buttonText: {
         [theme.breakpoints.down("400")]: {

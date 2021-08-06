@@ -11,7 +11,7 @@ export default function handler(req, res) {
             //Этот запрос нужно будет связать с таблицей
         
             async function getPost(ids) {
-                
+                console.log(ids)
                 const results = await prisma.$queryRaw(`SELECT posts.archived,users."userPhoto",posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts","users" WHERE (user_id = ${ids}) AND (users.id = user_id)` )
 
 
@@ -19,6 +19,7 @@ export default function handler(req, res) {
             }
 
             const results = await getPost(+req.body.user_id);
+            console.log(req.body.user_id)
             res.json({ result: results });
         
         }
