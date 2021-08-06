@@ -20,36 +20,44 @@ export default function ProductCarousel({ photo }) {
     }
   }
 
-  return (
-    <>
-      <Swiper loop={settingsCarousele} spaceBetween={1} navigation={settingsCarousele} thumbs={{ swiper: thumbsSwiper }} className="mySwiper2" pagination={paginationCarousel}>
-        {/* <div className="seen__ad">Просмотрено</div> */}
+  if (photo === undefined) {
+    return (<>
+  
+  <div className="product__placeholder_swipers"></div>
+    
+    </>)
+  } else {
+    return (
+      <>
+        <Swiper loop={settingsCarousele} spaceBetween={1} navigation={settingsCarousele} thumbs={{ swiper: thumbsSwiper }} className="mySwiper2" pagination={paginationCarousel}>
+          {/* <div className="seen__ad">Просмотрено</div> */}
 
-        {photo == undefined
-          ? ""
-          : JSON.parse(photo).photos.map((img, i) => (
-            <SwiperSlide key={i} onClick={() => setModal(!modal)}>
-              {" "}
-              <img src={img} />
-            </SwiperSlide>
-          ))}
-      </Swiper>
+          {photo == undefined
+            ? ""
+            : JSON.parse(photo).photos.map((img, i) => (
+              <SwiperSlide key={i} onClick={() => setModal(!modal)}>
+                {" "}
+                <img src={img} />
+              </SwiperSlide>
+            ))}
+        </Swiper>
 
-      {photo == undefined ? "" : JSON.parse(photo).photos.length > 6 ? (<Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
-        {photo == undefined
-          ? ""
-          : JSON.parse(photo).photos.map((img, i) => (
-            <SwiperSlide key={i}>
-              {" "}
-              <img src={img} />
-            </SwiperSlide>
-          ))}
-      </Swiper>) : null}
-      <Modal className="productModal" open={modal} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
+        {photo == undefined ? "" : JSON.parse(photo).photos.length > 6 ? (<Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
+          {photo == undefined
+            ? ""
+            : JSON.parse(photo).photos.map((img, i) => (
+              <SwiperSlide key={i}>
+                {" "}
+                <img src={img} />
+              </SwiperSlide>
+            ))}
+        </Swiper>) : null}
+        <Modal className="productModal" open={modal} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
 
-        <ProductModalCarousel photo={photo} />
+          <ProductModalCarousel photo={photo} />
 
-      </Modal>
-    </>
-  );
+        </Modal>
+      </>
+    );
+  }
 }
