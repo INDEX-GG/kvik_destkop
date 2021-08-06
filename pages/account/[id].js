@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import MetaLayout from "../../layout/MetaLayout";
 import StarRating from "../../components/StarRating";
 import Offers from "../../components/account/Offers/Offers";
@@ -51,12 +51,17 @@ function Account() {
   const {mutateAvatar} = useMutate();
   const [avatar, setAvatar] = useState();
   const { isLoading, name, userPhoto, createdAt, raiting, subscriptions } = useUser();
+  const countRender = useRef(0)
+  const [content, setContent] = useState(0)
   
-
-
   const {signOut, id} = useAuth();
 
   const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "Избранное" } : { i: 1, itm: "menuOffers", ttl: "Мои объявления" });
+
+   useEffect(() => {
+    countRender.current += 1
+    setContent(content + 1)
+  }, [menuItem])
 
   const [openPicUpload, setPicUpload] = useState(false);
   const [logout, setLogout] = useState(false);
@@ -87,6 +92,43 @@ function Account() {
       router.push("/");
     });
   };
+
+
+  const accountContent = () => {
+    return (
+      <>
+        {countRender.current > 1 ? (
+          <>
+            {(menuItem.i === 1 && 
+            <OfferAccountProvider> 
+              <Offers router={router} /> 
+            </OfferAccountProvider>) 
+            || (menuItem.i === 2 && <Deals />) 
+            || (menuItem.i === 3 && <Wallet />) 
+            || (menuItem.i === 4 && <Favorites router={router.query.id}/>) 
+            || (menuItem.i === 5 && <Notifications />) 
+            || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}
+          </>
+        ) : router.query?.account ? ( 
+        <>
+          {(+router.query.account === 1 && 
+            <OfferAccountProvider> 
+              <Offers router={router} /> 
+            </OfferAccountProvider>) 
+            || (+router.query.account === 2 && <Deals />) 
+            || (+router.query.account === 3 && <Wallet />) 
+            || (+router.query.account === 4 && <Favorites router={router.query.id}/>) 
+            || (+router.query.account === 5 && <Notifications />) 
+            || (+router.query.account === 6 && <Compare />) || (+router.query.account === 7 && <Reviews />) || (+router.query.account === 8 && <Settings username />)}
+        </>) : (
+          <OfferAccountProvider> 
+              <Offers router={router} /> 
+          </OfferAccountProvider>
+        ) }
+      </>
+    )
+  }
+
 
   return (
     <MetaLayout title={"Личный кабинет"}>
@@ -135,7 +177,9 @@ function Account() {
           <div className="userMenuContainer">
             {menuItems.map((item) => {
               return (
-                <a key={item.id} onClick={() => setMenuItem({ i: item.id, itm: item.name, ttl: item.title })} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
+                <a key={item.id} onClick={() => {
+                  setMenuItem({ i: item.id, itm: item.name, ttl: item.title })
+                }} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
                   {item.title}
                 </a>
               );
@@ -145,7 +189,9 @@ function Account() {
             </a>
           </div>
         </div>
-        <div className="clientPage__container">{(menuItem.i === 1 && <OfferAccountProvider> <Offers router={router} /> </OfferAccountProvider>) || (menuItem.i === 2 && <Deals />) || (menuItem.i === 3 && <Wallet />) || (menuItem.i === 4 && <Favorites router={router.query.id}/>) || (menuItem.i === 5 && <Notifications />) || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}</div>
+        <div className="clientPage__container">
+          {accountContent()}
+        </div>
       </div>
       <div className="userPageWhiteSpace"></div>
       <Dialog open={openPicUpload} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">

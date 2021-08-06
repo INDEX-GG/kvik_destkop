@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
 export default function handler(req, res) {
+
    const prisma = new PrismaClient();
    if (req.method === 'POST') {
       console.log(req.body.id)

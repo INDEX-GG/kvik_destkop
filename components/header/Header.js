@@ -18,6 +18,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { initials, stringToColor } from "../../lib/services";
 import { useMutate } from "../../lib/Context/MutateCTX";
 import { useRouter } from "next/router";
+import HeaderAccount from "./HeaderAccount";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -100,6 +101,8 @@ const Header = ({ category }) => {
   }, [userPhoto, mutateAvatar]);
 
 
+  
+
   return (
     <>
       <UpPanel />
@@ -120,11 +123,7 @@ const Header = ({ category }) => {
             Войти
           </Button>
             || isLoading && <Loader size={32} /> || !isLoading &&
-            <Link href={`/account/${id}`}>
-              <Avatar className={classes.avatar} src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
-                {initials(name)}
-              </Avatar>
-            </Link>}
+            <HeaderAccount userPhoto={userPhoto} name={name} />}
 
         </Container>
         {openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}

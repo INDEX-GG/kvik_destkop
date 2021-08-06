@@ -10,6 +10,7 @@ import RightArrow from "../../../../UI/icons/RightArrow"
 
 function PersonalData() {
   const { isAuth, id, phone, username, email } = useUser();
+  console.log(id)
   const [modal, setModal] = useState({});
   function modalOlen(e, size, content, title) {
     function smf() {
