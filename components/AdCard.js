@@ -95,11 +95,12 @@ function AdCard_component({ offer }) {
 
           </Link>
           <div className="card__top_info">
+         { !matchesMobile && !matchesTablet &&
             <div className="card__top_info_left">
-
               {offer.email && offer.user_id != id ? <span className="card_comment"></span> : ''}
               {call && offer.user_id != id ? <span href="#" className="card_call"></span> : ''}
-            </div>
+            </div>}
+
             <div className="card__top_info_right">
               {!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''}
 

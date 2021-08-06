@@ -167,7 +167,6 @@ const Product = () => {
                       )}
                       {!matchesLaptop && !matchesDesktop && !matchesHD && (
 
-
                         photo == undefined ?
                           ''
                           :
