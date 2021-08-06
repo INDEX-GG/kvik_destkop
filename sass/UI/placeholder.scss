@@ -1,0 +1,118 @@
+.product__placeholder_title {
+    background: $greyl;
+    border-radius: 2px;
+    height: 32px;
+    max-width: 50%;
+    margin-bottom: 18px;
+}
+
+.product__placeholder_swipers {
+    height: 400px;
+    background: linear-gradient(90deg, $tpsl -2%, $greyl 100%), $tpsl;
+    border-radius: 2px;
+}
+
+.product__placeholder_address {
+    background: linear-gradient(90deg, $tpsl 0%, $greyl 100%), $greyl;
+    border-radius: 2px;
+    height: 18px;
+    margin-top: 32px;
+}
+
+.product__placeholder_description {
+    height: 70px;
+    background: $greyl;
+    margin-top: 18px;
+    margin-bottom: 4px;
+}
+
+.product__placeholder_ProductAction_one {
+    background: linear-gradient(90deg, $tpsl 0%, $greyl 100%);
+    border-radius: 2px;
+    height: 224px;
+    margin-top: 50px;
+}
+
+.product__placeholder_ProductAction_two {
+    background: linear-gradient(90deg, $tpsl 0%, $greyl 100%), $greyl;
+    border-radius: 2px;
+    height: 48px;
+    margin-top: 18px;
+}
+
+.product__placeholder_ProductAction_three {
+    background: linear-gradient(90deg, $tpsl 0%, $greyl 100%), $greyl;
+    border-radius: 8px;
+    margin: 30px 0 32px 0;
+    height: 34px;
+}
+
+.product__placeholder_userinfo {
+    background: linear-gradient(90deg, $tpsl 0%, $greyl 100%), $greyl;
+    border-radius: 2px;
+    height: 44px;
+}
+
+.product__placeholder_useroffer {
+    background: #c7c7c7;
+    border-radius: 1px;
+    height: 126px;
+    width: 94px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4px 3px;
+}
+
+.product__placeholder_useroffer_block-top {
+    height: 88px;
+    background: #8f8f8f;
+    border-radius: 1px;
+}
+
+.product__placeholder_useroffer_block-bottom {
+    height: 28px;
+    background: #8f8f8f;
+    border-radius: 1px;
+}
+
+.product__placeholder_mobil-action {
+    height: 66px;
+    background: #c4c4c4;
+    border-radius: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.placeholder_animation {
+    animation-duration: 2s;
+    animation-name: placeholder;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@media (max-width: 960px) {
+    .product__placeholder_title {
+        margin-bottom: 4px;
+        margin-top: 4px;
+    }
+}
+
+@keyframes placeholder {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.5;
+    }
+}
