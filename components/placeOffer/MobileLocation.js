@@ -64,7 +64,10 @@ const useStyles = makeStyles((theme) => ({
    map: {
        height: '400px',
        borderRadius: theme.shape.borderRadius,
-       marginTop: "32px"
+       marginTop: "32px",
+       [theme.breakpoints.down("430")]: {
+          marginTop: "50px"
+       }
    },
    plaseOfferTitle: {
       fontSize: "14px"
@@ -76,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#C7C7C7",
       fontSize: "12px",
       position: "absolute",
-      top: "35px"
+      top: "37px"
    },
    buttonSend: {
         position: "absolut",
@@ -88,6 +91,16 @@ const useStyles = makeStyles((theme) => ({
         transform: "translateX(-50%)",
         marginTop: "104px"
    },
+   inputError5: {
+        "& > p": {
+            position: "absolute",
+            bottom: "-34px",
+            left: "-14px",
+            [theme.breakpoints.down("430")]: {
+               bottom: "-50px"
+            }
+        }
+    }
 }));
 
 export default function MobileLocation() {
@@ -111,6 +124,7 @@ export default function MobileLocation() {
                      <TextField
                         placeholder="Введите город, улицу, дом"
                         variant='outlined'
+                        className={classes.inputError5}
                         type="text"
                         fullWidth
                         autoComplete="on"

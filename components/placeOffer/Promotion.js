@@ -186,7 +186,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function Promotion({product}) {
+export default function Promotion({dialog,product}) {
 
     const [promotion, setPromotion] = useState([false, false, false, false, false, false, false, false, false])
     const [free, setFree] = useState(false)
@@ -238,7 +238,7 @@ export default function Promotion({product}) {
 
     const classes = useStyles()
     return (
-        <>
+        <Dialog>
             {matchesMobile || matchesTablet ? 
             <>
                 <div className="accountArrowLeft"></div>
@@ -293,6 +293,6 @@ export default function Promotion({product}) {
                 </div>
                     
             </Dialog>
-        </>
+        </В>
     )
 }
