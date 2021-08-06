@@ -235,7 +235,6 @@ export default function Promotion({dialog,product}) {
     }
 
     console.log(product)
-
     const classes = useStyles()
     return (
         <Dialog>
