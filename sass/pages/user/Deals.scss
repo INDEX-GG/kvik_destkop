@@ -34,7 +34,7 @@
 .dealDescription {
   width: 100%;
   height: 100%;
-  padding: 0 24px;
+  padding: 8px 24px;
   display: flex;
   flex-direction: column;
   overflow: overlay;
@@ -49,7 +49,6 @@
 }
 
 .dealDTLeft {
-  padding-top: 8px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -66,10 +65,9 @@
 }
 
 .dealDTRight {
-  padding-top: 12px;
+  min-width: 125px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-end;
 }
 
@@ -79,15 +77,13 @@
 }
 
 .dealDescriptionBottom {
-  width: 100%;
-  padding-bottom: 8px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
 }
 
 .dealButtonViews {
-  align-self: center;
+  padding: 4px 15px !important;
+  min-width: 224px;
 }
 
 .dealWaitCause {
@@ -101,36 +97,20 @@
   display: inline;
 }
 
-@media (max-width: 750px) {
-  .dealContainer {
-    grid-template-columns: 1.5fr 2fr;
-  }
-
-  .dealDTRight {
-    padding-top: 8px;
+@media (max-width: 1020px) {
+  .dealDescription {
+    padding: 12px 8px;
   }
 }
 
 @media (max-width: 650px) {
   .dealDescription {
-    padding: 0 8px;
-  }
-}
-
-@media (max-width: 600px) {
-  .dealButtonViews {
-    padding: 4px 5px !important;
-  }
-}
-
-@media (max-width: 450px) {
-  .dealButtonViews {
-    padding: 4px 35px !important;
+    padding: 8px 8px;
   }
 
   .dealContainer {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 2fr 1.2fr;
     height: 368px;
   }
 }

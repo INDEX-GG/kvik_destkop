@@ -29,7 +29,7 @@ function Purch(data) {
               <div>{ToRubles(deal.price)}</div>
               <div className="dealTitle">{deal.title}</div>
               <div className="thin light small DatPub__mobile">
-                <span>Дата осуществления сделки: </span>
+                <span className="offerDate-sales">Дата осуществления сделки: </span>
                 {deal.date}
               </div>
             </div>

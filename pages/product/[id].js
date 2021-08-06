@@ -90,7 +90,6 @@ const Product = () => {
   const [phoneModal, setPhoneModal] = useState();
   useEffect(() => {
     axios.post("/api/getProductOfUser", { user_id: user_id }).then((res) => setUserAd(res.data.result));
-    return () => {};
   }, [user_id]);
 
   let breadData = null;
@@ -260,11 +259,11 @@ const Product = () => {
               </div>
             </div>
             <div className="productPageWhiteSpace"></div>
-            <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
+             <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
               {" "}
               <Statistics Close={handleStatFormDialog} />{" "}
             </Dialog>
-            <PhoneModule dialog={phoneModal} setDialog={setPhoneModal}/>
+            <PhoneModule dialog={phoneModal} setDialog={setPhoneModal}/> 
           </div>
         </OfferAccountProvider>
       </FavProvider>
