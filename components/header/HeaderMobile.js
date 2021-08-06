@@ -58,7 +58,7 @@ const useStyles = makeStyles(() => ({
   },
   test: {
     marginBottom: "124px",
-  }
+  },
 }));
 
 function HeaderMobile({ chageMenu = false }) {
@@ -79,7 +79,7 @@ function HeaderMobile({ chageMenu = false }) {
       <AppBar position="fixed" color="secondary">
         <Container className={classes.container}>
           <div className={classes.info}>
-            <BurgerCategories/>
+            <BurgerCategories className={classes.categories}/>
             <Logo className={classes.logo} />
             {isAuth ?
               <HeaderAccount name={name} userPhoto={userPhoto}/> :

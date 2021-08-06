@@ -118,6 +118,22 @@ export default function HeaderAccount({userPhoto, name}) {
     }
   }
 
+  const startId = (e) => {
+    if (router.query?.account && active == -1) {
+      setActive(+router.query.account)
+    }
+  }
+
+  if (router.pathname == "/") {
+    if (active != -1) {
+      setActive(-1)
+    }
+  }
+
+  if (router.pathname == "/account/[id]") {
+    startId()
+  }
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -134,6 +150,8 @@ export default function HeaderAccount({userPhoto, name}) {
       router.push("/");
     });
   };
+
+  console.log(document.querySelectorAll(".MuiDrawer-paper"))
 
   const list = (anchor) => (
     <>
@@ -158,7 +176,9 @@ export default function HeaderAccount({userPhoto, name}) {
                 }
               })
           }} button id={item.id} key={item.id} className="burgerList">
-            <ListItemText className={`${item.id == active ? item.name + "Active" : item.name} ${item.id == active ? `${classes.accountItem} ${classes.accountItemActive}`: classes.accountItem} ${item.id == active ? classes.activeItem : ""}`} primary={item.title} />
+            <ListItemText 
+            style={{height: "30px", display: "flex", alignItems: "center"}} 
+            className={`${item.id == active ? item.name + "Active" : item.name} ${item.id == active ? `${classes.accountItem} ${classes.accountItemActive}`: classes.accountItem} ${item.id == active ? classes.activeItem : ""}`} primary={item.title} />
           </ListItem>
         ))}
       </List>
@@ -180,7 +200,7 @@ export default function HeaderAccount({userPhoto, name}) {
   );
 
   return (
-    matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? 
+    router.pathname == "/account/[id]" ? matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? 
     <>
         <Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
             {initials(name)}
@@ -192,5 +212,14 @@ export default function HeaderAccount({userPhoto, name}) {
     <Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
       {initials(name)}
     </Avatar>
+    : 
+    <>
+      <Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
+          {initials(name)}
+      </Avatar> 
+      <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
+      {list("right")}
+      </Drawer>
+    </>
   );
 }

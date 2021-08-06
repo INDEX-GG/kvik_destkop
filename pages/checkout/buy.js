@@ -57,6 +57,9 @@ const useStyles = makeStyles(() => ({
             position: "absolute",
             left: "80px",
             bottom: "4px"
+        },
+        [theme.breakpoints.down("370")]: {
+
         }
     },
     buyItemPrice: {
@@ -104,7 +107,10 @@ const useStyles = makeStyles(() => ({
         fontWeight: "500"
     },
     buyOwnerDate: {
-        alignSelf: "flex-end"
+        alignSelf: "flex-end",
+        [theme.breakpoints.down("370")]: {
+            display: "none"
+        },
     },
     buyOwnerImg: {
         width: "32px",
@@ -113,7 +119,10 @@ const useStyles = makeStyles(() => ({
     buyOwnerRaiting: {
         display: "flex",
         alignItems: "center",
-        marginLeft: "20px"
+        marginLeft: "20px",
+        [theme.breakpoints.down("370")]: {
+            display: "none"
+        },
     },
     buyOwnerRaitingNumber: {
         marginRight: "4px"
@@ -139,7 +148,7 @@ function Buy() {
                 <Box className={classes.buyProduct}>
                     <h1 className={classes.buyTitle}>Оформление и оплата</h1>
                     <section className={classes.buyItem}>
-                        <Image className={classes.buyItemImg} src="/" alt="Img-product" width={88} height={88}/>
+                        <Image className={classes.buyItemImg} src="/checkout-test.jpg" alt="Img-product" width={88} height={88}/>
                         <div className={classes.buyItemInf}>
                             <div className={classes.buyItemPrice}>10 000 000 &#8381;</div>
                             <div className={classes.buyItemName}>Очень длинное название товара</div>

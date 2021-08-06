@@ -75,8 +75,8 @@ const useStyles = makeStyles((theme) => ({
    placeOfferMapDesc: {
       color: "#C7C7C7",
       fontSize: "12px",
-      // position: "absolute",
-      // top: "45px"
+      position: "absolute",
+      top: "35px"
    },
    buttonSend: {
         position: "absolut",

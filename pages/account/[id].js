@@ -23,6 +23,7 @@ import { useMutate } from "../../lib/Context/MutateCTX";
 
 
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
+import { route } from "next/dist/next-server/server/router";
 
 const userInfo = {
   userId: 1,
@@ -46,6 +47,9 @@ const menuItems = [
   { id: 8, name: "menuSettings", title: "Настройки" },
 ];
 
+const menuItemsIcon = ["menuOffers", "menuDeals", "menuWallet", "menuFavorites", "menuNotifications", "menuCompare", "menuReviews", "menuSettings"] 
+const menuItemsTitle = ["Мои объявления", "Сделки", "Кошелек", "Избранное", "Уведомления", "Сравнить", "Отзывы", "Настройки"] 
+
 function Account() {
   const router = useRouter();
   const {mutateAvatar} = useMutate();
@@ -56,9 +60,13 @@ function Account() {
   
   const {signOut, id} = useAuth();
 
-  const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "Избранное" } : { i: 1, itm: "menuOffers", ttl: "Мои объявления" });
+  const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "Избранное" } : router.query?.account ? { i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] } : { i: "1", itm: "menuOffers", ttl: "Мои объявления" });
 
-   useEffect(() => {
+  useEffect(() => {
+    setMenuItem({ i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] })
+  }, [router])
+ 
+  useEffect(() => {
     countRender.current += 1
     setContent(content + 1)
   }, [menuItem])

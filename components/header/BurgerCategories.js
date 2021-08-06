@@ -12,6 +12,9 @@ const useStyles = makeStyles({
   },
   fullList: {
     width: 'auto',
+  },
+  container: {
+    alignSelf: "flex-end"
   }
 });
 
@@ -43,7 +46,7 @@ export default function BurgerCategories() {
   );
 
   return (
-    <div>
+    <div className={classes.container}>
         <React.Fragment key={"left"}>
           <button style={{backgroundColor: "#00A0AB", width: "32px", height: "32px", borderRadius: "4px"}} onClick={toggleDrawer("left", true)}><MobileMenu/></button>
           <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
