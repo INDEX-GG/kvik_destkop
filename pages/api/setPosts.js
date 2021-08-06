@@ -91,7 +91,8 @@ export default function handler(req, res)
                         deleted_at:now,
                         date_verify:now,
                         verify:1,
-                        verify_moderator:{"verify":['1']}
+                        verify_moderator:{"verify":['1']},
+                        subcategory:req.body.subcategory
                     }
                 }
                 // const allUsers = await prisma.users.update(obj);
