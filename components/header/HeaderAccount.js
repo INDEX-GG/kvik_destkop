@@ -16,6 +16,7 @@ import axios from 'axios';
 import { mutate } from "swr";
 import { useAuth } from '../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
+import { useMedia } from '../../hooks/useMedia';
 
 const useStyles = makeStyles({
   list: {
@@ -87,21 +88,7 @@ export default function HeaderAccount({userPhoto, name}) {
   const [logout, setLogout] = useState(false);
   const {signOut, id} = useAuth();
 
-
-  // useEffect(() => {
-  //    localStorage.setItem("account", active)
-  // })
-
-
-  if (router.pathname == "/account/[id]") {
-      return (
-          <Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
-            {initials(name)}
-          </Avatar>
-      )
-  }
-
-
+  const {matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080,} = useMedia()
 
 
   const menuItems = [
@@ -115,21 +102,21 @@ export default function HeaderAccount({userPhoto, name}) {
   { id: 8, name: "menuSettings", title: "Настройки" },
   ];
 
-  // const getId = (e) => {
+  const getId = (e) => {
     
-  //   if (e.target.getAttribute("id")) {
-  //       setActive(+e.target.getAttribute("id"))
-  //       return;
-  //   } else if (e.target.parentNode.getAttribute("id")) {
-  //       setActive(+e.target.parentNode.getAttribute("id"))
-  //       return;
-  //   }
+    if (e.target.getAttribute("id")) {
+        setActive(+e.target.getAttribute("id"))
+        return;
+    } else if (e.target.parentNode.getAttribute("id")) {
+        setActive(+e.target.parentNode.getAttribute("id"))
+        return;
+    }
 
-  //   if (e.target.tagName == "SPAN") {
-  //       setActive(+e.target.parentNode.parentNode.getAttribute("id"))
-  //       return;
-  //   }
-  // }
+    if (e.target.tagName == "SPAN") {
+        setActive(+e.target.parentNode.parentNode.getAttribute("id"))
+        return;
+    }
+  }
 
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -162,7 +149,7 @@ export default function HeaderAccount({userPhoto, name}) {
         <Divider/>
         {menuItems.map(item => (
           <ListItem onClick={(e) => {
-              // getId(e)
+              getId(e)
               setState({"right" : false})
               router.push({
                 pathname: `/account/${id}`,
@@ -192,8 +179,8 @@ export default function HeaderAccount({userPhoto, name}) {
     </>
   );
 
-  console.log(userPhoto)
   return (
+    matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? 
     <>
         <Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
             {initials(name)}
@@ -201,6 +188,9 @@ export default function HeaderAccount({userPhoto, name}) {
         <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
         {list("right")}
         </Drawer>
-    </>
+    </> : 
+    <Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
+      {initials(name)}
+    </Avatar>
   );
 }

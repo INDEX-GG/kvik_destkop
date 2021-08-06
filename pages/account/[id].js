@@ -71,7 +71,7 @@ function Account() {
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
 
-  const {matchesMobile, matchesTablet} = useMedia()
+  const {matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080} = useMedia()
 
   function closeModal(modal, changeModal) {
     changeModal(!modal)
@@ -175,18 +175,28 @@ function Account() {
             </div>
           </div>
           <div className="userMenuContainer">
-            {menuItems.map((item) => {
-              return (
-                <a key={item.id} onClick={() => {
-                  setMenuItem({ i: item.id, itm: item.name, ttl: item.title })
-                }} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
-                  {item.title}
-                </a>
-              );
-            })}
+            {matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null :
+            <>
+              {menuItems.map((item) => {
+                return (
+                  <a key={item.id} onClick={() => {
+                    setMenuItem({ i: item.id, itm: item.name, ttl: item.title })
+                    router.push({
+                      pathname: `/account/${id}`,
+                      query: {
+                        account: item.id
+                      }
+                    })
+                  }} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
+                    {item.title}
+                  </a>
+                );
+              })}
+            </>}
+            {matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null : 
             <a onClick={() => setLogout(!logout)} className="offerUnpublish thin superLight" className="menuLogoff smooth">
               Выход
-            </a>
+            </a>}
           </div>
         </div>
         <div className="clientPage__container">
