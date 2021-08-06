@@ -11,6 +11,7 @@ export const useMedia = () => {
    const matchesMobile = useMediaQuery(theme.breakpoints.down(KvikTheme.breakpoints.values.sm));
    const matchesTablet = useMediaQuery(theme.breakpoints.between(KvikTheme.breakpoints.values.sm, KvikTheme.breakpoints.values.md));
    const matchesCustom1024 = useMediaQuery(theme.breakpoints.between(KvikTheme.breakpoints.values.md, KvikTheme.breakpoints.values.custom1024));
+   const matchesCustom1080 = useMediaQuery(theme.breakpoints.between(KvikTheme.breakpoints.values.custom1024, KvikTheme.breakpoints.values.custom1080));
    const matchesCustom1100 = useMediaQuery(theme.breakpoints.between(KvikTheme.breakpoints.values.md, KvikTheme.breakpoints.values.custom1100));
    const matchesCustom1365 = useMediaQuery(theme.breakpoints.between(KvikTheme.breakpoints.values.custom1365));
    const matchesLaptop = useMediaQuery(theme.breakpoints.between(KvikTheme.breakpoints.values.md, KvikTheme.breakpoints.values.lg));
@@ -22,6 +23,7 @@ export const useMedia = () => {
       matchesDesktop,
       matchesLaptop,
       matchesCustom1024,
+      matchesCustom1080,
       matchesCustom1100,
       matchesCustom1365,
       matchesHD,
