@@ -52,7 +52,7 @@ function Account() {
   const [avatar, setAvatar] = useState();
   const { isLoading, name, userPhoto, createdAt, raiting, subscriptions } = useUser();
   const countRender = useRef(0)
-  const firstPanelId = null
+  const [content, setContent] = useState(0)
   
   const {signOut, id} = useAuth();
 
@@ -60,7 +60,7 @@ function Account() {
 
    useEffect(() => {
     countRender.current += 1
-    console.log(localStorage.getItem("account"))
+    setContent(content + 1)
   }, [menuItem])
 
   const [openPicUpload, setPicUpload] = useState(false);
@@ -92,6 +92,43 @@ function Account() {
       router.push("/");
     });
   };
+
+
+  const accountContent = () => {
+    return (
+      <>
+        {countRender.current > 1 ? (
+          <>
+            {(menuItem.i === 1 && 
+            <OfferAccountProvider> 
+              <Offers router={router} /> 
+            </OfferAccountProvider>) 
+            || (menuItem.i === 2 && <Deals />) 
+            || (menuItem.i === 3 && <Wallet />) 
+            || (menuItem.i === 4 && <Favorites router={router.query.id}/>) 
+            || (menuItem.i === 5 && <Notifications />) 
+            || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}
+          </>
+        ) : router.query?.account ? ( 
+        <>
+          {(+router.query.account === 1 && 
+            <OfferAccountProvider> 
+              <Offers router={router} /> 
+            </OfferAccountProvider>) 
+            || (+router.query.account === 2 && <Deals />) 
+            || (+router.query.account === 3 && <Wallet />) 
+            || (+router.query.account === 4 && <Favorites router={router.query.id}/>) 
+            || (+router.query.account === 5 && <Notifications />) 
+            || (+router.query.account === 6 && <Compare />) || (+router.query.account === 7 && <Reviews />) || (+router.query.account === 8 && <Settings username />)}
+        </>) : (
+          <OfferAccountProvider> 
+              <Offers router={router} /> 
+          </OfferAccountProvider>
+        ) }
+      </>
+    )
+  }
+
 
   return (
     <MetaLayout title={"Личный кабинет"}>
@@ -140,7 +177,9 @@ function Account() {
           <div className="userMenuContainer">
             {menuItems.map((item) => {
               return (
-                <a key={item.id} onClick={() => setMenuItem({ i: item.id, itm: item.name, ttl: item.title })} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
+                <a key={item.id} onClick={() => {
+                  setMenuItem({ i: item.id, itm: item.name, ttl: item.title })
+                }} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
                   {item.title}
                 </a>
               );
@@ -151,30 +190,7 @@ function Account() {
           </div>
         </div>
         <div className="clientPage__container">
-          {countRender.current > 1 ? (
-            <>
-              {(menuItem.i === 1 && 
-              <OfferAccountProvider> 
-                <Offers router={router} /> 
-              </OfferAccountProvider>) 
-              || (menuItem.i === 2 && <Deals />) 
-              || (menuItem.i === 3 && <Wallet />) 
-              || (menuItem.i === 4 && <Favorites router={router.query.id}/>) 
-              || (menuItem.i === 5 && <Notifications />) 
-              || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}
-            </>
-          ) : 
-          <>
-            {(menuItem.i === 1 && 
-              <OfferAccountProvider> 
-                <Offers router={router} /> 
-              </OfferAccountProvider>) 
-              || (menuItem.i === 2 && <Deals />) 
-              || (menuItem.i === 3 && <Wallet />) 
-              || (menuItem.i === 4 && <Favorites router={router.query.id}/>) 
-              || (menuItem.i === 5 && <Notifications />) 
-              || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}
-          </>}
+          {accountContent()}
         </div>
       </div>
       <div className="userPageWhiteSpace"></div>

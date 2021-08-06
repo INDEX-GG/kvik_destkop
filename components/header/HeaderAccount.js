@@ -88,9 +88,9 @@ export default function HeaderAccount({userPhoto, name}) {
   const {signOut, id} = useAuth();
 
 
-  useEffect(() => {
-     localStorage.setItem("account", active)
-  })
+  // useEffect(() => {
+  //    localStorage.setItem("account", active)
+  // })
 
 
   if (router.pathname == "/account/[id]") {
@@ -115,21 +115,21 @@ export default function HeaderAccount({userPhoto, name}) {
   { id: 8, name: "menuSettings", title: "Настройки" },
   ];
 
-  const getId = (e) => {
+  // const getId = (e) => {
     
-    if (e.target.getAttribute("id")) {
-        setActive(+e.target.getAttribute("id"))
-        return;
-    } else if (e.target.parentNode.getAttribute("id")) {
-        setActive(+e.target.parentNode.getAttribute("id"))
-        return;
-    }
+  //   if (e.target.getAttribute("id")) {
+  //       setActive(+e.target.getAttribute("id"))
+  //       return;
+  //   } else if (e.target.parentNode.getAttribute("id")) {
+  //       setActive(+e.target.parentNode.getAttribute("id"))
+  //       return;
+  //   }
 
-    if (e.target.tagName == "SPAN") {
-        setActive(+e.target.parentNode.parentNode.getAttribute("id"))
-        return;
-    }
-  }
+  //   if (e.target.tagName == "SPAN") {
+  //       setActive(+e.target.parentNode.parentNode.getAttribute("id"))
+  //       return;
+  //   }
+  // }
 
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -143,7 +143,7 @@ export default function HeaderAccount({userPhoto, name}) {
   const logOut = () => {
     axios.get("/api/logout").then(() => {
       mutate("/api/user");
-	  signOut();
+	    signOut();
       router.push("/");
     });
   };
@@ -162,8 +162,14 @@ export default function HeaderAccount({userPhoto, name}) {
         <Divider/>
         {menuItems.map(item => (
           <ListItem onClick={(e) => {
-              getId(e)
-              router.push(`/account/${id}`)
+              // getId(e)
+              setState({"right" : false})
+              router.push({
+                pathname: `/account/${id}`,
+                query: {
+                  account: `${item.id}`
+                }
+              })
           }} button id={item.id} key={item.id} className="burgerList">
             <ListItemText className={`${item.id == active ? item.name + "Active" : item.name} ${item.id == active ? `${classes.accountItem} ${classes.accountItemActive}`: classes.accountItem} ${item.id == active ? classes.activeItem : ""}`} primary={item.title} />
           </ListItem>
@@ -186,6 +192,7 @@ export default function HeaderAccount({userPhoto, name}) {
     </>
   );
 
+  console.log(userPhoto)
   return (
     <>
         <Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>

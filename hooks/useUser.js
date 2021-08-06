@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../lib/Context/AuthCTX';
 
 export function useUser() {
-	const { id } = useAuth();
+   const { id } = useAuth();
    const [userInfo, setUserInfo] = useState({}),
    [isLoading, setLoading] = useState(true);
 
