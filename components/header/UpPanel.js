@@ -5,12 +5,11 @@ import NotifDark from '../../UI/icons/NotifDark';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import { useMedia } from '../../hooks/useMedia';
 import { Box, Container, Button, makeStyles, Dialog, TextField } from '@material-ui/core';
-import Router from "next/router";
 import { useAuth } from '../../lib/Context/AuthCTX';
 import { useState } from 'react';
 import City from './City';
 import { useCity } from '../../lib/Context/CityCTX';
-
+import { useRouter } from 'next/router';
 const useStyles = makeStyles((theme) => ({
    up_panel: {
       background: theme.palette.background.paper,
@@ -37,10 +36,14 @@ const useStyles = makeStyles((theme) => ({
 
 const UpPanel = () => {
    const classes = useStyles();
-   const [cityDialog, setCityDialog] = useState(false)
+   const router = useRouter();
+   const [cityDialog, setCityDialog] = useState(false);
    const { matchesMobile, matchesTablet } = useMedia();
-   const {isAuth, id} = useAuth();
-   const {city} = useCity()
+   const { isAuth, id } = useAuth();
+   const { city } = useCity();
+   
+
+
 
    return (
       <>
@@ -49,10 +52,17 @@ const UpPanel = () => {
                <Box className={classes.up_panel}>
                   <Container className={classes.up_panel__wrapper}>
                      <Button className={classes.btn__add_location} variant='text' size='small' onClick={() => setCityDialog(!cityDialog)} ><RoomOutlinedIcon fontSize='small' />{city}</Button>
-                  {isAuth &&  <Box className={classes.btns__uppanel}>
+                     {isAuth && <Box className={classes.btns__uppanel}>
                         <Button className={classes.btn__uppanel}><CategoryDark /></Button>
                         <Button className={classes.btn__uppanel}><CompareDark /></Button>
-                        <Button onClick={() => Router.push(`/account/${id}?favorite`)} className={classes.btn__uppanel}><LikeDark /></Button>
+                        <Button onClick={() => {
+                           router.push({
+                              pathname: `/account/${id}`,
+                              query: {
+                                 account: "4"
+                              }
+                           })
+                        }} className={classes.btn__uppanel}><LikeDark /></Button>
                         <Button className={classes.btn__uppanel}><NotifDark /></Button>
                      </Box>}
                   </Container>
