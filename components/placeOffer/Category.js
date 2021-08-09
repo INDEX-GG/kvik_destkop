@@ -141,6 +141,7 @@ const Category = () => {
                             value={value}
                             onChange={onChange}
                             error={!!error}
+                          
                             helperText={error ? error.message : ' '}>
                             {categoriesByAlias(methods.watch('alias1'), methods.watch('alias2'), methods.watch('alias3')).map((option, i) => (
                                 <MenuItem key={i} value={option.alias}>

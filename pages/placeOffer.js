@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Backdrop, Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 import Verify from '../components/placeOffer/Verify';
 import MetaLayout from '../layout/MetaLayout';
@@ -18,6 +18,8 @@ import { useAuth } from '../lib/Context/AuthCTX';
 import Loader from '../UI/icons/Loader';
 import PlaceOfferMobile from '../components/placeOffer/placeOfferMobile';
 import Promotion from '../components/placeOffer/Promotion';
+import { useCategoryPlaceOffer } from '../hooks/useCategoryPlaceOffer';
+import AdditionalInformation from '../components/placeOffer/AdditionalInformation';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,7 +69,32 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
+    /* получение дополнительных  */
+    const [asd, setAsd] = useState()
+    const { ...qwe } = useCategoryPlaceOffer(/* asd */)
+
+    useEffect(() => {
+        if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
+            console.log('есть 4')
+            setAsd(methods?.watch('alias4'));
+        }
+        if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
+            console.log('есть 3')
+            setAsd(methods?.watch('alias3'));
+        }
+        if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
+            console.log('есть 2')
+            setAsd(methods?.watch('alias2'));
+        }
+    }, [methods])
+
+
+
+
+
+
     const onSubmit = data => {
+        console.log(data)
         console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
@@ -77,6 +104,7 @@ function PlaceOffer() {
         if (data?.alias4) {
             alias.push(data.alias4);
         }
+
 
         const sendData = new FormData;
         const photoData = new FormData;
@@ -100,22 +128,23 @@ function PlaceOffer() {
         }
         console.log(data, alias)
         // setLoading(true);
-        axios.post('/api/setPosts', sendData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }).then(r => {
-            axios.post(`http://192.168.8.111:6001/post/${r?.data?.id}`, photoData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            }).then(() => {
-                console.log(r?.data?.id, photoData)
-                setProduct({ title: data.title, price: data.price, id: r?.data?.id, photo: photoes[0].name })
-                console.log(product)
-                setPromotion(true)
-            })
-        })
+
+        // axios.post('/api/setPosts', sendData, {
+        //     headers: {
+        //         "Content-Type": "multipart/form-data"
+        //     }
+        // }).then(r => {
+        //     axios.post(`http://192.168.8.111:6001/post/${r?.data?.id}`, photoData, {
+        //         headers: {
+        //             "Content-Type": "multipart/form-data"
+        //         }
+        //     }).then(() => {
+        //         console.log(r?.data?.id, photoData)
+        //         setProduct({ title: data.title, price: data.price, id: r?.data?.id, photo: photoes[0].name })
+        //         console.log(product)
+        //         setPromotion(true)
+        //     })
+        // })
     }
 
     return (
@@ -131,11 +160,15 @@ function PlaceOffer() {
                                     <Title />
                                     <Category />
                                 </Box>
+                                {qwe&&<Box className={classes.formPart}>
+                                    <AdditionalInformation {...qwe} />
+                                </Box>}
                                 <Box className={classes.formPart}>
                                     <Description />
                                     <Price />
                                     <Photoes ctx={photoesCtx} />
                                 </Box>
+
                                 <Box className={classes.formPart}>
                                     <Location />
                                     <Contacts />
