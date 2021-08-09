@@ -78,7 +78,7 @@ function Offers(data) {
                 }
               </div>
               <div className="favoritesDescription">
-                <a href={`/user/${offer.user_id}`} className="favoritesUserBlock small">
+                <a href={`/user/${offer.user_id}`} onClick={() => localStorage.setItem("AccountArr", [true, "Избранное", 4, "Объявления", 1])} className="favoritesUserBlock small">
                   <div>
                     <div className='favoritesDescriptionUserName'>{offer.user_name}</div>
                     <div className="favoritesDatPub light DatPub__mobile">

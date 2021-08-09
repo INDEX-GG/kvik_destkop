@@ -60,7 +60,7 @@ function Account() {
   
   const {signOut, id} = useAuth();
 
-  const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "Избранное" } : router.query?.account ? { i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] } : { i: "1", itm: "menuOffers", ttl: "Мои объявления" });
+  const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "idИзбранное" } : router.query?.account ? { i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] } : { i: "1", itm: "menuOffers", ttl: "Мои объявления" });
 
   useEffect(() => {
     setMenuItem({ i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] })
@@ -70,6 +70,7 @@ function Account() {
     countRender.current += 1
     setContent(content + 1)
   }, [menuItem])
+
 
   const [openPicUpload, setPicUpload] = useState(false);
   const [logout, setLogout] = useState(false);
@@ -100,6 +101,8 @@ function Account() {
       router.push("/");
     });
   };
+
+  
 
 
   const accountContent = () => {
@@ -192,7 +195,8 @@ function Account() {
                     router.push({
                       pathname: `/account/${id}`,
                       query: {
-                        account: item.id
+                        account: item.id,
+                        content: "1"
                       }
                     })
                   }} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>

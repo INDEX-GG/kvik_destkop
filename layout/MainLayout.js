@@ -29,7 +29,7 @@ const MainLayout = ({ children}) => {
         {matchesMobile && router.pathname != "/404" && router.pathname != "/500" && <HeaderMobile />}
         <>{children}</>
       </div>
-      {router.pathname == "/" ? matchesTablet || matchesMobile ? <Footer/> : null : <Footer/>}
+      {router.pathname == "/" || router.pathname == "/search/[alias]" ? matchesTablet || matchesMobile ? <Footer/> : null : <Footer/>}
     </>
   );
   //.makeStyles-root-114

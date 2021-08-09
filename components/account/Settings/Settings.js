@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PersonalData from './tabs/PersonalData';
 import Pushes from './tabs/Pushes';
 import BlackList from './tabs/BlackList';
 import { brooklyn } from '../../../lib/services';
+import { useRouter } from 'next/router';
+import generateBreadCrumbs from '../generateBreadCrumbs';
 
 // Чёрный список
 const blackListBox = [
@@ -35,6 +37,18 @@ const Settings = () => {
       { id: 3, title: 'Черный список', content: <BlackList data={blackListBox}/>, count: blackListBox.length },
    ]
 
+   const router = useRouter()
+
+   useEffect(() => {
+    if (router) {
+      if (router.query.content != undefined) {
+         setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+         localStorage.setItem("Subtitle", navItems[router.query.content - 1].title)
+      }
+    }
+  }, [router])
+
+
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Личные данные' });
    return (
       <>
@@ -43,7 +57,9 @@ const Settings = () => {
                <div className="clientPage__container_nav">
                   {navItems.map(item => {
                      return (
-                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {brooklyn(item.count)}</a>
+                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
+                           generateBreadCrumbs(item.id)
+                           setItemNav({ i: item.id, ttl: item.title })}}>{item.title} {brooklyn(item.count)}</a>
                      )
                   })}
                </div>

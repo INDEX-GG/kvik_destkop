@@ -28,6 +28,7 @@ const useStyles = makeStyles({
   avatar: {
     width: "32px",
     height: "32px",
+    alignSelf: "flex-end"
   },
   accountItem: {
     paddingLeft: "33px",
@@ -151,8 +152,6 @@ export default function HeaderAccount({userPhoto, name}) {
     });
   };
 
-  console.log(document.querySelectorAll(".MuiDrawer-paper"))
-
   const list = (anchor) => (
     <>
     <div
@@ -173,7 +172,7 @@ export default function HeaderAccount({userPhoto, name}) {
                 pathname: `/account/${id}`,
                 query: {
                   account: `${item.id}`
-                }
+                },
               })
           }} button id={item.id} key={item.id} className="burgerList">
             <ListItemText 
@@ -228,7 +227,8 @@ export default function HeaderAccount({userPhoto, name}) {
         router.push({
           pathname: `/account/${id}`,
           query: {
-            account: "1"
+            account: "1",
+            content: "1"
           }
         })
       }} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>

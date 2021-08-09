@@ -4,17 +4,15 @@ import { useMedia } from "../../hooks/useMedia";
 import MetaLayout from '../../layout/MainLayout';
 import { PrismaClient } from '@prisma/client';
 import axios from "axios";
-import { Box, Breadcrumbs, Container, makeStyles } from "@material-ui/core";
+import { Box, Container, makeStyles } from "@material-ui/core";
 import FilterBlock from "../../components/FilterBlock"
 import SearchRender from "../../components/SearchRender"
 import { useRouter } from "next/router"
 import { useCategory } from "../../hooks/useCategory";
-import Link from "next/link"
 import MainLayout from "../../layout/MainLayout";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import aliasName from "../../components/header/CategoriesAliaseName";
 import Image from "next/image"
-// import Categories from "../../components/header/Categories";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,23 +30,25 @@ const useStyles = makeStyles((theme) => ({
 	rightBlock: {
 		height:'100%',
 		marginLeft: '56px',
+		display: "flex",
+		flexDirection: "column"
 	},
 	footer: {
 		top: 'calc(100% - 205px)',
 		position: 'sticky',
 	},
-  bread: {
-    marginBottom: "40px",
-  },
-  breadActiveItem: {
-    color: "#2C2C2C"
-  },
-  ad: {
-	  "& > *:nth-of-type(1)": {
-		  marginBottom: "10px !important"
-	  },
-	  marginBottom: "17px"
-  }
+	bread: {
+		marginBottom: "40px",
+	},
+	breadActiveItem: {
+		color: "#2C2C2C"
+	},
+	ad: {
+		"& > *:nth-of-type(1)": {
+			marginBottom: "10px !important"
+		},
+		marginBottom: "17px"
+	}
 }));
 
 const Index = () => {

@@ -64,6 +64,11 @@
     background: no-repeat center center url(../../../icons/ok_r_color.svg);
 }
 
+.mobilePasswordContainer{
+    display: flex;
+    justify-content: center;
+}
+
 .pDPassInputWrapper {
     display: flex;
     flex-direction: row;

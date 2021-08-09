@@ -102,6 +102,7 @@ const Header = ({ category }) => {
 
   useEffect(() => {
     setAvatar(`${userPhoto}?${Date.now()}`)
+    console.log(avatar)
   }, [userPhoto, mutateAvatar]);
 
 

@@ -1,21 +1,18 @@
 import { AppBar, Avatar, Button, Container, makeStyles } from "@material-ui/core";
 import Logo from "./Logo";
 import Search from "./Search";
-import MobileMenu from "../../UI/icons/MobileMenu";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import MobileFilter from "../../UI/icons/MobileFilter";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import { useUser } from "../../hooks/useUser";
-import { initials, stringToColor } from "../../lib/services";
 import { useRouter } from "next/router";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMedia } from "../../hooks/useMedia"
-import Link from "next/link"
 import Login from "../auth/Login";
 import BurgerCategories from "./BurgerCategories";
 import HeaderAccount from "./HeaderAccount";
-import axios from "axios";
+import { useMutate } from "../../lib/Context/MutateCTX";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -69,8 +66,14 @@ function HeaderMobile({ chageMenu = false }) {
   const [openLoginForm, setOpenLoginForm] = useState(false);
   const Router = useRouter()
   const {matchesMobile, matchesCustom1024} = useMedia()
-  console.log(userPhoto)
+  const { mutateAvatar } = useMutate()
+  const [avatar, setAvatar] = useState()
 
+
+  useEffect(() => {
+    setAvatar(`${userPhoto}?${Date.now()}`)
+    console.log(avatar)
+  }, [userPhoto, mutateAvatar])
 
 
 

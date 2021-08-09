@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import WaitReviews from './tabs/WaitReviews';
 import LeftReviews from './tabs/LeftReviews';
 import { brooklyn } from '../../../lib/services';
+import { useRouter } from 'next/router';
+import generateBreadCrumbs from '../generateBreadCrumbs';
 
 // Ждут отзыва
 const waitReviewBox = [
@@ -38,6 +40,18 @@ const navItems = [
 const Reviews = () => {
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Ждут отзыва' });
+   const router = useRouter()
+
+   useEffect(() => {
+    if (router) {
+      if (router.query.content != undefined) {
+        if (+router.query.content - 1 != 2) {
+          setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+        }
+      }
+    }
+  }, [router])
+
 
    return (
       <>
@@ -46,7 +60,9 @@ const Reviews = () => {
             <div className="clientPage__container_nav">
             {navItems.map(item => {
                return (
-                  <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')}  onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} { brooklyn(item.count)}</a>
+                  <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')}  onClick={() => {
+                     generateBreadCrumbs(item.id)
+                     setItemNav({ i: item.id, ttl: item.title })}}>{item.title} { brooklyn(item.count)}</a>
                )
             })}
             </div>

@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
         color: "#5A5A5A"
     },
     plaseOfferPriceInput: {
-        width: "60px"
+        width: "100px"
     },
     plaseOfferAuction: {
         justifyContent: "flex-end"

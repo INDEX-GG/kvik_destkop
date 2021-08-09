@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Sales from './tabs/Sales';
 import Purch from './tabs/Purch';
 import { brooklyn } from '../../../lib/services';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import generateBreadCrumbs from '../generateBreadCrumbs';
 
 const DealsBox = [
    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00 00.00', status: 1 },
@@ -35,6 +38,19 @@ const navItems = [
 const Deals = () => {
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Продажи' });
+   const router = useRouter()
+
+   useEffect(() => {
+    if (router) {
+      if (router.query.content != undefined) {
+        if (+router.query.content - 1 != 2) {
+         setItemNav({i: +router.query.content, ttl: navItems[+router.query.content - 1].title})
+        }
+      }
+    }
+  }, [router])
+
+
 
    return (
       <>
@@ -43,7 +59,10 @@ const Deals = () => {
             <div className="clientPage__container_nav">
             {navItems.map(item => {
                return (
-                  <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {brooklyn(item.count)}</a>
+                  <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
+                     generateBreadCrumbs(item.id)
+                     setItemNav({ i: item.id, ttl: item.title }
+                  )}}>{item.title} {brooklyn(item.count)}</a>
                )
             })}
             </div>

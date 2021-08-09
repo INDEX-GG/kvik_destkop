@@ -7,6 +7,7 @@ import Active_icon from "../../../../UI/icons/ActiveIcon";
 import axios from "axios";
 import {useMedia} from "../../../../hooks/useMedia"
 import RightArrow from "../../../../UI/icons/RightArrow"
+import { Button, Dialog } from "@material-ui/core";
 
 function PersonalData() {
   const { isAuth, id, phone, username, email } = useUser();
@@ -48,6 +49,7 @@ function PersonalData() {
   const [passwordCoincidence, setPasswordCoincidence] = useState(null);
   const [inputFirstEye, setInputFirstEye] = useState(true);
   const [inputSecondEye, setInputSecondEye] = useState(true);
+  const [passwordDialog, setPasswordDialog] = useState(false)
 
   username === undefined ? "" : test();
 
@@ -72,6 +74,10 @@ function PersonalData() {
   //!! Валидация формы
 
   function changePasswordInput(e) {
+    
+    console.log(e.target.value.length)
+
+
     let length = false;
     let number = false;
     let registr = false;
@@ -121,6 +127,7 @@ function PersonalData() {
     function createArr() {
       return [length ? "#C7C7C7" : "#F44545", languageEu ? "#C7C7C7" : "#F44545", number ? "#C7C7C7" : "#F44545", registr ? "#C7C7C7" : "#F44545"];
     }
+    
     setPasswordOne(e.target.value);
     confirmPassword(e, "input1");
     setValidateCheck(createArr());
@@ -323,7 +330,10 @@ function PersonalData() {
                 {passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
               </div>
             </div>
-            {matchesTablet || matchesMobile ? <RightArrow/> : null}
+            {matchesTablet || matchesMobile ? 
+            <div onClick={() => setPasswordDialog(!passwordDialog)}>
+              <RightArrow/> 
+            </div> : null}
             {passwordCoincidence == "send" ? (
               <a href="#" className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
                 Изменить пароль
@@ -333,6 +343,55 @@ function PersonalData() {
         </div>
       </div>
       <Modal {...modal} />
+      <Dialog fullScreen={true} open={passwordDialog} onClose={() => setPasswordDialog(!passwordDialog)}>
+        <div className="modal__wrapper_md accountContainer">
+          <div className="modal__block__top accountTop">
+              <>
+                  <div onClick={() => setPasswordDialog(!passwordDialog)} className="accountArrowLeft"></div>
+                  <h6 className="modal__block__top_title accountTitle">Смена пароля</h6>
+              </>
+              <div className="mobilePasswordContainer">
+                <div className="privateDataPass">
+                  <div className="pDPassInputWrapper">
+                    <input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} value={passwordOne} onChange={(e) => changePasswordInput(e)} />
+                    <a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)}></a>
+                  </div>
+                  <p className="">
+                    <Active_icon Size={14} Color={validateCheck[0]} />
+                    &nbsp;Минимум 8 символов
+                  </p>
+                  <p className="">
+                    <Active_icon Size={14} Color={validateCheck[1]} />
+                    &nbsp;Только латинские символы
+                  </p>
+                  <p className="">
+                    <Active_icon Size={14} Color={validateCheck[2]} />
+                    &nbsp;Как минимум одна цифра
+                  </p>
+                  <p className="">
+                    <Active_icon Size={14} Color={validateCheck[3]} />
+                    &nbsp;Строчные и заглавные буквы
+                  </p>
+                  <div className="pDPassInputWrapper">
+                    <input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} value={passwordTwo} onChange={(e) => confirmPassword(e)} />
+                    <a
+                      className="pDPassInvis"
+                      onClick={() => {
+                        setInputSecondEye(!inputSecondEye);
+                      }}
+                    ></a>
+                  </div>
+                  {passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
+                  {passwordCoincidence == "send" ? (
+                    <Button className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
+                      Изменить пароль
+                    </Button>
+                  ) : null}
+                </div>
+              </div>
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 }

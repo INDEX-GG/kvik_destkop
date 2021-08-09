@@ -25,10 +25,7 @@ export default function ProductUserInfo(data) {
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
   let userSmallAd;
 
-  useEffect(() => {
-    localStorage.setItem("Title", data.productTitle)
-    localStorage.setItem("Query", router.query.id)
-  })
+  console.log(router.pathname)
 
   return (
     <>
@@ -42,7 +39,10 @@ export default function ProductUserInfo(data) {
             <>
               <div>
                 <div className='productUserName' onClick={() => {
+                  localStorage.setItem("Title", data.productTitle)
+                  localStorage.setItem("Query", `/product/${router.query.id}`)
                   router.push(`/user/${data.user_id}`)
+                  
                 }}> {data.name} </div>
                 <div>
                   <div className="SellerInfoRateNumber">{objP.userrate} </div>

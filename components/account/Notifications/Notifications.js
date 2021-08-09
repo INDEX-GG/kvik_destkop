@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { brooklyn } from "../../../lib/services";
+import generateBreadCrumbs from "../generateBreadCrumbs";
 import Messages from "./tabs/Messages";
 import Notifs from "./tabs/Notifs";
 
@@ -56,6 +58,20 @@ const navItems = [
 const Notifications = () => {
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Сообщения" });
 
+  const router = useRouter()
+
+
+  useEffect(() => {
+    if (router) {
+      if (router.query.content != undefined) {
+        if (+router.query.content - 1 != 2) {
+          setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+        }
+      }
+    }
+  }, [router])
+
+
   return (
     <>
       <div className="clientPage__container_top">
@@ -63,7 +79,9 @@ const Notifications = () => {
           <div className="clientPage__container_nav">
             {navItems.map((item) => {
               return (
-                <a className={itemNav.i === item.id ? "navActive" : ""} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>
+                <a className={itemNav.i === item.id ? "navActive" : ""} key={item.id} onClick={() => {
+                  generateBreadCrumbs(item.id)
+                  setItemNav({ i: item.id, ttl: item.title })}}>
                   {item.title} {brooklyn(item.count)}
                 </a>
               );

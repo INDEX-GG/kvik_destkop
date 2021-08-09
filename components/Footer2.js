@@ -1,11 +1,20 @@
+import { useMedia } from "../hooks/useMedia";
+
 function Footer2() {
+
+  const { matchesMobile, matchesTablet, matchesCustom1024 } = useMedia()
+
   return (
     <div className="main__block__footer">
-      <p>Скачать приложение</p>
-      <div className="block__links__download">
-        <a className="ios_links__download" href=""></a>
-        <a className="android_links__download" href=""></a>
-      </div>
+      {matchesMobile || matchesTablet || matchesCustom1024 ? (
+        <>
+          <p>Скачать приложение</p>
+          <div className="block__links__download">
+            <a className="ios_links__download" href=""></a>
+            <a className="android_links__download" href=""></a>
+          </div>
+        </>
+      ) : <div style={{height: "63px"}}></div>}
 
       <div className="footer__bottom">
         <div className="socialNetworksFooter2">

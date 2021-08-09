@@ -5,7 +5,7 @@ import Router from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
     logo: {
-        padding: '0px 8px 0px 8px',
+        padding: '0px 8px 0px 0px',
 		'&:hover': {
 			backgroundColor: 'transparent'
 		}
