@@ -5,6 +5,7 @@ import { useMedia } from "../../hooks/useMedia";
 import router, { useRouter } from "next/dist/client/router";
 import Image from "next/image"
 import { route } from "next/dist/next-server/server/router";
+import PromotionContent from "./PromotionContent";
 
 const useStyles = makeStyles(theme => ({
     promotionContainer: {
@@ -186,7 +187,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function Promotion({dialog,product}) {
+export default function Promotion({dialog = false, setDialog = false, product}) {
 
     const [promotion, setPromotion] = useState([false, false, false, false, false, false, false, false, false])
     const [free, setFree] = useState(false)
@@ -234,13 +235,16 @@ export default function Promotion({dialog,product}) {
         setFree(false)
     }
 
+
+
+
     console.log(product)
     const classes = useStyles()
     return (
-        <Dialog>
+        <PromotionContent dialog={true} setDialog={setDialog}>
             {matchesMobile || matchesTablet ? 
             <>
-                <div className="accountArrowLeft"></div>
+                <div onClick={() => setDialog(!dialog)} className="accountArrowLeft"></div>
                 <div className={classes.promotionMobileTitel}>
                     <h6 className="modal__block__top_title">Новое объявление</h6>
                     <div className={classes.promotionMobileSubTitle}>2/2</div>
@@ -292,6 +296,6 @@ export default function Promotion({dialog,product}) {
                 </div>
                     
             </Dialog>
-        </Dialog>
+        </PromotionContent>
     )
 }
