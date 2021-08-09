@@ -13,7 +13,6 @@ const UsersPage = () => {
   const [soldBox, setSoldBox] = useState([]);
 
   const router = useRouter();
-console.log(router)
  
   const { userInfo, isLoading } = useAd(router.query.id);
   // console.log(userInfo.filter(item => item.archived))

@@ -12,6 +12,7 @@ import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
 import { useSubList, useSubBool } from "../../hooks/useSubscriptions";
+import Link from "next/link"
 
 import MetaLayout from "../../layout/MetaLayout";
 import { useAuth } from "../../lib/Context/AuthCTX";
@@ -26,15 +27,14 @@ function UserPage() {
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-  const [productTitle, setProductTitle] = useState(null)
-  const [productQuery, setProductQuery] = useState(null)
   const { matchesMobile, matchesTablet } = useMedia()
+  const [breadArr, setBreadArr] = useState(null)
   const [userBool, setUserBool] = useState(false)
 
-
   useEffect(() => {
-    setProductTitle(localStorage.getItem("Title"))
-    setProductQuery(localStorage.getItem("Query"))
+    if (localStorage.getItem("AccountArr")) {
+      setBreadArr(localStorage.getItem("AccountArr").split(","))
+    }
   }, [])
 
   useEffect(() => {
@@ -64,9 +64,6 @@ function UserPage() {
     setUserBool(!userBool)
   }
 
-
-  console.log(id, sellerId, userSub)
-
   return (
     <MetaLayout>
       <div className="clientPage text">
@@ -74,9 +71,19 @@ function UserPage() {
           <a className="breadCrumb light" href="/">
             Главная
           </a>
-				  <a className="breadCrumb line light" onClick={() => router.push(`/product/${productQuery}`)}>
-            	{productTitle}
-          </a>  
+          {breadArr ? 
+          <a className="breadCrumb line light" href={`/account/${id}?account=1&content=1`}>
+            Личный кабинет
+          </a> : null}
+          {breadArr ?
+           <a className="breadCrumb line light" href={`/account/${id}?account=${breadArr[2]}`}>
+            {breadArr[1]}
+           </a>
+          : null}
+				  {breadArr ?
+          <a className="breadCrumb line light" href={`/account/${id}?account=${breadArr[2]}&content=${breadArr[4]}`}>
+            	{breadArr[3]}
+          </a> : null}  
           <a className="line">{sellerName}</a>
         </div>
         <div className="clientPage__menu">
@@ -113,19 +120,23 @@ function UserPage() {
                 </div>
               </a>
             </div>
-            <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
-            <div className="btnActive">
-              <a className="userActive">Заблокировать пользователя</a>
-              <div className="userIconBlock">
-                <UserLock className="userActiveIcon" />
-              </div>
-            </div>
-            <div className="btnActive">
-              <a className="userActive">Пожаловаться</a>
-              <div className="userIconBlock">
-                <UserReport className="userActiveIcon" />
-              </div>
-            </div>
+            {+router.query.id == id  ? null : (
+              <>
+                <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
+                <div className="btnActive">
+                <a className="userActive">Заблокировать пользователя</a>
+                <div className="userIconBlock">
+                  <UserLock className="userActiveIcon" />
+                </div>
+                </div>
+                <div className="btnActive">
+                  <a className="userActive">Пожаловаться</a>
+                  <div className="userIconBlock">
+                    <UserReport className="userActiveIcon" />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="clientPage__container">

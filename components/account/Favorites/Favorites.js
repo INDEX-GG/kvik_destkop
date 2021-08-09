@@ -9,6 +9,8 @@ import { useSubList } from '../../../hooks/useSubscriptions';
 
 import { useAuth } from '../../../lib/Context/AuthCTX';
 import FavProvider from '../../../lib/Context/FavoritesCTX';
+import { useRouter } from 'next/router';
+import generateBreadCrumbs from '../generateBreadCrumbs';
 // Объявления
 // const OffersBox = [
 //    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00', username: 'Ну прямо очень весьма и весьма длинное имя', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Центральный административный округ, Москва' },
@@ -133,6 +135,7 @@ const Favorites = () => {
 
    const { id } = useAuth();
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
+   const router = useRouter()
 
 
    const [offetFav, setOfferFav] = useState()
@@ -143,6 +146,15 @@ const Favorites = () => {
          .then(data => setOfferFav(data.data))
          .catch(error => cosnole.log(error))
    }, [id])
+
+
+   useEffect(() => {
+    if (router) {
+      if (router.query.content != undefined) {
+        setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+      }
+    }
+   }, [router])
 
 
 
@@ -188,7 +200,9 @@ const Favorites = () => {
                <div className="clientPage__container_nav">
                   {navItems.map(item => {
                      return (
-                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {brooklyn(item.count)}</a>
+                        <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
+                           generateBreadCrumbs(item.id)
+                           setItemNav({ i: item.id, ttl: item.title })}}>{item.title} {brooklyn(item.count)}</a>
                      )
                   })}
                </div>

@@ -12,11 +12,20 @@ import MainLayout from '../layout/MainLayout';
 import MutateProvider from '../lib/Context/MutateCTX';
 import {ErrorBoundary} from '../components/ErrorBoundary';
 import CityProvider from '../lib/Context/CityCTX';
+import {useRouter} from "next/router"
+import { useEffect } from 'react';
 
 
 
 function MyApp({ Component, pageProps }) {
 
+	const router = useRouter()
+
+	useEffect(() => {
+		if (router.pathname != "/user/[id]") {
+			localStorage.removeItem("AccountArr")
+		}
+	})
 
 	//! Проверка на мобилки
 	// setTimeout(() => {

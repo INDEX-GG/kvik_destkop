@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Checkbox, Button, Dialog, makeStyles } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import { ToRubles, ToFullDate } from "../../../../lib/services";
 import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
 import UnpublishForm from "../../../UnpublishForm";
+import {useRouter} from "next/router"
 const useStyles = makeStyles((theme) => ({
     check: {
         padding: '0px',
@@ -40,6 +41,7 @@ export default function offerActive(offer) {
     const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 
     const [offerId, setOfferId] = useState();
+    const router = useRouter()
 
 
     const [qwe, setQwe] = useState()
@@ -115,7 +117,8 @@ export default function offerActive(offer) {
 
     return (
         <UnpublishCTX.Provider value={{ offerId, offer, openUnpublishForm, setOpenUnpublishForm }}>
-            <a href={`/product/${offer.offer.id}`} key={offer.i} className="offerContainer boxWrapper">
+            <a href={`/product/${offer.offer.id}`} key={offer.i} 
+            onClick={() => localStorage.setItem("ProductAccountArr", '[{name: "Личный кабинет", url: `/account/${router.query.id}?account=1&content=1`}, {name: "Мои объявления", url: ""}, {name: "Активные объявления", url: ""}]')} className="offerContainer boxWrapper">
                 <div className="offerImage">
                     <div className="offerPubCheck">
                         <Checkbox

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
+import {useRouter} from "next/router"
 
 
 function Sellers({sellers, sellerSub}) {
 
   const [btnSellerArr, setBtnSellerArr] = useState([])
+
+  const router = useRouter()
 
   useEffect(() => {
     if (sellers != undefined && btnSellerArr.length == 0) {
@@ -28,9 +31,6 @@ function Sellers({sellers, sellerSub}) {
 
     setBtnSellerArr(newArr)
   }
-
-  console.log(btnSellerArr)
-
 
 
   if (sellers?.message) {
@@ -56,13 +56,16 @@ function Sellers({sellers, sellerSub}) {
             return (
               <div key={seller.id} className="sellersContainer">
                 <div className="sellersUser">
-                  <a href={`/user/${seller.id}`} className="sellersUserBlock">
+                  <div onClick={() => {
+                    localStorage.setItem("AccountArr", [true, "Избранное", 4, "Продавцы", 2])
+                    router.push(`/user/${seller.id}`)
+                  }} className="sellersUserBlock">
                     <img src={`${seller.userPhoto}?${seller.id}`} />
                     <div className="sellersUserInfo">
                       <div className="sellersUserName">{seller.name}</div>
                        <div className="sellersOffersCount light">{seller.poducts.length} объявлений</div>
                     </div>
-                  </a>
+                  </div>
                   <button onClick={() => {
                     sellerSub(58, seller.id)
                     changeSubscribe(index)

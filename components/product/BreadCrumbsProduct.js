@@ -1,3 +1,4 @@
+import React from "react"
 import { useCategory } from "../../hooks/useCategory"
 
 export default function BreadCrumbsProduct(data) {
@@ -8,6 +9,7 @@ export default function BreadCrumbsProduct(data) {
     let aliasTwo = null
     let aliasThree = null
     let aliasFour = null
+
 
     for (let inner = 0; inner < aliasNamesArr.length; inner++) { 
         

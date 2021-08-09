@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Balance from './tabs/Balance';
 import Story from './tabs/Story';
 import Bonus from './tabs/Bonus';
+import { useRouter } from 'next/router';
+import generateBreadCrumbs from '../generateBreadCrumbs';
 
 //Баланс кошелька
 const balance = 3454322;
@@ -37,6 +39,16 @@ const Wallet = () => {
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Баланс кошелька' });
 
+   const router = useRouter()
+
+   useEffect(() => {
+    if (router) {
+      if (router.query.content != undefined) {
+        setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+      }
+    }
+  }, [router])
+
    return (
       <>
       <div className="clientPage__container_top">
@@ -44,7 +56,10 @@ const Wallet = () => {
             <div className="clientPage__container_nav">
             {navItems.map(item => {
                return (
-                  <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title}</a>
+                  <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
+                     generateBreadCrumbs(item.id)
+                     setItemNav({ i: item.id, ttl: item.title })
+                  }}>{item.title}</a>
                )
             })}
             </div>
