@@ -4,7 +4,6 @@ import Pushes from './tabs/Pushes';
 import BlackList from './tabs/BlackList';
 import { brooklyn } from '../../../lib/services';
 import { useRouter } from 'next/router';
-import generateBreadCrumbs from '../generateBreadCrumbs';
 
 // Чёрный список
 const blackListBox = [
@@ -43,7 +42,6 @@ const Settings = () => {
     if (router) {
       if (router.query.content != undefined) {
          setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
-         localStorage.setItem("Subtitle", navItems[router.query.content - 1].title)
       }
     }
   }, [router])
@@ -58,7 +56,6 @@ const Settings = () => {
                   {navItems.map(item => {
                      return (
                         <a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
-                           generateBreadCrumbs(item.id)
                            setItemNav({ i: item.id, ttl: item.title })}}>{item.title} {brooklyn(item.count)}</a>
                      )
                   })}

@@ -57,7 +57,6 @@ function Sellers({sellers, sellerSub}) {
               <div key={seller.id} className="sellersContainer">
                 <div className="sellersUser">
                   <div onClick={() => {
-                    localStorage.setItem("AccountArr", [true, "Избранное", 4, "Продавцы", 2])
                     router.push(`/user/${seller.id}`)
                   }} className="sellersUserBlock">
                     <img src={`${seller.userPhoto}?${seller.id}`} />

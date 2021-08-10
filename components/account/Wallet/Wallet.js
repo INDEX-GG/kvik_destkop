@@ -3,7 +3,6 @@ import Balance from './tabs/Balance';
 import Story from './tabs/Story';
 import Bonus from './tabs/Bonus';
 import { useRouter } from 'next/router';
-import generateBreadCrumbs from '../generateBreadCrumbs';
 
 //Баланс кошелька
 const balance = 3454322;
@@ -57,7 +56,6 @@ const Wallet = () => {
             {navItems.map(item => {
                return (
                   <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
-                     generateBreadCrumbs(item.id)
                      setItemNav({ i: item.id, ttl: item.title })
                   }}>{item.title}</a>
                )

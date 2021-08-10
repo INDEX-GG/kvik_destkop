@@ -80,11 +80,13 @@ export function ModalSubscription({data, subscription = 0, modal, mobile}) {
           <p className="modal__block__middle_rating_description">Здесь будет отображаться список пользователей на которых вы подпишетесь</p>
         </div>
       ) : (
-        <div className="comment__block">
-          <Subscribes data={data} />
-          <Subscribes data={data} />
-          <Subscribes data={data} />
-        </div>
+        data.map((item, index) => {
+          return (
+            <div key={index}>
+              <Subscribes data={item} />
+            </div>
+          )
+        })
       )}
     </div>
   );

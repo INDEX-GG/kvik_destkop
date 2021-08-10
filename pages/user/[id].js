@@ -22,24 +22,27 @@ function UserPage() {
   const { id } = useAuth()
   const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
   const userInfo = useAd(router.query.id)
-   const { userSub } = useSubBool(id, sellerId)
+  const { userSub } = useSubBool(id, sellerId)
+  const { matchesMobile, matchesTablet } = useMedia()
   
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-  const { matchesMobile, matchesTablet } = useMedia()
-  const [breadArr, setBreadArr] = useState(null)
   const [userBool, setUserBool] = useState(false)
+  const [subList, setSubList] = useState([])
 
-  useEffect(() => {
-    if (localStorage.getItem("AccountArr")) {
-      setBreadArr(localStorage.getItem("AccountArr").split(","))
-    }
-  }, [])
 
   useEffect(() => {
     setUserBool(userSub)
   }, [isLoading])
+
+
+  useEffect(() => {
+    if (sellerId != undefined && subList.length == 0) {
+      axios.post("/api/getSubscriptions", {user_id: "" + sellerId}).then((res) => setSubList(res.data))
+      console.log(subList)
+    }
+  })
 
 
   function modal(modal, changeModal) {
@@ -68,23 +71,12 @@ function UserPage() {
     <MetaLayout>
       <div className="clientPage text">
         <div className="clientPage__breadcrumbs thin">
-          <a className="breadCrumb light" href="/">
-            Главная
-          </a>
-          {breadArr ? 
-          <a className="breadCrumb line light" href={`/account/${id}?account=1&content=1`}>
-            Личный кабинет
-          </a> : null}
-          {breadArr ?
-           <a className="breadCrumb line light" href={`/account/${id}?account=${breadArr[2]}`}>
-            {breadArr[1]}
-           </a>
-          : null}
-				  {breadArr ?
-          <a className="breadCrumb line light" href={`/account/${id}?account=${breadArr[2]}&content=${breadArr[4]}`}>
-            	{breadArr[3]}
-          </a> : null}  
-          <a className="line">{sellerName}</a>
+          <Link href="/">
+            <a className="breadCrumb light">
+              Главная
+            </a>
+          </Link>
+          <span className="line">{sellerName}</span>
         </div>
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
@@ -115,7 +107,7 @@ function UserPage() {
               <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribtions">
                 {userInfo.userSubscriptions}
                 <div style={{ textAlign: "center" }}>
-                  <div>0</div>
+                  <div>{subList.length > 0 ? subList.length : 0}</div>
                   <p>подписок</p>
                 </div>
               </a>
@@ -150,7 +142,7 @@ function UserPage() {
         <ModalSubscribers mobile={matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscribersModal, setSubscribersModal)} />
       </Dialog>
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscription mobile={matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} />
+        <ModalSubscription subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} data={subList} />
       </Dialog>
     </MetaLayout>
   );

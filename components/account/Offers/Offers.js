@@ -9,7 +9,6 @@ import { brooklyn } from "../../../lib/services";
 
 // import OfferAccountProvider from "../../../lib/Context/OfferAccountCTX";
 import { useOfferAccount } from "../../../lib/Context/OfferAccountCTX";
-import generateBreadCrumbs from "../generateBreadCrumbs";
 
 const causes = "Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик";
 // const OffersBox = [
@@ -89,7 +88,6 @@ const Offers = () => {
             {navItems.map((item) => {
               return (
                 <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} onClick={() => {
-                  generateBreadCrumbs(item.id)
                   setItemNav({ i: item.id, ttl: item.title })
                 }}>
                   {item.title} {brooklyn(item.count)}{" "}
