@@ -69,9 +69,9 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
-    /* получение дополнительных  */
+    /* получение дополнительных полей */
     const [asd, setAsd] = useState()
-    const { ...qwe } = useCategoryPlaceOffer(/* asd */)
+    const { ...newOBJ } = useCategoryPlaceOffer(asd)
 
     useEffect(() => {
         if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
@@ -160,9 +160,11 @@ function PlaceOffer() {
                                     <Title />
                                     <Category />
                                 </Box>
-                                {qwe&&<Box className={classes.formPart}>
-                                    <AdditionalInformation {...qwe} />
-                                </Box>}
+                                {asd !== undefined ?
+                                    <Box className={classes.formPart}>
+                                        <AdditionalInformation newOBJ={newOBJ} />
+                                    </Box>
+                                    : ''}
                                 <Box className={classes.formPart}>
                                     <Description />
                                     <Price />
