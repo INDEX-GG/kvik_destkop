@@ -39,8 +39,6 @@ export default function ProductUserInfo(data) {
             <>
               <div>
                 <div className='productUserName' onClick={() => {
-                  localStorage.setItem("Title", data.productTitle)
-                  localStorage.setItem("Query", `/product/${router.query.id}`)
                   router.push(`/user/${data.user_id}`)
                   
                 }}> {data.name} </div>

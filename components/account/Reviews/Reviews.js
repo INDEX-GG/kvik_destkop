@@ -3,7 +3,6 @@ import WaitReviews from './tabs/WaitReviews';
 import LeftReviews from './tabs/LeftReviews';
 import { brooklyn } from '../../../lib/services';
 import { useRouter } from 'next/router';
-import generateBreadCrumbs from '../generateBreadCrumbs';
 
 // Ждут отзыва
 const waitReviewBox = [
@@ -61,7 +60,6 @@ const Reviews = () => {
             {navItems.map(item => {
                return (
                   <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')}  onClick={() => {
-                     generateBreadCrumbs(item.id)
                      setItemNav({ i: item.id, ttl: item.title })}}>{item.title} { brooklyn(item.count)}</a>
                )
             })}

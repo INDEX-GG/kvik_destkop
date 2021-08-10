@@ -24,6 +24,7 @@ import { useMutate } from "../../lib/Context/MutateCTX";
 
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import { route } from "next/dist/next-server/server/router";
+import Link from "next/link";
 
 const userInfo = {
   userId: 1,
@@ -57,6 +58,12 @@ function Account() {
   const { isLoading, name, userPhoto, createdAt, raiting, subscriptions } = useUser();
   const countRender = useRef(0)
   const [content, setContent] = useState(0)
+  const [openPicUpload, setPicUpload] = useState(false);
+  const [subList, setSubList] = useState([])
+  const [logout, setLogout] = useState(false);
+  const [reviewsModal, setReviewsModal] = useState(false);
+  const [subscribersModal, setSubscribersModal] = useState(false);
+  const [subscriptionsModal, setSubscriptionsModal] = useState(false);
   
   const {signOut, id} = useAuth();
 
@@ -71,15 +78,6 @@ function Account() {
     setContent(content + 1)
   }, [menuItem])
 
-
-  const [openPicUpload, setPicUpload] = useState(false);
-  const [logout, setLogout] = useState(false);
-
-  //!! Modal
-  const [reviewsModal, setReviewsModal] = useState(false);
-  const [subscribersModal, setSubscribersModal] = useState(false);
-  const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-
   const {matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080} = useMedia()
 
   function closeModal(modal, changeModal) {
@@ -89,6 +87,13 @@ function Account() {
   const closePicUpload = () => {
 	  setPicUpload(p => !p)
   }
+
+  useEffect(() => {
+    if (id != undefined && subList.length == 0) {
+      axios.post("/api/getSubscriptions", {user_id: "" + id}).then((res) => setSubList(res.data))
+      console.log(subList)
+    }
+  })
 
   useEffect(() => {
 	setAvatar(`${userPhoto}?${Date.now()}`)
@@ -146,13 +151,13 @@ function Account() {
       {/* <div className="userOffersPage" id="user"> */}
       <div className="clientPage text">
         <div className="clientPage__breadcrumbs thin">
-          <a className="breadCrumb light" href="/">
-            Главная
-          </a>
-          <a className="breadCrumb line light" href={id}>
-            Личный кабинет
-          </a>
-          {menuItem && <a className="line">{menuItem.ttl}</a>}
+          <Link  href="/">
+            <a className="breadCrumb light">Главная</a>
+          </Link>
+          <Link href={`/account/${id}?account=1&content=1`}>
+            <a style={{color: "#2C2C2C"}} className="line light">Личный кабинет</a>
+          </Link>
+          {/* {menuItem && <a className="line">{menuItem.ttl}</a>} */}
         </div>
         <div className="clientPage__menu">
           <div className="clientPage__userinfo">
@@ -235,7 +240,7 @@ function Account() {
         <ModalSubscribers data={5} subscribers={10} modal={() => closeModal(subscribersModal, setSubscribersModal)} mobile={matchesTablet || matchesMobile}/>
       </Dialog>
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscription data={5} subscription={1} modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesTablet || matchesMobile}/>
+        <ModalSubscription data={subList} subscription={subList.length} modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesTablet || matchesMobile}/>
       </Dialog>
     </MetaLayout>
   );

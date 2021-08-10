@@ -22,18 +22,6 @@ export default function BreadCrumbs({ data, product = false }) {
 
     const classes = useStyles()
 
-    const [productArr, setProductArr] = useState([])
-
-
-    useEffect(() => {
-        if (localStorage.getItem("ProductAccountArr")) {
-            setProductArr(localStorage.getItem("ProductAccountArr"))
-        }
-    })
-
-    console.log(productArr)
-
-
     return (
         <div className={classes.bread}>
             <div className="clientPage__breadcrumbs thin">
@@ -41,27 +29,14 @@ export default function BreadCrumbs({ data, product = false }) {
                     <a className="breadCrumb light">Главная</a>
                 </Link>
                 }
-                {productArr.length > 1 ?
-                // productArr.map((item, index) => {
-                //     return (
-                //         index == data.length - 1 && product == false ?
-                //         <a className={`breadCrumb light line ${classes.breadActiveItem}`}>{title}</a>
-                //         :
-                //         <Link key={index + 1} href={`/search/${item.alias}`}>
-                //             <a className={"breadCrumb light line"}>{title}</a>
-                //         </Link>
-                //     )
-                // }) :
-                ""
-                : 
-                data == undefined ? null : data.map((item, index) => {
+                {data == undefined ? null : data.map((item, index) => {
                     const title = item.label[0].toUpperCase() + item.label.substring(1,)
                     return (
                         index == data.length - 1 && product == false ?
                             <a className={`breadCrumb light line ${classes.breadActiveItem}`}>{title}</a>
                             :
                             <Link key={index + 1} href={`/search/${item.alias}`}>
-                                <a className={"breadCrumb light line"}>{title}</a>
+                                <a className="breadCrumb light line">{title}</a>
                             </Link>
                     )
                 })}

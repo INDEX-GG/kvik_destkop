@@ -114,11 +114,11 @@ export default function offerActive(offer) {
         handleUnpublishFormDialog()
     }
 
-
+    //  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
     return (
         <UnpublishCTX.Provider value={{ offerId, offer, openUnpublishForm, setOpenUnpublishForm }}>
             <a href={`/product/${offer.offer.id}`} key={offer.i} 
-            onClick={() => localStorage.setItem("ProductAccountArr", '[{name: "Личный кабинет", url: `/account/${router.query.id}?account=1&content=1`}, {name: "Мои объявления", url: ""}, {name: "Активные объявления", url: ""}]')} className="offerContainer boxWrapper">
+            className="offerContainer boxWrapper">
                 <div className="offerImage">
                     <div className="offerPubCheck">
                         <Checkbox

@@ -4,7 +4,6 @@ import Purch from './tabs/Purch';
 import { brooklyn } from '../../../lib/services';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import generateBreadCrumbs from '../generateBreadCrumbs';
 
 const DealsBox = [
    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00 00.00', status: 1 },
@@ -60,7 +59,6 @@ const Deals = () => {
             {navItems.map(item => {
                return (
                   <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
-                     generateBreadCrumbs(item.id)
                      setItemNav({ i: item.id, ttl: item.title }
                   )}}>{item.title} {brooklyn(item.count)}</a>
                )

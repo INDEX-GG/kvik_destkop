@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 12px',
 		display: 'flex',
 		flexDirection: 'column',
-		marginBottom: "92px"
     },
 	main: {
 		display: 'flex',
@@ -28,14 +27,15 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	rightBlock: {
-		height:'100%',
 		marginLeft: '56px',
+		maxWidth: "224px",
 		display: "flex",
 		flexDirection: "column"
 	},
 	footer: {
 		top: 'calc(100% - 205px)',
 		position: 'sticky',
+		width: "224px"
 	},
 	bread: {
 		marginBottom: "40px",
@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
 		"& > *:nth-of-type(1)": {
 			marginBottom: "10px !important"
 		},
-		marginBottom: "17px"
+		marginBottom: "17px",
+		marginTop: "15px"
 	}
 }));
 
@@ -57,6 +58,7 @@ const Index = () => {
 
   const { matchesMobile, matchesTablet } = useMedia();
   const [data, setData] = useState(null);
+  const [footer, setFooter] = useState(false)
 
   const classes = useStyles();
   
@@ -78,8 +80,8 @@ const Index = () => {
 		<Box className={classes.main}>
 			<Box className={classes.offers} >
 				<SearchRender data={data} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() +  aliasData.aliasName[0].label.substring(1,) }/></Box>
-			{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
-				<FilterBlock />
+			{!matchesMobile && !matchesTablet && 
+			<Box className={classes.rightBlock}>
 				<div className={classes.ad}>
 					<Image src={"/img/joker1.png"} width={224} height={480} />
 					<Image src={"/img/joker2.png"} width={224} height={480} />
