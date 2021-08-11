@@ -5,7 +5,6 @@ import {useRouter} from "next/router"
 
 
 function Subscribes({ data }) {
-  console.log(data)
   const router = useRouter()
   return (
     <div className="subscribers_subscriptions_main">
@@ -19,8 +18,8 @@ function Subscribes({ data }) {
           <a href={`/user/${data.id}`} className="subscribers_subscriptions__user_name">{data.name}</a>
         </div>
         <div className="subscribers_subscriptions__user_rating">
-          <div className="subscribers_subscriptions__user_number-raiting">{data.rating != null ? data.rating : 0}</div>
-          <StarRating rating={data.rating != null ? data.rating : 0} />
+          <div className="subscribers_subscriptions__user_number-raiting">{data.raiting != null ? data.raiting : 0}</div>
+          <StarRating rating={data.raiting != null ? data.raiting : 0} />
         </div>
       </div>
     </div>
