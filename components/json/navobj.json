@@ -3161,7 +3161,7 @@
             "name": "Офисное помещение",
             "fields": null,
             "subCategories": {
-              "sell_office_space ": {
+              "sell_office_space": {
                 "id": 15,
                 "name": "Продать",
                 "fields": null
@@ -3834,7 +3834,7 @@
           },
           "AgriculturalLand": {
             "id": 37,
-            "name": "Сельско хозяйственные земли",
+            "name": "Землями сельскохозяйственного назначения",
             "fields": null,
             "subCategories": {
               "sell_agriculturalLand": {

@@ -54,7 +54,7 @@
 				"alias": "Office_space",
 				"children": [{
 					"name": "Продать",
-					"alias": "sell_office_space ",
+					"alias": "sell_office_space",
 					"children": []
 				}, {
 					"name": "Сдать в аренду",
@@ -142,7 +142,7 @@
 					"children": []
 				}]
 			}, {
-				"name": "Сельско_хозяйственные земли",
+				"name": "Землями сельскохозяйственного назначения",
 				"alias": "AgriculturalLand",
 				"children": [{
 					"name": "Продать",
