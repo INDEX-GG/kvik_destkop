@@ -30,6 +30,7 @@ function UserPage() {
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
   const [userBool, setUserBool] = useState(false)
   const [subList, setSubList] = useState([])
+  const [subscribersList, setSubscribersList] = useState([])
 
 
   useEffect(() => {
@@ -38,9 +39,14 @@ function UserPage() {
 
 
   useEffect(() => {
+
     if (sellerId != undefined && subList.length == 0) {
       axios.post("/api/getSubscriptions", {user_id: "" + sellerId}).then((res) => setSubList(res.data))
       console.log(subList)
+    }
+
+    if (sellerId != undefined && subscribersList.length == 0) {
+      axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => setSubscribersList(res.data))
     }
   })
 
@@ -100,7 +106,7 @@ function UserPage() {
               <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribers">
                 {userInfo.userSubscribers}
                 <div style={{ textAlign: "center" }}>
-                  <div>0</div>
+                  <div>{subscribersList?.message ? 0 : subscribersList.length}</div>
                   <p>подписчиков</p>
                 </div>
               </a>
@@ -139,7 +145,7 @@ function UserPage() {
         <ModalRating rate={raiting} comments={2} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(reviewsModal, setReviewsModal)} />
       </Dialog>
       <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscribers mobile={matchesMobile || matchesTablet ? true : false} data={3} subscribers={1} modal={() => modal(subscribersModal, setSubscribersModal)} />
+        <ModalSubscribers data={subscribersList} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(subscribersModal, setSubscribersModal)} />
       </Dialog>
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalSubscription subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} data={subList} />

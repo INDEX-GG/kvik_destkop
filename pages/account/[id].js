@@ -11,7 +11,7 @@ import Reviews from "../../components/account/Reviews/Reviews";
 import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
 import { initials, stringToColor, ToRusAccountDate } from "../../lib/services";
-import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
+import { ModalRating, ModalSubscription } from "../../components/Modals";
 import { useUser } from "../../hooks/useUser";
 import { Avatar, Button, Dialog, DialogTitle } from "@material-ui/core";
 import axios from "axios";
@@ -60,9 +60,9 @@ function Account() {
   const [content, setContent] = useState(0)
   const [openPicUpload, setPicUpload] = useState(false);
   const [subList, setSubList] = useState([])
+  const [subscribersList, setSubscribersList] = useState([])
   const [logout, setLogout] = useState(false);
   const [reviewsModal, setReviewsModal] = useState(false);
-  const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
   
   const {signOut, id} = useAuth();
@@ -91,7 +91,10 @@ function Account() {
   useEffect(() => {
     if (id != undefined && subList.length == 0) {
       axios.post("/api/getSubscriptions", {user_id: "" + id}).then((res) => setSubList(res.data))
-      console.log(subList)
+    }
+
+    if (id != undefined && subscribersList.length == 0) {
+      axios.post("/api/getSubscribers", {user_id: "" + id}).then((res) => setSubscribersList(res.data))
     }
   })
 
@@ -106,7 +109,6 @@ function Account() {
       router.push("/");
     });
   };
-
   
 
 
@@ -180,8 +182,8 @@ function Account() {
                 {userInfo.userReviews}
                 <p>отзывов</p>
               </a>
-              <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribers">
-                {userInfo.userSubscribers}
+              <a className="offerUnpublish thin superLight" className="userInfoSubscribers">
+                {subscribersList?.message ? 0 : subscribersList.length}
                 <p>подписчиков</p>
               </a>
               <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribtions">
@@ -235,9 +237,6 @@ function Account() {
       </Dialog>
       <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         {<ModalRating rate={2} comments={2} modal={() => closeModal(reviewsModal, setReviewsModal)} mobile={matchesTablet || matchesMobile}/>}
-      </Dialog>
-      <Dialog open={subscribersModal} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscribers data={5} subscribers={10} modal={() => closeModal(subscribersModal, setSubscribersModal)} mobile={matchesTablet || matchesMobile}/>
       </Dialog>
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalSubscription data={subList} subscription={subList.length} modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesTablet || matchesMobile}/>
