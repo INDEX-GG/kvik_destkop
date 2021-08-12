@@ -92,6 +92,39 @@ const AdditionalInformation = (data) => {
                                     </>
                                 }
                             </Box>
+
+                            <Box key={key} className={classes.formInputMainField}>
+                                {methods.watch('modelsAuto') &&
+                                    <>
+                                        <Typography className={classes.formTitleField}>Модель</Typography>
+                                        <Box className={classes.formInputField}>
+                                            <Controller
+                                                name="carModel"
+                                                control={methods.control}
+                                                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                                    <TextField
+                                                        select
+                                                        className={classes.input}
+                                                        variant='outlined'
+                                                        value={value}
+                                                        onChange={onChange}
+                                                        error={!!error}
+                                                        helperText={error ? error.message : ' '}
+                                                    >
+                                                        {item[1].fields.marks.filter(item => item.name === methods.watch('modelsAuto')).map((item, i) => item.models.map((item, i) =>
+                                                            <MenuItem key={i} value={item.name}>
+                                                                {item.name}
+                                                            </MenuItem>
+                                                        ))
+                                                        }
+                                                    </TextField>
+                                                )}
+                                                rules={{ required: 'Выбирите ' }}
+                                            />
+                                        </Box>
+                                    </>
+                                }
+                            </Box>
                         </>
                     )}
                     <Box key={key} className={classes.formInputMainField}>
