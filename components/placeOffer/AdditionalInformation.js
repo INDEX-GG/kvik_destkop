@@ -93,7 +93,7 @@ const AdditionalInformation = (data) => {
                                 }
                             </Box>
 
-                            <Box key={key} className={classes.formInputMainField}>
+                            {/* <Box key={key} className={classes.formInputMainField}>
                                 {methods.watch('modelsAuto') &&
                                     <>
                                         <Typography className={classes.formTitleField}>Модель</Typography>
@@ -124,7 +124,7 @@ const AdditionalInformation = (data) => {
                                         </Box>
                                     </>
                                 }
-                            </Box>
+                            </Box> */}
                         </>
                     )}
                     <Box key={key} className={classes.formInputMainField}>

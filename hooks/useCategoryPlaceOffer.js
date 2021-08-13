@@ -3,10 +3,11 @@ import axios from 'axios';
 
 export const useCategoryPlaceOffer = (data) => {
 
-    let name = data?.toLowerCase();
-    const [zxc, setZxc] = useState(undefined)
+    const [zxc, setZxc] = useState(undefined),
+        name = data?.toLowerCase();
 
     let newOBJ = [];
+
     if (zxc?.length != undefined) {
         for (var i = 0; i < zxc?.length; i++) {
             newOBJ?.push(JSON.parse(((zxc[i]?.split('"').join(''))?.split("'").join('"'))))
@@ -20,11 +21,12 @@ export const useCategoryPlaceOffer = (data) => {
             axios.get(`/subcategories/` + name + `.json`)
                 .then((result) => setZxc(result.data[name]))
                 .catch((e) => {
-                    console.log("error: " + e);
+                    setZxc()
                 })
         } else {
             setZxc()
         }
     }, [name])
+
     return { ...newOBJ }
 }

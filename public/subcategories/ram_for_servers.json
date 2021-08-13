@@ -1,1 +1,1 @@
-{"ram_for_servers": ["{'alias': 'type', 'name': 'Тип', 'fields': 'NULL'}"]}
+{"ram_for_servers": ["{'alias': 'type', 'name': 'Тип', 'fields': ['DDR2', 'DDR3', 'DDR3L', 'DDR4']}", "{'alias': 'type_size', 'name': 'Объем модуля', 'fields': ['до 2Гб', '2Гб', '4Гб', '8Гб', '16Гб', '32Гб']}"]}

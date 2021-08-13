@@ -166,7 +166,7 @@
 				"alias": "garage",
 				"children": []
 			}, {
-				"name": "Машиноместо",
+				"name": "Парковочное место ",
 				"alias": "parkingPlace",
 				"children": []
 			}]
@@ -290,7 +290,7 @@
 				"alias": "garageabroad",
 				"children": []
 			}, {
-				"name": "Машиноместо",
+				"name": "Парковочное место",
 				"alias": "parkingPlaceabroad",
 				"children": []
 			}]
@@ -328,6 +328,10 @@
 			}, {
 				"name": "Дом на колесах",
 				"alias": "House_on_wheels",
+				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "other_transport",
 				"children": []
 			}]
 		}, {
@@ -546,6 +550,16 @@
 				"alias": "Monitors",
 				"children": []
 			}, {
+				"name": "Манипуляторы, устройства ввода",
+				"alias": "Manipulators__input_devices",
+				"children": []
+				
+			}, {
+				"name": "Расходные материалы",
+				"alias": "Expendable_materials",
+				"children": []
+				
+			},{
 				"name": "Комплектующие",
 				"alias": "Components",
 				"children": [{
@@ -610,6 +624,10 @@
 				"alias": "Server_motherboards",
 				"children": []
 			}, {
+				"name": "Процессоры для серверов",
+				"alias": "Server_Processorss",
+				"children": []
+			}, {
 				"name": "Контроллеры, адаптеры, модули для серверов",
 				"alias": "Controllers_adapters_modules_for_servers",
 				"children": []
@@ -625,6 +643,10 @@
 				"name": "Корпусы для серверов",
 				"alias": "Server_enclosures",
 				"children": []
+			}, {
+				"name": "Сетевое оборудование",
+				"alias": "Server_network_hardware",
+				"children": []
 			}]
 		}, {
 			"name": "Программное обеспечение",
@@ -635,7 +657,7 @@
 			"alias": "Steering_wheels_gamepads_joysticks",
 			"children": []
 		}, {
-			"name": "Оргтехника и запчасти",
+			"name": "Оргтехника и МФУ",
 			"alias": "Office_equipment_and_spare_parts",
 			"children": [{
 				"name": "Принтеры",
@@ -709,7 +731,16 @@
 				"name": "DVD и Blu-ray плееры",
 				"alias": "DVD_and_Blu_ray",
 				"children": []
-			}]
+			}, {
+				"name": "Аудиотехника",
+				"alias": "audio_engineering",
+				"children": []
+			}, {
+				"name": "Видеотехника",
+				"alias": "video_engineering",
+				"children": []
+			}
+		]
 		}, {
 			"name": "Фото и видео техника",
 			"alias": "Photo_and_video_equipment",
@@ -1209,7 +1240,12 @@
 				"name": "Шоу, мюзикл",
 				"alias": "Show_musical",
 				"children": []
-			}]
+			}, {
+				"name": "Другое",
+				"alias": "Hobbies_sports_and_leisure_other",
+				"children": []
+			}
+		]
 		}, {
 			"name": "Спорт и отдых",
 			"alias": "Sports_and_recreation",
@@ -1265,6 +1301,10 @@
 				"name": "Велосипеды",
 				"alias": "Bicycles",
 				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "Sports_and_recreation_other",
+				"children": []
 			}]
 		}, {
 			"name": "Книги и журналы",
@@ -1280,6 +1320,10 @@
 			}, {
 				"name": "Учебная литература",
 				"alias": "Educational_literature",
+				"children": []
+			}, {
+				"name": "Другое",
+				"alias": "Books_and_magazines_other",
 				"children": []
 			}]
 		}, {

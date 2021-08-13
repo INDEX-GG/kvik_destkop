@@ -70,22 +70,19 @@ function PlaceOffer() {
     }
 
     /* получение дополнительных полей */
-    const [asd, setAsd] = useState()
-    const { ...newOBJ } = useCategoryPlaceOffer(asd)
+    const [asd, setAsd] = useState();
+    const { ...newOBJ } = useCategoryPlaceOffer(asd);
     useEffect(() => {
         if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
-            console.log('есть 4')
             setAsd(methods?.watch('alias4'));
         } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
-            console.log('есть 3')
             setAsd(methods?.watch('alias3'));
         } else if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
-            console.log('есть 2')
             setAsd(methods?.watch('alias2'));
         } else {
             setAsd(undefined);
         }
-    }, [methods])
+    }, [methods]);
 
 
 

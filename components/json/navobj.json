@@ -1192,7 +1192,7 @@
       },
       "Office_equipment_and_spare_parts": {
         "id": 142,
-        "name": "Оргтехника и запчасти",
+        "name": "Оргтехника и МФУ",
         "fields": null,
         "subCategories": {
           "Printers": {
@@ -3935,7 +3935,7 @@
           },
           "parkingPlace": {
             "id": 43,
-            "name": "Машиноместо",
+            "name": "Парковочное место",
             "fields": {
               "parkingPlace": {
                 "area": "null",
@@ -3947,7 +3947,7 @@
                 "communications": "null",
                 "infrastructure": "null"
               },
-              "Машиноместо": {
+              "Парковочное место": {
                 "Тип": "null",
                 "Площадь": "null",
                 "Вид права": "null",
@@ -4219,7 +4219,7 @@
               },
               "parkingPlaceabroad": {
                 "id": 60,
-                "name": "Машиноместо",
+                "name": "Парковочное место",
                 "fields": {
                   "parkingPlaceabroad": {
                     "area": "null",
@@ -4231,7 +4231,7 @@
                     "communications": "null",
                     "infrastructure": "null"
                   },
-                  "Машиноместо": {
+                  "Парковочное место": {
                     "Тип": "null",
                     "Площадь": "null",
                     "Вид права": "null",
