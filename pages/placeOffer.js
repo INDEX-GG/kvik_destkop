@@ -155,9 +155,11 @@ function PlaceOffer() {
                                     <Title />
                                     <Category />
                                 </Box>
-                                {Object.keys(newOBJ).length !== 0 ?
+                                {newOBJ[asd?.toLowerCase()] !== undefined ?
                                     <Box className={classes.formPart}>
-                                        <AdditionalInformation newOBJ={newOBJ} />
+
+                                        <AdditionalInformation newOBJ={newOBJ} asd={asd?.toLowerCase()} />
+
                                     </Box>
                                     : ''}
                                 <Box className={classes.formPart}>

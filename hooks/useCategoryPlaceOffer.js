@@ -8,9 +8,26 @@ export const useCategoryPlaceOffer = (data) => {
 
     let newOBJ = [];
 
+
+
     if (zxc?.length != undefined) {
         for (var i = 0; i < zxc?.length; i++) {
-            newOBJ?.push(JSON.parse(((zxc[i]?.split('"').join(''))?.split("'").join('"'))))
+            (newOBJ?.push(JSON.parse(((zxc[i]?.split('"').join(''))?.split("'").join('"')))))
+
+            
+
+            // switch (newOBJ[i].alias) {
+            //     case value:
+                    
+            //         break;
+            
+            //     default:
+            //         break;
+            // }
+
+
+            newOBJ[i].type = 'qweq'
+
         }
     } else {
         newOBJ = undefined
@@ -27,6 +44,5 @@ export const useCategoryPlaceOffer = (data) => {
             setZxc()
         }
     }, [name])
-
-    return { ...newOBJ }
+    return { [name]: newOBJ }
 }
