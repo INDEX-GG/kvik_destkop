@@ -4,45 +4,124 @@ import axios from 'axios';
 export const useCategoryPlaceOffer = (data) => {
 
     const [zxc, setZxc] = useState(undefined),
-        name = data?.toLowerCase();
+        nameTitile = data?.toLowerCase();
 
     let newOBJ = [];
 
 
 
     if (zxc?.length != undefined) {
+
         for (var i = 0; i < zxc?.length; i++) {
-            (newOBJ?.push(JSON.parse(((zxc[i]?.split('"').join(''))?.split("'").join('"')))))
 
-            
+            newOBJ?.push(zxc[i])
 
-            // switch (newOBJ[i].alias) {
-            //     case value:
-                    
-            //         break;
-            
-            //     default:
-            //         break;
-            // }
+            switch (zxc[i].alias) {
+                case 'type_park':
+                case 'marks':
+                case 'model':
+                case 'modification':
+                case 'generation':
+                case 'fueltype':
+                case 'enginesize':
+                case 'power':
+                case 'transmission':
+                case 'doors':
+                case 'drivetype':
+                case 'steering_wheel':
+                case 'number_doors':
+                case 'year':
+                case 'documents':
+                case 'condition':
+                case 'status':
+                case 'owners_of_pts':
+                    newOBJ[i].type = 'listMain'
+                    break;
 
 
-            newOBJ[i].type = 'qweq'
+                case 'complectations':
+                    newOBJ[i].type = 'list'
+                    break;
+
+
+                case 'vine':
+                case 'mileage':
+                    newOBJ[i].type = 'textMain'
+                    break;
+
+
+                case 'tires_and_rims':
+                    newOBJ[i].type = 'text'
+                    break;
+
+
+                case 'bodytype':
+                    newOBJ[i].type = 'checkboxMain'
+                    break;
+
+
+                case 'colour':
+                case 'driving_assistance':
+                case 'antitheft_system':
+                case 'salon':
+                case 'support_systems':
+                case 'airbags':
+                case 'heating':
+                case 'multimedia_and_navigation':
+                case 'exchange_is_possible':
+                    newOBJ[i].type = 'checkbox'
+                    break;
+
+
+                case 'separate_check_mark_for_hbo':
+                case 'winter_tires_and_rims':
+                    newOBJ[i].type = 'radio'
+                    break;
+
+                default:
+                    break;
+            }
+
+
+
 
         }
+
+        // for (var i = 0; i < zxc?.length; i++) {
+        //     (newOBJ?.push(JSON.parse(((zxc[i]?.split('"').join(''))?.split("'").join('"')))))
+
+        //     // switch (newOBJ[i].alias) {
+        //     //     case value:
+
+        //     //         break;
+
+        //     //     default:
+        //     //         break;
+        //     // }
+
+
+        //     newOBJ[i].type = 'qweq'
+
+        // }
+
+
+
+
     } else {
         newOBJ = undefined
     }
 
     useEffect(() => {
-        if (name !== undefined && name !== 'undefined') {
-            axios.get(`/subcategories/` + name + `.json`)
-                .then((result) => setZxc(result.data[name]))
+        if (nameTitile !== undefined && nameTitile !== 'undefined') {
+            axios.get(`/subcategories/` + nameTitile + `.json`)
+                .then((result) => setZxc(result.data[nameTitile]))
                 .catch((e) => {
                     setZxc()
                 })
         } else {
             setZxc()
         }
-    }, [name])
-    return { [name]: newOBJ }
+    }, [nameTitile])
+    
+    return { [nameTitile]: newOBJ }
 }
