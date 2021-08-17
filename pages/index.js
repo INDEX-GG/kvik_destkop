@@ -9,7 +9,6 @@ import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
 import MetaLayout from "../layout/MetaLayout";
 import PlaceOfferButton from "../components/PlaceOfferButton";
-import EndMessage from "../components/EndMessage";
 
 
 const useStyles = makeStyles((theme) => ({

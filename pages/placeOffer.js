@@ -12,7 +12,6 @@ import Photoes from '../components/placeOffer/Photoes';
 import Location from '../components/placeOffer/Location';
 import Contacts from '../components/placeOffer/Contacts';
 import ErrorMessages from '../components/placeOffer/ErrorMessages';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
 import Loader from '../UI/icons/Loader';
@@ -63,7 +62,6 @@ function PlaceOffer() {
     const [photo, setPhoto] = useState(null)
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
-    const router = useRouter();
     let photoes = [];
     const photoesCtx = (obj) => {
         return photoes = obj;

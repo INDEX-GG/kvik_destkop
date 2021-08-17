@@ -1,0 +1,8 @@
+version: "3"
+services:
+  app:
+    image: kvik_production
+    container_name: kvik_production
+    restart: always
+    ports:
+    - 3000:3000
