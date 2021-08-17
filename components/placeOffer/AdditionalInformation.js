@@ -31,8 +31,8 @@ const AdditionalInformation = (data) => {
 
 
     switch (data.asd) {
-        case 'new_building':
-
+        case 'auto':
+            
             break;
         case 'secondary_housing':
 

@@ -310,20 +310,60 @@
 				"alias": "buses",
 				"children": []
 			}, {
-				"name": "Грузовики",
-				"alias": "trucks",
+				"name": "Автокраны",
+				"alias": "truck_cranes",
 				"children": []
 			}, {
-				"name": "Строительная и дорожная техника",
-				"alias": "construction_machinery",
-				"children": []
-			}, {
-				"name": "Тракторы и сельхозтехника",
-				"alias": "Tractors_and_agricultural_machinery",
+				"name": "Бульдозеры",
+				"alias": "bulldozers",
 				"children": []
 			}, {
 				"name": "Вездеходы",
 				"alias": "ATVs",
+				"children": []
+			}, {
+				"name": "Грузовики",
+				"alias": "trucks",
+				"children": []
+			}, {
+				"name": "Коммунальная техника",
+				"alias": "communal_machinery",
+				"children": []
+			}, {
+				"name": "Лёгкий транспорт",
+				"alias": "light_commercial_vehicles",
+				"children": []
+			}, {
+				"name": "Навесное оборудование",
+				"alias": "attachments",
+				"children": []
+			}, {
+				"name": "Погрузчики",
+				"alias": "loaders",
+				"children": []
+			}, {
+				"name": "Прицепы",
+				"alias": "trailers",
+				"children": []
+			}, {
+				"name": "Строительная техника",
+				"alias": "construction_machinery",
+				"children": []
+			}, {
+				"name": "Сельхозтехника",
+				"alias": "agricultural_machinery",
+				"children": []
+			}, {
+				"name": "Техника для лесозаготовки",
+				"alias": "forestry_equipment",
+				"children": []
+			}, {
+				"name": "Тягач",
+				"alias": "tractors",
+				"children": []
+			}, {
+				"name": "Экскаваторы",
+				"alias": "excavators",
 				"children": []
 			}, {
 				"name": "Дом на колесах",
