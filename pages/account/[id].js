@@ -20,10 +20,7 @@ import { mutate } from "swr";
 import { useMedia } from "../../hooks/useMedia";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import { useMutate } from "../../lib/Context/MutateCTX";
-
-
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
-import { route } from "next/dist/next-server/server/router";
 import Link from "next/link";
 
 const userInfo = {

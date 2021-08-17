@@ -2,9 +2,7 @@ import { Box, Button, makeStyles, Dialog } from "@material-ui/core";
 import { useState } from "react";
 import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
-import router, { useRouter } from "next/dist/client/router";
-import Image from "next/image"
-import { route } from "next/dist/next-server/server/router";
+import router, { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
 
 const useStyles = makeStyles(theme => ({

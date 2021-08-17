@@ -4,6 +4,7 @@ ADD package.json package.json
 RUN npm install
 ADD . .
 ENV NODE_ENV production
+CMD ["prisma", "generate"]
 RUN npm run build
 RUN npm prune --production
 CMD ["npm", "start"]

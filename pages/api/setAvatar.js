@@ -1,6 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { resolveHref } from 'next/dist/next-server/lib/router/router';
-import nextConnect from 'next-connect';
 
 const fs = require('fs');
 const utf8 = require('utf8');
