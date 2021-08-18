@@ -3,7 +3,7 @@
 		"name": "Недвижимость",
 		"alias": "real_estate",
 		"children": [{
-			"name": "квартиры",
+			"name": "Квартиры",
 			"alias": "apartments_kv",
 			"children": [{
 				"name": "Продать",
@@ -35,7 +35,7 @@
 				"children": []
 			}]
 		}, {
-			"name": "дома, дачи и коттеджи",
+			"name": "Дома, дачи и коттеджи",
 			"alias": "houses_and_cottages",
 			"children": [{
 				"name": "Продать",
@@ -195,7 +195,7 @@
 				"children": []
 			}]
 		}, {
-			"name": "дома, вилла",
+			"name": "Дома, вилла",
 			"alias": "houses_and_cottages_second",
 			"children": [{
 				"name": "Продать",

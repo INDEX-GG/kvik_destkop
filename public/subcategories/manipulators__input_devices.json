@@ -1,1 +1,1 @@
-{"manipulators__input_devices": ["{'alias': 'manipulators__input_devices_type', 'name': 'Тип', 'fields': ['Мышь', 'Клавиатура', 'Графические планшеты']}", "{'alias': 'manipulators__input_devices_name', 'name': 'Производитель / Модель', 'fields': 'NULL'}"]}
+{"manipulators__input_devices": [{"alias": "manipulators__input_devices_type", "name": "Тип", "fields": ["Мышь", "Клавиатура", "Графические планшеты"]}, {"alias": "manipulators__input_devices_name", "name": "Производитель / Модель", "fields": "NULL"}]}
