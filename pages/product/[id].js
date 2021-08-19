@@ -223,7 +223,7 @@ const Product = () => {
                               ) : (
                                 ""
                               )}
-                              {user_id !== id ? <div className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}>Купить</div> : ""}
+                              {/* {user_id !== id ? <div className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}>Купить</div> : ""} */}
                               <div className="SellerInfo__adaptive_buttons">
                                 {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ""}
                                 {objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn">Удалить</a> : ""}
