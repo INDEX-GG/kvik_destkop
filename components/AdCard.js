@@ -57,7 +57,7 @@ function AdCard_component({ offer }) {
   let pagination = {
     clickable: true,
     renderBullet: function (index, className) {
-      if (index >= 5) return '<span style="display: none"></span>';
+      if (index >= 5) return '';
       return '<span class="' + className + '">' + "</span>"
     }
   }
@@ -89,7 +89,7 @@ function AdCard_component({ offer }) {
 										</SwiperSlide>
 
 								)})} */}
-                {JSON.parse(offer.photo)?.photos?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
+                {(JSON.parse(offer.photo)?.photos?.slice(0, 5))?.map((img, i) => <SwiperSlide key={i}> <img src={img} onError={e => e.target.src = '/icons/photocard_placeholder.svg'} /></SwiperSlide>)}
               </Swiper>
             </div>
 

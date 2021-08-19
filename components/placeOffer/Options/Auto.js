@@ -31,11 +31,14 @@ export default function Auto({ data }) {
 
     console.log(methods.watch('modelsAuto'))
     console.log(methods.watch('submodels'))
+    console.log(methods.watch('generation'))
+    console.log(methods.watch('modification'))
 
-
-    const [mark, setMark] = useState();
-    const [model, setModel] = useState();
-    const [modification, setModification] = useState();
+    const [mark, setMark] = useState(),
+        [model, setModel] = useState(),
+        [generation, setGeneration] = useState(),
+        [modification, setModification] = useState(),
+        [fullDescription, setFullDescription] = useState();
 
 
 
@@ -56,12 +59,29 @@ export default function Auto({ data }) {
 
     useEffect(() => {
         if (model != undefined) {
-            setModification(model.map(item => item.map(item => item.children)))
+            setGeneration(model.map((item, i) => item.filter((item, i) => item.value === methods.watch('generation'))))
         }
     }, [methods.watch('generation')])
 
 
-    console.log(modification&& modification.map((item, i) => item[i].map((item, i) => item)))
+    useEffect(() => {
+        if (generation != undefined) {
+            console.log('11111111111')
+            setModification(generation[0].map((item, i) => item.children.map((item, i) => item)))
+            console.log(methods.watch('generation'))
+        }
+    }, [methods.watch('modification')])
+
+
+    // useEffect(() => {
+    //     console.log('2222222222222')
+    //     if (modification != undefined) {
+    //         console.log(modification)
+    //         setFullDescription(modification && modification[0].filter((item, i) => (item.value === methods.watch('modification'))))
+    //         console.log(methods.watch('modification'))
+    //     }
+    // }, [methods.watch('modification')])
+    console.log(modification&& (modification[0].filter((item, i) => item.value === methods.watch('modification'))))
 
 
 
@@ -104,7 +124,7 @@ export default function Auto({ data }) {
 
                                     {mark &&
                                         <Box className={classes.formInputMainField}>
-                                            <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                            <Typography className={classes.formTitleField}>Модель</Typography>
                                             <Box className={classes.formInputField}>
                                                 <Controller
                                                     name={"submodels"}
@@ -158,7 +178,8 @@ export default function Auto({ data }) {
                                             </Box>
                                         </Box>
                                     }
-                                    {modification &&
+                                    
+                                    {generation &&
                                         <Box className={classes.formInputMainField}>
                                             <Typography className={classes.formTitleField}>Модификация</Typography>
                                             <Box className={classes.formInputField}>
@@ -174,7 +195,7 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                            {model.map((item, i) => item.map((item, i) => (
+                                                            {generation[0].map((item, i) => item.children.map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}
                                                                 </MenuItem>
@@ -186,6 +207,48 @@ export default function Auto({ data }) {
                                             </Box>
                                         </Box>
                                     }
+                                    {modification &&
+                                        (modification[0].filter((item, i) => item.value === methods.watch('modification'))).map((item, i) => (
+
+                                            console.log(item),
+                                            item.children.map((item, i) =>
+                                                <Box className={classes.formInputMainField}>
+
+
+                                                    <Typography className={classes.formTitleField}>{item.alias}</Typography>
+                                                    <Box className={classes.formInputField}>
+                                                        <Controller
+                                                            name={"fullDescription"}
+                                                            control={methods.control}
+                                                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                                                <TextField
+                                                                    select
+                                                                    className={classes.input}
+                                                                    variant='outlined'
+                                                                    value={value}
+                                                                    onChange={onChange}
+                                                                    error={!!error}
+                                                                    helperText={error ? error.message : ' '}>
+
+                                                                    <MenuItem key={i} value={item.value}>
+                                                                        {item.value}
+                                                                    </MenuItem>
+
+                                                                </TextField>
+                                                            )}
+                                                            rules={{ required: 'Выбирите ' }}
+                                                        />
+                                                    </Box>
+
+
+
+
+
+                                                </Box>
+                                            )
+                                        ))
+                                    }
+
                                 </>
                             )
                         default:
@@ -205,11 +268,11 @@ export default function Auto({ data }) {
                                                     onChange={onChange}
                                                     error={!!error}
                                                     helperText={error ? error.message : ' '}>
-                                                    {item.fields.map((item, i) => (
+                                                    {/* {item.fields.map((item, i) => (
                                                         <MenuItem key={i} value={item}>
                                                             {item}
                                                         </MenuItem>
-                                                    ))}
+                                                    ))} */}
                                                 </TextField>
                                             )}
                                             rules={{ required: 'Выбирите ' }}

@@ -6,7 +6,7 @@ function Sold(data) {
   if (data.offers.length == 0) {
     return (
       <div className="clientPage__placeholder-container">
-        <div className="clientPage__placeholder-title">Этот пользователь ничего не продал</div>
+        <div className="clientPage__placeholder-title">У этого пользователя нет завершенных объявлений</div>
         <div className="clientPage__placeholder-ads">
           <div className="clientPage__placeholder-item">
             <div className="clientPage__placeholder-item-1"></div>
