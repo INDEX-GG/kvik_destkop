@@ -7,8 +7,6 @@ import Fb from '../UI/icons/Fb';
 import WhatsUp from '../UI/icons/WhatsUp';
 import Odnoklas from '../UI/icons/Odnoklas';
 
-const uluru = { lat: -25.344, lng: 131.036 };
-
 export default function Contacts() {
     return (
         <MetaLayout title={'Контакты'}>

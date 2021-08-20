@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
 import { ToRusAccountDate, stringToColor, initials } from "../../lib/services";
-import { Avatar, Dialog, NoSsr } from "@material-ui/core";
+import { Avatar, Dialog } from "@material-ui/core";
 import { useRouter } from "next/router";
 import UserLock from "../../UI/icons/UserLock";
 import UserReport from "../../UI/icons/UserReport";
@@ -11,7 +11,7 @@ import { useAd } from "../../hooks/useAd";
 import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
-import { useSubList, useSubBool } from "../../hooks/useSubscriptions";
+import { useSubBool } from "../../hooks/useSubscriptions";
 import Link from "next/link"
 
 import MetaLayout from "../../layout/MetaLayout";
@@ -66,7 +66,7 @@ function UserPage() {
 
     axios.post("/api/subscriptions", subscribe)
       .then(res => console.log(res.data))
-      .catch(error => cosnole.log(error))
+      .catch(error => console.log(error))
 
     axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => console.log(data.data))
 
@@ -96,21 +96,21 @@ function UserPage() {
               <StarRating rating={raiting} />
             </div>
             <div className="clientPage__userstats highlight small">
-              <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight" className="userInfoReviews">
+              <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">
                 {userInfo.userReviews}
                 <div style={{ textAlign: "center" }}>
                   <div>0</div>
                   <p>отзывов</p>
                 </div>
               </a>
-              <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribers">
+              <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribers">
                 {userInfo.userSubscribers}
                 <div style={{ textAlign: "center" }}>
                   <div>{subscribersList?.message ? 0 : subscribersList.length}</div>
                   <p>подписчиков</p>
                 </div>
               </a>
-              <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribtions">
+              <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
                 {userInfo.userSubscriptions}
                 <div style={{ textAlign: "center" }}>
                   <div>{subList.length > 0 ? subList.length : 0}</div>

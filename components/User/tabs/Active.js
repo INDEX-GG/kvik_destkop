@@ -31,7 +31,7 @@ function Active(data) {
     <div className="userProduct">
       {data.offers.map((item, i) => {
         return (
-            <div onClick={() => console.log(1)}>
+            <div key={i} onClick={() => console.log(1)}>
               <FavProvider key={i}>
                 <AdCard_component offer={item} />
               </FavProvider>

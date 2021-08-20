@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import Bg from '../../UI/icons/popularCategories/Bg';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		position: 'relative',
 		width: '210px',

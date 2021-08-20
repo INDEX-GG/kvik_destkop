@@ -1,63 +1,60 @@
 import { PrismaClient } from '@prisma/client';
 export default function handler(req, res) {
-    if (req.method === 'POST') {
-        const prisma = new PrismaClient();
-        async function main() {
+	if (req.method === 'POST') {
+		const prisma = new PrismaClient();
 
-            const user_id = req.body.user_id
-            const userIdInt = Number(user_id)
+		const main = async () => {
+			const user_id = req.body.user_id
+			const userIdInt = Number(user_id)
 
-            let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
-            let list = JSON.parse(fav[0].favorites)
+			let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
+			let list = JSON.parse(fav[0].favorites)
 
-            if (fav[0].favorites == null || fav[0].favorites === '' || fav[0].favorites === '[]'){
-                res.json({"message":"nothing"})
-            }
+			if (fav[0].favorites == null || fav[0].favorites === '' || fav[0].favorites === '[]') {
+				return { "message": "nothing" };
+			}
 
-            let posts = []
+			let posts = []
 
-            for (let index in list) {
-                let postData = await prisma.posts.findFirst({
-                where: {
-                    id: Number(list[index].post_id)
-                }
-            })
-                if (postData !== null) {
+			for (let index in list) {
+				let postData = await prisma.posts.findFirst({
+					where: {
+						id: Number(list[index].post_id)
+					}
+				})
+				if (postData !== null) {
 
-                     const userData = await prisma.users.findFirst({
-                                 where: {
-                                     id: Number(postData.user_id)
-                                 },
-                                 select: {
-                                     id: true,
-                                     name: true,
-                                     userPhoto: true,
-                                     blocked: true,
-                                 }
-                             })
-                     if (userData !== null) {
-                         postData.user_name = userData.name
-                         postData.user_photo = userData.userPhoto
-                         postData.user_blocked = userData.blocked
-                         postData.comment = list[index].comment
-                         postData.condition = list[index].condition
-                         posts.push(postData)
-                     }
-                }
-            }
+					const userData = await prisma.users.findFirst({
+						where: {
+							id: Number(postData.user_id)
+						},
+						select: {
+							id: true,
+							name: true,
+							userPhoto: true,
+							blocked: true,
+						}
+					})
+					if (userData !== null) {
+						postData.user_name = userData.name
+						postData.user_photo = userData.userPhoto
+						postData.user_blocked = userData.blocked
+						postData.comment = list[index].comment
+						postData.condition = list[index].condition
+						posts.push(postData)
+					}
+				}
+			}
 
-            return res.json({ posts: posts });
-        }
-        main()
-            .catch((e) => {
-                console.log("error: " + e);
-                throw e
-            })
-            .finally(async () => {
-                await prisma.$disconnect()
-            })
-    }
-    else {
-        res.status(405).json({ message: 'method not allowed' })
-    }
+			return { posts: posts };
+		}
+		main()
+			.then(r => res.json(r))
+			.catch(e => console.error(`ошибка api getFavorites${e}`))
+			.finally(async () => {
+				await prisma.$disconnect()
+			})
+	} else {
+		res.status(405).json({ message: 'method not allowed' })
+	}
 }

@@ -252,7 +252,7 @@ function BuyDelivery() {
     const [modalParagraph, setModalParagraph] = useState (false)
     const [paragraphContent, setParagraphContent] = useState(true)
 
-    const {matchesMobile, matchesTablet} = useMedia()
+    const {matchesMobile} = useMedia()
 
     const classes = useStyles()
 

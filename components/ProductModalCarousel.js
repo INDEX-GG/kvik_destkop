@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Controller } from "swiper/core";
-import { useMedia } from "../hooks/useMedia";
-import { Height } from "@material-ui/icons";
 
 SwiperCore.use([Navigation, Thumbs, Controller]);
 
 export default function ProductModalCarousel({ photo }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeSlide, setActiveSlide] = useState([]);
-  const { matchesTablet, matchesMobile } = useMedia();
 
   let CarouselPag = { type: "fraction" };
   let CarouselInf = true;

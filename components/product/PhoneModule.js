@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Avatar, makeStyles } from "@material-ui/core";
 import StarRating from "../StarRating";
 import Active_icon from "../../UI/icons/ActiveIcon";
@@ -6,7 +6,6 @@ import Router from "next/router";
 import { useProduct } from "../../hooks/useProduct";
 import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
-import { useMedia } from "../../hooks/useMedia";
 
 export default function PhoneModule({dialog, setDialog}) {
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { typeChange } from '../lib/services';
 import axios from 'axios';

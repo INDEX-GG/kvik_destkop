@@ -1,8 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import { Box, makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
 		marginTop: '29px',
 		minWidth: '224px',

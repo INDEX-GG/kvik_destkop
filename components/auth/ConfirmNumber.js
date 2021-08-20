@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react'
-import { Box, Button, Dialog, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Box, Dialog, makeStyles, TextField, Typography } from '@material-ui/core';
 import { RegistrationCTX } from '../../lib/Context/DialogCTX';
 import axios from 'axios';
 
@@ -30,10 +30,11 @@ const ConfirmNumber = () => {
 	const regUser = () => {
 		axios.post('/api/setApi', sendData).then((r) => {
 			console.log(r.data)
-			if (r.data?.error) {
-				alert('Вы уже зарегестрированы') //Сделать модалку
-			} else {
-				alert('Регистрация прошла успешно') //Не тестировалось!!!
+			switch (r.data?.message) {
+			case 'user created':
+				return alert('Регистрация прошла успешно'); //Сделать модалку
+			case 'user already exists':
+				return alert('Вы уже зарегестрированы') //Не тестировалось!!!
 			}
 		});
 		setOpenConfirmNum(!openConfirmNum);
