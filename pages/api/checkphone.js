@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import qs from 'qs';
 
@@ -35,12 +34,15 @@ axios.post(urlAuth, dataAuth, {headers: {
     axios.post(urlApprove, dataApprove, {headers: {
       'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${token}`
     }}) 
-    .then((res) => {
+    .then(() => {
       // console.log('Третий then:', res.data)
       return (resolve.json(tmpCallerId))
       })
+	  .catch(e => console.error(`ошибка api checkphone - 3${e}`))
     })
+	.catch(e => console.error(`ошибка api checkphone - 2${e}`))
   })
+  .catch(e => console.error(`ошибка api checkphone - 1${e}`))
   } else {
     return resolve.status(405).json({message: 'method not allowed'})
   }

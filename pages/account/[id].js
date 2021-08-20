@@ -24,221 +24,216 @@ import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import Link from "next/link";
 
 const userInfo = {
-  userId: 1,
-  userPic: "",
-  userName: "Имя пользователя",
-  userDateReg: "21.56.7676",
-  userRate: 3.2,
-  userReviews: 0,
-  userSubscribers: 0,
-  userSubscriptions: 0,
+	userId: 1,
+	userPic: "",
+	userName: "Имя пользователя",
+	userDateReg: "21.56.7676",
+	userRate: 3.2,
+	userReviews: 0,
+	userSubscribers: 0,
+	userSubscriptions: 0,
 };
 
 const menuItems = [
-  { id: 1, name: "menuOffers", title: "Мои объявления" },
-  { id: 2, name: "menuDeals", title: "Сделки" },
-  { id: 3, name: "menuWallet", title: "Кошелек" },
-  { id: 4, name: "menuFavorites", title: "Избранное" },
-  { id: 5, name: "menuNotifications", title: "Уведомления" },
-  { id: 6, name: "menuCompare", title: "Сравнить" },
-  { id: 7, name: "menuReviews", title: "Отзывы" },
-  { id: 8, name: "menuSettings", title: "Настройки" },
+	{ id: 1, name: "menuOffers", title: "Мои объявления" },
+	{ id: 2, name: "menuDeals", title: "Сделки" },
+	{ id: 3, name: "menuWallet", title: "Кошелек" },
+	{ id: 4, name: "menuFavorites", title: "Избранное" },
+	{ id: 5, name: "menuNotifications", title: "Уведомления" },
+	{ id: 6, name: "menuCompare", title: "Сравнить" },
+	{ id: 7, name: "menuReviews", title: "Отзывы" },
+	{ id: 8, name: "menuSettings", title: "Настройки" },
 ];
 
-const menuItemsIcon = ["menuOffers", "menuDeals", "menuWallet", "menuFavorites", "menuNotifications", "menuCompare", "menuReviews", "menuSettings"] 
-const menuItemsTitle = ["Мои объявления", "Сделки", "Кошелек", "Избранное", "Уведомления", "Сравнить", "Отзывы", "Настройки"] 
+const menuItemsIcon = ["menuOffers", "menuDeals", "menuWallet", "menuFavorites", "menuNotifications", "menuCompare", "menuReviews", "menuSettings"]
+const menuItemsTitle = ["Мои объявления", "Сделки", "Кошелек", "Избранное", "Уведомления", "Сравнить", "Отзывы", "Настройки"]
 
 function Account() {
-  const router = useRouter();
-  const {mutateAvatar} = useMutate();
-  const [avatar, setAvatar] = useState();
-  const { isLoading, name, userPhoto, createdAt, raiting, subscriptions } = useUser();
-  const countRender = useRef(0)
-  const [content, setContent] = useState(0)
-  const [openPicUpload, setPicUpload] = useState(false);
-  const [subList, setSubList] = useState([])
-  const [subscribersList, setSubscribersList] = useState([])
-  const [logout, setLogout] = useState(false);
-  const [reviewsModal, setReviewsModal] = useState(false);
-  const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-  
-  const {signOut, id} = useAuth();
+	const router = useRouter();
+	const { mutateAvatar } = useMutate();
+	const [avatar, setAvatar] = useState();
+	const { isLoading, name, userPhoto, createdAt, raiting, subscriptions } = useUser();
+	const countRender = useRef(0)
+	const [content, setContent] = useState(0)
+	const [openPicUpload, setPicUpload] = useState(false);
+	const [subList, setSubList] = useState([])
+	const [subscribersList, setSubscribersList] = useState([])
+	const [logout, setLogout] = useState(false);
+	const [reviewsModal, setReviewsModal] = useState(false);
+	const [subscriptionsModal, setSubscriptionsModal] = useState(false);
 
-  const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "idИзбранное" } : router.query?.account ? { i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] } : { i: "1", itm: "menuOffers", ttl: "Мои объявления" });
+	const { signOut, id } = useAuth();
 
-  useEffect(() => {
-    setMenuItem({ i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] })
-  }, [router])
- 
-  useEffect(() => {
-    countRender.current += 1
-    setContent(content + 1)
-  }, [menuItem])
+	const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "idИзбранное" } : router.query?.account ? { i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] } : { i: "1", itm: "menuOffers", ttl: "Мои объявления" });
 
-  const {matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080} = useMedia()
+	useEffect(() => {
+		setMenuItem({ i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] })
+	}, [router])
 
-  function closeModal(modal, changeModal) {
-    changeModal(!modal)
-  }
+	useEffect(() => {
+		countRender.current += 1
+		setContent(content + 1)
+	}, [menuItem])
 
-  const closePicUpload = () => {
-	  setPicUpload(p => !p)
-  }
+	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia()
 
-  useEffect(() => {
-    if (id != undefined && subList.length == 0) {
-      axios.post("/api/getSubscriptions", {user_id: "" + id}).then((res) => setSubList(res.data))
-    }
+	function closeModal(modal, changeModal) {
+		changeModal(!modal)
+	}
 
-    if (id != undefined && subscribersList.length == 0) {
-      axios.post("/api/getSubscribers", {user_id: "" + id}).then((res) => setSubscribersList(res.data))
-    }
-  })
+	const closePicUpload = () => {
+		setPicUpload(p => !p)
+	}
 
-  useEffect(() => {
-	setAvatar(`${userPhoto}?${Date.now()}`)
-  }, [userPhoto, mutateAvatar]);
+	useEffect(() => {
+		if (id != undefined && subList.length == 0) {
+			axios.post("/api/getSubscriptions", { user_id: "" + id }).then((res) => setSubList(res.data))
+		}
 
-  const logOut = () => {
-    axios.get("/api/logout").then(() => {
-      mutate("/api/user");
-	  signOut();
-      router.push("/");
-    });
-  };
-  
+		if (id != undefined && subscribersList.length == 0) {
+			axios.post("/api/getSubscribers", { user_id: "" + id }).then((res) => setSubscribersList(res.data))
+		}
+	})
 
+	useEffect(() => {
+		setAvatar(`${userPhoto}?${Date.now()}`)
+	}, [userPhoto, mutateAvatar]);
 
-  const accountContent = () => {
-    return (
-      <>
-        {countRender.current > 1 ? (
-          <>
-            {(menuItem.i === 1 && 
-            <OfferAccountProvider> 
-              <Offers router={router} /> 
-            </OfferAccountProvider>) 
-            || (menuItem.i === 2 && <Deals />) 
-            || (menuItem.i === 3 && <Wallet />) 
-            || (menuItem.i === 4 && <Favorites router={router.query.id}/>) 
-            || (menuItem.i === 5 && <Notifications />) 
-            || (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}
-          </>
-        ) : router.query?.account ? ( 
-        <>
-          {(+router.query.account === 1 && 
-            <OfferAccountProvider> 
-              <Offers router={router} /> 
-            </OfferAccountProvider>) 
-            || (+router.query.account === 2 && <Deals />) 
-            || (+router.query.account === 3 && <Wallet />) 
-            || (+router.query.account === 4 && <Favorites router={router.query.id}/>) 
-            || (+router.query.account === 5 && <Notifications />) 
-            || (+router.query.account === 6 && <Compare />) || (+router.query.account === 7 && <Reviews />) || (+router.query.account === 8 && <Settings username />)}
-        </>) : (
-          <OfferAccountProvider> 
-              <Offers router={router} /> 
-          </OfferAccountProvider>
-        ) }
-      </>
-    )
-  }
+	const logOut = () => {
+		axios.get("/api/logout").then(() => {
+			mutate("/api/user");
+			signOut();
+			router.push("/");
+		});
+	};
 
+	const accountContent = () => {
+		return (
+			<>
+				{countRender.current > 1 ? (
+					<>
+						{(menuItem.i === 1 &&
+							<OfferAccountProvider>
+								<Offers router={router} />
+							</OfferAccountProvider>)
+							|| (menuItem.i === 2 && <Deals />)
+							|| (menuItem.i === 3 && <Wallet />)
+							|| (menuItem.i === 4 && <Favorites router={router.query.id} />)
+							|| (menuItem.i === 5 && <Notifications />)
+							|| (menuItem.i === 6 && <Compare />) || (menuItem.i === 7 && <Reviews />) || (menuItem.i === 8 && <Settings username />)}
+					</>
+				) : router.query?.account ? (
+					<>
+						{(+router.query.account === 1 &&
+							<OfferAccountProvider>
+								<Offers router={router} />
+							</OfferAccountProvider>)
+							|| (+router.query.account === 2 && <Deals />)
+							|| (+router.query.account === 3 && <Wallet />)
+							|| (+router.query.account === 4 && <Favorites router={router.query.id} />)
+							|| (+router.query.account === 5 && <Notifications />)
+							|| (+router.query.account === 6 && <Compare />) || (+router.query.account === 7 && <Reviews />) || (+router.query.account === 8 && <Settings username />)}
+					</>) : (
+					<OfferAccountProvider>
+						<Offers router={router} />
+					</OfferAccountProvider>
+				)}
+			</>
+		)
+	}
 
-  return (
-    <MetaLayout title={"Личный кабинет"}>
-      {/* <div className="userOffersPage" id="user"> */}
-      <div className="clientPage text">
-        <div className="clientPage__breadcrumbs thin">
-          <Link  href="/">
-            <a className="breadCrumb light">Главная</a>
-          </Link>
-          <Link href={`/account/${id}?account=1&content=1`}>
-            <a style={{color: "#2C2C2C"}} className="line light">Личный кабинет</a>
-          </Link>
-          {/* {menuItem && <a className="line">{menuItem.ttl}</a>} */}
-        </div>
-        <div className="clientPage__menu">
-          <div className="clientPage__userinfo">
-            <div className="clientPage__userpic">
-              {!isLoading && (
-                <Avatar src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
-                  {initials(name)}
-                </Avatar>
-              )}
-              <button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"></button>
-            </div>
-            <div className="clientPage__username">{name}</div>
-            <div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>
-            <div className="clientPage__userrate">
-              <div className="clientPage__userrate__num">{raiting}</div>
-              <StarRating {...{ rating: raiting }} />
-            </div>
-            <div className="clientPage__userstats highlight small">
-              <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight" className="userInfoReviews">
-                {userInfo.userReviews}
-                <p>отзывов</p>
-              </a>
-              <a className="offerUnpublish thin superLight" className="userInfoSubscribers">
-                {subscribersList?.message ? 0 : subscribersList.length}
-                <p>подписчиков</p>
-              </a>
-              <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight" className="userInfoSubscribtions">
-                { subscriptions ? JSON.parse(subscriptions)?.length: '0'}
-                <p>подписок</p>
-              </a>
-            </div>
-          </div>
-          <div className="userMenuContainer">
-            {matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null :
-            <>
-              {menuItems.map((item) => {
-                return (
-                  <a key={item.id} onClick={() => {
-                    setMenuItem({ i: item.id, itm: item.name, ttl: item.title })
-                    router.push({
-                      pathname: `/account/${id}`,
-                      query: {
-                        account: item.id,
-                        content: "1"
-                      }
-                    })
-                  }} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
-                    {item.title}
-                  </a>
-                );
-              })}
-            </>}
-            {matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null : 
-            <a onClick={() => setLogout(!logout)} className="offerUnpublish thin superLight" className="menuLogoff smooth">
-              Выход
-            </a>}
-          </div>
-        </div>
-        <div className="clientPage__container">
-          {accountContent()}
-        </div>
-      </div>
-      <div className="userPageWhiteSpace"></div>
-      <Dialog open={openPicUpload} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
-        <UserPicUpload {...{ imageType: "webp", optimiztionLevel: 0.7, maxScale: 5, Close: closePicUpload }} />
-      </Dialog>
-      <Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
-        <DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
-        <div className="accountLogoutBtnBox">
-          <Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{textTransform:"uppercase"}}>
-            Отмена
-          </Button>
-          <Button onClick={() => logOut()} className="accountLogoutYes" style={{color:"red", textTransform:"uppercase"}}>Выйти</Button>
-        </div>
-      </Dialog>
-      <Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        {<ModalRating rate={2} comments={2} modal={() => closeModal(reviewsModal, setReviewsModal)} mobile={matchesTablet || matchesMobile}/>}
-      </Dialog>
-      <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscription data={subList} subscription={subList.length} modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesTablet || matchesMobile}/>
-      </Dialog>
-    </MetaLayout>
-  );
+	return (
+		<MetaLayout title={"Личный кабинет"}>
+			<div className="clientPage text">
+				<div className="clientPage__breadcrumbs thin">
+					<Link href="/">
+						<a className="breadCrumb light">Главная</a>
+					</Link>
+					<Link href={`/account/${id}?account=1&content=1`}>
+						<a style={{ color: "#2C2C2C" }} className="line light">Личный кабинет</a>
+					</Link>
+				</div>
+				<div className="clientPage__menu">
+					<div className="clientPage__userinfo">
+						<div className="clientPage__userpic">
+							{!isLoading && (
+								<Avatar src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
+									{initials(name)}
+								</Avatar>
+							)}
+							<button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"></button>
+						</div>
+						<div className="clientPage__username">{name}</div>
+						<div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>
+						<div className="clientPage__userrate">
+							<div className="clientPage__userrate__num">{raiting}</div>
+							<StarRating {...{ rating: raiting }} />
+						</div>
+						<div className="clientPage__userstats highlight small">
+							<a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews" >
+								{userInfo.userReviews}
+								<p>отзывов</p>
+							</a>
+							<a className="offerUnpublish thin superLight userInfoSubscribers">
+								{subscribersList?.message ? 0 : subscribersList.length}
+								<p>подписчиков</p>
+							</a>
+							<a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
+								{subscriptions ? JSON.parse(subscriptions)?.length : '0'}
+								<p>подписок</p>
+							</a>
+						</div>
+					</div>
+					<div className="userMenuContainer">
+						{matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null :
+							<>
+								{menuItems.map((item) => {
+									return (
+										<a key={item.id} onClick={() => {
+											setMenuItem({ i: item.id, itm: item.name, ttl: item.title })
+											router.push({
+												pathname: `/account/${id}`,
+												query: {
+													account: item.id,
+													content: "1"
+												}
+											})
+										}} className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
+											{item.title}
+										</a>
+									);
+								})}
+							</>}
+						{matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null :
+							<a onClick={() => setLogout(!logout)} className="offerUnpublish thin superLight menuLogoff smooth">
+								Выход
+							</a>}
+					</div>
+				</div>
+				<div className="clientPage__container">
+					{accountContent()}
+				</div>
+			</div>
+			<div className="userPageWhiteSpace"></div>
+			<Dialog open={openPicUpload} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
+				<UserPicUpload {...{ imageType: "webp", optimiztionLevel: 0.7, maxScale: 5, Close: closePicUpload }} />
+			</Dialog>
+			<Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
+				<DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
+				<div className="accountLogoutBtnBox">
+					<Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{ textTransform: "uppercase" }}>
+						Отмена
+					</Button>
+					<Button onClick={() => logOut()} className="accountLogoutYes" style={{ color: "red", textTransform: "uppercase" }}>Выйти</Button>
+				</div>
+			</Dialog>
+			<Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+				{<ModalRating rate={2} comments={2} modal={() => closeModal(reviewsModal, setReviewsModal)} mobile={matchesTablet || matchesMobile} />}
+			</Dialog>
+			<Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+				<ModalSubscription data={subList} subscription={subList.length} modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesTablet || matchesMobile} />
+			</Dialog>
+		</MetaLayout>
+	);
 }
 export default Account;

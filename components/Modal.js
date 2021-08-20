@@ -1,45 +1,45 @@
 import { useState, useEffect } from 'react'
 
 const Modal = ({ title, content, size, isOpen }) => {
-    const [opened, setOpened] = useState('');
+	const [opened, setOpened] = useState('');
 
 
-    useEffect(() => {
-        if (isOpen) {
-            setOpened(' openModal');
-        }
-    }, [isOpen])
+	useEffect(() => {
+		if (isOpen) {
+			setOpened(' openModal');
+		}
+	}, [isOpen])
 
 
-    function handleClose(e) {
-        e.preventDefault();
-        setOpened('');
-    }
+	function handleClose(e) {
+		e.preventDefault();
+		setOpened('');
+	}
 
-    useEffect(() => {
-        let blackout = document.querySelector(".blackout");
-        window.onclick = function (e) {
-            if (e.target === blackout) {
-                setOpened('');
-            }
-        };
-    })
+	useEffect(() => {
+		let blackout = document.querySelector(".blackout");
+		window.onclick = function (e) {
+			if (e.target === blackout) {
+				setOpened('');
+			}
+		};
+	})
 
 
-    return (
-        <div className={`blackout${opened}`}>
-            <div className={`modalWindow${opened} modal${size}`}>
-                <div className={(!title) ? ('mtD') : ('modalTitle')}>
-                    {title}
-                </div>
-                <div className="modalContent">
-                    {content}
-                </div>
-                <button onClick={handleClose} className="modalClose">
-                </button>
-            </div>
-        </div>
-    )
+	return (
+		<div className={`blackout${opened}`}>
+			<div className={`modalWindow${opened} modal${size}`}>
+				<div className={(!title) ? ('mtD') : ('modalTitle')}>
+					{title}
+				</div>
+				<div className="modalContent">
+					{content}
+				</div>
+				<button onClick={handleClose} className="modalClose">
+				</button>
+			</div>
+		</div>
+	)
 }
 
 export default Modal;

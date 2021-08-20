@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import Router from "next/router";
-import Link from "next/link";
 import { useUser } from "../../hooks/useUser";
-import { AppBar, Avatar, Button, Container, Box, makeStyles } from "@material-ui/core";
+import { AppBar, Button, Container, Box, makeStyles } from "@material-ui/core";
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import Logo from "./Logo";
@@ -15,14 +14,12 @@ import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
 import Login from "../auth/Login";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import { initials, stringToColor } from "../../lib/services";
 import { useMutate } from "../../lib/Context/MutateCTX";
 import { useRouter } from "next/router";
 import HeaderAccount from "./HeaderAccount";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    alignItems: "center",
     justifyContent: "space-between",
     padding: "9px 12px ",
     display: 'flex',
@@ -76,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ category }) => {
-  const { isAuth, id } = useAuth();
+  const { isAuth} = useAuth();
   const router = useRouter();
   const { mutateAvatar } = useMutate();
   const { isLoading, name, userPhoto } = useUser();

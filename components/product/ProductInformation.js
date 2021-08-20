@@ -12,7 +12,7 @@ export default function ProductInformation(data) {
         }
     }
 
-    const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+    const { matchesMobile, matchesTablet } = useMedia();
 
     return (
         <>

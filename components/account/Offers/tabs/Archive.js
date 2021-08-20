@@ -1,6 +1,5 @@
 import React from "react";
 import { ToRubles } from "../../../../lib/services";
-import VerifyModerator from "../../../json/verifyModerator.json";
 import Verify from "../../../json/verify.json";
 import {useMedia} from "../../../../hooks/useMedia"
 
@@ -42,9 +41,9 @@ function Archive(data) {
                     <div className="checkbox__text"></div>
                   </label>
                 </div>
-                 {JSON.parse(offer.photo).photos.slice(0, 1).map((imgs) => {
+                 {JSON.parse(offer.photo).photos.slice(0, 1).map((imgs, i) => {
                            return (
-                              <img src={imgs} />
+                              <img key={i} src={imgs} />
                            )
                         })}
                 {<img src={offer.img} />}

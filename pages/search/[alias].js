@@ -1,20 +1,15 @@
 import { useState, useEffect } from "react";
 import Footer2 from "../../components/Footer2"
 import { useMedia } from "../../hooks/useMedia";
-import MetaLayout from '../../layout/MainLayout';
-import { PrismaClient } from '@prisma/client';
 import axios from "axios";
 import { Box, Container, makeStyles } from "@material-ui/core";
-import FilterBlock from "../../components/FilterBlock"
 import SearchRender from "../../components/SearchRender"
 import { useRouter } from "next/router"
-import { useCategory } from "../../hooks/useCategory";
-import MainLayout from "../../layout/MainLayout";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import aliasName from "../../components/header/CategoriesAliaseName";
 import Image from "next/image"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         padding: '0 12px',
 		display: 'flex',
@@ -58,8 +53,7 @@ const Index = () => {
 
   const { matchesMobile, matchesTablet } = useMedia();
   const [data, setData] = useState(null);
-  const [footer, setFooter] = useState(false)
-
+ 
   const classes = useStyles();
   
   const aliasQuery = router.asPath.split("/").splice(2,).join("")

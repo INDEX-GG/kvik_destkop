@@ -1,31 +1,5 @@
 import { useRef, useState } from 'react';
 
-let userInfo = {};
-if (typeof userAuth !== 'undefined') {
-    userInfo = {
-        userId: 1,
-        userPic: '',
-        userName: userAuth.name,
-        userDateReg: standartDate(userAuth.created_at),
-        userRate: 3.5,
-        userReviews: 0,
-        userSubscribers: 0,
-        userSubscriptions: 0
-    };
-} else {
-    userInfo = {
-        userId: 1,
-        userPic: '',
-        userName: 'Имя пользователя',
-        userDateReg: '21.56.7676',
-        userRate: 3.2,
-        userReviews: 0,
-        userSubscribers: 0,
-        userSubscriptions: 0
-    };
-}
-
-
 function Comments() {
     const string = 'Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв';
     const setref = useRef(null);
@@ -50,7 +24,7 @@ function Comments() {
                         <div className="rating">
                             <div className="comment__user_number">4</div>
                             <div className="stars">
-                                <div className="on" style={{ width: `${userInfo.userRate * 20}%` }}></div>
+                                <div className="on" style={{ width: `${3 * 20}%` }}></div>
                                 <div className="live">
                                     <span data-rate="1"></span>
                                     <span data-rate="2"></span>

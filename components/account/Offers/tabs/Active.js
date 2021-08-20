@@ -1,164 +1,137 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ToRubles, ToFullDate } from "../../../../lib/services";
-// import { useForm } from "react-hook-form";
-import { Checkbox, Button, Dialog, makeStyles } from "@material-ui/core";
-
-import UnpublishForm from "../../../UnpublishForm";
+import React, { useState } from "react";
+import { Checkbox, Button, makeStyles } from "@material-ui/core";
 import AddRounded from "@material-ui/icons/AddRounded";
 import Router from "next/router";
 import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
-
-
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
-
 import OfferActive from "../card/offerActive";
-// import { useFavorits } from "../../../../lib/Context/FavoritesCTX";
-// import { func } from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
-  check: {
-    padding: "0px",
-    background: theme.palette.secondary.main,
-    width: "14px",
-    height: "14px",
+	check: {
+		padding: "0px",
+		background: theme.palette.secondary.main,
+		width: "14px",
+		height: "14px",
 
-    "&:hover": {
-      background: theme.palette.secondary.main,
-    },
-  },
-  btn__unpublish: {
-    marginLeft: "12px",
-    background: "none",
-    color: theme.palette.grey[200],
-    cursor: "pointer",
-    transition: "all 200ms ease-in-out",
+		"&:hover": {
+			background: theme.palette.secondary.main,
+		},
+	},
+	btn__unpublish: {
+		marginLeft: "12px",
+		background: "none",
+		color: theme.palette.grey[200],
+		cursor: "pointer",
+		transition: "all 200ms ease-in-out",
 
-    "&:hover": {
-      transition: "all 200ms ease-in-out",
-      textDecoration: "underline",
-    },
-  },
+		"&:hover": {
+			transition: "all 200ms ease-in-out",
+			textDecoration: "underline",
+		},
+	},
 }));
-
-
-
-
 
 function Active(data) {
 
-  const classes = useStyles();
+	const classes = useStyles();
 
-  // function setCheck(e) {
-  //   if (e.target.value === '' && mainArr.length === 0) {
-  //     console.log('добавляет все')
-  //     mainArr = qwe
-  //   } else if (e.target.value === '' && mainArr.length !== 0) {
-  //     console.log('удаляет все')
-  //     mainArr = []
-  //   } else if (mainArr.includes(+e.target.value)) {
-  //     mainArr = mainArr.filter((item) => { return item !== +e.target.value })
-  //   } else {
-  //     mainArr.push(+e.target.b)
-  //   }
+	// function setCheck(e) {
+	//   if (e.target.value === '' && mainArr.length === 0) {
+	//     console.log('добавляет все')
+	//     mainArr = qwe
+	//   } else if (e.target.value === '' && mainArr.length !== 0) {
+	//     console.log('удаляет все')
+	//     mainArr = []
+	//   } else if (mainArr.includes(+e.target.value)) {
+	//     mainArr = mainArr.filter((item) => { return item !== +e.target.value })
+	//   } else {
+	//     mainArr.push(+e.target.b)
+	//   }
 
-  //   setMainArr()
-  // }
+	//   setMainArr()
+	// }
 
-
-
-  // function setMainArr() {
-  //   console.log('после ==============>', mainArr)
-  // }
+	// function setMainArr() {
+	//   console.log('после ==============>', mainArr)
+	// }
 
 
-  const [check, setCheck] = useState(false)
-  const [checkValue, setcheckValue] = useState()
-const [checkAll, setCheckAll] = useState(false)
+	const [check, setCheck] = useState(false)
+	const [checkValue, setcheckValue] = useState()
+	const [checkAll, setCheckAll] = useState(false)
+
+	const handleCheckAll = e => {
+		setCheck(e.target.checked)
+		setcheckValue(e.target.value)
+		setCheckAll(e.target.checked)
+	}
+
+	if (data.offers.length == 0) {
+		return (
+			<div className="clientPage__placeholder-container">
+				<div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>
+				<div className="clientPage__placeholder-ads">
+					<div className="clientPage__placeholder-item">
+						<div className="clientPage__placeholder-item-1"></div>
+						<div className="clientPage__placeholder-item-2"></div>
+						<div className="clientPage__placeholder-item-3"></div>
+					</div>
+					<div className="clientPage__placeholder-item">
+						<div className="clientPage__placeholder-item-1"></div>
+						<div className="clientPage__placeholder-item-2"></div>
+						<div className="clientPage__placeholder-item-3"></div>
+					</div>
+					<div className="clientPage__placeholder-item">
+						<div className="clientPage__placeholder-item-1"></div>
+						<div className="clientPage__placeholder-item-2"></div>
+						<div className="clientPage__placeholder-item-3"></div>
+					</div>
+				</div>
+				<Button onClick={() => Router.push("/placeOffer")} className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" variant="contained" color="primary">
+					<AddRounded />
+					Подать объявление
+				</Button>
+			</div>
+		);
+	}
+
+	return (
+		<>
+			<UnpublishCTX.Provider >
+				<div className="clientPage__container_bottom">
+					<div className="clientPage__container_nav__radio">
+						<Checkbox
+							className={classes.check}
+							color="primary"
+							value=""
+							icon={<FiberManualRecordOutlinedIcon />}
+							checkedIcon={<FiberManualRecordSharpIcon />}
+
+							onChange={(e) => handleCheckAll(e)}
+							checked={check}
+
+						/>
+						<button className={classes.btn__unpublish} onClick={(e) => console.log(e)}>
+							Снять с публикации
+						</button>
+					</div>
+					<div className="clientPage__container_content">
+						{data.offers?.map((offer, i) => {
+							return (
+								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue} />
+							);
+						})}
+					</div>
+				</div>
 
 
-  const handleCheckAll = e => {
-    setCheck(e.target.checked)
-    setcheckValue(e.target.value)
-    setCheckAll(e.target.checked)
-
-  }
-
-  if (data.offers.length == 0) {
-    return (
-      <div className="clientPage__placeholder-container">
-        <div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>
-        <div className="clientPage__placeholder-ads">
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1"></div>
-            <div className="clientPage__placeholder-item-2"></div>
-            <div className="clientPage__placeholder-item-3"></div>
-          </div>
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1"></div>
-            <div className="clientPage__placeholder-item-2"></div>
-            <div className="clientPage__placeholder-item-3"></div>
-          </div>
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1"></div>
-            <div className="clientPage__placeholder-item-2"></div>
-            <div className="clientPage__placeholder-item-3"></div>
-          </div>
-        </div>
-        <Button onClick={() => Router.push("/placeOffer")} className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" variant="contained" color="primary">
-          <AddRounded />
-          Подать объявление
-        </Button>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <UnpublishCTX.Provider >
-        <div className="clientPage__container_bottom">
-          <div className="clientPage__container_nav__radio">
-            <Checkbox
-            className={classes.check}
-            color="primary"
-            value=""
-            icon={<FiberManualRecordOutlinedIcon />}
-            checkedIcon={<FiberManualRecordSharpIcon />}
-
-            onChange={(e) => handleCheckAll(e)}
-            checked={check}
-
-          />
-          <button className={classes.btn__unpublish} onClick={(e) => pushCheck(e)}>
-            Снять с публикации
-          </button>
-        </div>
-        <div className="clientPage__container_content">
-          {data.offers?.map((offer, i) => {
-            return (
-
-          
-
-              <OfferActive offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue}/>
-
-            );
-          })}
-        </div>
-      </div>
-
-
-    {/*   <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
+				{/*   <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
         <UnpublishForm Close={handleUnpublishFormDialog} />
       </Dialog> */}
-    </UnpublishCTX.Provider>
-
-
-
-      
-
-    </>
-
-  );
+			</UnpublishCTX.Provider>
+		</>
+	);
 }
 export default Active;
 
@@ -177,14 +150,14 @@ import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordShar
 
 const useStyles = makeStyles((theme) => ({
   check: {
-    padding: '0px',
-    background: theme.palette.secondary.main,
-    width: '14px',
-    height: '14px',
+	padding: '0px',
+	background: theme.palette.secondary.main,
+	width: '14px',
+	height: '14px',
 
-    '&:hover': {
-      background: theme.palette.secondary.main,
-    },
+	'&:hover': {
+	  background: theme.palette.secondary.main,
+	},
   },
 }));
 
@@ -195,64 +168,64 @@ function Active(data) {
   const classes = useStyles();
 
   const {
-    register,
-    watch,
-    handleSubmit,
-    formState: { errors },
+	register,
+	watch,
+	handleSubmit,
+	formState: { errors },
   } = useForm();
 
   const [idAd, setIdAd] = useState([]);
   const [filteredData, setFilteredData] = useState({});
 
   const handelRemoveFromPublic = (e) => {
-    e.preventDefault();
-    setIdAd(e.target.value);
-    setFilteredData(data.offers.filter(item => item.id == idAd));
-    setOpenUnpublishForm(!openUnpublishForm)
+	e.preventDefault();
+	setIdAd(e.target.value);
+	setFilteredData(data.offers.filter(item => item.id == idAd));
+	setOpenUnpublishForm(!openUnpublishForm)
   };
   const handelRemoveFromPublicFull = () => {
-    const watchShowAge = watch("id");
-    // console.log(watchShowAge);
+	const watchShowAge = watch("id");
+	// console.log(watchShowAge);
   };
 
   const onSubmit = (addata) => {
-    addata.id = idAd;
-    addata.active = 0;
-    setOpenUnpublishForm(!openUnpublishForm)
-    // console.log(addata)
-    handleUnpublishFormDialog()
+	addata.id = idAd;
+	addata.active = 0;
+	setOpenUnpublishForm(!openUnpublishForm)
+	// console.log(addata)
+	handleUnpublishFormDialog()
   };
 
 
 
   const checkItemFull = (data) => () => {
-    let idItem = data.offers.map((offer) =>
-    setOfferInfo((state) => ({
-      ...state,
-      [offer.id]: state[offer.id]
-        ? ''
-        : {
-          id: offer.id,
-          title: offer.title,
-          action: 0,
-        }
-    })))
+	let idItem = data.offers.map((offer) =>
+	setOfferInfo((state) => ({
+	  ...state,
+	  [offer.id]: state[offer.id]
+		? ''
+		: {
+		  id: offer.id,
+		  title: offer.title,
+		  action: 0,
+		}
+	})))
   }
 
 
 
   const [offerInfo, setOfferInfo] = useState({});
   const checkItem = (offer) => () => {
-    setOfferInfo((state) => ({
-      ...state,
-     [offer.id]: state[offer.id]
-        ? ''
-        : {
-          id: offer.id,
-          title: offer.title,
-          verify: 0,
-        }
-    }));
+	setOfferInfo((state) => ({
+	  ...state,
+	 [offer.id]: state[offer.id]
+		? ''
+		: {
+		  id: offer.id,
+		  title: offer.title,
+		  verify: 0,
+		}
+	}));
 
 
   };
@@ -266,116 +239,116 @@ function Active(data) {
   const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
   if (data.offers.length == 0) {
-    return (
-      <div className="clientPage__placeholder-container">
-        <div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>
-        <div className="clientPage__placeholder-ads">
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1"></div>
-            <div className="clientPage__placeholder-item-2"></div>
-            <div className="clientPage__placeholder-item-3"></div>
-          </div>
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1"></div>
-            <div className="clientPage__placeholder-item-2"></div>
-            <div className="clientPage__placeholder-item-3"></div>
-          </div>
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1"></div>
-            <div className="clientPage__placeholder-item-2"></div>
-            <div className="clientPage__placeholder-item-3"></div>
-          </div>
-        </div>
-        <Button onClick={() => Router.push("/placeOffer")} className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" variant="contained" color="primary">
-          <AddRounded />
-          Подать объявление
-        </Button>
-      </div>
-    );
+	return (
+	  <div className="clientPage__placeholder-container">
+		<div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>
+		<div className="clientPage__placeholder-ads">
+		  <div className="clientPage__placeholder-item">
+			<div className="clientPage__placeholder-item-1"></div>
+			<div className="clientPage__placeholder-item-2"></div>
+			<div className="clientPage__placeholder-item-3"></div>
+		  </div>
+		  <div className="clientPage__placeholder-item">
+			<div className="clientPage__placeholder-item-1"></div>
+			<div className="clientPage__placeholder-item-2"></div>
+			<div className="clientPage__placeholder-item-3"></div>
+		  </div>
+		  <div className="clientPage__placeholder-item">
+			<div className="clientPage__placeholder-item-1"></div>
+			<div className="clientPage__placeholder-item-2"></div>
+			<div className="clientPage__placeholder-item-3"></div>
+		  </div>
+		</div>
+		<Button onClick={() => Router.push("/placeOffer")} className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" variant="contained" color="primary">
+		  <AddRounded />
+		  Подать объявление
+		</Button>
+	  </div>
+	);
   }
 
   return (
-    <UnpublishCTX.Provider value={{ idAd, filteredData }}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="clientPage__container_bottom">
-          <div className="clientPage__container_nav__radio">
-            <Checkbox
-              className={classes.check}
-              color='primary'
-              icon={<FiberManualRecordOutlinedIcon />}
-              checkedIcon={<FiberManualRecordSharpIcon />}
-              onClick={checkItemFull(data)}
-            />
-            <button onClick={handelRemoveFromPublicFull()}>Снять с публикации</button>
-          </div>
-          <div className="clientPage__container_content">
-            {data.offers?.map((offer, i) => {
-              return (
-                <a href={`/product/${offer.id}`} key={i} {...register("active")} className="offerContainer boxWrapper">
-                  <div className="offerImage">
-                    <div className="offerPubCheck">
-                      <Checkbox
-                        className={classes.check}
-                        color='primary'
-                        icon={<FiberManualRecordOutlinedIcon />}
-                        checkedIcon={<FiberManualRecordSharpIcon />}
-                        {...register("id")}
-                        onClick={checkItem(offer)}
-                        value={offerInfo[offer.id]}
-                      />
-                    </div>
-                    {JSON.parse(offer.photo)
-                      ?.photos?.slice(0, 1)
-                      .map((imgs, i) => {
-                        return <img key={i} src={imgs} />;
-                      })}
-                  </div>
-                  <div className="offerDescription">
-                    <div className="offerDescriptionTop">
-                      <div className="offerDTLeft thin">
-                        <div>{ToRubles(offer.price)}</div>
-                        <div className="offerTitle">{offer.title}</div>
-                        <div className="offerDatPub small light DatPub__mobile">
-                          <span> Дата публикации </span>
-                          {ToFullDate(offer.created_at)}
-                        </div>
-                        <div>Осталось 30 дней</div>
-                      </div>
-                      <div className="offerDTRight">
-                        <button type="submit" className="offerEdit thin superLight editIcon">
-                          Редактировать
-                        </button>
-                        <button
-                          type="submit"
-                          value={offer.id}
-                          onClick={(e) => {
-                            handelRemoveFromPublic(e);
-                          }}
-                          className="offerUnpublish thin superLight"
-                        >
-                          Снять с публикации
-                        </button>
-                        <div className="offerSocialCount">
-                          <div className="offerShowes showesIcon">0 +0</div>
-                          <div className="offerAddFavores likeIcon">0 +0</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="offerDescriptionBottom">
-                      <button className="offerButtonViews button contained">Увеличить просмотры</button>
-                    </div>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        </div>
+	<UnpublishCTX.Provider value={{ idAd, filteredData }}>
+	  <form onSubmit={handleSubmit(onSubmit)}>
+		<div className="clientPage__container_bottom">
+		  <div className="clientPage__container_nav__radio">
+			<Checkbox
+			  className={classes.check}
+			  color='primary'
+			  icon={<FiberManualRecordOutlinedIcon />}
+			  checkedIcon={<FiberManualRecordSharpIcon />}
+			  onClick={checkItemFull(data)}
+			/>
+			<button onClick={handelRemoveFromPublicFull()}>Снять с публикации</button>
+		  </div>
+		  <div className="clientPage__container_content">
+			{data.offers?.map((offer, i) => {
+			  return (
+				<a href={`/product/${offer.id}`} key={i} {...register("active")} className="offerContainer boxWrapper">
+				  <div className="offerImage">
+					<div className="offerPubCheck">
+					  <Checkbox
+						className={classes.check}
+						color='primary'
+						icon={<FiberManualRecordOutlinedIcon />}
+						checkedIcon={<FiberManualRecordSharpIcon />}
+						{...register("id")}
+						onClick={checkItem(offer)}
+						value={offerInfo[offer.id]}
+					  />
+					</div>
+					{JSON.parse(offer.photo)
+					  ?.photos?.slice(0, 1)
+					  .map((imgs, i) => {
+						return <img key={i} src={imgs} />;
+					  })}
+				  </div>
+				  <div className="offerDescription">
+					<div className="offerDescriptionTop">
+					  <div className="offerDTLeft thin">
+						<div>{ToRubles(offer.price)}</div>
+						<div className="offerTitle">{offer.title}</div>
+						<div className="offerDatPub small light DatPub__mobile">
+						  <span> Дата публикации </span>
+						  {ToFullDate(offer.created_at)}
+						</div>
+						<div>Осталось 30 дней</div>
+					  </div>
+					  <div className="offerDTRight">
+						<button type="submit" className="offerEdit thin superLight editIcon">
+						  Редактировать
+						</button>
+						<button
+						  type="submit"
+						  value={offer.id}
+						  onClick={(e) => {
+							handelRemoveFromPublic(e);
+						  }}
+						  className="offerUnpublish thin superLight"
+						>
+						  Снять с публикации
+						</button>
+						<div className="offerSocialCount">
+						  <div className="offerShowes showesIcon">0 +0</div>
+						  <div className="offerAddFavores likeIcon">0 +0</div>
+						</div>
+					  </div>
+					</div>
+					<div className="offerDescriptionBottom">
+					  <button className="offerButtonViews button contained">Увеличить просмотры</button>
+					</div>
+				  </div>
+				</a>
+			  );
+			})}
+		  </div>
+		</div>
 
-        <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
-          <UnpublishForm Close={handleUnpublishFormDialog} />
-        </Dialog>
-      </form>
-    </UnpublishCTX.Provider>
+		<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
+		  <UnpublishForm Close={handleUnpublishFormDialog} />
+		</Dialog>
+	  </form>
+	</UnpublishCTX.Provider>
   );
 
 }

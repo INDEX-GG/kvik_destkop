@@ -1,11 +1,9 @@
 import { Avatar } from "@material-ui/core";
 import StarRating from "./StarRating";
 import { stringToColor, initials } from "../lib/services";
-import {useRouter} from "next/router"
-
 
 function Subscribes({ data }) {
-  const router = useRouter()
+
   return (
     <div className="subscribers_subscriptions_main">
       <div className="subscribers_subscriptions">

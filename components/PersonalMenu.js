@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function showSignIn() {
   var signInShow = document.getElementById("signIn");
@@ -32,15 +32,6 @@ function PersonalAccountMenu_component() {
   }
 
   const [menuItem, setMenuItem] = useState({ i: 1, itm: 'menuOffers', ttl: 'Мои объявления' });
-  const [modal, setModal] = useState({});
-  function modalOlen(e, size, content, title) {
-    function smf() {
-      setModal({ title: title, content: content, size: size, isOpen: false });
-    }
-    e.preventDefault();
-    setModal({ title: title, content: content, size: size, isOpen: true });
-    setTimeout(smf, 500);
-  }
 
   const menuItems = [
     { id: 1, name: 'menuOffers', title: 'Мои объявления' },
@@ -71,7 +62,7 @@ function PersonalAccountMenu_component() {
               })}
             </div> : ''}
           <div className="account_menu__block__log_sign">
-            {typeof userAuth !== 'undefined' ? <a href={route('logout')} className="smooth__menu menu__log_sign"> Выход </a> : <a className="smooth__menu menu__log_sign" id="" onClick={showSignIn}> Войти</a>}
+            {typeof userAuth !== 'undefined' ? <a className="smooth__menu menu__log_sign"> Выход </a> : <a className="smooth__menu menu__log_sign" id="" onClick={showSignIn}> Войти</a>}
           </div>
         </div>
       </div>

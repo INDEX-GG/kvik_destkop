@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
 import { Box, TextField, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import axios from 'axios'
 
 const useStyles = makeStyles(() => ({
 	input: {
