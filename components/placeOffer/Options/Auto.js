@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography, MenuItem } from '@material-ui/core';
 import axios from 'axios';
-import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
-
 
 const useStyles = makeStyles((theme) => ({
     formInputMainField: {
@@ -38,11 +36,7 @@ export default function Auto({ data }) {
     const [mark, setMark] = useState(),
         [model, setModel] = useState(),
         [generation, setGeneration] = useState(),
-        [modification, setModification] = useState(),
-        [fullDescription, setFullDescription] = useState();
-
-
-
+        [modification, setModification] = useState();
 
     useEffect(() => {
         if (methods.watch('modelsAuto') != undefined) {
@@ -56,14 +50,14 @@ export default function Auto({ data }) {
 
     useEffect(() => {
         if (mark != undefined) {
-            setModel(mark.children.filter(item => item.value === methods.watch('submodels')).map((item, i) => item.children.map((item, i) => item)))
+            setModel(mark.children.filter(item => item.value === methods.watch('submodels')).map((item) => item.children.map((item) => item)))
         }
     }, [methods.watch('submodels')])
 
 
     useEffect(() => {
         if (model != undefined) {
-            setGeneration(model.map((item, i) => item.filter((item, i) => item.value === methods.watch('generation'))))
+            setGeneration(model.map((item) => item.filter((item) => item.value === methods.watch('generation'))))
         }
     }, [methods.watch('generation')])
 
@@ -73,8 +67,8 @@ export default function Auto({ data }) {
         if (generation != undefined) {
             console.log('11111111111')
             let arr = []
-            let mod = (generation[0].map((item, i) => item.children.map((item, i) => item)));
-            arr = ((mod[0].filter((item, i) => item.value === methods.watch('modification'))).map((item, i) => item))
+            let mod = (generation[0].map((item) => item.children.map((item) => item)));
+            arr = ((mod[0].filter((item) => item.value === methods.watch('modification'))).map((item) => item))
             let objs = {}
             for (let i = 0; i < arr.length; i++) {
                 // objs = { ...arr[i].children.map((item, i) => item), ...arr[i + 1].children.map((item, i) => item) }           
@@ -82,7 +76,7 @@ export default function Auto({ data }) {
             }
             console.log(objs)
 
-            console.log('======>', setModification(arr.map((item, i) => item.children)))
+            console.log('======>', setModification(arr.map((item) => item.children)))
             // setModification()
             // console.log(generation[0].map((item, i) => item.children.map((item, i) => item)))
             // console.log(methods.watch('generation'))
@@ -104,12 +98,12 @@ export default function Auto({ data }) {
 
         let newObjMain = []
         for (let i = 0; i < modification.length; i++) {
-            newObjMain.push({ alias: modification.map((item, i) => item[0].value) })
+            newObjMain.push({ alias: modification.map((item) => item[0].value) })
         }
 
         console.log(newObjMain)
         console.log(modification[0].length)
-        console.log(modification.map((item, i) => (item[0].value)))
+        console.log(modification.map((item) => (item[0].value)))
 
     }
 
@@ -118,7 +112,7 @@ export default function Auto({ data }) {
 
     return (
 
-        data.map((item, i) => {
+        data.map((item) => {
             switch (item.type) {
                 case 'listRec':
                     switch (item.alias) {
@@ -184,7 +178,7 @@ export default function Auto({ data }) {
                                         <Box className={classes.formInputMainField}>
                                             <Typography className={classes.formTitleField}>Поколение</Typography>
                                             <Box className={classes.formInputField}>
-                                                {console.log(model.map((item, i) => (item.sort((a, b) => a.value > b.value ? 1 : -1)).map((item, i) => item.value)))}
+                                                {console.log(model.map((item) => (item.sort((a, b) => a.value > b.value ? 1 : -1)).map((item) => item.value)))}
                                                 <Controller
                                                     name={"generation"}
                                                     control={methods.control}
@@ -197,7 +191,7 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                            {model.map((item, i) => item.map((item, i) => (
+                                                            {model.map((item) => item.map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}
                                                                 </MenuItem>
@@ -227,7 +221,7 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                            {generation[0].map((item, i) => item.children.map((item, i) => (
+                                                            {generation[0].map((item) => item.children.map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}
                                                                 </MenuItem>

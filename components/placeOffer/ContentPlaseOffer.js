@@ -1,7 +1,5 @@
 import { Button, Dialog, Box, makeStyles } from "@material-ui/core"
-import { useRouter } from "next/router";
 import { useForm, FormProvider } from 'react-hook-form';
-import { useMedia } from "../../hooks/useMedia";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import MobileContact from "./MobileContacts";
 import MobileLocation from "./MobileLocation";
@@ -11,7 +9,7 @@ import { useState } from "react";
 import axios from "axios";
 import Promotion from "./Promotion";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     buttonSend: {
         position: "absolut",
         left: "50%",
@@ -47,11 +45,9 @@ const useStyles = makeStyles(theme => ({
 export default function ContentPlaseOffer({dialog, title, backFunc, product}) {
     const {id} = useAuth();
     const classes = useStyles();
-	const [loading, setLoading] = useState(false);
     const [promotionProduct, setPromotionProduct] = useState({})
     const [promotion, setPromotion] = useState(false)
     const methods = useForm();
-	const router = useRouter();
     let photoes = [];
     const photoesCtx = (obj) => {
         return photoes = obj;
@@ -87,7 +83,7 @@ export default function ContentPlaseOffer({dialog, title, backFunc, product}) {
         } else if (photoes.length === 1) {
             photoData.append('files[]', photoes[0]);
         }
-		setLoading(true);
+
         axios.post('/api/setPosts', sendData, {
             headers: {
                 "Content-Type": "multipart/form-data"

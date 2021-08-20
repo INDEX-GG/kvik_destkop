@@ -7,7 +7,7 @@ import { MenuItem } from '@material-ui/core';
 import { useUser } from '../../hooks/useUser';
 import { phoneNumber } from '../../lib/services'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
    plaseOfferBox: {
         width: "100%",
         padding: "0 12px",

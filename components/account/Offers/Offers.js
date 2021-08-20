@@ -3,8 +3,7 @@ import Active from "./tabs/Active";
 import Wait from "./tabs/Wait";
 import Archive from "./tabs/Archive";
 import Placeholder from "./tabs/Placeholder";
-import { useAd } from "../../../hooks/useAd";
-import router, { useRouter } from "next/router";
+import router from "next/router";
 import { brooklyn } from "../../../lib/services";
 
 // import OfferAccountProvider from "../../../lib/Context/OfferAccountCTX";
@@ -30,7 +29,7 @@ const causes = "Неверная цена / Неверная категория 
 
 const Offers = () => {
 
-  const { setQuery, userAccountProvider } = useOfferAccount()
+  const { userAccountProvider } = useOfferAccount()
 
   const [activeOffersBox, setActiveOffersBox] = useState([]);
   const [waitOffersBox, setWaitOffersBox] = useState([]);

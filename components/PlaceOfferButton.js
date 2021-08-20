@@ -1,7 +1,6 @@
 import { Button, makeStyles } from "@material-ui/core"
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import { useRouter } from "next/router";
-import { useMedia } from "../hooks/useMedia";
 
 const useStyles = makeStyles((theme) => ({
     buttonContainer: {

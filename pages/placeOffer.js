@@ -12,7 +12,6 @@ import Photoes from '../components/placeOffer/Photoes';
 import Location from '../components/placeOffer/Location';
 import Contacts from '../components/placeOffer/Contacts';
 import ErrorMessages from '../components/placeOffer/ErrorMessages';
-import { useRouter } from 'next/router';
 import { useAuth } from '../lib/Context/AuthCTX';
 import Loader from '../UI/icons/Loader';
 import PlaceOfferMobile from '../components/placeOffer/placeOfferMobile';
@@ -56,10 +55,9 @@ const useStyles = makeStyles((theme) => ({
 function PlaceOffer() {
     const { id } = useAuth();
     const classes = useStyles();
-    const [loading, setLoading] = useState(false);
-    const [promotion, setPromotion] = useState(false)
-    const [product, setProduct] = useState({})
-    const [photo, setPhoto] = useState(null)
+    const loading = false;
+    const promotion = false;
+    const product = {};
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
     let photoes = [];

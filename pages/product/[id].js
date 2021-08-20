@@ -84,7 +84,7 @@ const Product = () => {
     return () => { };
   }, []);
 
-  const { name, raiting, address, userPhoto, category_id, commercial, user_id, created_at, delivery, description, email, product_id, phone, photo, rating, reviewed, secure_transaction, title, trade, price, oldprice, verify_moderator } = useProduct({ router });
+  const { name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct({ router });
 
   const [userAd, setUserAd] = useState();
   const [phoneModal, setPhoneModal] = useState();
