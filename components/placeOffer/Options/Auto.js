@@ -52,14 +52,11 @@ export default function Auto({ data }) {
         }
     }, [methods.watch('modelsAuto')])
 
-
-
     useEffect(() => {
         if (mark != undefined) {
             setModel(mark.children.filter(item => item.value === methods.watch('submodels')).map((item, i) => item.children.map((item, i) => item)))
         }
     }, [methods.watch('submodels')])
-
 
     useEffect(() => {
         if (model != undefined) {
@@ -67,25 +64,12 @@ export default function Auto({ data }) {
         }
     }, [methods.watch('generation')])
 
-
-
     useEffect(() => {
         if (generation != undefined) {
-            console.log('11111111111')
             let arr = []
             let mod = (generation[0].map((item, i) => item.children.map((item, i) => item)));
             arr = ((mod[0].filter((item, i) => item.value === methods.watch('modification'))).map((item, i) => item))
-            let objs = {}
-            for (let i = 0; i < arr.length; i++) {
-                // objs = { ...arr[i].children.map((item, i) => item), ...arr[i + 1].children.map((item, i) => item) }           
-                // setModification({...arr[i].children.map((item, i) => item)})
-            }
-            console.log(objs)
-
-            console.log('======>', setModification(arr.map((item, i) => item.children)))
-            // setModification()
-            // console.log(generation[0].map((item, i) => item.children.map((item, i) => item)))
-            // console.log(methods.watch('generation'))
+            setModification(arr.map((item, i) => item.children))
         }
     }, [methods.watch('modification')])
 
@@ -101,16 +85,17 @@ export default function Auto({ data }) {
 
     if (modification != undefined) {
         console.log('+++++++++++++++++++++++++++++++')
-
         let newObjMain = []
         for (let i = 0; i < modification.length; i++) {
-            newObjMain.push({ alias: modification.map((item, i) => item[0].value) })
+            newObjMain.push(
+                (modification[i].map((item, i) => item.value))[11]
+            )
         }
 
-        console.log(newObjMain)
-        console.log(modification[0].length)
-        console.log(modification.map((item, i) => (item[0].value)))
+        console.log('======>', newObjMain)
+        modification[0][11].value = newObjMain
 
+        console.log(modification)
     }
 
 
