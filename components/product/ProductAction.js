@@ -38,7 +38,7 @@ export default function ProductAction(data) {
 
 
         {!matchesMobile && !matchesTablet && (
-          data.user_id === undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
+          data.user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
             <>
               <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
                 {(objP.adstatus !== 7) && (data.user_id === id) ? (
@@ -94,7 +94,8 @@ export default function ProductAction(data) {
         }
         {!matchesMobile && !matchesTablet && (
           data.user_id == undefined ?
-            <div className="placeholder_animation product__placeholder_ProductAction_two "></div> :
+            <div className='product__placeholder_ProductAction_main'><div className="placeholder_animation product__placeholder_ProductAction_two "></div>
+            <div className="placeholder_animation product__placeholder_ProductAction_two_tow "></div> </div> :
             <>
               {data.user_id !== id && <div className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")} >Купить</div>}
               {objP.adstatus !== 7 && (
@@ -142,7 +143,7 @@ export default function ProductAction(data) {
 
               )}
 
-              {data.user_id === undefined ?
+              {data.user_id == undefined ?
                 <div className="placeholder_animation product__placeholder_ProductAction_three "></div>
                 : ''
               }

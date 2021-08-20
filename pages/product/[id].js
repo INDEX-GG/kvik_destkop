@@ -21,7 +21,7 @@ import BreadCrumbs from "../../components/header/BreadСrumbs";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
-
+import Loader from "../../UI/icons/Loader";
 const objP = {
   id: 1,
   title: "Продам 2-комню квартиру, 95м в центре",
@@ -103,13 +103,14 @@ const Product = () => {
       <FavProvider>
         <OfferAccountProvider>
           <div className="productPage" id="productPage">
+          {title == undefined ? <div className='product__placeholder_loader'><div><Loader/></div></div> :''}
             <div className="productPageContainer text">
               {!matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
 
               {/* Блок объявления */}
               <div className="product__wrapper">
                 <div className="productPageWrapper">
-                  <div className="product__main_block">
+                  <div className={title == undefined? 'placeholder_product__main_block product__main_block': 'product__main_block'}>
                     <div className="productPageDescription">
                       {!matchesMobile && !matchesTablet &&
                         <>

@@ -43,9 +43,11 @@ export default function Auto({ data }) {
 
 
     useEffect(() => {
-        axios.get(`/auto_brand/` + (methods.watch('modelsAuto')) + `.json`)
-            .then((result) => setMark(result.data))
-            .catch((e) => console.log(e))
+        if (methods.watch('modelsAuto') != undefined) {
+            axios.get(`/auto_brand/` + (methods.watch('modelsAuto')) + `.json`)
+                .then((result) => setMark(result.data))
+                .catch((e) => console.log(e))
+        }
     }, [methods.watch('modelsAuto')])
 
 
@@ -81,7 +83,7 @@ export default function Auto({ data }) {
     //         console.log(methods.watch('modification'))
     //     }
     // }, [methods.watch('modification')])
-    console.log(modification&& (modification[0].filter((item, i) => item.value === methods.watch('modification'))))
+    console.log(modification && (modification[0].filter((item, i) => item.value === methods.watch('modification'))))
 
 
 
@@ -138,7 +140,7 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                            {mark.children.map((item, i) => (
+                                                            {(mark.children.sort((a, b) => a.value > b.value ? 1 : -1)).map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}
                                                                 </MenuItem>
@@ -154,6 +156,7 @@ export default function Auto({ data }) {
                                         <Box className={classes.formInputMainField}>
                                             <Typography className={classes.formTitleField}>Поколение</Typography>
                                             <Box className={classes.formInputField}>
+                                            {console.log(model.map((item, i) => (item.sort((a, b) => a.value > b.value ? 1 : -1)).map((item, i) => item.value)))}
                                                 <Controller
                                                     name={"generation"}
                                                     control={methods.control}
@@ -173,12 +176,13 @@ export default function Auto({ data }) {
                                                             )))}
                                                         </TextField>
                                                     )}
+                                                    
                                                     rules={{ required: 'Выбирите ' }}
                                                 />
                                             </Box>
                                         </Box>
                                     }
-                                    
+
                                     {generation &&
                                         <Box className={classes.formInputMainField}>
                                             <Typography className={classes.formTitleField}>Модификация</Typography>

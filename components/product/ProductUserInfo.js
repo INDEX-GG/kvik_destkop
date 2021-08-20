@@ -31,11 +31,14 @@ export default function ProductUserInfo(data) {
     <>
       <div className="ad__block_bottom">
         <div className="SellerInfoUserBlock">
+        {data.user_id == undefined ?<div className='placeholder_animation product__placeholder_SellerInfoUserPic'></div>:
           <Avatar alt="User" src={data.userPhoto} className="SellerInfoUserPic" onClick={() => {
             router.push(`/user/${data.user_id}`)
           }} />
-
-          {data.user_id === undefined ? <div className="placeholder_animation product__placeholder_userinfo"></div> :
+          
+          
+}
+          {data.user_id == undefined ? <div className="placeholder_animation product__placeholder_userinfo"></div> :
             <>
               <div>
                 <div className='productUserName' onClick={() => {
@@ -103,7 +106,7 @@ export default function ProductUserInfo(data) {
         {
           objP.adstatus === 7 || data.user_id != id ? (
             !matchesMobile && !matchesTablet ? (
-              data.user_id === undefined ?
+              data.user_id == undefined ?
                 <>
                   <div className="SellerInfoOffers">
                     <div className='placeholder_animation product__placeholder_useroffer'>
@@ -126,6 +129,7 @@ export default function ProductUserInfo(data) {
                   {collapsed &&
                     (userSmallAd = data.userAd?.filter((item) => item.id != router.query.id)) &&
                     userSmallAd.slice(0, 3).map((userAd) => {
+                      
                       return (
                         <Link key={userAd.id} href={`/product/${userAd.id}`}>
                           <div className="SellerInfoOfferCard small">
