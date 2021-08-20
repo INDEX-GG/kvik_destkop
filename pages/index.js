@@ -3,13 +3,13 @@ import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
 import axios from "axios";
 import { PrismaClient } from '@prisma/client';
-import { Box, Container, makeStyles, Typography, } from "@material-ui/core";
+import { Box, Container, makeStyles } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
 import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
 import MetaLayout from "../layout/MetaLayout";
 import PlaceOfferButton from "../components/PlaceOfferButton";
-
+import { BASE_URL } from "../lib/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,13 +42,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Index = ({ offers }) => {
 
-  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+  const { matchesMobile, matchesTablet } = useMedia();
   const [data, setData] = useState(offers);
 
   const classes = useStyles();
 
   useEffect(() => {
-    axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
+    axios.post(`${BASE_URL}/api/getPosts`, { of: 0 }).then((res) => setData(res.data.result));
   }, []);
 
   return (
