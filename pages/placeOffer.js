@@ -18,6 +18,8 @@ import PlaceOfferMobile from '../components/placeOffer/placeOfferMobile';
 import Promotion from '../components/placeOffer/Promotion';
 import { useCategoryPlaceOffer } from '../hooks/useCategoryPlaceOffer';
 import AdditionalInformation from '../components/placeOffer/AdditionalInformation';
+import axios from 'axios';
+import { BASE_URL, STATIC_URL } from '../lib/constants';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,9 +57,9 @@ const useStyles = makeStyles((theme) => ({
 function PlaceOffer() {
     const { id } = useAuth();
     const classes = useStyles();
-    const loading = false;
-    const promotion = false;
-    const product = {};
+    const [loading, setLoading] = useState(false);
+    const [promotion, setPromotion] = useState(false);
+    const [product, setProduct] = useState({});
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
     let photoes = [];
@@ -118,24 +120,24 @@ function PlaceOffer() {
             photoData.append('files[]', photoes[0]);
         }
         console.log(data, alias)
-        // setLoading(true);
+        setLoading(true);
 
-        // axios.post('/api/setPosts', sendData, {
-        //     headers: {
-        //         "Content-Type": "multipart/form-data"
-        //     }
-        // }).then(r => {
-        //     axios.post(`http://192.168.8.111:6001/post/${r?.data?.id}`, photoData, {
-        //         headers: {
-        //             "Content-Type": "multipart/form-data"
-        //         }
-        //     }).then(() => {
-        //         console.log(r?.data?.id, photoData)
-        //         setProduct({ title: data.title, price: data.price, id: r?.data?.id, photo: photoes[0].name })
-        //         console.log(product)
-        //         setPromotion(true)
-        //     })
-        // })
+        axios.post(`${BASE_URL}/api/setPosts`, sendData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(r => {
+            axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then(() => {
+                console.log(r?.data?.id, photoData)
+                setProduct({ title: data.title, price: data.price, id: r?.data?.id, photo: photoes[0].name })
+                console.log(product)
+                setPromotion(true)
+            })
+        })
     }
 
     return (
