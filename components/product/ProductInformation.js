@@ -18,7 +18,7 @@ export default function ProductInformation(data) {
         <>
             <div className="productPageCharacterMapBlock" style={collMap ? { paddingBottom: 0 } : { paddingBottom: '18px' }} >
 
-                {data.address === undefined ? <div className="placeholder_animation product__placeholder_address"></div> :
+                {data.address == undefined ? <div className="placeholder_animation product__placeholder_address"></div> :
                     <div className="productPageCharacterLocality">
                         {!matchesMobile && !matchesTablet && <div>Местоположение</div>}
                         <div>{data.address == undefined ? '' : data.address.length > 45 ? data.address.slice(0, 45) + '...' : data.address}</div>
@@ -30,7 +30,7 @@ export default function ProductInformation(data) {
                 </div>
             </div>
             <div className="productPageCharacter thin">
-                {data.address === undefined ? <div className="placeholder_animation product__placeholder_description"></div> :
+                {data.address == undefined ? <div className="placeholder_animation product__placeholder_description"></div> :
                 <>
                 {/* <div>
                     <div>Свойство</div>

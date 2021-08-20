@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography, MenuItem } from '@material-ui/core';
 import axios from 'axios';
+import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,10 +43,13 @@ export default function Auto({ data }) {
 
 
 
+
     useEffect(() => {
-        axios.get(`/auto_brand/` + (methods.watch('modelsAuto')) + `.json`)
-            .then((result) => setMark(result.data))
-            .catch((e) => console.log(e))
+        if (methods.watch('modelsAuto') != undefined) {
+            axios.get(`/auto_brand/` + (methods.watch('modelsAuto')) + `.json`)
+                .then((result) => setMark(result.data))
+                .catch((e) => console.log(e))
+        }
     }, [methods.watch('modelsAuto')])
 
 
@@ -64,14 +68,26 @@ export default function Auto({ data }) {
     }, [methods.watch('generation')])
 
 
+
     useEffect(() => {
         if (generation != undefined) {
             console.log('11111111111')
-            setModification(generation[0].map((item, i) => item.children.map((item, i) => item)))
-            console.log(methods.watch('generation'))
+            let arr = []
+            let mod = (generation[0].map((item, i) => item.children.map((item, i) => item)));
+            arr = ((mod[0].filter((item, i) => item.value === methods.watch('modification'))).map((item, i) => item))
+            let objs = {}
+            for (let i = 0; i < arr.length; i++) {
+                // objs = { ...arr[i].children.map((item, i) => item), ...arr[i + 1].children.map((item, i) => item) }           
+                // setModification({...arr[i].children.map((item, i) => item)})
+            }
+            console.log(objs)
+
+            console.log('======>', setModification(arr.map((item, i) => item.children)))
+            // setModification()
+            // console.log(generation[0].map((item, i) => item.children.map((item, i) => item)))
+            // console.log(methods.watch('generation'))
         }
     }, [methods.watch('modification')])
-
 
     // useEffect(() => {
     //     console.log('2222222222222')
@@ -81,7 +97,21 @@ export default function Auto({ data }) {
     //         console.log(methods.watch('modification'))
     //     }
     // }, [methods.watch('modification')])
-    console.log(modification&& (modification[0].filter((item, i) => item.value === methods.watch('modification'))))
+    // console.log(modification && (modification[0].filter((item, i) => item.value === methods.watch('modification'))))
+
+    if (modification != undefined) {
+        console.log('+++++++++++++++++++++++++++++++')
+
+        let newObjMain = []
+        for (let i = 0; i < modification.length; i++) {
+            newObjMain.push({ alias: modification.map((item, i) => item[0].value) })
+        }
+
+        console.log(newObjMain)
+        console.log(modification[0].length)
+        console.log(modification.map((item, i) => (item[0].value)))
+
+    }
 
 
 
@@ -138,7 +168,7 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                            {mark.children.map((item, i) => (
+                                                            {(mark.children.sort((a, b) => a.value > b.value ? 1 : -1)).map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}
                                                                 </MenuItem>
@@ -154,6 +184,7 @@ export default function Auto({ data }) {
                                         <Box className={classes.formInputMainField}>
                                             <Typography className={classes.formTitleField}>Поколение</Typography>
                                             <Box className={classes.formInputField}>
+                                                {console.log(model.map((item, i) => (item.sort((a, b) => a.value > b.value ? 1 : -1)).map((item, i) => item.value)))}
                                                 <Controller
                                                     name={"generation"}
                                                     control={methods.control}
@@ -173,12 +204,13 @@ export default function Auto({ data }) {
                                                             )))}
                                                         </TextField>
                                                     )}
+
                                                     rules={{ required: 'Выбирите ' }}
                                                 />
                                             </Box>
                                         </Box>
                                     }
-                                    
+
                                     {generation &&
                                         <Box className={classes.formInputMainField}>
                                             <Typography className={classes.formTitleField}>Модификация</Typography>
@@ -207,14 +239,13 @@ export default function Auto({ data }) {
                                             </Box>
                                         </Box>
                                     }
-                                    {modification &&
+                                    {/*  {modification &&
                                         (modification[0].filter((item, i) => item.value === methods.watch('modification'))).map((item, i) => (
 
-                                            console.log(item),
+
                                             item.children.map((item, i) =>
+                                                // eslint-disable-next-line react/jsx-key
                                                 <Box className={classes.formInputMainField}>
-
-
                                                     <Typography className={classes.formTitleField}>{item.alias}</Typography>
                                                     <Box className={classes.formInputField}>
                                                         <Controller
@@ -239,15 +270,10 @@ export default function Auto({ data }) {
                                                             rules={{ required: 'Выбирите ' }}
                                                         />
                                                     </Box>
-
-
-
-
-
                                                 </Box>
                                             )
                                         ))
-                                    }
+                                    } */}
 
                                 </>
                             )

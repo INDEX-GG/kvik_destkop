@@ -7,7 +7,6 @@ import { Avatar } from "@material-ui/core";
 import { useAuth } from "../../lib/Context/AuthCTX";
 export default function ProductUserInfo(data) {
 
-
 	const router = useRouter();
 	const { id } = useAuth();
 
@@ -162,6 +161,7 @@ export default function ProductUserInfo(data) {
 						<a className="SellerInfoUserOffersCollapse highlight underline" target="_blank" onClick={() => router.push({
 							pathname: `/user/${data.user_id}`
 						})}
+
               /* onClick={(e) => { handleCollapse(e)}} */>
 
 							{(`Все объявления продавца (${userSmallAd == undefined ? "0" : data.userAd.length})`) || `Скрыть`}
