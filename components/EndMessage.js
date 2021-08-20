@@ -1,7 +1,7 @@
 import Active_icon from "../UI/icons/ActiveIcon"
 import { makeStyles } from "@material-ui/core"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     messageContainer: {
         textAlign: "center",
         marginTop: "16px"

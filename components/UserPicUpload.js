@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { typeChange } from '../lib/services';
 import axios from 'axios';
 import { useAuth } from '../lib/Context/AuthCTX';
 import { useMutate } from '../lib/Context/MutateCTX';
+import { STATIC_URL } from '../lib/constants';
 
 function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, Close }) {
 const {id} = useAuth();
@@ -33,7 +34,7 @@ const saveEditedPic = () => {
 	const sendData = new FormData;
 	sendData.append('files[]', img);
 
-	axios.post(`http://192.168.8.111:6001/avatar/${id}`, sendData, {
+	axios.post(`${STATIC_URL}/avatar/${id}`, sendData, {
 	headers: {
 		"Content-Type": "multipart/form-data"
 		}

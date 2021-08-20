@@ -5,7 +5,7 @@ import PopularIcon from './PopularIcon';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from "next/router"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	slider: {
 		width: '100%',
 	},

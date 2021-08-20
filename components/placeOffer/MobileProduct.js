@@ -1,15 +1,14 @@
 import React from "react"
-import { Box, makeStyles, InputBase, TextField } from "@material-ui/core"
+import { Box, makeStyles, TextField } from "@material-ui/core"
 import { Controller, useFormContext } from "react-hook-form"
 import MobilePhotoes from "./MobilePhotoes";
 import { useMedia } from "../../hooks/useMedia";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     plaseOfferInput: {
         boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
         width: "100%",
         height: "48px",
-        border: "0",
         paddingLeft: "11px",
         paddingTop: "9px",
         marginBottom: "32px",
@@ -37,10 +36,6 @@ export default function MobileProduct({ctx}) {
     const classes = useStyles();
     const methods = useFormContext();
     const {matchesMobile} = useMedia()
-    let photoes = [];
-    const photoesCtx = (obj) => {
-        return photoes = obj;
-    }
 
     return (
         <Box>

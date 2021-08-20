@@ -3,7 +3,7 @@ import { Button, Dialog } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core"
 import { useRouter } from "next/router"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     buttonSend: {
         position: "absolut",
         left: "50%",

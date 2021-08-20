@@ -5,7 +5,7 @@ import ScrollTop from '../UI/ScrollTop';
 import FavProvider from "../lib/Context/FavoritesCTX";
 import EndMessage from './EndMessage';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	top: {
 		marginBottom: '15px',
 		display: 'flex',

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Box, Link, Button, makeStyles } from "@material-ui/core";
-// import NavObj from '../json/navobj.json';
+import { Box, Link, makeStyles } from "@material-ui/core";
 import { useCategory } from "../../hooks/useCategory";
 import { useRouter } from "next/router";
 
@@ -84,11 +83,11 @@ function Categories() {
   const [category2, setCategory2] = useState(undefined);
   const [category3, setCategory3] = useState(undefined);
   const [category4, setCategory4] = useState(undefined);
+  console.log(category4);
   const [valueOne, setValueOne] = useState(undefined);
   const [valueTwo, setValueTwo] = useState(undefined);
   const [valueThree, setValueThree] = useState(undefined);
   const [valueFour, setValueFour] = useState(undefined);
-
   const { categoryMainAlias, categoriesByAlias } = useCategory();
   const router = useRouter();
   function setCategoryColor(index) {
@@ -161,7 +160,7 @@ function Categories() {
                       setCategoryColor(e);
                       setCategory3(categoriesByAlias(valueOne, valueTwo, e.target.getAttribute("value")));
                     }}
-                    onClick={(e) => router.push(`/search/${valueThree}`)}
+                    onClick={() => router.push(`/search/${valueThree}`)}
                     className={classes.categories__menu_item_btn}
                   >
                     {item.label[0].toUpperCase() + item.label.substring(1)}
@@ -185,7 +184,7 @@ function Categories() {
                       setCategoryColor(e);
                       setCategory4(categoriesByAlias(valueOne, valueTwo, valueThree, e.target.getAttribute("value")));
                     }}
-                    onClick={(e) => router.push(`/search/${valueFour}`)}
+                    onClick={() => router.push(`/search/${valueFour}`)}
                     className={classes.categories__menu_item_btn}
                   >
                     {item.label[0].toUpperCase() + item.label.substring(1)}

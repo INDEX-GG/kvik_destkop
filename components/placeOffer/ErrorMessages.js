@@ -3,7 +3,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { isObjectEmpty } from '../../lib/services';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     fg: {
         flexGrow: 1,
 		display: 'flex',

@@ -280,19 +280,19 @@ const MobilePhotoes = ({ctx}) => {
        return true;
    };
 
-   const fileSize = (size) => {
-       if (size === 0) {
-           return '0 Bytes';
-       }
-       const k = 1024;
-       const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-       const i = Math.floor(Math.log(size) / Math.log(k));
-       return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-   };
+//    const fileSize = (size) => {
+//        if (size === 0) {
+//            return '0 Bytes';
+//        }
+//        const k = 1024;
+//        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+//        const i = Math.floor(Math.log(size) / Math.log(k));
+//        return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+//    };
 
-   const fileType = (fileName) => {
-       return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
-   };
+//    const fileType = (fileName) => {
+//        return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
+//    };
 
    const removeFile = (name) => {
        const index = validFiles.findIndex(e => e.name === name);
@@ -348,7 +348,6 @@ const MobilePhotoes = ({ctx}) => {
 
 ctx(validFiles);
 console.log(ctx(validFiles))
-let size = 0;
 
    return (
       <>

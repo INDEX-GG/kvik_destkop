@@ -95,7 +95,7 @@ const Login = () => {
 								name="phone"
 								control={control}
 								defaultValue=''
-								render={({ field: { onChange, value }, fieldState: { error } }) => (
+								render={({ field: { onChange }, fieldState: { error } }) => (
 									<TextField label='Номер телефона'
 										variant='outlined' size='small'
 										type="tel"

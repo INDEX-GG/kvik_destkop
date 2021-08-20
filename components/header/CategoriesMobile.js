@@ -80,23 +80,6 @@ const useStyles = makeStyles((theme) => ({
 function Categories() {
     const classes = useStyles();
     const [category, setCategory] = useState(undefined);
-    const [category2, setCategory2] = useState(undefined);
-
-    function setCategoryColor(index) {
-        for (var i = 0; i < index.target.parentElement.children.length; i++) {
-            index.target.parentElement.children[i].style.background = '';
-        }
-        index.target.style.background = '#E9E9E9';
-    }
-
-
-
-    function setCat(index, e) {
-
-        console.log(index)
-
-    }
-    console.log(category)
 
     return (
         <>
@@ -105,7 +88,7 @@ function Categories() {
                     return (
                         <>
                             <ul >
-                                <Link href="#" value={index} onClick={(e, index) => { setCategory(NavObj[key]); setCategory2(undefined); setCat(e, index) }} className={classes.categories__menu_item_btn}>  {NavObj[key].name}</Link>
+                                <Link href="#" value={index} onClick={() => { setCategory(NavObj[key])}} className={classes.categories__menu_item_btn}>  {NavObj[key].name}</Link>
 
                                 {typeof category !== 'undefined' ?
                                     <li value={index}>

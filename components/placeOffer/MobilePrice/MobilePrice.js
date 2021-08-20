@@ -1,11 +1,11 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, InputBase, Checkbox, FormControlLabel, makeStyles, TextField } from "@material-ui/core"
+import { Box, Checkbox, FormControlLabel, makeStyles, TextField } from "@material-ui/core"
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import MobileSafeDeal from './MobileSafeDeal';
 import MobileDelivery from './MobileDelivery';
 import { cursorReplace, priceFormat } from '../../../lib/priceFormat';
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     plaseOfferBox: {
         width: "100%",
         padding: "0 12px",

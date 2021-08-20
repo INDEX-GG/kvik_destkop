@@ -17,7 +17,7 @@ export default function ProductAction(data) {
   const [phoneModuleState, setPhoneModuleState] = useState(false);
   const handleStatFormDialog = () => setOpenStatForm(!openStatForm);
 
-  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+  const { matchesMobile, matchesTablet } = useMedia();
 
   const objP = { adstatus: 8 };
   const [offerId, setOfferId] = useState();
@@ -26,7 +26,7 @@ export default function ProductAction(data) {
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 
   /* Модальное окно */
-  function pushCheck(e) {
+  function pushCheck() {
     setOfferId(+data.router.query.id);
     setOpenUnpublishForm(!openUnpublishForm);
     handleUnpublishFormDialog();

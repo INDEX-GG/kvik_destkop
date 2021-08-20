@@ -71,14 +71,16 @@ function AdCard_component({ offer }) {
 									.parse(offer.photo)?.photos
 									?.slice(0, 5))
 									?.map((img, i) => {
-										<SwiperSlide key={i}>
-											<img 
-												src={`${STATIC_URL}/${img}`} 
-												onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
-											/>
-										</SwiperSlide>
+										return (
+											<SwiperSlide key={i}>
+												<img
+													src={`${STATIC_URL}/${img}`}
+													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+												/>
+											</SwiperSlide>
+										)
 									}
-								)}
+									)}
 							</Swiper>
 						</div>
 					</Link>

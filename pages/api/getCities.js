@@ -1,35 +1,27 @@
 import { PrismaClient } from '@prisma/client';
 export default function handler(req, res) {
 
-    if (req.method === 'POST') {
-        const prisma = new PrismaClient();
-        async function main() {
-            async function getCities() {
-                const results = await prisma.cities.findMany({
-                    skip: req.body.of,
-                    select: {
-                        id: true,
-                        name: true,
-                        parent_id: true,
-                    }
-                })
-                return results;
-            }
+	if (req.method === 'POST') {
+		const prisma = new PrismaClient();
 
-            const results = await getCities();
-            res.json({ result: results });
+		const main = async () => {
+			return await prisma.cities.findMany({
+				skip: req.body.of,
+				select: {
+					id: true,
+					name: true,
+					parent_id: true,
+				}
+			})
+		}
 
-        }
-        main()
-            .catch((e) => {
-                console.log("error: " + e);
-                throw e
-            })
-            .finally(async () => {
-                await prisma.$disconnect()
-            })
-    }
-    else {
-        res.status(405).json({ message: 'method not allowed' })
-    }
+		main()
+			.then(r => res.json({ result: r }))
+			.catch(e => console.error(`ошибка api gerCities${e}`))
+			.finally(async () => {
+				await prisma.$disconnect()
+			})
+	} else {
+		res.status(405).json({ message: 'method not allowed' })
+	}
 }

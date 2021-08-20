@@ -1,13 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, Button, Checkbox, Collapse, FormControlLabel, makeStyles, Typography } from '@material-ui/core';
+import { Box, Checkbox, Collapse, FormControlLabel, makeStyles, Typography } from '@material-ui/core';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import {useState} from 'react';
-import Defense from '../../../UI/icons/Defense';
-import Chevron from '@material-ui/icons/KeyboardArrowDownRounded';
-import theme from '../../../UI/theme';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     plaseOfferBox: {
         width: "100%",
         height: "48px",
