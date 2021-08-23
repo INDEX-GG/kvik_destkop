@@ -4,15 +4,14 @@ import Search from "./Search";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import MobileFilter from "../../UI/icons/MobileFilter";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import { useUser } from "../../hooks/useUser";
 import { useRouter } from "next/router";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMedia } from "../../hooks/useMedia"
 import Login from "../auth/Login";
 import BurgerCategories from "./BurgerCategories";
 import HeaderAccount from "./HeaderAccount";
-import { useMutate } from "../../lib/Context/MutateCTX";
+import { useStore } from "../../lib/Context/Store";
 
 const useStyles = makeStyles(() => ({
 	container: {
@@ -60,19 +59,12 @@ const useStyles = makeStyles(() => ({
 
 function HeaderMobile({ chageMenu = false }) {
 	const { isAuth } = useAuth()
-	const { userPhoto, name } = useUser()
+	const {userInfo} = useStore();
 	const classes = useStyles();
 	const [openRegForm, setOpenRegForm] = useState(false);
 	const [openLoginForm, setOpenLoginForm] = useState(false);
 	const Router = useRouter()
 	const { matchesMobile, matchesCustom1024 } = useMedia()
-	const { mutateAvatar } = useMutate()
-	const [avatar, setAvatar] = useState()
-
-	useEffect(() => {
-		setAvatar(`${userPhoto}?${Date.now()}`)
-		console.log(avatar)
-	}, [userPhoto, mutateAvatar])
 
 	return (
 		<>
@@ -81,8 +73,8 @@ function HeaderMobile({ chageMenu = false }) {
 					<div className={classes.info}>
 						<BurgerCategories className={classes.categories} />
 						<Logo className={classes.logo} />
-						{isAuth ?
-							<HeaderAccount name={name} userPhoto={userPhoto} /> :
+						{(isAuth && userInfo !==undefined) ?
+							<HeaderAccount name={userInfo.name} userPhoto={userInfo.userPhoto} /> :
 							<Avatar onClick={() => setOpenLoginForm(!openLoginForm)} className={classes.avatar} />}
 					</div>
 					<div className={classes.block2}>

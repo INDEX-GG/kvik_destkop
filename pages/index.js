@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
-import axios from "axios";
 import { PrismaClient } from '@prisma/client';
 import { Box, Container, makeStyles } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
@@ -9,7 +8,7 @@ import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
 import MetaLayout from "../layout/MetaLayout";
 import PlaceOfferButton from "../components/PlaceOfferButton";
-import { BASE_URL } from "../lib/constants";
+import { getDataByPost } from "../lib/fetch";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +47,7 @@ const Index = ({ offers }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    axios.post(`${BASE_URL}/api/getPosts`, { of: 0 }).then((res) => setData(res.data.result));
+	getDataByPost('/api/getPosts', {of: 0}).then(r => setData(r))
   }, []);
 
   return (
@@ -71,51 +70,43 @@ const Index = ({ offers }) => {
 }
 
 export async function getStaticProps() {
-  const prisma = new PrismaClient();
-  async function main(of) {
-    //Этот запрос нужно будет связать с таблицей
-    async function getPost() {
-      const results = await prisma.posts.findMany({
-        skip: of,
-        take: 10,
-        select: {
-          id: true,
-          category_id: true,
-          price: true,
-          old_price: true,
-          photo: true,
-          rating: true,
-          created_at: true,
-          delivery: true,
-          reviewed: true,
-          address: true,
-          phone: true,
-          trade: true,
-          verify_moderator: true,
-          commercial: true,
-          secure_transaction: true,
-          title: true,
-          email: true,
-        },
-      });
-      return results;
-    }
-    const results = await getPost();
+	const prisma = new PrismaClient();
 
-    return results;
-  }
+	const main = async (of) => {
+		return await prisma.posts.findMany({
+			skip: of,
+			take: 50,
+			select: {
+				id: true,
+				user_id: true,
+				category_id: true,
+				price: true,
+				old_price: true,
+				photo: true,
+				rating: true,
+				created_at: true,
+				delivery: true,
+				reviewed: true,
+				address: true,
+				phone: true,
+				trade: true,
+				verify_moderator: true,
+				commercial: true,
+				secure_transaction: true,
+				title: true,
+				email: true
+			}
+		})
+	}
 
-  let res = await main(0)
-    .catch((e) => {
-      console.log("error: " + e);
-      throw e;
-    })
-    .finally(async () => {
-      await prisma.$disconnect();
-    });
+	const res = await main(0)
+		.catch(e => console.error(`ошибка SSR главной страницы${e}`))
+		.finally(async () => {
+			await prisma.$disconnect()
+		})
 
   const offers = JSON.parse(JSON.stringify(res));
-  return { props: { offers } };
+  return { props: { offers }};
 }
 
 export default Index;
