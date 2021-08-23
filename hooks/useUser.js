@@ -11,8 +11,11 @@ export function useUser() {
 	const getUser = async() => {
 		const data = await getDataByPost('/api/getUser', {id: id})
 		.catch(e => console.error(e));
+
+	data = {...data, userPhoto: `${STATIC_URL}/${data.userPhoto}`};
+
 		setUserInfo(data);
-		setLoading(false);
+		setLoading(false); 
 	}
 	if (id !== undefined) {
 		getUser();
