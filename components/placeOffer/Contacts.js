@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, Checkbox, FormControlLabel, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
-import { useUser } from '../../hooks/useUser';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import { phoneNumber } from '../../lib/services';
 import Loader from '../../UI/icons/Loader';
+import { useStore } from '../../lib/Context/Store';
 
 const useStyles = makeStyles((theme) => ({
    formElem: {
@@ -44,36 +44,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Contacts = () => {
-    const {phone, isLoading} = useUser(); 
+	const {userInfo} = useStore();
 	const [phones, setPhones] = useState([]);
-	const [defaultVal, setDefaultVal] = useState({});
     const classes = useStyles();
     const methods = useFormContext();
 
 useEffect(() => {
-    setPhones([{value: phone, label: phoneNumber(phone)}]);
-}, [phone, isLoading])
-
-useEffect(() => {
-	if (phones.length > 0) {
-		setDefaultVal(phones[0].value);
+	if (userInfo !== undefined) {
+		setPhones([{value: userInfo.phone, label: phoneNumber(userInfo.phone)}]);
 	}
-}, [phones])
-
-useEffect(() => {
-	if (defaultVal) {
-		methods.setValue('contact', defaultVal)
-	}
-}, [defaultVal])
+}, [userInfo])
 
    return (
       <Box className={classes.formElem}>
          <Typography className={classes.formTitleField}>Контакты</Typography>
          <Box className={classes.formInputField}>
-		 {!defaultVal && <Loader size={32}/>}
-         {defaultVal && <Controller
+		 {userInfo === undefined && <Loader size={32}/>}
+         {userInfo !== undefined && <Controller
                 name="contact"
-				// defaultValue={defaultVal}
+				defaultValue={userInfo.phone}
                 control={methods.control}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <TextField

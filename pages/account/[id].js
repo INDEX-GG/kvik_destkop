@@ -12,27 +12,15 @@ import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
 import { initials, stringToColor, ToRusAccountDate } from "../../lib/services";
 import { ModalRating, ModalSubscription } from "../../components/Modals";
-import { useUser } from "../../hooks/useUser";
 import { Avatar, Button, Dialog, DialogTitle } from "@material-ui/core";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
 import { useMedia } from "../../hooks/useMedia";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import { useMutate } from "../../lib/Context/MutateCTX";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import Link from "next/link";
-
-const userInfo = {
-	userId: 1,
-	userPic: "",
-	userName: "Имя пользователя",
-	userDateReg: "21.56.7676",
-	userRate: 3.2,
-	userReviews: 0,
-	userSubscribers: 0,
-	userSubscriptions: 0,
-};
+import { useStore } from "../../lib/Context/Store";
 
 const menuItems = [
 	{ id: 1, name: "menuOffers", title: "Мои объявления" },
@@ -50,9 +38,7 @@ const menuItemsTitle = ["Мои объявления", "Сделки", "Коше
 
 function Account() {
 	const router = useRouter();
-	const { mutateAvatar } = useMutate();
-	const [avatar, setAvatar] = useState();
-	const { isLoading, name, userPhoto, createdAt, raiting, subscriptions } = useUser();
+	const { userInfo } = useStore();
 	const countRender = useRef(0)
 	const [content, setContent] = useState(0)
 	const [openPicUpload, setPicUpload] = useState(false);
@@ -94,10 +80,6 @@ function Account() {
 			axios.post("/api/getSubscribers", { user_id: "" + id }).then((res) => setSubscribersList(res.data))
 		}
 	})
-
-	useEffect(() => {
-		setAvatar(`${userPhoto}?${Date.now()}`)
-	}, [userPhoto, mutateAvatar]);
 
 	const logOut = () => {
 		axios.get("/api/logout").then(() => {
@@ -154,36 +136,38 @@ function Account() {
 					</Link>
 				</div>
 				<div className="clientPage__menu">
-					<div className="clientPage__userinfo">
-						<div className="clientPage__userpic">
-							{!isLoading && (
-								<Avatar src={avatar} style={{ backgroundColor: `${stringToColor(name)}` }}>
-									{initials(name)}
+					{userInfo !== undefined && (
+						<div className="clientPage__userinfo">
+							<div className="clientPage__userpic">
+
+								<Avatar src={userInfo.userPhoto} style={{ backgroundColor: `${stringToColor(userInfo.name)}` }}>
+									{initials(userInfo.name)}
 								</Avatar>
-							)}
-							<button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"></button>
+
+								<button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"></button>
+							</div>
+							<div className="clientPage__username">{userInfo.name}</div>
+							<div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(userInfo.createdAt)}</div>
+							<div className="clientPage__userrate">
+								<div className="clientPage__userrate__num">{userInfo.raiting}</div>
+								<StarRating {...{ rating: userInfo.raiting }} />
+							</div>
+							<div className="clientPage__userstats highlight small">
+								<a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews" >
+									{'0'}
+									<p>отзывов</p>
+								</a>
+								<a className="offerUnpublish thin superLight userInfoSubscribers">
+									{subscribersList?.message ? 0 : subscribersList.length}
+									<p>подписчиков</p>
+								</a>
+								<a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
+									{userInfo.subscriptions ? JSON.parse(userInfo.subscriptions)?.length : '0'}
+									<p>подписок</p>
+								</a>
+							</div>
 						</div>
-						<div className="clientPage__username">{name}</div>
-						<div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>
-						<div className="clientPage__userrate">
-							<div className="clientPage__userrate__num">{raiting}</div>
-							<StarRating {...{ rating: raiting }} />
-						</div>
-						<div className="clientPage__userstats highlight small">
-							<a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews" >
-								{userInfo.userReviews}
-								<p>отзывов</p>
-							</a>
-							<a className="offerUnpublish thin superLight userInfoSubscribers">
-								{subscribersList?.message ? 0 : subscribersList.length}
-								<p>подписчиков</p>
-							</a>
-							<a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
-								{subscriptions ? JSON.parse(subscriptions)?.length : '0'}
-								<p>подписок</p>
-							</a>
-						</div>
-					</div>
+					)}
 					<div className="userMenuContainer">
 						{matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null :
 							<>
