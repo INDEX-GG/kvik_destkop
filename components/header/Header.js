@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Router from "next/router";
-import { useUser } from "../../hooks/useUser";
 import { AppBar, Button, Container, Box, makeStyles } from "@material-ui/core";
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
@@ -14,9 +13,10 @@ import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
 import Login from "../auth/Login";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import { useMutate } from "../../lib/Context/MutateCTX";
 import { useRouter } from "next/router";
 import HeaderAccount from "./HeaderAccount";
+import { useStore } from "../../lib/Context/Store";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -75,15 +75,14 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({ category }) => {
   const { isAuth} = useAuth();
   const router = useRouter();
-  const { mutateAvatar } = useMutate();
-  const { isLoading, name, userPhoto } = useUser();
+  const {userInfo} = useStore();
   const classes = useStyles();
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-  const [avatar, setAvatar] = useState();
   const [openCat, setCategories] = useState();
   const [openRegForm, setOpenRegForm] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
   const [headerScroll, setHeaderScroll] = useState(classes.header);
+  
   const listenScroll = () => {
     if (scrollY > 0) {
       setHeaderScroll(classes.shadow);
@@ -96,14 +95,6 @@ const Header = ({ category }) => {
     document.addEventListener("scroll", listenScroll);
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
-
-  useEffect(() => {
-    setAvatar(`${userPhoto}?${Date.now()}`)
-    console.log(avatar)
-  }, [userPhoto, mutateAvatar]);
-
-
-  
 
   return (
     <>
@@ -124,8 +115,8 @@ const Header = ({ category }) => {
           {!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
             Войти
           </Button>
-            || isLoading && <Loader size={32} /> || !isLoading &&
-            <HeaderAccount userPhoto={userPhoto} name={name} />}
+            || (userInfo === undefined) && <Loader size={32} /> || (userInfo !== undefined) &&
+            <HeaderAccount userPhoto={userInfo.userPhoto} name={userInfo.name} />}
 
         </Container>
         {openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}

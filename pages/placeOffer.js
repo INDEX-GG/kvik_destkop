@@ -82,10 +82,6 @@ function PlaceOffer() {
         }
     }, [methods]);
 
-
-
-
-
     const onSubmit = data => {
         console.log(data)
         console.log(photoes, photoes.length)
@@ -97,7 +93,6 @@ function PlaceOffer() {
         if (data?.alias4) {
             alias.push(data.alias4);
         }
-
 
         const sendData = new FormData;
         const photoData = new FormData;
@@ -113,7 +108,6 @@ function PlaceOffer() {
         sendData.append('byphone', data.byphone);
         sendData.append('bymessage', data.bymessages);
         console.log(photoes)
-        console.log(photoes[0])
         if (photoes.length > 1) {
             photoes.forEach(photo => photoData.append('files[]', photo));
         } else if (photoes.length === 1) {

@@ -9,11 +9,9 @@ import theme from '../UI/theme';
 import fetch from '../lib/fetchJson';
 import AuthProvider from '../lib/Context/AuthCTX';
 import MainLayout from '../layout/MainLayout';
-import MutateProvider from '../lib/Context/MutateCTX';
 import {ErrorBoundary} from '../components/ErrorBoundary';
 import CityProvider from '../lib/Context/CityCTX';
-
-
+import StoreProvider from '../lib/Context/Store';
 
 function MyApp({ Component, pageProps }) {
 
@@ -39,12 +37,12 @@ function MyApp({ Component, pageProps }) {
 				<AuthProvider>
 					<ThemeProvider theme={theme}>
 						<CityProvider>
-							<MutateProvider>
+							<StoreProvider>
 								<MainLayout>
 									<CssBaseline/>
 									<Component {...pageProps} />
 								</MainLayout>
-							</MutateProvider>
+							</StoreProvider>
 						</CityProvider>
 					</ThemeProvider>
 				</AuthProvider>

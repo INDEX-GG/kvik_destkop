@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
 	const prisma = new PrismaClient();
 	if (req.method === 'POST') {
 
@@ -25,14 +25,20 @@ export default function handler(req, res) {
 			})
 		}
 
-		main()
-			.then(r => res.json(r ? { user: r } : { isset: false }))
-			.catch(e => console.error(`ошибка api getUser${e}`))
-			.finally(async () => {
-				await prisma.$disconnect()
-			})
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api getUser${e}`)
+			res.json('ошибка api getUser', e)
+			res.status(405).end();
+		}
 
 	} else {
-		return res.status(405).json({ message: 'method not allowed' })
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }
