@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
-	const prisma = new PrismaClient();
 	if (req.method === 'POST') {
+		const prisma = new PrismaClient();
 
 		const main = async () => {
 			// Передлать для определния того,что не правильно, логин или пароль 
