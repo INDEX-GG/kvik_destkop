@@ -105,7 +105,7 @@ const Product = () => {
           <div className="productPage" id="productPage">
           {title == undefined ? <div className='product__placeholder_loader'><div><Loader/></div></div> :''}
             <div className="productPageContainer text">
-              {!matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
+              {!matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} />}
 
               {/* Блок объявления */}
               <div className="product__wrapper">
@@ -280,7 +280,7 @@ const Product = () => {
 
                 <div className="productPageContent">
                   <div className="productPageCard">
-                    <OffersRender isProduct data={data} title={"Похожие объявления"} />
+                    <OffersRender isProduct data={data} title={"Похожие объявления"} endMessage={!collSO} />
                     <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
                       {(collSO && "Показать ещё") || "Скрыть"}
                     </div>

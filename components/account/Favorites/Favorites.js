@@ -8,6 +8,7 @@ import { useSubList } from '../../../hooks/useSubscriptions';
 import { useAuth } from '../../../lib/Context/AuthCTX';
 import FavProvider from '../../../lib/Context/FavoritesCTX';
 import { useRouter } from 'next/router';
+import safeAccountTab from '../../safeAccountTab';
 // Объявления
 // const OffersBox = [
 //    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00', username: 'Ну прямо очень весьма и весьма длинное имя', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Центральный административный округ, Москва' },
@@ -136,14 +137,20 @@ const Favorites = () => {
 
 
 	const [offetFav, setOfferFav] = useState()
-	const favAciveOffer = offetFav?.posts.filter((item) => item.condition === 'true')
+	let favAciveOffer = null;
 
 	useEffect(() => {
 		axios.post('/api/getFavorites', { user_id: id })
 			.then(data => setOfferFav(data.data))
 			.catch(error => console.log(error))
+
+		if (offetFav) {
+			favAciveOffer = offetFav?.posts.filter((item) => item.condition === 'true')
+		}
+	
 	}, [id])
 
+	console.log(offetFav);
 
 	useEffect(() => {
 		if (router) {
@@ -197,6 +204,7 @@ const Favorites = () => {
 							return (
 								<a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
 									setItemNav({ i: item.id, ttl: item.title })
+									safeAccountTab(item.id)
 								}}>{item.title} {brooklyn(item.count)}</a>
 							)
 						})}

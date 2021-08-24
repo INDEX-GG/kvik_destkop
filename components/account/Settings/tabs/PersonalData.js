@@ -2,15 +2,17 @@ import React, { useRef, useState } from "react";
 import Modal from "../../../Modal";
 import { phoneNumber } from "../../../../lib/services";
 import { modalDeletHistory, modalDeleteAccount } from "../../../Modals";
-import { useUser } from "../../../../hooks/useUser";
 import Active_icon from "../../../../UI/icons/ActiveIcon";
 import axios from "axios";
 import { useMedia } from "../../../../hooks/useMedia"
 import RightArrow from "../../../../UI/icons/RightArrow"
 import { Button, Dialog } from "@material-ui/core";
+import { useStore } from "../../../../lib/Context/Store";
+import { useAuth } from "../../../../lib/Context/AuthCTX";
 
 function PersonalData() {
-	const { isAuth, id, phone, username, email } = useUser();
+	const { isAuth, id} = useAuth();
+	const { userInfo } = useStore();
 
 	const [modal, setModal] = useState({});
 	function modalOlen(e, size, content, title) {
@@ -25,11 +27,11 @@ function PersonalData() {
 	let userSettings = {};
 	if (typeof isAuth !== "undefined") {
 		userSettings = {
-			phone: phoneNumber(phone),
+			phone: phoneNumber(userInfo?.phone),
 		};
 	} else {
 		userSettings = {
-			phone: phoneNumber(phone),
+			phone: phoneNumber(userInfo?.phone),
 		};
 	}
 
@@ -47,11 +49,11 @@ function PersonalData() {
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false)
 
-	username === undefined ? "" : test();
+	userInfo?.name === undefined ? "" : test();
 
 	function test() {
 		if (limit.current == 0) {
-			setValueName(username);
+			setValueName(userInfo?.name);
 			limit.current = 1;
 		}
 	}
@@ -74,12 +76,16 @@ function PersonalData() {
 		console.log(e.target.value.length)
 
 
+		console.log(passwordOne, '|',passwordTwo);
+
 		let length = false;
 		let number = false;
 		let registr = false;
 		let languageEu = false;
 		let lenguageRu = false;
 		// ! Проверка на длинну
+
+
 		if (e.target.value.length >= 8) {
 			length = true;
 		}
@@ -131,7 +137,7 @@ function PersonalData() {
 
 	function confirmPassword(e, field = null) {
 		if (field === "input1") {
-			if (e.target.value == passwordTwo) {
+			if (e.target.value == passwordTwo && passwordTwo.length > 0) {
 				setPasswordCoincidence("send");
 			} else {
 				if (passwordTwo.length > 0) {
@@ -219,14 +225,14 @@ function PersonalData() {
 					<div>
 						<div>E-mail</div>
 						<div>
-							<p>{email === null ? "E-mail не указан" : email}</p>
+							<p>{userInfo?.email === undefined ? "E-mail не указан" : userInfo?.email}</p>
 							<p className="error small">E-mail не подтвержден</p>
-							<p className="light small">Укажите E-mail для получения уведомлений, новостей, спец.предложений и для восстановления пароля.</p>
+							<p className="light small">Укажите E-mail для получения уведомлений, новостей, спец. предложений и для восстановления пароля.</p>
 						</div>
 						{matchesTablet || matchesMobile ? (
 							<>
 								<a><div className="changeMobile"><p className="error small">E-mail не подтвержден</p><RightArrow /></div></a>
-								<p className="light small">Укажите E-mail для получения уведомлений, новостей, спец.предложений и для восстановления пароля.</p>
+								<p className="light small">Укажите E-mail для получения уведомлений, новостей, спец. предложений и для восстановления пароля.</p>
 							</>
 						) : <a>Указать</a>}
 					</div>

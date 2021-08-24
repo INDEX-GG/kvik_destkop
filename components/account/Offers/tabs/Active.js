@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Checkbox, Button, makeStyles } from "@material-ui/core";
-import AddRounded from "@material-ui/icons/AddRounded";
-import Router from "next/router";
+import { Checkbox, makeStyles } from "@material-ui/core";
+// import AddRounded from "@material-ui/icons/AddRounded";
+// import Router from "next/router";
 import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import OfferActive from "../card/offerActive";
+import Placeholder from "./Placeholder";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -69,30 +70,7 @@ function Active(data) {
 
 	if (data.offers.length == 0) {
 		return (
-			<div className="clientPage__placeholder-container">
-				<div className="clientPage__placeholder-title">Сюда будут попадать все ваши объявления</div>
-				<div className="clientPage__placeholder-ads">
-					<div className="clientPage__placeholder-item">
-						<div className="clientPage__placeholder-item-1"></div>
-						<div className="clientPage__placeholder-item-2"></div>
-						<div className="clientPage__placeholder-item-3"></div>
-					</div>
-					<div className="clientPage__placeholder-item">
-						<div className="clientPage__placeholder-item-1"></div>
-						<div className="clientPage__placeholder-item-2"></div>
-						<div className="clientPage__placeholder-item-3"></div>
-					</div>
-					<div className="clientPage__placeholder-item">
-						<div className="clientPage__placeholder-item-1"></div>
-						<div className="clientPage__placeholder-item-2"></div>
-						<div className="clientPage__placeholder-item-3"></div>
-					</div>
-				</div>
-				<Button onClick={() => Router.push("/placeOffer")} className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" variant="contained" color="primary">
-					<AddRounded />
-					Подать объявление
-				</Button>
-			</div>
+			<Placeholder/>
 		);
 	}
 

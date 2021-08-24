@@ -5,7 +5,7 @@ function Active(data) {
   if (data.offers.length == 0) {
     return (
       <div className="clientPage__placeholder-container">
-        <div className="clientPage__placeholder-title">У этого пользователя нету объявлений</div>
+        <div className="clientPage__placeholder-title">У пользователя еще нет объявлений</div>
         <div className="clientPage__placeholder-ads">
           <div className="clientPage__placeholder-item">
             <div className="clientPage__placeholder-item-1"></div>

@@ -12,7 +12,6 @@ import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
 import { useSubBool } from "../../hooks/useSubscriptions";
-import Link from "next/link"
 
 import MetaLayout from "../../layout/MetaLayout";
 import { useAuth } from "../../lib/Context/AuthCTX";
@@ -39,7 +38,6 @@ function UserPage() {
 
 
   useEffect(() => {
-
     if (sellerId != undefined && subList.length == 0) {
       axios.post("/api/getSubscriptions", {user_id: "" + sellerId}).then((res) => setSubList(res.data))
       console.log(subList)
@@ -49,6 +47,7 @@ function UserPage() {
       axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => setSubscribersList(res.data))
     }
   })
+
 
 
   function modal(modal, changeModal) {
@@ -76,14 +75,14 @@ function UserPage() {
   return (
     <MetaLayout>
       <div className="clientPage text">
-        <div className="clientPage__breadcrumbs thin">
+        {/* <div className="clientPage__breadcrumbs thin">
           <Link href="/">
             <a className="breadCrumb light">
               Главная
             </a>
           </Link>
           <span className="line">{sellerName}</span>
-        </div>
+        </div> */}
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
@@ -148,7 +147,7 @@ function UserPage() {
         <ModalSubscribers data={subscribersList} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(subscribersModal, setSubscribersModal)} />
       </Dialog>
       <Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscription subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} data={subList} />
+        <ModalSubscription data={subList} subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} />
       </Dialog>
     </MetaLayout>
   );

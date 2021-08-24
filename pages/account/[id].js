@@ -19,7 +19,6 @@ import { mutate } from "swr";
 import { useMedia } from "../../hooks/useMedia";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
-import Link from "next/link";
 import { useStore } from "../../lib/Context/Store";
 
 const menuItems = [
@@ -127,14 +126,14 @@ function Account() {
 	return (
 		<MetaLayout title={"Личный кабинет"}>
 			<div className="clientPage text">
-				<div className="clientPage__breadcrumbs thin">
+				{/* <div className="clientPage__breadcrumbs thin">
 					<Link href="/">
 						<a className="breadCrumb light">Главная</a>
 					</Link>
 					<Link href={`/account/${id}?account=1&content=1`}>
 						<a style={{ color: "#2C2C2C" }} className="line light">Личный кабинет</a>
 					</Link>
-				</div>
+				</div> */}
 				<div className="clientPage__menu">
 					{userInfo !== undefined && (
 						<div className="clientPage__userinfo">

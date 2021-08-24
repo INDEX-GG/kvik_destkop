@@ -63,7 +63,7 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({ data, title, isProduct }) => {
+const OffersRender = ({ data, title, isProduct, endMessage = true }) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
 
@@ -92,7 +92,7 @@ const OffersRender = ({ data, title, isProduct }) => {
 					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
-				<EndMessage/>
+				{endMessage ? <EndMessage/> : null}
 			</FavProvider>
 		</>
 	);
