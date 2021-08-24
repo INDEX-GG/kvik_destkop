@@ -1,27 +1,17 @@
 import React from "react";
 import { ToRubles, ToRusDate } from "../../../../lib/services";
+import { useStore } from "../../../../lib/Context/Store";
 import Favorits from '../../../../UI/Favorits';
-import { useFavorits } from "../../../../lib/Context/FavoritesCTX";
-import { useAuth } from '../../../../lib/Context/AuthCTX';
-import axios from "axios";
 
 function Offers(data) {
 
-	const { id } = useAuth();
-	const { userFav, setQuery } = useFavorits();
-
-	console.log(userFav);
+	const { setLikeComment } = useStore()
 
 	function deleteNote(e) {
-		e.target.innerHTML = ''
-		let like = true
-		let coment = ''
-		let arrFavorits = { 'user_id': `${id}`, 'post_id': `${e.target.id}`, 'comment': `${coment}`, 'condition': `${like}` }
-		axios.post("/api/favorites", arrFavorits)
-			.then(r => r.data)
-			.finally(function () {
-				setQuery(p => !p)
-			})
+		e.target.innerHTML = '';
+		let like = true;
+		let comment = '';
+		setLikeComment(+e.target.id, comment, like)
 	}
 
 	if (data.itemsPost?.length === 0 || data.itemsPost?.length === undefined) {
