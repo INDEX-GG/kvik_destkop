@@ -14,22 +14,20 @@ export default function ProductCarousel({ photo }) {
   if (photo == undefined) {
     return null;
   } else {
-    if (JSON.parse(photo).photos.length == 1) {
+    if (photo.length == 1) {
       settingsCarousele = false
       paginationCarousel = false
     }
   }
-  console.log(photo)
 
   return (
-
     <>
       <Swiper loop={settingsCarousele} spaceBetween={1} navigation={settingsCarousele} thumbs={{ swiper: thumbsSwiper }} className="mySwiper2" pagination={paginationCarousel}>
         {/* <div className="seen__ad">Просмотрено</div> */}
 
         {photo == undefined
           ? ""
-          : JSON.parse(photo).photos.map((img, i) => (
+          : photo.map((img, i) => (
             <SwiperSlide key={i} onClick={() => setModal(!modal)}>
               {" "}
               <img src={img} />
@@ -37,10 +35,10 @@ export default function ProductCarousel({ photo }) {
           ))}
       </Swiper>
 
-      {photo == undefined ? "" : JSON.parse(photo).photos.length > 6 ? (<Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
+      {photo == undefined ? "" : photo.length > 6 ? (<Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
         {photo == undefined
           ? ""
-          : JSON.parse(photo).photos.map((img, i) => (
+          : photo.map((img, i) => (
             <SwiperSlide key={i}>
               {" "}
               <img src={img} />
