@@ -36,6 +36,9 @@ export default async function handler(req, res) {
 			res.json('ошибка api getUser', e)
 			res.status(405).end();
 		}
+		finally {
+			await prisma.$disconnect();
+		}
 
 	} else {
 		res.json({ message: 'method not allowed' })
