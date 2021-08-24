@@ -9,7 +9,7 @@ import { Dialog } from "@material-ui/core";
 
 export default function PhoneModule({dialog, setDialog}) {
 
-  const { name, userPhoto, raiting, user_id, isLoading } = useProduct(Router);
+  const { name, userPhoto, raiting, user_id, isLoading } = useProduct(Router);//Исправить
   const {sellerPhone} = useOutherUser(user_id)
 
   const useStyles = makeStyles(() => ({
