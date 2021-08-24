@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Dialog } from "@material-ui/core";
 import axios from "axios";
-import {getDataByPost} from '../../lib/fetch';
+import { getDataByPost } from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
 import Statistics from "../../components/Statistics";
@@ -60,9 +60,8 @@ const objP = {
 };
 
 const Product = () => {
-	const router = useRouter();
+	const { query } = useRouter();
 	const { id } = useAuth();
-
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 
@@ -83,8 +82,7 @@ const Product = () => {
 		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(r))
 	}, []);
 
-	const { name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct({ router });
-
+	const { name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
 
@@ -245,7 +243,7 @@ const Product = () => {
 
 										{/* Блок информации*/}
 										<div className="block__my_active_ad">
-											{/* статус объявления, кнопки */} <ProductAction router={router} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+											{/* статус объявления, кнопки */} <ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
 											{/* пользователь и его объявления */}
 											<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
 										</div>
@@ -310,7 +308,7 @@ const Product = () => {
 };
 
 // export async function getStaticPaths() {
-//     const offers = await getDataByQuery('/api/getPosts', { of: 0 })
+//     const offers = await getDataByPost('/api/getPosts', { of: 0 })
 //     const paths = offers.result.map((offer) => ({
 //         params: { id: String(offer.id) },
 //     }))

@@ -2,14 +2,12 @@ import axios from 'axios';
 import qs from 'qs';
 
 export default function handler(req, resolve) {
-
-  if (req.method === 'POST') {
-
-    const urlAuth = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/auth',
-          urlCall = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/call-auth',
-          urlApprove = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/approve',
-          dataAuth = qs.stringify({ 'grant_type': 'password', 'scope': 'users', 'client_id': '1kvik', 'client_secret': 'bqnqxnhwdb4' }),
-          phoneNumber = qs.stringify({'caller_id': JSON.parse(JSON.stringify(req.body.phone))});
+    if (req.method === 'POST') {
+        const urlAuth = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/auth',
+              urlCall = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/call-auth',
+              urlApprove = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/approve',
+              dataAuth = qs.stringify({ 'grant_type': 'password', 'scope': 'users', 'client_id': '1kvik', 'client_secret': 'bqnqxnhwdb4' }),
+              phoneNumber = qs.stringify({'caller_id': JSON.parse(JSON.stringify(req.body.phone))});
 
 axios.post(urlAuth, dataAuth, {headers: {
   'content-type': 'application/x-www-form-urlencoded'

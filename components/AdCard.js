@@ -60,7 +60,7 @@ function AdCard_component({ offer }) {
 			<div className={"card__wrapper"}>
 				<div className={"card__top " + archived}>
 					{offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
-					<Link href={`/product/${offer.id}`}>
+					<Link href={`/product/${offer.id}`} prefetch={false}>
 						<div className="card__top_slider">
 							<Swiper
 								ref={currentSwiper}
@@ -96,7 +96,7 @@ function AdCard_component({ offer }) {
 						</div>
 					</div>
 				</div>
-				<Link href={`/product/${offer.id}`}>
+				<Link href={`/product/${offer.id}`} prefetch={false}>
 					<div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
 						<div className="card__bottom_info">
 							<div className="card__bottom_info_right">
