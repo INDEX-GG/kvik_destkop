@@ -20,7 +20,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
         let like = condition?.length == 0 || condition?.join() == 'false' ? true : false
 
         const getFavorits = (e) => {
-            let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': comment.join(), 'condition': `${like}` }
+            let arrFavorits = { 'user_id': `${id}`, 'post_id': `${offer.id}`, 'comment': comment?.join(), 'condition': `${like}` }
             // console.log(arrFavorits)
             e.target.classList.toggle('like-active')
             axios.post("/api/favorites", arrFavorits)
