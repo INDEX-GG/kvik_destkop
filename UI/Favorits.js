@@ -15,11 +15,11 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
 
     if (isCard) {
         const getFavorits = (e) => {
-            comment = userInfo && userInfo?.favorites.length != 0 && userInfo.favorites?.filter(item => item.post_id === offer.id).map((item) => item.comment).join()
+            comment = userInfo !== undefined && typeof userInfo.favorites !== 'string' && userInfo.favorites.length > 0 && userInfo.favorites?.filter(item => item.post_id === offer.id).map((item) => item.comment).join()
             setLikeComment(offer.id, comment, e)
         }
-
-        if (userInfo && userInfo?.favorites.length != 0 && userInfo?.favorites.some(item => item.post_id === offer.id && item.condition === true) && userInfo.favorites.length !== 0) {
+		userInfo !== undefined && console.log(userInfo.favorites.length)
+        if (userInfo !== undefined && typeof userInfo.favorites !== 'string' && userInfo.favorites.length > 0 && userInfo?.favorites.some(item => item.post_id === offer.id && item.condition === true) && userInfo.favorites.length !== 0) {
             return (
                 <div>
                     <span onClick={() => getFavorits(false)} className="card_like like-active"></span>
