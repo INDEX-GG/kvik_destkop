@@ -276,35 +276,36 @@ const Product = () => {
 
                     </div> */}
 
-								<div className="productPageContent">
-									<div className="productPageCard">
-										<OffersRender isProduct data={data} title={"Похожие объявления"} />
-										<div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
-											{(collSO && "Показать ещё") || "Скрыть"}
-										</div>
-									</div>
-									<div className="productPageSimilar__advertisement">
-										{!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
-											<div className="showsmthWrapper">
-												<div className="freedomBlock_1"></div>
-												<div className="freedomBlock_2"></div>
-											</div>
-										)}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="productPageWhiteSpace"></div>
-						<Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
-							{" "}
-							<Statistics Close={handleStatFormDialog} />{" "}
-						</Dialog>
-						<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
-					</div>
-				</OfferAccountProvider>
-			</FavProvider>
-		</MetaLayout>
-	);
+                <div className="productPageContent">
+                  <div className="productPageCard">
+                    <OffersRender isProduct data={data} title={"Похожие объявления"} endMessage={!collSO} />
+                    <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
+                      {(collSO && "Показать ещё") || "Скрыть"}
+                    </div>
+                  </div>
+                  <div className="productPageSimilar__advertisement">
+                    {!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
+                      <div className="showsmthWrapper">
+                        <div className="freedomBlock_1"></div>
+                        <div className="freedomBlock_2"></div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="productPageWhiteSpace"></div>
+            <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
+              {" "}
+              <Statistics Close={handleStatFormDialog} />{" "}
+            </Dialog>
+            <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
+          </div>
+        </OfferAccountProvider>
+      </FavProvider>
+    </MetaLayout>
+  );
+
 };
 
 // export async function getStaticPaths() {

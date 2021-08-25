@@ -7,8 +7,8 @@ function LeftReviews(data) {
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
           <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши оставленные отзывы</div>
-            <p className="notInf__subtitle">Текст</p>
+            <div className="notInf__title">Здесь будут отзывы, оставленные вами</div>
+            <p className="notInf__subtitle">Совершайте сделки, и оставляйте отзывы на других продавцов</p>
           </div>
         </div>
       </div>

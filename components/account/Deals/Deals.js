@@ -4,6 +4,7 @@ import Purch from './tabs/Purch';
 import { brooklyn } from '../../../lib/services';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import safeAccountTab from '../../safeAccountTab';
 
 const DealsBox = [
    { id: 1, img: 'https://source.unsplash.com/random?interior', title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00 00.00', status: 1 },
@@ -59,8 +60,9 @@ const Deals = () => {
             {navItems.map(item => {
                return (
                   <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} onClick={() => {
-                     setItemNav({ i: item.id, ttl: item.title }
-                  )}}>{item.title} {brooklyn(item.count)}</a>
+                     setItemNav({ i: item.id, ttl: item.title })
+					 safeAccountTab(item.id)
+                  }}>{item.title} {brooklyn(item.count)}</a>
                )
             })}
             </div>

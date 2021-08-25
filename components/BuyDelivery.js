@@ -141,6 +141,7 @@ const useStyles = makeStyles(() => ({
     },
     buyDileveryPickupDesc: {
         color: "#C7C7C7",
+		maxWidth: '950px',
         fontSize: "14px",
         marginTop: "8px"
     },
@@ -327,15 +328,9 @@ function BuyDelivery() {
                             </div>
                             <div className={classes.buyDileveryInputItem}>
                                 <TextField className={classes.buyDileveryInput} label='Фамилия'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    ....
-                                </p>
                             </div>
                             <div className={classes.buyDileveryInputItem}>
                                 <TextField className={classes.buyDileveryInput} label='Отчество'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    ...
-                                </p>
                             </div>
                             <div className={classes.buyDileveryInputItem}>
                                 <TextField className={classes.buyDileveryInput} label='Телефон'variant='outlined' size='small' type="text"/>
@@ -397,15 +392,9 @@ function BuyDelivery() {
                             </div>
                             <div className={classes.buyDileveryInputItem}>
                                 <TextField className={classes.buyDileveryInput} label='Фамилия'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    ....
-                                </p>
                             </div>
                             <div className={classes.buyDileveryInputItem}>
                                 <TextField className={classes.buyDileveryInput} label='Отчество'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    ...
-                                </p>
                             </div>
                             <div className={classes.buyDileveryInputItem}>
                                 <TextField className={classes.buyDileveryInput} label='Телефон'variant='outlined' size='small' type="text"/>
@@ -430,15 +419,9 @@ function BuyDelivery() {
                             </div>
                             <div className={classes.buyDileveryInputItem}>
                                 <TextField className={classes.buyDileveryInput} label='Номер дома'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    ....
-                                </p>
                             </div>
                             <div className={classes.buyDileveryInputItem}>
                                 <TextField className={classes.buyDileveryInput} label='Квартира/Офис'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    ...
-                                </p>
                             </div>
                         </form>
                     </div>

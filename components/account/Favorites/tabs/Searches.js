@@ -9,7 +9,7 @@ function Searches(data) {
 					<div className="notInfContainer">
 						<div className="notInf__title">Сохраните поиск для того, чтобы получать уведомления и сохранить параметры ваших запросов </div>
 						<p className="notInf__subtitle">Поставьте галочку (отметку) напротив &quot;сохранить поиск&quot;, чтобы получать уведомления и сохранить параметры ваших запросов(поиска)</p>
-						<img className="notInf__img" src="/accountImage/SearchNone.png"></img>
+						<img className="notInf__img" src="/accountImage/SearchNone.png" alt='search_placeholder'/>
 					</div>
 				</div>
 			</div>

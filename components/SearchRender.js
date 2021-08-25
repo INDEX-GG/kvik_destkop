@@ -57,10 +57,9 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({ data, title }) => {
+const OffersRender = ({ data, title, endMessage = true }) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
-
 
 	return (
 		<>
@@ -81,8 +80,9 @@ const OffersRender = ({ data, title }) => {
 				<div className="scrollableOffersHome">
 					{state.sorting(data)?.map((obj, i) =><FavProvider key={i}> <AdCard_component  offer={obj} /></FavProvider>)}
 				</div>
+				{data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null}
 			<div className={classes.messageEnd}>
-				<EndMessage/>
+				{endMessage && data?.length ? <EndMessage/> : null}
 			</div>
 			<ScrollTop />
 		</>

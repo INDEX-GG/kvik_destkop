@@ -16,6 +16,7 @@ import BurgerBusiness from "../../UI/icons/BurgerBusiness"
 import BurgerHobby from "../../UI/icons/BurgerHobby"
 import BurgerServices from "../../UI/icons/BurgerServices"
 import Link from "next/link"
+import CategoriesAliasOne from './CategoriesAliasOne';
 
 export default function CategoriesContent({ toggleDrawer, changeCategories }) {
 
@@ -106,12 +107,13 @@ export default function CategoriesContent({ toggleDrawer, changeCategories }) {
 			{categoryMainAlias.map((item, index) => {
 				return (
 					<div key={index}>
-						<ListItem key={index + 1} className="burgerList" style={{ backgroundColor: aliasArray[index] ? "#E9E9E9" : "#fff" }} button onClick={() => generateArray(index, aliasArray, setAliasArray)}>
+						{/* <ListItem key={index + 1} className="burgerList" style={{ backgroundColor: aliasArray[index] ? "#E9E9E9" : "#fff" }} button onClick={() => generateArray(index, aliasArray, setAliasArray)}>
 							<ListItemIcon>
 								{aliasIcon[index]}
 							</ListItemIcon>
 							<ListItemText className="burgerItem" primary={generateStr(item.label)} />
-						</ListItem>
+						</ListItem> */}
+						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index}/>
 						<Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
 							<List component="div" disablePadding>
 								{categoriesByAlias(item.alias).map((item2, index2) => {
@@ -157,7 +159,9 @@ export default function CategoriesContent({ toggleDrawer, changeCategories }) {
 
 														return (
 															<>
-																<ListItem className="burgerList pl-1" key={index3 + 1} button onClick={(e) => generateID(e, aliasItemIdTwo, aliasArray3, setAliasArrayThree)}>
+																<ListItem className="burgerList pl-1" key={index3 + 1} button onClick={(e) => {
+																	generateID(e, aliasItemIdTwo, aliasArray3, setAliasArrayThree)
+																}}>
 																	<ListItemText className="burgerItem" id={aliasItemIdTwo} style={{ color: "orange" }} primary={generateStr(item3.label)} />
 																</ListItem>
 																<Collapse in={aliasArray3[aliasItemIdTwo]}>

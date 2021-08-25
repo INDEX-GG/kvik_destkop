@@ -7,8 +7,8 @@ function WaitReviews(data) {
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
           <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши отзывы</div>
-            <p className="notInf__subtitle">Текст</p>
+            <div className="notInf__title">Сюда будут попадать объявления, на которые вы сможете оставлять отзывы</div>
+            <p className="notInf__subtitle">Договаривайтесь о сделках с другими пользователями и ставьте им свои оценки</p>
           </div>
         </div>
       </div>
