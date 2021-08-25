@@ -4,7 +4,6 @@ import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
 import router, { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
-import { STATIC_URL } from "../../lib/constants";
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {

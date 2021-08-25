@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import List from '@material-ui/core/List';
 // import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -115,7 +115,7 @@ export default function CategoriesContent({ changeCategories }) {
 							</ListItemIcon>
 							<ListItemText className="burgerItem" primary={generateStr(item.label)} />
 						</ListItem> */}
-						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories} toggleDrawer={toggleDrawer}/>
+						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories} /* toggleDrawer={toggleDrawer} *//>
 						{/* <Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
 							<List component="div" disablePadding>
 								{categoriesByAlias(item.alias).map((item2, index2) => {
