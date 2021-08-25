@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography, MenuItem } from '@material-ui/core';
 import axios from 'axios';
-import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
-import { object } from 'prop-types';
-
 
 const useStyles = makeStyles((theme) => ({
     formInputMainField: {
@@ -76,7 +73,7 @@ export default function Auto({ data }) {
         setModification(undefined)
         setFullDescription(undefined)
         if (model != undefined) {
-            let gen = model.map((item, i) => item.filter((item, i) => item.value === methods.watch('generation')))
+            let gen = model.map((item) => item.filter((item) => item.value === methods.watch('generation')))
             setGenerationUnical([...new Set((gen[0][0].children.sort((a, b) => a.value > b.value ? 1 : -1)).map(item => item.value))])
             setGeneration(gen)
         }

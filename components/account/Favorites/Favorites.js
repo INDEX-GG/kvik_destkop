@@ -62,7 +62,7 @@ const Favorites = () => {
 
 
 	const [offetFav, setOfferFav] = useState()
-	const favAciveOffer = offetFav?.posts.filter((item) => item.condition === true)
+	let favAciveOffer = offetFav?.posts.filter((item) => item.condition === true)
 
 	useEffect(() => {
 		axios.post('/api/getFavorites', { user_id: id })
