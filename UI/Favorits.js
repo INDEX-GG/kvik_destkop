@@ -15,7 +15,6 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
             comment = userInfo !== undefined && typeof userInfo.favorites !== 'string' && userInfo.favorites.length > 0 && userInfo.favorites?.filter(item => item.post_id === offer.id).map((item) => item.comment).join()
             setLikeComment(offer.id, comment, e)
         }
-		userInfo !== undefined && console.log(userInfo.favorites.length)
         if (userInfo !== undefined && typeof userInfo.favorites !== 'string' && userInfo.favorites.length > 0 && userInfo?.favorites.some(item => item.post_id === offer.id && item.condition === true) && userInfo.favorites.length !== 0) {
             return (
                 <div>
@@ -35,12 +34,12 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
 
     if (isAccountCard) {
         const getFavoritsUser = e => {
-            comment = userInfo && userInfo.favorites?.filter(item => item.post_id === +e.target.id).map(item => item.comment).join()
-            let like = userInfo && userInfo.favorites?.filter(item => item.post_id === +e.target.id).map(item => item.condition).join() === 'true' ? false : true
+            comment = userInfo !== undefined && typeof userInfo.favorites !== 'string' && userInfo.favorites.length > 0 && userInfo.favorites?.filter(item => item.post_id === +e.target.id).map(item => item.comment).join()
+            let like = userInfo !== undefined && typeof userInfo.favorites !== 'string' && userInfo.favorites.length > 0 && userInfo.favorites?.filter(item => item.post_id === +e.target.id).map(item => item.condition).join() === 'true' ? false : true
             setLikeComment(+e.target.id, comment, like)
         }
 
-        if (userInfo && userInfo?.favorites.length != 0 && userInfo?.favorites.some(item => item.post_id === favId && item.condition === true) && userInfo.favorites.length !== 0) {
+        if (userInfo !== undefined && typeof userInfo.favorites !== 'string' && userInfo.favorites.length > 0 && userInfo?.favorites.length != 0 && userInfo?.favorites.some(item => item.post_id === favId && item.condition === true) && userInfo.favorites.length !== 0) {
             return (
                 <div>
                     <span onClick={(e) => getFavoritsUser(e)} id={favId} className="favoritesFavorite like-active"></span>
