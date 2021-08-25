@@ -15,7 +15,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
 
     if (isCard) {
         const getFavorits = (e) => {
-            comment = userInfo && userInfo.favorites?.filter((item, i) => item.post_id === offer.id).map((item) => item.comment).join()
+            comment = userInfo && userInfo?.favorites.length != 0 && userInfo.favorites?.filter((item, i) => item.post_id === offer.id).map((item) => item.comment).join()
             setLikeComment(offer.id, comment, e)
         }
 
@@ -43,7 +43,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
             setLikeComment(+e.target.id, comment, like)
         }
 
-        if (userInfo && userInfo?.favorites.some((item, i) => item.post_id === favId && item.condition === true) && userInfo.favorites.length !== 0) {
+        if (userInfo && userInfo?.favorites.length != 0 && userInfo?.favorites.some((item, i) => item.post_id === favId && item.condition === true) && userInfo.favorites.length !== 0) {
             return (
                 <div>
                     <span onClick={(e) => getFavoritsUser(e)} id={favId} className="favoritesFavorite like-active"></span>
