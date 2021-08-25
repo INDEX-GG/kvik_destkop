@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useCategory } from "../../hooks/useCategory"
 import { Collapse } from '@material-ui/core';
-import BurgerRealEstate from '../../UI/icons/BurgerRealEstate';
-import BurgerAuto from '../../UI/icons/BurgerAuto';
-import BurgerWork from '../../UI/icons/BurgerWork';
-import BurgerElectronic from '../../UI/icons/BurgerElectronic';
-import BurgerHome from '../../UI/icons/BurgerHome';
-import BurgerAnimal from '../../UI/icons/BurgerAnimal';
-import BurgerThing from '../../UI/icons/BurgerThing';
-import BurgerBusiness from "../../UI/icons/BurgerBusiness"
-import BurgerHobby from "../../UI/icons/BurgerHobby"
-import BurgerServices from "../../UI/icons/BurgerServices"
+// import BurgerRealEstate from '../../UI/icons/BurgerRealEstate';
+// import BurgerAuto from '../../UI/icons/BurgerAuto';
+// import BurgerWork from '../../UI/icons/BurgerWork';
+// import BurgerElectronic from '../../UI/icons/BurgerElectronic';
+// import BurgerHome from '../../UI/icons/BurgerHome';
+// import BurgerAnimal from '../../UI/icons/BurgerAnimal';
+// import BurgerThing from '../../UI/icons/BurgerThing';
+// import BurgerBusiness from "../../UI/icons/BurgerBusiness"
+// import BurgerHobby from "../../UI/icons/BurgerHobby"
+// import BurgerServices from "../../UI/icons/BurgerServices"
 import Link from "next/link"
 import CategoriesAliasOne from './CategoriesAliasOne';
 
@@ -27,19 +27,19 @@ export default function CategoriesContent({ toggleDrawer, changeCategories }) {
 	let aliasItemId = -1
 	let aliasItemIdTwo = -1
 
-	const aliasIcon = [
-		<BurgerRealEstate key={0} />,
-		<BurgerRealEstate key={1} />,
-		<BurgerAuto key={2} />,
-		<BurgerWork key={3} />,
-		<BurgerElectronic key={4} />,
-		<BurgerHome key={5} />,
-		<BurgerAnimal key={6} />,
-		<BurgerThing key={7} />,
-		<BurgerBusiness key={8} />,
-		<BurgerHobby key={9} />,
-		<BurgerServices key={10} />
-	];
+	// const aliasIcon = [
+	// 	<BurgerRealEstate key={0} />,
+	// 	<BurgerRealEstate key={1} />,
+	// 	<BurgerAuto key={2} />,
+	// 	<BurgerWork key={3} />,
+	// 	<BurgerElectronic key={4} />,
+	// 	<BurgerHome key={5} />,
+	// 	<BurgerAnimal key={6} />,
+	// 	<BurgerThing key={7} />,
+	// 	<BurgerBusiness key={8} />,
+	// 	<BurgerHobby key={9} />,
+	// 	<BurgerServices key={10} />
+	// ];
 
 	useEffect(() => {
 		if (aliasArray.length == 0) {

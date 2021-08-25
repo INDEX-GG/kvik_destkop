@@ -6,7 +6,6 @@ import axios from 'axios';
 import { brooklyn } from '../../../lib/services';
 import { useSubList } from '../../../hooks/useSubscriptions';
 import { useAuth } from '../../../lib/Context/AuthCTX';
-import FavProvider from '../../../lib/Context/FavoritesCTX';
 import { useRouter } from 'next/router';
 import safeAccountTab from '../../safeAccountTab';
 // Объявления
@@ -137,7 +136,7 @@ const Favorites = () => {
 
 
 	const [offetFav, setOfferFav] = useState()
-	const favAciveOffer = offetFav?.posts.filter((item) => item.condition === true)
+	let favAciveOffer = offetFav?.posts.filter((item) => item.condition === true)
 
 	useEffect(() => {
 		axios.post('/api/getFavorites', { user_id: id })
