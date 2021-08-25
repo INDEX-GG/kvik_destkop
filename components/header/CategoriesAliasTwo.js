@@ -5,7 +5,7 @@ import { useCategory } from '../../hooks/useCategory';
 import Link from 'next/link'
 import CategoriesAliasThree from './CategoriesAliasThree';
 
-export default function CategoriesAliasTwo({alias, alias2, label, placeOffer}) {
+export default function CategoriesAliasTwo({alias, alias2, label, placeOffer, toggleDrawer}) {
 
 	const [open, setOpen] = useState(false);
 
@@ -15,13 +15,7 @@ export default function CategoriesAliasTwo({alias, alias2, label, placeOffer}) {
 		return str[0].toUpperCase() + str.substring(1,)
 	}
 
-	// if (placeOffer) {
-	// 	return (
-	// 		<ListItem className="burgerList" onClick={() => placeOffer(`${alias},${alias2}`)}>
-	// 			<ListItemText><div className="burgerItem burgerLink">{label}</div></ListItemText>
-	// 		</ListItem>
-	// 	)
-	// }
+
 
 	if (categoriesByAlias(alias, alias2) == null) {
 
@@ -34,7 +28,7 @@ export default function CategoriesAliasTwo({alias, alias2, label, placeOffer}) {
 		}
 
 		return (
-			<ListItem className="burgerList">
+			<ListItem onClick={() => toggleDrawer("left", false)} className="burgerList">
 				<Link href={`/search/${alias2}`}><a className="burgerItem burgerLink">{label}</a></Link>
 			</ListItem>
 		)

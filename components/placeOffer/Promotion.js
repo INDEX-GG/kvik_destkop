@@ -4,6 +4,7 @@ import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
 import router, { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
+import { STATIC_URL } from "../../lib/constants";
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -284,7 +285,7 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 				<div className={classes.productContainer}>
 					<div className={classes.productCard}>
 						{/* !!!!!!!!!! Change */}
-						<img src={`http://192.168.8.111:6001/static/posts/${product.id}/post(1).webp?${product.id}`} className={classes.productImg} alt="product photo" />
+						<img src={`${STATIC_URL}/${product.photo}`} className={classes.productImg} alt="product photo" />
 						<div className={classes.productPrice}>{product.price} ₽</div>
 						<div className={classes.productName}>{product.title}</div>
 					</div>

@@ -1,0 +1,75 @@
+.offerPage{
+	width: 100%;
+	max-width: 1280px;
+	padding: 51px 12px 0;
+	margin: 0 auto;
+	&__policy {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	&__item {
+		max-width: 720px;
+		margin-bottom: 40px;
+	}
+	&__title {
+		font-weight: 500;
+		font-size: 22px;
+		line-height: 26px;
+		text-indent: 32px;
+		color: #00A0AB;
+		position: relative;
+		cursor: pointer;
+		&::before {
+			content: '';
+			position: absolute;
+			left: -37px;
+			top: 12px;
+			width: 12px;
+			height: 2px;
+			border-radius: 10px;
+			background-color: #00A0AB;
+			transform: rotate(45deg);
+		}
+		&::after {
+			content: '';
+			position: absolute;
+			left: -30px;
+			top: 12px;
+			width: 12px;
+			border-radius: 10px;
+			height: 2px;
+			background-color: #00A0AB;
+			transform: rotate(-45deg);
+		}
+	}
+	&__title--active {
+		text-decoration: underline;
+		&::before {
+			transform: rotate(130deg);
+		}
+		&::after {
+			transform: rotate(-130deg);
+		}
+	}
+	&__paragraph {
+		margin: 40px 0;
+	}
+	&__subtitle {
+		text-indent: 32px;
+		margin-bottom: 10px;
+	}
+	&__bigSubtitle {
+		font-size: 16px;
+	}
+	&__rules {
+		margin-top: 25px;
+	}
+	&__rules-title {
+		padding-left: 32px;
+		margin-bottom: 10px;
+	}
+	&__redact {
+		padding-left: 32px;
+	}
+}
