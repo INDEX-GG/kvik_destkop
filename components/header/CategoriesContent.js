@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemText from '@material-ui/core/ListItemText';
 import { useCategory } from "../../hooks/useCategory"
-import { Collapse } from '@material-ui/core';
-import BurgerRealEstate from '../../UI/icons/BurgerRealEstate';
-import BurgerAuto from '../../UI/icons/BurgerAuto';
-import BurgerWork from '../../UI/icons/BurgerWork';
-import BurgerElectronic from '../../UI/icons/BurgerElectronic';
-import BurgerHome from '../../UI/icons/BurgerHome';
-import BurgerAnimal from '../../UI/icons/BurgerAnimal';
-import BurgerThing from '../../UI/icons/BurgerThing';
-import BurgerBusiness from "../../UI/icons/BurgerBusiness"
-import BurgerHobby from "../../UI/icons/BurgerHobby"
-import BurgerServices from "../../UI/icons/BurgerServices"
-import Link from "next/link"
+// import { Collapse } from '@material-ui/core';
+// import BurgerRealEstate from '../../UI/icons/BurgerRealEstate';
+// import BurgerAuto from '../../UI/icons/BurgerAuto';
+// import BurgerWork from '../../UI/icons/BurgerWork';
+// import BurgerElectronic from '../../UI/icons/BurgerElectronic';
+// import BurgerHome from '../../UI/icons/BurgerHome';
+// import BurgerAnimal from '../../UI/icons/BurgerAnimal';
+// import BurgerThing from '../../UI/icons/BurgerThing';
+// import BurgerBusiness from "../../UI/icons/BurgerBusiness"
+// import BurgerHobby from "../../UI/icons/BurgerHobby"
+// import BurgerServices from "../../UI/icons/BurgerServices"
+// import Link from "next/link"
 import CategoriesAliasOne from './CategoriesAliasOne';
 
-export default function CategoriesContent({ toggleDrawer, changeCategories }) {
+export default function CategoriesContent({ changeCategories }) {
 
 	const { categoryMainAlias } = useCategory()
 	// const [aliasArray, setAliasArray] = useState([])
 	// const [aliasArray2, setAliasArrayTwo] = useState([])
 	// const [aliasArray3, setAliasArrayThree] = useState([])
+
 	// let aliasItemId = -1
 	// let aliasItemIdTwo = -1
 

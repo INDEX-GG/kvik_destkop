@@ -16,7 +16,6 @@ import { useMedia } from "../../hooks/useMedia";
 import { useProduct } from "../../hooks/useProduct";
 import Favorits from "../../UI/Favorits";
 import OffersRender from "../../components/OffersRender";
-import FavProvider from "../../lib/Context/FavoritesCTX";
 import BreadCrumbsProduct from "../../components/product/BreadCrumbsProduct";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import { useAuth } from "../../lib/Context/AuthCTX";
@@ -64,7 +63,6 @@ const Product = () => {
 	const { id } = useAuth();
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
-
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
 	const [collSO, setCollSO] = useState(true);
@@ -98,7 +96,6 @@ const Product = () => {
 
 	return (
 		<MetaLayout>
-			<FavProvider>
 				<OfferAccountProvider>
 					<div className="productPage" id="productPage">
 						{title == undefined ? <div className='product__placeholder_loader'><div><Loader /></div></div> : ''}
@@ -120,7 +117,7 @@ const Product = () => {
 											{user_id !== id && !matchesLaptop && !matchesDesktop && !matchesHD && (
 												user_id === undefined ? '' :
 													<div className="SellerInfoTopButtons">
-														<Favorits isProduct />
+														<Favorits isProduct idOffer={+query.id} />
 													</div>
 											)}
 											{photo == undefined ?
@@ -302,7 +299,6 @@ const Product = () => {
             <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
           </div>
         </OfferAccountProvider>
-      </FavProvider>
     </MetaLayout>
   );
 

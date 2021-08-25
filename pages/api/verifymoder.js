@@ -1,29 +1,14 @@
 import { PrismaClient } from '@prisma/client';
-export default function handler(req, res) {
+export default async function handler(req, res) {
 
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 		const main = async () => {
 			const id = req.body.id
 			const idInt = Number(id)
-			if (req.body.id === undefined || req.body.verify_moderator === undefined) {
-				return res.status(400).json({ message: 'Insufficient body data' })
-			}
-			const exist = await prisma.posts.findFirst({
-				where: {
-					id: idInt,
-				},
-				select: {
-					id: true,
-				}
-			})
-			if (exist === null) {
-				return res.status(400).json({ message: 'Post with this id dont exist' })
-			}
 			const ver = req.body.verify_moderator
 			const array = []
-			let arr = ver
-			for (let value of arr) {
+			for (let value of ver) {
 				array.push(value.toString())
 			}
 			const verify = { "verify": array }
@@ -39,15 +24,24 @@ export default function handler(req, res) {
 			await prisma.posts.update(obj);
 			return { message: "successfully update" };
 		}
-		main()
-			.then(r => res.json(r))
-			.catch(e => console.error(`ошибка api verifymoder${e}`))
-			.finally(async () => {
-				await prisma.$disconnect()
-			})
+
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api verifymoder${e}`)
+			res.json('ошибка api verifymoder', e)
+			res.status(405).end();
+		}
+		finally {
+			await prisma.$disconnect();
+		}
 
 	} else {
-		res.status(405).json({ message: 'method not allowed' })
-		res.end()
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }

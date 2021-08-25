@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-export default function handler(req, res) {
 
+export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 
@@ -10,15 +10,23 @@ export default function handler(req, res) {
 			await prisma.$queryRaw(`UPDATE posts SET active = ${verify} WHERE ID IN (${id})`)
 			return { message: 'successfully update' }
 		}
-		main()
-			.then(r => res.json(r))
-			.catch(e => console.error(`ошибка api verifyActive${e}`))
-			.finally(async () => {
-				await prisma.$disconnect()
-			})
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api verifiActive${e}`)
+			res.json('ошибка api verifiActive', e)
+			res.status(405).end();
+		}
+		finally {
+			await prisma.$disconnect();
+		}
 
 	} else {
-		res.status(405).json({ message: 'method not allowed' })
-		res.end()
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }

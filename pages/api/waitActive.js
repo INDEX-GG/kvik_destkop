@@ -1,17 +1,15 @@
 import { PrismaClient } from '@prisma/client';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 
 		const main = async () => {
-			//Этот запрос нужно будет связать с таблицей
-
-			return await prisma.findMany({
+			return await prisma.posts.findMany({
 				where: {
 					user_id: req.body.user_id,
 					archived: false,
-					verify: true
+					verify: 1
 				},
 				select: {
 					id: true,
@@ -34,13 +32,23 @@ export default function handler(req, res) {
 			})
 		}
 
-		main()
-			.then(r => res.json({ results: r }))
-			.catch(e => console.error(`ошибка api waitActive${e}`))
-			.finally(async () => {
-				await prisma.$disconnect()
-			})
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api waitActive${e}`)
+			res.json('ошибка api waitActive', e)
+			res.status(405).end();
+		}
+		finally {
+			await prisma.$disconnect();
+		}
+
 	} else {
-		res.status(405).json({ message: 'method not allowed' })
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }

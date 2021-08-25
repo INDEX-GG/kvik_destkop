@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client';
-export default function handler(req, res) {
+export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 
 		const main = async() => {
 			let { name } = req.body
 			const lowername = name.toLowerCase()
-			const cities = await prisma.$queryRaw(`SELECT id, name, parent_id FROM cities WHERE LOWER (name) LIKE '${lowername}%' LIMIT 15`)     // LIMIT?
+			const cities = await prisma.$queryRaw(`SELECT id, name, parent_id FROM cities WHERE LOWER (name) LIKE '${lowername}%' LIMIT 15`)
 			const citiesMiddle = await prisma.$queryRaw(`SELECT id, name, parent_id FROM cities WHERE LOWER (name) LIKE '%${lowername}%' AND LOWER (name) NOT LIKE '${lowername}%' LIMIT 15`)
 			const RES = []
 			for (let value of cities) {
@@ -57,13 +57,24 @@ export default function handler(req, res) {
 			}
 			return RES
 		}
-		main()
-			.then(r => res.json(r))
-			.catch(e => console.error(`ошибка api citySearch${e}`))
-			.finally(async () => {
-				await prisma.$disconnect()
-			})
+
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api citySearch${e}`)
+			res.json('ошибка api citySearch', e)
+			res.status(405).end();
+		}
+		finally {
+			await prisma.$disconnect();
+		}
+
 	} else {
-		res.status(405).json({ message: 'method not allowed' })
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }

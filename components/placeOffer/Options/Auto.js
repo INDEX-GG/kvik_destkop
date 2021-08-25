@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography, MenuItem } from '@material-ui/core';
 import axios from 'axios';
-import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
-import { object } from 'prop-types';
-
 
 const useStyles = makeStyles((theme) => ({
     formInputMainField: {
@@ -76,7 +73,7 @@ export default function Auto({ data }) {
         setModification(undefined)
         setFullDescription(undefined)
         if (model != undefined) {
-            let gen = model.map((item, i) => item.filter((item, i) => item.value === methods.watch('generation')))
+            let gen = model.map((item) => item.filter((item) => item.value === methods.watch('generation')))
             setGenerationUnical([...new Set((gen[0][0].children.sort((a, b) => a.value > b.value ? 1 : -1)).map(item => item.value))])
             setGeneration(gen)
         }
@@ -95,40 +92,48 @@ export default function Auto({ data }) {
 
     useEffect(() => {
         if (modification != undefined) {
-            let newObjBodytype = [],
+            let newObjdrivetype = [],
+                newObjBodytype = [],
                 newObjDoors = [],
-                newObjdrivetype = [],
-                newObjcomplectations = [];
+                newObjcomplectations = [],
+                newObjyear = [],
+                n = ((modification[0].filter(item => item.alias === 'yearfrom').map(item => +item.value)))[0],
+                m = ((modification[0].filter(item => item.alias === 'yearto').map(item => +item.value)))[0];
+
+            for (var i = n; i <= m; i++) {
+                newObjyear.push(i)
+            }
+
             for (let i = 0; i < modification.length; i++) {
-                console.log(...(modification[i].map(item => item.value)[13]))
+
                 newObjdrivetype.push(
-                    (modification[i].map(item => item.value))[6]
+                    ...((modification[i].filter(item => item.alias === 'drivetype').map(item => item.value)))
                 )
                 newObjBodytype.push(
-                    (modification[i].map(item => item.value))[11]
+                    ...((modification[i].filter(item => item.alias === 'bodytype').map(item => item.value)))
                 )
                 newObjDoors.push(
-                    (modification[i].map(item => item.value))[12]
+                    ...((modification[i].filter(item => item.alias === 'doors').map(item => item.value)))
                 )
                 newObjcomplectations.push(
-                    
-                    ...(modification[i].map(item => item.value)[13]).map(item => item.value)
+                    ...((modification[i].filter(item => item.alias === 'complectations').map(item => item.value)))
                 )
-                
             }
+
             // console.log('======>', [...new Set(newObjdrivetype)])
             // console.log('======>', [...new Set(newObjBodytype)])
             // console.log('======>', [...new Set(newObjDoors)])
             // console.log('======>', [...new Set(newObjcomplectations)])
-            modification[0][6].value = [...new Set(newObjdrivetype)]
-            modification[0][11].value = [...new Set(newObjBodytype)]
-            modification[0][12].value = [...new Set(newObjDoors)]
-            modification[0][13].complectations = [...new Set(newObjcomplectations)]
+            modification[0].filter(item => item.alias === 'drivetype')[0].value = [...new Set(newObjdrivetype)]
+            modification[0].filter(item => item.alias === 'bodytype')[0].value = [...new Set(newObjBodytype)]
+            modification[0].filter(item => item.alias === 'doors')[0].value = [...new Set(newObjDoors)]
+            modification[0].filter(item => item.alias === 'complectations')[0].complectations = [...new Set(newObjcomplectations)]
+            modification[0].unshift({ alias: "year", name: "Год выпуска", value: newObjyear })
             setFullDescription(modification[0])
         }
     }, [modification])
 
-
+    console.log(modification && modification[0])
     return (
 
         data.map(item => {
@@ -183,7 +188,6 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                                {console.log(mark)}
                                                             {(mark.children?.sort((a, b) => a.value > b.value ? 1 : -1))?.map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}
@@ -267,7 +271,6 @@ export default function Auto({ data }) {
                                                             return (
                                                                 <Box className={classes.formInputMainField}>
                                                                     <Typography className={classes.formTitleField}>{item.name}</Typography>
-                                                                    {console.log(item.value)}
                                                                     <Box className={classes.formInputField}>
                                                                         <Controller
                                                                             name={"fullDescription"}
@@ -327,6 +330,7 @@ export default function Auto({ data }) {
 
                                                 default:
                                                     return (
+
                                                         <Box className={classes.formInputMainField}>
                                                             <Typography className={classes.formTitleField}>{item.name}</Typography>
                                                             <Box className={classes.formInputField}>

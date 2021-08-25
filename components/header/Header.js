@@ -109,7 +109,7 @@ const Header = ({ category }) => {
           <Search />
           {isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
             <AddRoundedIcon />
-            Подать объявление
+           Новое объявление
           </Button>}
 
           {!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
