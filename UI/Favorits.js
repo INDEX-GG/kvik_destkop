@@ -1,14 +1,11 @@
 
 import React from 'react';
-// import axios from 'axios';
-// import { useRouter } from 'next/router';
-// import { useAuth } from '../lib/Context/AuthCTX';
+import { useAuth } from '../lib/Context/AuthCTX';
 import { useStore } from '../lib/Context/Store';
 
-export default function Favorits({ offer, isCard, isProduct, isAccountCard, favId }) {
+export default function Favorits({ offer, isCard, isProduct, isAccountCard, favId, idOffer }) {
 
-    // const { id } = useAuth();
-    // const router = useRouter();
+    const { id } = useAuth();
     const { setLikeComment } = useStore()
     const { userInfo } = useStore()
     let comment;
@@ -58,46 +55,54 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
     }
 
 
-
     if (isProduct) {
-        // let comment = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === +router.query.id).map((item) => item.comment));
-        // let condition = (userFav && JSON.parse(userFav).filter((item) => +item.post_id === +router.query.id).map((item) => item.condition));
-        // let like = condition?.length == 0 || condition?.join() == 'false' ? true : false;
-        // let note;
+        comment = userInfo && userInfo.favorites?.filter(item => item.post_id === idOffer).map(item => item.comment).join()
+        let like = userInfo && userInfo.favorites?.filter(item => item.post_id === idOffer).map(item => item.condition).join() === 'true' ? false : true
+        let note;
 
-        // const openNote = e => {
-        //     e.target.parentElement.childNodes[0].childNodes[0].classList.toggle('note-active')
-        // }
+        const openNote = e => {
+            e.target.parentElement.childNodes[0].childNodes[0].classList.toggle('note-active')
+        }
 
-        // const getNote = e => {
-        //     note = e.target.value
-        //     e.target.parentElement.childNodes[0].classList.toggle('note-active')
-        //     comment = comment === undefined ? comment : note
-        //     like = true
-        //     getFavoritsPost(e)
-        // }
+        const getNote = e => {
+            note = e.target.value
+            e.target.parentElement.childNodes[0].classList.toggle('note-active')
+            comment = comment === undefined ? comment : note
+            like = true
+            getFavoritsPost(e)
+        }
 
-        // const getFavoritsPost = e => {
-        //     comment;
-        //     like;
-        //     let arrFavorits = { 'user_id': `${id}`, 'post_id': `${router.query.id}`, 'comment': `${comment}`, 'condition': `${like}` };
-        //     axios.post("/api/favorites", arrFavorits)
-        //         .then(r => r.data)
-        //         .finally(function () {
-        //             setQuery(p => !p)
-        //         })
-        //    console.log(arrFavorits)
-        // }
+        const getFavoritsPost = e => {
+            comment;
+            like;
+            setLikeComment(idOffer, comment, like)
+        }
 
-        return (
-            <>
-                {/* <div className='main__input_note'>
-                    <input title onBlur={e => getNote(e)} title={`${comment}` !== '' ? comment : 'Ваша заметка'} className="SellerInfoNoteInput" placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'} />
-                </div>
-                
-                <a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
-                <span onClick={(e) => { getFavoritsPost(e) }} className={userFav && (JSON?.parse(userFav).some((item) => +item.post_id === +router.query.id && item.condition === 'true')) ? "SellerInfoFavorite like-active" : "SellerInfoFavorite"}></span> */}
-            </>
-        )
+
+        if (userInfo && userInfo?.favorites.length != 0 && userInfo?.favorites.some(item => item.post_id === idOffer && item.condition === true) && userInfo.favorites.length !== 0) {
+            return (
+                <>
+                    <div className='main__input_note'>
+                        <input title onBlur={e => getNote(e)} title={`${comment}` !== '' ? comment : 'Ваша заметка'} className="SellerInfoNoteInput" placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'} />
+                    </div>
+                    <a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
+                    <div>
+                        <span onClick={(e) => getFavoritsPost(e)} className="SellerInfoFavorite like-active"></span>
+                    </div>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <div className='main__input_note'>
+                        <input title onBlur={e => getNote(e)} title={`${comment}` !== '' ? comment:'Ваша заметка'} className="SellerInfoNoteInput" placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'} />
+                    </div>
+                    <a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
+                    <div>
+                        <span onClick={(e) => getFavoritsPost(e)} className="SellerInfoFavorite"></span>
+                    </div>
+                </>
+            )
+        }
     }
 }

@@ -5,7 +5,7 @@ import { useCategory } from '../../hooks/useCategory';
 import Link from 'next/link'
 import CategoriesAliasFour from './CategoriesAliasFour';
 
-export default function CategoriesAliasThree({alias, alias2, alias3, label, placeOffer}) {
+export default function CategoriesAliasThree({alias, alias2, alias3, label, placeOffer, toggleDrawer}) {
 
 	const [open, setOpen] = useState(false);
 
@@ -14,13 +14,13 @@ export default function CategoriesAliasThree({alias, alias2, alias3, label, plac
 	if (categoriesByAlias(alias, alias2, alias3) == null) {
 		if (placeOffer) {
 			return (
-				<ListItem className="burgerList" onClick={() => placeOffer(`${alias},${alias2},${alias3}`)}>
+				<ListItem className="burgerList pl-1" onClick={() => placeOffer(`${alias},${alias2},${alias3}`)}>
 					<ListItemText><div className="burgerItem burgerLink">{label}</div></ListItemText>
 				</ListItem>
 			)
 		}
 		return (
-			<ListItem className="burgerList pl-1">
+			<ListItem className="burgerList pl-1" onClick={() => toggleDrawer("left", false)}>
 				<Link href={`/search/${alias3}`}><a className="burgerItem burgerLink">{label}</a></Link>
 			</ListItem>
 		)
@@ -33,7 +33,7 @@ export default function CategoriesAliasThree({alias, alias2, alias3, label, plac
 			</ListItem>
 			<Collapse in={open}>
 				{categoriesByAlias(alias, alias2, alias3)?.map((item, index) => {
-					return <CategoriesAliasFour key={index} alias={item.alias} label={item.label} />
+					return <CategoriesAliasFour key={index} alias={alias} alias2={alias2} alias3={alias3} alias4={item.alias} label={item.label} placeOffer={placeOffer} toggleDrawer={toggleDrawer} />
 				})}
 			</Collapse>
 		</>
