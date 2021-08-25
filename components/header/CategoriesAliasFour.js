@@ -5,10 +5,8 @@ import Link from 'next/link'
 export default function CategoriesAliasFour({alias, label}) {
 
 	return (
-		<>
-			<ListItem className="burgerList">
-				<Link href={`/search/${alias}`}><a className="burgerItem burgerLink">{label}</a></Link>
-			</ListItem>
-		</>
+		<ListItem className="burgerList pl-2">
+			<Link href={`/search/${alias}`}><a className="burgerItem burgerLink">{label}</a></Link>
+		</ListItem>
 	)
 }
