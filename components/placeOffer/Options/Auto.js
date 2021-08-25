@@ -32,11 +32,11 @@ export default function Auto({ data }) {
     // console.log(methods.watch('submodels'))
     // console.log(methods.watch('generation'))
     // console.log(methods.watch('modification'))
-    // console.log('+++++', mark)
-    // console.log('+++++', model)
-    // console.log('+++++', generation)
-    // console.log('+++++', generationUnical)
-    // console.log('+++++', modification && modification[0])
+    console.log('+++++', mark)
+    console.log('+++++', model)
+    console.log('+++++', generation)
+    console.log('+++++', generationUnical)
+    console.log('+++++', modification && modification[0])
 
     const classes = useStyles();
     const methods = useFormContext();
@@ -95,35 +95,35 @@ export default function Auto({ data }) {
 
     useEffect(() => {
         if (modification != undefined) {
-            let newObjBodytype = [],
+            let newObjdrivetype = [],
+                newObjBodytype = [],
                 newObjDoors = [],
-                newObjdrivetype = [],
                 newObjcomplectations = [];
             for (let i = 0; i < modification.length; i++) {
-                console.log(...(modification[i].map(item => item.value)[13]))
+                console.log(...(modification[i].map(item => item.value)[9]))
                 newObjdrivetype.push(
-                    (modification[i].map(item => item.value))[6]
+                    (modification[i].map(item => item.value))[3]
                 )
                 newObjBodytype.push(
-                    (modification[i].map(item => item.value))[11]
+                    (modification[i].map(item => item.value))[7]
                 )
                 newObjDoors.push(
-                    (modification[i].map(item => item.value))[12]
+                    (modification[i].map(item => item.value))[8]
                 )
                 newObjcomplectations.push(
-                    
-                    ...(modification[i].map(item => item.value)[13]).map(item => item.value)
+
+                    ...(modification[i].map(item => item.value)[9]).map(item => item.value)
                 )
-                
+
             }
             // console.log('======>', [...new Set(newObjdrivetype)])
             // console.log('======>', [...new Set(newObjBodytype)])
             // console.log('======>', [...new Set(newObjDoors)])
             // console.log('======>', [...new Set(newObjcomplectations)])
-            modification[0][6].value = [...new Set(newObjdrivetype)]
-            modification[0][11].value = [...new Set(newObjBodytype)]
-            modification[0][12].value = [...new Set(newObjDoors)]
-            modification[0][13].complectations = [...new Set(newObjcomplectations)]
+            modification[0][3].value = [...new Set(newObjdrivetype)]
+            modification[0][7].value = [...new Set(newObjBodytype)]
+            modification[0][8].value = [...new Set(newObjDoors)]
+            modification[0][9].complectations = [...new Set(newObjcomplectations)]
             setFullDescription(modification[0])
         }
     }, [modification])
@@ -183,7 +183,7 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                                {console.log(mark)}
+                                                            {console.log(mark)}
                                                             {(mark.children?.sort((a, b) => a.value > b.value ? 1 : -1))?.map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}

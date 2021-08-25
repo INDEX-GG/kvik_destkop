@@ -1,34 +1,34 @@
 
 import React from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useAuth } from '../lib/Context/AuthCTX';
+// import axios from 'axios';
+// import { useRouter } from 'next/router';
+// import { useAuth } from '../lib/Context/AuthCTX';
 import { useStore } from '../lib/Context/Store';
 
 export default function Favorits({ offer, isCard, isProduct, isAccountCard, favId }) {
 
-    const { id } = useAuth();
-    const router = useRouter();
+    // const { id } = useAuth();
+    // const router = useRouter();
     const { setLikeComment } = useStore()
     const { userInfo } = useStore()
     let comment;
 
     if (isCard) {
         const getFavorits = (e) => {
-            comment = userInfo && userInfo?.favorites.length != 0 && userInfo.favorites?.filter((item, i) => item.post_id === offer.id).map((item) => item.comment).join()
+            comment = userInfo && userInfo?.favorites.length != 0 && userInfo.favorites?.filter(item => item.post_id === offer.id).map((item) => item.comment).join()
             setLikeComment(offer.id, comment, e)
         }
 
-        if (userInfo && userInfo?.favorites.length != 0 && userInfo?.favorites.some((item, i) => item.post_id === offer.id && item.condition === true) && userInfo.favorites.length !== 0) {
+        if (userInfo && userInfo?.favorites.length != 0 && userInfo?.favorites.some(item => item.post_id === offer.id && item.condition === true) && userInfo.favorites.length !== 0) {
             return (
                 <div>
-                    <span onClick={(e) => getFavorits(false)} className="card_like like-active"></span>
+                    <span onClick={() => getFavorits(false)} className="card_like like-active"></span>
                 </div>
             )
         } else {
             return (
                 <div>
-                    <span onClick={(e) => getFavorits(true)} className="card_like"></span>
+                    <span onClick={() => getFavorits(true)} className="card_like"></span>
                 </div>
             )
         }
@@ -38,12 +38,12 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
 
     if (isAccountCard) {
         const getFavoritsUser = e => {
-            comment = userInfo && userInfo.favorites?.filter((item, i) => item.post_id === +e.target.id).map(item => item.comment).join()
-            let like = userInfo && userInfo.favorites?.filter((item, i) => item.post_id === +e.target.id).map(item => item.condition).join() === 'true' ? false : true
+            comment = userInfo && userInfo.favorites?.filter(item => item.post_id === +e.target.id).map(item => item.comment).join()
+            let like = userInfo && userInfo.favorites?.filter(item => item.post_id === +e.target.id).map(item => item.condition).join() === 'true' ? false : true
             setLikeComment(+e.target.id, comment, like)
         }
 
-        if (userInfo && userInfo?.favorites.length != 0 && userInfo?.favorites.some((item, i) => item.post_id === favId && item.condition === true) && userInfo.favorites.length !== 0) {
+        if (userInfo && userInfo?.favorites.length != 0 && userInfo?.favorites.some(item => item.post_id === favId && item.condition === true) && userInfo.favorites.length !== 0) {
             return (
                 <div>
                     <span onClick={(e) => getFavoritsUser(e)} id={favId} className="favoritesFavorite like-active"></span>

@@ -16,7 +16,6 @@ import { useMedia } from "../../hooks/useMedia";
 import { useProduct } from "../../hooks/useProduct";
 import Favorits from "../../UI/Favorits";
 import OffersRender from "../../components/OffersRender";
-import FavProvider from "../../lib/Context/FavoritesCTX";
 import BreadCrumbsProduct from "../../components/product/BreadCrumbsProduct";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import { useAuth } from "../../lib/Context/AuthCTX";
@@ -98,7 +97,6 @@ const Product = () => {
 
 	return (
 		<MetaLayout>
-			<FavProvider>
 				<OfferAccountProvider>
 					<div className="productPage" id="productPage">
 						{title == undefined ? <div className='product__placeholder_loader'><div><Loader /></div></div> : ''}
@@ -302,7 +300,6 @@ const Product = () => {
             <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
           </div>
         </OfferAccountProvider>
-      </FavProvider>
     </MetaLayout>
   );
 

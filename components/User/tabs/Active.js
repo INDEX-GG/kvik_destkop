@@ -1,6 +1,5 @@
 import React from "react";
 import AdCard_component from "../../AdCard";
-import FavProvider from "../../../lib/Context/FavoritesCTX";
 function Active(data) {
   if (data.offers.length == 0) {
     return (
@@ -32,9 +31,7 @@ function Active(data) {
       {data.offers.map((item, i) => {
         return (
             <div key={i} onClick={() => console.log(1)}>
-              <FavProvider key={i}>
                 <AdCard_component offer={item} />
-              </FavProvider>
             </div>
         );
       })}

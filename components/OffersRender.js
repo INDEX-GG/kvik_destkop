@@ -2,7 +2,6 @@ import React, { useReducer } from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
-import FavProvider from '../lib/Context/FavoritesCTX';
 import EndMessage from './EndMessage';
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +68,6 @@ const OffersRender = ({ data, title, isProduct, endMessage = true }) => {
 
 	return (
 		<>
-			<FavProvider >
 				<Box className={classes.top}>
 					<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
 
@@ -93,7 +91,6 @@ const OffersRender = ({ data, title, isProduct, endMessage = true }) => {
 				</div>
 				<ScrollTop />
 				{endMessage ? <EndMessage/> : null}
-			</FavProvider>
 		</>
 	);
 };
