@@ -284,7 +284,7 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 				<div className={classes.productContainer}>
 					<div className={classes.productCard}>
 						{/* !!!!!!!!!! Change */}
-						<img src={`http://192.168.8.111:6001/static/posts/${product.id}/post(1).webp?${product.id}`} className={classes.productImg} alt="product photo" />
+						<img src={product.photo} className={classes.productImg} alt="product photo" />
 						<div className={classes.productPrice}>{product.price} ₽</div>
 						<div className={classes.productName}>{product.title}</div>
 					</div>

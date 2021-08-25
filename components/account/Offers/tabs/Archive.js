@@ -41,7 +41,7 @@ function Archive(data) {
                     <div className="checkbox__text"></div>
                   </label>
                 </div>
-                 {JSON.parse(offer.photo).photos.slice(0, 1).map((imgs, i) => {
+                 {offer.photo?.slice(0, 1).map((imgs, i) => {
                            return (
                               <img key={i} src={imgs} />
                            )
