@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Avatar } from "@material-ui/core";
 import { useAuth } from "../../lib/Context/AuthCTX";
+
 export default function ProductUserInfo(data) {
 
 	const router = useRouter();
@@ -14,8 +15,6 @@ export default function ProductUserInfo(data) {
 
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 	let userSmallAd;
-
-	console.log(router.pathname)
 
 	return (
 		<>
