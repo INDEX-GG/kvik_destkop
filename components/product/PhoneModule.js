@@ -87,7 +87,7 @@ export default function PhoneModule({dialog, setDialog}) {
           </div>
         </div>
         <h2 className={classes.userPhone}>{sellerPhone || "Не указан"}</h2>
-        <p className={classes.userMessage}>Сообщите продавцу, что это объявление Вы нашли с помощью KVIK</p>
+        <p className={classes.userMessage}>Номер защищён: смс и сообщения в Viber, WhatsApp и других мессенджерах не будут доставлены</p>
         <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
         <ul className={classes.warningBlock}>
           <li className={classes.warningItem}>

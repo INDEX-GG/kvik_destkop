@@ -1,27 +1,17 @@
 import React from "react";
 import { ToRubles, ToRusDate } from "../../../../lib/services";
+import { useStore } from "../../../../lib/Context/Store";
 import Favorits from '../../../../UI/Favorits';
-import { useFavorits } from "../../../../lib/Context/FavoritesCTX";
-import { useAuth } from '../../../../lib/Context/AuthCTX';
-import axios from "axios";
 
 function Offers(data) {
 
-	const { id } = useAuth();
-	const { userFav, setQuery } = useFavorits();
-
-	console.log(userFav);
+	const { setLikeComment } = useStore()
 
 	function deleteNote(e) {
-		e.target.innerHTML = ''
-		let like = true
-		let coment = ''
-		let arrFavorits = { 'user_id': `${id}`, 'post_id': `${e.target.id}`, 'comment': `${coment}`, 'condition': `${like}` }
-		axios.post("/api/favorites", arrFavorits)
-			.then(r => r.data)
-			.finally(function () {
-				setQuery(p => !p)
-			})
+		e.target.innerHTML = '';
+		let like = true;
+		let comment = '';
+		setLikeComment(+e.target.id, comment, like)
 	}
 
 	if (data.itemsPost?.length === 0 || data.itemsPost?.length === undefined) {
@@ -30,7 +20,7 @@ function Offers(data) {
 				<div className="clientPage__container_content">
 					<div className="notInfContainer">
 						<div className="notInf__title">Добавьте объявление в избранное, чтобы не потерять</div>
-						<p className="notInf__subtitle">Нажмите на соответствующую кнопку( на кнопку добавления, на сердечко, на 💙️), чтобы добавить объявление в избранное</p>
+						<p className="notInf__subtitle">Нажмите на соответствующую кнопку (на кнопку добавления, на сердечко, на 💙️), чтобы добавить объявление в избранное</p>
 					</div>
 				</div>
 			</div>

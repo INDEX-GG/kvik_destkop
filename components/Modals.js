@@ -37,15 +37,16 @@ export function ModalRating({ rate = 0, comments = 0, modal, mobile }) {
 
 /* Модальное окно "Подписчики" */
 export function ModalSubscribers({ data, modal, mobile }) {
+	console.log(data);
 	return (
 		<div className="modal__wrapper_md acoountContainer">
 			<div className="modal__block__top accountTop">
 				<>
 					{mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
-					<h6 className="modal__block__top_title accountTitle">{data.length} подписчиков</h6>
+					<h6 className="modal__block__top_title accountTitle">{data?.message ? 0 : data.length} подписчиков</h6>
 				</>
 			</div>
-			{data.length == 0 ? (
+			{data?.message ? (
 				<div className="modal__block__middle_wrepper">
 					<div className="modal__block__middle">
 						<h6 className="modal__block__middle__title">У Вас еще нет подписчиков</h6>

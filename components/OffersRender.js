@@ -2,7 +2,6 @@ import React, { useReducer } from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
-import FavProvider from '../lib/Context/FavoritesCTX';
 import EndMessage from './EndMessage';
 
 const useStyles = makeStyles((theme) => ({
@@ -63,13 +62,12 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({ data, title, isProduct }) => {
+const OffersRender = ({ data, title, isProduct, endMessage = true }) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
 
 	return (
 		<>
-			<FavProvider >
 				<Box className={classes.top}>
 					<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
 
@@ -92,8 +90,7 @@ const OffersRender = ({ data, title, isProduct }) => {
 					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
-				<EndMessage/>
-			</FavProvider>
+				{endMessage ? <EndMessage/> : null}
 		</>
 	);
 };

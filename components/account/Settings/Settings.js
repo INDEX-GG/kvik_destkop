@@ -4,6 +4,7 @@ import Pushes from './tabs/Pushes';
 import BlackList from './tabs/BlackList';
 import { brooklyn } from '../../../lib/services';
 import { useRouter } from 'next/router';
+import safeAccountTab from '../../safeAccountTab';
 
 // Чёрный список
 const blackListBox = [
@@ -52,6 +53,7 @@ const Settings = () => {
 							return (
 								<a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
 									setItemNav({ i: item.id, ttl: item.title })
+									safeAccountTab(item.id)
 								}}>{item.title} {brooklyn(item.count)}</a>
 							)
 						})}

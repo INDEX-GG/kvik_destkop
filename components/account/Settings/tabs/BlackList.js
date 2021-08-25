@@ -8,11 +8,8 @@ function BlackList(data) {
             <div className="clientPage__container_bottom">
                 <div className="clientPage__container_content">
                 <div className="notInfContainer">
-                    <div className="notInf__title">Здесь буду ваши диалоги</div>
-                    <p className="notInf__subtitle">
-                    Нажмите на иконку чата, чтобы договориться
-                    <br /> о покупке или продаже товаров и услуг
-                    </p>
+                    <div className="notInf__title">В черном списке пока никого нет</div>
+                    <img className="notInf__img-blackList" src="/accountImage/blackList.png" alt='search_placeholder'/>
                 </div>
                 </div>
             </div>

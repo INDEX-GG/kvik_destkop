@@ -11,7 +11,11 @@ const useStyles = makeStyles(() => ({
 	},
 	slide: {
 		width: '210px',
-	}
+	},
+	popular_categories: {
+		marginBottom: '15px',
+		marginTop: '22px',
+	},
 }));
 
 const PopularCategories = () => {
@@ -19,7 +23,7 @@ const PopularCategories = () => {
 	const classes = useStyles();
 	return (
 		<>
-			<Typography variant='h2'>Популярные категории</Typography>
+			<Typography className={classes.popular_categories} variant='h2'>Популярные категории</Typography>
 			<Swiper
 				className={classes.slider}
 				spaceBetween={0}

@@ -1,4 +1,3 @@
-import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { brooklyn } from "../../../lib/services";
+import safeAccountTab from "../../safeAccountTab";
 import Messages from "./tabs/Messages";
 import Notifs from "./tabs/Notifs";
 
@@ -79,7 +80,9 @@ const Notifications = () => {
             {navItems.map((item) => {
               return (
                 <a className={itemNav.i === item.id ? "navActive" : ""} key={item.id} onClick={() => {
-                  setItemNav({ i: item.id, ttl: item.title })}}>
+                  setItemNav({ i: item.id, ttl: item.title })
+				  safeAccountTab(item.id)
+				  }}>
                   {item.title} {brooklyn(item.count)}
                 </a>
               );

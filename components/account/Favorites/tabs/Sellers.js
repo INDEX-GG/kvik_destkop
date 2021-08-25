@@ -40,7 +40,7 @@ function Sellers({sellers, sellerSub}) {
           <div className="notInfContainer">
             <div className="notInf__title">Здесь будут ваши избранные продавцы</div>
             <p className="notInf__subtitle">Подпишитесь на продавца, чтобы видеть больше его объявлений</p>
-            <img className="notInf__img" src="/accountImage/SellerNone.png"></img>
+            <img className="notInf__img" src="/accountImage/SellerNone.png" alt="seller_placholder"/>
           </div>
         </div>
       </div>

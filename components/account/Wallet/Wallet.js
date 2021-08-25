@@ -3,6 +3,7 @@ import Balance from './tabs/Balance';
 import Story from './tabs/Story';
 import Bonus from './tabs/Bonus';
 import { useRouter } from 'next/router';
+import safeAccountTab from '../../safeAccountTab';
 
 //Баланс кошелька
 const balance = 3454322;
@@ -57,6 +58,7 @@ const Wallet = () => {
 							return (
 								<a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')} onClick={() => {
 									setItemNav({ i: item.id, ttl: item.title })
+									safeAccountTab(item.id)
 								}}>{item.title}</a>
 							)
 						})}

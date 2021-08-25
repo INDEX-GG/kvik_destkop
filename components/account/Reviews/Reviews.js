@@ -3,6 +3,7 @@ import WaitReviews from './tabs/WaitReviews';
 import LeftReviews from './tabs/LeftReviews';
 import { brooklyn } from '../../../lib/services';
 import { useRouter } from 'next/router';
+import safeAccountTab from '../../safeAccountTab';
 
 // Ждут отзыва
 const waitReviewBox = [
@@ -60,7 +61,9 @@ const Reviews = () => {
             {navItems.map(item => {
                return (
                   <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')}  onClick={() => {
-                     setItemNav({ i: item.id, ttl: item.title })}}>{item.title} { brooklyn(item.count)}</a>
+                     setItemNav({ i: item.id, ttl: item.title })
+					 safeAccountTab(item.id)
+					}}>{item.title} { brooklyn(item.count)}</a>
                )
             })}
             </div>

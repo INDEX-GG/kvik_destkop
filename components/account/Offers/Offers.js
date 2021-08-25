@@ -3,11 +3,12 @@ import Active from "./tabs/Active";
 import Wait from "./tabs/Wait";
 import Archive from "./tabs/Archive";
 import Placeholder from "./tabs/Placeholder";
-import router from "next/router";
+import { useRouter } from "next/router";
 import { brooklyn } from "../../../lib/services";
 
 // import OfferAccountProvider from "../../../lib/Context/OfferAccountCTX";
 import { useOfferAccount } from "../../../lib/Context/OfferAccountCTX";
+import safeAccountTab from "../../safeAccountTab";
 
 const causes = "Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик";
 // const OffersBox = [
@@ -34,6 +35,8 @@ const Offers = () => {
   const [activeOffersBox, setActiveOffersBox] = useState([]);
   const [waitOffersBox, setWaitOffersBox] = useState([]);
   const [archiveOffersBox, setArchiveOffersBox] = useState([]);
+
+  const router = useRouter();
 
 
 
@@ -88,6 +91,7 @@ const Offers = () => {
               return (
                 <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} onClick={() => {
                   setItemNav({ i: item.id, ttl: item.title })
+				  safeAccountTab(item.id)
                 }}>
                   {item.title} {brooklyn(item.count)}{" "}
                 </a>

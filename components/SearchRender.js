@@ -2,7 +2,6 @@ import React, { useReducer } from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
-import FavProvider from "../lib/Context/FavoritesCTX";
 import EndMessage from './EndMessage';
 
 const useStyles = makeStyles(() => ({
@@ -57,10 +56,9 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({ data, title }) => {
+const OffersRender = ({ data, title, endMessage = true }) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
-
 
 	return (
 		<>
@@ -79,10 +77,11 @@ const OffersRender = ({ data, title }) => {
 				</TextField>
 			</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) =><FavProvider key={i}> <AdCard_component  offer={obj} /></FavProvider>)}
+					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
 				</div>
+				{data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null}
 			<div className={classes.messageEnd}>
-				<EndMessage/>
+				{endMessage && data?.length ? <EndMessage/> : null}
 			</div>
 			<ScrollTop />
 		</>

@@ -22,7 +22,7 @@ export default function EndMessage() {
         <div className={classes.messageContainer}>
             <Active_icon Size={45} Color="#00A0AB" />
             <div className={classes.messageTitle}>На этом пока все!</div>
-            <p className={classes.messageSubtitle}>Вы посмотрели всеновые публикации за последние 3 дня</p>
+            <p className={classes.messageSubtitle}>Вы посмотрели все новые публикации за последние 3 дня</p>
         </div>
     )
 }

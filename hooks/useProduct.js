@@ -10,9 +10,9 @@ export function useProduct(id) {
 				.then((r) => {
 					if (r !== undefined) {
 						let photoes = JSON.parse(r.photo);
-						photoes = photoes.photos;
-
-						console.log(photoes)
+						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
+						r.photo = photoes
+						r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 						setProductInfo(r);
 					}
 				})
@@ -22,4 +22,3 @@ export function useProduct(id) {
 		...productInfo
 	}
 }
-

@@ -15,7 +15,7 @@ export default function ProductModalCarousel({ photo }) {
   useEffect(() => {
     const arr = [];
     if (photo != undefined) {
-      for (let inner = 0; inner < JSON.parse(photo).photos.length; inner++) {
+      for (let inner = 0; inner < photo.length; inner++) {
         if (inner == 0) {
           arr.push(true);
         } else {
@@ -32,7 +32,7 @@ export default function ProductModalCarousel({ photo }) {
   }
 
   if (photo != undefined) {
-    if (JSON.parse(photo).photos.length == 1) {
+    if (photo.length == 1) {
       CarouselPag = false;
       CarouselInf = false;
       SecondCarousel = false;
@@ -44,7 +44,7 @@ export default function ProductModalCarousel({ photo }) {
       <Swiper className="productSliderWrapper" thumbs={{ swiper: thumbsSwiper }} loop={CarouselInf} pagination={CarouselPag} navigation={true} centeredSlides={true} >
         {photo == undefined
           ? ""
-          : JSON.parse(photo).photos.map((img, i) => (
+          : photo.map((img, i) => (
               <SwiperSlide key={i} className="productSliderItem">
                 <div style={{width: "100%", height: "100%"}}>
                   <img style={{objectFit: "contain", width: "100%", height: "100%"}} src={img} />
@@ -56,7 +56,7 @@ export default function ProductModalCarousel({ photo }) {
         <Swiper className="mySwiper productSliderNav" onSwiper={setThumbsSwiper} slidesPerView={"auto"} freeMode={true} watchSlidesVisibility={true}>
           {photo == undefined
             ? ""
-            : JSON.parse(photo).photos.map((img, i) => (
+            : photo.map((img, i) => (
                 <SwiperSlide key={i} className="productSliderNavItem" onClick={() => changeSlide(i, activeSlide, setActiveSlide)}>
                   <img src={img} style={{ border: activeSlide[i] ? "6px solid #52b9c5" : "none", borderRadius: "5px" }} />
                 </SwiperSlide>
