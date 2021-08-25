@@ -1,6 +1,7 @@
 FROM node:14-alpine
 WORKDIR /app
-RUN git pull
+RUN apk add --no-cache git
+RUN git clone https://github.com/INDEX-GG/kvik_destkop.git
 ADD package.json package.json
 RUN npm install
 ADD . .
