@@ -93,8 +93,8 @@ export default function ContentPlaseOffer({dialog, title, backFunc, product}) {
 				headers: {
 					"Content-Type": "multipart/form-data"
 				}
-			}).then(() => {
-                setPromotionProduct({title: data.title, price: data.price, id: r?.data?.id})
+			}).then((r) => {
+                setPromotionProduct({title: data.title, price: data.price, id: r?.data?.id, photo: r?.data.images.photos[0]})
                 setPromotion(true)
             })
 		})

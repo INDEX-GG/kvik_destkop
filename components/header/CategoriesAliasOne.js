@@ -14,8 +14,7 @@ import BurgerWork from '../../UI/icons/BurgerWork';
 import CategoriesAliasTwo from './CategoriesAliasTwo';
 
 
-export default function CategoriesAliasOne({iconId, label, alias, placeOffer}) {
-
+export default function CategoriesAliasOne({iconId, label, alias, placeOffer, toggleDrawer}) {
 
 	const aliasIcon = [
 		<BurgerRealEstate key={0} />,
@@ -39,8 +38,6 @@ export default function CategoriesAliasOne({iconId, label, alias, placeOffer}) {
 		return str[0].toUpperCase() + str.substring(1,)
 	}
 
-	console.log(placeOffer)
-
 	return (
 		<>
 			<ListItem style={{ backgroundColor: open ? "#E9E9E9" : "#fff" }} className="burgerList" button onClick={() => setOpen(!open)}>
@@ -52,7 +49,7 @@ export default function CategoriesAliasOne({iconId, label, alias, placeOffer}) {
 			<Collapse in={open}>
 				<List component="div" disablePadding>
 				{categoriesByAlias(alias).map((item, index) => {
-					return <CategoriesAliasTwo key={index} alias={alias} alias2={item.alias} label={generateStr(item.label)} placeOffer={placeOffer} />
+					return <CategoriesAliasTwo key={index} alias={alias} alias2={item.alias} label={generateStr(item.label)} placeOffer={placeOffer} toggleDrawer={toggleDrawer}/>
 				})}
 				</List>
 			</Collapse>

@@ -28,7 +28,7 @@ export default function BurgerCategories() {
 			return;
 		}
 
-		setState({ ...state, [anchor]: open });
+		setState({[anchor]: open });
 	};
 
 	const list = (anchor) => (

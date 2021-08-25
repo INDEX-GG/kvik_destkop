@@ -22,6 +22,9 @@ const useStyles = makeStyles(() => ({
 export default function CategoriesPlaseOffer({categories, categoriesFunc, dialog, dialogFunc}) {
     const router = useRouter()
     const classes = useStyles()
+
+	console.log(categories);
+
     return (
         <Dialog open={dialog} fullScreen={true}>
             <div className="modal__wrapper_md accountContainer">

@@ -20,87 +20,88 @@ import CategoriesAliasOne from './CategoriesAliasOne';
 
 export default function CategoriesContent({ toggleDrawer, changeCategories }) {
 
-	const { categoryMainAlias, categoriesByAlias } = useCategory()
-	const [aliasArray, setAliasArray] = useState([])
-	const [aliasArray2, setAliasArrayTwo] = useState([])
-	const [aliasArray3, setAliasArrayThree] = useState([])
-	let aliasItemId = -1
-	let aliasItemIdTwo = -1
+	const { categoryMainAlias } = useCategory()
+	// const [aliasArray, setAliasArray] = useState([])
+	// const [aliasArray2, setAliasArrayTwo] = useState([])
+	// const [aliasArray3, setAliasArrayThree] = useState([])
+	// let aliasItemId = -1
+	// let aliasItemIdTwo = -1
 
-	const aliasIcon = [
-		<BurgerRealEstate key={0} />,
-		<BurgerRealEstate key={1} />,
-		<BurgerAuto key={2} />,
-		<BurgerWork key={3} />,
-		<BurgerElectronic key={4} />,
-		<BurgerHome key={5} />,
-		<BurgerAnimal key={6} />,
-		<BurgerThing key={7} />,
-		<BurgerBusiness key={8} />,
-		<BurgerHobby key={9} />,
-		<BurgerServices key={10} />
-	];
+	// const aliasIcon = [
+	// 	<BurgerRealEstate key={0} />,
+	// 	<BurgerRealEstate key={1} />,
+	// 	<BurgerAuto key={2} />,
+	// 	<BurgerWork key={3} />,
+	// 	<BurgerElectronic key={4} />,
+	// 	<BurgerHome key={5} />,
+	// 	<BurgerAnimal key={6} />,
+	// 	<BurgerThing key={7} />,
+	// 	<BurgerBusiness key={8} />,
+	// 	<BurgerHobby key={9} />,
+	// 	<BurgerServices key={10} />
+	// ];
 
-	useEffect(() => {
-		if (aliasArray.length == 0) {
-			const arr = []
-			for (let inner = 0; inner < categoryMainAlias.length; inner++) {
-				arr.push(false)
-			}
-			setAliasArray(arr)
-		}
+	// useEffect(() => {
+	// 	if (aliasArray.length == 0) {
+	// 		const arr = []
+	// 		for (let inner = 0; inner < categoryMainAlias.length; inner++) {
+	// 			arr.push(false)
+	// 		}
+	// 		setAliasArray(arr)
+	// 	}
 
-		if (aliasArray2.length == 0) {
-			const arr = []
+	// 	if (aliasArray2.length == 0) {
+	// 		const arr = []
 
-			for (let inner = 0; inner < categoryMainAlias.length; inner++) {
-				for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
-					arr.push(false)
-				}
-			}
-			setAliasArrayTwo(arr)
-		}
+	// 		for (let inner = 0; inner < categoryMainAlias.length; inner++) {
+	// 			for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
+	// 				arr.push(false)
+	// 			}
+	// 		}
+	// 		setAliasArrayTwo(arr)
+	// 	}
 
-		if (aliasArray3.length == 0) {
-			const arr = []
+	// 	if (aliasArray3.length == 0) {
+	// 		const arr = []
 
-			for (let inner = 0; inner < categoryMainAlias.length; inner++) {
-				for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
+	// 		for (let inner = 0; inner < categoryMainAlias.length; inner++) {
+	// 			for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
 
-					const queryData3 = categoriesByAlias(categoryMainAlias[inner].alias, categoriesByAlias(categoryMainAlias[inner].alias)[inner2].alias)
+	// 				const queryData3 = categoriesByAlias(categoryMainAlias[inner].alias, categoriesByAlias(categoryMainAlias[inner].alias)[inner2].alias)
 
-					if (queryData3 != null) {
-						arr.push(false)
-					}
-				}
-			}
-			setAliasArrayThree(arr)
-		}
+	// 				if (queryData3 != null) {
+	// 					arr.push(false)
+	// 				}
+	// 			}
+	// 		}
+	// 		setAliasArrayThree(arr)
+	// 	}
 
-	})
+	// })
 
-	function generateArray(index, arr, setArr) {
-		const newArr = arr.map((item, i) => {
-			if (i == index) {
-				item = !item
-			}
-			return item
-		})
-		setArr(newArr)
-	}
+	// function generateArray(index, arr, setArr) {
+	// 	const newArr = arr.map((item, i) => {
+	// 		if (i == index) {
+	// 			item = !item
+	// 		}
+	// 		return item
+	// 	})
+	// 	setArr(newArr)
+	// }
 
-	function generateID(e, id, arr, setArr) {
-		if (e.target.tagName === "SPAN") {
-			id = +e.target.parentNode.getAttribute("id")
-		} else {
-			id = +e.target.childNodes[0].getAttribute("id")
-		}
-		generateArray(id, arr, setArr)
-	}
+	// function generateID(e, id, arr, setArr) {
+	// 	if (e.target.tagName === "SPAN") {
+	// 		id = +e.target.parentNode.getAttribute("id")
+	// 	} else {
+	// 		id = +e.target.childNodes[0].getAttribute("id")
+	// 	}
+	// 	generateArray(id, arr, setArr)
+	// }
 
 	function generateStr(str) {
 		return str[0].toUpperCase() + str.substring(1,)
 	}
+
 
 	return (
 		<List className="burgerContainer">
@@ -113,7 +114,7 @@ export default function CategoriesContent({ toggleDrawer, changeCategories }) {
 							</ListItemIcon>
 							<ListItemText className="burgerItem" primary={generateStr(item.label)} />
 						</ListItem> */}
-						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories}/>
+						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories} toggleDrawer={toggleDrawer}/>
 						{/* <Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
 							<List component="div" disablePadding>
 								{categoriesByAlias(item.alias).map((item2, index2) => {
