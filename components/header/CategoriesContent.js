@@ -113,8 +113,8 @@ export default function CategoriesContent({ toggleDrawer, changeCategories }) {
 							</ListItemIcon>
 							<ListItemText className="burgerItem" primary={generateStr(item.label)} />
 						</ListItem> */}
-						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index}/>
-						<Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
+						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories}/>
+						{/* <Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
 							<List component="div" disablePadding>
 								{categoriesByAlias(item.alias).map((item2, index2) => {
 									{ aliasItemId += 1 }
@@ -192,7 +192,7 @@ export default function CategoriesContent({ toggleDrawer, changeCategories }) {
 									)
 								})}
 							</List>
-						</Collapse>
+						</Collapse> */}
 					</div>)
 			})}
 		</List>
