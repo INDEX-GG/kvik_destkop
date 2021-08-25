@@ -29,11 +29,11 @@ export default function Auto({ data }) {
     // console.log(methods.watch('submodels'))
     // console.log(methods.watch('generation'))
     // console.log(methods.watch('modification'))
-    console.log('+++++', mark)
-    console.log('+++++', model)
-    console.log('+++++', generation)
-    console.log('+++++', generationUnical)
-    console.log('+++++', modification && modification[0])
+    // console.log('+++++', mark)
+    // console.log('+++++', model)
+    // console.log('+++++', generation)
+    // console.log('+++++', generationUnical)
+    // console.log('+++++', modification && modification[0])
 
     const classes = useStyles();
     const methods = useFormContext();
@@ -95,37 +95,45 @@ export default function Auto({ data }) {
             let newObjdrivetype = [],
                 newObjBodytype = [],
                 newObjDoors = [],
-                newObjcomplectations = [];
+                newObjcomplectations = [],
+                newObjyear = [],
+                n = ((modification[0].filter(item => item.alias === 'yearfrom').map(item => +item.value)))[0],
+                m = ((modification[0].filter(item => item.alias === 'yearto').map(item => +item.value)))[0];
+
+            for (var i = n; i <= m; i++) {
+                newObjyear.push(i)
+            }
+
             for (let i = 0; i < modification.length; i++) {
-                console.log(...(modification[i].map(item => item.value)[9]))
+
                 newObjdrivetype.push(
-                    (modification[i].map(item => item.value))[3]
+                    ...((modification[i].filter(item => item.alias === 'drivetype').map(item => item.value)))
                 )
                 newObjBodytype.push(
-                    (modification[i].map(item => item.value))[7]
+                    ...((modification[i].filter(item => item.alias === 'bodytype').map(item => item.value)))
                 )
                 newObjDoors.push(
-                    (modification[i].map(item => item.value))[8]
+                    ...((modification[i].filter(item => item.alias === 'doors').map(item => item.value)))
                 )
                 newObjcomplectations.push(
-
-                    ...(modification[i].map(item => item.value)[9]).map(item => item.value)
+                    ...((modification[i].filter(item => item.alias === 'complectations').map(item => item.value)))
                 )
-
             }
+
             // console.log('======>', [...new Set(newObjdrivetype)])
             // console.log('======>', [...new Set(newObjBodytype)])
             // console.log('======>', [...new Set(newObjDoors)])
             // console.log('======>', [...new Set(newObjcomplectations)])
-            modification[0][3].value = [...new Set(newObjdrivetype)]
-            modification[0][7].value = [...new Set(newObjBodytype)]
-            modification[0][8].value = [...new Set(newObjDoors)]
-            modification[0][9].complectations = [...new Set(newObjcomplectations)]
+            modification[0].filter(item => item.alias === 'drivetype')[0].value = [...new Set(newObjdrivetype)]
+            modification[0].filter(item => item.alias === 'bodytype')[0].value = [...new Set(newObjBodytype)]
+            modification[0].filter(item => item.alias === 'doors')[0].value = [...new Set(newObjDoors)]
+            modification[0].filter(item => item.alias === 'complectations')[0].complectations = [...new Set(newObjcomplectations)]
+            modification[0].unshift({ alias: "year", name: "Год выпуска", value: newObjyear })
             setFullDescription(modification[0])
         }
     }, [modification])
 
-
+    console.log(modification && modification[0])
     return (
 
         data.map(item => {
@@ -180,7 +188,6 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                            {console.log(mark)}
                                                             {(mark.children?.sort((a, b) => a.value > b.value ? 1 : -1))?.map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}
@@ -264,7 +271,6 @@ export default function Auto({ data }) {
                                                             return (
                                                                 <Box className={classes.formInputMainField}>
                                                                     <Typography className={classes.formTitleField}>{item.name}</Typography>
-                                                                    {console.log(item.value)}
                                                                     <Box className={classes.formInputField}>
                                                                         <Controller
                                                                             name={"fullDescription"}
@@ -324,6 +330,7 @@ export default function Auto({ data }) {
 
                                                 default:
                                                     return (
+
                                                         <Box className={classes.formInputMainField}>
                                                             <Typography className={classes.formTitleField}>{item.name}</Typography>
                                                             <Box className={classes.formInputField}>

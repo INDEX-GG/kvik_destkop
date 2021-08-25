@@ -27,7 +27,7 @@ export default function ProductAction(data) {
 
   /* Модальное окно */
   function pushCheck() {
-    setOfferId(+data.router.query.id);
+    setOfferId(+data.router);
     setOpenUnpublishForm(!openUnpublishForm);
     handleUnpublishFormDialog();
   }
@@ -52,7 +52,7 @@ export default function ProductAction(data) {
                 )}
                 {data.user_id === undefined ? '' :
                   <div className="SellerInfoTopButtons">
-                    <Favorits isProduct />
+                    <Favorits isProduct idOffer={+data.router}/>
                     <a className="SellerInfoCompare"></a>
                   </div>
                 }

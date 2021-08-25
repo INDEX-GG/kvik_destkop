@@ -63,7 +63,6 @@ const Product = () => {
 	const { id } = useAuth();
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
-
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
 	const [collSO, setCollSO] = useState(true);
@@ -118,7 +117,7 @@ const Product = () => {
 											{user_id !== id && !matchesLaptop && !matchesDesktop && !matchesHD && (
 												user_id === undefined ? '' :
 													<div className="SellerInfoTopButtons">
-														<Favorits isProduct />
+														<Favorits isProduct idOffer={+query.id} />
 													</div>
 											)}
 											{photo == undefined ?
