@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-export default function handler(req, res) {
+export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 
@@ -14,22 +14,6 @@ export default function handler(req, res) {
 				comment = ''
 			}
 
-			// Проверка и заполнение пустого поля
-			let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
-			if (fav[0].favorites == null || fav[0].favorites === '') {
-				const obj = {
-					where:
-					{
-						id: userIdInt
-					},
-					data: {
-						favorites: '[]'
-					}
-				}
-				await prisma.users.update(obj);
-			}
-
-			// Запрос поля
 			const favorites = await prisma.users.findFirst({
 				where: {
 					id: userIdInt
@@ -40,16 +24,14 @@ export default function handler(req, res) {
 				}
 			})
 
-			// Преобразование строки в json
-			let list = JSON.parse(favorites['favorites'])
 
+			let list = JSON.parse(favorites['favorites'])
 			if (list.some(item => item.post_id === post_id)) {
 				for (let index in list) {
 					if (list[index].post_id === post_id) {
 						if (condition === 'false' && comment === '') {
 							list.splice(index, 1)
 							message = 'successfully delete'
-
 						} else {
 							list.splice(index, 1)
 							list.push({ post_id: post_id, comment: comment, condition: condition })
@@ -58,7 +40,6 @@ export default function handler(req, res) {
 					}
 				}
 			} else {
-
 				list.push({ post_id: post_id, comment: comment, condition: condition })
 				message = 'successfully add'
 				if (condition === 'false' && comment === '') {
@@ -66,10 +47,7 @@ export default function handler(req, res) {
 					message = 'nothing reasons for add'
 				}
 			}
-
-			// Отправка данных
 			const obj = {
-
 				where:
 				{
 					id: userIdInt
@@ -79,17 +57,26 @@ export default function handler(req, res) {
 				}
 			}
 			await prisma.users.update(obj);
-
 			return message;
 		}
 
-		main()
-			.then(r => res.json({ "message": r }))
-			.catch(e => console.error(`ошибка api favorites${e}`))
-			.finally(async () => {
-				await prisma.$disconnect()
-			})
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api favorites${e}`)
+			res.json('ошибка api favorites', e)
+			res.status(405).end();
+		}
+		finally {
+			await prisma.$disconnect();
+		}
+
 	} else {
-		res.status(405).json({ message: 'method not allowed' })
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }

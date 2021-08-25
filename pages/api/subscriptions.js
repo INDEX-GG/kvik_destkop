@@ -1,28 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
-
 		const main = async () => {
-
 			const user_id = req.body.user_id;
 			const seller_id = req.body.seller_id;
 			const userIdInt = Number(user_id);
-
-			let sub = await prisma.$queryRaw(`SELECT subscriptions FROM users WHERE id = ${userIdInt}`)
-			if (sub[0].subscriptions == null || sub[0].subscriptions === '') {
-				const obj = {
-					where:
-					{
-						id: userIdInt
-					},
-					data: {
-						subscriptions: '[]'
-					}
-				}
-				await prisma.users.update(obj);
-			}
 			const subscriptions = await prisma.users.findFirst({
 				where: {
 					id: userIdInt
@@ -46,12 +30,10 @@ export default function handler(req, res) {
 				list.push(seller_id)
 				answer = 'post'
 			}
-
 			var index_1 = list.indexOf('')
 			if (index_1 > -1) {
 				list.splice(index_1, 1)
 			}
-
 			const obj = {
 				where:
 				{
@@ -64,13 +46,24 @@ export default function handler(req, res) {
 			await prisma.users.update(obj);
 			return answer;
 		}
-		main()
-			.then(r => res.json(r))
-			.catch(e => console.error(`ошибка api subscriptions${e}`))
-			.finally(async () => {
-				await prisma.$disconnect()
-			})
+
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api subscriptions${e}`)
+			res.json('ошибка api subscriptions', e)
+			res.status(405).end();
+		}
+		finally {
+			await prisma.$disconnect();
+		}
+
 	} else {
-		res.status(405).json({ message: 'method not allowed' })
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }
