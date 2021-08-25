@@ -15,7 +15,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
 
     if (isCard) {
         const getFavorits = (e) => {
-            comment = userInfo && userInfo.favorites?.filter((item, i) => item.post_id === offer.id).map((item) => item.comment).join()
+            comment = userInfo && userInfo?.favorites.length != 0 && userInfo.favorites?.filter((item, i) => item.post_id === offer.id).map((item) => item.comment).join()
             setLikeComment(offer.id, comment, e)
         }
 

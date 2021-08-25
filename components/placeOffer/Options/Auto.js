@@ -183,7 +183,7 @@ export default function Auto({ data }) {
                                                             onChange={onChange}
                                                             error={!!error}
                                                             helperText={error ? error.message : ' '}>
-                                                                {console.log(mark.children)}
+                                                                {console.log(mark)}
                                                             {(mark.children?.sort((a, b) => a.value > b.value ? 1 : -1))?.map((item, i) => (
                                                                 <MenuItem key={i} value={item.value}>
                                                                     {item.value}
