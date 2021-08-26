@@ -72,11 +72,11 @@ function PersonalData() {
 	//!! Валидация формы
 
 	function changePasswordInput(e) {
+		
+		if (!e.target.value.match(/^[A-Za-z0-9!@#$%^&*]*$/g)) {
+			return;
+		}
 
-		console.log(e.target.value.length)
-
-
-		console.log(passwordOne, '|',passwordTwo);
 
 		let length = false;
 		let number = false;
@@ -149,6 +149,13 @@ function PersonalData() {
 
 			return;
 		}
+
+
+		
+		if (!e.target.value.match(/^[A-Za-z0-9!@#$%^&*]*$/g)) {
+			return;
+		}
+
 
 		if (!e.target.value.match(/^\S*$/g)) {
 			return;

@@ -39,9 +39,12 @@ export default function BurgerCategories() {
 			role="presentation"
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
-			<div className="burgerTitle" onClick={toggleDrawer("left", false)}>Категории</div>
+			<div className='burgerBox'>
+				<div className="burgerTitle">Категории</div>
+				<div className="burgerIcon" onClick={toggleDrawer("left", false)}></div>
+			</div>
 			<Divider />
-			<CategoriesContent toggleDrawer={() => toggleDrawer("left", false)} />
+			<CategoriesContent toggleDrawer={setState} />
 		</div>
 	);
 

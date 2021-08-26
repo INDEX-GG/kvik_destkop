@@ -20,8 +20,8 @@ export default function CategoriesAliasThree({alias, alias2, alias3, label, plac
 			)
 		}
 		return (
-			<ListItem className="burgerList pl-1" onClick={() => toggleDrawer("left", false)}>
-				<Link href={`/search/${alias3}`}><a className="burgerItem burgerLink">{label}</a></Link>
+			<ListItem className="burgerList pl-1">
+				<Link href={`/search/${alias3}`}><a onClick={() => toggleDrawer({left: false})} className="burgerItem burgerLink">{label}</a></Link>
 			</ListItem>
 		)
 	}

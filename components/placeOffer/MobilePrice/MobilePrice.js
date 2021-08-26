@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
             position: "absolute",
             bottom: "-10px",
             fontSize: "11px",
-            left: "-18px",
+            // left: "-18px",
             width: "100px"
         }
     },
@@ -70,7 +70,7 @@ export default function MobilePrice() {
                                     disableUnderline: true
                                 }} />
                         )}
-                        rules={{ required: `Введите цену ${methods.watch('title')}`, max: 10 }}
+                        rules={{ required: `Введите цену ${methods.watch('title') != undefined ? methods.watch('title') : null}`, max: 10 }}
                     />
                 </Box>
                 <Box className={classes.plaseOfferBoxItem + " " + classes.plaseOfferAuction}>

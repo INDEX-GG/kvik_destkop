@@ -105,14 +105,14 @@ function UserPage() {
               <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribers">
                 {userInfo.userSubscribers}
                 <div style={{ textAlign: "center" }}>
-                  <div>{subscribersList?.message ? 0 : subscribersList.length}</div>
+                  <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>
                   <p>подписчиков</p>
                 </div>
               </a>
               <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
                 {userInfo.userSubscriptions}
                 <div style={{ textAlign: "center" }}>
-                  <div>{subList.length > 0 ? subList.length : 0}</div>
+                  <div>{subList?.length > 0 ? subList?.length : 0}</div>
                   <p>подписок</p>
                 </div>
               </a>

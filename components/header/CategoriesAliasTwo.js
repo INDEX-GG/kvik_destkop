@@ -28,8 +28,8 @@ export default function CategoriesAliasTwo({alias, alias2, label, placeOffer, to
 		}
 
 		return (
-			<ListItem onClick={() => toggleDrawer("left", false)} className="burgerList">
-				<Link href={`/search/${alias2}`}><a className="burgerItem burgerLink">{label}</a></Link>
+			<ListItem className="burgerList">
+				<Link href={`/search/${alias2}`}><a onClick={() => toggleDrawer({left: false})} className="burgerItem burgerLink">{label}</a></Link>
 			</ListItem>
 		)
 	}
@@ -41,7 +41,7 @@ export default function CategoriesAliasTwo({alias, alias2, label, placeOffer, to
 			</ListItem>
 			<Collapse in={open}>
 				{categoriesByAlias(alias, alias2)?.map((item, index) => {
-					return <CategoriesAliasThree key={index} alias={alias} alias2={alias2} alias3={item.alias} label={generateStr(item.label)} placeOffer={placeOffer} />
+					return <CategoriesAliasThree key={index} alias={alias} alias2={alias2} alias3={item.alias} label={generateStr(item.label)} placeOffer={placeOffer} toggleDrawer={toggleDrawer} />
 				})}
 			</Collapse>
 		</>
