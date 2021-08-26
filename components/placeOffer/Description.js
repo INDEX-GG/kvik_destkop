@@ -39,10 +39,14 @@ const Description = () => {
                      fullWidth
                      autoComplete="on"
                      value={value}
+					 inputProps={{maxLength: 4000}}
                      onChange={onChange}
                      error={!!error} helperText={error ? error.message : ' '} />
                )}
-               rules={{ required: `Опишите ${methods.watch('title')}` }}
+               rules={{ 
+				   required: `Опишите ${methods.watch('title')}`,
+				   pattern: {value: /^[a-zA-Zа-яА-Я0-9,."'()%*!?+=/-]+$/, message: 'Недопустимые символы' },
+				}}
             />
          </Box>
       </Box>

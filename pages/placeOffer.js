@@ -100,7 +100,6 @@ function PlaceOffer() {
         delete data.alias3
         delete data.alias4
         delete data.photoes
-
         const photoData = new FormData;
         console.log(photoes)
         if (photoes.length > 1) {
