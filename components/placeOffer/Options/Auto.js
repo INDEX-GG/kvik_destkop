@@ -503,8 +503,8 @@ export default function Auto({ data }) {
                 <Box className={classes.formColorMain}>
                     {
                         ColorAuto.map(item => (
-                            <Box>
-                                <Box className={classes.formColor} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} key={item.name}></Box>
+                            <Box key={item.value}>
+                                <Box  className={classes.formColor} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ></Box>
                             </Box>
                         )
                         )
