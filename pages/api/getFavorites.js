@@ -6,44 +6,46 @@ export default async function handler(req, res) {
 		const main = async () => {
 			const user_id = req.body.user_id
 			const userIdInt = Number(user_id)
-
-			let fav = await prisma.$queryRaw(`SELECT favorites FROM users WHERE id = ${userIdInt}`)
-			let list = JSON.parse(fav[0].favorites)
-
-			if (fav[0].favorites == null || fav[0].favorites === '' || fav[0].favorites === '[]') {
+			let fav = await prisma.users.findFirst({
+				where: {
+					id: userIdInt
+				}
+			})
+			if (fav.favorites == null || fav.favorites === '' || fav.favorites === '[]') {
 				return { "message": "nothing" };
 			}
-			let posts = []
+			const list = JSON.parse(fav.favorites)
+			let postsList = []
 			for (let index in list) {
-				let postData = await prisma.posts.findFirst({
-					where: {
-						id: Number(list[index].post_id)
-					}
-				})
-				if (postData !== null) {
-					const userData = await prisma.users.findFirst({
-						where: {
-							id: Number(postData.user_id)
-						},
-						select: {
-							id: true,
-							name: true,
-							userPhoto: true,
-							blocked: true,
+				postsList.push((list[index]).post_id)
+			}
+			let productsList = await prisma.$queryRaw(`SELECT * FROM posts WHERE id IN (${postsList})`)
+			let peopleList = []
+			for (let index1 in productsList) {
+				peopleList.push((productsList[index1]).user_id)
+			}
+			let sellersList = await prisma.$queryRaw(`SELECT id, name, "userPhoto", blocked, raiting FROM users WHERE id IN (${peopleList})`)
+			let posts = []
+			for (let index2 in productsList) {
+				let postData = productsList[index2]
+				for (let index3 in sellersList) {
+					(sellersList[index3])
+					if ((productsList[index2]).user_id === (sellersList[index3]).id) {
+						postData.user_name = (sellersList[index3]).name
+						postData.user_photo = (sellersList[index3]).userPhoto
+						postData.user_blocked = (sellersList[index3]).blocked
+						for (let index4 in list) {
+							if ((productsList[index2]).id == (list[index4]).post_id) {
+								postData.comment = (list[index4]).comment
+								postData.condition = (list[index4]).condition
+							}
 						}
-					})
-					if (userData !== null) {
-						postData.user_name = userData.name
-						postData.user_photo = userData.userPhoto
-						postData.user_blocked = userData.blocked
-						postData.comment = list[index].comment
-						postData.condition = list[index].condition
+
 						posts.push(postData)
 					}
 				}
 			}
-
-			return { posts: posts };
+			return { posts: posts }
 		}
 		try {
 			let response = await main();
