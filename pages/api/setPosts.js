@@ -1,13 +1,12 @@
-import multer from "multer"
+// import multer from "multer"
 import { PrismaClient } from '@prisma/client';
 
-let names = [];
-export const config = {
-	api: {
-		bodyParser: false,
-	},
-}
-
+// let names = [];
+// export const config = {
+// 	api: {
+// 		bodyParser: false,
+// 	},
+// }
 // var storage = multer.diskStorage({
 // 	destination: function (cb) {
 // 		cb(null, "./public/offersImage")
