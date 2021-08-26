@@ -5,13 +5,20 @@
     border-radius: 10px 0 0 10px;
 }
 
+.burgerBox {
+	position: relative;
+	margin: 26px 0px 25px 77px;
+}
+
 .burgerTitle{
-    margin: 26px 0px 25px 77px;
     color: #2C2C2C;
     font-weight: 500;
     font-size: 18px;
-    position: relative;
-    &::before{
+}
+
+.burgerIcon {
+	cursor: pointer;
+	&::before{
         content: "";
         background-color: #C7C7C7;
         border-radius: 10px;
@@ -71,6 +78,7 @@
 
 .burgerLink {
     color: #00A0AB;
+	cursor: pointer;
     text-decoration: underline;
     font-weight: 500;
     font-size: 14px;

@@ -77,7 +77,7 @@ export default function MobileProduct({ctx}) {
                         disableUnderline: true
                      }} />
                )}
-               rules={{ required: `Опишите ${methods.watch('title')}` }}
+               rules={{ required: `Опишите ${methods.watch('title') != undefined ? methods.watch('title') : null}` }}
             />
         </Box>
     )

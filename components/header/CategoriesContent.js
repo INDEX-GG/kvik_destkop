@@ -18,7 +18,7 @@ import { useCategory } from "../../hooks/useCategory"
 // import Link from "next/link"
 import CategoriesAliasOne from './CategoriesAliasOne';
 
-export default function CategoriesContent({ changeCategories }) {
+export default function CategoriesContent({ changeCategories, toggleDrawer }) {
 
 	const { categoryMainAlias } = useCategory()
 	// const [aliasArray, setAliasArray] = useState([])
@@ -115,7 +115,7 @@ export default function CategoriesContent({ changeCategories }) {
 							</ListItemIcon>
 							<ListItemText className="burgerItem" primary={generateStr(item.label)} />
 						</ListItem> */}
-						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories} /* toggleDrawer={toggleDrawer} *//>
+						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories}  toggleDrawer={toggleDrawer}/>
 						{/* <Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
 							<List component="div" disablePadding>
 								{categoriesByAlias(item.alias).map((item2, index2) => {
