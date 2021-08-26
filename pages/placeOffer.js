@@ -93,20 +93,15 @@ function PlaceOffer() {
         if (data?.alias4) {
             alias.push(data.alias4);
         }
+        data.alias = alias.join(',');
+        data.user_id = id
+        delete data.alias1
+        delete data.alias2
+        delete data.alias3
+        delete data.alias4
+        delete data.photoes
 
-        const sendData = new FormData;
         const photoData = new FormData;
-        sendData.append('user_id', id);
-        sendData.append('title', data.title);
-        sendData.append('alias', alias);
-        sendData.append('description', data.description);
-        sendData.append('price', data.price);
-        sendData.append('trade', data.trade);
-        sendData.append('safedeal', data.safedeal);
-        sendData.append('delivery', data.delivery);
-        sendData.append('address', data.location);
-        sendData.append('byphone', data.byphone);
-        sendData.append('bymessage', data.bymessages);
         console.log(photoes)
         if (photoes.length > 1) {
             photoes.forEach(photo => photoData.append('files[]', photo));
@@ -116,11 +111,8 @@ function PlaceOffer() {
         console.log(data, alias)
         setLoading(true);
 
-        axios.post(`${BASE_URL}/api/setPosts`, sendData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }).then(r => {
+        axios.post(`${BASE_URL}/api/setPosts`, data)
+            .then(r => {
             axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                 headers: {
                     "Content-Type": "multipart/form-data"

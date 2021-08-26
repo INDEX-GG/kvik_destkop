@@ -1,23 +1,4 @@
-// import multer from "multer"
 import { PrismaClient } from '@prisma/client';
-
-// let names = [];
-// export const config = {
-// 	api: {
-// 		bodyParser: false,
-// 	},
-// }
-// var storage = multer.diskStorage({
-// 	destination: function (cb) {
-// 		cb(null, "./public/offersImage")
-// 	},
-// 	filename: function (req, cb) {
-// 		req.name = ~~(Math.random() * 999999) + "offer-" + ~~(Math.random() * 999999) + ".webp";
-// 		cb(null, req.name)
-// 		return names = [...names, "/offersImage/" + req.name];
-// 	},
-// })
-// var upload = multer({ storage: storage })
 
 const text2Bool = (string) => {
 	if (string === 'true') {
@@ -29,8 +10,9 @@ const text2Bool = (string) => {
 
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
+		console.log(req.body)
 		const prisma = new PrismaClient();
-		// upload.array("image", 20)(req, {}, () => {
+
 			const main = async () => {
 				const communication = {
 					phone: text2Bool(req.body.byphone),
@@ -67,8 +49,7 @@ export default async function handler(req, res) {
 						date_verify: now,
 						verify: 1,
 						verify_moderator: { "verify": ['1'] },
-						subcategory: req.body.subcategory
-					}
+											}
 				}
 				const allUsers = await prisma.posts.create(obj);
 				return { id: allUsers.id };
@@ -88,7 +69,6 @@ export default async function handler(req, res) {
 		finally {
 			await prisma.$disconnect();
 		}
-		// })
 	} else {
 		res.json({ message: 'method not allowed' })
 		res.status(405).end()
