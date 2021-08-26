@@ -2,9 +2,8 @@ import React from "react";
 import { ToRubles, ToRusDate } from "../../../../lib/services";
 import { useStore } from "../../../../lib/Context/Store";
 import Favorits from '../../../../UI/Favorits';
-
+import { BASE_URL, STATIC_URL } from "../../../../lib/constants";
 function Offers(data) {
-
 	const { setLikeComment } = useStore()
 
 	function deleteNote(e) {
@@ -50,11 +49,8 @@ function Offers(data) {
 								<a className="favoritesCompare"></a>
 								<a href='javascript:void(0)' ><Favorits favId={offer.id} isAccountCard /></a>
 
-								{JSON.parse(offer.photo)
-									?.photos?.slice(0, 1)
-									.map((imgs, i) => {
-										return <img key={i} src={imgs} />;
-									})}
+								
+									 <img key={i} src={`${STATIC_URL}/${JSON.parse(offer.photo).photos[0]}`}onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`} />
 
 								{offer.user_blocked &&
 									<div className="favoritesCause megaLight">Пользователь заблокирован</div>
@@ -69,7 +65,7 @@ function Offers(data) {
 											{ToRusDate(offer.created_at)}
 										</div>
 									</div>
-									<img className="favoritesUserpic" src={offer.user_photo} />
+									<img className="favoritesUserpic" src={`${STATIC_URL}/${offer.user_photo}`} onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}/>
 								</a>
 								<div className="favoritesMiddle">
 									<div>{ToRubles(offer.price)}</div>

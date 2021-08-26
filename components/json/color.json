@@ -1,11 +1,11 @@
 [
     {
         "name": "Белый",
-        "value": "FFFFFF"
+        "value": "#FFFFFF"
     },
     {
         "name": "Серебряный",
-        "value": "Silver"
+        "value": "linear-gradient(180deg, #000000 0%, rgba(255, 255, 255, 0) 100%)"
     },
     {
         "name": "Серый",
@@ -61,6 +61,6 @@
     },
     {
         "name": "Разноцветный",
-        "value": "Multicolored"
+        "value": "linear-gradient(180deg, #FF0000 0%, #FAFF00 32.29%, #05FF00 55.21%, #00F0FF 67.71%, #000AFF 81.25%, #FF00F5 100%)"
     }
 ]

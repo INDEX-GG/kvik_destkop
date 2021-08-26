@@ -19,7 +19,7 @@ const UsersPage = () => {
   // console.log(userInfo)
   
   useEffect(() => {
-    if( userInfo.length > 0) {
+    if( userInfo&& userInfo.length > 0) {
       setActiveBox(userInfo.filter(item => item.archived == false))
       setSoldBox(userInfo.filter(item => item.archived))
     }
@@ -48,7 +48,7 @@ const UsersPage = () => {
           </div>
         </div>
       </div>
-      {navItems.map((item) => itemNav.i === item.id && (userInfo.length > 0 ? item.content : <Placeholder user={item.id} />))}
+      {navItems.map((item) => itemNav.i === item.id && (userInfo&& userInfo.length > 0 ? item.content : <Placeholder user={item.id} />))}
     </>
   );
 };

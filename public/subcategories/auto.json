@@ -337,11 +337,6 @@
             ]
         },
         {
-            "alias": "colour",
-            "name": "Цвет",
-            "fields": "NULL"
-        },
-        {
             "alias": "tires_and_rims",
             "name": "Шины и диски",
             "fields": "NULL"
