@@ -8,395 +8,396 @@ const AdditionalInformation = (data) => {
 
 	switch (data.asd) {
 		case 'agricultural_machinery':
-			return;
+			return null;
 
 		case 'all_marks':
-			return;
+			return null;
 
 		case 'attachments':
-			return;
+			return null;
 
 		case 'atvs_and_buggy':
-			return;
+			return null;
 
 		case 'atvs_kvadro':
-			return;
+			return null;
 
 		case 'atvs':
-			return;
+			return null;
 
 		case 'audio_engineering':
-			return;
+			return null;
 
 		case 'auto':
 			return <Auto data={data.newOBJ[data.asd]} />;
 
 
 		case 'bicycles':
-			return;
+			return null;
 
 		case 'boats_and_yachts':
-			return;
+			return null;
 
 		case 'bulldozers':
-			return;
+			return null;
 
 		case 'buses':
-			return;
+			return null;
 
 		case 'car_goods':
-			return;
+			return null;
 
 		case 'cats':
-			return;
+			return null;
 
 		case 'chargers_power_supplies':
-			return;
+			return null;
 
 		case 'climatic_equipment':
-			return;
+			return null;
 
 		case 'communal_machinery':
-			return;
+			return null;
 
 		case 'construction_machinery':
-			return;
+			return null;
 
 		case 'consumables_for_office_equipment':
-			return;
+			return null;
 
 		case 'controllers_adapters_modules_for_servers':
-			return;
+			return null;
 
 		case 'cooking_food':
-			return;
+			return null;
 
 		case 'data_storage':
-			return;
+			return null;
 
 		case 'desktop_computers':
-			return;
+			return null;
 
 		case 'dogs':
-			return;
+			return null;
 
 		case 'electronic_books':
-			return;
+			return null;
 
 		case 'excavators':
-			return;
+			return null;
 
 		case 'expendable_materials':
-			return;
+			return null;
 
 		case 'flash_drive':
-			return;
+			return null;
 
 		case 'food_storage':
 
-			return;
+			return null;
 		case 'for_home':
 
-			return;
+			return null;
 		case 'for_kitchen':
 
-			return;
+			return null;
 		case 'for_personalized_care':
 
-			return;
+			return null;
 		case 'forestry_equipment':
 
-			return;
+			return null;
 		case 'goods_for_children_toys':
 
-			return;
+			return null;
 		case 'hdd':
 
-			return;
+			return null;
 		case 'hi_fi_technology':
 
-			return;
+			return null;
 		case 'house_on_wheels':
 
-			return;
+			return null;
 		case 'household_goods':
 
-			return;
+			return null;
 
 		case 'housings_corp':
 
-			return;
+			return null;
 		case 'jet_skis':
 
-			return;
+			return null;
 		case 'karting':
 
-			return;
+			return null;
 		case 'laptops':
 
-			return;
+			return null;
 		case 'light_commercial_vehicles':
 
-			return;
+			return null;
 		case 'loaders':
 
-			return;
+			return null;
 		case 'manipulators__input_devices':
 
-			return;
+			return null;
 		case 'memory_card':
 
-			return;
+			return null;
 		case 'mfps_and_scanners':
 
-			return;
+			return null;
 		case 'monitors':
 
-			return;
+			return null;
 		case 'mopeds_and_scooters':
 
-			return;
+			return null;
 		case 'motherboards_perif':
 
-			return;
+			return null;
 		case 'motor_boats':
 
-			return;
+			return null;
 		case 'motorcycles_parts_and_accessories':
 
-			return;
+			return null;
 
 		case 'motorcycles':
 
-			return;
+			return null;
 		case 'new_building_abroad':
 
-			return;
+			return null;
 		case 'new_building':
 
-			return;
+			return null;
 		case 'other_comp':
 
-			return;
+			return null;
 
 		case 'other_transport':
 
-			return;
+			return null;
 		case 'parts_and_accessories':
 
-			return;
+			return null;
 		case 'personal_computer_accessories':
 
-			return;
+			return null;
 		case 'plants_and_seeds':
 
-			return;
+			return null;
 
 		case 'printers':
 
-			return;
+			return null;
 		case 'processors_cat':
 
-			return;
+			return null;
 		case 'ram_for_servers':
 
-			return;
+			return null;
 		case 'ram':
 
-			return;
+			return null;
 
 		case 'rent_apartments_abroad':
 
-			return;
+			return null;
 		case 'rent_apartments':
 
-			return;
+			return null;
 		case 'rent_building_abroad':
 
-			return;
+			return null;
 		case 'rent_building':
 
-			return;
+			return null;
 
 		case 'rent_commercial_premises_abroad':
 
-			return;
+			return null;
 		case 'rent_commercial_premises':
 
-			return;
+			return null;
 		case 'rent_free_premises_abroad':
 
-			return;
+			return null;
 		case 'rent_free_premises':
 
-			return;
+			return null;
 
 		case 'rent_gerage':
 
-			return;
+			return null;
 		case 'rent_gerageabroad':
 
-			return;
+			return null;
 		case 'rent_houses_and_cottages_abroad':
 
-			return;
+			return null;
 		case 'rent_houses_and_cottages':
 
-			return;
+			return null;
 
 		case 'rent_of_boats_and_yachts':
 
-			return;
+			return null;
 		case 'rent_office_space_abroad':
 
-			return;
+			return null;
 		case 'rent_office_space':
 
-			return;
+			return null;
 		case 'rent_parkingplace':
 
-			return;
+			return null;
 
 		case 'rent_parkingplaceabroad':
 
-			return;
+			return null;
 		case 'rent_production_room_abroad':
 
-			return;
+			return null;
 		case 'rent_production_room':
 
-			return;
+			return null;
 		case 'rent_rooms':
 
-			return;
+			return null;
 
 		case 'rent_warehouse_space_abroad':
 
-			return;
+			return null;
 		case 'rent_warehouse_space':
 
-			return;
+			return null;
 		case 'secondary_housing_abroad':
 
-			return;
+			return null;
 		case 'secondary_housing':
 
-			return;
+			return null;
 
 		case 'sell_agriculturalland':
 
-			return;
+			return null;
 		case 'sell_building_abroad':
 
-			return;
+			return null;
 		case 'sell_building':
 
-			return;
+			return null;
 
 		case 'sell_commercial_premises_abroad':
 
-			return;
+			return null;
 		case 'sell_commercial_premises':
 
-			return;
+			return null;
 		case 'sell_commercialland':
 
-			return;
+			return null;
 
 		case 'sell_free_premises_abroad':
 
-			return;
+			return null;
 		case 'sell_free_premises':
 
-			return;
+			return null;
 		case 'sell_garage':
-			return;
+			return null;
 		case 'sell_garageabroad':
-			return;
+			return null;
 		case 'sell_houses_and_cottages_abroad':
-			return;
+			return null;
 		case 'sell_houses_and_cottages':
-			return;
+			return null;
 		case 'sell_izhs':
-			return;
+			return null;
 		case 'sell_office_space_abroad':
-			return;
+			return null;
 		case 'sell_office_space':
-			return;
+			return null;
 		case 'sell_parkingplace':
-			return;
+			return null;
 		case 'sell_parkingplaceabroad':
-			return;
+			return null;
 		case 'sell_production_room_abroad':
-			return;
+			return null;
 		case 'sell_production_room':
-			return;
+			return null;
 		case 'sell_rooms':
-			return;
+			return null;
 		case 'sell_snt':
-			return;
+			return null;
 		case 'sell_warehouse_space_abroad':
-			return;
+			return null;
 		case 'sell_warehouse_space':
-			return;
+			return null;
 		case 'server_enclosures':
-			return;
+			return null;
 		case 'server_hard_drive':
-			return;
+			return null;
 		case 'server_motherboards':
-			return;
+			return null;
 		case 'server_network_hardware':
-			return;
+			return null;
 		case 'server_processorss':
-			return;
+			return null;
 		case 'servers':
-			return;
+			return null;
 		case 'smart_watches_and_fitness_bracelets':
-			return;
+			return null;
 		case 'smartphones':
-			return;
+			return null;
 		case 'snowmobiles':
-			return;
+			return null;
 		case 'steering_wheels_gamepads_joysticks':
-			return;
+			return null;
 		case 'summary':
-			return;
+			return null;
 		case 'table_setting':
-			return;
+			return null;
 		case 'tablets':
-			return;
+			return null;
 		case 'telephones':
-			return;
+			return null;
 		case 'tires':
-			return;
+			return null;
 		case 'tractors_and_agricultural_machinery':
-			return;
+			return null;
 		case 'tractors':
-			return;
+			return null;
 		case 'trailers':
-			return;
+			return null;
 		case 'truck_cranes':
-			return;
+			return null;
 		case 'trucks':
-			return;
+			return null;
 		case 'tv_accessories':
-			return;
+			return null;
 		case 'tv_sets_cat2':
-			return;
+			return null;
 		case 'ups_and_surge_protectors':
-			return;
+			return null;
 		case 'vacancies':
-			return;
+			return null;
 		case 'video_cards_componentsss':
-			return;
+			return null;
 		case 'video_engineering':
-			return;
+			return null;
 		case 'video_surveillance':
-			return;
+			return null;
 		case 'wheels':
-			return;
+			return null;
 		default:
-			return;
+			console.log('')
+			return null;
 	}
 
 
