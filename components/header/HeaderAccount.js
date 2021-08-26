@@ -17,7 +17,7 @@ import { useMedia } from '../../hooks/useMedia';
 
 const useStyles = makeStyles({
 	list: {
-		width: 250,
+		width: '382px'
 	},
 	fullList: {
 		width: 'auto',
@@ -40,11 +40,13 @@ const useStyles = makeStyles({
 		}
 	},
 	accountTitle: {
-		margin: "26px 0 25px 40px",
 		color: "#2C2C2C",
 		fontWeight: "500",
 		fontSize: "18px",
-		position: "relative",
+		marginLeft: '30px'
+	},
+	accountIcon: {
+		cursor: 'pointer',
 		"&::before": {
 			content: "''",
 			backgroundColor: "#C7C7C7",
@@ -53,7 +55,7 @@ const useStyles = makeStyles({
 			height: "3px",
 			position: "absolute",
 			top: "8px",
-			right: "100px",
+			left: "0px",
 			transform: "rotate(45deg)"
 		},
 		"&::after": {
@@ -64,12 +66,16 @@ const useStyles = makeStyles({
 			height: "3px",
 			position: "absolute",
 			top: "8px",
-			right: "100px",
+			left: "0px",
 			transform: "rotate(-45deg)"
 		}
 	},
 	logout: {
 		marginLeft: "10px"
+	},
+	accountBox: {
+		position: 'relative',
+		margin: '26px 0px 25px 40px'
 	}
 });
 
@@ -83,6 +89,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 	});
 
 	const [active, setActive] = useState(-1)
+	const [hover, setHover] = useState(false);
 	const [logout, setLogout] = useState(false);
 	const { signOut, id } = useAuth();
 
@@ -149,6 +156,11 @@ export default function HeaderAccount({ userPhoto, name }) {
 		});
 	};
 
+	const handlerHover = (e) => {
+		console.log(e.target)
+		setHover(!hover)
+	}
+
 	const list = (anchor) => (
 		<>
 			<div
@@ -159,7 +171,10 @@ export default function HeaderAccount({ userPhoto, name }) {
 				onKeyDown={toggleDrawer(anchor, false)}
 			>
 				<List className="burgerContainer">
-					<div onClick={toggleDrawer("right", false)} className={classes.accountTitle}>Аккаунт</div>
+					<div className={classes.accountBox}>
+						<div className={classes.accountTitle}>Личный кабинет</div>
+						<div onClick={toggleDrawer("right", false)} className={classes.accountIcon}></div>
+					</div>
 					<Divider />
 					{menuItems.map(item => (
 						<ListItem onClick={(e) => {
@@ -173,7 +188,9 @@ export default function HeaderAccount({ userPhoto, name }) {
 							})
 						}} button id={item.id} key={item.id} className="burgerList">
 							<ListItemText
-								style={{ height: "30px", display: "flex", alignItems: "center" }}
+								onMouseEnter={handlerHover}
+								onMouseLeave={handlerHover}
+								style={{ height: "30px", display: "flex", alignItems: "center", }}
 								className={`${item.id == active ? item.name + "Active" : item.name} ${item.id == active ? `${classes.accountItem} ${classes.accountItemActive}` : classes.accountItem} ${item.id == active ? classes.activeItem : ""}`} primary={item.title} />
 						</ListItem>
 					))}

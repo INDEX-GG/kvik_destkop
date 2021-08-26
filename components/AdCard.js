@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper/core";
@@ -7,8 +7,13 @@ import { useMedia } from '../hooks/useMedia';
 import Favorits from '../UI/Favorits';
 import { useAuth } from "../lib/Context/AuthCTX";
 import { BASE_URL, STATIC_URL } from "../lib/constants";
+import { Menu, MenuItem } from "@material-ui/core";
 
 SwiperCore.use([Pagination]);
+const initialState = {
+	mouseX: null,
+	mouseY: null,
+};
 
 function AdCard_component({ offer }) {
 
@@ -16,6 +21,23 @@ function AdCard_component({ offer }) {
 
 	const currentSwiper = useRef();
 	let sheduled = false;
+	const [openMenu, setOpenMenu] = useState(initialState);
+
+	const handleCM = (e) => {
+		e.preventDefault();
+		setOpenMenu({
+			mouseX: e.clientX - 2,
+			mouseY: e.clientY - 4,
+		});
+	}
+
+	const handleWheelClick = (e, id) => {
+		if (e.button === 1) {
+			window.open(`/product/${id}`);
+		}
+	}
+
+
 
 	useEffect(() => {
 		currentSwiper.current.addEventListener("mousemove", switchSlide);
@@ -56,7 +78,22 @@ function AdCard_component({ offer }) {
 
 	const { matchesMobile, matchesTablet } = useMedia();
 	return (
-		<div className={offer.commercial === 2 ? "card card__lg" : "card"}>
+		<div className={offer.commercial === 2 ? "card card__lg" : "card"} onContextMenu={(e) => handleCM(e)} onMouseDown={(e) => handleWheelClick(e, offer.id)}>
+			<Menu
+				open={openMenu.mouseY !== null}
+				onClose={() => setOpenMenu(initialState)}
+				anchorReference="anchorPosition"
+				anchorPosition={
+					openMenu.mouseY !== null && openMenu.mouseX !== null
+						? { top: openMenu.mouseY, left: openMenu.mouseX }
+						: undefined
+				}
+			>
+				<MenuItem component='a' target='_blank' href={`/product/${offer.id}`}>Открыть в новой вкладке</MenuItem>
+				<MenuItem>Добавить в избранное</MenuItem>
+				<MenuItem>Добавить к сравнению</MenuItem>
+				<MenuItem>Не показывать</MenuItem>
+			</Menu>
 			<div className={"card__wrapper"}>
 				<div className={"card__top " + archived}>
 					{offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}

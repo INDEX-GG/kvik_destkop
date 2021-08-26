@@ -95,11 +95,12 @@ export default function MobileContact() {
 		}
 	}, [userInfo])
 
+
 	return (
 		<Box className={classes.plaseOfferBox}>
 			<Box className={classes.plaseOfferBoxItem}>
 				<Typography className={classes.plaseOfferTitle}>Контакты</Typography>
-				<div className={`${classes.plaseOfferMore} ${collapsed ? classes.placeOfferMoreActive : ""}`} onClick={() => setCollapsed(!collapsed)}>+7 (000) 000 - 00 - 00</div>
+				<div className={`${classes.plaseOfferMore} ${collapsed ? classes.placeOfferMoreActive : ""}`} onClick={() => setCollapsed(!collapsed)}>{phones[0]?.value}</div>
 			</Box>
 			<Box className={classes.plaseOfferBoxItem}>
 				<Controller

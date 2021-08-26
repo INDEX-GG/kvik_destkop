@@ -13,8 +13,8 @@ export default function CategoriesAliasFour({alias, alias2, alias3, alias4, labe
 	}
 
 	return (
-		<ListItem className="burgerList pl-2" onClick={() => toggleDrawer("left", false)}>
-			<Link href={`/search/${alias}`}><a className="burgerItem burgerLink">{label}</a></Link>
+		<ListItem className="burgerList pl-2">
+			<Link href={`/search/${alias}`}><a onClick={() => toggleDrawer({left: false})} className="burgerItem burgerLink">{label}</a></Link>
 		</ListItem>
 	)
 }
