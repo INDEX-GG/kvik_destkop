@@ -72,11 +72,11 @@ function Account() {
 
 	useEffect(() => {
 		if (id != undefined && subList.length == 0) {
-			axios.post("/api/getSubscriptions", { user_id: "" + id }).then((res) => setSubList(res.data))
+			axios.post("/api/getSubscriptions", { user_id: `${id}` }).then((res) => setSubList(res.data))
 		}
 
 		if (id != undefined && subscribersList.length == 0) {
-			axios.post("/api/getSubscribers", { user_id: "" + id }).then((res) => setSubscribersList(res.data))
+			axios.post("/api/getSubscribers", { user_id: `${id}` }).then((res) => setSubscribersList(res.data))
 		}
 	})
 

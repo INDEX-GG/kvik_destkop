@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import List from '@material-ui/core/List';
 // import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -20,10 +20,11 @@ import CategoriesAliasOne from './CategoriesAliasOne';
 
 export default function CategoriesContent({ changeCategories }) {
 
-	const { categoryMainAlias, categoriesByAlias } = useCategory()
-	const [aliasArray, setAliasArray] = useState([])
-	const [aliasArray2, setAliasArrayTwo] = useState([])
-	const [aliasArray3, setAliasArrayThree] = useState([])
+	const { categoryMainAlias } = useCategory()
+	// const [aliasArray, setAliasArray] = useState([])
+	// const [aliasArray2, setAliasArrayTwo] = useState([])
+	// const [aliasArray3, setAliasArrayThree] = useState([])
+
 	// let aliasItemId = -1
 	// let aliasItemIdTwo = -1
 
@@ -41,43 +42,43 @@ export default function CategoriesContent({ changeCategories }) {
 	// 	<BurgerServices key={10} />
 	// ];
 
-	useEffect(() => {
-		if (aliasArray.length == 0) {
-			const arr = []
-			for (let inner = 0; inner < categoryMainAlias.length; inner++) {
-				arr.push(false)
-			}
-			setAliasArray(arr)
-		}
+	// useEffect(() => {
+	// 	if (aliasArray.length == 0) {
+	// 		const arr = []
+	// 		for (let inner = 0; inner < categoryMainAlias.length; inner++) {
+	// 			arr.push(false)
+	// 		}
+	// 		setAliasArray(arr)
+	// 	}
 
-		if (aliasArray2.length == 0) {
-			const arr = []
+	// 	if (aliasArray2.length == 0) {
+	// 		const arr = []
 
-			for (let inner = 0; inner < categoryMainAlias.length; inner++) {
-				for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
-					arr.push(false)
-				}
-			}
-			setAliasArrayTwo(arr)
-		}
+	// 		for (let inner = 0; inner < categoryMainAlias.length; inner++) {
+	// 			for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
+	// 				arr.push(false)
+	// 			}
+	// 		}
+	// 		setAliasArrayTwo(arr)
+	// 	}
 
-		if (aliasArray3.length == 0) {
-			const arr = []
+	// 	if (aliasArray3.length == 0) {
+	// 		const arr = []
 
-			for (let inner = 0; inner < categoryMainAlias.length; inner++) {
-				for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
+	// 		for (let inner = 0; inner < categoryMainAlias.length; inner++) {
+	// 			for (let inner2 = 0; inner2 < categoriesByAlias(categoryMainAlias[inner].alias).length; inner2++) {
 
-					const queryData3 = categoriesByAlias(categoryMainAlias[inner].alias, categoriesByAlias(categoryMainAlias[inner].alias)[inner2].alias)
+	// 				const queryData3 = categoriesByAlias(categoryMainAlias[inner].alias, categoriesByAlias(categoryMainAlias[inner].alias)[inner2].alias)
 
-					if (queryData3 != null) {
-						arr.push(false)
-					}
-				}
-			}
-			setAliasArrayThree(arr)
-		}
+	// 				if (queryData3 != null) {
+	// 					arr.push(false)
+	// 				}
+	// 			}
+	// 		}
+	// 		setAliasArrayThree(arr)
+	// 	}
 
-	})
+	// })
 
 	// function generateArray(index, arr, setArr) {
 	// 	const newArr = arr.map((item, i) => {
@@ -102,6 +103,7 @@ export default function CategoriesContent({ changeCategories }) {
 		return str[0].toUpperCase() + str.substring(1,)
 	}
 
+
 	return (
 		<List className="burgerContainer">
 			{categoryMainAlias.map((item, index) => {
@@ -113,7 +115,7 @@ export default function CategoriesContent({ changeCategories }) {
 							</ListItemIcon>
 							<ListItemText className="burgerItem" primary={generateStr(item.label)} />
 						</ListItem> */}
-						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories}/>
+						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories} /* toggleDrawer={toggleDrawer} *//>
 						{/* <Collapse in={aliasArray[index]} timeout="auto" unmountOnExit>
 							<List component="div" disablePadding>
 								{categoriesByAlias(item.alias).map((item2, index2) => {

@@ -125,10 +125,11 @@ function PlaceOffer() {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
-            }).then(() => {
-                console.log(r?.data?.id, photoData)
-                setProduct({ title: data.title, price: data.price, id: r?.data?.id, photo: photoes[0].name })
+            }).then((r) => {
+                console.log(r)
+                setProduct({ title: data.title, price: data.price, id: r?.data?.id, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
                 console.log(product)
+				console.log(r?.data.images.photos[0])
                 setPromotion(true)
             })
         })

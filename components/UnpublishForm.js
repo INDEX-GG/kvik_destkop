@@ -4,7 +4,7 @@ import { UnpublishCTX } from '../lib/Context/DialogCTX';
 import { ToRubles } from "../lib/services";
 import axios from 'axios';
 import { useOfferAccount } from '../lib/Context/OfferAccountCTX';
-import { BASE_URL, STATIC_URL } from '../lib/constants';
+import { BASE_URL} from '../lib/constants';
 const useStyles = makeStyles((theme) => ({
 	unpublish_form: {
 		display: 'flex',
@@ -99,10 +99,10 @@ export default function UnpublishForm() {
 				{offerAction.map((item, i) =>
 					<Box key={i} className={classes.unpublish_form}>
 						<Box className={classes.unpublish_form__item}>
-							{JSON.parse(item.photo)?.photos
+							{item.photo
 								?.slice(0, 1)
 								.map((imgs, i) => {
-									return <CardMedia className={classes.unpublish_form__item__img} key={i} image={`${STATIC_URL}/${imgs}`} />
+									return <CardMedia className={classes.unpublish_form__item__img} key={i} image={imgs} />
 								})}
 							<Typography className={classes.unpublish_form__item__price}>{ToRubles(item.price)}</Typography>
 							<Typography className={classes.unpublish_form__item__title}>{item.title}</Typography>

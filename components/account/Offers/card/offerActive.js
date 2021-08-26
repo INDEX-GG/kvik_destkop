@@ -121,7 +121,7 @@ export default function offerActive(offer) {
 							checked={check}
 						/>
 					</div>
-					{JSON.parse(offer.offer.photo)?.photos?.slice(0, 1).map((imgs, i) => {
+					{offer.offer.photo?.map((imgs, i) => {
 						return <img key={i} src={imgs} />;
 					})}
 				</div>
