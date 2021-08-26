@@ -1,9 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
-//hljb455
 		const main = async () => {
 			const id = req.body.id
 			const idInt = Number(id)
@@ -14,13 +13,23 @@ export default function handler(req, res) {
 			})
 		}
 
-		main()
-			.then(r => res.json(r))
-			.catch(e => console.error(`ошибка api getDistricts${e}`))
-			.finally(async () => {
-				await prisma.$disconnect()
-			})
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api getDistricts${e}`)
+			res.json('ошибка api getDistricts', e)
+			res.status(405).end();
+		}
+		finally {
+			await prisma.$disconnect();
+		}
+
 	} else {
-		res.status(405).json({ message: 'method not allowed' })
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }

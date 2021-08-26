@@ -8,21 +8,17 @@ export const config = {
 	},
 }
 
-var storage = multer.diskStorage({
-	destination: function (cb) {
-		cb(null, "./public/offersImage")
-	},
-	filename: function (req, cb) {
-		req.name = ~~(Math.random() * 999999) + "offer-" + ~~(Math.random() * 999999) + ".webp";
-
-		cb(null, req.name)
-
-		return names = [...names, "/offersImage/" + req.name];
-
-	},
-})
-
-var upload = multer({ storage: storage })
+// var storage = multer.diskStorage({
+// 	destination: function (cb) {
+// 		cb(null, "./public/offersImage")
+// 	},
+// 	filename: function (req, cb) {
+// 		req.name = ~~(Math.random() * 999999) + "offer-" + ~~(Math.random() * 999999) + ".webp";
+// 		cb(null, req.name)
+// 		return names = [...names, "/offersImage/" + req.name];
+// 	},
+// })
+// var upload = multer({ storage: storage })
 
 const text2Bool = (string) => {
 	if (string === 'true') {
@@ -32,22 +28,17 @@ const text2Bool = (string) => {
 	}
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
-		upload.array("image", 20)(req, {}, () => {
-
+		// upload.array("image", 20)(req, {}, () => {
 			const main = async () => {
-
 				const communication = {
 					phone: text2Bool(req.body.byphone),
 					message: text2Bool(req.body.bymessage)
 				}
-
 				const alias = (req.body.alias).toString()
-
 				var now = new Date()
-
 				const obj = {
 					data: {
 						country_code: 7,
@@ -84,14 +75,23 @@ export default function handler(req, res) {
 				return { id: allUsers.id };
 			}
 
-			main(req.name)
-				.then(r => res.json(r))
-				.catch(e => console.error(`ошибка api setPosts${e}`))
-				.finally(async () => {
-					await prisma.$disconnect()
-				})
-		})
+		try {
+			let response = await main();
+			res.status(200);
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(response))
+		}
+		catch (e) {
+			console.error(`ошибка api setPosts${e}`)
+			res.json('ошибка api setPosts', e)
+			res.status(405).end();
+		}
+		finally {
+			await prisma.$disconnect();
+		}
+		// })
 	} else {
-		return res.status(405).json({ message: 'method not allowed' })
+		res.json({ message: 'method not allowed' })
+		res.status(405).end()
 	}
 }
