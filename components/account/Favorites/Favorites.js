@@ -8,7 +8,7 @@ import { useSubList } from '../../../hooks/useSubscriptions';
 import { useAuth } from '../../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import safeAccountTab from '../../safeAccountTab';
-
+import { useStore } from '../../../lib/Context/Store';
 // Поиски
 const SearchesBox = [
 	{
@@ -60,22 +60,22 @@ const Favorites = () => {
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
 	const router = useRouter()
 
-
+	const { userInfo } = useStore()
 	const [offetFav, setOfferFav] = useState()
-	let favAciveOffer = offetFav?.posts.filter((item) => item.condition === true)
+
 
 	useEffect(() => {
 		axios.post('/api/getFavorites', { user_id: id })
 			.then(data => setOfferFav(data.data))
 			.catch(error => console.log(error))
 
-		if (offetFav) {
-			favAciveOffer = offetFav?.posts.filter((item) => item.condition === 'true')
-		}
-	
-	}, [id])
+		// if (offetFav) {
+		// 	favAciveOffer = offetFav?.posts.filter((item) => item.condition === 'true')
+		// }
 
-	console.log(offetFav);
+	}, [id])
+	
+	let favAciveOffer = offetFav?.posts?.filter((item) => item.condition === 'true')
 
 	useEffect(() => {
 		if (router) {

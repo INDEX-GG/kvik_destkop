@@ -29,7 +29,7 @@ function Footer() {
             </a>
           </div>
         </div>
-        <div className='indexTitleFooter'> <a href="https://vk.com/index_ds"> Разработано студией INDEX</a></div>
+        <div className='indexTitleFooter'> <a href="https://lndex.ru"> Разработано студией INDEX</a></div>
       </div>
       <div className='footerRightVoid'></div>
     </div>
