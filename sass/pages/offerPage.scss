@@ -73,3 +73,19 @@
 		padding-left: 32px;
 	}
 }
+
+@media (max-width: 1000px) {
+	.offerPage{
+		&__item {
+			max-width: none;
+		}
+		&__title {
+			&::before {
+				left: 0px;
+			}
+			&::after {
+				left: 8px;
+			}
+		}	
+	}
+}

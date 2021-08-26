@@ -22,16 +22,25 @@ export default function PolicyContent({policy, id}) {
 					{rules.map((item, index) => {
 						return (
 							<div key={index} className='offerPage__rules'>
-								<h4 className='offerPage__rules-title'>{index + 1}. {item.title}</h4>
+								<h4 className='offerPage__rules-title'>{id != 4 ? `${index + 1}.` : null} {item.title}</h4>
 								{item.rules.map((item2, index2) => {
-									console.log(item2.rules2[0])
 									return (
-										<div key={index2}>
+										<ul key={index2}>
 											 {item2.rules1.map((item3, index3) => {
+										
+
+												// if (id == 4 && item3 == 'Если сделка прошла успешно, покупателя все устроило, не стесняйтесь попросить отзыв. Вы можете отправить ему личным сообщением просьбу об отзыве и отправить ссылку на ваш профиль.') {
+												// 	return (
+												// 		<li key={index3}>
+												// 			<p className='offerPage__subtitle'>{`${index}.${index2 + 1}. ${item3}`}</p>
+												// 		</li>
+												// 	)
+												// }
+
 												 return (
-													<div key={index3}>
+													<li key={index3}>
 														<p className='offerPage__subtitle'>{ index3 == 0 ? `${index + 1}.${index2 + 1}.` : null} {item3}</p>
-													</div>
+													</li>
 												 )
 								 			})}
 											{item2.rules2.map((item3, index3) => {
@@ -54,16 +63,19 @@ export default function PolicyContent({policy, id}) {
 												
 
 												return (
-													<div key={index3} className='offerPage__subtitle'>{beforeNumber} {item3}</div>
+													<li key={index3}>
+														<p className='offerPage__subtitle'>{beforeNumber} {item3}</p>
+													</li>
 												)
 											})} 
-										</div>
+										</ul>
 									)
 								})}
 							</div>
 						)
 					})}
-					<p className='offerPage__redact'><strong>Редакция от 25.09.2020</strong></p>
+					{id == 1 ? <p className='offerPage__redact'><strong>Редакция от 25.09.2020</strong></p> : null}
+					{id == 3 ? <p className='offerPage__subtitle'><em>Если у вас остались вопросы об Условиях использования 1kvik, вы можете поискать ответы в разделе сайта «О компании» или воспользоваться формой Обратной связи.</em></p> : null}
 				</div>
 			</div>
 			</Collapse>
