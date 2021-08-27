@@ -9,64 +9,64 @@ import JokerBlock from "../components/JokerBlock";
 import MetaLayout from "../layout/MetaLayout";
 import PlaceOfferButton from "../components/PlaceOfferButton";
 import { getDataByPost } from "../lib/fetch";
+import { modifyGetPostsData } from "../lib/services";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '0 12px',
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    [theme.breakpoints.down('sm')]: {
-      padding: '0 8px',
-      height: "auto",
-      marginBottom: "92px"
-    },
-  },
-  main: {
-    display: 'flex',
-    height: '100%',
-  },
-  offers: {
-    flexGrow: 1,
-  },
-  rightBlock: {
-    height: '100%',
-    marginLeft: '56px',
-  },
-  footer: {
-    top: 'calc(100% - 205px)',
-    position: 'sticky',
-  }
+	root: {
+		padding: '0 12px',
+		display: 'flex',
+		flexDirection: 'column',
+		height: '100%',
+		[theme.breakpoints.down('sm')]: {
+			padding: '0 8px',
+			height: "auto",
+			marginBottom: "92px"
+		},
+	},
+	main: {
+		display: 'flex',
+		height: '100%',
+	},
+	offers: {
+		flexGrow: 1,
+	},
+	rightBlock: {
+		height: '100%',
+		marginLeft: '56px',
+	},
+	footer: {
+		top: 'calc(100% - 205px)',
+		position: 'sticky',
+	}
 }));
 
 const Index = ({ offers }) => {
+	const { matchesMobile, matchesTablet } = useMedia();
+	const [data, setData] = useState(modifyGetPostsData(offers));
+	console.log(modifyGetPostsData(offers))
+	const classes = useStyles();
 
-  const { matchesMobile, matchesTablet } = useMedia();
-  const [data, setData] = useState(offers);
+	useEffect(() => {
+		getDataByPost('/api/getPosts', { of: 0 }).then(r => {setData(modifyGetPostsData(r))})
+	}, []);
 
-  const classes = useStyles();
-
-  useEffect(() => {
-	getDataByPost('/api/getPosts', {of: 0}).then(r => setData(r))
-  }, []);
-
-  return (
-    <MetaLayout title={'Доска объявлений'}>
-      <Container className={classes.root}>
-        <PopularCategories />
-        <Box className={classes.main}>
-          <Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
-          {!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
-            <JokerBlock />
-            <Box className={classes.footer}>
-              <Footer2 />
-            </Box>
-          </Box>}
-        </Box>
-      </Container>
-      {matchesMobile ? <PlaceOfferButton/> : null}
-    </MetaLayout >
-  )
+	return (
+		<MetaLayout title={'Доска объявлений'}>
+			<Container className={classes.root}>
+				<PopularCategories />
+				<Box className={classes.main}>
+					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
+					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
+						<JokerBlock />
+						<Box className={classes.footer}>
+							<Footer2 />
+						</Box>
+					</Box>}
+				</Box>
+			</Container>
+			{matchesMobile ? <PlaceOfferButton /> : null}
+		</MetaLayout >
+	)
 }
 
 export async function getStaticProps() {
@@ -105,8 +105,8 @@ export async function getStaticProps() {
 			await prisma.$disconnect()
 		})
 
-  const offers = JSON.parse(JSON.stringify(res));
-  return { props: { offers }};
+	const offers = JSON.parse(JSON.stringify(res));
+	return { props: { offers } };
 }
 
 export default Index;

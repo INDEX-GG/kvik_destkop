@@ -37,15 +37,15 @@ export default function ProductCarousel({ photo }) {
             </SwiperSlide>
           ))}
       </Swiper>
-			{console.log('1 ', thumbsSwiper)}
+
       {/* {photo == undefined ? "" : photo.length > 6 ? ( */}
 	  <Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
-	  {console.log('2')}
+
 		{photo == undefined
           ? ""
           : photo.map((img, i) => (
             <SwiperSlide key={i}>
-              {" "}{console.log('3')}
+              {" "}
               <img src={img} />
             </SwiperSlide>
           ))}
