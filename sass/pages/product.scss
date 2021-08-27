@@ -454,7 +454,11 @@
     background: no-repeat center right 2px url(../../icons/chevron_down_green.svg);
     transition: all 150ms ease-in-out;
 }
-
+.mySwiper2_photo{
+    height: 400px !important;
+    position: relative;
+	width: 100%;
+}
 .productPage .swiper-container {
     margin-bottom: 4px;
     justify-content: center;
