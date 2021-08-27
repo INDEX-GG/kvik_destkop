@@ -13,7 +13,7 @@ import BurgerCategories from "./BurgerCategories";
 import HeaderAccount from "./HeaderAccount";
 import { useStore } from "../../lib/Context/Store";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	container: {
 		flexDirection: "column",
 		padding: "0 12px",
@@ -39,6 +39,9 @@ const useStyles = makeStyles(() => ({
 	avatar: {
 		width: "32px",
 		height: "32px",
+		[theme.breakpoints.down("1024")]: {
+			marginBottom: '5px',
+		},
 	},
 	block2: {
 		display: "flex",

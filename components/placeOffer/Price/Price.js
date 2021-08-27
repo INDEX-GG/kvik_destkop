@@ -83,8 +83,8 @@ const Price = () => {
                     )}
                 />
             </Box>
-            <SafeDeal />
-            <Delivery />
+            {/* <SafeDeal />
+            <Delivery /> */}
          </Box>
       </Box>
    )

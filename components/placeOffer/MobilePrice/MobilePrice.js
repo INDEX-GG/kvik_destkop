@@ -97,8 +97,8 @@ export default function MobilePrice() {
                 </Box>
             </Box>
             <Box className={classes.plaseOfferBox}>
-                <MobileSafeDeal/>
-                <MobileDelivery/>
+                {/* <MobileSafeDeal/>
+                <MobileDelivery/> */}
             </Box>
         </>
                                 

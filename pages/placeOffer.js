@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         flexGrow: 1,
+        marginTop: '25px',
         [theme.breakpoints.down('md')]: {
             paddingLeft: '220px',
         },

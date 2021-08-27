@@ -60,7 +60,7 @@ const Favorites = () => {
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
 	const router = useRouter()
 
-	
+
 	const [offetFav, setOfferFav] = useState()
 
 
@@ -74,7 +74,7 @@ const Favorites = () => {
 		// }
 
 	}, [id])
-	
+
 	let favAciveOffer = offetFav?.posts?.filter((item) => item.condition === 'true')
 
 	useEffect(() => {
@@ -110,10 +110,10 @@ const Favorites = () => {
 
 		getDataByPost("/api/getSubscriptions", { user_id: String(id) }).then(r => setSeller(r))
 
-		
+
 
 	}
-console.log(seller)
+	console.log(seller)
 	const navItems = [
 		{ id: 1, title: 'Объявления', content: <Offers itemsPost={favAciveOffer} />, count: favAciveOffer != undefined ? favAciveOffer?.length : 0 },
 		{ id: 2, title: 'Продавцы', content: <Sellers sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length : 0 },

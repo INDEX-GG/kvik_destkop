@@ -15,7 +15,7 @@ import { useAuth } from '../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import { useMedia } from '../../hooks/useMedia';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) =>({
 	list: {
 		width: '382px'
 	},
@@ -25,7 +25,10 @@ const useStyles = makeStyles({
 	avatar: {
 		width: "32px",
 		height: "32px",
-		alignSelf: "flex-end"
+		alignSelf: "flex-end",
+		[theme.breakpoints.down("1024")]: {
+			marginBottom: '5px',
+		},
 	},
 	accountItem: {
 		paddingLeft: "33px",
@@ -77,7 +80,7 @@ const useStyles = makeStyles({
 		position: 'relative',
 		margin: '26px 0px 25px 40px'
 	}
-});
+}));
 
 export default function HeaderAccount({ userPhoto, name }) {
 

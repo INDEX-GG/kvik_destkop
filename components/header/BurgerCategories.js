@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import MobileMenu from '../../UI/icons/MobileMenu';
 import CategoriesContent from './CategoriesContent';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
 	list: {
 		width: "384px"
 	},
@@ -14,9 +14,13 @@ const useStyles = makeStyles({
 		width: 'auto',
 	},
 	container: {
-		alignSelf: "flex-end"
+		alignSelf: "flex-end",
+		height: '32px',
+		[theme.breakpoints.down("1024")]: {
+			marginBottom: '5px',
+		}
 	}
-});
+}));
 
 export default function BurgerCategories() {
 	const classes = useStyles();
@@ -28,7 +32,7 @@ export default function BurgerCategories() {
 			return;
 		}
 
-		setState({[anchor]: open });
+		setState({ [anchor]: open });
 	};
 
 	const list = (anchor) => (
