@@ -3,8 +3,6 @@ import { Box, Checkbox, FormControlLabel, makeStyles, TextField, Typography } fr
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import { cursorReplace, priceFormat } from '../../../lib/priceFormat';
-import SafeDeal from './SafeDeal';
-import Delivery from './Delivery';
 
 const useStyles = makeStyles((theme) => ({
    formElem: {
