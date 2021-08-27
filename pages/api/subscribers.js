@@ -7,6 +7,7 @@ export default async function handler(req, res) {
 		const main = async () => {
 			const user_id = req.body.user_id;
 			const subscriber_id = req.body.subscriber_id;
+			console.log(user_id, subscriber_id)
 			const userIdInt = Number(user_id);
 			const subscribers = await prisma.users.findFirst({
 				where: {

@@ -12,9 +12,9 @@ import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
 import { useSubBool } from "../../hooks/useSubscriptions";
-
 import MetaLayout from "../../layout/MetaLayout";
 import { useAuth } from "../../lib/Context/AuthCTX";
+import { STATIC_URL } from "../../lib/constants";
 
 function UserPage() {
   const router = useRouter();
@@ -23,7 +23,7 @@ function UserPage() {
   const userInfo = useAd(router.query.id)
   const { userSub } = useSubBool(id, sellerId)
   const { matchesMobile, matchesTablet } = useMedia()
-  
+
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
@@ -32,61 +32,67 @@ function UserPage() {
   const [subscribersList, setSubscribersList] = useState([])
 
 
+  console.log(userInfo);
+
   useEffect(() => {
     setUserBool(userSub)
-  }, [isLoading])
+  }, [userSub])
+
+  useEffect(() => {
+	  if (id && router.query.id && id == +router.query.id) {
+	  router.push({pathname: `/account/${id}`, query: {account: 1, content: 1}})
+  	}
+  }, [id])
 
 
   useEffect(() => {
-    if (sellerId != undefined && subList.length == 0) {
+    if (sellerId && subList.length == 0) {
       axios.post("/api/getSubscriptions", {user_id: "" + sellerId}).then((res) => setSubList(res.data))
-      console.log(subList)
     }
 
-    if (sellerId != undefined && subscribersList.length == 0) {
-      axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => setSubscribersList(res.data))
+    if (sellerId && subscribersList.length == 0) {
+		changeSubscribers();
     }
   })
 
-
+  function changeSubscribers() {
+	  axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => setSubscribersList(res.data))
+  }
 
   function modal(modal, changeModal) {
     changeModal(!modal)
   }
 
-  function subscribeUser() {
+  async function subscribeUser() {
 
     const subscribe = {
       user_id: id + "",
       seller_id: sellerId + ""
     }
 
-    axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => console.log(data.data))
+	setUserBool(!userBool)
 
-    axios.post("/api/subscriptions", subscribe)
+    await axios.post("/api/getSubscriptions", { user_id: String(id) })
+
+    await axios.post("/api/subscriptions", subscribe)
       .then(res => console.log(res.data))
       .catch(error => console.log(error))
 
-    axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => console.log(data.data))
+	await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}).then(res => console.log(res.data));
 
-    setUserBool(!userBool)
+
+    await axios.post("/api/getSubscriptions", { user_id: String(id) })
+
+	changeSubscribers()
   }
 
   return (
     <MetaLayout>
       <div className="clientPage text">
-        {/* <div className="clientPage__breadcrumbs thin">
-          <Link href="/">
-            <a className="breadCrumb light">
-              Главная
-            </a>
-          </Link>
-          <span className="line">{sellerName}</span>
-        </div> */}
         <div className="clientPage__menu">
           <div key={userInfo.userId} className="clientPage__userinfo">
             <div className="clientPage__userpic">
-              {isLoading ? null : <Avatar src={sellerPhoto} style={{ backgroundColor: `${stringToColor(sellerName)}` }}>{initials(sellerName)}</Avatar>}
+              {isLoading ? null : <Avatar src={`${STATIC_URL}/${sellerPhoto}`} style={{ backgroundColor: `${stringToColor(sellerName)}` }}>{initials(sellerName)}</Avatar>}
             </div>
             <div className="clientPage__username">{sellerName}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>

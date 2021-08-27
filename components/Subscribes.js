@@ -1,6 +1,7 @@
 import { Avatar } from "@material-ui/core";
 import StarRating from "./StarRating";
 import { stringToColor, initials } from "../lib/services";
+import { STATIC_URL } from "../lib/constants";
 
 function Subscribes({ data }) {
 
@@ -9,7 +10,7 @@ function Subscribes({ data }) {
       <div className="subscribers_subscriptions">
         <div className="subscribers_subscriptions__user_info">
           <a href={`/user/${data.id}`} className="subscribers_subscriptions__avatar" >
-             <Avatar src={data.userPhoto} style={{ backgroundColor: `${stringToColor(data.name)}` }}>
+             <Avatar src={`${STATIC_URL}/${data.userPhoto}`} style={{ backgroundColor: `${stringToColor(data.name)}` }}>
                {initials(data.name)}
              </Avatar>
           </a>

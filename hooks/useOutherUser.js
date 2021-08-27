@@ -12,11 +12,11 @@ export function useOutherUser(user_id) {
           .then((res) => {
               setUserInfo({
               sellerId: user.id,
-              sellerName: res.data.name,
-              sellerPhoto: res.data.userPhoto,
-              createdAt: res.data.createdAt,
-              raiting: res.data.raiting,
-              sellerPhone: res.data.phone
+              sellerName: res.data?.name,
+              sellerPhoto: res.data?.userPhoto,
+              createdAt: res.data?.createdAt,
+              raiting: res.data?.raiting,
+              sellerPhone: res.data?.phone
               })
               setLoading(false);
           })
