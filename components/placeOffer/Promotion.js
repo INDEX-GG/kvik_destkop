@@ -59,12 +59,19 @@ const useStyles = makeStyles(theme => ({
 		flexGrow: "1",
 		marginLeft: "12px",
 		color: "#2C2C2C",
-		fontWeight: "500"
+		fontWeight: "500",
+		[theme.breakpoints.down(350)]: {
+			marginLeft: '5px',
+			fontSize: '12px'
+		}
 	},
 	promotionItemPrice: {
 		color: "#00A0AB",
 		fontSize: "18px",
-		fontWeight: "500"
+		fontWeight: "500",
+		[theme.breakpoints.down(350)]: {
+			fontSize: '14px'
+		}
 	},
 	promotionItemDesc: {
 		color: "#8F8F8F",

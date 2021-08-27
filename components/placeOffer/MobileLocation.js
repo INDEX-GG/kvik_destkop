@@ -125,6 +125,7 @@ export default function MobileLocation() {
                         placeholder="Введите город, улицу, дом"
                         variant='outlined'
                         className={classes.inputError5}
+						inputProps={{maxLength: 50}}
                         type="text"
                         fullWidth
                         autoComplete="on"

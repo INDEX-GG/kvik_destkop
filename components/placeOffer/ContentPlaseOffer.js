@@ -8,6 +8,7 @@ import MobileProduct from "./MobileProduct";
 import { useState } from "react";
 import axios from "axios";
 import Promotion from "./Promotion";
+import { BASE_URL, STATIC_URL } from "../../lib/constants";
 
 const useStyles = makeStyles(() => ({
     buttonSend: {
@@ -54,19 +55,17 @@ export default function ContentPlaseOffer({dialog, title, backFunc, product}) {
     }
 
     const onSubmit = data => {
+		console.log(data);
+		console.log(photoes)
         data.price = data.price.replace(/\D+/g, '');
 		const alias = [...title.split(",")]
+		let postId = 0;
 
         const sendData = new FormData;
 		const photoData = new FormData;
-        data.alias1 = alias[0]
-        data.alias2 = alias[1]
-        if (alias.length > 2) {
-            data.alias3 = alias[2]
-            if (alias.length > 3) {
-                data.alias4 = alias[3]
-            }
-        }
+		data.user_id = id;
+		delete data.photoes;
+		data.alias = alias.join(',')
         sendData.append('user_id', id);
         sendData.append('title', data.title);
 		sendData.append('alias', alias);
@@ -84,23 +83,19 @@ export default function ContentPlaseOffer({dialog, title, backFunc, product}) {
             photoData.append('files[]', photoes[0]);
         }
 
-        axios.post('/api/setPosts', sendData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }).then(r => {
-			axios.post(`http://192.168.8.111:6001/post/${r?.data?.id}`, photoData, {
+        axios.post(`${BASE_URL}/api/setPosts`, data,)
+        	.then(r => {
+			postId = r?.data?.id;
+			axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
 				headers: {
 					"Content-Type": "multipart/form-data"
 				}
 			}).then((r) => {
-                setPromotionProduct({title: data.title, price: data.price, id: r?.data?.id, photo: r?.data.images.photos[0]})
+                setPromotionProduct({title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}`})
                 setPromotion(true)
             })
 		})
     }
-
-    console.log(product)
     return(
         promotion ? (
             <Promotion dialog={promotion} setDialog={setPromotion} product={promotionProduct}/>

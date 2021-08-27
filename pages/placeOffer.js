@@ -93,6 +93,8 @@ function PlaceOffer() {
         if (data?.alias4) {
             alias.push(data.alias4);
         }
+
+		console.log(alias);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
