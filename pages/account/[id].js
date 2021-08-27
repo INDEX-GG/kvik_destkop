@@ -46,7 +46,6 @@ function Account() {
 	const [logout, setLogout] = useState(false);
 	const [reviewsModal, setReviewsModal] = useState(false);
 	const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-
 	const { signOut, id } = useAuth();
 
 	const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "idИзбранное" } : router.query?.account ? { i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] } : { i: "1", itm: "menuOffers", ttl: "Мои объявления" });
@@ -161,7 +160,8 @@ function Account() {
 									<p>подписчиков</p>
 								</a>
 								<a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
-									{userInfo.subscriptions ? JSON.parse(userInfo.subscriptions)?.length : '0'}
+									
+									{userInfo && userInfo?.subscriptions !== undefined ? JSON.parse(userInfo.subscriptions)?.length : '0'}
 									<p>подписок</p>
 								</a>
 							</div>

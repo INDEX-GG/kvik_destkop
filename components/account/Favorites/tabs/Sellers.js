@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
 import {useRouter} from "next/router"
-
+import { STATIC_URL } from "../../../../lib/constants";
 
 function Sellers({sellers, sellerSub}) {
 
@@ -59,7 +59,7 @@ function Sellers({sellers, sellerSub}) {
                   <div onClick={() => {
                     router.push(`/user/${seller.id}`)
                   }} className="sellersUserBlock">
-                    <img src={`${seller.userPhoto}?${seller.id}`} />
+                    <img src={`${STATIC_URL}/${seller.userPhoto}`} />
                     <div className="sellersUserInfo">
                       <div className="sellersUserName">{seller.name}</div>
                        <div className="sellersOffersCount light">{seller.poducts.length} объявлений</div>
@@ -75,7 +75,7 @@ function Sellers({sellers, sellerSub}) {
                     return (
                       <a href={`/product/${offer.id}`} key={i} className="sellersOffer">
                         
-                         <img src={JSON.parse(offer.photo)?.photos[0]} /> 
+                         <img src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`} /> 
                         <div>{ellipsis(ToRubles(offer.price), 15)}</div>
                         <div>{ellipsis(offer.title, 10)}</div>
                       </a>

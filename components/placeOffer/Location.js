@@ -46,7 +46,7 @@ const Location = () => {
                )}
                rules={{ 
 				   required: 'Укажите ваше местоположение...',
-				   pattern: {value: /^[a-zA-Zа-яА-Я0-9,."'()-]+$/, message: 'Недопустимые символы' },
+				   pattern: {value:/^[a-zA-Zа-яА-Я0-9,.\s"'()-]+$/, message: 'Недопустимые символы' },
 				}}
             />
             <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe>
