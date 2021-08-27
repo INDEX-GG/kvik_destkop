@@ -19,6 +19,9 @@ export default function ProductCarousel({ photo }) {
       paginationCarousel = false
     }
   }
+  if (photo.length === 1) {
+	  return <img className='mySwiper2_photo' src={photo[0]} />
+  }
 
   return (
     <>
@@ -34,17 +37,20 @@ export default function ProductCarousel({ photo }) {
             </SwiperSlide>
           ))}
       </Swiper>
-
-      {photo == undefined ? "" : photo.length > 6 ? (<Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
-        {photo == undefined
+			{console.log('1 ', thumbsSwiper)}
+      {/* {photo == undefined ? "" : photo.length > 6 ? ( */}
+	  <Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
+	  {console.log('2')}
+		{photo == undefined
           ? ""
           : photo.map((img, i) => (
             <SwiperSlide key={i}>
-              {" "}
+              {" "}{console.log('3')}
               <img src={img} />
             </SwiperSlide>
           ))}
-      </Swiper>) : null}
+      </Swiper>
+	  {/* ) : null} */}
       <Modal className="productModal" open={modal} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
         <ProductModalCarousel photo={photo} />
       </Modal>
