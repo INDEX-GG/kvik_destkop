@@ -40,7 +40,7 @@ function AdCard_component({ offer }) {
 	}
 
 	useEffect(() => {
-		currentSwiper?.current?.addEventListener("mousemove", switchSlide);
+		currentSwiper.current.addEventListener("mousemove", switchSlide);
 	}, [currentSwiper]);
 
 	function switchSlide(e) {
@@ -100,6 +100,7 @@ function AdCard_component({ offer }) {
 						<div className="card__top_slider">
 							{offer?.photo?.length === 1 ?
 								<img
+									ref={currentSwiper}
 									src={`${offer.photo[0]}`}
 									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 								/>
