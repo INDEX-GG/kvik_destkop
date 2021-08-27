@@ -48,10 +48,7 @@ function Offers(data) {
 								</div>
 								<a className="favoritesCompare"></a>
 								<a href='javascript:void(0)' ><Favorits favId={offer.id} isAccountCard /></a>
-
-								
-									 <img key={i} src={`${STATIC_URL}/${JSON.parse(offer.photo).photos[0]}`}onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`} />
-
+									 <img key={i} src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`} />
 								{offer.user_blocked &&
 									<div className="favoritesCause megaLight">Пользователь заблокирован</div>
 								}
