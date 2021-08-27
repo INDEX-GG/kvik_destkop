@@ -42,7 +42,7 @@ const Title = () => {
 					)}
 					rules={{
 						required: 'Введите название Товара',
-						pattern: {value: /^[a-zA-Zа-яА-Я0-9,."'-]+$/, message: 'Недопустимые символы' },
+						pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'-]+$/, message: 'Недопустимые символы' },
 					}}
 				/>
 			</Box>
