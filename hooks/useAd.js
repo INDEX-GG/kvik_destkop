@@ -7,11 +7,13 @@ export function useAd(id) {
         [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.post('/api/getProductOfUser', { user_id: id })
+        if (id) {
+			axios.post('/api/getProductOfUser', { user_id: id })
             .then((res) => {
                 setUserInfo(res.data.result)
                 setLoading(false);
             })
+		}
     }, [id])
     return {
         userInfo,

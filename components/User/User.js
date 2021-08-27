@@ -15,7 +15,7 @@ const UsersPage = () => {
   const router = useRouter();
  
   const { userInfo, isLoading } = useAd(router.query.id);
-  console.log(userInfo)
+//   console.log(userInfo)
   
   useEffect(() => {
 

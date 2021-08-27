@@ -51,7 +51,7 @@ export function useSubBool(user_id, seller_id) {
                 userSub: false,
                 userLoading: isLoading
             }
-        }
+		}
     } else {
         return {isLoading}
     }

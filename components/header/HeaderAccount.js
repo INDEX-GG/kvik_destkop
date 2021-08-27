@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -14,6 +14,7 @@ import { mutate } from "swr";
 import { useAuth } from '../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import { useMedia } from '../../hooks/useMedia';
+import AccountContent from './AccountContent';
 
 const useStyles = makeStyles((theme) =>({
 	list: {
@@ -92,7 +93,6 @@ export default function HeaderAccount({ userPhoto, name }) {
 	});
 
 	const [active, setActive] = useState(-1)
-	const [hover, setHover] = useState(false);
 	const [logout, setLogout] = useState(false);
 	const { signOut, id } = useAuth();
 
@@ -109,38 +109,6 @@ export default function HeaderAccount({ userPhoto, name }) {
 		{ id: 7, name: "menuReviews", title: "Отзывы" },
 		{ id: 8, name: "menuSettings", title: "Настройки" },
 	];
-
-	const getId = (e) => {
-
-		if (e.target.getAttribute("id")) {
-			setActive(+e.target.getAttribute("id"))
-			return;
-		} else if (e.target.parentNode.getAttribute("id")) {
-			setActive(+e.target.parentNode.getAttribute("id"))
-			return;
-		}
-
-		if (e.target.tagName == "SPAN") {
-			setActive(+e.target.parentNode.parentNode.getAttribute("id"))
-			return;
-		}
-	}
-
-	const startId = () => {
-		if (router.query?.account && active == -1) {
-			setActive(+router.query.account)
-		}
-	}
-
-	if (router.pathname == "/") {
-		if (active != -1) {
-			setActive(-1)
-		}
-	}
-
-	if (router.pathname == "/account/[id]") {
-		startId()
-	}
 
 
 	const toggleDrawer = (anchor, open) => (event) => {
@@ -159,11 +127,6 @@ export default function HeaderAccount({ userPhoto, name }) {
 		});
 	};
 
-	const handlerHover = (e) => {
-		console.log(e.target)
-		setHover(!hover)
-	}
-
 	const list = (anchor) => (
 		<>
 			<div
@@ -180,22 +143,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 					</div>
 					<Divider />
 					{menuItems.map(item => (
-						<ListItem onClick={(e) => {
-							getId(e)
-							setState({ "right": false })
-							router.push({
-								pathname: `/account/${id}`,
-								query: {
-									account: `${item.id}`
-								},
-							})
-						}} button id={item.id} key={item.id} className="burgerList">
-							<ListItemText
-								onMouseEnter={handlerHover}
-								onMouseLeave={handlerHover}
-								style={{ height: "30px", display: "flex", alignItems: "center", }}
-								className={`${item.id == active ? item.name + "Active" : item.name} ${item.id == active ? `${classes.accountItem} ${classes.accountItemActive}` : classes.accountItem} ${item.id == active ? classes.activeItem : ""}`} primary={item.title} />
-						</ListItem>
+						<AccountContent key={item.id} id={item.id} icon={item.name} title={item.title} setState={setState} />
 					))}
 				</List>
 				<ListItem onClick={() => setLogout(!logout)} button id={"10"} className="burgerList">

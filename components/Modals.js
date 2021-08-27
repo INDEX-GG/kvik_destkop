@@ -37,7 +37,6 @@ export function ModalRating({ rate = 0, comments = 0, modal, mobile }) {
 
 /* Модальное окно "Подписчики" */
 export function ModalSubscribers({ data, modal, mobile }) {
-	console.log(data);
 	return (
 		<div className="modal__wrapper_md acoountContainer">
 			<div className="modal__block__top accountTop">
