@@ -51,13 +51,16 @@ export default function MobileProduct({ctx}) {
                      type="text"
                      autoComplete="on"
                      value={value}
+					 inputProps={{maxLength: 50}}
                      onChange={onChange}
                      error={!!error} helperText={error ? error.message : ' '} 
                      InputProps={{
                         disableUnderline: true
                      }} />
                )}
-               rules={{ required: 'Введите название Товара' }}
+               rules={{ required: 'Введите название Товара',
+					 	pattern: {value: /^[a-zA-Zа-яА-Я0-9,."'-]+$/, message: 'Недопустимые символы' },
+			}}
             />
             <MobilePhotoes ctx={ctx}/>
             <Controller
@@ -70,6 +73,7 @@ export default function MobileProduct({ctx}) {
                      className={`${classes.plaseOfferInput} ${classes.inputError3}`}
                      type="text"
                      autoComplete="on"
+					 inputProps={{maxLength: 4000}}
                      value={value}
                      onChange={onChange}
                      error={!!error} helperText={error ? error.message : ' '} 
@@ -77,7 +81,8 @@ export default function MobileProduct({ctx}) {
                         disableUnderline: true
                      }} />
                )}
-               rules={{ required: `Опишите ${methods.watch('title') != undefined ? methods.watch('title') : null}` }}
+               rules={{ required: `Опишите ${methods.watch('title') != undefined ? methods.watch('title') : null}`,
+			   pattern: {value: /^[a-zA-Zа-яА-Я0-9,."'()%*!?+=/-]+$/, message: 'Недопустимые символы' }, }}
             />
         </Box>
     )

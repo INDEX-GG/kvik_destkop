@@ -7,13 +7,15 @@ export function useSubList(user_id) {
     [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.post("/api/getSubscriptions", user)
-        .then((res) => {
-            setUserInfo({
-                subList: res.data
-            })
-            setLoading(false);
-        })
+        if (user.user_id != 'undefined') {
+			axios.post("/api/getSubscriptions", user)
+			.then((res) => {
+				setUserInfo({
+					subList: res.data
+				})
+				setLoading(false);
+			})
+		}
     }, [user_id])
 
     return {
@@ -30,14 +32,16 @@ export function useSubBool(user_id, seller_id) {
     [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.post("/api/getSubscriptions", user)
-        .then((res) => {
-            setUserInfo(res.data)
-            setLoading(false);
-        })
+        if (user.user_id != 'undefined') {
+			axios.post("/api/getSubscriptions", user)
+			.then((res) => {
+				setUserInfo(res.data)
+				setLoading(false);
+			})
+		}
     }, [user_id])
     if (userInfo.length > 0) {
-        if (userInfo.filter(item => item.id == seller_id).length > 0) {
+        if (userInfo && userInfo?.filter(item => item.id == seller_id).length > 0) {
             return {
                 userSub: true,
                 userLoading: isLoading

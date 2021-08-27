@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { STATIC_URL } from '../lib/constants';
 import { useAuth } from '../lib/Context/AuthCTX';
 import { getDataByPost } from '../lib/fetch';
 

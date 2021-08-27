@@ -347,7 +347,6 @@ const MobilePhotoes = ({ctx}) => {
    };
 
 ctx(validFiles);
-console.log(ctx(validFiles))
 
    return (
       <>
