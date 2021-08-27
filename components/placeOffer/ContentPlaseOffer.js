@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
     },
 })) 
 
-export default function ContentPlaseOffer({dialog, title, backFunc, product}) {
+export default function ContentPlaseOffer({dialog, title, backFunc}) {
     const {id} = useAuth();
     const classes = useStyles();
     const [promotionProduct, setPromotionProduct] = useState({})
