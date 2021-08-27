@@ -4,10 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper/core";
 import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import { useMedia } from '../hooks/useMedia';
-import Favorits from '../UI/Favorits';
 import { useAuth } from "../lib/Context/AuthCTX";
 import { BASE_URL, STATIC_URL } from "../lib/constants";
-import { Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
+import { useStore } from "../lib/Context/Store";
 
 SwiperCore.use([Pagination]);
 const initialState = {
@@ -18,7 +20,7 @@ const initialState = {
 function AdCard_component({ offer }) {
 
 	const { id } = useAuth();
-
+	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
 	let sheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
@@ -36,8 +38,6 @@ function AdCard_component({ offer }) {
 			window.open(`/product/${id}`);
 		}
 	}
-
-
 
 	useEffect(() => {
 		currentSwiper.current.addEventListener("mousemove", switchSlide);
@@ -129,7 +129,21 @@ function AdCard_component({ offer }) {
 							</div>}
 						<div className="card__top_info_right">
 							{!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''}
-							{offer.user_id != id ? <Favorits isCard offer={offer}></Favorits> : ''}
+							{offer.user_id != id ? (
+								userInfo !== undefined && userInfo.favorites.length > 0 && userInfo.favorites && userInfo.favorites.filter(item => item.post_id == offer.id)?.[0]?.condition ?
+									<IconButton
+										onClick={() => setLikeComment(offer.id, '', false)}
+										color='primary'
+										className='card_like'>
+										<FavoriteRoundedIcon />
+									</IconButton> :
+									<IconButton
+										onClick={() => setLikeComment(offer.id, '', true)}
+										color='secondary'
+										className='card_like'>
+										<FavoriteBorderRoundedIcon />
+									</IconButton>
+							) : null}
 						</div>
 					</div>
 				</div>
