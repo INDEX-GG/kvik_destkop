@@ -3,7 +3,7 @@ export default function handler(req, res) {
 
 
         const main = async () => {
-            return {message:'21334324325432'}
+            return {message:'this is prod'}
         }
 
         main()
