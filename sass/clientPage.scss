@@ -3,6 +3,12 @@
   grid-template-rows: 30px 100px 1fr 60px;
   min-height: 100vh; /* прижимает footer к низу */
 }
+
+.productPage_photo {
+	object-fit: contain;
+	height: 100%
+}
+
 .clientPage__container_bottom {
   padding: 0 32px;
 }

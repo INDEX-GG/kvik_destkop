@@ -455,6 +455,9 @@
     transition: all 150ms ease-in-out;
 }
 .mySwiper2_photo{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
     height: 400px !important;
     position: relative;
 	width: 100%;
