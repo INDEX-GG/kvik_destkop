@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import Footer2 from "../components/Footer2"
 import { useMedia } from "../hooks/useMedia";
-import axios from "axios";
 import { Box, Container, makeStyles } from "@material-ui/core";
 import FilterBlock from "../components/FilterBlock"
 import SearchRender from "../components/SearchRender"
+import { getDataByPost } from "../lib/fetch";
+import { modifyGetPostsData } from "../lib/services";
 
 
 const useStyles = makeStyles(() => ({
@@ -45,9 +46,9 @@ const Index = () => {
 
 
   useEffect(() => {
-    axios.post("/api/getPosts", { of: 0 }).then((res) => setData(res.data.result));
+    getDataByPost("/api/getPosts", { of: 0 }).then(r => setData(modifyGetPostsData(r)));
   }, []);
-
+  
   return (
     <>
       {/* <MetaLayout isIndex title={'Доска объявлений'} category={"Транспорт"}> */}

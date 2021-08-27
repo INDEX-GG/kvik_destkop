@@ -5,7 +5,7 @@ import SwiperCore, { Pagination } from "swiper/core";
 import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import { useMedia } from '../hooks/useMedia';
 import { useAuth } from "../lib/Context/AuthCTX";
-import { BASE_URL, STATIC_URL } from "../lib/constants";
+import { BASE_URL } from "../lib/constants";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
@@ -40,11 +40,10 @@ function AdCard_component({ offer }) {
 	}
 
 	useEffect(() => {
-		currentSwiper.current.addEventListener("mousemove", switchSlide);
+		currentSwiper?.current?.addEventListener("mousemove", switchSlide);
 	}, [currentSwiper]);
 
 	function switchSlide(e) {
-
 		if (!sheduled) {
 			sheduled = true;
 			setTimeout(() => {
@@ -99,26 +98,29 @@ function AdCard_component({ offer }) {
 					{offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
 					<Link href={`/product/${offer.id}`} prefetch={false}>
 						<div className="card__top_slider">
-							<Swiper
-								ref={currentSwiper}
-								pagination={pagination}
-								slidesPerView={1}
-							>
-								{(JSON
-									.parse(offer.photo)?.photos
-									?.slice(0, 5))
-									?.map((img, i) => {
-										return (
-											<SwiperSlide key={i}>
-												<img
-													src={`${STATIC_URL}/${img}`}
-													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
-												/>
-											</SwiperSlide>
-										)
-									}
-									)}
-							</Swiper>
+							{offer?.photo?.length === 1 ?
+								<img
+									src={`${offer.photo[0]}`}
+									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+								/>
+								: <Swiper
+									ref={currentSwiper}
+									pagination={pagination}
+									slidesPerView={1}
+								>
+									{(offer.photo
+										?.slice(0, 5))
+										?.map((img, i) => {
+											return (
+												<SwiperSlide key={i}>
+													<img
+														src={`${img}`}
+														onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+													/>
+												</SwiperSlide>
+											)
+										})}
+								</Swiper>}
 						</div>
 					</Link>
 					<div className="card__top_info">

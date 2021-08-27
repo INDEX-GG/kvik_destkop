@@ -9,7 +9,7 @@ import Statistics from "../../components/Statistics";
 import ProductInformation from "../../components/product/ProductInformation";
 import ProductAction from "../../components/product/ProductAction";
 import ProductUserInfo from "../../components/product/ProductUserInfo";
-import { ToRubles, ToRusDate } from "../../lib/services";
+import { modifyGetPostsData, ToRubles, ToRusDate } from "../../lib/services";
 import IconCall from "../../UI/icons/IconCall";
 import IconMess from "../../UI/icons/IconMess";
 import { useMedia } from "../../hooks/useMedia";
@@ -77,7 +77,7 @@ const Product = () => {
 
 	const [data, setData] = useState();
 	useEffect(() => {
-		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(r))
+		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)))
 	}, []);
 
 	const { name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
