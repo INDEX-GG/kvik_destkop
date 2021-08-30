@@ -77,7 +77,6 @@ function SelectBuy({promotion = false, align = false, value = false}) {
         if (value) {
             value(e.target.value)
         }
-
         if (e.target.value == 0) {
             setSelectImg(false)
         }

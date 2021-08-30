@@ -148,7 +148,7 @@ function Buy() {
                 <Box className={classes.buyProduct}>
                     <h1 className={classes.buyTitle}>Оформление и оплата</h1>
                     <section className={classes.buyItem}>
-                        <Image className={classes.buyItemImg} src="/checkout-test.jpg" alt="Img-product" width={88} height={88}/>
+                        {/* <Image className={classes.buyItemImg} src="/checkout-test.jpg" alt="Img-product" width={88} height={88}/> */}
                         <div className={classes.buyItemInf}>
                             <div className={classes.buyItemPrice}>10 000 000 &#8381;</div>
                             <div className={classes.buyItemName}>Очень длинное название товара</div>
