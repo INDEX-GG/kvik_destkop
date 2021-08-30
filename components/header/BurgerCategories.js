@@ -8,7 +8,10 @@ import CategoriesContent from './CategoriesContent';
 
 const useStyles = makeStyles((theme) => ({
 	list: {
-		width: "384px"
+		width: "384px",
+		[theme.breakpoints.down(375)]: {
+			width: '330px'
+		}
 	},
 	fullList: {
 		width: 'auto',

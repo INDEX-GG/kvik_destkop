@@ -10,6 +10,7 @@ import MetaLayout from "../layout/MetaLayout";
 import PlaceOfferButton from "../components/PlaceOfferButton";
 import { getDataByPost } from "../lib/fetch";
 import { modifyGetPostsData } from "../lib/services";
+import { useAuth } from "../lib/Context/AuthCTX";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -44,6 +45,8 @@ const Index = ({ offers }) => {
 	const { matchesMobile, matchesTablet } = useMedia();
 	const [data, setData] = useState(modifyGetPostsData(offers));
 	const classes = useStyles();
+	const { isAuth } = useAuth();
+
 
 	useEffect(() => {
 		getDataByPost('/api/getPosts', { of: 0 }).then(r => {setData(modifyGetPostsData(r))})
@@ -63,7 +66,7 @@ const Index = ({ offers }) => {
 					</Box>}
 				</Box>
 			</Container>
-			{matchesMobile ? <PlaceOfferButton /> : null}
+			{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
 		</MetaLayout >
 	)
 }

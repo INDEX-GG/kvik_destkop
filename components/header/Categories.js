@@ -96,6 +96,7 @@ function Categories() {
     }
     index.target.style.background = "#E9E9E9";
   }
+  
 
   return (
     <>

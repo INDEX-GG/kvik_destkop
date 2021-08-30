@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,7 +18,10 @@ import AccountContent from './AccountContent';
 
 const useStyles = makeStyles((theme) =>({
 	list: {
-		width: '382px'
+		width: '382px',
+		[theme.breakpoints.down(375)]: {
+			width: '330px'
+		}
 	},
 	fullList: {
 		width: 'auto',
@@ -136,7 +139,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 				role="presentation"
 				onKeyDown={toggleDrawer(anchor, false)}
 			>
-				<List className="burgerContainer">
+				<List className="burgerContainer burgerAccount">
 					<div className={classes.accountBox}>
 						<div className={classes.accountTitle}>Личный кабинет</div>
 						<div onClick={toggleDrawer("right", false)} className={classes.accountIcon}></div>
