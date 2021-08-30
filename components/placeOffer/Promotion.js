@@ -287,7 +287,7 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 						</div>}
 				</div>
 			</Box>
-			<Dialog open={productModal} onClose={() => setProductModal(!productModal)}>
+			<Dialog open={productModal || false} onClose={() => setProductModal(!productModal)}>
 				<div className={classes.productContainer}>
 					<div className={classes.productCard}>
 						{/* !!!!!!!!!! Change */}

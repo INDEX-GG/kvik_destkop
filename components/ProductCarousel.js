@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
-import { Modal } from "@material-ui/core";
+import { Dialog, Modal } from "@material-ui/core";
 import ProductModalCarousel from "./ProductModalCarousel";
 SwiperCore.use([Navigation, Thumbs, Pagination,]);
 
 export default function ProductCarousel({ photo }) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const [modal, setModal] = useState(false);
+	const [imageModal, setImageModal] = useState(false)
 
 	let settingsCarousele = true
 	let paginationCarousel = { type: "fraction" }
@@ -21,9 +22,14 @@ export default function ProductCarousel({ photo }) {
 	}
 	if (photo.length === 1) {
 		return (
-			<div className='mySwiper2_photo'>
-				<img className='productPage_photo' src={photo[0]} />
-			</div>
+			<>
+				<div onClick={() => setImageModal(!imageModal)} className='mySwiper2_photo'>
+					<img className='productPage_photo' src={photo[0]} />
+				</div>
+				<Dialog open={imageModal || false} maxWidth='sm' onClose={() => setImageModal(!imageModal)}>
+					<img className='productPage_photo' src={photo[0]} />
+				</Dialog>
+			</>
 		);
 	}
 

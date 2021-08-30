@@ -352,7 +352,7 @@ function PersonalData() {
 				</div>
 			</div>
 			<Modal {...modal} />
-			<Dialog fullScreen={true} open={passwordDialog} onClose={() => setPasswordDialog(!passwordDialog)}>
+			<Dialog fullScreen={true} open={passwordDialog || false} onClose={() => setPasswordDialog(!passwordDialog)}>
 				<div className="modal__wrapper_md accountContainer">
 					<div className="modal__block__top accountTop">
 						<>

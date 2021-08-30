@@ -163,7 +163,7 @@ export default function offerActive(offer) {
 				</div>
 			</a>
 
-			<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth='md'>
+			<Dialog open={openUnpublishForm || false} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth='md'>
 				<UnpublishForm Close={handleUnpublishFormDialog} />
 			</Dialog>
 		</UnpublishCTX.Provider>

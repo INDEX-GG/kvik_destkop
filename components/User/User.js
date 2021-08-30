@@ -39,19 +39,17 @@ const UsersPage = () => {
       <div className="clientPage__container_top">
         <div className="clientPage__container_nav__wrapper">
           <div className="clientPage__container_nav">
-            {navItems.map((item) => {
+            {navItems.length ? navItems.map((item) => {
               return (
                 <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>
                   {item.title} {brooklyn(item.count)}
                 </a>
               );
-            })}
+            }) : null}
           </div>
         </div>
       </div>
-
-      {navItems.map((item) => itemNav.i === item.id && (userInfo&& userInfo.length > 0 ? item.content : <Placeholder user={item.id} />))}
-
+      {navItems.map((item) => itemNav.i === item.id && (userInfo && userInfo.length > 0 ? item.content : <Placeholder key={item.id} user={item.id} />))}
     </>
   );
 };
