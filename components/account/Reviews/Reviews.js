@@ -33,8 +33,8 @@ const leftReviewBox = [
 
 //Пагинация
 const navItems = [
-   { id: 1, title: 'Ждут отзыва', content: <WaitReviews data={waitReviewBox} />, count: waitReviewBox.length },
-   { id: 2, title: 'Оставленные отзывы', content: <LeftReviews data={leftReviewBox} />, count: leftReviewBox.length }
+   { id: 1, title: 'Ждут отзыва', content: <WaitReviews key={1} data={waitReviewBox} />, count: waitReviewBox.length },
+   { id: 2, title: 'Оставленные отзывы', content: <LeftReviews key={2} data={leftReviewBox} />, count: leftReviewBox.length }
 ];
 
 const Reviews = () => {

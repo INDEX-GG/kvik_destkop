@@ -31,8 +31,8 @@ const purchDealsBox = DealsBox.filter(deal => deal.status === 1)
 
 // Пагинация
 const navItems = [
-   { id: 1, title: 'Продажи', content: <Sales deals={DealsBox}/>, count: salesDealsBox.length },
-   { id: 2, title: 'Покупки', content: <Purch deals={DealsBox}/>, count: purchDealsBox.length },
+   { id: 1, title: 'Продажи', content: <Sales key={1} deals={DealsBox}/>, count: salesDealsBox.length },
+   { id: 2, title: 'Покупки', content: <Purch key={2} deals={DealsBox}/>, count: purchDealsBox.length },
 ];
 
 const Deals = () => {
