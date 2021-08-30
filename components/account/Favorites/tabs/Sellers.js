@@ -17,7 +17,7 @@ function Sellers({sellers, sellerSub}) {
       }
       setBtnSellerArr(newArr)
     }
-  })
+  },[sellers])
 
   function changeSubscribe(i) {
     const arr = btnSellerArr

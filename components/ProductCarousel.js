@@ -57,22 +57,8 @@ export default function ProductCarousel({ photo }) {
 				</>
 			}
 
-
-			<Modal className="productModal" open={modal} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-				<ProductModalCarousel photo={data} />
-				{photo == undefined
-					? ""
-					: photo.map((img, i) => (
-						<SwiperSlide key={i}>
-							{" "}
-							<img src={img} />
-						</SwiperSlide>
-					))}
-			</Swiper>
-			{/* ) : null} */}
 			<Modal className="productModal" open={modal || false} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
 				<><ProductModalCarousel photo={photo} /></>
-
 			</Modal>
 		</>
 	);
