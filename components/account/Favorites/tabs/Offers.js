@@ -38,7 +38,7 @@ function Offers(data) {
 			<div className="clientPage__container_content">
 				<div className="favoritesContainerWrapper">
 					{data.itemsPost?.map((offer, i) =>
-						<a href={`/product/${offer.id}`} key={i} className="favoritesContainer boxWrapper">
+						<a key={i} href={`/product/${offer.id}`}  className="favoritesContainer boxWrapper">
 							<div className="favoritesImage">
 								<div className="favoritesPubCheck">
 									<label className="checkbox">
@@ -47,7 +47,7 @@ function Offers(data) {
 									</label>
 								</div>
 								<a className="favoritesCompare"></a>
-								<a href='javascript:void(0)' ><Favorits favId={offer.id} isAccountCard /></a>
+								<a href="javascript:void(0);" ><Favorits favId={offer.id} isAccountCard /></a>
 									 <img key={i} src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`} />
 								{offer.user_blocked &&
 									<div className="favoritesCause megaLight">Пользователь заблокирован</div>
@@ -69,7 +69,7 @@ function Offers(data) {
 									<div>{offer.title}</div>
 									<div className="thin small light">{offer.address}</div>
 								</div>
-								<a href='javascript:void(0)' id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote">{offer.comment}</a>
+								<a  id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote">{offer.comment}</a>
 								<a className="favoritesButton buttonGrey small">Сообщить об изменении цены</a>
 							</div>
 						</a>

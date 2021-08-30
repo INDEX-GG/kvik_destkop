@@ -115,9 +115,9 @@ const Favorites = () => {
 	}
 	console.log(seller)
 	const navItems = [
-		{ id: 1, title: 'Объявления', content: <Offers itemsPost={favAciveOffer} />, count: favAciveOffer != undefined ? favAciveOffer?.length : 0 },
-		{ id: 2, title: 'Продавцы', content: <Sellers sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length : 0 },
-		{ id: 3, title: 'Поиски', content: <Searches searches={SearchesBox} />, count: SearchesBox.length }
+		{ id: 1, title: 'Объявления', content: <Offers key={1} itemsPost={favAciveOffer} />, count: favAciveOffer != undefined ? favAciveOffer?.length : 0 },
+		{ id: 2, title: 'Продавцы', content: <Sellers key={2} sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length : 0 },
+		{ id: 3, title: 'Поиски', content: <Searches key={3} searches={SearchesBox} />, count: SearchesBox.length }
 	];
 
 	return (
@@ -127,7 +127,7 @@ const Favorites = () => {
 					<div className="clientPage__container_nav">
 						{navItems.map(item => {
 							return (
-								<a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
+								<a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')}  onClick={() => {
 									setItemNav({ i: item.id, ttl: item.title })
 									safeAccountTab(item.id)
 								}}>{item.title} {brooklyn(item.count)}</a>

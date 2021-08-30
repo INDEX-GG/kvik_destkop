@@ -28,9 +28,9 @@ const blackListBox = [
 
 const Settings = () => {
 	const navItems = [
-		{ id: 1, title: 'Личные данные', content: <PersonalData />, count: 0 },
-		{ id: 2, title: 'Уведомления', content: <Pushes />, count: 0 },
-		{ id: 3, title: 'Черный список', content: <BlackList data={blackListBox} />, count: blackListBox.length },
+		{ id: 1, title: 'Личные данные', content: <PersonalData key={1} />, count: 0 },
+		{ id: 2, title: 'Уведомления', content: <Pushes key={2} />, count: 0 },
+		{ id: 3, title: 'Черный список', content: <BlackList key={3} data={blackListBox} />, count: blackListBox.length },
 	]
 
 	const router = useRouter();

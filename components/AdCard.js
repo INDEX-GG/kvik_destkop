@@ -109,9 +109,7 @@ function AdCard_component({ offer }) {
 									pagination={pagination}
 									slidesPerView={1}
 								>
-									{(offer.photo
-										?.slice(0, 5))
-										?.map((img, i) => {
+									{offer.photo&& (offer.photo?.slice(0, 5))?.map((img, i) => {
 											return (
 												<SwiperSlide key={i}>
 													<img

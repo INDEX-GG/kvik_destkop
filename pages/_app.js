@@ -9,7 +9,7 @@ import theme from '../UI/theme';
 import fetch from '../lib/fetchJson';
 import AuthProvider from '../lib/Context/AuthCTX';
 import MainLayout from '../layout/MainLayout';
-import {ErrorBoundary} from '../components/ErrorBoundary';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 import CityProvider from '../lib/Context/CityCTX';
 import StoreProvider from '../lib/Context/Store';
 
@@ -22,14 +22,15 @@ function MyApp({ Component, pageProps }) {
 	// 	} else { console.log("Not mobile") }
 	// }, 1500)
 
-   return (
+	return (
 		<ErrorBoundary>
-			<SWRConfig 
-			value={{
-				fetcher: fetch,
-				onError: (err) => {
-				console.error(err)
-				},}}
+			<SWRConfig
+				value={{
+					fetcher: fetch,
+					onError: (err) => {
+						console.error(err)
+					},
+				}}
 			>
 				<Head>
 					<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
@@ -39,7 +40,7 @@ function MyApp({ Component, pageProps }) {
 						<CityProvider>
 							<StoreProvider>
 								<MainLayout>
-									<CssBaseline/>
+									<CssBaseline />
 									<Component {...pageProps} />
 								</MainLayout>
 							</StoreProvider>
@@ -48,19 +49,7 @@ function MyApp({ Component, pageProps }) {
 				</AuthProvider>
 			</SWRConfig>
 		</ErrorBoundary>
-   )
+	)
 }
-
-// Only uncomment this method if you have blocking data requirements for
-// every single page in your application. This disables the ability to
-// perform automatic static optimization, causing every page in your app to
-// be server-side rendered.
-//
-// MyApp.getInitialProps = async (appContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-//
-//   return { ...appProps }
-// }
 
 export default MyApp
