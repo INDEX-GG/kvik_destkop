@@ -93,7 +93,7 @@ function AdCard_component({ offer }) {
 				<MenuItem>Добавить к сравнению</MenuItem>
 				<MenuItem>Не показывать</MenuItem>
 			</Menu>
-			<div className={"card__wrapper"}>
+			<div className={offer.commercial === 1 || offer.commercial === 2 ? 'card__wrapper-yellow' : "card__wrapper"}>
 				<div className={"card__top " + archived}>
 					{offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
 					<Link href={`/product/${offer.id}`} prefetch={false}>
