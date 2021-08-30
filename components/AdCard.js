@@ -109,16 +109,16 @@ function AdCard_component({ offer }) {
 									pagination={pagination}
 									slidesPerView={1}
 								>
-									{offer.photo&& (offer.photo?.slice(0, 5))?.map((img, i) => {
-											return (
-												<SwiperSlide key={i}>
-													<img
-														src={`${img}`}
-														onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
-													/>
-												</SwiperSlide>
-											)
-										})}
+									{offer.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
+										return (
+											<SwiperSlide key={i}>
+												<img
+													src={`${img}`}
+													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+												/>
+											</SwiperSlide>
+										)
+									})}
 								</Swiper>}
 						</div>
 					</Link>
