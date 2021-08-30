@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
-import { Dialog, Modal } from "@material-ui/core";
+import { Modal } from "@material-ui/core";
 import ProductModalCarousel from "./ProductModalCarousel";
 SwiperCore.use([Navigation, Thumbs, Pagination,]);
 
