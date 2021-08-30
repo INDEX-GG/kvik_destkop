@@ -1,12 +1,11 @@
-import Router from 'next/router';
 import { useEffect, useState } from 'react';
-import axios from 'axios'
+import { getDataByPost } from '../lib/fetch';
 
 export function useProduct({ router }) {
     const [productInfo, setProductInfo] = useState({});
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
-        axios.post('/api/getProductOfUser', { product_id: router.query.id })
+        getDataByPost('/api/getProductOfUser', { product_id: router.query.id })
             .then((result) => {
                 result.data.result.map((items) => {
                     setProductInfo({

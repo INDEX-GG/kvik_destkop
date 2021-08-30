@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Dialog } from "@material-ui/core";
-import axios from "axios";
 import { getDataByPost } from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
@@ -22,6 +21,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import Loader from "../../UI/icons/Loader";
+import { STATIC_URL } from "../../lib/constants";
 const objP = {
 	id: 1,
 	title: "Продам 2-комню квартиру, 95м в центре",
@@ -85,7 +85,21 @@ const Product = () => {
 	const [phoneModal, setPhoneModal] = useState();
 
 	useEffect(() => {
-		axios.post("/api/getProductOfUser", { user_id: user_id }).then((res) => setUserAd(res.data.result));
+
+		if (user_id !== undefined) {
+			getDataByPost("/api/getProductOfUser", { user_id: user_id }).then((r) => {
+				console.log(r);
+				if (r !== undefined && r.length > 0) {
+					const userOffers = r.map(offer => {
+						return {
+							...offer,
+							photo: JSON.parse(offer.photo).photos.map(img => `${STATIC_URL}/${img}`)
+						}
+					})
+					setUserAd(userOffers);
+				}
+			});
+		}
 	}, [user_id]);
 
 	let breadData = null;
