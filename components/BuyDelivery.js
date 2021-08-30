@@ -1,15 +1,16 @@
 import React, { useState } from "react"
-import { makeStyles, Collapse, TextField, Dialog, Button } from "@material-ui/core"
+import { makeStyles, Collapse, Dialog, Button } from "@material-ui/core"
 import theme from "../UI/theme"
 import SelectBuy from "./SelectBuy"
 import { useMedia } from "../hooks/useMedia"
 import DeliveryBuyerForm from "./DeliveryBuyerForm"
+import BuyDeleveryItem from "./BuyDeleveryItem"
 
 const useStyles = makeStyles(() => ({
     buyDilevery: {
         marginBottom: "32px",
         width: "100%",
-        maxWidth: "976px",
+        // maxWidth: "976px",
     },
     buyDileveryBox: {
         padding: "4px 0",
@@ -76,16 +77,16 @@ const useStyles = makeStyles(() => ({
     buyDileveryOneTitle: {
         color: "#8F8F8F",
         fontSize: "14px",
-        fontWeight: "500"
+        fontWeight: "500",
+		marginBottom: '24px'
     },
     buyDileveryOneAdressBlock: {
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
+        // alignItems: "center",
         flexWrap: "wrap"
     },
     buyDileveryOneAdressBox: {
-        marginTop: "24px",
 		'& > *:nth-of-type(2)': {
 			marginBottom: '16px'
 		}
@@ -96,7 +97,7 @@ const useStyles = makeStyles(() => ({
         marginBottom: "8px"
     },
     buyDileveryOneAdressInf: {
-        color: "#7C7C7C",
+        color: "#C7C7C7",
         fontSize: "14px",
     },
     buyDileveryOneParagraph: {
@@ -113,35 +114,6 @@ const useStyles = makeStyles(() => ({
         height: "164px",
         borderRadius: "8px",
         marginBottom: "20px"
-    },
-    buyDileveryInputTitel: {
-        color: "#2C2C2C",
-        fontSize: "14px",
-        fontWeight: "500",
-        marginBottom: "12px"
-    },
-    buyDileveryInputBox: {
-        width: "100%",
-        display: "flex",
-        flexWrap: "wrap",
-    },
-    buyDileveryInputItem: {
-        width: "33.33%",
-        paddingLeft: "24px",
-        marginBottom: "16px",
-        [theme.breakpoints.down("sm")] : {
-            width: "50%",
-        },
-        [theme.breakpoints.down("xs")] : {
-            width: "100%",
-            paddingLeft: "0",
-        },
-    },
-    buyDileveryInput: {
-        width: "100%",
-    },
-    buyDileveryInputDesc: {
-        color: "#C7C7C7",
     },
     buyDileveryPickupDesc: {
         color: "#C7C7C7",
@@ -166,7 +138,8 @@ const useStyles = makeStyles(() => ({
         fontSize: "18px",
         fontWeight: "500",
         borderBottom: "1px solid #E9E9E9",
-        marginBottom: "12px",
+        paddingBottom: '10px',
+		marginBottom: '12px'
 
     },
     paragraphMenu: {
@@ -188,7 +161,12 @@ const useStyles = makeStyles(() => ({
     },
     paragraphList: {
         width: "100%",
-        paddingRight: "12px"
+        marginRight: "12px",
+		maxHeight: '522px',
+		overflow: 'scroll',
+		[theme.breakpoints.down(600)]: {
+			maxHeight: 'none',
+		}
     },
     paragraphItem: {
         fontSize: "12px",
@@ -196,6 +174,7 @@ const useStyles = makeStyles(() => ({
         width: "194px",
         height :"98px",
         borderRadius: "8px",
+		marginRight: '40px',
         padding: "8px",
         transition: ".2s all linear",
         "&:hover": {
@@ -214,6 +193,9 @@ const useStyles = makeStyles(() => ({
         height: "522px",
         backgroundColor: "#2C2C2C",
         borderRadius: "8px",
+		[theme.breakpoints.down(660)]: {
+			width: '300px'
+		},
         [theme.breakpoints.down("xs")] : {
             width: "100%",
             height: "400px",
@@ -262,7 +244,7 @@ function BuyDelivery() {
     const classes = useStyles()
 
 
-    function paragraphBox(map = false, xs = false, buttonName = "Перейти к оплате") {
+    function paragraphBox(map = false, xs = false, buttonName = matchesMobile ? "Перейти к оплате" : "Выбрать этот пункт") {
         return (
         <div className={`${classes.paragraphBox} ${matchesMobile ? classes.paragraphContainer : ""}`}>
             <div className={classes.paragraphList}>
@@ -273,6 +255,31 @@ function BuyDelivery() {
                     {xs ? <Button className={classes.buyPaymentButton} type="submit">{buttonName}</Button> : null}
                 </div>
                 <div className={classes.paragraphItem}>
+                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                    <div className={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                    <div className={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                </div>
+				<div className={classes.paragraphItem}>
+                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                    <div className={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                    <div className={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                </div>
+				<div className={classes.paragraphItem}>
+                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                    <div className={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                    <div className={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                </div>
+				<div className={classes.paragraphItem}>
+                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                    <div className={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                    <div className={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                </div>
+				<div className={classes.paragraphItem}>
+                    <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
+                    <div className={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+                    <div className={classes.paragraphNumber}>+7 (000) 000-00-00</div>
+                </div>
+				<div className={classes.paragraphItem}>
                     <div className={classes.paragraphAdress}>Челябинск, ул. Елькина, 92в</div>
                     <div className={classes.paragraphDate}>пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
                     <div className={classes.paragraphNumber}>+7 (000) 000-00-00</div>
@@ -297,103 +304,53 @@ function BuyDelivery() {
         ) 
     }
 
+	// <Dialog open={modalParagraph || false} fullScreen={matchesMobile ? true : false} onClose={() => setModalParagraph(!modalParagraph)}>
+    //                     <div className={matchesMobile ? "modal__block__top accountTop" : classes.paragraphContainer } >
+    //                         {matchesMobile ? 
+    //                         <>
+    //                             <div className="accountArrowLeft"></div>
+    //                             <div className={classes.dialogTitle}>
+    //                                 <h6 className="modal__block__top_title">Выбор пункта самовызова товара</h6>
+    //                             </div>
+    //                         </> : <div className={classes.paragraphTitle}>Выбор пункта самовызова товара</div>}
+    //                         {matchesMobile ? <div className={classes.paragraphMenu}>
+    //                             <div 
+    //                             className={`${classes.paragraphMenuItem} ${paragraphContent ? classes.paragraphMenuItemActive : null}`} onClick={() => setParagraphContent(!paragraphContent)}>Список</div>
+    //                             <div 
+    //                             className={`${classes.paragraphMenuItem} ${paragraphContent ?  null : classes.paragraphMenuItemActive}`} 
+    //                             onClick={() => {
+    //                                 setParagraphContent(!paragraphContent)
+    //                             }}>Карта</div>
+    //                             </div> : null }
+    //                         {matchesMobile ? paragraphContent ? paragraphBox(false, true) : paragraphMap() :  paragraphBox(true)}
+    //                     </div>
+    //             </Dialog>
+
     return (
         <>
-            <section className={classes.buyDilevery}>
-                <div className={classes.buyDileveryBox} style={{backgroundColor: deliveryOther ? "#E9E9E9" : null}} onClick={() => setDeliveryOther(!deliveryOther)}>
-                    <div className={classes.buyDileveryInf}>
-                        <div className={classes.buyDeliveryName}>
-                            <div className={classes.buyDileveryCircle} style={{backgroundColor: deliveryOther ? "#00A0AB" : null}}></div>
-                            <div className={classes.buyDileveryTitle}>Доставка номер один</div>
-                        </div>
-                        <div className={classes.buyDileveryPrice}>500&nbsp;&#8381;</div>
-                    </div>
-                    <p className={classes.buyDileverySubtitle}>От двух до 7 рабочих дней. Примерное время доставки, и цена рассчитаны <a href="/" className={classes.buyDileveryDesc}>для вашего города</a></p>
+            <BuyDeleveryItem title='Доставка номер один' subtitle='От двух до 7 рабочих дней. Примерное время доставки, и цена рассчитаны для вашего города' price='500'>
+				<div className={classes.buyDileverySend}>
+					<div className={classes.buyDileveryOneAdressBlock}>
+						<div className={classes.buyDileveryOneAdressBox}>
+							<h4 className={classes.buyDileveryOneTitle}>Пункт самомывоза</h4>
+							<div className={classes.buyDileveryOneAdress}>Челябинск, ул. Елькина, 92в</div>
+							<div className={classes.buyDileveryOneAdressInf}>Расписание пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
+							<div className={classes.buyDileveryOneAdressInf}>Номер для связи +7 (000) 000-00-00</div>
+							<div className={classes.buyDileveryOneParagraph}onClick={() => setModalParagraph(!modalParagraph)}>Выбрать другой пункт из 00 в вашем городе</div>
+						</div>
+						<div className={classes.buyDileveryMap}></div>
+					</div>
+					<DeliveryBuyerForm/>
                 </div>
-                <Collapse in={deliveryOther} timeout="auto" unmountOnExit >
-                    <div className={classes.buyDileverySend}>
-                        <h4 className={classes.buyDileveryOneTitle}>Пункт самомывоза</h4>
-                        <div className={classes.buyDileveryOneAdressBlock}>
-                            <div className={classes.buyDileveryOneAdressBox}>
-                                <div className={classes.buyDileveryOneAdress}>Челябинск, ул. Елькина, 92в</div>
-                                <div className={classes.buyDileveryOneAdressInf}>Расписание пн-пт: 8:00-20:00, сб: 9:00-16:00</div>
-                                <div className={classes.buyDileveryOneAdressInf}>Номер для связи +7 (000) 000-00-00</div>
-                                <div className={classes.buyDileveryOneParagraph}onClick={() => setModalParagraph(!modalParagraph)}>Выбрать другой пункт из 00 в вашем городе</div>
-                            </div>
-                            <div className={classes.buyDileveryMap}></div>
-                        </div>
-						<DeliveryBuyerForm/>
-                    </div>
-                </Collapse>
-                <Dialog open={modalParagraph || false} fullScreen={matchesMobile ? true : false} onClose={() => setModalParagraph(!modalParagraph)}>
-                        <div className={matchesMobile ? "modal__block__top accountTop" : classes.paragraphContainer } >
-                            {matchesMobile ? 
-                            <>
-                                <div className="accountArrowLeft"></div>
-                                <div className={classes.dialogTitle}>
-                                    <h6 className="modal__block__top_title">Выбор пункта самовызова товара</h6>
-                                </div>
-                            </> : <div className={classes.paragraphTitle}>Выбор пункта самовызова товара</div>}
-                            {matchesMobile ? <div className={classes.paragraphMenu}>
-                                <div 
-                                className={`${classes.paragraphMenuItem} ${paragraphContent ? classes.paragraphMenuItemActive : null}`} onClick={() => setParagraphContent(!paragraphContent)}>Список</div>
-                                <div 
-                                className={`${classes.paragraphMenuItem} ${paragraphContent ?  null : classes.paragraphMenuItemActive}`} 
-                                onClick={() => {
-                                    setParagraphContent(!paragraphContent)
-                                }}>Карта</div>
-                                </div> : null }
-                            {matchesMobile ? paragraphContent ? paragraphBox(false, true) : paragraphMap() :  paragraphBox(true)}
-                        </div>
-                </Dialog>
-            </section>
-            <section className={classes.buyDilevery}>
-                <div className={classes.buyDileveryBox} style={{backgroundColor: deliveryCourier ? "#E9E9E9" : null}} onClick={() => setDeliveryCourier(!deliveryCourier)}>
-                    <div className={classes.buyDileveryInf}>
-                        <div className={classes.buyDeliveryName}>
-                            <div className={classes.buyDileveryCircle} style={{backgroundColor: deliveryCourier ? "#00A0AB" : null}}></div>
-                            <div className={classes.buyDileveryTitle}>Доставка номер два (курьером)</div>
-                        </div>
-                        <div className={classes.buyDileveryPrice}>1000&nbsp;&#8381;</div>
-                    </div>
-                    <p className={classes.buyDileverySubtitle}>Доставка будет осуществляться в течении 00 дней из расчета <a href="/"  className={classes.buyDileveryDesc}>по вашему городу</a></p>
+			</BuyDeleveryItem>
+            <BuyDeleveryItem title='Доставка номер два (курьером например)' subtitle='Доставка будет осуществляться в течении 00 дней из расчета по вашему городу' price='1000'>
+				<div className={classes.buyDileverySend}> 
+					<DeliveryBuyerForm courier/>
                 </div>
-                <Collapse in={deliveryCourier} timeout="auto" unmountOnExit >
-                    <div className={classes.buyDileverySend}> 
-					    <DeliveryBuyerForm/>
-                        <h3 className={`${classes.buyDileveryInputTitel} ${classes.mt24}`}>Адрес доставки для курьера</h3>
-                        <form className={classes.buyDileveryInputBox}>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Улица'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    Данные как в паспорте, посылку выдадут только лично вам
-                                </p>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Номер дома'variant='outlined' size='small' type="text"/>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Квартира/Офис'variant='outlined' size='small' type="text"/>
-                            </div>
-                        </form>
-                    </div>
-                </Collapse>
-            </section>
-            <section className={classes.buyDilevery}>
-                <div className={classes.buyDileveryBox} style={{backgroundColor: deliveryOther ? "#E9E9E9" : null}} onClick={() => setDeliveryPickup(!deliveryPickup)}>
-                    <div className={classes.buyDileveryInf}>
-                        <div className={classes.buyDeliveryName}>
-                            <div className={classes.buyDileveryCircle} style={{backgroundColor: deliveryPickup ? "#00A0AB" : null}}></div>
-                            <div className={classes.buyDileveryTitle}>Заберу сам у продавца</div>
-                        </div>
-                        <div className={classes.buyDileveryPrice}>Бесплатно</div>
-                    </div>
-                    <p className={classes.buyDileverySubtitle}>Договоритесь об условиях самовызова с продавцом по телефону или в чате самостоятельно</p>
-                </div>
-                <Collapse in={deliveryPickup} timeout="auto" unmountOnExit >
-                    <p className={classes.buyDileveryPickupDesc}>Договаривайтесь с продавцом о месте и времени передачи товара самостоятельно. Деньги за оплату товара продавец получит только после того, как вы подтвердите успешное получение товара. А в случае возникновения спорной ситуации, уладить возникшие разногласия поможет сервис «Безопасная сделка».</p>
-                </Collapse>
-            </section>
+			</BuyDeleveryItem>
+			<BuyDeleveryItem title='Заберу сам у продавца' subtitle='Договоритесь об условиях самовызова с продавцом по телефону или в чате самостоятельно'>
+				<p className={classes.buyDileveryPickupDesc}>Договаривайтесь с продавцом о месте и времени передачи товара самостоятельно. Деньги за оплату товара продавец получит только после того, как вы подтвердите успешное получение товара. А в случае возникновения спорной ситуации, уладить возникшие разногласия поможет сервис «Безопасная сделка».</p>
+			</BuyDeleveryItem>
             <SelectBuy/>
         </>
     )
