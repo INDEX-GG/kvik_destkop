@@ -21,6 +21,7 @@ module.exports = {
     "rules": {
 		"react/prop-types": 0,
 		"react/react-in-jsx-scope" : 0,
-		"no-mixed-spaces-and-tabs": 0
+		"no-mixed-spaces-and-tabs": 0,
+		"react/display-name": "off"
     }
 };
