@@ -7,27 +7,39 @@ import theme from "../../UI/theme"
 
 const useStyles = makeStyles(() => ({
     buyContainer: {
+		marginTop: '50px',
         display: "flex",
+		// justifyContent: 'space-between',
+		paddingLeft: '12px',
+		[theme.breakpoints.down(1024)]: {
+            padding: "0 12px"
+        },
         [theme.breakpoints.down("xs")]: {
             padding: "0 12px"
         }
     },
     buyProduct: {
-        flexGrow: 1,
-        paddingRight: "48px",
-        [theme.breakpoints.down("sm")]: {
-            paddingRight: "0px"
+        width: '80%',
+		maxWidth: '976px',
+        marginRight: '48px',
+        [theme.breakpoints.down(1024)]: {
+			width: '100%',
+			marginRight: '0',
         }
     },
     buyAd: {
         display: "flex",
         flexDirection: "column",
-        marginTop: "50px",
-        width: "224px",
+        marginTop: "45px",
+		width: '20%',
+		maxWidth: '224px',
         "& > div": {
             marginBottom: "24px"
         },
-        [theme.breakpoints.down("sm")]: {
+		[theme.breakpoints.down(1320)]: {
+            marginRight: '10px'
+        },
+        [theme.breakpoints.down(1024)]: {
             display: "none"
         }
     },
@@ -148,7 +160,7 @@ function Buy() {
                 <Box className={classes.buyProduct}>
                     <h1 className={classes.buyTitle}>Оформление и оплата</h1>
                     <section className={classes.buyItem}>
-                        {/* <Image className={classes.buyItemImg} src="/checkout-test.jpg" alt="Img-product" width={88} height={88}/> */}
+                        <Image className={classes.buyItemImg} src="/checkout-test.jpg" alt="Img-product" width={88} height={88}/>
                         <div className={classes.buyItemInf}>
                             <div className={classes.buyItemPrice}>10 000 000 &#8381;</div>
                             <div className={classes.buyItemName}>Очень длинное название товара</div>

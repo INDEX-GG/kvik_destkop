@@ -33,7 +33,7 @@ const PopularCategories = () => {
 				{Icons.map((icon, i) => {
 					return (
 						<SwiperSlide key={i} className={classes.slide} >
-							<Link onClick={() => router.push(`/search/${icon.alias}`)}>	<PopularIcon icon={icon} random={(i + 1) * 20} /></Link>
+							<Link onClick={() => router.push(`/search/${icon.alias}`)}>	<PopularIcon icon={icon} random={0} /></Link>
 						</SwiperSlide>
 					)
 				})}

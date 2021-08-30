@@ -3,6 +3,7 @@ import { makeStyles, Collapse, TextField, Dialog, Button } from "@material-ui/co
 import theme from "../UI/theme"
 import SelectBuy from "./SelectBuy"
 import { useMedia } from "../hooks/useMedia"
+import DeliveryBuyerForm from "./DeliveryBuyerForm"
 
 const useStyles = makeStyles(() => ({
     buyDilevery: {
@@ -85,6 +86,9 @@ const useStyles = makeStyles(() => ({
     },
     buyDileveryOneAdressBox: {
         marginTop: "24px",
+		'& > *:nth-of-type(2)': {
+			marginBottom: '16px'
+		}
     },
     buyDileveryOneAdress: {
         color: "#2C2C2C",
@@ -93,7 +97,7 @@ const useStyles = makeStyles(() => ({
     },
     buyDileveryOneAdressInf: {
         color: "#7C7C7C",
-        fontSize: "14px"
+        fontSize: "14px",
     },
     buyDileveryOneParagraph: {
         color: "#00A0AB",
@@ -318,33 +322,7 @@ function BuyDelivery() {
                             </div>
                             <div className={classes.buyDileveryMap}></div>
                         </div>
-                        <h3 className={classes.buyDileveryInputTitel}>Данные покупателя для получения заказа</h3>
-                        <form className={classes.buyDileveryInputBox}>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Имя'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    Данные как в паспорте, посылку выдадут только лично вам
-                                </p>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Фамилия'variant='outlined' size='small' type="text"/>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Отчество'variant='outlined' size='small' type="text"/>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Телефон'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    На указанный номер телефона будут приходить SMS сообщения о статусе доставки и оплаты
-                                </p>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Почта'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    На этот адрес придёт чек
-                                </p>
-                            </div>
-                        </form>
+						<DeliveryBuyerForm/>
                     </div>
                 </Collapse>
                 <Dialog open={modalParagraph || false} fullScreen={matchesMobile ? true : false} onClose={() => setModalParagraph(!modalParagraph)}>
@@ -382,33 +360,7 @@ function BuyDelivery() {
                 </div>
                 <Collapse in={deliveryCourier} timeout="auto" unmountOnExit >
                     <div className={classes.buyDileverySend}> 
-                        <h3 className={classes.buyDileveryInputTitel}>Данные покупателя для получения заказа</h3>
-                        <form className={classes.buyDileveryInputBox}>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Имя'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    Данные как в паспорте, посылку выдадут только лично вам
-                                </p>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Фамилия'variant='outlined' size='small' type="text"/>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Отчество'variant='outlined' size='small' type="text"/>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Телефон'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    На указанный номер телефона будут приходить SMS сообщения о статусе доставки и оплаты
-                                </p>
-                            </div>
-                            <div className={classes.buyDileveryInputItem}>
-                                <TextField className={classes.buyDileveryInput} label='Почта'variant='outlined' size='small' type="text"/>
-                                 <p className={classes.buyDileveryInputDesc}>
-                                    На этот адрес придёт чек
-                                </p>
-                            </div>
-                        </form>
+					    <DeliveryBuyerForm/>
                         <h3 className={`${classes.buyDileveryInputTitel} ${classes.mt24}`}>Адрес доставки для курьера</h3>
                         <form className={classes.buyDileveryInputBox}>
                             <div className={classes.buyDileveryInputItem}>
