@@ -3,7 +3,7 @@ export default function handler(req, res) {
 
 
         const main = async () => {
-            return {message:'test6'}
+            return {message:'test7'}
         }
 
         main()
