@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 const Index = ({ offers }) => {
 	const { matchesMobile, matchesTablet } = useMedia();
 	const [data, setData] = useState(modifyGetPostsData(offers));
-	console.log(modifyGetPostsData(offers))
 	const classes = useStyles();
 
 	useEffect(() => {

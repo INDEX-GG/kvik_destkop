@@ -47,12 +47,12 @@ function AdCard_component({ offer }) {
 		if (!sheduled) {
 			sheduled = true;
 			setTimeout(() => {
-				if (currentSwiper.current != null) {
+				if (currentSwiper.current !== null && currentSwiper.current.swiper !== null) {
 					if (e.movementX > 0) {
-						currentSwiper.current?.swiper.slideNext();
+						currentSwiper.current.swiper.slideNext();
 
 					} else if (e.movementX < 0) {
-						currentSwiper.current?.swiper.slidePrev();
+						currentSwiper.current.swiper.slidePrev();
 					}
 					sheduled = false;
 				}

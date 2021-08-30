@@ -6,7 +6,7 @@ const [show, setShow] = useState(false);
         window.scrollTo({ top: 0, behavior: "smooth" });
       };
     
-    const listenScroll = (e) => {
+    const listenScroll = () => {
         if (window.scrollY > 0) {
             setShow(true);
         } else {

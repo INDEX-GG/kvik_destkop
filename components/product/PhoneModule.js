@@ -70,7 +70,7 @@ export default function PhoneModule({dialog, setDialog}) {
   }));
   const classes = useStyles();
   return (
-    <Dialog open={dialog} onClose={() => setDialog(!dialog)} fullWidth maxWidth="sm">
+    <Dialog open={dialog || false} onClose={() => setDialog(!dialog)} fullWidth maxWidth="sm">
       <div className={classes.modalNumber}>
         <div className={classes.userProfile}>
           {isLoading || (
