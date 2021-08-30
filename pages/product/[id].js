@@ -292,7 +292,7 @@ const Product = () => {
               </div>
             </div>
             <div className="productPageWhiteSpace"></div>
-            <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
+            <Dialog open={openStatForm || false} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
               {" "}
               <Statistics Close={handleStatFormDialog} />{" "}
             </Dialog>

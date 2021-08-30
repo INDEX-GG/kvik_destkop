@@ -68,7 +68,7 @@ const UpPanel = () => {
 							</Box>}
 						</Container>
 					</Box>
-					<Dialog open={cityDialog} onClose={() => setCityDialog(!cityDialog)}>
+					<Dialog open={cityDialog || false} onClose={() => setCityDialog(!cityDialog)}>
 						<City dialog={cityDialog} setDialog={setCityDialog} />
 					</Dialog>
 				</>

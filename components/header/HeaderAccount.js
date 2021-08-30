@@ -92,7 +92,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 		right: false,
 	});
 
-	const [active, setActive] = useState(-1)
+	// const [active, setActive] = useState(-1)
 	const [logout, setLogout] = useState(false);
 	const { signOut, id } = useAuth();
 
@@ -151,7 +151,7 @@ export default function HeaderAccount({ userPhoto, name }) {
             ${classes.logout} menuLogoff`} primary={"Выход"} />
 				</ListItem>
 			</div>
-			<Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
+			<Dialog open={logout || false} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
 				<DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
 				<div className="accountLogoutBtnBox">
 					<Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{ textTransform: "uppercase" }}>

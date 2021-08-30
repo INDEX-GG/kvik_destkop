@@ -26,7 +26,7 @@ export default function CategoriesPlaseOffer({categories, categoriesFunc, dialog
 	console.log(categories);
 
     return (
-        <Dialog open={dialog} fullScreen={true}>
+        <Dialog open={dialog || false} fullScreen={true}>
             <div className="modal__wrapper_md accountContainer">
                 <div className="modal__block__top accountTop">
                     <>

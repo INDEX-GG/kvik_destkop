@@ -150,7 +150,7 @@ export default function ProductAction(data) {
             </>
         )}
 
-        <Dialog open={openStatForm} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
+        <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
           <Statistics Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
@@ -158,7 +158,7 @@ export default function ProductAction(data) {
         <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
 
 
-        <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
+        <Dialog open={openUnpublishForm || false} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
           <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
         </Dialog>
       </UnpublishCTX.Provider>
