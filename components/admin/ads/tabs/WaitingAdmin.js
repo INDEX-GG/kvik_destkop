@@ -78,7 +78,7 @@ function WaitingAdmin(data) {
                   )
                })}</div>
          </div>
-         <Dialog open={openWaitForm} onClose={() => setOpenWaitForm(!openWaitForm)} fullWidth maxWidth='md'>
+         <Dialog open={openWaitForm || false} onClose={() => setOpenWaitForm(!openWaitForm)} fullWidth maxWidth='md'>
             <BtnReject Close={handleWaitFormDialog} />
          </Dialog>
       </div>

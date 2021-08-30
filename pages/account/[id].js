@@ -198,10 +198,10 @@ function Account() {
 				</div>
 			</div>
 			<div className="userPageWhiteSpace"></div>
-			<Dialog open={openPicUpload} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
+			<Dialog open={openPicUpload || false} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
 				<UserPicUpload {...{ imageType: "webp", optimiztionLevel: 0.7, maxScale: 5, Close: closePicUpload }} />
 			</Dialog>
-			<Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
+			<Dialog open={logout || false} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
 				<DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
 				<div className="accountLogoutBtnBox">
 					<Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{ textTransform: "uppercase" }}>
@@ -210,10 +210,10 @@ function Account() {
 					<Button onClick={() => logOut()} className="accountLogoutYes" style={{ color: "red", textTransform: "uppercase" }}>Выйти</Button>
 				</div>
 			</Dialog>
-			<Dialog open={reviewsModal} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+			<Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
 				{<ModalRating rate={2} comments={2} modal={() => closeModal(reviewsModal, setReviewsModal)} mobile={matchesTablet || matchesMobile} />}
 			</Dialog>
-			<Dialog open={subscriptionsModal} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+			<Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
 				<ModalSubscription data={subList} subscription={subList.length} modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesTablet || matchesMobile} />
 			</Dialog>
 		</MetaLayout>

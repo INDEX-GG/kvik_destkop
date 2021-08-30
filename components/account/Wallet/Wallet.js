@@ -30,9 +30,9 @@ const data = [
 ];
 
 const navItems = [
-	{ id: 1, title: 'Баланс кошелька', content: <Balance balance={balance} /> },
-	{ id: 2, title: 'История операций', content: <Story data={data} /> },
-	{ id: 3, title: 'Бонусные рубли', content: <Bonus data={data} /> }
+	{ id: 1, title: 'Баланс кошелька', content: <Balance key={1} balance={balance} /> },
+	{ id: 2, title: 'История операций', content: <Story key={2} data={data} /> },
+	{ id: 3, title: 'Бонусные рубли', content: <Bonus key={3} data={data} /> }
 ]
 
 const Wallet = () => {

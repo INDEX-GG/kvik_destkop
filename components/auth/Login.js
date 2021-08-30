@@ -68,7 +68,7 @@ const Login = () => {
     return (
 		<>
 			<Dialog 
-				open={openLoginForm}
+				open={openLoginForm || false}
 				fullScreen={matchesMobile ? true : false} 
 				onClose={() => {
 					setValueInp('');

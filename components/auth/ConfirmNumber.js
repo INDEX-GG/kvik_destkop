@@ -50,7 +50,7 @@ const ConfirmNumber = () => {
 	}
 
 	return (       
-		<Dialog open={openConfirmNum} onClose={() => setOpenConfirmNum(!openConfirmNum)} fullWidth maxWidth="sm">
+		<Dialog open={openConfirmNum || false} onClose={() => setOpenConfirmNum(!openConfirmNum)} fullWidth maxWidth="sm">
 			<Box className={classes.submitNumber}>
 				<Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
 				<TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>

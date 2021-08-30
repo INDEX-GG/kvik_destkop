@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
-import { Modal } from "@material-ui/core";
+import { Dialog, Modal } from "@material-ui/core";
 import ProductModalCarousel from "./ProductModalCarousel";
 SwiperCore.use([Navigation, Thumbs, Pagination,]);
 
@@ -60,6 +60,7 @@ export default function ProductCarousel({ photo }) {
 
 			<Modal className="productModal" open={modal} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
 				<ProductModalCarousel photo={data} />
+
 			</Modal>
 		</>
 	);

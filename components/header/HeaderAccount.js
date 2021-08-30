@@ -18,7 +18,10 @@ import AccountContent from './AccountContent';
 
 const useStyles = makeStyles((theme) =>({
 	list: {
-		width: '382px'
+		width: '382px',
+		[theme.breakpoints.down(375)]: {
+			width: '330px'
+		}
 	},
 	fullList: {
 		width: 'auto',
@@ -91,6 +94,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 	const [state, setState] = useState({
 		right: false,
 	});
+
 	const [logout, setLogout] = useState(false);
 	const { signOut, id } = useAuth();
 
@@ -134,7 +138,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 				role="presentation"
 				onKeyDown={toggleDrawer(anchor, false)}
 			>
-				<List className="burgerContainer">
+				<List className="burgerContainer burgerAccount">
 					<div className={classes.accountBox}>
 						<div className={classes.accountTitle}>Личный кабинет</div>
 						<div onClick={toggleDrawer("right", false)} className={classes.accountIcon}></div>
@@ -149,7 +153,7 @@ export default function HeaderAccount({ userPhoto, name }) {
             ${classes.logout} menuLogoff`} primary={"Выход"} />
 				</ListItem>
 			</div>
-			<Dialog open={logout} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
+			<Dialog open={logout || false} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
 				<DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
 				<div className="accountLogoutBtnBox">
 					<Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{ textTransform: "uppercase" }}>

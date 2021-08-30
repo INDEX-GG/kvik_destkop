@@ -51,8 +51,8 @@ const notifBox = [
 
 //Пагинация
 const navItems = [
-  { id: 1, title: "Сообщения", content: <Messages data={dialogsBox} />, count: dialogsBox.length },
-  { id: 2, title: "Уведомления", content: <Notifs data={notifBox} />, count: notifBox.length },
+  { id: 1, title: "Сообщения", content: <Messages key={1} data={dialogsBox} />, count: dialogsBox.length },
+  { id: 2, title: "Уведомления", content: <Notifs key={2} data={notifBox} />, count: notifBox.length },
 ];
 
 const Notifications = () => {

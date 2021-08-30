@@ -347,7 +347,7 @@ function BuyDelivery() {
                         </form>
                     </div>
                 </Collapse>
-                <Dialog open={modalParagraph} fullScreen={matchesMobile ? true : false} onClose={() => setModalParagraph(!modalParagraph)}>
+                <Dialog open={modalParagraph || false} fullScreen={matchesMobile ? true : false} onClose={() => setModalParagraph(!modalParagraph)}>
                         <div className={matchesMobile ? "modal__block__top accountTop" : classes.paragraphContainer } >
                             {matchesMobile ? 
                             <>

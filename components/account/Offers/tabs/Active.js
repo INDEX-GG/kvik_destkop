@@ -70,13 +70,20 @@ function Active(data) {
 
 	if (data.offers.length == 0) {
 		return (
-			<Placeholder/>
+			<Placeholder />
 		);
 	}
 
 	return (
 		<>
-			<UnpublishCTX.Provider >
+			<UnpublishCTX.Provider
+				value={{
+					fetcher: fetch,
+					onError: (err) => {
+						console.error(err)
+					},
+				}}
+			>
 				<div className="clientPage__container_bottom">
 					<div className="clientPage__container_nav__radio">
 						<Checkbox

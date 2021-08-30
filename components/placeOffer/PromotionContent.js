@@ -6,7 +6,7 @@ export default function PromotionContent({children, dialog = false, setDialog = 
     const {matchesMobile, matchesTablet} = useMedia()
     return (
         matchesMobile || matchesTablet ? (
-            <Dialog open={dialog} fullScreen={dialog} onClose={() => setDialog(!dialog)}>
+            <Dialog open={dialog || false} fullScreen={dialog} onClose={() => setDialog(!dialog)}>
                 {children}
             </Dialog>
         ) : 

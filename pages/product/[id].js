@@ -286,7 +286,6 @@ const Product = () => {
                         </div>
 
                     </div> */}
-
 							<div className="productPageContent">
 								<div className="productPageCard">
 									<OffersRender isProduct data={data} title={"Похожие объявления"} endMessage={!collSO} />
@@ -315,7 +314,6 @@ const Product = () => {
 			</OfferAccountProvider>
 		</MetaLayout>
 	);
-
 };
 
 // export async function getStaticPaths() {

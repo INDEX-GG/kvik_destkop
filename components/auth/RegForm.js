@@ -87,7 +87,7 @@ export default function RegForm() {
 
     return (
 		<>
-        <Dialog open={openRegForm} onClose={() => closeRegForm()} fullWidth maxWidth="sm" fullScreen={matchesMobile ? true : false}>
+        <Dialog open={openRegForm || false} onClose={() => closeRegForm()} fullWidth maxWidth="sm" fullScreen={matchesMobile ? true : false}>
             {matchesMobile ? 
 				<div className="modal__block__top accountTop">
                         <>
