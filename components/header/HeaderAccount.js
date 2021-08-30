@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -91,8 +91,6 @@ export default function HeaderAccount({ userPhoto, name }) {
 	const [state, setState] = useState({
 		right: false,
 	});
-
-	const [active, setActive] = useState(-1)
 	const [logout, setLogout] = useState(false);
 	const { signOut, id } = useAuth();
 

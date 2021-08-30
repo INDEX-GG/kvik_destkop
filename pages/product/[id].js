@@ -96,164 +96,164 @@ const Product = () => {
 
 	return (
 		<MetaLayout>
-				<OfferAccountProvider>
-					<div className="productPage" id="productPage">
-						{title == undefined ? <div className='product__placeholder_loader'><div><Loader /></div></div> : ''}
-						<div className="productPageContainer text">
-							{!matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
+			<OfferAccountProvider>
+				<div className="productPage" id="productPage">
+					{title == undefined ? <div className='product__placeholder_loader'><div><Loader /></div></div> : ''}
+					<div className="productPageContainer text">
+						{!matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
 
-							{/* Блок объявления */}
-							<div className="product__wrapper">
-								<div className="productPageWrapper">
-									<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
-										<div className="productPageDescription">
-											{!matchesMobile && !matchesTablet &&
-												<>
-													{title == undefined
-														? <div className="placeholder_animation product__placeholder_title"></div>
-														: <div className="productPageTitle xl">{title}</div>}
-												</>
-											}
-											{user_id !== id && !matchesLaptop && !matchesDesktop && !matchesHD && (
-												user_id === undefined ? '' :
-													<div className="SellerInfoTopButtons">
-														<Favorits isProduct idOffer={+query.id} />
-													</div>
-											)}
-											{photo == undefined ?
-												<div className="placeholder_animation product__placeholder_swipers"></div>
+						{/* Блок объявления */}
+						<div className="product__wrapper">
+							<div className="productPageWrapper">
+								<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
+									<div className="productPageDescription">
+										{!matchesMobile && !matchesTablet &&
+											<>
+												{title == undefined
+													? <div className="placeholder_animation product__placeholder_title"></div>
+													: <div className="productPageTitle xl">{title}</div>}
+											</>
+										}
+										{user_id !== id && !matchesLaptop && !matchesDesktop && !matchesHD && (
+											user_id === undefined ? '' :
+												<div className="SellerInfoTopButtons">
+													<Favorits isProduct idOffer={+query.id} />
+												</div>
+										)}
+										{photo == undefined ?
+											<div className="placeholder_animation product__placeholder_swipers"></div>
+											:
+											<ProductCarousel photo={photo} />
+										}
+										{!matchesLaptop && !matchesDesktop && !matchesHD &&
+											<>
+												{title == undefined
+													? <div className="placeholder_animation product__placeholder_title"></div>
+													: <div className="productPageTitle xl">{title}</div>
+												}
+											</>
+										}
+										{!matchesLaptop && !matchesDesktop && !matchesHD && (
+
+											photo == undefined ?
+												<div className="placeholder_animation product__placeholder_mobil-action"></div>
 												:
-												<ProductCarousel photo={photo} />
-											}
-											{!matchesLaptop && !matchesDesktop && !matchesHD &&
-												<>
-													{title == undefined
-														? <div className="placeholder_animation product__placeholder_title"></div>
-														: <div className="productPageTitle xl">{title}</div>
-													}
-												</>
-											}
-											{!matchesLaptop && !matchesDesktop && !matchesHD && (
-
-												photo == undefined ?
-													<div className="placeholder_animation product__placeholder_mobil-action"></div>
-													:
-													<div className="productPageAdaptive">
-														<div className="SellerInfoOldPrice__adaptive">
-															<div className="SellerInfoOldPrice thin dark crossed">{oldprice == undefined ? "" : ToRubles(oldprice)}</div>
-															<div className="SellerInfoPrice thin xxl">{ToRubles(price)}</div>
-															<div className="SellerInfoBargain dark thin">{user_id != id && trade && <p>Торг уместен</p>}</div>
+												<div className="productPageAdaptive">
+													<div className="SellerInfoOldPrice__adaptive">
+														<div className="SellerInfoOldPrice thin dark crossed">{oldprice == undefined ? "" : ToRubles(oldprice)}</div>
+														<div className="SellerInfoPrice thin xxl">{ToRubles(price)}</div>
+														<div className="SellerInfoBargain dark thin">{user_id != id && trade && <p>Торг уместен</p>}</div>
+													</div>
+													<div className="SellerInfo__adaptive_info">
+														<div className="SellerInfo__adaptive_info_top">
+															<div className="SellerInfoSeen dark"> {reviewed} +4</div>
+															{user_id !== id ? (
+																""
+															) : (
+																<a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)}>
+																	Статистика
+																</a>
+															)}
 														</div>
-														<div className="SellerInfo__adaptive_info">
-															<div className="SellerInfo__adaptive_info_top">
-																<div className="SellerInfoSeen dark"> {reviewed} +4</div>
-																{user_id !== id ? (
-																	""
-																) : (
-																	<a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)}>
-																		Статистика
-																	</a>
-																)}
+														<div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div>
+														{user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
+													</div>
+												</div>
+
+										)}
+										{!matchesLaptop && !matchesDesktop && !matchesHD && (
+
+											photo == undefined ?
+												''
+												:
+
+												<div className="SellerInfo__adaptive_button">
+													{objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
+													{objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
+													{objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}
+													{user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""}
+													<div className="ad__block_middle__description_service">
+														{user_id === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ""}
+														{user_id === id ? <span className="service_days_left">Осталось 30 дней</span> : ""}
+
+														<div className="SellerInfo__adaptive_buttons__top">
+															{user_id !== id ? (
+																<a className="SellerInfoMess button contained">
+																	<IconMess /> Написать продавцу
+																</a>
+															) : (
+																""
+															)}
+															{user_id !== id ? (
+																<a onClick={() => setPhoneModal(!phoneModal)} className="SellerInfoCall button contained">
+																	<IconCall /> Показать номер
+																</a>
+															) : (
+																""
+															)}
+														</div>
+
+
+														{user_id === id || user_id !== id ? (
+															<div className="SellerInfo__adaptive_information">
+																{secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
+																{delivery && <div className="SellerInfoDelivery superLight">Возможна доставка</div>}
 															</div>
-															<div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div>
-															{user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
+														) : (
+															""
+														)}
+														{objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ""}
+														{objP.adstatus === 4 ? (
+															<p className="reason__rejection">
+																Причина отклонения:{" "}
+																<span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span>
+															</p>
+														) : (
+															""
+														)}
+														{objP.adstatus === 6 ? (
+															<p className="ad__last__edit">
+																Дата последнего редактирования 00.00.00
+																<span>Будет удалено навсегда через 00 дней</span>
+															</p>
+														) : (
+															""
+														)}
+														{/* {user_id !== id ? <div className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}>Купить</div> : ""} */}
+														<div className="SellerInfo__adaptive_buttons">
+															{objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ""}
+															{objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn">Удалить</a> : ""}
+															{user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button btn-left">Редактировать</a> : ""}
+															{user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Снять с публикации</a> : ""}
 														</div>
 													</div>
-
-											)}
-											{!matchesLaptop && !matchesDesktop && !matchesHD && (
-
-												photo == undefined ?
-													''
-													:
-
-													<div className="SellerInfo__adaptive_button">
-														{objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
-														{objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
-														{objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}
-														{user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""}
-														<div className="ad__block_middle__description_service">
-															{user_id === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ""}
-															{user_id === id ? <span className="service_days_left">Осталось 30 дней</span> : ""}
-
-															<div className="SellerInfo__adaptive_buttons__top">
-																{user_id !== id ? (
-																	<a className="SellerInfoMess button contained">
-																		<IconMess /> Написать продавцу
-																	</a>
-																) : (
-																	""
-																)}
-																{user_id !== id ? (
-																	<a onClick={() => setPhoneModal(!phoneModal)} className="SellerInfoCall button contained">
-																		<IconCall /> Показать номер
-																	</a>
-																) : (
-																	""
-																)}
-															</div>
+												</div>
+										)}
+										{/* адрес, карта, свойства и значения */}
 
 
-															{user_id === id || user_id !== id ? (
-																<div className="SellerInfo__adaptive_information">
-																	{secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
-																	{delivery && <div className="SellerInfoDelivery superLight">Возможна доставка</div>}
-																</div>
-															) : (
-																""
-															)}
-															{objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ""}
-															{objP.adstatus === 4 ? (
-																<p className="reason__rejection">
-																	Причина отклонения:{" "}
-																	<span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span>
-																</p>
-															) : (
-																""
-															)}
-															{objP.adstatus === 6 ? (
-																<p className="ad__last__edit">
-																	Дата последнего редактирования 00.00.00
-																	<span>Будет удалено навсегда через 00 дней</span>
-																</p>
-															) : (
-																""
-															)}
-															{/* {user_id !== id ? <div className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}>Купить</div> : ""} */}
-															<div className="SellerInfo__adaptive_buttons">
-																{objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ""}
-																{objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn">Удалить</a> : ""}
-																{user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button btn-left">Редактировать</a> : ""}
-																{user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Снять с публикации</a> : ""}
-															</div>
-														</div>
-													</div>
-											)}
-											{/* адрес, карта, свойства и значения */}
-
-
-											<ProductInformation user_id={user_id} address={address} description={description} />
+										<ProductInformation user_id={user_id} address={address} description={description} />
 
 
 
-										</div>
-
-										{/* Блок информации*/}
-										<div className="block__my_active_ad">
-											{/* статус объявления, кнопки */} <ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
-											{/* пользователь и его объявления */}
-											<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
-										</div>
 									</div>
-									{!matchesMobile && !matchesTablet && !matchesLaptop && (
-										<div className="showsmthWrapper">
-											<div className="freedomBlock_1"></div>
-											<div className="freedomBlock_2"></div>
-										</div>
-									)}
-								</div>
 
-								{/* <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
+									{/* Блок информации*/}
+									<div className="block__my_active_ad">
+										{/* статус объявления, кнопки */} <ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+										{/* пользователь и его объявления */}
+										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
+									</div>
+								</div>
+								{!matchesMobile && !matchesTablet && !matchesLaptop && (
+									<div className="showsmthWrapper">
+										<div className="freedomBlock_1"></div>
+										<div className="freedomBlock_2"></div>
+									</div>
+								)}
+							</div>
+
+							{/* <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
                     <div className="productPageSimilarOffers">
                         <div className="product__carts__wrapper">
                             <div className="productPageSimilarOffersContainer">
@@ -273,34 +273,34 @@ const Product = () => {
 
                     </div> */}
 
-                <div className="productPageContent">
-                  <div className="productPageCard">
-                    <OffersRender isProduct data={data} title={"Похожие объявления"} endMessage={!collSO} />
-                    <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
-                      {(collSO && "Показать ещё") || "Скрыть"}
-                    </div>
-                  </div>
-                  <div className="productPageSimilar__advertisement">
-                    {!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
-                      <div className="showsmthWrapper">
-                        <div className="freedomBlock_1"></div>
-                        <div className="freedomBlock_2"></div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="productPageWhiteSpace"></div>
-            <Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
-              {" "}
-              <Statistics Close={handleStatFormDialog} />{" "}
-            </Dialog>
-            <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
-          </div>
-        </OfferAccountProvider>
-    </MetaLayout>
-  );
+							<div className="productPageContent">
+								<div className="productPageCard">
+									<OffersRender isProduct data={data} title={"Похожие объявления"} endMessage={!collSO} />
+									<div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
+										{(collSO && "Показать ещё") || "Скрыть"}
+									</div>
+								</div>
+								<div className="productPageSimilar__advertisement">
+									{!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
+										<div className="showsmthWrapper">
+											<div className="freedomBlock_1"></div>
+											<div className="freedomBlock_2"></div>
+										</div>
+									)}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="productPageWhiteSpace"></div>
+					<Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
+						{" "}
+						<Statistics Close={handleStatFormDialog} />{" "}
+					</Dialog>
+					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
+				</div>
+			</OfferAccountProvider>
+		</MetaLayout>
+	);
 
 };
 

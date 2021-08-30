@@ -56,7 +56,7 @@ export default function ProductCarousel({ photo }) {
 			</Swiper>
 			{/* ) : null} */}
 			<Modal className="productModal" open={modal} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-				<ProductModalCarousel photo={photo} />
+				{<ProductModalCarousel photo={photo} /> || null}
 			</Modal>
 		</>
 	);
