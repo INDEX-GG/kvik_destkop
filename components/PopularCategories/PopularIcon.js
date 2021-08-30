@@ -49,7 +49,7 @@ const PopularIcon = (icon) => {
 			onMouseLeave={() => setHover(!hover)}
 		>
 			<Box className={classes.icon}>{icon?.icon.icon}</Box>
-			<Box className={classes.bg} style={{ transform: `rotate(${icon.random}deg)`, }}>
+			<Box className={classes.bg}>
 				<Bg color={hover ? '#e9e9e9' : '#f7f7f7'} />
 			</Box>
 			<Typography className={classes.title}>{icon?.icon.title}</Typography>
