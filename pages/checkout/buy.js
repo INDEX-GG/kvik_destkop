@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
 		marginTop: '50px',
         display: "flex",
 		// justifyContent: 'space-between',
+		paddingRight: '0',
 		paddingLeft: '12px',
 		[theme.breakpoints.down(1024)]: {
             padding: "0 12px"
@@ -20,7 +21,7 @@ const useStyles = makeStyles(() => ({
     },
     buyProduct: {
         width: '80%',
-		maxWidth: '976px',
+		// maxWidth: '976px',
         marginRight: '48px',
         [theme.breakpoints.down(1024)]: {
 			width: '100%',
