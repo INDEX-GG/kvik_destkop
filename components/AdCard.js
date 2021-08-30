@@ -88,7 +88,7 @@ function AdCard_component({ offer }) {
 						: undefined
 				}
 			>
-				<MenuItem component='a' target='_blank' href={`/product/${offer.id}`}>Открыть в новой вкладке</MenuItem>
+				<MenuItem onClick={() => setOpenMenu(initialState)} component='a' target='_blank' href={`/product/${offer.id}`}>Открыть в новой вкладке</MenuItem>
 				<MenuItem>Добавить в избранное</MenuItem>
 				<MenuItem>Добавить к сравнению</MenuItem>
 				<MenuItem>Не показывать</MenuItem>

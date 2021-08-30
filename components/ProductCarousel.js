@@ -48,19 +48,6 @@ export default function ProductCarousel({ photo }) {
 					))}
 			</Swiper>
 
-			{/* {photo == undefined ? "" : photo.length > 6 ? ( */}
-			<Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={1} slidesPerView={6} freeMode={true} watchSlidesVisibility={true} watchSlidesProgress={true} className="mySwiper">
-
-				{photo == undefined
-					? ""
-					: photo.map((img, i) => (
-						<SwiperSlide key={i}>
-							{" "}
-							<img src={img} />
-						</SwiperSlide>
-					))}
-			</Swiper>
-			{/* ) : null} */}
 			<Modal className="productModal" open={modal || false} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
 				<><ProductModalCarousel photo={photo} /></>
 			</Modal>
