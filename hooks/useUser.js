@@ -7,10 +7,10 @@ export function useUser() {
 	const { id } = useAuth();
 	const [userInfo, setUserInfo] = useState({});
 	const [isLoading, setLoading] = useState(true);
-
+	
 	useEffect(() => {
 		const getUser = async () => {
-			const data = await getDataByPost('/api/getUser', { id: id })
+			let data = await getDataByPost('/api/getUser', { id: id })
 				.catch(e => console.error(e));
 
 			data = { ...data, userPhoto: `${STATIC_URL}/${data.userPhoto}` };
