@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 	avatar: {
 		width: "32px",
 		height: "32px",
+		alignSelf: "flex-end",
 		[theme.breakpoints.down("1024")]: {
 			marginBottom: '5px',
 		},
