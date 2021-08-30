@@ -461,6 +461,7 @@
     height: 400px !important;
     position: relative;
 	width: 100%;
+	min-width: 620px;
 }
 .productPage .swiper-container {
     margin-bottom: 4px;
@@ -874,17 +875,17 @@
     .productPage {
         display: block;
     }
-    .pPCnavSlider,
-    .mySwiper {
-        display: none;
-    }
+    // .pPCnavSlider,
+    // .mySwiper {
+    //     display: none;
+    // }
     .pPCmainSlider img {
         border-radius: 2px;
     }
 
-    .slick-dots li button:before {
-        display: none;
-    }
+    // .slick-dots li button:before {
+    //     display: none;
+    // }
     .slick-dots li button {
         font-size: 14px;
         color: $ts;

@@ -119,7 +119,7 @@ export default function ProductUserInfo(data) {
 												<Link key={userAd.id} href={`/product/${userAd.id}`}>
 													<div className="SellerInfoOfferCard small">
 														{console.log(userAd)}
-														{JSON.parse(userAd.photo)?.photos.slice(0, 1).map((imgs, i) => {
+														{userAd.photo?.slice(0, 1).map((imgs, i) => {
 															return <img key={i} src={imgs} />;
 														})}
 														<div>{ToRubles(userAd.price)}</div>
