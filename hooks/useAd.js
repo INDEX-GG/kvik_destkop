@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios'
+import { getDataByPost } from '../lib/fetch';
 
 export function useAd(id) {
 
@@ -8,9 +8,9 @@ export function useAd(id) {
 
     useEffect(() => {
         if (id) {
-			axios.post('/api/getProductOfUser', { user_id: id })
+			getDataByPost('/api/getProductOfUser', { user_id: id })
             .then((res) => {
-                setUserInfo(res.data.result)
+                setUserInfo(res)
                 setLoading(false);
             })
 		}

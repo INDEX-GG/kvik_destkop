@@ -4,7 +4,7 @@ import SwiperCore, { Navigation, Thumbs, Controller } from "swiper/core";
 
 SwiperCore.use([Navigation, Thumbs, Controller]);
 
-export default function ProductModalCarousel({ photo }) {
+export default function ProductModalCarousel({ photo}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeSlide, setActiveSlide] = useState([]);
 

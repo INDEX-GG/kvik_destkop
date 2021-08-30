@@ -95,7 +95,6 @@ export default function HeaderAccount({ userPhoto, name }) {
 		right: false,
 	});
 
-	// const [active, setActive] = useState(-1)
 	const [logout, setLogout] = useState(false);
 	const { signOut, id } = useAuth();
 
