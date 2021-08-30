@@ -3,7 +3,7 @@ export default function handler(req, res) {
 
 
         const main = async () => {
-            return {message:'this is prod'}
+            return {message:'30.08.21'}
         }
 
         main()
