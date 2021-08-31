@@ -47,7 +47,7 @@ function Account() {
 	const [reviewsModal, setReviewsModal] = useState(false);
 	const [subscriptionsModal, setSubscriptionsModal] = useState(false);
 	const { signOut, id } = useAuth();
-
+	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia()
 	const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? { i: 4, itm: "menuFavorites", ttl: "idИзбранное" } : router.query?.account ? { i: +router.query.account, itm: menuItemsIcon[+router.query.account - 1], ttl: menuItemsTitle[+router.query.account - 1] } : { i: "1", itm: "menuOffers", ttl: "Мои объявления" });
 
 	useEffect(() => {
@@ -57,17 +57,7 @@ function Account() {
 	useEffect(() => {
 		countRender.current += 1
 		setContent(content + 1)
-	}, [menuItem])
-
-	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia()
-
-	function closeModal(modal, changeModal) {
-		changeModal(!modal)
-	}
-
-	const closePicUpload = () => {
-		setPicUpload(p => !p)
-	}
+	}, [])
 
 	useEffect(() => {
 		if (id != undefined && subList.length == 0) {
@@ -77,7 +67,18 @@ function Account() {
 		if (id != undefined && subscribersList.length == 0) {
 			axios.post("/api/getSubscribers", { user_id: `${id}` }).then((res) => setSubscribersList(res.data))
 		}
-	})
+	}, [])
+
+
+	function closeModal(modal, changeModal) {
+		changeModal(!modal)
+	}
+
+	const closePicUpload = () => {
+		setPicUpload(p => !p)
+	}
+
+
 
 	const logOut = () => {
 		axios.get("/api/logout").then(() => {
@@ -160,7 +161,7 @@ function Account() {
 									<p>подписчиков</p>
 								</a>
 								<a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
-									
+
 									{userInfo && userInfo?.subscriptions !== undefined ? JSON.parse(userInfo.subscriptions)?.length : '0'}
 									<p>подписок</p>
 								</a>
