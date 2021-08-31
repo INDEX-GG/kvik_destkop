@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Active(data) {
-
 	const classes = useStyles();
 
 	// function setCheck(e) {

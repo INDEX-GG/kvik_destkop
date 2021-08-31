@@ -91,7 +91,6 @@ export default function offerActive(offer) {
 
 		setUio(zxc)
 	}
-	console.log(uio)
 
 
 

@@ -12,11 +12,13 @@ import safeAccountTab from "../../safeAccountTab";
 const causes = "Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик";
 const Offers = () => {
 
+
   const { userAccountProvider } = useOfferAccount()
   const [activeOffersBox, setActiveOffersBox] = useState([]);
   const [waitOffersBox, setWaitOffersBox] = useState([]);
   const [archiveOffersBox, setArchiveOffersBox] = useState([]);
   const router = useRouter();
+  const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
 
   useEffect(() => {
     if (userAccountProvider?.length > 0) {
@@ -29,27 +31,6 @@ const Offers = () => {
     }
   }, [userAccountProvider]);
 
-  const dataWait = [
-    { id: 1, img: "https://source.unsplash.com/random?interior", title: "2-комн. кваритра, 95 м", price: 3000000, date: "00.00.00 00.00", status: 1, cause: causes, verify: 4, delete: false },
-    { id: 2, img: "https://source.unsplash.com/random?cars", title: "Mitsubishi Delica", price: 199999, date: "00.00.00 00.00", status: 0, verify: 5, verify_moderator: 5, delete: false },
-    { id: 3, img: "https://source.unsplash.com/random?phone", title: "Samsung Galaxy S21 Ultra", price: 99999, date: "00.00.00 00.00", status: 2, verify: 2, delete: true },
-  ];
-
-  // const dataArhive = [
-  //   { id: 1, img: "https://source.unsplash.com/random?interior", title: "2-комн. кваритра, 95 м", price: 3000000, date: "00.00.00 00.00", status: 1, cause: causes, verify: 6, delete: false },
-  //   { id: 2, img: "https://source.unsplash.com/random?cars", title: "Mitsubishi Delica", price: 199999, date: "00.00.00 00.00", status: 0, verify: 7, verify_moderator: 5, delete: false },
-  // ];
-
-  // Пагинация
-
-  const navItems = [
-    { id: 1, title: "Активные", content: <Active key={1} offers={activeOffersBox} />, count: activeOffersBox?.length },
-    { id: 2, title: "Ждут действия", content: <Wait key={2} offers={dataWait} />, count: waitOffersBox?.length },
-    { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: archiveOffersBox?.length },
-  ];
-
-  const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
-
   useEffect(() => {
     if (router) {
       if (router.query.content != undefined) {
@@ -57,6 +38,21 @@ const Offers = () => {
       }
     }
   }, [router])
+
+  const dataWait = [
+    { id: 1, img: "https://source.unsplash.com/random?interior", title: "2-комн. кваритра, 95 м", price: 3000000, date: "00.00.00 00.00", status: 1, cause: causes, verify: 4, delete: false },
+    { id: 2, img: "https://source.unsplash.com/random?cars", title: "Mitsubishi Delica", price: 199999, date: "00.00.00 00.00", status: 0, verify: 5, verify_moderator: 5, delete: false },
+    { id: 3, img: "https://source.unsplash.com/random?phone", title: "Samsung Galaxy S21 Ultra", price: 99999, date: "00.00.00 00.00", status: 2, verify: 2, delete: true },
+  ];
+
+  // Пагинация
+  const navItems = [
+    { id: 1, title: "Активные", content: <Active key={1} offers={activeOffersBox} />, count: activeOffersBox?.length },
+    { id: 2, title: "Ждут действия", content: <Wait key={2} offers={dataWait} />, count: waitOffersBox?.length },
+    { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: archiveOffersBox?.length },
+  ];
+
+  console.log(navItems)
 
   return (
     <>
@@ -77,7 +73,6 @@ const Offers = () => {
           </div>
         </div>
       </div>
-      {console.log(navItems)}
       {navItems.map(item => itemNav.i === item.id && (activeOffersBox.length > 0 ? item.content : <Placeholder key={item.id} />))}
     </>
   );
