@@ -23,6 +23,7 @@ export default async function handler(req, res) {
 			}
 			await prisma.users.create(obj);
 		}
+
 		const main = async () => {
 			const result = await prisma.users.findUnique({
 				where: {
@@ -33,7 +34,15 @@ export default async function handler(req, res) {
 				return { message: 'user already exists' };
 			} else {
 				add();
-				return { message: 'user created' }
+				const id = await prisma.users.findFirst({
+					where: {
+						phone: req.body.phone
+					},
+					select: {
+						id: true
+					}
+				})
+				return { message: 'user created', id: id.id }
 			}
 		}
 

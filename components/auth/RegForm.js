@@ -3,11 +3,11 @@ import { Box, Button, Dialog, makeStyles, TextField, Typography } from '@materia
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import axios from 'axios';
 import { DialogCTX, RegistrationCTX } from '../../lib/Context/DialogCTX';
 import ConfirmNumber from './ConfirmNumber';
 import PhoneMask from '../../lib/phoneMask';
 import { useMedia } from '../../hooks/useMedia';
+import { getDataByPost } from '../../lib/fetch';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,8 +78,8 @@ export default function RegForm() {
 		data.phone = `+${valueInp.replace(/\D+/g, '')}`;
 		console.log(data);
 		setSendData(data);
-		axios.post('/api/checkphone', { phone: data.phone }).then((res) => {
-			setPhoneNum(res.data)
+		getDataByPost('/api/checkphone', { phone: data.phone }).then((res) => {
+			setPhoneNum(res)
 			closeRegForm();
 			setOpenConfirmNum(true);
 		})
@@ -109,7 +109,7 @@ export default function RegForm() {
                                 <TextField label='Имя'
                                     variant='outlined' size='small'
                                     type="text"
-                                    autoComplete="on"
+                                    autoComplete="given-name"
                                     value={value}
                                     onChange={onChange}
                                     error={!!error} helperText={error ? error.message : ' '} />
@@ -125,7 +125,7 @@ export default function RegForm() {
                                 <TextField label='Фамилия'
                                     variant='outlined' size='small'
                                     type="text"
-                                    autoComplete="on"
+                                    autoComplete="family-name"
                                     value={value}
                                     onChange={onChange}
                                     error={!!error} helperText={error ? error.message : ' '} />
@@ -140,7 +140,7 @@ export default function RegForm() {
                                 <TextField label='Номер телефона'
                                     variant='outlined' size='small'
                                     type="tel"
-                                    autoComplete="on"
+                                    autoComplete="tel"
                                     value={valueInp}
                                     onChange={e => onChange(PhoneMask(e, valueInp, setValueInp))}
                                     onKeyDown={(e) => {
@@ -160,7 +160,7 @@ export default function RegForm() {
                                 <TextField label='Введите пароль'
                                     variant='outlined' size='small'
                                     type="password"
-                                    autoComplete="current-password"
+                                    autoComplete="new-password"
                                     value={value}
                                     onChange={onChange}
                                     error={!!error} helperText={error ? error.message : ' '} />
@@ -176,7 +176,7 @@ export default function RegForm() {
                                 <TextField label='Повторите пароль'
                                     variant='outlined' size='small'
                                     type="password"
-                                    autoComplete="current-password"
+                                    autoComplete="new-password"
                                     value={value}
                                     onChange={onChange}
                                     error={!!error} helperText={error ? error.message : ' '} />

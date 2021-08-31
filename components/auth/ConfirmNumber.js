@@ -1,40 +1,46 @@
-import {useContext, useState} from 'react'
+import { useContext, useState } from 'react'
 import { Box, Dialog, makeStyles, TextField, Typography } from '@material-ui/core';
 import { RegistrationCTX } from '../../lib/Context/DialogCTX';
-import axios from 'axios';
+import { getDataByPost } from '../../lib/fetch';
+import { useAuth } from '../../lib/Context/AuthCTX';
+import { useStore } from '../../lib/Context/Store';
 
 const useStyles = makeStyles((theme) => ({
-    submitNumber: {
-        display: 'flex',
-        padding: theme.spacing(4),
-        width: '100%',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '&>*': {
-            margin: theme.spacing(1),
-        }
-    },
-    inputSubmit: {
-        '& input': {
-            textAlign: 'center',
-        }
-    }
+	submitNumber: {
+		display: 'flex',
+		padding: theme.spacing(4),
+		width: '100%',
+		flexDirection: 'column',
+		alignItems: 'center',
+		'&>*': {
+			margin: theme.spacing(1),
+		}
+	},
+	inputSubmit: {
+		'& input': {
+			textAlign: 'center',
+		}
+	}
 }));
 
 const ConfirmNumber = () => {
-
-    const classes = useStyles();
+	const {signIn} = useAuth();
+	const {storeUser} = useStore();
+	const classes = useStyles();
 	const [errorVerify, setErrorVerify] = useState({ error: true, message: 'Введите цифры' }),
-		  	{openConfirmNum, setOpenConfirmNum, phoneNum, sendData} = useContext(RegistrationCTX);
+		{ openConfirmNum, setOpenConfirmNum, phoneNum, sendData } = useContext(RegistrationCTX);
 
 	const regUser = () => {
-		axios.post('/api/setApi', sendData).then((r) => {
-			console.log(r.data)
-			switch (r.data?.message) {
-			case 'user created':
-				return alert('Регистрация прошла успешно'); //Сделать модалку
-			case 'user already exists':
-				return alert('Вы уже зарегестрированы') //Не тестировалось!!!
+		getDataByPost('/api/setApi', sendData).then((r) => {
+			console.log(r)
+			switch (r?.message) {
+				case 'user created':
+					return ( 
+						getDataByPost('/api/login', { id: r.id }).then(() => signIn()),	//session//authCtx
+						storeUser(r.id)								//store
+					)												//Сделать модалку
+				case 'user already exists':
+					return alert('Вы уже зарегестрированы')
 			}
 		});
 		setOpenConfirmNum(!openConfirmNum);
@@ -46,10 +52,11 @@ const ConfirmNumber = () => {
 			regUser();
 		} else {
 			setErrorVerify({ error: true, message: 'Неверный код подтверждения' })
+
 		}
 	}
 
-	return (       
+	return (
 		<Dialog open={openConfirmNum || false} onClose={() => setOpenConfirmNum(!openConfirmNum)} fullWidth maxWidth="sm">
 			<Box className={classes.submitNumber}>
 				<Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
@@ -59,4 +66,4 @@ const ConfirmNumber = () => {
 	)
 }
 
-export default ConfirmNumber
+export default ConfirmNumber;
