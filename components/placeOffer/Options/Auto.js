@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, makeStyles, TextField, Typography, MenuItem, Button } from '@material-ui/core';
+import { Box, makeStyles, TextField, Typography, MenuItem } from '@material-ui/core';
 import axios from 'axios';
 import ColorAuto from '../../json/color.json'
 
