@@ -14,7 +14,7 @@ function Footer2() {
             <a className="android_links__download" href=""></a>
           </div>
         </>
-      ) : <div style={{height: "63px"}}></div>}
+      ) : <div style={{ height: "63px" }}></div>}
 
       <div className="footer__bottom">
         <div className="socialNetworksFooter2">
@@ -29,11 +29,11 @@ function Footer2() {
           </a>
         </div>
         <div className="linkContainerFooter2">
-          <a className='aboutLinkFooter2' href="http://192.168.8.62:3000/about">О компании</a>
-          <a className='contactsLinkFooter2' href="http://192.168.8.62:3000/contacts">Контакты</a>
-          <a className='offerLinkFooter2' href="http://192.168.8.62:3000/offer">Оферта</a>
+          <a className='aboutLinkFooter2' href="/about">О компании</a>
+          <a className='contactsLinkFooter2' href="/contacts">Контакты</a>
+          <a className='offerLinkFooter2' href='/offer'>Оферта</a>
         </div>
-        <div className='indexTitleFooter2'> <a href="https://lndex.ru"> Разработано студией INDEX</a></div>
+        <div className='indexTitleFooter2'> <a href="https://lndex.ru">Разработано студией INDEX</a></div>
       </div>
     </div>
   );

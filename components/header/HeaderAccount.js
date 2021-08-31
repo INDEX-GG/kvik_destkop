@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 import { useMedia } from '../../hooks/useMedia';
 import AccountContent from './AccountContent';
 
-const useStyles = makeStyles((theme) =>({
+const useStyles = makeStyles((theme) => ({
 	list: {
 		width: '382px',
 		[theme.breakpoints.down(375)]: {
