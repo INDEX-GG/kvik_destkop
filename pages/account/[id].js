@@ -67,9 +67,9 @@ function Account() {
 		if (id != undefined && subscribersList.length == 0) {
 			axios.post("/api/getSubscribers", { user_id: `${id}` }).then((res) => setSubscribersList(res.data))
 		}
-	}, [])
+	}, [userInfo])
 
-
+console.log('===>',userInfo)
 	function closeModal(modal, changeModal) {
 		changeModal(!modal)
 	}
@@ -162,7 +162,7 @@ function Account() {
 								</a>
 								<a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
 
-									{userInfo && userInfo?.subscriptions !== undefined ? JSON.parse(userInfo.subscriptions)?.length : '0'}
+									{userInfo && userInfo?.subscriptions !== undefined ?userInfo.subscriptions?.length : '0'}
 									<p>подписок</p>
 								</a>
 							</div>

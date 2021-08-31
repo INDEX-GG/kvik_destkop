@@ -6,7 +6,7 @@ function Footer() {
         <div className="linkContainerFooter">
           <a className='aboutLinkFooter' href="/about">О компании</a>
           <a className='contactsLinkFooter' href="/contacts">Контакты</a>
-          <a className='offerLinkFooter' href="/offer">Оферта</a>
+          <a className='offerLinkFooter' href='/offer'>Оферта</a>
         </div>
         <div className="socialNetworksFooter">
           <a href="https://instagram.com" className="instagramLinkFooter">

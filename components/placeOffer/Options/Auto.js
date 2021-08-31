@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, makeStyles, TextField, Typography, MenuItem } from '@material-ui/core';
+import { Box, makeStyles, TextField, Typography, MenuItem, Button } from '@material-ui/core';
 import axios from 'axios';
 import ColorAuto from '../../json/color.json'
 
@@ -30,11 +30,19 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexWrap: 'wrap',
     },
+    formColorWrapper: {
+
+        width: '30px',
+        height: '30px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '2px',
+    },
     formColor: {
-        width: '28px',
-        height: '28px',
+        width: '100%',
+        height: '100%',
         borderRadius: '50%',
-        marginRight: '2px',
         cursor: 'pointer',
     },
 }));
@@ -63,7 +71,8 @@ export default function Auto({ data }) {
         [fullDescription, setFullDescription] = useState();
 
 
-    console.log(methods.watch('doors'))
+
+
 
     useEffect(() => {
         setGeneration(undefined)
@@ -154,6 +163,18 @@ export default function Auto({ data }) {
     }, [modification])
 
     console.log(modification && modification[0])
+
+    const setColor = (e) => {
+        console.log(e && e.target)
+        methods.watch('color') === 'eqweewqeqeqeqew'
+    }
+
+    useEffect(() => {
+        console.log(methods)
+        console.log(methods.watch('color'))
+    }, [methods.watch('color')])
+
+
 
     return (
         <>
@@ -501,14 +522,60 @@ export default function Auto({ data }) {
             <Box className={classes.formInputMainField}>
                 <Typography className={classes.formTitleField}>Цвет</Typography>
                 <Box className={classes.formColorMain}>
-                    {
+
+
+                    {/* <Controller
+                        name={"color"}
+                        control={methods.control}
+                        render={({ field: { onChange, value } }) => (
+                            ColorAuto.map(item => (
+                                <Button
+                                    key={item.name}
+                                    className={classes.formColorWrapper}
+                                    variant='outlined'
+                                    onChange={onChange}
+                                    value={value}
+                                    style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }}></Button>
+
+                            ))
+                        )}
+
+                    /> */}
+
+                    {/* <Controller
+                        name={"color"}
+                        control={methods.control}
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <TextField
+                                select
+                                className={classes.input}
+                                variant='outlined'
+                                value={value}
+                                onChange={onChange}
+                                error={!!error}
+                                helperText={error ? error.message : ' '}>
+                                {ColorAuto.map(item => (
+                                     <Box className={classes.formColorWrapper} value={item.name} key={item.name}>
+                                        <Box className={classes.formColor} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ></Box>
+                                        </Box>
+                                ))}
+                            </TextField>
+                        )}
+                        rules={{ required: 'Выбирите color' }}
+                    /> */}
+
+
+
+
+
+                     {
                         ColorAuto.map(item => (
-                            <Box key={item.value}>
-                                <Box  className={classes.formColor} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ></Box>
+
+                            <Box className={classes.formColorWrapper} onClick={(e) => setColor(e)} value={item.name} key={item.name}>
+                                <Box className={classes.formColor} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ></Box>
                             </Box>
-                        )
-                        )
-                    }
+                        ))
+                    } 
                 </Box>
             </Box>
         </>

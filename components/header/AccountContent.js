@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-export default function AccountContent({id, icon, title, setState}) {
+export default function AccountContent({ id, icon, title, setState }) {
 	const classes = useStyles();
 	const router = useRouter();
 	const [hover, setHover] = useState(false);
@@ -51,17 +51,17 @@ export default function AccountContent({id, icon, title, setState}) {
 
 	return (
 		<ListItem
-		onClick={handlerClick}
-		onMouseEnter={() => handlerMouse(true)}
-		onMouseLeave={() => handlerMouse(false)}
-		button 
-		className="burgerList">
+			onClick={handlerClick}
+			onMouseEnter={() => handlerMouse(true)}
+			onMouseLeave={() => handlerMouse(false)}
+			button
+			className="burgerList">
 			<ListItemText
 				style={{ height: "30px", display: "flex", alignItems: "center", }}
 				className={`${id == active || hover ? icon + "Active" : icon} 
 				${id == active ? `${classes.accountItem} ${classes.accountItemActive}` : classes.accountItem} 
 				${id == active ? classes.activeItem : ''}
-				${hover ? classes.accountItemHover : ''}`} 
+				${hover ? classes.accountItemHover : ''}`}
 				primary={title} />
 		</ListItem>
 	)

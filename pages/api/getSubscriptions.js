@@ -24,12 +24,13 @@ export default async function handler(req, res) {
 				seller.poducts = []
 				for (let index1 in productsList) {
 					if ((sellersList[index]).id === (productsList[index1]).user_id) {
-						(seller.poducts).push({id:(productsList[index1]).id, title:(productsList[index1]).title, price:(productsList[index1]).price,  photo:(productsList[index1]).photo})
+						(seller.poducts).push({ id: (productsList[index1]).id, title: (productsList[index1]).title, price: (productsList[index1]).price, photo: (productsList[index1]).photo })
 					}
 				}
 				sellers.push(seller)
 			}
 			return sellers
+
 		}
 
 		try {

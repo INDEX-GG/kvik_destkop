@@ -67,7 +67,7 @@ function PlaceOffer() {
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
-
+console.log(methods)
     /* получение дополнительных полей */
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd);
