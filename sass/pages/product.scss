@@ -370,14 +370,22 @@
 .productPageCharacterMapBlock {
     border-bottom: 1px solid $light;
     transition: all 650ms ease-in-out;
+    margin-top: 22px;
 }
+
+.productLocality{
+    color: #8f8f8f;
+    width: 150px;
+}
+
 .productPageCharacterLocality {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     padding: 18px 0;
+    color: $tp;
+    font-weight: 400;
 }
 .productPageCharacterMapSwitch {
     background: no-repeat center right 5px url(../../icons/chevron_down_green.svg);

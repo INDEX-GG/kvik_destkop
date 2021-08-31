@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 						secure_transaction: text2Bool(req.body.safedeal),
 						slug: "slug",
 						communication: JSON.stringify(communication),
-						address: req.body.address,
+						address: req.body.location,
 						phone_hidden: false,
 						lon: 1234.00,
 						lat: 1234.00,

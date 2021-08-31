@@ -5,7 +5,7 @@ import { useCity } from "../../lib/Context/CityCTX"
 const useStyles = makeStyles((theme) => ({
 	bread: {
 		marginBottom: '32px',
-		marginTop: '20px',
+		marginTop: '25px',
 		[theme.breakpoints.down("1080")]: {
 			marginBottom: "0px"
 		}
