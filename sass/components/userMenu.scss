@@ -107,11 +107,11 @@
   
   .menuLogoff {
     color: $tp;
-    background: no-repeat left center url(../../icons/quit_dark.svg);
+    background: no-repeat left center url(../../icons/quit_dark.svg)!important;
   }
   .menuLogoff:hover {
-    background: no-repeat left center url(../../icons/quit_grey.svg);
+    background: no-repeat left center url(../../icons/quit_grey.svg)!important;
   }
   .menuLogoff:active {
-    background: no-repeat left center url(../../icons/quit_green.svg);
+    background: no-repeat left center url(../../icons/quit_green.svg) !important;
   }
