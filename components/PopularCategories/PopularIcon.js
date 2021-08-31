@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import Bg from '../../UI/icons/popularCategories/Bg';
+import BgActive from '../../UI/icons/popularCategories/BgActive';
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -50,7 +51,7 @@ const PopularIcon = (icon) => {
 		>
 			<Box className={classes.icon}>{icon?.icon.icon}</Box>
 			<Box className={classes.bg}>
-				<Bg color={hover ? '#e9e9e9' : '#f7f7f7'} />
+				{!hover ? <Bg />:<BgActive />}
 			</Box>
 			<Typography className={classes.title}>{icon?.icon.title}</Typography>
 		</button>
