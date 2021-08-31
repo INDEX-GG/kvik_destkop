@@ -4,6 +4,7 @@ import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
 import { Modal } from "@material-ui/core";
 import ProductModalCarousel from "./ProductModalCarousel";
 import { useMedia } from "../hooks/useMedia";
+import { useRouter } from "next/dist/client/router";
 
 SwiperCore.use([Navigation, Thumbs, Pagination,]);
 
@@ -12,16 +13,18 @@ export default function ProductCarousel({ photo }) {
 	const [data, setData] = useState(null);
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const {matchesTablet, matchesMobile} = useMedia()
-	useEffect(() => {
-		setData(photo);
-	},[photo])
-
+	const [swiperMethod, seSwiperMethod] = useState(null);
+	const router = useRouter()
 	const [sliderProps, setSliderProps] = useState({
 		slidesPrevPhoto: false,
 		sliderDot: false,
 		sliderNavigation: true
 	});
 
+	useEffect(() => {
+		setData(photo);
+	},[photo])
+	
 	useEffect(() => {
 		if (photo) {
 			if (photo.length > 6) {
@@ -34,16 +37,28 @@ export default function ProductCarousel({ photo }) {
 		}
 	}, [photo])
 
+
+	useEffect(() => {
+		if (swiperMethod) {
+			swiperMethod.slideTo(0, 1)
+		}
+	}, [router])
+
+	const onSwiper = (swiper) => {
+		seSwiperMethod(swiper)
+	}
+
+
 	const {slidesPrevPhoto, sliderDot, sliderNavigation} = sliderProps;
 
 
 	const sliderClass = `mySwiper2 importantSlider ${sliderDot || photo.length > 1 && (matchesTablet || matchesMobile) ? '' : 'dotNone'} ${sliderNavigation ? '' : 'navigationNone'}`
 
-
 	return (
 		photo ? 
 		<>
 			<Swiper
+				onSwiper={onSwiper}
 				spaceBetween={10}
 				pagination={{clickable: true, type: 'fraction'}}
 				navigation={true}
