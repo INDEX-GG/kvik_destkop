@@ -22,7 +22,6 @@ import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import Loader from "../../UI/icons/Loader";
 import { STATIC_URL } from "../../lib/constants";
-
 const objP = {
 	id: 1,
 	title: "Продам 2-комню квартиру, 95м в центре",
