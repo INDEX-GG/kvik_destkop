@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import { STATIC_URL } from '../lib/constants';
+import { useStore } from '../lib/Context/Store';
 import { getDataByPost } from '../lib/fetch';
 
 export function useProduct(id) {
+	const {offerId} = useStore();
 	const [productInfo, setProductInfo] = useState({});
+	console.log(offerId, id)
+	id = offerId || id;
+	console.log(id);
 	useEffect(() => {
 		if (typeof id === 'string' || typeof id === 'number') {
 			getDataByPost('/api/getPost?123', { id: id })
