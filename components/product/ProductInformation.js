@@ -52,7 +52,7 @@ export default function ProductInformation(data) {
 				}
 
 				<div>
-					{!matchesMobile && !matchesTablet && <div className="productLocality">Поделиться</div>}
+					<div className="productLocality">Поделиться</div>
 					<div>
 						<a className="productPageCharacterVK"></a>
 						<a className="productPageCharacterFB"></a>
