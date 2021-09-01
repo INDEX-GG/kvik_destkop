@@ -58,8 +58,8 @@
     padding: 18px 0;
 }
 .productPageCharacter > div > div:first-child {
-    color: $tpsl;
-    width: 150px;
+    color: $tp;
+    min-width: 150px;
 }
 .freedomBlock_1 {
     width: 224px;
@@ -376,7 +376,7 @@
 }
 
 .productLocality{
-    color: #8f8f8f;
+    color: $tpsl !important;
     width: 150px;
 }
 

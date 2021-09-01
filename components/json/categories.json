@@ -7,6 +7,7 @@
 			"alias": "apartments_kv",
 			"children": [{
 				"name": "Продать",
+				"search_name": "Купить",
 				"alias": "sell_apartments",
 				"children": [{
 					"name": "Новостройка",
@@ -19,6 +20,7 @@
 				}]
 			}, {
 				"name": "Сдать в аренду",
+				"search_name": "Снять в аренду",
 				"alias": "rent_apartments",
 				"children": []
 			}]
@@ -27,10 +29,12 @@
 			"alias": "rooms",
 			"children": [{
 				"name": "Продать",
+				"search_name": "Купить",
 				"alias": "sell_rooms",
 				"children": []
 			}, {
 				"name": "Сдать в аренду",
+				"search_name": "Снять в аренду",
 				"alias": "rent_rooms",
 				"children": []
 			}]
@@ -39,10 +43,12 @@
 			"alias": "houses_and_cottages",
 			"children": [{
 				"name": "Продать",
+				"search_name": "Купить",
 				"alias": "sell_houses_and_cottages",
 				"children": []
 			}, {
 				"name": "Сдать в аренду",
+				"search_name": "Снять в аренду",
 				"alias": "rent_houses_and_cottages",
 				"children": []
 			}]
@@ -50,74 +56,60 @@
 			"name": "Коммерческая недвижимость",
 			"alias": "commercial_property_second",
 			"children": [{
-				"name": "Офисное помещение",
-				"alias": "Office_space",
+				"name": "Продать",
+				"search_name": "Купить",
+				"alias": "sell_commercial_property",
 				"children": [{
-					"name": "Продать",
+					"name": "Офисное помещение",
 					"alias": "sell_office_space",
 					"children": []
 				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_office_space",
-					"children": []
-				}]
-			}, {
-				"name": "Торговое помещение",
-				"alias": "commercial_premises_second",
-				"children": [{
-					"name": "Продать",
+					"name": "Торговое помещение",
 					"alias": "sell_commercial_premises",
 					"children": []
 				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_commercial_premises",
-					"children": []
-				}]
-			}, {
-				"name": "Складское помещение",
-				"alias": "warehouse_space",
-				"children": [{
-					"name": "Продать",
+					"name": "Складское помещение",
 					"alias": "sell_warehouse_space",
 					"children": []
 				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_warehouse_space",
-					"children": []
-				}]
-			}, {
-				"name": "Производственное помещение",
-				"alias": "production_room_second",
-				"children": [{
-					"name": "Продать",
+					"name": "Производственное помещение",
 					"alias": "sell_production_room",
 					"children": []
 				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_production_room",
-					"children": []
-				}]
-			}, {
-				"name": "Помещение свободного назначения",
-				"alias": "free_premises_second",
-				"children": [{
-					"name": "Продать",
+					"name": "Помещение свободного назначения",
 					"alias": "sell_free_premises",
 					"children": []
 				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_free_premises",
+					"name": "Здание",
+					"alias": "sell_building",
 					"children": []
 				}]
 			}, {
-				"name": "Здание",
-				"alias": "Building_estate",
+				"name": "Сдать в аренду",
+				"search_name": "Снять в аренду",
+				"alias": "rent_commercial_property",
 				"children": [{
-					"name": "Продать",
-					"alias": "sell_building",
+					"name": "Офисное помещение",
+					"alias": "rent_office_space",
 					"children": []
 				}, {
-					"name": "Сдать в аренду",
+					"name": "Торговое помещение",
+					"alias": "rent_commercial_premises",
+					"children": []
+				}, {
+					"name": "Складское помещение",
+					"alias": "rent_warehouse_space",
+					"children": []
+				}, {
+					"name": "Производственное помещение",
+					"alias": "rent_production_room",
+					"children": []
+				}, {
+					"name": "Помещение свободного назначения",
+					"alias": "rent_free_premises",
+					"children": []
+				}, {
+					"name": "Здание",
 					"alias": "rent_building",
 					"children": []
 				}]
@@ -126,34 +118,23 @@
 			"name": "Земельные участки",
 			"alias": "land",
 			"children": [{
-				"name": "ИЖС",
-				"alias": "izhs",
+				"name": "Продать",
+				"search_name": "Купить",
+				"alias": "sell_land",
 				"children": [{
-					"name": "Продать",
+					"name": "ИЖС",
 					"alias": "sell_izhs",
 					"children": []
-				}]
-			}, {
-				"name": "СНТ",
-				"alias": "SNT",
-				"children": [{
-					"name": "Продать",
-					"alias": "sell_SNT",
+				}, {
+					"name": "СНТ",
+					"alias": "sell_snt",
 					"children": []
-				}]
-			}, {
-				"name": "Землями сельскохозяйственного назначения",
-				"alias": "AgriculturalLand",
-				"children": [{
-					"name": "Продать",
+				}, {
+					"name": "Земли сельскохозяйственного назначения",
 					"alias": "sell_agriculturalLand",
 					"children": []
-				}]
-			}, {
-				"name": "Земли коммерческого назначения",
-				"alias": "commercialLand",
-				"children": [{
-					"name": "Продать",
+				}, {
+					"name": "Земли коммерческого назначения",
 					"alias": "sell_commercialLand",
 					"children": []
 				}]
@@ -162,136 +143,44 @@
 			"name": "Гаражи и парковочные места",
 			"alias": "garages_and_parking_spaces_second",
 			"children": [{
-				"name": "Гараж",
-				"alias": "garage",
-				"children": []
-			}, {
-				"name": "Парковочное место ",
-				"alias": "parkingPlace",
-				"children": []
-			}]
-		}]
-	}, {
-		"name": "Недвижимость за рубежом",
-		"alias": "Real_estate_abroad",
-		"children": [{
-			"name": "Апартаменты",
-			"alias": "apartments",
-			"children": [{
 				"name": "Продать",
-				"alias": "sell_apartments_abroad",
+				"search_name": "Купить",
+				"alias": "sell_garages_and_parking_spaces_second",
 				"children": [{
-					"name": "Новостройка",
-					"alias": "new_building_abroad",
+					"name": "Гараж",
+					"alias": "sell_garage",
 					"children": []
 				}, {
-					"name": "Вторичное жилье",
-					"alias": "secondary_housing_abroad",
+					"name": "Парковочное место",
+					"alias": "sell_parkingplace",
 					"children": []
 				}]
 			}, {
 				"name": "Сдать в аренду",
-				"alias": "rent_apartments_abroad",
-				"children": []
+				"search_name": "Снять в аренду",
+				"alias": "rent_garages_and_parking_spaces_second",
+				"children": [{
+					"name": "Гараж",
+					"alias": "rent_garage",
+					"children": []
+				}, {
+					"name": "Парковочное место",
+					"alias": "rent_parkingplace",
+					"children": []
+				}]
 			}]
 		}, {
-			"name": "Дома, вилла",
-			"alias": "houses_and_cottages_second",
+			"name": "Недвижимость за рубежом",
+			"alias": "real_estate_abroad",
 			"children": [{
 				"name": "Продать",
-				"alias": "sell_houses_and_cottages_abroad",
+				"search_name": "Купить",
+				"alias": "sell_abroad",
 				"children": []
 			}, {
 				"name": "Сдать в аренду",
-				"alias": "rent_houses_and_cottages_abroad",
-				"children": []
-			}]
-		}, {
-			"name": "Коммерческая недвижимость",
-			"alias": "commercial_property",
-			"children": [{
-				"name": "Офисное помещение",
-				"alias": "Office_space_second",
-				"children": [{
-					"name": "Продать",
-					"alias": "sell_office_space_abroad",
-					"children": []
-				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_office_space_abroad",
-					"children": []
-				}]
-			}, {
-				"name": "Торговое помещение",
-				"alias": "commercial_premises",
-				"children": [{
-					"name": "Продать",
-					"alias": "sell_commercial_premises_abroad",
-					"children": []
-				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_commercial_premises_abroad",
-					"children": []
-				}]
-			}, {
-				"name": "Складское помещение",
-				"alias": "warehouse_space_second",
-				"children": [{
-					"name": "Продать",
-					"alias": "sell_warehouse_space_abroad",
-					"children": []
-				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_warehouse_space_abroad",
-					"children": []
-				}]
-			}, {
-				"name": "Производственное помещение",
-				"alias": "production_room",
-				"children": [{
-					"name": "Продать",
-					"alias": "sell_production_room_abroad",
-					"children": []
-				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_production_room_abroad",
-					"children": []
-				}]
-			}, {
-				"name": "Помещение свободного назначения",
-				"alias": "free_premises",
-				"children": [{
-					"name": "Продать",
-					"alias": "sell_free_premises_abroad",
-					"children": []
-				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_free_premises_abroad",
-					"children": []
-				}]
-			}, {
-				"name": "Здание",
-				"alias": "Building_second",
-				"children": [{
-					"name": "Продать",
-					"alias": "sell_building_abroad",
-					"children": []
-				}, {
-					"name": "Сдать в аренду",
-					"alias": "rent_building_abroad",
-					"children": []
-				}]
-			}]
-		}, {
-			"name": "Гаражи и парковочные места",
-			"alias": "garages_and_parking_spaces",
-			"children": [{
-				"name": "Гараж",
-				"alias": "garageabroad",
-				"children": []
-			}, {
-				"name": "Парковочное место",
-				"alias": "parkingPlaceabroad",
+				"search_name": "Снять в аренду",
+				"alias": "rent_abroad",
 				"children": []
 			}]
 		}]
