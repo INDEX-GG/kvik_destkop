@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography, MenuItem } from '@material-ui/core';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import axios from 'axios';
 import ColorAuto from '../../json/color.json'
+import { OnlyNumbersMask, cursorReplace } from '../../../lib/onlyNumbersMask';
 
 const useStyles = makeStyles((theme) => ({
     formInputMainField: {
@@ -29,9 +33,20 @@ const useStyles = makeStyles((theme) => ({
         width: '490px',
         display: 'flex',
         flexWrap: 'wrap',
+        flexDirection: 'row',
     },
     formColorWrapper: {
 
+        width: '30px',
+        height: '30px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '2px',
+    },
+    formColorWrapperActive: {
+        border: '1px solid #5A5A5A',
+        borderRadius: '50%',
         width: '30px',
         height: '30px',
         display: 'flex',
@@ -44,6 +59,15 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         borderRadius: '50%',
         cursor: 'pointer',
+    },
+    formRadioColor: {
+        opacity: '0',
+        padding: '0',
+    },
+    formError: {
+        color: '#F44545',
+        marginLeft: '14px',
+        marginRight: '14px',
     },
 }));
 
@@ -68,11 +92,9 @@ export default function Auto({ data }) {
         [generation, setGeneration] = useState(),
         [generationUnical, setGenerationUnical] = useState(),
         [modification, setModification] = useState(),
-        [fullDescription, setFullDescription] = useState();
+        [fullDescription, setFullDescription] = useState(),
 
-
-
-
+        [color, setColor] = useState(false);
 
     useEffect(() => {
         setGeneration(undefined)
@@ -163,11 +185,6 @@ export default function Auto({ data }) {
     }, [modification])
 
     console.log(modification && modification[0])
-
-    const setColor = (e) => {
-        console.log(e && e.target)
-        methods.watch('color') === 'eqweewqeqeqeqew'
-    }
 
     useEffect(() => {
         console.log(methods)
@@ -496,8 +513,32 @@ export default function Auto({ data }) {
                         break;
 
                     case 'textRec':
+                        console.log(data)
 
-                        break;
+                        return (
+                            <Box className={classes.formInputMainField}>
+                                <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                <Box className={classes.formInputField}>
+                                    <Controller
+                                        name={item.alias}
+                                        control={methods.control}
+                                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                            <TextField
+                                                className={classes.input}
+                                                variant='outlined'
+                                                value={value}
+                                                onKeyDown={e => cursorReplace(e, item.name)}
+                                                onChange={e => onChange(OnlyNumbersMask(e, item.name))}
+                                                error={!!error}
+                                                helperText={error ? error.message : ' '}>
+                                            </TextField>
+                                        )}
+                                        rules={{ required: 'Выбирите ' + item.name }}
+                                    />
+
+                                </Box>
+                            </Box>
+                        )
 
                     case 'text':
 
@@ -521,61 +562,27 @@ export default function Auto({ data }) {
             }
             <Box className={classes.formInputMainField}>
                 <Typography className={classes.formTitleField}>Цвет</Typography>
-                <Box className={classes.formColorMain}>
-
-
-                    {/* <Controller
-                        name={"color"}
-                        control={methods.control}
-                        render={({ field: { onChange, value } }) => (
-                            ColorAuto.map(item => (
-                                <Button
-                                    key={item.name}
-                                    className={classes.formColorWrapper}
-                                    variant='outlined'
-                                    onChange={onChange}
-                                    value={value}
-                                    style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }}></Button>
-
-                            ))
-                        )}
-
-                    /> */}
-
-                    {/* <Controller
-                        name={"color"}
+                <Box className={classes.formInputField}>
+                    <Controller
+                        name="color"
                         control={methods.control}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <TextField
-                                select
-                                className={classes.input}
+                            <RadioGroup
                                 variant='outlined'
                                 value={value}
-                                onChange={onChange}
                                 error={!!error}
-                                helperText={error ? error.message : ' '}>
-                                {ColorAuto.map(item => (
-                                     <Box className={classes.formColorWrapper} value={item.name} key={item.name}>
-                                        <Box className={classes.formColor} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ></Box>
-                                        </Box>
+                                className={classes.formColorMain}
+                                onChange={(e) => onChange(e.target.value)}>
+                                {ColorAuto.map((item, i) => (
+                                    <Box className={color === i ? classes.formColorWrapperActive : classes.formColorWrapper} key={item.name}>
+                                        <Box className={classes.formColor} onClick={() => setColor(i)} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ><Radio className={classes.formRadioColor} value={item.id}></Radio></Box>
+                                    </Box>
                                 ))}
-                            </TextField>
+                                <FormHelperText className={classes.formError}>{error ? error.message : ' '}</FormHelperText>
+                            </RadioGroup>
                         )}
-                        rules={{ required: 'Выбирите color' }}
-                    /> */}
-
-
-
-
-
-                     {
-                        ColorAuto.map(item => (
-
-                            <Box className={classes.formColorWrapper} onClick={(e) => setColor(e)} value={item.name} key={item.name}>
-                                <Box className={classes.formColor} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ></Box>
-                            </Box>
-                        ))
-                    } 
+                        rules={{ required: 'Выбирите цвет' }}
+                    />
                 </Box>
             </Box>
         </>
