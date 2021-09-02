@@ -163,7 +163,7 @@ const Product = () => {
 															<div className="SellerInfoSeen dark"> {reviewed} +4</div>
 															{user_id === id ? (
 																<a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)}>
-																	Статистика
+																	{/* Статистика */}
 																</a>)
 																:""}
 														</div>

@@ -91,6 +91,7 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    min-height: 14px;
 }
 
 .SellerInfoStatShow {
@@ -191,18 +192,12 @@
     height: 16px;
     margin-bottom: 16px;
 }
-.SellerInfoMess {
+.SellerInfoCall,.SellerInfoMess{
+    height: 32px;
     margin: 12px 0;
     text-align: center;
     width: 100%;
     padding: 8px 0;
-}
-.SellerInfoCall {
-    margin: 12px 0;
-    text-align: center;
-    width: 100%;
-    padding: 8px 0;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 14px;
 }
 .SellerInfoCall svg,
@@ -369,7 +364,7 @@
 }
 
 /* Характеристики объявления */
-.productDescription{
+.productDescription {
     margin: 18px 0;
 }
 
@@ -379,7 +374,7 @@
     margin-top: 22px;
 }
 
-.productLocality{
+.productLocality {
     color: $tpsl !important;
     width: 150px;
 }
@@ -468,21 +463,20 @@
     background: no-repeat center right 2px url(../../icons/chevron_down_green.svg);
     transition: all 150ms ease-in-out;
 }
-.mySwiper2_photo{
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
+.mySwiper2_photo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     height: 400px !important;
     position: relative;
-	width: 100%;
-	min-width: 100%;
-	min-width: 620px;
+    width: 100%;
+    min-width: 100%;
+    min-width: 620px;
 }
 
 // .importantSlider .swiper-slide  {
 // 	width: 100% !important;
 // }
-
 
 .productPage .swiper-container {
     margin-bottom: 4px;
@@ -510,10 +504,9 @@
     right: 4px !important;
 }
 
-
 .mySwiper2 .swiper-pagination {
-	display: flex;
-	justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     position: absolute;
     z-index: 2;
     bottom: 2px;
@@ -526,29 +519,30 @@
 }
 
 .mySwiper2 .swiper-pagination-bullet {
-	cursor: pointer;
-	background-color: white;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	margin: 0 5px;
-	display: block;
+    cursor: pointer;
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 5px;
+    display: block;
 }
 
 .dotNone {
-	& > .swiper-pagination {
-		display: none;
-	}
+    & > .swiper-pagination {
+        display: none;
+    }
 }
 
 .navigationNone {
-	& > .swiper-button-next, .swiper-button-prev {
-		display: none;
-	}
+    & > .swiper-button-next,
+    .swiper-button-prev {
+        display: none;
+    }
 }
 
 .mySwiper2 .swiper-pagination-bullet-active {
-	background-color: #00a0ab;
+    background-color: #00a0ab;
 }
 
 .seen__ad {
@@ -759,14 +753,10 @@
         margin-left: 18px;
     }
 
-    .SellerInfoDate {
-        margin-bottom: 4px;
-    }
-
-    .ad__block_top__days_left {
+    /* .ad__block_top__days_left {
         text-align: right;
         margin-bottom: 8px;
-    }
+    } */
 
     .SellerInfo__adaptive_button {
         text-align: center;
@@ -798,16 +788,11 @@
     .ad_btn {
         height: 24px;
         max-width: 476px;
-        margin-bottom: 0;
+        // margin-bottom: 0;
     }
 
     .ad_btn_edit {
-        margin-right: 24px;
-        margin: 8px auto;
-    }
-
-    .btn-left {
-        margin-right: 24px;
+        // margin: 8px 0;
     }
 
     .ad__block_middle__description_service {
@@ -909,7 +894,7 @@
         max-width: 100%;
         width: 100%;
     }
-    .productPageDescription .swiper-slide{
+    .productPageDescription .swiper-slide {
         // width: 100% !important;
     }
 
@@ -989,12 +974,14 @@
         max-width: 0;
         min-width: 100%;
     }
-
+    .ad_btn_edit {
+        // margin: 8px 0;
+        width: 48%;
+    }
     .count__ad {
         color: $tpl;
     }
-}
-@media (max-width: 959px) {
+
     .productPageSimilarOffers {
         grid-template-columns: 100%;
         grid-column-gap: 0;
@@ -1004,7 +991,7 @@
         bottom: 24px;
     }
 
-    .SellerInfoBargain{
+    .SellerInfoBargain {
         margin-bottom: 0;
     }
 
@@ -1014,6 +1001,13 @@
 
     .productPageSimilarOffersContainer {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .SellerInfoDate {
+        margin-bottom: 4px;
+    }
+    .ad__block_top__days_left {
+        text-align: right;
     }
 }
 
@@ -1028,7 +1022,7 @@
         display: block;
     }
 
-    .buy_btn__adaptive{
+    .buy_btn__adaptive {
         max-width: 100%;
     }
 }
@@ -1038,15 +1032,18 @@
     .service_days_left {
         text-align: left;
     }
-    .ad__block_bottom{
+    .ad__block_bottom {
         height: 80px;
     }
 
     .SellerInfo__adaptive_buttons {
         display: block;
     }
+
     .ad_btn_edit {
         margin-bottom: 18px;
+        width: 100%;
+        max-width: 100%;
     }
 }
 
@@ -1091,7 +1088,6 @@
     }
 }
 
-
 @media (max-width: 380px) {
     .SellerInfoUserBlock {
         flex-wrap: wrap;
@@ -1107,7 +1103,6 @@
         padding-top: 3px;
     }
 }
-
 
 @media (max-width: 350px) {
     .ad__block_bottom__adaptive_left {

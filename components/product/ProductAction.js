@@ -43,8 +43,8 @@ export default function ProductAction(data) {
               <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
                 {(objP.adstatus !== 7) && (data.user_id === id) ? (
                   <div className="SellerInfoTopButtons">
-                    <a className="SellerInfoStatShow underline highlight" onClick={() => setOpenStatForm(!openStatForm)}>
-                      Статистика
+                    <a className="SellerInfoStatShow underline highlight" onClick={() => setOpenStatForm(!openStatForm)}> 
+                      {/* Статистика */}
                     </a>
                   </div>
                 ) : (
