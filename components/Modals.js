@@ -5,7 +5,7 @@ import StarRating from "./StarRating";
 /* Модальное окно "отзывы и рейтинг" */
 export function ModalRating({ rate = 0, comments = 0, modal, mobile }) {
 	return (
-		<div className="modal__wrapper_md accountContainer">
+		<div className="modal__wrapper_md">
 			<div className="modal__block__top accountTop">
 				<>
 					{mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}

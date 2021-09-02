@@ -101,7 +101,7 @@ export default function ContentPlaseOffer({dialog, title, backFunc}) {
             <Promotion dialog={promotion} setDialog={setPromotion} product={promotionProduct}/>
         ) : 
         <Dialog open={dialog || false} fullScreen={true}>
-                <div className="modal__wrapper_md accountContainer">
+                <div className="modal__wrapper_md">
                     <div className="modal__block__top accountTop">
                         <>
                             <div onClick={() => backFunc()} className="accountArrowLeft"></div>
