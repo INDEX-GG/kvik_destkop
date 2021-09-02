@@ -20,32 +20,27 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const socket = io('http://localhost:8000', {transports: ['websocket']})
-
+const socket = io('http://192.168.8.111:6066', {transports: ['websocket']})
+console.log(socket);
 const Messenger = () => {
 	const classes = useStyles();
 	const [msg, setMsg] = useState('');
 	const [msgList, setMsgList] = useState([]);
 
 	const handleSend = () => {
-		socket.emit('name1', {post: msg})
+		console.log('Отправка')
+		socket.emit('message', msg)
 	}
 
-	socket.on('name2', (data) => {
-		
-		if (msgList.length > 0) {
-			setMsgList([...msgList, data])
-		} else {
-			setMsgList(data)
-		}		
+	socket.on('message', (data) => {
+		console.log(data);
+		setMsgList(data)
 	})
 
 	return (
 		<Container className={classes.root} maxWidth='sm'>
-			<Box className={classes.chat}>
-				{msgList && msgList?.map((item, i) => {
-					return <Typography key={i}>{item}</Typography>
-				})}
+			<Box>
+			<Typography>{JSON.stringify(msgList)}</Typography>
 			</Box>
 			<TextField
 				size='small'
