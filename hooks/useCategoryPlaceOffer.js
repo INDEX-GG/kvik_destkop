@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
-
+import { BASE_URL } from "../lib/constants";
 export const useCategoryPlaceOffer = (data) => {
 
     const [zxc, setZxc] = useState(undefined),
@@ -275,7 +275,7 @@ export const useCategoryPlaceOffer = (data) => {
 
     useEffect(() => {
         if (nameTitile !== undefined && nameTitile !== 'undefined') {
-            axios.get(`/subcategories/` + nameTitile + `.json`)
+            axios.get(`${BASE_URL}/subcategories/` + nameTitile + `.json`)
                 .then((result) => setZxc(result.data[nameTitile]))
                 .catch(() => {
                     setZxc()
