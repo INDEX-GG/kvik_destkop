@@ -407,7 +407,6 @@ export default function Auto({ data }) {
                                                                                     className={classes.input}
                                                                                     control={methods.control}
                                                                                     defaultValue={item.value[0]}
-
                                                                                     render={({ field: { onChange, value } }) => (
                                                                                         <TextField
                                                                                             className={classes.input}
@@ -496,7 +495,7 @@ export default function Auto({ data }) {
                                         <Typography className={classes.formTitleField}>{item.name}</Typography>
                                         <Box className={classes.formInputField}>
                                             <Controller
-                                                name={"listRec"}
+                                                name={item.alias}
                                                 control={methods.control}
                                                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                                                     <TextField
@@ -569,44 +568,25 @@ export default function Auto({ data }) {
                                     {item.fields.map((item, i) => {
 
                                         return (
-
-                                            <FormControlLabel
+                                            <Controller
                                                 key={i}
-
-                                                className={classes.check}
-                                                control={
-                                                    <Checkbox
-                                                        color='primary'
-                                                        icon={<OutlinedIcon />}
-                                                        checkedIcon={<Filledicon />}
-                                                    // checked={value}
-                                                    // onChange={(e) => onChange(e.target.checked)}
+                                                render={({ field }) => (
+                                                    <FormControlLabel
+                                                        {...field}
+                                                        className={classes.check}
+                                                        control={
+                                                            <Checkbox
+                                                                color='primary'
+                                                                icon={<OutlinedIcon />}
+                                                                checkedIcon={<Filledicon />}
+                                                            />
+                                                        }
+                                                        label={item}
                                                     />
-                                                }
-                                                label={item}
+                                                )}
+                                                name={item}
+                                                control={methods.control}
                                             />
-
-
-                                            /*                                             <Controller
-                                                                                            key={i}
-                                                                                            name={item}
-                                                                                            control={methods.control}
-                                                                                            
-                                                                                            render={({ field: { onChange, value } }) => (
-                                                                                                <Checkbox
-                                                                                                    className={classes.check}
-                                                                                                    color='primary'
-                                                                                                    icon={<OutlinedIcon />}
-                                                                                                    checkedIcon={<Filledicon />}
-                                                                                                    checked={value}
-                                                                                                    onChange={(e) => onChange(e.target.checked)}
-                                                                                                    label="End"
-                                                                                                />
-                                                                                                
-                                                                                            )}
-                                                                                           
-                                                                                        /> */
-
                                         )
                                     })}
                                 </Box>
