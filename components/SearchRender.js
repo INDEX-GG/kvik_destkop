@@ -81,7 +81,7 @@ const OffersRender = ({ data, title, endMessage = true }) => {
 				</div>
 				{data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null}
 			<div className={classes.messageEnd}>
-				{endMessage && data?.length ? <EndMessage/> : null}
+				{/* {endMessage && data?.length ? <EndMessage/> : null} */}
 			</div>
 			<ScrollTop />
 		</>

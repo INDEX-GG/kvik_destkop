@@ -51,6 +51,20 @@
   border-radius: 2px;
 }
 
+
 // .productSliderNav .swiper-slide-thumb-active {
 // border: 6px solid #52b9c5;
 // }
+
+
+@media (max-width: 1024px) {
+	.productSliderNav {
+		max-width: 918px;
+	}
+}
+
+@media (max-width: 900px) {
+	.productSliderNav {
+		max-width: 820px;
+	}
+}

@@ -186,12 +186,12 @@ function Buy() {
                     <BuyDelivery/>
                 </Box>
                 <aside className={classes.buyAd}>
-                    <div className={classes.buyAdItem}>
+                    {/* <div className={classes.buyAdItem}>
                         <Image src='/img/joker1.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
                     </div>
                     <div className={classes.buyAdItem}>
                         <Image src='/img/joker2.png' width={224} height={480} placeholder="blur" blurDataURL='default'/>
-                    </div>
+                    </div> */}
                 </aside>
             </Container>
         </MetaLayout>

@@ -261,8 +261,8 @@ const Product = () => {
 								</div>
 								{!matchesMobile && !matchesTablet && !matchesLaptop && (
 									<div className="showsmthWrapper">
-										<div className="freedomBlock_1"></div>
-										<div className="freedomBlock_2"></div>
+										{/* <div className="freedomBlock_1"></div>
+										<div className="freedomBlock_2"></div> */}
 									</div>
 								)}
 							</div>
@@ -296,8 +296,8 @@ const Product = () => {
 								<div className="productPageSimilar__advertisement">
 									{!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
 										<div className="showsmthWrapper">
-											<div className="freedomBlock_1"></div>
-											<div className="freedomBlock_2"></div>
+											{/* <div className="freedomBlock_1"></div>
+											<div className="freedomBlock_2"></div> */}
 										</div>
 									)}
 								</div>

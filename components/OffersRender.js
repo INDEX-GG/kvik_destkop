@@ -90,7 +90,7 @@ const OffersRender = ({ data, title, isProduct, endMessage = true }) => {
 					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
-				{endMessage ? <EndMessage/> : null}
+				{/* {endMessage ? <EndMessage/> : null} */}
 		</>
 	);
 };

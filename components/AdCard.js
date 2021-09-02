@@ -76,11 +76,12 @@ function AdCard_component({ offer }) {
 		}
 	}
 
+
 	const { matchesMobile, matchesTablet } = useMedia();
 	return (
 		<div
 			className={offer.commercial === 2 ? "card card__lg" : "card"}
-			onClick={() => setOfferId(offer.id)}
+			onClick={() => setOfferId ? setOfferId(offer.id) : console.log(setOfferId)}
 			onContextMenu={(e) => handleCM(e)}
 			onMouseDown={(e) => handleWheelClick(e, offer.id)}
 		>
