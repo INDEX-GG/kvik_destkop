@@ -1,4 +1,4 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Box, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({

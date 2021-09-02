@@ -43,8 +43,8 @@ export default function ProductAction(data) {
               <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
                 {(objP.adstatus !== 7) && (data.user_id === id) ? (
                   <div className="SellerInfoTopButtons">
-                    <a className="SellerInfoStatShow underline highlight" onClick={() => setOpenStatForm(!openStatForm)}>
-                      Статистика
+                    <a className="SellerInfoStatShow underline highlight" onClick={() => setOpenStatForm(!openStatForm)}> 
+                      {/* Статистика */}
                     </a>
                   </div>
                 ) : (
@@ -101,12 +101,12 @@ export default function ProductAction(data) {
               {data.user_id !== id && <div className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")} >Купить</div>}
               {objP.adstatus !== 7 && (
                 <div className="ad__block_middle">
-                  {data.user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""}
+                  {/* {data.user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""} */}
                   {data.user_id === id ? (
                     <div className="ad__block_middle__description_service">
                       {/* потом восстановить! */}
                       {/* <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> */}
-                      <span className="service_days_left">Осталось 30 дней</span>
+                      {/* <span className="service_days_left">Осталось 30 дней</span> */}
                     </div>
                   ) : (
                     ""

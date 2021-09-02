@@ -18,9 +18,10 @@ const initialState = {
 };
 
 function AdCard_component({ offer }) {
-	
+
 	const { id } = useAuth();
 	const { userInfo, setLikeComment } = useStore();
+	// console.log(userInfo.favorites.filter(item => item.post_id === 295).map(item => item.comment)[0])
 	const currentSwiper = useRef();
 	let sheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
@@ -134,17 +135,17 @@ function AdCard_component({ offer }) {
 								{call && offer.user_id != id ? <span href="#" className="card_call"></span> : ''}
 							</div>}
 						<div className="card__top_info_right">
-							{!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''}
+							{/* {!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''} */}
 							{offer.user_id != id ? (
 								userInfo !== undefined && userInfo.favorites.length > 0 && userInfo.favorites && userInfo.favorites.filter(item => item.post_id == offer.id)?.[0]?.condition ?
 									<IconButton
-										onClick={() => setLikeComment(offer.id, '', false)}
+										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites !== undefined && userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false)}
 										color='primary'
 										className='card_like'>
 										<FavoriteRoundedIcon />
 									</IconButton> :
 									<IconButton
-										onClick={() => setLikeComment(offer.id, '', true)}
+										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites !== undefined && userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true)}
 										color='secondary'
 										className='card_like'>
 										<FavoriteBorderRoundedIcon />

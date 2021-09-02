@@ -12,11 +12,13 @@
     }
     &:hover &__top_info_right .card_compare {
         transform: translateX(0);
-        transition-delay: 210ms ;
+        transition-delay: 210ms;
+        filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 10));
     }
     &:hover &__top_info_right .card_like {
         transform: translateX(0);
         transition-delay: 280ms ;
+        filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 10));
     }
     &__lg {
         grid-column-start: span 2;

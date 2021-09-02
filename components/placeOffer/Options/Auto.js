@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, makeStyles, TextField, Typography, MenuItem } from '@material-ui/core';
+import { Box, makeStyles, TextField, Typography, MenuItem, Checkbox } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import axios from 'axios';
 import ColorAuto from '../../json/color.json'
 import { OnlyNumbersMask, cursorReplace } from '../../../lib/onlyNumbersMask';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
+import Filledicon from '@material-ui/icons/Brightness1';
 
 const useStyles = makeStyles((theme) => ({
     formInputMainField: {
@@ -25,6 +28,16 @@ const useStyles = makeStyles((theme) => ({
     },
     formInputField: {
         width: '490px',
+    },
+    formInputFieldCheck: {
+        width: '490px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        marginBottom: '32px',
+    },
+    check: {
+        width: '50%',
+        margin: '0'
     },
     input: {
         width: '264px',
@@ -394,7 +407,6 @@ export default function Auto({ data }) {
                                                                                     className={classes.input}
                                                                                     control={methods.control}
                                                                                     defaultValue={item.value[0]}
-
                                                                                     render={({ field: { onChange, value } }) => (
                                                                                         <TextField
                                                                                             className={classes.input}
@@ -483,7 +495,7 @@ export default function Auto({ data }) {
                                         <Typography className={classes.formTitleField}>{item.name}</Typography>
                                         <Box className={classes.formInputField}>
                                             <Controller
-                                                name={"listRec"}
+                                                name={item.alias}
                                                 control={methods.control}
                                                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                                                     <TextField
@@ -494,7 +506,7 @@ export default function Auto({ data }) {
                                                         onChange={onChange}
                                                         error={!!error}
                                                         helperText={error ? error.message : ' '}>
-                                                        {item.fields.map((item, i) => (
+                                                        {item.fields?.map((item, i) => (
                                                             <MenuItem key={i} value={item}>
                                                                 {item}
                                                             </MenuItem>
@@ -547,10 +559,40 @@ export default function Auto({ data }) {
                     case 'checkboxRec':
 
                         break;
-
                     case 'checkbox':
 
-                        break;
+                        return (
+                            <Box className={classes.formInputMainField}>
+                                <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                <Box className={classes.formInputFieldCheck}>
+                                    {item.fields.map((item, i) => {
+
+                                        return (
+                                            <Controller
+                                                key={i}
+                                                render={({ field }) => (
+                                                    <FormControlLabel
+                                                        {...field}
+                                                        className={classes.check}
+                                                        control={
+                                                            <Checkbox
+                                                                color='primary'
+                                                                icon={<OutlinedIcon />}
+                                                                checkedIcon={<Filledicon />}
+                                                            />
+                                                        }
+                                                        label={item}
+                                                    />
+                                                )}
+                                                name={item}
+                                                control={methods.control}
+                                            />
+                                        )
+                                    })}
+                                </Box>
+                            </Box>
+
+                        )
 
                     case 'radio':
 

@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 export const useCategoryPlaceOffer = (data) => {
 
     const [zxc, setZxc] = useState(undefined),
         nameTitile = data?.toLowerCase();
-
     let newOBJ = [];
 
-
-
     if (zxc?.length != undefined) {
-
         for (var i = 0; i < zxc?.length; i++) {
-
             newOBJ?.push(zxc[i])
-
             switch (zxc[i].alias) {
                 case 'type_park_auto':
                 case 'model':
@@ -56,6 +50,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'type_fuel':
                 case 'diameter':
                 case 'room_number':
+                case 'exchange_is_possible':
                     newOBJ[i].type = 'listRec'
                     break;
 
@@ -90,6 +85,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'sim_availability':
                 case 'battery_life':
                 // case 'power':
+                // eslint-disable-next-line no-fallthrough
                 case 'certification':
                 case 'sim_exist':
                 case 'communication':
@@ -137,10 +133,12 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'car_goods':
                 case 'brake_type':
                 // case 'model':
+                // eslint-disable-next-line no-fallthrough
                 case 'suspension_type':
                 case 'series_home':
                 case 'trailer_type':
                 // case 'model':
+                // eslint-disable-next-line no-fallthrough
                 case 'repairs':
                 case 'tenure':
                 case 'furniture':
@@ -255,7 +253,6 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'salon':
                 case 'support_systems':
                 case 'multimedia_and_navigation':
-                case 'exchange_is_possible':
                     newOBJ[i].type = 'checkbox'
                     break;
 
@@ -271,32 +268,7 @@ export const useCategoryPlaceOffer = (data) => {
                 default:
                     break;
             }
-
-
-
-
         }
-
-        // for (var i = 0; i < zxc?.length; i++) {
-        //     (newOBJ?.push(JSON.parse(((zxc[i]?.split('"').join(''))?.split("'").join('"')))))
-
-        //     // switch (newOBJ[i].alias) {
-        //     //     case value:
-
-        //     //         break;
-
-        //     //     default:
-        //     //         break;
-        //     // }
-
-
-        //     newOBJ[i].type = 'qweq'
-
-        // }
-
-
-
-
     } else {
         newOBJ = undefined
     }
@@ -305,7 +277,7 @@ export const useCategoryPlaceOffer = (data) => {
         if (nameTitile !== undefined && nameTitile !== 'undefined') {
             axios.get(`/subcategories/` + nameTitile + `.json`)
                 .then((result) => setZxc(result.data[nameTitile]))
-                .catch((e) => {
+                .catch(() => {
                     setZxc()
                 })
         } else {

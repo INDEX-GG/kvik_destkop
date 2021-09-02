@@ -161,13 +161,11 @@ const Product = () => {
 													<div className="SellerInfo__adaptive_info">
 														<div className="SellerInfo__adaptive_info_top">
 															<div className="SellerInfoSeen dark"> {reviewed} +4</div>
-															{user_id !== id ? (
-																""
-															) : (
+															{user_id === id ? (
 																<a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)}>
-																	Статистика
-																</a>
-															)}
+																	{/* Статистика */}
+																</a>)
+																:""}
 														</div>
 														<div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div>
 														{user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
@@ -185,10 +183,10 @@ const Product = () => {
 													{objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
 													{objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
 													{objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}
-													{user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""}
+													{/* {user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""} */}
 													<div className="ad__block_middle__description_service">
-														{user_id === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ""}
-														{user_id === id ? <span className="service_days_left">Осталось 30 дней</span> : ""}
+														{/* {user_id === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ""} */}
+
 
 														<div className="SellerInfo__adaptive_buttons__top">
 															{user_id !== id ? (

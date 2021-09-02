@@ -353,6 +353,5 @@ li {
 .SellerInfoAboutDeal,
 .SellerInfoBuy,
 .SellerInfo__adaptive_information {
-  display: none !important;
-  overflow: hidden !important;
+  visibility: hidden !important;
 }
