@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
     buyDileveryName: {
         display: "flex",
-        position: "relative"
+        position: "relative",
     },
     buyDileveryInf: {
         display: "flex",
@@ -53,6 +53,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: "500",
         fontSize: "18px",
         marginRight: "5px",
+		whiteSpace: 'nowrap',
         [theme.breakpoints.down("410")]: {
             fontSize: "15px"
         },
@@ -65,16 +66,6 @@ const useStyles = makeStyles(theme => ({
     buyDileveryDesc: {
         color: "#00A0AB",
         textDecoration: "underline"
-    },
-    buyDileverySend: {
-        marginTop: "24px",
-        position: "relative"
-    },
-    buyDileveryOneTitle: {
-        color: "#8F8F8F",
-        fontSize: "14px",
-        fontWeight: "500",
-		marginBottom: '24px'
     },
 	buyDileveryCircle__active: {
 		backgroundColor: "#00A0AB"

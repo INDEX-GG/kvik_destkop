@@ -13,13 +13,15 @@ export default function ProductCarousel({ photo }) {
 	const [data, setData] = useState(null);
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const {matchesTablet, matchesMobile} = useMedia()
-	const [swiperMethod, seSwiperMethod] = useState(null);
+	const [swiperMethod, setSwiperMethod] = useState(null);
 	const router = useRouter()
 	const [sliderProps, setSliderProps] = useState({
 		slidesPrevPhoto: false,
 		sliderDot: false,
 		sliderNavigation: true
 	});
+
+	const [activeIndex, setActiveIndex] = useState(0);
 
 	useEffect(() => {
 		setData(photo);
@@ -37,17 +39,16 @@ export default function ProductCarousel({ photo }) {
 		}
 	}, [photo])
 
+	useEffect(() => {
+		if (swiperMethod) swiperMethod?.slideTo(activeIndex, 0)
+	}, [activeIndex])
+
 
 	useEffect(() => {
 		if (swiperMethod) {
 			swiperMethod.slideTo(0, 1)
 		}
 	}, [router])
-
-	const onSwiper = (swiper) => {
-		seSwiperMethod(swiper)
-	}
-
 
 	const {slidesPrevPhoto, sliderDot, sliderNavigation} = sliderProps;
 
@@ -58,7 +59,8 @@ export default function ProductCarousel({ photo }) {
 		photo ? 
 		<>
 			<Swiper
-				onSwiper={onSwiper}
+				onSwiper={setSwiperMethod}
+				onActiveIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
 				spaceBetween={10}
 				pagination={{clickable: true, type: 'fraction'}}
 				navigation={true}
@@ -99,7 +101,7 @@ export default function ProductCarousel({ photo }) {
 			</Swiper>
 
 			<Modal className="productModal" open={modal || false} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-				<><ProductModalCarousel photo={data} /></>
+				<><ProductModalCarousel activeSlideIndex={activeIndex} setActiveSlideIndex={setActiveIndex} photos={data} /></>
 			</Modal>
 		</> 
 		: null

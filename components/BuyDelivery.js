@@ -1,75 +1,11 @@
 import React, { useState } from "react"
 import { makeStyles, /* Collapse, */ } from "@material-ui/core"
-import theme from "../UI/theme"
 import SelectBuy from "./SelectBuy"
 import DeliveryBuyerForm from "./DeliveryBuyerForm"
 import BuyDeliveryItem from "./BuyDeliveryItem"
 import BuyDeliveryMap from "./BuyDeliveryMap"
 
 const useStyles = makeStyles(() => ({
-    buyDilevery: {
-        marginBottom: "32px",
-        width: "100%",
-        // maxWidth: "976px",
-    },
-    buyDileveryBox: {
-        padding: "4px 0",
-        borderRadius: "8px",
-        position: "relative",
-        cursor: "pointer",
-        transition: ".2s all linear",
-        "&:hover": {
-            backgroundColor: "#E9E9E9"
-        }
-    },
-    buyDeliveryName: {
-        display: "flex",
-        position: "relative"
-    },
-    buyDileveryInf: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-    buyDileveryCircle: {
-        position: "absolute",
-        left: "12px",
-        width: "16px",
-        height: "16px",
-        borderRadius: "50%",
-        border: "1px solid #000",
-    },
-    buyDileveryTitle: {
-        fontWeight: "500",
-        color: "#2C2C2C",
-        fontSize: "18px",
-        position: "relative",
-        marginLeft: "38px",
-        [theme.breakpoints.down("410")]: {
-            fontSize: "16px"
-        },
-        [theme.breakpoints.down("375")]: {
-            fontSize: "14px"
-        }
-    },
-    buyDileveryPrice: {
-        color: "#00A0AB",
-        fontWeight: "500",
-        fontSize: "18px",
-        marginRight: "5px",
-        [theme.breakpoints.down("410")]: {
-            fontSize: "15px"
-        },
-    },
-    buyDileverySubtitle: {
-        fontSize: "12px",
-        color: "#8F8F8F",
-        margin: "8px 0 0 12px"
-    },
-    buyDileveryDesc: {
-        color: "#00A0AB",
-        textDecoration: "underline"
-    },
     buyDileverySend: {
         marginTop: "24px",
         position: "relative"
@@ -83,10 +19,10 @@ const useStyles = makeStyles(() => ({
     buyDileveryOneAdressBlock: {
         display: "flex",
         justifyContent: "space-between",
-        // alignItems: "center",
         flexWrap: "wrap"
     },
     buyDileveryOneAdressBox: {
+		marginRight: '10px',
         '& > *:nth-of-type(2)': {
             marginBottom: '16px'
         }
@@ -123,118 +59,54 @@ const useStyles = makeStyles(() => ({
     },
     mt24: {
         marginTop: "32px"
-    },
-    paragraph: {
-        height: "585px",
-        padding: "8px 12px",
-        [theme.breakpoints.down("xs")]: {
-            height: "100vh",
-            // width: "100%",
-            // maxWidth: "500px"
-        }
-    },
-    paragraphTitle: {
-        color: "#2C2C2C",
-        fontSize: "18px",
-        fontWeight: "500",
-        borderBottom: "1px solid #E9E9E9",
-        paddingBottom: '10px',
-        marginBottom: '12px'
-
-    },
-    paragraphMenu: {
-        display: "flex",
-        marginBottom: "32px"
-    },
-    paragraphMenuItem: {
-        width: "100%",
-        textAlign: "center",
-        paddingBottom: "8px",
-        borderBottom: "2px solid #E9E9E9",
-        borderRadius: "2px"
-    },
-    paragraphMenuItemActive: {
-        borderBottom: "4px solid #FFF6A5"
-    },
-    paragraphBox: {
-        display: "flex",
-    },
-    paragraphList: {
-        width: "100%",
-        marginRight: "12px",
-        maxHeight: '522px',
-        overflow: 'scroll',
-        [theme.breakpoints.down(600)]: {
-            maxHeight: 'none',
-        }
-    },
-    paragraphItem: {
-        fontSize: "12px",
-        color: "#8F8F8F",
-        width: "194px",
-        height: "98px",
-        borderRadius: "8px",
-        marginRight: '40px',
-        padding: "8px",
-        transition: ".2s all linear",
-        "&:hover": {
-            backgroundColor: "#E9E9E9"
-        },
-        [theme.breakpoints.down("xs")]: {
-            width: "100%"
-        }
-    },
-    paragraphAdress: {
-        color: "#2C2C2C",
-        fontWeight: "500"
-    },
-    paragraphMap: {
-        width: "362px",
-        height: "522px",
-        backgroundColor: "#2C2C2C",
-        borderRadius: "8px",
-        [theme.breakpoints.down(660)]: {
-            width: '300px'
-        },
-        [theme.breakpoints.down("xs")]: {
-            width: "100%",
-            height: "400px",
-            marginBottom: "24px",
-        }
-    },
-    buyPaymentButton: {
-        position: "absolute",
-        left: "50%",
-        transform: "translateX(-50%)",
-        backgroundColor: "#00A0AB",
-        color: "#fff",
-        fontWeight: "500",
-        "&:hover": {
-            backgroundColor: "#00A0AB"
-        }
-    },
-    dialogTitle: {
-        textAlign: "center",
-        padding: "16px 0px 12px",
-        boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
-        marginBottom: "24px"
-    },
-    paragraphNumber: {
-        marginBottom: "4px"
-    },
-    containerMap: {
-        [theme.breakpoints.down(600)]: {
-            padding: "0 24px"
-        }
-    },
-    paragraphContainer: {
-        padding: "8px 12px 12px"
     }
 }))
 
 function BuyDelivery() {
 	const [dialogMap, setDialogMap] = useState(false);
     const classes = useStyles()
+
+	const mapAddress = [{
+		id: '1',
+		adress: 'Челябинск, ул. Елькина, 92в',
+		time: 'пн-пт: 8:00-20:00, сб: 9:00-16:00',
+		phone: '+7 (000) 000-00-00',
+		have: true
+	}, {
+		id: '2',
+		adress: 'Челябинск, ул. Елькина, 92в',
+		time: 'пн-пт: 8:00-20:00, сб: 9:00-16:00',
+		phone: '+7 (000) 000-00-00',
+		have: false
+	},
+	{	
+		id: '3',
+		adress: 'Челябинск, ул. Елькина, 92в',
+		time: 'пн-пт: 8:00-20:00, сб: 9:00-16:00',
+		phone: '+7 (000) 000-00-00',
+		have: true
+	},
+	{
+		id: '4',
+		adress: 'Челябинск, ул. Елькина, 92в',
+		time: 'пн-пт: 8:00-20:00, сб: 9:00-16:00',
+		phone: '+7 (000) 000-00-00',
+		have: true
+	},
+	{
+		id: '5',
+		adress: 'Челябинск, ул. Елькина, 92в',
+		time: 'пн-пт: 8:00-20:00, сб: 9:00-16:00',
+		phone: '+7 (000) 000-00-00',
+		have: true
+	},
+	{
+		id: '6',
+		adress: 'Челябинск, ул. Елькина, 92в',
+		time: 'пн-пт: 8:00-20:00, сб: 9:00-16:00',
+		phone: '+7 (000) 000-00-00',
+		have: false
+	}]
 
     return (
         <>
@@ -262,7 +134,7 @@ function BuyDelivery() {
                 <p className={classes.buyDileveryPickupDesc}>Договаривайтесь с продавцом о месте и времени передачи товара самостоятельно. Деньги за оплату товара продавец получит только после того, как вы подтвердите успешное получение товара. А в случае возникновения спорной ситуации, уладить возникшие разногласия поможет сервис «Безопасная сделка».</p>
             </BuyDeliveryItem>
             <SelectBuy />
-			<BuyDeliveryMap dialog={dialogMap} setDialog={setDialogMap} />
+			<BuyDeliveryMap addressArr={mapAddress} dialog={dialogMap} setDialog={setDialogMap} />
         </>
     )
 }
