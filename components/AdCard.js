@@ -20,7 +20,6 @@ const initialState = {
 function AdCard_component({ offer }) {
 	
 	const { id } = useAuth();
-	const { setOfferId } = useStore();
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
 	let sheduled = false;
@@ -80,7 +79,6 @@ function AdCard_component({ offer }) {
 	return (
 		<div
 			className={offer.commercial === 2 ? "card card__lg" : "card"}
-			onClick={() => setOfferId(offer.id)}
 			onContextMenu={(e) => handleCM(e)}
 			onMouseDown={(e) => handleWheelClick(e, offer.id)}
 		>
