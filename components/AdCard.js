@@ -20,7 +20,6 @@ const initialState = {
 function AdCard_component({ offer }) {
 	
 	const { id } = useAuth();
-	const { setOfferId } = useStore();
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
 	let sheduled = false;

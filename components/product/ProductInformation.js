@@ -46,7 +46,8 @@ export default function ProductInformation(data) {
                 </div>*/}
 						<div>
 							{!matchesMobile && !matchesTablet && <div className="productLocality">Описание</div>}
-							<div>{data.description}</div>
+							{console.log(data.description)}
+							<pre className='productDescription'>{data.description}</pre>
 						</div>
 					</>
 				}
