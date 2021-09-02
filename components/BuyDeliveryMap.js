@@ -14,7 +14,7 @@ const BuyDeliveryMap = ({dialog, setDialog}) => {
 	const {matchesMobile} = useMedia();
 	
 
-	function paragraphBox(map = false, xs = false, buttonName = matchesMobile ? "Перейти к оплате" : "Выбрать этот пункт") {
+	/* function paragraphBox(map = false, xs = false, buttonName = matchesMobile ? "Перейти к оплате" : "Выбрать этот пункт") {
         return (
             <div className={`${classes.paragraphBox} ${matchesMobile ? classes.paragraphContainer : ""}`}>
                 <div className={classes.paragraphList}>
@@ -61,18 +61,17 @@ const BuyDeliveryMap = ({dialog, setDialog}) => {
                     </div> : null}
             </div>
         )
-    }
+    } */
 
-    function paragraphMap() {
-        return (
-            <>
-                <div className={classes.paragraphContainer}>
-                    <div className={classes.paragraphMap}></div>
-                </div>
-                {paragraphBox(false, true, "Выбрать этот пункт")}
-            </>
-        )
-    }
+    // function paragraphMap() {
+    //     return (
+    //             <div className={classes.paragraphContainer}>
+    //                 <div className={classes.paragraphMap}></div>
+    //             </div>
+    //             {paragraphBox(false, true, "Выбрать этот пункт")}
+    //         </>
+    //     )
+    // }
 
 
 	return (

@@ -80,7 +80,6 @@ function AdCard_component({ offer }) {
 	return (
 		<div
 			className={offer.commercial === 2 ? "card card__lg" : "card"}
-			onClick={() => setOfferId ? setOfferId(offer.id) : console.log(setOfferId)}
 			onContextMenu={(e) => handleCM(e)}
 			onMouseDown={(e) => handleWheelClick(e, offer.id)}
 		>
