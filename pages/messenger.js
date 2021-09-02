@@ -2,8 +2,6 @@ import {useState} from 'react';
 import { Box, Button, Container, makeStyles, TextField, Typography } from '@material-ui/core';
 import {io} from 'socket.io-client';
 
-const socket = io('http://localhost:8000', {transports: ['websocket']})
-
 const useStyles = makeStyles(() => ({
 	root: {
 		display: 'flex',
@@ -21,6 +19,9 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
+
+const socket = io('http://localhost:8000', {transports: ['websocket']})
+
 const Messenger = () => {
 	const classes = useStyles();
 	const [msg, setMsg] = useState('');
@@ -31,6 +32,7 @@ const Messenger = () => {
 	}
 
 	socket.on('name2', (data) => {
+		
 		if (msgList.length > 0) {
 			setMsgList([...msgList, data])
 		} else {
@@ -41,7 +43,9 @@ const Messenger = () => {
 	return (
 		<Container className={classes.root} maxWidth='sm'>
 			<Box className={classes.chat}>
-				<Typography>{JSON.stringify(msgList)}</Typography>
+				{msgList && msgList?.map((item, i) => {
+					return <Typography key={i}>{item}</Typography>
+				})}
 			</Box>
 			<TextField
 				size='small'
