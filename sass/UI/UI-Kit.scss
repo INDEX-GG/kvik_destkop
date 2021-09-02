@@ -352,7 +352,7 @@ li {
 .SellerInfo__adaptive_info_top,
 .SellerInfoAboutDeal,
 .SellerInfoBuy,
-.SellerInfo__adaptive_information {
-  display: none !important;
-  overflow: hidden !important;
+.SellerInfo__adaptive_information,
+.SellerInfoTopButtons {
+  visibility: hidden !important;
 }
