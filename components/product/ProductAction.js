@@ -50,9 +50,10 @@ export default function ProductAction(data) {
                 ) : (
                   ""
                 )}
-                {data.user_id === undefined ? '' :
+                {data.user_id == id ||
+                  data.user_id === undefined ? '' :
                   <div className="SellerInfoTopButtons">
-                    <Favorits isProduct idOffer={+data.router}/>
+                    <Favorits isProduct idOffer={+data.router} />
                     <a className="SellerInfoCompare"></a>
                   </div>
                 }
@@ -95,7 +96,7 @@ export default function ProductAction(data) {
         {!matchesMobile && !matchesTablet && (
           data.user_id == undefined ?
             <div className='product__placeholder_ProductAction_main'><div className="placeholder_animation product__placeholder_ProductAction_two "></div>
-            <div className="placeholder_animation product__placeholder_ProductAction_two_tow "></div> </div> :
+              <div className="placeholder_animation product__placeholder_ProductAction_two_tow "></div> </div> :
             <>
               {data.user_id !== id && <div className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")} >Купить</div>}
               {objP.adstatus !== 7 && (
@@ -103,7 +104,8 @@ export default function ProductAction(data) {
                   {data.user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""}
                   {data.user_id === id ? (
                     <div className="ad__block_middle__description_service">
-                      <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span>
+                      {/* потом восстановить! */}
+                      {/* <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> */}
                       <span className="service_days_left">Осталось 30 дней</span>
                     </div>
                   ) : (

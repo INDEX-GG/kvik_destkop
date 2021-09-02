@@ -51,7 +51,7 @@
 .productPageCharacter > div {
     border-bottom: 1px solid $light;
     display: flex;
-    align-items: center;
+    align-items: start;
 }
 .productPageCharacter > div > div {
     display: table-cell;
@@ -369,6 +369,10 @@
 }
 
 /* Характеристики объявления */
+.productDescription{
+    margin: 18px 0;
+}
+
 .productPageCharacterMapBlock {
     border-bottom: 1px solid $light;
     transition: all 650ms ease-in-out;

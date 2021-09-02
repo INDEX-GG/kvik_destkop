@@ -60,7 +60,15 @@ button {
 img {
   pointer-events: none;
 }
-p {
+
+pre {
+  font-family: "Roboto";
+  font-weight: 14px;
+  color: $tp;
+  white-space: break-spaces;
+}
+p,
+pre {
   margin: 0;
 }
 a {
@@ -289,7 +297,7 @@ li {
   display: block;
   width: 24px;
   height: 24px;
-//   background: url(../../icons/new_like.svg) center no-repeat;
+  //   background: url(../../icons/new_like.svg) center no-repeat;
   cursor: pointer;
   transform: translateX(100px);
   transition: 180ms ease-in-out;
@@ -340,9 +348,11 @@ li {
   background: no-repeat url(../../icons/like_o_green.svg) !important;
 }
 
-
 /* удалить когда надо будет */
-.SellerInfo__adaptive_info_top, .SellerInfoAboutDeal, .SellerInfoBuy, .SellerInfo__adaptive_information{
+.SellerInfo__adaptive_info_top,
+.SellerInfoAboutDeal,
+.SellerInfoBuy,
+.SellerInfo__adaptive_information {
   display: none !important;
   overflow: hidden !important;
 }
