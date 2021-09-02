@@ -1,6 +1,6 @@
+
 import React from 'react';
 import { useMedia } from '../hooks/useMedia';
-
 
 const MobileModal = ({title, subtitle = false, close, children}) => {
 	const {matchesMobile, matchesTablet} = useMedia();
@@ -21,4 +21,4 @@ const MobileModal = ({title, subtitle = false, close, children}) => {
 	)
 }
 
-export default MobileModal;
+export default MobileModal; */

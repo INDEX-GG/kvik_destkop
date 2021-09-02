@@ -490,36 +490,40 @@ export default function Auto({ data }) {
                                     </>
                                 )
                             default:
-                                return (
-                                    <Box className={classes.formInputMainField}>
-                                        <Typography className={classes.formTitleField}>{item.name}</Typography>
-                                        <Box className={classes.formInputField}>
-                                            <Controller
-                                                name={item.alias}
-                                                control={methods.control}
-                                                render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                                    <TextField
-                                                        select
-                                                        className={classes.input}
-                                                        variant='outlined'
-                                                        value={value}
-                                                        onChange={onChange}
-                                                        error={!!error}
-                                                        helperText={error ? error.message : ' '}>
-                                                        {item.fields?.map((item, i) => (
-                                                            <MenuItem key={i} value={item}>
-                                                                {item}
-                                                            </MenuItem>
-                                                        ))}
-                                                    </TextField>
-                                                )}
-                                                rules={{ required: 'Выбирите ' + item.name }}
-                                            />
 
+                                return (
+                                    
+                                        <Box className={classes.formInputMainField}>
+                                            <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                            <Box className={classes.formInputField}>
+                                                <Controller
+                                                    name={item.alias}
+                                                    control={methods.control}
+                                                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                                        <TextField
+                                                            select
+                                                            className={classes.input}
+                                                            variant='outlined'
+                                                            value={value}
+                                                            onChange={onChange}
+                                                            error={!!error}
+                                                            helperText={error ? error.message : ' '}>
+                                                            {item.fields?.map((item, i) => (
+                                                                <MenuItem key={i} value={item}>
+                                                                    {item}
+                                                                </MenuItem>
+                                                            ))}
+                                                        </TextField>
+                                                    )}
+                                                    rules={{ required: 'Выбирите ' + item.name }}
+                                                />
+
+                                            </Box>
                                         </Box>
-                                    </Box>
+                                   
                                 )
                         }
+
                     case 'list':
 
                         break;
@@ -528,28 +532,30 @@ export default function Auto({ data }) {
                         console.log(data)
 
                         return (
-                            <Box className={classes.formInputMainField}>
-                                <Typography className={classes.formTitleField}>{item.name}</Typography>
-                                <Box className={classes.formInputField}>
-                                    <Controller
-                                        name={item.alias}
-                                        control={methods.control}
-                                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                            <TextField
-                                                className={classes.input}
-                                                variant='outlined'
-                                                value={value}
-                                                onKeyDown={e => cursorReplace(e, item.name)}
-                                                onChange={e => onChange(OnlyNumbersMask(e, item.name))}
-                                                error={!!error}
-                                                helperText={error ? error.message : ' '}>
-                                            </TextField>
-                                        )}
-                                        rules={{ required: 'Выбирите ' + item.name }}
-                                    />
+                            
+                                <Box className={classes.formInputMainField}>
+                                    <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                    <Box className={classes.formInputField}>
+                                        <Controller
+                                            name={item.alias}
+                                            control={methods.control}
+                                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                                <TextField
+                                                    className={classes.input}
+                                                    variant='outlined'
+                                                    value={value}
+                                                    onKeyDown={e => cursorReplace(e, item.name)}
+                                                    onChange={e => onChange(OnlyNumbersMask(e, item.name))}
+                                                    error={!!error}
+                                                    helperText={error ? error.message : ' '}>
+                                                </TextField>
+                                            )}
+                                            rules={{ required: 'Выбирите ' + item.name }}
+                                        />
 
+                                    </Box>
                                 </Box>
-                            </Box>
+                            
                         )
 
                     case 'text':
@@ -562,36 +568,37 @@ export default function Auto({ data }) {
                     case 'checkbox':
 
                         return (
-                            <Box className={classes.formInputMainField}>
-                                <Typography className={classes.formTitleField}>{item.name}</Typography>
-                                <Box className={classes.formInputFieldCheck}>
-                                    {item.fields.map((item, i) => {
+                            fullDescription && (
+                                <Box className={classes.formInputMainField}>
+                                    <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                    <Box className={classes.formInputFieldCheck}>
+                                        {item.fields.map((item, i) => {
 
-                                        return (
-                                            <Controller
-                                                key={i}
-                                                render={({ field }) => (
-                                                    <FormControlLabel
-                                                        {...field}
-                                                        className={classes.check}
-                                                        control={
-                                                            <Checkbox
-                                                                color='primary'
-                                                                icon={<OutlinedIcon />}
-                                                                checkedIcon={<Filledicon />}
-                                                            />
-                                                        }
-                                                        label={item}
-                                                    />
-                                                )}
-                                                name={item}
-                                                control={methods.control}
-                                            />
-                                        )
-                                    })}
+                                            return (
+                                                <Controller
+                                                    key={i}
+                                                    render={({ field }) => (
+                                                        <FormControlLabel
+                                                            {...field}
+                                                            className={classes.check}
+                                                            control={
+                                                                <Checkbox
+                                                                    color='primary'
+                                                                    icon={<OutlinedIcon />}
+                                                                    checkedIcon={<Filledicon />}
+                                                                />
+                                                            }
+                                                            label={item}
+                                                        />
+                                                    )}
+                                                    name={item}
+                                                    control={methods.control}
+                                                />
+                                            )
+                                        })}
+                                    </Box>
                                 </Box>
-                            </Box>
-
+                            )
                         )
 
                     case 'radio':
@@ -602,31 +609,33 @@ export default function Auto({ data }) {
                 }
             })
             }
-            <Box className={classes.formInputMainField}>
-                <Typography className={classes.formTitleField}>Цвет</Typography>
-                <Box className={classes.formInputField}>
-                    <Controller
-                        name="color"
-                        control={methods.control}
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <RadioGroup
-                                variant='outlined'
-                                value={value}
-                                error={!!error}
-                                className={classes.formColorMain}
-                                onChange={(e) => onChange(e.target.value)}>
-                                {ColorAuto.map((item, i) => (
-                                    <Box className={color === i ? classes.formColorWrapperActive : classes.formColorWrapper} key={item.name}>
-                                        <Box className={classes.formColor} onClick={() => setColor(i)} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ><Radio className={classes.formRadioColor} value={item.id}></Radio></Box>
-                                    </Box>
-                                ))}
-                                <FormHelperText className={classes.formError}>{error ? error.message : ' '}</FormHelperText>
-                            </RadioGroup>
-                        )}
-                        rules={{ required: 'Выбирите цвет' }}
-                    />
+            {fullDescription && (
+                <Box className={classes.formInputMainField}>
+                    <Typography className={classes.formTitleField}>Цвет</Typography>
+                    <Box className={classes.formInputField}>
+                        <Controller
+                            name="color"
+                            control={methods.control}
+                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                <RadioGroup
+                                    variant='outlined'
+                                    value={value}
+                                    error={!!error}
+                                    className={classes.formColorMain}
+                                    onChange={(e) => onChange(e.target.value)}>
+                                    {ColorAuto.map((item, i) => (
+                                        <Box className={color === i ? classes.formColorWrapperActive : classes.formColorWrapper} key={item.name}>
+                                            <Box className={classes.formColor} onClick={() => setColor(i)} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ><Radio className={classes.formRadioColor} value={item.id}></Radio></Box>
+                                        </Box>
+                                    ))}
+                                    <FormHelperText className={classes.formError}>{error ? error.message : ' '}</FormHelperText>
+                                </RadioGroup>
+                            )}
+                            rules={{ required: 'Выбирите цвет' }}
+                        />
+                    </Box>
                 </Box>
-            </Box>
+            )}
         </>
     )
 }
