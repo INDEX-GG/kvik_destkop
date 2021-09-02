@@ -19,8 +19,9 @@ const JokerBlock = () => {
 
 	return (
 		<Box className={classes.root} >
-			<Image src='/img/joker2.png' width={224} height={480} placeholder="blur" blurDataURL='default' />
-			<Image src='/img/joker1.png' width={224} height={480} placeholder="blur" blurDataURL='default' />
+			<div style={{width: '224px'}}></div>
+			{/* <Image src='/img/joker2.png' width={224} height={480} placeholder="blur" blurDataURL='default' />
+			<Image src='/img/joker1.png' width={224} height={480} placeholder="blur" blurDataURL='default' /> */}
 		</Box>
 	)
 }

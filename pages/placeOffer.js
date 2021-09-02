@@ -64,6 +64,7 @@ function PlaceOffer() {
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
     let photoes = [];
+	let postId = 0;
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
@@ -115,13 +116,14 @@ console.log(methods)
 
         axios.post(`${BASE_URL}/api/setPosts`, data)
             .then(r => {
+			postId = r?.data?.id;
             axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             }).then((r) => {
                 console.log(r)
-                setProduct({ title: data.title, price: data.price, id: r?.data?.id, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+                setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
                 console.log(product)
 				console.log(r?.data.images.photos[0])
                 setPromotion(true)
