@@ -10,7 +10,7 @@ export default function ProductModalCarousel({photos, activeSlideIndex, setActiv
   const [secondSwiper, setSecondSwiper] = useState(null);
 
   let CarouselPag = { type: "fraction" };
-//   let CarouselInf = true;
+  let CarouselNav = true;
   let SecondCarousel = true;
 
   useEffect(() => {
@@ -39,10 +39,11 @@ export default function ProductModalCarousel({photos, activeSlideIndex, setActiv
   if (photos != undefined) {
     if (photos.length == 1) {
       CarouselPag = false;
-    //   CarouselInf = false;
+      CarouselNav = false;
       SecondCarousel = false;
     }
   }
+
 
   const firstSwiperInit = (swiper) => {
 	  setFirstSwiper(swiper)
@@ -74,7 +75,7 @@ export default function ProductModalCarousel({photos, activeSlideIndex, setActiv
         onSwiper={firstSwiperInit}
 		onActiveIndexChange={changeSwiperOne}
 		pagination={CarouselPag} 
-		navigation={true} 
+		navigation={CarouselNav} 
 		centeredSlides={true} >
         {photos == undefined
           ? ""
