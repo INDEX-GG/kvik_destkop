@@ -1,22 +1,23 @@
-/* import React from 'react';
 
+import React from 'react';
+import { useMedia } from '../hooks/useMedia';
 
 const MobileModal = ({title, subtitle = false, close, children}) => {
-	const {matchesMObi} = 
+	const {matchesMobile, matchesTablet} = useMedia();
 	return (
-		<div className="modal__wrapper_md accountContainer">
-			<div className="modal__block__top accountTop">
+		matchesMobile || matchesTablet ? 
+		<div className="modal__wrapper_md">
+			<div className="modal__block__top mobileModalTop">
 				<>
-					{mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
-					<h6 className="modal__block__top_title accountTitle">Рейтинг и отзывы</h6>
+					{matchesMobile || matchesTablet ? <div className="mobileModalBack" onClick={() => close()}></div> : null}
+					<div className='modalModalTitleBox'>
+                        <h6 className="modal__block__top_title mobileModalTitle">{title}</h6>
+						{subtitle && <div className='mobileModalSubtitle'>{subtitle}</div>}
+                    </div>
 				</>
-				<div className="accountRatingBox">
-					<div className="accountRaitingNumber">{rate ? rate + "." : null}0</div>
-					<StarRating rating={rate} />
-				</div>
+				{children}
 			</div>
-			{children}
-		</div>
+		</div> : null
 	)
 }
 
