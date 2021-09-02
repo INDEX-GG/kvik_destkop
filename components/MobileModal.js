@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 
 
 const MobileModal = ({title, subtitle = false, close, children}) => {
@@ -20,4 +20,4 @@ const MobileModal = ({title, subtitle = false, close, children}) => {
 	)
 }
 
-export default MobileModal;
+export default MobileModal; */
