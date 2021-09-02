@@ -115,7 +115,7 @@ const BuyDeliveryMap = ({addressArr, dialog, setDialog}) => {
                     </div> : null}
             </div>
         )
-    } */
+    }
 
     function paragraphMap() {
         return (
