@@ -8,8 +8,9 @@ const useStyles = makeStyles(() => ({
     plaseOfferInput: {
         boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
         width: "100%",
-        height: "48px",
+        // height: "48px",
         paddingLeft: "11px",
+        paddingRight: "11px",
         paddingTop: "9px",
         marginBottom: "32px",
         border: 0,
@@ -59,7 +60,7 @@ export default function MobileProduct({ctx}) {
                      }} />
                )}
                rules={{ required: 'Введите название Товара',
-					 	pattern: {value: /^[a-zA-Zа-яА-Я0-9,."'-]+$/, message: 'Недопустимые символы' },
+					 	pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'-]+$/, message: 'Недопустимые символы' },
 			}}
             />
             <MobilePhotoes ctx={ctx}/>
@@ -71,7 +72,9 @@ export default function MobileProduct({ctx}) {
                   <TextField
                      placeholder={matchesMobile ? "Описание товара" : "Введите описание товара (до 4 000 символов)"}
                      className={`${classes.plaseOfferInput} ${classes.inputError3}`}
+                     variant='outlined'
                      type="text"
+                     multiline
                      autoComplete="on"
 					 inputProps={{maxLength: 4000}}
                      value={value}
@@ -82,7 +85,7 @@ export default function MobileProduct({ctx}) {
                      }} />
                )}
                rules={{ required: `Опишите ${methods.watch('title') != undefined ? methods.watch('title') : null}`,
-			   pattern: {value: /^[a-zA-Zа-яА-Я0-9,."'()%*!?+=/-]+$/, message: 'Недопустимые символы' }, }}
+			   /* pattern: {value: /^[a-zA-Zа-яА-Я0-9,."'\s()%*!?+=/-]+$/, message: 'Недопустимые символы' }, */ }}
             />
         </Box>
     )
