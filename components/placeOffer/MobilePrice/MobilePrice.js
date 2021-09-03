@@ -25,7 +25,10 @@ const useStyles = makeStyles(() => ({
         color: "#5A5A5A"
     },
     plaseOfferPriceInput: {
-        width: "100px"
+        width: "100px",
+        "& ::placeholder": {
+            float: 'right',
+        },
     },
     plaseOfferAuction: {
         justifyContent: "flex-end"
@@ -39,7 +42,10 @@ const useStyles = makeStyles(() => ({
             width: "100px"
         }
     },
-})) 
+    label: {
+        margin: '0',
+    },
+}))
 
 export default function MobilePrice() {
     const methods = useFormContext();
@@ -76,20 +82,20 @@ export default function MobilePrice() {
                         name='trade'
                         control={methods.control}
                         defaultValue={false}
-                        render={({ field: { onChange, value }}) => (
+                        render={({ field: { onChange, value } }) => (
                             <FormControlLabel
-                            className={classes.label}
-                            control={
-                            <Checkbox
-                                    className={classes.check}
-                                    color='primary'
-                                    icon={<OutlinedIcon/>}
-                                    checkedIcon={<Filledicon/>}
-                                    checked={value}
-                                    onChange={(e) => onChange(e.target.checked)}
-                            />}
-                        label="Торг"
-                        />
+                                className={classes.label}
+                                control={
+                                    <Checkbox
+                                        className={classes.check}
+                                        color='primary'
+                                        icon={<OutlinedIcon />}
+                                        checkedIcon={<Filledicon />}
+                                        checked={value}
+                                        onChange={(e) => onChange(e.target.checked)}
+                                    />}
+                                label="Торг"
+                            />
                         )}
                     />
                 </Box>
@@ -99,6 +105,6 @@ export default function MobilePrice() {
                 <MobileDelivery/> */}
             </Box>
         </>
-                                
+
     )
 }
