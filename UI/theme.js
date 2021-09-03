@@ -67,11 +67,11 @@ const theme = createMuiTheme({
       'none',
       'none',
       'none',
-		'none',
-		'none',
-		'none',
-		'none',
-		'none'
+      'none',
+      'none',
+      'none',
+      'none',
+      'none'
    ],
    typography: {
       h1: {
@@ -105,12 +105,12 @@ const theme = createMuiTheme({
       borderRadius: 8,
    },
    overrides: {
-	   MuiCssBaseline: {
-		   '@global': {
-				width: '100%',
-				height: '100%',
-		   }
-	   },
+      MuiCssBaseline: {
+         '@global': {
+            width: '100%',
+            height: '100%',
+         }
+      },
       MuiContainer: {
          root: {
             display: 'flex',
@@ -124,6 +124,16 @@ const theme = createMuiTheme({
       MuiBox: {
          root: {
             display: 'flex',
+         },
+      },
+      MuiSelect: {
+         root: {
+            fontSize: '14px',
+         },
+      },
+      MuiInputBase: {
+         root: {
+            fontSize: '14px',
          },
       },
       // MuiList: {
@@ -140,7 +150,7 @@ const theme = createMuiTheme({
 
       MuiButton: {
          root: {
-			 padding: '4px 16px',
+            padding: '4px 16px',
          },
          contained: {
             boxShadow: 'none',

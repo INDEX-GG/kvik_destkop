@@ -165,6 +165,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'disk_departure':
                 case 'bolt_distance':
                 case 'number_of_mounting_holes':
+                case 'salon':
                     newOBJ[i].type = 'list'
                     break;
 
@@ -196,7 +197,6 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'number_beds':
                 case 'electric_power':
                 case 'distance_to_city':
-                case 'tires_and_rims':
                 case 'breed':
                 case 'features':
                 case 'discrete_graphics_series':
@@ -215,6 +215,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'disc_model':
                 case 'disc_type':
                 case 'number_of_discs_included':
+                case 'tires_and_rims':
                     newOBJ[i].type = 'text'
                     break;
 
@@ -250,9 +251,9 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'driving_assistance':
                 case 'heating_auto':
                 case 'antitheft_system':
-                case 'salon':
                 case 'support_systems':
                 case 'multimedia_and_navigation':
+                case 'set_tires':
                     newOBJ[i].type = 'checkbox'
                     break;
 
@@ -261,9 +262,12 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'age':
                 case 'experience':
                 case 'separate_check_mark_for_hbo':
-                case 'winter_tires_and_rims':
                     newOBJ[i].type = 'radio'
                     break;
+
+
+                // newOBJ[i].type = 'text_radio'
+                // break;
 
                 default:
                     break;
@@ -272,7 +276,6 @@ export const useCategoryPlaceOffer = (data) => {
     } else {
         newOBJ = undefined
     }
-
     useEffect(() => {
         if (nameTitile !== undefined && nameTitile !== 'undefined') {
             axios.get(`${BASE_URL}/subcategories/` + nameTitile + `.json`)

@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const socket = io('http://192.168.8.111:6066', {transports: ['websocket']})
+const socket = io('http://192.168.8.111:6066')
 console.log(socket);
 const Messenger = () => {
 	const classes = useStyles();

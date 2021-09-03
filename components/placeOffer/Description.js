@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(3),
    },
    formTitleField: {
+      fontSize: '14px',
       flexGrow: 1,
       padding: '4px 0',
    },
@@ -39,14 +40,14 @@ const Description = () => {
                      fullWidth
                      autoComplete="on"
                      value={value}
-					 inputProps={{maxLength: 4000}}
+                     inputProps={{ maxLength: 4000 }}
                      onChange={onChange}
                      error={!!error} helperText={error ? error.message : ' '} />
                )}
-               rules={{ 
-				   required: `Опишите ${methods.watch('title')}`,
-				   pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'()%*!?+®#№=/-]+$/, message: 'Недопустимые символы' },
-				}}
+               rules={{
+                  required: `Опишите ${methods.watch('title')}`,
+                  // pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'()%*!?+®#№=/-]+$/, message: 'Недопустимые символы' },
+               }}
             />
          </Box>
       </Box>

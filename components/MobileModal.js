@@ -1,4 +1,3 @@
-
 import { Dialog } from '@material-ui/core';
 import React from 'react';
 import { useMedia } from '../hooks/useMedia';

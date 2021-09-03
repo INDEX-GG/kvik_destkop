@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
         position: "relative"
     },
     plaseOfferTitle: {
+        fontSize: '14px',
         textAlign: "center",
         padding: "16px 0px 12px",
         boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
