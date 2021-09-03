@@ -73,8 +73,17 @@ console.log(methods)
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd);
     console.log('получение alias', asd)
-    useEffect(() => {
-        if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
+    useEffect(() => {    
+        if (methods?.watch('alias4') && methods.control._fields.alias4?._f.value !== '') {
+            setAsd(methods?.watch('alias4'));
+        } else if (methods?.watch('alias3') && methods.control._fields.alias4?._f.name === undefined) {
+            setAsd(methods?.watch('alias3'));
+        } else if (methods?.watch('alias2') && methods.control._fields.alias3?._f.name === undefined) {
+            setAsd(methods?.watch('alias2'));
+        } else {
+            setAsd(undefined);
+        }
+       /*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
             setAsd(methods?.watch('alias4'));
         } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
             setAsd(methods?.watch('alias3'));
@@ -82,8 +91,8 @@ console.log(methods)
             setAsd(methods?.watch('alias2'));
         } else {
             setAsd(undefined);
-        }
-    }, [methods]);
+        } */
+    }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
     const onSubmit = data => {
         console.log(data)
