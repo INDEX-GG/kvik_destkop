@@ -74,11 +74,11 @@ console.log(methods)
     const { ...newOBJ } = useCategoryPlaceOffer(asd);
     console.log('получение alias', asd)
     useEffect(() => {    
-        if (methods?.watch('alias4') && methods.control._fields.alias4?._f.value !== '') {
+        if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
             setAsd(methods?.watch('alias4'));
-        } else if (methods?.watch('alias3') && methods.control._fields.alias4?._f.name === undefined) {
+        } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
             setAsd(methods?.watch('alias3'));
-        } else if (methods?.watch('alias2') && methods.control._fields.alias3?._f.name === undefined) {
+        } else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
             setAsd(methods?.watch('alias2'));
         } else {
             setAsd(undefined);
