@@ -72,6 +72,7 @@ console.log(methods)
     /* получение дополнительных полей */
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd);
+    console.log('получение alias', asd)
     useEffect(() => {
         if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
             setAsd(methods?.watch('alias4'));
@@ -147,6 +148,7 @@ console.log(methods)
                                 {newOBJ[asd?.toLowerCase()] !== undefined ?
                                     <Box className={classes.formPart}>
 
+                                        {console.log('получение newOBJ', newOBJ&& newOBJ)}
                                         <AdditionalInformation newOBJ={newOBJ} asd={asd?.toLowerCase()} />
 
                                     </Box>
