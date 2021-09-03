@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const socket = io('http://onekvik.ru/cc/', {transports: ['websocket']})
+const socket = io('http://onekvik.ru/socket.io', {transports: ['websocket']})
 console.log(socket);
 const Messenger = () => {
 	const classes = useStyles();
