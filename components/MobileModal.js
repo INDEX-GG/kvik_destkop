@@ -1,4 +1,4 @@
-
+/* 
 import React from 'react';
 import { useMedia } from '../hooks/useMedia';
 
@@ -20,5 +20,4 @@ const MobileModal = ({title, subtitle = false, close, children}) => {
 		</div> : null
 	)
 }
-
 export default MobileModal; */
