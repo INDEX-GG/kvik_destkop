@@ -1,17 +1,13 @@
 import React from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Bonus(data) {
   if (data.data.lenght == 0) {
     return (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши бонусные рубли</div>
-            <p className="notInf__subtitle">Текст</p>
-          </div>
-        </div>
-      </div>
+	  <EmptyPlaceholder 
+	  title='Здесь буду ваши бонусные рубли'
+	  subtitle='Текст'/>
     );
   }
 

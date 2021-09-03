@@ -1,18 +1,16 @@
 import React from 'react';
+import EmptyPlaceholder from '../../../EmptyPlaceholder';
 function BlackList(data) {
 
 
 
     if (data.data.length === 0) {
         return (
-            <div className="clientPage__container_bottom">
-                <div className="clientPage__container_content">
-                <div className="notInfContainer">
-                    <div className="notInf__title">В черном списке пока никого нет</div>
-                    <img className="notInf__img-blackList" src="/accountImage/blackList.png" alt='search_placeholder'/>
-                </div>
-                </div>
-            </div>
+			<EmptyPlaceholder
+			title='В черном списке пока никого нет'
+			img='/accountImage/blackList.png'
+			customClass='blackList'
+			imgAlt='search_placeholder'/>
         )
     }
 

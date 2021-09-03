@@ -1,16 +1,13 @@
 import React from "react";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Notifs(data) {
   if (data.data.lenght == 0) {
     return (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши уведомления</div>
-            <p className="notInf__subtitle">Текст</p>
-          </div>
-        </div>
-      </div>
+	  <EmptyPlaceholder
+	  title='Здесь буду ваши уведомления'
+	  subtitle='Текст'
+	  />
     );
   }
   return (

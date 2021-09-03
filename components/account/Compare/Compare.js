@@ -1,7 +1,8 @@
 import React from "react";
+import EmptyPlaceholder from "../../EmptyPlaceholder";
 // import Loading from "../../../UI/icons/Loader";
 // import objNav from "./navigateObject.json";
-// // import Develop from '../../../../components/inDev/Develop';
+// import Develop from '../../../../components/inDev/Develop';
 // import { brooklyn, ToRubles } from "../../../lib/services";
 
 // const products = [
@@ -223,14 +224,7 @@ const Compare = () => {
 //   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Транспорт" });
 
   return (
-    <div className="clientPage__container_bottom">
-      <div className="clientPage__container_content">
-        <div className="notInfContainer">
-          <div className="notInf__title">Здесь буду ваши сравнения</div>
-          <p className="notInf__subtitle">Текст</p>
-        </div>
-      </div>
-    </div>
+	<EmptyPlaceholder title='Здесь буду ваши сравнения' subtitle='Текст'/>
   );
 
 //   return (

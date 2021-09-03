@@ -287,9 +287,10 @@ const Product = () => {
 							<div className="productPageContent">
 								<div className="productPageCard">
 									<OffersRender isProduct data={data} title={"Похожие объявления"} endMessage={!collSO} />
-									<div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
+									<div style={{marginTop:'60px'}}></div>
+									{/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
-									</div>
+									</div> */}
 								</div>
 								<div className="productPageSimilar__advertisement">
 									{!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (

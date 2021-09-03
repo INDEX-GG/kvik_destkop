@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     },
     dialogTitle: {
         textAlign: "center",
-        padding: "16px 0px 12px",
+        padding: "16px 0px 27px",
         boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
         marginBottom: "24px",
 		[theme.breakpoints.down(400)]: {

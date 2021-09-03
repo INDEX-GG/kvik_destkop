@@ -13,19 +13,19 @@ export default function ProductCarousel({ photo }) {
 	const [data, setData] = useState(null);
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const {matchesTablet, matchesMobile} = useMedia()
-	const [swiperMethod, setSwiperMethod] = useState(null);
+	const [firstSwiper, setFirstSwiper] = useState(null);
 	const router = useRouter()
 	const [sliderProps, setSliderProps] = useState({
 		slidesPrevPhoto: false,
 		sliderDot: false,
 		sliderNavigation: true
 	});
-
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	useEffect(() => {
 		setData(photo);
 	},[photo])
+
 	
 	useEffect(() => {
 		if (photo) {
@@ -40,13 +40,13 @@ export default function ProductCarousel({ photo }) {
 	}, [photo])
 
 	useEffect(() => {
-		if (swiperMethod) swiperMethod?.slideTo(activeIndex, 0)
+		if (firstSwiper) firstSwiper?.slideTo(activeIndex, 0)
 	}, [activeIndex])
 
 
 	useEffect(() => {
-		if (swiperMethod) {
-			swiperMethod.slideTo(0, 1)
+		if (firstSwiper) {
+			firstSwiper.slideTo(0, 1)
 		}
 	}, [router])
 
@@ -59,7 +59,7 @@ export default function ProductCarousel({ photo }) {
 		photo ? 
 		<>
 			<Swiper
-				onSwiper={setSwiperMethod}
+				onSwiper={setFirstSwiper}
 				onActiveIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
 				spaceBetween={10}
 				pagination={{clickable: true, type: 'fraction'}}
@@ -68,12 +68,9 @@ export default function ProductCarousel({ photo }) {
 				className={sliderClass}
 				thumbs={{swiper: thumbsSwiper}}
 				>
-
 				{/* <div className="seen__ad">Просмотрено</div> */}
-
 				{data?.map((img, i) => (
-					<SwiperSlide style={{minWidth: matchesMobile ? '100% !important' : '620px', width: '100% !important'}} key={i} onClick={() => setModal(!modal)}>
-						{" "}
+					<SwiperSlide className='importantSlide' key={i} onClick={() => setModal(!modal)}>
 						<img src={img} />
 					</SwiperSlide>
 				))}
@@ -87,13 +84,10 @@ export default function ProductCarousel({ photo }) {
 				spaceBetween={1}
 				className="mySwiper2"
 				>
-
 				{/* <div className="seen__ad">Просмотрено</div> */}
-
 				{data?.map((img, i) => (
 					<SwiperSlide key={i}>
-						{" "}
-						<div style={{height: '88px'}}>
+						<div style={{height: '88px', minWidth: '100px' }}>
 							<img style={{width: '100%', height: '100%'}} src={img} />
 						</div>
 					</SwiperSlide>
@@ -101,7 +95,12 @@ export default function ProductCarousel({ photo }) {
 			</Swiper>
 
 			<Modal className="productModal" open={modal || false} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-				<><ProductModalCarousel activeSlideIndex={activeIndex} setActiveSlideIndex={setActiveIndex} photos={data} /></>
+				<>
+					<div onClick={() => setModal(false)} style={{position: 'absolute', zIndex: '100', top: '0', right: 0, width: '100%'}}>
+						<div className='productClose'></div>
+					</div>
+					<ProductModalCarousel activeSlideIndex={activeIndex} setActiveSlideIndex={setActiveIndex} photos={data} />
+				</>
 			</Modal>
 		</> 
 		: null

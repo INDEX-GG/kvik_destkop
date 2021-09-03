@@ -6,9 +6,10 @@ import Active_icon from "../../../../UI/icons/ActiveIcon";
 import axios from "axios";
 import { useMedia } from "../../../../hooks/useMedia"
 import RightArrow from "../../../../UI/icons/RightArrow"
-import { Button, Dialog } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { useStore } from "../../../../lib/Context/Store";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
+import MobileModal from "../../../MobileModal";
 
 function PersonalData() {
 	const { isAuth, id} = useAuth();
@@ -352,55 +353,47 @@ function PersonalData() {
 				</div>
 			</div>
 			<Modal {...modal} />
-			<Dialog fullScreen={true} open={passwordDialog || false} onClose={() => setPasswordDialog(!passwordDialog)}>
-				<div className="modal__wrapper_md">
-					<div className="modal__block__top accountTop">
-						<>
-							<div onClick={() => setPasswordDialog(!passwordDialog)} className="accountArrowLeft"></div>
-							<h6 className="modal__block__top_title accountTitle">Смена пароля</h6>
-						</>
-						<div className="mobilePasswordContainer">
-							<div className="privateDataPass">
-								<div className="pDPassInputWrapper">
-									<input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} value={passwordOne} onChange={(e) => changePasswordInput(e)} />
-									<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)}></a>
-								</div>
-								<p className="">
-									<Active_icon Size={14} Color={validateCheck[0]} />
-									&nbsp;Минимум 8 символов
-								</p>
-								<p className="">
-									<Active_icon Size={14} Color={validateCheck[1]} />
-									&nbsp;Только латинские символы
-								</p>
-								<p className="">
-									<Active_icon Size={14} Color={validateCheck[2]} />
-									&nbsp;Как минимум одна цифра
-								</p>
-								<p className="">
-									<Active_icon Size={14} Color={validateCheck[3]} />
-									&nbsp;Строчные и заглавные буквы
-								</p>
-								<div className="pDPassInputWrapper">
-									<input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} value={passwordTwo} onChange={(e) => confirmPassword(e)} />
-									<a
-										className="pDPassInvis"
-										onClick={() => {
-											setInputSecondEye(!inputSecondEye);
-										}}
-									></a>
-								</div>
-								{passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
-								{passwordCoincidence == "send" ? (
-									<Button className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
-										Изменить пароль
-									</Button>
-								) : null}
+			<MobileModal dialog={passwordDialog || false} title='Cмена пароля' close={() => setPasswordDialog(false)}>
+					<div className="mobilePasswordContainer">
+						<div className="privateDataPass">
+							<div className="pDPassInputWrapper">
+								<input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} value={passwordOne} onChange={(e) => changePasswordInput(e)} />
+								<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)}></a>
 							</div>
+							<p className="">
+								<Active_icon Size={14} Color={validateCheck[0]} />
+								&nbsp;Минимум 8 символов
+							</p>
+							<p className="">
+								<Active_icon Size={14} Color={validateCheck[1]} />
+								&nbsp;Только латинские символы
+							</p>
+							<p className="">
+								<Active_icon Size={14} Color={validateCheck[2]} />
+								&nbsp;Как минимум одна цифра
+							</p>
+							<p className="">
+								<Active_icon Size={14} Color={validateCheck[3]} />
+								&nbsp;Строчные и заглавные буквы
+							</p>
+							<div className="pDPassInputWrapper">
+								<input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} value={passwordTwo} onChange={(e) => confirmPassword(e)} />
+								<a
+									className="pDPassInvis"
+									onClick={() => {
+										setInputSecondEye(!inputSecondEye);
+									}}
+								></a>
+							</div>
+							{passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
+							{passwordCoincidence == "send" ? (
+								<Button className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
+									Изменить пароль
+								</Button>
+							) : null}
 						</div>
 					</div>
-				</div>
-			</Dialog>
+				</MobileModal>
 		</div>
 	);
 }

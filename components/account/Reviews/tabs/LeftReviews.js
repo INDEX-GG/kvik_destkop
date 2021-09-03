@@ -1,17 +1,14 @@
 import React from "react";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import StarRating from "../../../StarRating";
 
 function LeftReviews(data) {
   if (data.data.lenght == 0) {
     return (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Здесь будут отзывы, оставленные вами</div>
-            <p className="notInf__subtitle">Совершайте сделки, и оставляйте отзывы на других продавцов</p>
-          </div>
-        </div>
-      </div>
+	  <EmptyPlaceholder
+	  title='Здесь будут отзывы, оставленные вами'
+	  subtitle='Совершайте сделки, и оставляйте отзывы на других продавцов'
+	  />
     );
   }
 

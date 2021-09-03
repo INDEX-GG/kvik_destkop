@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ToRubles, ellipsis } from "../../../../lib/services";
 import {useRouter} from "next/router"
 import { STATIC_URL } from "../../../../lib/constants";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Sellers({sellers, sellerSub}) {
 
@@ -35,15 +36,11 @@ function Sellers({sellers, sellerSub}) {
 
   if (sellers?.message) {
     return (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Здесь будут ваши избранные продавцы</div>
-            <p className="notInf__subtitle">Подпишитесь на продавца, чтобы видеть больше его объявлений</p>
-            <img className="notInf__img" src="/accountImage/SellerNone.png" alt="seller_placholder"/>
-          </div>
-        </div>
-      </div>
+	  <EmptyPlaceholder 
+	  title='Здесь будут ваши избранные продавцы' 
+	  subtitle='Подпишитесь на продавца, чтобы видеть больше его объявлений'
+	  img='/accountImage/SellerNone.png'
+	  imgAlt='seller_placholder' />
     );
   }
 

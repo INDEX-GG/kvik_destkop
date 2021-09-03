@@ -14,7 +14,7 @@ import BurgerWork from '../../UI/icons/BurgerWork';
 import CategoriesAliasTwo from './CategoriesAliasTwo';
 
 
-export default function CategoriesAliasOne({iconId, label, alias, placeOffer, toggleDrawer}) {
+const CategoriesAliasOne = ({iconId, label, alias, placeOffer, toggleDrawer}) => {
 
 	const aliasIcon = [
 		<BurgerRealEstate key={0} />,
@@ -57,3 +57,5 @@ export default function CategoriesAliasOne({iconId, label, alias, placeOffer, to
 		
 	)
 }
+
+export default CategoriesAliasOne;

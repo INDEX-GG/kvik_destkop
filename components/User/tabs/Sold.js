@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { STATIC_URL } from "../../../lib/constants";
 import AdCard_component from "../../AdCard";
 
 function Sold(data) {
 
-  if (data.offers.length == 0) {
-    return (
-      <div className="clientPage__placeholder-container">
+  const [dataArr, setDataArr] = useState(false);
+
+  useEffect(() => {
+	createData(data)
+  }, [data])
+
+
+  const createData = (data) => {
+	  if (data?.offers.length) {
+		const newArr = []
+		data.offers.map((item) => {
+			newArr.push({...item, photo: JSON.parse(item.photo)?.photos.map(item => `${STATIC_URL}/${item}`)})
+		})
+		setDataArr(newArr)
+	  }
+  }
+
+
+  return (
+    data?.offers.length ? 
+	<div className="userProduct">
+      {dataArr && dataArr.map((item, i) => {
+        return (
+            <div key={i}>
+                <AdCard_component offer={item} />
+            </div>
+        );
+      })}
+    </div> : 
+	<div className="clientPage__placeholder-container">
         <div className="clientPage__placeholder-title">У этого пользователя нет завершенных объявлений</div>
         <div className="clientPage__placeholder-ads">
           <div className="clientPage__placeholder-item">
@@ -25,19 +53,6 @@ function Sold(data) {
           </div>
         </div>
       </div>
-    )
-  }
-
-  return (
-    <div className="userProduct">
-      {data.offers.map((item, i) => {
-        return (
-          <div key={i} className="userProductItem">
-            <AdCard_component offer={item} />
-          </div>
-        );
-      })}
-    </div>
   );
 }
 export default Sold;
