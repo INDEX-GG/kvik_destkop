@@ -20,12 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const socket = io('https://onekvik.ru/cc', {transports: ['websocket']})
-socket.onAny((event, ...args) => {
-	console.log(event, args);
-});
-
-
+const socket = io('http://onekvik.ru/cc', {transports: ['websocket']})
 console.log(socket);
 const Messenger = () => {
 	const classes = useStyles();
@@ -45,7 +40,7 @@ const Messenger = () => {
 	return (
 		<Container className={classes.root} maxWidth='sm'>
 			<Box>
-			<Typography>{JSON.stringify(msgList)}</Typography>
+				<Typography>{JSON.stringify(msgList)}</Typography>
 			</Box>
 			<TextField
 				size='small'
