@@ -72,6 +72,7 @@ console.log(methods)
     /* получение дополнительных полей */
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd);
+    console.log('получение alias', asd)
     useEffect(() => {    
         if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
             setAsd(methods?.watch('alias4'));
@@ -120,10 +121,10 @@ console.log(methods)
         } else if (photoes.length === 1) {
             photoData.append('files[]', photoes[0]);
         }
-        console.log("В бд======>", data)
+        console.log(data, alias)
         setLoading(true);
 
-       /*  axios.post(`${BASE_URL}/api/setPosts`, data)
+        axios.post(`${BASE_URL}/api/setPosts`, data)
             .then(r => {
 			postId = r?.data?.id;
             axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
@@ -137,7 +138,7 @@ console.log(methods)
 				console.log(r?.data.images.photos[0])
                 setPromotion(true)
             })
-        })  */
+        }) 
     }
 
     return (
