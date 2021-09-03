@@ -45,7 +45,7 @@ const Description = () => {
                )}
                rules={{ 
 				   required: `Опишите ${methods.watch('title')}`,
-				   pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'()%*!?+®#№=/-]+$/, message: 'Недопустимые символы' },
+				   // pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'()%*!?+®#№=/-]+$/, message: 'Недопустимые символы' },
 				}}
             />
          </Box>

@@ -3,9 +3,14 @@ import axios from 'axios';
 import { BASE_URL } from "../lib/constants";
 export const useCategoryPlaceOffer = (data) => {
 
+
     const [zxc, setZxc] = useState(undefined),
         nameTitile = data?.toLowerCase();
     let newOBJ = [];
+
+    console.log('получение data в use', data)
+    console.log('получение nameTitile в use', nameTitile)
+    console.log('получение zxc в use', zxc)
 
     if (zxc?.length != undefined) {
         for (var i = 0; i < zxc?.length; i++) {
@@ -272,7 +277,6 @@ export const useCategoryPlaceOffer = (data) => {
     } else {
         newOBJ = undefined
     }
-
     useEffect(() => {
         if (nameTitile !== undefined && nameTitile !== 'undefined') {
             axios.get(`${BASE_URL}/subcategories/` + nameTitile + `.json`)
