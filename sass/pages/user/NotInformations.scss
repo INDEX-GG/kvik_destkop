@@ -26,3 +26,14 @@
 	}
   }
 }
+
+
+
+@media (max-width: 370px) {
+	.notInf {
+		&__img {
+			width: 250px;
+			height: 250px;
+		}
+	}
+}

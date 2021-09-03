@@ -1,17 +1,14 @@
 import React from "react";
 import { ToRubles } from "../../../../lib/services";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function WaitReviews(data) {
   if (data.data.lenght == 0) {
     return (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Сюда будут попадать объявления, на которые вы сможете оставлять отзывы</div>
-            <p className="notInf__subtitle">Договаривайтесь о сделках с другими пользователями и ставьте им свои оценки</p>
-          </div>
-        </div>
-      </div>
+	  <EmptyPlaceholder
+	  title='Сюда будут попадать объявления, на которые вы сможете оставлять отзывы'
+	  subtitle='Договаривайтесь о сделках с другими пользователями и ставьте им свои оценки'
+	  />
     );
   }
 

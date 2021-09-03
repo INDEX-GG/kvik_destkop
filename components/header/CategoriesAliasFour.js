@@ -1,13 +1,22 @@
 import { ListItem, ListItemText } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link'
 
-export default function CategoriesAliasFour({alias, alias2, alias3, alias4, label, placeOffer, toggleDrawer}) {
+const CategoriesAliasFour = ({alias, alias2, alias3, alias4, label, placeOffer, toggleDrawer}) => {
+
+
+
+	const [active, setActive] = useState(false)
+
+	const handlerClick = (str) => {
+		placeOffer(str)
+		setActive(true)
+	}
 
 	if (placeOffer) {
 		return (
-			<ListItem className="burgerList pl-2" onClick={() => placeOffer(`${alias},${alias2},${alias3},${alias4}`)}>
-				<ListItemText><div className="burgerItem burgerLink">{label}</div></ListItemText>
+			<ListItem className="burgerList pl-2" onClick={() => handlerClick(`${alias},${alias2},${alias3},${alias4}`)}>
+				<ListItemText><div className={`burgerItem burgerLink ${active ? 'burgerItemClicked' : ''}`}>{label}</div></ListItemText>
 			</ListItem>
 		)
 	}
@@ -18,3 +27,5 @@ export default function CategoriesAliasFour({alias, alias2, alias3, alias4, labe
 		</ListItem>
 	)
 }
+
+export default CategoriesAliasFour

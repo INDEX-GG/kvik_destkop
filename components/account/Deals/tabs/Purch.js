@@ -1,17 +1,11 @@
 import React from "react";
 import { ToRubles } from "../../../../lib/services";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Purch(data) {
   if (data.deals.lenght == 0) {
     return (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши Покупки</div>
-            <p className="notInf__subtitle">Текст</p>
-          </div>
-        </div>
-      </div>
+	  <EmptyPlaceholder title='Здесь буду ваши Покупки' subtitle='Текст' />
     );
   }
 
