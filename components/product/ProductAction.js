@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMedia } from "../../hooks/useMedia";
-import { ToRubles, ToRusDate } from "../../lib/services";
+import { ToRusDate } from "../../lib/services";
 import { Dialog } from "@material-ui/core";
 import IconCall from "../../UI/icons/IconCall";
 import IconMess from "../../UI/icons/IconMess";
