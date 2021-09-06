@@ -49,7 +49,7 @@ export default function ContentPlaseOffer({dialog, title, backFunc}) {
     const {id} = useAuth();
     const classes = useStyles();
     const [promotionProduct, setPromotionProduct] = useState({})
-    const [promotion, setPromotion] = useState(true)
+    const [promotion, setPromotion] = useState(false)
     const methods = useForm();
     let photoes = [];
     const photoesCtx = (obj) => {

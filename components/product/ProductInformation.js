@@ -1,65 +1,29 @@
 import React, { useState } from 'react';
 import { useMedia } from '../../hooks/useMedia';
+import ProductDescription from './ProductDescription';
+import ProductMap from './ProductMap';
+import ProductProperties from './ProductProperties';
+import ProductSocial from './ProductSmallComponents/ProductSocial';
 
 export default function ProductInformation(data) {
 	console.log(data)
-	const [collMap, /* setCollMap */] = useState(true);
-	// const handleCollMap = e => {
-	// 	e.preventDefault();
-	// 	if (collMap) {
-	// 		setCollMap(false);
-	// 	} else {
-	// 		setCollMap(true);
-	// 	}
-	// }
 
 	const { matchesMobile, matchesTablet } = useMedia();
 
+	// const testProperties = [{name: "Тип дома", desc: 'Кирпичный'}, {name: "Этаж", desc: '5 из 16'}, {name: "Количество комнта", desc: '2'}]
+
 	return (
 		<>
-			<div className="productPageCharacterMapBlock" style={collMap ? { paddingBottom: 0 } : { paddingBottom: '18px' }} >
-
-				{data.address == undefined ? <div className="placeholder_animation product__placeholder_address"></div> :
-					<div className="productPageCharacterLocality">
-						{!matchesMobile && !matchesTablet && <div className="productLocality">Местоположение</div>}
-						<div>{data.address == undefined ? '' : data.address.length > 45 ? data.address.slice(0, 45) + '...' : data.address}</div>
-						{/* <a className={`productPageCharacterMapSwitch highlight underline ${collMap ? ('') : ('collMapSw')}`} onClick={e => handleCollMap(e)}>На карте</a> */}
-						<span></span>
-					</div>
-
-				}
-				<div className="productPageCharacterMap" style={collMap ? { height: 0 } : { height: '400px' }}>
-					{/* проблема с CORS */}
-					{/* <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="618" height="400" frameBorder="0"></iframe> */}
-				</div>
-			</div>
+			<ProductMap address={data.address} mobile={!matchesMobile && !matchesTablet}/>
 			<div className="productPageCharacter thin">
-				{data.description == undefined ? <div className="placeholder_animation product__placeholder_description"></div> :
-					<>
-						{/*	<div>
-                    <div>Свойство</div>
-                    <div>Значение</div>
-                </div>
-                <div>
-                    <div>Свойство</div>
-                    <div>Значение</div>
-                </div>*/}
-						<div>
-							{!matchesMobile && !matchesTablet && <div className="productLocality">Описание</div>}
-							{console.log(data.description)}
-							<pre className='productDescription'>{data.description}</pre>
-						</div>
-					</>
-				}
-
-				<div>
-					<div className="productLocality">Поделиться</div>
-					<div>
-						<a className="productPageCharacterVK"></a>
-						<a className="productPageCharacterFB"></a>
-						<a className="productPageCharacterOK"></a>
-					</div>
-				</div>
+				{matchesMobile || matchesTablet ? <ProductDescription description={data.description} mobile={!matchesMobile && !matchesTablet}/> : ''}
+				{/* {testProperties.map((item, index) => {
+					return (
+						<ProductProperties key={index + 1} name={item.name} desc={item.desc}/>
+					)
+				})} */}
+				{!matchesMobile || !matchesTablet ? <ProductDescription description={data.description} mobile={!matchesMobile && !matchesTablet}/> : ''}
+				<ProductSocial/>
 			</div>
 		</>
 	)
