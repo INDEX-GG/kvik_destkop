@@ -55,7 +55,9 @@ const Index = ({ offers }) => {
 	return (
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
-				<PopularCategories />
+			{!matchesMobile && !matchesTablet && <PopularCategories />}
+				
+
 				<Box className={classes.main}>
 					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
