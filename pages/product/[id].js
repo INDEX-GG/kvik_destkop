@@ -8,12 +8,11 @@ import Statistics from "../../components/Statistics";
 import ProductInformation from "../../components/product/ProductInformation";
 import ProductAction from "../../components/product/ProductAction";
 import ProductUserInfo from "../../components/product/ProductUserInfo";
-import { modifyGetPostsData, ToRubles, ToRusDate } from "../../lib/services";
+import { modifyGetPostsData, ToRusDate } from "../../lib/services";
 import IconCall from "../../UI/icons/IconCall";
 import IconMess from "../../UI/icons/IconMess";
 import { useMedia } from "../../hooks/useMedia";
 import { useProduct } from "../../hooks/useProduct";
-import Favorits from "../../UI/Favorits";
 import OffersRender from "../../components/OffersRender";
 import BreadCrumbsProduct from "../../components/product/BreadCrumbsProduct";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
@@ -22,6 +21,14 @@ import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import Loader from "../../UI/icons/Loader";
 import { STATIC_URL } from "../../lib/constants";
+import ProductDeal from "../../components/product/ProductDeal";
+import ProductButton from "../../components/product/ProductUI/ProductButton";
+import ProductDate from "../../components/product/ProductSmallComponents/ProductDate";
+import ProductPrice from "../../components/product/ProductPrice";
+import ProductOption from "../../components/product/ProductOption";
+import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
+import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
+import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 const objP = {
 	id: 1,
 	title: "Продам 2-комню квартиру, 95м в центре",
@@ -121,54 +128,30 @@ const Product = () => {
 							<div className="productPageWrapper">
 								<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
 									<div className="productPageDescription">
-										{!matchesMobile && !matchesTablet &&
+										{/* {!matchesMobile && !matchesTablet &&
 											<>
 												{title == undefined
 													? <div className="placeholder_animation product__placeholder_title"></div>
 													: <div className="productPageTitle xl">{title}</div>}
 											</>
-										}
-										{user_id !== id && !matchesLaptop && !matchesDesktop && !matchesHD && (
-											user_id === undefined ? '' :
-												<div className="SellerInfoTopButtons">
-													<Favorits isProduct idOffer={+query.id} />
-												</div>
-										)}
-										{photo == undefined ?
-											<div className="placeholder_animation product__placeholder_swipers"></div>
-											:
-											<ProductCarousel photo={photo} />
-										}
-										{!matchesLaptop && !matchesDesktop && !matchesHD &&
-											<>
-												{title == undefined
-													? <div className="placeholder_animation product__placeholder_title"></div>
-													: <div className="productPageTitle xl">{title}</div>
-												}
-											</>
-										}
+										} */}
+										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile/> : null}
+										<ProductCarousel title={title} photo={photo} mobile={matchesMobile || matchesTablet} />
 										{!matchesLaptop && !matchesDesktop && !matchesHD && (
 
 											photo == undefined ?
 												<div className="placeholder_animation product__placeholder_mobil-action"></div>
 												:
 												<div className="productPageAdaptive">
-													<div className="SellerInfoOldPrice__adaptive">
-														<div className="SellerInfoOldPrice thin dark crossed">{oldprice == undefined ? "" : ToRubles(oldprice)}</div>
-														<div className="SellerInfoPrice thin xxl">{ToRubles(price)}</div>
-														<div className="SellerInfoBargain dark thin">{user_id != id && trade && <p>Торг уместен</p>}</div>
-													</div>
+													<ProductPrice price={price} oldPrice={oldprice} id={id} sellerId={user_id} trade={trade} status={1} mobile/>
 													<div className="SellerInfo__adaptive_info">
 														<div className="SellerInfo__adaptive_info_top">
-															<div className="SellerInfoSeen dark"> {reviewed} +4</div>
-															{user_id === id ? (
-																<a className="SellerInfoStatShow underline highlight" onClick={() => setopenStatForm(!openStatForm)}>
-																	{/* Статистика */}
-																</a>)
-																:""}
+															<ProductReviewed reviewed={reviewed}/>
+															<ProductStats sellerId={user_id} id={id} dialog={openStatForm} setDialog={setopenStatForm}  mobile/>
 														</div>
-														<div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div>
-														{user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
+														{/* <div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div> */}
+														<ProductDate id={id} sellerId={user_id} mobile date={ToRusDate(created_at)} leftDay={30} />
+														{/* {user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""} */}
 													</div>
 												</div>
 
@@ -189,7 +172,7 @@ const Product = () => {
 
 
 														<div className="SellerInfo__adaptive_buttons__top">
-															{user_id !== id ? (
+															{/* {user_id !== id ? (
 																<a className="SellerInfoMess button contained">
 																	<IconMess /> Написать продавцу
 																</a>
@@ -202,15 +185,16 @@ const Product = () => {
 																</a>
 															) : (
 																""
-															)}
+															)} */}
+															<ProductDeal id={id} sellerID={data.user_id}>
+																<ProductButton className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
+																<ProductButton className="SellerInfoCall button contained" onClick={() => setPhoneModal(!phoneModal)} title='Показать номер' icon={<IconCall/>} />
+															</ProductDeal>
 														</div>
 
-
+														
 														{user_id === id || user_id !== id ? (
-															<div className="SellerInfo__adaptive_information">
-																{secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
-																{delivery && <div className="SellerInfoDelivery superLight">Возможна доставка</div>}
-															</div>
+															<ProductOption safeDeal={secure_transaction} deliver={delivery} mobile/>
 														) : (
 															""
 														)}
@@ -231,7 +215,7 @@ const Product = () => {
 														) : (
 															""
 														)}
-														{/* {user_id !== id ? <div className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}>Купить</div> : ""} */}
+														{/* {data.user_id !== id && <ProductButton style={{display: 'block'}} className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}  title='Купить'/>} */}
 														<div className="SellerInfo__adaptive_buttons">
 															{objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ""}
 															{objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn">Удалить</a> : ""}
