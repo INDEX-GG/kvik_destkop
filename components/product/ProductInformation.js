@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useMedia } from '../../hooks/useMedia';
 import ProductDescription from './ProductDescription';
 import ProductMap from './ProductMap';
-import ProductProperties from './ProductProperties';
+// import ProductProperties from './ProductProperties';
 import ProductSocial from './ProductSmallComponents/ProductSocial';
 
 export default function ProductInformation(data) {
