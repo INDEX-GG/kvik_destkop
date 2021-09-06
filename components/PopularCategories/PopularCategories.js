@@ -4,7 +4,6 @@ import { Icons } from '../../UI/icons/popularCategories/pc_icons';
 import PopularIcon from './PopularIcon';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from "next/router"
-import { useMedia } from '../../hooks/useMedia';
 
 const useStyles = makeStyles(() => ({
 	slider: {
@@ -22,9 +21,7 @@ const useStyles = makeStyles(() => ({
 const PopularCategories = () => {
 	const router = useRouter()
 	const classes = useStyles();
-	const {matchesMobile, matchesTablet} = useMedia()
 	return (
-		matchesMobile || matchesTablet ? null :
 		<>
 			<Typography className={classes.popular_categories} variant='h2'>Популярные категории</Typography>
 			<Swiper

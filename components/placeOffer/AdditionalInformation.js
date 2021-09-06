@@ -1,7 +1,7 @@
 import Auto from './Options/Auto';
 
 const AdditionalInformation = (data) => {
-	console.log('=======>', data.newOBJ[data.asd])
+	console.log('=======>', data.newOBJ)
 
 
 
