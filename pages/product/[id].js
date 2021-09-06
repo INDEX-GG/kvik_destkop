@@ -65,15 +65,15 @@ const Product = () => {
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 
-	const [collSO, setCollSO] = useState(true);
-	const handleCollSO = (e) => {
+	// const [collSO, setCollSO] = useState(true);
+	/* const handleCollSO = (e) => {
 		e.preventDefault();
 		if (collSO) {
 			setCollSO(false);
 		} else {
 			setCollSO(true);
 		}
-	};
+	}; */
 
 	const [data, setData] = useState();
 	useEffect(() => {
@@ -286,10 +286,11 @@ const Product = () => {
                     </div> */}
 							<div className="productPageContent">
 								<div className="productPageCard">
-									<OffersRender isProduct data={data} title={"Похожие объявления"} endMessage={!collSO} />
-									<div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
+									<OffersRender isProduct data={data} title={"Похожие объявления"} /* endMessage={!collSO} */ />
+									<div style={{marginTop:'60px'}}></div>
+									{/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
-									</div>
+									</div> */}
 								</div>
 								<div className="productPageSimilar__advertisement">
 									{!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (

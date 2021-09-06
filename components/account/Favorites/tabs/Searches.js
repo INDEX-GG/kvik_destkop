@@ -1,18 +1,15 @@
 import React from "react";
 import { ellipsis } from "../../../../lib/services";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Searches(data) {
 	if (data.searches.lenght == 0) {
 		return (
-			<div className="clientPage__container_bottom">
-				<div className="clientPage__container_content">
-					<div className="notInfContainer">
-						<div className="notInf__title">Сохраните поиск для того, чтобы получать уведомления и сохранить параметры ваших запросов </div>
-						<p className="notInf__subtitle">Поставьте галочку (отметку) напротив &quot;сохранить поиск&quot;, чтобы получать уведомления и сохранить параметры ваших запросов(поиска)</p>
-						<img className="notInf__img" src="/accountImage/SearchNone.png" alt='search_placeholder'/>
-					</div>
-				</div>
-			</div>
+			<EmptyPlaceholder 
+			title='Сохраните поиск для того, чтобы получать уведомления и сохранить параметры ваших запросов'
+			subtitle='Поставьте галочку (отметку) напротив &quot;сохранить поиск&quot;, чтобы получать уведомления и сохранить параметры ваших запросов(поиска)'
+			img='/accountImage/SearchNone.png'
+			alt='search_placeholder' />
 		);
 	}
 

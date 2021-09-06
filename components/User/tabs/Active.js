@@ -1,9 +1,44 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { STATIC_URL } from "../../../lib/constants";
 import AdCard_component from "../../AdCard";
 function Active(data) {
-  if (data.offers.length == 0) {
-    return (
-      <div className="clientPage__placeholder-container">
+
+
+
+  const [dataArr, setDataArr] = useState(false);
+
+  useEffect(() => {
+	createData(data)
+  }, [data])
+
+
+  const createData = (data) => {
+	  if (data?.offers.length) {
+		const newArr = []
+		data.offers.map((item) => {
+			newArr.push({...item, photo: JSON.parse(item.photo)?.photos.map(item => `${STATIC_URL}/${item}`)})
+		})
+		setDataArr(newArr)
+	  }
+  }
+
+ 
+  return (
+	data?.offers ? 
+	data.offers.length ? 
+    <div className="userProduct">
+      {dataArr && dataArr.map((item, i) => {
+		// console.log(item)
+        return (
+            <div key={i}>
+                <AdCard_component offer={item} />
+            </div>
+        );
+      })}
+    </div> : 
+	<div className="clientPage__placeholder-container">
         <div className="clientPage__placeholder-title">У пользователя еще нет объявлений</div>
         <div className="clientPage__placeholder-ads">
           <div className="clientPage__placeholder-item">
@@ -22,20 +57,7 @@ function Active(data) {
             <div className="clientPage__placeholder-item-3"></div>
           </div>
         </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="userProduct">
-      {data.offers.map((item, i) => {
-        return (
-            <div key={i} onClick={() => console.log(1)}>
-                <AdCard_component offer={item} />
-            </div>
-        );
-      })}
-    </div>
+    </div> : null
   );
 }
 

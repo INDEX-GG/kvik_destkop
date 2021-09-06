@@ -2,18 +2,15 @@ import React from "react";
 import { ToRubles } from "../../../../lib/services";
 import Verify from "../../../json/verify.json";
 import {useMedia} from "../../../../hooks/useMedia"
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Archive(data) {
   if (data.offers.lenght == 0) {
     return (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши законченные объявления</div>
-            <p className="notInf__subtitle">Текст</p>
-          </div>
-        </div>
-      </div>
+	  <EmptyPlaceholder
+	  title='Здесь буду ваши законченные объявления'
+	  subtitle='Текст'
+	  />
     );
   }
 

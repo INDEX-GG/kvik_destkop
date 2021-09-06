@@ -3,6 +3,7 @@ import { ToRubles, ToRusDate } from "../../../../lib/services";
 import { useStore } from "../../../../lib/Context/Store";
 import Favorits from '../../../../UI/Favorits';
 import { BASE_URL, STATIC_URL } from "../../../../lib/constants";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 function Offers(data) {
 	const { setLikeComment } = useStore()
 
@@ -15,14 +16,9 @@ function Offers(data) {
 
 	if (data.itemsPost?.length === 0 || data.itemsPost?.length === undefined) {
 		return (
-			<div className="clientPage__container_bottom">
-				<div className="clientPage__container_content">
-					<div className="notInfContainer">
-						<div className="notInf__title">Добавьте объявление в избранное, чтобы не потерять</div>
-						<p className="notInf__subtitle">Нажмите на соответствующую кнопку (на кнопку добавления, на сердечко, на 💙️), чтобы добавить объявление в избранное</p>
-					</div>
-				</div>
-			</div>
+			<EmptyPlaceholder
+			title='Добавьте объявление в избранное, чтобы не потерять'
+			subtitle='Нажмите на соответствующую кнопку (на кнопку добавления, на сердечко, на 💙️), чтобы добавить объявление в избранное'/>
 		);
 	}
 

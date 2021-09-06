@@ -5,14 +5,20 @@ import { useCategory } from '../../hooks/useCategory';
 import Link from 'next/link'
 import CategoriesAliasThree from './CategoriesAliasThree';
 
-export default function CategoriesAliasTwo({alias, alias2, label, placeOffer, toggleDrawer}) {
+const CategoriesAliasTwo = ({alias, alias2, label, placeOffer, toggleDrawer}) => {
 
 	const [open, setOpen] = useState(false);
+	const [active, setActive] = useState(false)
 
 	const {categoriesByAlias} = useCategory();
 
 	function generateStr(str) {
 		return str[0].toUpperCase() + str.substring(1,)
+	}
+
+	const handlerClick = (str) => {
+		placeOffer(str)
+		setActive(true)
 	}
 
 
@@ -21,8 +27,8 @@ export default function CategoriesAliasTwo({alias, alias2, label, placeOffer, to
 
 		if (placeOffer) {
 			return (
-				<ListItem className="burgerList" onClick={() => placeOffer(`${alias},${alias2}`)}>
-					<ListItemText><div className="burgerItem burgerLink">{label}</div></ListItemText>
+				<ListItem className="burgerList" onClick={() => handlerClick(`${alias},${alias2}`)}>
+					<ListItemText><div className={`burgerItem burgerLink ${active ? 'burgerItemClicked' : ''}`}>{label}</div></ListItemText>
 				</ListItem>
 			)
 		}
@@ -47,3 +53,5 @@ export default function CategoriesAliasTwo({alias, alias2, label, placeOffer, to
 		</>
 	)
 }
+
+export default CategoriesAliasTwo;

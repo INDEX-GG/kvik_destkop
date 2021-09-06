@@ -90,6 +90,7 @@ function SelectBuy({promotion = false, align = false, value = false}) {
             setSelectImg("Image 3")
         }
     }
+	
 
     if (promotion) {
         return (

@@ -32,8 +32,6 @@ function UserPage() {
   const [subscribersList, setSubscribersList] = useState([])
 
 
-  console.log(userInfo);
-
   useEffect(() => {
     setUserBool(userSub)
   }, [userSub])
