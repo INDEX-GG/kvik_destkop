@@ -63,9 +63,9 @@ const Index = ({ offers }) => {
 	return (
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
-				<NoSsr>
-					{matchesLaptop && matchesDesktop && matchesHD && <PopularCategories className={classes.popularCategories} />}
-				</NoSsr>
+
+				{matchesLaptop && matchesDesktop && matchesHD && <NoSsr><PopularCategories className={classes.popularCategories} /></NoSsr>}
+
 
 				<Box className={classes.main}>
 					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
