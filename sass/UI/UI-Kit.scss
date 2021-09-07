@@ -355,11 +355,3 @@ li {
 .SellerInfo__adaptive_information {
   visibility: hidden !important;
 }
-
-
-@media (max-width: 960px) {
-  .popularCategories, .rightBlock {
-    display: none;
-  }
-
-}
