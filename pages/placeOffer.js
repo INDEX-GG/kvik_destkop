@@ -123,7 +123,7 @@ function PlaceOffer() {
         console.log(data, alias)
         setLoading(true);
 
-        axios.post(`${BASE_URL}/api/setPosts`, data)
+         axios.post(`${BASE_URL}/api/setPosts`, data)
             .then(r => {
 			postId = r?.data?.id;
             axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
@@ -137,7 +137,7 @@ function PlaceOffer() {
 				console.log(r?.data.images.photos[0])
                 setPromotion(true)
             })
-        }) 
+        })  
     }
 
     return (

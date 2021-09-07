@@ -51,7 +51,7 @@
 .productPageCharacter > div {
     border-bottom: 1px solid $light;
     display: flex;
-    align-items: start;
+    align-items: flex-start;
 }
 .productPageCharacter > div > div {
     display: table-cell;
