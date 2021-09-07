@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
 import { PrismaClient } from '@prisma/client';
-import { Box, Container, makeStyles, NoSsr } from "@material-ui/core";
+import { Box, Container, makeStyles } from "@material-ui/core";
+import NoSSR from 'react-no-ssr';
 import PopularCategories from "../components/PopularCategories/PopularCategories";
 import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
@@ -64,17 +65,17 @@ const Index = ({ offers }) => {
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
 
-				{matchesLaptop && matchesDesktop && matchesHD && <NoSsr><PopularCategories className={classes.popularCategories} /></NoSsr>}
+				{matchesLaptop && matchesDesktop && matchesHD && <NoSSR><PopularCategories className={classes.popularCategories} /></NoSSR>}
 
 
 				<Box className={classes.main}>
 					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
-					<NoSsr>{matchesLaptop && matchesDesktop && matchesHD && <Box className={classes.rightBlock}>
+					<NoSSR>{matchesLaptop && matchesDesktop && matchesHD && <Box className={classes.rightBlock}>
 						<JokerBlock />
 						<Box className={classes.footer}>
 							<Footer2 />
 						</Box>
-					</Box>}</NoSsr>
+					</Box>}</NoSSR>
 				</Box>
 			</Container>
 			{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
