@@ -6,14 +6,6 @@ const ProductProperties = ({name, desc}) => {
 		name && desc == undefined ? 
 		<div className="placeholder_animation product__placeholder_description"></div> :
 		<>
-			{/*	<div>
-				<div>Свойство</div>
-				<div>Значение</div>
-			</div>
-			<div>
-				<div>Свойство</div>
-				<div>Значение</div>
-			</div>*/}
 			<div>
 				<div className="productLocality">{name}</div>
 				<pre className='productDescription'>{desc}</pre>
