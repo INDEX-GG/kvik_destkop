@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
 import { PrismaClient } from '@prisma/client';
-import { Box, Container, makeStyles } from "@material-ui/core";
+import { Box, Container, makeStyles, NoSsr } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
 import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
@@ -63,17 +63,18 @@ const Index = ({ offers }) => {
 	return (
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
-				{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories} />}
-
+				<NoSsr>
+					{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories} />}
+				</NoSsr>
 
 				<Box className={classes.main}>
 					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
-					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
+					<NoSsr>{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 						<JokerBlock />
 						<Box className={classes.footer}>
 							<Footer2 />
 						</Box>
-					</Box>}
+					</Box>}</NoSsr>
 				</Box>
 			</Container>
 			{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
