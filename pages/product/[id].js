@@ -29,6 +29,7 @@ import ProductOption from "../../components/product/ProductOption";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
+import ProductWarning from "../../components/product/ProductSmallComponents/ProductWarning";
 const objP = {
 	id: 1,
 	title: "Продам 2-комню квартиру, 95м в центре",
@@ -122,23 +123,14 @@ const Product = () => {
 					{title == undefined ? <div className='product__placeholder_loader'><div><Loader /></div></div> : ''}
 					<div className="productPageContainer text">
 						{!matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
-
 						{/* Блок объявления */}
 						<div className="product__wrapper">
 							<div className="productPageWrapper">
 								<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
 									<div className="productPageDescription">
-										{/* {!matchesMobile && !matchesTablet &&
-											<>
-												{title == undefined
-													? <div className="placeholder_animation product__placeholder_title"></div>
-													: <div className="productPageTitle xl">{title}</div>}
-											</>
-										} */}
 										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile/> : null}
 										<ProductCarousel title={title} photo={photo} mobile={matchesMobile || matchesTablet} />
 										{!matchesLaptop && !matchesDesktop && !matchesHD && (
-
 											photo == undefined ?
 												<div className="placeholder_animation product__placeholder_mobil-action"></div>
 												:
@@ -200,10 +192,7 @@ const Product = () => {
 														)}
 														{objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ""}
 														{objP.adstatus === 4 ? (
-															<p className="reason__rejection">
-																Причина отклонения:{" "}
-																<span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span>
-															</p>
+															<ProductWarning status={0}/>
 														) : (
 															""
 														)}
@@ -226,17 +215,13 @@ const Product = () => {
 												</div>
 										)}
 										{/* адрес, карта, свойства и значения */}
-
-
 										<ProductInformation user_id={user_id} address={address} description={description} />
-
-
-
 									</div>
 
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
-										{/* статус объявления, кнопки */} <ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+										{/* статус объявления, кнопки */} 
+										<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
 										{/* пользователь и его объявления */}
 										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
 									</div>

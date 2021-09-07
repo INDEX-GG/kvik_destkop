@@ -22,7 +22,8 @@ export default function ProductInformation(data) {
 						<ProductProperties key={index + 1} name={item.name} desc={item.desc}/>
 					)
 				})} */}
-				{!matchesMobile || !matchesTablet ? <ProductDescription description={data.description} mobile={!matchesMobile && !matchesTablet}/> : ''}
+				{matchesMobile || matchesTablet ? '' : 
+				<ProductDescription description={data.description} mobile={!matchesMobile && !matchesTablet}/>}
 				<ProductSocial/>
 			</div>
 		</>
