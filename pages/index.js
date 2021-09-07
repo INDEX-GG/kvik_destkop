@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Index = ({ offers }) => {
-	const { matchesMobile, matchesTablet } = useMedia();
+	const { matchesMobile, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
 	const [data, setData] = useState(modifyGetPostsData(offers));
 	const classes = useStyles();
 	const { isAuth } = useAuth();
@@ -64,12 +64,12 @@ const Index = ({ offers }) => {
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
 				<NoSsr>
-					{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories} />}
+					{matchesLaptop && matchesDesktop && matchesHD && <PopularCategories className={classes.popularCategories} />}
 				</NoSsr>
 
 				<Box className={classes.main}>
 					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
-					<NoSsr>{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
+					<NoSsr>{matchesLaptop && matchesDesktop && matchesHD && <Box className={classes.rightBlock}>
 						<JokerBlock />
 						<Box className={classes.footer}>
 							<Footer2 />
