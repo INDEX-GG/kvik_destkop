@@ -38,7 +38,18 @@ export default function offerActive(offer) {
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [offerId, setOfferId] = useState();
-	const [qwe, setQwe] = useState()
+	const [offerData, setOfferData] = useState()
+
+	
+	
+	useEffect(() => {
+		let cardInfo = {
+			id: offer.offer.id,
+			'isCheck': offer.checkAll,
+			myProperty: 123
+		}
+		setOfferData(cardInfo)
+	}, [])
 
 	useEffect(() => {
 		// setQwe(offer.data.offers.map((item) => item.id))
@@ -46,12 +57,21 @@ export default function offerActive(offer) {
 		// data = { 'id': qwe, 'isCheck': offer.checkAll }
 		// for (var i = 0; i < offer.data.offers?.length; i++) {
 		offer.data.offers.map((item, i) => {
-			data[i] = { 'id': item.id, 'isCheck': offer.checkAll }
+			data[i] = { 
+				id: item.id, 
+				'isCheck': offer.checkAll,
+				myProperty: 123
+			}
 		})
 		// }
-		setQwe(data)
+		if(offer.addDataChild != null){
+			offer.addDataChild(offerData)
+		}
+		console.log(offerData, "данные в стейте")
+		console.log(offer, "данные которые в пропсе")
 	}, [offer.checkValue])
 
+	
 
 	useEffect(() => {
 		if (offer.checkValue != undefined) {
@@ -59,7 +79,6 @@ export default function offerActive(offer) {
 			offer.data.offers.map((item, i) => {
 				data[i] = { 'id': item.id, 'isCheck': offer.checkAll }
 			})
-			mainCheck(data)
 		}
 	}, [offer.checkAll])
 
@@ -68,29 +87,28 @@ export default function offerActive(offer) {
 	useEffect(() => {
 		setCheck(offer.checkAll)
 	}, [offer.checkAll])
+	
+	
 
-
-	const oneCheck = e => {
-		data = { 'id': e.target.value, 'isCheck': e.target.checked }
-		mainCheck([data])
+	const onCheck = e => {
+		offer.setCheckChild(e.target.checked)
+		if(e.target.checked==false && offer.setGetDataChild !== null){
+			if(typeof offer.getDataChild !== "undefined"){
+				let deteteData = offer.getDataChild.filter((item) => (
+					item.id != offer.offer.id
+				));
+				offer.deleteDataChild(deteteData)
+				console.log(deteteData, "вызывается при отжатии")
+				console.log(offer.offer.id, "вызывается при отжатии")
+			}
+		}
+		if(e.target.checked){
+			offer.addDataChild(offerData)
+			console.log(offer.offer.id, "вызывается при нажатии")
+		}
 	}
+	console.log(offerData,"то что по итогу в стейте")
 
-
-	let zxc = []
-	const [uio, setUio] = useState();
-
-	function mainCheck(data) {
-
-		console.log('Что хранится qwe==>', qwe)
-		console.log('Данные которые заходят ==>', data)
-		console.log('Что хранится uio==>', uio)
-		console.log('==================================')
-
-		console.log(qwe.filter((item) => item.id === data.map((items) => items)))
-		console.log(data.map((item) => item.id))
-
-		setUio(zxc)
-	}
 
 
 
@@ -116,7 +134,7 @@ export default function offerActive(offer) {
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.offer.id}
-							onChange={(e) => { setCheck(e.target.checked); oneCheck(e) }}
+							onChange={(e) => { setCheck(e.target.checked); onCheck(e) }}
 							checked={check}
 						/>
 					</div>

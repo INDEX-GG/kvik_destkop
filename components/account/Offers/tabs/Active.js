@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Checkbox, makeStyles } from "@material-ui/core";
+import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
+import UnpublishForm from "../../../UnpublishForm";
 // import AddRounded from "@material-ui/icons/AddRounded";
 // import Router from "next/router";
 import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
@@ -57,20 +58,40 @@ function Active(data) {
 	// }
 
 
+	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
+	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false)
 	const [checkValue, setcheckValue] = useState()
 	const [checkAll, setCheckAll] = useState(false)
-
+	const [getDataChild,setGetDataChild] = useState([])
+	const [checkChild, setCheckChild] = useState(false)
 	const handleCheckAll = e => {
 		setCheck(e.target.checked)
 		setcheckValue(e.target.value)
 		setCheckAll(e.target.checked)
+		if(!e.target.checked){
+			setGetDataChild([])
+		}
+		
 	}
-
+	const addDataChild =  (newData) => {
+		setGetDataChild(getDataChild => [...getDataChild, newData])
+	}
+	const deleteDataChild = (newData) => {
+		setGetDataChild(newData)
+	}
+	console.log(getDataChild, "данные из выбранных чекбоксов")
+	console.log(checkChild, "кнопка нажата")
 	if (data.offers.length == 0) {
 		return (
 			<Placeholder />
 		);
+	}
+
+	/* Модальное окно */
+	function pushCheck() {
+		setOpenUnpublishForm(!openUnpublishForm)
+		handleUnpublishFormDialog()
 	}
 
 	return (
@@ -81,6 +102,7 @@ function Active(data) {
 					onError: (err) => {
 						console.error(err)
 					},
+					getDataChild,
 				}}
 			>
 				<div className="clientPage__container_bottom">
@@ -92,27 +114,38 @@ function Active(data) {
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
 
-							onChange={(e) => handleCheckAll(e)}
+							onChange={(e) => {
+								handleCheckAll(e);
+								
+							}}
 							checked={check}
 
 						/>
-						<button className={classes.btn__unpublish} onClick={(e) => console.log(e)}>
+						<button className={classes.btn__unpublish} onClick={() => {pushCheck()
+							console.log(getDataChild, "из кнопки снять с публикации")
+							console.log(openUnpublishForm, "clicked?")}}>
 							Снять с публикации
 						</button>
 					</div>
 					<div className="clientPage__container_content">
 						{data.offers?.map((offer, i) => {
 							return (
-								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue} />
+								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue} 
+								/* Если кнопка нажата вызывает колбек, если нет передает пропсом ноль */
+								addDataChild={check||checkChild? addDataChild : null }
+								getDataChild={getDataChild}
+								setCheckChild={setCheckChild}
+								deleteDataChild={deleteDataChild}
+								/>
 							);
 						})}
 					</div>
 				</div>
 
 
-				{/* <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
+				{<Dialog open={openUnpublishForm} onClose={() => 	setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
         <UnpublishForm Close={handleUnpublishFormDialog} />
-      </Dialog>  */}
+      </Dialog> }
 			</UnpublishCTX.Provider>
 		</>
 	);
