@@ -11,14 +11,13 @@ export default async function handler(req, res) {
 			let columns = ''
 			let values = ''
 			array.forEach((element) => {
-				console.log(element.alias, element.fields);
-				columns += '"' + element.alias + '", '
-				values += "'" + element.fields + "', "
-
+				if (element.fields !== '') {
+					columns += '"' + element.alias + '", '
+					values += "'" + element.fields + "', "
+				}
 			})
 			columns = columns.slice(0, -2)
 			values = values.slice(0 ,-2)
-			console.log(`INSERT INTO ${key} (${columns}) VALUES (${values})`)
 			await prisma.$queryRaw(`INSERT INTO ${key} (${columns}) VALUES (${values})`)
 			return{ message: 'successfully update' };
 		}
