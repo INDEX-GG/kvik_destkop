@@ -2,6 +2,7 @@ import { Avatar } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useMedia } from '../../../hooks/useMedia';
+import StarRating from '../../StarRating';
 
 
 const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, status, userrate}) => {
@@ -22,26 +23,13 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
 						}}> {name} </div>
 						<div>
 							<div className="SellerInfoRateNumber">{userrate} </div>
-							<div className="rating">
-								<div className="stars">
-									<div className="on" style={{ width: `${raiting * 20}%` }}></div>
-									<div className="live">
-										<span data-rate="1"></span>
-										<span data-rate="2"></span>
-										<span data-rate="3"></span>
-										<span data-rate="4"></span>
-										<span data-rate="5"></span>
-									</div>
-								</div>
-							</div>
+							<StarRating rating={raiting}/>
 							{sellerId === id || status === 2 || status === 3 || status === 4 || status === 5 || status === 6 ? (
-
 								mobile ? (
 									<>
 										{sellerId != id && <span className="count__ad">{userAd == undefined ? "" : ((userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
 										{sellerId != id && <a className="SellerInfoloarmore"></a>}
 									</>
-
 								) : ("")) : ("")}
 						</div>
 						{matchesMobile ?

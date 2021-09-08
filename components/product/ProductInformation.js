@@ -6,7 +6,7 @@ import ProductMap from './ProductMap';
 import ProductSocial from './ProductSmallComponents/ProductSocial';
 
 export default function ProductInformation(data) {
-	console.log(data)
+	console.log(data.description)
 
 	const { matchesMobile, matchesTablet } = useMedia();
 

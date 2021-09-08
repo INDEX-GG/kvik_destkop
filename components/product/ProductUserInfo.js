@@ -13,6 +13,7 @@ export default function ProductUserInfo(data) {
 	const { matchesMobile, matchesTablet } = useMedia();
 
 	return (
+		data.user_id ? 
 		<>
 			<div className="ad__block_bottom">
 				<div className="SellerInfoUserBlock">
@@ -21,6 +22,6 @@ export default function ProductUserInfo(data) {
 				<ProductSmallAds id={id} sellerId={data.user_id} smallAd={data.userAd} mobile={matchesTablet || matchesMobile}/>
 			</div>
 			<ProductUserBlockSubRep id={id} sellerdId={data.user_id} mobile={matchesMobile || matchesTablet} />
-		</>
+		</> : null
 	);
 }

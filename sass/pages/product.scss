@@ -594,7 +594,7 @@
 }
 
 .ad__block_middle {
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
 }
 
 .up_view_btn {
@@ -602,6 +602,7 @@
     display: block;
     text-align: center;
     margin-bottom: 12px;
+	padding: 7px 0;
 }
 
 .ad__block_middle__description_service {
@@ -628,6 +629,10 @@
 .ad_btn {
     width: 100%;
     display: block;
+}
+
+.ad_btn_test {
+	display: block;
 }
 
 .ad__block_bottom {
@@ -978,6 +983,10 @@
         // margin: 8px 0;
         width: 48%;
     }
+
+	.ad_btn_full_width {
+		width: 100% !important;
+	}
     .count__ad {
         color: $tpl;
     }
@@ -1111,4 +1120,7 @@
     .mySwiper2 .swiper-wrapper {
         height: 300px !important;
     }
+	.SellerInfoDate {
+		font-size: 11px;
+	}
 }

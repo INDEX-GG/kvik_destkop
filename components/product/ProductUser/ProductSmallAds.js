@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ToRubles } from '../../../lib/services';
 import { useRouter } from 'next/router';
+import ProductAdsLength from '../ProductSmallComponents/ProductAdsLength';
 
 
 const ProductSmallAd = ({id, sellerId, status, mobile, smallAd}) => {
@@ -31,7 +32,6 @@ const ProductSmallAd = ({id, sellerId, status, mobile, smallAd}) => {
 					</>
 					:
 					<div className="SellerInfoOffers">
-
 						{
 							(userSmallAd = smallAd?.filter((item) => item.id != router.query.id)) &&
 							userSmallAd.slice(0, 3).map((userAd) => {
@@ -66,32 +66,13 @@ const ProductSmallAd = ({id, sellerId, status, mobile, smallAd}) => {
 							//   );
 							// })
 						}
-
 					</div>
 				) : (
 					""
 				)
 			) : ("")
 		}
-		{smallAd == undefined ? (
-			""
-		) : sellerId != id ? (
-			!mobile ? (
-				<a className="SellerInfoUserOffersCollapse highlight underline" target="_blank" onClick={() => router.push({
-					pathname: `/user/${sellerId}`
-				})}
-
-		/* onClick={(e) => { handleCollapse(e)}} */>
-
-					{(`Все объявления продавца (${smallAd == undefined ? "0" : smallAd.length})`) || `Скрыть`}
-				</a>
-			) : (
-				""
-			)
-		) : (
-			""
-		)
-		}
+		<ProductAdsLength id={id} sellerId={sellerId} smallAd={smallAd} mobile={mobile} />
 		</>
 	)
 }
