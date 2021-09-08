@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(3),
    },
    formTitleField: {
+      fontSize: '14px',
       flexGrow: 1,
       padding: '4px 0',
    },

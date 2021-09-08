@@ -40,7 +40,7 @@ const Messenger = () => {
 	return (
 		<Container className={classes.root} maxWidth='sm'>
 			<Box>
-				<Typography>{JSON.stringify(msgList)}</Typography>
+			<Typography>{JSON.stringify(msgList)}</Typography>
 			</Box>
 			<TextField
 				size='small'

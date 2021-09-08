@@ -1,19 +1,15 @@
 import React from "react";
 import { ToRubles } from "../../../../lib/services";
+import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Sales(data) {
   const salesDealsBox = data.deals.filter((deal) => deal.status === 0);
 
   if (salesDealsBox.lenght == 0) {
     return (
-      <div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Сюда будут попадать товары, проданные вами</div>
-            <p className="notInf__subtitle">Для продажи товаров при подаче объявлений оформите безопасную сделку</p>
-          </div>
-        </div>
-      </div>
+      	<EmptyPlaceholder 
+		title='Сюда будут попадать товары, проданные вами' 
+		subtitle='Для продажи товаров при подаче объявлений оформите безопасную сделку'/>
     );
   }
 

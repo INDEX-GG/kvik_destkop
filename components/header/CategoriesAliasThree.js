@@ -5,17 +5,23 @@ import { useCategory } from '../../hooks/useCategory';
 import Link from 'next/link'
 import CategoriesAliasFour from './CategoriesAliasFour';
 
-export default function CategoriesAliasThree({alias, alias2, alias3, label, placeOffer, toggleDrawer}) {
+const CategoriesAliasThree = ({alias, alias2, alias3, label, placeOffer, toggleDrawer}) => {
 
 	const [open, setOpen] = useState(false);
+	const [active, setActive] = useState(false)
+
+	const handlerClick = (str) => {
+		placeOffer(str)
+		setActive(true)
+	}
 
 	const {categoriesByAlias} = useCategory();
 
 	if (categoriesByAlias(alias, alias2, alias3) == null) {
 		if (placeOffer) {
 			return (
-				<ListItem className="burgerList pl-1" onClick={() => placeOffer(`${alias},${alias2},${alias3}`)}>
-					<ListItemText><div className="burgerItem burgerLink">{label}</div></ListItemText>
+				<ListItem className="burgerList pl-1" onClick={() => handlerClick(`${alias},${alias2},${alias3}`)}>
+					<ListItemText><div className={`burgerItem burgerLink ${active ? 'burgerItemClicked' : ''}`}>{label}</div></ListItemText>
 				</ListItem>
 			)
 		}
@@ -39,3 +45,5 @@ export default function CategoriesAliasThree({alias, alias2, alias3, label, plac
 		</>
 	)
 }
+
+export default CategoriesAliasThree

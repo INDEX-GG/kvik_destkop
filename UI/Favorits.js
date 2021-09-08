@@ -2,13 +2,13 @@ import React from 'react';
 import { useStore } from '../lib/Context/Store';
 import { checkArray } from '../lib/services';
 
-export default function Favorits({ offer, isCard, isProduct, isAccountCard, favId, idOffer }) {
+export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard, favId, idOffer }) {
 
 	const { setLikeComment } = useStore()
 	const { userInfo } = useStore()
 	let comment;
 
-	if (isCard) {
+/* 	if (isCard) {
 		const getFavorits = (e) => {
 			comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === offer.id)[0])?.comment !== undefined ? (userInfo?.favorites.filter(item => item.post_id === offer.id)[0])?.comment : ''
 			setLikeComment(offer.id, comment, e)
@@ -26,7 +26,7 @@ export default function Favorits({ offer, isCard, isProduct, isAccountCard, favI
 				</div>
 			)
 		}
-	}
+	} */
 
 	if (isAccountCard) {
 		const getFavoritsUser = e => {

@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { useMedia } from "../../hooks/useMedia";
-import { ToRubles, ToRusDate } from "../../lib/services";
+import { ToRusDate } from "../../lib/services";
 import { Dialog } from "@material-ui/core";
 import IconCall from "../../UI/icons/IconCall";
 import IconMess from "../../UI/icons/IconMess";
 import Statistics from "../../components/Statistics";
 import PhoneModule from "./PhoneModule";
-import Favorits from "../../UI/Favorits";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import UnpublishForm from "../UnpublishForm";
 import { UnpublishCTX } from "../../lib/Context/DialogCTX";
 import router from "next/router";
+import ProductButton from "./ProductUI/ProductButton";
+import ProductDeal from "./ProductDeal";
+import ProductDate from "./ProductSmallComponents/ProductDate";
+import ProductPrice from "./ProductPrice";
+import ProductOption from "./ProductOption";
+import ProductStats from "./ProductSmallComponents/ProductStats";
+import ProductFavoriteNoteComp from "./ProductSmallComponents/ProductFavoriteNoteCom";
 export default function ProductAction(data) {
   const { id } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
@@ -32,6 +38,9 @@ export default function ProductAction(data) {
     handleUnpublishFormDialog();
   }
 
+
+  console.log(data.trade)
+
   return (
     <>
       <UnpublishCTX.Provider value={{ offerId, openUnpublishForm, setOpenUnpublishForm }}>
@@ -41,53 +50,15 @@ export default function ProductAction(data) {
           data.user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
             <>
               <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
-                {(objP.adstatus !== 7) && (data.user_id === id) ? (
-                  <div className="SellerInfoTopButtons">
-                    <a className="SellerInfoStatShow underline highlight" onClick={() => setOpenStatForm(!openStatForm)}> 
-                      {/* Статистика */}
-                    </a>
-                  </div>
-                ) : (
-                  ""
-                )}
-                {data.user_id == id ||
-                  data.user_id === undefined ? '' :
-                  <div className="SellerInfoTopButtons">
-                    <Favorits isProduct idOffer={+data.router} />
-                    <a className="SellerInfoCompare"></a>
-                  </div>
-                }
-                <div className={data.user_id === id ? "SellerInfoDate" : "SellerInfoDate_active"}>Размещено {ToRusDate(data.created_at)}</div>
-                {/* { <span className={data.user_id === id  ? "ad__block_top__publication_date ad__posted" : "ad__block_top__publication_date"}>Размещено {ToRusDate(data.created_at)}</span> } */}
-                {data.user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""}
-                <div className="SellerInfoOldPrice thin dark crossed">{data.oldprice == undefined ? "" : ToRubles(data.oldprice)}</div>
-                <div className="SellerInfoPrice thin xxl">{ToRubles(data.price)}</div>
-                {objP.adstatus !== 7 ? <div className="SellerInfoBargain dark thin">{data.user_id != id && data.trade && <p>Торг уместен</p>}</div> : ""}
-                {data.user_id !== id ? (
-                  <a className="SellerInfoMess button contained">
-                    <IconMess /> Написать продавцу
-                  </a>
-                ) : (
-                  ""
-                )}
-                {data.user_id !== id ? (
-                  <button className="SellerInfoCall button contained" onClick={() => setPhoneModuleState(!phoneModuleState)}>
-                    <IconCall /> Показать номер
-                  </button>
-                ) : (
-                  ""
-                )}
-                {objP.adstatus !== 7 ? (
-                  <div className="SellerInfoAboutDeal">
-                    <div>
-                      {data.secure_transaction && <div className="SellerInfoSecure superLight">Безопасная сделка</div>}
-                      {data.delivery && <div className="SellerInfoDelivery superLight">Возможна доставка</div>}
-                    </div>
-                    <div className="SellerInfoSeen dark">{data.reviewed} +4</div>
-                  </div>
-                ) : (
-                  ""
-                )}
+				<ProductStats status={objP.adstatus} sellerId={data.user_id} id={id} dialog={openStatForm} setDialog={setOpenStatForm} />
+				<ProductFavoriteNoteComp sellerId={data.user_id} id={id} isOffer={+data.router}/>
+				<ProductDate id={id} sellerId={data.user_id} date={ToRusDate(data.created_at)} leftDay={30} />
+				<ProductPrice oldPrice={data.oldprice} price={data.price} id={id} sellerId={data.user_id} trade={data.trade} adstatus={objP.adstatus} />
+				<ProductDeal id={id} sellerID={data.user_id}>
+					<ProductButton className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
+					<ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(!phoneModuleState)} />
+				</ProductDeal>
+				<ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
               </div>
 
             </>
@@ -98,7 +69,8 @@ export default function ProductAction(data) {
             <div className='product__placeholder_ProductAction_main'><div className="placeholder_animation product__placeholder_ProductAction_two "></div>
               <div className="placeholder_animation product__placeholder_ProductAction_two_tow "></div> </div> :
             <>
-              {data.user_id !== id && <div className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")} >Купить</div>}
+              {/* {data.user_id !== id && <div className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")} >Купить</div>} */}
+			  {data.user_id !== id && <ProductButton className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")}  title='Купить'/>}
               {objP.adstatus !== 7 && (
                 <div className="ad__block_middle">
                   {/* {data.user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""} */}
@@ -111,11 +83,11 @@ export default function ProductAction(data) {
                   ) : (
                     ""
                   )}
-                  {data.user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
+                  {data.user_id === id ? <ProductButton className="ad_btn ad_btn_edit buttonGrey button">Редактировать</ProductButton> : ""}
                   {data.user_id === id ? (
-                    <a onClick={(e) => pushCheck(e)} className="ad_btn buttonGrey button">
+                    <ProductButton onClick={(e) => pushCheck(e)} className="ad_btn buttonGrey button">
                       Снять с публикации
-                    </a>
+                    </ProductButton>
                   ) : (
                     ""
                   )}

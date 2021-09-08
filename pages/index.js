@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
 			marginBottom: "92px"
 		},
 	},
+	popularCategories: {
+		[theme.breakpoints.down('md')]: {
+			display: 'none'
+		},
+	},
 	main: {
 		display: 'flex',
 		height: '100%',
@@ -34,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
 	rightBlock: {
 		height: '100%',
 		marginLeft: '56px',
+		[theme.breakpoints.down('md')]: {
+			display: 'none'
+		},
 	},
 	footer: {
 		top: 'calc(100% - 205px)',
@@ -49,13 +57,15 @@ const Index = ({ offers }) => {
 
 
 	useEffect(() => {
-		getDataByPost('/api/getPosts', { of: 0 }).then(r => {setData(modifyGetPostsData(r))})
+		getDataByPost('/api/getPosts', { of: 0 }).then(r => { setData(modifyGetPostsData(r)) })
 	}, []);
 
 	return (
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
-				<PopularCategories />
+				{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories} />}
+
+
 				<Box className={classes.main}>
 					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>

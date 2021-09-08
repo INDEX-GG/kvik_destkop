@@ -80,14 +80,14 @@ const useStyles = makeStyles(theme => ({
 	promotionPayment: {
 		display: "flex",
 		justifyContent: 'flex-end',
-		[theme.breakpoints.between("0", "450")]: {
+		[theme.breakpoints.between("0", "480")]: {
 			justifyContent: 'center',
 			flexWrap: "wrap",
 		}
 	},
 	promotionSelectPay: {
 		marginRight: "48px",
-		[theme.breakpoints.between("0", "480")]: {
+		[theme.breakpoints.down(490)]: {
 			marginRight: "15px"
 		}
 	},
@@ -124,7 +124,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	promotionMobileTitel: {
 		textAlign: "center",
-		padding: "16px 0px 12px",
+		padding: "16px 0px 27px",
 		boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
 		marginBottom: "24px"
 	},
@@ -241,9 +241,6 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 	}
 
 
-
-
-	console.log(product)
 	const classes = useStyles()
 	return (
 		<PromotionContent dialog={true} setDialog={setDialog}>
@@ -251,8 +248,8 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 				<>
 					<div onClick={() => setDialog(!dialog)} className="accountArrowLeft"></div>
 					<div className={classes.promotionMobileTitel}>
-						<h6 className="modal__block__top_title">Новое объявление</h6>
-						<div className={classes.promotionMobileSubTitle}>2/2</div>
+						<h6 className="modal__block__top_title">Продвижение объявления</h6>
+						{/* <div className={classes.promotionMobileSubTitle}>2/2</div> */}
 					</div>
 				</> : null}
 			<Box className={classes.promotionContainer}>
@@ -299,7 +296,6 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 					<div className={classes.productPublished}>Ваше объявление опубликовано!</div>
 					<Button className={classes.productButton} onClick={() => rounter.push("/")}>Хорошо</Button>
 				</div>
-
 			</Dialog>
 		</PromotionContent>
 	)

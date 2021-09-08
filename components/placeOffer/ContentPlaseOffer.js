@@ -1,4 +1,4 @@
-import { Button, Dialog, Box, makeStyles } from "@material-ui/core"
+import { Button, Box, makeStyles } from "@material-ui/core"
 import { useForm, FormProvider } from 'react-hook-form';
 import { useAuth } from "../../lib/Context/AuthCTX";
 import MobileContact from "./MobileContacts";
@@ -9,6 +9,7 @@ import { useState } from "react";
 import axios from "axios";
 import Promotion from "./Promotion";
 import { BASE_URL, STATIC_URL } from "../../lib/constants";
+import MobileModal from "../MobileModal";
 
 const useStyles = makeStyles(() => ({
     buttonSend: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles(() => ({
         position: "relative"
     },
     plaseOfferTitle: {
+        fontSize: '14px',
         textAlign: "center",
         padding: "16px 0px 12px",
         boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
@@ -99,33 +101,22 @@ export default function ContentPlaseOffer({dialog, title, backFunc}) {
     return(
         promotion ? (
             <Promotion dialog={promotion} setDialog={setPromotion} product={promotionProduct}/>
-        ) : 
-        <Dialog open={dialog || false} fullScreen={true}>
-                <div className="modal__wrapper_md">
-                    <div className="modal__block__top accountTop">
-                        <>
-                            <div onClick={() => backFunc()} className="accountArrowLeft"></div>
-                            <div className={classes.plaseOfferTitle}>
-                                <h6 className="modal__block__top_title">Новое объявление</h6>
-                                <div className={classes.plaseOfferSubTitle}>2/2</div>
-                            </div>
-                        </>
-                        <Box className={classes.plaseOfferContent}>
-                            <FormProvider {...methods}>
-                                <form onSubmit={methods.handleSubmit(onSubmit)}>
-                                    <MobileProduct ctx={photoesCtx}/>
-                                    <MobilePrice/>
-                                    <MobileLocation/>
-                                    <MobileContact/>
-                                    <div className={classes.buttonContainer}>
-                                        <Button className={classes.buttonSend} color='primary'
-                                        type="submit" variant='contained'>Продолжить</Button>
-                                    </div>
-                                </form>
-                            </FormProvider>
-                        </Box>
-                    </div>
-                </div>
-        </Dialog>
+        ) :
+		<MobileModal dialog={dialog} title='Новое объявление' subtitle='2/2' close={backFunc}>
+					<Box className={classes.plaseOfferContent}>
+						<FormProvider {...methods}>
+							<form onSubmit={methods.handleSubmit(onSubmit)}>
+								<MobileProduct ctx={photoesCtx}/>
+								<MobilePrice/>
+								<MobileLocation/>
+								<MobileContact/>
+								<div className={classes.buttonContainer}>
+									<Button className={classes.buttonSend} color='primary'
+									type="submit" variant='contained'>Продолжить</Button>
+								</div>
+							</form>
+						</FormProvider>
+                    </Box>
+		</MobileModal>
     )
 }

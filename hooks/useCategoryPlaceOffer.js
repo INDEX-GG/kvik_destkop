@@ -3,14 +3,9 @@ import axios from 'axios';
 import { BASE_URL } from "../lib/constants";
 export const useCategoryPlaceOffer = (data) => {
 
-
     const [zxc, setZxc] = useState(undefined),
         nameTitile = data?.toLowerCase();
     let newOBJ = [];
-
-    console.log('получение data в use', data)
-    console.log('получение nameTitile в use', nameTitile)
-    console.log('получение zxc в use', zxc)
 
     if (zxc?.length != undefined) {
         for (var i = 0; i < zxc?.length; i++) {
@@ -170,6 +165,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'disk_departure':
                 case 'bolt_distance':
                 case 'number_of_mounting_holes':
+                case 'salon':
                     newOBJ[i].type = 'list'
                     break;
 
@@ -201,7 +197,6 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'number_beds':
                 case 'electric_power':
                 case 'distance_to_city':
-                case 'tires_and_rims':
                 case 'breed':
                 case 'features':
                 case 'discrete_graphics_series':
@@ -220,6 +215,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'disc_model':
                 case 'disc_type':
                 case 'number_of_discs_included':
+                case 'tires_and_rims':
                     newOBJ[i].type = 'text'
                     break;
 
@@ -255,9 +251,9 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'driving_assistance':
                 case 'heating_auto':
                 case 'antitheft_system':
-                case 'salon':
                 case 'support_systems':
                 case 'multimedia_and_navigation':
+                case 'set_tires':
                     newOBJ[i].type = 'checkbox'
                     break;
 
@@ -266,9 +262,12 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'age':
                 case 'experience':
                 case 'separate_check_mark_for_hbo':
-                case 'winter_tires_and_rims':
                     newOBJ[i].type = 'radio'
                     break;
+
+
+                // newOBJ[i].type = 'text_radio'
+                // break;
 
                 default:
                     break;
