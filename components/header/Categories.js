@@ -114,7 +114,6 @@ function Categories() {
                     setCategory(categoriesByAlias(e.target.getAttribute("value")));
                     setCategory2(undefined);
                   }}
-                  onTouchStart={() => console.log(1)}
                   onClick={() => router.push(`/search/${valueOne}`)}
                   className={classes.categories__menu_item_btn}
                 >
