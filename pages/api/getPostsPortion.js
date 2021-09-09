@@ -8,7 +8,7 @@ export default async function handler(req, res) {
             const page_limit = req.body.page_limit
             const page = (req.body.page - 1) * page_limit
 
-            return  await  prisma.$queryRaw(`SELECT id, user_id, category_id, price, old_price, photo, rating, created_at, delivery, reviewed, address, phone, trade, verify_moderator, commercial, secure_transaction, title, email FROM "posts" ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+            return  await  prisma.$queryRaw(`SELECT id, user_id, category_id, price, old_price, photo, rating, created_at, delivery, reviewed, address, phone, trade, verify_moderator, commercial, secure_transaction, title, email FROM "posts" WHERE active = 0 ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
         }
 
         try {
