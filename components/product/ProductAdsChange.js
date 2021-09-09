@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import ProductWarning from './ProductSmallComponents/ProductWarning';
+import ProductButtonChangeAds from './ProductButtonsChangeAds';
 import ProductButton from './ProductUI/ProductButton';
 
 
@@ -16,7 +16,7 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, modalFunc})
 			  {sellerId !== id && <ProductButton className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")}  title='Купить'/>}
               {status !== 7 && (
                 <div className="ad__block_middle">
-                  {/* {sellerId === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""} */}
+                  {/* {sellerId === id ? <ProductButton className="up_view_btn button contained" title='Увеличить просмотры'/> : ""}  */}
                   {sellerId === id ? (
                     <div className="ad__block_middle__description_service">
                       {/* потом восстановить! */}
@@ -28,22 +28,23 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, modalFunc})
                   )}
                   {sellerId === id ? <ProductButton className="ad_btn ad_btn_edit buttonGrey button">Редактировать</ProductButton> : ""}
                   {sellerId === id ? (
-                    <ProductButton onClick={(e) => modalFunc(e)} className="ad_btn buttonGrey button">
+                    <ProductButton onClick={modalFunc} className="ad_btn buttonGrey button">
                       Снять с публикации
                     </ProductButton>
                   ) : (
                     ""
                   )}
-                  {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
+				  <ProductButtonChangeAds id={id} sellerId={sellerId} status={status} mobile={mobile} lastDate={0}/>
+                  {/* {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
                   {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
                   {status === 2 || status === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}
-                  {status === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ""}
+                  {status === 4 ? <ProrductLastEdit lastDate={0}/> : ""}
                   {status === 4 ? (
                     <ProductWarning status={0}/>
                   ) : (
                     ""
-                  )}
-                  {status === 4 || status === 6 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
+                  )} */}
+                  {/* {status === 4 || status === 6 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
                   {status === 4 || status === 6 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}
                   {status === 6 ? (
                     <p className="ad__last__edit">
@@ -52,7 +53,7 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, modalFunc})
                     </p>
                   ) : (
                     ""
-                  )}
+                  )} */}
                 </div>
 
 

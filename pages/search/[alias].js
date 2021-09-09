@@ -61,13 +61,13 @@ const Index = () => {
 
 	let aliasData = aliasName(aliasQuery, true)
 
-	const aliesFillUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
+	const aliasFillUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
 
 	useEffect(() => {
 
-		if (aliesFillUrl !== undefined) {
-			getDataByPost('/api/postCategorySearch', { data: aliesFillUrl }).then(r => {
-				if (r !== undefined && r.length > 0) {
+		if (aliasFillUrl !== undefined) {
+			getDataByPost('/api/postCategorySearch', { data: aliasFillUrl }).then(r => {
+				if (r !== undefined) {
 					const offersData = r.map(offer => {
 						return {
 							...offer,
@@ -78,7 +78,8 @@ const Index = () => {
 				}
 			})
 		}
-	}, [aliesFillUrl]);
+	}, [aliasFillUrl]);
+
 
 	return (
 		// <MainlA isIndex title={'Доска объявлений'} category={"Транспорт"}>
