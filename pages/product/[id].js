@@ -147,6 +147,8 @@ const Product = () => {
 
 										)}
 										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />
+=======
+										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={objP.adstatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />
 										{/* адрес, карта, свойства и значения */}
 										<ProductInformation address={address} description={description} />
 									</div>
