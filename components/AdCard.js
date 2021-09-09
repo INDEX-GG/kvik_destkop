@@ -17,9 +17,10 @@ const initialState = {
 	mouseY: null,
 };
 
-function AdCard_component({ offer }) {
+const AdCard_component = React.forwardRef((props, ref) => {
 
 	const { id } = useAuth();
+	const {offer} = props;
 	const { userInfo, setLikeComment } = useStore();
 	// console.log(userInfo.favorites.filter(item => item.post_id === 295).map(item => item.comment)[0])
 	const currentSwiper = useRef();
@@ -80,6 +81,7 @@ function AdCard_component({ offer }) {
 	const { matchesMobile, matchesTablet } = useMedia();
 	return (
 		<div
+			ref={ref}
 			className={offer.commercial === 2 ? "card card__lg" : "card"}
 			onContextMenu={(e) => handleCM(e)}
 			onMouseDown={(e) => handleWheelClick(e, offer.id)}
@@ -179,6 +181,6 @@ function AdCard_component({ offer }) {
 		</div>
 
 	);
-}
+})
 
 export default AdCard_component;
