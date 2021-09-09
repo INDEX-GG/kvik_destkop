@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme } from '@material-ui/core';
 
-const theme = createMuiTheme({
+const theme = createTheme({
    breakpoints: {
       keys: {
          0: 'xs',
@@ -20,7 +20,7 @@ const theme = createMuiTheme({
          md: 960,
          lg: 1280,
          xl: 1920,
-         custom350: 350,
+         custom350: 351,
          custom1024: 1025,
          custom1080: 1081,
          custom1100: 1100,

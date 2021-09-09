@@ -64,15 +64,15 @@ function PlaceOffer() {
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
     let photoes = [];
-	let postId = 0;
+    let postId = 0;
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
-// console.log(methods)
+    // console.log(methods)
     /* получение дополнительных полей */
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd);
-    useEffect(() => {    
+    useEffect(() => {
         if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
             setAsd(methods?.watch('alias4'));
         } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
@@ -82,15 +82,15 @@ function PlaceOffer() {
         } else {
             setAsd(undefined);
         }
-       /*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
-            setAsd(methods?.watch('alias4'));
-        } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
-            setAsd(methods?.watch('alias3'));
-        } else if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
-            setAsd(methods?.watch('alias2'));
-        } else {
-            setAsd(undefined);
-        } */
+        /*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
+             setAsd(methods?.watch('alias4'));
+         } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
+             setAsd(methods?.watch('alias3'));
+         } else if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
+             setAsd(methods?.watch('alias2'));
+         } else {
+             setAsd(undefined);
+         } */
     }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
     const onSubmit = data => {
@@ -105,7 +105,7 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
-		console.log(alias);
+        console.log(alias);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
@@ -120,24 +120,41 @@ function PlaceOffer() {
         } else if (photoes.length === 1) {
             photoData.append('files[]', photoes[0]);
         }
-        console.log(data, alias)
+
+        let obj = {}
+        let additionalfields = { [asd]: [] }
+        for (var key in data) {
+            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
+                obj[key] = data[key];
+            }
+            else {
+                additionalfields[asd].push({ "alias": key, "fields": data[key] === undefined ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
+            }
+
+        }
+        console.log(data)
+        additionalfields[asd].unshift({ "alias": 'post_id', "fields": 1231 }) 
+        console.log(additionalfields)
+        console.log(obj)
         setLoading(true);
 
          axios.post(`${BASE_URL}/api/setPosts`, data)
-            .then(r => {
-			postId = r?.data?.id;
-            axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            }).then((r) => {
-                console.log(r)
-                setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-                console.log(product)
-				console.log(r?.data.images.photos[0])
-                setPromotion(true)
-            })
-        })  
+             .then(r => {
+                 postId = r?.data?.id;
+                /*  axios.post(`${BASE_URL}/api/setPostsAddtionalFields`,  additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId }))
+                     .then(r => console.log(r)) */
+                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
+                     headers: {
+                         "Content-Type": "multipart/form-data"
+                     }
+                 }).then((r) => {
+                     console.log(r)
+                     setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+                     console.log(product)
+                     console.log(r?.data.images.photos[0])
+                     setPromotion(true)
+                 })
+             })
     }
 
     return (
