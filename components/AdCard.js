@@ -17,7 +17,9 @@ const initialState = {
 	mouseY: null,
 };
 
-function AdCard_component({ offer }) {
+const AdCard_component = React.forwardRef((props, ref) => {
+
+	const {offer} = props;
 
 	const { id } = useAuth();
 	const { userInfo, setLikeComment } = useStore();
@@ -80,6 +82,7 @@ function AdCard_component({ offer }) {
 	const { matchesMobile, matchesTablet } = useMedia();
 	return (
 		<div
+			ref={ref}
 			className={offer.commercial === 2 ? "card card__lg" : "card"}
 			onContextMenu={(e) => handleCM(e)}
 			onMouseDown={(e) => handleWheelClick(e, offer.id)}
@@ -179,6 +182,6 @@ function AdCard_component({ offer }) {
 		</div>
 
 	);
-}
+})
 
 export default AdCard_component;

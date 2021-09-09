@@ -1,7 +1,8 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
+import { observerGenerate } from '../lib/scrollAds';
 // import EndMessage from './EndMessage';
 
 const useStyles = makeStyles(() => ({
@@ -56,9 +57,19 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({ data, title/* , endMessage = true  */}) => {
+const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, page/* , endMessage = true  */}) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
+
+
+	const observer = useRef()
+	const lastElement = useRef()
+	
+
+	useEffect(() => {
+		observerGenerate(lastElement, observer, limitRender, setLimitRenderPage, setPage, page)
+	})
+	
 
 	return (
 		<>
@@ -89,4 +100,4 @@ const OffersRender = ({ data, title/* , endMessage = true  */}) => {
 	);
 };
 
-export default OffersRender;
+export default SearchRender;
