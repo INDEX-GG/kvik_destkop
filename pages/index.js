@@ -3,7 +3,6 @@ import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
 import { PrismaClient } from '@prisma/client';
 import { Box, Container, makeStyles } from "@material-ui/core";
-import NoSSR from 'react-no-ssr';
 import PopularCategories from "../components/PopularCategories/PopularCategories";
 import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
@@ -12,8 +11,9 @@ import PlaceOfferButton from "../components/PlaceOfferButton";
 import { getDataByPost } from "../lib/fetch";
 import { modifyGetPostsData } from "../lib/services";
 import { useAuth } from "../lib/Context/AuthCTX";
+import theme from "../UI/theme"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		padding: '0 12px',
 		display: 'flex',
@@ -23,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
 			padding: '0 8px',
 			height: "auto",
 			marginBottom: "92px"
+		},
+	},
+	rightBlock: {
+		height: '100%',
+		marginLeft: '56px',
+		[theme.breakpoints.down("sm")]: {
+			display: 'none'
 		},
 	},
 	popularCategories: {
@@ -37,13 +44,7 @@ const useStyles = makeStyles((theme) => ({
 	offers: {
 		flexGrow: 1,
 	},
-	rightBlock: {
-		height: '100%',
-		marginLeft: '56px',
-		[theme.breakpoints.down('md')]: {
-			display: 'none'
-		},
-	},
+	
 	footer: {
 		top: 'calc(100% - 205px)',
 		position: 'sticky',
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Index = ({ offers }) => {
-	const { matchesMobile, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+	const { matchesMobile, matchesTablet } = useMedia();
 	const [data, setData] = useState(modifyGetPostsData(offers));
 	const classes = useStyles();
 	const { isAuth } = useAuth();
@@ -65,17 +66,17 @@ const Index = ({ offers }) => {
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
 
-				{matchesLaptop && matchesDesktop && matchesHD && <NoSSR><PopularCategories className={classes.popularCategories} /></NoSSR>}
+				{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories} />}
 
 
 				<Box className={classes.main}>
 					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
-					<NoSSR>{matchesLaptop && matchesDesktop && matchesHD && <Box className={classes.rightBlock}>
+					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 						<JokerBlock />
 						<Box className={classes.footer}>
 							<Footer2 />
 						</Box>
-					</Box>}</NoSSR>
+					</Box>}
 				</Box>
 			</Container>
 			{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
