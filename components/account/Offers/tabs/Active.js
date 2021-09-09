@@ -37,25 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function Active(data) {
 	const classes = useStyles();
 
-	// function setCheck(e) {
-	//   if (e.target.value === '' && mainArr.length === 0) {
-	//     console.log('добавляет все')
-	//     mainArr = qwe
-	//   } else if (e.target.value === '' && mainArr.length !== 0) {
-	//     console.log('удаляет все')
-	//     mainArr = []
-	//   } else if (mainArr.includes(+e.target.value)) {
-	//     mainArr = mainArr.filter((item) => { return item !== +e.target.value })
-	//   } else {
-	//     mainArr.push(+e.target.b)
-	//   }
-
-	//   setMainArr()
-	// }
-
-	// function setMainArr() {
-	//   console.log('после ==============>', mainArr)
-	// }
+	
 
 
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
@@ -64,24 +46,68 @@ function Active(data) {
 	const [checkValue, setcheckValue] = useState()
 	const [checkAll, setCheckAll] = useState(false)
 	const [getDataChild,setGetDataChild] = useState([])
-	const [checkChild, setCheckChild] = useState(false)
-	const handleCheckAll = e => {
-		setCheck(e.target.checked)
-		setcheckValue(e.target.value)
-		setCheckAll(e.target.checked)
-		if(!e.target.checked){
-			setGetDataChild([])
+	/* const [checkChild, setCheckChild] = useState(false) Убрать этот сдеать общий */
+	const [dataCheck, setDataCheck] = useState([])
+	
+	const handleCheckAll = (e) => {
+		setCheck(e)
+		/*setcheckValue(e.target.value)*/
+		setCheckAll(e)
+		if(!e){
+			setGetDataChild([]) 
 		}
+		/* if(dataCheck.length>0){
+			let allCheck = [];
+			dataCheck.map( (item) => {
+				
+					allCheck.push(
+						{
+							id: item.id,
+							isCheck: true,
+						}
+					);
+			});
+			setDataCheck(JSON.parse(JSON.stringify(allCheck)))
+			console.log(allCheck, "sdfdshjfhdsjkfhdjkshfdksjhfk")
+		} */
 		
+		console.log("проверка как меняется стейт ", dataCheck)
 	}
+	
 	const addDataChild =  (newData) => {
-		setGetDataChild(getDataChild => [...getDataChild, newData])
+		/* проверяю если ли уже этот элемент в массиве, когда нажимается выбрать все после того, как несколько элементов уже отмечены */
+		if(getDataChild.length>0){
+			let finded = getDataChild.find((item) => item.id===newData.id)
+			typeof finded !== "undefined"? null : setGetDataChild(getDataChild => [...getDataChild, newData]) 
+			
+		}else{
+			setGetDataChild(getDataChild => [...getDataChild, newData])
+		}
 	}
 	const deleteDataChild = (newData) => {
 		setGetDataChild(newData)
 	}
+	const getDataCheck = (newData) => {
+		if(dataCheck.length>0 ){
+			let CheckData = [];
+			CheckData = JSON.parse(JSON.stringify(dataCheck));
+			let dataItem = dataCheck.find((item) => item.id === newData.id)
+			newData.isCheck===true? dataItem.isCheck=true : dataItem.isCheck=false;
+			let index = dataCheck.indexOf(dataItem);
+			CheckData[index] = dataItem;
+			setDataCheck(CheckData)
+			if(typeof dataCheck.find( (item) => item.isCheck === false ) === "undefined"){
+				setCheck(true)
+			}else{
+				setCheck(false)
+			}
+		}else/*(check || childCheck)*/{
+			setDataCheck(dataCheck => [...dataCheck, newData])
+		}
+	}
+	console.log("получаю массив нажатых кнопок", dataCheck)
 	console.log(getDataChild, "данные из выбранных чекбоксов")
-	console.log(checkChild, "кнопка нажата")
+	/* console.log(checkChild, "кнопка нажата") */
 	if (data.offers.length == 0) {
 		return (
 			<Placeholder />
@@ -115,8 +141,7 @@ function Active(data) {
 							checkedIcon={<FiberManualRecordSharpIcon />}
 
 							onChange={(e) => {
-								handleCheckAll(e);
-								
+								handleCheckAll(e.target.checked);
 							}}
 							checked={check}
 
@@ -131,11 +156,11 @@ function Active(data) {
 						{data.offers?.map((offer, i) => {
 							return (
 								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue} 
-								/* Если кнопка нажата вызывает колбек, если нет передает пропсом ноль */
-								addDataChild={check||checkChild? addDataChild : null }
+								addDataChild={addDataChild}
 								getDataChild={getDataChild}
-								setCheckChild={setCheckChild}
+								/* setCheckChild={setCheckChild} */
 								deleteDataChild={deleteDataChild}
+								getDataCheck={getDataCheck}
 								/>
 							);
 						})}

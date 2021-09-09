@@ -42,16 +42,21 @@ export default function offerActive(offer) {
 
 	
 	
+	
 	useEffect(() => {
 		let cardInfo = {
 			id: offer.offer.id,
 			'isCheck': offer.checkAll,
-			myProperty: 123
+			myProperty: 123,
 		}
 		setOfferData(cardInfo)
+		offer.getDataCheck({
+			id: offer.offer.id,
+			isCheck: check,
+		})
 	}, [])
 
-	useEffect(() => {
+	/*useEffect(() => {
 		// setQwe(offer.data.offers.map((item) => item.id))
 		data = []
 		// data = { 'id': qwe, 'isCheck': offer.checkAll }
@@ -69,29 +74,43 @@ export default function offerActive(offer) {
 		}
 		console.log(offerData, "данные в стейте")
 		console.log(offer, "данные которые в пропсе")
-	}, [offer.checkValue])
+	}, [offer.checkValue])*/
 
 	
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if (offer.checkValue != undefined) {
 			data = []
 			offer.data.offers.map((item, i) => {
 				data[i] = { 'id': item.id, 'isCheck': offer.checkAll }
 			})
 		}
-	}, [offer.checkAll])
+	}, [offer.checkAll])*/
 
-
+	console.log("sdfdsjfdsjf", offer.checkAll)
 	const [check, setCheck] = useState(false);
 	useEffect(() => {
-		setCheck(offer.checkAll)
+		setCheck(offer.checkAll);
+		if(offer.checkAll){
+			offer.addDataChild(offerData);
+			offer.getDataCheck({
+				id: offer.offer.id,
+				isCheck: offer.checkAll,
+			})
+		}
+		console.log(offer.checkAll, "тестовый стейт ")
 	}, [offer.checkAll])
+
 	
+	/* Проверить меняется ли стейт нажатыъ кнопок при отжатии */
 	
 
 	const onCheck = e => {
-		offer.setCheckChild(e.target.checked)
+		/* offer.setCheckChild(e.target.checked) */
+		offer.getDataCheck({
+			id: offer.offer.id,
+			isCheck: check,
+		})
 		if(e.target.checked==false && offer.setGetDataChild !== null){
 			if(typeof offer.getDataChild !== "undefined"){
 				let deteteData = offer.getDataChild.filter((item) => (
@@ -99,7 +118,6 @@ export default function offerActive(offer) {
 				));
 				offer.deleteDataChild(deteteData)
 				console.log(deteteData, "вызывается при отжатии")
-				console.log(offer.offer.id, "вызывается при отжатии")
 			}
 		}
 		if(e.target.checked){
