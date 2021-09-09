@@ -56,7 +56,7 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({ data, title/* , endMessage = true  */}) => {
+const SearchRender = ({ data, title/* , endMessage = true  */}) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
 
@@ -89,4 +89,4 @@ const OffersRender = ({ data, title/* , endMessage = true  */}) => {
 	);
 };
 
-export default OffersRender;
+export default SearchRender;
