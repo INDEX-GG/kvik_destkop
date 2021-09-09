@@ -229,7 +229,7 @@ export default function Auto({ data }) {
     // console.log(methods.watch('generation'))
     return (
         <>
-            {data.map((item, i) => {
+            {data.map((item) => {
                 switch (item.type) {
                     case 'listRec':
                         switch (item.alias) {
@@ -513,7 +513,10 @@ export default function Auto({ data }) {
                                                                 </Box>
 
                                                                 {item.alias === 'fueltype' ? (
-                                                                    <Controller key={item.name}
+                                                                    <Controller
+                                                                        key={item.name}
+                                                                        defaultValue={false}
+                                                                        value={false}
                                                                         render={({ field }) => (
                                                                             <FormControlLabel
                                                                                 {...field}
@@ -523,6 +526,7 @@ export default function Auto({ data }) {
                                                                                         color='primary'
                                                                                         icon={<OutlinedIcon />}
                                                                                         checkedIcon={<Filledicon />}
+                                                                                        type="checkbox"
                                                                                     />
                                                                                 }
                                                                                 label='ГБО'
@@ -661,6 +665,8 @@ export default function Auto({ data }) {
                                             return (
                                                 <Controller
                                                     key={i}
+                                                    defaultValue={false}
+                                                    value={false}
                                                     render={({ field }) => (
                                                         <FormControlLabel
                                                             {...field}
@@ -670,6 +676,7 @@ export default function Auto({ data }) {
                                                                     color='primary'
                                                                     icon={<OutlinedIcon />}
                                                                     checkedIcon={<Filledicon />}
+                                                                    type="checkbox"
                                                                 />
                                                             }
                                                             label={item2}

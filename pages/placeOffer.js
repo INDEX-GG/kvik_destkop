@@ -106,6 +106,7 @@ function PlaceOffer() {
         }
 
         console.log(alias);
+        console.log(data);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
@@ -130,31 +131,35 @@ function PlaceOffer() {
             else {
                 additionalfields[asd].push({ "alias": key, "fields": data[key] === undefined ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
             }
-
         }
-        console.log(data)
-        additionalfields[asd].unshift({ "alias": 'post_id', "fields": 1231 }) 
+        if (newOBJ[asd] !== undefined) {
+            obj.subcategory = asd
+        }
         console.log(additionalfields)
         console.log(obj)
         setLoading(true);
 
-         axios.post(`${BASE_URL}/api/setPosts`, data)
-             .then(r => {
-                 postId = r?.data?.id;
-                /*  axios.post(`${BASE_URL}/api/setPostsAddtionalFields`,  additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId }))
-                     .then(r => console.log(r)) */
-                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
-                     headers: {
-                         "Content-Type": "multipart/form-data"
-                     }
-                 }).then((r) => {
-                     console.log(r)
-                     setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-                     console.log(product)
-                     console.log(r?.data.images.photos[0])
-                     setPromotion(true)
-                 })
-             })
+        axios.post(`${BASE_URL}/api/setPosts`, obj)
+            .then(r => {
+                postId = r?.data?.id;
+                additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
+                console.log(additionalfields)
+                axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
+
+                    .then(r => console.log(r))
+                axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                }).then((r) => {
+                    console.log(r)
+                    setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+                    console.log(product)
+                    console.log(r?.data.images.photos[0])
+                    setPromotion(true)
+                })
+            })
+
     }
 
     return (
