@@ -80,10 +80,15 @@ const Product = () => {
 
 	const [data, setData] = useState();
 	useEffect(() => {
-		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)))
+		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
-	const { name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
+
+	const {productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
+
+
+	console.log(productInfoFields)
+
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
 
@@ -123,32 +128,32 @@ const Product = () => {
 							<div className="productPageWrapper">
 								<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
 									<div className="productPageDescription">
-										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile/> : null}
+										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile /> : null}
 										<ProductCarousel title={title} photo={photo} mobile={matchesMobile || matchesTablet} />
 										{!matchesLaptop && !matchesDesktop && !matchesHD && (
 											photo == undefined ?
 												<div className="placeholder_animation product__placeholder_mobil-action"></div>
 												:
 												<div className="productPageAdaptive">
-													<ProductPrice price={price} oldPrice={oldprice} id={id} sellerId={user_id} trade={trade} status={1} mobile/>
+													<ProductPrice price={price} oldPrice={oldprice} id={id} sellerId={user_id} trade={trade} status={1} mobile />
 													<div className="SellerInfo__adaptive_info">
 														<div className="SellerInfo__adaptive_info_top">
-															<ProductReviewed reviewed={reviewed}/>
-															<ProductStats sellerId={user_id} id={id} dialog={openStatForm} setDialog={setopenStatForm}  mobile/>
+															<ProductReviewed reviewed={reviewed} />
+															<ProductStats sellerId={user_id} id={id} dialog={openStatForm} setDialog={setopenStatForm} mobile />
 														</div>
 														<ProductDate id={id} sellerId={user_id} mobile date={ToRusDate(created_at)} leftDay={30} />
 													</div>
 												</div>
 
 										)}
-										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={objP.adstatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet}/>
+										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />
 										{/* адрес, карта, свойства и значения */}
 										<ProductInformation address={address} description={description} />
 									</div>
 
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
-										{/* статус объявления, кнопки */} 
+										{/* статус объявления, кнопки */}
 										<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
 										{/* пользователь и его объявления */}
 										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
@@ -157,14 +162,14 @@ const Product = () => {
 								{!matchesMobile && !matchesTablet && !matchesLaptop && (
 									<div className="showsmthWrapper">
 										<div className="freedomBlock_1"></div>
-										<div className="freedomBlock_2"></div> 
+										<div className="freedomBlock_2"></div>
 									</div>
 								)}
 							</div>
 							<div className="productPageContent">
 								<div className="productPageCard">
 									<OffersRender isProduct data={data} title={"Похожие объявления"} /* endMessage={!collSO} */ />
-									<div style={{marginTop:'60px'}}></div>
+									<div style={{ marginTop: '60px' }}></div>
 									{/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
 									</div> */}
@@ -173,7 +178,7 @@ const Product = () => {
 									{!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
 										<div className="showsmthWrapper">
 											<div className="freedomBlock_1"></div>
-											<div className="freedomBlock_2"></div> 
+											<div className="freedomBlock_2"></div>
 										</div>
 									)}
 								</div>

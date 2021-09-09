@@ -17,7 +17,7 @@ export default function ProductUserInfo(data) {
 		<>
 			<div className="ad__block_bottom">
 				<div className="SellerInfoUserBlock">
-					<ProductUser id={id} sellerId={data.user_id} userPhoto={data.userPhoto} name={data.name} raiting={data.raiting} userrate={objP.userrate} status={objP.adstatus} userAd={data.userAd}  mobile={matchesTablet || matchesMobile} />
+					<ProductUser id={id} sellerId={data.user_id} userPhoto={data.userPhoto} name={data.name} raiting={data.raiting} userrate={objP.userrate} status={4} userAd={data.userAd}  mobile={matchesTablet || matchesMobile} />
 				</div>
 				<ProductSmallAds id={id} sellerId={data.user_id} smallAd={data.userAd} mobile={matchesTablet || matchesMobile}/>
 			</div>
