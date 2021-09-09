@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
+	console.log(req.body)
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 
@@ -11,11 +12,13 @@ export default async function handler(req, res) {
 			let columns = ''
 			let values = ''
 			array.forEach((element) => {
-				columns += element.alias + ", "
-				values += element.fields + ", "
+				if (element.fields !== '') {
+					columns += '"' + element.alias + '", '
+					values += "'" + element.fields + "', "
+				}
 			})
-			columns += (Object.keys(data))[1]
-			values += data[(Object.keys(data))[1]]
+			columns = columns.slice(0, -2)
+			values = values.slice(0 ,-2)
 			await prisma.$queryRaw(`INSERT INTO ${key} (${columns}) VALUES (${values})`)
 			return{ message: 'successfully update' };
 		}

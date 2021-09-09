@@ -87,10 +87,9 @@ export default function City({ dialog, setDialog }) {
 
 	function handleChange(e) {
 		const testArr = []
-		console.log('----------------------------------')
 		display_areas.map(item => {
 			if (item.value.split(',')[1]) {		
-				if (item.value.split(',')[1].trim().includes(e.target.value)) {
+				if (item.value.split(',')[1].trim().toLowerCase().includes(e.target.value.toLowerCase())) {
 					const value = item.value.split(',')[1];
 					if (value) testArr.push(value.trim())
 				}
@@ -134,7 +133,7 @@ export default function City({ dialog, setDialog }) {
 
 					if (i <= 26) {
 						return <div
-									key={i}
+									key={i + 1}
 									onClick={() => {
 										changeCity(item)
 										setDialog(!dialog)

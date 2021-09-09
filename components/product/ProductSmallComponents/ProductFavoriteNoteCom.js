@@ -2,7 +2,7 @@ import React from 'react';
 import Favorits from '../../../UI/Favorits';
 
 
-const ProductFavoriteNoteComp = ({sellerId, id, isOffer, mobile}) => {
+const ProductFavoriteNoteCom = ({sellerId, id, isOffer, mobile}) => {
 	return (
 		sellerId === id ? null:
 		<div className="SellerInfoTopButtons">
@@ -13,4 +13,4 @@ const ProductFavoriteNoteComp = ({sellerId, id, isOffer, mobile}) => {
 }
 
 
-export default ProductFavoriteNoteComp;
+export default ProductFavoriteNoteCom;

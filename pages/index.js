@@ -11,8 +11,9 @@ import PlaceOfferButton from "../components/PlaceOfferButton";
 import { getDataByPost } from "../lib/fetch";
 import { modifyGetPostsData } from "../lib/services";
 import { useAuth } from "../lib/Context/AuthCTX";
+import theme from "../UI/theme"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		padding: '0 12px',
 		display: 'flex',
@@ -22,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
 			padding: '0 8px',
 			height: "auto",
 			marginBottom: "92px"
+		},
+	},
+	rightBlock: {
+		height: '100%',
+		marginLeft: '56px',
+		[theme.breakpoints.down("sm")]: {
+			display: 'none'
 		},
 	},
 	popularCategories: {
@@ -36,13 +44,7 @@ const useStyles = makeStyles((theme) => ({
 	offers: {
 		flexGrow: 1,
 	},
-	rightBlock: {
-		height: '100%',
-		marginLeft: '56px',
-		[theme.breakpoints.down('md')]: {
-			display: 'none'
-		},
-	},
+	
 	footer: {
 		top: 'calc(100% - 205px)',
 		position: 'sticky',
@@ -63,6 +65,7 @@ const Index = ({ offers }) => {
 	return (
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
+
 				{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories} />}
 
 

@@ -372,6 +372,7 @@ const Photoes = ({ ctx }) => {
 						onChange={filesSelected}
 					/>
 				</div>
+				
 				<Typography className={classes.error}>{methods.formState.errors?.photoes?.message}</Typography>
 			</Box>
 		</Box>

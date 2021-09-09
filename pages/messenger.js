@@ -20,8 +20,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
-console.log(socket);
+// const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
+const socket = io('http://192.168.8.111:6066/')
+
 const Messenger = () => {
 	const classes = useStyles();
 	const [msg, setMsg] = useState('');

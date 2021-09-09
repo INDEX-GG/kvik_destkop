@@ -200,7 +200,7 @@ export default function Auto({ data }) {
             for (let i = 0; i < modification.length; i++) {
                 newObjdrivetype.push(...modification[i].filter(item => item.alias === 'drivetype').map(item => item.value))
                 newObjBodytype.push(...modification[i].filter(item => item.alias === 'bodytype').map(item => item.value))
-                newObjDoors.push(...modification[i].filter(item => item.alias === 'doors').map(item => item.value))
+                newObjDoors.push(...modification[i].filter(item => item.alias === 'doors').map(item => +item.value))
                 newObjcomplectations.push(...modification[i].filter(item => item.alias === 'complectations').map(item => item.value))
             }
 
@@ -208,27 +208,28 @@ export default function Auto({ data }) {
             mainObj.push({ alias: "fueltype", name: "Тип двигателя", value: modification[0].filter(item => item.alias === 'fueltype')[0].value });
             mainObj.push({ alias: "drivetype", name: "Привод", value: [...new Set(newObjdrivetype)] })
             mainObj.push({ alias: "transmission", name: "Коробка передач", value: modification[0].filter(item => item.alias === 'transmission')[0].value })
-            mainObj.push({ alias: "power", name: "Мощность", value: modification[0].filter(item => item.alias === 'power')[0].value })
-            mainObj.push({ alias: "enginesize", name: "Объем двигателя", value: modification[0].filter(item => item.alias === 'enginesize')[0].value })
+            mainObj.push({ alias: "power", name: "Мощность", value: +modification[0].filter(item => item.alias === 'power')[0].value })
+            mainObj.push({ alias: "enginesize", name: "Объем двигателя", value: +modification[0].filter(item => item.alias === 'enginesize')[0].value })
             mainObj.push({ alias: "bodytype", name: "Тип кузова", value: [...new Set(newObjBodytype)] })
             mainObj.push({ alias: "doors", name: "Количество дверей", value: [...new Set(newObjDoors)] })
             mainObj.push({ alias: "complectations", name: "Комплектация", value: modification[0].filter(item => item.alias === 'complectations')[0].complectations = [...new Set(newObjcomplectations.flat().map(item => item.value))] })
 
             console.log(mainObj)
+
             setFullDescription(mainObj)
         }
     }, [modification])
 
-    console.log('mark +++++', mark)
-    console.log('model +++++', model)
-    console.log('generation +++++', generation)
-    console.log('generationUnical +++++', generationUnical)
-    console.log('modification +++++', modification && modification)
-    console.log('fullDescription +++++', fullDescription && fullDescription)
-console.log(methods.watch('generation'))
+    //     console.log('mark +++++', mark)
+    //     console.log('model +++++', model)
+    //     console.log('generation +++++', generation)
+    //     console.log('generationUnical +++++', generationUnical)
+    //     console.log('modification +++++', modification && modification)
+    //     console.log('fullDescription +++++', fullDescription && fullDescription)
+    // console.log(methods.watch('generation'))
     return (
         <>
-            {data.map(item => {
+            {data.map((item) => {
                 switch (item.type) {
                     case 'listRec':
                         switch (item.alias) {
@@ -302,7 +303,7 @@ console.log(methods.watch('generation'))
                                             </Box>
                                         }
                                         {
-                                            model && 
+                                            model &&
                                             //Вывод поколения
                                             <Box className={classes.formInputMainField}>
                                                 <Typography className={classes.formTitleField}>Поколение</Typography>
@@ -497,7 +498,7 @@ console.log(methods.watch('generation'))
                                                                         control={methods.control}
                                                                         value={item.value}
                                                                         defaultValue={item.value}
-                                                                        render={({ field: { onChange} }) => (
+                                                                        render={({ field: { onChange } }) => (
                                                                             <TextField
                                                                                 className={classes.input}
                                                                                 variant='outlined'
@@ -512,7 +513,10 @@ console.log(methods.watch('generation'))
                                                                 </Box>
 
                                                                 {item.alias === 'fueltype' ? (
-                                                                    <Controller key={item.name}
+                                                                    <Controller
+                                                                        key={item.name}
+                                                                        defaultValue={false}
+                                                                        value={false}
                                                                         render={({ field }) => (
                                                                             <FormControlLabel
                                                                                 {...field}
@@ -522,12 +526,13 @@ console.log(methods.watch('generation'))
                                                                                         color='primary'
                                                                                         icon={<OutlinedIcon />}
                                                                                         checkedIcon={<Filledicon />}
+                                                                                        type="checkbox"
                                                                                     />
                                                                                 }
                                                                                 label='ГБО'
                                                                             />
                                                                         )}
-                                                                        name='ГБО'
+                                                                        name='GBO'
                                                                         control={methods.control}
                                                                     />)
                                                                     : ''
@@ -656,10 +661,12 @@ console.log(methods.watch('generation'))
                                 <Box key={item.name} className={classes.formInputMainField_checkbox}>
                                     <Typography className={classes.formTitleField}>{item.name}</Typography>
                                     <Box className={classes.formInputFieldCheck}>
-                                        {item.fields.map((item, i) => {
+                                        {item.fields.map((item2, i) => {
                                             return (
                                                 <Controller
                                                     key={i}
+                                                    defaultValue={false}
+                                                    value={false}
                                                     render={({ field }) => (
                                                         <FormControlLabel
                                                             {...field}
@@ -669,14 +676,16 @@ console.log(methods.watch('generation'))
                                                                     color='primary'
                                                                     icon={<OutlinedIcon />}
                                                                     checkedIcon={<Filledicon />}
+                                                                    type="checkbox"
                                                                 />
                                                             }
-                                                            label={item}
+                                                            label={item2}
                                                         />
                                                     )}
-                                                    name={item}
+                                                    name={item.alias + [i]}
                                                     control={methods.control}
                                                 />
+
                                             )
                                         })}
                                     </Box>

@@ -9,8 +9,6 @@ import ProductInformation from "../../components/product/ProductInformation";
 import ProductAction from "../../components/product/ProductAction";
 import ProductUserInfo from "../../components/product/ProductUserInfo";
 import { modifyGetPostsData, ToRusDate } from "../../lib/services";
-import IconCall from "../../UI/icons/IconCall";
-import IconMess from "../../UI/icons/IconMess";
 import { useMedia } from "../../hooks/useMedia";
 import { useProduct } from "../../hooks/useProduct";
 import OffersRender from "../../components/OffersRender";
@@ -21,14 +19,12 @@ import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import Loader from "../../UI/icons/Loader";
 import { STATIC_URL } from "../../lib/constants";
-import ProductDeal from "../../components/product/ProductDeal";
-import ProductButton from "../../components/product/ProductUI/ProductButton";
 import ProductDate from "../../components/product/ProductSmallComponents/ProductDate";
 import ProductPrice from "../../components/product/ProductPrice";
-import ProductOption from "../../components/product/ProductOption";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
+import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
 const objP = {
 	id: 1,
 	title: "Продам 2-комню квартиру, 95м в центре",
@@ -122,23 +118,14 @@ const Product = () => {
 					{title == undefined ? <div className='product__placeholder_loader'><div><Loader /></div></div> : ''}
 					<div className="productPageContainer text">
 						{!matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
-
 						{/* Блок объявления */}
 						<div className="product__wrapper">
 							<div className="productPageWrapper">
 								<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
 									<div className="productPageDescription">
-										{/* {!matchesMobile && !matchesTablet &&
-											<>
-												{title == undefined
-													? <div className="placeholder_animation product__placeholder_title"></div>
-													: <div className="productPageTitle xl">{title}</div>}
-											</>
-										} */}
 										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile/> : null}
 										<ProductCarousel title={title} photo={photo} mobile={matchesMobile || matchesTablet} />
 										{!matchesLaptop && !matchesDesktop && !matchesHD && (
-
 											photo == undefined ?
 												<div className="placeholder_animation product__placeholder_mobil-action"></div>
 												:
@@ -149,125 +136,31 @@ const Product = () => {
 															<ProductReviewed reviewed={reviewed}/>
 															<ProductStats sellerId={user_id} id={id} dialog={openStatForm} setDialog={setopenStatForm}  mobile/>
 														</div>
-														{/* <div className="SellerInfoDate">Размещено {ToRusDate(created_at)}</div> */}
 														<ProductDate id={id} sellerId={user_id} mobile date={ToRusDate(created_at)} leftDay={30} />
-														{/* {user_id === id ? <span className="ad__block_top__days_left">Осталось 30 дней</span> : ""} */}
 													</div>
 												</div>
 
 										)}
-										{!matchesLaptop && !matchesDesktop && !matchesHD && (
-
-											photo == undefined ?
-												''
-												:
-
-												<div className="SellerInfo__adaptive_button">
-													{objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
-													{objP.adstatus === 2 || objP.adstatus === 3 || objP.adstatus === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
-													{objP.adstatus === 2 || objP.adstatus === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}
-													{/* {user_id === id ? <a className="up_view_btn button contained">Увеличить просмотры</a> : ""} */}
-													<div className="ad__block_middle__description_service">
-														{/* {user_id === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ""} */}
-
-
-														<div className="SellerInfo__adaptive_buttons__top">
-															{/* {user_id !== id ? (
-																<a className="SellerInfoMess button contained">
-																	<IconMess /> Написать продавцу
-																</a>
-															) : (
-																""
-															)}
-															{user_id !== id ? (
-																<a onClick={() => setPhoneModal(!phoneModal)} className="SellerInfoCall button contained">
-																	<IconCall /> Показать номер
-																</a>
-															) : (
-																""
-															)} */}
-															<ProductDeal id={id} sellerID={data.user_id}>
-																<ProductButton className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
-																<ProductButton className="SellerInfoCall button contained" onClick={() => setPhoneModal(!phoneModal)} title='Показать номер' icon={<IconCall/>} />
-															</ProductDeal>
-														</div>
-
-														
-														{user_id === id || user_id !== id ? (
-															<ProductOption safeDeal={secure_transaction} deliver={delivery} mobile/>
-														) : (
-															""
-														)}
-														{objP.adstatus === 4 ? <p className="date__last__edit">Дата последнего редактирования 00.00.00</p> : ""}
-														{objP.adstatus === 4 ? (
-															<p className="reason__rejection">
-																Причина отклонения:{" "}
-																<span>Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга, запрещенные к продаже в РФ / В одном объявлении несколько предложений товаров и услуг /Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик</span>
-															</p>
-														) : (
-															""
-														)}
-														{objP.adstatus === 6 ? (
-															<p className="ad__last__edit">
-																Дата последнего редактирования 00.00.00
-																<span>Будет удалено навсегда через 00 дней</span>
-															</p>
-														) : (
-															""
-														)}
-														{/* {data.user_id !== id && <ProductButton style={{display: 'block'}} className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}  title='Купить'/>} */}
-														<div className="SellerInfo__adaptive_buttons">
-															{objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn btn-left">Редактировать</a> : ""}
-															{objP.adstatus === 4 || objP.adstatus === 6 ? <a className=" ad_btn_edit buttonGrey button ad_btn">Удалить</a> : ""}
-															{user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button btn-left">Редактировать</a> : ""}
-															{user_id === id ? <a className="ad_btn ad_btn_edit buttonGrey button">Снять с публикации</a> : ""}
-														</div>
-													</div>
-												</div>
-										)}
+										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={objP.adstatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet}/>
 										{/* адрес, карта, свойства и значения */}
-
-
-										<ProductInformation user_id={user_id} address={address} description={description} />
-
-
-
+										<ProductInformation address={address} description={description} />
 									</div>
 
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
-										{/* статус объявления, кнопки */} <ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+										{/* статус объявления, кнопки */} 
+										<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
 										{/* пользователь и его объявления */}
 										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
 									</div>
 								</div>
 								{!matchesMobile && !matchesTablet && !matchesLaptop && (
 									<div className="showsmthWrapper">
-										{/* <div className="freedomBlock_1"></div>
-										<div className="freedomBlock_2"></div> */}
+										<div className="freedomBlock_1"></div>
+										<div className="freedomBlock_2"></div> 
 									</div>
 								)}
 							</div>
-
-							{/* <div className='productPageSimilarOffersTitle xl bold'>Похожие объявления</div>
-                    <div className="productPageSimilarOffers">
-                        <div className="product__carts__wrapper">
-                            <div className="productPageSimilarOffersContainer">
-                                {data && data.map((obj, i) => {
-                                    return (<AdCard_component key={i} offer={obj} user_id={user_id} />)
-                                })}
-                            </div>
-                            <div className={`SimilarOffersColl highlight underline ${collSO && 'SOCColl'}`} onClick={e => handleCollSO(e)}>{collSO && 'Показать ещё' || 'Скрыть'}</div>
-
-                        </div>
-                        <div className="productPageSimilar__advertisement">
-                            {!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && <div className="showsmthWrapper">
-                                <div className="freedomBlock_1"></div>
-                                <div className="freedomBlock_2"></div>
-                            </div>}
-                        </div>
-
-                    </div> */}
 							<div className="productPageContent">
 								<div className="productPageCard">
 									<OffersRender isProduct data={data} title={"Похожие объявления"} /* endMessage={!collSO} */ />
@@ -279,8 +172,8 @@ const Product = () => {
 								<div className="productPageSimilar__advertisement">
 									{!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
 										<div className="showsmthWrapper">
-											{/* <div className="freedomBlock_1"></div>
-											<div className="freedomBlock_2"></div> */}
+											<div className="freedomBlock_1"></div>
+											<div className="freedomBlock_2"></div> 
 										</div>
 									)}
 								</div>
@@ -299,20 +192,4 @@ const Product = () => {
 	);
 };
 
-// export async function getStaticPaths() {
-//     const offers = await getDataByPost('/api/getPosts', { of: 0 })
-//     const paths = offers.result.map((offer) => ({
-//         params: { id: String(offer.id) },
-//     }))
-//     // { fallback: false } несуществующие страницы упадут на 404
-//     return { paths, fallback: false }
-// }
-
-// export async function getStaticProps({ params }) {
-//     const res = await fetch(`${process.env.HOST}/product/${params.id}`)
-//     const offer = await res.json()
-//     //Протестировать
-
-//     return { props: { offer } }
-// }
 export default Product;

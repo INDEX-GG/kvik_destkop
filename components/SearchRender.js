@@ -64,6 +64,7 @@ const OffersRender = ({ data, title/* , endMessage = true  */}) => {
 		<>
 			<Box className={classes.top}>
 				<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
+				{data ? 
 				<TextField
 					select
 					value={state.value}
@@ -74,12 +75,12 @@ const OffersRender = ({ data, title/* , endMessage = true  */}) => {
 							{option.label}
 						</MenuItem>
 					))}
-				</TextField>
+				</TextField> : null}
 			</Box>
 				<div className="scrollableOffersHome">
 					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
 				</div>
-				{data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null}
+				{/* {data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null} */}
 			<div className={classes.messageEnd}>
 				{/* {endMessage && data?.length ? <EndMessage/> : null} */}
 			</div>

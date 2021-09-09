@@ -5,6 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import MobileMenu from '../../UI/icons/MobileMenu';
 import CategoriesContent from './CategoriesContent';
+import { useCategory } from '../../hooks/useCategory';
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BurgerCategories() {
 	const classes = useStyles();
+	const { categoryMainAlias } = useCategory()
 	const [state, setState] = useState({ left: false });
 
 
@@ -51,10 +53,10 @@ export default function BurgerCategories() {
 				<div className="burgerIcon" onClick={toggleDrawer("left", false)}></div>
 			</div>
 			<Divider />
-			<CategoriesContent toggleDrawer={setState} />
+			<CategoriesContent toggleDrawer={setState} categoryMainAlias={categoryMainAlias} />
 		</div>
 	);
-
+	
 	return (
 		<div className={classes.container}>
 			<React.Fragment key={"left"}>
