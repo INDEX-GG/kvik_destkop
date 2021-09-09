@@ -17,9 +17,16 @@ export default async function handler(req, res) {
 			const results = await getSub();
 			const resultName = results['subcategory'];
 
-			if (results['subcategory'] != null && results['subcategory'] != '') {
+			if (results['subcategory'] != null && results['subcategory'] !== '') {
 				const subs = await prisma.$queryRaw(`SELECT * FROM ${resultName} WHERE post_id = '${req.body.post_id}'`)
-				return subs;
+				console.log((subs[0])['id']);
+				let dict = subs[0]
+				for (var key in dict){
+					if (dict[key] === false) {
+						delete dict[key]
+					}
+				}
+				return dict;
 			} else {
 				return { message: 'error' };
 			}
