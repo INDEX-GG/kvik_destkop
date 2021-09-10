@@ -46,7 +46,7 @@ const objP = {
 	bargain: true,
 	userid: 777 /* id пользователя для проверки отображения блока объявления */,
 	username: "Иван Иванов" /* статус для отображения блока объявления 1-активное, 2-истек срок размещения, 3-продано, 4-отклонено, 5-архив, 6-черновик, 7-неактивное (другой пльзователь) 8-активное (другой пльзователь)*/,
-	adstatus: 8,
+	// adstatus: 8,
 	userpic: "https://source.unsplash.com/random?portrait",
 	userrate: 3.7,
 	userOffers: [
@@ -147,7 +147,7 @@ const Product = () => {
 
 										)}
 										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />
-=======
+
 										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={objP.adstatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />
 										{/* адрес, карта, свойства и значения */}
 										<ProductInformation address={address} description={description} />
