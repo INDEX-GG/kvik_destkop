@@ -5,6 +5,7 @@ import ProductButton from './ProductUI/ProductButton';
 
 
 const ProductAdsChange = ({mobile, status, id, sellerId = undefined, modalFunc}) => {
+	console.log(modalFunc)
 	const router = useRouter();
 	return (
 		mobile ? '' : (
