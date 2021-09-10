@@ -1,7 +1,8 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
+import { observerGenerate } from '../lib/scrollAds';
 // import EndMessage from './EndMessage';
 
 const useStyles = makeStyles(() => ({
@@ -56,9 +57,19 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const SearchRender = ({ data, title/* , endMessage = true  */}) => {
+
+const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, page/* , endMessage = true  */}) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
+
+	const observer = useRef()
+	const lastElement = useRef()
+
+
+	useEffect(() => {
+		observerGenerate(lastElement, observer, limitRender, setLimitRenderPage, setPage, page)
+	})
+	
 
 	return (
 		<>
@@ -78,7 +89,7 @@ const SearchRender = ({ data, title/* , endMessage = true  */}) => {
 				</TextField> : null}
 			</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
+					{state.sorting(data)?.map((obj, i) => i == data.length - 1 ? <AdCard_component ref={lastElement} key={i} offer={obj} /> : <AdCard_component key={i} offer={obj} />)}
 				</div>
 				{/* {data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null} */}
 			<div className={classes.messageEnd}>
