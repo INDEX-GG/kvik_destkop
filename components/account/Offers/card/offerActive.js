@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Checkbox, Dialog, makeStyles } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function offerActive(offer) {
 	const classes = useStyles();
-	let data;
+	/* let data; */
 
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
@@ -50,10 +50,7 @@ export default function offerActive(offer) {
 			myProperty: 123,
 		}
 		setOfferData(cardInfo)
-		offer.getDataCheck({
-			id: offer.offer.id,
-			isCheck: check,
-		})
+		
 	}, [])
 
 	/*useEffect(() => {
@@ -76,8 +73,6 @@ export default function offerActive(offer) {
 		console.log(offer, "данные которые в пропсе")
 	}, [offer.checkValue])*/
 
-	
-
 	/*useEffect(() => {
 		if (offer.checkValue != undefined) {
 			data = []
@@ -87,29 +82,28 @@ export default function offerActive(offer) {
 		}
 	}, [offer.checkAll])*/
 
-	console.log("sdfdsjfdsjf", offer.checkAll)
+	
 	const [check, setCheck] = useState(false);
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setCheck(offer.checkAll);
+		offer.getDataCheck({
+			id: offer.offer.id,
+			isCheck: offer.checkAll,
+		})
 		if(offer.checkAll){
 			offer.addDataChild(offerData);
-			offer.getDataCheck({
-				id: offer.offer.id,
-				isCheck: offer.checkAll,
-			})
 		}
 		console.log(offer.checkAll, "тестовый стейт ")
 	}, [offer.checkAll])
-
+	console.log("offer.checkAll стал", offer.checkAll)
 	
 	/* Проверить меняется ли стейт нажатыъ кнопок при отжатии */
 	
 
 	const onCheck = e => {
-		/* offer.setCheckChild(e.target.checked) */
 		offer.getDataCheck({
 			id: offer.offer.id,
-			isCheck: check,
+			isCheck: e.target.checked,
 		})
 		if(e.target.checked==false && offer.setGetDataChild !== null){
 			if(typeof offer.getDataChild !== "undefined"){

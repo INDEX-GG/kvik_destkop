@@ -46,7 +46,6 @@ function Active(data) {
 	const [checkValue, setcheckValue] = useState()
 	const [checkAll, setCheckAll] = useState(false)
 	const [getDataChild,setGetDataChild] = useState([])
-	/* const [checkChild, setCheckChild] = useState(false) Убрать этот сдеать общий */
 	const [dataCheck, setDataCheck] = useState([])
 	
 	const handleCheckAll = (e) => {
@@ -54,22 +53,9 @@ function Active(data) {
 		/*setcheckValue(e.target.value)*/
 		setCheckAll(e)
 		if(!e){
-			setGetDataChild([]) 
+			setGetDataChild([]);
 		}
-		/* if(dataCheck.length>0){
-			let allCheck = [];
-			dataCheck.map( (item) => {
-				
-					allCheck.push(
-						{
-							id: item.id,
-							isCheck: true,
-						}
-					);
-			});
-			setDataCheck(JSON.parse(JSON.stringify(allCheck)))
-			console.log(allCheck, "sdfdshjfhdsjkfhdjkshfdksjhfk")
-		} */
+		
 		
 		console.log("проверка как меняется стейт ", dataCheck)
 	}
@@ -97,11 +83,11 @@ function Active(data) {
 			CheckData[index] = dataItem;
 			setDataCheck(CheckData)
 			if(typeof dataCheck.find( (item) => item.isCheck === false ) === "undefined"){
-				setCheck(true)
+				handleCheckAll(true);
 			}else{
-				setCheck(false)
+				handleCheckAll(false);
 			}
-		}else/*(check || childCheck)*/{
+		}else{
 			setDataCheck(dataCheck => [...dataCheck, newData])
 		}
 	}
@@ -155,12 +141,8 @@ function Active(data) {
 					<div className="clientPage__container_content">
 						{data.offers?.map((offer, i) => {
 							return (
-								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue} 
-								addDataChild={addDataChild}
-								getDataChild={getDataChild}
-								/* setCheckChild={setCheckChild} */
-								deleteDataChild={deleteDataChild}
-								getDataCheck={getDataCheck}
+								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue} addDataChild={addDataChild} 
+									dataCheck={dataCheck} getDataChild={getDataChild} deleteDataChild={deleteDataChild} getDataCheck={getDataCheck}
 								/>
 							);
 						})}
