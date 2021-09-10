@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect} from "react";
 import { Checkbox, Dialog, makeStyles } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
@@ -33,93 +33,55 @@ const useStyles = makeStyles((theme) => ({
 
 export default function offerActive(offer) {
 	const classes = useStyles();
-	/* let data; */
-
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [offerId, setOfferId] = useState();
 	const [offerData, setOfferData] = useState()
 
-	
-	
-	
 	useEffect(() => {
-		let cardInfo = {
-			id: offer.offer.id,
-			'isCheck': offer.checkAll,
-			myProperty: 123,
-		}
+		let cardInfo = offer.offer;
 		setOfferData(cardInfo)
 		
 	}, [])
 
-	/*useEffect(() => {
-		// setQwe(offer.data.offers.map((item) => item.id))
-		data = []
-		// data = { 'id': qwe, 'isCheck': offer.checkAll }
-		// for (var i = 0; i < offer.data.offers?.length; i++) {
-		offer.data.offers.map((item, i) => {
-			data[i] = { 
-				id: item.id, 
-				'isCheck': offer.checkAll,
-				myProperty: 123
-			}
-		})
-		// }
-		if(offer.addDataChild != null){
-			offer.addDataChild(offerData)
-		}
-		console.log(offerData, "данные в стейте")
-		console.log(offer, "данные которые в пропсе")
-	}, [offer.checkValue])*/
-
-	/*useEffect(() => {
-		if (offer.checkValue != undefined) {
-			data = []
-			offer.data.offers.map((item, i) => {
-				data[i] = { 'id': item.id, 'isCheck': offer.checkAll }
-			})
-		}
-	}, [offer.checkAll])*/
 
 	
 	const [check, setCheck] = useState(false);
-	useLayoutEffect(() => {
+
+	
+	
+	useEffect(() => {
 		setCheck(offer.checkAll);
-		offer.getDataCheck({
-			id: offer.offer.id,
-			isCheck: offer.checkAll,
-		})
-		if(offer.checkAll){
-			offer.addDataChild(offerData);
-		}
-		console.log(offer.checkAll, "тестовый стейт ")
+		onCheck(offer.checkAll)
 	}, [offer.checkAll])
+
 	console.log("offer.checkAll стал", offer.checkAll)
 	
-	/* Проверить меняется ли стейт нажатыъ кнопок при отжатии */
+	/* Проверить меняется ли стейт кнопок при отжатии */
 	
 
 	const onCheck = e => {
-		offer.getDataCheck({
-			id: offer.offer.id,
-			isCheck: e.target.checked,
-		})
-		if(e.target.checked==false && offer.setGetDataChild !== null){
-			if(typeof offer.getDataChild !== "undefined"){
-				let deteteData = offer.getDataChild.filter((item) => (
-					item.id != offer.offer.id
-				));
-				offer.deleteDataChild(deteteData)
-				console.log(deteteData, "вызывается при отжатии")
-			}
-		}
-		if(e.target.checked){
-			offer.addDataChild(offerData)
-			console.log(offer.offer.id, "вызывается при нажатии")
-		}
+	 	offer.getDataCheck({
+	 		id: offer.offer.id,
+	 		isCheck: e,
+	 	})
+	 	if(e==false && offer.setGetDataChild !== null){
+	 		if(typeof offer.getDataChild !== "undefined"){
+	 			let deteteData = offer.getDataChild.filter((item) => (
+	 				item.id != offer.offer.id
+	 			));
+	 			offer.deleteDataChild(deteteData)
+	 			console.log(deteteData, "вызывается при отжатии")
+	 		}
+	 	}
+	 	if(e){
+	 		offer.addDataChild(offerData)
+	 		console.log(offer.offer.id, "вызывается при нажатии")
+	  	}
 	}
 	console.log(offerData,"то что по итогу в стейте")
+
+
 
 
 
@@ -146,7 +108,8 @@ export default function offerActive(offer) {
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.offer.id}
-							onChange={(e) => { setCheck(e.target.checked); onCheck(e) }}
+							onChange={(e) => { setCheck(e.target.checked); onCheck(e.target.checked)}}
+							 
 							checked={check}
 						/>
 					</div>

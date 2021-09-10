@@ -43,22 +43,18 @@ function Active(data) {
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false)
-	const [checkValue, setcheckValue] = useState()
 	const [checkAll, setCheckAll] = useState(false)
 	const [getDataChild,setGetDataChild] = useState([])
 	const [dataCheck, setDataCheck] = useState([])
+	const [fixedData, setFixedData] = useState([])
 	
 	const handleCheckAll = (e) => {
-		setCheck(e)
-		/*setcheckValue(e.target.value)*/
-		setCheckAll(e)
-		if(!e){
-			setGetDataChild([]);
-		}
-		
-		
-		console.log("проверка как меняется стейт ", dataCheck)
-	}
+		setFixedData(JSON.parse(JSON.stringify(dataCheck)));
+	 	setCheckAll(e)
+	 	 if(!e){
+	 	 	setGetDataChild([]);
+	 	 }
+	 }
 	
 	const addDataChild =  (newData) => {
 		/* проверяю если ли уже этот элемент в массиве, когда нажимается выбрать все после того, как несколько элементов уже отмечены */
@@ -74,18 +70,19 @@ function Active(data) {
 		setGetDataChild(newData)
 	}
 	const getDataCheck = (newData) => {
+	
 		if(dataCheck.length>0 ){
-			let CheckData = [];
-			CheckData = JSON.parse(JSON.stringify(dataCheck));
+			let CheckData = JSON.parse(JSON.stringify(dataCheck));
 			let dataItem = dataCheck.find((item) => item.id === newData.id)
-			newData.isCheck===true? dataItem.isCheck=true : dataItem.isCheck=false;
-			let index = dataCheck.indexOf(dataItem);
-			CheckData[index] = dataItem;
+			dataItem.isCheck = newData.isCheck;
+			CheckData[dataCheck.indexOf(dataItem)] = dataItem;
 			setDataCheck(CheckData)
 			if(typeof dataCheck.find( (item) => item.isCheck === false ) === "undefined"){
-				handleCheckAll(true);
+				
+				setCheck(true);
+				
 			}else{
-				handleCheckAll(false);
+				setCheck(false);
 			}
 		}else{
 			setDataCheck(dataCheck => [...dataCheck, newData])
@@ -100,11 +97,16 @@ function Active(data) {
 		);
 	}
 
+
 	/* Модальное окно */
 	function pushCheck() {
 		setOpenUnpublishForm(!openUnpublishForm)
 		handleUnpublishFormDialog()
 	}
+
+	
+	
+	
 
 	return (
 		<>
@@ -126,7 +128,7 @@ function Active(data) {
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
 
-							onChange={(e) => {
+							onChange={(e) => { setCheck(e.target.checked)
 								handleCheckAll(e.target.checked);
 							}}
 							checked={check}
@@ -141,8 +143,9 @@ function Active(data) {
 					<div className="clientPage__container_content">
 						{data.offers?.map((offer, i) => {
 							return (
-								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue} addDataChild={addDataChild} 
+								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} addDataChild={addDataChild} fixedData={fixedData}
 									dataCheck={dataCheck} getDataChild={getDataChild} deleteDataChild={deleteDataChild} getDataCheck={getDataCheck}
+									
 								/>
 							);
 						})}
@@ -150,7 +153,7 @@ function Active(data) {
 				</div>
 
 
-				{<Dialog open={openUnpublishForm} onClose={() => 	setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
+				{<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
         <UnpublishForm Close={handleUnpublishFormDialog} />
       </Dialog> }
 			</UnpublishCTX.Provider>
