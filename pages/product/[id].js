@@ -61,6 +61,8 @@ const objP = {
 	],
 };
 
+console.log(objP)
+
 const Product = () => {
 	const { query } = useRouter();
 	const { id } = useAuth();
