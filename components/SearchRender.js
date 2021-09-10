@@ -57,6 +57,7 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
+
 const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, page/* , endMessage = true  */}) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();

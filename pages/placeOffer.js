@@ -125,6 +125,9 @@ function PlaceOffer() {
         let obj = {}
         let additionalfields = { [asd]: [] }
         let additionalfields2 = { [asd]: [] }
+
+        let additionalfields3 = { [asd]: [] }
+
         for (var key in data) {
             if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
                 obj[key] = data[key];
@@ -134,13 +137,23 @@ function PlaceOffer() {
                 additionalfields2[asd].push({ "alias": key.replace(/[0-9]/g, ''), "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
 
                 additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
+
+                additionalfields3[asd].push({ "alias": key.replace(/[0-9]/g, '') })
+
             }
         }
+
+
+        console.log(additionalfields3[asd])
+
+
+
         if (newOBJ[asd] !== undefined) {
             obj.subcategory = asd
         }
         console.log(additionalfields)
         console.log(additionalfields2)
+
         console.log(obj)
         setLoading(true);
 
