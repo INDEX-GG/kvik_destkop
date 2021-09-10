@@ -26,14 +26,14 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, modalFunc})
                   ) : (
                     ""
                   )}
-                  {sellerId === id ? <ProductButton className="ad_btn ad_btn_edit buttonGrey button">Редактировать</ProductButton> : ""}
-                  {sellerId === id ? (
+                  {/* {sellerId == id ? <ProductButton className="ad_btn ad_btn_edit buttonGrey button">Редактировать</ProductButton> : ""}
+                  {sellerId == id ? (
                     <ProductButton onClick={modalFunc} className="ad_btn buttonGrey button">
                       Снять с публикации
                     </ProductButton>
                   ) : (
                     ""
-                  )}
+                  )} */}
 				  <ProductButtonChangeAds id={id} sellerId={sellerId} status={status} mobile={mobile} lastDate={0}/>
                   {/* {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
                   {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
