@@ -6,7 +6,11 @@ export default async function handler(req, res) {
 
 		const main = async () => {
 			const data = req.body.data.toLowerCase();
-			return await prisma.$queryRaw(`SELECT * FROM posts WHERE LOWER (category_id) LIKE '${data}%' LIMIT 15`)
+			const page_limit = req.body.page_limit
+			const page = (req.body.page - 1) * page_limit
+			return await prisma.$queryRaw(`SELECT * FROM posts WHERE LOWER (category_id) LIKE '${data}%' AND active = 0 ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+			// return  await  prisma.$queryRaw(`SELECT * FROM "posts" WHERE active = 0 ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+
 		}
 
 		try {
