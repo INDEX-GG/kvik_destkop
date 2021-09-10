@@ -65,7 +65,7 @@ export default function ProductAction(data) {
             </>
         )
         }
-		<ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={objP.adstatus} modalFunc={pushCheck} />
+		<ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={1} modalFunc={pushCheck} />
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
           <Statistics Close={handleStatFormDialog} />
         </Dialog>

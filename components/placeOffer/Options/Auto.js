@@ -665,18 +665,19 @@ export default function Auto({ data }) {
                                             return (
                                                 <Controller
                                                     key={i}
-                                                    defaultValue={false}
-                                                    value={false}
-                                                    render={({ field }) => (
+                                                    /* defaultValue={true ? item2 : false} */
+                                                    
+                                                    render={({ field: { onChange, value } }) => (
                                                         <FormControlLabel
-                                                            {...field}
                                                             className={classes.check}
+                                                            value={value}
+                                                            onChange={(e) => onChange(e.target.value)}
                                                             control={
-                                                                <Checkbox
+                                                                <Radio
                                                                     color='primary'
                                                                     icon={<OutlinedIcon />}
                                                                     checkedIcon={<Filledicon />}
-                                                                    type="checkbox"
+                                                                    value={item2}
                                                                 />
                                                             }
                                                             label={item2}

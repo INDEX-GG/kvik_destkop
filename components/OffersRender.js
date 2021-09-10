@@ -96,7 +96,7 @@ const OffersRender = ({ data, title, isProduct, page = false, limitRender = fals
 
 				</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) => <AdCard_component ref={lastElement} key={i} offer={obj} />)}
+					{state.sorting(data)?.map((obj, i) => i == Math.floor(data.length / 2) ? <AdCard_component ref={lastElement} key={i} offer={obj} /> : <AdCard_component key={i} offer={obj} />)}
 				</div>
 				<ScrollTop />
 				{/* {endMessage ? <EndMessage/> : null} */}

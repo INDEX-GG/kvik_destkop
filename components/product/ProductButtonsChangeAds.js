@@ -16,8 +16,8 @@ const ProductButtonChangeAds = ({id, sellerId, status, lastDate, mobile}) => {
 		{status === 4 ? <ProductWarning status={0}/> : null}
 		<div style={{flexWrap: 'wrap'}} className={mobile ? 'SellerInfo__adaptive_buttons' : ''}>
 			{status === 2 || status === 3 || status === 5 ? <ProductButtonAds width={width} title='Активировать'/> : null}
-			{status === 2 || status === 3 || status === 5 || status === 4 ? <ProductButtonAds width={width} left title='Редактировать'/> : null}
-			{status === 2 || status === 3 ? <ProductButtonAds width={width} title='Cнять с публикации'/> : null}
+			{status === 1 || status === 2 || status === 3 || status === 5 || status === 4 ? <ProductButtonAds width={width} left title='Редактировать'/> : null}
+			{status === 1 || status === 2 || status === 3 ? <ProductButtonAds width={width} title='Cнять с публикации'/> : null}
 			{status === 4 || status === 6 ? <ProductButtonAds width={width} title='Удалить'/> : null}
 		</div>
 	</> : null

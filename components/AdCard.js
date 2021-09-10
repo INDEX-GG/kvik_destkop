@@ -19,9 +19,8 @@ const initialState = {
 
 const AdCard_component = React.forwardRef((props, ref) => {
 
-	const {offer} = props;
-
 	const { id } = useAuth();
+	const {offer} = props;
 	const { userInfo, setLikeComment } = useStore();
 	// console.log(userInfo.favorites.filter(item => item.post_id === 295).map(item => item.comment)[0])
 	const currentSwiper = useRef();

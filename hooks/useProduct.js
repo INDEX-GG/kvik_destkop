@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { STATIC_URL } from '../lib/constants';
 import { getDataByPost } from '../lib/fetch';
 
+
 export function useProduct(id) {
 	const [productInfo, setProductInfo] = useState({});
+	const [productInfoFields, setProductInfoFields] = useState({});
 	useEffect(() => {
 		if (typeof id === 'string' || typeof id === 'number') {
 			getDataByPost('/api/getPost?123', { id: id })
@@ -14,11 +16,18 @@ export function useProduct(id) {
 						r.photo = photoes
 						r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 						setProductInfo(r);
+
+						if (r.subcategory !== undefined) {
+							getDataByPost('/api/subcategoriesFields', { "post_id": id })
+								.then((r) => { setProductInfoFields(r) })
+						}
+
 					}
 				})
 		}
 	}, [id])
 	return {
-		...productInfo
+		...productInfo,
+		productInfoFields
 	}
 }
