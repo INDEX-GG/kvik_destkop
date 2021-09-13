@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect} from "react";
+import React, { useState, useEffect} from "react";
 import { Checkbox, Dialog, makeStyles } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
@@ -39,7 +39,7 @@ export default function offerActive(offer) {
 	const [offerId, setOfferId] = useState();
 	const [offerData, setOfferData] = useState()
 	
-
+console.log(offerData)
 	useEffect(() => {
 		let cardInfo = offer.offer;
 		setOfferData(cardInfo);

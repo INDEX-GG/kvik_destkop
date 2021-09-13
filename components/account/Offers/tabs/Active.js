@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import UnpublishForm from "../../../UnpublishForm";
 // import AddRounded from "@material-ui/icons/AddRounded";
@@ -46,7 +46,7 @@ function Active(data) {
 	function filterDataCheck(data) {
 		dataCheck.find
 		setDataCheck(prev => [ ...prev, {
-			id: offer.offer.id,
+			id: data.offer.id,
 			check: check,
 		}])
 	}
