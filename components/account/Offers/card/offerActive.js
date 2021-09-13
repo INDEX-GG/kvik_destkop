@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Checkbox, Dialog, makeStyles } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
@@ -37,12 +37,8 @@ export default function offerActive(offer) {
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState();
-	const [offerData, setOfferData] = useState()
-	
-console.log(offerData)
+
 	useEffect(() => {
-		let cardInfo = offer.offer;
-		setOfferData(cardInfo);
 		offer.filterDataCheck({
 			id: offer.offer.id,
 			check: check,
@@ -50,12 +46,33 @@ console.log(offerData)
 	}, [])
 
 	useEffect(() => {
-		handleCheck(offer.parentCheck);
+		if(offer.parentCheck && check===false){
+			handleCheck(offer.parentCheck);
+		}
+		else if(offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false)==="undefined") {
+			null
+		}else{
+			if(offer.parentCheck===false && check && offer.dataChecked.length > 0){
+				null	
+			}
+			else if(offer.parentCheck===false && offer.dataChecked.length===0) {
+				handleCheck(offer.parentCheck);
+			}
+			else{
+				handleCheck(offer.parentCheck);
+			}
+		}				
 	}, [offer.parentCheck])
 
 	const handleCheck = (changeCheck) => {
-		setCheck(changeCheck)
+		setCheck(changeCheck);
+		offer.getChildCheck({
+			id: offer.offer.id,
+			check: changeCheck,
+			cardInfo: offer.offer,
+		});
 	}
+
 	console.log(check,"____check")
 	
 	/* Модальное окно */
@@ -75,6 +92,7 @@ console.log(offerData)
 				<div className="offerImage">
 					<div className="offerPubCheck">
 						<Checkbox
+							
 							className={classes.check}
 							color='primary'
 							icon={<FiberManualRecordOutlinedIcon />}
@@ -82,10 +100,6 @@ console.log(offerData)
 							value={offer.offer.id}
 							onChange={(event) => {
 								handleCheck(event.target.checked);
-								offer.getChildCheck({
-									id: offer.offer.id,
-									check: event.target.checked
-								});
 							}}
 							checked={check}
 						/>

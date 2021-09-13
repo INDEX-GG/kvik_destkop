@@ -44,9 +44,16 @@ function Active(data) {
 	const [dataChecked, setDataChecked] = useState([])
 
 	function filterDataCheck(data) {
-		dataCheck.find
+		dataCheck.length > 0 ? 
+		dataCheck.filter((item) => {
+			item.id === data.id
+		}) ? null : setDataCheck(prev => [ ...prev, {
+			id: data.id,
+			check: check,
+		}])
+		:
 		setDataCheck(prev => [ ...prev, {
-			id: data.offer.id,
+			id: data.id,
 			check: check,
 		}])
 	}
@@ -56,9 +63,6 @@ function Active(data) {
 		setDataChecked(dataChecked => dataChecked.filter( item => item.id !== newCheck.id ));
 	}
 	useEffect(() => {
-		console.log("---------dataCheck-----------",dataCheck.length);
-		console.log("---------dataCheck-----------",dataCheck.length);
-		/* dataCheck.length===dataChecked.length ? setCheck(true) : setCheck(false); */
 		if(dataCheck.length > 0){
 			dataCheck.length===dataChecked.length ? setCheck(true) : setCheck(false);
 		}
@@ -80,10 +84,6 @@ function Active(data) {
 		handleUnpublishFormDialog()
 	}
 
-	
-	
-	
-
 	return (
 		<>
 			<UnpublishCTX.Provider
@@ -102,7 +102,14 @@ function Active(data) {
 							value=""
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
-							onChange={(e) => { setCheck(e.target.checked)}}
+							onChange={(e) => { 
+								setCheck(e.target.checked);
+								e.target.checked===false ? setDataChecked([]) : null;
+							}}
+							onClick={(e) => {
+								console.log(e)
+								
+							}}
 							checked={check}
 						/>
 						<button className={classes.btn__unpublish} onClick={() => {pushCheck()}}>
@@ -114,8 +121,7 @@ function Active(data) {
 							return (
 								<OfferActive key={i} offer={offer} data={data} i={i}
 									parentCheck={check} getChildCheck={getChildCheck}
-									filterDataCheck={filterDataCheck} 
-									
+									filterDataCheck={filterDataCheck} dataChecked={dataChecked}
 								/>
 							);
 						})}
