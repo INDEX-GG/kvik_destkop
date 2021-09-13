@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import UnpublishForm from "../../../UnpublishForm";
 // import AddRounded from "@material-ui/icons/AddRounded";
@@ -37,67 +37,43 @@ const useStyles = makeStyles((theme) => ({
 function Active(data) {
 	const classes = useStyles();
 
-	
-
-
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false)
-	const [checkAll, setCheckAll] = useState(false)
-	const [getDataChild,setGetDataChild] = useState([])
 	const [dataCheck, setDataCheck] = useState([])
-	const [fixedData, setFixedData] = useState([])
-	
-	const handleCheckAll = (e) => {
-		setFixedData(JSON.parse(JSON.stringify(dataCheck)));
-	 	setCheckAll(e)
-	 	 if(!e){
-	 	 	setGetDataChild([]);
-	 	 }
-	 }
-	
-	const addDataChild =  (newData) => {
-		/* проверяю если ли уже этот элемент в массиве, когда нажимается выбрать все после того, как несколько элементов уже отмечены */
-		if(getDataChild.length>0){
-			let finded = getDataChild.find((item) => item.id===newData.id)
-			typeof finded !== "undefined"? null : setGetDataChild(getDataChild => [...getDataChild, newData]) 
-			
-		}else{
-			setGetDataChild(getDataChild => [...getDataChild, newData])
+	const [dataChecked, setDataChecked] = useState([])
+
+	function filterDataCheck(data) {
+		dataCheck.find
+		setDataCheck(prev => [ ...prev, {
+			id: offer.offer.id,
+			check: check,
+		}])
+	}
+	function getChildCheck (newCheck) {
+		newCheck.check ? setDataChecked(dataChecked => [...dataChecked, newCheck]) 
+		:	
+		setDataChecked(dataChecked => dataChecked.filter( item => item.id !== newCheck.id ));
+	}
+	useEffect(() => {
+		console.log("---------dataCheck-----------",dataCheck.length);
+		console.log("---------dataCheck-----------",dataCheck.length);
+		/* dataCheck.length===dataChecked.length ? setCheck(true) : setCheck(false); */
+		if(dataCheck.length > 0){
+			dataCheck.length===dataChecked.length ? setCheck(true) : setCheck(false);
 		}
-	}
-	const deleteDataChild = (newData) => {
-		setGetDataChild(newData)
-	}
-	const getDataCheck = (newData) => {
-	
-		if(dataCheck.length>0 ){
-			let CheckData = JSON.parse(JSON.stringify(dataCheck));
-			let dataItem = dataCheck.find((item) => item.id === newData.id)
-			dataItem.isCheck = newData.isCheck;
-			CheckData[dataCheck.indexOf(dataItem)] = dataItem;
-			setDataCheck(CheckData)
-			if(typeof dataCheck.find( (item) => item.isCheck === false ) === "undefined"){
-				
-				setCheck(true);
-				
-			}else{
-				setCheck(false);
-			}
-		}else{
-			setDataCheck(dataCheck => [...dataCheck, newData])
-		}
-	}
-	console.log("получаю массив нажатых кнопок", dataCheck)
-	console.log(getDataChild, "данные из выбранных чекбоксов")
-	/* console.log(checkChild, "кнопка нажата") */
+	}, [dataChecked])
+
+	console.log("---------check-----------",check);
+	console.log("---------dataCheck-----------",dataCheck);
+	console.log("---------dataChecked-----------",dataChecked);
+
+
 	if (data.offers.length == 0) {
 		return (
 			<Placeholder />
 		);
 	}
-
-
 	/* Модальное окно */
 	function pushCheck() {
 		setOpenUnpublishForm(!openUnpublishForm)
@@ -116,7 +92,6 @@ function Active(data) {
 					onError: (err) => {
 						console.error(err)
 					},
-					getDataChild,
 				}}
 			>
 				<div className="clientPage__container_bottom">
@@ -127,24 +102,19 @@ function Active(data) {
 							value=""
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
-
-							onChange={(e) => { setCheck(e.target.checked)
-								handleCheckAll(e.target.checked);
-							}}
+							onChange={(e) => { setCheck(e.target.checked)}}
 							checked={check}
-
 						/>
-						<button className={classes.btn__unpublish} onClick={() => {pushCheck()
-							console.log(getDataChild, "из кнопки снять с публикации")
-							console.log(openUnpublishForm, "clicked?")}}>
+						<button className={classes.btn__unpublish} onClick={() => {pushCheck()}}>
 							Снять с публикации
 						</button>
 					</div>
 					<div className="clientPage__container_content">
 						{data.offers?.map((offer, i) => {
 							return (
-								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} addDataChild={addDataChild} fixedData={fixedData}
-									dataCheck={dataCheck} getDataChild={getDataChild} deleteDataChild={deleteDataChild} getDataCheck={getDataCheck}
+								<OfferActive key={i} offer={offer} data={data} i={i}
+									parentCheck={check} getChildCheck={getChildCheck}
+									filterDataCheck={filterDataCheck} 
 									
 								/>
 							);
