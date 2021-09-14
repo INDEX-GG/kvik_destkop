@@ -37,7 +37,7 @@ export default function offerActive(offer) {
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState();
-
+	const offerData = offer.offer;
 	useEffect(() => {
 		offer.filterDataCheck({
 			id: offer.offer.id,
@@ -54,17 +54,21 @@ export default function offerActive(offer) {
 			else { handleCheck(offer.parentCheck) }
 		}				
 	}, [offer.parentCheck])
-
+	useEffect(() => {
+		offer.openUnpublishForm===false&&offer.dataChecked.length===0 ? setCheck(false) : null
+	}, [offer.openUnpublishForm])
 	const handleCheck = (changeCheck) => {
 		setCheck(changeCheck);
 		offer.getChildCheck({
 			id: offer.offer.id,
 			check: changeCheck,
-			cardInfo: offer.offer,
-		});
+		},offer.offer);
 	}
 
+	console.log(offer,"+_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=")
+
 	/* Модальное окно */
+	
 	function pushCheck(e) {
 		if (e.target.value !== '') {
 			setOfferId([+e.target.value])
@@ -72,10 +76,10 @@ export default function offerActive(offer) {
 		setOpenUnpublishForm(!openUnpublishForm)
 		handleUnpublishFormDialog()
 	}
-
+	console.log(openUnpublishForm,"OFFERactiveeeeeeeeeeeeee")
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
-		<UnpublishCTX.Provider value={{ offerId, offer, openUnpublishForm, setOpenUnpublishForm }}>
+		<UnpublishCTX.Provider value={{ offerId, offerData, openUnpublishForm, setOpenUnpublishForm }}>
 			<a href={`/product/${offer.offer.id}`} key={offer.i}
 				className="offerContainer boxWrapper">
 				<div className="offerImage">
