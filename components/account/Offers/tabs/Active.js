@@ -106,10 +106,6 @@ function Active(data) {
 								setCheck(e.target.checked);
 								e.target.checked===false ? setDataChecked([]) : null;
 							}}
-							onClick={(e) => {
-								console.log(e)
-								
-							}}
 							checked={check}
 						/>
 						<button className={classes.btn__unpublish} onClick={() => {pushCheck()}}>

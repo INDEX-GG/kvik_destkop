@@ -46,21 +46,12 @@ export default function offerActive(offer) {
 	}, [])
 
 	useEffect(() => {
-		if(offer.parentCheck && check===false){
-			handleCheck(offer.parentCheck);
-		}
-		else if(offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false)==="undefined") {
-			null
-		}else{
-			if(offer.parentCheck===false && check && offer.dataChecked.length > 0){
-				null	
-			}
-			else if(offer.parentCheck===false && offer.dataChecked.length===0) {
-				handleCheck(offer.parentCheck);
-			}
-			else{
-				handleCheck(offer.parentCheck);
-			}
+		if ( offer.parentCheck && check===false ) { handleCheck(offer.parentCheck) }
+		else if ( offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false)==="undefined" ) { null }
+		else {
+			if ( offer.parentCheck===false && check && offer.dataChecked.length > 0 ) { null }
+			else if( offer.parentCheck===false && offer.dataChecked.length===0 ) { handleCheck(offer.parentCheck) }
+			else { handleCheck(offer.parentCheck) }
 		}				
 	}, [offer.parentCheck])
 
@@ -73,8 +64,6 @@ export default function offerActive(offer) {
 		});
 	}
 
-	console.log(check,"____check")
-	
 	/* Модальное окно */
 	function pushCheck(e) {
 		if (e.target.value !== '') {
@@ -92,15 +81,12 @@ export default function offerActive(offer) {
 				<div className="offerImage">
 					<div className="offerPubCheck">
 						<Checkbox
-							
 							className={classes.check}
 							color='primary'
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.offer.id}
-							onChange={(event) => {
-								handleCheck(event.target.checked);
-							}}
+							onChange={(event) => {handleCheck(event.target.checked)}}
 							checked={check}
 						/>
 					</div>
