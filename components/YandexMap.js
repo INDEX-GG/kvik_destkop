@@ -1,127 +1,161 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, memo, useMemo } from 'react';
 // import Head from 'next/head'
-import { YMaps, Map, Placemark } from 'react-yandex-maps'
+import { YMaps, Map, withYMaps } from 'react-yandex-maps'
 import { TextField } from '@material-ui/core';
+import RoomIcon from '@material-ui/icons/Room';
 
-const YandexMap = () => {
 
-	//? Стартовые кординаты
-	const [cordints, setCordints] = useState([55.185106, 61.332009])
-	const [stateYmaps, setStateYmaps] = useState(false);
+const Location = memo(({ymaps}) => {
+	const [coordints, setCoordints] = useState([55.185106, 61.332009])
 	const [value, setValue] = useState('');
-	const test = useRef();
+	const [mapMove, setMapMove] = useState(false)
+	const map = useRef()
 
 
-	const generateStr = (str, firstStr = false) => {
-		const symbolStr = firstStr ? '' : ','
-		console.log(str)
-		const newStr = str ? symbolStr + str : ''
-		return newStr
+	const generateStr = (str, first = false) => {
+		const symbol = first ? '' : ', '
+		const newStr = str ? symbol + str : ''
+
+		return newStr;
 	}
 
 
-	const changeAddress = () => {
-		stateYmaps.geocode(cordints)
+	const changeAddress = (coord) => {
+		ymaps.geocode(coord)
 			.then((r) => {
 				const adress = (r.geoObjects.get(0))
+				
+				const number = generateStr(adress.getPremiseNumber())
+				const thoroughfare =  generateStr(adress.getThoroughfare())
+				const getLocalities1 = generateStr(adress.getLocalities()[1])
+				const getLocalities = generateStr(adress.getLocalities()[0], true)
 
-				console.log(
-				adress.getAdministrativeAreas(), 
-				adress.getLocalities(), 
-				adress.getThoroughfare(),
-          		adress.getPremiseNumber())
+				const newAddress = `${getLocalities}${getLocalities1}${thoroughfare}${number}`
 
-			    const newAdress = `${generateStr(adress.getLocalities()[0], true)}${generateStr(adress.getLocalities()[1])} ${generateStr(adress.getThoroughfare())}${generateStr(adress.getPremiseNumber())}`
-
-
-				console.log(newAdress)
-
-				if (newAdress == ' ' || newAdress.length == 0) {
-					setValue(`${generateStr(adress.getAdministrativeAreas()[0], true)} ${generateStr(adress.getAdministrativeAreas()[1])}`)
+				if (newAddress == '') {
+					const globalAddress = generateStr(adress.getAdministrativeAreas()[0], true)
+					const globalAddress2 = generateStr(adress.getAdministrativeAreas()[1])
+					const newGlobalAdress = `${globalAddress}${globalAddress2}`
+					setValue(newGlobalAdress)
 					return;
 				}
-
-				setValue(newAdress)
+				setValue(newAddress)
 			})
 	}
 
-
-	//? Функция следящая за инпутом
-	const ymapsLoad = (ymaps) => {
-
-		setStateYmaps(ymaps)
-
-
-		//https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/control.SearchControl.html
+	const hintsInput = (submit) => {
 
 		const searchControl = new ymaps.control.SearchControl({
 			options: {
-				provider: 'yandex#map'
+				provider: 'yandex#map',
+				noSuggestPanel: false
 			}
 		})
-		
-		// https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/SuggestView.html?lang=ru
-		// Находит инпут по id = suggest, создаёт выпадающую панель с поисковыми подсказками
+
+		console.log(searchControl.options)
+
 		const inputCompele = new ymaps.SuggestView('suggest', {
-			results: 5,
-			// boundedBy: [[40.831318, 19.739210], [71.640153, -172.750744]]
+			results: 3,
 		});
 
+		if (submit) {
+			searchControl
+				.search(value)
+				.then((data) => {
+					 setValue(value)
+         			 setCoordints(data.geoObjects.get(0).geometry.getCoordinates());
+				})
+				.catch((e) => console.log(e));
+			return;
+		}
 
 		inputCompele.events.add('select', (e) => {
 			searchControl
 				.search(e.get('item').value)
 				.then((data) => {
 					 setValue(e.get('item').value)
-         			 setCordints(data.geoObjects.get(0).geometry.getCoordinates());
+         			 setCoordints(data.geoObjects.get(0).geometry.getCoordinates());
 				})
 				.catch((e) => console.log(e));
 		})
-
-		const behavior = new ymaps.behavior.Drag()
-
-
-		
-		console.log(behavior.events.add('enable', () => console.log(1)))
-		
 	}
 
 
+	//? Функция следящая за инпутом
+	const ymapsLoad = () => {
+		hintsInput()
+		changeAddress(coordints)
+	}
+
 	const handlerClick = (event) => {
-		setCordints(event.get('coords'))
-		changeAddress()
+		setMapMove(true)
+		map.current.panTo(event.get('coords'), {
+			delay: 10,
+			duration: 300
+		})
+		  .then(() => setMapMove(false))
+		changeAddress(event.get('coords'))
 	}
 
 	const hanlderBounds = (event) => {
-		setCordints(event._cache.newCenter)
-		// СТРАННО РАБОТАЕТ
-		// setCordints(event.get('newCenter'))
-
-		changeAddress()
+		map.current.panTo(event.get('newCenter'), {
+			delay: 10,
+			duration: 300
+		})
+		  .then(() => setMapMove(false))
+		changeAddress(event.get('newCenter'))
 	}
 
-	const handlerActiontick = (event) => {
-		console.log(event.originalEvent.tick)
+	const handlerChange = (event) => {
+		setValue(event.target.value)
 	}
-	
+
+	const handlerSubmit = (e) => {
+		e.preventDefault()
+		hintsInput(true)
+	}
+
 
 	return (
-		<>	<TextField value={value} onChange={(e) => setValue(e.target.value)} ref={test} style={{width: '600px', margin: "20px 0"}} id="suggest" label="Адрес" variant="outlined" />
-			  <YMaps query={{apikey: '57d4ea45-8f8c-4594-9c9b-03dbfcfab0e8'}}>
-				  <div>
-					<Map
-					state={{ center: cordints, zoom: 14 }}
-					onActiontick={handlerActiontick}
-					onLoad={ymapsLoad}
-					onClick={handlerClick}
-					onBoundsChange={hanlderBounds}
-					modules={["SuggestView", "control.SearchControl", "geocode", 'behavior.Drag']}
-					width="100%"
-					>
-						<Placemark geometry={cordints} />
-					</Map>
-				  </div>
-			  </YMaps>
+		<>
+			<form onSubmit={handlerSubmit}>
+				<TextField value={value} onChange={handlerChange} style={{width: '600px', margin: "20px 0"}} id="suggest" label="Адрес" variant="outlined" />
+			</form>
+			<div style={{position: 'relative', width: '600px'}}>
+				<Map
+				instanceRef={map}
+				state={{ 
+					center: coordints, 
+					zoom: 17,
+				}}
+				onMouseDown={() => setMapMove(true)}
+				onLoad={ymapsLoad}
+				onClick={handlerClick}
+				onBoundsChange={hanlderBounds}
+				modules={["SuggestView", "control.SearchControl", "geocode"]}
+				height={224}
+				width={600}
+				>
+					{/* <Placemark geometry={coordints} /> */}
+					<RoomIcon color='primary' fontSize='large' style={{position: 'absolute', zIndex: '1', left: '50%', transform: 'translateX(-50%)', top: `${mapMove ? '70px' : '80px'}`, transition: '.2s all linear'}}/>
+				</Map>
+			</div>
+		</>
+	)
+
+})
+
+
+const YandexMap = () => {
+	const MainMap = useMemo(() => {
+    	return withYMaps(Location, true);
+  	}, []);
+
+	return (
+		<>
+			<YMaps query={{apikey: '57d4ea45-8f8c-4594-9c9b-03dbfcfab0e8'}}>
+				<MainMap/>
+			</YMaps>
 		</>
 		
 	)
