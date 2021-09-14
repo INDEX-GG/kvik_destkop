@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Checkbox, Dialog, makeStyles } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
@@ -37,12 +37,8 @@ export default function offerActive(offer) {
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState();
-	const [offerData, setOfferData] = useState()
-	
-console.log(offerData)
+	const offerData = offer.offer;
 	useEffect(() => {
-		let cardInfo = offer.offer;
-		setOfferData(cardInfo);
 		offer.filterDataCheck({
 			id: offer.offer.id,
 			check: check,
@@ -50,15 +46,29 @@ console.log(offerData)
 	}, [])
 
 	useEffect(() => {
-		handleCheck(offer.parentCheck);
+		if ( offer.parentCheck && check===false ) { handleCheck(offer.parentCheck) }
+		else if ( offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false)==="undefined" ) { null }
+		else {
+			if ( offer.parentCheck===false && check && offer.dataChecked.length > 0 ) { null }
+			else if( offer.parentCheck===false && offer.dataChecked.length===0 ) { handleCheck(offer.parentCheck) }
+			else { handleCheck(offer.parentCheck) }
+		}				
 	}, [offer.parentCheck])
-
+	useEffect(() => {
+		offer.openUnpublishForm===false&&offer.dataChecked.length===0 ? setCheck(false) : null
+	}, [offer.openUnpublishForm])
 	const handleCheck = (changeCheck) => {
-		setCheck(changeCheck)
+		setCheck(changeCheck);
+		offer.getChildCheck({
+			id: offer.offer.id,
+			check: changeCheck,
+		},offer.offer);
 	}
-	console.log(check,"____check")
-	
+
+	console.log(offer,"+_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=")
+
 	/* Модальное окно */
+	
 	function pushCheck(e) {
 		if (e.target.value !== '') {
 			setOfferId([+e.target.value])
@@ -66,10 +76,10 @@ console.log(offerData)
 		setOpenUnpublishForm(!openUnpublishForm)
 		handleUnpublishFormDialog()
 	}
-
+	console.log(openUnpublishForm,"OFFERactiveeeeeeeeeeeeee")
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
-		<UnpublishCTX.Provider value={{ offerId, offer, openUnpublishForm, setOpenUnpublishForm }}>
+		<UnpublishCTX.Provider value={{ offerId, offerData, openUnpublishForm, setOpenUnpublishForm }}>
 			<a href={`/product/${offer.offer.id}`} key={offer.i}
 				className="offerContainer boxWrapper">
 				<div className="offerImage">
@@ -80,13 +90,7 @@ console.log(offerData)
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.offer.id}
-							onChange={(event) => {
-								handleCheck(event.target.checked);
-								offer.getChildCheck({
-									id: offer.offer.id,
-									check: event.target.checked
-								});
-							}}
+							onChange={(event) => {handleCheck(event.target.checked)}}
 							checked={check}
 						/>
 					</div>

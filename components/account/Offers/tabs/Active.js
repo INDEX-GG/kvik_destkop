@@ -39,35 +39,60 @@ function Active(data) {
 
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
-	const [check, setCheck] = useState(false)
-	const [dataCheck, setDataCheck] = useState([])
-	const [dataChecked, setDataChecked] = useState([])
-
+	const [check, setCheck] = useState(false);
+	const [dataCheck, setDataCheck] = useState([]);
+	const [dataChecked, setDataChecked] = useState([]);
+	const [offerId, setOfferId] = useState([]);
+	const [offerData, setOfferData] = useState([]);
+	
+	function cleanAll () {
+		setCheck(false);
+		setDataCheck([]);
+		setDataChecked([]);
+		setOfferId([]);
+		setOfferData([]);
+	}
 	function filterDataCheck(data) {
-		dataCheck.find
+		dataCheck.length > 0 ? 
+		dataCheck.filter((item) => {
+			item.id === data.id
+		}) ? null : setDataCheck(prev => [ ...prev, {
+			id: data.id,
+			check: check,
+		}])
+		:
 		setDataCheck(prev => [ ...prev, {
-			id: data.offer.id,
+			id: data.id,
 			check: check,
 		}])
 	}
-	function getChildCheck (newCheck) {
-		newCheck.check ? setDataChecked(dataChecked => [...dataChecked, newCheck]) 
-		:	
-		setDataChecked(dataChecked => dataChecked.filter( item => item.id !== newCheck.id ));
+	function getChildCheck (newCheck, newOffer) {
+		newCheck.check ? (
+				setDataChecked(dataChecked => [...dataChecked, newCheck]), 
+				setOfferData( offer => [...offer, newOffer])
+			)
+			:	
+			( 	
+				setDataChecked(dataChecked => dataChecked.filter( item => item.id !== newCheck.id )),
+				setOfferData( offer => offer.filter( item => item.id !== newCheck.id ))
+			)
 	}
 	useEffect(() => {
-		console.log("---------dataCheck-----------",dataCheck.length);
-		console.log("---------dataCheck-----------",dataCheck.length);
-		/* dataCheck.length===dataChecked.length ? setCheck(true) : setCheck(false); */
 		if(dataCheck.length > 0){
 			dataCheck.length===dataChecked.length ? setCheck(true) : setCheck(false);
 		}
 	}, [dataChecked])
+	useEffect(() => {
+		openUnpublishForm ? null : setOfferId([])
+	}, [openUnpublishForm])
 
 	console.log("---------check-----------",check);
 	console.log("---------dataCheck-----------",dataCheck);
 	console.log("---------dataChecked-----------",dataChecked);
-
+	console.log("---------offer-----------", offerData);
+	console.log("---------offerId-----------", offerId);
+	console.log("---------openUnpublishForm-----------", openUnpublishForm);
+	console.log("---------data-----------", data); 
 
 	if (data.offers.length == 0) {
 		return (
@@ -75,15 +100,18 @@ function Active(data) {
 		);
 	}
 	/* Модальное окно */
+	
 	function pushCheck() {
-		setOpenUnpublishForm(!openUnpublishForm)
+		dataChecked.map( (item) => {
+			setOfferId( prev => [...prev, item.id])
+		})
+
 		handleUnpublishFormDialog()
 	}
-
+	
+	console.log(openUnpublishForm,"activeeeeeeeeeeeeee")
 	
 	
-	
-
 	return (
 		<>
 			<UnpublishCTX.Provider
@@ -92,6 +120,11 @@ function Active(data) {
 					onError: (err) => {
 						console.error(err)
 					},
+					offerId,
+					offerData,
+					openUnpublishForm, 
+					setOpenUnpublishForm,
+					cleanAll	
 				}}
 			>
 				<div className="clientPage__container_bottom">
@@ -102,30 +135,30 @@ function Active(data) {
 							value=""
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
-							onChange={(e) => { setCheck(e.target.checked)}}
+							onChange={(e) => { 
+								setCheck(e.target.checked);
+								e.target.checked===false ? setDataChecked([]) : null;
+							}}
 							checked={check}
 						/>
-						<button className={classes.btn__unpublish} onClick={() => {pushCheck()}}>
+						<button className={classes.btn__unpublish} onClick={() => {offerData.length > 0 ? pushCheck() : null}}>
 							Снять с публикации
 						</button>
 					</div>
 					<div className="clientPage__container_content">
 						{data.offers?.map((offer, i) => {
 							return (
-								<OfferActive key={i} offer={offer} data={data} i={i}
-									parentCheck={check} getChildCheck={getChildCheck}
-									filterDataCheck={filterDataCheck} 
-									
+								<OfferActive key={i} offer={offer} i={i}
+									parentCheck={check} getChildCheck={getChildCheck} openUnpublishForm={openUnpublishForm}
+									filterDataCheck={filterDataCheck} dataChecked={dataChecked}
 								/>
 							);
 						})}
 					</div>
 				</div>
-
-
 				{<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
-        <UnpublishForm Close={handleUnpublishFormDialog} />
-      </Dialog> }
+        			<UnpublishForm Close={handleUnpublishFormDialog} />
+      			</Dialog> }
 			</UnpublishCTX.Provider>
 		</>
 	);
