@@ -9,6 +9,7 @@ import RightArrow from "../../../../UI/icons/RightArrow"
 import { Button } from "@material-ui/core";
 import { useStore } from "../../../../lib/Context/Store";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
+import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../lib/regulars"
 import MobileModal from "../../../MobileModal";
 
 function PersonalData() {
@@ -74,7 +75,7 @@ function PersonalData() {
 
 	function changePasswordInput(e) {
 		
-		if (!e.target.value.match(/^[A-Za-z0-9!@#$%^&*]*$/g)) {
+		if (!e.target.value.match(invalidCharacterChangePassword())) {
 			return;
 		}
 
@@ -92,26 +93,26 @@ function PersonalData() {
 		}
 
 		// ! Проверка на Латиницу
-		if (e.target.value.match(/(?=.*[a-z])/g) || e.target.value.match(/(?=.*[A-Z])/g) != null) {
+		if (e.target.value.match(checkLatin()) || e.target.value.match(checkLatin()) != null) {
 			languageEu = true;
 		}
 		// ! Провека на цифру
-		if (e.target.value.match(/[\d.,:]/g)) {
+		if (e.target.value.match(checkNumber())) {
 			number = true;
 		}
 		//! Проверка на регистр
-		if (e.target.value.match(/(?=.*[a-z])/g) && e.target.value.match(/(?=.*[A-Z])/g) != null) {
+		if (e.target.value.match(checkRegister()) && e.target.value.match(checkRegister()) != null) {
 			registr = true;
 		}
 		//! Проверка на пробел
-		if (!e.target.value.match(/^\S*$/g)) {
+		if (!e.target.value.match(checkWhitespace())) {
 			e.target.value = e.target.value
 				.split("")
 				.splice(0, e.target.value.length - 1)
 				.join("");
 		}
 		//! Проверка на кириллицу
-		if (e.target.value.match(/[а-яё]/g)) {
+		if (e.target.value.match(checkCyrillic())) {
 			lenguageRu = true;
 			languageEu = false;
 		}
@@ -121,7 +122,7 @@ function PersonalData() {
 		}
 
 		//! Конец валидации
-		if (e.target.value.match(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g) && !lenguageRu) {
+		if (e.target.value.match(endOfValidation()) && !lenguageRu) {
 			setPasswordValid(true);
 		} else {
 			setPasswordValid(false);
@@ -153,12 +154,12 @@ function PersonalData() {
 
 
 		
-		if (!e.target.value.match(/^[A-Za-z0-9!@#$%^&*]*$/g)) {
+		if (!e.target.value.match(invalidCharacterChangePassword())) {
 			return;
 		}
 
 
-		if (!e.target.value.match(/^\S*$/g)) {
+		if (!e.target.value.match(checkWhitespace())) {
 			return;
 		} else {
 			setPasswordTwo(e.target.value);

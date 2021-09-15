@@ -1,78 +1,121 @@
-import React from "react";
-import { ToRubles } from "../../../../lib/services";
-import Verify from "../../../json/verify.json";
-import {useMedia} from "../../../../hooks/useMedia"
+import React, { useState, useEffect } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
+import { Checkbox, makeStyles } from "@material-ui/core";
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+import OfferArchive from "../card/offerArchive";
+
+
+const useStyles = makeStyles((theme) => ({
+	check: {
+		padding: "0px",
+		background: theme.palette.secondary.main,
+		width: "14px",
+		height: "14px",
+
+		"&:hover": {
+			background: theme.palette.secondary.main,
+		},
+	},
+	btn__unpublish: {
+		marginLeft: "12px",
+		background: "none",
+		color: theme.palette.grey[200],
+		cursor: "pointer",
+		transition: "all 200ms ease-in-out",
+
+		"&:hover": {
+			transition: "all 200ms ease-in-out",
+			textDecoration: "underline",
+		},
+	},
+}));
 
 function Archive(data) {
-  if (data.offers.lenght == 0) {
-    return (
-	  <EmptyPlaceholder
-	  title='Здесь буду ваши законченные объявления'
-	  subtitle='Текст'
-	  />
-    );
-  }
+	const classes = useStyles();
+	
+	if (data.offers.lenght == 0) {
+		return (
+			<EmptyPlaceholder
+				title='Здесь будут ваши законченные объявления'
+				subtitle='Текст'
+			/>
+		);
+	}
+	
+	const [check, setCheck] = useState(false)
+	const [dataCheck, setDataCheck] = useState([])
+	const [dataChecked, setDataChecked] = useState([])
+
+	function filterDataCheck(data) {
+		
+		dataCheck.length > 0 ?
+			dataCheck.filter((item) => {
+				item.id === data.id
+			}) ? null : setDataCheck(prev => [...prev, {
+				id: data.id,
+				check: check,
+			}])
+			:
+			setDataCheck(prev => [...prev, {
+				id: data.id,
+				check: check,
+			}])
+	}
+
+	function getChildCheck(newCheck) {
+		newCheck.check ? setDataChecked(dataChecked => [...dataChecked, newCheck])
+			:
+			setDataChecked(dataChecked => dataChecked.filter(item => item.id !== newCheck.id));
+	}
+
+	
+
+	useEffect(() => {
+		if (dataCheck.length > 0) {
+			dataCheck.length === dataChecked.length ? setCheck(true) : setCheck(false);
+		}
+	}, [dataChecked])
+
+	
+
+	console.log("---------check-----------", check);
+	console.log("---------dataCheck-----------", dataCheck);
+	console.log("---------dataChecked-----------", dataChecked);
+
+	return (
+		<div className="clientPage__container_bottom">
+			<div className="clientPage__container_nav__radio">
 
 
-  const {matchesMobile, matchesTablet} = useMedia()
+				<Checkbox
+					className={classes.check}
+					color="primary"
+					value=""
+					icon={<FiberManualRecordOutlinedIcon />}
+					checkedIcon={<FiberManualRecordSharpIcon />}
+					onChange={(e) => {
+						setCheck(e.target.checked);
+						e.target.checked === false ? setDataChecked([]) : null;
+					}}
+					checked={check}
+				/>
 
-  return (
-    <div className="clientPage__container_bottom">
-      <div className="clientPage__container_nav__radio">
-        <label className="checkbox">
-          <input type="checkbox" />
-          <div className="checkbox__text"></div>
-        </label>
-        <a>Активировать</a>
-        <a>Удалить</a>
-      </div>
-      <div className="clientPage__container_content">
-        {data.offers.map((offer) => {
-          return (
-            <div key={offer.id} className="offerContainer boxWrapper">
-              <div className="offerImage">
-                <div className="offerPubCheck">
-                  <label className="checkbox">
-                    <input type="checkbox" />
-                    <div className="checkbox__text"></div>
-                  </label>
-                </div>
-                 {offer.photo?.slice(0, 1).map((imgs, i) => {
-                           return (
-                              <img key={i} src={imgs} />
-                           )
-                        })}
-                {<img src={offer.img} />}
-                {offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.verify]}</div>}
-              </div>
-              <div className="offerDescription">
-                <div className="offerDescriptionTop">
-                  <div className="offerDTLeft thin">
-                    <>{ToRubles(offer.price)}</>
-                    <div className="offerTitle">{offer.title}</div>
-                  </div>
-                  <div className="offerDTRight">
-                    <a className="offerActivate thin superLight checkMarkIcon">Активировать</a>
-                    <a className="offerEdit thin superLight editIcon">Редактировать</a>
-                    <a className="offerDelete thin superLight binIcon">Удалить</a>
-                  </div>
-                </div>
-                <div className="offerDescriptionBottom">
-                  <div className="thin light small DatPub__mobile">
-                    <span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.date}</span>
-                    <div className="offerSocialCount offerSocialCountPos">
-                      <div className="offerShowes showesIcon">0 +0</div>
-                      <div className="offerAddFavores likeIcon">0 +0</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+
+				<a>Активировать</a>
+				<a>Удалить</a>
+			</div>
+			<div className="clientPage__container_content">
+				{data.offers?.map((offer, i) => {
+					return (
+						<OfferArchive  key={i} offer={offer} data={data} i={i}
+						parentCheck={check} getChildCheck={getChildCheck}
+						filterDataCheck={filterDataCheck} dataChecked={dataChecked}
+						/>
+					);
+				})}
+			</div>
+		</div>
+	);
 }
 export default Archive;
