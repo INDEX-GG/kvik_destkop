@@ -1,7 +1,7 @@
 import YandexMap from "../components/YandexMap";
 
-function yandexMapTest () {
+function yandexMap () {
 	return <YandexMap/>
 }
 
-export default yandexMapTest;
+export default yandexMap;
