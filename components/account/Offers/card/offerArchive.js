@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { ToRubles } from "../../../../lib/services";
 import Verify from "../../../json/verify.json";
 import { useMedia } from "../../../../hooks/useMedia"
-import { Checkbox, makeStyles } from "@material-ui/core";
+import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+import { DeleteCTX } from "../../../../lib/Context/DialogCTX"
+import DeleteForm from "../../../DeleteForm"
 
 
 
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 			background: theme.palette.secondary.main,
 		},
 	},
-	btn__unpublish: {
+	btn__publish: {
 		marginLeft: '12px',
 		background: 'none',
 		color: theme.palette.grey[200],
@@ -30,16 +32,43 @@ const useStyles = makeStyles((theme) => ({
 			transition: 'all 200ms ease-in-out',
 			textDecoration: 'underline',
 		},
-	}
+	},
+	btn__edit: {
+		marginLeft: '12px',
+		background: 'none',
+		color: theme.palette.grey[200],
+		cursor: 'pointer',
+		transition: 'all 200ms ease-in-out',
+
+		'&:hover': {
+			transition: 'all 200ms ease-in-out',
+			textDecoration: 'underline',
+		},
+	},
+	btn__delete: {
+		marginLeft: '12px',
+		background: 'none',
+		color: theme.palette.grey[200],
+		cursor: 'pointer',
+		transition: 'all 200ms ease-in-out',
+
+		'&:hover': {
+			transition: 'all 200ms ease-in-out',
+			textDecoration: 'underline',
+		},
+	},
 }));
 
 export default function offerArchive(offer) {
-	
+
 	const { matchesMobile, matchesTablet } = useMedia()
 
 	const classes = useStyles();
+	const [openDeleteForm, setOpenDeleteForm] = useState(false);
+	const handleDeleteFormDialog = () => setOpenDeleteForm(!openDeleteForm);
 	const [check, setCheck] = useState(false);
-
+	const [offerId, setOfferId] = useState();
+	const offerData = offer.offer;
 	useEffect(() => {
 		offer.filterDataCheck({
 			id: offer.offer.id,
@@ -57,65 +86,110 @@ export default function offerArchive(offer) {
 		}				
 	}, [offer.parentCheck])
 
+	useEffect(() => {
+		offer.openDeleteForm===false&&offer.dataChecked.length===0 ? setCheck(false) : null
+	}, [offer.openDeleteForm])
+
 	const handleCheck = (changeCheck) => {
 		setCheck(changeCheck);
 		offer.getChildCheck({
 			id: offer.offer.id,
 			check: changeCheck,
-			cardInfo: offer.offer,
-		});
+		},offer.offer);
 	}
 
+	console.log(offer,"+_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=")
+
+	/* Модальное окно */
+
+	function pushCheck(e) {
+		if (e.target.value !== '') {
+			setOfferId([+e.target.value])
+		}
+		setOpenDeleteForm(!openDeleteForm)
+		handleDeleteFormDialog()
+	}
+	console.log(openDeleteForm, "OFFERdeleteeeeeeeeeeeeeee")
 
 
 	return (
-		<div key={offer.offer.id} className="offerContainer boxWrapper">
-			<div className="offerImage">
-				<div className="offerPubCheck">
+		<DeleteCTX.Provider value={{ offerId, offerData, openDeleteForm, setOpenDeleteForm }}>
+			<div key={offer.offer.id} className="offerContainer boxWrapper">
+				<div className="offerImage">
+					<div className="offerPubCheck">
 
-					<Checkbox
-						className={classes.check}
-						color='primary'
-						icon={<FiberManualRecordOutlinedIcon />}
-						checkedIcon={<FiberManualRecordSharpIcon />}
-						value={offer.offer.id}
-						onChange={(event) => { handleCheck(event.target.checked) }}
-						checked={check}
-					/>
-				</div>
-
-				{
-				offer.offer.photo?.slice(0, 1).map((imgs, i) => {
-					return (
-						<img key={i} src={imgs} />
-					)
-				})}
-
-				{<img src={offer.offer.img} />}
-				{offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.offer.verify]}</div>}
-			</div>
-			<div className="offerDescription">
-				<div className="offerDescriptionTop">
-					<div className="offerDTLeft thin">
-						<>{ToRubles(offer.offer.price)}</>
-						<div className="offerTitle">{offer.offer.title}</div>
+						<Checkbox
+							className={classes.check}
+							color='primary'
+							icon={<FiberManualRecordOutlinedIcon />}
+							checkedIcon={<FiberManualRecordSharpIcon />}
+							value={offer.offer.id}
+							onChange={(event) => { handleCheck(event.target.checked)}}
+							checked={check}
+						/>
 					</div>
-					<div className="offerDTRight">
-						<a className="offerActivate thin superLight checkMarkIcon">Активировать</a>
-						<a className="offerEdit thin superLight editIcon">Редактировать</a>
-						<a className="offerDelete thin superLight binIcon">Удалить</a>
-					</div>
+
+					{offer.offer.photo?.slice(0, 1).map((imgs, i) => {
+							return (
+								<img key={i} src={imgs} />
+							)
+						})}
+
+					{<img src={offer.offer.img} />}
+					{offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.offer.verify]}</div>}
 				</div>
-				<div className="offerDescriptionBottom">
-					<div className="thin light small DatPub__mobile">
-						<span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.offer.date}</span>
-						<div className="offerSocialCount offerSocialCountPos">
-							<div className="offerShowes showesIcon">0 +0</div>
-							<div className="offerAddFavores likeIcon">0 +0</div>
+				<div className="offerDescription">
+					<div className="offerDescriptionTop">
+						<div className="offerDTLeft thin">
+							<>{ToRubles(offer.offer.price)}</>
+							<div className="offerTitle">{offer.offer.title}</div>
+						</div>
+
+
+						<div className="offerDTRight">
+
+							{/* <a className="offerActivate thin superLight ">Активировать</a> */}
+							{/* <a className="offerEdit thin superLight editIcon">Редактировать</a> */}
+							{/* <a className="offerDelete thin superLight binIcon">Удалить</a> */}
+							{/* зарефакторил ниже  */}
+
+							<button type="submit" className="offerActivate thin superLight checkMarkIcon offerSocialAction">
+								Активировать
+							</button>
+							
+							<button type="submit" className="offerEdit thin editIcon offerSocialAction">
+								Редактировать
+							</button>
+
+
+							<a href="javascript:void(0);">
+								<button
+									value={offer.offer.id}
+									onClick={(e) => pushCheck(e)}
+									className="offerEdit thin superLight offerSocialAction binIcon">
+									Удалить
+								</button>
+							</a>
+
+						</div>
+
+
+					</div>
+					<div className="offerDescriptionBottom">
+						<div className="thin light small DatPub__mobile">
+							<span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.offer.date}</span>
+							<div className="offerSocialCount offerSocialCountPos">
+								<div className="offerShowes showesIcon">0 +0</div>
+								<div className="offerAddFavores likeIcon">0 +0</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+
+			<Dialog open={openDeleteForm || false} onClose={() => setOpenDeleteForm(!openDeleteForm)} fullWidth maxWidth='md'>
+				<DeleteForm Close={handleDeleteFormDialog} />
+			</Dialog>
+		</DeleteCTX.Provider>
 	)
 }

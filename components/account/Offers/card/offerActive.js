@@ -54,9 +54,11 @@ export default function offerActive(offer) {
 			else { handleCheck(offer.parentCheck) }
 		}				
 	}, [offer.parentCheck])
+
 	useEffect(() => {
 		offer.openUnpublishForm===false&&offer.dataChecked.length===0 ? setCheck(false) : null
 	}, [offer.openUnpublishForm])
+	
 	const handleCheck = (changeCheck) => {
 		setCheck(changeCheck);
 		offer.getChildCheck({

@@ -79,14 +79,14 @@ export default function DeleteForm() {
 
 	function PushBDVerify(e) {
 		console.log(e.target.parentElement)
-		var arr = { 'id': [offerId], 'verify': `${e.target.parentElement.id}` }
-		axios.post(`${BASE_URL}/api/verifyActive`, arr)
+		var arr = { 'id': [offerId], 'verify': 4 }
+		axios.delete(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
 				setQuery(p => !p)
 				setOpenDeleteForm(!openDeleteForm)
 			})
-			cleanAll();
+			 cleanAll();
 	}
 
 	console.log(offerId)
