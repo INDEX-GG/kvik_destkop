@@ -25,7 +25,6 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 	useEffect(() => {
 		setData(photo);
 	},[photo])
-
 	
 	useEffect(() => {
 		if (photo) {
@@ -64,7 +63,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 				<div>
 					<Swiper
 						onSwiper={setFirstSwiper}
-						onActiveIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+						onActiveIndexChange={(swiper) => {setActiveIndex(swiper.activeIndex)}}
 						spaceBetween={10}
 						pagination={{clickable: true, type: 'fraction'}}
 						navigation={true}
@@ -80,23 +79,24 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						))}
 					</Swiper>
 					<Swiper 
-						style={{display: slidesPrevPhoto && !matchesTablet && !matchesMobile ? 'block' : 'none', height: '88px'}}
+						style={{ height: '88px', display: "block"}}
 						onSwiper={setThumbsSwiper}
 						watchSlidesProgress={true}
 						slidesPerView={6}
-						// loop={true}
 						spaceBetween={1}
 						className="mySwiper2"
 						>
 						{/* <div className="seen__ad">Просмотрено</div> */}
-						{data?.map((img, i) => (
+						{slidesPrevPhoto && !matchesTablet && !matchesMobile ? 
+						data?.map((img, i) => (
 							<SwiperSlide key={i}>
-								<div style={{height: '88px', minWidth: '100px' }}>
-									<img style={{width: '100%', height: '100%'}} src={img} />
+								<div>
+									<img style={{ height: '88px', }} src={img} />
 								</div>
 							</SwiperSlide>
-						))}
+						)) : null}
 					</Swiper>
+					
 
 					<Modal className="productModal" open={modal || false} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
 						<>
