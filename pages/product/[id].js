@@ -69,7 +69,7 @@ const Product = () => {
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-
+	
 	// const [collSO, setCollSO] = useState(true);
 	/* const handleCollSO = (e) => {
 		e.preventDefault();
@@ -85,20 +85,18 @@ const Product = () => {
 		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
-
+	console.log("DATA-------", data)
 	const {productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
-
+	const productInfo = useProduct(query.id)
 
 	console.log(productInfoFields)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
-
 	useEffect(() => {
 
 		if (user_id !== undefined) {
 			getDataByPost("/api/getProductOfUser", { user_id: user_id }).then((r) => {
-				console.log(r);
 				if (r !== undefined && r.length > 0) {
 					const userOffers = r.map(offer => {
 						return {
@@ -148,7 +146,7 @@ const Product = () => {
 												</div>
 
 										)}
-										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />
+										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />}
 										{/* адрес, карта, свойства и значения */}
 										<ProductInformation address={address} description={description} />
 									</div>
@@ -156,7 +154,7 @@ const Product = () => {
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
 										{/* статус объявления, кнопки */}
-										<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} productInfo={productInfo}/>}
 										{/* пользователь и его объявления */}
 										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
 									</div>
@@ -192,7 +190,7 @@ const Product = () => {
 						{" "}
 						<Statistics Close={handleStatFormDialog} />{" "}
 					</Dialog>
-					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
+					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo} />
 				</div>
 			</OfferAccountProvider>
 		</MetaLayout>

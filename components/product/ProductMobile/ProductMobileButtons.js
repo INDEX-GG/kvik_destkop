@@ -8,7 +8,7 @@ import ProductOption from '../ProductOption';
 import ProductButton from '../ProductUI/ProductButton';
 const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog}) => {
  const router = useRouter();
- console.log(status, sellerId, id)
+ console.log("PHOTO------------------>",photo,sellerId)
  return (
 	<div>
 		{mobile && (

@@ -2,16 +2,16 @@ import React from "react";
 import { Avatar, makeStyles } from "@material-ui/core";
 import StarRating from "../StarRating";
 import Active_icon from "../../UI/icons/ActiveIcon";
-import Router from "next/router";
-import { useProduct } from "../../hooks/useProduct";
+/* import {useRouter} from "next/router";
+import { useProduct } from "../../hooks/useProduct"; */
 import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
+import router from "next/router";
 
-export default function PhoneModule({dialog, setDialog}) {
-
-  const { name, userPhoto, raiting, user_id, isLoading } = useProduct(Router);//Исправить
-  const {sellerPhone} = useOutherUser(user_id)
-
+export default function PhoneModule({dialog, setDialog, productInfo}) {
+  const { name, userPhoto, raiting, user_id, isLoading } = productInfo;  //useProduct(router.query.id);Исправить
+  const {sellerPhone} = useOutherUser(user_id);
+  console.log("productInfo ----fhoneModule=====>", productInfo)
   const useStyles = makeStyles(() => ({
     modalNumber: {
       fontSize: "12px",
@@ -24,6 +24,7 @@ export default function PhoneModule({dialog, setDialog}) {
       display: "flex",
       alignItems: "center",
       marginBottom: "20px",
+      cursor: "pointer",
     },
     userInf: {
       marginLeft: "14px",
@@ -31,6 +32,10 @@ export default function PhoneModule({dialog, setDialog}) {
     userName: {
       fontSize: "12px",
       color: "#2C2C2C",
+      "&:hover": {
+        transition: "all 150ms ease-in-out",
+        textDecoration: "underline",
+      }
     },
     userStar: {
       display: "flex",
@@ -50,6 +55,7 @@ export default function PhoneModule({dialog, setDialog}) {
     userMessage: {
       color: "#5A5A5A",
       marginBottom: "30px",
+      textAlign: "center",
     },
     warningMessage: {
       marginBottom: "15px",
@@ -66,6 +72,7 @@ export default function PhoneModule({dialog, setDialog}) {
     small: {
       width: "56px",
       height: "56px",
+      
     },
   }));
   const classes = useStyles();
@@ -74,12 +81,12 @@ export default function PhoneModule({dialog, setDialog}) {
       <div className={classes.modalNumber}>
         <div className={classes.userProfile}>
           {isLoading || (
-            <Avatar alt="User" className={classes.small} src={userPhoto}>
+            <Avatar alt="User" className={classes.small} src={userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
               {name}
             </Avatar>
           )}
           <div className={classes.userInf}>
-            <div className={classes.userName}>{name}</div>
+            <div className={classes.userName} onClick={() => router.push(`/user/${user_id}`)}>{name}</div>
             <div className={classes.userStar}>
               {raiting == null ? null : <div className={classes.numberStar}>{(raiting + "").split("").splice(0, 4).join("")}</div>}
               <StarRating rating={raiting} />
