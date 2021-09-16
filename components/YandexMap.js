@@ -9,6 +9,7 @@ import { useMedia } from '../hooks/useMedia'
 const Location = memo(({ymaps}) => {
 	// Кординаты
 	const [coordinates, setCoordinates] = useState([55.753220, 37.622513])
+	const [zoom, setZoom] = useState(17)
 	// value инпута
 	const [value, setValue] = useState('');
 	// boolean - изменяется при движении карты
@@ -17,6 +18,9 @@ const Location = memo(({ymaps}) => {
 	const [suggestView, setSuggestView] = useState(false)
 	// object - подсказки
 	const [suggest, setSuggest] = useState('')
+
+	const [searchSubmit, setSearchSubmit] = useState(true)
+
 	// карта
 	const map = useRef()
 
@@ -24,39 +28,55 @@ const Location = memo(({ymaps}) => {
 	// const {city} = useCity()
 
 
-	const generateStr = (str, first = false) => {
-		const symbol = first ? '' : ', '
-		const newStr = str ? symbol + str : ''
-		return newStr;
+	// const generateStr = (str, first = false) => {
+	// 	const symbol = first ? '' : ', '
+	// 	const newStr = str ? symbol + str : ''
+	// 	return newStr;
+	// }
+
+
+	const generateFullAddress = (adrress, submit = false) => {
+
+		const fullAddress = adrress.getAddressLine().split(',').splice(1,)
+
+		if (submit) {
+			if (fullAddress.length == 1) {
+				setZoom(10)
+			} else {
+				setZoom(17)
+			}
+		}
+
+		setValue(fullAddress.join(',').trim())
+		// // намер дома
+		// const number = generateStr(adrress.getPremiseNumber())
+		// // название улицы
+		// const thoroughfare =  generateStr(adrress.getThoroughfare())
+		// // наименование здания
+		// const getPremise = generateStr(adrress.getPremise())
+		// // название района
+		// // const getLocalities1 = generateStr(adrress.getLocalities()[1])
+		// // название города
+		// const getLocalities = generateStr(adrress.getLocalities()[0], true)
+		// // полный адресс
+		// const newAddress = `${getLocalities}${getPremise}${thoroughfare}${number}`
+		// // поверка на гобальную карту (если сильно отдалиться от города)
+		// if (newAddress == '') {
+		// 	const globalAddress = generateStr(adrress.getAdministrativeAreas()[0], true)
+		// 	const globalAddress2 = generateStr(adrress.getAdministrativeAreas()[1])
+		// 	const newGlobalAdress = `${globalAddress}${globalAddress2}`
+		// 	setValue(newGlobalAdress)
+		// }
 	}
+
 
 	const changeAddress = (coord) => {
 		// определение адреса по координатам
 		ymaps.geocode(coord)
 			.then((r) => {
 				// объект адреса
-				const adress = (r.geoObjects.get(0))
-				// намер дома
-				const number = generateStr(adress.getPremiseNumber())
-				// название улицы
-				const thoroughfare =  generateStr(adress.getThoroughfare())
-				// название района
-				const getLocalities1 = generateStr(adress.getLocalities()[1])
-				// название города
-				const getLocalities = generateStr(adress.getLocalities()[0], true)
-
-				// полный адресс
-				const newAddress = `${getLocalities}${getLocalities1}${thoroughfare}${number}`
-
-				// поверка на гобальную карту (если сильно отдалиться от города)
-				if (newAddress == '') {
-					const globalAddress = generateStr(adress.getAdministrativeAreas()[0], true)
-					const globalAddress2 = generateStr(adress.getAdministrativeAreas()[1])
-					const newGlobalAdress = `${globalAddress}${globalAddress2}`
-					setValue(newGlobalAdress)
-					return;
-				}
-				setValue(newAddress)
+				const adrress = (r.geoObjects.get(0))
+				generateFullAddress(adrress)
 			})
 	}
 
@@ -76,29 +96,32 @@ const Location = memo(({ymaps}) => {
 
 		// Добовляем посказки в input
 		const inputCompele = new ymaps.SuggestView('suggest', {
+			boundedBy: map.current.getBounds(),
 			results: 3,
 		});
 
 		setSuggest(inputCompele)
+		
 
 		// событие onSubmit
 		if (submit) {
 			searchControl
 				.search(value)
 				.then((data) => {
-					// setValue(value)
+					setSearchSubmit(true)
+					generateFullAddress(data.geoObjects.get(0), true)
          			setCoordinates(data.geoObjects.get(0).geometry.getCoordinates());
 					inputCompele.destroy();
 					setSuggestView(false)
 				})
 				.catch((e) => console.log(e));
-			return;
 		} else {
 			inputCompele.events.add('select', (e) => {
 				searchControl
 					.search(e.get('item').value)
 					.then((data) => {
-						setValue(e.get('item').value)
+						setSearchSubmit(true)
+						generateFullAddress(data.geoObjects.get(0), true)
 						setCoordinates(data.geoObjects.get(0).geometry.getCoordinates());
 						inputCompele.destroy();
 						setSuggestView(false)
@@ -127,14 +150,7 @@ const Location = memo(({ymaps}) => {
 			.then(res =>
 				ymaps.geocode(res.geoObjects.position).then(r => {
 					const adress = (r.geoObjects.get(0))
-					const number = generateStr(adress.getPremiseNumber())
-					const thoroughfare =  generateStr(adress.getThoroughfare())
-					const getLocalities1 = generateStr(adress.getLocalities()[1])
-					const getLocalities = generateStr(adress.getLocalities()[0], true)
-
-					const newAddress = `${getLocalities}${getLocalities1}${thoroughfare}${number}`
-
-					setValue(newAddress)
+					generateFullAddress(adress)
 					setCoordinates(res.geoObjects.position)
 				})
 			)
@@ -158,7 +174,7 @@ const Location = memo(({ymaps}) => {
 		setMapMove(true)
 		map.current.panTo(event.get('coords'), {
 			delay: 10,
-			duration: 300
+			duration: 200
 		})
 		  .then(() => setMapMove(false))
 		changeAddress(event.get('coords'))
@@ -167,10 +183,10 @@ const Location = memo(({ymaps}) => {
 	const hanlderBounds = (event) => {
 		map.current.panTo(event.get('newCenter'), {
 			delay: 10,
-			duration: 300
+			duration: 200
 		})
 		  .then(() => setMapMove(false))
-		changeAddress(event.get('newCenter'))
+		if (!searchSubmit) changeAddress(event.get('newCenter')) 
 	}
 
 	const handlerChange = (event) => {
@@ -185,7 +201,6 @@ const Location = memo(({ymaps}) => {
 
 	useEffect(() => {
 		if (suggestView) {
-			console.log(1)
 			hintsInput()
 		}
 	}, [suggestView])
@@ -200,10 +215,11 @@ const Location = memo(({ymaps}) => {
 				instanceRef={map}
 				state={{ 
 					center: coordinates, 
-					zoom: 17
+					zoom
 				}}
 				onMouseDown={() => {
 					setMapMove(true)
+					setSearchSubmit(false)
 				}}
 				onLoad={ymapsLoad}
 				onClick={handlerClick}

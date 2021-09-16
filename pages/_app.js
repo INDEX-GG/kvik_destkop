@@ -22,6 +22,10 @@ function MyApp({ Component, pageProps }) {
 	// 	} else { console.log("Not mobile") }
 	// }, 1500)
 
+	// navigator.geolocation.getCurrentPosition((e) => {
+	// 	console.log(e)
+	// });
+
 	return (
 		<ErrorBoundary>
 			<SWRConfig
