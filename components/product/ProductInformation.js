@@ -1,12 +1,13 @@
 import React from 'react';
 import { useMedia } from '../../hooks/useMedia';
-import ProductDescription from './ProductDescription';
+import ProductAutoInformation from './ProductAutoInformation';
+// import ProductDescription from './ProductDescription';
 import ProductMap from './ProductMap';
 // import ProductProperties from './ProductProperties';
 import ProductSocial from './ProductSmallComponents/ProductSocial';
 
-export default function ProductInformation(data) {
-	console.log(data.description)
+export default function ProductInformation({productionInfo, description, address, caterory}) {
+	console.log("я правильно понимаю", productionInfo)
 
 	const { matchesMobile, matchesTablet } = useMedia();
 
@@ -14,16 +15,11 @@ export default function ProductInformation(data) {
 
 	return (
 		<>
-			<ProductMap address={data.address} mobile={!matchesMobile && !matchesTablet}/>
+			<ProductMap address={address} mobile={!matchesMobile && !matchesTablet}/>
 			<div className="productPageCharacter thin">
-				{matchesMobile || matchesTablet ? <ProductDescription description={data.description} mobile={!matchesMobile && !matchesTablet}/> : ''}
-				{/* {testProperties.map((item, index) => {
-					return (
-						<ProductProperties key={index + 1} name={item.name} desc={item.desc}/>
-					)
-				})} */}
-				{matchesMobile || matchesTablet ? '' : 
-				<ProductDescription description={data.description} mobile={!matchesMobile && !matchesTablet}/>}
+				{caterory === 'auto' && <ProductAutoInformation data={productionInfo} mobile={!matchesMobile && !matchesTablet} description={description} />
+	}
+				{/* <ProductDescription description={description} mobile={!matchesMobile && !matchesTablet}/> */}
 				<ProductSocial/>
 			</div>
 		</>

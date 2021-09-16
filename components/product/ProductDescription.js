@@ -8,7 +8,6 @@ const ProductDescription = ({description, mobile}) => {
 		<>
 			<div>
 				{mobile && <div className="productLocality">Описание</div>}
-				{console.log(description)}
 				<pre className='productDescription'>{description}</pre>
 			</div>
 		</>
