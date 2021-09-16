@@ -1,5 +1,6 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
+import { invalidСharacterProduct } from '../../lib/regulars'
 
 const useStyles = makeStyles((theme) => ({
 	formElem: {
@@ -43,7 +44,7 @@ const Title = () => {
 					)}
 					rules={{
 						required: 'Введите название Товара',
-						pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'-]+$/, message: 'Недопустимые символы' },
+						pattern: {value: invalidСharacterProduct(), message: 'Недопустимые символы' },
 					}}
 				/>
 			</Box>
