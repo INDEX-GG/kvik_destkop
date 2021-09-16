@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { Box, makeStyles, Typography } from "@material-ui/core";
-// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
+import {arrayMoveImmutable} from 'array-move';
 
 const useStyles = makeStyles((theme) => ({
   formElem: {
@@ -150,16 +150,11 @@ const useStyles = makeStyles((theme) => ({
   drag: {
     display: "flex",
     flexWrap: "wrap",
-    // display: "grid",
-    // gridTemplateColumns: "repeat(4,1fr)",
     margin: 0,
     overflow: "hidden",
     "&>div": {
       marginRight: "10px",
       marginBottom: "10px",
-      // '&:nth-child(4n)': {
-      // 	marginRight: 0
-      // }
     },
   },
 }));
@@ -205,6 +200,8 @@ const Photoes = ({ ctx }) => {
     } else {
       methods.setValue("photoes", "");
     }
+
+    methods.clearErrors('photoes')
 
     validFiles.forEach((el, i) => {
       const reader = new FileReader();
@@ -339,66 +336,23 @@ const Photoes = ({ ctx }) => {
     }
   };
 
-  // const preview = (file, n) => {
-  // 	const reader = new FileReader();
-  // 	reader.readAsDataURL(file);
-  // 	reader.onloadend = e => {
-  // 		let img = document.getElementById(`prev${n}`);
-  // 		if (img) {
-  // 			img.src = e.target.result;
-  // 		} else {
-  // 			setErrorMessage('Крайне серьёзная ошибка, срочн нажмите alt F4');
-  // 		}
-  // 	};
-  // };
 
-  const rotate = (id) => {
-    const img = imageData.find((el) => el.id === id);
-    const index = imageData.indexOf(img);
-    if (!imageData[index].angle) {
-      imageData[index].angle = 0;
+  const rotate = (data) => {
+    const filteredValid = validFiles
+    const index = filteredValid.indexOf(data);
+    if (!filteredValid[index].angle) {
+      filteredValid[index].angle = 0;
     }
-    imageData[index].angle += 90;
-    if (imageData[index].angle === 360) {
-      imageData[index].angle = 0;
+    filteredValid[index].angle += 90;
+    if (filteredValid[index].angle === 360) {
+      filteredValid[index].angle = 0;
     }
-    setImageData([...imageData]);
+    setValidFiles([...filteredValid]);
   };
 
-  // const makeMain = (file, n) => {
-  // 	validFiles.splice(n, 1);
-  // 	selectedFiles.splice(n, 1);
-  // 	setValidFiles([file, ...validFiles]);
-  // 	setSelectedFiles([file, ...selectedFiles]);
-  // };
 
   ctx(validFiles);
 
-  const reorder = (list, startIndex, endIndex) => {
-    const result = list;
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
-  // const onDragEnd = (result) => {
-  //   // dropped outside the list
-  //   if (!result.destination) {
-  //     return;
-  //   }
-
-  //   const items2 = reorder(
-  //     validFiles,
-  //     result.source.index,
-  //     result.destination.index
-  //   );
-
-  //   setValidFiles(items2);
-  //   // items2.forEach((el, i) => {
-  //   //   preview(el, i)
-  //   // })
-  // };
 	const SortableList = SortableContainer(({items}) => {
 		return (
 			<div className={classes.drag}   >
@@ -440,17 +394,16 @@ const Photoes = ({ ctx }) => {
 					src={img?.src}
 					id={`prev${img?.id}`}
 					style={{
-						transform: img?.angle
-							? `rotate(${img?.angle}deg) ${
-									!even(img?.angle / 90) ? "scale(1.2)" : "scale(1)"
+						transform: data.angle
+							? `rotate(${data.angle}deg) ${
+									!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
 								}`
 							: null,
-						transition: "none",
 					}}
 				/>
 				<div
 					className={classes.rotate}
-					onClick={() => rotate(img?.id)}
+					onClick={() => rotate(data)}
 				/>
 				<div
 					className={classes.delete}
@@ -463,7 +416,7 @@ const Photoes = ({ ctx }) => {
 		);
 	});
 	const onSortEnd = ({oldIndex, newIndex}) => {
-    const items = reorder(validFiles, newIndex, oldIndex)
+    const items = arrayMoveImmutable(validFiles,  oldIndex, newIndex)
     setValidFiles([...items])
   }
 
@@ -472,70 +425,8 @@ const Photoes = ({ ctx }) => {
       <Typography className={classes.formTitleField}>Фотографии</Typography>
       <Box className={classes.formInputField}>
         <div>
-          <SortableList items={validFiles} axis="xy" onSortEnd={onSortEnd} />
-          
-         
+          <SortableList items={validFiles} axis="xy" onSortEnd={onSortEnd} distance={5} />
         </div>
-
-        {/* <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="droppable" direction="horizontal" >
-          {(provided) => (
-            <div
-              ref={provided.innerRef}
-              className={classes.drag}
-              {...provided.droppableProps}
-            >
-              {validFiles.map((data, i) => {
-                const img = imageData.find(el => el.name === data.name);
-                return(
-                <Draggable key={i} draggableId={`${i}`} index={i}  >
-                  {(provided) => (
-                    <div  	ref={provided.innerRef} style={{marginRight: '5px', userSelect: 'none'}} {...provided.draggableProps}
-                    {...provided.dragHandleProps} className={classes.card} >
-                      <img src={img?.src} id={`prev${img?.id}`} style={{
-												transform: img?.angle ? `rotate(${img?.angle}deg) ${!even(img?.angle / 90) ? "scale(1.2)" : "scale(1)"}` : null,
-												transition: 'none'
-											}} />
-                      <div className={classes.rotate} onClick={() => rotate(img?.id)}></div>
-                      <div className={classes.delete} onClick={() => removeFile(img?.name)}></div>
-                      {i === 0 && <div className={classes.mainPhoto}>Главное фото</div>}
-                    </div>
-                  )}
-                </Draggable>
-              )})}
-              {provided.placeholder}
-							<div className={classes.card}
-					onDragOver={dragOver}	
-					onDragEnter={dragEnter}
-					onDragLeave={dragLeave}
-					onDrop={fileDrop}
-					onClick={fileInputClicked}>
-					<div className={classes.notif}>{errorMessage}</div>
-					<input
-						{...methods.register('photoes', {
-							required: 'Загрузите хотя бы одну фотографию'
-						})}
-						ref={fileInputRef}
-						className={classes.fi}
-						type="file"
-						multiple
-						onChange={filesSelected}
-					/>
-				</div>
-            </div>)
-            }
-          </Droppable>
-        </DragDropContext> */}
-        {/* {validFiles.map((data, i) =>
-					<div key={i} className={classes.card} onChange={!data.invalid ? preview(data, i) : removeFile(data.name)}>
-						<img id={`prev${i}`} />
-						<div className={classes.rotate} onClick={() => rotate(i)}></div>
-						<div className={classes.delete} onClick={() => removeFile(data.name)}></div>
-						{i === 0 && <div className={classes.mainPhoto}>Главное фото</div>}
-						{i > 0 && <div className={classes.makeMainWrapper} onClick={() => makeMain(data, i)}><div className={classes.makeMain}>Сделать главной</div></div>}
-					</div>)
-				} */}
-
         <Typography className={classes.error}>
           {methods.formState.errors?.photoes?.message}
         </Typography>
