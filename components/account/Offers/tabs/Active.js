@@ -91,7 +91,7 @@ function Active(data) {
 	// console.log("---------dataCheck-----------", dataCheck);
 	console.log("---------dataChecked--Нас-Чекнули--------", dataChecked);
 	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
-	console.log("---------offerId-----------", offerId);
+	console.log("---------offerId--- Unpablish--------", offerId);
 
 
 	if (data.offers.length == 0) {
@@ -141,7 +141,8 @@ function Active(data) {
 							checked={check}
 						/>
 						<button className={classes.btn__unpublish} onClick={() => {offerData.length > 0 ? pushCheck() : null}}>
-							Снять с публикации						</button>
+							Снять с публикации					
+						</button>
 					</div>
 					<div className="clientPage__container_content">
 						{data.offers?.map((offer, i) => {

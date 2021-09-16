@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+// import axios from 'axios';
+// import { BASE_URL} from '../../../../lib/constants';
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import { DeleteCTX } from "../../../../lib/Context/DialogCTX";
+// import { useOfferAccount } from '../../../../lib/Context/OfferAccountCTX';
 import DeleteForm from "../../../DeleteForm";
+import OfferArchive from "../card/offerArchive";
 import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
-import OfferArchive from "../card/offerArchive";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,14 +50,17 @@ const useStyles = makeStyles((theme) => ({
 
 function Archive(data) {
 	const classes = useStyles();
-
 	const [openDeleteForm, setOpenDeleteForm] = useState(false);
-	const handleDeleteFormDialog = () => setOpenDeleteForm(!openDeleteForm);
 	const [check, setCheck] = useState(false)
 	const [dataCheck, setDataCheck] = useState([])
 	const [dataChecked, setDataChecked] = useState([])
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
+	const [battonId, setBattonId] = useState('');
+	// const [offerWithDeleteFormId, setOfferWithDeleteFormId] = useState([]);
+
+
+	const handleDeleteFormDialog = () => setOpenDeleteForm(!openDeleteForm);
 
 	function cleanAll() {
 		setCheck(false);
@@ -97,17 +103,22 @@ function Archive(data) {
 	}, [dataChecked])
 
 
-
+	// если модалка не открыта то затирать id выбранных оферров
 	useEffect(() => {
 		openDeleteForm ? null : setOfferId([])
 	}, [openDeleteForm])
 
 
+
 	console.log('Что-то выделено ?');
-	// console.log("---------dataCheck-----------", dataCheck);
+	console.log("---------check-----------", check);
+	console.log("---------dataCheck-----------", dataCheck);
 	console.log("---------dataChecked--Нас-Чекнули--------", dataChecked);
 	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
-	// console.log("---------offerId-----------", offerId);
+	console.log("---------offer---нас всех чекнули-------", offerData);
+	console.log("---------offerId-----------", offerId);
+	// console.log("---------OfferWithDeleteFormId-----------", offerWithDeleteFormId);
+
 
 	if (data.offers.length == 0) {
 		return (
@@ -120,15 +131,42 @@ function Archive(data) {
 
 	/* Модальное окно */
 
-	function pushCheck() {
+
+	// function PushBDVerify([offerWithDeleteFormId]) {
+	// 	console.warn('приходит в запрос', [offerWithDeleteFormId]);
+	// 	var arr = { 'id': [offerWithDeleteFormId], 'verify': '0' }
+	// 	console.error('Archive-click-arr', arr);
+	// 	axios.post(`${BASE_URL}/api/verifyActive`, arr)
+	// 	.then(r => r.data)
+	// 	.finally(function () {
+
+	// 	})
+	// }
+
+
+	// достаем из чекнутых офферов id и кладем в массив offerId
+	function pushCheck(e) {
 		dataChecked.map((item) => {
+			console.log(item)
 			setOfferId(prev => [...prev, item.id])
 		})
+		setBattonId(e.target.id)
+		console.error(e);
+		console.error('ID - BATTON ====>',e.target.id);
+		console.log(battonId)
 		handleDeleteFormDialog()
 	}
 
-	// console.log(openDeleteForm, "deleteForm open/close")
 
+	// useEffect(()=>{},[])
+
+	// function addOfferWithDeleteFormId() {
+	// 	dataChecked.map((item) => {
+	// 		console.log(item)
+	// 		setOfferWithDeleteFormId(prev => [...prev, item.id])
+	// 	})
+	// 	PushBDVerify([offerWithDeleteFormId])
+	// }
 
 	return (
 
@@ -139,6 +177,7 @@ function Archive(data) {
 					onError: (err) => {
 						console.error(err)
 					},
+					battonId,
 					offerId,
 					offerData,
 					openDeleteForm,
@@ -161,10 +200,10 @@ function Archive(data) {
 							checked={check}
 						/>
 
-						<button className={classes.btn__publish}>
+						<button id='001' className={classes.btn__publish}  onClick={(e) => { offerData.length > 0 ? pushCheck(e) : null }}>
 							Активировать
 						</button>
-						<button className={classes.btn__delete} onClick={() => { offerData.length > 0 ? pushCheck() : null }}>
+						<button id='002' className={classes.btn__delete} onClick={(e) => { offerData.length > 0 ? pushCheck(e) : null }}>
 							Удалить
 						</button>
 					</div>

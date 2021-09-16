@@ -68,6 +68,7 @@ export default function offerArchive(offer) {
 	const handleDeleteFormDialog = () => setOpenDeleteForm(!openDeleteForm);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState();
+	const [battonId, setBattonId] = useState('');
 	const offerData = offer.offer;
 
 	useEffect(() => {
@@ -108,13 +109,14 @@ export default function offerArchive(offer) {
 			setOfferId([+e.target.value])
 		}
 		setOpenDeleteForm(!openDeleteForm)
+		setBattonId(e.target.id)
 		handleDeleteFormDialog()
 	}
 	
 	// console.log(openDeleteForm, "deleteForm open/close")
 
 	return (
-		<DeleteCTX.Provider value={{ offerId, offerData, openDeleteForm, setOpenDeleteForm }}>
+		<DeleteCTX.Provider value={{ offerId, offerData, openDeleteForm, battonId, setOpenDeleteForm }}>
 			<div key={offer.offer.id} className="offerContainer boxWrapper">
 				<div className="offerImage">
 					<div className="offerPubCheck">
@@ -154,11 +156,21 @@ export default function offerArchive(offer) {
 							{/* <a className="offerDelete thin superLight binIcon">Удалить</a> */}
 							{/* зарефакторил ниже  */}
 
-							<button type="submit" className="offerActivate thin superLight checkMarkIcon offerSocialAction">
+							{/* <button type="submit" className="offerActivate thin superLight checkMarkIcon offerSocialAction">
 								Активировать
-							</button>
+							</button> */}
+
+							<a href="javascript:void(0);">
+								<button
+									id='001'
+									value={offer.offer.id}
+									onClick={(e) => pushCheck(e)}
+									className="offerActivate thin superLight checkMarkIcon offerSocialAction">
+									Активировать
+								</button>
+							</a>
 							
-							<button type="submit" className="offerEdit thin editIcon offerSocialAction">
+							<button id='002' type="submit" className="offerEdit thin editIcon offerSocialAction">
 								Редактировать
 							</button>
 
