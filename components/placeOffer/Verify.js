@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
 const Verify = () => {
     const methods = useFormContext();
     const classes = useStyles();
+    const [alias, setAlias] = useState(false);
     const [verifyCategory, setVerifyCategory] = useState(false);
+    const [verifyTilte, setVerifyTilte] = useState(false);
     const [verifyDesription, setVerifyDescription] = useState(false);
     const [verifyPrice, setVerifyPrice] = useState(false);
     const [verifyPhotoes, setVerifyPhotoes] = useState(false);
@@ -40,17 +42,57 @@ const Verify = () => {
     const [verifyContacts, setVerifyContacts] = useState(false);
 
     useEffect(() => {
-        setVerifyCategory(!!methods.watch('title') && (!!methods.watch('alias4') && !!methods.watch('alias3') && !!methods.watch('alias2')));
-        setVerifyDescription(verifyCategory && !!methods.watch('description'));
-        setVerifyPrice(verifyDesription && !!methods.watch('price'));
-        setVerifyPhotoes(verifyPrice && !!methods.watch('photoes'));
-        setVerifyLocation(verifyPhotoes && !!methods.watch('location'));
-        setVerifyContacts(verifyLocation && !!methods.watch('contact') && (!!methods.watch('bymessages') || !!methods.watch('byphone')) );
+        setVerifyTilte(!!methods.watch('title'));
+        setVerifyCategory(alias);
+
+
+        if (alias === "auto"){
+            if (!!methods.watch("description") === true){
+                if(!!methods.watch("color") === true){
+                    setVerifyDescription(validateAuto())
+                }
+            }
+        } else {
+            setVerifyDescription(!!methods.watch("description"))
+        }
+        
+        
+        setVerifyPrice(!!methods.watch('price'));
+        setVerifyPhotoes(!!methods.watch('photoes'));
+        setVerifyLocation(!!methods.watch('location'));
+        setVerifyContacts(!!methods.watch('contact') && (!!methods.watch('bymessages') || !!methods.watch('byphone')) );
     })
+    useEffect(() => {
+        if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
+            setAlias(methods?.watch('alias4'));
+        } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
+            setAlias(methods?.watch('alias3'));
+        } else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
+            setAlias(methods?.watch('alias2'));
+        } else {
+            setAlias(false);
+        }
+    }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
+
+    const reqAutoFields = ["type_park_auto", "vine","modelsAuto","submodels","generation","modification", "mileage","owners_of_pts","documents","condition","exchange_is_possible","status","steering_wheel", "color"];
+    const validateAuto = () => {
+        for (let field of reqAutoFields){
+            if(!methods.watch(field)) return false
+        }
+        return true
+    }
+    
+    
     
       return  (
         <Box className={classes.root}>
             <Box className={classes.wrapper}>
+
+                        <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
+                            Название
+                            <ActiveIcon  Color={verifyTilte ? '#00a0ab' : '#c7c7c7'}/>
+                        </Typography>
+                        <Divider className={classes.divider} style={{backgroundColor: `${(verifyTilte) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
                         <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
                             Категория
