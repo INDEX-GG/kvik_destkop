@@ -240,51 +240,57 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 		setFree(false)
 	}
 
+	const promotionAwait = (boolean) => {
+		if (boolean) return null;
+	
+		{matchesMobile || matchesTablet ?
+		<>
+			<div onClick={() => setDialog(!dialog)} className="accountArrowLeft"></div>
+			<div className={classes.promotionMobileTitel}>
+				<h6 className="modal__block__top_title">Продвижение объявления</h6>
+				{/* <div className={classes.promotionMobileSubTitle}>2/2</div> */}
+			</div>
+		</> : null}
+		<Box className={classes.promotionContainer}>
+			{matchesTablet || matchesMobile ? null : <div className={classes.promotionTitle}>Новое объявление</div>}
+			<div className={classes.promotionContent}>
+				{matchesTablet || matchesMobile ? null : <div className={classes.promotionListTitle}>Продвижение  объявления </div>}
+				{title.map((item, index) => {
+					return (
+						<div key={index} style={{ backgroundColor: promotion[index] ? "#E9E9E9" : "#fff" }} className={classes.promotionItem} onClick={() => generateArr(index)}>
+							<div className={classes.propmtionItemBox}>
+								<div style={{ backgroundColor: promotion[index] ? "#00A0AB" : "#fff" }} className={classes.promotionItemCheck}></div>
+								<div className={classes.promotionItemTitle}>{title[index]}</div>
+								<div className={classes.promotionItemPrice}>{price[index]}</div>
+							</div>
+							<p className={classes.promotionItemDesc}>{desc[index]}</p>
+						</div>
+					)
+				})}
+				{free ?
+					<div className={classes.promotionFree}>
+						<Button onClick={() => setProductModal(!productModal)} style={{ backgroundColor: "#00A0AB" }} className={classes.buttonNext}>Продолжить без продвижения</Button>
+					</div> :
+					<div className={classes.promotionPayment}>
+						<div className={classes.promotionSelectPay}>
+							<SelectBuy promotion align={matchesMobile ? true : false} value={changeValue} />
+						</div>
+						<div className={classes.promotionPriceBox}>
+							<div className={classes.promotionPrice}>Итого 00 ₽</div>
+							<div className={classes.promotionSale}>С учётом скидки 00 ₽</div>
+							<Button onClick={() => setProductModal(!productModal)} style={{ backgroundColor: +value ? "#00A0AB" : "#A1DCE0" }} disabled={+value ? false : true} className={classes.buttonNext}>Продолжить</Button>
+						</div>
+					</div>}
+			</div>
+		</Box>
+	}
+
 
 	const classes = useStyles()
 	return (
 		<PromotionContent dialog={true} setDialog={setDialog}>
-			{matchesMobile || matchesTablet ?
-				<>
-					<div onClick={() => setDialog(!dialog)} className="accountArrowLeft"></div>
-					<div className={classes.promotionMobileTitel}>
-						<h6 className="modal__block__top_title">Продвижение объявления</h6>
-						{/* <div className={classes.promotionMobileSubTitle}>2/2</div> */}
-					</div>
-				</> : null}
-			<Box className={classes.promotionContainer}>
-				{matchesTablet || matchesMobile ? null : <div className={classes.promotionTitle}>Новое объявление</div>}
-				<div className={classes.promotionContent}>
-					{matchesTablet || matchesMobile ? null : <div className={classes.promotionListTitle}>Продвижение  объявления </div>}
-					{title.map((item, index) => {
-						return (
-							<div key={index} style={{ backgroundColor: promotion[index] ? "#E9E9E9" : "#fff" }} className={classes.promotionItem} onClick={() => generateArr(index)}>
-								<div className={classes.propmtionItemBox}>
-									<div style={{ backgroundColor: promotion[index] ? "#00A0AB" : "#fff" }} className={classes.promotionItemCheck}></div>
-									<div className={classes.promotionItemTitle}>{title[index]}</div>
-									<div className={classes.promotionItemPrice}>{price[index]}</div>
-								</div>
-								<p className={classes.promotionItemDesc}>{desc[index]}</p>
-							</div>
-						)
-					})}
-					{free ?
-						<div className={classes.promotionFree}>
-							<Button onClick={() => setProductModal(!productModal)} style={{ backgroundColor: "#00A0AB" }} className={classes.buttonNext}>Продолжить без продвижения</Button>
-						</div> :
-						<div className={classes.promotionPayment}>
-							<div className={classes.promotionSelectPay}>
-								<SelectBuy promotion align={matchesMobile ? true : false} value={changeValue} />
-							</div>
-							<div className={classes.promotionPriceBox}>
-								<div className={classes.promotionPrice}>Итого 00 ₽</div>
-								<div className={classes.promotionSale}>С учётом скидки 00 ₽</div>
-								<Button onClick={() => setProductModal(!productModal)} style={{ backgroundColor: +value ? "#00A0AB" : "#A1DCE0" }} disabled={+value ? false : true} className={classes.buttonNext}>Продолжить</Button>
-							</div>
-						</div>}
-				</div>
-			</Box>
-			<Dialog open={productModal || false} onClose={() => setProductModal(!productModal)}>
+			{promotionAwait(true)}
+			<Dialog open={/** productModal || false */ true} onClose={() => setProductModal(!productModal)}>
 				<div className={classes.productContainer}>
 					<div className={classes.productCard}>
 						{/* !!!!!!!!!! Change */}

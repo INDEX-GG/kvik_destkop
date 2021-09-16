@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper/core";
+import SwiperCore, { Navigation, Keyboard } from "swiper/core";
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation, Keyboard]);
 
 export default function ProductModalCarousel({photos, activeSlideIndex, setActiveSlideIndex}) {
   const [activeSlide, setActiveSlide] = useState([]);
@@ -44,7 +44,6 @@ export default function ProductModalCarousel({photos, activeSlideIndex, setActiv
     }
   }
 
-
   const firstSwiperInit = (swiper) => {
 	  setFirstSwiper(swiper)
 	  if (firstSwiper) firstSwiper.slideTo(activeSlideIndex, 0)
@@ -75,7 +74,8 @@ export default function ProductModalCarousel({photos, activeSlideIndex, setActiv
         onSwiper={firstSwiperInit}
 		onActiveIndexChange={changeSwiperOne}
 		pagination={CarouselPag} 
-		navigation={CarouselNav} 
+		navigation={CarouselNav}
+		keyboard={{enabled: true}} 
 		centeredSlides={true} >
         {photos == undefined
           ? ""
@@ -98,7 +98,7 @@ export default function ProductModalCarousel({photos, activeSlideIndex, setActiv
             ? ""
             : photos.map((img, i) => (
 				// onClick={() => changeSlide(i, activeSlide, setActiveSlide)}
-                <SwiperSlide key={i} id={i}  className="productSliderNavItem" onClick={changeSwiperTwo}>
+                <SwiperSlide key={i} id={i} className="productSliderNavItem" onClick={changeSwiperTwo}>
                   <img src={img} style={{ border: activeSlide[i] ? "6px solid #52b9c5" : "none", borderRadius: "5px" }} />
                 </SwiperSlide>
               ))}

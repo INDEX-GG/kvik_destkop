@@ -2,7 +2,7 @@ import MetaLayout from "../../layout/MetaLayout"
 import { Avatar, Box, Container, makeStyles } from "@material-ui/core";
 import Image from "next/image"
 import StarRating from "../../components/StarRating"
-import BuyDelivery from "../../components/BuyDelivery";
+// import BuyDelivery from "../../components/BuyDelivery";
 import theme from "../../UI/theme"
 
 const useStyles = makeStyles(() => ({
@@ -183,7 +183,7 @@ function Buy() {
                         </div>
                     </section>
                     <h2 className={classes.buyGetTitle}>Выберите способ получения</h2>
-                    <BuyDelivery/>
+                    {/* <BuyDelivery/> */}
                 </Box>
                 <aside className={classes.buyAd}>
                     {/* <div className={classes.buyAdItem}>
