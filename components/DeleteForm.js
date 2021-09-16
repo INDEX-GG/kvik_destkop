@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DeleteForm() {
 	const classes = useStyles();
-	const { offerId, offerData, openDeleteForm, setOpenDeleteForm, cleanAll } = useContext(DeleteCTX);
+	const { offerId, offerData, openDeleteForm, setOpenDeleteForm } = useContext(DeleteCTX);
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
@@ -86,8 +86,13 @@ export default function DeleteForm() {
 				setQuery(p => !p)
 				setOpenDeleteForm(!openDeleteForm)
 			})
-			 cleanAll();
 	}
+
+	function closeDeleteForm() {
+		console.log('DeleteForm is closed');
+		setOpenDeleteForm(!openDeleteForm)		
+	}
+
 
 	console.log(offerId)
 	console.log("_____delete_ offers",offerData)
@@ -110,7 +115,7 @@ export default function DeleteForm() {
 				</Box>
 				<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
 				<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
-				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Нет</Button>
+				<Button id='001' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Да удалить</Button>
 			</Box>
 		)
@@ -119,7 +124,7 @@ export default function DeleteForm() {
 			<Box className={classes.delete_form}>
 				<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
 				<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
-				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Нет</Button>
+				<Button id='001' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Да удалить</Button>
 			</Box>
 		)
