@@ -56,8 +56,7 @@ function Archive(data) {
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
 
-	function cleanAll () {
-
+	function cleanAll() {
 		setCheck(false);
 		setDataCheck([]);
 		setDataChecked([]);
@@ -69,31 +68,31 @@ function Archive(data) {
 		dataCheck.length > 0 ?
 			dataCheck.filter((item) => {
 				item.id === data.id
-			}) ? null : setDataCheck(prev => [ ...prev, {
+			}) ? null : setDataCheck(prev => [...prev, {
 				id: data.id,
 				check: check,
 			}])
 			:
-			setDataCheck(prev => [ ...prev, {
+			setDataCheck(prev => [...prev, {
 				id: data.id,
 				check: check,
 			}])
 	}
-	function getChildCheck (newCheck, newOffer) {
+	function getChildCheck(newCheck, newOffer) {
 		newCheck.check ? (
 			setDataChecked(dataChecked => [...dataChecked, newCheck]),
-			setOfferData( offer => [...offer, newOffer])
+			setOfferData(offer => [...offer, newOffer])
 		)
 			:
 			(
-				setDataChecked(dataChecked => dataChecked.filter( item => item.id !== newCheck.id )),
-				setOfferData( offer => offer.filter( item => item.id !== newCheck.id ))
+				setDataChecked(dataChecked => dataChecked.filter(item => item.id !== newCheck.id)),
+				setOfferData(offer => offer.filter(item => item.id !== newCheck.id))
 			)
 	}
-	
+
 	useEffect(() => {
-		if(dataCheck.length > 0){
-			dataCheck.length===dataChecked.length ? setCheck(true) : setCheck(false);
+		if (dataCheck.length > 0) {
+			dataCheck.length === dataChecked.length ? setCheck(true) : setCheck(false);
 		}
 	}, [dataChecked])
 
@@ -104,13 +103,11 @@ function Archive(data) {
 	}, [openDeleteForm])
 
 
-	console.log("---------check-----------",check);
-	console.log("---------dataCheck-----------",dataCheck);
-	console.log("---------dataChecked-----------",dataChecked);
-	console.log("---------offer-----------", offerData);
-	console.log("---------offerId-----------", offerId);
-	console.log("---------openDeleteForm-----------", openDeleteForm);
-	console.log("---------data-----------", data);
+	console.log('Что-то выделено ?');
+	// console.log("---------dataCheck-----------", dataCheck);
+	console.log("---------dataChecked--Нас-Чекнули--------", dataChecked);
+	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
+	// console.log("---------offerId-----------", offerId);
 
 	if (data.offers.length == 0) {
 		return (
@@ -127,11 +124,10 @@ function Archive(data) {
 		dataChecked.map((item) => {
 			setOfferId(prev => [...prev, item.id])
 		})
-
 		handleDeleteFormDialog()
 	}
 
-	console.log(openDeleteForm, "deleteeeEEEEEEeee")
+	// console.log(openDeleteForm, "deleteForm open/close")
 
 
 	return (
@@ -160,7 +156,7 @@ function Archive(data) {
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							onChange={(e) => {
 								setCheck(e.target.checked);
-								e.target.checked===false ? setDataChecked([]) : null;
+								e.target.checked === false ? setDataChecked([]) : null;
 							}}
 							checked={check}
 						/>

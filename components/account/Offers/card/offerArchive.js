@@ -69,6 +69,7 @@ export default function offerArchive(offer) {
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState();
 	const offerData = offer.offer;
+
 	useEffect(() => {
 		offer.filterDataCheck({
 			id: offer.offer.id,
@@ -97,8 +98,8 @@ export default function offerArchive(offer) {
 			check: changeCheck,
 		},offer.offer);
 	}
-
-	console.log(offer,"+_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=")
+	
+	console.log(offer,`offer ${offer.offer.id} maunt`)
 
 	/* Модальное окно */
 
@@ -109,8 +110,8 @@ export default function offerArchive(offer) {
 		setOpenDeleteForm(!openDeleteForm)
 		handleDeleteFormDialog()
 	}
-	console.log(openDeleteForm, "OFFERdeleteeeeeeeeeeeeeee")
-
+	
+	// console.log(openDeleteForm, "deleteForm open/close")
 
 	return (
 		<DeleteCTX.Provider value={{ offerId, offerData, openDeleteForm, setOpenDeleteForm }}>

@@ -58,7 +58,7 @@ export default function offerActive(offer) {
 	useEffect(() => {
 		offer.openUnpublishForm===false&&offer.dataChecked.length===0 ? setCheck(false) : null
 	}, [offer.openUnpublishForm])
-	
+
 	const handleCheck = (changeCheck) => {
 		setCheck(changeCheck);
 		offer.getChildCheck({
@@ -67,7 +67,7 @@ export default function offerActive(offer) {
 		},offer.offer);
 	}
 
-	console.log(offer,"+_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=_=-+-=")
+	console.log(offer,`offer ${offer.offer.id} maunt`)
 
 	/* Модальное окно */
 	
@@ -78,7 +78,9 @@ export default function offerActive(offer) {
 		setOpenUnpublishForm(!openUnpublishForm)
 		handleUnpublishFormDialog()
 	}
-	console.log(openUnpublishForm,"OFFERactiveeeeeeeeeeeeee")
+
+	// console.log(openUnpublishForm,"openUnpublishForm open/close")
+
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
 		<UnpublishCTX.Provider value={{ offerId, offerData, openUnpublishForm, setOpenUnpublishForm }}>
@@ -125,6 +127,7 @@ export default function offerActive(offer) {
 									Снять с публикации
 								</button>
 							</a>
+							
 							<div className="offerSocialCount offerSocialCountPos offerSocialCountPosActive">
 								<div className="offerShowes showesIcon">0 +0</div>
 								<div className="offerAddFavores likeIcon">0 +0</div>

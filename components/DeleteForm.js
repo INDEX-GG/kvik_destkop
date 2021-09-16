@@ -77,10 +77,11 @@ export default function DeleteForm() {
 	const { offerId, offerData, openDeleteForm, setOpenDeleteForm } = useContext(DeleteCTX);
 	const { setQuery } = useOfferAccount()
 
-	function PushBDVerify(e) {
-		console.log(e.target.parentElement)
-		var arr = { 'id': [offerId], 'verify': 4 }
-		axios.delete(`${BASE_URL}/api/verifyActive`, arr)
+	function PushBDVerify() {
+		console.warn('DeleteForm-click-offerId',offerId);
+		var arr = { 'id': [offerId], 'verify': '4' }
+		console.error('DeleteForm-click-arr', arr);
+		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
 				setQuery(p => !p)
@@ -89,14 +90,14 @@ export default function DeleteForm() {
 	}
 
 	function closeDeleteForm() {
-		console.log('DeleteForm is closed');
 		setOpenDeleteForm(!openDeleteForm)		
 	}
 
 
-	console.log(offerId)
-	console.log("_____delete_ offers",offerData)
-	console.log("_____offerId_____",offerId)
+	
+	console.log("_____delete_ offers_DeleteForms",offerData)
+	console.log("_____offerId_DeleteForms",offerId)
+
 	if (offerId?.length === 1) {
 		/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
 		const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
@@ -115,8 +116,8 @@ export default function DeleteForm() {
 				</Box>
 				<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
 				<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
-				<Button id='001' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Да удалить</Button>
+				<Button id='002' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 			</Box>
 		)
 	} else {
@@ -124,8 +125,8 @@ export default function DeleteForm() {
 			<Box className={classes.delete_form}>
 				<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
 				<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
-				<Button id='001' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Да удалить</Button>
+				<Button id='002' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 			</Box>
 		)
 	}

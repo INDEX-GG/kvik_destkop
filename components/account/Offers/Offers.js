@@ -27,7 +27,7 @@ const Offers = () => {
       // Ждут действия
       setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5));
       // Архив
-      setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0));
+      setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0 && offer.active !== 4));
     }
   }, [userAccountProvider]);
 
