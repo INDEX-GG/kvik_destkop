@@ -79,7 +79,10 @@ export default function UnpublishForm() {
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
+		console.warn('UnpablishForm-click',offerId);
 		var arr = { 'id': [offerId], 'verify': `${e.target.parentElement.id}` }
+		console.error(e)
+		console.error('UnpablishForm-click-arr', arr);
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
@@ -89,9 +92,9 @@ export default function UnpublishForm() {
 			cleanAll();
 	}
 
-	console.log(offerId)
+	// console.log(offerId)
 	console.log("_____inpublish_ offers",offerData)
-	console.log("_____offerId_____",offerId)
+	console.log("_____offerId_UnpublishForm",offerId)
 	if (offerId?.length === 1) {
 		/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
 		const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
