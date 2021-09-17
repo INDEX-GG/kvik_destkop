@@ -74,31 +74,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DeleteForm() {
 	const classes = useStyles();
-	const { offerId, offerData, openDeleteForm, setOpenDeleteForm, battonId } = useContext(DeleteCTX);
+	const { offerId, offerData, openDeleteForm, setOpenDeleteForm, battonId, cleanAll } = useContext(DeleteCTX);
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerifyDelete() {
-		console.warn('DeleteForm-click-offerId',offerId);
-		var arr = { 'id': [offerId], 'verify': '4' }
-		console.error('DeleteForm-click-arr', arr);
+		// console.warn('DeleteForm-click-offerId',offerId);
+		var arr = { 'id': [offerId], 'active': '4' }
+		// console.error('DeleteForm-click-arr', arr);
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
 				setQuery(p => !p)
 				setOpenDeleteForm(!openDeleteForm)
 			})
+			cleanAll();
+			// console.log('cleanAll Delete ok!!!!!!!!!');
 	}
 
 	function PushBDVerifyActivation() {
-		console.warn('DeleteForm-click-offerId',offerId);
-		var arr = { 'id': [offerId], 'verify': '0' }
-		console.error('DeleteForm-click-arr', arr);
+		// console.warn('DeleteForm-click-offerId',offerId);
+		var arr = { 'id': [offerId], 'active': '0' }
+		// console.error('DeleteForm-click-arr', arr);
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
 				setQuery(p => !p)
 				setOpenDeleteForm(!openDeleteForm)
 			})
+			cleanAll();
+			// console.log('cleanAll Activate ok!!!!!!!!!');	
 	}
 
 	function closeDeleteForm() {
@@ -107,15 +111,11 @@ export default function DeleteForm() {
 
 
 	
-	console.log("_____delete_ offers_DeleteForms",offerData)
-	console.log("_____offerId_DeleteForms",offerId)
-	console.log("_____battonId_DeleteForms",battonId)
+	// console.log("_____delete_ offers_DeleteForms",offerData)
+	// console.log("_____offerId_DeleteForms",offerId)
+	// console.log("_____battonId_DeleteForms",battonId)
 	
-	
-	console.log('Правильно не правильно значение айди баттон')
-	console.log(typeof battonId)
-	console.log(battonId === '001')
-
+	// отрисовка по нажатию на 'Активировать'
 	if(battonId === '001'){
 		if (offerId?.length === 1) {
 			/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
@@ -143,14 +143,14 @@ export default function DeleteForm() {
 			return (
 				<Box className={classes.delete_form}>
 					<Typography className={classes.delete_form__desc}>Заново активировать</Typography>
-					<Typography className={classes.delete_form__sub_desc}>Вы хотите активировать объявление ?</Typography>
+					<Typography className={classes.delete_form__sub_desc}>Вы хотите активировать объявления ?</Typography>
 					<Button onClick={(e) => PushBDVerifyActivation(e)} className={classes.delete_form__btn}>Да</Button>
 					<Button onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 				</Box>
 			)
 		}
 
-
+		// отрисовка по нажатию на 'Удалить'
 	} else if (battonId === '002') {
 		if (offerId?.length === 1) {
 			/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
@@ -178,7 +178,7 @@ export default function DeleteForm() {
 			return (
 				<Box className={classes.delete_form}>
 					<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
-					<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
+					<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявления ?</Typography>
 					<Button id='001' onClick={(e) => PushBDVerifyDelete(e)} className={classes.delete_form__btn}>Да удалить</Button>
 					<Button id='002' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 				</Box>

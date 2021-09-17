@@ -80,8 +80,7 @@ export default function UnpublishForm() {
 
 	function PushBDVerify(e) {
 		console.warn('UnpablishForm-click',offerId);
-		var arr = { 'id': [offerId], 'verify': `${e.target.parentElement.id}` }
-		console.error(e)
+		var arr = { 'id': [offerId], 'active': `${e.target.parentElement.id}` }
 		console.error('UnpablishForm-click-arr', arr);
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)

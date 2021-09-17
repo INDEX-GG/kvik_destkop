@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import axios from 'axios';
-// import { BASE_URL} from '../../../../lib/constants';
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
-import { DeleteCTX } from "../../../../lib/Context/DialogCTX";
-// import { useOfferAccount } from '../../../../lib/Context/OfferAccountCTX';
-import DeleteForm from "../../../DeleteForm";
+import { DelActiveCTX } from "../../../../lib/Context/DialogCTX";
+import DelActiveForm from "../../../DelActiveForm";
 import OfferArchive from "../card/offerArchive";
 import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
@@ -50,17 +47,16 @@ const useStyles = makeStyles((theme) => ({
 
 function Archive(data) {
 	const classes = useStyles();
-	const [openDeleteForm, setOpenDeleteForm] = useState(false);
+
+	const [openDelActiveForm, setOpenDelActiveForm] = useState(false);
 	const [check, setCheck] = useState(false)
 	const [dataCheck, setDataCheck] = useState([])
 	const [dataChecked, setDataChecked] = useState([])
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
 	const [battonId, setBattonId] = useState('');
-	// const [offerWithDeleteFormId, setOfferWithDeleteFormId] = useState([]);
 
-
-	const handleDeleteFormDialog = () => setOpenDeleteForm(!openDeleteForm);
+	const handleDelActiveFormDialog = () => setOpenDelActiveForm(!openDelActiveForm);
 
 	function cleanAll() {
 		setCheck(false);
@@ -69,7 +65,6 @@ function Archive(data) {
 		setOfferId([]);
 		setOfferData([]);
 	}
-
 	function filterDataCheck(data) {
 		dataCheck.length > 0 ?
 			dataCheck.filter((item) => {
@@ -95,20 +90,16 @@ function Archive(data) {
 				setOfferData(offer => offer.filter(item => item.id !== newCheck.id))
 			)
 	}
-
 	useEffect(() => {
 		if (dataCheck.length > 0) {
 			dataCheck.length === dataChecked.length ? setCheck(true) : setCheck(false);
 		}
 	}, [dataChecked])
 
-
 	// если модалка не открыта то затирать id выбранных оферров
 	useEffect(() => {
-		openDeleteForm ? null : setOfferId([])
-	}, [openDeleteForm])
-
-
+		openDelActiveForm ? null : setOfferId([])
+	}, [openDelActiveForm])
 
 	console.log('Что-то выделено ?');
 	console.log("---------check-----------", check);
@@ -117,8 +108,6 @@ function Archive(data) {
 	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
 	console.log("---------offer---нас всех чекнули-------", offerData);
 	console.log("---------offerId-----------", offerId);
-	// console.log("---------OfferWithDeleteFormId-----------", offerWithDeleteFormId);
-
 
 	if (data.offers.length == 0) {
 		return (
@@ -131,19 +120,6 @@ function Archive(data) {
 
 	/* Модальное окно */
 
-
-	// function PushBDVerify([offerWithDeleteFormId]) {
-	// 	console.warn('приходит в запрос', [offerWithDeleteFormId]);
-	// 	var arr = { 'id': [offerWithDeleteFormId], 'verify': '0' }
-	// 	console.error('Archive-click-arr', arr);
-	// 	axios.post(`${BASE_URL}/api/verifyActive`, arr)
-	// 	.then(r => r.data)
-	// 	.finally(function () {
-
-	// 	})
-	// }
-
-
 	// достаем из чекнутых офферов id и кладем в массив offerId
 	function pushCheck(e) {
 		dataChecked.map((item) => {
@@ -151,27 +127,15 @@ function Archive(data) {
 			setOfferId(prev => [...prev, item.id])
 		})
 		setBattonId(e.target.id)
-		console.error(e);
-		console.error('ID - BATTON ====>',e.target.id);
-		console.log(battonId)
-		handleDeleteFormDialog()
+		// console.error(e);
+		// console.error('ID - BATTON ====>',e.target.id);
+		handleDelActiveFormDialog()
 	}
-
-
-	// useEffect(()=>{},[])
-
-	// function addOfferWithDeleteFormId() {
-	// 	dataChecked.map((item) => {
-	// 		console.log(item)
-	// 		setOfferWithDeleteFormId(prev => [...prev, item.id])
-	// 	})
-	// 	PushBDVerify([offerWithDeleteFormId])
-	// }
 
 	return (
 
 		<>
-			<DeleteCTX.Provider
+			<DelActiveCTX.Provider
 				value={{
 					fetcher: fetch,
 					onError: (err) => {
@@ -180,8 +144,8 @@ function Archive(data) {
 					battonId,
 					offerId,
 					offerData,
-					openDeleteForm,
-					setOpenDeleteForm,
+					openDelActiveForm,
+					setOpenDelActiveForm,
 					cleanAll
 				}}
 			>
@@ -200,7 +164,7 @@ function Archive(data) {
 							checked={check}
 						/>
 
-						<button id='001' className={classes.btn__publish}  onClick={(e) => { offerData.length > 0 ? pushCheck(e) : null }}>
+						<button id='001' className={classes.btn__publish} onClick={(e) => { offerData.length > 0 ? pushCheck(e) : null }}>
 							Активировать
 						</button>
 						<button id='002' className={classes.btn__delete} onClick={(e) => { offerData.length > 0 ? pushCheck(e) : null }}>
@@ -211,17 +175,17 @@ function Archive(data) {
 						{data.offers?.map((offer, i) => {
 							return (
 								<OfferArchive key={i} offer={offer} data={data} i={i}
-									parentCheck={check} getChildCheck={getChildCheck}
+									parentCheck={check} getChildCheck={getChildCheck} openDelActiveForm={openDelActiveForm}
 									filterDataCheck={filterDataCheck} dataChecked={dataChecked}
 								/>
 							);
 						})}
 					</div>
 				</div>
-				{<Dialog open={openDeleteForm} onClose={() => setOpenDeleteForm(!openDeleteForm)} fullWidth maxWidth="md">
-					<DeleteForm Close={handleDeleteFormDialog} />
+				{<Dialog open={openDelActiveForm} onClose={() => setOpenDelActiveForm(!openDelActiveForm)} fullWidth maxWidth="md">
+					<DelActiveForm Close={handleDelActiveFormDialog} />
 				</Dialog>}
-			</DeleteCTX.Provider>
+			</DelActiveCTX.Provider>
 		</>
 
 	);
