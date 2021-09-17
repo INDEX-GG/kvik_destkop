@@ -37,6 +37,7 @@ const Location = memo(({ymaps}) => {
 
 	const generateFullAddress = (adrress, submit = false) => {
 
+		//? Узнать про запрещение изменения адресса
 		const fullAddress = adrress.getAddressLine().split(',').splice(1,)
 
 		if (submit) {
@@ -47,7 +48,10 @@ const Location = memo(({ymaps}) => {
 			}
 		}
 
-		setValue(fullAddress.join(',').trim())
+		// setValue(fullAddress.join(',').trim())
+		setValue(adrress.getAddressLine())
+
+
 		// // намер дома
 		// const number = generateStr(adrress.getPremiseNumber())
 		// // название улицы
@@ -245,6 +249,7 @@ const YandexMap = () => {
 
 	return (
 		<>
+			{/* Изменить api ключ */}
 			<YMaps query={{apikey: '57d4ea45-8f8c-4594-9c9b-03dbfcfab0e8'}}>
 				<MainMap/>
 			</YMaps>
