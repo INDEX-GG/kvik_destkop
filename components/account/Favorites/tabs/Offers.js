@@ -5,6 +5,8 @@ import OfferFavorite from "../card/offerFavorite";
 import { useStore } from "../../../../lib/Context/Store";
 import {checkArray} from '../../../../lib/services'
 import { makeStyles } from "@material-ui/styles";
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 
 
 const useStyles = makeStyles ( () => ({
@@ -22,7 +24,7 @@ function Offers(data) {
 	const [check, setCheck] = useState(false);
 	const [deleteButton, setDeleteButton] = useState(false);
 	const [dataCheck, setDataCheck] = useState([]);
-	const { /* setLikeComment ,*/ userInfo, setLikeCommentArray } = useStore();
+	const { userInfo, setLikeCommentArray } = useStore();
 
 	function getChildCheck(childCheck) {
 		setDataCheck(childCheck.isChecked ? prev => [...prev, childCheck.id] : dataCheck => dataCheck.filter( item => item !== childCheck.id ));
@@ -34,14 +36,12 @@ function Offers(data) {
 			let comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === +items)[0])?.comment !== undefined ? (userInfo?.favorites.filter(item => item.post_id === +items)[0])?.comment : ''
         	let like = checkArray(userInfo?.favorites) && userInfo.favorites.filter(item => item.post_id === +items).map(item => item.condition).join() === 'false' ? true : false
         	favoritesArray.push({
-				id: items,
-				comment: comment,
-				like: like,
+				post_id: `${items}`,
+				comment: `${comment}`,
+				condition: `${like}`,
 			})
-			//setLikeComment(+items, comment, like)
 		})
 		setLikeCommentArray(favoritesArray)
-		console.log("========favoritesArray========>", favoritesArray)
     }
 	
 	useEffect(() => {
@@ -57,11 +57,6 @@ function Offers(data) {
 		);
 	}
 	
-	console.log("data=========>", data.itemsPost)
-	console.log("dataCount=========>", data.itemsPost.length)
-	console.log("checkboxCount=========>", dataCheck)
-	console.log("checkboxCount=========>", check) 
-
 	return (
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_nav__radio">
@@ -69,6 +64,8 @@ function Offers(data) {
 					color="primary"
 					onChange={(event) =>{ setCheck(!check); event.target.checked ? null : setDataCheck([])}}
 					checked={check}
+					icon={<FiberManualRecordOutlinedIcon />}
+					checkedIcon={<FiberManualRecordSharpIcon />}
 				/>
 				<a 	
 					onClick={ () =>	dataCheck.length > 0 ? (getFavoritsUser(dataCheck), setDataCheck([]), setCheck(false), setDeleteButton(!deleteButton)) : null } 

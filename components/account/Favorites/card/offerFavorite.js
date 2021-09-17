@@ -1,16 +1,20 @@
-import { Checkbox, makeStyles } from '@material-ui/core';
+import { Checkbox, makeStyles} from '@material-ui/core';
 import React,{ useEffect, useState } from 'react'
 import Favorits from '../../../../UI/Favorits';
 import { BASE_URL, STATIC_URL } from "../../../../lib/constants";
 import { ToRubles, ToRusDate} from "../../../../lib/services";
 import { useStore } from "../../../../lib/Context/Store";
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 
 
 const useStyles = makeStyles ( () => ({
 	check: {
 		position: "absolute",
-        
 	},
+    toolTip: {
+        fontSize: "14px",
+    }
 }));
 
 const OfferFavorite = ({i, offer, parentCheck, getChildCheck, dataCheck, deleteButton}) => {
@@ -41,6 +45,8 @@ const OfferFavorite = ({i, offer, parentCheck, getChildCheck, dataCheck, deleteB
                         color="primary"
                         onChange={(event) => {setCheck(!check); getChildCheck({isChecked: event.target.checked, id: offer.id})}}
                         checked={check}
+                        icon={<FiberManualRecordOutlinedIcon />}
+					    checkedIcon={<FiberManualRecordSharpIcon />}
                     />
                 </div>
                 <a className="favoritesCompare">
@@ -67,7 +73,9 @@ const OfferFavorite = ({i, offer, parentCheck, getChildCheck, dataCheck, deleteB
                     <div>{offer.title}</div>
                     <div className="thin small light">{offer.address}</div>
                 </div>
-                <a  id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote">{offer.comment}</a>
+                <div  id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote" title={offer.comment}>
+                    {offer.comment}
+                </div>
                 <a className="favoritesButton buttonGrey small">Сообщить об изменении цены</a>
             </div>
         </a>

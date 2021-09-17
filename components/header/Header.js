@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ category }) => {
-  const { isAuth} = useAuth();
+  const {isAuth} = useAuth();
   const router = useRouter();
   const {userInfo} = useStore();
   const classes = useStyles();
@@ -107,6 +107,8 @@ const Header = ({ category }) => {
             <ExpandMoreIcon />
           </Button>
           <Search />
+
+		  
           {isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
             <AddRoundedIcon />
            Новое объявление

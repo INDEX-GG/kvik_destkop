@@ -30,7 +30,7 @@ const Title = () => {
 				<Controller
 					name="title"
 					control={methods.control}
-					defaultValue=''
+					defaultValue=""
 					render={({ field: { onChange, value }, fieldState: { error } }) => (
 						<TextField
 							variant='outlined'
@@ -40,7 +40,7 @@ const Title = () => {
 							value={value}
 							onChange={onChange}
 							inputProps={{maxLength: 50}}
-							error={!!error} helperText={error ? error.message : ' '} />
+							error={!!error} helperText={error ? error.message : ' '} />	
 					)}
 					rules={{
 						required: 'Введите название Товара',
