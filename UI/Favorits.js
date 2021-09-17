@@ -7,7 +7,6 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 	const { setLikeComment } = useStore()
 	const { userInfo } = useStore()
 	let comment;
-
 /* 	if (isCard) {
 		const getFavorits = (e) => {
 			comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === offer.id)[0])?.comment !== undefined ? (userInfo?.favorites.filter(item => item.post_id === offer.id)[0])?.comment : ''

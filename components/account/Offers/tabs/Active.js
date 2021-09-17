@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Checkbox, makeStyles } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
+import UnpublishForm from "../../../UnpublishForm";
 // import AddRounded from "@material-ui/icons/AddRounded";
 // import Router from "next/router";
 import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
@@ -33,88 +34,87 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function Active(data) {
+function Active({offers}) {
 	const classes = useStyles();
 
-	// function setCheck(e) {
-	//   if (e.target.value === '' && mainArr.length === 0) {
-	//     console.log('добавляет все')
-	//     mainArr = qwe
-	//   } else if (e.target.value === '' && mainArr.length !== 0) {
-	//     console.log('удаляет все')
-	//     mainArr = []
-	//   } else if (mainArr.includes(+e.target.value)) {
-	//     mainArr = mainArr.filter((item) => { return item !== +e.target.value })
-	//   } else {
-	//     mainArr.push(+e.target.b)
-	//   }
-
-	//   setMainArr()
-	// }
-
-	// function setMainArr() {
-	//   console.log('после ==============>', mainArr)
-	// }
-
-
-	const [check, setCheck] = useState(false)
-	const [checkValue, setcheckValue] = useState()
-	const [checkAll, setCheckAll] = useState(false)
-
-	const handleCheckAll = e => {
-		setCheck(e.target.checked)
-		setcheckValue(e.target.value)
-		setCheckAll(e.target.checked)
+	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
+	const [check, setCheck] = useState(false);
+	const [dataCheck, setDataCheck] = useState([]);
+	const [offerData, setOfferData] = useState([]);
+	
+	const cleanAll = () =>  {
+		setCheck(false);
+		setDataCheck([]);
+		setOfferData([]);
+	}
+	
+	function getChildCheck ({id, isChecked}) {
+		setDataCheck( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
+		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
 
-	if (data.offers.length == 0) {
+	useEffect(() => {
+		dataCheck.length > 0 ? dataCheck.length===offers.length ? setCheck(true) : setCheck(false) : null;
+	}, [dataCheck])
+
+	console.log("---------check-----------",check);
+	console.log("---------dataCheck-----------",dataCheck);
+	console.log("---------offerData-----------", offerData);
+	console.log("---------openUnpublishForm-----------", openUnpublishForm);
+	console.log("---------offers-----------", offers); 
+
+	if (offers.length == 0) {
 		return (
 			<Placeholder />
 		);
 	}
-
+	
 	return (
-		<>
-			<UnpublishCTX.Provider
-				value={{
-					fetcher: fetch,
-					onError: (err) => {
-						console.error(err)
-					},
-				}}
-			>
-				<div className="clientPage__container_bottom">
-					<div className="clientPage__container_nav__radio">
-						<Checkbox
-							className={classes.check}
-							color="primary"
-							value=""
-							icon={<FiberManualRecordOutlinedIcon />}
-							checkedIcon={<FiberManualRecordSharpIcon />}
-
-							onChange={(e) => handleCheckAll(e)}
-							checked={check}
-
-						/>
-						<button className={classes.btn__unpublish} onClick={(e) => console.log(e)}>
-							Снять с публикации
-						</button>
-					</div>
-					<div className="clientPage__container_content">
-						{data.offers?.map((offer, i) => {
-							return (
-								<OfferActive key={i} offer={offer} data={data} i={i} checkAll={checkAll} checkValue={checkValue} />
-							);
-						})}
-					</div>
+		<UnpublishCTX.Provider
+			value={{
+				fetcher: fetch,
+				onError: (err) => {
+					console.error(err)
+				},
+				dataCheck,
+				offerData,
+				openUnpublishForm, 
+				setOpenUnpublishForm,
+				cleanAll
+			}}
+		>
+			<div className="clientPage__container_bottom">
+				<div className="clientPage__container_nav__radio">
+					<Checkbox
+						className={classes.check}
+						color="primary"
+						value=""
+						icon={<FiberManualRecordOutlinedIcon />}
+						checkedIcon={<FiberManualRecordSharpIcon />}
+						onChange={(e) => {
+							e.target.checked===false ? cleanAll() : setCheck(e.target.checked);
+						}}
+						checked={check}
+					/>
+					<button className={classes.btn__unpublish} onClick={() => {offerData.length > 0 ? setOpenUnpublishForm(!openUnpublishForm) : null}}>
+						Снять с публикации
+					</button>
 				</div>
-
-
-				{/* <Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
-        <UnpublishForm Close={handleUnpublishFormDialog} />
-      </Dialog>  */}
-			</UnpublishCTX.Provider>
-		</>
+				<div className="clientPage__container_content">
+					{offers?.map((offer, i) => {
+						return (
+							<OfferActive key={i} offer={offer} i={i}
+								parentCheck={check} getChildCheck={getChildCheck} openUnpublishForm={openUnpublishForm}
+								dataCheck={dataCheck} cleanAll={cleanAll}
+							/>
+						);
+					})}
+				</div>
+			</div>
+			{<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
+				<UnpublishForm /* Close={handleUnpublishFormDialog} для чего это? */ />
+			</Dialog> }
+		</UnpublishCTX.Provider>
 	);
 }
 export default Active;

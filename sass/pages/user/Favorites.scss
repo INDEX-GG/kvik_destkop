@@ -41,6 +41,7 @@
 
 .favoritesDescription {
     height: 100%;
+    max-width: 260.56px;
     padding: 0 8px;
     display: flex;
     flex-direction: column;
@@ -49,6 +50,10 @@
 
 .favoritesDescription > * {
     margin-bottom: 4px;
+}
+.favoritesMiddle > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .favoritesPubCheck {
@@ -105,6 +110,9 @@
     background: no-repeat right center url(../../../icons/close_grey.svg);
     transition: all 350ms ease-in-out;
     color: $tp;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .favoritesNote:hover {
@@ -278,11 +286,28 @@
         height: 230px;
     }
 }
-
+@media (max-width: 1280px) {
+    .favoritesDescription{
+        max-width: 195px;
+    }
+}
+@media (max-width: 1080px) {
+    .favoritesDescription{
+        max-width: 284.46px;
+        min-width: 265px;
+    }
+    .favoritesImage {
+        min-width: 204px;
+    }
+}
 @media (max-width: 1024px) {
     .favoritesContainer {
         grid-template-columns: 1fr 2fr;
         width: 100%;
+    }
+
+    .favoritesDescription{
+        max-width: 661.04px;
     }
 
     .favoritesCompare {
@@ -299,12 +324,18 @@
         align-self: center;
         padding: 3px 8px;
     }
+
+  
 }
 
 @media (max-width: 620px) {
     .favoritesContainer {
         height: 184px;
     }
+    .favoritesImage {
+        min-width: 140px;
+    }
+    
 }
 
 // @media (max-width: 540px) {
@@ -316,6 +347,10 @@
 @media (max-width: 450px) {
     .favoritesContainer {
         grid-template-columns: 1.5fr 2fr;
+    }
+    .favoritesDescription{
+        max-width: 239px;
+        min-width: 194px;
     }
     .sellersOffers {
         justify-content: center;
@@ -335,5 +370,8 @@
         grid-template-columns: 1fr;
         grid-template-rows: 1.5fr 1fr;
         height: 368px;
+    }
+    .favoritesDescription{
+        max-width: 338px;
     }
 }

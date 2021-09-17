@@ -46,7 +46,7 @@ const objP = {
 	bargain: true,
 	userid: 777 /* id пользователя для проверки отображения блока объявления */,
 	username: "Иван Иванов" /* статус для отображения блока объявления 1-активное, 2-истек срок размещения, 3-продано, 4-отклонено, 5-архив, 6-черновик, 7-неактивное (другой пльзователь) 8-активное (другой пльзователь)*/,
-	adstatus: 8,
+	// adstatus: 8,
 	userpic: "https://source.unsplash.com/random?portrait",
 	userrate: 3.7,
 	userOffers: [
@@ -61,13 +61,15 @@ const objP = {
 	],
 };
 
+console.log(objP)
+
 const Product = () => {
 	const { query } = useRouter();
 	const { id } = useAuth();
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-
+	
 	// const [collSO, setCollSO] = useState(true);
 	/* const handleCollSO = (e) => {
 		e.preventDefault();
@@ -80,18 +82,21 @@ const Product = () => {
 
 	const [data, setData] = useState();
 	useEffect(() => {
-		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)))
+		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
-	const { name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
+	console.log("DATA-------", data)
+	const {productInfoFields, subcategory, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
+	const productInfo = useProduct(query.id)
+
+	console.log(productInfoFields)
+
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
-
 	useEffect(() => {
 
 		if (user_id !== undefined) {
 			getDataByPost("/api/getProductOfUser", { user_id: user_id }).then((r) => {
-				console.log(r);
 				if (r !== undefined && r.length > 0) {
 					const userOffers = r.map(offer => {
 						return {
@@ -123,33 +128,33 @@ const Product = () => {
 							<div className="productPageWrapper">
 								<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
 									<div className="productPageDescription">
-										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile/> : null}
+										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile /> : null}
 										<ProductCarousel title={title} photo={photo} mobile={matchesMobile || matchesTablet} />
 										{!matchesLaptop && !matchesDesktop && !matchesHD && (
 											photo == undefined ?
 												<div className="placeholder_animation product__placeholder_mobil-action"></div>
 												:
 												<div className="productPageAdaptive">
-													<ProductPrice price={price} oldPrice={oldprice} id={id} sellerId={user_id} trade={trade} status={1} mobile/>
+													<ProductPrice price={price} oldPrice={oldprice} id={id} sellerId={user_id} trade={trade} status={1} mobile />
 													<div className="SellerInfo__adaptive_info">
 														<div className="SellerInfo__adaptive_info_top">
-															<ProductReviewed reviewed={reviewed}/>
-															<ProductStats sellerId={user_id} id={id} dialog={openStatForm} setDialog={setopenStatForm}  mobile/>
+															<ProductReviewed reviewed={reviewed} />
+															<ProductStats sellerId={user_id} id={id} dialog={openStatForm} setDialog={setopenStatForm} mobile />
 														</div>
 														<ProductDate id={id} sellerId={user_id} mobile date={ToRusDate(created_at)} leftDay={30} />
 													</div>
 												</div>
 
 										)}
-										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={objP.adstatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet}/>
+										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />}
 										{/* адрес, карта, свойства и значения */}
-										<ProductInformation address={address} description={description} />
+										<ProductInformation address={address} description={description} productionInfo={productInfoFields} caterory={subcategory} />
 									</div>
 
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
-										{/* статус объявления, кнопки */} 
-										<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+										{/* статус объявления, кнопки */}
+										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} productInfo={productInfo}/>}
 										{/* пользователь и его объявления */}
 										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
 									</div>
@@ -157,14 +162,14 @@ const Product = () => {
 								{!matchesMobile && !matchesTablet && !matchesLaptop && (
 									<div className="showsmthWrapper">
 										<div className="freedomBlock_1"></div>
-										<div className="freedomBlock_2"></div> 
+										<div className="freedomBlock_2"></div>
 									</div>
 								)}
 							</div>
 							<div className="productPageContent">
 								<div className="productPageCard">
 									<OffersRender isProduct data={data} title={"Похожие объявления"} /* endMessage={!collSO} */ />
-									<div style={{marginTop:'60px'}}></div>
+									<div style={{ marginTop: '60px' }}></div>
 									{/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
 									</div> */}
@@ -173,7 +178,7 @@ const Product = () => {
 									{!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
 										<div className="showsmthWrapper">
 											<div className="freedomBlock_1"></div>
-											<div className="freedomBlock_2"></div> 
+											<div className="freedomBlock_2"></div>
 										</div>
 									)}
 								</div>
@@ -185,7 +190,7 @@ const Product = () => {
 						{" "}
 						<Statistics Close={handleStatFormDialog} />{" "}
 					</Dialog>
-					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
+					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo} />
 				</div>
 			</OfferAccountProvider>
 		</MetaLayout>

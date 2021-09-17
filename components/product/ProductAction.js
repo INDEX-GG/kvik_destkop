@@ -41,7 +41,7 @@ export default function ProductAction(data) {
   const {user_id} = data;
 
 
-  console.log(data.trade)
+  console.log("data =======> ", data)
 
   return (
     <>
@@ -51,26 +51,26 @@ export default function ProductAction(data) {
           user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
             <>
               <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
-				<ProductStats id={id} sellerId={user_id} status={objP.adstatus} dialog={openStatForm} setDialog={setOpenStatForm} />
-				<ProductFavoriteNoteCom id={id} sellerId={user_id} isOffer={+data.router}/>
-				<ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />
-				<ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
-				<ProductDeal id={id} sellerID={user_id}>
-					<ProductButton className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
-					<ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
-				</ProductDeal>
-				<ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
+                <ProductStats id={id} sellerId={user_id} status={objP.adstatus} dialog={openStatForm} setDialog={setOpenStatForm} />
+                <ProductFavoriteNoteCom id={id} sellerId={user_id} isOffer={+data.router}/>
+                <ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />
+                <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
+                <ProductDeal id={id} sellerID={user_id}>
+                  <ProductButton className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
+                  <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
+                </ProductDeal>
+                <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
               </div>
 
             </>
         )
         }
-		<ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={objP.adstatus} modalFunc={pushCheck} />
+		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={1} modalFunc={pushCheck} />
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
           <Statistics Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
-        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
+        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={data.productInfo}/>
         <Dialog open={openUnpublishForm || false} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
           <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
         </Dialog>

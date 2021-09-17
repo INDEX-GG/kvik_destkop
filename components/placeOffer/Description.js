@@ -29,7 +29,7 @@ const Description = () => {
             <Controller
                name="description"
                control={methods.control}
-               defaultValue=''
+               defaultValue='Я креветка'
                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
                      variant='outlined'
