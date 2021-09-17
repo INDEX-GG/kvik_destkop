@@ -74,13 +74,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DeleteForm() {
 	const classes = useStyles();
-	const { offerId, offerData, openDeleteForm, setOpenDeleteForm } = useContext(DeleteCTX);
+	const { offerId, offerData, openDeleteForm, setOpenDeleteForm, battonId } = useContext(DeleteCTX);
 	const { setQuery } = useOfferAccount()
 
-	function PushBDVerify(e) {
-		console.log(e.target.parentElement)
-		var arr = { 'id': [offerId], 'verify': 4 }
-		axios.delete(`${BASE_URL}/api/verifyActive`, arr)
+	function PushBDVerifyDelete() {
+		console.warn('DeleteForm-click-offerId',offerId);
+		var arr = { 'id': [offerId], 'verify': '4' }
+		console.error('DeleteForm-click-arr', arr);
+		axios.post(`${BASE_URL}/api/verifyActive`, arr)
+			.then(r => r.data)
+			.finally(function () {
+				setQuery(p => !p)
+				setOpenDeleteForm(!openDeleteForm)
+			})
+	}
+
+	function PushBDVerifyActivation() {
+		console.warn('DeleteForm-click-offerId',offerId);
+		var arr = { 'id': [offerId], 'verify': '0' }
+		console.error('DeleteForm-click-arr', arr);
+		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
 				setQuery(p => !p)
@@ -89,44 +102,91 @@ export default function DeleteForm() {
 	}
 
 	function closeDeleteForm() {
-		console.log('DeleteForm is closed');
 		setOpenDeleteForm(!openDeleteForm)		
 	}
 
 
-	console.log(offerId)
-	console.log("_____delete_ offers",offerData)
-	console.log("_____offerId_____",offerId)
-	if (offerId?.length === 1) {
-		/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
-		const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
+	
+	console.log("_____delete_ offers_DeleteForms",offerData)
+	console.log("_____offerId_DeleteForms",offerId)
+	console.log("_____battonId_DeleteForms",battonId)
+	
+	
+	console.log('Правильно не правильно значение айди баттон')
+	console.log(typeof battonId)
+	console.log(battonId === '001')
 
-		return (
-			<Box key={offerAction.id} className={classes.delete_form}>
-				<Box className={classes.delete_form__item}>
-					{offerAction.photo 
-						?.slice(0, 1)
-						.map((imgs, i) => {
-							return <CardMedia className={classes.delete_form__item__img} key={i} image={imgs} />
-						})
-					}
-					<Typography className={classes.delete_form__item__price}>{ToRubles(offerAction.price)}</Typography>
-					<Typography className={classes.delete_form__item__title}>{offerAction.title}</Typography>
+	if(battonId === '001'){
+		if (offerId?.length === 1) {
+			/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
+			const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
+	
+			return (
+				<Box key={offerAction.id} className={classes.delete_form}>
+					<Box className={classes.delete_form__item}>
+						{offerAction.photo 
+							?.slice(0, 1)
+							.map((imgs, i) => {
+								return <CardMedia className={classes.delete_form__item__img} key={i} image={imgs} />
+							})
+						}
+						<Typography className={classes.delete_form__item__price}>{ToRubles(offerAction.price)}</Typography>
+						<Typography className={classes.delete_form__item__title}>{offerAction.title}</Typography>
+					</Box>
+					<Typography className={classes.delete_form__desc}>Заново активировать</Typography>
+					<Typography className={classes.delete_form__sub_desc}>Вы хотите активировать объявление ?</Typography>
+					<Button onClick={(e) => PushBDVerifyActivation(e)} className={classes.delete_form__btn}>Да</Button>
+					<Button onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
 				</Box>
-				<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
-				<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
-				<Button id='001' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
-				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Да удалить</Button>
-			</Box>
-		)
-	} else {
-		return (
-			<Box className={classes.delete_form}>
-				<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
-				<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
-				<Button id='001' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
-				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Да удалить</Button>
-			</Box>
-		)
+			)
+		} else {
+			return (
+				<Box className={classes.delete_form}>
+					<Typography className={classes.delete_form__desc}>Заново активировать</Typography>
+					<Typography className={classes.delete_form__sub_desc}>Вы хотите активировать объявление ?</Typography>
+					<Button onClick={(e) => PushBDVerifyActivation(e)} className={classes.delete_form__btn}>Да</Button>
+					<Button onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
+				</Box>
+			)
+		}
+
+
+	} else if (battonId === '002') {
+		if (offerId?.length === 1) {
+			/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
+			const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
+	
+			return (
+				<Box key={offerAction.id} className={classes.delete_form}>
+					<Box className={classes.delete_form__item}>
+						{offerAction.photo 
+							?.slice(0, 1)
+							.map((imgs, i) => {
+								return <CardMedia className={classes.delete_form__item__img} key={i} image={imgs} />
+							})
+						}
+						<Typography className={classes.delete_form__item__price}>{ToRubles(offerAction.price)}</Typography>
+						<Typography className={classes.delete_form__item__title}>{offerAction.title}</Typography>
+					</Box>
+					<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
+					<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
+					<Button id='001' onClick={(e) => PushBDVerifyDelete(e)} className={classes.delete_form__btn}>Да удалить</Button>
+					<Button id='002' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
+				</Box>
+			)
+		} else {
+			return (
+				<Box className={classes.delete_form}>
+					<Typography className={classes.delete_form__desc}>Удалить из архива</Typography>
+					<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
+					<Button id='001' onClick={(e) => PushBDVerifyDelete(e)} className={classes.delete_form__btn}>Да удалить</Button>
+					<Button id='002' onClick={closeDeleteForm} className={classes.delete_form__btn}>Нет</Button>
+				</Box>
+			)
+		}
 	}
+
+
+
+	
 }
