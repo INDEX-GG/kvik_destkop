@@ -18,7 +18,7 @@ export function useProduct(id) {
 						setProductInfo(r);
 
 						if (r.subcategory !== undefined) {
-							getDataByPost('/api/subcategoriesFields', { "post_id": id })
+							getDataByPost('/api/subcategoriesFields', { "post_id": id, "subcategory": r.subcategory })
 								.then((r) => { setProductInfoFields(r) })
 						}
 

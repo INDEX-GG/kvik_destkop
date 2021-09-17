@@ -93,7 +93,6 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'Smart_speakers':
                 case 'elevator':
                 case 'layout':
-                case 'diagonal':
                 case 'connectors':
                 case 'bathroom':
                 case 'appointment':
@@ -166,6 +165,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'bolt_distance':
                 case 'number_of_mounting_holes':
                 case 'salon':
+                case 'сurved_screen':
                     newOBJ[i].type = 'list'
                     break;
 
@@ -216,6 +216,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'disc_type':
                 case 'number_of_discs_included':
                 case 'tires_and_rims':
+                case 'tv_year':
                     newOBJ[i].type = 'text'
                     break;
 
@@ -263,6 +264,10 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'experience':
                 case 'separate_check_mark_for_hbo':
                     newOBJ[i].type = 'radio'
+                    break;
+
+                case 'diagonal':
+                    newOBJ[i].type = 'slider'
                     break;
 
 

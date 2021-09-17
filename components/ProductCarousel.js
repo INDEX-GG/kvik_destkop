@@ -25,7 +25,6 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 	useEffect(() => {
 		setData(photo);
 	},[photo])
-
 	
 	useEffect(() => {
 		if (photo) {
@@ -57,19 +56,20 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 
 	return (
 		<div style={{display: 'flex', flexDirection: mobile ? 'column-reverse' : 'column'}}>
-			{title == undefined? 
+			{title == undefined ? 
 			<div className="placeholder_animation product__placeholder_title"></div>
 			: <div className="productPageTitle xl">{title}</div>}
 			{photo ? 
 				<div>
 					<Swiper
 						onSwiper={setFirstSwiper}
-						onActiveIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+						onActiveIndexChange={(swiper) => {setActiveIndex(swiper.activeIndex)}}
 						spaceBetween={10}
 						pagination={{clickable: true, type: 'fraction'}}
 						navigation={true}
 						slidesPerView={1}
 						className={sliderClass}
+						followFinger={data && data.length > 1 ? true : false}
 						thumbs={{swiper: thumbsSwiper}}
 						>
 						{/* <div className="seen__ad">Просмотрено</div> */}
@@ -79,24 +79,26 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 							</SwiperSlide>
 						))}
 					</Swiper>
+					{slidesPrevPhoto &&
 					<Swiper 
-						style={{display: slidesPrevPhoto && !matchesTablet && !matchesMobile ? 'block' : 'none', height: '88px'}}
+						style={{ height: '88px', display: "block"}}
 						onSwiper={setThumbsSwiper}
 						watchSlidesProgress={true}
 						slidesPerView={6}
-						// loop={true}
 						spaceBetween={1}
 						className="mySwiper2"
 						>
 						{/* <div className="seen__ad">Просмотрено</div> */}
-						{data?.map((img, i) => (
+						{!matchesTablet && !matchesMobile ? 
+						data.map((img, i) => (
 							<SwiperSlide key={i}>
-								<div style={{height: '88px', minWidth: '100px' }}>
-									<img style={{width: '100%', height: '100%'}} src={img} />
+								<div>
+									<img style={{ height: '88px', }} src={img} />
 								</div>
 							</SwiperSlide>
-						))}
+						)) : null}
 					</Swiper>
+					}
 
 					<Modal className="productModal" open={modal || false} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
 						<>

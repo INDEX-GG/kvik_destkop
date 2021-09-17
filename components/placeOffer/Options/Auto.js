@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, makeStyles, TextField, Typography, MenuItem, Checkbox } from '@material-ui/core';
+import { Box, makeStyles, TextField, Typography, MenuItem, Checkbox, Tooltip } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -112,6 +112,18 @@ const useStyles = makeStyles((theme) => ({
         color: '#F44545',
         marginLeft: '14px',
         marginRight: '14px',
+    },
+    tooltip: {
+        border: "#8F8F8F solid 1px",
+        background: "#FFFFFF",
+        color: "#5A5A5A",
+        fontSize: "12px",
+    },
+    arrow: {
+        color: '#FFFFFF',
+        "&:before": {
+            border: "#8F8F8F solid 1px",
+        }
     },
 }));
 
@@ -297,7 +309,7 @@ export default function Auto({ data }) {
                                                                 ))}
                                                             </TextField>
                                                         )}
-                                                        rules={{ required: 'Выбирите ' + item.name }}
+                                                        rules={{ required: 'Выбирите Модель'}}
                                                     />
                                                 </Box>
                                             </Box>
@@ -327,7 +339,7 @@ export default function Auto({ data }) {
                                                                 )))}
                                                             </TextField>
                                                         )}
-                                                        rules={{ required: 'Выбирите ' + item.name }}
+                                                        rules={{ required: 'Выбирите Поколение'  }}
                                                     />
                                                 </Box>
                                             </Box>
@@ -360,7 +372,7 @@ export default function Auto({ data }) {
                                                                 })}
                                                             </TextField>
                                                         )}
-                                                        rules={{ required: 'Выбирите ' + item.name }}
+                                                        rules={{ required: 'Выбирите Модификацию' }}
                                                     />
                                                 </Box>
                                             </Box>
@@ -716,9 +728,11 @@ export default function Auto({ data }) {
                                         className={classes.formColorMain}
                                         onChange={(e) => onChange(e.target.value)}>
                                         {ColorAuto.map((item, i) => (
-                                            <Box className={color === i ? classes.formColorWrapperActive : classes.formColorWrapper} key={item.name}>
+                                            <Tooltip key={i} arrow placement="top" title={item.name} classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                                            <Box className={color === i ? classes.formColorWrapperActive : classes.formColorWrapper}>
                                                 <Box className={classes.formColor} onClick={() => setColor(i)} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ><Radio className={classes.formRadioColor} value={item.id}></Radio></Box>
                                             </Box>
+                                        </Tooltip>
                                         ))}
                                         <FormHelperText className={classes.formError}>{error ? error.message : ' '}</FormHelperText>
                                     </RadioGroup>
@@ -732,5 +746,3 @@ export default function Auto({ data }) {
         </>
     )
 }
-
-

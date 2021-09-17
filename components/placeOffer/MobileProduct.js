@@ -3,6 +3,7 @@ import { Box, makeStyles, TextField } from "@material-ui/core"
 import { Controller, useFormContext } from "react-hook-form"
 import MobilePhotoes from "./MobilePhotoes";
 import { useMedia } from "../../hooks/useMedia";
+import {invalidСharacterProduct} from "../../lib/regulars"
 
 const useStyles = makeStyles(() => ({
     plaseOfferInput: {
@@ -60,7 +61,7 @@ export default function MobileProduct({ctx}) {
                      }} />
                )}
                rules={{ required: 'Введите название Товара',
-					 	pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'-]+$/, message: 'Недопустимые символы' },
+					 	pattern: {value: invalidСharacterProduct(), message: 'Недопустимые символы' },
 			}}
             />
             <MobilePhotoes ctx={ctx}/>

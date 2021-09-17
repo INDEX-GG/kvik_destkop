@@ -74,59 +74,61 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UnpublishForm() {
 	const classes = useStyles();
-	const { offerId, offer, openUnpublishForm, setOpenUnpublishForm } = useContext(UnpublishCTX);
+	const { dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll } = useContext(UnpublishCTX);
 
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
-		var arr = { 'id': [offerId], 'verify': `${e.target.parentElement.id}` }
+<<<<<<< HEAD
+		console.warn('UnpablishForm-click',offerId);
+		var arr = { 'id': [offerId], 'active': `${e.target.parentElement.id}` }
+		console.error('UnpablishForm-click-arr', arr);
+=======
+		var arr = { 'id': [dataCheck], 'verify': `${e.target.parentElement.id}` }
+>>>>>>> a6e8c2a36b0c277e9dd87245f9490115fbee2e48
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
 				setQuery(p => !p)
 				setOpenUnpublishForm(!openUnpublishForm)
 			})
+		cleanAll();
 	}
 
-	console.log(offerId)
-	console.log(offer)
+	console.log("_____offerData_____",offerData)
+	console.log("_____dataCheck_____",dataCheck)
 
-	if (offerId?.length === 1) {
-		const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join())
-		console.log(offerAction)
+	if (dataCheck?.length === 1) {
+		/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
+		const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
 		return (
-			<>
-				{offerAction.map((item, i) =>
-					<Box key={i} className={classes.unpublish_form}>
-						<Box className={classes.unpublish_form__item}>
-							{item.photo
-								?.slice(0, 1)
-								.map((imgs, i) => {
-									return <CardMedia className={classes.unpublish_form__item__img} key={i} image={imgs} />
-								})}
-							<Typography className={classes.unpublish_form__item__price}>{ToRubles(item.price)}</Typography>
-							<Typography className={classes.unpublish_form__item__title}>{item.title}</Typography>
-						</Box>
-						<Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
-						<Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
-						<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано на Kvik</Button>
-						<Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано в другом месте</Button>
-						<Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Другая причина</Button>
-					</Box>
-				)}
-			</>
+			<Box key={offerAction.id} className={classes.unpublish_form}>
+				<Box className={classes.unpublish_form__item}>
+					{offerAction.photo 
+						?.slice(0, 1)
+						.map((imgs, i) => {
+							return <CardMedia className={classes.unpublish_form__item__img} key={i} image={imgs} />
+						})
+					}
+					<Typography className={classes.unpublish_form__item__price}>{ToRubles(offerAction.price)}</Typography>
+					<Typography className={classes.unpublish_form__item__title}>{offerAction.title}</Typography>
+				</Box>
+				<Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
+				<Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
+				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано на Kvik</Button>
+				<Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано в другом месте</Button>
+				<Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Другая причина</Button>
+			</Box>
 		)
 	} else {
 		return (
-			<>
-				<Box className={classes.unpublish_form}>
-					<Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
-					<Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
-					<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано на Kvik</Button>
-					<Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано в другом месте</Button>
-					<Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Другая причина</Button>
-				</Box>
-			</>
+			<Box className={classes.unpublish_form}>
+				<Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
+				<Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
+				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано на Kvik</Button>
+				<Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано в другом месте</Button>
+				<Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Другая причина</Button>
+			</Box>
 		)
 	}
 }

@@ -3,7 +3,7 @@ import { ToRubles } from "../../../../lib/services";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Story(data) {
-  if (data.data.lenght == 0) {
+  if (data.data.lenght !== 0) {
     return (
 	  <EmptyPlaceholder
 	  title='Здесь буду ваши платежные операции'

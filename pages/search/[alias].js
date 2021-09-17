@@ -9,6 +9,7 @@ import aliasName from "../../components/header/CategoriesAliaseName";
 import Image from "next/image"
 import { getDataByPost } from "../../lib/fetch";
 import { STATIC_URL } from "../../lib/constants";
+import { categoryScroll } from "../../lib/scrollAds";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -63,10 +64,22 @@ const Index = () => {
 
 	const aliasFillUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
 
-	useEffect(() => {
 
+	const [page, setPage] = useState(1);
+	const [limitRenderPage, setLimitRanderPage] = useState(0);
+	const [lastIdAds ,setLastIdAds] = useState(0);
+	const limit = 5
+
+
+	useEffect(() => {
+		if (page == 'end') setPage(1)
+		console.log(lastIdAds)
+	}, [router])
+
+
+	useEffect(() => {
 		if (aliasFillUrl !== undefined) {
-			getDataByPost('/api/postCategorySearch', { data: aliasFillUrl }).then(r => {
+			getDataByPost('/api/postCategorySearch', { data: aliasFillUrl, 'page_limit': limit, 'page': 1 }).then(r => {
 				if (r !== undefined) {
 					const offersData = r.map(offer => {
 						return {
@@ -75,11 +88,20 @@ const Index = () => {
 						}
 					})
 					setData(offersData);
+					if (r.length > 1) setLastIdAds(r[r.length - 1].id)
 				}
 			})
 		}
 	}, [aliasFillUrl]);
 
+
+
+	useEffect(() => {
+		if (page > 1) {
+			categoryScroll(aliasFillUrl, limit, page, setData, setLimitRanderPage, setPage, setLastIdAds)
+		}
+	}, [page])
+	
 
 	return (
 		// <MainlA isIndex title={'Доска объявлений'} category={"Транспорт"}>
@@ -87,7 +109,7 @@ const Index = () => {
 			<BreadCrumbs data={aliasData?.aliasBread} />
 			<Box className={classes.main}>
 				<Box className={classes.offers} >
-					<SearchRender data={data} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() + aliasData.aliasName[0].label.substring(1,)} /></Box>
+					<SearchRender data={data} page={page} limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage} setPage={setPage} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() + aliasData.aliasName[0].label.substring(1,)} /></Box>
 				{!matchesMobile && !matchesTablet &&
 					<Box className={classes.rightBlock}>
 						<div className={classes.ad}>

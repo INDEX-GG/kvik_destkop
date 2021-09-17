@@ -46,7 +46,7 @@ const objP = {
 	bargain: true,
 	userid: 777 /* id пользователя для проверки отображения блока объявления */,
 	username: "Иван Иванов" /* статус для отображения блока объявления 1-активное, 2-истек срок размещения, 3-продано, 4-отклонено, 5-архив, 6-черновик, 7-неактивное (другой пльзователь) 8-активное (другой пльзователь)*/,
-	adstatus: 8,
+	// adstatus: 8,
 	userpic: "https://source.unsplash.com/random?portrait",
 	userrate: 3.7,
 	userOffers: [
@@ -61,13 +61,15 @@ const objP = {
 	],
 };
 
+console.log(objP)
+
 const Product = () => {
 	const { query } = useRouter();
 	const { id } = useAuth();
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-
+	
 	// const [collSO, setCollSO] = useState(true);
 	/* const handleCollSO = (e) => {
 		e.preventDefault();
@@ -83,20 +85,18 @@ const Product = () => {
 		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
-
-	const {productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
-
+	console.log("DATA-------", data)
+	const {productInfoFields, subcategory, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
+	const productInfo = useProduct(query.id)
 
 	console.log(productInfoFields)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
-
 	useEffect(() => {
 
 		if (user_id !== undefined) {
 			getDataByPost("/api/getProductOfUser", { user_id: user_id }).then((r) => {
-				console.log(r);
 				if (r !== undefined && r.length > 0) {
 					const userOffers = r.map(offer => {
 						return {
@@ -146,17 +146,15 @@ const Product = () => {
 												</div>
 
 										)}
-										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />
-=======
-										<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={objP.adstatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />
+										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />}
 										{/* адрес, карта, свойства и значения */}
-										<ProductInformation address={address} description={description} />
+										<ProductInformation address={address} description={description} productionInfo={productInfoFields} caterory={subcategory} />
 									</div>
 
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
 										{/* статус объявления, кнопки */}
-										<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} />
+										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} productInfo={productInfo}/>}
 										{/* пользователь и его объявления */}
 										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
 									</div>
@@ -192,7 +190,7 @@ const Product = () => {
 						{" "}
 						<Statistics Close={handleStatFormDialog} />{" "}
 					</Dialog>
-					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} />
+					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo} />
 				</div>
 			</OfferAccountProvider>
 		</MetaLayout>
