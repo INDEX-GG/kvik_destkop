@@ -8,10 +8,7 @@ import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
 import router from "next/router";
 
-export default function PhoneModule({dialog, setDialog, productInfo}) {
-  const { name, userPhoto, raiting, user_id, isLoading } = productInfo;  //useProduct(router.query.id);Исправить
-  const {sellerPhone} = useOutherUser(user_id);
-  console.log("productInfo ----fhoneModule=====>", productInfo)
+
   const useStyles = makeStyles(() => ({
     modalNumber: {
       fontSize: "12px",
@@ -75,7 +72,13 @@ export default function PhoneModule({dialog, setDialog, productInfo}) {
       
     },
   }));
+
+
+export default function PhoneModule({dialog, setDialog, productInfo}) {
   const classes = useStyles();
+  const { name, userPhoto, raiting, user_id, isLoading } = productInfo;  //useProduct(router.query.id);Исправить
+  const {sellerPhone} = useOutherUser(user_id);
+
   return (
     <Dialog open={dialog || false} onClose={() => setDialog(!dialog)} fullWidth maxWidth="sm">
       <div className={classes.modalNumber}>
