@@ -74,25 +74,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UnpublishForm() {
 	const classes = useStyles();
-	const { offerId, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll } = useContext(UnpublishCTX);
+	const { dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll } = useContext(UnpublishCTX);
 
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
-		var arr = { 'id': [offerId], 'verify': `${e.target.parentElement.id}` }
+		var arr = { 'id': [dataCheck], 'verify': `${e.target.parentElement.id}` }
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
 				setQuery(p => !p)
 				setOpenUnpublishForm(!openUnpublishForm)
 			})
-			cleanAll();
+		cleanAll();
 	}
 
-	console.log(offerId)
-	console.log("_____inpublish_ offers",offerData)
-	console.log("_____offerId_____",offerId)
-	if (offerId?.length === 1) {
+	console.log("_____offerData_____",offerData)
+	console.log("_____dataCheck_____",dataCheck)
+
+	if (dataCheck?.length === 1) {
 		/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
 		const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
 		return (
