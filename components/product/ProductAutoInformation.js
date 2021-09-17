@@ -187,7 +187,7 @@ const ProductAutoInformation = ({data, mobile, description}) => {
 			</div>
       <ProductDescription description={description} mobile={mobile}/>
       {autoData.map((el, i) => (data[el.alias] ? <div key={i} style={{
-        display: mobile ? 'block' : 'flex',
+        display:! mobile ? 'flex' : null,
         flexDirection: !mobile ? "column" : null
       }}>
 				<div className="productLocality">{el.name}</div>

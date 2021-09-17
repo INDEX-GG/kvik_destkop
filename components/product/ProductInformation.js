@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMedia } from '../../hooks/useMedia';
 import ProductAutoInformation from './ProductAutoInformation';
-// import ProductDescription from './ProductDescription';
+import ProductDescription from './ProductDescription';
 import ProductMap from './ProductMap';
 // import ProductProperties from './ProductProperties';
 import ProductSocial from './ProductSmallComponents/ProductSocial';
@@ -17,6 +17,9 @@ export default function ProductInformation({productionInfo, description, address
 	switch (caterory){
 		case "auto":
 			info = <ProductAutoInformation data={productionInfo} mobile={!matchesMobile && !matchesTablet} description={description} />
+			break;
+		default:
+			info = <ProductDescription description={description} mobile={!matchesMobile && !matchesTablet}/>
 	}
 
 	return (
@@ -24,7 +27,6 @@ export default function ProductInformation({productionInfo, description, address
 			<ProductMap address={address} mobile={!matchesMobile && !matchesTablet}/>
 			<div className="productPageCharacter thin">
 				{info}
-				{/* <ProductDescription description={description} mobile={!matchesMobile && !matchesTablet}/> */}
 				<ProductSocial/>
 			</div>
 		</>

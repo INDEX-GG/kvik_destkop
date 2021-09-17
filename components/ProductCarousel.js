@@ -56,7 +56,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 
 	return (
 		<div style={{display: 'flex', flexDirection: mobile ? 'column-reverse' : 'column'}}>
-			{title == undefined? 
+			{title == undefined ? 
 			<div className="placeholder_animation product__placeholder_title"></div>
 			: <div className="productPageTitle xl">{title}</div>}
 			{photo ? 
@@ -69,6 +69,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						navigation={true}
 						slidesPerView={1}
 						className={sliderClass}
+						followFinger={data && data.length > 1 ? true : false}
 						thumbs={{swiper: thumbsSwiper}}
 						>
 						{/* <div className="seen__ad">Просмотрено</div> */}
@@ -78,6 +79,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 							</SwiperSlide>
 						))}
 					</Swiper>
+					{slidesPrevPhoto &&
 					<Swiper 
 						style={{ height: '88px', display: "block"}}
 						onSwiper={setThumbsSwiper}
@@ -87,8 +89,8 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						className="mySwiper2"
 						>
 						{/* <div className="seen__ad">Просмотрено</div> */}
-						{slidesPrevPhoto && !matchesTablet && !matchesMobile ? 
-						data?.map((img, i) => (
+						{!matchesTablet && !matchesMobile ? 
+						data.map((img, i) => (
 							<SwiperSlide key={i}>
 								<div>
 									<img style={{ height: '88px', }} src={img} />
@@ -96,7 +98,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 							</SwiperSlide>
 						)) : null}
 					</Swiper>
-					
+					}
 
 					<Modal className="productModal" open={modal || false} onClose={() => setModal(!modal)} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
 						<>
