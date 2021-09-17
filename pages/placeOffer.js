@@ -105,8 +105,8 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
-        console.log(alias);
-        console.log(data);
+        // console.log(alias);
+        console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
@@ -124,40 +124,68 @@ function PlaceOffer() {
 
         let obj = {}
         let additionalfields = { [asd]: [] }
-        let additionalfields2 = { [asd]: [] }
+        // let additionalfields2 = { [asd]: [] }
 
-        let additionalfields3 = { [asd]: [] }
+        // let additionalfields3 = { [asd]: [] }
 
-        for (var key in data) {
+        for (let key in data) {
             if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
                 obj[key] = data[key];
             }
             else {
                 /* console.log('key', key.replace(/[0-9]/g, '')) */
-                additionalfields2[asd].push({ "alias": key.replace(/[0-9]/g, ''), "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
+                // additionalfields2[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
 
-                additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
+                // additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
+                
+                const key1 = key.replace(/[0-9]/g, '')
+                const el = additionalfields[asd].find(el => el.alias === key1)
+                if (el){
+                    const index = additionalfields[asd].indexOf(el)
+                    if (!Array.isArray(additionalfields[asd][index].fields)){
+                        additionalfields[asd][index].fields = [additionalfields[asd][index].fields]
+                    }
+                    if(data[key]){
+                        additionalfields[asd][index].fields.push(data[key])
+                    }
+                }else{
+                    let field = data[key]
+                    if (key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color'){
+                        if ( key === 'tires_and_rims'){
+                            let str = data[key] ? data[key].slice(0, -2) : 0
+                            field = +str 
+                        }else if (key === 'mileage' ){
+                            let str = data[key].slice(0, -3)
+                            field = +str
+                        }
+                        else{
+                            field = +data[key]  
+                        }
+                    }
+                    additionalfields[asd].push({"alias": key1, "fields": field !== undefined ? field : [] })
+                }
+                
 
-                additionalfields3[asd].push({ "alias": key.replace(/[0-9]/g, '') })
+                // additionalfields3[asd].push({ "alias": key.replace(/[0-9]/g, '') })
 
             }
         }
 
 
-        console.log(additionalfields3[asd])
+        // console.log('add 3', additionalfields3[asd])
 
 
 
         if (newOBJ[asd] !== undefined) {
             obj.subcategory = asd
         }
-        console.log(additionalfields)
-        console.log(additionalfields2)
+        console.log("addfields", additionalfields)
+        // console.log(additionalfields2)
 
         console.log(obj)
         setLoading(true);
 
-         axios.post(`${BASE_URL}/api/setPosts`, obj)
+        axios.post(`${BASE_URL}/api/setPosts`, obj)
             .then(r => {
                 postId = r?.data?.id;
                 additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
@@ -176,9 +204,10 @@ function PlaceOffer() {
                     console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
-            }) 
+            })  
 
     }
+    
 
     return (
         promotion ? <Promotion product={product} /> :

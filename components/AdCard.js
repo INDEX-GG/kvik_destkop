@@ -6,7 +6,7 @@ import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import { useMedia } from '../hooks/useMedia';
 import { useAuth } from "../lib/Context/AuthCTX";
 import { BASE_URL } from "../lib/constants";
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu, MenuItem, makeStyles } from "@material-ui/core";
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
@@ -17,8 +17,28 @@ const initialState = {
 	mouseY: null,
 };
 
-const AdCard_component = React.forwardRef((props, ref) => {
+const useClass = makeStyles(() => ({
+	morePhoto: {
+		position: "absolute", 
+		background: "rgba(0, 0, 0, 0.6)", 
+		top: 0, 
+		left: 0,
+		width: "100%", 
+		height: "100%",
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center"
+	},
+	morePhotoText: {
+		color: "#FFF",
+		fontSize: "16px",
+		textAlign: "center",
+		lineHeight: "1.3",
+	}
+}))
 
+const AdCard_component = React.forwardRef((props, ref) => {
+	const classes = useClass()
 	const { id } = useAuth();
 	const {offer} = props;
 	const { userInfo, setLikeComment } = useStore();
@@ -119,11 +139,20 @@ const AdCard_component = React.forwardRef((props, ref) => {
 								>	
 									{offer.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
 										return (
-											<SwiperSlide key={i}>
+											<SwiperSlide key={i} style={{position: 'relative'}}>
 												<img
 													src={`${img}`}
 													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 												/>
+												{
+													i === 4 && (offer.photo.length - 5 > 0) ?
+													<div className={classes.morePhoto}>
+														<span className={classes.morePhotoText}>
+															Еще<br />{offer.photo.length - 5} фото
+														</span>
+													</div>
+													: null
+												}
 											</SwiperSlide>
 										)
 									})}

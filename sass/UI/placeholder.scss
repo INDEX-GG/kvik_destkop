@@ -12,6 +12,12 @@ $plCol: #d0edef;
     align-items: center;
 }
 
+.offer__placeholder_loader{
+	display: flex;
+	justify-content: center;
+	margin: 10px 0;
+}
+
 .product__placeholder_title {
     background: $plCol;
     border-radius: 2px;
