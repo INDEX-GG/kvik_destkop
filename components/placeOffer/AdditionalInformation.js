@@ -16,6 +16,10 @@ import Summary from './Options/Summary';
 import HiFiTechnology from './Options/Hi_fi_technology';
 import TvAccessories from './Options/Tv_accessories';
 import TvSetCat2 from './Options/Tv_sets_cat2';
+import AudioEngineering from './Options/Audio_engineering';
+import VideoEngineering from './Options/Video_engineering';
+import Printers from './Options/Printers';
+import OneListPlaseholder from './Options/Mfps_and_scanners';
 
 const AdditionalInformation = (data) => {
 	console.log('=======>', data.newOBJ)
@@ -43,7 +47,7 @@ const AdditionalInformation = (data) => {
 			return null;
 
 		case 'audio_engineering':
-			return null;
+			return <AudioEngineering	 data={data.newOBJ[data.asd]} />;
 
 		case 'auto':
 			return <Auto data={data.newOBJ[data.asd]} />;
@@ -79,7 +83,7 @@ const AdditionalInformation = (data) => {
 			return null;
 
 		case 'consumables_for_office_equipment':
-			return null;
+			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
 
 		case 'controllers_adapters_modules_for_servers':
 			return null;
@@ -164,10 +168,10 @@ const AdditionalInformation = (data) => {
 			return null;
 		case 'mfps_and_scanners':
 
-			return null;
+			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
 		case 'monitors':
 
-			return null;
+			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
 		case 'mopeds_and_scooters':
 
 			return null;
@@ -202,20 +206,20 @@ const AdditionalInformation = (data) => {
 			return null;
 		case 'personal_computer_accessories':
 
-			return null;
+			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
 		case 'plants_and_seeds':
 
 			return <PlantsAndSeeds data={data.newOBJ[data.asd]} />;
 
 		case 'printers':
 
-			return null;
+			return <Printers data={data.newOBJ[data.asd]} />;
 		case 'processors_cat':
 
 			return null;
 		case 'ram_for_servers':
 
-			return null;
+			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
 		case 'ram':
 
 			return null;
@@ -361,7 +365,7 @@ const AdditionalInformation = (data) => {
 		case 'server_motherboards':
 			return null;
 		case 'server_network_hardware':
-			return null;
+			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
 		case 'server_processorss':
 			return null;
 		case 'servers':
@@ -373,7 +377,7 @@ const AdditionalInformation = (data) => {
 		case 'snowmobiles':
 			return null;
 		case 'steering_wheels_gamepads_joysticks':
-			return null;
+			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
 		case 'summary':
 		return <Summary data={data.newOBJ[data.asd]} />;
 			case 'table_setting':
@@ -399,13 +403,13 @@ const AdditionalInformation = (data) => {
 		case 'tv_sets_cat2':
 			return <TvSetCat2 data={data.newOBJ[data.asd]} />;
 		case 'ups_and_surge_protectors':
-			return null;
-		case 'vacancies':
+			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
+			case 'vacancies':
 			return <Vacancies data={data.newOBJ[data.asd]} />;
 		case 'video_cards_componentsss':
 			return null;
 		case 'video_engineering':
-			return null;
+			return <VideoEngineering data={data.newOBJ[data.asd]} />;
 		case 'video_surveillance':
 			return <VideoSurveillance data={data.newOBJ[data.asd]} />;
 		case 'wheels':

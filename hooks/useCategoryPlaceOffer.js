@@ -58,6 +58,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'manufacturer':
                 case 'type':
                 case 'display_diagonal':
+                case 'diagonal':
                 case 'display_surface':
                 case 'body_material':
                 case 'gpu':
@@ -166,6 +167,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'number_of_mounting_holes':
                 case 'salon':
                 case 'сurved_screen':
+                case 'type_size':
                     newOBJ[i].type = 'list'
                     break;
 
@@ -266,7 +268,7 @@ export const useCategoryPlaceOffer = (data) => {
                     newOBJ[i].type = 'radio'
                     break;
 
-                case 'diagonal':
+                case 'tv_diagonal':
                     newOBJ[i].type = 'slider'
                     break;
 
