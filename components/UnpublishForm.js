@@ -4,7 +4,7 @@ import { UnpublishCTX } from '../lib/Context/DialogCTX';
 import { ToRubles } from "../lib/services";
 import axios from 'axios';
 import { useOfferAccount } from '../lib/Context/OfferAccountCTX';
-import { BASE_URL} from '../lib/constants';
+import { BASE_URL } from '../lib/constants';
 const useStyles = makeStyles((theme) => ({
 	unpublish_form: {
 		display: 'flex',
@@ -79,13 +79,9 @@ export default function UnpublishForm() {
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
-<<<<<<< HEAD
-		console.warn('UnpablishForm-click',offerId);
-		var arr = { 'id': [offerId], 'active': `${e.target.parentElement.id}` }
-		console.error('UnpablishForm-click-arr', arr);
-=======
+
 		var arr = { 'id': [dataCheck], 'verify': `${e.target.parentElement.id}` }
->>>>>>> a6e8c2a36b0c277e9dd87245f9490115fbee2e48
+
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
@@ -95,8 +91,8 @@ export default function UnpublishForm() {
 		cleanAll();
 	}
 
-	console.log("_____offerData_____",offerData)
-	console.log("_____dataCheck_____",dataCheck)
+	console.log("_____offerData_____", offerData)
+	console.log("_____dataCheck_____", dataCheck)
 
 	if (dataCheck?.length === 1) {
 		/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
@@ -104,7 +100,7 @@ export default function UnpublishForm() {
 		return (
 			<Box key={offerAction.id} className={classes.unpublish_form}>
 				<Box className={classes.unpublish_form__item}>
-					{offerAction.photo 
+					{offerAction.photo
 						?.slice(0, 1)
 						.map((imgs, i) => {
 							return <CardMedia className={classes.unpublish_form__item__img} key={i} image={imgs} />
