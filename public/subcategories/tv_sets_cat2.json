@@ -1,1 +1,58 @@
-{"tv_sets_cat2": [{"alias": "type", "name": "Тип панели", "fields": ["Лучевая трубка", "Кинескоп", "ЖК"]}, {"alias": "year", "name": "Год выпуска", "fields": "NULL"}, {"alias": "brand", "name": "Брэнд", "fields": "NULL"}, {"alias": "diagonal", "name": "Диагональ", "fields": "NULL"}, {"alias": "smartTV", "name": "Смарт ТВ", "fields": ["Да", "Нет"]}, {"alias": "3dTV", "name": "Поддержка 3D", "fields": ["Да", "Нет"]}, {"alias": "screen_resolution", "name": "Разрешение экрана", "fields": ["Ultra HD (4К)", "Full HD (1080p)", "Ready (720p)"]}, {"alias": "сurved_screen", "name": "Изогнутый экран", "fields": ["Да", "Нет"]}, {"alias": "usbTV", "name": "Поддержка USB", "fields": ["Да", "Нет"]}, {"alias": "wifiTV", "name": "Поддержка Wi-Fi", "fields": ["Да", "Нет"]}, {"alias": "bluetoothTV", "name": "Поддержка bluetooth", "fields": ["Да", "Нет"]}]}
+{
+  "tv_sets_cat2": [
+    {
+      "alias": "type",
+      "name": "Тип панели",
+      "fields": ["Лучевая трубка", "Кинескоп", "ЖК"]
+    },
+    { "alias": "tv_year", "name": "Год выпуска", "fields": "NULL" },
+    {
+      "alias": "brand",
+      "name": "Брэнд",
+      "fields": [
+        "BBK",
+        "BQ",
+        "DIGMA",
+        "ERISSON",
+        "HISENSE",
+        "HUAWEI",
+        "HYUNDAI",
+        "IRBIS",
+        "KIVI",
+        "LG",
+        "PHILIPS",
+        "POLARLINE",
+        "PRESTIGI",
+        "SAMSUNG",
+        "SHARP",
+        "SONY",
+        "STARWIND",
+        "SUNWIND",
+        "SUPRA",
+        "TCL",
+        "TELEFUNKEN",
+        "XIAOMI"
+      ]
+    },
+    { "alias": "diagonal", "name": "Диагональ", "fields": [10, 70] },
+    { "alias": "smartTV", "name": "Смарт ТВ", "fields": ["Да", "Нет"] },
+    { "alias": "3dTV", "name": "Поддержка 3D", "fields": ["Да", "Нет"] },
+    {
+      "alias": "screen_resolution",
+      "name": "Разрешение экрана",
+      "fields": ["Ultra HD (4К)", "Full HD (1080p)", "Ready (720p)"]
+    },
+    {
+      "alias": "сurved_screen",
+      "name": "Изогнутый экран",
+      "fields": ["Да", "Нет"]
+    },
+    { "alias": "usbTV", "name": "Поддержка USB", "fields": ["Да", "Нет"] },
+    { "alias": "wifiTV", "name": "Поддержка Wi-Fi", "fields": ["Да", "Нет"] },
+    {
+      "alias": "bluetoothTV",
+      "name": "Поддержка bluetooth",
+      "fields": ["Да", "Нет"]
+    }
+  ]
+}
