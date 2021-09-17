@@ -36,54 +36,52 @@ export default function offerActive(offer) {
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false);
-	const [offerId, setOfferId] = useState();
+	const [dataCheck, setDataCheck] = useState();
 	const offerData = offer.offer;
-	useEffect(() => {
+	/* const cleanAll = offer.cleanAll() */
+	/* useEffect(() => {
 		offer.filterDataCheck({
 			id: offer.offer.id,
 			check: check,
 		})
-	}, [])
+	}, []) */
 
 	useEffect(() => {
-		if ( offer.parentCheck && check===false ) { handleCheck(offer.parentCheck) }
+		offer.parentCheck ? check ? null : ( offer.getChildCheck({id: offer.offer.id, isChecked: offer.parentCheck}), setCheck(offer.parentCheck) ) : check===false ? null : offer.dataCheck.length===0 ? (offer.getChildCheck({id: offer.offer.id, isChecked: offer.parentCheck}), setCheck(offer.parentCheck)) : null;
+		/* if ( offer.parentCheck && check===false ) { handleCheck(offer.parentCheck) }
 		else if ( offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false)==="undefined" ) { null }
 		else {
 			if ( offer.parentCheck===false && check && offer.dataChecked.length > 0 ) { null }
 			else if( offer.parentCheck===false && offer.dataChecked.length===0 ) { handleCheck(offer.parentCheck) }
 			else { handleCheck(offer.parentCheck) }
-		}				
+		}	 */			
 	}, [offer.parentCheck])
 
 	useEffect(() => {
-		offer.openUnpublishForm===false&&offer.dataChecked.length===0 ? setCheck(false) : null
-	}, [offer.openUnpublishForm])
-
-	const handleCheck = (changeCheck) => {
+		offer.openUnpublishForm === false && offer.dataCheck.length === 0 ? setCheck(false) : null
+	}, [offer.openUnpublishForm]) 
+	
+	/* const handleCheck = (changeCheck) => {
 		setCheck(changeCheck);
 		offer.getChildCheck({
 			id: offer.offer.id,
 			check: changeCheck,
 		},offer.offer);
-	}
-
-	console.log(offer,`offer ${offer.offer.id} maunt`)
+	} */
 
 	/* Модальное окно */
 	
 	function pushCheck(e) {
 		if (e.target.value !== '') {
-			setOfferId([+e.target.value])
+			setDataCheck([+e.target.value])
 		}
 		setOpenUnpublishForm(!openUnpublishForm)
 		handleUnpublishFormDialog()
 	}
 
-	// console.log(openUnpublishForm,"openUnpublishForm open/close")
-
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
-		<UnpublishCTX.Provider value={{ offerId, offerData, openUnpublishForm, setOpenUnpublishForm }}>
+		<UnpublishCTX.Provider value={{ dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, /* cleanAll  */}}>
 			<a href={`/product/${offer.offer.id}`} key={offer.i}
 				className="offerContainer boxWrapper">
 				<div className="offerImage">
@@ -94,7 +92,7 @@ export default function offerActive(offer) {
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.offer.id}
-							onChange={(event) => {handleCheck(event.target.checked)}}
+							onChange={(event) => {setCheck(event.target.checked); offer.getChildCheck({id: offer.offer.id, isChecked: event.target.checked}); /* handleCheck(event.target.checked) */}}
 							checked={check}
 						/>
 					</div>
@@ -127,7 +125,6 @@ export default function offerActive(offer) {
 									Снять с публикации
 								</button>
 							</a>
-							
 							<div className="offerSocialCount offerSocialCountPos offerSocialCountPosActive">
 								<div className="offerShowes showesIcon">0 +0</div>
 								<div className="offerAddFavores likeIcon">0 +0</div>
