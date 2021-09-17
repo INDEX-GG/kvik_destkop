@@ -135,7 +135,7 @@ export default function offerActive(offer) {
 
 						</div>
 					</div>
-					<div className="offerDescriptionBottom">
+					<div style={{visibility: 'hidden'}} className="offerDescriptionBottom">
 						<button className="offerButtonViews button contained">Увеличить просмотры</button>
 					</div>
 				</div>

@@ -5,7 +5,7 @@ import EmptyPlaceholder from "../../../EmptyPlaceholder";
 function Sales(data) {
   const salesDealsBox = data.deals.filter((deal) => deal.status === 0);
 
-  if (salesDealsBox.lenght == 0) {
+  if (salesDealsBox.lenght !== 0) {
     return (
       	<EmptyPlaceholder 
 		title='Сюда будут попадать товары, проданные вами' 
@@ -36,7 +36,7 @@ function Sales(data) {
               <a className="thin highlight">Детали спора</a>
             </div>
           </div>
-          <div className="dealDescriptionBottom">
+          <div style={{visibility: 'hidden'}} className="dealDescriptionBottom">
             <button className="button contained dealButtonViews">Получить деньги</button>
           </div>
         </div>

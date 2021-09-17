@@ -1,13 +1,24 @@
 import React from 'react';
 import { ToRubles } from '../../../../lib/services';
+import EmptyPlaceholder from '../../../EmptyPlaceholder';
 
 function Balance(data) {
+
+
+	if (data) {
+    	return (
+			<EmptyPlaceholder 
+			title='Здесь будет ваш кошелёк'
+			subtitle='Текст'/>
+    	);
+  	}
+
    return (
       <div className="walletBalanceContainer">
          <div className="walletBalanceNum">
             {ToRubles(data.balance)}
          </div>
-         <button className="plusButton">
+         <button style={{visibility: 'hidden'}} className="plusButton">
             Пополнить баланс
          </button>
          <a className="walletSet thin highlight underline">Настроить автоматическое пополнение кошелька</a>
