@@ -19,9 +19,14 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
+let sender = {"id": 84, "name": "Станислав Даль"}
+let recipient = {"id": 6}
 
-const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
-// const socket = io('http://192.168.8.111:6066/')
+
+// const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
+const socket = io('http://127.0.0.1:5000')
+socket.emit('join', {'sender': sender, 'recipient': recipient})
+
 
 const Messenger = () => {
 	const classes = useStyles();
@@ -30,10 +35,10 @@ const Messenger = () => {
 
 	const handleSend = () => {
 		console.log('Отправка')
-		socket.emit('message', msg)
+		socket.emit('text', {'message': msg, 'sender': sender, 'recipient': recipient})
 	}
 
-	socket.on('message', (data) => {
+	socket.on('text', (data) => {
 		console.log(data);
 		setMsgList(data)
 	})
