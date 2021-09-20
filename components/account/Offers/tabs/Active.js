@@ -34,132 +34,93 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function Active(data) {
+function Active({offers}) {
 	const classes = useStyles();
 
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
-	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false);
 	const [dataCheck, setDataCheck] = useState([]);
-	const [dataChecked, setDataChecked] = useState([]);
-	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
 
-	function cleanAll() {
+	
+	const cleanAll = () =>  {
+
 		setCheck(false);
 		setDataCheck([]);
-		setDataChecked([]);
-		setOfferId([]);
 		setOfferData([]);
 	}
-	function filterDataCheck(data) {
-		dataCheck.length > 0 ?
-			dataCheck.filter((item) => {
-				item.id === data.id
-			}) ? null : setDataCheck(prev => [...prev, {
-				id: data.id,
-				check: check,
-			}])
-			:
-			setDataCheck(prev => [...prev, {
-				id: data.id,
-				check: check,
-			}])
+
+	
+	function getChildCheck ({id, isChecked}) {
+		setDataCheck( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
+		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
-	function getChildCheck(newCheck, newOffer) {
-		newCheck.check ? (
-			setDataChecked(dataChecked => [...dataChecked, newCheck]),
-			setOfferData(offer => [...offer, newOffer])
-		)
-			:
-			(
-				setDataChecked(dataChecked => dataChecked.filter(item => item.id !== newCheck.id)),
-				setOfferData(offer => offer.filter(item => item.id !== newCheck.id))
-			)
-	}
-	useEffect(() => {
-		if (dataCheck.length > 0) {
-			dataCheck.length === dataChecked.length ? setCheck(true) : setCheck(false);
-		}
-	}, [dataChecked])
+
 
 	useEffect(() => {
-		openUnpublishForm ? null : setOfferId([])
-	}, [openUnpublishForm])
+		dataCheck.length===offers.length ? setCheck(true) : setCheck(false);
+	}, [dataCheck])
 
-	console.log('Что-то выделено ?');
-	// console.log("---------dataCheck-----------", dataCheck);
-	console.log("---------dataChecked--Нас-Чекнули--------", dataChecked);
-	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
-	console.log("---------offerId--- Unpablish--------", offerId);
+	console.log("---------check-----------",check);
+	console.log("---------dataCheck-----------",dataCheck);
+	console.log("---------offerData-----------", offerData);
+	console.log("---------openUnpublishForm-----------", openUnpublishForm);
+	console.log("---------offers-----------", offers); 
 
-
-	if (data.offers.length == 0) {
+	if (offers.length == 0) {
 		return (
 			<Placeholder />
 		);
 	}
-	/* Модальное окно */
 
-	function pushCheck() {
-		dataChecked.map((item) => {
-			setOfferId(prev => [...prev, item.id])
-		})
-		handleUnpublishFormDialog()
-	}
-
-	// console.log(openUnpublishForm, "UnpublishForm open/close")
-
-
+	
 	return (
-		<>
-			<UnpublishCTX.Provider
-				value={{
-					fetcher: fetch,
-					onError: (err) => {
-						console.error(err)
-					},
-					offerId,
-					offerData,
-					openUnpublishForm,
-					setOpenUnpublishForm,
-					cleanAll
-				}}
-			>
-				<div className="clientPage__container_bottom">
-					<div className="clientPage__container_nav__radio">
-						<Checkbox
-							className={classes.check}
-							color="primary"
-							value=""
-							icon={<FiberManualRecordOutlinedIcon />}
-							checkedIcon={<FiberManualRecordSharpIcon />}
-							onChange={(e) => {
-								setCheck(e.target.checked);
-								e.target.checked === false ? setDataChecked([]) : null;
-							}}
-							checked={check}
-						/>
-						<button className={classes.btn__unpublish} onClick={() => { offerData.length > 0 ? pushCheck() : null }}>
-							Снять с публикации
-						</button>
-					</div>
-					<div className="clientPage__container_content">
-						{data.offers?.map((offer, i) => {
-							return (
-								<OfferActive key={i} offer={offer} i={i}
-									parentCheck={check} getChildCheck={getChildCheck} openUnpublishForm={openUnpublishForm}
-									filterDataCheck={filterDataCheck} dataChecked={dataChecked}
-								/>
-							);
-						})}
-					</div>
+		<UnpublishCTX.Provider
+			value={{
+				fetcher: fetch,
+				onError: (err) => {
+					console.error(err)
+				},
+				dataCheck,
+				offerData,
+				openUnpublishForm, 
+				setOpenUnpublishForm,
+				cleanAll
+			}}
+		>
+			<div className="clientPage__container_bottom">
+				<div className="clientPage__container_nav__radio">
+					<Checkbox
+						className={classes.check}
+						color="primary"
+						value=""
+						icon={<FiberManualRecordOutlinedIcon />}
+						checkedIcon={<FiberManualRecordSharpIcon />}
+						onChange={(e) => {
+							e.target.checked===false ? cleanAll() : setCheck(e.target.checked);
+						}}
+						checked={check}
+					/>
+					<button className={classes.btn__unpublish} onClick={() => {offerData.length > 0 ? setOpenUnpublishForm(!openUnpublishForm) : null}}>
+						Снять с публикации
+					</button>
 				</div>
-				{<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
-					<UnpublishForm Close={handleUnpublishFormDialog} />
-				</Dialog>}
-			</UnpublishCTX.Provider>
-		</>
+				<div className="clientPage__container_content">
+					{offers?.map((offer, i) => {
+						return (
+							<OfferActive key={i} offer={offer} i={i}
+								parentCheck={check} getChildCheck={getChildCheck} parentUnpublishForm={openUnpublishForm}
+								allDataCheck={dataCheck} cleanAll={cleanAll}
+							/>
+						);
+					})}
+				</div>
+			</div>
+			{<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
+				<UnpublishForm /* Close={handleUnpublishFormDialog} для чего это? */ />
+			</Dialog> }
+		</UnpublishCTX.Provider>
+
 	);
 }
 export default Active;

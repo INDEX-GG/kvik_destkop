@@ -3,7 +3,7 @@ import { ToRubles, ellipsis } from "../../../../lib/services";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Bonus(data) {
-  if (data.data.lenght == 0) {
+  if (data.data.lenght !== 0) {
     return (
 	  <EmptyPlaceholder 
 	  title='Здесь буду ваши бонусные рубли'

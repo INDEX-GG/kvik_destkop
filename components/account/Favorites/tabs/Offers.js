@@ -1,87 +1,92 @@
-import React, { useState, useRef } from "react";
-import { ToRubles, ToRusDate } from "../../../../lib/services";
-import { useStore } from "../../../../lib/Context/Store";
-import Favorits from '../../../../UI/Favorits';
-import { BASE_URL, STATIC_URL } from "../../../../lib/constants";
+import React, { useState,useEffect} from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
-import { makeStyles, Checkbox } from "@material-ui/core";
+import { Checkbox } from "@material-ui/core";
+import OfferFavorite from "../card/offerFavorite";
+import { useStore } from "../../../../lib/Context/Store";
+import {checkArray} from '../../../../lib/services'
+import { makeStyles } from "@material-ui/styles";
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+
 
 const useStyles = makeStyles ( () => ({
-	check: {
-		position: "absolute",
+	delete: {
+		fontSize: "16px !important",
 	},
+	deleteActiv: {
+		color: "black",
+	}
 }));
+
 
 function Offers(data) {
 	const classes = useStyles();
 	const [check, setCheck] = useState(false);
-	const { setLikeComment } = useStore()
-	const ref = useRef()
-	function deleteNote(e) {
-		e.target.innerHTML = '';
-		let like = true;
-		let comment = '';
-		setLikeComment(+e.target.id, comment, like)
+	const [deleteButton, setDeleteButton] = useState(false);
+	const [dataCheck, setDataCheck] = useState([]);
+	const { userInfo, setLikeCommentArray } = useStore();
+
+	function getChildCheck(childCheck) {
+		setDataCheck(childCheck.isChecked ? prev => [...prev, childCheck.id] : dataCheck => dataCheck.filter( item => item !== childCheck.id ));
 	}
+	
+	const getFavoritsUser = (likeId) => {
+		let favoritesArray = [];
+        likeId.map( (items) => {
+			let comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === +items)[0])?.comment !== undefined ? (userInfo?.favorites.filter(item => item.post_id === +items)[0])?.comment : ''
+        	let like = checkArray(userInfo?.favorites) && userInfo.favorites.filter(item => item.post_id === +items).map(item => item.condition).join() === 'false' ? true : false
+        	favoritesArray.push({
+				post_id: `${items}`,
+				comment: `${comment}`,
+				condition: `${like}`,
+			})
+		})
+		setLikeCommentArray(favoritesArray)
+    }
+	
+	useEffect(() => {
+		dataCheck.length > 0 ? data.itemsPost.length===dataCheck.length ? setCheck(true) : setCheck(false) : null;
+	}, [dataCheck])
+
 	if (data.itemsPost?.length === 0 || data.itemsPost?.length === undefined) {
 		return (
 			<EmptyPlaceholder
-			title='Добавьте объявление в избранное, чтобы не потерять'
-			subtitle='Нажмите на соответствующую кнопку (на кнопку добавления, на сердечко, на 💙️), чтобы добавить объявление в избранное'/>
+				title='Добавьте объявление в избранное, чтобы не потерять'
+				subtitle='Нажмите на соответствующую кнопку (на кнопку добавления, на сердечко, на 💙️), чтобы добавить объявление в избранное'
+			/>
 		);
 	}
-	console.log("ref=========>", ref)
+	
 	return (
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_nav__radio">
 				<Checkbox
 					color="primary"
-					onChange={(e) =>{ setCheck(!check) 
-						ref.current.checked = e.target.checked
-					}}
+					onChange={(event) =>{ setCheck(!check); event.target.checked ? null : setDataCheck([])}}
 					checked={check}
+					icon={<FiberManualRecordOutlinedIcon />}
+					checkedIcon={<FiberManualRecordSharpIcon />}
 				/>
-				<a>Удалить</a>
+				<a 	
+					onClick={ () =>	dataCheck.length > 0 ? (getFavoritsUser(dataCheck), setDataCheck([]), setCheck(false), setDeleteButton(!deleteButton)) : null } 
+					style={dataCheck.length > 0 ? {color: "black"} : null } 
+					className={classes.delete}
+				>
+					Удалить
+				</a>
 			</div>
 			<div className="clientPage__container_content">
 				<div className="favoritesContainerWrapper">
 					{data.itemsPost?.map((offer, i) =>
-						<a key={i} href={`/product/${offer.id}`}  className="favoritesContainer boxWrapper">
-							<div className="favoritesImage">
-								<div className="favoritesPubCheck">
-								<Checkbox
-									className={classes.check}
-									color="primary"
-									inputRef={ref}
-								/>
-								</div>
-								<a className="favoritesCompare"></a>
-								<a href="javascript:void(0);" ><Favorits favId={offer.id} isAccountCard /></a>
-									 <img key={i} src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`} />
-								{offer.user_blocked &&
-									<div className="favoritesCause megaLight">Пользователь заблокирован</div>
-								}
-							</div>
-							<div className="favoritesDescription">
-								<a href={`/user/${offer.user_id}`} className="favoritesUserBlock small">
-									<div>
-										<div className='favoritesDescriptionUserName'>{offer.user_name}</div>
-										<div className="favoritesDatPub light DatPub__mobile">
-											{" "}
-											{ToRusDate(offer.created_at)}
-										</div>
-									</div>
-									<img className="favoritesUserpic" src={`${STATIC_URL}/${offer.user_photo}`} onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}/>
-								</a>
-								<div className="favoritesMiddle">
-									<div>{ToRubles(offer.price)}</div>
-									<div>{offer.title}</div>
-									<div className="thin small light">{offer.address}</div>
-								</div>
-								<a  id={offer.id} onClick={(e) => deleteNote(e)} className="favoritesNote">{offer.comment}</a>
-								<a className="favoritesButton buttonGrey small">Сообщить об изменении цены</a>
-							</div>
-						</a>
+						<OfferFavorite 
+							offer={offer} 
+							key={i} 
+							i={i}
+							parentCheck={check} 
+							getChildCheck={getChildCheck} 
+							dataCheck={dataCheck}
+							deleteButton={deleteButton}
+						/>
 					)}
 				</div>
 			</div>

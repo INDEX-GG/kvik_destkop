@@ -3,6 +3,7 @@ import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
 import { observerGenerate } from '../lib/scrollAds';
+import Loader from '../UI/icons/Loader';
 // import EndMessage from './EndMessage';
 
 const useStyles = makeStyles(() => ({
@@ -91,6 +92,7 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 				<div className="scrollableOffersHome">
 					{state.sorting(data)?.map((obj, i) => i == data.length - 1 ? <AdCard_component ref={lastElement} key={i} offer={obj} /> : <AdCard_component key={i} offer={obj} />)}
 				</div>
+				{page == 'end' ? null : <div className='offer__placeholder_loader'><Loader /></div>}
 				{/* {data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null} */}
 			<div className={classes.messageEnd}>
 				{/* {endMessage && data?.length ? <EndMessage/> : null} */}
