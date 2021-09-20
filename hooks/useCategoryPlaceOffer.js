@@ -48,22 +48,25 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'type_drive':
                 case 'type_box':
                 case 'type_fuel':
+                case 'prepayment':
                 case 'diameter':
-                case 'room_number':
+                case 'smart_manufacturer':
                 case 'exchange_is_possible':
+                case 'type_law':
+                case 'type_sale':
+                case 'manufacturer':
+                case 'type_transaction':
+                case 'tablet_manufacturer':
                     newOBJ[i].type = 'listRec'
                     break;
 
                 case 'type_park':
-                case 'manufacturer':
                 case 'type':
                 case 'display_diagonal':
+                case 'diagonal':
                 case 'display_surface':
-                case 'body_material':
                 case 'gpu':
                 case 'matrix_type':
-                case 'discrete_graphics_manufacturer':
-                case 'the_weight':
                 case 'display_resolution':
                 case 'cpu':
                 case 'builtin_memory':
@@ -77,9 +80,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'battery_capacity':
                 case 'operating_system':
                 case 'memory_card_slot':
-                case 'connectors_and_interfaces':
                 case 'aspect_ratio':
-                case 'features_of_the':
                 case 'form_factor':
                 case 'number_of_sim_cards':
                 case 'sim_availability':
@@ -142,7 +143,6 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'tenure':
                 case 'furniture':
                 case 'communal_payments':
-                case 'prepayment':
                 case 'bathrooms_number':
                 case 'balcony_number':
                 case 'garage':
@@ -157,7 +157,6 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'road':
                 case 'project_availability':
                 case 'availability_buildings':
-                case 'type_law':
                 case 'finishing':
                 case 'complectations':
                 case 'rim_width':
@@ -165,7 +164,22 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'bolt_distance':
                 case 'number_of_mounting_holes':
                 case 'salon':
+                case 'the_presence_of_a_discrete_video_card':
                 case 'сurved_screen':
+                case 'number_of_memory_slots':
+                case 'type_size':
+                case 'manipulators__input_devices_type':
+                case 'chipset':
+                case 'memory_type':
+                case 'type_of_abroad_property':
+                case 'country_of_abroad_property':
+                case 'time_of_rent_abroad_property':
+                case 'pledge_abroad_property':
+                case 'socket':
+                case 'graphics_card_manufacturer':
+                case 'chip_manufacturer':
+                case 'motherboard_manufacturer':
+                case 'ram_size':
                     newOBJ[i].type = 'list'
                     break;
 
@@ -180,13 +194,13 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'commission':
                 case 'room_count':
                 case 'home_area':
-                case 'land_area':
                 case 'number_of_storeys':
                 case 'security_payment':
                 case 'count_floor':
                 case 'vine':
                 case 'mileage':
                 case 'engine_volume':
+                case 'room_number':
                 case 'owners_of_pts':
                     newOBJ[i].type = 'textRec'
                     break;
@@ -198,7 +212,6 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'electric_power':
                 case 'distance_to_city':
                 case 'breed':
-                case 'features':
                 case 'discrete_graphics_series':
                 case 'total_ram':
                 case 'hard_drives_and_ssd':
@@ -212,11 +225,16 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'number_of_tires':
                 case 'tire_year':
                 case 'marking':
+                case 'the_weight':
                 case 'disc_model':
                 case 'disc_type':
                 case 'number_of_discs_included':
                 case 'tires_and_rims':
+                case 'charge_power':
+                case 'discrete_graphics_manufacturer':
+                case 'land_area':
                 case 'tv_year':
+                case "manipulators__input_devices_name":
                     newOBJ[i].type = 'text'
                     break;
 
@@ -228,15 +246,10 @@ export const useCategoryPlaceOffer = (data) => {
 
                 case 'colour':// НЕТ В ТЗ
                 case 'airbags': // НЕТ В ТЗ
-                case 'the_presence_of_a_discrete_video_card':
-                case 'motherboard_manufacturer':
-                case 'number_of_memory_slots':
-                case 'socket':
-                case 'memory_type':
                 case 'power_supply_power':
-                case 'chipset':
+                case 'features_of_the':
                 case 'features_of_the_body':
-                case 'chip_manufacturer':
+                case 'features':
                 case 'infrastructure':
                 case 'floor':
                 case 'accommodations':
@@ -244,9 +257,7 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'communications':
                 case 'additionally':
                 case 'multimedia':
-                case 'type_sale':
                 case 'included':
-                case 'type_transaction':
                 case 'possible_appointment':
                 case 'communications_checkbox':
                 case 'driving_assistance':
@@ -255,10 +266,12 @@ export const useCategoryPlaceOffer = (data) => {
                 case 'support_systems':
                 case 'multimedia_and_navigation':
                 case 'set_tires':
+                case 'connectors_and_interfaces':
+                case 'smart_communication':
+                case 'body_material':
                     newOBJ[i].type = 'checkbox'
                     break;
 
-                case 'ram_size':
                 case 'work_experience':
                 case 'age':
                 case 'experience':
@@ -266,7 +279,7 @@ export const useCategoryPlaceOffer = (data) => {
                     newOBJ[i].type = 'radio'
                     break;
 
-                case 'diagonal':
+                case 'tv_diagonal':
                     newOBJ[i].type = 'slider'
                     break;
 

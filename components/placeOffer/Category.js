@@ -67,7 +67,7 @@ const Category = () => {
                             ))}
                         </TextField>
                     )}
-                    rules={{ required: 'Выбирите Категорию' }}
+                    rules={{ required: 'Выберете Категорию' }}
                 />
 
                 {methods.watch('alias1') && <Controller
@@ -96,7 +96,7 @@ const Category = () => {
                             ))}
                         </TextField>
                     )}
-                    rules={{ required: 'Выбирите Категорию' }}
+                    rules={{ required: 'Выберете Категорию' }}
                 />}
 
                 {categoriesByAlias(methods.watch('alias1'), methods.watch('alias2')) &&
@@ -125,7 +125,7 @@ const Category = () => {
                             ))}
                         </TextField>
                     )}
-                    rules={{ required: 'Выбирите Категорию' }}
+                    rules={{ required: 'Выберете Категорию' }}
                 />}
 
                 {categoriesByAlias(methods.watch('alias1'), methods.watch('alias2'), methods.watch('alias3')) &&
@@ -151,7 +151,7 @@ const Category = () => {
                             ))}
                         </TextField>
                     )}
-                    rules={{ required: 'Выбирите Категорию' }}
+                    rules={{ required: 'Выберете Категорию' }}
                 />}
             </Box>
         </Box>

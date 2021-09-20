@@ -279,7 +279,7 @@ export default function Auto({ data }) {
                                                             ))}
                                                         </TextField>
                                                     )}
-                                                    rules={{ required: 'Выбирите ' + item.name }}
+                                                    rules={{ required: 'Выберете ' + item.name }}
                                                 />
                                             </Box>
                                         </Box>
@@ -309,7 +309,7 @@ export default function Auto({ data }) {
                                                                 ))}
                                                             </TextField>
                                                         )}
-                                                        rules={{ required: 'Выбирите Модель'}}
+                                                        rules={{ required: 'Выберете Модель'}}
                                                     />
                                                 </Box>
                                             </Box>
@@ -339,7 +339,7 @@ export default function Auto({ data }) {
                                                                 )))}
                                                             </TextField>
                                                         )}
-                                                        rules={{ required: 'Выбирите Поколение'  }}
+                                                        rules={{ required: 'Выберете Поколение'  }}
                                                     />
                                                 </Box>
                                             </Box>
@@ -372,7 +372,7 @@ export default function Auto({ data }) {
                                                                 })}
                                                             </TextField>
                                                         )}
-                                                        rules={{ required: 'Выбирите Модификацию' }}
+                                                        rules={{ required: 'Выберете Модификацию' }}
                                                     />
                                                 </Box>
                                             </Box>
@@ -435,7 +435,7 @@ export default function Auto({ data }) {
                                                                                             )}
                                                                                         </TextField>
                                                                                     )}
-                                                                                    rules={{ required: 'Выбирите Комплектацию' }}
+                                                                                    rules={{ required: 'Выберете Комплектацию' }}
                                                                                 />
                                                                             </Box>
                                                                         </Box>
@@ -491,7 +491,7 @@ export default function Auto({ data }) {
                                                                                             )}
                                                                                         </TextField>
                                                                                     )}
-                                                                                    rules={{ required: 'Выбирите ' + item.name }}
+                                                                                    rules={{ required: 'Выберете ' + item.name }}
                                                                                 />
                                                                             </Box>
                                                                         </Box>
@@ -581,7 +581,7 @@ export default function Auto({ data }) {
                                                         ))}
                                                     </TextField>
                                                 )}
-                                                rules={{ required: 'Выбирите ' + item.name }}
+                                                rules={{ required: 'Выберете ' + item.name }}
                                             />
                                         </Box>
                                     </Box>
@@ -634,7 +634,7 @@ export default function Auto({ data }) {
                                                 helperText={error ? error.message : ' '}>
                                             </TextField>
                                         )}
-                                        rules={{ required: 'Выбирите ' + item.name }}
+                                        rules={{ required: 'Выберете ' + item.name }}
                                     />
                                 </Box>
                             </Box>
@@ -737,7 +737,7 @@ export default function Auto({ data }) {
                                         <FormHelperText className={classes.formError}>{error ? error.message : ' '}</FormHelperText>
                                     </RadioGroup>
                                 )}
-                                rules={{ required: 'Выбирите цвет' }}
+                                rules={{ required: 'Выберете цвет' }}
                             />
                         </Box>
                     </Box>
