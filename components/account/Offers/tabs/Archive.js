@@ -58,7 +58,12 @@ function Archive(data) {
 
 	const handleDelActiveFormDialog = () => setOpenDelActiveForm(!openDelActiveForm);
 
-	function cleanAll() {
+	console.log('DATAAAAA', data.offers);
+	
+
+
+
+	const cleanAll = () => {
 		setCheck(false);
 		setDataCheck([]);
 		setDataChecked([]);
@@ -101,13 +106,13 @@ function Archive(data) {
 		openDelActiveForm ? null : setOfferId([])
 	}, [openDelActiveForm])
 
-	console.log('Что-то выделено ?');
-	console.log("---------check-----------", check);
-	console.log("---------dataCheck-----------", dataCheck);
-	console.log("---------dataChecked--Нас-Чекнули--------", dataChecked);
-	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
-	console.log("---------offer---нас всех чекнули-------", offerData);
-	console.log("---------offerId-----------", offerId);
+	// console.log('Что-то выделено ?');
+	// console.log("---------check-----------", check);
+	// console.log("---------dataCheck-----------", dataCheck);
+	// console.log("---------dataChecked--Нас-Чекнули--------", dataChecked);
+	// console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
+	// console.log("---------offer---нас всех чекнули-------", offerData);
+	// console.log("---------offerId-----------", offerId);
 
 	if (data.offers.length == 0) {
 		return (

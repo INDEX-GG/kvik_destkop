@@ -11,7 +11,7 @@ function LeftReviews(data) {
 	  />
     );
   }
-
+  console.log(data)
   return (
     <div className="clientPage__container_bottom">
       <div className="clientPage__container_nav__radio reviewsDelete">

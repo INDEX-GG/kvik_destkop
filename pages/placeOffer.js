@@ -22,40 +22,41 @@ import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../lib/constants';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        position: 'relative',
-        flexDirection: 'column',
-        alignItems: 'center',
-        flexGrow: 1,
-        marginTop: '25px',
-        [theme.breakpoints.down('md')]: {
-            paddingLeft: '220px',
-        },
-    },
-    title: {
-        marginBottom: theme.spacing(1),
-    },
-    offersBox: {
-        width: '712px',
-    },
-    formPart: {
-        padding: theme.spacing(4),
-        borderRadius: theme.shape.borderRadius,
-        boxShadow: theme.shadows[2],
-        marginBottom: theme.spacing(4),
-    },
-    submit: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    backdrop: {
-        zIndex: 2000,
-        backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    },
+	root: {
+		position: 'relative',
+		flexDirection: 'column',
+		alignItems: 'center',
+		flexGrow: 1,
+		marginTop: '25px',
+		[theme.breakpoints.down('md')]: {
+			paddingLeft: '220px',
+		},
+	},
+	title: {
+		marginBottom: theme.spacing(1),
+	},
+	offersBox: {
+		width: '712px',
+	},
+	formPart: {
+		padding: theme.spacing(4),
+		borderRadius: theme.shape.borderRadius,
+		boxShadow: theme.shadows[2],
+		marginBottom: theme.spacing(4),
+	},
+	submit: {
+		display: 'flex',
+		alignItems: 'center'
+	},
+	backdrop: {
+		zIndex: 2000,
+		backgroundColor: 'rgba(255, 255, 255, 0.85)',
+	},
 
 }));
 
 function PlaceOffer() {
+
     const { id } = useAuth();
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
@@ -252,6 +253,7 @@ function PlaceOffer() {
                 </Backdrop>
             </MetaLayout>
     )
+
 }
 
 export default PlaceOffer;
