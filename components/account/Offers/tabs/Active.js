@@ -44,8 +44,8 @@ function Active(data) {
 	const [dataChecked, setDataChecked] = useState([]);
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
-	
-	function cleanAll () {
+
+	function cleanAll() {
 		setCheck(false);
 		setDataCheck([]);
 		setDataChecked([]);
@@ -53,33 +53,33 @@ function Active(data) {
 		setOfferData([]);
 	}
 	function filterDataCheck(data) {
-		dataCheck.length > 0 ? 
-		dataCheck.filter((item) => {
-			item.id === data.id
-		}) ? null : setDataCheck(prev => [ ...prev, {
-			id: data.id,
-			check: check,
-		}])
-		:
-		setDataCheck(prev => [ ...prev, {
-			id: data.id,
-			check: check,
-		}])
+		dataCheck.length > 0 ?
+			dataCheck.filter((item) => {
+				item.id === data.id
+			}) ? null : setDataCheck(prev => [...prev, {
+				id: data.id,
+				check: check,
+			}])
+			:
+			setDataCheck(prev => [...prev, {
+				id: data.id,
+				check: check,
+			}])
 	}
-	function getChildCheck (newCheck, newOffer) {
+	function getChildCheck(newCheck, newOffer) {
 		newCheck.check ? (
-				setDataChecked(dataChecked => [...dataChecked, newCheck]), 
-				setOfferData( offer => [...offer, newOffer])
-			)
-			:	
-			( 	
-				setDataChecked(dataChecked => dataChecked.filter( item => item.id !== newCheck.id )),
-				setOfferData( offer => offer.filter( item => item.id !== newCheck.id ))
+			setDataChecked(dataChecked => [...dataChecked, newCheck]),
+			setOfferData(offer => [...offer, newOffer])
+		)
+			:
+			(
+				setDataChecked(dataChecked => dataChecked.filter(item => item.id !== newCheck.id)),
+				setOfferData(offer => offer.filter(item => item.id !== newCheck.id))
 			)
 	}
 	useEffect(() => {
-		if(dataCheck.length > 0){
-			dataCheck.length===dataChecked.length ? setCheck(true) : setCheck(false);
+		if (dataCheck.length > 0) {
+			dataCheck.length === dataChecked.length ? setCheck(true) : setCheck(false);
 		}
 	}, [dataChecked])
 
@@ -100,17 +100,17 @@ function Active(data) {
 		);
 	}
 	/* Модальное окно */
-	
+
 	function pushCheck() {
-		dataChecked.map( (item) => {
-			setOfferId( prev => [...prev, item.id])
+		dataChecked.map((item) => {
+			setOfferId(prev => [...prev, item.id])
 		})
 		handleUnpublishFormDialog()
 	}
-	
+
 	// console.log(openUnpublishForm, "UnpublishForm open/close")
-	
-	
+
+
 	return (
 		<>
 			<UnpublishCTX.Provider
@@ -121,9 +121,9 @@ function Active(data) {
 					},
 					offerId,
 					offerData,
-					openUnpublishForm, 
+					openUnpublishForm,
 					setOpenUnpublishForm,
-					cleanAll	
+					cleanAll
 				}}
 			>
 				<div className="clientPage__container_bottom">
@@ -134,14 +134,14 @@ function Active(data) {
 							value=""
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
-							onChange={(e) => { 
+							onChange={(e) => {
 								setCheck(e.target.checked);
-								e.target.checked===false ? setDataChecked([]) : null;
+								e.target.checked === false ? setDataChecked([]) : null;
 							}}
 							checked={check}
 						/>
-						<button className={classes.btn__unpublish} onClick={() => {offerData.length > 0 ? pushCheck() : null}}>
-							Снять с публикации					
+						<button className={classes.btn__unpublish} onClick={() => { offerData.length > 0 ? pushCheck() : null }}>
+							Снять с публикации
 						</button>
 					</div>
 					<div className="clientPage__container_content">
@@ -156,8 +156,8 @@ function Active(data) {
 					</div>
 				</div>
 				{<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="md">
-        			<UnpublishForm Close={handleUnpublishFormDialog} />
-      			</Dialog> }
+					<UnpublishForm Close={handleUnpublishFormDialog} />
+				</Dialog>}
 			</UnpublishCTX.Provider>
 		</>
 	);

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: theme.spacing(3),
 	},
 	formTitleField: {
-        fontSize: '14px',
+		fontSize: '14px',
 		flexGrow: 1,
 		padding: '4px 0',
 	},
@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Title = () => {
+const Title = ({ title }) => {
 
 	const classes = useStyles();
 	const methods = useFormContext();
 
+	console.log("🚀 ~ file: Title.js ~ line 34 ~ Title ~ title", title)
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Название</Typography>
@@ -30,7 +31,8 @@ const Title = () => {
 				<Controller
 					name="title"
 					control={methods.control}
-					defaultValue=""
+					defaultValue={`${title}`}
+					// defaultValue='Rhtdtnrf'
 					render={({ field: { onChange, value }, fieldState: { error } }) => (
 						<TextField
 							variant='outlined'
@@ -39,12 +41,12 @@ const Title = () => {
 							autoComplete="on"
 							value={value}
 							onChange={onChange}
-							inputProps={{maxLength: 50}}
-							error={!!error} helperText={error ? error.message : ' '} />	
+							inputProps={{ maxLength: 50 }}
+							error={!!error} helperText={error ? error.message : ' '} />
 					)}
 					rules={{
 						required: 'Введите название Товара',
-						pattern: {value: invalidСharacterProduct(), message: 'Недопустимые символы' },
+						pattern: { value: invalidСharacterProduct(), message: 'Недопустимые символы' },
 					}}
 				/>
 			</Box>
