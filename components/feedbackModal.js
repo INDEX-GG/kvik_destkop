@@ -70,6 +70,7 @@ function FeedbackModal({offer}) {
     const [disable, setDisable] = React.useState(false)
     console.log("disable===========?>", disable)
     console.log("dataCard===========?>", offer)
+    /*dsfdsf*/
     return (
         <Box className={classes.feedModal__wrapper}>
             <Box className={classes.feedModal__modal}>
