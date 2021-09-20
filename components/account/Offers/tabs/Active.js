@@ -105,7 +105,7 @@ function Active({offers}) {
 						return (
 							<OfferActive key={i} offer={offer} i={i}
 								parentCheck={check} getChildCheck={getChildCheck} parentUnpublishForm={openUnpublishForm}
-								allDataCheck={dataCheck} cleanAll={cleanAll}
+								allDataCheck={dataCheck} /* clean={cleanAll} */
 							/>
 						);
 					})}

@@ -1,64 +1,72 @@
-import React from "react";
-import { ToRubles } from "../../../../lib/services";
+import { Checkbox} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
+import ReviewWait from "../card/reviewWait";
 
-function WaitReviews(data) {
-  if (data.data.lenght == 0) {
-    return (
-	  <EmptyPlaceholder
-	  title='Сюда будут попадать объявления, на которые вы сможете оставлять отзывы'
-	  subtitle='Договаривайтесь о сделках с другими пользователями и ставьте им свои оценки'
-	  />
-    );
+
+
+
+
+function WaitReviews({data}) {
+  const [check, setCheck] = useState(false);
+  const [dataCheck, setDataCheck] = useState([])
+  
+
+  function getChildData({id, isCheck}) {
+    setDataCheck( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id))
+    //setDataCard( isCheck ? prev => [...prev, data.filter( item => item.id == id)[0]] : prev => prev.filter( item => item.id !== id))
   }
 
+  useEffect( () => {
+    dataCheck.length === data.length ? setCheck(true) : setCheck(false)
+  }, [dataCheck])
+  
+  console.log("data========>", data);
+  console.log("dataCheck========>", dataCheck);
+  
+
+  if (data.lenght == 0) {
+    return (
+      <EmptyPlaceholder
+        title='Сюда будут попадать объявления, на которые вы сможете оставлять отзывы'
+        subtitle='Договаривайтесь о сделках с другими пользователями и ставьте им свои оценки'
+      />
+    );
+  }
   return (
     <div className="clientPage__container_bottom">
       <div className="clientPage__container_nav__radio">
-        <label className="checkbox">
-          <input type="checkbox" />
-          <div className="checkbox__text"></div>
-        </label>
-        <a>Удалить</a>
+        <Checkbox
+          color='primary'
+          icon={<FiberManualRecordOutlinedIcon />}
+          checkedIcon={<FiberManualRecordSharpIcon />}
+          onChange={(event) => {setCheck(event.target.checked); event.target.checked ? null : setDataCheck([])}}
+          checked={check}
+        />
+        <a 
+          onClick={() => dataCheck.length > 0 ? console.log("clicked") : null}
+          style={dataCheck.length > 0 ? {color: "black"} : null}
+        >Удалить</a>
       </div>
       <div className="clientPage__container_content">
         <div className="reviewsContainerWrapper">
-          {data.data.map((offer, i) => {
-            return (
-              <div key={i} className="reviewsContainer boxWrapper">
-                <div className="reviewsImage">
-                  <div className="reviewsPubCheck">
-                    <label className="checkbox">
-                      <input type="checkbox" />
-                      <div className="checkbox__text"></div>
-                    </label>
-                  </div>
-                  <img src={`${offer.img}?${offer.id}`} />
-                </div>
-                <div className="reviewsDescription">
-                  <div className="reviewsUserBlock small">
-                    <div>
-                      <div>{offer.username}</div>
-                      <div className="light DatPub__mobile">
-                        {" "}
-                        <span> Дата публикации </span>
-                        {offer.date}
-                      </div>
-                    </div>
-                    <img className="reviewsUserpic" src={`${offer.userpic}?${offer.id}`} />
-                  </div>
-                  <div className="reviewsMiddle">
-                    <div>{ToRubles(offer.price)}</div>
-                    <div>{offer.title}</div>
-                    <div className="thin small light">{offer.locality}</div>
-                  </div>
-                  <a className="buttonGrey small reviewsButton">Оставить отзыв</a>
-                </div>
-              </div>
-            );
-          })}
+          { 
+            data.map((offer,) => {
+              return (  <ReviewWait 
+                          key={offer.id} 
+                          offer={offer}
+                          parentCheck={check}
+                          getChildData={getChildData}
+                          dataCheck={dataCheck}
+                        />
+              )
+            })
+          }
         </div>
       </div>
+      
     </div>
   );
 }
