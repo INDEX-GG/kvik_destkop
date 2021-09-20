@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MfpsAndScanners({ data }) {
+export default function OneListPlaseholder({ data }) {
   const methods = useFormContext();
   const classes = useStyles();
   console.log("odgs ++++>", data);
@@ -46,7 +46,7 @@ export default function MfpsAndScanners({ data }) {
           case "list":
             return (
               <Box key={idx} className={classes.formElem}>
-                <Typography className={classes.formTitleField} style={{maxWidth: item.alias === "size_page_mfps_and_scanners" || item.alias === "duplex_mfps_and_scanners" ? 158 : null}}>
+                <Typography className={classes.formTitleField} style={{maxWidth: item.alias === "size_page_mfps_and_scanners" || item.alias === "duplex_mfps_and_scanners" || item.alias === "ram_type" || item.alias === "graphics_card_manufacturer" ? 158 : null}}>
                   {item.name}
                 </Typography>
                 <Box className={classes.formInputField}>

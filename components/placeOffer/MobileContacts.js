@@ -122,7 +122,7 @@ export default function MobileContact() {
 							label="Сообщения"
 						/>
 					)}
-					rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выбирите способ для обратной связи' : null }}
+					rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберете способ для обратной связи' : null }}
 				/>
 				<Controller
 					name='byphone'
@@ -143,7 +143,7 @@ export default function MobileContact() {
 							label="Телефон"
 						/>
 					)}
-					rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выбирите способ для обратной связи' : null }}
+					rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберете способ для обратной связи' : null }}
 				/>
 			</Box>
 			<Collapse in={collapsed}>
@@ -169,7 +169,7 @@ export default function MobileContact() {
 								))}
 							</TextField>
 						)}
-						rules={{ required: 'Выбирите номер для связи' }}
+						rules={{ required: 'Выберете номер для связи' }}
 					/>}
 				</Box>
 				<Button onClick={() => setCollapsed(!collapsed)} className={classes.buttonSend} color='primary' variant='contained'>Сохранить</Button>

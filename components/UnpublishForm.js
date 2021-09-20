@@ -79,13 +79,7 @@ export default function UnpublishForm() {
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
-<<<<<<< HEAD
-		console.warn('UnpablishForm-click',offerId);
-		var arr = { 'id': [offerId], 'active': `${e.target.parentElement.id}` }
-		console.error('UnpablishForm-click-arr', arr);
-=======
 		var arr = { 'id': [dataCheck], 'verify': `${e.target.parentElement.id}` }
->>>>>>> a6e8c2a36b0c277e9dd87245f9490115fbee2e48
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {

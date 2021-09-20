@@ -68,11 +68,28 @@ function PlaceOffer() {
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
+    const save = [
+        "title",
+        "alias1",
+        "description",
+        "price",
+        "trade",
+        "photoes",
+        "location",
+        "bymessages",
+        "byphone",
+        "contact",
+        "alias2",
+        "alias3",
+        "alias4"
+    ]
     // console.log(methods)
     /* получение дополнительных полей */
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd);
     useEffect(() => {
+
+
         if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
             setAsd(methods?.watch('alias4'));
         } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
@@ -82,6 +99,12 @@ function PlaceOffer() {
         } else {
             setAsd(undefined);
         }
+
+        Object.keys(methods.watch()).forEach(ali => {
+            if (!save.includes(ali)) {
+                methods.unregister(ali, '')
+            }
+        })
         /*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
              setAsd(methods?.watch('alias4'));
          } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
@@ -152,14 +175,14 @@ function PlaceOffer() {
                     let field = data[key]
                     if (key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color'){
                         if ( key === 'tires_and_rims'){
-                            let str = data[key] ? data[key].slice(0, -2) : 0
-                            field = +str 
+                            let str = data[key] ? data[key].slice(0, -2) : ''
+                            field = str 
                         }else if (key === 'mileage' ){
                             let str = data[key].slice(0, -3)
-                            field = +str
+                            field = str
                         }
                         else{
-                            field = +data[key]  
+                            field = data[key]  
                         }
                     }
                     additionalfields[asd].push({"alias": key1, "fields": field !== undefined ? field : [] })
