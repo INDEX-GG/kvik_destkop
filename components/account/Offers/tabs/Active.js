@@ -41,17 +41,21 @@ function Active({offers}) {
 	const [check, setCheck] = useState(false);
 	const [dataCheck, setDataCheck] = useState([]);
 	const [offerData, setOfferData] = useState([]);
+
 	
 	const cleanAll = () =>  {
+
 		setCheck(false);
 		setDataCheck([]);
 		setOfferData([]);
 	}
+
 	
 	function getChildCheck ({id, isChecked}) {
 		setDataCheck( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
 		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
+
 
 	useEffect(() => {
 		dataCheck.length===offers.length ? setCheck(true) : setCheck(false);
@@ -68,6 +72,7 @@ function Active({offers}) {
 			<Placeholder />
 		);
 	}
+
 	
 	return (
 		<UnpublishCTX.Provider
@@ -115,6 +120,7 @@ function Active({offers}) {
 				<UnpublishForm /* Close={handleUnpublishFormDialog} для чего это? */ />
 			</Dialog> }
 		</UnpublishCTX.Provider>
+
 	);
 }
 export default Active;
