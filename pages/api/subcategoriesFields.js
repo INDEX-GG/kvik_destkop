@@ -1,26 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 export default async function handler(req, res) {
-
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 		const main = async () => {
-			async function getSub() {
-				return await prisma.posts.findFirst({
-					where: {
-						id: Number(req.body.post_id)
-					},
-					select: {
-						subcategory: true,
-					}
-				})
-			}
-			const results = await getSub();
-			const resultName = results['subcategory'];
-
-			if (results['subcategory'] != null && results['subcategory'] !== '') {
-				const subs = await prisma.$queryRaw(`SELECT * FROM ${resultName} WHERE post_id = '${req.body.post_id}'`)
+			const subcategory = req.body.subcategory;
+			console.log(subcategory);
+			if (subcategory != null && subcategory !== '') {
+				const subs = await prisma.$queryRaw(`SELECT * FROM ${subcategory} WHERE post_id = '${req.body.post_id}'`)
 				let dict = subs[0]
-				dict.subcategory = resultName
+				dict.subcategory = subcategory
 				console.log(dict);
 				// for (var key in dict){
 				// 	if (dict[key] === false) {
@@ -32,7 +20,6 @@ export default async function handler(req, res) {
 				return { message: 'error' };
 			}
 		}
-
 		try {
 			let response = await main();
 			res.status(200);

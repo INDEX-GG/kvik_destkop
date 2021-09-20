@@ -39,7 +39,11 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 	const [dataCheck, setDataCheck] = useState();
 	const offerData = offer;
 	
-
+	const cleanAll = () => {
+		getChildCheck({id: offer.id, isChecked: false});
+		setCheck(false)
+	}
+	
 	useEffect(() => {
 		parentCheck ? check ? null : ( getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck) ) : check===false ? null : allDataCheck.length===0 ? (getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck)) : null;
 	}, [parentCheck])
@@ -48,6 +52,10 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 		parentUnpublishForm === false && allDataCheck.length === 0 ? setCheck(false) : null
 	}, [parentUnpublishForm]) 
 	
+	/* useEffect(() => {
+		UnpublishForm === false && allDataCheck.length === 0 ? setCheck(false) : null
+	}, [UnpublishForm])  */
+
 	/* Модальное окно */
 	
 	function pushCheck(e) {
@@ -60,7 +68,7 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
-		<UnpublishCTX.Provider value={{ dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, /* cleanAll  */}}>
+		<UnpublishCTX.Provider value={{ dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll }}>
 			<a href={`/product/${offer.id}`} key={i}
 				className="offerContainer boxWrapper">
 				<div className="offerImage">

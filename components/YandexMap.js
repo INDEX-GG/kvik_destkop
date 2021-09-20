@@ -1,9 +1,25 @@
 import React, { useState, useRef, memo, useMemo, useEffect } from 'react';
 import { YMaps, Map, withYMaps } from 'react-yandex-maps'
 import { TextField } from '@material-ui/core';
-import RoomIcon from '@material-ui/icons/Room';
 // import {useCity} from '../lib/Context/CityCTX'
 import { useMedia } from '../hooks/useMedia'
+import Placemark from '../UI/icons/Placemark';
+import { makeStyles } from '@material-ui/core';
+
+
+const useStyles = makeStyles(() => ({
+	inputMap: {
+		width: '100%',
+		margin: '20px 0'
+	},
+	placemarkBlock: {
+		position: 'absolute', 
+		zIndex: '1',
+		left: '50%', 
+		transform: 'translateX(-50%)',
+		transition: '.2s all linear'
+	}	
+}))
 
 
 const Location = memo(({ymaps}) => {
@@ -27,6 +43,8 @@ const Location = memo(({ymaps}) => {
 	const {matchesMobile} = useMedia()
 	// const {city} = useCity()
 
+	const classes = useStyles()
+
 
 	// const generateStr = (str, first = false) => {
 	// 	const symbol = first ? '' : ', '
@@ -47,8 +65,8 @@ const Location = memo(({ymaps}) => {
 				setZoom(17)
 			}
 		}
-
 		// setValue(fullAddress.join(',').trim())
+		//? В будушем заменить на верхний
 		setValue(adrress.getAddressLine())
 
 
@@ -76,6 +94,7 @@ const Location = memo(({ymaps}) => {
 
 	const changeAddress = (coord) => {
 		// определение адреса по координатам
+		setCoordinates(coord)
 		ymaps.geocode(coord)
 			.then((r) => {
 				// объект адреса
@@ -105,7 +124,6 @@ const Location = memo(({ymaps}) => {
 		});
 
 		setSuggest(inputCompele)
-		
 
 		// событие onSubmit
 		if (submit) {
@@ -180,8 +198,10 @@ const Location = memo(({ymaps}) => {
 			delay: 10,
 			duration: 200
 		})
-		  .then(() => setMapMove(false))
-		changeAddress(event.get('coords'))
+		  .then(() => {
+			  setMapMove(false)
+			  changeAddress(event.get('coords'))
+			})
 	}
 
 	const hanlderBounds = (event) => {
@@ -203,28 +223,32 @@ const Location = memo(({ymaps}) => {
 		hintsInput(true)
 	}
 
+	const handlerMouseDown = () => {
+		setMapMove(true)
+		setSearchSubmit(false)
+	}
+
 	useEffect(() => {
 		if (suggestView) {
 			hintsInput()
 		}
 	}, [suggestView])
 
+	useEffect(() => {
+		console.log(value)
+		console.log(coordinates)
+	}, [coordinates])
+
 	return (
 		<div style={{maxWidth: '490px', width: '100%'}}>
 			<form onSubmit={handlerSubmit}>
-				<TextField value={value} onChange={handlerChange} style={{width: '100%', margin: "20px 0"}} placeholder='Введите город, улицу, дом' id="suggest" variant="outlined" />
+				<TextField value={value} onChange={handlerChange} className={classes.inputMap} placeholder='Введите город, улицу, дом' id="suggest" variant="outlined" />
 			</form>
 			<div style={{position: 'relative'}}>
 				<Map
 				instanceRef={map}
-				state={{ 
-					center: coordinates, 
-					zoom
-				}}
-				onMouseDown={() => {
-					setMapMove(true)
-					setSearchSubmit(false)
-				}}
+				state={{ center: coordinates, zoom}}
+				onMouseDown={handlerMouseDown}
 				onLoad={ymapsLoad}
 				onClick={handlerClick}
 				onBoundsChange={hanlderBounds}
@@ -232,8 +256,9 @@ const Location = memo(({ymaps}) => {
 				height={224}
 				width={matchesMobile ? '100%' : 490}
 				>
-					{/* <Placemark geometry={coordinates} /> */}
-					<RoomIcon color='primary' style={{position: 'absolute', zIndex: '1', left: '50%', transform: 'translateX(-50%)', top: `${mapMove ? '60px' : '70px'}`, transition: '.2s all linear', fontSize: '50px'}}/>
+					<div className={classes.placemarkBlock} style={{top: `${mapMove ? '60px' : '70px'}`}}>
+						<Placemark />
+					</div>
 				</Map>
 			</div>
 		</div>
@@ -250,7 +275,7 @@ const YandexMap = () => {
 	return (
 		<>
 			{/* Изменить api ключ */}
-			<YMaps query={{apikey: '57d4ea45-8f8c-4594-9c9b-03dbfcfab0e8'}}>
+			<YMaps query={{apikey: '5170655d-fb30-4cc1-b1aa-3782984b9fb8'}}>
 				<MainMap/>
 			</YMaps>
 		</>
