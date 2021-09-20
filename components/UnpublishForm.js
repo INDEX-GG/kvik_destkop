@@ -86,7 +86,7 @@ export default function UnpublishForm() {
 				setQuery(p => !p)
 				setOpenUnpublishForm(!openUnpublishForm)
 			})
-		cleanAll();
+		typeof cleanAll === "undefined" ? null : cleanAll();
 	}
 
 	console.log("_____offerData_____",offerData)
