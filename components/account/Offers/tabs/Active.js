@@ -54,7 +54,7 @@ function Active({offers}) {
 	}
 
 	useEffect(() => {
-		dataCheck.length > 0 ? dataCheck.length===offers.length ? setCheck(true) : setCheck(false) : null;
+		dataCheck.length===offers.length ? setCheck(true) : setCheck(false);
 	}, [dataCheck])
 
 	console.log("---------check-----------",check);
@@ -104,8 +104,8 @@ function Active({offers}) {
 					{offers?.map((offer, i) => {
 						return (
 							<OfferActive key={i} offer={offer} i={i}
-								parentCheck={check} getChildCheck={getChildCheck} openUnpublishForm={openUnpublishForm}
-								dataCheck={dataCheck} cleanAll={cleanAll}
+								parentCheck={check} getChildCheck={getChildCheck} parentUnpublishForm={openUnpublishForm}
+								allDataCheck={dataCheck} cleanAll={cleanAll}
 							/>
 						);
 					})}
