@@ -31,43 +31,30 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function offerActive(offer) {
+export default function offerActive({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, i}) {
 	const classes = useStyles();
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 	const [check, setCheck] = useState(false);
 	const [dataCheck, setDataCheck] = useState();
-	const offerData = offer.offer;
-	/* const cleanAll = offer.cleanAll() */
-	/* useEffect(() => {
-		offer.filterDataCheck({
-			id: offer.offer.id,
-			check: check,
-		})
-	}, []) */
-
-	useEffect(() => {
-		offer.parentCheck ? check ? null : ( offer.getChildCheck({id: offer.offer.id, isChecked: offer.parentCheck}), setCheck(offer.parentCheck) ) : check===false ? null : offer.dataCheck.length===0 ? (offer.getChildCheck({id: offer.offer.id, isChecked: offer.parentCheck}), setCheck(offer.parentCheck)) : null;
-		/* if ( offer.parentCheck && check===false ) { handleCheck(offer.parentCheck) }
-		else if ( offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false)==="undefined" ) { null }
-		else {
-			if ( offer.parentCheck===false && check && offer.dataChecked.length > 0 ) { null }
-			else if( offer.parentCheck===false && offer.dataChecked.length===0 ) { handleCheck(offer.parentCheck) }
-			else { handleCheck(offer.parentCheck) }
-		}	 */			
-	}, [offer.parentCheck])
-
-	useEffect(() => {
-		offer.openUnpublishForm === false && offer.dataCheck.length === 0 ? setCheck(false) : null
-	}, [offer.openUnpublishForm]) 
+	const offerData = offer;
 	
-	/* const handleCheck = (changeCheck) => {
-		setCheck(changeCheck);
-		offer.getChildCheck({
-			id: offer.offer.id,
-			check: changeCheck,
-		},offer.offer);
-	} */
+	const cleanAll = () => {
+		getChildCheck({id: offer.id, isChecked: false});
+		setCheck(false)
+	}
+	
+	useEffect(() => {
+		parentCheck ? check ? null : ( getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck) ) : check===false ? null : allDataCheck.length===0 ? (getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck)) : null;
+	}, [parentCheck])
+
+	useEffect(() => {
+		parentUnpublishForm === false && allDataCheck.length === 0 ? setCheck(false) : null
+	}, [parentUnpublishForm]) 
+	
+	/* useEffect(() => {
+		UnpublishForm === false && allDataCheck.length === 0 ? setCheck(false) : null
+	}, [UnpublishForm])  */
 
 	/* Модальное окно */
 	
@@ -81,8 +68,8 @@ export default function offerActive(offer) {
 
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
-		<UnpublishCTX.Provider value={{ dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, /* cleanAll  */}}>
-			<a href={`/product/${offer.offer.id}`} key={offer.i}
+		<UnpublishCTX.Provider value={{ dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll }}>
+			<a href={`/product/${offer.id}`} key={i}
 				className="offerContainer boxWrapper">
 				<div className="offerImage">
 					<div className="offerPubCheck">
@@ -91,23 +78,23 @@ export default function offerActive(offer) {
 							color='primary'
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
-							value={offer.offer.id}
-							onChange={(event) => {setCheck(event.target.checked); offer.getChildCheck({id: offer.offer.id, isChecked: event.target.checked}); /* handleCheck(event.target.checked) */}}
+							value={offer.id}
+							onChange={(event) => {setCheck(event.target.checked); getChildCheck({id: offer.id, isChecked: event.target.checked}); /* handleCheck(event.target.checked) */}}
 							checked={check}
 						/>
 					</div>
-					{offer.offer.photo?.map((imgs, i) => {
+					{offer.photo?.map((imgs, i) => {
 						return <img key={i} src={imgs} />;
 					})}
 				</div>
 				<div className="offerDescription">
 					<div className="offerDescriptionTop">
 						<div className="offerDTLeft thin">
-							<div>{ToRubles(offer.offer.price)}</div>
-							<div className="offerTitle">{offer.offer.title}</div>
+							<div>{ToRubles(offer.price)}</div>
+							<div className="offerTitle">{offer.title}</div>
 							<div className="offerDatPub small light DatPub__mobile">
 								<span className="offerDate"> Дата публикации </span>
-								{ToFullDate(offer.offer.created_at)}
+								{ToFullDate(offer.created_at)}
 							</div>
 							<div className="offerLastDays">Осталось 30 дней</div>
 						</div>
@@ -118,7 +105,7 @@ export default function offerActive(offer) {
 
 							<a href="javascript:void(0);">
 								<button
-									value={offer.offer.id}
+									value={offer.id}
 									onClick={(e) => pushCheck(e)}
 									className="offerUnpublish thin superLight"
 								>

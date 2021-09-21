@@ -19,48 +19,52 @@ import Promotion from '../components/placeOffer/Promotion';
 import { useCategoryPlaceOffer } from '../hooks/useCategoryPlaceOffer';
 import AdditionalInformation from '../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
-import { BASE_URL, STATIC_URL } from '../lib/constants';
+import { BASE_URL, STATIC_URL, CACHE_URL } from '../lib/constants';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        position: 'relative',
-        flexDirection: 'column',
-        alignItems: 'center',
-        flexGrow: 1,
-        marginTop: '25px',
-        [theme.breakpoints.down('md')]: {
-            paddingLeft: '220px',
-        },
-    },
-    title: {
-        marginBottom: theme.spacing(1),
-    },
-    offersBox: {
-        width: '712px',
-    },
-    formPart: {
-        padding: theme.spacing(4),
-        borderRadius: theme.shape.borderRadius,
-        boxShadow: theme.shadows[2],
-        marginBottom: theme.spacing(4),
-    },
-    submit: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    backdrop: {
-        zIndex: 2000,
-        backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    },
+	root: {
+		position: 'relative',
+		flexDirection: 'column',
+		alignItems: 'center',
+		flexGrow: 1,
+		marginTop: '25px',
+		[theme.breakpoints.down('md')]: {
+			paddingLeft: '220px',
+		},
+	},
+	title: {
+		marginBottom: theme.spacing(1),
+	},
+	offersBox: {
+		width: '712px',
+	},
+	formPart: {
+		padding: theme.spacing(4),
+		borderRadius: theme.shape.borderRadius,
+		boxShadow: theme.shadows[2],
+		marginBottom: theme.spacing(4),
+	},
+	submit: {
+		display: 'flex',
+		alignItems: 'center'
+	},
+	backdrop: {
+		zIndex: 2000,
+		backgroundColor: 'rgba(255, 255, 255, 0.85)',
+	},
 
 }));
 
 function PlaceOffer() {
+
     const { id } = useAuth();
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false);
     const [product, setProduct] = useState({});
+	const [mapData, setMapData] = useState({locality: '', coordinates: []})
+
+	console.log(mapData)
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
     let photoes = [];
@@ -71,6 +75,9 @@ function PlaceOffer() {
 
     // console.log(methods)
     /* получение дополнительных полей */
+
+	console.log(methods.watch('location'))
+
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd, methods);
     useEffect(() => {
@@ -102,6 +109,7 @@ function PlaceOffer() {
     const onSubmit = data => {
         console.log(data)
         console.log(photoes, photoes.length)
+		data.location = ''
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -197,8 +205,7 @@ function PlaceOffer() {
                 additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
                 console.log(additionalfields)
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-
-                    .then(r => console.log(r))
+                  .then(r => console.log(r))
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -210,6 +217,7 @@ function PlaceOffer() {
                     console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
+				axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})
             })  
 
     }
@@ -240,7 +248,7 @@ function PlaceOffer() {
                                 </Box>
 
                                 <Box className={classes.formPart}>
-                                    <Location />
+                                    <Location setData={setMapData} />
                                     <Contacts />
                                     <Box className={classes.submit}>
                                         <ErrorMessages />
@@ -258,6 +266,7 @@ function PlaceOffer() {
                 </Backdrop>
             </MetaLayout>
     )
+
 }
 
 export default PlaceOffer;

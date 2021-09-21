@@ -1,7 +1,10 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useMedia } from '../../hooks/useMedia';
+
 import ProductAutoInformation from './ProductsDescription/ProductAutoInformation';
 import ProductNewBuildInformation from './ProductsDescription/ProductNewBuildInformation';
+
 import ProductDescription from './ProductDescription';
 import ProductMap from './ProductMap';
 // import ProductProperties from './ProductProperties';
@@ -11,10 +14,15 @@ import ProductRentBuildInformation from './ProductsDescription/ProductRentBuildI
 import ProductSellRoomInformation from './ProductsDescription/ProductSellRoomInformation';
 import ProductRentRoomInformation from './ProductsDescription/ProductRentRoomInformation';
 
-export default function ProductInformation({productionInfo, description, address, caterory}) {
-	console.log("я правильно понимаю", productionInfo)
+export default function ProductInformation({ postId, productionInfo, description, caterory}) {
+	// console.log("я правильно понимаю", productionInfo)
 
 	const { matchesMobile, matchesTablet } = useMedia();
+	const [dataMap, setDataMap] = useState({})
+	
+	useEffect(() => {
+		axios.get(`${CACHE_URL}/cache/${postId}`).then(r => setDataMap(r.data))
+	}, [postId])
 
 	// const testProperties = [{name: "Тип дома", desc: 'Кирпичный'}, {name: "Этаж", desc: '5 из 16'}, {name: "Количество комнта", desc: '2'}]
 
@@ -44,7 +52,7 @@ export default function ProductInformation({productionInfo, description, address
 
 	return (
 		<>
-			<ProductMap address={address} mobile={!matchesMobile && !matchesTablet}/>
+			<ProductMap address={dataMap?.data?.locality} coordinates={dataMap?.data?.coordinates} mobile={!matchesMobile && !matchesTablet}/>
 			<div className="productPageCharacter thin">
 				{info}
 				<ProductSocial/>

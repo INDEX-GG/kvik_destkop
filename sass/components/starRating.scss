@@ -34,3 +34,29 @@
     background-repeat: no-repeat;
     background-position: 0 -24px;
   }
+
+
+  /* активный рейтинг */
+
+  .rating_wrapper {
+    height: 24px;
+    width: 120px;
+    span {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background-image: url(../../icons/stars.svg);
+      background-position: 0 0;
+      background-repeat: repeat-x;
+    }
+  }
+  #oneStar:hover, #oneStar:hover + #twoStar:hover {
+    background-image: url(../../icons/stars.svg);
+    background-repeat: no-repeat;
+    background-position: 0 -24px;
+  }
+  /* #oneStar:hover ~ #twoStar:hover {
+    background-image: url(../../icons/stars.svg);
+    background-repeat: no-repeat;
+    background-position: 0 -24px;
+  } */

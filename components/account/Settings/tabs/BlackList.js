@@ -1,54 +1,64 @@
 import React from 'react';
 import EmptyPlaceholder from '../../../EmptyPlaceholder';
-function BlackList(data) {
+import BlackListCard from '../card/BlackListCard';
 
 
 
-    if (data.data.length === 0) {
+
+function BlackList({data}) {
+    const [check, setCheck] = React.useState(false);
+    const [dataCardId, setCardId] = React.useState([])
+
+    function getCardId ({id, isCheck}) {
+        setCardId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id) )
+    }
+
+    React.useEffect( () => {
+        dataCardId.length === data.length ? check ? null : setCheck(true) : check===false ? null : setCheck(false);
+    },[dataCardId])
+
+    /* console.log("check=========>", check);
+    console.log("data=========>", data);
+    console.log("dataCardId=========>", dataCardId);
+ */
+    if (data.length === 0) {
         return (
 			<EmptyPlaceholder
-			title='В черном списке пока никого нет'
-			img='/accountImage/blackList.png'
-			customClass='blackList'
-			imgAlt='search_placeholder'/>
+                title='В черном списке пока никого нет'
+                img='/accountImage/blackList.png'
+                customClass='blackList'
+                imgAlt='search_placeholder'
+            />
         )
     }
 
-
     return (
-    <div className="clientPage__container_bottom">
-        <div className="clientPage__container_nav__radio">
-                <label className="checkbox">
-                <input type="checkbox" />
-                <div className="checkbox__text"></div>
-                </label>
-                <a className="small light underline">Разблокировать</a>
-        </div>
-        <div className="clientPage__container_content">
-            <div className="settingsBlackList">
-                {data.data.map(item => {
-                return (
-                    <div key={item.id}>
-                        <div>
-                            <img src={`${item.userPic}?${item.id}`} />
-                            <div>
-                            <div>{item.username}</div>
-                            <div className="light blockItem">Заблокирован {item.date}</div>
-                            </div>
-                        </div>
-                        <a className="highlight underline">Разблокировать</a>
-                        <div className="settingsBLCheck">
-                            <label className="checkbox">
-                            <input type="checkbox" />
-                            <div className="checkbox__text"></div>
-                            </label>
-                        </div>
-                    </div>
-                )
-                })}
+        <div className="clientPage__container_bottom">
+            <div className="clientPage__container_nav__radio">
+                    <label className="checkbox">
+                        <input 
+                            type="checkbox"
+                            onChange={(event) => {setCheck(event.target.checked); event.target.checked ? null : setCardId([])}}
+                            checked={check}
+                        />
+                        <div className="checkbox__text"></div>
+                    </label>
+                    <a className="small light underline" style={dataCardId.length > 0 ? {color: "black"} : null}>Разблокировать</a>
+            </div>
+            <div className="clientPage__container_content">
+                <div className="settingsBlackList">
+                    {data.map((item, i) => 
+                        <BlackListCard 
+                            key={i} 
+                            data={item}
+                            parentCheck={check}
+                            getCardId={getCardId}
+                            dataCardId={dataCardId}
+                        />
+                    )}
+                </div>
             </div>
         </div>
-    </div>
     )
 }
 
