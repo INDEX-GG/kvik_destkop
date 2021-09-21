@@ -80,7 +80,7 @@ export default function UnpublishForm() {
 
 	function PushBDVerify(e) {
 
-		var arr = { 'id': [dataCheck], 'verify': `${e.target.parentElement.id}` }
+		var arr = { 'id': dataCheck, 'active': `${e.target.parentElement.id}` }
 
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)

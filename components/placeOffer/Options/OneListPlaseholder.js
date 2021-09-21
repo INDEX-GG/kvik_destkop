@@ -35,9 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ChargersPowerSupplies({ data }) {
+export default function OneListPlaseholder({ data }) {
   const methods = useFormContext();
   const classes = useStyles();
+  console.log("odgs ++++>", data);
   return (
     <>
       {data.map((item, idx) => {
@@ -45,7 +46,7 @@ export default function ChargersPowerSupplies({ data }) {
           case "list":
             return (
               <Box key={idx} className={classes.formElem}>
-                <Typography className={classes.formTitleField} style={{maxWidth: item.alias === "size_page_mfps_and_scanners" ? 158 : null}}>
+                <Typography className={classes.formTitleField} style={{maxWidth: item.alias === "size_page_mfps_and_scanners" || item.alias === "duplex_mfps_and_scanners" || item.alias === "ram_type" || item.alias === "graphics_card_manufacturer" ? 158 : null}}>
                   {item.name}
                 </Typography>
                 <Box className={classes.formInputField}>
@@ -77,38 +78,6 @@ export default function ChargersPowerSupplies({ data }) {
                 </Box>
               </Box>
             );
-            case "text":
-              return <Box className={classes.formElem}>
-              <Typography className={classes.formTitleField}>{item.name}</Typography>
-              <Box className={classes.formInputField}>
-                <Controller
-                  name={item.alias}
-                  control={methods.control}
-                  rules={{
-                    min: {
-                      value: 1,
-                      message: "От 1 Вт"
-                    },
-                    max: {
-                      value: 2000,
-                      message: "До 2000 Вт"
-                    },
-                    pattern: /[0-9]{1,4}/
-                  }}
-                  defaultValue=""
-                  render={({ field: { onChange, value }, fieldState: { error } }) => (
-                    <TextField
-                      className={classes.input}
-                      variant="outlined"
-                      value={value}
-                      onChange={onChange}
-                      error={!!error}
-                      helperText={error ? error.message : " "}
-                    />
-                  )}
-                />
-              </Box>
-            </Box>
         }
       })}
     </>

@@ -121,7 +121,7 @@ export default function Summary({ data }) {
                 className={classes.input}
                 variant="outlined"
                 value={value}
-                onChange={(e) => onChange(OnlyNumbersMask(e, 'Владельцев по ПТС'))}
+                onChange={onChange}
                 error={!!error}
                 helperText={error ? error.message : " "}
               />
@@ -261,7 +261,7 @@ export default function Summary({ data }) {
                 ))}
               </TextField>
             )}
-            rules={{ required: "Выбирите Специализацию" }}
+            rules={{ required: "Выберете Специализацию" }}
           />
         </Box>
       </Box>

@@ -86,6 +86,7 @@ export default function TvSetCat2({ data }) {
               <Controller
                 name={item.alias}
                 control={methods.control}
+                defaultValue=""
                 rules={{
                   max: {
                   value: 2021,
@@ -113,17 +114,17 @@ export default function TvSetCat2({ data }) {
             <Box className={classes.formInputField}>
               <Controller
                 name={item.alias}
+                defaultValue=""
                 control={methods.control}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <Slider
                     className={classes.input}
                     valueLabelDisplay="auto"
-                    defaultValue={10}
                     step={1}
                     min={item.fields[0]}
                     max={item.fields[1]}
                     value={value}
-                    onChange={(e) => onChange(e.target.value === '' ? '' : Number(e.target.value))}
+                    onChange={(_, value) => onChange(value)}
                     error={!!error}
                     helperText={error ? error.message : " "}
                   />

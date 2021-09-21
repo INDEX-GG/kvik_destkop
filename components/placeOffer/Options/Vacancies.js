@@ -155,7 +155,7 @@ export default function Vacancies({ data }) {
                 ))}
               </TextField>
             )}
-            rules={{ required: "Выбирите Специализацию" }}
+            rules={{ required: "Выберете Специализацию" }}
           />
         </Box>
       </Box>
