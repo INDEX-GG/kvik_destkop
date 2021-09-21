@@ -16,3 +16,17 @@ function StarRating({ rating }) {
 }
 
 export default StarRating;
+
+
+
+export function ActiveStarRating() {
+  return (
+    <div className="rating_wrapper">
+      <span id="oneStar"></span>
+      <span id="twoStar"></span>
+      <span id="threeStar"></span>
+      <span id="fourStar"></span>
+      <span id="fiveStar"></span>
+    </div>
+  );
+}

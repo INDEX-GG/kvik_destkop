@@ -23,10 +23,7 @@ function WaitReviews({data}) {
     dataCheck.length === data.length ? setCheck(true) : setCheck(false)
   }, [dataCheck])
   
-  console.log("data========>", data);
-  console.log("dataCheck========>", dataCheck);
   
-
   if (data.lenght == 0) {
     return (
       <EmptyPlaceholder
