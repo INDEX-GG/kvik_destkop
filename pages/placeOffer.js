@@ -19,7 +19,7 @@ import Promotion from '../components/placeOffer/Promotion';
 import { useCategoryPlaceOffer } from '../hooks/useCategoryPlaceOffer';
 import AdditionalInformation from '../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
-import { BASE_URL, STATIC_URL } from '../lib/constants';
+import { BASE_URL, STATIC_URL, CACHE_URL } from '../lib/constants';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -62,6 +62,9 @@ function PlaceOffer() {
     const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false);
     const [product, setProduct] = useState({});
+	const [mapData, setMapData] = useState({locality: '', coordinates: []})
+
+	console.log(mapData)
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm();
     let photoes = [];
@@ -86,6 +89,9 @@ function PlaceOffer() {
     ]
     // console.log(methods)
     /* получение дополнительных полей */
+
+	console.log(methods.watch('location'))
+
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd);
     useEffect(() => {
@@ -120,6 +126,7 @@ function PlaceOffer() {
     const onSubmit = data => {
         console.log(data)
         console.log(photoes, photoes.length)
+		data.location = ''
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -215,8 +222,7 @@ function PlaceOffer() {
                 additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
                 console.log(additionalfields)
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-
-                    .then(r => console.log(r))
+                  .then(r => console.log(r))
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -228,6 +234,7 @@ function PlaceOffer() {
                     console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
+				axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})
             })  
 
     }
@@ -258,7 +265,7 @@ function PlaceOffer() {
                                 </Box>
 
                                 <Box className={classes.formPart}>
-                                    <Location />
+                                    <Location setData={setMapData} />
                                     <Contacts />
                                     <Box className={classes.submit}>
                                         <ErrorMessages />
