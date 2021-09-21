@@ -34,13 +34,10 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Price = (props) => {
-	console.log("🚀 ~ file: Price.js ~ line 38 ~ Price ~ props", props)
+const Price = ({ price }) => {
 
+	console.log('price', price);
 
-
-	const priceInfo = props.price
-	console.log("🚀 ~ file: Price.js ~ line 42 ~ Price ~ priceInfo", priceInfo)
 
 	const classes = useStyles();
 	const methods = useFormContext();
@@ -48,15 +45,15 @@ const Price = (props) => {
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Цена</Typography>
+			{console.log(price)}
 			<Box className={classes.formInputField}>
 				<Box className={classes.priceField}>
 					<Controller
 						name="price"
 						control={methods.control}
-						defaultValue=''
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<TextField
-								// defaultValue='priceInfo'
+								defaultValue={price}
 								variant='outlined'
 								type="text"
 								autoComplete="on"
