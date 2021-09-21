@@ -1,40 +1,20 @@
 import Auto from './Options/Auto';
-import { Dogs } from './Options/Dogs';
-import { Cats } from './Options/Cats';
-import Bicycles from './Options/Bicycles';
-import GoodsForChildrenToys from './Options/Goods_for_children_toys';
-import ForHome from './Options/For_home';
-import ForKitchen from './Options/For_kitchen';
-import ForPersonalCare from './Options/For_personalized_care';
-import ClimaticEquipment from './Options/Climatic_equipment';
-import TableSetting from './Options/Table_setting';
-import CookingFood from './Options/Cooking_food';
-import VideoSurveillance from './Options/Video_surveillance';
-import PlantsAndSeeds from './Options/Plants_and_seeds';
-import Vacancies from './Options/Vacancies';
-import Summary from './Options/Summary';
-import HiFiTechnology from './Options/Hi_fi_technology';
-import TvAccessories from './Options/Tv_accessories';
 import TvSetCat2 from './Options/Tv_sets_cat2';
-import AudioEngineering from './Options/Audio_engineering';
-import VideoEngineering from './Options/Video_engineering';
-import Printers from './Options/Printers';
-import OneListPlaseholder from './Options/OneListPlaseholder';
-import ManipulatorsInputDevices from './Options/Manipulators__input_devices';
-import MotherboardsPerifs from './Options/Motherboards_perif';
 import ChargersPowerSupplies from './Options/Chargers_power_supplies';
 import SmartWatches from './Options/Smart_watches_and_fitness_bracelets';
 import Tablets from './Options/Tablets';
-import ElectronicBooks from './Options/Electronic_books';
-import SellhouseAndCottages from './Options/Sell_houses_and_cottages';
-import RentHouseAndCottages from './Options/Rent_houses_and_cottages';
 import MainPlaceholder from './Options/MainPlaceholder';
+import Bulldozers from './Options/Bulldozers';
+
+
+
+
 
 const AdditionalInformation = (data) => {
 	console.log('=======>', data.newOBJ)
 
-
-
+	
+	
 
 	switch (data.asd) {
 		case 'agricultural_machinery':
@@ -55,35 +35,25 @@ const AdditionalInformation = (data) => {
 		case 'atvs':
 			return null;
 
-		case 'audio_engineering':
-			return <AudioEngineering	 data={data.newOBJ[data.asd]} />;
 
 		case 'auto':
 			return <Auto data={data.newOBJ[data.asd]} />;
 
-		case 'bicycles':
-			return <Bicycles data={data.newOBJ[data.asd]} />;
 
 		case 'boats_and_yachts':
 			return null;
 
 		case 'bulldozers':
-			return null;
+			return <Bulldozers data={data.newOBJ[data.asd]} />;
 
 		case 'buses':
 			return null;
 
-		case 'car_goods':
-			return null;
 
-		case 'cats':
-			return <Cats data={data.newOBJ[data.asd]} />;
 
 		case 'chargers_power_supplies':
 			return <ChargersPowerSupplies data={data.newOBJ[data.asd]} />;
 
-		case 'climatic_equipment':
-			return <ClimaticEquipment data={data.newOBJ[data.asd]} />;
 
 		case 'communal_machinery':
 			return null;
@@ -91,23 +61,8 @@ const AdditionalInformation = (data) => {
 		case 'construction_machinery':
 			return null;
 
-
-		case 'manipulators__input_devices':
-			return <ManipulatorsInputDevices data={data.newOBJ[data.asd]} />;
-
 		case 'controllers_adapters_modules_for_servers':
 			return null;
-
-		case 'cooking_food':
-			return <CookingFood data={data.newOBJ[data.asd]} />;
-
-
-
-		case 'dogs':
-			return <Dogs data={data.newOBJ[data.asd]} />;
-
-		case 'electronic_books':
-			return <ElectronicBooks data={data.newOBJ[data.asd]} />;
 
 		case 'excavators':
 			return null;
@@ -116,36 +71,17 @@ const AdditionalInformation = (data) => {
 		case 'flash_drive':
 			return null;
 
-		case 'food_storage':
-
-			return <CookingFood data={data.newOBJ[data.asd]} />;
-		case 'for_home':
-
-			return <ForHome data={data.newOBJ[data.asd]} />;
-		case 'for_kitchen':
-
-			return <ForKitchen data={data.newOBJ[data.asd]} />;
-		case 'for_personalized_care':
-
-			return <ForPersonalCare data={data.newOBJ[data.asd]} />;
 		case 'forestry_equipment':
 
 			return null;
-		case 'goods_for_children_toys':
 
-			return <GoodsForChildrenToys data={data.newOBJ[data.asd]} />;
 		case 'hdd':
 
 			return null;
-		case 'hi_fi_technology':
 
-		return <HiFiTechnology data={data.newOBJ[data.asd]} />;
-			case 'house_on_wheels':
+		case 'house_on_wheels':
 
 			return null;
-		case 'household_goods':
-
-			return <CookingFood data={data.newOBJ[data.asd]} />;
 
 		case 'jet_skis':
 
@@ -167,8 +103,6 @@ const AdditionalInformation = (data) => {
 		case 'mopeds_and_scooters':
 
 			return null;
-		case 'motherboards_perif':
-			return <MotherboardsPerifs data={data.newOBJ[data.asd]} />;
 		case 'motor_boats':
 
 			return null;
@@ -192,13 +126,9 @@ const AdditionalInformation = (data) => {
 
 			return null;
 
-		case 'plants_and_seeds':
 
-			return <PlantsAndSeeds data={data.newOBJ[data.asd]} />;
 
-		case 'printers':
 
-			return <Printers data={data.newOBJ[data.asd]} />;
 		case 'processors_cat':
 
 			return null;
@@ -230,9 +160,7 @@ const AdditionalInformation = (data) => {
 		case 'rent_houses_and_cottages_abroad':
 
 			return null;
-		case 'rent_houses_and_cottages':
 
-			return <RentHouseAndCottages data={data.newOBJ[data.asd]} />;
 
 		case 'rent_of_boats_and_yachts':
 
@@ -276,24 +204,43 @@ const AdditionalInformation = (data) => {
 			return null;
 		case 'sell_houses_and_cottages_abroad':
 			return null;
-		case 'sell_houses_and_cottages':
-			return <SellhouseAndCottages data={data.newOBJ[data.asd]} />;
 
 
 
-
+		case 'audio_engineering':
+		case 'climatic_equipment':
+		case 'car_goods':
+		case 'cooking_food':
+		case 'bicycles':
+		case 'hi_fi_technology':
+		case 'motherboards_perif':		
+		case 'electronic_books':
+		case 'cats':
+		case 'goods_for_children_toys':
+		case 'food_storage':
+		case 'for_home':
+		case 'for_kitchen':
+		case 'for_personalized_care':
+		case 'household_goods':
+		case 'dogs':
+		case 'plants_and_seeds':
+		case 'printers':
 		case 'consumables_for_office_equipment':
 		case 'data_storage':
 		case 'housings_corp':
-		case 'mfps_and_scanners':
 		case 'expendable_materials':
 		case 'monitors':
 		case 'ram_for_servers':
 		case 'ram':
 		case 'server_network_hardware':
-			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
-
-
+		case 'vacancies':
+		case 'mfps_and_scanners':
+		case 'manipulators__input_devices':
+		case 'summary':
+		case 'other_comp':
+		case 'personal_computer_accessories':
+		case 'rent_houses_and_cottages':
+		case 'sell_houses_and_cottages':
 		case 'desktop_computers':
 		case 'laptops':
 		case 'new_building':
@@ -320,10 +267,17 @@ const AdditionalInformation = (data) => {
 		case 'sell_office_space':
 		case 'sell_parkingplace':
 		case 'sell_production_room':
+		case 'steering_wheels_gamepads_joysticks':
 		case 'sell_rooms':
 		case 'sell_snt':
 		case 'sell_warehouse_space':
+		case 'video_engineering':
 		case 'smartphones':
+		case 'tv_accessories':
+		case 'table_setting':	
+		case 'video_surveillance':
+		case 'ups_and_surge_protectors':
+		case 'video_cards_componentsss':
 		case 'telephones':
 			return <MainPlaceholder data={data.newOBJ[data.asd]} />;
 
@@ -345,17 +299,13 @@ const AdditionalInformation = (data) => {
 			return null;
 		case 'servers':
 			return null;
+
+
 		case 'smart_watches_and_fitness_bracelets':
 			return <SmartWatches data={data.newOBJ[data.asd]} />;
 	
 		case 'snowmobiles':
 			return null;
-		case 'steering_wheels_gamepads_joysticks':
-			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
-		case 'summary':
-		return <Summary data={data.newOBJ[data.asd]} />;
-			case 'table_setting':
-		return <TableSetting data={data.newOBJ[data.asd]} />;
 		case 'tablets':
 			return <Tablets data={data.newOBJ[data.asd]} />;
 		case 'tires':
@@ -370,19 +320,9 @@ const AdditionalInformation = (data) => {
 			return null;
 		case 'trucks':
 			return null;
-		case 'tv_accessories':
-			return <TvAccessories data={data.newOBJ[data.asd]} />;
 		case 'tv_sets_cat2':
 			return <TvSetCat2 data={data.newOBJ[data.asd]} />;
-		case 'ups_and_surge_protectors':
-		case 'video_cards_componentsss':
-			return <OneListPlaseholder data={data.newOBJ[data.asd]} />;
-		case 'vacancies':
-			return <Vacancies data={data.newOBJ[data.asd]} />;
-		case 'video_engineering':
-			return <VideoEngineering data={data.newOBJ[data.asd]} />;
-		case 'video_surveillance':
-			return <VideoSurveillance data={data.newOBJ[data.asd]} />;
+	
 		case 'wheels':
 			return null;
 		default:

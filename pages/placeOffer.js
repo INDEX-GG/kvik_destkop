@@ -68,26 +68,13 @@ function PlaceOffer() {
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
-    const save = [
-        "title",
-        "alias1",
-        "description",
-        "price",
-        "trade",
-        "photoes",
-        "location",
-        "bymessages",
-        "byphone",
-        "contact",
-        "alias2",
-        "alias3",
-        "alias4"
-    ]
+
     // console.log(methods)
     /* получение дополнительных полей */
     const [asd, setAsd] = useState();
-    const { ...newOBJ } = useCategoryPlaceOffer(asd);
+    const { ...newOBJ } = useCategoryPlaceOffer(asd, methods);
     useEffect(() => {
+
 
 
         if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
@@ -100,11 +87,7 @@ function PlaceOffer() {
             setAsd(undefined);
         }
 
-        Object.keys(methods.watch()).forEach(ali => {
-            if (!save.includes(ali)) {
-                methods.unregister(ali, '')
-            }
-        })
+        
         /*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
              setAsd(methods?.watch('alias4'));
          } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {

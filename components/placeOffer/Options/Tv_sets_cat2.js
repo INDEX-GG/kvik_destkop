@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme) => ({
   },
   formInputField: {
     width: "490px",
+    position: "relative",
     display: "flex",
     flexDirection: "column",
-    "&>*": {
+    "&>p": {
       marginBottom: theme.spacing(2),
     },
     "&>*:last-child": {
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "264px",
   },
+  tooltip: {
+    position: "absolute",
+    top: 9,
+  }
 }));
 
 export default function TvSetCat2({ data }) {
@@ -96,6 +101,7 @@ export default function TvSetCat2({ data }) {
                   message: 'Позднее 1950 года'
                 }}}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <>
                   <TextField
                     className={classes.input}
                     variant="outlined"
@@ -104,6 +110,8 @@ export default function TvSetCat2({ data }) {
                     error={!!error}
                     helperText={error ? error.message : " "}
                   />
+                  {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
+                  </>
                 )}
               />
             </Box>
