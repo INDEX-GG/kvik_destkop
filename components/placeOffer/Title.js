@@ -2,6 +2,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
 import { invalidСharacterProduct } from '../../lib/regulars'
 
+
 const useStyles = makeStyles((theme) => ({
 	formElem: {
 		display: 'flex',
@@ -18,31 +19,31 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Title = ({ title }) => {
-	console.log("🚀 ~ file: Title.js ~ line 34 ~ Title ~ title", title)
+const Title = (props) => {
+	// console.log('===================>', props.title)
 
 	const classes = useStyles();
 	const methods = useFormContext();
 
+
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Название</Typography>
-			{console.log(title)}
+			{/* {console.log('title in typography', props.title)} */}
 			<Box className={classes.formInputField}>
 				<Controller
 					name="title"
 					control={methods.control}
-					// defaultValue='Rhtdtnrf'
 					render={({ field: { onChange, value }, fieldState: { error } }) => (
 						<TextField
-							defaultValue={title}
 							variant='outlined'
+							defaultValue={props.title}
 							type="text"
 							fullWidth
 							autoComplete="on"
 							value={value}
-							onChange={onChange}
 							inputProps={{ maxLength: 50 }}
+							onChange={onChange}
 							error={!!error} helperText={error ? error.message : ' '} />
 					)}
 					rules={{

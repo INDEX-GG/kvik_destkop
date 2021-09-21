@@ -4,6 +4,8 @@ import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import { cursorReplace, priceFormat } from '../../../lib/priceFormat';
 
+
+
 const useStyles = makeStyles((theme) => ({
 	formElem: {
 		display: 'flex',
@@ -34,10 +36,8 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Price = ({ price }) => {
-
-	console.log('price', price);
-
+const Price = (props) => {
+	// console.log('===================>', props.price);
 
 	const classes = useStyles();
 	const methods = useFormContext();
@@ -45,7 +45,7 @@ const Price = ({ price }) => {
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Цена</Typography>
-			{console.log(price)}
+			{/* {console.log('prices in typography', props.price)} */}
 			<Box className={classes.formInputField}>
 				<Box className={classes.priceField}>
 					<Controller
@@ -53,7 +53,7 @@ const Price = ({ price }) => {
 						control={methods.control}
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<TextField
-								defaultValue={price}
+								defaultValue={props.price}
 								variant='outlined'
 								type="text"
 								autoComplete="on"
