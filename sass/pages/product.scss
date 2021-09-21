@@ -392,6 +392,8 @@
     background: no-repeat center right 5px url(../../icons/chevron_down_green.svg);
     padding-right: 28px;
     transition: all 150ms ease-in-out;
+	flex-grow: 1;
+	text-align: right;
 }
 .collMapSw {
     background: no-repeat center right 5px url(../../icons/chevron_up_green.svg);
@@ -403,7 +405,7 @@
     border-radius: 8px;
     object-fit: cover;
     object-position: center;
-    background: no-repeat center center url(../../icons/mapPH.svg);
+    // background: no-repeat center center url(../../icons/mapPH.svg);
     background-size: cover;
     transition: all 350ms ease-in-out;
     overflow: hidden;
