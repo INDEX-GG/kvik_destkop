@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 function EditPage() {
 	const { query } = useRouter();
-	const { productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
+	const { description, photo, title, price } = useProduct(query.id);
+	// productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, reviewed, secure_transaction, trade,  oldprice
 	console.log("🚀 ~ file: [id].js ~ line 65 ~ EditPage ~ price", price)
 	console.log("🚀 ~ file: [id].js ~ line 65 ~ EditPage ~ title", title)
 	console.log("🚀 ~ file: [id].js ~ line 65 ~ EditPage ~ photo", photo)

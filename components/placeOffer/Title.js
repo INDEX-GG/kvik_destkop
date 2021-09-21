@@ -19,22 +19,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Title = ({ title }) => {
+	console.log("🚀 ~ file: Title.js ~ line 34 ~ Title ~ title", title)
 
 	const classes = useStyles();
 	const methods = useFormContext();
 
-	console.log("🚀 ~ file: Title.js ~ line 34 ~ Title ~ title", title)
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Название</Typography>
+			{console.log(title)}
 			<Box className={classes.formInputField}>
 				<Controller
 					name="title"
 					control={methods.control}
-					defaultValue={`${title}`}
 					// defaultValue='Rhtdtnrf'
 					render={({ field: { onChange, value }, fieldState: { error } }) => (
 						<TextField
+							defaultValue={title}
 							variant='outlined'
 							type="text"
 							fullWidth
