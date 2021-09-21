@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function MainPlaceholder({ data }) {
+export default function Technique({ data }) {
   const methods = useFormContext();
   const classes = useStyles();
   return (
@@ -170,7 +170,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
+                        {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
                         </>
                       )}
                     />
@@ -202,7 +202,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
+                          {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
                         </>
                       )}
                     />
@@ -241,7 +241,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> эт.</span> : null}
+                        {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> эт.</span> : null}
                         </>
                       )}
                     />
@@ -273,7 +273,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> эт.</span> : null}
+                          {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> эт.</span> : null}
                         </>
                       )}
                     />
@@ -312,7 +312,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> м³</span> : null}
+                        {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> м³.</span> : null}
                         </>
                       )}
                     />
@@ -344,7 +344,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> м³</span> : null}
+                          {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> м³.</span> : null}
                         </>
                       )}
                     />
@@ -381,7 +381,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : "Высота в метрах"}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> м.</span> : null}
+                        {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> м.</span> : null}
                         </>
                       )}
                     />
@@ -413,7 +413,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : "Высота в метрах"}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> м.</span> : null}
+                          {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> м.</span> : null}
                         </>
                       )}
                     />
@@ -452,7 +452,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> р.</span> : null}
+                        {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> р.</span> : null}
                         </>
                       )}
                     />
@@ -484,7 +484,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> р.</span> : null}
+                          {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> р.</span> : null}
                         </>
                       )}
                     />
@@ -521,7 +521,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> км.</span> : null}
+                        {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> км.</span> : null}
                         </>
                       )}
                     />
@@ -553,7 +553,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> км.</span> : null}
+                          {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> км.</span> : null}
                         </>
                       )}
                     />
@@ -590,7 +590,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
+                        {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
                         </>
                       )}
                     />
@@ -622,7 +622,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
+                          {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
                         </>
                       )}
                     />
@@ -659,7 +659,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> ГБ</span> : null}
+                        {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> ГБ</span> : null}
                         </>
                       )}
                     />
@@ -691,7 +691,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> ГБ</span> : null}
+                          {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> ГБ</span> : null}
                         </>
                       )}
                     />

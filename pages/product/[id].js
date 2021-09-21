@@ -90,7 +90,7 @@ const Product = () => {
 	// address
 	const productInfo = useProduct(query.id)
 
-	console.log(productInfoFields)
+	console.log("INFO",productInfo)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
