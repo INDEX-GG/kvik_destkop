@@ -21,12 +21,17 @@ export default StarRating;
 
 export function ActiveStarRating() {
   return (
-    <div className="rating_wrapper">
-      <span id="oneStar"></span>
-      <span id="twoStar"></span>
-      <span id="threeStar"></span>
-      <span id="fourStar"></span>
-      <span id="fiveStar"></span>
+    <div className="rating_wrapper" onClick={(event) => console.log(event)}>
+      <input type="radio" id="starOne" name="rating" value="5" />
+      <label htmlFor="starOne" className="starOne_label"></label>
+      <input type="radio" id="starTwo" name="rating" value="4"/>
+      <label htmlFor="starTwo" className="starTwo_label"></label>
+      <input type="radio" id="starThree" name="rating" value="3"/>
+      <label htmlFor="starThree" className="starThree_label"></label>
+      <input type="radio" id="starFour" name="rating" value="2"/>
+      <label htmlFor="starFour" className="starFour_label"></label>
+      <input type="radio" id="starFive" name="rating" value="1"/>
+      <label htmlFor="starFive" className="starFive_label"></label>
     </div>
   );
 }

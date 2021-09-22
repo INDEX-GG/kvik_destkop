@@ -1,5 +1,5 @@
 import { Box, makeStyles, CardMedia, Typography, TextField, Button } from '@material-ui/core';
-import StarRating/* , {ActiveStarRating} */ from './StarRating';
+import/*  StarRating,  */{ActiveStarRating} from './StarRating';
 import React from 'react'
 import { ToRubles } from '../lib/services';
 
@@ -47,9 +47,6 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         padding: "0 0 16px 0",
         alignItems: "center",
-    },
-    feedModal__stars: {
-        width: "400px !important"
     },
     feedModal__textArea: {
         minWidth: "280px",
@@ -108,8 +105,8 @@ function FeedbackModal({offer}) {
                 <Typography className={classes.feedModal__designation}>Оценка и отзыв</Typography>
                 <Box className={classes.feedModal__rating}>
                     <Box component="span">0.0</Box>
-                    {/* <ActiveStarRating/> */}
-                    <StarRating rating={0} className={classes.feedModal__stars}/>
+                    <ActiveStarRating/>
+                    {/* <StarRating rating={0} /> */}
                 </Box>
                 <TextField 
                     variant='outlined'

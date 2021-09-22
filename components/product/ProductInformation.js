@@ -21,7 +21,7 @@ export default function ProductInformation({ postId, productionInfo, description
 	const [dataMap, setDataMap] = useState({})
 	
 	useEffect(() => {
-		axios.get(`${CACHE_URL}/cache/${postId}`).then(r => setDataMap(r.data))
+		axios.get(/* `${CACHE_URL}/cache/${postId}` */).then(r => setDataMap(r.data))
 	}, [postId])
 
 	// const testProperties = [{name: "Тип дома", desc: 'Кирпичный'}, {name: "Этаж", desc: '5 из 16'}, {name: "Количество комнта", desc: '2'}]
