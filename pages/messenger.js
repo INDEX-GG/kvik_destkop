@@ -27,21 +27,7 @@ let recipient = {"id": 6}
 const socket = io('http://127.0.0.1:5000')
 socket.emit('join', {'sender': sender, 'recipient': recipient})
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-const socket = io('http://192.168.8.111:6066')
-=======
-const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
->>>>>>> 1fe8d90495ab5a5b0b6bda6473a8b7c15d742336
-console.log(socket);
-=======
-const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
-// const socket = io('http://192.168.8.111:6066/')
-=======
->>>>>>> origin/main
 
->>>>>>> decb754105d5d2e2b9bdc9009a88547c01d6b09c
 const Messenger = () => {
 	const classes = useStyles();
 	const [msg, setMsg] = useState('');
