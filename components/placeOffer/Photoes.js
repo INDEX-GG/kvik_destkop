@@ -159,17 +159,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Photoes = ({ ctx, photo }) => {
-	console.log("🚀 ~ file: Photoes.js ~ line 163 ~ Photoes ~ photo", photo)
+const Photoes = ({ ctx }) => {
 
-	// const startFiles = {
-	// 	lastModified: 1632221640608,
-	// 	lastModifiedDate: Tue Sep 21 2021 15: 54: 00 GMT + 0500,
-	// 	name: "Screenshot_6.png",
-	// 	size: 26426,
-	// 	type: "image/webp",
-	// 	webkitRelativePath: ""
-	// }
+
 
 
 	const classes = useStyles();
@@ -179,7 +171,7 @@ const Photoes = ({ ctx, photo }) => {
 	const [selectedFiles, setSelectedFiles] = useState(null);
 	const [validFiles, setValidFiles] = useState([]);
 
-	// 
+	//
 	const [imageData, setImageData] = useState([]);
 	const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(
@@ -210,14 +202,6 @@ const Photoes = ({ ctx, photo }) => {
 		});
 	}, [selectedFiles]);
 
-	// все фаилы которые загружали
-	console.log('imageData', imageData);
-	console.log('imageData.langth', typeof imageData, Object.keys(imageData), imageData[0] === undefined);
-	// фаилы прошедшие валидацию
-	console.log('validFiles', validFiles, Array.isArray(validFiles));
-	console.log('validFiles[0] === undefined ?', validFiles[0] === undefined);
-
-	// ? хз что это
 	useEffect(() => {
 		if (validFiles && validFiles.length > 0) {
 			methods.setValue("photoes", "ok");
@@ -380,6 +364,8 @@ const Photoes = ({ ctx, photo }) => {
 	ctx(validFiles);
 
 	const SortableList = SortableContainer(({ items }) => {
+
+
 		return (
 			<div className={classes.drag}   >
 				{items.map((value, i) => (
@@ -411,25 +397,7 @@ const Photoes = ({ ctx, photo }) => {
 
 	const SortableItem = SortableElement(({ data, i }) => {
 
-		//! Тут фото
 		const img = imageData.find((el) => el.name === data.name);
-
-		console.log('!!!!!!!!!!!!!!');
-		console.log('img', img, 'typeof img ==>', typeof img); // obj
-		console.log('!!!!!!!!!!!!!!');
-
-		console.log('photo', photo, 'typeof photo', Array.isArray(photo)); //  array
-
-		//! ======> ФАИЛ
-		// img { name: 'Screenshot_12.png',
-		//  src: 'data:image/webp;base64,UklGRlCiAABXRUJQVlA4WAoAAAA…BLpqAAAAAAAAAAAAAAAAx0btY/fxbgdPN26cyS2eZpYAAAA==',
-		//   id: 1 }
-
-		//! ======> Ссылка
-		// 'http://192.168.8.111:6001/images/po/2d/75/48/15/50…e59bdfa69bf1e46e1cd1751e20210922100541585747.webp'
-
-
-
 		return (
 			<div
 				style={{ marginRight: "5px", userSelect: "none" }}
@@ -459,74 +427,6 @@ const Photoes = ({ ctx, photo }) => {
 				)}
 			</div>
 		);
-
-
-
-
-
-		// if (type ) {
-		// 	return (
-		// 		<div
-		// 			style={{ marginRight: "5px", userSelect: "none" }}
-		// 			className={classes.card}
-		// 		>
-		// 			<img
-		// 				src={img?.src}
-		// 				id={`prev${img?.id}`}
-		// 				style={{
-		// 					transform: data.angle
-		// 						? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-		// 						}`
-		// 						: null,
-		// 				}}
-		// 			/>
-
-		// 			<div
-		// 				className={classes.rotate}
-		// 				onClick={() => rotate(data)}
-		// 			/>
-		// 			<div
-		// 				className={classes.delete}
-		// 				onClick={() => removeFile(img?.name)}
-		// 			/>
-		// 			{i === 0 && (
-		// 				<div className={classes.mainPhoto}>Главное фото</div>
-		// 			)}
-		// 		</div>
-		// 	);
-		// } else if () {
-		// 	return (
-		// 		<div
-		// 			style={{ marginRight: "5px", userSelect: "none" }}
-		// 			className={classes.card}
-		// 		>
-		// 			<img
-		// 				src={img?.src}
-		// 				id={`prev${img?.id}`}
-		// 				style={{
-		// 					transform: data.angle
-		// 						? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-		// 						}`
-		// 						: null,
-		// 				}}
-		// 			/>
-
-		// 			<div
-		// 				className={classes.rotate}
-		// 				onClick={() => rotate(data)}
-		// 			/>
-		// 			<div
-		// 				className={classes.delete}
-		// 				onClick={() => removeFile(img?.name)}
-		// 			/>
-		// 			{i === 0 && (
-		// 				<div className={classes.mainPhoto}>Главное фото</div>
-		// 			)}
-		// 		</div>
-		// 	);
-		// }
-
-
 	});
 
 	const onSortEnd = ({ oldIndex, newIndex }) => {

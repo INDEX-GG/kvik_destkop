@@ -3,7 +3,6 @@ import { useFormContext } from "react-hook-form";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import { arrayMoveImmutable } from 'array-move';
-// import { object } from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
 	formElem: {
@@ -160,11 +159,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Photoes = ({ ctx, photo }) => {
-	console.log("🚀 ~ file: Photoes.js ~ line 163 ~ Photoes ~ photo", photo, typeof photo) // array
+const PhotoForEditPage = ({ ctx, photo }) => {
+	console.log("🚀 ~ file: PhotoForEditPage.js ~ line 163 ~ PhotoForEditPage ~ photo", photo, typeof photo) // array
 	const tp = photo?.map((item) => typeof item) // string
-	console.log("🚀 ~ file: Photoes.js ~ line 168 ~ Photoes ~ tp", tp)
-
+	console.log("🚀 ~ file: PhotoForEditPage.js ~ line 168 ~ PhotoForEditPage ~ tp", tp)
 
 	// const startFiles = {
 	// 	lastModified: 1632221640608,
@@ -175,14 +173,12 @@ const Photoes = ({ ctx, photo }) => {
 	// 	webkitRelativePath: ""
 	// }
 
-
 	const classes = useStyles();
 	const methods = useFormContext();
-
 	const fileInputRef = useRef();
+
 	const [selectedFiles, setSelectedFiles] = useState(null);
 	const [validFiles, setValidFiles] = useState([]);
-
 	const [srcAndFile, setSrcAndFile] = useState([photo])
 
 	console.log('=========$$$$$$$$$$$$==========>', validFiles, typeof validFiles[0]);
@@ -226,13 +222,14 @@ const Photoes = ({ ctx, photo }) => {
 	const srcFileType = srcAndFile.map((item)=> typeof item)
 	console.log('$$$$srcFileType$$$$$',Array.isArray(srcFileType))
 	console.log('$$$$srcFileType$$$$$',srcFileType)
+
 	useEffect(() => {
 	if(srcAndFile !== undefined){
-		setSrcAndFile([...srcAndFile, ...validFiles])
+		setSrcAndFile([srcAndFile, ...validFiles])
 	}
 	}, [validFiles])
 
-	// console.log('##%%%%%%%%%%%%%%%&&&&&&&&&&&&',typeof srcAndFile);
+	console.log('##%%%%%%%%%%%%%%%&&&&&&&&&&&&',typeof srcAndFile);
 
 	// все фаилы которые загружали
 	console.log('imageData', imageData);
@@ -388,6 +385,7 @@ const Photoes = ({ ctx, photo }) => {
 
 
 	const rotate = (data) => {
+		console.log('ROTATE DATA',data)
 		const filteredValid = validFiles
 		const index = filteredValid.indexOf(data);
 		if (!filteredValid[index].angle) {
@@ -454,40 +452,6 @@ const Photoes = ({ ctx, photo }) => {
 
 
 
-		// return (
-		// 	<div
-		// 		style={{ marginRight: "5px", userSelect: "none" }}
-		// 		className={classes.card}
-		// 	>
-		// 		<img
-		// 			src={img?.src}
-		// 			id={`prev${img?.id}`}
-		// 			style={{
-		// 				transform: data.angle
-		// 					? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-		// 					}`
-		// 					: null,
-		// 			}}
-		// 		/>
-		//
-		// 		<div
-		// 			className={classes.rotate}
-		// 			onClick={() => rotate(data)}
-		// 		/>
-		// 		<div
-		// 			className={classes.delete}
-		// 			onClick={() => removeFile(img?.name)}
-		// 		/>
-		// 		{i === 0 && (
-		// 			<div className={classes.mainPhoto}>Главное фото</div>
-		// 		)}
-		// 	</div>
-		// );
-
-
-
-
-
 		if ( Array.isArray(data) === true ) {
 			return (
 				<div
@@ -497,12 +461,12 @@ const Photoes = ({ ctx, photo }) => {
 					<img
 						src={data}
 						id={i}
-						// style={{
-						// 	transform: data.angle
-						// 		? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-						// 		}`
-						// 		: null,
-						// }}
+						style={{
+							transform: data.angle
+								? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+								}`
+								: null,
+						}}
 					/>
 
 					<div
@@ -528,12 +492,12 @@ const Photoes = ({ ctx, photo }) => {
 					<img
 						src={img?.src}
 						id={`prev${img?.id}`}
-						// style={{
-						// 	transform: data.angle
-						// 		? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-						// 		}`
-						// 		: null,
-						// }}
+						 style={{
+						 	transform: data.angle
+						 		? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+						 		}`
+						 		: null,
+						 }}
 					/>
 
 					<div
@@ -576,4 +540,4 @@ const Photoes = ({ ctx, photo }) => {
 	);
 };
 
-export default Photoes;
+export default PhotoForEditPage;
