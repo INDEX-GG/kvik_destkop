@@ -1,5 +1,7 @@
-import { Box, TextField, makeStyles } from '@material-ui/core';
+import { Box, TextField, makeStyles, FormControl } from '@material-ui/core';
+
 import SearchIcon from '@material-ui/icons/Search';
+import React from 'react';
 
 const useStyles = makeStyles(() => ({
 	input: {
@@ -17,7 +19,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Search = ({text = false}) => {
-
 	const classes = useStyles();
 	// const [search, setSearch] = useState();
 	// const [result, setRes] = useState();
@@ -34,17 +35,21 @@ const Search = ({text = false}) => {
 	// 		.then(res => console.log(res))
 	// }, [result])
 
-	// console.log(result)
 
 	return (
 		<Box className={classes.input} >
-			<TextField
-				// value={search}
-				// onChange={e => handelSearch(e)}
-				variant='outlined' size='small'
-				placeholder={text ? text : "Поиск по объявлениям"}
-				fullWidth className={classes.searchInput} />
-			<SearchIcon className={classes.icon} />
+			<FormControl fullWidth>
+				<TextField
+					onClick={() => console.log("asdasdas")}
+					onFocus={(event) => console.log(event)}
+					// value={search}
+					// onChange={e => handelSearch(e)}
+					variant='outlined' size='small'
+					placeholder={text ? text : "Поиск по объявлениям"}
+					fullWidth className={classes.searchInput} 
+				/>
+				<SearchIcon className={classes.icon} />
+			</FormControl>
 		</Box>
 	)
 }
