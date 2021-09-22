@@ -82,11 +82,11 @@ function PlaceOffer() {
 
 
         if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
-            setAsd(methods?.watch('alias4'));
+            setAsd(methods?.watch('alias4').toLowerCase());
         } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
-            setAsd(methods?.watch('alias3'));
+            setAsd(methods?.watch('alias3').toLowerCase());
         } else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
-            setAsd(methods?.watch('alias2'));
+            setAsd(methods?.watch('alias2').toLowerCase());
         } else {
             setAsd(undefined);
         }
@@ -185,7 +185,7 @@ function PlaceOffer() {
         // console.log('add 3', additionalfields3[asd])
 
 
-
+        console.log("asdasdasd",newOBJ[asd]);
         if (newOBJ[asd] !== undefined) {
             obj.subcategory = asd
         }
@@ -232,7 +232,7 @@ function PlaceOffer() {
                                     <Title />
                                     <Category />
                                 </Box>
-                                {newOBJ[asd?.toLowerCase()] !== undefined ?
+                                {newOBJ[asd] !== undefined ?
                                     <Box className={classes.formPart}>
                                         <AdditionalInformation newOBJ={newOBJ} asd={asd?.toLowerCase()} />
                                     </Box>
@@ -247,7 +247,7 @@ function PlaceOffer() {
                                     <Location />
                                     <Contacts />
                                     <Box className={classes.submit}>
-                                        <ErrorMessages />
+                                        <ErrorMessages validate={newOBJ[asd]} type={asd}/>
                                         <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
                                     </Box>
                                 </Box>

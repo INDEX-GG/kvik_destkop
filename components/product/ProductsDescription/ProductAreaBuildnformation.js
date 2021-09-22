@@ -27,31 +27,32 @@ const ProductAreaBuildnformation = ({data, mobile, description, productData}) =>
 		data.id == undefined ? 
 		<div style={{order: 0}} className="placeholder_animation product__placeholder_description"></div> :
 		<>
+      {!mobile && <ProductDescription description={description} mobile={mobile} />} 
       {productData?.map((el, i) => {
         if(data[el.alias]){
           if (el.alias ==="communications_checkbox") return null
           if (el.alias ==="distance_to_city") return (
             <div key={i} style={{border: "none"}}>
-            {mobile && <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>}
+            <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>
             <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]} км.</pre>
             </div>
           )
           if (el.alias ==="area") return (
             <div key={i} style={{border: "none"}}>
-            {mobile && <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>}
+            <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>
             <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]} м³</pre>
             </div>
           )
           return (
             <div key={i} style={{border: "none"}}>
-            {mobile && <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>}
+            <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>
             <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]}</pre>
             </div>
           )
         }
         
 			})}
-       <ProductDescription description={description} mobile={mobile} style={{borderTop: "1px solid #e9e9e9"}} />
+      {mobile && <ProductDescription description={description} mobile={mobile} style={{borderTop: "1px solid #e9e9e9"}} />} 
       {productData?.map((el, i) => {
         if (data[el.alias]){
           if (el.alias ==="communications_checkbox"){

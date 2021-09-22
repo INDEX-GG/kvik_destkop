@@ -200,6 +200,7 @@ export const useCategoryPlaceOffer = (data, methods) => {
                                 case 'breed':
                                 case 'time_of_rent_abroad_property':
                                 case 'pledge_abroad_property':
+                                case 'power_supply_power':
                                 case 'socket':
                                 case 'graphics_card_manufacturer':
                                 case 'chip_manufacturer':
@@ -271,7 +272,6 @@ export const useCategoryPlaceOffer = (data, methods) => {
                 
                                 case 'colour':// НЕТ В ТЗ
                                 case 'airbags': // НЕТ В ТЗ
-                                case 'power_supply_power':
                                 case 'features_of_the':
                                 case 'features_of_the_body':
                                 case 'features':

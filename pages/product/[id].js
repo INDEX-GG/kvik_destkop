@@ -89,7 +89,7 @@ const Product = () => {
 	const {productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
-	console.log("INFO",productInfo)
+	console.log("INFO", productInfoFields, subcategory)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();

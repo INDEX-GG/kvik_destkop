@@ -46,21 +46,24 @@
 }
 .productPageCharacter {
     width: 100%;
-    display: table;
+    display: flex;
+    flex-direction: column;
 }
-.productPageCharacter > div {
+.productPageWrap {
+    display: flex;
+    flex-direction: column;
+    transition: all .3;
+}
+.productPageWrap > div {
     border-bottom: 1px solid $light;
     display: flex;
     align-items: flex-start;
+    width: 100%;
 }
-.productPageCharacter > div > div {
-    display: table-cell;
+.productPageWrap > div > div {
     padding: 18px 0;
 }
-.productPageCharacter > div > div:first-child {
-    color: $tp;
-    min-width: 150px;
-}
+
 .freedomBlock_1 {
     width: 224px;
     height: 480px;
@@ -365,7 +368,7 @@
 
 /* Характеристики объявления */
 .productDescription {
-    margin: 18px 0;
+    margin: 14px 0px;
 }
 
 .productPageCharacterMapBlock {
@@ -375,9 +378,10 @@
 }
 
 .productLocality {
-    color: $tpsl !important;
+    color: $tpsl;
     width: 150px;
     margin-right: 20px;
+    padding: 14px 0px;
 }
 
 .productPageCharacterLocality {

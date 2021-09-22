@@ -118,6 +118,44 @@ export default function ChargersPowerSupplies({ data }) {
                 />
               </Box>
             </Box>
+            case "listRec":
+              return (
+                <Box key={idx} className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      rules={{
+                        required: "Выберите " + item.name,
+                      }}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <TextField
+                          select
+                          className={classes.input}
+                          variant="outlined"
+                          value={value}
+                          onChange={onChange}
+                          error={!!error}
+                          helperText={error ? error.message : " "}
+                        >
+                          {item.fields.map((option, i) => (
+                            <MenuItem key={i} value={option}>
+                              {option}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
         }
       })}
     </>
