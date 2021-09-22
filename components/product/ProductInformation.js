@@ -79,7 +79,7 @@ export default function ProductInformation({ postId, productionInfo, description
 
 	return (
 		<>
-			<ProductMap address={dataMap?.data?.locality} coordinates={dataMap?.data?.coordinates} mobile={!matchesMobile && !matchesTablet}/>
+			<ProductMap address={address} mobile={!matchesMobile && !matchesTablet}/>
 			<div className="productPageCharacter thin">
 				{info}
 				<ProductSocial/>

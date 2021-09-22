@@ -1,7 +1,7 @@
-// import { Controller, useFormContext } from 'react-hook-form';
-import { Box, makeStyles, /**TextField, */ Typography } from '@material-ui/core';
-// import { invalidСharacterLocation } from '../../lib/regulars'
-import YandexMap from '../YandexMap';
+import { Controller, useFormContext } from 'react-hook-form';
+import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
+import { invalidСharacterLocation } from '../../lib/regulars'
+// import YandexMap from '../YandexMap';
 
 const useStyles = makeStyles((theme) => ({
    formElem: {
@@ -23,16 +23,16 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-const Location = ({setData}) => {
+const Location = () => {
 
    const classes = useStyles();
-//    const methods = useFormContext();
+   const methods = useFormContext();
 
    return (
       <Box className={classes.formElem}>
          <Typography className={classes.formTitleField}>Местоположение</Typography>
          <Box className={classes.formInputField}>
-            {/* <Controller
+            <Controller
                name="location"
                control={methods.control}
                defaultValue=''
@@ -50,10 +50,10 @@ const Location = ({setData}) => {
                rules={{ 
 				   required: 'Укажите ваше местоположение...',
 				   pattern: {value: invalidСharacterLocation() , message: 'Недопустимые символы' },
-				}}
-            /> */}
-            {/* <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe> */}
-			<YandexMap setData={setData}/>
+			   }}
+            />
+            <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe>
+			{/* <YandexMap setData={setData}/> */}
          </Box>
       </Box>
    )
