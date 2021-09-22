@@ -159,33 +159,48 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Photoes = ({ ctx }) => {
+const PhotoForEditPage = ({ ctx, photo }) => {
+	console.log("🚀 ~ file: PhotoForEditPage.js ~ line 163 ~ PhotoForEditPage ~ photo", photo, typeof photo) // array
+	const tp = photo?.map((item) => typeof item) // string
+	console.log("🚀 ~ file: PhotoForEditPage.js ~ line 168 ~ PhotoForEditPage ~ tp", tp)
 
-
-
+	// const startFiles = {
+	// 	lastModified: 1632221640608,
+	// 	lastModifiedDate: Tue Sep 21 2021 15: 54: 00 GMT + 0500,
+	// 	name: "Screenshot_6.png",
+	// 	size: 26426,
+	// 	type: "image/webp",
+	// 	webkitRelativePath: ""
+	// }
 
 	const classes = useStyles();
 	const methods = useFormContext();
-
 	const fileInputRef = useRef();
+
 	const [selectedFiles, setSelectedFiles] = useState(null);
 	const [validFiles, setValidFiles] = useState([]);
+	const [srcAndFile, setSrcAndFile] = useState([photo])
 
-	//
+	console.log('=========$$$$$$$$$$$$==========>', validFiles, typeof validFiles[0]);
+
 	const [imageData, setImageData] = useState([]);
 	const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(
 		"Добавьте или перетащите фото"
 	);
 
+
 	// присваивается name в validFiles
 	useEffect(() => {
-		if (!validFiles.find((el) => el.name === selectedFiles.name)) {
+
+		if (!validFiles.find((el) => {
+			el.name === selectedFiles.name
+
+		})) {
 			if (selectedFiles) {
 				setValidFiles([...validFiles, selectedFiles]);
 			}
 		}
-
 		// собирается oject imageData по выбраным файлам
 		validFiles.forEach((el, i) => {
 			const reader = new FileReader();
@@ -201,6 +216,28 @@ const Photoes = ({ ctx }) => {
 			};
 		});
 	}, [selectedFiles]);
+
+
+	console.log('++++srcAndFile++++++++', srcAndFile);
+	const srcFileType = srcAndFile.map((item)=> typeof item)
+	console.log('$$$$srcFileType$$$$$',Array.isArray(srcFileType))
+	console.log('$$$$srcFileType$$$$$',srcFileType)
+
+	useEffect(() => {
+	if(srcAndFile !== undefined){
+		setSrcAndFile([srcAndFile, ...validFiles])
+	}
+	}, [validFiles])
+
+	console.log('##%%%%%%%%%%%%%%%&&&&&&&&&&&&',typeof srcAndFile);
+
+	// все фаилы которые загружали
+	console.log('imageData', imageData);
+	console.log('typeof imageData', typeof imageData, ' Object.keys(imageData),', Object.keys(imageData));
+	// фаилы прошедшие валидацию
+	console.log('validFiles', validFiles, Array.isArray(validFiles[0]));
+	console.log('validFiles[0] === undefined ?', validFiles[0] === undefined);
+
 
 	useEffect(() => {
 		if (validFiles && validFiles.length > 0) {
@@ -348,6 +385,7 @@ const Photoes = ({ ctx }) => {
 
 
 	const rotate = (data) => {
+		console.log('ROTATE DATA',data)
 		const filteredValid = validFiles
 		const index = filteredValid.indexOf(data);
 		if (!filteredValid[index].angle) {
@@ -364,8 +402,6 @@ const Photoes = ({ ctx }) => {
 	ctx(validFiles);
 
 	const SortableList = SortableContainer(({ items }) => {
-
-
 		return (
 			<div className={classes.drag}   >
 				{items.map((value, i) => (
@@ -398,35 +434,88 @@ const Photoes = ({ ctx }) => {
 	const SortableItem = SortableElement(({ data, i }) => {
 
 		const img = imageData.find((el) => el.name === data.name);
-		return (
-			<div
-				style={{ marginRight: "5px", userSelect: "none" }}
-				className={classes.card}
-			>
-				<img
-					src={img?.src}
-					id={`prev${img?.id}`}
-					style={{
-						transform: data.angle
-							? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-							}`
-							: null,
-					}}
-				/>
 
+		//! Тут фото
+		console.log('img', img, 'typeof img ==>', typeof img); // obj
+		console.log('!!!!!!!!!!!!!!');
+		console.log('photo', photo, 'typeof photo', Array.isArray(photo)); //  array
+		console.log('!!!!!!!!!!!!!!');
+		console.log('DATA', data)
+
+		//! ======> ФАИЛ
+		// img { name: 'Screenshot_12.png',
+		//  src: 'data:image/webp;base64,UklGRlCiAABXRUJQVlA4WAoAAAA…BLpqAAAAAAAAAAAAAAAAx0btY/fxbgdPN26cyS2eZpYAAAA==',
+		//   id: 1 }
+
+		//! ======> Ссылка
+		// 'http://192.168.8.111:6001/images/po/2d/75/48/15/50…e59bdfa69bf1e46e1cd1751e20210922100541585747.webp'
+
+
+
+		if ( Array.isArray(data) === true ) {
+			return (
 				<div
-					className={classes.rotate}
-					onClick={() => rotate(data)}
-				/>
+					style={{ marginRight: "5px", userSelect: "none" }}
+					className={classes.card}
+				>
+					<img
+						src={data}
+						id={i}
+						style={{
+							transform: data.angle
+								? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+								}`
+								: null,
+						}}
+					/>
+
+					<div
+						className={classes.rotate}
+						onClick={() => rotate(data)}
+					/>
+					<div
+						className={classes.delete}
+						// onClick={() => removeFile(img?.name)}
+					/>
+					{i === 0 && (
+						<div className={classes.mainPhoto}>Главное фото</div>
+					)}
+				</div>
+			);
+		} else {
+
+			return (
 				<div
-					className={classes.delete}
-					onClick={() => removeFile(img?.name)}
-				/>
-				{i === 0 && (
-					<div className={classes.mainPhoto}>Главное фото</div>
-				)}
-			</div>
-		);
+					style={{ marginRight: "5px", userSelect: "none" }}
+					className={classes.card}
+				>
+					<img
+						src={img?.src}
+						id={`prev${img?.id}`}
+						 style={{
+						 	transform: data.angle
+						 		? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+						 		}`
+						 		: null,
+						 }}
+					/>
+
+					<div
+						className={classes.rotate}
+						onClick={() => rotate(data)}
+					/>
+					<div
+						className={classes.delete}
+						onClick={() => removeFile(img?.name)}
+					/>
+					{i === 0 && (
+						<div className={classes.mainPhoto}>Главное фото</div>
+					)}
+				</div>
+			);
+		}
+
+
 	});
 
 	const onSortEnd = ({ oldIndex, newIndex }) => {
@@ -441,7 +530,7 @@ const Photoes = ({ ctx }) => {
 				<div>
 					{console.log('439', validFiles)}
 
-					<SortableList items={validFiles} axis="xy" onSortEnd={onSortEnd} distance={5} />
+					<SortableList items={srcAndFile} axis="xy" onSortEnd={onSortEnd} distance={5} />
 				</div>
 				<Typography className={classes.error}>
 					{methods.formState.errors?.photoes?.message}
@@ -451,4 +540,4 @@ const Photoes = ({ ctx }) => {
 	);
 };
 
-export default Photoes;
+export default PhotoForEditPage;

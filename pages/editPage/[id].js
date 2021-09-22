@@ -10,7 +10,6 @@ import Title from '../../components/placeOffer/Title';
 // import Category from '../components/placeOffer/Category';
 import Description from '../../components/placeOffer/Description';
 import Price from '../../components/placeOffer/Price/Price';
-import Photoes from '../../components/placeOffer/Photoes';
 import Location from '../../components/placeOffer/Location';
 import Contacts from '../../components/placeOffer/Contacts';
 import ErrorMessages from '../../components/placeOffer/ErrorMessages';
@@ -22,6 +21,7 @@ import { useCategoryPlaceOffer } from '../../hooks/useCategoryPlaceOffer';
 import AdditionalInformation from '../../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
+import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
 // import { DelActiveCTX } from "../../lib/Context/DialogCTX"
 // import { useOfferAccount } from "../../lib/Context/OfferAccountCTX";
 
@@ -218,7 +218,7 @@ function EditPage() {
 								<Box className={classes.formPart}>
 									<Description description={description} />
 									<Price price={price} />
-									<Photoes ctx={photoesCtx} photo={photo} />
+									<PhotosForEditPage ctx={photoesCtx} photo={photo} />
 								</Box>
 								<Box className={classes.formPart}>
 									<Location />
