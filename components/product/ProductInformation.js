@@ -19,7 +19,6 @@ export default function ProductInformation({ address, productionInfo, descriptio
 
 	const { matchesMobile, matchesTablet } = useMedia();
 	
-
 	// const testProperties = [{name: "Тип дома", desc: 'Кирпичный'}, {name: "Этаж", desc: '5 из 16'}, {name: "Количество комнта", desc: '2'}]
 
 	let info = null

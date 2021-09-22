@@ -37,26 +37,52 @@
 
 
   /* активный рейтинг */
-
   .rating_wrapper {
+    overflow: hidden;
     height: 24px;
     width: 120px;
-    span {
-      display: inline-block;
-      width: 24px;
+    position: relative;
+    &:not(:checked) > input {
+      display: none;
+    }
+    &:not(:checked) > label {
+      float: right;
+      cursor: pointer;
       height: 24px;
+      width: 24px;
       background-image: url(../../icons/stars.svg);
       background-position: 0 0;
       background-repeat: repeat-x;
     }
+    &:not(:checked) > label:before {
+      content: "";
+      position: absolute;
+    }
+    & .starTwo_label:before  {
+      left: 24px;
+    }
+    & .starThree_label:before  {
+      left: 48px;
+    }
+    & .starFour_label:before  {
+      left: 72px;
+    }
+    & .starOne_label:before  {
+      left: 96px;
+    }
+    
+    & > input:checked ~ label {
+      height: 24px;
+      width: 24px;
+      background-image: url(../../icons/stars.svg);
+      background-repeat: no-repeat;
+      background-position: 0 -24px;
+    }
+    &:not(:checked) > label:hover,
+    &:not(:checked) > label:hover ~ label {
+      background-image: url(../../icons/stars.svg);
+      background-repeat: no-repeat;
+      background-position: 0 -24px;
+    }
   }
-  #oneStar:hover, #oneStar:hover + #twoStar:hover {
-    background-image: url(../../icons/stars.svg);
-    background-repeat: no-repeat;
-    background-position: 0 -24px;
-  }
-  /* #oneStar:hover ~ #twoStar:hover {
-    background-image: url(../../icons/stars.svg);
-    background-repeat: no-repeat;
-    background-position: 0 -24px;
-  } */
+  
