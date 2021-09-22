@@ -86,8 +86,7 @@ const Product = () => {
 	}, []);
 
 	console.log("DATA-------", data)
-	const {productInfoFields, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
-	// address
+	const {productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
 	console.log("INFO",productInfo)
@@ -150,7 +149,7 @@ const Product = () => {
 										)}
 										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={1} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} />}
 										{/* адрес, карта, свойства и значения */}
-										<ProductInformation postId={query.id} description={description} productionInfo={productInfoFields} caterory={subcategory} />
+										<ProductInformation address={address} description={description} productionInfo={productInfoFields} caterory={subcategory} />
 									</div>
 
 									{/* Блок информации*/}

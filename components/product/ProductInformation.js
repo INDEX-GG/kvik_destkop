@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+import React from 'react';
 import { useMedia } from '../../hooks/useMedia';
 
 import ProductAutoInformation from './ProductsDescription/ProductAutoInformation';
@@ -14,15 +14,11 @@ import ProductRentBuildInformation from './ProductsDescription/ProductRentBuildI
 import ProductSellRoomInformation from './ProductsDescription/ProductSellRoomInformation';
 import ProductRentRoomInformation from './ProductsDescription/ProductRentRoomInformation';
 
-export default function ProductInformation({ postId, productionInfo, description, caterory}) {
+export default function ProductInformation({ address, productionInfo, description, caterory}) {
 	// console.log("я правильно понимаю", productionInfo)
 
 	const { matchesMobile, matchesTablet } = useMedia();
-	const [dataMap, setDataMap] = useState({})
 	
-	useEffect(() => {
-		axios.get(`${CACHE_URL}/cache/${postId}`).then(r => setDataMap(r.data))
-	}, [postId])
 
 	// const testProperties = [{name: "Тип дома", desc: 'Кирпичный'}, {name: "Этаж", desc: '5 из 16'}, {name: "Количество комнта", desc: '2'}]
 
@@ -52,7 +48,7 @@ export default function ProductInformation({ postId, productionInfo, description
 
 	return (
 		<>
-			<ProductMap address={dataMap?.data?.locality} coordinates={dataMap?.data?.coordinates} mobile={!matchesMobile && !matchesTablet}/>
+			<ProductMap address={address} mobile={!matchesMobile && !matchesTablet}/>
 			<div className="productPageCharacter thin">
 				{info}
 				<ProductSocial/>
