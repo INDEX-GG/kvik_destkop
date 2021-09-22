@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core";
 import ProductDescription from "../ProductDescription";
-import n from '../../../public/subcategories/secondary_housing.json'
 
 
 const useClass = makeStyles(() => ({
@@ -21,15 +20,14 @@ const useClass = makeStyles(() => ({
   },
 }))
 
-const ProductSecBuildInformation = ({data, mobile, description}) => {
+const ProductBuildInformation = ({data, mobile, description, productData}) => {
   const classes = useClass()
-  const names = n['secondary_housing']
 
 	return (
 		data.id == undefined ? 
 		<div style={{order: 0}} className="placeholder_animation product__placeholder_description"></div> :
 		<>
-      {names?.map((el, i) => {
+      {productData?.map((el, i) => {
         if(data[el.alias]){
           if (el.alias === "floor_home") return null
           if (el.alias === "storey") {
@@ -38,7 +36,25 @@ const ProductSecBuildInformation = ({data, mobile, description}) => {
             <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]} из {data['floor_home']}</pre>
             </div>
           }
-          if (el.alias ==="infrastructure") return null
+          if (el.alias ==="pledge") return (
+            <div key={i} style={{border: "none"}}>
+            {mobile && <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>}
+            <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]} ₽</pre>
+            </div>
+          )
+          if (el.alias ==="area") return (
+            <div key={i} style={{border: "none"}}>
+            {mobile && <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>}
+            <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]} м³</pre>
+            </div>
+          )
+          if (el.alias ==="ceiling_height") return (
+            <div key={i} style={{border: "none"}}>
+            {mobile && <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>}
+            <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]} м.</pre>
+            </div>
+          )
+          if (el.alias ==="accommodations" || el.alias ==="facilities" || el.alias ==="infrastructure") return null
 
           return <div key={i} style={{border: "none"}}>
           {mobile && <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>}
@@ -47,10 +63,10 @@ const ProductSecBuildInformation = ({data, mobile, description}) => {
         }
         
 			})}
-      <ProductDescription description={description} mobile={mobile} style={{borderTop: "1px solid #e9e9e9"}} />
-      {names?.map((el, i) => {
+       <ProductDescription description={description} mobile={mobile} style={{borderTop: "1px solid #e9e9e9"}} />
+      {productData?.map((el, i) => {
         if (data[el.alias]){
-          if (el.alias ==="infrastructure"){
+          if (el.alias ==="accommodations" || el.alias ==="facilities" || el.alias ==="infrastructure"){
             return <div key={i} style={{
               display:! mobile ? 'flex' : null,
               flexDirection: !mobile ? "column" : null
@@ -72,4 +88,4 @@ const ProductSecBuildInformation = ({data, mobile, description}) => {
 				
 	)
 }
-export default ProductSecBuildInformation;
+export default ProductBuildInformation;

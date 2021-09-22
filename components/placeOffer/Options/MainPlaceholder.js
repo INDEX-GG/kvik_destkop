@@ -452,7 +452,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                         />
-                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> р.</span> : null}
+                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> ₽</span> : null}
                         </>
                       )}
                     />
@@ -484,7 +484,7 @@ export default function MainPlaceholder({ data }) {
                           error={!!error}
                           helperText={error ? error.message : " "}
                           />
-                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> р.</span> : null}
+                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> ₽</span> : null}
                         </>
                       )}
                     />
