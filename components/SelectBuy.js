@@ -122,7 +122,7 @@ function SelectBuy({promotion = false, align = false, value = false}) {
             </select>
             <div className={classes.test}>{selectImg}</div>
         </div>
-        <button className={classes.buyPaymentButton} disabled type="submit">Перейти к оплате</button>
+        <button className={classes.buyPaymentButton} type="submit">Перейти к оплате</button>
         <div className={classes.buyPaymentRules}>Оплачивая заказ вы соглашаетесь с <a href="/">Правилами сервиса</a> и офертой <a href="/">Службы доставки</a></div>
     </div>
     )

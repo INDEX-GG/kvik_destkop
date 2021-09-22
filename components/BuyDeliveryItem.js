@@ -1,6 +1,5 @@
 import React from 'react';
 import { Collapse, makeStyles } from '@material-ui/core';
-import { useState } from 'react';
 
 const useStyles = makeStyles(theme => ({
 	buyDilevery: {
@@ -76,15 +75,15 @@ const useStyles = makeStyles(theme => ({
 	
 }));
 
-const BuyDeleveryItem = ({title, subtitle, price, children}) => {
+const BuyDeleveryItem = ({title, subtitle, price, children, open, setOpen}) => {
 
 	const classes = useStyles();
 
-	const [open, setOpen] = useState(false);
+
 
 	return (
 		<section className={classes.buyDilevery}>
-                <div className={`${classes.buyDileveryBox} ${open ? classes.buyDileveryBox__active : ''}`} onClick={() => setOpen(!open)}>
+                <div className={`${classes.buyDileveryBox} ${open ? classes.buyDileveryBox__active : ''}`} onClick={() => setOpen()}>
                     <div className={classes.buyDileveryInf}>
                         <div className={classes.buyDileveryName}>
                             <div className={`${classes.buyDileveryCircle} ${open ? classes.buyDileveryCircle__active : ''}`}></div>

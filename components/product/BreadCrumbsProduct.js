@@ -11,7 +11,6 @@ export default function BreadCrumbsProduct(data) {
 
 
 	for (let inner = 0; inner < aliasNamesArr.length; inner++) {
-
 		if (inner == 0) {
 			aliasOne = categoryMainAlias.filter(item => item.alias === aliasNamesArr[0])
 		}

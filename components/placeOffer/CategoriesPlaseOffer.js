@@ -3,6 +3,7 @@ import CategoriesContent from "../header/CategoriesContent"
 // import { makeStyles } from "@material-ui/core"
 import { useRouter } from "next/router"
 import MobileModal from "../MobileModal"
+import { useCategory } from "../../hooks/useCategory";
 // const useStyles = makeStyles(() => ({
 //     buttonSend: {
 //         position: "absolut",
@@ -25,6 +26,8 @@ export default function CategoriesPlaseOffer({categories, categoriesFunc, dialog
 
 	console.log(categories);
 
+	const { categoryMainAlias } = useCategory()
+
 	const categoriesChange = (str) => {
 		categoriesFunc(str)
 		dialogFunc()
@@ -32,7 +35,7 @@ export default function CategoriesPlaseOffer({categories, categoriesFunc, dialog
 
     return (
 		<MobileModal title='Новое объявление' dialog={dialog} close={() => router.push('/')}>
-			<CategoriesContent toggleDrawer={false} changeCategories={categoriesChange}/>
+			<CategoriesContent toggleDrawer={false} changeCategories={categoriesChange} categoryMainAlias={categoryMainAlias}/>
 			{/* <div className={classes.buttonContainer}>
 				<Button className={classes.buttonSend} color='primary' variant='contained' disabled={categories == null ? true : false} onClick={() => dialogFunc()} >Продолжить</Button>
 			</div> */}

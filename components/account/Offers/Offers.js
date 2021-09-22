@@ -27,7 +27,7 @@ const Offers = () => {
       // Ждут действия
       setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5));
       // Архив
-      setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0));
+      setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0 && offer.active !== 4));
     }
   }, [userAccountProvider]);
 
@@ -47,19 +47,18 @@ const Offers = () => {
 
   // Пагинация
   const navItems = [
-    { id: 1, title: "Активные", content: <Active key={1} offers={activeOffersBox} />, count: activeOffersBox?.length },
-    { id: 2, title: "Ждут действия", content: <Wait key={2} offers={dataWait} />, count: waitOffersBox?.length },
-    { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: archiveOffersBox?.length },
+    { id: 1, title: "Активные", content: <Active key={1} offers={activeOffersBox} />, count: activeOffersBox.length },
+    { id: 2, title: "Ждут действия", content: <Wait key={2} offers={dataWait} />, count: waitOffersBox.length },
+    { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: archiveOffersBox.length },
   ];
 
   console.log(navItems)
-
+  
   return (
     <>
       <div className="clientPage__container_top">
         <div className="clientPage__container_nav__wrapper">
           <div className="clientPage__container_nav">
-
             {navItems.map(item => {
               return (
                 <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} onClick={() => {
@@ -73,7 +72,7 @@ const Offers = () => {
           </div>
         </div>
       </div>
-      {navItems.map(item => itemNav.i === item.id && (activeOffersBox.length > 0 ? item.content : <Placeholder key={item.id} />))}
+      {navItems.map(item => itemNav.i === item.id && ( item.count > 0 ? item.content : <Placeholder key={item.id} />))}
     </>
   );
 };

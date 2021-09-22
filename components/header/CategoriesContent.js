@@ -1,20 +1,19 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import { useCategory } from "../../hooks/useCategory"
 import CategoriesAliasOne from './CategoriesAliasOne';
 
-const CategoriesContent = ({ changeCategories, toggleDrawer }) =>  {
-
-	const { categoryMainAlias } = useCategory()
+const CategoriesContent = ({ changeCategories, toggleDrawer, categoryMainAlias }) =>  {
 
 	function generateStr(str) {
 		return str[0].toUpperCase() + str.substring(1,)
 	}
 
 
+	console.log(categoryMainAlias);
+
 	return (
 		<List className="burgerContainer">
-			{categoryMainAlias.map((item, index) => {
+			{categoryMainAlias?.map((item, index) => {
 				return (
 					<div key={index}>
 						<CategoriesAliasOne key={index + 1} label={generateStr(item.label)} alias={item.alias} iconId={index} placeOffer={changeCategories}  toggleDrawer={toggleDrawer}/>

@@ -1,7 +1,9 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
+import { observerGenerate } from '../lib/scrollAds';
+import Loader from '../UI/icons/Loader';
 // import EndMessage from './EndMessage';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,9 +64,16 @@ const sortItems = [
 	{ value: 'remote', label: 'По удалённости' }
 ];
 
-const OffersRender = ({ data, title, isProduct,/*  endMessage = true */ }) => {
+const OffersRender = ({ data, title, isProduct, page = false, limitRender = false, setLimitRenderPage = false, setPage = false,/*  endMessage = true */ }) => {
 	const [state, dispatch] = useReducer(sortReducer, { value: 'default', sorting: byInit })
 	const classes = useStyles();
+	const observer = useRef()
+	const lastElement = useRef()
+	
+
+	useEffect(() => {
+		observerGenerate(lastElement, observer, limitRender, setLimitRenderPage, setPage, page)
+	})
 
 	return (
 		<>
@@ -87,8 +96,9 @@ const OffersRender = ({ data, title, isProduct,/*  endMessage = true */ }) => {
 
 				</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
+					{state.sorting(data)?.map((obj, i) => <AdCard_component ref={lastElement} key={i} offer={obj} />)}
 				</div>
+				{page == 'end' ? null : <div className='offer__placeholder_loader'><Loader /></div>}
 				<ScrollTop />
 				{/* {endMessage ? <EndMessage/> : null} */}
 		</>

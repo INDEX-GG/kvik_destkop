@@ -9,8 +9,8 @@ const text2Bool = (string) => {
 }
 
 export default async function handler(req, res) {
+	console.log(req.body)
 	if (req.method === 'POST') {
-		console.log(req.body)
 		const prisma = new PrismaClient();
 
 			const main = async () => {
@@ -48,6 +48,7 @@ export default async function handler(req, res) {
 						deleted_at: now,
 						date_verify: now,
 						verify: 1,
+						subcategory: req.body.subcategory,
 						verify_moderator: { "verify": ['1'] },
 											}
 				}

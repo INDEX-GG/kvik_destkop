@@ -33,71 +33,47 @@ const useStyles = makeStyles((theme) => ({
 
 export default function offerActive(offer) {
 	const classes = useStyles();
-	let data;
-
 	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
 	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
-	const [offerId, setOfferId] = useState();
-	const [qwe, setQwe] = useState()
-
-	useEffect(() => {
-		// setQwe(offer.data.offers.map((item) => item.id))
-		data = []
-		// data = { 'id': qwe, 'isCheck': offer.checkAll }
-		// for (var i = 0; i < offer.data.offers?.length; i++) {
-		offer.data.offers.map((item, i) => {
-			data[i] = { 'id': item.id, 'isCheck': offer.checkAll }
-		})
-		// }
-		setQwe(data)
-	}, [offer.checkValue])
-
-
-	useEffect(() => {
-		if (offer.checkValue != undefined) {
-			data = []
-			offer.data.offers.map((item, i) => {
-				data[i] = { 'id': item.id, 'isCheck': offer.checkAll }
-			})
-			mainCheck(data)
-		}
-	}, [offer.checkAll])
-
-
 	const [check, setCheck] = useState(false);
+	const [dataCheck, setDataCheck] = useState();
+	const offerData = offer.offer;
+	/* const cleanAll = offer.cleanAll() */
+	/* useEffect(() => {
+		offer.filterDataCheck({
+			id: offer.offer.id,
+			check: check,
+		})
+	}, []) */
+
 	useEffect(() => {
-		setCheck(offer.checkAll)
-	}, [offer.checkAll])
+		offer.parentCheck ? check ? null : ( offer.getChildCheck({id: offer.offer.id, isChecked: offer.parentCheck}), setCheck(offer.parentCheck) ) : check===false ? null : offer.dataCheck.length===0 ? (offer.getChildCheck({id: offer.offer.id, isChecked: offer.parentCheck}), setCheck(offer.parentCheck)) : null;
+		/* if ( offer.parentCheck && check===false ) { handleCheck(offer.parentCheck) }
+		else if ( offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false)==="undefined" ) { null }
+		else {
+			if ( offer.parentCheck===false && check && offer.dataChecked.length > 0 ) { null }
+			else if( offer.parentCheck===false && offer.dataChecked.length===0 ) { handleCheck(offer.parentCheck) }
+			else { handleCheck(offer.parentCheck) }
+		}	 */			
+	}, [offer.parentCheck])
 
-
-	const oneCheck = e => {
-		data = { 'id': e.target.value, 'isCheck': e.target.checked }
-		mainCheck([data])
-	}
-
-
-	let zxc = []
-	const [uio, setUio] = useState();
-
-	function mainCheck(data) {
-
-		console.log('Что хранится qwe==>', qwe)
-		console.log('Данные которые заходят ==>', data)
-		console.log('Что хранится uio==>', uio)
-		console.log('==================================')
-
-		console.log(qwe.filter((item) => item.id === data.map((items) => items)))
-		console.log(data.map((item) => item.id))
-
-		setUio(zxc)
-	}
-
-
+	useEffect(() => {
+		offer.openUnpublishForm === false && offer.dataCheck.length === 0 ? setCheck(false) : null
+	}, [offer.openUnpublishForm]) 
+	
+	/* const handleCheck = (changeCheck) => {
+		setCheck(changeCheck);
+		offer.getChildCheck({
+			id: offer.offer.id,
+			check: changeCheck,
+		},offer.offer);
+	} */
 
 	/* Модальное окно */
+	
 	function pushCheck(e) {
 		if (e.target.value !== '') {
-			setOfferId([+e.target.value])
+			setDataCheck([+e.target.value])
 		}
 		setOpenUnpublishForm(!openUnpublishForm)
 		handleUnpublishFormDialog()
@@ -105,7 +81,7 @@ export default function offerActive(offer) {
 
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
-		<UnpublishCTX.Provider value={{ offerId, offer, openUnpublishForm, setOpenUnpublishForm }}>
+		<UnpublishCTX.Provider value={{ dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, /* cleanAll  */}}>
 			<a href={`/product/${offer.offer.id}`} key={offer.i}
 				className="offerContainer boxWrapper">
 				<div className="offerImage">
@@ -116,7 +92,7 @@ export default function offerActive(offer) {
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.offer.id}
-							onChange={(e) => { setCheck(e.target.checked); oneCheck(e) }}
+							onChange={(event) => {setCheck(event.target.checked); offer.getChildCheck({id: offer.offer.id, isChecked: event.target.checked}); /* handleCheck(event.target.checked) */}}
 							checked={check}
 						/>
 					</div>
@@ -156,7 +132,7 @@ export default function offerActive(offer) {
 
 						</div>
 					</div>
-					<div className="offerDescriptionBottom">
+					<div style={{visibility: 'hidden'}} className="offerDescriptionBottom">
 						<button className="offerButtonViews button contained">Увеличить просмотры</button>
 					</div>
 				</div>

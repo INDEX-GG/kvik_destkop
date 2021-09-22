@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
 import { PrismaClient } from '@prisma/client';
@@ -8,11 +8,11 @@ import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
 import MetaLayout from "../layout/MetaLayout";
 import PlaceOfferButton from "../components/PlaceOfferButton";
-import { getDataByPost } from "../lib/fetch";
-import { modifyGetPostsData } from "../lib/services";
 import { useAuth } from "../lib/Context/AuthCTX";
+import theme from "../UI/theme"
+import { firstAds, scrollAds } from "../lib/scrollAds";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		padding: '0 12px',
 		display: 'flex',
@@ -22,6 +22,13 @@ const useStyles = makeStyles((theme) => ({
 			padding: '0 8px',
 			height: "auto",
 			marginBottom: "92px"
+		},
+	},
+	rightBlock: {
+		height: '100%',
+		marginLeft: '56px',
+		[theme.breakpoints.down("sm")]: {
+			display: 'none'
 		},
 	},
 	popularCategories: {
@@ -36,38 +43,43 @@ const useStyles = makeStyles((theme) => ({
 	offers: {
 		flexGrow: 1,
 	},
-	rightBlock: {
-		height: '100%',
-		marginLeft: '56px',
-		[theme.breakpoints.down('md')]: {
-			display: 'none'
-		},
-	},
+	
 	footer: {
 		top: 'calc(100% - 205px)',
 		position: 'sticky',
 	}
 }));
 
-const Index = ({ offers }) => {
+const Index = () => {
+	{ /** offers**/ }
 	const { matchesMobile, matchesTablet } = useMedia();
-	const [data, setData] = useState(modifyGetPostsData(offers));
+	const [data, setData] = useState();
+	// modifyGetPostsData(offers)
 	const classes = useStyles();
 	const { isAuth } = useAuth();
-
+	const [page, setPage] = useState(1);
+	const [limitRenderPage, setLimitRanderPage] = useState(0);
+	const [lastIdAds ,setLastIdAds] = useState(0);
+	const limit = 30
 
 	useEffect(() => {
-		getDataByPost('/api/getPosts', { of: 0 }).then(r => { setData(modifyGetPostsData(r)) })
+		scrollAds(page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
+		console.log(lastIdAds)
+	}, [page])
+	
+	useEffect(() => {
+		 firstAds(page, limit, setData, setLastIdAds)
 	}, []);
 
 	return (
 		<MetaLayout title={'Доска объявлений'}>
 			<Container className={classes.root}>
+
 				{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories} />}
 
 
 				<Box className={classes.main}>
-					<Box className={classes.offers} ><OffersRender data={data} title={'Рекомендуемое'} /></Box>
+					<Box className={classes.offers} ><OffersRender data={data} page={page} limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage} setPage={setPage} title={'Рекомендуемое'} /></Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 						<JokerBlock />
 						<Box className={classes.footer}>

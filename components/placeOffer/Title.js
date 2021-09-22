@@ -1,5 +1,6 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
+import { invalidСharacterProduct } from '../../lib/regulars'
 
 const useStyles = makeStyles((theme) => ({
 	formElem: {
@@ -29,7 +30,7 @@ const Title = () => {
 				<Controller
 					name="title"
 					control={methods.control}
-					defaultValue=''
+					defaultValue=""
 					render={({ field: { onChange, value }, fieldState: { error } }) => (
 						<TextField
 							variant='outlined'
@@ -39,11 +40,11 @@ const Title = () => {
 							value={value}
 							onChange={onChange}
 							inputProps={{maxLength: 50}}
-							error={!!error} helperText={error ? error.message : ' '} />
+							error={!!error} helperText={error ? error.message : ' '} />	
 					)}
 					rules={{
 						required: 'Введите название Товара',
-						pattern: {value: /^[a-zA-Zа-яА-Я0-9\s,."'-]+$/, message: 'Недопустимые символы' },
+						pattern: {value: invalidСharacterProduct(), message: 'Недопустимые символы' },
 					}}
 				/>
 			</Box>

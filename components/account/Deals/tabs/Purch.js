@@ -3,7 +3,7 @@ import { ToRubles } from "../../../../lib/services";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Purch(data) {
-  if (data.deals.lenght == 0) {
+  if (data.deals.lenght !== 0) {
     return (
 	  <EmptyPlaceholder title='Здесь буду ваши Покупки' subtitle='Текст' />
     );
@@ -33,7 +33,7 @@ function Purch(data) {
               <a className="thin highlight">Детали спора</a>
             </div>
           </div>
-          <div className="dealDescriptionBottom">
+          <div style={{visibility: 'hidden'}} className="dealDescriptionBottom">
             <button className="dealButtonViews button contained">Подтвердить получение посылки</button>
           </div>
         </div>

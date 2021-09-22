@@ -21,11 +21,17 @@ const useStyles = makeStyles(() => ({
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const socket = io('http://192.168.8.111:6066')
 =======
 const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
 >>>>>>> 1fe8d90495ab5a5b0b6bda6473a8b7c15d742336
 console.log(socket);
+=======
+const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
+// const socket = io('http://192.168.8.111:6066/')
+
+>>>>>>> decb754105d5d2e2b9bdc9009a88547c01d6b09c
 const Messenger = () => {
 	const classes = useStyles();
 	const [msg, setMsg] = useState('');
@@ -44,7 +50,7 @@ const Messenger = () => {
 	return (
 		<Container className={classes.root} maxWidth='sm'>
 			<Box>
-				<Typography>{JSON.stringify(msgList)}</Typography>
+			<Typography>{JSON.stringify(msgList)}</Typography>
 			</Box>
 			<TextField
 				size='small'

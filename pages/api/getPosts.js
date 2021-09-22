@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 		const main = async () => {
 			return await prisma.posts.findMany({
 				skip: req.body.of,
-				take: 50,
+				// take: 50,
 				select: {
 					id: true,
 					user_id: true,
