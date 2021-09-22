@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 		background: theme.palette.secondary.main,
 		width: "14px",
 		height: "14px",
-
 		"&:hover": {
 			background: theme.palette.secondary.main,
 		},
@@ -26,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.grey[200],
 		cursor: "pointer",
 		transition: "all 200ms ease-in-out",
-
 		"&:hover": {
 			transition: "all 200ms ease-in-out",
 			textDecoration: "underline",
@@ -47,21 +45,21 @@ function Active({offers}) {
 		setDataCheck([]);
 		setOfferData([]);
 	}
-	
+
 	function getChildCheck ({id, isChecked}) {
 		setDataCheck( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
 		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
 
 	useEffect(() => {
-		dataCheck.length > 0 ? dataCheck.length===offers.length ? setCheck(true) : setCheck(false) : null;
+		dataCheck.length===offers.length ? setCheck(true) : setCheck(false);
 	}, [dataCheck])
 
-	console.log("---------check-----------",check);
+	/* console.log("---------check-----------",check);
 	console.log("---------dataCheck-----------",dataCheck);
 	console.log("---------offerData-----------", offerData);
 	console.log("---------openUnpublishForm-----------", openUnpublishForm);
-	console.log("---------offers-----------", offers); 
+	console.log("---------offers-----------", offers);  */
 
 	if (offers.length == 0) {
 		return (
@@ -104,8 +102,8 @@ function Active({offers}) {
 					{offers?.map((offer, i) => {
 						return (
 							<OfferActive key={i} offer={offer} i={i}
-								parentCheck={check} getChildCheck={getChildCheck} openUnpublishForm={openUnpublishForm}
-								dataCheck={dataCheck} cleanAll={cleanAll}
+								parentCheck={check} getChildCheck={getChildCheck} parentUnpublishForm={openUnpublishForm}
+								allDataCheck={dataCheck} /* clean={cleanAll} */
 							/>
 						);
 					})}
@@ -115,6 +113,7 @@ function Active({offers}) {
 				<UnpublishForm /* Close={handleUnpublishFormDialog} для чего это? */ />
 			</Dialog> }
 		</UnpublishCTX.Provider>
+
 	);
 }
 export default Active;

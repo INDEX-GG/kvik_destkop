@@ -7,6 +7,7 @@ import { useProduct } from "../../hooks/useProduct"; */
 import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
 import router from "next/router";
+import ProductNumberPng from "./ProductNumberPng";
 
 
   const useStyles = makeStyles(() => ({
@@ -96,7 +97,8 @@ export default function PhoneModule({dialog, setDialog, productInfo}) {
             </div>
           </div>
         </div>
-        <h2 className={classes.userPhone}>{sellerPhone || "Не указан"}</h2>
+        {/* <h2 className={classes.userPhone}>{sellerPhone || "Не указан"}</h2> */}
+		{sellerPhone ? <ProductNumberPng name={sellerPhone} x={0} y={25}/> : null}
         <p className={classes.userMessage}>Номер защищён: смс и сообщения в Viber, WhatsApp и других мессенджерах не будут доставлены</p>
         <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
         <ul className={classes.warningBlock}>

@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme) => ({
   },
   formInputField: {
     width: "490px",
+    position: "relative",
     display: "flex",
     flexDirection: "column",
-    "&>*": {
+    "&>p": {
       marginBottom: theme.spacing(2),
     },
     "&>*:last-child": {
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "264px",
   },
+  tooltip: {
+    position: "absolute",
+    top: 9,
+  }
 }));
 
 export default function Vacancies({ data }) {
@@ -88,14 +93,17 @@ export default function Vacancies({ data }) {
             name={data[2].alias}
             control={methods.control}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
               <TextField
                 className={classes.input}
                 variant="outlined"
                 value={value}
-                onChange={onChange}
+                onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                 error={!!error}
                 helperText={error ? error.message : " "}
               />
+              {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> р.</span> : null}
+              </>
             )}
           />
         </Box>
@@ -155,7 +163,7 @@ export default function Vacancies({ data }) {
                 ))}
               </TextField>
             )}
-            rules={{ required: "Выбирите Специализацию" }}
+            rules={{ required: "Выберете Специализацию" }}
           />
         </Box>
       </Box>

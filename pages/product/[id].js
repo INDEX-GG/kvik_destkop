@@ -86,10 +86,10 @@ const Product = () => {
 	}, []);
 
 	console.log("DATA-------", data)
-	const {productInfoFields, subcategory, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
+	const {productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
-	console.log(productInfoFields)
+	console.log("INFO", productInfoFields, subcategory)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
@@ -115,6 +115,7 @@ const Product = () => {
 	if (category_id !== undefined) {
 		breadData = BreadCrumbsProduct(category_id);
 	}
+
 
 	return (
 		<MetaLayout>

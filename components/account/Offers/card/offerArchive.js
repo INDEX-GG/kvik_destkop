@@ -8,7 +8,6 @@ import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordO
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import { DelActiveCTX } from "../../../../lib/Context/DialogCTX"
 import DelActiveForm from "../../../DelActiveForm"
-// import { useRouter } from "next/router";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+
 export default function offerArchive(offer) {
 	const { matchesMobile, matchesTablet } = useMedia()
 	const classes = useStyles();
@@ -69,19 +69,19 @@ export default function offerArchive(offer) {
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState();
 	const [battonId, setBattonId] = useState('');
-	const offerData = offer.offer;
+	const UnicOfferData = offer.offer;
 	const offerID = offer.offer.id
-	// const router = useRouter();
-	
-	
-	
+
+
+
+
 	useEffect(() => {
 		offer.filterDataCheck({
 			id: offer.offer.id,
 			check: check,
 		})
 	}, [])
-	
+
 	useEffect(() => {
 		if (offer.parentCheck && check === false) { handleCheck(offer.parentCheck) }
 		else if (offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false) === "undefined") { null }
@@ -105,6 +105,12 @@ export default function offerArchive(offer) {
 		}, offer.offer);
 	}
 
+
+	console.log('Что-то выделено ?');
+	console.log("---------check-----------", check);
+	console.log("---------offer---Меня--чекнули-Первым-------", UnicOfferData[0]);
+	console.log("---------offer---нас всех чекнули-------", UnicOfferData);
+	console.log("---------offerId-----------", offerId);
 	console.log(offer, `offer ${offer.offer.id} maunt`)
 
 	/* Модальное окно */
@@ -121,7 +127,7 @@ export default function offerArchive(offer) {
 	// console.log(openDelActiveForm, "DelActiveForm open/close")
 
 	return (
-		<DelActiveCTX.Provider value={{ offerId, offerData, openDelActiveForm, battonId, setOpenDelActiveForm }}>
+		<DelActiveCTX.Provider value={{ offerId, UnicOfferData, openDelActiveForm, battonId, setOpenDelActiveForm }}>
 			<div key={offer.offer.id} className="offerContainer boxWrapper">
 				<div className="offerImage">
 					<div className="offerPubCheck">
@@ -155,15 +161,6 @@ export default function offerArchive(offer) {
 
 
 						<div className="offerDTRight">
-
-							{/* <a className="offerActivate thin superLight ">Активировать</a> */}
-							{/* <a className="offerEdit thin superLight editIcon">Редактировать</a> */}
-							{/* <a className="offerDelete thin superLight binIcon">Удалить</a> */}
-							{/* зарефакторил ниже  */}
-
-							{/* <button type="submit" className="offerActivate thin superLight checkMarkIcon offerSocialAction">
-								Активировать
-							</button> */}
 
 							<a href="javascript:void(0);">
 								<button

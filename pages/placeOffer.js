@@ -19,43 +19,44 @@ import Promotion from '../components/placeOffer/Promotion';
 import { useCategoryPlaceOffer } from '../hooks/useCategoryPlaceOffer';
 import AdditionalInformation from '../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
-import { BASE_URL, STATIC_URL } from '../lib/constants';
+import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        position: 'relative',
-        flexDirection: 'column',
-        alignItems: 'center',
-        flexGrow: 1,
-        marginTop: '25px',
-        [theme.breakpoints.down('md')]: {
-            paddingLeft: '220px',
-        },
-    },
-    title: {
-        marginBottom: theme.spacing(1),
-    },
-    offersBox: {
-        width: '712px',
-    },
-    formPart: {
-        padding: theme.spacing(4),
-        borderRadius: theme.shape.borderRadius,
-        boxShadow: theme.shadows[2],
-        marginBottom: theme.spacing(4),
-    },
-    submit: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    backdrop: {
-        zIndex: 2000,
-        backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    },
+	root: {
+		position: 'relative',
+		flexDirection: 'column',
+		alignItems: 'center',
+		flexGrow: 1,
+		marginTop: '25px',
+		[theme.breakpoints.down('md')]: {
+			paddingLeft: '220px',
+		},
+	},
+	title: {
+		marginBottom: theme.spacing(1),
+	},
+	offersBox: {
+		width: '712px',
+	},
+	formPart: {
+		padding: theme.spacing(4),
+		borderRadius: theme.shape.borderRadius,
+		boxShadow: theme.shadows[2],
+		marginBottom: theme.spacing(4),
+	},
+	submit: {
+		display: 'flex',
+		alignItems: 'center'
+	},
+	backdrop: {
+		zIndex: 2000,
+		backgroundColor: 'rgba(255, 255, 255, 0.85)',
+	},
 
 }));
 
 function PlaceOffer() {
+
     const { id } = useAuth();
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
@@ -68,20 +69,29 @@ function PlaceOffer() {
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
+
     // console.log(methods)
     /* получение дополнительных полей */
+
+	console.log(methods.watch('location'))
+
     const [asd, setAsd] = useState();
-    const { ...newOBJ } = useCategoryPlaceOffer(asd);
+    const { ...newOBJ } = useCategoryPlaceOffer(asd, methods);
     useEffect(() => {
+
+
+
         if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
-            setAsd(methods?.watch('alias4'));
+            setAsd(methods?.watch('alias4').toLowerCase());
         } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
-            setAsd(methods?.watch('alias3'));
+            setAsd(methods?.watch('alias3').toLowerCase());
         } else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
-            setAsd(methods?.watch('alias2'));
+            setAsd(methods?.watch('alias2').toLowerCase());
         } else {
             setAsd(undefined);
         }
+
+        
         /*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
              setAsd(methods?.watch('alias4'));
          } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
@@ -152,14 +162,14 @@ function PlaceOffer() {
                     let field = data[key]
                     if (key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color'){
                         if ( key === 'tires_and_rims'){
-                            let str = data[key] ? data[key].slice(0, -2) : 0
-                            field = +str 
+                            let str = data[key] ? data[key].slice(0, -2) : ''
+                            field = str 
                         }else if (key === 'mileage' ){
                             let str = data[key].slice(0, -3)
-                            field = +str
+                            field = str
                         }
                         else{
-                            field = +data[key]  
+                            field = data[key]  
                         }
                     }
                     additionalfields[asd].push({"alias": key1, "fields": field !== undefined ? field : [] })
@@ -175,7 +185,7 @@ function PlaceOffer() {
         // console.log('add 3', additionalfields3[asd])
 
 
-
+        console.log("asdasdasd",newOBJ[asd]);
         if (newOBJ[asd] !== undefined) {
             obj.subcategory = asd
         }
@@ -191,8 +201,7 @@ function PlaceOffer() {
                 additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
                 console.log(additionalfields)
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-
-                    .then(r => console.log(r))
+                  .then(r => console.log(r))
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -204,6 +213,7 @@ function PlaceOffer() {
                     console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
+				// axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})
             })  
 
     }
@@ -222,7 +232,7 @@ function PlaceOffer() {
                                     <Title />
                                     <Category />
                                 </Box>
-                                {newOBJ[asd?.toLowerCase()] !== undefined ?
+                                {newOBJ[asd] !== undefined ?
                                     <Box className={classes.formPart}>
                                         <AdditionalInformation newOBJ={newOBJ} asd={asd?.toLowerCase()} />
                                     </Box>
@@ -237,7 +247,7 @@ function PlaceOffer() {
                                     <Location />
                                     <Contacts />
                                     <Box className={classes.submit}>
-                                        <ErrorMessages />
+                                        <ErrorMessages validate={newOBJ[asd]} type={asd}/>
                                         <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
                                     </Box>
                                 </Box>
@@ -252,6 +262,7 @@ function PlaceOffer() {
                 </Backdrop>
             </MetaLayout>
     )
+
 }
 
 export default PlaceOffer;
