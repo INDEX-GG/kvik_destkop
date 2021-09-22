@@ -52,7 +52,6 @@
 .productPageWrap {
     display: flex;
     flex-direction: column;
-    transition: all .3;
 }
 .productPageWrap > div {
     border-bottom: 1px solid $light;
