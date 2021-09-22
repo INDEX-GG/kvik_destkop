@@ -205,6 +205,7 @@ function PersonalData() {
 							<div className="clientPage__name">{valueName}</div>
 						) : (
 							<input
+								autoFocus={true}
 								className="clientPage__input-profile"
 								type="text"
 								value={valueName}

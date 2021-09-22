@@ -104,9 +104,7 @@ function FeedbackModal({offer}) {
                 </Box>
                 <Typography className={classes.feedModal__designation}>Оценка и отзыв</Typography>
                 <Box className={classes.feedModal__rating}>
-                    <Box component="span">0.0</Box>
                     <ActiveStarRating/>
-                    {/* <StarRating rating={0} /> */}
                 </Box>
                 <TextField 
                     variant='outlined'

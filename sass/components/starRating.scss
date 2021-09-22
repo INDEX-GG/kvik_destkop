@@ -33,6 +33,7 @@
     background-image: url(../../icons/stars.svg);
     background-repeat: no-repeat;
     background-position: 0 -24px;
+   
   }
 
 
@@ -70,7 +71,6 @@
     & .starOne_label:before  {
       left: 96px;
     }
-    
     & > input:checked ~ label {
       height: 24px;
       width: 24px;
