@@ -159,8 +159,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Photoes = ({ ctx }) => {
-
+const Photoes = ({ ctx, photo }) => {
+	console.log("🚀 ~ file: Photoes.js ~ line 163 ~ Photoes ~ photo", photo)
 
 	// const startFiles = {
 	// 	lastModified: 1632221640608,
@@ -227,7 +227,7 @@ const Photoes = ({ ctx }) => {
 
 		methods.clearErrors('photoes')
 
-		// собирается oject imageData по валидным файлам
+		// собирается object imageData по валидным файлам
 		validFiles.forEach((el, i) => {
 			const reader = new FileReader();
 			reader.readAsDataURL(el);
@@ -336,6 +336,7 @@ const Photoes = ({ ctx }) => {
 		return true;
 	};
 
+
 	// const fileSize = (size) => {
 	// 	if (size === 0) {
 	// 		return '0 Bytes';
@@ -378,8 +379,6 @@ const Photoes = ({ ctx }) => {
 
 	ctx(validFiles);
 
-	console.log('222222222 validFiles[0] === undefined ?', validFiles[0] === undefined);
-
 	const SortableList = SortableContainer(({ items }) => {
 		return (
 			<div className={classes.drag}   >
@@ -416,8 +415,19 @@ const Photoes = ({ ctx }) => {
 		const img = imageData.find((el) => el.name === data.name);
 
 		console.log('!!!!!!!!!!!!!!');
-		console.log(img === undefined);
+		console.log('img', img, 'typeof img ==>', typeof img); // obj
 		console.log('!!!!!!!!!!!!!!');
+
+		console.log('photo', photo, 'typeof photo', Array.isArray(photo)); //  array
+
+		//! ======> ФАИЛ
+		// img { name: 'Screenshot_12.png',
+		//  src: 'data:image/webp;base64,UklGRlCiAABXRUJQVlA4WAoAAAA…BLpqAAAAAAAAAAAAAAAAx0btY/fxbgdPN26cyS2eZpYAAAA==',
+		//   id: 1 }
+
+		//! ======> Ссылка
+		// 'http://192.168.8.111:6001/images/po/2d/75/48/15/50…e59bdfa69bf1e46e1cd1751e20210922100541585747.webp'
+
 
 
 		return (
@@ -449,6 +459,74 @@ const Photoes = ({ ctx }) => {
 				)}
 			</div>
 		);
+
+
+
+
+
+		// if (type ) {
+		// 	return (
+		// 		<div
+		// 			style={{ marginRight: "5px", userSelect: "none" }}
+		// 			className={classes.card}
+		// 		>
+		// 			<img
+		// 				src={img?.src}
+		// 				id={`prev${img?.id}`}
+		// 				style={{
+		// 					transform: data.angle
+		// 						? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+		// 						}`
+		// 						: null,
+		// 				}}
+		// 			/>
+
+		// 			<div
+		// 				className={classes.rotate}
+		// 				onClick={() => rotate(data)}
+		// 			/>
+		// 			<div
+		// 				className={classes.delete}
+		// 				onClick={() => removeFile(img?.name)}
+		// 			/>
+		// 			{i === 0 && (
+		// 				<div className={classes.mainPhoto}>Главное фото</div>
+		// 			)}
+		// 		</div>
+		// 	);
+		// } else if () {
+		// 	return (
+		// 		<div
+		// 			style={{ marginRight: "5px", userSelect: "none" }}
+		// 			className={classes.card}
+		// 		>
+		// 			<img
+		// 				src={img?.src}
+		// 				id={`prev${img?.id}`}
+		// 				style={{
+		// 					transform: data.angle
+		// 						? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+		// 						}`
+		// 						: null,
+		// 				}}
+		// 			/>
+
+		// 			<div
+		// 				className={classes.rotate}
+		// 				onClick={() => rotate(data)}
+		// 			/>
+		// 			<div
+		// 				className={classes.delete}
+		// 				onClick={() => removeFile(img?.name)}
+		// 			/>
+		// 			{i === 0 && (
+		// 				<div className={classes.mainPhoto}>Главное фото</div>
+		// 			)}
+		// 		</div>
+		// 	);
+		// }
+
+
 	});
 
 	const onSortEnd = ({ oldIndex, newIndex }) => {
