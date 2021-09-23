@@ -1,14 +1,33 @@
 import React, { useState, useRef, memo, useMemo, useEffect } from 'react';
 import { YMaps, Map, withYMaps } from 'react-yandex-maps'
 import { TextField } from '@material-ui/core';
-import RoomIcon from '@material-ui/icons/Room';
 // import {useCity} from '../lib/Context/CityCTX'
 import { useMedia } from '../hooks/useMedia'
+import CustomPlacemark from '../UI/icons/Placemark';
+import { makeStyles } from '@material-ui/core';
+import { Controller, useFormContext } from 'react-hook-form';
+import { invalidСharacterLocation } from '../lib/regulars';
 
 
-const Location = memo(({ymaps}) => {
+const useStyles = makeStyles(() => ({
+	inputMap: {
+		width: '100%',
+		margin: '20px 0'
+	},
+	placemarkBlock: {
+		position: 'absolute', 
+		zIndex: '1',
+		left: '50%', 
+		transform: 'translateX(-50%)',
+		transition: '.2s all linear'
+	}	
+}))
+
+
+const Location = memo(({ymaps, setData}) => {
 	// Кординаты
 	const [coordinates, setCoordinates] = useState([55.753220, 37.622513])
+	// Зум карты
 	const [zoom, setZoom] = useState(17)
 	// value инпута
 	const [value, setValue] = useState('');
@@ -20,23 +39,14 @@ const Location = memo(({ymaps}) => {
 	const [suggest, setSuggest] = useState('')
 
 	const [searchSubmit, setSearchSubmit] = useState(true)
-
-	// карта
+	const methods = useFormContext()
 	const map = useRef()
-
 	const {matchesMobile} = useMedia()
+	const classes = useStyles()
 	// const {city} = useCity()
 
-
-	// const generateStr = (str, first = false) => {
-	// 	const symbol = first ? '' : ', '
-	// 	const newStr = str ? symbol + str : ''
-	// 	return newStr;
-	// }
-
-
-	const generateFullAddress = (adrress, submit = false) => {
-
+	// Функция, которая показывает финальный адрес в инпуте
+	const generateFullAddress = (adrress, submit = false, coordinates) => {
 		//? Узнать про запрещение изменения адресса
 		const fullAddress = adrress.getAddressLine().split(',').splice(1,)
 
@@ -47,48 +57,29 @@ const Location = memo(({ymaps}) => {
 				setZoom(17)
 			}
 		}
-
 		// setValue(fullAddress.join(',').trim())
+		//? В будушем заменить на верхний
 		setValue(adrress.getAddressLine())
-
-
-		// // намер дома
-		// const number = generateStr(adrress.getPremiseNumber())
-		// // название улицы
-		// const thoroughfare =  generateStr(adrress.getThoroughfare())
-		// // наименование здания
-		// const getPremise = generateStr(adrress.getPremise())
-		// // название района
-		// // const getLocalities1 = generateStr(adrress.getLocalities()[1])
-		// // название города
-		// const getLocalities = generateStr(adrress.getLocalities()[0], true)
-		// // полный адресс
-		// const newAddress = `${getLocalities}${getPremise}${thoroughfare}${number}`
-		// // поверка на гобальную карту (если сильно отдалиться от города)
-		// if (newAddress == '') {
-		// 	const globalAddress = generateStr(adrress.getAdministrativeAreas()[0], true)
-		// 	const globalAddress2 = generateStr(adrress.getAdministrativeAreas()[1])
-		// 	const newGlobalAdress = `${globalAddress}${globalAddress2}`
-		// 	setValue(newGlobalAdress)
-		// }
+		if (setData) setData({locality: adrress.getAddressLine(), coordinates})
 	}
 
 
+	//
 	const changeAddress = (coord) => {
 		// определение адреса по координатам
+		// setCoordinates(coord)
 		ymaps.geocode(coord)
 			.then((r) => {
 				// объект адреса
 				const adrress = (r.geoObjects.get(0))
-				generateFullAddress(adrress)
+				// placeOfferMapData(adrress.getAddressLine(), coord)
+				generateFullAddress(adrress, false, coord)
 			})
 	}
 
 	const hintsInput = (submit) => {
-
 		// если должны появиться посказки в input, то мы их убираем
 		if (suggest) suggest.destroy()
-
 
 		// Следим за inputom
 		const searchControl = new ymaps.control.SearchControl({
@@ -105,16 +96,16 @@ const Location = memo(({ymaps}) => {
 		});
 
 		setSuggest(inputCompele)
-		
 
 		// событие onSubmit
 		if (submit) {
 			searchControl
 				.search(value)
 				.then((data) => {
+					const coord = data.geoObjects.get(0).geometry.getCoordinates()
 					setSearchSubmit(true)
-					generateFullAddress(data.geoObjects.get(0), true)
-         			setCoordinates(data.geoObjects.get(0).geometry.getCoordinates());
+					generateFullAddress(data.geoObjects.get(0), true, coord)
+         			setCoordinates(coord);
 					inputCompele.destroy();
 					setSuggestView(false)
 				})
@@ -124,9 +115,10 @@ const Location = memo(({ymaps}) => {
 				searchControl
 					.search(e.get('item').value)
 					.then((data) => {
+						const coord = data.geoObjects.get(0).geometry.getCoordinates()
 						setSearchSubmit(true)
-						generateFullAddress(data.geoObjects.get(0), true)
-						setCoordinates(data.geoObjects.get(0).geometry.getCoordinates());
+						generateFullAddress(data.geoObjects.get(0), true, coord)
+						setCoordinates(coord);
 						inputCompele.destroy();
 						setSuggestView(false)
 					})
@@ -154,7 +146,7 @@ const Location = memo(({ymaps}) => {
 			.then(res =>
 				ymaps.geocode(res.geoObjects.position).then(r => {
 					const adress = (r.geoObjects.get(0))
-					generateFullAddress(adress)
+					generateFullAddress(adress, false, res.geoObjects.position)
 					setCoordinates(res.geoObjects.position)
 				})
 			)
@@ -180,8 +172,11 @@ const Location = memo(({ymaps}) => {
 			delay: 10,
 			duration: 200
 		})
-		  .then(() => setMapMove(false))
-		changeAddress(event.get('coords'))
+		  .then(() => {
+			  setMapMove(false)
+			  changeAddress(event.get('coords'))
+			  console.log(event.get('coords'))
+			})
 	}
 
 	const hanlderBounds = (event) => {
@@ -203,28 +198,59 @@ const Location = memo(({ymaps}) => {
 		hintsInput(true)
 	}
 
+	const handlerMouseDown = () => {
+		setMapMove(true)
+		setSearchSubmit(false)
+	}
+
 	useEffect(() => {
 		if (suggestView) {
 			hintsInput()
 		}
 	}, [suggestView])
 
+
 	return (
 		<div style={{maxWidth: '490px', width: '100%'}}>
-			<form onSubmit={handlerSubmit}>
-				<TextField value={value} onChange={handlerChange} style={{width: '100%', margin: "20px 0"}} placeholder='Введите город, улицу, дом' id="suggest" variant="outlined" />
+			<form onKeyDown={(e) => {
+				if (e.key == 'Enter') {
+					handlerSubmit(e)
+				}
+			}} onSubmit={handlerSubmit}>
+				<Controller
+				name='location'
+				control={methods.control}
+				defaultValue='test'
+				render={({ field: {onChange}, fieldState: { error }}) => (
+					<TextField 
+					value={value} 
+					onChange={(e) => {
+						handlerChange(e)
+						onChange(e)
+					}}
+					onBlur={(e) => {
+						setData(prevState => ({
+							...prevState, locality: e.target.value
+						}))
+					}} 
+					className={classes.inputMap} 
+					placeholder='Введите город, улицу, дом' 
+					id="suggest"
+					error={!!error && value.length < 1}
+					helperText={error && value.length < 1  ? error.message : ''} 
+					variant="outlined" />
+				)}
+				rules={{
+					required: 'Укажите ваше местоположение...',
+				   	pattern: {value: invalidСharacterLocation() , message: 'Недопустимые символы' },
+				}}
+				/> 
 			</form>
 			<div style={{position: 'relative'}}>
 				<Map
 				instanceRef={map}
-				state={{ 
-					center: coordinates, 
-					zoom
-				}}
-				onMouseDown={() => {
-					setMapMove(true)
-					setSearchSubmit(false)
-				}}
+				state={{ center: coordinates, zoom}}
+				onMouseDown={handlerMouseDown}
 				onLoad={ymapsLoad}
 				onClick={handlerClick}
 				onBoundsChange={hanlderBounds}
@@ -232,8 +258,9 @@ const Location = memo(({ymaps}) => {
 				height={224}
 				width={matchesMobile ? '100%' : 490}
 				>
-					{/* <Placemark geometry={coordinates} /> */}
-					<RoomIcon color='primary' style={{position: 'absolute', zIndex: '1', left: '50%', transform: 'translateX(-50%)', top: `${mapMove ? '60px' : '70px'}`, transition: '.2s all linear', fontSize: '50px'}}/>
+					<div className={classes.placemarkBlock} style={{top: `${mapMove ? '60px' : '70px'}`}}>
+						<CustomPlacemark />
+					</div>
 				</Map>
 			</div>
 		</div>
@@ -242,7 +269,7 @@ const Location = memo(({ymaps}) => {
 })
 
 
-const YandexMap = () => {
+const YandexMap = ({setData}) => {
 	const MainMap = useMemo(() => {
     	return withYMaps(Location, true);
   	}, []);
@@ -250,8 +277,9 @@ const YandexMap = () => {
 	return (
 		<>
 			{/* Изменить api ключ */}
-			<YMaps query={{apikey: '57d4ea45-8f8c-4594-9c9b-03dbfcfab0e8'}}>
-				<MainMap/>
+			{/* 5170655d-fb30-4cc1-b1aa-3782984b9fb8 */}
+			<YMaps query={{apikey: ''}}>
+				<MainMap setData={setData}/>
 			</YMaps>
 		</>
 		

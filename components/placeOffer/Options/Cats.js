@@ -63,7 +63,7 @@ export const Cats = ({ data }) => {
               ))}
             </TextField>
           )}
-          rules={{ required: "Выбирите Породу" }}
+          rules={{ required: "Выберете Породу" }}
         />
       </Box>
     </Box>

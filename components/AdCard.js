@@ -55,6 +55,8 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		});
 	}
 
+	// console.log(offer?.watched)
+
 	const handleWheelClick = (e, id) => {
 		if (e.button === 1) {
 			window.open(`/product/${id}`);

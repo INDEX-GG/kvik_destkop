@@ -34,7 +34,7 @@
         "XIAOMI"
       ]
     },
-    { "alias": "diagonal", "name": "Диагональ", "fields": [10, 70] },
+    { "alias": "tv_diagonal", "name": "Диагональ", "fields": [10, 70] },
     { "alias": "smartTV", "name": "Смарт ТВ", "fields": ["Да", "Нет"] },
     { "alias": "3dTV", "name": "Поддержка 3D", "fields": ["Да", "Нет"] },
     {

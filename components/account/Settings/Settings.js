@@ -15,7 +15,7 @@ const blackListBox = [
 	{ id: 5, userPic: 'https://source.unsplash.com/random?portrait', username: 'Андрей', date: '00.00.00' },
 	{ id: 6, userPic: 'https://source.unsplash.com/random?portrait', username: 'Василий', date: '00.00.00' },
 	{ id: 7, userPic: 'https://source.unsplash.com/random?portrait', username: 'Длинное имя', date: '00.00.00' },
-	{ id: 8, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00' },
+	{ id: 8, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жорка', date: '00.00.00' },
 	{ id: 9, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00' },
 	{ id: 10, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00' },
 	{ id: 11, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00' },

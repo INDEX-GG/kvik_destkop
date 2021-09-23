@@ -1,6 +1,7 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
-import { useEffect, useState } from 'react'
+
+
 const useStyles = makeStyles((theme) => ({
 	formElem: {
 		display: 'flex',
@@ -18,8 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Description = ({ description }) => {
-	console.log('===================>', description)
-	// const test = props.description
+	// console.log('===================>', description)
 
 	const classes = useStyles();
 	const methods = useFormContext();
@@ -27,7 +27,7 @@ const Description = ({ description }) => {
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Описание</Typography>
-			{console.log(description)}
+			{/* {console.log('description in typography ', description)} */}
 			<Box className={classes.formInputField}>
 				<Controller
 					name="description"

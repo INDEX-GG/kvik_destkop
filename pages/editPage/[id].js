@@ -10,7 +10,6 @@ import Title from '../../components/placeOffer/Title';
 // import Category from '../components/placeOffer/Category';
 import Description from '../../components/placeOffer/Description';
 import Price from '../../components/placeOffer/Price/Price';
-import Photoes from '../../components/placeOffer/Photoes';
 import Location from '../../components/placeOffer/Location';
 import Contacts from '../../components/placeOffer/Contacts';
 import ErrorMessages from '../../components/placeOffer/ErrorMessages';
@@ -22,6 +21,7 @@ import { useCategoryPlaceOffer } from '../../hooks/useCategoryPlaceOffer';
 import AdditionalInformation from '../../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
+import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
 // import { DelActiveCTX } from "../../lib/Context/DialogCTX"
 // import { useOfferAccount } from "../../lib/Context/OfferAccountCTX";
 
@@ -61,11 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 function EditPage() {
 	const { query } = useRouter();
-	const { productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
-	console.log("🚀 ~ file: [id].js ~ line 65 ~ EditPage ~ price", price)
-	console.log("🚀 ~ file: [id].js ~ line 65 ~ EditPage ~ title", title)
-	console.log("🚀 ~ file: [id].js ~ line 65 ~ EditPage ~ photo", photo)
-	console.log("🚀 ~ file: [id].js ~ line 65 ~ EditPage ~ description", description)
+
+	// const { productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
 
 	const { id } = useAuth();
 	const classes = useStyles();
@@ -73,9 +70,6 @@ function EditPage() {
 	const [promotion, setPromotion] = useState(false);
 	const [product, setProduct] = useState({});
 	const { matchesMobile, matchesTablet } = useMedia();
-	// const [offerValues, setofferValues] = useState({});
-	// const { userAccountProvider } = useOfferAccount()
-	// const [archiveOffersBox, setArchiveOffersBox] = useState([]);
 
 	const methods = useForm();
 	let photoes = [];
@@ -104,7 +98,7 @@ function EditPage() {
 		 } else if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
 				 setAsd(methods?.watch('alias2'));
 		 } else {
-				 setAsd(undefined);
+			 setAsd(undefined);
 		 } */
 	}, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
@@ -195,27 +189,20 @@ function EditPage() {
 
 	}
 
+	// запрос содержимого полей для редактирования
+	const { price, title, photo, description } = useProduct(query.id)
 
-	// useEffect(() => {
-	// 	if (userAccountProvider?.length > 0) {
-	// 		// Активные объявления
-	// 		setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0 && offer.active !== 4));
-
-	// 	}
-	// }, [])
-
-	// console.log('archiveOffersBox', archiveOffersBox);
-
-
-
-
+	// console.log('price', price);
+	// console.log('title', title);
+	// console.log('description', description);
+	console.log('photo', photo);
 
 	return (
 
 		promotion ? <Promotion product={product} /> :
 			<MetaLayout title={'Редактирование объявления'}>
 				{!matchesMobile && !matchesTablet && <Container className={classes.root}>
-					<Box className={classes.offersBox}>
+					{price && title && photo && description && < Box className={classes.offersBox}>
 						<Typography className={classes.title} variant='h3'>Редактирование объявления</Typography>
 						<FormProvider {...methods} >
 							<Verify />
@@ -231,7 +218,7 @@ function EditPage() {
 								<Box className={classes.formPart}>
 									<Description description={description} />
 									<Price price={price} />
-									<Photoes ctx={photoesCtx} photo={photo} />
+									<PhotosForEditPage ctx={photoesCtx} photo={photo} />
 								</Box>
 								<Box className={classes.formPart}>
 									<Location />
@@ -243,14 +230,16 @@ function EditPage() {
 								</Box>
 							</form>
 						</FormProvider>
-					</Box>
+					</Box>}
 				</Container>}
 				{matchesMobile || matchesTablet ? <PlaceOfferMobile /> : null}
 				<Backdrop className={classes.backdrop} open={loading}>
 					<Loader size={64} />
 				</Backdrop>
-			</MetaLayout>
+			</MetaLayout >
 	)
+
+
 }
 
 export default EditPage;

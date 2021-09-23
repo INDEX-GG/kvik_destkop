@@ -88,7 +88,7 @@ const Verify = () => {
         <Box className={classes.root}>
             <Box className={classes.wrapper}>
 
-                        <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
+                        <Typography className={classes.text} color={verifyTilte ? 'primary' : 'initial'}>
                             Название
                             <ActiveIcon  Color={verifyTilte ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>

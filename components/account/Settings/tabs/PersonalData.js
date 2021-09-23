@@ -1,16 +1,17 @@
 import React, { useRef, useState } from "react";
 import Modal from "../../../Modal";
 import { phoneNumber } from "../../../../lib/services";
-import { modalDeletHistory, modalDeleteAccount } from "../../../Modals";
+import { modalDeletHistory/* , modalDeleteAccount */ } from "../../../Modals";
 import Active_icon from "../../../../UI/icons/ActiveIcon";
 import axios from "axios";
 import { useMedia } from "../../../../hooks/useMedia"
 import RightArrow from "../../../../UI/icons/RightArrow"
-import { Button } from "@material-ui/core";
+import { Button, Dialog } from "@material-ui/core";
 import { useStore } from "../../../../lib/Context/Store";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../lib/regulars"
 import MobileModal from "../../../MobileModal";
+import DeleteAccountModal from "../../../DeleteAccountModal"
 
 function PersonalData() {
 	const { isAuth, id} = useAuth();
@@ -49,7 +50,8 @@ function PersonalData() {
 	const [passwordCoincidence, setPasswordCoincidence] = useState(null);
 	const [inputFirstEye, setInputFirstEye] = useState(true);
 	const [inputSecondEye, setInputSecondEye] = useState(true);
-	const [passwordDialog, setPasswordDialog] = useState(false)
+	const [passwordDialog, setPasswordDialog] = useState(false);
+	const [open, setOpen] = useState(false);
 
 	userInfo?.name === undefined ? "" : test();
 
@@ -151,8 +153,6 @@ function PersonalData() {
 
 			return;
 		}
-
-
 		
 		if (!e.target.value.match(invalidCharacterChangePassword())) {
 			return;
@@ -205,6 +205,7 @@ function PersonalData() {
 							<div className="clientPage__name">{valueName}</div>
 						) : (
 							<input
+								autoFocus={true}
 								className="clientPage__input-profile"
 								type="text"
 								value={valueName}
@@ -293,13 +294,19 @@ function PersonalData() {
 						{matchesMobile || matchesTablet ? <div>Удалить аккаунт</div> : <div>Аккаунт</div>}
 						<div>Удалить аккаунт</div>
 						{matchesMobile || matchesTablet ? <RightArrow /> : <a
-							onClick={(e) => {
-								modalOlen(e, "sm", modalDeleteAccount());
+							onClick={(/* e */) => { setOpen(!open)
+								/* modalOlen(e, "sm", modalDeleteAccount()); старая модалка */
 							}}
 							className="offerUnpublish thin superLight"
 						>
 							Удалить навсегда
 						</a>}
+						<Dialog
+							open={open}
+							onClose={() => setOpen(!open)}
+						>
+							<DeleteAccountModal setOpen={setOpen}/>
+						</Dialog>
 					</div>
 					<div>
 						<div>Сменить пароль</div>

@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 		background: theme.palette.secondary.main,
 		width: "14px",
 		height: "14px",
-
 		"&:hover": {
 			background: theme.palette.secondary.main,
 		},
@@ -26,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.grey[200],
 		cursor: "pointer",
 		transition: "all 200ms ease-in-out",
-
 		"&:hover": {
 			transition: "all 200ms ease-in-out",
 			textDecoration: "underline",
@@ -41,38 +39,33 @@ function Active({offers}) {
 	const [check, setCheck] = useState(false);
 	const [dataCheck, setDataCheck] = useState([]);
 	const [offerData, setOfferData] = useState([]);
-
 	
 	const cleanAll = () =>  {
-
 		setCheck(false);
 		setDataCheck([]);
 		setOfferData([]);
 	}
 
-	
 	function getChildCheck ({id, isChecked}) {
 		setDataCheck( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
 		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
 
-
 	useEffect(() => {
 		dataCheck.length===offers.length ? setCheck(true) : setCheck(false);
 	}, [dataCheck])
 
-	console.log("---------check-----------",check);
+	/* console.log("---------check-----------",check);
 	console.log("---------dataCheck-----------",dataCheck);
 	console.log("---------offerData-----------", offerData);
 	console.log("---------openUnpublishForm-----------", openUnpublishForm);
-	console.log("---------offers-----------", offers); 
+	console.log("---------offers-----------", offers);  */
 
 	if (offers.length == 0) {
 		return (
 			<Placeholder />
 		);
 	}
-
 	
 	return (
 		<UnpublishCTX.Provider

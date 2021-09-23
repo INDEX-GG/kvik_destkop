@@ -131,11 +131,11 @@
 					"children": []
 				}, {
 					"name": "Земли сельскохозяйственного назначения",
-					"alias": "sell_agriculturalLand",
+					"alias": "sell_agriculturalland",
 					"children": []
 				}, {
 					"name": "Земли коммерческого назначения",
-					"alias": "sell_commercialLand",
+					"alias": "sell_commercialland",
 					"children": []
 				}]
 			}]
