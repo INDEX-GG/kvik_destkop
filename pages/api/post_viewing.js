@@ -18,9 +18,8 @@ export default async function handler(req, res) {
             let preList = views['viewing'].substring(1);
             let preList2 = preList.substring(0, preList.length - 1);
             let list = preList2.split(',');
-            console.log(list);
             if (list.includes(user_id)) {
-                return {subscribers: '[' + list.join() + ']'}
+                return {viewing: '[' + list.join() + ']'}
             } else {
                 list.push(user_id)
             }
@@ -38,7 +37,7 @@ export default async function handler(req, res) {
                 }
             }
             await prisma.posts.update(obj);
-            return {subscribers: '[' + list.join() + ']'}
+            return {viewing: '[' + list.join() + ']'}
         }
         try {
             const response = await main();
