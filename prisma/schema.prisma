@@ -105,6 +105,7 @@ model posts{
   active                Int?
   subcategory           String?
   verify_moderator      Json?
+  viewing               String?
 
 
   @@index([address], name: "posts_address_index")
