@@ -25,6 +25,8 @@ import ProductReviewed from "../../components/product/ProductSmallComponents/Pro
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
+// import axios from 'axios'
+
 const objP = {
 	id: 1,
 	title: "Продам 2-комню квартиру, 95м в центре",
@@ -86,13 +88,26 @@ const Product = () => {
 	}, []);
 
 	console.log("DATA-------", data)
-	const {productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
+	const {productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice, /** watched */} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
 	console.log("INFO", productInfoFields, subcategory)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
+
+	const watched = true
+
+	useEffect(() => {
+		if (watched) {
+			console.log('1')
+		} else {
+			// axios.post('/api/', {'watched': true})
+			console.log('2')
+		}
+	}, [watched])
+
+
 	useEffect(() => {
 
 		if (user_id !== undefined) {
