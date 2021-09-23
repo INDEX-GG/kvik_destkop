@@ -15,6 +15,7 @@ import ProductAreaBuildnformation from './ProductsDescription/ProductAreaBuildnf
 import ProductGarageInformation from './ProductsDescription/ProductGarageInformation';
 import ProductWorkInformation from './ProductsDescription/ProductWorkInformation';
 import ProductTechInformation from './ProductsDescription/ProductTechInformation';
+import ProductForHomeInformation from './ProductsDescription/ProductForHomeInformation';
 
 export default function ProductInformation({ productionInfo, description, caterory, address}) {
 	console.log("я правильно понимаю", productionInfo)
@@ -147,7 +148,7 @@ export default function ProductInformation({ productionInfo, description, catero
 		case "dogs":
 		case "goods_for_children_toys":
 		case "bicycles":
-			info = <ProductTechInformation data={productionInfo} mobile={!matchesMobile && !matchesTablet} description={description} productData={productData} count={fieldsCount} />
+			info = <ProductForHomeInformation data={productionInfo} mobile={!matchesMobile && !matchesTablet} description={description} productData={productData} count={fieldsCount} />
 			break;
 		
 		default:
