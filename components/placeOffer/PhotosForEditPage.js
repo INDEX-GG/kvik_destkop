@@ -452,6 +452,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 
 
 
+
 		if ( Array.isArray(data) === true ) {
 			return (
 				<div
