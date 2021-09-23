@@ -6,6 +6,7 @@ import { getDataByPost } from '../lib/fetch';
 
 export function useProduct(id) {
 	const [productInfo, setProductInfo] = useState({});
+	console.log(productInfo);
 	const [productInfoFields, setProductInfoFields] = useState({});
 	const {id: userId} = useAuth()
 	useEffect(() => {

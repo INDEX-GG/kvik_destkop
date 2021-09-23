@@ -1,4 +1,4 @@
-import { Box, TextField, makeStyles, FormControl } from '@material-ui/core';
+import { Box, TextField, makeStyles} from '@material-ui/core';
 
 import SearchIcon from '@material-ui/icons/Search';
 import React from 'react';
@@ -34,22 +34,20 @@ const Search = ({text = false}) => {
 	// 	axios.post('/api/search', { product_name: result })
 	// 		.then(res => console.log(res))
 	// }, [result])
-
+	const ref = React.useRef(null)
 
 	return (
 		<Box className={classes.input} >
-			<FormControl fullWidth>
 				<TextField
-					onClick={() => console.log("asdasdas")}
-					onFocus={(event) => console.log(event)}
 					// value={search}
 					// onChange={e => handelSearch(e)}
 					variant='outlined' size='small'
 					placeholder={text ? text : "Поиск по объявлениям"}
 					fullWidth className={classes.searchInput} 
+					inputRef={ref}
+					onClick={() => console.log(ref.current.focus())}
 				/>
 				<SearchIcon className={classes.icon} />
-			</FormControl>
 		</Box>
 	)
 }

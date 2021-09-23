@@ -4,8 +4,8 @@ import ProductButtonChangeAds from './ProductButtonsChangeAds';
 import ProductButton from './ProductUI/ProductButton';
 
 
-const ProductAdsChange = ({mobile, status, id, sellerId = undefined, modalFunc}) => {
-	console.log(modalFunc)
+const ProductAdsChange = ({mobile, status, id, sellerId = undefined, setOpenUnpublishForm, active}) => {
+	console.log( setOpenUnpublishForm)
 	const router = useRouter();
 	return (
 		mobile ? '' : (
@@ -35,7 +35,7 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, modalFunc})
                   ) : (
                     ""
                   )} */}
-				  <ProductButtonChangeAds id={id} sellerId={sellerId} status={status} mobile={mobile} lastDate={0}/>
+				  <ProductButtonChangeAds id={id} sellerId={sellerId} status={status} mobile={mobile} lastDate={0} setOpenUnpublishForm={setOpenUnpublishForm} active={active}/>
                   {/* {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
                   {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""}
                   {status === 2 || status === 3 ? <a className="ad_btn ad_btn_edit buttonGrey button">Удалить</a> : ""}
