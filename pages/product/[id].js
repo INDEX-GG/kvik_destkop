@@ -25,7 +25,7 @@ import ProductReviewed from "../../components/product/ProductSmallComponents/Pro
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
-// import axios from 'axios'
+import axios from "axios";
 
 const objP = {
 	id: 1,
@@ -96,16 +96,11 @@ const Product = () => {
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
 
-	const watched = true
-
 	useEffect(() => {
-		if (watched) {
-			console.log('1')
-		} else {
-			// axios.post('/api/', {'watched': true})
-			console.log('2')
+		if (query.id) {
+			axios.post('/api/post_viewing',{"post_id": Number(query.id), "user_id": id})
 		}
-	}, [watched])
+	}, [query.id])
 
 
 	useEffect(() => {
