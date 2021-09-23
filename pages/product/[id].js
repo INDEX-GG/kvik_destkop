@@ -84,7 +84,7 @@ const Product = () => {
 
 	const [data, setData] = useState();
 	useEffect(() => {
-		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)));
+		getDataByPost('/api/getPosts', { of: 0, 'user_id': id }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
 	console.log("DATA-------", data)
