@@ -172,10 +172,6 @@ export default function offerArchive(offer) {
 								</button>
 							</a>
 
-							{/* <button type="submit" className="offerEdit thin editIcon offerSocialAction">
-								Редактировать
-							</button> */}
-
 							<button className="offerEdit thin editIcon offerSocialAction" onClick={() => Router.push(`/editPage/${offerID}`)} >
 								Редактировать
 							</button>

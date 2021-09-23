@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Description = ({ description }) => {
-	// console.log('===================>', description)
 
 	const classes = useStyles();
 	const methods = useFormContext();
@@ -27,7 +26,6 @@ const Description = ({ description }) => {
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Описание</Typography>
-			{/* {console.log('description in typography ', description)} */}
 			<Box className={classes.formInputField}>
 				<Controller
 					name="description"
