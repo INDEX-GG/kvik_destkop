@@ -25,6 +25,8 @@ import ProductReviewed from "../../components/product/ProductSmallComponents/Pro
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
+import axios from "axios";
+
 const objP = {
 	id: 1,
 	title: "Продам 2-комню квартиру, 95м в центре",
@@ -85,14 +87,22 @@ const Product = () => {
 		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
-	
 	const {productInfoFields, address, subcategory, name, active, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
+
 	const productInfo = useProduct(query.id)
 	console.log("DATA-------", active)
 	console.log("INFO", productInfoFields, subcategory, productInfo)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
+
+	useEffect(() => {
+		if (query.id) {
+			axios.post('/api/post_viewing',{"post_id": Number(query.id), "user_id": id})
+		}
+	}, [query.id])
+
+
 	useEffect(() => {
 
 		if (user_id !== undefined) {

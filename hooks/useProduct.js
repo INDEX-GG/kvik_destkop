@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { STATIC_URL } from '../lib/constants';
+import { useAuth } from '../lib/Context/AuthCTX';
 import { getDataByPost } from '../lib/fetch';
 
 
@@ -7,9 +8,10 @@ export function useProduct(id) {
 	const [productInfo, setProductInfo] = useState({});
 	console.log(productInfo);
 	const [productInfoFields, setProductInfoFields] = useState({});
+	const {id: userId} = useAuth()
 	useEffect(() => {
 		if (typeof id === 'string' || typeof id === 'number') {
-			getDataByPost('/api/getPost?123', { id: id })
+			getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })
 				.then((r) => {
 					if (r !== undefined) {
 						let photoes = JSON.parse(r.photo);

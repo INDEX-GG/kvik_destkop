@@ -39,7 +39,6 @@ const useStyles = makeStyles(() => ({
 const Index = () => {
 	const { matchesMobile, matchesTablet } = useMedia();
 	const [data, setData] = useState();
-
 	const classes = useStyles();
 
 	useEffect(() => {
