@@ -187,19 +187,25 @@ const Photoes = ({ ctx }) => {
 		}
 
 		// собирается oject imageData по выбраным файлам
-		validFiles.forEach((el, i) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(el);
-			reader.onloadend = (e) => {
-				if (imageData.length === 0 || [imageData.find(im => im.data === el.data)].length === 0) {
-					setImageData([
-						...imageData,
-						{ name: el.name, src: e.target.result, id: i },
-					]);
-				}
+		// validFiles.forEach((el, i) => {
+		// 	const reader = new FileReader();
+		// 	reader.readAsDataURL(el);
+		// 	reader.onloadend = (e) => {
+		// 		// if (imageData.length === 0 || imageData.find(im => im.data === el.data) === undefined) {
+		// 		// 	setImageData(img => [
+		// 		// 		...img,
+		// 		// 		{ name: el.name, src: e.target.result, id: i },
+		// 		// 	]);
+		// 		// }
+		// 		setImageData(img => {
+		// 			if (img.length === 0 || img.find(im => im.name === el.name ) === undefined){
+		// 			return [...img, { name: el.name, src: e.target.result, id: i }]
+		// 			}
+		// 			return [...img]
+		// 	});
 
-			};
-		});
+		// 	};
+		// });
 	}, [selectedFiles]);
 
 	useEffect(() => {
@@ -212,14 +218,35 @@ const Photoes = ({ ctx }) => {
 		methods.clearErrors('photoes')
 
 		// собирается object imageData по валидным файлам
+		// validFiles.forEach((el, i) => {
+		// 	const reader = new FileReader();
+		// 	reader.readAsDataURL(el);
+		// 	reader.onloadend = (e) => {
+		// 			setImageData(img => {
+		// 				if (img.find(im => im.name === el.name ) === undefined){
+		// 				return [...img, { name: el.name, src: e.target.result, id: i }]
+		// 				}
+		// 				return [...img]
+		// 		});
+		// 	};
+		// });
 		validFiles.forEach((el, i) => {
 			const reader = new FileReader();
 			reader.readAsDataURL(el);
 			reader.onloadend = (e) => {
-				setImageData([
-					...imageData,
-					{ name: el.name, src: e.target.result, id: i },
-				]);
+				// if (imageData.length === 0 || imageData.find(im => im.data === el.data) === undefined) {
+				// 	setImageData(img => [
+				// 		...img,
+				// 		{ name: el.name, src: e.target.result, id: i },
+				// 	]);
+				// }
+				setImageData(img => {
+					if (img.length === 0 || img.find(im => im.name === el.name ) === undefined){
+					return [...img, { name: el.name, src: e.target.result, id: i }]
+					}
+					return [...img]
+			});
+
 			};
 		});
 	}, [validFiles]);
@@ -368,6 +395,8 @@ const Photoes = ({ ctx }) => {
 
 		return (
 			<div className={classes.drag}   >
+				{console.log("длинна", imageData)}
+				
 				{items.map((value, i) => (
 					<SortableItem key={i} index={i} data={value} i={i} />
 				))}
