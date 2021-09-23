@@ -84,7 +84,7 @@ const Product = () => {
 
 	const [data, setData] = useState();
 	useEffect(() => {
-		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)));
+		getDataByPost('/api/getPosts', { of: 0, 'user_id': id }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
 	const {productInfoFields, address, subcategory, name, active, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);

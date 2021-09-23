@@ -68,7 +68,7 @@ const Index = () => {
 	
 	useEffect(() => {
 		 firstAds(id, page, limit, setData, setLastIdAds)
-	}, []);
+	}, [id]);
 
 	return (
 		<MetaLayout title={'Доска объявлений'}>
