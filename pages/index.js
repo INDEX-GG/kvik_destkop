@@ -51,25 +51,24 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Index = () => {
-	{ /** offers**/ }
 	const { matchesMobile, matchesTablet } = useMedia();
 	const [data, setData] = useState();
 	// modifyGetPostsData(offers)
 	const classes = useStyles();
-	const { isAuth } = useAuth();
+	const { isAuth, id } = useAuth();
 	const [page, setPage] = useState(1);
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
 	const [lastIdAds ,setLastIdAds] = useState(0);
 	const limit = 30
 
 	useEffect(() => {
-		scrollAds(page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
+		scrollAds(id, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
 		console.log(lastIdAds)
 	}, [page])
 	
 	useEffect(() => {
-		 firstAds(page, limit, setData, setLastIdAds)
-	}, []);
+		 firstAds(id, page, limit, setData, setLastIdAds)
+	}, [id]);
 
 	return (
 		<MetaLayout title={'Доска объявлений'}>

@@ -45,6 +45,7 @@ model users{
   favorites               String?
   subscriptions           String?
   subscribers             String?
+  blocked_user            String?
   @@index([can_be_impersonated], name: "users_can_be_impersonated_index")
   @@index([email], name: "users_email_index")
   @@index([gender_id], name: "users_gender_id_index")
@@ -105,6 +106,7 @@ model posts{
   active                Int?
   subcategory           String?
   verify_moderator      Json?
+  viewing               String?
 
 
   @@index([address], name: "posts_address_index")

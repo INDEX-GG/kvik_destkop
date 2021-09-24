@@ -1,5 +1,7 @@
-import { Box, TextField, makeStyles } from '@material-ui/core';
+import { Box, TextField, makeStyles} from '@material-ui/core';
+
 import SearchIcon from '@material-ui/icons/Search';
+import React from 'react';
 
 const useStyles = makeStyles(() => ({
 	input: {
@@ -17,7 +19,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Search = ({text = false}) => {
-
 	const classes = useStyles();
 	// const [search, setSearch] = useState();
 	// const [result, setRes] = useState();
@@ -33,18 +34,20 @@ const Search = ({text = false}) => {
 	// 	axios.post('/api/search', { product_name: result })
 	// 		.then(res => console.log(res))
 	// }, [result])
-
-	// console.log(result)
+	const ref = React.useRef(null)
 
 	return (
 		<Box className={classes.input} >
-			<TextField
-				// value={search}
-				// onChange={e => handelSearch(e)}
-				variant='outlined' size='small'
-				placeholder={text ? text : "Поиск по объявлениям"}
-				fullWidth className={classes.searchInput} />
-			<SearchIcon className={classes.icon} />
+				<TextField
+					// value={search}
+					// onChange={e => handelSearch(e)}
+					variant='outlined' size='small'
+					placeholder={text ? text : "Поиск по объявлениям"}
+					fullWidth className={classes.searchInput} 
+					inputRef={ref}
+					onClick={() => console.log(ref.current.focus())}
+				/>
+				<SearchIcon className={classes.icon} />
 		</Box>
 	)
 }

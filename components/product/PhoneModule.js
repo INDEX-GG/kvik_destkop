@@ -54,6 +54,7 @@ import ProductNumberPng from "./ProductNumberPng";
       color: "#5A5A5A",
       marginBottom: "30px",
       textAlign: "center",
+      visibility: "hidden",
     },
     warningMessage: {
       marginBottom: "15px",

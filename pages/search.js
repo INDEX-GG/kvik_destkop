@@ -6,6 +6,7 @@ import FilterBlock from "../components/FilterBlock"
 import SearchRender from "../components/SearchRender"
 import { getDataByPost } from "../lib/fetch";
 import { modifyGetPostsData } from "../lib/services";
+import { useAuth } from "../lib/Context/AuthCTX";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -39,11 +40,11 @@ const useStyles = makeStyles(() => ({
 const Index = () => {
 	const { matchesMobile, matchesTablet } = useMedia();
 	const [data, setData] = useState();
-
 	const classes = useStyles();
+	const {id} = useAuth()
 
 	useEffect(() => {
-		getDataByPost("/api/getPosts", { of: 0 }).then(r => setData(modifyGetPostsData(r)));
+		getDataByPost("/api/getPosts", { of: 0, 'user_id': id }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
 	return (
