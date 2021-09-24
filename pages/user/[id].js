@@ -30,7 +30,9 @@ function UserPage() {
   const [userBool, setUserBool] = useState(false)
   const [subList, setSubList] = useState([])
   const [subscribersList, setSubscribersList] = useState([])
+  const [loading, setLoading] = useState(false)
   const [blockOpen, setBlockOpen] = useState(false)
+  const [blockLoad, setBlockLoad] = useState(true)
 
 
   useEffect(() => {
@@ -46,7 +48,7 @@ function UserPage() {
 
   useEffect(() => {
     if (sellerId && subList.length == 0) {
-      axios.post("/api/getSubscriptions", {user_id: "" + sellerId}).then((res) => setSubList(res.data))
+      axios.post("/api/getSubscriptions", {user_id: sellerId}).then((res) => setSubList(res.data))
     }
 
     if (sellerId && subscribersList.length == 0) {
@@ -63,37 +65,46 @@ function UserPage() {
   }
 
   async function subscribeUser() {
-
-    const subscribe = {
-      user_id: id + "",
-      seller_id: sellerId + ""
+    if (id && sellerId){
+      setLoading(true)
+  
+      const subscribe = {
+        user_id: id + "",
+        seller_id: sellerId + ""
+      }
+      setUserBool(!userBool)
+  
+  
+      await axios.post("/api/subscriptions", subscribe)
+        .then(res => console.log(res.data))
+        .catch(error => console.log(error))
+  
+      await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
+  
+  
+      await changeSubscribers()
+      setLoading(false)
     }
+    
 
-	setUserBool(!userBool)
-
-    await axios.post("/api/getSubscriptions", { user_id: String(id) })
-
-    await axios.post("/api/subscriptions", subscribe)
-      .then(res => console.log(res.data))
-      .catch(error => console.log(error))
-
-	await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}).then(res => console.log(res.data));
-
-
-    await axios.post("/api/getSubscriptions", { user_id: String(id) })
-
-	changeSubscribers()
   }
 
-  const blockUser = () => {
+  const blockUser = async () => {
+    setBlockLoad(true)
     const userBlockInfo = {
-      id: sellerId,
-      date: standartDate(Date.now())
+      user_id: id,
+      block_user_id: sellerId,
+      time: standartDate(Date.now()),
+      block: true,
     }
-    console.log(userBlockInfo);
+
+    if (id && sellerId){
+      await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r)).catch(r => console.log(r))
+    }
+
+    setBlockLoad(false)
   }
   
-
   return (
     <MetaLayout>
       <div className="clientPage text">
@@ -133,13 +144,13 @@ function UserPage() {
             </div>
             {+router.query.id == id  ? null : (
               <>
-                <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
-                <div className="btnActive">
-                  <a className="userActive" onClick={() => setBlockOpen(true)}>Заблокировать пользователя</a>
+                <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
+                <button className="btnActive">
+                  <span className="userActive" onClick={() => setBlockOpen(true)}>Заблокировать пользователя</span>
                   <div className="userIconBlock">
                     <UserLock className="userActiveIcon" />
                   </div>
-                </div>
+                </button>
                 <div className="btnActive">
                   <a className="userActive">Пожаловаться</a>
                   <div className="userIconBlock">
@@ -170,8 +181,8 @@ function UserPage() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => blockUser()}>Да</Button>
-            <Button onClick={() => setBlockOpen(false)}>Нет</Button>
+            <Button onClick={() => blockUser()}>Заблокировать</Button>
+            <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
         </DialogActions>
       </Dialog>
     </MetaLayout>

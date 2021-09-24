@@ -61,7 +61,6 @@ const objP = {
 	],
 };
 
-console.log(objP)
 
 const Product = () => {
 	const { query } = useRouter();
@@ -85,11 +84,10 @@ const Product = () => {
 		getDataByPost('/api/getPosts', { of: 0 }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
-	console.log("DATA-------", data)
 	const {productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
-	console.log("INFO", productInfoFields, subcategory)
+	// const {userInfo} = useStore()
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
@@ -104,6 +102,7 @@ const Product = () => {
 							photo: JSON.parse(offer.photo).photos.map(img => `${STATIC_URL}/${img}`)
 						}
 					})
+
 					setUserAd(userOffers);
 				}
 			});

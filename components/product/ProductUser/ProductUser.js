@@ -1,13 +1,46 @@
 import { Avatar } from '@material-ui/core';
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMedia } from '../../../hooks/useMedia';
+import { useSubBool } from '../../../hooks/useSubscriptions';
 import StarRating from '../../StarRating';
 
 
 const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, status, userrate}) => {
 	const router = useRouter();
 	const {matchesMobile} = useMedia();
+  const { userSub } = useSubBool(id, sellerId)
+  const [userBool, setUserBool] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+	useEffect(() => {
+    setUserBool(userSub)
+  }, [userSub])
+
+	async function subscribeUser() {
+    if (id && sellerId){
+			setLoading(true)
+	
+			const subscribe = {
+				user_id: id + "",
+				seller_id: sellerId + ""
+			}
+			
+			
+			await axios.post("/api/subscriptions", subscribe)
+			.then(res => console.log(res.data))
+			.catch(error => console.log(error))
+			
+			await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
+			
+			
+			setLoading(false)
+			setUserBool(!userBool)
+		}
+  }
+
+
 	return (
 		<>
 			<Avatar alt="User" src={userPhoto} className="SellerInfoUserPic" onClick={() => {
@@ -44,7 +77,7 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
 					{sellerId !== id ?
 						mobile ? '' :
 							<div className="ad__block_bottom__adaptive_left">
-								<a className="SellerInfoUserAdd"></a>
+								<button onClick={() => subscribeUser()} disabled={loading} className={`SellerInfoUserAdd ${userBool ? 'SellerInfoUserAdd__active' : ''}`}></button>
 							</div>
 						: ''
 					}
