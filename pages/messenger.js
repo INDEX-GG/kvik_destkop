@@ -24,7 +24,11 @@ let recipient = {"id": 6}
 
 
 // const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
+// const socket = io('http://192.168.8.111:6066')
 const socket = io('http://127.0.0.1:5000')
+
+
+
 socket.emit('join', {'sender': sender, 'recipient': recipient})
 
 
