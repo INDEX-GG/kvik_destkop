@@ -17,6 +17,9 @@ import ProductOption from "./ProductOption";
 import ProductStats from "./ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteCom from "./ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductAdsChange from "./ProductAdsChange";
+
+
+
 export default function ProductAction(data) {
   const { id } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
@@ -26,26 +29,30 @@ export default function ProductAction(data) {
   const { matchesMobile, matchesTablet } = useMedia();
 
   const objP = { adstatus: 8 };
-  const [offerId, setOfferId] = useState();
+  //const [offerId, setOfferId] = useState();
 
   const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
   const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
 
+  const dataCheck = [data.productInfo.id]
+  const offerData = data.productInfo
+  const setUpdate = data.setUpdate;
   /* Модальное окно */
-  function pushCheck() {
-    setOfferId(+data.router);
+  /* function pushCheck() {
+    console.log("clicked")
+    //setOfferId(+data.router);
     setOpenUnpublishForm(!openUnpublishForm);
     handleUnpublishFormDialog();
-  }
+  } */
 
   const {user_id} = data;
 
 
-  console.log("data =======> ", data)
+  console.log("data =======> ", data.setUpdate)
 
   return (
     <>
-      <UnpublishCTX.Provider value={{ offerId, openUnpublishForm, setOpenUnpublishForm }}>
+      <UnpublishCTX.Provider value={{dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, setUpdate }}>
 
         {!matchesMobile && !matchesTablet && (
           user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
@@ -61,11 +68,10 @@ export default function ProductAction(data) {
                 </ProductDeal>
                 <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
               </div>
-
             </>
         )
         }
-		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={1} modalFunc={pushCheck} />
+		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.productInfo.active} setOpenUnpublishForm={setOpenUnpublishForm} />
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
           <Statistics Close={handleStatFormDialog} />
         </Dialog>

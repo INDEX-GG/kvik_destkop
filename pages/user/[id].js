@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
-import { ToRusAccountDate, stringToColor, initials } from "../../lib/services";
-import { Avatar, Dialog } from "@material-ui/core";
+import { ToRusAccountDate, stringToColor, initials, standartDate } from "../../lib/services";
+import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
 import { useRouter } from "next/router";
 import UserLock from "../../UI/icons/UserLock";
 import UserReport from "../../UI/icons/UserReport";
@@ -30,6 +30,7 @@ function UserPage() {
   const [userBool, setUserBool] = useState(false)
   const [subList, setSubList] = useState([])
   const [subscribersList, setSubscribersList] = useState([])
+  const [blockOpen, setBlockOpen] = useState(false)
 
 
   useEffect(() => {
@@ -84,6 +85,15 @@ function UserPage() {
 	changeSubscribers()
   }
 
+  const blockUser = () => {
+    const userBlockInfo = {
+      id: sellerId,
+      date: standartDate(Date.now())
+    }
+    console.log(userBlockInfo);
+  }
+  
+
   return (
     <MetaLayout>
       <div className="clientPage text">
@@ -125,10 +135,10 @@ function UserPage() {
               <>
                 <button className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
                 <div className="btnActive">
-                <a className="userActive">Заблокировать пользователя</a>
-                <div className="userIconBlock">
-                  <UserLock className="userActiveIcon" />
-                </div>
+                  <a className="userActive" onClick={() => setBlockOpen(true)}>Заблокировать пользователя</a>
+                  <div className="userIconBlock">
+                    <UserLock className="userActiveIcon" />
+                  </div>
                 </div>
                 <div className="btnActive">
                   <a className="userActive">Пожаловаться</a>
@@ -152,6 +162,17 @@ function UserPage() {
       </Dialog>
       <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalSubscription data={subList} subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} />
+      </Dialog>
+      <Dialog open={blockOpen} onClose={() => setBlockOpen(false)}>
+          <DialogContent>
+            <DialogContentText>
+                Вы уверены, что хотите заблокировать пользователя?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => blockUser()}>Да</Button>
+            <Button onClick={() => setBlockOpen(false)}>Нет</Button>
+        </DialogActions>
       </Dialog>
     </MetaLayout>
   );

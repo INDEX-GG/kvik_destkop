@@ -30,7 +30,7 @@ const Offers = () => {
       setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0 && offer.active !== 4));
     }
   }, [userAccountProvider]);
-
+  console.log(userAccountProvider)
   useEffect(() => {
     if (router) {
       if (router.query.content != undefined) {

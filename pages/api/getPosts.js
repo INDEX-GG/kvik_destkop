@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 					commercial: true,
 					secure_transaction: true,
 					title: true,
-					email: true
+					email: true,
 				}
 			})
 		}

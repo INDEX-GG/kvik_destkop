@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UnpublishForm() {
 	const classes = useStyles();
-	const { dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll } = useContext(UnpublishCTX);
+	const { dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll, setUpdate } = useContext(UnpublishCTX);
 
 	const { setQuery } = useOfferAccount()
 
@@ -89,10 +89,12 @@ export default function UnpublishForm() {
 				setOpenUnpublishForm(!openUnpublishForm)
 			})
 		typeof cleanAll === "undefined" ? null : cleanAll();
+		typeof setUpdate === "undefined" ? null : setUpdate(true);
 	}
 
 	console.log("_____offerData_____", offerData)
 	console.log("_____dataCheck_____", dataCheck)
+	console.log("_____setUpdate_____", setUpdate)
 
 	if (dataCheck?.length === 1) {
 		/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
