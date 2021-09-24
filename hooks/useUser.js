@@ -22,7 +22,6 @@ export function useUser() {
 			getUser();
 		}
 	}, [id])
-	console.log(...userInfo)
 	return {
 		...userInfo,
 		isLoading

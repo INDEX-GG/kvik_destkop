@@ -26,6 +26,7 @@ import ProductStats from "../../components/product/ProductSmallComponents/Produc
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
 import axios from "axios";
+import { firstAds, scrollAds } from "../../lib/scrollAds";
 
 const objP = {
 	id: 1,
@@ -63,14 +64,29 @@ const objP = {
 	],
 };
 
-console.log(objP)
+
 
 const Product = () => {
 	const { query } = useRouter();
-	const { id } = useAuth();
+	const { id, isAuth } = useAuth();
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+
+	const [page, setPage] = useState(1);
+	const [limitRenderPage, setLimitRanderPage] = useState(0);
+	const [lastIdAds ,setLastIdAds] = useState(0);
+	const limit = 10
+
+	useEffect(() => {
+		scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
+		console.log(lastIdAds)
+	}, [page])
+	
+	useEffect(() => {
+		 firstAds(id, isAuth, page, limit, setData, setLastIdAds)
+	}, [id]);
+	
 	// const [collSO, setCollSO] = useState(true);
 	/* const handleCollSO = (e) => {
 		e.preventDefault();
@@ -87,18 +103,20 @@ const Product = () => {
 		
 	}, []);
 
-	const {productInfoFields, address, subcategory, name, active, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
 
+	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
 
 	useEffect(() => {
-		if (query.id) {
-			axios.post('/api/post_viewing',{"post_id": Number(query.id), "user_id": id})
+		if (id && query.id) {	
+			if (viewing_bool != true && viewing_bool != undefined) {
+				axios.post('/api/post_viewing',{"post_id": Number(query.id), "user_id": id})
+			}
 		}
-	}, [query.id])
+	}, [query.id, viewing_bool, id])
 
 
 	useEffect(() => {
@@ -112,6 +130,7 @@ const Product = () => {
 							photo: JSON.parse(offer.photo).photos.map(img => `${STATIC_URL}/${img}`)
 						}
 					})
+
 					setUserAd(userOffers);
 				}
 			});
@@ -188,7 +207,7 @@ const Product = () => {
 							</div>
 							<div className="productPageContent">
 								<div className="productPageCard">
-									<OffersRender isProduct data={data} title={"Похожие объявления"} /* endMessage={!collSO} */ />
+									<OffersRender isProduct data={data} title={"Похожие объявления"} page={page} limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage} setPage={setPage} /* endMessage={!collSO} */ />
 									<div style={{ marginTop: '60px' }}></div>
 									{/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
@@ -208,7 +227,7 @@ const Product = () => {
 					<div className="productPageWhiteSpace"></div>
 					<Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
 						{" "}
-						<Statistics Close={handleStatFormDialog} />{" "}
+						<Statistics views={viewing ? JSON.parse(viewing).length : 0} Close={handleStatFormDialog} />{" "}
 					</Dialog>
 					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo} />
 				</div>

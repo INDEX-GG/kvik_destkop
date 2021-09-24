@@ -70,7 +70,6 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 	useEffect(() => {
 		observerGenerate(lastElement, observer, limitRender, setLimitRenderPage, setPage, page)
 	})
-	
 
 	return (
 		<>
@@ -90,9 +89,9 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 				</TextField> : null}
 			</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) => i == data.length - 1 ? <AdCard_component ref={lastElement} key={i} offer={obj} /> : <AdCard_component key={i} offer={obj} />)}
+					{state.sorting(data)?.map((obj, i) => <AdCard_component ref={lastElement} key={i} offer={obj} />)}
 				</div>
-				{page == 'end' ? null : <div className='offer__placeholder_loader'><Loader /></div>}
+				{page == 'end' || data?.length == 0 ? null : <div className='offer__placeholder_loader'><Loader /></div>}
 				{/* {data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null} */}
 			<div className={classes.messageEnd}>
 				{/* {endMessage && data?.length ? <EndMessage/> : null} */}
