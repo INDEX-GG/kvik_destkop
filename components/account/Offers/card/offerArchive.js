@@ -69,7 +69,7 @@ export default function offerArchive(offer) {
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState();
 	const [battonId, setBattonId] = useState('');
-	const UnicOfferData = offer.offer;
+	const offerData = offer.offer;
 	const offerID = offer.offer.id
 
 
@@ -108,10 +108,10 @@ export default function offerArchive(offer) {
 
 	console.log('Что-то выделено ?');
 	console.log("---------check-----------", check);
-	console.log("---------offer---Меня--чекнули-Первым-------", UnicOfferData[0]);
-	console.log("---------offer---нас всех чекнули-------", UnicOfferData);
+	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
+	console.log("---------offer---нас всех чекнули-------", offerData);
 	console.log("---------offerId-----------", offerId);
-	console.log(offer, `offer ${offer.offer.id} maunt`)
+	console.log(offer, `offer ${offer.offer.id} maunt`);
 
 	/* Модальное окно */
 
@@ -127,7 +127,7 @@ export default function offerArchive(offer) {
 	// console.log(openDelActiveForm, "DelActiveForm open/close")
 
 	return (
-		<DelActiveCTX.Provider value={{ offerId, UnicOfferData, openDelActiveForm, battonId, setOpenDelActiveForm }}>
+		<DelActiveCTX.Provider value={{ offerId, offerData, openDelActiveForm, battonId, setOpenDelActiveForm }}>
 			<div key={offer.offer.id} className="offerContainer boxWrapper">
 				<div className="offerImage">
 					<div className="offerPubCheck">

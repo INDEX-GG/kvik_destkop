@@ -7,8 +7,9 @@ import IconMess from "../../UI/icons/IconMess";
 import Statistics from "../../components/Statistics";
 import PhoneModule from "./PhoneModule";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import UnpublishForm from "../UnpublishForm";
-import { UnpublishCTX } from "../../lib/Context/DialogCTX";
+//import UnpublishForm from "../UnpublishForm";
+import { DelActiveCTX } from "../../lib/Context/DialogCTX";
+import DelActiveForm from "../DelActiveForm";
 import ProductButton from "./ProductUI/ProductButton";
 import ProductDeal from "./ProductDeal";
 import ProductDate from "./ProductSmallComponents/ProductDate";
@@ -31,28 +32,23 @@ export default function ProductAction(data) {
   const objP = { adstatus: 8 };
   //const [offerId, setOfferId] = useState();
 
-  const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
-  const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+  const [openDelActiveForm, setOpenDelActiveForm] = useState(false);
+  //const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+  const [battonId, setBattonId] = useState('');
 
-  const dataCheck = [data.productInfo.id]
-  const offerData = data.productInfo
+  const offerId = [data.productInfo.id];
+  const offerData = data.productInfo;
   const setUpdate = data.setUpdate;
-  /* Модальное окно */
-  /* function pushCheck() {
-    console.log("clicked")
-    //setOfferId(+data.router);
-    setOpenUnpublishForm(!openUnpublishForm);
-    handleUnpublishFormDialog();
-  } */
+  
+
+  console.log(data.active)
+
 
   const {user_id} = data;
 
-
-  console.log("data =======> ", data.setUpdate)
-
   return (
     <>
-      <UnpublishCTX.Provider value={{dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, setUpdate }}>
+      <DelActiveCTX.Provider value={{offerId, offerData, openDelActiveForm, setOpenDelActiveForm, battonId }}>
 
         {!matchesMobile && !matchesTablet && (
           user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
@@ -71,16 +67,16 @@ export default function ProductAction(data) {
             </>
         )
         }
-		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.productInfo.active} setOpenUnpublishForm={setOpenUnpublishForm} />
+		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.status} setOpenDelActiveForm={setOpenDelActiveForm} /*update={data.update}*/ setBattonId={setBattonId}/>
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
           <Statistics Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
         <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={data.productInfo}/>
-        <Dialog open={openUnpublishForm || false} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
-          <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
+        <Dialog open={openDelActiveForm || false} onClose={() => setOpenDelActiveForm(!openDelActiveForm)} fullWidth maxWidth="xs">
+          <DelActiveForm isProductPages /*Close={handleUnpublishFormDialog}*/ setUpdate={setUpdate} />
         </Dialog>
-      </UnpublishCTX.Provider>
+      </DelActiveCTX.Provider>
     </>
   );
 }

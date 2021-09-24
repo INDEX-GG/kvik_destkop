@@ -5,6 +5,7 @@ import { ToRubles } from "../lib/services";
 import axios from 'axios';
 import { useOfferAccount } from '../lib/Context/OfferAccountCTX';
 import { BASE_URL } from '../lib/constants';
+
 const useStyles = makeStyles((theme) => ({
 	delete_form: {
 		display: 'flex',
@@ -72,9 +73,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function DelActiveForm() {
+export default function DelActiveForm({setUpdate}) {
 	const classes = useStyles();
-	const { offerId, UnicOfferData, openDelActiveForm, setOpenDelActiveForm, battonId, cleanAll } = useContext(DelActiveCTX);
+	const { offerId, offerData, openDelActiveForm, setOpenDelActiveForm, battonId, cleanAll } = useContext(DelActiveCTX);
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerifyDelete() {
@@ -87,7 +88,8 @@ export default function DelActiveForm() {
 				setQuery(p => !p)
 				setOpenDelActiveForm(!openDelActiveForm)
 			})
-		cleanAll();
+			typeof cleanAll === "undefined" ? null : cleanAll();
+			typeof setUpdate === "undefined" ? null : setUpdate(1);
 		// console.log('cleanAll Delete ok!!!!!!!!!');
 	}
 
@@ -101,7 +103,9 @@ export default function DelActiveForm() {
 				setQuery(p => !p)
 				setOpenDelActiveForm(!openDelActiveForm)
 			})
-		cleanAll();
+			typeof cleanAll === "undefined" ? null : cleanAll();
+			typeof setUpdate === "undefined" ? null : setUpdate(0);
+			console.log("_____setUpdate___________", setUpdate)
 		// console.log('cleanAll Activate ok!!!!!!!!!');	
 	}
 
@@ -109,9 +113,22 @@ export default function DelActiveForm() {
 		setOpenDelActiveForm(!openDelActiveForm)
 	}
 
+	function PushBDVerify(e) {
+
+		var arr = { 'id': offerId, 'active': `${e.target.parentElement.id}` }
+
+		axios.post(`${BASE_URL}/api/verifyActive`, arr)
+			.then(r => r.data)
+			.finally(function () {
+				setQuery(p => !p)
+				setOpenDelActiveForm(!openDelActiveForm)
+			})
+		typeof cleanAll === "undefined" ? null : cleanAll();
+		typeof setUpdate === "undefined" ? null : setUpdate(1);
+	}
 
 
-	// console.log("_____delete_ offers_DelActiveForms",UnicOfferData)
+	 console.log("_____UnicOfferData___________", offerData)
 	// console.log("_____offerId_DelActiveForms",offerId)
 	// console.log("_____battonId_DelActiveForms",battonId)
 
@@ -119,7 +136,7 @@ export default function DelActiveForm() {
 	if (battonId === '001') {
 		if (offerId?.length === 1) {
 			/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
-			const offerAction = Array.isArray(UnicOfferData) ? UnicOfferData[0] : UnicOfferData;
+			const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
 
 			return (
 				<Box key={offerAction.id} className={classes.delete_form}>
@@ -154,8 +171,8 @@ export default function DelActiveForm() {
 	} else if (battonId === '002') {
 		if (offerId?.length === 1) {
 			/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
-			const offerAction = Array.isArray(UnicOfferData) ? UnicOfferData[0] : UnicOfferData;
-
+			const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
+			
 			return (
 				<Box key={offerAction.id} className={classes.delete_form}>
 					<Box className={classes.delete_form__item}>
@@ -181,6 +198,41 @@ export default function DelActiveForm() {
 					<Typography className={classes.delete_form__sub_desc}>Вы действительно хотите удалить объявления ?</Typography>
 					<Button id='001' onClick={() => PushBDVerifyDelete()} className={classes.delete_form__btn}>Да удалить</Button>
 					<Button id='002' onClick={closeDelActiveForm} className={classes.delete_form__btn}>Нет</Button>
+				</Box>
+			)
+		}
+	} else if( battonId === '003') {
+		if (offerId?.length === 1) {
+			/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
+			const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
+			console.log(offerAction)
+			return (
+				<Box key={offerAction.id} className={classes.delete_form}>
+					<Box className={classes.delete_form__item}>
+						{offerAction.photo
+							?.slice(0, 1)
+							.map((imgs, i) => {
+								return <CardMedia className={classes.delete_form__item__img} key={i} image={imgs} />
+							})
+						}
+						<Typography className={classes.delete_form__item__price}>{ToRubles(offerAction.price)}</Typography>
+						<Typography className={classes.delete_form__item__title}>{offerAction.title}</Typography>
+					</Box>
+					<Typography className={classes.delete_form__desc}>Снять с публикации</Typography>
+					<Typography className={classes.delete_form__sub_desc}>Выберете причину</Typography>
+					<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Продано на Kvik</Button>
+					<Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Продано в другом месте</Button>
+					<Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Другая причина</Button>
+				</Box>
+			)
+		} else {
+			return (
+				<Box className={classes.unpublish_form}>
+					<Typography className={classes.delete_form__desc}>Снять с публикации</Typography>
+					<Typography className={classes.delete_form__sub_desc}>Выберете причину</Typography>
+					<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Продано на Kvik</Button>
+					<Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Продано в другом месте</Button>
+					<Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Другая причина</Button>
 				</Box>
 			)
 		}

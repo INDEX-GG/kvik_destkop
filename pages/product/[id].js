@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Dialog } from "@material-ui/core";
 import { getDataByPost } from '../../lib/fetch';
@@ -71,7 +71,6 @@ const Product = () => {
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
-	
 	// const [collSO, setCollSO] = useState(true);
 	/* const handleCollSO = (e) => {
 		e.preventDefault();
@@ -85,13 +84,12 @@ const Product = () => {
 	const [data, setData] = useState();
 	useEffect(() => {
 		getDataByPost('/api/getPosts', { of: 0, 'user_id': id }).then(r => setData(modifyGetPostsData(r)));
+		
 	}, []);
 
 	const {productInfoFields, address, subcategory, name, active, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
 
 	const productInfo = useProduct(query.id)
-	console.log("DATA-------", active)
-	console.log("INFO", productInfoFields, subcategory, productInfo)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
@@ -125,10 +123,18 @@ const Product = () => {
 	if (category_id !== undefined) {
 		breadData = BreadCrumbsProduct(category_id);
 	}
-	const [update, setUpdate] = useState(false);
+	//const [update, setUpdate] = useState(false);
+	/* if(update) {
+		const { active } = useProduct(query.id)
+		
+	} */
+	const [defaultStatus, setDefaultStatus] = useState(active);
 	useEffect( () => {
-		console.log("Page must reload")
-	}, [update])
+		setDefaultStatus(active)
+		//console.log("updated update", update)
+		console.log("default defaultStatus", defaultStatus)
+	}, [active])
+	console.log("default defaultStatus", defaultStatus)
 
 	return (
 		<MetaLayout>
@@ -160,7 +166,7 @@ const Product = () => {
 												</div>
 
 										)}
-										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={active} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} productInfo={productInfo} />}
+										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={defaultStatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} />}
 										{/* адрес, карта, свойства и значения */}
 										<ProductInformation address={address} description={description} productionInfo={productInfoFields} caterory={subcategory} />
 									</div>
@@ -168,7 +174,7 @@ const Product = () => {
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
 										{/* статус объявления, кнопки */}
-										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} productInfo={productInfo} setUpdate={setUpdate}/>}
+										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} status={defaultStatus} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus}/>}
 										{/* пользователь и его объявления */}
 										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
 									</div>
