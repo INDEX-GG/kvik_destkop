@@ -310,10 +310,14 @@
 }
 .SellerInfoUserAdd {
     display: block;
+    cursor: pointer;
     width: 24px;
     height: 24px;
     background: no-repeat center center url(../../icons/subscribe_dark.svg);
     margin-left: auto;
+}
+.SellerInfoUserAdd__active {
+    background: no-repeat center center url(../../icons/subscribe_green.svg);
 }
 
 .SellerInfoOffers {
@@ -879,6 +883,13 @@
     .ad__block_bottom__adaptive_left {
         display: flex;
         align-items: center;
+        border: none;
+        background: none;
+        color: #5a5a5a;
+    }
+    
+    .ad__block_bottom__adaptive_left__active{
+        color: #00a0ab;
     }
 
     .SellerInfoUserAdd {
