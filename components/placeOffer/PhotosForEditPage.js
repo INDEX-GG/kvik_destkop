@@ -160,35 +160,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PhotoForEditPage = ({ ctx, photo }) => {
-	console.log("🚀 ~ file: PhotoForEditPage.js ~ line 163 ~ PhotoForEditPage ~ photo", photo, typeof photo) // array
-	const tp = photo?.map((item) => typeof item) // string
-	console.log("🚀 ~ file: PhotoForEditPage.js ~ line 168 ~ PhotoForEditPage ~ tp", tp)
-
-	// const startFiles = {
-	// 	lastModified: 1632221640608,
-	// 	lastModifiedDate: Tue Sep 21 2021 15: 54: 00 GMT + 0500,
-	// 	name: "Screenshot_6.png",
-	// 	size: 26426,
-	// 	type: "image/webp",
-	// 	webkitRelativePath: ""
-	// }
+	// console.log("🚀 ~ file: PhotoForEditPage.js ~ line 163 ~ PhotoForEditPage ~ photo", photo) // array
+	// const tp = photo?.map((item) => typeof item) // string
+	// console.log("🚀 ~ file: PhotoForEditPage.js ~ line 168 ~ PhotoForEditPage ~ tp", tp)
 
 	const classes = useStyles();
 	const methods = useFormContext();
 	const fileInputRef = useRef();
 
+	const [srcAndFile, setSrcAndFile] = useState(photo)
 	const [selectedFiles, setSelectedFiles] = useState(null);
 	const [validFiles, setValidFiles] = useState([]);
-	const [srcAndFile, setSrcAndFile] = useState([photo])
-
-	console.log('=========$$$$$$$$$$$$==========>', validFiles, typeof validFiles[0]);
-
 	const [imageData, setImageData] = useState([]);
 	const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(
 		"Добавьте или перетащите фото"
 	);
 
+	// const [lengthValidFiles, setLengthValidFiles] = useState(0)
+	// useEffect(() => {
+	// 	setLengthValidFiles(lengthValidFiles > validFiles.length || lengthValidFiles === 0 ? setLengthValidFiles(validFiles.length) : 0)
+	// },[validFiles])
+	// console.log('lengthValidFiles',lengthValidFiles)
 
 	// присваивается name в validFiles
 	useEffect(() => {
@@ -201,7 +194,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 				setValidFiles([...validFiles, selectedFiles]);
 			}
 		}
-		// собирается oject imageData по выбраным файлам
+		// собирается object imageData по выбраным файлам
 		validFiles.forEach((el, i) => {
 			const reader = new FileReader();
 			reader.readAsDataURL(el);
@@ -217,19 +210,43 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 		});
 	}, [selectedFiles]);
 
-
 	console.log('++++srcAndFile++++++++', srcAndFile);
-	const srcFileType = srcAndFile.map((item)=> typeof item)
-	console.log('$$$$srcFileType$$$$$',Array.isArray(srcFileType))
-	console.log('$$$$srcFileType$$$$$',srcFileType)
+	// const srcFileType = srcAndFile.map((item)=> typeof item)
+	// console.log('srcFile Array ?',Array.isArray(srcFileType))
+	// console.log('srcFileType',srcFileType)
+
+
+	//состояние Б следит за изменением в Б.  Вот если просто словами то
+	// 1 как должно обновиться состояние Б при добавлении элементов в А
+	//                       Добавление
+	//
+	//
+	//
+	//
+	//
+	//
+	// 2 как должно обновиться состояние Б при удалении элементов из А
+	//                        Удаление
+	// при удалении из валид фаилс изменяется общий массив строк и объектов
+	// при удалении из validFiles нужно чтобы удалялось и из srcAndFiles
+	//
+	// если изменилась длинна массива validFiles в большую сторону
+
+
 
 	useEffect(() => {
-	if(srcAndFile !== undefined){
-		setSrcAndFile([srcAndFile, ...validFiles])
-	}
+		console.warn('Зашел в УсловиЕЕ!!!!!!!!!!!!!')
+		setSrcAndFile( 	[...srcAndFile,
+			// копируем всё что есьт из общего
+			...validFiles.filter(item => {
+		   // копируем все что есть из валид и фильтруем это
+			srcAndFile.indexOf(item) === -1
+				// все фаилы из общего массива у которых индекс не -1
+		})])
 	}, [validFiles])
 
-	console.log('##%%%%%%%%%%%%%%%&&&&&&&&&&&&',typeof srcAndFile);
+	// если длинна валид уменьшилась то скопировать всё что есть кроме того который удалили
+
 
 	// все фаилы которые загружали
 	console.log('imageData', imageData);
@@ -237,6 +254,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 	// фаилы прошедшие валидацию
 	console.log('validFiles', validFiles, Array.isArray(validFiles[0]));
 	console.log('validFiles[0] === undefined ?', validFiles[0] === undefined);
+
 
 
 	useEffect(() => {
@@ -373,6 +391,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 	// };
 
 	const removeFile = (name) => {
+		console.error('ЖМЯЖМЯКЖМЯКЖМЯЯК')
 		const index = validFiles.findIndex((e) => e.name === name);
 		const index3 = unsupportedFiles.findIndex((e) => e.name === name);
 		validFiles.splice(index, 1);
@@ -383,6 +402,10 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 		}
 	};
 
+
+	const removeSrc = (data) => {
+		setSrcAndFile([...srcAndFile.filter((item)=> item !== data)])
+	}
 
 	const rotate = (data) => {
 		console.log('ROTATE DATA',data)
@@ -435,24 +458,15 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 
 		const img = imageData.find((el) => el.name === data.name);
 
-		//! Тут фото
-		console.log('img', img, 'typeof img ==>', typeof img); // obj
-		console.log('!!!!!!!!!!!!!!');
-		console.log('photo', photo, 'typeof photo', Array.isArray(photo)); //  array
-		console.log('!!!!!!!!!!!!!!');
-		console.log('DATA', data)
+		// //! Тут фото
+		// // console.log('img', img, 'typeof img ==>', typeof img); // obj
+		// console.log('!!!!!!!!!!!!!!');
+		// // console.log('!!!!!!!!!!!!!!');
+		// console.log('DATA', data)
+		// // console.log(Array.isArray(data) )
 
-		//! ======> ФАИЛ
-		// img { name: 'Screenshot_12.png',
-		//  src: 'data:image/webp;base64,UklGRlCiAABXRUJQVlA4WAoAAAA…BLpqAAAAAAAAAAAAAAAAx0btY/fxbgdPN26cyS2eZpYAAAA==',
-		//   id: 1 }
-
-		//! ======> Ссылка
-		// 'http://192.168.8.111:6001/images/po/2d/75/48/15/50…e59bdfa69bf1e46e1cd1751e20210922100541585747.webp'
-
-
-
-		if ( Array.isArray(data) === true ) {
+		if ( typeof data === "string" ) {
+			// тут если массивы
 			return (
 				<div
 					style={{ marginRight: "5px", userSelect: "none" }}
@@ -475,7 +489,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 					/>
 					<div
 						className={classes.delete}
-						// onClick={() => removeFile(img?.name)}
+						onClick={() => removeSrc(data)}
 					/>
 					{i === 0 && (
 						<div className={classes.mainPhoto}>Главное фото</div>
@@ -483,7 +497,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 				</div>
 			);
 		} else {
-
+			// тут если объекты
 			return (
 				<div
 					style={{ marginRight: "5px", userSelect: "none" }}
@@ -528,8 +542,6 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 			<Typography className={classes.formTitleField}>Фотографии</Typography>
 			<Box className={classes.formInputField}>
 				<div>
-					{console.log('439', validFiles)}
-
 					<SortableList items={srcAndFile} axis="xy" onSortEnd={onSortEnd} distance={5} />
 				</div>
 				<Typography className={classes.error}>

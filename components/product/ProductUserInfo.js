@@ -21,7 +21,7 @@ export default function ProductUserInfo(data) {
 				</div>
 				<ProductSmallAds id={id} sellerId={data.user_id} smallAd={data.userAd} mobile={matchesTablet || matchesMobile}/>
 			</div>
-			<ProductUserBlockSubRep id={id} sellerdId={data.user_id} mobile={matchesMobile || matchesTablet} />
+			<ProductUserBlockSubRep id={id} sellerId={data.user_id} mobile={matchesMobile || matchesTablet} />
 		</> : null
 	);
 }

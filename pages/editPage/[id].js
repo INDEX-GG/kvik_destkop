@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from "next/router";
 import { Backdrop, Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 import Verify from '../../components/placeOffer/Verify';
@@ -17,8 +17,8 @@ import { useAuth } from '../../lib/Context/AuthCTX';
 import Loader from '../../UI/icons/Loader';
 import PlaceOfferMobile from '../../components/placeOffer/placeOfferMobile';
 import Promotion from '../../components/placeOffer/Promotion';
-import { useCategoryPlaceOffer } from '../../hooks/useCategoryPlaceOffer';
-import AdditionalInformation from '../../components/placeOffer/AdditionalInformation';
+// import { useCategoryPlaceOffer } from '../../hooks/useCategoryPlaceOffer';
+// import AdditionalInformation from '../../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
@@ -79,28 +79,28 @@ function EditPage() {
 	}
 	// console.log(methods)
 	/* получение дополнительных полей */
-	const [asd, setAsd] = useState();
-	const { ...newOBJ } = useCategoryPlaceOffer(asd);
-	useEffect(() => {
-		if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
-			setAsd(methods?.watch('alias4'));
-		} else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
-			setAsd(methods?.watch('alias3'));
-		} else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
-			setAsd(methods?.watch('alias2'));
-		} else {
-			setAsd(undefined);
-		}
-		/*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
-				 setAsd(methods?.watch('alias4'));
-		 } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
-				 setAsd(methods?.watch('alias3'));
-		 } else if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
-				 setAsd(methods?.watch('alias2'));
-		 } else {
-			 setAsd(undefined);
-		 } */
-	}, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
+	// const [asd, setAsd] = useState();
+	// const { ...newOBJ } = useCategoryPlaceOffer(asd);
+	// useEffect(() => {
+	// 	if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
+	// 		setAsd(methods?.watch('alias4'));
+	// 	} else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
+	// 		setAsd(methods?.watch('alias3'));
+	// 	} else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
+	// 		setAsd(methods?.watch('alias2'));
+	// 	} else {
+	// 		setAsd(undefined);
+	// 	}
+	// 	/*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
+	// 			 setAsd(methods?.watch('alias4'));
+	// 	 } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
+	// 			 setAsd(methods?.watch('alias3'));
+	// 	 } else if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
+	// 			 setAsd(methods?.watch('alias2'));
+	// 	 } else {
+	// 		 setAsd(undefined);
+	// 	 } */
+	// }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
 	const onSubmit = data => {
 		console.log(data)
@@ -132,36 +132,36 @@ function EditPage() {
 		}
 
 		let obj = {}
-		let additionalfields = { [asd]: [] }
-		let additionalfields2 = { [asd]: [] }
+		// let additionalfields = { [asd]: [] }
+		// let additionalfields2 = { [asd]: [] }
+		//
+		// let additionalfields3 = { [asd]: [] }
 
-		let additionalfields3 = { [asd]: [] }
-
-		for (var key in data) {
-			if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
-				obj[key] = data[key];
-			}
-			else {
-				/* console.log('key', key.replace(/[0-9]/g, '')) */
-				additionalfields2[asd].push({ "alias": key.replace(/[0-9]/g, ''), "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
-
-				additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
-
-				additionalfields3[asd].push({ "alias": key.replace(/[0-9]/g, '') })
-
-			}
-		}
-
-
-		console.log(additionalfields3[asd])
+		// for (var key in data) {
+		// 	if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
+		// 		obj[key] = data[key];
+		// 	}
+		// 	else {
+		// 		/* console.log('key', key.replace(/[0-9]/g, '')) */
+		// 		additionalfields2[asd].push({ "alias": key.replace(/[0-9]/g, ''), "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
+		//
+		// 		additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
+		//
+		// 		additionalfields3[asd].push({ "alias": key.replace(/[0-9]/g, '') })
+		//
+		// 	}
+		// }
 
 
+		// console.log(additionalfields3[asd])
 
-		if (newOBJ[asd] !== undefined) {
-			obj.subcategory = asd
-		}
-		console.log(additionalfields)
-		console.log(additionalfields2)
+
+
+		// if (newOBJ[asd] !== undefined) {
+		// 	obj.subcategory = asd
+		// }
+		// console.log(additionalfields)
+		// console.log(additionalfields2)
 
 		console.log(obj)
 		setLoading(true);
@@ -169,11 +169,11 @@ function EditPage() {
 		axios.post(`${BASE_URL}/api/setPosts`, obj)
 			.then(r => {
 				postId = r?.data?.id;
-				additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
-				console.log(additionalfields)
-				axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
+				// additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
+				// console.log(additionalfields)
+				// axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
 
-					.then(r => console.log(r))
+					// .then(r => console.log(r))
 				axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
 					headers: {
 						"Content-Type": "multipart/form-data"
@@ -192,9 +192,7 @@ function EditPage() {
 	// запрос содержимого полей для редактирования
 	const { price, title, photo, description } = useProduct(query.id)
 
-	// console.log('price', price);
-	// console.log('title', title);
-	// console.log('description', description);
+
 	console.log('photo', photo);
 
 	return (
@@ -210,11 +208,11 @@ function EditPage() {
 								<Box className={classes.formPart}>
 									<Title title={title} />
 								</Box>
-								{newOBJ[asd?.toLowerCase()] !== undefined ?
-									<Box className={classes.formPart}>
-										<AdditionalInformation newOBJ={newOBJ} asd={asd?.toLowerCase()} />
-									</Box>
-									: ''}
+								{/*{newOBJ[asd?.toLowerCase()] !== undefined ?*/}
+								{/*	<Box className={classes.formPart}>*/}
+								{/*		<AdditionalInformation newOBJ={newOBJ} asd={asd?.toLowerCase()} />*/}
+								{/*	</Box>*/}
+								{/*	: ''}*/}
 								<Box className={classes.formPart}>
 									<Description description={description} />
 									<Price price={price} />

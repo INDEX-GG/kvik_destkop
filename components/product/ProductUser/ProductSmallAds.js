@@ -38,7 +38,6 @@ const ProductSmallAd = ({id, sellerId, status, mobile, smallAd}) => {
 								return (
 									<Link key={userAd.id} href={`/product/${userAd.id}`}>
 										<div className="SellerInfoOfferCard small">
-											{console.log(userAd)}
 											{userAd.photo?.slice(0, 1).map((imgs, i) => {
 												return <img key={i} src={imgs} />;
 											})}

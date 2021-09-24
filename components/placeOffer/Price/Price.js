@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Price = (props) => {
-	// console.log('===================>', props.price);
 
 	const classes = useStyles();
 	const methods = useFormContext();
@@ -45,7 +44,6 @@ const Price = (props) => {
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Цена</Typography>
-			{/* {console.log('prices in typography', props.price)} */}
 			<Box className={classes.formInputField}>
 				<Box className={classes.priceField}>
 					<Controller

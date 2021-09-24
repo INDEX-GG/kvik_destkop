@@ -7,8 +7,9 @@ import IconMess from "../../UI/icons/IconMess";
 import Statistics from "../../components/Statistics";
 import PhoneModule from "./PhoneModule";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import UnpublishForm from "../UnpublishForm";
-import { UnpublishCTX } from "../../lib/Context/DialogCTX";
+//import UnpublishForm from "../UnpublishForm";
+import { DelActiveCTX } from "../../lib/Context/DialogCTX";
+import DelActiveForm from "../DelActiveForm";
 import ProductButton from "./ProductUI/ProductButton";
 import ProductDeal from "./ProductDeal";
 import ProductDate from "./ProductSmallComponents/ProductDate";
@@ -17,6 +18,9 @@ import ProductOption from "./ProductOption";
 import ProductStats from "./ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteCom from "./ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductAdsChange from "./ProductAdsChange";
+
+
+
 export default function ProductAction(data) {
   const { id } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
@@ -26,26 +30,26 @@ export default function ProductAction(data) {
   const { matchesMobile, matchesTablet } = useMedia();
 
   const objP = { adstatus: 8 };
-  const [offerId, setOfferId] = useState();
+  //const [offerId, setOfferId] = useState();
 
-  const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
-  const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+  const [openDelActiveForm, setOpenDelActiveForm] = useState(false);
+  //const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+  const [battonId, setBattonId] = useState('');
 
-  /* Модальное окно */
-  function pushCheck() {
-    setOfferId(+data.router);
-    setOpenUnpublishForm(!openUnpublishForm);
-    handleUnpublishFormDialog();
-  }
+  const offerId = [data.productInfo.id];
+  const offerData = data.productInfo;
+  const setUpdate = data.setUpdate;
+  
+
+  console.log(data.active)
+
+  console.log(data.viewing)
 
   const {user_id} = data;
 
-
-  console.log("data =======> ", data)
-
   return (
     <>
-      <UnpublishCTX.Provider value={{ offerId, openUnpublishForm, setOpenUnpublishForm }}>
+      <DelActiveCTX.Provider value={{offerId, offerData, openDelActiveForm, setOpenDelActiveForm, battonId }}>
 
         {!matchesMobile && !matchesTablet && (
           user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
@@ -61,20 +65,19 @@ export default function ProductAction(data) {
                 </ProductDeal>
                 <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
               </div>
-
             </>
         )
         }
-		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={1} modalFunc={pushCheck} />
+		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.status} setOpenDelActiveForm={setOpenDelActiveForm} /*update={data.update}*/ setBattonId={setBattonId}/>
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
-          <Statistics Close={handleStatFormDialog} />
+          <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
         <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={data.productInfo}/>
-        <Dialog open={openUnpublishForm || false} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
-          <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
+        <Dialog open={openDelActiveForm || false} onClose={() => setOpenDelActiveForm(!openDelActiveForm)} fullWidth maxWidth="xs">
+          <DelActiveForm isProductPages /*Close={handleUnpublishFormDialog}*/ setUpdate={setUpdate} />
         </Dialog>
-      </UnpublishCTX.Provider>
+      </DelActiveCTX.Provider>
     </>
   );
 }
