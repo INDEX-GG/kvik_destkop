@@ -23,7 +23,7 @@ function Messages(data) {
 
   return (
     (
-      <div className="clientPage__container_bottom">
+		<div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
           <div className="notInfContainer">
             <div className="notInf__title">Здесь буду ваши диалоги</div>

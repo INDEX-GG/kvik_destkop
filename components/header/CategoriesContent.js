@@ -9,7 +9,6 @@ const CategoriesContent = ({ changeCategories, toggleDrawer, categoryMainAlias }
 	}
 
 
-	console.log(categoryMainAlias);
 
 	return (
 		<List className="burgerContainer">
