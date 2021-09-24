@@ -27,6 +27,7 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
 				seller_id: sellerId + ""
 			}
 			
+			setUserBool(!userBool)
 			
 			await axios.post("/api/subscriptions", subscribe)
 			.then(res => console.log(res.data))
@@ -36,7 +37,6 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
 			
 			
 			setLoading(false)
-			setUserBool(!userBool)
 		}
   }
 

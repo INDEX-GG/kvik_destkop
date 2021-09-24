@@ -86,7 +86,7 @@ const Product = () => {
 		getDataByPost('/api/getPosts', { of: 0, 'user_id': id }).then(r => setData(modifyGetPostsData(r)));
 	}, []);
 
-	const {productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
+	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
 	// const {userInfo} = useStore()

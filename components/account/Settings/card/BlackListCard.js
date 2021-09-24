@@ -1,10 +1,11 @@
 import React from 'react'
+import { STATIC_URL } from '../../../../lib/constants';
 
 
 
 
 
-function BlackListCard({data, parentCheck, getCardId, dataCardId}) {
+function BlackListCard({data, parentCheck, getCardId, dataCardId, unblockUser}) {
     const [check, setCheck] = React.useState(false)
 
     React.useEffect( () => {
@@ -15,13 +16,13 @@ function BlackListCard({data, parentCheck, getCardId, dataCardId}) {
 
         <div key={data.id}>
             <div>
-                <img src={`${data.userPic}?${data.id}`} />
+                <img src={`${STATIC_URL}/${data.userPhoto}`} />
                 <div>
-                    <div>{data.username}</div>
-                    <div className="light blockItem">Заблокирован {data.date}</div>
+                    <div>{data.name}</div>
+                    <div className="light blockItem">Заблокирован {data.blocked_time}</div>
                 </div>
             </div>
-            <a className="highlight underline" >Разблокировать</a>
+            <a className="highlight underline" onClick={() => unblockUser(data.id)} >Разблокировать</a>
             <div className="settingsBLCheck">
                 <label className="checkbox">
                     <input 

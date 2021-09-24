@@ -3,6 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from 
 import { standartDate } from "../../../lib/services";
 import axios from 'axios';
 import { useSubBool } from '../../../hooks/useSubscriptions';
+import { useBlockedBool } from '../../../hooks/useBlocked';
 
 
 const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
@@ -10,10 +11,18 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
 	const { userSub } = useSubBool(id, sellerId)
   const [userBool, setUserBool] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [blockLoading, setBlockLoading] = useState(false)
+  const { userBlocked } = useBlockedBool(id, sellerId)
+  const [userBlockBool, setUserBlockBool] = useState(false)
+
 
 	useEffect(() => {
     setUserBool(userSub)
   }, [userSub])
+
+	useEffect(() => {
+    setUserBlockBool(userBlocked)
+  }, [userBlocked])
 
 	async function subscribeUser() {
     if (id != undefined && sellerId != undefined) {
@@ -24,6 +33,7 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
 				seller_id: sellerId + ""
 			}
 		
+			setUserBool(!userBool)
 		
 			await axios.post("/api/subscriptions", subscribe)
 			.then(res => console.log(res.data))
@@ -33,18 +43,41 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
 			
 			
 			setLoading(false)
-			setUserBool(!userBool)
 		}
     
 
   }
 
-	const blockUser = () => {
-    const userBlockInfo = {
-      id: sellerId,
-      date: standartDate(Date.now())
+	const blockUser = async (option) => {
+    if (option) {
+      setBlockLoading(true)
+      const userBlockInfo = {
+      user_id: id,
+      block_user_id: sellerId,
+      time: standartDate(Date.now()),
+      block: true,
+      }
+      if (id && sellerId){
+        setUserBlockBool(!userBlockBool)
+        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r)).catch(r => console.log(r.data.message))
+      }
+      setBlockLoading(false)
     }
-    console.log(userBlockInfo);
+    if (!option) {
+      setBlockLoading(true)
+      const userBlockInfo = {
+      user_id: id,
+      block_user_id: sellerId,
+      block: false,
+      }
+      if (id && sellerId){
+        setUserBlockBool(!userBlockBool)
+        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r)).catch(r => console.log(r.data.message))
+      }
+      setBlockLoading(false)
+    }
+    
+
   }
 
 	return (
@@ -57,21 +90,23 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
 				</button>
 			)}
 			<div className="ad__block_bottom__adaptive_right">
-				<a className="SellerInfoShutUp small light underline" onClick={() => setBlockOpen(true)}>Заблокировать пользователя</a>
+				<a className="SellerInfoShutUp small light underline" onClick={() => {
+          if (!blockLoading) setBlockOpen(true)
+          }}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>
 				<a className="SellerInfoComplain small light underline">Пожаловаться</a>
 			</div>
 		</div>
 		<Dialog open={blockOpen} onClose={() => setBlockOpen(false)}>
-          <DialogContent>
-            <DialogContentText>
-                Вы уверены, что хотите заблокировать пользователя?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => blockUser()}>Заблокировать</Button>
-            <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
-        </DialogActions>
-      </Dialog>
+      <DialogContent>
+        <DialogContentText>
+            Вы уверены, что хотите {userBlockBool ? 'разбокировать' :'заблокировать'} пользователя?
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>
+        <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
+    </DialogActions>
+    </Dialog>
 		</>
 	)
 }
