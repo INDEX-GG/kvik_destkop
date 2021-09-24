@@ -3,6 +3,8 @@ import React, {useState} from "react";
 import { Dialog } from "@material-ui/core";
 import { ModalMessage } from "../../../Modals";
 import { useMedia } from "../../../../hooks/useMedia"
+import {io} from 'socket.io-client';
+import Chat from "./Chat";
 
 function Messages(data) {
   function ellipsis(string, count) {
@@ -23,17 +25,18 @@ function Messages(data) {
 
   return (
     (
-		<div className="clientPage__container_bottom">
-        <div className="clientPage__container_content">
-          <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши диалоги</div>
-            <p className="notInf__subtitle">
-              Нажмите на иконку чата, чтобы договориться
-              <br /> о покупке или продаже товаров и услуг
-            </p>
-          </div>
-        </div>
-      </div>
+	// 	<div className="clientPage__container_bottom">
+    //     <div className="clientPage__container_content">
+    //       <div className="notInfContainer">
+    //         <div className="notInf__title">Здесь буду ваши диалоги</div>
+    //         <p className="notInf__subtitle">
+    //           Нажмите на иконку чата, чтобы договориться
+    //           <br /> о покупке или продаже товаров и услуг
+    //         </p>
+    //       </div>
+    //     </div>
+    //   </div>
+	false
     ) || (
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_nav__radio">
@@ -90,7 +93,7 @@ function Messages(data) {
                   <div>Название товара</div>
                 </div>
               </div>
-              <div className="messageChats">
+              {/* <div className="messageChats">
                 <div className="messageChat">
                   <div className="chatDate small light">00.00.00</div>
                   <div className="chatLocutor">
@@ -144,7 +147,8 @@ function Messages(data) {
                 <button className="messageFile"></button>
                 <input className="messageInput" type="text" placeholder="Написать сообщение" />
                 <button className="messageSend"></button>
-              </div>
+              </div> */}
+			  <Chat/>
             </div>
           </div>
         </div>
