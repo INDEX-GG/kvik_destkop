@@ -52,7 +52,7 @@ function UserPage() {
 	  if (id && router.query.id && id == +router.query.id) {
 	  router.push({pathname: `/account/${id}`, query: {account: 1, content: 1}})
   	}
-  }, [id])
+  }, [id, router.query.id])
 
 
   useEffect(() => {

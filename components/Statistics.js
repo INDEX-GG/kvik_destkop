@@ -5,7 +5,7 @@ import Loader from '../UI/icons/Loader';
 import Views from '../UI/icons/Views';
 import Like from '../UI/icons/Like';
 
-export default function Statistics_component() {
+export default function Statistics_component({views}) {
     const initialState = (true);
     const [state, setState] = useState(initialState);
 
@@ -80,7 +80,7 @@ export default function Statistics_component() {
                     <h6 className="statistic__header__block_left_title">Статистика</h6>
                 </div>
                 <div className="statistic__header__block_right">
-                    <span>317 +8 <Views /></span>
+                    <span>{views ? views : 0} <Views /></span>
                     <span>3 +1 <Like /></span>
                 </div>
             </div>

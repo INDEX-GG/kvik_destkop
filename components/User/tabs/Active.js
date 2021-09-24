@@ -32,9 +32,9 @@ function Active(data) {
       {dataArr && dataArr.map((item, i) => {
 		// console.log(item)
         return (
-            <div key={i}>
-                <AdCard_component offer={item} />
-            </div>
+            
+                <AdCard_component key={i} offer={item} />
+            
         );
       })}
     </div> : 
