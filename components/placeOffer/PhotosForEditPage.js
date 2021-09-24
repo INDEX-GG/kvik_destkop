@@ -161,8 +161,8 @@ const useStyles = makeStyles((theme) => ({
 
 const PhotoForEditPage = ({ ctx, photo }) => {
 	// console.log("🚀 ~ file: PhotoForEditPage.js ~ line 163 ~ PhotoForEditPage ~ photo", photo) // array
-	const tp = photo?.map((item) => typeof item) // string
-	console.log("🚀 ~ file: PhotoForEditPage.js ~ line 168 ~ PhotoForEditPage ~ tp", tp)
+	// const tp = photo?.map((item) => typeof item) // string
+	// console.log("🚀 ~ file: PhotoForEditPage.js ~ line 168 ~ PhotoForEditPage ~ tp", tp)
 
 	const classes = useStyles();
 	const methods = useFormContext();
@@ -176,6 +176,12 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 	const [errorMessage, setErrorMessage] = useState(
 		"Добавьте или перетащите фото"
 	);
+
+	// const [lengthValidFiles, setLengthValidFiles] = useState(0)
+	// useEffect(() => {
+	// 	setLengthValidFiles(lengthValidFiles > validFiles.length || lengthValidFiles === 0 ? setLengthValidFiles(validFiles.length) : 0)
+	// },[validFiles])
+	// console.log('lengthValidFiles',lengthValidFiles)
 
 	// присваивается name в validFiles
 	useEffect(() => {
@@ -205,19 +211,42 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 	}, [selectedFiles]);
 
 	console.log('++++srcAndFile++++++++', srcAndFile);
-	const srcFileType = srcAndFile.map((item)=> typeof item)
-	console.log('$$$$srcFile Array ?$$$$$',Array.isArray(srcFileType))
-	console.log('$$$$srcFileType$$$$$',srcFileType)
+	// const srcFileType = srcAndFile.map((item)=> typeof item)
+	// console.log('srcFile Array ?',Array.isArray(srcFileType))
+	// console.log('srcFileType',srcFileType)
+
+
+	//состояние Б следит за изменением в Б.  Вот если просто словами то
+	// 1 как должно обновиться состояние Б при добавлении элементов в А
+	//                       Добавление
+	//
+	//
+	//
+	//
+	//
+	//
+	// 2 как должно обновиться состояние Б при удалении элементов из А
+	//                        Удаление
+	// при удалении из валид фаилс изменяется общий массив строк и объектов
+	// при удалении из validFiles нужно чтобы удалялось и из srcAndFiles
+	//
+	// если изменилась длинна массива validFiles в большую сторону
+
+
 
 	useEffect(() => {
-	if(srcAndFile !== undefined){
-		if(validFiles[0] === undefined){
-			setSrcAndFile([...srcAndFile])
-		}else if(validFiles[0] !== undefined){
-			setSrcAndFile([...srcAndFile, validFiles[validFiles.length -1]])
-		}
-	}
+		console.warn('Зашел в УсловиЕЕ!!!!!!!!!!!!!')
+		setSrcAndFile( 	[...srcAndFile,
+			// копируем всё что есьт из общего
+			...validFiles.filter(item => {
+		   // копируем все что есть из валид и фильтруем это
+			srcAndFile.indexOf(item) === -1
+				// все фаилы из общего массива у которых индекс не -1
+		})])
 	}, [validFiles])
+
+	// если длинна валид уменьшилась то скопировать всё что есть кроме того который удалили
+
 
 	// все фаилы которые загружали
 	console.log('imageData', imageData);
@@ -429,12 +458,12 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 
 		const img = imageData.find((el) => el.name === data.name);
 
-		//! Тут фото
-		// console.log('img', img, 'typeof img ==>', typeof img); // obj
-		console.log('!!!!!!!!!!!!!!');
+		// //! Тут фото
+		// // console.log('img', img, 'typeof img ==>', typeof img); // obj
 		// console.log('!!!!!!!!!!!!!!');
-		console.log('DATA', data)
-		// console.log(Array.isArray(data) )
+		// // console.log('!!!!!!!!!!!!!!');
+		// console.log('DATA', data)
+		// // console.log(Array.isArray(data) )
 
 		if ( typeof data === "string" ) {
 			// тут если массивы
@@ -468,7 +497,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 				</div>
 			);
 		} else {
-			// тут если обьекты
+			// тут если объекты
 			return (
 				<div
 					style={{ marginRight: "5px", userSelect: "none" }}
