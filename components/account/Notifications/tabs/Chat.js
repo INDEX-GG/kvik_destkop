@@ -45,16 +45,10 @@ const Chat = () => {
 	});
 
 	useEffect(() => {
-		window.addEventListener('onunload', () => {
-			localStorage.setItem('exit', '1')
-		})
-	})
-
-	useEffect(() => {
 		socket.on('message', (data) => {
 			if (!data.msg) {
 				setMsgList(prev => [...prev, data])
-				console.log(refChat.current.innerHeight)
+				console.log(refChat.current)
 			}
 		})
 
@@ -108,7 +102,6 @@ const Chat = () => {
                   </div>
                 </div> */}
 				{msgList.map((item, index) => {
-					console.log(item)
 					const myMessage = item.sender.id == 84
 					return (
 						<div key={index} className={myMessage ? "chatUser" : "chatLocutor"}>

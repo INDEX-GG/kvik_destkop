@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import { Dialog } from "@material-ui/core";
 import { ModalMessage } from "../../../Modals";
 import { useMedia } from "../../../../hooks/useMedia"
-import {io} from 'socket.io-client';
 import Chat from "./Chat";
 
 function Messages(data) {
