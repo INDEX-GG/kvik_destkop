@@ -47,6 +47,7 @@ export default function ProductAction(data) {
 
   const {user_id} = data;
 
+  console.log(data.viewing)
 
   console.log("data =======> ", data.setUpdate)
 
@@ -73,7 +74,7 @@ export default function ProductAction(data) {
         }
 		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.productInfo.active} setOpenUnpublishForm={setOpenUnpublishForm} />
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
-          <Statistics Close={handleStatFormDialog} />
+          <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
         <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={data.productInfo}/>
