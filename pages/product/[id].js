@@ -25,10 +25,10 @@ import ProductReviewed from "../../components/product/ProductSmallComponents/Pro
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
-import axios from "axios";
+// import axios from "axios";
 import { firstAds, scrollAds } from "../../lib/scrollAds";
 
-const objP = {
+/* const objP = {
 	id: 1,
 	title: "Продам 2-комню квартиру, 95м в центре",
 	offerImg: [
@@ -47,9 +47,9 @@ const objP = {
 	price: 4200000,
 	oldprice: 5000000,
 	bargain: true,
-	userid: 777 /* id пользователя для проверки отображения блока объявления */,
-	username: "Иван Иванов" /* статус для отображения блока объявления 1-активное, 2-истек срок размещения, 3-продано, 4-отклонено, 5-архив, 6-черновик, 7-неактивное (другой пльзователь) 8-активное (другой пльзователь)*/,
-	// adstatus: 8,
+	userid: 777  id пользователя для проверки отображения блока объявления ,
+	username: "Иван Иванов" статус для отображения блока объявления 1-активное, 2-истек срок размещения, 3-продано, 4-отклонено, 5-архив, 6-черновик, 7-неактивное (другой пльзователь) 8-активное (другой пльзователь),
+	
 	userpic: "https://source.unsplash.com/random?portrait",
 	userrate: 3.7,
 	userOffers: [
@@ -63,7 +63,7 @@ const objP = {
 		{ id: 8, offerimg: "https://source.unsplash.com/random?8", offerprice: 12079000, offertitle: "Телевизор" },
 	],
 };
-
+ */
 
 
 const Product = () => {
@@ -110,13 +110,13 @@ const Product = () => {
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
 
-	useEffect(() => {
-		if (id && query.id) {	
-			if (viewing_bool != true && viewing_bool != undefined) {
-				axios.post('/api/post_viewing',{"post_id": Number(query.id), "user_id": id})
-			}
-		}
-	}, [query.id, viewing_bool, id])
+	// useEffect(() => {
+	// 	if (id && query.id) {	
+	// 		if (viewing_bool != true && viewing_bool != undefined) {
+	// 			axios.post('/api/post_viewing',{"post_id": Number(query.id), "user_id": id})
+	// 		}
+	// 	}
+	// }, [query.id, viewing_bool, id])
 
 
 	useEffect(() => {
@@ -227,7 +227,7 @@ const Product = () => {
 					<div className="productPageWhiteSpace"></div>
 					<Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">
 						{" "}
-						<Statistics views={viewing ? JSON.parse(viewing).length : 0} Close={handleStatFormDialog} />{" "}
+						<Statistics /* views={viewing ? JSON.parse(viewing).length : 0}  */Close={handleStatFormDialog} />{" "}
 					</Dialog>
 					<PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo} />
 				</div>
