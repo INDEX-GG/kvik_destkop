@@ -6,18 +6,19 @@ import ProductButtonChangeAds from '../ProductButtonsChangeAds';
 import ProductDeal from '../ProductDeal';
 import ProductOption from '../ProductOption';
 import ProductButton from '../ProductUI/ProductButton';
-import { UnpublishCTX } from '../../../lib/Context/DialogCTX';
+import { DelActiveCTX } from '../../../lib/Context/DialogCTX';
 import { Dialog } from '@material-ui/core';
-import UnpublishForm from '../../UnpublishForm';
+//import UnpublishForm from '../../UnpublishForm';
+import DelActiveForm from "../../DelActiveForm";
 
 
-const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo}) => {
+const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo, /*update,*/ setUpdate}) => {
  	const router = useRouter();
-	const [openUnpublishForm, setOpenUnpublishForm] = React.useState(false)
-	const dataCheck = [productInfo?.id]
+	const [openDelActiveForm, setOpenDelActiveForm] = React.useState(false);
+	const [battonId, setBattonId] = React.useState('');
+	const offerId = [productInfo?.id]
 	const offerData = productInfo;
 	
- 	console.log("PHOTO------------------>", photo)
  	return (
 		<div>
 			{mobile && (
@@ -26,7 +27,7 @@ const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_trans
 					''
 					:
 					sellerId ? 
-					<UnpublishCTX.Provider value={{offerData, dataCheck, openUnpublishForm, setOpenUnpublishForm}}>
+					<DelActiveCTX.Provider value={{offerId, offerData, openDelActiveForm, setOpenDelActiveForm, battonId}}>
 						<div className="SellerInfo__adaptive_button">
 							{/* {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
 							{status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""} */}
@@ -45,7 +46,7 @@ const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_trans
 									<ProductOption safeDeal={secure_transaction} deliver={delivery} mobile/>
 								) : ''}
 								{sellerId !== id && <ProductButton style={{display: 'block'}} className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}  title='Купить'/>}
-								<ProductButtonChangeAds id={id} sellerId={sellerId} status={status} lastDate={0} mobile={mobile} setOpenUnpublishForm={setOpenUnpublishForm}/>
+								<ProductButtonChangeAds id={id} sellerId={sellerId} status={status} lastDate={0} mobile={mobile} setOpenDelActiveForm={setOpenDelActiveForm} /*update={update}*/ setBattonId={setBattonId}/>
 								{/* {status === 4 ? <ProrductLastEdit lastDate={0}/> : ""}
 								{status === 4 ? <ProductWarning status={0}/> : ''}
 								{status === 6 ? (
@@ -64,10 +65,10 @@ const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_trans
 								</div> */}
 							</div>
 						</div>
-						<Dialog open={openUnpublishForm} onClose={() => setOpenUnpublishForm(!openUnpublishForm) } fullWidth maxWidth="xs">
-							<UnpublishForm/>
+						<Dialog open={openDelActiveForm} onClose={() => setOpenDelActiveForm(!openDelActiveForm) } fullWidth maxWidth="xs">
+							<DelActiveForm setUpdate={setUpdate}/>
 						</Dialog>
-					</UnpublishCTX.Provider> : null
+					</DelActiveCTX.Provider> : null
 			)}
 		</div>
  )
