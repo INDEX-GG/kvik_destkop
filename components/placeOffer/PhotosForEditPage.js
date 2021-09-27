@@ -177,6 +177,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
     );
 
 
+
     useEffect(() => {
         setOldObjects(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
     }, [stringPhotos]);
