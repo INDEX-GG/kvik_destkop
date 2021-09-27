@@ -11,7 +11,6 @@ import Bulldozers from './Options/Bulldozers';
 
 
 const AdditionalInformation = (data) => {
-	console.log('=======>', data.newOBJ)
 
 	
 	
