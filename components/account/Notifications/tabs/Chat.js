@@ -18,14 +18,21 @@ const Chat = () => {
 	const [message, setMessage] = useState('');
 	const [msgList, setMsgList] = useState([]);
 	const refChat = useRef()
+	const refInput = useRef()
 
-	const handleSend = () => {
+	useEffect(() => {
+		if (refChat.current) {
+			refChat.current.scrollTop = refChat.current.scrollHeight
+		}
+	}, [msgList])
+
+	const handleSend = async () => {
 		if (message.length > 0) {
 			let data = new Date()
 			const messageDate = `${data.getHours()}:${data.getMinutes() > 9 ? data.getMinutes() : `0${data.getMinutes()}`}`
 			//? Событие оправки между клиентом и сервером
 			//! Убрать дату
-			socket.emit('text', {'message': message, 'sender': sender, 'recipient': recipient, 'date': messageDate})
+			await socket.emit('text', {'message': message, 'sender': sender, 'recipient': recipient, 'date': messageDate})
 			setMessage('')
 		}
 	}
@@ -33,9 +40,6 @@ const Chat = () => {
 	//? Пользователь подключается к серверу
 	socket.on('connect', () => {
 		console.log('Зашёл')
-		socket.on('playerConnected', () => {
-			console.log('Кто-то зашёл')
-		})
 	})
 
 	socket.on("disconnect", (reason) => {
@@ -48,7 +52,6 @@ const Chat = () => {
 		socket.on('message', (data) => {
 			if (!data.msg) {
 				setMsgList(prev => [...prev, data])
-				console.log(refChat.current)
 			}
 		})
 
@@ -57,34 +60,22 @@ const Chat = () => {
 		})
 	}, [])
 
-	useEffect(() => {
-		console.log(msgList)
-	}, [msgList])
-
-
-	socket.on("reconnect_attempt", () => {
-		console.log('1')
-	});
-
-	socket.on("reconnect", () => {
-		console.log('2')
-	});
-
-	socket.on("data", () => {
-		console.log('1')
-	 });
-
-	 socket.on("greetings", (elem1, elem2, elem3) => {
-		console.log(elem1, elem2, elem3);
-		console.log('1')
-	});
-
 	const handleKeyDown = (e) => {
-		console.log(e.key)
 		if (e.key == 'Enter') {
 			handleSend()
 		}
 	}
+
+	const handleInputClick = () => {
+		refInput.current.click()
+	}
+
+	function handleChangeFile()  {
+		const reader = new FileReader();
+		console.log(reader)
+		// reader.readAsDataURL(this.files[0]);
+	}
+
 
 	return (
 		<>
@@ -113,7 +104,9 @@ const Chat = () => {
 				})}
               </div>
               <div className="messageChatInput">
-                <button className="messageFile"></button>
+                <button onClick={handleInputClick} className="messageFile">
+					<input ref={refInput} onChange={handleChangeFile} accept='image/.png, .jpg, .jpeg' type='file' hidden/>
+				</button>
                 <input 
 				className="messageInput" 
 				type="text" 
