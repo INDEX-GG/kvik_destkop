@@ -68,7 +68,6 @@ function UserPage() {
 
   function changeSubscribers() {
 	  axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => {
-      console.log(">>>>>>>>>>>>>>>",res.data.message);
       if (res.data.message === 'nothing'){
         setSubscribersList([])
       }
@@ -86,9 +85,6 @@ function UserPage() {
     if (id && sellerId){
       setLoading(true)
 
-      console.log(123123123123, subscribersList);
-      console.log(userProfileInfo);
-  
       const subscribe = {
         user_id: id + "",
         seller_id: sellerId + ""
@@ -102,8 +98,6 @@ function UserPage() {
       }
   
       await axios.post("/api/subscriptions", subscribe)
-        .then(res => console.log(res.data))
-        .catch(error => console.log(error))
   
       await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
   
@@ -126,7 +120,7 @@ function UserPage() {
       block: true,
       }
       if (id && sellerId){
-        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r)).catch(r => console.log(r.data.message))
+        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r))
         setUserBlockBool(!userBlockBool)
         setBlockLoading(false)
       }
@@ -139,7 +133,7 @@ function UserPage() {
       block: false,
       }
       if (id && sellerId){
-        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r)).catch(r => console.log(r.data.message))
+        await axios.post('/api/blockUser', userBlockInfo)
         setUserBlockBool(!userBlockBool)
       }
       setBlockLoading(false)

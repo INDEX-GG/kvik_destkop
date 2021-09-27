@@ -42,7 +42,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const { id } = useAuth();
 	const {offer} = props;
 	const { userInfo, setLikeComment } = useStore();
-	// console.log(userInfo.favorites.filter(item => item.post_id === 295).map(item => item.comment)[0])
 	const currentSwiper = useRef();
 	let sheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
@@ -54,7 +53,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		});
 	}
 
-	// console.log(offer?.watched)
 
 	const handleWheelClick = (e, id) => {
 		if (e.button === 1) {

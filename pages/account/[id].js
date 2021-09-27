@@ -69,7 +69,6 @@ function Account() {
 		}
 	}, [userInfo])
 
-console.log('===>',userInfo)
 	function closeModal(modal, changeModal) {
 		changeModal(!modal)
 	}

@@ -17,12 +17,7 @@ function BlackList({data, unblockUser}) {
     //     dataCardId.length === data.length ? check ? null : setCheck(true) : check===false ? null : setCheck(false);
     // },[dataCardId])
 
-    console.log("???", dataCardId);
 
-    /* console.log("check=========>", check);
-    console.log("data=========>", data);
-    console.log("dataCardId=========>", dataCardId);
- */
     if (data.length === 0) {
         return (
 			<EmptyPlaceholder
