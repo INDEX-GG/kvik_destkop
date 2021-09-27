@@ -161,9 +161,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Photoes = ({ ctx }) => {
 
-
-
-
 	const classes = useStyles();
 	const methods = useFormContext();
 
@@ -395,8 +392,6 @@ const Photoes = ({ ctx }) => {
 
 		return (
 			<div className={classes.drag}   >
-				{console.log("длинна", imageData)}
-				
 				{items.map((value, i) => (
 					<SortableItem key={i} index={i} data={value} i={i} />
 				))}
@@ -427,6 +422,7 @@ const Photoes = ({ ctx }) => {
 	const SortableItem = SortableElement(({ data, i }) => {
 
 		const img = imageData.find((el) => el.name === data.name);
+
 		return (
 			<div
 				style={{ marginRight: "5px", userSelect: "none" }}
@@ -468,8 +464,6 @@ const Photoes = ({ ctx }) => {
 			<Typography className={classes.formTitleField}>Фотографии</Typography>
 			<Box className={classes.formInputField}>
 				<div>
-					{console.log('439', validFiles)}
-
 					<SortableList items={validFiles} axis="xy" onSortEnd={onSortEnd} distance={5} />
 				</div>
 				<Typography className={classes.error}>

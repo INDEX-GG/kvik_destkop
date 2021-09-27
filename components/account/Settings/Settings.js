@@ -30,7 +30,7 @@ import axios from 'axios';
 const Settings = ({userId}) => {
 	const [blackListData, setBlackListData] = useState([])
 
-	
+		console.log(blackListData);
 	useEffect(()=>{
 		async function fetchBlockedUsers() {
 				if (userId){
@@ -52,12 +52,12 @@ const Settings = ({userId}) => {
 		if(Array.isArray(usersUnlock)){
 			updateBlackList(usersUnlock)
 			for (let user of usersUnlock){
-				axios.post('/api/blockUser', {user_id: userId, block_user_id: user,  block: false}).then(res => console.log(res.data.message))
+				axios.post('/api/blockUser', {user_id: userId, block_user_id: user,  block: false})
 			}
 			return
 		}
 		updateBlackList(usersUnlock)
-		axios.post('/api/blockUser', {user_id: userId, block_user_id: usersUnlock,  block: false}).then(res => console.log(res.data.message))
+		axios.post('/api/blockUser', {user_id: userId, block_user_id: usersUnlock,  block: false})
 	}
 	
 

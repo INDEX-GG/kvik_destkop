@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import { Backdrop, Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 import Verify from '../../components/placeOffer/Verify';
@@ -7,7 +7,6 @@ import { useMedia } from '../../hooks/useMedia';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useProduct } from "../../hooks/useProduct";
 import Title from '../../components/placeOffer/Title';
-// import Category from '../components/placeOffer/Category';
 import Description from '../../components/placeOffer/Description';
 import Price from '../../components/placeOffer/Price/Price';
 import Location from '../../components/placeOffer/Location';
@@ -17,11 +16,12 @@ import { useAuth } from '../../lib/Context/AuthCTX';
 import Loader from '../../UI/icons/Loader';
 import PlaceOfferMobile from '../../components/placeOffer/placeOfferMobile';
 import Promotion from '../../components/placeOffer/Promotion';
-// import { useCategoryPlaceOffer } from '../../hooks/useCategoryPlaceOffer';
-// import AdditionalInformation from '../../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
+// import { useCategoryPlaceOffer } from '../../hooks/useCategoryPlaceOffer';
+// import AdditionalInformation from '../../components/placeOffer/AdditionalInformation';
+// import Category from '../components/placeOffer/Category';
 // import { DelActiveCTX } from "../../lib/Context/DialogCTX"
 // import { useOfferAccount } from "../../lib/Context/OfferAccountCTX";
 
@@ -70,6 +70,7 @@ function EditPage() {
 	const [promotion, setPromotion] = useState(false);
 	const [product, setProduct] = useState({});
 	const { matchesMobile, matchesTablet } = useMedia();
+	const [edit, setEdit] = useState(false)
 
 	const methods = useForm();
 	let photoes = [];
@@ -77,6 +78,11 @@ function EditPage() {
 	const photoesCtx = (obj) => {
 		return photoes = obj;
 	}
+
+	useEffect(() => {
+		setEdit(true)
+	}, []);
+
 	// console.log(methods)
 	/* получение дополнительных полей */
 	// const [asd, setAsd] = useState();
@@ -103,8 +109,8 @@ function EditPage() {
 	// }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
 	const onSubmit = data => {
-		console.log(data)
-		console.log(photoes, photoes.length)
+		 console.log('DATATAAAAAAA',data)
+		// console.log(photoes, photoes.length)
 		data.price = data.price.replace(/\D+/g, '');
 		const alias = [data?.alias1, data?.alias2];
 		if (data?.alias3) {
@@ -114,8 +120,7 @@ function EditPage() {
 			alias.push(data.alias4);
 		}
 
-		console.log(alias);
-		console.log(data);
+		// console.log(alias);
 		data.alias = alias.join(',');
 		data.user_id = id
 		delete data.alias1
@@ -124,7 +129,7 @@ function EditPage() {
 		delete data.alias4
 		delete data.photoes
 		const photoData = new FormData;
-		console.log(photoes)
+		// console.log(photoes)
 		if (photoes.length > 1) {
 			photoes.forEach(photo => photoData.append('files[]', photo));
 		} else if (photoes.length === 1) {
@@ -152,10 +157,7 @@ function EditPage() {
 		// 	}
 		// }
 
-
 		// console.log(additionalfields3[asd])
-
-
 
 		// if (newOBJ[asd] !== undefined) {
 		// 	obj.subcategory = asd
@@ -163,7 +165,7 @@ function EditPage() {
 		// console.log(additionalfields)
 		// console.log(additionalfields2)
 
-		console.log(obj)
+		// console.log(obj)
 		setLoading(true);
 
 		axios.post(`${BASE_URL}/api/setPosts`, obj)
@@ -179,10 +181,10 @@ function EditPage() {
 						"Content-Type": "multipart/form-data"
 					}
 				}).then((r) => {
-					console.log(r)
+					// console.log(r)
 					setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-					console.log(product)
-					console.log(r?.data.images.photos[0])
+					// console.log(product)
+					// console.log(r?.data.images.photos[0])
 					setPromotion(true)
 				})
 			})
@@ -190,36 +192,28 @@ function EditPage() {
 	}
 
 	// запрос содержимого полей для редактирования
-	const { price, title, photo, description } = useProduct(query.id)
-
-
-	console.log('photo', photo);
+	const { price, title, photo, description, address } = useProduct(query.id)
 
 	return (
 
 		promotion ? <Promotion product={product} /> :
 			<MetaLayout title={'Редактирование объявления'}>
 				{!matchesMobile && !matchesTablet && <Container className={classes.root}>
-					{price && title && photo && description && < Box className={classes.offersBox}>
+					{price && title && photo && description && address && < Box className={classes.offersBox}>
 						<Typography className={classes.title} variant='h3'>Редактирование объявления</Typography>
 						<FormProvider {...methods} >
-							<Verify />
+							<Verify edit={edit}/>
 							<form onSubmit={methods.handleSubmit(onSubmit)}>
 								<Box className={classes.formPart}>
 									<Title title={title} />
 								</Box>
-								{/*{newOBJ[asd?.toLowerCase()] !== undefined ?*/}
-								{/*	<Box className={classes.formPart}>*/}
-								{/*		<AdditionalInformation newOBJ={newOBJ} asd={asd?.toLowerCase()} />*/}
-								{/*	</Box>*/}
-								{/*	: ''}*/}
 								<Box className={classes.formPart}>
 									<Description description={description} />
 									<Price price={price} />
 									<PhotosForEditPage ctx={photoesCtx} photo={photo} />
 								</Box>
 								<Box className={classes.formPart}>
-									<Location />
+									<Location address={address}/>
 									<Contacts />
 									<Box className={classes.submit}>
 										<ErrorMessages />
@@ -236,8 +230,6 @@ function EditPage() {
 				</Backdrop>
 			</MetaLayout >
 	)
-
-
 }
 
 export default EditPage;

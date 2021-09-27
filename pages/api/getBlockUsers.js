@@ -46,7 +46,7 @@ export default async function handler(req, res) {
         }
         catch (e) {
             console.error(`ошибка api getFavorites${e}`)
-            res.json('ошибка api getFavorites', e)
+            res.json('ошибка api getBlockUsers', e)
             res.status(405).end();
         }
         finally {

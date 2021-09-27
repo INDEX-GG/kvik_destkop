@@ -151,9 +151,10 @@ const Product = () => {
 	useEffect( () => {
 		setDefaultStatus(active)
 		//console.log("updated update", update)
-		console.log("default defaultStatus", defaultStatus)
+
+		//console.log("default defaultStatus", defaultStatus)
 	}, [active])
-	console.log("default defaultStatus", defaultStatus)
+
 
 	return (
 		<MetaLayout>

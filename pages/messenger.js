@@ -25,8 +25,8 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-let sender = {"id": 84, "name": "Станислав Даль"}
-let recipient = {"id": 7}
+let sender = {"id": 7, "name": "Станислав Даль"}
+let recipient = {"id": 84}
 
 
 //? Говорим, на каком домене будем обслуживать сокерт
@@ -46,23 +46,14 @@ const Messenger = () => {
 	const [msgList, setMsgList] = useState([]);
 
 	const handleSend = () => {
-		console.log('Отправка')
 		//? Событие оправки между клиентом и сервером
 		socket.emit('text', {'message': msg, 'sender': sender, 'recipient': recipient})
 	}
 
 	//? Пользователь подключается к серверу
-	socket.on('connect', () => {
-		console.log('Зашёл')
-		socket.on('playerConnected', () => {
-			console.log('Кто-то зашёл')
-		})
-	})
 
 	//? Пользователь отключился от сервера
-	socket.on("disconnect", (reason) => {
-		console.log(reason) // undefined
-		console.log('Ушёл')
+	socket.on("disconnect", () => {
 		socket.emit('disconnect', {'sender': sender, 'recipient': recipient})
 	});
 
@@ -77,20 +68,7 @@ const Messenger = () => {
 
 
 	useEffect(() => {
-		console.log(msgList)
 	}, [msgList])
-
-	socket.io.on("reconnect_attempt", () => {
-		console.log('1')
-	});
-
-	socket.io.on("reconnect", () => {
-		console.log('2')
-	});
-
-	socket.on("data", () => {
-		console.log('1')
-	 });
 
 	useEffect(() => {
 		return (() => {
@@ -98,13 +76,6 @@ const Messenger = () => {
 		})
 	})
 
-
-	socket.on("greetings", (elem1, elem2, elem3) => {
-		console.log(elem1, elem2, elem3);
-		console.log('1')
-	});
-
-	// console.log(msgList)
 
 	return (
 		<Container className={classes.root} maxWidth='sm'>

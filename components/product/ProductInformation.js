@@ -18,20 +18,16 @@ import ProductTechInformation from './ProductsDescription/ProductTechInformation
 import ProductForHomeInformation from './ProductsDescription/ProductForHomeInformation';
 
 export default function ProductInformation({ productionInfo, description, caterory, address}) {
-	console.log("я правильно понимаю", productionInfo)
-
 	const { matchesMobile, matchesTablet } = useMedia();
 	// const [dataMap, setDataMap] = useState({})
 	const [productData, setProductData] = useState(null)
 	const [fieldsCount, setFieldsCount] = useState(0)
 	const categoryName = caterory?.toLowerCase()
-	console.log(categoryName);
 
 	useEffect(() => {
 		let count = 0
 		for (let key in productionInfo){
 			if (key !== "id" && key !== "post_id" && key !== "subcategory"){
-				console.log(key);
 				if (productionInfo[key]) count++
 			}
 		}
@@ -39,7 +35,6 @@ export default function ProductInformation({ productionInfo, description, catero
 	}, [productionInfo])
 
 
-	// console.log(fieldsCount);
 
 	useEffect(()=>{
 		axios.get(`${BASE_URL}/subcategories/` + categoryName + `.json`)

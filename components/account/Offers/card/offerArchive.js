@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import { ToRubles } from "../../../../lib/services";
 import Verify from "../../../json/verify.json";
-import { useMedia } from "../../../../hooks/useMedia"
+import { useMedia } from "../../../../hooks/useMedia";
 import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
-import { DelActiveCTX } from "../../../../lib/Context/DialogCTX"
-import DelActiveForm from "../../../DelActiveForm"
+import OfferModal from "../../../OfferModal";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,75 +59,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function offerArchive(offer) {
+export default function offerArchive({offer, parentCheck, getChildCheck, allOfferId, parentOpenDelActiveForm}) {
 	const { matchesMobile, matchesTablet } = useMedia()
 	const classes = useStyles();
 
-	const [openDelActiveForm, setOpenDelActiveForm] = useState(false);
-	const handleDelActiveFormDialog = () => setOpenDelActiveForm(!openDelActiveForm);
+	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState();
-	const [battonId, setBattonId] = useState('');
-	const offerData = offer.offer;
-	const offerID = offer.offer.id
+	const [buttonId, setButtonId] = useState('');
+	const offerData = offer;
+	const offerID = offer.id
 
-
-
-
-	useEffect(() => {
-		offer.filterDataCheck({
-			id: offer.offer.id,
-			check: check,
-		})
-	}, [])
-
-	useEffect(() => {
-		if (offer.parentCheck && check === false) { handleCheck(offer.parentCheck) }
-		else if (offer.parentCheck && typeof offer.dataChecked.find((item) => item.check === false) === "undefined") { null }
-		else {
-			if (offer.parentCheck === false && check && offer.dataChecked.length > 0) { null }
-			else if (offer.parentCheck === false && offer.dataChecked.length === 0) { handleCheck(offer.parentCheck) }
-			else { handleCheck(offer.parentCheck) }
-		}
-	}, [offer.parentCheck])
-
-	useEffect(() => {
-		offer.openDelActiveForm === false && offer.dataChecked.length === 0 ? setCheck(false) : null
-	}, [offer.openDelActiveForm])
-
-
-	const handleCheck = (changeCheck) => {
-		setCheck(changeCheck);
-		offer.getChildCheck({
-			id: offer.offer.id,
-			check: changeCheck,
-		}, offer.offer);
+	const cleanAll = () => {
+		getChildCheck({id: offer.id, isChecked: false});
+		setCheck(false)
 	}
 
+	useEffect(() => {
+		parentCheck ? check ? null : ( getChildCheck({id: offer.id, isCheck: parentCheck}), setCheck(parentCheck) )
+			:
+			check===false ? null : allOfferId.length===0 ? (getChildCheck({id: offer.id, isCheck: parentCheck}), setCheck(parentCheck)) : null;
+	}, [parentCheck])
 
-	console.log('Что-то выделено ?');
-	console.log("---------check-----------", check);
-	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
-	console.log("---------offer---нас всех чекнули-------", offerData);
-	console.log("---------offerId-----------", offerId);
-	console.log(offer, `offer ${offer.offer.id} maunt`);
-
-	/* Модальное окно */
+	useEffect(() => {
+		parentOpenDelActiveForm === false && allOfferId.length === 0 ? setCheck(false) : null
+	}, [parentOpenDelActiveForm])
 
 	function pushCheck(e) {
 		if (e.target.value !== '') {
 			setOfferId([+e.target.value])
 		}
-		setOpenDelActiveForm(!openDelActiveForm)
-		setBattonId(e.target.id)
-		handleDelActiveFormDialog()
+		setOpenOfferModal(!openOfferModal)
+		setButtonId(e.target.id)
 	}
 
-	// console.log(openDelActiveForm, "DelActiveForm open/close")
-
 	return (
-		<DelActiveCTX.Provider value={{ offerId, offerData, openDelActiveForm, battonId, setOpenDelActiveForm }}>
-			<div key={offer.offer.id} className="offerContainer boxWrapper">
+		<>
+			<div key={offer.id} className="offerContainer boxWrapper" onClick={() => Router.push(`/product/${offer.id}`)}>
 				<div className="offerImage">
 					<div className="offerPubCheck">
 
@@ -137,35 +104,34 @@ export default function offerArchive(offer) {
 							color='primary'
 							icon={<FiberManualRecordOutlinedIcon />}
 							checkedIcon={<FiberManualRecordSharpIcon />}
-							value={offer.offer.id}
-							onChange={(event) => { handleCheck(event.target.checked) }}
+							value={offer.id}
+							onChange={(event) => { getChildCheck({id: offer.id, isCheck: event.target.checked}), setCheck(event.target.checked) }}
 							checked={check}
 						/>
 					</div>
 
-					{offer.offer.photo?.slice(0, 1).map((imgs, i) => {
+					{offer.photo?.slice(0, 1).map((imgs, i) => {
 						return (
 							<img key={i} src={imgs} />
 						)
 					})}
 
-					{<img src={offer.offer.img} />}
-					{offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.offer.active]}</div>}
+					{<img src={offer.img} />}
+					{offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.active]}</div>}
 				</div>
 				<div className="offerDescription">
 					<div className="offerDescriptionTop">
 						<div className="offerDTLeft thin">
-							<>{ToRubles(offer.offer.price)}</>
-							<div className="offerTitle">{offer.offer.title}</div>
+							<>{ToRubles(offer.price)}</>
+							<div className="offerTitle">{offer.title}</div>
 						</div>
-
 
 						<div className="offerDTRight">
 
 							<a href="javascript:void(0);">
 								<button
 									id='001'
-									value={offer.offer.id}
+									value={offer.id}
 									onClick={(e) => pushCheck(e)}
 									className="offerActivate thin superLight checkMarkIcon offerSocialAction">
 									Активировать
@@ -176,24 +142,23 @@ export default function offerArchive(offer) {
 								Редактировать
 							</button>
 
-
 							<a href="javascript:void(0);">
 								<button
 									id='002'
-									value={offer.offer.id}
+									value={offer.id}
 									onClick={(e) => pushCheck(e)}
-									className="offerEdit thin superLight offerSocialAction binIcon">
+									className="offerEdit thin superLight offerSocialAction binIcon"
+								>
 									Удалить
 								</button>
 							</a>
 
 						</div>
 
-
 					</div>
 					<div className="offerDescriptionBottom">
 						<div className="thin light small DatPub__mobile">
-							<span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.offer.date}</span>
+							<span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.date}</span>
 							<div className="offerSocialCount offerSocialCountPos">
 								<div className="offerShowes showesIcon">0 +0</div>
 								<div className="offerAddFavores likeIcon">0 +0</div>
@@ -203,9 +168,16 @@ export default function offerArchive(offer) {
 				</div>
 			</div>
 
-			<Dialog open={openDelActiveForm || false} onClose={() => setOpenDelActiveForm(!openDelActiveForm)} fullWidth maxWidth='md'>
-				<DelActiveForm Close={handleDelActiveFormDialog} />
+			<Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth='md'>
+				<OfferModal
+					offerId={offerId}
+					offerData={offerData}
+					openOfferModal={openOfferModal}
+					setOpenOfferModal={setOpenOfferModal}
+					buttonId={buttonId}
+					cleanAll={cleanAll}
+				/>
 			</Dialog>
-		</DelActiveCTX.Provider>
+		</>
 	)
 }

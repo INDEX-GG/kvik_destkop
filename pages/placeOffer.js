@@ -104,8 +104,8 @@ function PlaceOffer() {
     }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
     const onSubmit = data => {
-        console.log(data)
-        console.log(photoes, photoes.length)
+        // console.log(data)
+        // console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -116,7 +116,7 @@ function PlaceOffer() {
         }
 
         // console.log(alias);
-        console.log("data", data);
+        // console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
@@ -125,7 +125,7 @@ function PlaceOffer() {
         delete data.alias4
         delete data.photoes
         const photoData = new FormData;
-        console.log(photoes)
+        // console.log(photoes)
         if (photoes.length > 1) {
             photoes.forEach(photo => photoData.append('files[]', photo));
         } else if (photoes.length === 1) {
@@ -185,14 +185,14 @@ function PlaceOffer() {
         // console.log('add 3', additionalfields3[asd])
 
 
-        console.log("asdasdasd",newOBJ[asd]);
+        // console.log("asdasdasd",newOBJ[asd]);
         if (newOBJ[asd] !== undefined) {
             obj.subcategory = asd
         }
-        console.log("addfields", additionalfields)
+        // console.log("addfields", additionalfields)
         // console.log(additionalfields2)
 
-        console.log(obj)
+        // console.log(obj)
         setLoading(true);
 
         axios.post(`${BASE_URL}/api/setPosts`, obj)
@@ -201,16 +201,16 @@ function PlaceOffer() {
                 additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
                 console.log(additionalfields)
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-                  .then(r => console.log(r))
+                //   .then(r => console.log(r))
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 }).then((r) => {
-                    console.log(r)
+                    // console.log(r)
                     setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-                    console.log(product)
-                    console.log(r?.data.images.photos[0])
+                    // console.log(product)
+                    // console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
 				// axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})
