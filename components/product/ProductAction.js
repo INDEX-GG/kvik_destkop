@@ -41,9 +41,7 @@ export default function ProductAction(data) {
   const setUpdate = data.setUpdate;
   
 
-  console.log(data.active)
-
-  console.log(data.viewing)
+  //console.log(data.viewing)
 
   const {user_id} = data;
 

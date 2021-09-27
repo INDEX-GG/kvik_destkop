@@ -77,11 +77,9 @@ export default function DelActiveForm({setUpdate}) {
 	const classes = useStyles();
 	const { offerId, offerData, openDelActiveForm, setOpenDelActiveForm, battonId, cleanAll } = useContext(DelActiveCTX);
 	const { setQuery } = useOfferAccount()
-
+	console.log(offerId,"НазваниеНазваниеНазвание")
 	function PushBDVerifyDelete() {
-		// console.warn('DelActiveForm-click-offerId',offerId);
 		var arr = { 'id': [offerId], 'active': '4' }
-		// console.error('DelActiveForm-click-arr', arr);
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
@@ -90,13 +88,10 @@ export default function DelActiveForm({setUpdate}) {
 			})
 			typeof cleanAll === "undefined" ? null : cleanAll();
 			typeof setUpdate === "undefined" ? null : setUpdate(1);
-		// console.log('cleanAll Delete ok!!!!!!!!!');
 	}
 
 	function PushBDVerifyActivation() {
-		// console.warn('DelActiveForm-click-offerId',offerId);
 		var arr = { 'id': [offerId], 'active': '0' }
-		// console.error('DelActiveForm-click-arr', arr);
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
@@ -105,8 +100,6 @@ export default function DelActiveForm({setUpdate}) {
 			})
 			typeof cleanAll === "undefined" ? null : cleanAll();
 			typeof setUpdate === "undefined" ? null : setUpdate(0);
-			console.log("_____setUpdate___________", setUpdate)
-		// console.log('cleanAll Activate ok!!!!!!!!!');	
 	}
 
 	function closeDelActiveForm() {
@@ -126,11 +119,6 @@ export default function DelActiveForm({setUpdate}) {
 		typeof cleanAll === "undefined" ? null : cleanAll();
 		typeof setUpdate === "undefined" ? null : setUpdate(1);
 	}
-
-
-	 console.log("_____UnicOfferData___________", offerData)
-	// console.log("_____offerId_DelActiveForms",offerId)
-	// console.log("_____battonId_DelActiveForms",battonId)
 
 	// отрисовка по нажатию на 'Активировать'
 	if (battonId === '001') {
@@ -205,7 +193,7 @@ export default function DelActiveForm({setUpdate}) {
 		if (offerId?.length === 1) {
 			/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
 			const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
-			console.log(offerAction)
+
 			return (
 				<Box key={offerAction.id} className={classes.delete_form}>
 					<Box className={classes.delete_form__item}>
