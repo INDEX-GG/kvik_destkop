@@ -6,16 +6,15 @@ import ProductButtonChangeAds from '../ProductButtonsChangeAds';
 import ProductDeal from '../ProductDeal';
 import ProductOption from '../ProductOption';
 import ProductButton from '../ProductUI/ProductButton';
-import { DelActiveCTX } from '../../../lib/Context/DialogCTX';
 import { Dialog } from '@material-ui/core';
-//import UnpublishForm from '../../UnpublishForm';
-import DelActiveForm from "../../DelActiveForm";
+import OfferModal from "../../OfferModal";
+
 
 
 const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo, /*update,*/ setUpdate}) => {
  	const router = useRouter();
-	const [openDelActiveForm, setOpenDelActiveForm] = React.useState(false);
-	const [battonId, setBattonId] = React.useState('');
+	const [openOfferModal, setOpenOfferModal] = React.useState(false);
+	const [buttonId, setButtonId] = React.useState('');
 	const offerId = [productInfo?.id]
 	const offerData = productInfo;
 	
@@ -27,7 +26,7 @@ const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_trans
 					''
 					:
 					sellerId ? 
-					<DelActiveCTX.Provider value={{offerId, offerData, openDelActiveForm, setOpenDelActiveForm, battonId}}>
+					<>
 						<div className="SellerInfo__adaptive_button">
 							{/* {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
 							{status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Редактировать</a> : ""} */}
@@ -46,7 +45,7 @@ const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_trans
 									<ProductOption safeDeal={secure_transaction} deliver={delivery} mobile/>
 								) : ''}
 								{sellerId !== id && <ProductButton style={{display: 'block'}} className="SellerInfoBuy buy_btn__adaptive" onClick={() => router.push("/checkout/buy")}  title='Купить'/>}
-								<ProductButtonChangeAds id={id} sellerId={sellerId} status={status} lastDate={0} mobile={mobile} setOpenDelActiveForm={setOpenDelActiveForm} /*update={update}*/ setBattonId={setBattonId}/>
+								<ProductButtonChangeAds id={id} sellerId={sellerId} status={status} lastDate={0} mobile={mobile} setOpenOfferModal={setOpenOfferModal} setButtonId={setButtonId}/>
 								{/* {status === 4 ? <ProrductLastEdit lastDate={0}/> : ""}
 								{status === 4 ? <ProductWarning status={0}/> : ''}
 								{status === 6 ? (
@@ -65,10 +64,17 @@ const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_trans
 								</div> */}
 							</div>
 						</div>
-						<Dialog open={openDelActiveForm} onClose={() => setOpenDelActiveForm(!openDelActiveForm) } fullWidth maxWidth="xs">
-							<DelActiveForm setUpdate={setUpdate}/>
+						<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!setOpenOfferModal) } fullWidth maxWidth="xs">
+							<OfferModal
+								offerId={offerId}
+								offerData={offerData}
+								setUpdate={setUpdate}
+								buttonId={buttonId}
+								openOfferModal={openOfferModal}
+								setOpenOfferModal={setOpenOfferModal}
+							/>
 						</Dialog>
-					</DelActiveCTX.Provider> : null
+					</> : null
 			)}
 		</div>
  )
