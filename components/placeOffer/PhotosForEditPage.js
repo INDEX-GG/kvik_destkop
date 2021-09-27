@@ -160,30 +160,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PhotoForEditPage = ({ ctx, photo }) => {
-	// console.log("🚀 ~ file: PhotoForEditPage.js ~ line 163 ~ PhotoForEditPage ~ photo", photo) // array
-	// const tp = photo?.map((item) => typeof item) // string
-	// console.log("🚀 ~ file: PhotoForEditPage.js ~ line 168 ~ PhotoForEditPage ~ tp", tp)
 
 	const classes = useStyles();
 	const methods = useFormContext();
 	const fileInputRef = useRef();
 
-	const [srcAndFile, setSrcAndFile] = useState(photo)
-	const [selectedFiles, setSelectedFiles] = useState(null);
+	const [oldObjectsAndNewObjects, setOldObjectsAndNewObjects] = useState([]);
+	const [stringPhotos, setStringPhotos] = useState(photo)
+	const [oldObjects, setOldObjects] = useState([])
 	const [validFiles, setValidFiles] = useState([]);
+	const [selectedFiles, setSelectedFiles] = useState(null);
 	const [imageData, setImageData] = useState([]);
 	const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(
 		"Добавьте или перетащите фото"
 	);
 
-	// const [lengthValidFiles, setLengthValidFiles] = useState(0)
-	// useEffect(() => {
-	// 	setLengthValidFiles(lengthValidFiles > validFiles.length || lengthValidFiles === 0 ? setLengthValidFiles(validFiles.length) : 0)
-	// },[validFiles])
-	// console.log('lengthValidFiles',lengthValidFiles)
 
-	// присваивается name в validFiles
+	useEffect(() => {
+		setOldObjects(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
+	}, [stringPhotos]);
 	useEffect(() => {
 
 		if (!validFiles.find((el) => {
@@ -209,72 +205,27 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 			};
 		});
 	}, [selectedFiles]);
-
-	console.log('++++srcAndFile++++++++', srcAndFile);
-	// const srcFileType = srcAndFile.map((item)=> typeof item)
-	// console.log('srcFile Array ?',Array.isArray(srcFileType))
-	// console.log('srcFileType',srcFileType)
-
-
-	//состояние Б следит за изменением в Б.  Вот если просто словами то
-	// 1 как должно обновиться состояние Б при добавлении элементов в А
-	//                       Добавление
-	//
-	//
-	//
-	//
-	//
-	//
-	// 2 как должно обновиться состояние Б при удалении элементов из А
-	//                        Удаление
-	// при удалении из валид фаилс изменяется общий массив строк и объектов
-	// при удалении из validFiles нужно чтобы удалялось и из srcAndFiles
-	//
-	// если изменилась длинна массива validFiles в большую сторону
-
-
-
 	useEffect(() => {
-		console.warn('Зашел в УсловиЕЕ!!!!!!!!!!!!!')
-		setSrcAndFile( 	[...srcAndFile,
-			// копируем всё что есьт из общего
-			...validFiles.filter(item => {
-		   // копируем все что есть из валид и фильтруем это
-			srcAndFile.indexOf(item) === -1
-				// все фаилы из общего массива у которых индекс не -1
-		})])
-	}, [validFiles])
-
-	// если длинна валид уменьшилась то скопировать всё что есть кроме того который удалили
-
-
-	// все фаилы которые загружали
-	console.log('imageData', imageData);
-	console.log('typeof imageData', typeof imageData, ' Object.keys(imageData),', Object.keys(imageData));
-	// фаилы прошедшие валидацию
-	console.log('validFiles', validFiles, Array.isArray(validFiles[0]));
-	console.log('validFiles[0] === undefined ?', validFiles[0] === undefined);
-
-
-
+		setOldObjectsAndNewObjects(   [...oldObjects, ...validFiles.filter(item => oldObjects.indexOf(item) === -1)])
+	}, [validFiles, oldObjects])
 	useEffect(() => {
 		if (validFiles && validFiles.length > 0) {
 			methods.setValue("photoes", "ok");
 		} else {
 			methods.setValue("photoes", "");
 		}
-
 		methods.clearErrors('photoes')
-
-		// собирается object imageData по валидным файлам
 		validFiles.forEach((el, i) => {
 			const reader = new FileReader();
 			reader.readAsDataURL(el);
 			reader.onloadend = (e) => {
-				setImageData([
-					...imageData,
-					{ name: el.name, src: e.target.result, id: i },
-				]);
+				setImageData(img => {
+					if (img.length === 0 || img.find(im => im.name === el.name ) === undefined){
+						return [...img, { name: el.name, src: e.target.result, id: i }]
+					}
+					return [...img]
+				});
+
 			};
 		});
 	}, [validFiles]);
@@ -375,23 +326,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 		return true;
 	};
 
-
-	// const fileSize = (size) => {
-	// 	if (size === 0) {
-	// 		return '0 Bytes';
-	// 	}
-	// 	const k = 1024;
-	// 	const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-	// 	const i = Math.floor(Math.log(size) / Math.log(k));
-	// 	return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-	// };
-
-	// const fileType = (fileName) => {
-	// 	return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
-	// };
-
 	const removeFile = (name) => {
-		console.error('ЖМЯЖМЯКЖМЯКЖМЯЯК')
 		const index = validFiles.findIndex((e) => e.name === name);
 		const index3 = unsupportedFiles.findIndex((e) => e.name === name);
 		validFiles.splice(index, 1);
@@ -402,13 +337,11 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 		}
 	};
 
-
 	const removeSrc = (data) => {
-		setSrcAndFile([...srcAndFile.filter((item)=> item !== data)])
+		setStringPhotos([...stringPhotos.filter((item)=> item !== data)])
 	}
 
 	const rotate = (data) => {
-		console.log('ROTATE DATA',data)
 		const filteredValid = validFiles
 		const index = filteredValid.indexOf(data);
 		if (!filteredValid[index].angle) {
@@ -421,6 +354,18 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 		setValidFiles([...filteredValid]);
 	};
 
+	const rotateOld = (data) => {
+		const filteredValid = oldObjects
+		const index = filteredValid.indexOf(data);
+		if (!filteredValid[index].angle) {
+			filteredValid[index].angle = 0;
+		}
+		filteredValid[index].angle += 90;
+		if (filteredValid[index].angle === 360) {
+			filteredValid[index].angle = 0;
+		}
+		setOldObjects([...filteredValid]);
+	};
 
 	ctx(validFiles);
 
@@ -458,23 +403,14 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 
 		const img = imageData.find((el) => el.name === data.name);
 
-		// //! Тут фото
-		// // console.log('img', img, 'typeof img ==>', typeof img); // obj
-		// console.log('!!!!!!!!!!!!!!');
-		// // console.log('!!!!!!!!!!!!!!');
-		// console.log('DATA', data)
-		// // console.log(Array.isArray(data) )
-
-		if ( typeof data === "string" ) {
-			// тут если массивы
+		if('old' in data){
 			return (
 				<div
 					style={{ marginRight: "5px", userSelect: "none" }}
 					className={classes.card}
 				>
 					<img
-						src={data}
-						id={i}
+						src={data.src}
 						style={{
 							transform: data.angle
 								? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
@@ -482,14 +418,13 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 								: null,
 						}}
 					/>
-
 					<div
 						className={classes.rotate}
-						onClick={() => rotate(data)}
+						onClick={() => rotateOld(data)}
 					/>
 					<div
 						className={classes.delete}
-						onClick={() => removeSrc(data)}
+						onClick={() => removeSrc(data.name)}
 					/>
 					{i === 0 && (
 						<div className={classes.mainPhoto}>Главное фото</div>
@@ -497,7 +432,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 				</div>
 			);
 		} else {
-			// тут если объекты
+			// тут новые фото
 			return (
 				<div
 					style={{ marginRight: "5px", userSelect: "none" }}
@@ -506,12 +441,12 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 					<img
 						src={img?.src}
 						id={`prev${img?.id}`}
-						 style={{
-						 	transform: data.angle
-						 		? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-						 		}`
-						 		: null,
-						 }}
+						style={{
+							transform: data.angle
+								? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+								}`
+								: null,
+						}}
 					/>
 
 					<div
@@ -528,13 +463,11 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 				</div>
 			);
 		}
-
-
 	});
 
 	const onSortEnd = ({ oldIndex, newIndex }) => {
-		const items = arrayMoveImmutable(validFiles, oldIndex, newIndex)
-		setValidFiles([...items])
+		const items = arrayMoveImmutable(oldObjectsAndNewObjects, oldIndex, newIndex)
+		setOldObjectsAndNewObjects([...items])
 	}
 
 	return (
@@ -542,7 +475,7 @@ const PhotoForEditPage = ({ ctx, photo }) => {
 			<Typography className={classes.formTitleField}>Фотографии</Typography>
 			<Box className={classes.formInputField}>
 				<div>
-					<SortableList items={srcAndFile} axis="xy" onSortEnd={onSortEnd} distance={5} />
+					<SortableList items={oldObjectsAndNewObjects} axis="xy" onSortEnd={onSortEnd} distance={5} />
 				</div>
 				<Typography className={classes.error}>
 					{methods.formState.errors?.photoes?.message}

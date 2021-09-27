@@ -79,9 +79,7 @@ export default function DelActiveForm({setUpdate}) {
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerifyDelete() {
-		// console.warn('DelActiveForm-click-offerId',offerId);
 		var arr = { 'id': [offerId], 'active': '4' }
-		// console.error('DelActiveForm-click-arr', arr);
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
@@ -90,13 +88,10 @@ export default function DelActiveForm({setUpdate}) {
 			})
 			typeof cleanAll === "undefined" ? null : cleanAll();
 			typeof setUpdate === "undefined" ? null : setUpdate(1);
-		// console.log('cleanAll Delete ok!!!!!!!!!');
 	}
 
 	function PushBDVerifyActivation() {
-		// console.warn('DelActiveForm-click-offerId',offerId);
 		var arr = { 'id': [offerId], 'active': '0' }
-		// console.error('DelActiveForm-click-arr', arr);
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
@@ -106,7 +101,6 @@ export default function DelActiveForm({setUpdate}) {
 			typeof cleanAll === "undefined" ? null : cleanAll();
 			typeof setUpdate === "undefined" ? null : setUpdate(0);
 			console.log("_____setUpdate___________", setUpdate)
-		// console.log('cleanAll Activate ok!!!!!!!!!');	
 	}
 
 	function closeDelActiveForm() {
@@ -114,9 +108,7 @@ export default function DelActiveForm({setUpdate}) {
 	}
 
 	function PushBDVerify(e) {
-
 		var arr = { 'id': offerId, 'active': `${e.target.parentElement.id}` }
-
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
@@ -126,11 +118,6 @@ export default function DelActiveForm({setUpdate}) {
 		typeof cleanAll === "undefined" ? null : cleanAll();
 		typeof setUpdate === "undefined" ? null : setUpdate(1);
 	}
-
-
-	 console.log("_____UnicOfferData___________", offerData)
-	// console.log("_____offerId_DelActiveForms",offerId)
-	// console.log("_____battonId_DelActiveForms",battonId)
 
 	// отрисовка по нажатию на 'Активировать'
 	if (battonId === '001') {
@@ -227,7 +214,7 @@ export default function DelActiveForm({setUpdate}) {
 			)
 		} else {
 			return (
-				<Box className={classes.unpublish_form}>
+				<Box className={classes.delete_form}>
 					<Typography className={classes.delete_form__desc}>Снять с публикации</Typography>
 					<Typography className={classes.delete_form__sub_desc}>Выберете причину</Typography>
 					<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.delete_form__btn}>Продано на Kvik</Button>

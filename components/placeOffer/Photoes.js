@@ -427,6 +427,7 @@ const Photoes = ({ ctx }) => {
 	const SortableItem = SortableElement(({ data, i }) => {
 
 		const img = imageData.find((el) => el.name === data.name);
+
 		return (
 			<div
 				style={{ marginRight: "5px", userSelect: "none" }}

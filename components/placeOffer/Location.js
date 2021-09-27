@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-const Location = () => {
+const Location = ({address}) => {
 
    const classes = useStyles();
    const methods = useFormContext();
@@ -35,9 +35,9 @@ const Location = () => {
             <Controller
                name="location"
                control={methods.control}
-               defaultValue=''
                render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TextField
+                     defaultValue={address}
                      variant='outlined'
                      type="text"
                      fullWidth

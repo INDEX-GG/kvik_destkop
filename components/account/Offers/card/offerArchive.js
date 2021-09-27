@@ -105,14 +105,6 @@ export default function offerArchive(offer) {
 		}, offer.offer);
 	}
 
-
-	console.log('Что-то выделено ?');
-	console.log("---------check-----------", check);
-	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
-	console.log("---------offer---нас всех чекнули-------", offerData);
-	console.log("---------offerId-----------", offerId);
-	console.log(offer, `offer ${offer.offer.id} maunt`);
-
 	/* Модальное окно */
 
 	function pushCheck(e) {
@@ -123,8 +115,6 @@ export default function offerArchive(offer) {
 		setBattonId(e.target.id)
 		handleDelActiveFormDialog()
 	}
-
-	// console.log(openDelActiveForm, "DelActiveForm open/close")
 
 	return (
 		<DelActiveCTX.Provider value={{ offerId, offerData, openDelActiveForm, battonId, setOpenDelActiveForm }}>

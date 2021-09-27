@@ -58,12 +58,6 @@ function Archive(data) {
 
 	const handleDelActiveFormDialog = () => setOpenDelActiveForm(!openDelActiveForm);
 
-	console.log('DATAAAAA', data.offers);
-	console.log('DATAAAAA', data);
-	
-
-
-
 	const cleanAll = () => {
 		setCheck(false);
 		setDataCheck([]);
@@ -107,13 +101,6 @@ function Archive(data) {
 		openDelActiveForm ? null : setOfferId([])
 	}, [openDelActiveForm])
 
-	// console.log('Что-то выделено ?');
-	// console.log("---------check-----------", check);
-	// console.log("---------dataCheck-----------", dataCheck);
-	// console.log("---------dataChecked--Нас-Чекнули--------", dataChecked);
-	// console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
-	// console.log("---------offer---нас всех чекнули-------", offerData);
-	// console.log("---------offerId-----------", offerId);
 
 	if (data.offers.length == 0) {
 		return (
@@ -126,15 +113,12 @@ function Archive(data) {
 
 	/* Модальное окно */
 
-	// достаем из чекнутых офферов id и кладем в массив offerId
+
 	function pushCheck(e) {
 		dataChecked.map((item) => {
-			console.log(item)
 			setOfferId(prev => [...prev, item.id])
 		})
 		setBattonId(e.target.id)
-		// console.error(e);
-		// console.error('ID - BATTON ====>',e.target.id);
 		handleDelActiveFormDialog()
 	}
 
