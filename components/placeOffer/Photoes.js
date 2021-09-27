@@ -161,9 +161,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Photoes = ({ ctx }) => {
 
-
-
-
 	const classes = useStyles();
 	const methods = useFormContext();
 
