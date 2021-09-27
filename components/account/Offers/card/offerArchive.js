@@ -106,12 +106,12 @@ export default function offerArchive(offer) {
 	}
 
 
-	console.log('Что-то выделено ?');
+	/* console.log('Что-то выделено ?');
 	console.log("---------check-----------", check);
 	console.log("---------offer---Меня--чекнули-Первым-------", offerData[0]);
 	console.log("---------offer---нас всех чекнули-------", offerData);
 	console.log("---------offerId-----------", offerId);
-	console.log(offer, `offer ${offer.offer.id} maunt`);
+	console.log(offer, `offer ${offer.offer.id} maunt`); */
 
 	/* Модальное окно */
 
