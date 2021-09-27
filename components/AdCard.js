@@ -42,11 +42,9 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const { id } = useAuth();
 	const {offer} = props;
 	const { userInfo, setLikeComment } = useStore();
-	// console.log(userInfo.favorites.filter(item => item.post_id === 295).map(item => item.comment)[0])
 	const currentSwiper = useRef();
 	let sheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
-
 	const handleCM = (e) => {
 		e.preventDefault();
 		setOpenMenu({
@@ -54,6 +52,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 			mouseY: e.clientY - 4,
 		});
 	}
+
 
 	const handleWheelClick = (e, id) => {
 		if (e.button === 1) {
@@ -97,7 +96,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		}
 	}
 
-
 	const { matchesMobile, matchesTablet } = useMedia();
 	return (
 		<div
@@ -123,7 +121,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 			</Menu>
 			<div className={offer.commercial === 1 || offer.commercial === 2 ? 'card__wrapper-yellow' : "card__wrapper"}>
 				<div className={"card__top " + archived}>
-					{offer.reviewed < 0 ? <div className="card__top_seen">Просмотрено</div> : ""}
+					{offer?.viewing_bool ? <div className="card__top_seen">Просмотрено</div> : ""}
 					<Link href={`/product/${offer.id}`} prefetch={false}>
 						<div className="card__top_slider">
 							{offer?.photo?.length === 1 ?

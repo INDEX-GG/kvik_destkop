@@ -46,21 +46,31 @@
 }
 .productPageCharacter {
     width: 100%;
-    display: table;
+    display: flex;
+    flex-direction: column;
 }
-.productPageCharacter > div {
+.ReactCollapse--collapse{
+    transition: height .4s ease-in-out;
+}
+.productWrap {
+    display: flex;
+    align-items: center;
+    
+}
+.productPageWrap, .ReactCollapse--content {
+    display: flex;
+    flex-direction: column;
+}
+.productPageWrap > div:not(.ReactCollapse--content) {
     border-bottom: 1px solid $light;
     display: flex;
     align-items: flex-start;
+    width: 100%;
 }
-.productPageCharacter > div > div {
-    display: table-cell;
+.productPageWrap > div > div {
     padding: 18px 0;
 }
-.productPageCharacter > div > div:first-child {
-    color: $tp;
-    min-width: 150px;
-}
+
 .freedomBlock_1 {
     width: 224px;
     height: 480px;
@@ -300,10 +310,14 @@
 }
 .SellerInfoUserAdd {
     display: block;
+    cursor: pointer;
     width: 24px;
     height: 24px;
     background: no-repeat center center url(../../icons/subscribe_dark.svg);
     margin-left: auto;
+}
+.SellerInfoUserAdd__active {
+    background: no-repeat center center url(../../icons/subscribe_green.svg);
 }
 
 .SellerInfoOffers {
@@ -365,7 +379,7 @@
 
 /* Характеристики объявления */
 .productDescription {
-    margin: 18px 0;
+    margin: 14px 0px;
 }
 
 .productPageCharacterMapBlock {
@@ -375,8 +389,10 @@
 }
 
 .productLocality {
-    color: $tpsl !important;
+    color: $tpsl;
     width: 150px;
+    margin-right: 20px;
+    padding: 14px 0px;
 }
 
 .productPageCharacterLocality {
@@ -392,6 +408,8 @@
     background: no-repeat center right 5px url(../../icons/chevron_down_green.svg);
     padding-right: 28px;
     transition: all 150ms ease-in-out;
+	flex-grow: 1;
+	text-align: right;
 }
 .collMapSw {
     background: no-repeat center right 5px url(../../icons/chevron_up_green.svg);
@@ -403,7 +421,7 @@
     border-radius: 8px;
     object-fit: cover;
     object-position: center;
-    background: no-repeat center center url(../../icons/mapPH.svg);
+    // background: no-repeat center center url(../../icons/mapPH.svg);
     background-size: cover;
     transition: all 350ms ease-in-out;
     overflow: hidden;
@@ -865,6 +883,13 @@
     .ad__block_bottom__adaptive_left {
         display: flex;
         align-items: center;
+        border: none;
+        background: none;
+        color: #5a5a5a;
+    }
+    
+    .ad__block_bottom__adaptive_left__active{
+        color: #00a0ab;
     }
 
     .SellerInfoUserAdd {

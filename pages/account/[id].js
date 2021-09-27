@@ -69,7 +69,6 @@ function Account() {
 		}
 	}, [userInfo])
 
-console.log('===>',userInfo)
 	function closeModal(modal, changeModal) {
 		changeModal(!modal)
 	}
@@ -113,7 +112,7 @@ console.log('===>',userInfo)
 							|| (+router.query.account === 3 && <Wallet />)
 							|| (+router.query.account === 4 && <Favorites router={router.query.id} />)
 							|| (+router.query.account === 5 && <Notifications />)
-							|| (+router.query.account === 6 && <Compare />) || (+router.query.account === 7 && <Reviews />) || (+router.query.account === 8 && <Settings username />)}
+							|| (+router.query.account === 6 && <Compare />) || (+router.query.account === 7 && <Reviews />) || (+router.query.account === 8 && <Settings username userId={id} />)}
 					</>) : (
 					<OfferAccountProvider>
 						<Offers router={router} />

@@ -64,7 +64,7 @@ export default function PlantsAndSeeds({data}) {
               ))}
             </TextField>
           )}
-          rules={{ required: "Выбирите Тип" }}
+          rules={{ required: "Выберете Тип" }}
         />
       </Box>
     </Box>

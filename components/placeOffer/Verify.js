@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },  
 }));
 
-const Verify = () => {
+const Verify = ({edit}) => {
     const methods = useFormContext();
     const classes = useStyles();
     const [alias, setAlias] = useState(false);
@@ -40,6 +40,17 @@ const Verify = () => {
     const [verifyPhotoes, setVerifyPhotoes] = useState(false);
     const [verifyLocation, setVerifyLocation] = useState(false);
     const [verifyContacts, setVerifyContacts] = useState(false);
+    const [show, setShow] = useState(false);
+
+
+    useEffect(() => {
+        if(edit === true) {
+            setShow(true)
+        } else if (edit === undefined){
+            setShow(false)
+        }
+    }, [edit]);
+
 
     useEffect(() => {
         setVerifyTilte(!!methods.watch('title'));
@@ -82,23 +93,23 @@ const Verify = () => {
         return true
     }
     
-    
+
     
       return  (
         <Box className={classes.root}>
             <Box className={classes.wrapper}>
 
-                        <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
+                        <Typography className={classes.text} color={verifyTilte ? 'primary' : 'initial'}>
                             Название
                             <ActiveIcon  Color={verifyTilte ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
                         <Divider className={classes.divider} style={{backgroundColor: `${(verifyTilte) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
-                        <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
+                {!show && <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
                             Категория
                             <ActiveIcon  Color={verifyCategory ? '#00a0ab' : '#c7c7c7'}/>
-                        </Typography>
-                        <Divider className={classes.divider} style={{backgroundColor: `${(verifyDesription) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
+                        </Typography> }
+                {!show && <Divider className={classes.divider} style={{backgroundColor: `${(verifyDesription) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>}
 
                         <Typography className={classes.text} color={verifyDesription ? 'primary' : 'initial'}>
                             Описание

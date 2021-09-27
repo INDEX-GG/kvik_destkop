@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme) => ({
   },
   formInputField: {
     width: "490px",
+    position: "relative",
     display: "flex",
     flexDirection: "column",
-    "&>*": {
+    "&>p": {
       marginBottom: theme.spacing(2),
     },
     "&>*:last-child": {
@@ -34,12 +35,15 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "264px",
   },
+  tooltip: {
+    position: "absolute",
+    top: 9,
+  }
 }));
 
 export default function TvSetCat2({ data }) {
   const methods = useFormContext();
   const classes = useStyles();
-  console.log("odgs ++++>", data);
   return (
     <>
       {data.map((item, idx) => {
@@ -86,6 +90,7 @@ export default function TvSetCat2({ data }) {
               <Controller
                 name={item.alias}
                 control={methods.control}
+                defaultValue=""
                 rules={{
                   max: {
                   value: 2021,
@@ -95,6 +100,7 @@ export default function TvSetCat2({ data }) {
                   message: 'Позднее 1950 года'
                 }}}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <>
                   <TextField
                     className={classes.input}
                     variant="outlined"
@@ -103,6 +109,8 @@ export default function TvSetCat2({ data }) {
                     error={!!error}
                     helperText={error ? error.message : " "}
                   />
+                  {value.length ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
+                  </>
                 )}
               />
             </Box>
@@ -113,17 +121,17 @@ export default function TvSetCat2({ data }) {
             <Box className={classes.formInputField}>
               <Controller
                 name={item.alias}
+                defaultValue=""
                 control={methods.control}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <Slider
                     className={classes.input}
                     valueLabelDisplay="auto"
-                    defaultValue={10}
                     step={1}
                     min={item.fields[0]}
                     max={item.fields[1]}
                     value={value}
-                    onChange={(e) => onChange(e.target.value === '' ? '' : Number(e.target.value))}
+                    onChange={(_, value) => onChange(value)}
                     error={!!error}
                     helperText={error ? error.message : " "}
                   />

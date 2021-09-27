@@ -1,27 +1,19 @@
 import Auto from './Options/Auto';
-import { Dogs } from './Options/Dogs';
-import { Cats } from './Options/Cats';
-import Bicycles from './Options/Bicycles';
-import GoodsForChildrenToys from './Options/Goods_for_children_toys';
-import ForHome from './Options/For_home';
-import ForKitchen from './Options/For_kitchen';
-import ForPersonalCare from './Options/For_personalized_care';
-import ClimaticEquipment from './Options/Climatic_equipment';
-import TableSetting from './Options/Table_setting';
-import CookingFood from './Options/Cooking_food';
-import VideoSurveillance from './Options/Video_surveillance';
-import PlantsAndSeeds from './Options/Plants_and_seeds';
-import Vacancies from './Options/Vacancies';
-import Summary from './Options/Summary';
-import HiFiTechnology from './Options/Hi_fi_technology';
-import TvAccessories from './Options/Tv_accessories';
 import TvSetCat2 from './Options/Tv_sets_cat2';
+import ChargersPowerSupplies from './Options/Chargers_power_supplies';
+import SmartWatches from './Options/Smart_watches_and_fitness_bracelets';
+import Tablets from './Options/Tablets';
+import MainPlaceholder from './Options/MainPlaceholder';
+import Bulldozers from './Options/Bulldozers';
+
+
+
+
 
 const AdditionalInformation = (data) => {
-	console.log('=======>', data.newOBJ)
 
-
-
+	
+	
 
 	switch (data.asd) {
 		case 'agricultural_machinery':
@@ -42,35 +34,25 @@ const AdditionalInformation = (data) => {
 		case 'atvs':
 			return null;
 
-		case 'audio_engineering':
-			return null;
 
 		case 'auto':
 			return <Auto data={data.newOBJ[data.asd]} />;
 
-		case 'bicycles':
-			return <Bicycles data={data.newOBJ[data.asd]} />;
 
 		case 'boats_and_yachts':
 			return null;
 
 		case 'bulldozers':
-			return null;
+			return <Bulldozers data={data.newOBJ[data.asd]} />;
 
 		case 'buses':
 			return null;
 
-		case 'car_goods':
-			return null;
 
-		case 'cats':
-			return <Cats data={data.newOBJ[data.asd]} />;
 
 		case 'chargers_power_supplies':
-			return null;
+			return <ChargersPowerSupplies data={data.newOBJ[data.asd]} />;
 
-		case 'climatic_equipment':
-			return <ClimaticEquipment data={data.newOBJ[data.asd]} />;
 
 		case 'communal_machinery':
 			return null;
@@ -78,100 +60,46 @@ const AdditionalInformation = (data) => {
 		case 'construction_machinery':
 			return null;
 
-		case 'consumables_for_office_equipment':
-			return null;
-
 		case 'controllers_adapters_modules_for_servers':
-			return null;
-
-		case 'cooking_food':
-			return <CookingFood data={data.newOBJ[data.asd]} />;
-
-		case 'data_storage':
-			return null;
-
-		case 'desktop_computers':
-			return null;
-
-		case 'dogs':
-			return <Dogs data={data.newOBJ[data.asd]} />;
-
-		case 'electronic_books':
 			return null;
 
 		case 'excavators':
 			return null;
 
-		case 'expendable_materials':
-			return null;
 
 		case 'flash_drive':
 			return null;
 
-		case 'food_storage':
-
-			return <CookingFood data={data.newOBJ[data.asd]} />;
-		case 'for_home':
-
-			return <ForHome data={data.newOBJ[data.asd]} />;
-		case 'for_kitchen':
-
-			return <ForKitchen data={data.newOBJ[data.asd]} />;
-		case 'for_personalized_care':
-
-			return <ForPersonalCare data={data.newOBJ[data.asd]} />;
 		case 'forestry_equipment':
 
 			return null;
-		case 'goods_for_children_toys':
 
-			return <GoodsForChildrenToys data={data.newOBJ[data.asd]} />;
 		case 'hdd':
 
 			return null;
-		case 'hi_fi_technology':
 
-		return <HiFiTechnology data={data.newOBJ[data.asd]} />;
-			case 'house_on_wheels':
+		case 'house_on_wheels':
 
 			return null;
-		case 'household_goods':
 
-			return <CookingFood data={data.newOBJ[data.asd]} />;
-		case 'housings_corp':
-
-			return null;
 		case 'jet_skis':
 
 			return null;
 		case 'karting':
 
 			return null;
-		case 'laptops':
 
-			return null;
 		case 'light_commercial_vehicles':
 
 			return null;
 		case 'loaders':
 
 			return null;
-		case 'manipulators__input_devices':
-
-			return null;
 		case 'memory_card':
 
 			return null;
-		case 'mfps_and_scanners':
 
-			return null;
-		case 'monitors':
-
-			return null;
 		case 'mopeds_and_scooters':
-
-			return null;
-		case 'motherboards_perif':
 
 			return null;
 		case 'motor_boats':
@@ -187,12 +115,8 @@ const AdditionalInformation = (data) => {
 		case 'new_building_abroad':
 
 			return null;
-		case 'new_building':
 
-			return null;
-		case 'other_comp':
 
-			return null;
 
 		case 'other_transport':
 
@@ -200,64 +124,42 @@ const AdditionalInformation = (data) => {
 		case 'parts_and_accessories':
 
 			return null;
-		case 'personal_computer_accessories':
 
-			return null;
-		case 'plants_and_seeds':
 
-			return <PlantsAndSeeds data={data.newOBJ[data.asd]} />;
 
-		case 'printers':
 
-			return null;
 		case 'processors_cat':
 
 			return null;
-		case 'ram_for_servers':
 
-			return null;
-		case 'ram':
 
-			return null;
 
 		case 'rent_apartments_abroad':
 
 			return null;
-		case 'rent_apartments':
 
-			return null;
 		case 'rent_building_abroad':
 
 			return null;
-		case 'rent_building':
 
-			return null;
 
 		case 'rent_commercial_premises_abroad':
 
 			return null;
-		case 'rent_commercial_premises':
 
-			return null;
 		case 'rent_free_premises_abroad':
 
 			return null;
-		case 'rent_free_premises':
 
-			return null;
 
-		case 'rent_gerage':
 
-			return null;
 		case 'rent_gerageabroad':
 
 			return null;
 		case 'rent_houses_and_cottages_abroad':
 
 			return null;
-		case 'rent_houses_and_cottages':
 
-			return null;
 
 		case 'rent_of_boats_and_yachts':
 
@@ -265,12 +167,7 @@ const AdditionalInformation = (data) => {
 		case 'rent_office_space_abroad':
 
 			return null;
-		case 'rent_office_space':
 
-			return null;
-		case 'rent_parkingplace':
-
-			return null;
 
 		case 'rent_parkingplaceabroad':
 
@@ -278,81 +175,117 @@ const AdditionalInformation = (data) => {
 		case 'rent_production_room_abroad':
 
 			return null;
-		case 'rent_production_room':
 
-			return null;
-		case 'rent_rooms':
-
-			return null;
 
 		case 'rent_warehouse_space_abroad':
 
 			return null;
-		case 'rent_warehouse_space':
 
-			return null;
 		case 'secondary_housing_abroad':
 
 			return null;
-		case 'secondary_housing':
 
-			return null;
-
-		case 'sell_agriculturalland':
-
-			return null;
 		case 'sell_building_abroad':
-
-			return null;
-		case 'sell_building':
 
 			return null;
 
 		case 'sell_commercial_premises_abroad':
 
 			return null;
-		case 'sell_commercial_premises':
-
-			return null;
-		case 'sell_commercialland':
-
-			return null;
-
+	
 		case 'sell_free_premises_abroad':
 
 			return null;
-		case 'sell_free_premises':
-
-			return null;
-		case 'sell_garage':
+		
+		case 'sell_office_space_abroad':
 			return null;
 		case 'sell_garageabroad':
 			return null;
 		case 'sell_houses_and_cottages_abroad':
 			return null;
+
+
+
+		case 'audio_engineering':
+		case 'climatic_equipment':
+		case 'car_goods':
+		case 'cooking_food':
+		case 'bicycles':
+		case 'hi_fi_technology':
+		case 'motherboards_perif':		
+		case 'electronic_books':
+		case 'cats':
+		case 'goods_for_children_toys':
+		case 'food_storage':
+		case 'for_home':
+		case 'for_kitchen':
+		case 'for_personalized_care':
+		case 'household_goods':
+		case 'dogs':
+		case 'plants_and_seeds':
+		case 'printers':
+		case 'consumables_for_office_equipment':
+		case 'data_storage':
+		case 'housings_corp':
+		case 'expendable_materials':
+		case 'monitors':
+		case 'ram_for_servers':
+		case 'ram':
+		case 'server_network_hardware':
+		case 'vacancies':
+		case 'mfps_and_scanners':
+		case 'manipulators__input_devices':
+		case 'summary':
+		case 'other_comp':
+		case 'personal_computer_accessories':
+		case 'rent_houses_and_cottages':
 		case 'sell_houses_and_cottages':
-			return null;
+		case 'desktop_computers':
+		case 'laptops':
+		case 'new_building':
+		case 'rent_apartments':
+		case 'rent_building':
+		case 'rent_commercial_premises':
+		case 'rent_garage':
+		case 'rent_free_premises':
+		case 'rent_office_space':
+		case 'rent_parkingplace':
+		case 'rent_production_room':
+		case 'rent_rooms':
+		case 'rent_warehouse_space':
+		case 'sell_abroad':
+		case 'rent_abroad':
+		case 'secondary_housing':
+		case 'sell_agriculturalland':
+		case 'sell_building':
+		case 'sell_commercial_premises':
+		case 'sell_commercialland':
+		case 'sell_free_premises':
+		case 'sell_garage':
 		case 'sell_izhs':
-			return null;
-		case 'sell_office_space_abroad':
-			return null;
 		case 'sell_office_space':
-			return null;
 		case 'sell_parkingplace':
-			return null;
+		case 'sell_production_room':
+		case 'steering_wheels_gamepads_joysticks':
+		case 'sell_rooms':
+		case 'sell_snt':
+		case 'sell_warehouse_space':
+		case 'video_engineering':
+		case 'smartphones':
+		case 'tv_accessories':
+		case 'table_setting':	
+		case 'video_surveillance':
+		case 'ups_and_surge_protectors':
+		case 'video_cards_componentsss':
+		case 'telephones':
+			return <MainPlaceholder data={data.newOBJ[data.asd]} />;
+
+		
 		case 'sell_parkingplaceabroad':
 			return null;
 		case 'sell_production_room_abroad':
 			return null;
-		case 'sell_production_room':
-			return null;
-		case 'sell_rooms':
-			return null;
-		case 'sell_snt':
-			return null;
 		case 'sell_warehouse_space_abroad':
-			return null;
-		case 'sell_warehouse_space':
 			return null;
 		case 'server_enclosures':
 			return null;
@@ -360,28 +293,20 @@ const AdditionalInformation = (data) => {
 			return null;
 		case 'server_motherboards':
 			return null;
-		case 'server_network_hardware':
-			return null;
+
 		case 'server_processorss':
 			return null;
 		case 'servers':
 			return null;
+
+
 		case 'smart_watches_and_fitness_bracelets':
-			return null;
-		case 'smartphones':
-			return null;
+			return <SmartWatches data={data.newOBJ[data.asd]} />;
+	
 		case 'snowmobiles':
 			return null;
-		case 'steering_wheels_gamepads_joysticks':
-			return null;
-		case 'summary':
-		return <Summary data={data.newOBJ[data.asd]} />;
-			case 'table_setting':
-		return <TableSetting data={data.newOBJ[data.asd]} />;
 		case 'tablets':
-			return null;
-		case 'telephones':
-			return null;
+			return <Tablets data={data.newOBJ[data.asd]} />;
 		case 'tires':
 			return null;
 		case 'tractors_and_agricultural_machinery':
@@ -394,20 +319,9 @@ const AdditionalInformation = (data) => {
 			return null;
 		case 'trucks':
 			return null;
-		case 'tv_accessories':
-			return <TvAccessories data={data.newOBJ[data.asd]} />;
 		case 'tv_sets_cat2':
 			return <TvSetCat2 data={data.newOBJ[data.asd]} />;
-		case 'ups_and_surge_protectors':
-			return null;
-		case 'vacancies':
-			return <Vacancies data={data.newOBJ[data.asd]} />;
-		case 'video_cards_componentsss':
-			return null;
-		case 'video_engineering':
-			return null;
-		case 'video_surveillance':
-			return <VideoSurveillance data={data.newOBJ[data.asd]} />;
+	
 		case 'wheels':
 			return null;
 		default:
@@ -449,7 +363,7 @@ const AdditionalInformation = (data) => {
 	// 	//                                             ))}
 	// 	//                                         </TextField>
 	// 	//                                     )}
-	// 	//                                     rules={{ required: 'Выбирите ' }}
+	// 	//                                     rules={{ required: 'Выберете ' }}
 	// 	//                                 />
 	// 	//                             </Box>
 	// 	//                         </Box>
@@ -480,7 +394,7 @@ const AdditionalInformation = (data) => {
 	// 	//                                                     }
 	// 	//                                                 </TextField>
 	// 	//                                             )}
-	// 	//                                             rules={{ required: 'Выбирите ' }}
+	// 	//                                             rules={{ required: 'Выберете ' }}
 	// 	//                                         />
 	// 	//                                     </Box>
 	// 	//                                 </>
@@ -513,7 +427,7 @@ const AdditionalInformation = (data) => {
 	// 	//                                                     }
 	// 	//                                                 </TextField>
 	// 	//                                             )}
-	// 	//                                             rules={{ required: 'Выбирите ' }}
+	// 	//                                             rules={{ required: 'Выберете ' }}
 	// 	//                                         />
 	// 	//                                     </Box>
 	// 	//                                 </>
@@ -569,7 +483,7 @@ const AdditionalInformation = (data) => {
 	// 	//                                                 ))}
 	// 	//                                             </TextField>
 	// 	//                                         )}
-	// 	//                                         rules={{ required: 'Выбирите ' }}
+	// 	//                                         rules={{ required: 'Выберете ' }}
 	// 	//                                     />
 	// 	//                                 </Box>
 	// 	//                             </>

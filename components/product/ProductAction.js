@@ -7,8 +7,7 @@ import IconMess from "../../UI/icons/IconMess";
 import Statistics from "../../components/Statistics";
 import PhoneModule from "./PhoneModule";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import UnpublishForm from "../UnpublishForm";
-import { UnpublishCTX } from "../../lib/Context/DialogCTX";
+import OfferModal from "../OfferModal";
 import ProductButton from "./ProductUI/ProductButton";
 import ProductDeal from "./ProductDeal";
 import ProductDate from "./ProductSmallComponents/ProductDate";
@@ -17,6 +16,9 @@ import ProductOption from "./ProductOption";
 import ProductStats from "./ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteCom from "./ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductAdsChange from "./ProductAdsChange";
+
+
+
 export default function ProductAction(data) {
   const { id } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
@@ -26,27 +28,23 @@ export default function ProductAction(data) {
   const { matchesMobile, matchesTablet } = useMedia();
 
   const objP = { adstatus: 8 };
-  const [offerId, setOfferId] = useState();
+  //const [offerId, setOfferId] = useState();
 
-  const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
-  const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+  const [openOfferModal, setOpenOfferModal] = useState(false);
+  //const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+  const [buttonId, setButtonId] = useState('');
 
-  /* Модальное окно */
-  function pushCheck() {
-    setOfferId(+data.router);
-    setOpenUnpublishForm(!openUnpublishForm);
-    handleUnpublishFormDialog();
-  }
+  const offerId = [data.productInfo.id];
+  const offerData = data.productInfo;
+  const setUpdate = data.setUpdate;
+  
+
+  //console.log(data.viewing)
 
   const {user_id} = data;
 
-
-  console.log("data =======> ", data)
-
   return (
     <>
-      <UnpublishCTX.Provider value={{ offerId, openUnpublishForm, setOpenUnpublishForm }}>
-
         {!matchesMobile && !matchesTablet && (
           user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
             <>
@@ -61,20 +59,26 @@ export default function ProductAction(data) {
                 </ProductDeal>
                 <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
               </div>
-
             </>
         )
         }
-		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={1} modalFunc={pushCheck} />
+		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.status} setOpenOfferModal={setOpenOfferModal} setButtonId={setButtonId}/>
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
-          <Statistics Close={handleStatFormDialog} />
+          <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
         <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={data.productInfo}/>
-        <Dialog open={openUnpublishForm || false} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth="xs">
-          <UnpublishForm isProductPages Close={handleUnpublishFormDialog} />
+        <Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">
+          <OfferModal 
+            isProductPages 
+            offerId={offerId} 
+            offerData={offerData} 
+            openOfferModal={openOfferModal} 
+            setOpenOfferModal={setOpenOfferModal}
+            setUpdate={setUpdate}
+            buttonId={buttonId}
+          />
         </Dialog>
-      </UnpublishCTX.Provider>
     </>
   );
 }

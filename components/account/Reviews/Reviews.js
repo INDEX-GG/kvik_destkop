@@ -50,7 +50,7 @@ const Reviews = () => {
         }
       }
     }
-  }, [router])
+   }, [router])
 
 
    return (
@@ -62,7 +62,7 @@ const Reviews = () => {
                return (
                   <a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')}  onClick={() => {
                      setItemNav({ i: item.id, ttl: item.title })
-					 safeAccountTab(item.id)
+					      safeAccountTab(item.id)
 					}}>{item.title} { brooklyn(item.count)}</a>
                )
             })}
