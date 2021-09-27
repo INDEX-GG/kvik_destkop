@@ -76,9 +76,9 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 	}
 
 	useEffect(() => {
-		parentCheck ? check ? null : ( getChildCheck({id: offer.id, isCheck: parentCheck}), setCheck(parentCheck) ) 
-		: 
-		check===false ? null : allOfferId.length===0 ? (getChildCheck({id: offer.id, isCheck: parentCheck}), setCheck(parentCheck)) : null;
+		parentCheck ? check ? null : ( getChildCheck({id: offer.id, isCheck: parentCheck}), setCheck(parentCheck) )
+			:
+			check===false ? null : allOfferId.length===0 ? (getChildCheck({id: offer.id, isCheck: parentCheck}), setCheck(parentCheck)) : null;
 	}, [parentCheck])
 
 	useEffect(() => {
@@ -169,11 +169,11 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 			</div>
 
 			<Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth='md'>
-				<OfferModal 
-					offerId={offerId} 
-					offerData={offerData}  
-					openOfferModal={openOfferModal} 
-					setOpenOfferModal={setOpenOfferModal} 
+				<OfferModal
+					offerId={offerId}
+					offerData={offerData}
+					openOfferModal={openOfferModal}
+					setOpenOfferModal={setOpenOfferModal}
 					buttonId={buttonId}
 					cleanAll={cleanAll}
 				/>
