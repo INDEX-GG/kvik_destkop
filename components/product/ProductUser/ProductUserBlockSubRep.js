@@ -36,8 +36,6 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
 			setUserBool(!userBool)
 		
 			await axios.post("/api/subscriptions", subscribe)
-			.then(res => console.log(res.data))
-			.catch(error => console.log(error))
 			
 			await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
 			
@@ -59,7 +57,7 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
       }
       if (id && sellerId){
         setUserBlockBool(!userBlockBool)
-        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r)).catch(r => console.log(r.data.message))
+        await axios.post('/api/blockUser', userBlockInfo)
       }
       setBlockLoading(false)
     }
@@ -72,7 +70,7 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
       }
       if (id && sellerId){
         setUserBlockBool(!userBlockBool)
-        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r)).catch(r => console.log(r.data.message))
+        await axios.post('/api/blockUser', userBlockInfo)
       }
       setBlockLoading(false)
     }
