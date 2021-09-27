@@ -80,8 +80,6 @@ export default function Bulldozers({ data }) {
   const modelData = useMemo(() => {
     return makeData?.find((el) => el.value === model)?.children
   }, [model])
-  console.log("model", modelData);
-  console.log("data",data);
   return (
     <>
           <Box className={classes.formElem}>

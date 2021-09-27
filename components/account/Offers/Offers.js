@@ -30,7 +30,7 @@ const Offers = () => {
       setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0 && offer.active !== 4));
     }
   }, [userAccountProvider]);
-  console.log(userAccountProvider)
+
   useEffect(() => {
     if (router) {
       if (router.query.content != undefined) {
@@ -51,8 +51,6 @@ const Offers = () => {
     { id: 2, title: "Ждут действия", content: <Wait key={2} offers={dataWait} />, count: waitOffersBox.length },
     { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: archiveOffersBox.length },
   ];
-
-  console.log(navItems)
   
   return (
     <>

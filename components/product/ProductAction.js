@@ -7,9 +7,7 @@ import IconMess from "../../UI/icons/IconMess";
 import Statistics from "../../components/Statistics";
 import PhoneModule from "./PhoneModule";
 import { useAuth } from "../../lib/Context/AuthCTX";
-//import UnpublishForm from "../UnpublishForm";
-import { DelActiveCTX } from "../../lib/Context/DialogCTX";
-import DelActiveForm from "../DelActiveForm";
+import OfferModal from "../OfferModal";
 import ProductButton from "./ProductUI/ProductButton";
 import ProductDeal from "./ProductDeal";
 import ProductDate from "./ProductSmallComponents/ProductDate";
@@ -32,25 +30,21 @@ export default function ProductAction(data) {
   const objP = { adstatus: 8 };
   //const [offerId, setOfferId] = useState();
 
-  const [openDelActiveForm, setOpenDelActiveForm] = useState(false);
+  const [openOfferModal, setOpenOfferModal] = useState(false);
   //const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
-  const [battonId, setBattonId] = useState('');
+  const [buttonId, setButtonId] = useState('');
 
   const offerId = [data.productInfo.id];
   const offerData = data.productInfo;
   const setUpdate = data.setUpdate;
   
 
-  console.log(data.active)
-
-  console.log(data.viewing)
+  //console.log(data.viewing)
 
   const {user_id} = data;
 
   return (
     <>
-      <DelActiveCTX.Provider value={{offerId, offerData, openDelActiveForm, setOpenDelActiveForm, battonId }}>
-
         {!matchesMobile && !matchesTablet && (
           user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
             <>
@@ -68,16 +62,23 @@ export default function ProductAction(data) {
             </>
         )
         }
-		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.status} setOpenDelActiveForm={setOpenDelActiveForm} /*update={data.update}*/ setBattonId={setBattonId}/>
+		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.status} setOpenOfferModal={setOpenOfferModal} setButtonId={setButtonId}/>
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
           <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
         <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={data.productInfo}/>
-        <Dialog open={openDelActiveForm || false} onClose={() => setOpenDelActiveForm(!openDelActiveForm)} fullWidth maxWidth="xs">
-          <DelActiveForm isProductPages /*Close={handleUnpublishFormDialog}*/ setUpdate={setUpdate} />
+        <Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">
+          <OfferModal 
+            isProductPages 
+            offerId={offerId} 
+            offerData={offerData} 
+            openOfferModal={openOfferModal} 
+            setOpenOfferModal={setOpenOfferModal}
+            setUpdate={setUpdate}
+            buttonId={buttonId}
+          />
         </Dialog>
-      </DelActiveCTX.Provider>
     </>
   );
 }
