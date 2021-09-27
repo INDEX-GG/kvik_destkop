@@ -58,12 +58,7 @@ function Archive(data) {
 
 	const handleDelActiveFormDialog = () => setOpenDelActiveForm(!openDelActiveForm);
 
-	console.log('DATAAAAA', data.offers);
-	console.log('DATAAAAA', data);
 	
-
-
-
 	const cleanAll = () => {
 		setCheck(false);
 		setDataCheck([]);

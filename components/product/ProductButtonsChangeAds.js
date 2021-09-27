@@ -9,8 +9,8 @@ const ProductButtonChangeAds = ({id, sellerId, status, lastDate, mobile, setOpen
 
   const {matchesTablet} = useMedia();
   const width = matchesTablet ? status === 2 || status === 3 || status === 6 ? '100' : '' : '';
-  console.log(status)
-  //console.log(update)
+
+  
   return (
 	id == sellerId ? 
 	<>
