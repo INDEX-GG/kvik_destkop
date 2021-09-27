@@ -395,8 +395,6 @@ const Photoes = ({ ctx }) => {
 
 		return (
 			<div className={classes.drag}   >
-				{console.log("длинна", imageData)}
-				
 				{items.map((value, i) => (
 					<SortableItem key={i} index={i} data={value} i={i} />
 				))}
@@ -468,8 +466,6 @@ const Photoes = ({ ctx }) => {
 			<Typography className={classes.formTitleField}>Фотографии</Typography>
 			<Box className={classes.formInputField}>
 				<div>
-					{console.log('439', validFiles)}
-
 					<SortableList items={validFiles} axis="xy" onSortEnd={onSortEnd} distance={5} />
 				</div>
 				<Typography className={classes.error}>

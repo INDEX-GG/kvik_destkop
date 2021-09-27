@@ -21,9 +21,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     justifyContent: "space-between",
-    padding: "9px 12px ",
+    padding: "9px 12px 25px 12px",
     display: 'flex',
     alignItems: "flex-end",
+    background: "#FFFFFF",
     "&>*": {
       margin: "0 12px",
     },
