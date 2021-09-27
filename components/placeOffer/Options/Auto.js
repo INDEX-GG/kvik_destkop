@@ -143,7 +143,7 @@ export default function Auto({ data }) {
         if (methods.watch('modelsAuto') != undefined) {
             axios.get(`/auto_brand/` + (methods.watch('modelsAuto')) + `.json`)
                 .then((result) => setMark(result.data))
-                .catch((e) => console.log(e))
+                // .catch((e) => console.log(e))
         }
 
     }, [methods.watch('modelsAuto')])
@@ -176,13 +176,11 @@ export default function Auto({ data }) {
             let arr = []
             let mod = (generation[0].map(item => item.children.map(item => item)));
             arr = ((mod[0].filter(item => item.value === methods.watch('modification'))).map(item => item))
-            console.log(arr)
             setModification(arr.map(item => item.children))
         }
     }, [methods.watch('modification')])
 
     useEffect(() => {
-        console.log('modification', modification)
         let newObjdrivetype = [],
             newObjBodytype = [],
             newObjDoors = [],
@@ -226,19 +224,11 @@ export default function Auto({ data }) {
             mainObj.push({ alias: "doors", name: "Количество дверей", value: [...new Set(newObjDoors)] })
             mainObj.push({ alias: "complectations", name: "Комплектация", value: modification[0].filter(item => item.alias === 'complectations')[0].complectations = [...new Set(newObjcomplectations.flat().map(item => item.value))] })
 
-            console.log(mainObj)
 
             setFullDescription(mainObj)
         }
     }, [modification])
 
-    //     console.log('mark +++++', mark)
-    //     console.log('model +++++', model)
-    //     console.log('generation +++++', generation)
-    //     console.log('generationUnical +++++', generationUnical)
-    //     console.log('modification +++++', modification && modification)
-    //     console.log('fullDescription +++++', fullDescription && fullDescription)
-    // console.log(methods.watch('generation'))
     return (
         <>
             {data.map((item) => {
