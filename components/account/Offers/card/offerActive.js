@@ -3,8 +3,7 @@ import { Checkbox, Dialog, makeStyles } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import { ToRubles, ToFullDate } from "../../../../lib/services";
-import { UnpublishCTX } from "../../../../lib/Context/DialogCTX";
-import UnpublishForm from "../../../UnpublishForm";
+import OfferModal from "../../../OfferModal";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -33,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function offerActive({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, i}) {
 	const classes = useStyles();
-	const [openUnpublishForm, setOpenUnpublishForm] = useState(false);
-	const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
+	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
-	const [dataCheck, setDataCheck] = useState();
+	const [offerId, setOfferId] = useState([]);
+	const buttonId = "003";
 	const offerData = offer;
 	
 	const cleanAll = () => {
@@ -51,24 +50,17 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 	useEffect(() => {
 		parentUnpublishForm === false && allDataCheck.length === 0 ? setCheck(false) : null
 	}, [parentUnpublishForm]) 
-	
-	/* useEffect(() => {
-		UnpublishForm === false && allDataCheck.length === 0 ? setCheck(false) : null
-	}, [UnpublishForm])  */
 
-	/* Модальное окно */
-	
 	function pushCheck(e) {
 		if (e.target.value !== '') {
-			setDataCheck([+e.target.value])
+			setOfferId([+e.target.value])
 		}
-		setOpenUnpublishForm(!openUnpublishForm)
-		handleUnpublishFormDialog()
+		setOpenOfferModal(!openOfferModal);
 	}
 
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
-		<UnpublishCTX.Provider value={{ dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll }}>
+		<>
 			<a href={`/product/${offer.id}`} key={i}
 				className="offerContainer boxWrapper">
 				<div className="offerImage">
@@ -125,9 +117,16 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 				</div>
 			</a>
 
-			<Dialog open={openUnpublishForm || false} onClose={() => setOpenUnpublishForm(!openUnpublishForm)} fullWidth maxWidth='md'>
-				<UnpublishForm Close={handleUnpublishFormDialog} />
+			<Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth='md'>
+				<OfferModal 
+					offerId={offerId}
+					offerData={offerData}
+					setOpenOfferModal={setOpenOfferModal}
+					openOfferModal={openOfferModal}
+					buttonId={buttonId}
+					cleanAll={cleanAll}
+				/>
 			</Dialog>
-		</UnpublishCTX.Provider>
+		</>
 	)
 }
