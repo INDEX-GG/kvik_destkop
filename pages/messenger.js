@@ -25,8 +25,8 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-let sender = {"id": 84, "name": "Станислав Даль"}
-let recipient = {"id": 7}
+let sender = {"id": 7, "name": "Станислав Даль"}
+let recipient = {"id": 84}
 
 
 //? Говорим, на каком домене будем обслуживать сокерт
