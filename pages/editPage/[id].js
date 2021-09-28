@@ -64,6 +64,10 @@ function EditPage() {
 
 	// const { productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
 
+	// запрос содержимого полей для редактирования
+	const { price, title, photo, description, address, productInfoFields } = useProduct(query.id)
+	console.log('postID from offer', productInfoFields.post_id)
+
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
@@ -74,7 +78,7 @@ function EditPage() {
 
 	const methods = useForm();
 	let photoes = [];
-	let postId = 0;
+	let postId = productInfoFields.post_id;
 	const photoesCtx = (obj) => {
 		return photoes = obj;
 	}
@@ -110,7 +114,7 @@ function EditPage() {
 
 	const onSubmit = data => {
 		 console.log('DATATAAAAAAA',data)
-		// console.log(photoes, photoes.length)
+		console.log(photoes, photoes.length)
 		data.price = data.price.replace(/\D+/g, '');
 		const alias = [data?.alias1, data?.alias2];
 		if (data?.alias3) {
@@ -120,7 +124,7 @@ function EditPage() {
 			alias.push(data.alias4);
 		}
 
-		// console.log(alias);
+		console.log('alias',alias);
 		data.alias = alias.join(',');
 		data.user_id = id
 		delete data.alias1
@@ -129,7 +133,7 @@ function EditPage() {
 		delete data.alias4
 		delete data.photoes
 		const photoData = new FormData;
-		// console.log(photoes)
+		console.log('photoes',photoes)
 		if (photoes.length > 1) {
 			photoes.forEach(photo => photoData.append('files[]', photo));
 		} else if (photoes.length === 1) {
@@ -165,34 +169,33 @@ function EditPage() {
 		// console.log(additionalfields)
 		// console.log(additionalfields2)
 
-		// console.log(obj)
+		console.log('obj',obj)
 		setLoading(true);
 
 		axios.post(`${BASE_URL}/api/setPosts`, obj)
 			.then(r => {
-				postId = r?.data?.id;
+				console.log('r up',r)
+				console.log('postId',postId)
 				// additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
 				// console.log(additionalfields)
 				// axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
 
-					// .then(r => console.log(r))
-				axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
+				axios.post(`${STATIC_URL}/post_update/${postId}`, photoData, {
 					headers: {
 						"Content-Type": "multipart/form-data"
 					}
 				}).then((r) => {
-					// console.log(r)
+					console.log('r down',r)
 					setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-					// console.log(product)
-					// console.log(r?.data.images.photos[0])
+					console.log('product axios',product)
+					console.log('img',r?.data.images.photos[0])
 					setPromotion(true)
 				})
 			})
 
 	}
 
-	// запрос содержимого полей для редактирования
-	const { price, title, photo, description, address } = useProduct(query.id)
+
 
 	return (
 
