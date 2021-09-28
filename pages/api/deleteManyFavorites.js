@@ -69,7 +69,7 @@ export default async function handler(req, res) {
         }
         catch (e) {
             console.error(`ошибка api deleteManyFavorites${e}`)
-            res.json('ошибка api favorites', e)
+            res.json('ошибка api deleteManyFavorites', e)
             res.status(405).end();
         }
         finally {

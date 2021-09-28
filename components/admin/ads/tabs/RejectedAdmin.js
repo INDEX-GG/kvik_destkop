@@ -20,12 +20,7 @@ function RejectedAdmin(data) {
                {data.offers.map((offer, index) => {
                   return (
                      <div key={index} className="ad__wrapper">
-                        <div className="ad__check">
-                           <label className="checkbox">
-                              <input type="checkbox" />
-                              <div className="checkbox__text"></div>
-                           </label>
-                        </div>
+                        
                         <a className="ad_slider">
                            <img src={(offer.imgs)[0]} alt="" />
                            <div className="ad__photo_count">1/{(offer.imgs).length}</div>

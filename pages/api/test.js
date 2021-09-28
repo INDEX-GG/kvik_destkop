@@ -3,12 +3,12 @@ export default function handler(req, res) {
 
 
         const main = async () => {
-            return {message:'test88'}
+            return {message:'test__2828'}
         }
 
         main()
             .then(r => res.json(r))
-            .catch(e => console.error(`ошибка api getDistricts${e}`))
+            .catch(e => console.error(`ошибка api test${e}`))
     } else {
         res.status(405).json({ message: 'method not allowed' })
     }

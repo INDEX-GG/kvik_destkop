@@ -39,10 +39,10 @@ export const Ads = () => {
       <>
          <div className="clientPage__container_top">
             <div className="clientPage__container_nav__wrapper">
-               <div className="clientPage__container_nav">
+               <div className="clientPage__container_nav" >
                   {navItems.map(item => {
                      return (
-                        <a key={item.Itemid} className={(itemNav.i === item.id) ? ('navActive') : ('')} onClick={() => setItemNav({ i: item.id, ttl: item.title })}>{item.title} {brooklyn(item.count)}</a>
+                        <a key={item.Itemid} className={(itemNav.i === item.id) ? ('navActive') : ('')} onClick={() => setItemNav({ i: item.id, ttl: item.title })} >{item.title} {brooklyn(item.count)}</a>
                      )
                   })}
                </div>

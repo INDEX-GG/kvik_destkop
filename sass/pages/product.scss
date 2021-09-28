@@ -545,7 +545,9 @@
     margin: 0 5px;
     display: block;
 }
-
+.admin-page-swiper .swiper-pagination {
+    left: 123px;
+}
 .dotNone {
     & > .swiper-pagination {
         display: none;
