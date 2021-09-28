@@ -76,7 +76,7 @@ const Map = () => {
 	const [map, setMap] = useState(null)
 	const [value, setValue] = useState('')
 	const [center, /** setCenter */] = useState([55.755819, 37.617644])
-	console.log(1)
+
 	const provider = new OpenStreetMapProvider()
 
 	useEffect(() => {
