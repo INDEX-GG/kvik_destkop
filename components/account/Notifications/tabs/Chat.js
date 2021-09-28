@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import {io} from 'socket.io-client';
 
 
-let sender = {"id": 84, "name": "Станислав Даль"}
-let recipient = {"id": 7}
+let sender = {"id": 7, "name": "Станислав Даль"}
+let recipient = {"id": 84}
 
 //? Говорим, на каком домене будем обслуживать сокерт
 // const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})

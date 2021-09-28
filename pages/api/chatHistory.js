@@ -27,8 +27,8 @@ export default async function handler(req, res) {
             res.end(JSON.stringify(response))
         }
         catch (e) {
-            console.error(`ошибка api getPostsPortion${e}`)
-            res.json('ошибка api getPostsPortion', e)
+            console.error(`ошибка api chatHistory ${e}`)
+            res.json('ошибка api chatHistory', e)
             res.status(405).end();
         }
         finally {
