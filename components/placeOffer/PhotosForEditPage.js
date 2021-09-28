@@ -165,9 +165,9 @@ const PhotoForEditPage = ({ctx, photo}) => {
     const methods = useFormContext();
     const fileInputRef = useRef();
 
-    const [oldObjectsAndNewObjects, setOldObjectsAndNewObjects] = useState([]);
+    const [oldPhotosAndNewObjectsPhotos, setOldPhotosAndNewObjectsPhotos] = useState([]);
     const [stringPhotos, setStringPhotos] = useState(photo)
-    const [oldObjects, setOldObjects] = useState([])
+    const [oldPhotos, setOldPhotos] = useState([])
     const [validFiles, setValidFiles] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState(null);
     const [imageData, setImageData] = useState([]);
@@ -180,19 +180,17 @@ const PhotoForEditPage = ({ctx, photo}) => {
 
 
     useEffect(() => {
-        setOldObjects(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
+        setOldPhotos(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
     }, [stringPhotos]);
-    useEffect(() => {
 
+    useEffect(() => {
         if (!validFiles.find((el) => {
             el.name === selectedFiles.name
-
         })) {
             if (selectedFiles) {
                 setValidFiles([...validFiles, selectedFiles]);
             }
         }
-        // собирается object imageData по выбраным файлам
         validFiles.forEach((el, i) => {
             const reader = new FileReader();
             reader.readAsDataURL(el);
@@ -207,9 +205,11 @@ const PhotoForEditPage = ({ctx, photo}) => {
             };
         });
     }, [selectedFiles]);
+
     useEffect(() => {
-        setOldObjectsAndNewObjects([...oldObjects, ...validFiles.filter(item => oldObjects.indexOf(item) === -1)])
-    }, [validFiles, oldObjects])
+        setOldPhotosAndNewObjectsPhotos([...oldPhotos, ...validFiles.filter(item => oldPhotos.indexOf(item) === -1)])
+    }, [validFiles, oldPhotos])
+
     useEffect(() => {
         if (validFiles && validFiles.length > 0) {
             methods.setValue("photoes", "ok");
@@ -357,7 +357,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
     };
 
     const rotateOld = (data) => {
-        const filteredValid = oldObjects
+        const filteredValid = oldPhotos
         const index = filteredValid.indexOf(data);
         if (!filteredValid[index].angle) {
             filteredValid[index].angle = 0;
@@ -366,10 +366,10 @@ const PhotoForEditPage = ({ctx, photo}) => {
         if (filteredValid[index].angle === 360) {
             filteredValid[index].angle = 0;
         }
-        setOldObjects([...filteredValid]);
+        setOldPhotos([...filteredValid]);
     };
 
-    ctx(validFiles);
+    ctx(oldPhotosAndNewObjectsPhotos);
 
     const SortableList = SortableContainer(({items}) => {
         return (
@@ -413,6 +413,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
                 >
                     <img
                         src={data.src}
+                        id={i}
                         style={{
                             transform: data.angle
                                 ? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
@@ -468,8 +469,8 @@ const PhotoForEditPage = ({ctx, photo}) => {
     });
 
     const onSortEnd = ({oldIndex, newIndex}) => {
-        const items = arrayMoveImmutable(oldObjectsAndNewObjects, oldIndex, newIndex)
-        setOldObjectsAndNewObjects([...items])
+        const items = arrayMoveImmutable(oldPhotosAndNewObjectsPhotos, oldIndex, newIndex)
+        setOldPhotosAndNewObjectsPhotos([...items])
     }
 
     return (
@@ -477,7 +478,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
             <Typography className={classes.formTitleField}>Фотографии</Typography>
             <Box className={classes.formInputField}>
                 <div>
-                    <SortableList items={oldObjectsAndNewObjects} axis="xy" onSortEnd={onSortEnd} distance={5}/>
+                    <SortableList items={oldPhotosAndNewObjectsPhotos} axis="xy" onSortEnd={onSortEnd} distance={5}/>
                 </div>
                 <Typography className={classes.error}>
                     {methods.formState.errors?.photoes?.message}
