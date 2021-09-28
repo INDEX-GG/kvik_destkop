@@ -72,7 +72,7 @@ const ProductSuburbanBuildnformation = ({data, mobile, description, productData}
           if (el.alias ==="home_area" || el.alias ==="land_area") return (
             <div className="productWrap" key={i} style={{border: "none"}}>
             <div className="productLocality" style={{padding: "14px 0"}}>{el.name}</div>
-            <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]} м³</pre>
+            <pre className='productDescription' style={{margin: "14px 0"}}>{data[el.alias]} м²</pre>
             </div>
           )
           if (el.alias ==="build_year" || el.alias ==="tv_year") return (

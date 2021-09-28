@@ -166,7 +166,6 @@ export const useCategoryPlaceOffer = (data, methods) => {
                                 case 'repairs':
                                 case 'tenure':
                                 case 'furniture':
-                                case 'communal_payments':
                                 case 'bathrooms_number':
                                 case 'balcony_number':
                                 case 'garage':
@@ -226,6 +225,7 @@ export const useCategoryPlaceOffer = (data, methods) => {
                                 case 'count_floor':
                                 case 'vine':
                                 case 'mileage':
+                                case 'communal_payments':
                                 case 'engine_volume':
                                 case 'room_number':
                                 case 'owners_of_pts':

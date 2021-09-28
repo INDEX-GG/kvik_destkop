@@ -73,7 +73,6 @@ function PlaceOffer() {
     // console.log(methods)
     /* получение дополнительных полей */
 
-	console.log(methods.watch('location'))
 
     const [asd, setAsd] = useState();
     const { ...newOBJ } = useCategoryPlaceOffer(asd, methods);
@@ -160,12 +159,15 @@ function PlaceOffer() {
                     }
                 }else{
                     let field = data[key]
-                    if (key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color'){
+                    if (key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' || key === 'power'){
                         if ( key === 'tires_and_rims'){
                             let str = data[key] ? data[key].slice(0, -2) : ''
                             field = str 
                         }else if (key === 'mileage' ){
                             let str = data[key].slice(0, -3)
+                            field = str
+                        }else if (key === 'power' ){
+                            let str = data[key].replace(/[А-яа-я.\s]/gi, '')
                             field = str
                         }
                         else{
@@ -189,7 +191,7 @@ function PlaceOffer() {
         if (newOBJ[asd] !== undefined) {
             obj.subcategory = asd
         }
-        // console.log("addfields", additionalfields)
+        console.log("addfields", additionalfields)
         // console.log(additionalfields2)
 
         // console.log(obj)

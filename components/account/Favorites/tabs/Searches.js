@@ -1,6 +1,6 @@
-import React from "react";
-import { ellipsis } from "../../../../lib/services";
+import React, { useState } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
+import SearchListCard from "../card/SearchListCard";
 
 function Searches(data) {
 	if (data.searches.lenght == 0) {
@@ -13,37 +13,42 @@ function Searches(data) {
 		);
 	}
 
+	const [check, setCheck] = useState(false);
+	const [dataCardId, setCardId] = useState([])
+
+	function getCardId ({id, isCheck}) {
+			setCardId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id) )
+	}
+
 	return (
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_nav__radio">
 				<label className="checkbox">
-					<input type="checkbox" />
+					<input 
+						type="checkbox"
+						onChange={(event) => {setCheck(event.target.checked); event.target.checked ? null : setCardId([])}}
+						checked={check}
+					/>
 					<div className="checkbox__text"></div>
 				</label>
-				<a>Удалить</a>
+				<a className="small light underline" style={dataCardId.length > 0 ? {color: "black"} : null} onClick={() => {
+						if (dataCardId.length > 0){
+							///
+						}
+				}}>Удалить</a>
 				<a className="clientPage__container_nav__radio_end">Получать на почту:</a>
 			</div>
 			<div className="clientPage__container_content">
 				<div className="searchesWrapper">
 					{data.searches.map((search) => {
 						return (
-							<div key={search.id} className="searchersContainer">
-								<div className="searchLeftCheck">
-									<label className="checkbox">
-										<input type="checkbox" />
-										<div className="checkbox__text"></div>
-									</label>
-								</div>
-								<a className="searchTitle large thin highlight underline">{ellipsis(search.title, 83)}</a>
-								<div className="searchData thin">{search.data}</div>
-								<div className="searchLocal thin light">{search.locality}</div>
-								<div className="searchRightCheck">
-									<label className="checkbox">
-										<input type="checkbox" />
-										<div className="checkbox__text"></div>
-									</label>
-								</div>
-							</div>
+							<SearchListCard 
+							key={search.id} 
+							data={search}
+							parentCheck={check}
+							getCardId={getCardId}
+							dataCardId={dataCardId}
+							/>
 						);
 					})}
 				</div>
