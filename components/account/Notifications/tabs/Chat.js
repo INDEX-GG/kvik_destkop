@@ -61,6 +61,7 @@ const Chat = () => {
 	}, [])
 
 	const handleKeyDown = (e) => {
+		socket.emit('typing', {'sender': sender, 'recipient': recipient})
 		if (e.key == 'Enter') {
 			handleSend()
 		}
