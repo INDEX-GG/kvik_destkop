@@ -76,7 +76,7 @@ function Archive({offers}) {
 			/>
 		);
 	}
-	
+
 	/* Модальное окно */
 	function pushCheck(e) {
 		setButtonId(e.target.id)
@@ -108,11 +108,11 @@ function Archive({offers}) {
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
-							<OfferArchive 
-								key={i} 
+							<OfferArchive
+								key={i}
 								offer={offer}
-								parentCheck={check} 
-								getChildCheck={getChildCheck} 
+								parentCheck={check}
+								getChildCheck={getChildCheck}
 								parentOpenDelActiveForm={openOfferModal}
 								allOfferId={offerId}
 							/>
@@ -121,7 +121,7 @@ function Archive({offers}) {
 				</div>
 			</div>
 			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
-				<OfferModal 
+				<OfferModal
 					offerId={offerId}
 					offerData={offerData}
 					openOfferModal={openOfferModal}
