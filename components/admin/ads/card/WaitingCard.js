@@ -2,22 +2,25 @@ import React from 'react';
 import { ToRubles } from '../../../../lib/services';
 import { Modal } from "@material-ui/core";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination,Navigation } from 'swiper';
-SwiperCore.use([Pagination,Navigation]);
+import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
+
+SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
 
 function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, getDataChild, offerId}) {
+
     const [check, setCheck] = React.useState(false);
     const [openModal, setOpenModal] = React.useState(false);
-    // const [cardSwiper, setCardSwiper] = React.useState(null);
-    // const [modalSwiper, setModalSwiper] = React.useState(null);
-    //const [slide, setSlide] = React.useState(1);
-    
+
+    const [cardSwiper, setCardSwiper] = React.useState(null);
+    const [modalSwiper, setModalSwiper] = React.useState(null);
+    const [thumbsSwiper, setThumbsSwiper] = React.useState(null)
+    const [activeSlide, setActiveSlide] = React.useState(0);
+
     React.useEffect( () => {
         parentCheck ? check ? null : handleChange(parentCheck) : check === false ? null : offerId.length === 0 ? handleChange(parentCheck) : null;
     }, [parentCheck])
-
-
+    
     const listRef = (e) => {
         const adInformation = document.querySelectorAll(".ad__information__description")[e.target.value]
         const loerMore = document.querySelectorAll(".btn__loer_more")[e.target.value]
@@ -35,7 +38,14 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
         setCheck(event);
         getDataChild({id: offer.id, isCheck: event })
     }
-
+    
+   
+    if (modalSwiper) {
+        modalSwiper.slideTo(activeSlide, 0);
+    }
+    
+    
+    console.log(activeSlide)
     return (
         <div key={offer.id} className="ad__wrapper">
             <div className="ad__check">
@@ -43,27 +53,25 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                     <input 
                         type="checkbox" 
                         onChange={(event) => handleChange(event.target.checked) }
+                        checked={check}
                     />
                     <div className="checkbox__text"></div>
                 </label>
             </div>
-            <a  className="ad_slider" onClick={() => setOpenModal(!openModal)}>
-                {/* <img src={(offer.imgs)[0]} alt="" /> */}
+            <a  className="ad_slider"  >
                 <Swiper
+                    navigation={true}
                     pagination={{type: "fraction"}}
-                    /* onActiveIndexChange={(swiper) => {
-                        modalSwiper?.slideTo(swiper.activeIndex)
-                    }} */
+                    onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
                     className="mySwiper2 admin-page-swiper"
-                    //onSwiper={setCardSwiper}
+                    onSwiper={setCardSwiper}
                 >
                     {offer.imgs.map( (img, index) => (
-                        <SwiperSlide key={index} >
-                            <img src={img} alt="" />
+                        <SwiperSlide key={index} onClick={() =>{ setOpenModal(!openModal)}} >
+                            <img src={img} alt="" style={{ width: "280px"}}/>
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                {/* <div className="ad__photo_count">{slide}/{(offer.imgs).length}</div> */}
             </a>
             <div className="ad__information">
                 <div className="ad__information__blocks">
@@ -97,20 +105,44 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                 <button className="btn__loer_more" value={index} onClick={(e, index) => listRef(e, index)} >Развернуть</button>
                 <button className="btn__ad_add">Одобрить</button>
             </div>
-            <Modal open={openModal} onClose={() => setOpenModal(!openModal)} className="productModal">
-                <Swiper
-                    className="productSliderWrapper"
-                    navigation={true}
-                    slidesPerView={1}
-                    slideToClickedSlide={true}
-                    //onSwiper={setModalSwiper}
-                >
-                    { offer.imgs.map( (img, index) => (
-                        <SwiperSlide key={index} className="productSliderItem" >
-                            <img src={img} alt=""  style={{objectFit: "contain", width: "100%", height: "100%"}}/>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+            <Modal 
+                open={openModal} 
+                onClose={() => {
+                    setOpenModal(!openModal); 
+                    setThumbsSwiper(null); 
+                    cardSwiper.slideTo(activeSlide, 0);
+                }} 
+                className="productModal"
+            >
+                <>
+                    <Swiper
+                        className="productSliderWrapper"
+                        navigation={true}
+                        slidesPerView={1}
+                        onSwiper={setModalSwiper}
+                        onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
+                        thumbs={{swiper: thumbsSwiper}}
+                    >
+                        { offer.imgs.map( (img, index) => (
+                            <SwiperSlide key={index} className="productSliderItem" >
+                                <img src={img} alt=""  style={{objectFit: "contain", width: "100%", height: "100%"}}/>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                        {/* добавить в свайпер ниже onActiveIndexChange  */}
+                    <Swiper
+                        onSwiper={setThumbsSwiper}
+                        className="mySwiper productSliderNav admin-page_modal-swiper" 
+                        style={{ height: '88px', display: "block"}}
+                        spaceBetween={1}
+                    >
+                        { offer.imgs.map( (img, index) => (
+                            <SwiperSlide key={index} className="productSliderNavItem" >
+                                <img src={img} alt=""  style={{ height: "88px"}}/>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </>
             </Modal>
         </div>
     )

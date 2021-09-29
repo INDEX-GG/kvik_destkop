@@ -97,14 +97,13 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 		<>
 			<div key={offer.id} className="offerContainer boxWrapper" 
 				onClick={	(event) => { 
-					if(event.target.localName !== "button") {
+					if(event.target.localName !== "button" && event.target.localName !== "input") {
 						Router.push(`/product/${offer.id}`) 
 					}
 				}}
 			>
 				<div className="offerImage">
 					<div className="offerPubCheck">
-
 						<Checkbox
 							className={classes.check}
 							color='primary'
