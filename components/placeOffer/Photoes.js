@@ -178,7 +178,7 @@ const Photoes = ({ ctx }) => {
 	// присваивается name в validFiles
 	useEffect(() => {
 		if (!validFiles.find((el) => el.name === selectedFiles.name)) {
-			if (selectedFiles) {
+			if (selectedFiles && validFiles.length < 20) {
 				setValidFiles([...validFiles, selectedFiles]);
 			}
 		}
@@ -466,8 +466,8 @@ const Photoes = ({ ctx }) => {
 				<div>
 					<SortableList items={validFiles} axis="xy" onSortEnd={onSortEnd} distance={5} />
 				</div>
-				<Typography className={classes.error}>
-					{methods.formState.errors?.photoes?.message}
+				<Typography className={classes.error} style={{color: methods.formState.errors?.photoes?.message ? null : '#C7C7C7'}}>
+					{methods.formState.errors?.photoes?.message || 'До 20 фотографий в формате JPG или PNG. Размер фото - до 25MB'}
 				</Typography>
 			</Box>
 		</Box>

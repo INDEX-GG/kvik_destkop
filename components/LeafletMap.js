@@ -76,7 +76,7 @@ function DisplayPosition({ map, setValue }) {
 const Map = () => {
 	const [map, setMap] = useState(null)
 	const [value, setValue] = useState('')
-	const [center, /** setCenter */] = useState([55.2549475, 61.3907561])
+	const [center, /** setCenter */] = useState([55.755819, 37.617644])
 
 	const provider = new OpenStreetMapProvider()
 

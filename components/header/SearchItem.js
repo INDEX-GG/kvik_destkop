@@ -57,7 +57,7 @@ const SearchItem = ({children, category}) => {
 
 
   return (
-    <div  className={classes.searchItem} onClick={() => Router.push(`search/${category}`)}>
+    <div  className={classes.searchItem} onClick={() => Router.push(`/search/${splited.slice(-1)}`)} tabIndex={0}>
       <span className={classes.text}>{children}</span>
       <span className={classes.category}>{aliasIcon[category] ? aliasIcon[category] : <DefaultCategory />} <span style={{paddingLeft: 8}}>{categoryName}</span> </span>
     </div>

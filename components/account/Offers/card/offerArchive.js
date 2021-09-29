@@ -95,7 +95,13 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 
 	return (
 		<>
-			<div key={offer.id} className="offerContainer boxWrapper" onClick={() => Router.push(`/product/${offer.id}`)}>
+			<div key={offer.id} className="offerContainer boxWrapper" 
+				onClick={	(event) => { 
+					if(event.target.localName !== "button") {
+						Router.push(`/product/${offer.id}`) 
+					}
+				}}
+			>
 				<div className="offerImage">
 					<div className="offerPubCheck">
 
