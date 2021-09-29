@@ -18,7 +18,6 @@ function WaitingAdmin({offers}) {
       offers.length === offerId.length ? check ? null : setCheck(true) : check === false ? null : setCheck(false);
    },[offerId])
 
-   
    return (
       <div className="clientPage__container_bottom">
          <div className="clientPage__container_nav__radio">
