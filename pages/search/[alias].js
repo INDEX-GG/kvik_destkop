@@ -10,6 +10,7 @@ import Image from "next/image"
 import { getDataByPost } from "../../lib/fetch";
 import { STATIC_URL } from "../../lib/constants";
 import { categoryScroll } from "../../lib/scrollAds";
+import FilterBlock from "../../components/FilterBlock";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -95,14 +96,12 @@ const Index = () => {
 	}, [aliasFillUrl]);
 
 
-
 	useEffect(() => {
 		if (page > 1) {
 			categoryScroll(aliasFillUrl, limit, page, setData, setLimitRanderPage, setPage, setLastIdAds)
 		}
 	}, [page])
 	
-
 	return (
 		// <MainlA isIndex title={'Доска объявлений'} category={"Транспорт"}>
 		<Container className={classes.root}>
@@ -112,6 +111,7 @@ const Index = () => {
 					<SearchRender data={data} page={page} limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage} setPage={setPage} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() + aliasData.aliasName[0].label.substring(1,)} /></Box>
 				{!matchesMobile && !matchesTablet &&
 					<Box className={classes.rightBlock}>
+						<FilterBlock categoryData={aliasData} />
 						<div className={classes.ad}>
 							<Image src={"/img/joker1.png"} width={224} height={480} />
 							<Image src={"/img/joker2.png"} width={224} height={480} />
