@@ -210,7 +210,7 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 
 	function changeValue(str) {
 		setValue(str)
-		console.log(value)
+		// console.log(value)
 	}
 
 	function generateArr(index) {

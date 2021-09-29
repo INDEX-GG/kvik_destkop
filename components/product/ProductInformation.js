@@ -17,7 +17,7 @@ import ProductWorkInformation from './ProductsDescription/ProductWorkInformation
 import ProductTechInformation from './ProductsDescription/ProductTechInformation';
 import ProductForHomeInformation from './ProductsDescription/ProductForHomeInformation';
 
-export default function ProductInformation({ productionInfo, description, caterory, address}) {
+export default function ProductInformation({ productionInfo, description, caterory, address, coordinates}) {
 	const { matchesMobile, matchesTablet } = useMedia();
 	// const [dataMap, setDataMap] = useState({})
 	const [productData, setProductData] = useState(null)
@@ -152,7 +152,7 @@ export default function ProductInformation({ productionInfo, description, catero
 
 	return (
 		<>
-			<ProductMap address={address} mobile={!matchesMobile && !matchesTablet}/>
+			<ProductMap address={address} coordinates={coordinates} mobile={!matchesMobile && !matchesTablet}/>
 			<div className="productPageCharacter thin">
 				{info}
 				<ProductSocial/>

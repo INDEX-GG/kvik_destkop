@@ -93,7 +93,7 @@ function FeedbackModal({offer}) {
     const [disable, setDisable] = React.useState(false)
     const [length, setLength] = React.useState(4000)
     
-    console.log("render")
+    // console.log("render")
     return (
         <Box className={classes.feedModal__wrapper}>
             <Box className={classes.feedModal__modal}>

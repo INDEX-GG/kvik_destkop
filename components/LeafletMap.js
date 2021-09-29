@@ -45,13 +45,13 @@ function DisplayPosition({ map, setValue }) {
 	// })
 
 	map.on('click', e => {
-		console.log(e)
+		// console.log(e)
 		geocoder.reverse(
 			e.latlng,
 			map.options.crs.scale(map.getZoom()),
 			results => {
 				const r = results[0]
-				console.log(r.properties.address)
+				// console.log(r.properties.address)
 				const address = r.properties.address
 				const city = address?.city ? address.city : ''
 				const street =  address?.road ? ', ' + address.road : ''
@@ -89,7 +89,7 @@ const Map = () => {
 			// 	console.log(results[0])
 			// }, 1000)
 		} catch (e) {
-			console.log(e)
+			// console.log(e)
 		}
 		// console.log(suggest)
 	}

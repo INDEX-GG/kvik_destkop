@@ -72,10 +72,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function UnpublishForm(props) {
+export default function UnpublishForm() {
 	const classes = useStyles();
 	const { dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll, setUpdate } = useContext(UnpublishCTX);
-	console.log(props)
+
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
@@ -95,7 +95,7 @@ export default function UnpublishForm(props) {
 	if (dataCheck?.length === 1) {
 		/* const offerAction = (offer.data.offers)?.filter((item) => item.id === +offerId.join()) */
 		const offerAction = Array.isArray(offerData) ? offerData[0] : offerData;
-		console.log(offerAction)
+		// console.log(offerAction)
 		return (
 			<Box key={offerAction.id} className={classes.unpublish_form}>
 				<Box className={classes.unpublish_form__item}>

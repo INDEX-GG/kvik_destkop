@@ -42,7 +42,7 @@ function Wait(data) {
                   })} */}
                 {<img src={offer.img} />}
 
-                {console.log(offer)}
+                {/* {console.log(offer)} */}
                 {offer.verify == 4  ? 
                 <div className="offerWaitCause megaLight offerWaitBigName">{Verify[offer.verify]}</div> :
                 <div className="offerWaitCause megaLight">{Verify[offer.verify]}</div>}
@@ -70,7 +70,7 @@ function Wait(data) {
                   )}
 
 
-                  {console.log(offer.verify)}
+                  {/* {console.log(offer.verify)} */}
 
                   {offer.delete ? <div className="thin">Будет удалено навсегда через 30 дней</div> : null}
 

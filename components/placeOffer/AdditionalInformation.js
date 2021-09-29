@@ -325,7 +325,7 @@ const AdditionalInformation = (data) => {
 		case 'wheels':
 			return null;
 		default:
-			console.log('')
+			// console.log('')
 			return null;
 	}
 

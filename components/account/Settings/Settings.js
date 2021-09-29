@@ -30,7 +30,7 @@ import axios from 'axios';
 const Settings = ({userId}) => {
 	const [blackListData, setBlackListData] = useState([])
 
-		console.log(blackListData);
+		// console.log(blackListData);
 	useEffect(()=>{
 		async function fetchBlockedUsers() {
 				if (userId){

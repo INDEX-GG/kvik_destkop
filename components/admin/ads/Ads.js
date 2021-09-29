@@ -41,7 +41,7 @@ export const Ads = () => {
          "page_limit": 20, 
          "last_post_id": 0
       })
-      .then((responce) => console.log(responce))
+      .then((responce) => responce)
    },[])
 
    return (
@@ -51,7 +51,13 @@ export const Ads = () => {
                <div className="clientPage__container_nav" >
                   {navItems.map(item => {
                      return (
-                        <a key={item.Itemid} className={(itemNav.i === item.id) ? ('navActive') : ('')} onClick={() => setItemNav({ i: item.id, ttl: item.title })} >{item.title} {brooklyn(item.count)}</a>
+                        <a 
+                           key={item.Itemid} 
+                           className={(itemNav.i === item.id) ? ('navActive') : ('')} 
+                           onClick={() => setItemNav({ i: item.id, ttl: item.title })} 
+                        >
+                           {item.title} {brooklyn(item.count)}
+                        </a>
                      )
                   })}
                </div>

@@ -45,7 +45,7 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
     }
     
     
-    console.log(activeSlide)
+    // console.log(activeSlide)
     return (
         <div key={offer.id} className="ad__wrapper">
             <div className="ad__check">

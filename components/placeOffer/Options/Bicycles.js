@@ -38,7 +38,7 @@ import {
 export default function Bicycles({data}) {
     const methods = useFormContext();
   const classes = useStyles();
-  console.log("odgs ++++>", data);
+  // // console.log("odgs ++++>", data);
   return (
     <Box className={classes.formElem}>
       <Typography className={classes.formTitleField}>{data[0].name}</Typography>

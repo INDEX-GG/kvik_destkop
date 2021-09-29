@@ -12,7 +12,7 @@ export function useBlockedBool(user_id, seller_id) {
     axios.post("/api/getBlockUsers", user)
     .then((res) => {
       setUserInfo(res.data.blocked_users)
-      console.log(res.data);
+      // console.log(res.data);
       setLoading(false);
     })
   }

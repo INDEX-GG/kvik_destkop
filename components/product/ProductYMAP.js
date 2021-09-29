@@ -4,8 +4,8 @@ import { useMedia } from '../../hooks/useMedia'
 
 
 const ProductYMAP = ({coordinates, width, height}) => {
-	const ymapsLoad = (ymaps) => {
-		console.log(ymaps)
+	const ymapsLoad = () => {
+		// console.log(ymaps)
 	}
 
 	const {matchesMobile, matchesTablet} = useMedia()
@@ -23,7 +23,7 @@ const ProductYMAP = ({coordinates, width, height}) => {
 
 	return (
 		<YMaps>
-			<div>
+			<div style={{borderRadius: '8px'}}>
 				<Map 
 				height={height}
 				onLoad={ymapsLoad} 

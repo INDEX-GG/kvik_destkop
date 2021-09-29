@@ -10,7 +10,7 @@ function ReviewLeft({data, parentCheck, getCardId, dataId}) {
     React.useEffect(() => {
         parentCheck ? check ? null : (getCardId({id: data.id, isCheck: parentCheck}), setCheck(parentCheck) ) : check===false ? null : dataId.length == 0 ? ( getCardId({id: data.id, isCheck: parentCheck}), setCheck(parentCheck) ) : null;
     },[parentCheck])
-    console.log("renderNumber")
+    // console.log("renderNumber")
     return (
         <div key={data.id} className="reviewContainer reviewPadding">
             <div>
