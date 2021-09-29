@@ -115,6 +115,7 @@ function PlaceOffer() {
         }
 
 		data.location = data.location?.value ? data.location.value : data.location
+		data.coordinates = data.location?.data ? [] : []
 
         console.log('alias',alias);
         console.log("data", data);
@@ -140,7 +141,7 @@ function PlaceOffer() {
         // let additionalfields3 = { [asd]: [] }
 
         for (let key in data) {
-            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
+            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id' || key === 'coordinates') {
                 obj[key] = data[key];
             }
             else {
