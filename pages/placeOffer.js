@@ -115,6 +115,7 @@ function PlaceOffer() {
         }
 
 		data.location = data.location?.value ? data.location.value : data.location
+		data.coordinates = data.location?.data ? [data.location.data.geo_lat, data.location.data.geo_lon] : [55.755819, 37.617644]
 
         console.log('alias',alias);
         console.log("data", data);
@@ -140,7 +141,7 @@ function PlaceOffer() {
         // let additionalfields3 = { [asd]: [] }
 
         for (let key in data) {
-            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
+            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id' || key === 'coordinates') {
                 obj[key] = data[key];
             }
             else {
@@ -201,6 +202,7 @@ function PlaceOffer() {
 
         axios.post(`${BASE_URL}/api/setPosts`, obj)
             .then(r => {
+				console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
                 postId = r?.data?.id;
                 console.log('postId',postId)
                 additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })

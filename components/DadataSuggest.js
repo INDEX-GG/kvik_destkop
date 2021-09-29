@@ -56,7 +56,10 @@ const DadataSuggest = () => {
 					minChars={3}  
 					value={value}
 					defaultQuery={city}
-					onChange={onChange}
+					onChange={(e) => {
+						onChange(e)
+						setValue(e)
+					}}
 					inputProps={{
 						onKeyDown: (e) => {
 							if (e.key == 'Enter') {
@@ -64,7 +67,8 @@ const DadataSuggest = () => {
 							}
 						},
 						placeholder: 'Введите город, улицу, дом'
-					}} 
+					}}
+					// selectOnBlur={true} 
 					/>
                )}
             />
