@@ -172,10 +172,11 @@ const ProductAutoInformation = ({data, mobile, description}) => {
             return null
           }
           if (el.alias === 'fueltype'){
-            return <InfoItem mobile={mobile} key={key} name={el.name} desc={`${data[el.alias]} ${data['enginesize'].toFixed(1)}`} /> 
+            return <InfoItem mobile={mobile} key={key} name={el.name} desc={`${data[el.alias]} ${data['enginesize'] !== null ? data['enginesize'] : ''}`} /> 
           }
           if (el.alias === 'GBO'){
-            return <InfoItem mobile={mobile} key={key} name={el.name} desc={`${data[el.alias] ? "Есть" : "Нет"}`} /> 
+            if (data[el.alias] !== null) return <InfoItem mobile={mobile} key={key} name={el.name} desc={`${data[el.alias] === true ? "Есть" : "Нет"}`} /> 
+            return null
           }
           if (el.alias === 'mileage'){
             return <InfoItem mobile={mobile} key={key} name={el.name} desc={`${data[el.alias]} км.`} /> 
@@ -186,17 +187,18 @@ const ProductAutoInformation = ({data, mobile, description}) => {
           return <InfoItem mobile={mobile} key={key} name={el.name} desc={data[el.alias]} /> 
         })}
 			</div>
-      <ProductDescription description={description} mobile={mobile}/>
+      <ProductDescription description={description} mobile={mobile} style={{borderTop: "1px solid #e9e9e9", borderBottom: "1px solid #e9e9e9"}}/>
       {autoData.map((el, i) => (data[el.alias] ? <div key={i} style={{
-        display:! mobile ? 'flex' : null,
-        flexDirection: !mobile ? "column" : null
+        display: 'flex',
+        flexDirection: !mobile ? "column" : null,
+        borderBottom: "1px solid #e9e9e9"
       }}>
 				<div className="productLocality">{el.name}</div>
 				<div className={classes.descriptionPlaseholder} style={
           {display: "grid",
           padding: 0,
           gridTemplateColumns: mobile ? "repeat(2, 1fr)" : "repeat(1, 1fr)",
-          width: "100%"}}
+          width: "70%"}}
         >{data[el.alias].split(',').map((des, key) => <div className={classes.descriptionItem} key={key}>{des}</div>)}</div>
 			</div> : null))}
 

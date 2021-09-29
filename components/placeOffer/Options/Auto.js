@@ -129,6 +129,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Auto({ data }) {
 
+
     const classes = useStyles();
     const methods = useFormContext();
     const [mark, setMark] = useState(),
@@ -137,6 +138,7 @@ export default function Auto({ data }) {
         [generationUnical, setGenerationUnical] = useState(undefined),
         [modification, setModification] = useState(undefined),
         [fullDescription, setFullDescription] = useState(undefined),
+        [showGbo, setShowGbo] = useState(true),
         [color, setColor] = useState(false);
 
     useEffect(() => {
@@ -180,6 +182,10 @@ export default function Auto({ data }) {
         }
     }, [methods.watch('modification')])
 
+    useEffect(()=>{
+        setShowGbo(methods.watch('fueltype') === "Электро" ? false : true)
+    }, [methods.watch('fueltype')])
+
     useEffect(() => {
         let newObjdrivetype = [],
             newObjBodytype = [],
@@ -198,7 +204,9 @@ export default function Auto({ data }) {
         methods.unregister('enginesize', '');
         methods.unregister('bodytype', '');
         methods.unregister('doors', '');
+        methods.unregister('GBO', '');
         methods.unregister('complectations', '');
+
 
         if (modification != undefined) {
             n = ((modification[0].filter(item => item.alias === 'yearfrom').map(item => +item.value)))[0];
@@ -214,12 +222,16 @@ export default function Auto({ data }) {
                 newObjcomplectations.push(...modification[i].filter(item => item.alias === 'complectations').map(item => item.value))
             }
 
+            setShowGbo(modification[0].filter(item => item.alias === 'fueltype')[0].value === "Электро" ? false : true)
+            
             mainObj.push({ alias: "year", name: "Год выпуска", value: newObjyear });
             mainObj.push({ alias: "fueltype", name: "Тип двигателя", value: modification[0].filter(item => item.alias === 'fueltype')[0].value });
             mainObj.push({ alias: "drivetype", name: "Привод", value: [...new Set(newObjdrivetype)] })
             mainObj.push({ alias: "transmission", name: "Коробка передач", value: modification[0].filter(item => item.alias === 'transmission')[0].value })
-            mainObj.push({ alias: "power", name: "Мощность", value: +modification[0].filter(item => item.alias === 'power')[0].value })
-            mainObj.push({ alias: "enginesize", name: "Объем двигателя", value: +modification[0].filter(item => item.alias === 'enginesize')[0].value })
+            mainObj.push({ alias: "power", name: "Мощность", value: `${modification[0].filter(item => item.alias === 'power')[0].value} л.с.`})
+            if (modification[0].filter(item => item.alias === 'fueltype')[0].value !== "Электро"){
+                mainObj.push({ alias: "enginesize", name: "Объем двигателя", value: +modification[0].filter(item => item.alias === 'enginesize')[0].value })
+            }
             mainObj.push({ alias: "bodytype", name: "Тип кузова", value: [...new Set(newObjBodytype)] })
             mainObj.push({ alias: "doors", name: "Количество дверей", value: [...new Set(newObjDoors)] })
             mainObj.push({ alias: "complectations", name: "Комплектация", value: modification[0].filter(item => item.alias === 'complectations')[0].complectations = [...new Set(newObjcomplectations.flat().map(item => item.value))] })
@@ -367,7 +379,6 @@ export default function Auto({ data }) {
                                                 </Box>
                                             </Box>
                                         }
-
                                         {
                                             fullDescription &&
                                             fullDescription.map((item) => {
@@ -514,7 +525,7 @@ export default function Auto({ data }) {
                                                                     />
                                                                 </Box>
 
-                                                                {item.alias === 'fueltype' ? (
+                                                                {item.alias === 'fueltype' && showGbo ? (
                                                                     <Controller
                                                                         key={item.name}
                                                                         defaultValue={false}
@@ -631,6 +642,29 @@ export default function Auto({ data }) {
                         )
 
                     case 'text':
+                        if (item.alias === 'tires_and_rims') return (
+                            fullDescription && (
+                                <Box key={item.name} className={classes.formInputMainField_text}>
+                                    <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                    <Box className={classes.formInputField}>
+                                        <Controller
+                                            name={item.alias}
+                                            control={methods.control}
+                                            render={({ field: { onChange, value } }) => (
+                                                <TextField
+                                                    className={classes.input}
+                                                    variant='outlined'
+                                                    value={value}
+                                                    placeholder='17 ”'
+                                                    onKeyDown={e => cursorReplace(e, item.name)}
+                                                    onChange={e => onChange(OnlyNumbersMask(e, item.name))}>
+                                                </TextField>
+                                            )}
+                                        />
+                                    </Box>
+                                </Box>
+                            )
+                        )
                         return (
                             fullDescription && (
                                 <Box key={item.name} className={classes.formInputMainField_text}>

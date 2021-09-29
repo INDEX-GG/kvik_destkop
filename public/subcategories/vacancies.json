@@ -1,6 +1,5 @@
 {
   "vacancies": [
-    { "alias": "vacancy_title", "name": "Название вакансии", "fields": "NULL" },
     { "alias": "work_experience", "name": "Стаж работы", "fields": [0, 65] },
     { "alias": "wage", "name": "Заработная плата", "fields": "NULL" },
     {

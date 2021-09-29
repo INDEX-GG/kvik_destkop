@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
 
 const Search = ({text = false}) => {
 	const classes = useStyles();
-	const [showButtons, setShowButtons] = useState(true)
+	const [showButtons, setShowButtons] = useState(false)
 	const [onlyPhoto, setOnlyPhoto] = useState(false)
 	const [safetyOffer, setSafetyOffer] = useState(false)
 	const [saveResult, setSaveResult] = useState(false)
@@ -72,7 +72,7 @@ const Search = ({text = false}) => {
 	
 
 	const handleBlur = (event) => {
-		if (event.relatedTarget === null) {
+		if (!event.currentTarget.contains(event.relatedTarget)) {
       setShowButtons(false);
     }
 	}
