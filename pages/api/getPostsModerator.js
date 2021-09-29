@@ -5,7 +5,7 @@ export default async function handler(req, res) {
         const main = async () => {
             const page_limit = req.body.page_limit
             const last_post_id = req.body.last_post_id
-            let answer = await prisma.$queryRaw(`SELECT * FROM "posts" WHERE active = 0 AND verify = 0 AND id > ${last_post_id} ORDER BY id LIMIT ${page_limit}`)
+            let answer = await prisma.$queryRaw(`SELECT * FROM "posts" WHERE active = 0 AND verify = 1 AND id > ${last_post_id} ORDER BY id LIMIT ${page_limit}`)
 
 
             return answer
