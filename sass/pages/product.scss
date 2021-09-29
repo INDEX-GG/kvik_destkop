@@ -545,6 +545,14 @@
     margin: 0 5px;
     display: block;
 }
+.admin-page-swiper{
+    max-width: 280px;
+    z-index: 0;
+}
+.admin-page_modal-swiper .swiper-slide-thumb-active img{
+    border: 6px solid #52b9c5;
+    border-radius: 5px;
+}
 .admin-page-swiper .swiper-pagination {
     left: 123px;
 }
