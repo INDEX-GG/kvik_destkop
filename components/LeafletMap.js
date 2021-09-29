@@ -21,28 +21,28 @@ function DisplayPosition({ map, setValue }) {
 
   const onMove = useCallback(() => {
     setPosition(map.getCenter())
+	// setValue('')
   }, [map])
 
   useEffect(() => {
     map.on('move', onMove)
 
-	map.on('mouseup', e => {
-		geocoder.reverse(
-			e.latlng,
-			map.options.crs.scale(map.getZoom()),
-			results => {
-				const r = results[0]
-				const address = r.properties.address
-				const city = address?.city ? address.city : ''
-				const street =  address?.road ? ', ' +address.road : ''
-				const houseNumber = address?.house_number ? ', ' + address.house_number : ''
-				const fullAddress = city + street + houseNumber
-				setValue(fullAddress)
-				console.log(results)
-        	}
-    	);
-		console.log(1)
-	})
+	// map.on('mouseup', e => {
+	// 	geocoder.reverse(
+	// 		e.latlng,
+	// 		map.options.crs.scale(map.getZoom()),
+	// 		results => {
+	// 			const r = results[0]
+	// 			const address = r.properties.address
+	// 			const city = address?.city ? address.city : ''
+	// 			const street =  address?.road ? ', ' +address.road : ''
+	// 			const houseNumber = address?.house_number ? ', ' + address.house_number : ''
+	// 			const fullAddress = city + street + houseNumber
+	// 			setValue(fullAddress)
+	// 			console.log(1)
+    //     	}
+    // 	)
+	// })
 
 	map.on('click', e => {
 		console.log(e)
@@ -54,11 +54,12 @@ function DisplayPosition({ map, setValue }) {
 				console.log(r.properties.address)
 				const address = r.properties.address
 				const city = address?.city ? address.city : ''
-				const street =  address?.road ? ', ' +address.road : ''
+				const street =  address?.road ? ', ' + address.road : ''
+				// const cityDistrict = address?.city_district ? ', ' + address.city_district : ' ' 
 				const houseNumber = address?.house_number ? ', ' + address.house_number : ''
 				const fullAddress = city + street + houseNumber
-				setValue(fullAddress)
 				map.setView(new L.LatLng(e.latlng.lat, e.latlng.lng));
+				setValue(fullAddress)
         	}
     	);
 	})
@@ -79,18 +80,37 @@ const Map = () => {
 
 	const provider = new OpenStreetMapProvider()
 
-	useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((e) => {
-                const latitude = e.coords.latitude
-                const longitude = e.coords.longitude
-                console.log(latitude, longitude)
-				// const geocoder = L.Control.Geocoder.nominatim(); 
-            });
-        } else {
-            console.log('Нету разрешения')
-        }
-	})
+	const handleChange = async (e) => {
+		setValue(e.target.value)
+		try {
+			// setTimeout(async () => {
+			// 	const results = await provider.search({ query: 'Россия,' + value })
+			// 	// SuggestGenerate(results)
+			// 	console.log(results[0])
+			// }, 1000)
+		} catch (e) {
+			console.log(e)
+		}
+		// console.log(suggest)
+	}
+
+	// function SuggestGenerate(suggest) {
+	// 	console.log(suggest)
+	// 	return 1
+	// }
+
+	// useEffect(() => {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition((e) => {
+    //             const latitude = e.coords.latitude
+    //             const longitude = e.coords.longitude
+    //             console.log(latitude, longitude)
+	// 			// const geocoder = L.Control.Geocoder.nominatim(); 
+    //         });
+    //     } else {
+    //         console.log('Нету разрешения')
+    //     }
+	// })
 
 
 	const searchControl = new GeoSearchControl({
@@ -116,7 +136,7 @@ const Map = () => {
 		e.preventDefault()
 		const results = await provider.search({ query: 'Россия,' + value });
 		if (results.length != 0) {
-			setValue(results[0].label)
+			// setValue(results[0].label)
 			map.setView(new L.LatLng(results[0].y, results[0].x));
 		}
 	}
@@ -124,7 +144,7 @@ const Map = () => {
 
 	const displayMap = useMemo(() => (
 		<div style={{position: 'relative'}}>
-			<MapContainer center={center} zoom={10} whenCreated={setMap} style={{height: 400, width: "100%"}}>
+			<MapContainer center={center} zoom={17} whenCreated={setMap} style={{height: 400, width: "100%"}}>
 				<TileLayer
 					attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -139,7 +159,7 @@ const Map = () => {
 	return (
 		<>	
 			<form onSubmit={handleSubmit}>
-				<input style={{width: '700px'}} value={value} onChange={e => setValue(e.target.value)} />
+				<input style={{width: '700px'}} value={value} onChange={handleChange} />
 			</form>
 			{map ? <DisplayPosition map={map} setValue={setValue} /> : null}
 			{displayMap}
