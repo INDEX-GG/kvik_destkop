@@ -3,7 +3,7 @@ import { YMaps, Map, Placemark } from 'react-yandex-maps'
 import { useMedia } from '../../hooks/useMedia'
 
 
-const ProductYMAP = ({coordinates}) => {
+const ProductYMAP = ({coordinates, width, height}) => {
 	const ymapsLoad = (ymaps) => {
 		console.log(ymaps)
 	}
@@ -25,15 +25,15 @@ const ProductYMAP = ({coordinates}) => {
 		<YMaps>
 			<div>
 				<Map 
-				height={400}
+				height={height}
 				onLoad={ymapsLoad} 
-				width={matchesMobile || matchesTablet ? '100%' : 617} 
+				width={matchesMobile || matchesTablet ? '100%' : width} 
 				instanceRef={map}
 				defaultState={{ center: coordinates || [1, 1], zoom: 17 }} >
 					<div>
 						<Placemark geometry={coordinates} options={{
 							iconLayout: "default#image",
-							iconImageSize: [48, 48],
+							iconImageSize: [40, 40],
 							iconImageHref: '/icons/Placemark.png'
 						}}/>
 					</div>

@@ -114,6 +114,8 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
+		data.location = data.location?.value ? data.location.value : data.location
+
         console.log('alias',alias);
         console.log("data", data);
         data.alias = alias.join(',');
