@@ -35,13 +35,6 @@ const DadataSuggest = () => {
 
 	return (
 		<div>
-			{/* <form 
-			onSubmit={handleSumbit} 
-			onKeyDown={e => {
-				e.key == "Enter" ? handleSumbit(e) : null
-			}}>
-				<AddressSuggestions token="3fa959dcd662d65fdc2ef38f43c2b699a3485222" value={value} onChange={setValue} />;
-			</form> */}
 			<AddressSuggestions token="3fa959dcd662d65fdc2ef38f43c2b699a3485222" value={value} onChange={setValue} />;
 			<ProductYMAP coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [55.7558, 37.6173]}/>
 		</div>
