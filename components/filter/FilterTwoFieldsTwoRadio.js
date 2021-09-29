@@ -24,14 +24,26 @@ const useStyles = makeStyles(() => ({
     color: "#2C2C2C",
   },
   input: {
-    margin: "8px",
-    "&:last-child": {
+    "&:last-of-type": {
       marginLeft: 0,
     },
+    "& .MuiOutlinedInput-input": {
+      paddingLeft: 8,
+    },
+  },
+  inputActuve: {
+    "& .MuiOutlinedInput-input": {
+      paddingLeft: 28,
+      maxWidth: 140,
+    },
+  },
+  tooltip: {
+    position: "absolute",
+    top: 9,
   },
   checkboxes: {
     display: 'flex',
-    padding: "0 8px 8px 8px"
+    padding: "0 8px"
   },
   check:{
     marginLeft: 0,
@@ -49,14 +61,13 @@ const useStyles = makeStyles(() => ({
     color: "#C7C7C7",
     padding: "4px 4px 4px 0",
     fontSize: 18,
-  }
+  },
+  
 }));
 
 const FilterTwoFieldsTwoRadio = ({
   firstAlias,
   secondAlias,
-  firstPlaceholder,
-  secondPlaceholder,
   title,
 }) => {
   const classes = useStyles();
@@ -65,34 +76,56 @@ const FilterTwoFieldsTwoRadio = ({
     <Box className={classes.formBox}>
       <Typography className={classes.formTitle}>{title}</Typography>
       <Box className={classes.formInputField}>
-        <Controller
-          name={firstAlias}
-          control={methods.control}
-          defaultValue=""
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              className={classes.input}
-              variant="outlined"
-              value={value}
-              placeholder={firstPlaceholder}
-              onChange={onChange}
-            />
-          )}
-        />
-        <Controller
-          name={secondAlias}
-          control={methods.control}
-          defaultValue=""
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              className={classes.input}
-              variant="outlined"
-              value={value}
-              placeholder={secondPlaceholder}
-              onChange={onChange}
-            />
-          )}
-        />
+      <Box style={{ position: "relative", maxWidth: "50%", margin: 8 }}>
+          <Controller
+            name={firstAlias}
+            control={methods.control}
+            defaultValue=""
+            render={({ field: { onChange, value } }) => (
+              <>
+                <TextField
+                  className={`${classes.input} ${
+                    value ? classes.inputActuve : ""
+                  }`}
+                  variant="outlined"
+                  value={value}
+                  placeholder="от"
+                  onChange={onChange}
+                />
+                {value?.length && value.length < 10 ? (
+                  <span className={classes.tooltip} style={{ left: 8 }}>
+                    от
+                  </span>
+                ) : null}
+              </>
+            )}
+          />
+        </Box>
+        <Box style={{ position: "relative", maxWidth: "50%",  margin: "8px 8px 8px 0" }}>
+          <Controller
+            name={secondAlias}
+            control={methods.control}
+            defaultValue=""
+            render={({ field: { onChange, value } }) => (
+              <>
+                <TextField
+                  className={`${classes.input} ${
+                    value ? classes.inputActuve : ""
+                  }`}
+                  variant="outlined"
+                  value={value}
+                  placeholder="до"
+                  onChange={onChange}
+                />
+                {value?.length && value.length < 10 ? (
+                  <span className={classes.tooltip} style={{ left: 8 }}>
+                    до
+                  </span>
+                ) : null}
+              </>
+            )}
+          />
+        </Box>
       </Box>
       <Box className={classes.checkboxes}>
        <Controller

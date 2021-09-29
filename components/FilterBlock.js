@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, makeStyles } from '@material-ui/core';
+import DefaultFilter from './filter/DefaultFilter';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -11,12 +12,19 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const FilterBlock = () => {
-
+const FilterBlock = ({categoryData}) => {
+	let filter;
+	const category = categoryData?.aliasName[0].alias
 	const classes = useStyles();
+
+	switch (category){
+		default: 
+			filter = <DefaultFilter />
+	}
 
 	return (
 		<Box className={classes.root} >
+			{filter}
 		</Box>
 	)
 }
