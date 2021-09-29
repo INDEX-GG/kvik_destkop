@@ -39,12 +39,12 @@ const Chat = () => {
 
 	//? Пользователь подключается к серверу
 	socket.on('connect', () => {
-		console.log('Зашёл')
+		// console.log('Зашёл')
 	})
 
 	socket.on("disconnect", (reason) => {
-		console.log(reason) // undefined
-		console.log('Ушёл')
+		 console.log(reason) // undefined
+		// console.log('Ушёл')
 		// socket.emit('disconnect', {'sender': sender, 'recipient': recipient})
 	});
 

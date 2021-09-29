@@ -54,7 +54,7 @@ const FilterRadio = ({ alias, title, radioData }) => {
   const classes = useStyles();
   const methods = useFormContext();
 
-  console.log(methods.watch(alias));
+  // console.log(methods.watch(alias));
   return (
     <Box className={classes.formBox}>
       <Typography className={classes.formTitle}>{title}</Typography>

@@ -128,7 +128,7 @@ const BuyDeliveryMap = ({ addressArr, dialog, setDialog }) => {
     );
   }
 
-  console.log(paragraphContent);
+  // console.log(paragraphContent);
 
   return (
     <DialogUI

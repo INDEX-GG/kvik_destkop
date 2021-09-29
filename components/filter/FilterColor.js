@@ -110,7 +110,7 @@ const FilterColor = ({ alias, title }) => {
       return [...col, value]
     })
   }
-  console.log(methods.watch());
+  // console.log(methods.watch());
 
   return (
     <Box className={classes.formBox}>

@@ -82,8 +82,9 @@ function Categories() {
   const [category, setCategory] = useState(undefined);
   const [category2, setCategory2] = useState(undefined);
   const [category3, setCategory3] = useState(undefined);
+  // eslint-disable-next-line no-unused-vars
   const [category4, setCategory4] = useState(undefined);
-  console.log(category4);
+
   const [valueOne, setValueOne] = useState(undefined);
   const [valueTwo, setValueTwo] = useState(undefined);
   const [valueThree, setValueThree] = useState(undefined);

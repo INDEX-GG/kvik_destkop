@@ -4,8 +4,8 @@ import { useMedia } from '../../hooks/useMedia'
 
 
 const ProductYMAP = ({coordinates, width, height}) => {
-	const ymapsLoad = (ymaps) => {
-		console.log(ymaps)
+	const ymapsLoad = () => {
+		// console.log(ymaps)
 	}
 
 	const {matchesMobile, matchesTablet} = useMedia()

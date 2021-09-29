@@ -88,7 +88,7 @@ export default function RegForm() {
 
   const onSubmit = (data) => {
     data.phone = `+${valueInp.replace(/\D+/g, "")}`;
-    console.log(data);
+    // console.log(data);
     setSendData(data);
     getDataByPost("/api/checkphone", { phone: data.phone }).then((res) => {
       setPhoneNum(res);

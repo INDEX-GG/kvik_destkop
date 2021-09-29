@@ -20,11 +20,11 @@ import { useCategory } from "../../hooks/useCategory";
 //     }
 // })) 
 
-export default function CategoriesPlaseOffer({categories, categoriesFunc, dialog, dialogFunc}) {
+export default function CategoriesPlaseOffer({categoriesFunc, dialog, dialogFunc}) {
     const router = useRouter()
     // const classes = useStyles()
 
-	console.log(categories);
+	// console.log(categories);
 
 	const { categoryMainAlias } = useCategory()
 

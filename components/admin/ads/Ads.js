@@ -41,7 +41,7 @@ export const Ads = () => {
          "page_limit": 20, 
          "last_post_id": 0
       })
-      .then((responce) => console.log(responce))
+      .then((responce) => responce)
    },[])
 
    return (

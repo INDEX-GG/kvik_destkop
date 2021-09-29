@@ -70,14 +70,14 @@ const OffersRender = ({ data, title, isProduct, page = false, limitRender = fals
 	const observer = useRef()
 	const lastElement = useRef()
 
-	console.log(lastElement)
+	// console.log(lastElement)
 	
 
 	useEffect(() => {
 		observerGenerate(lastElement, observer, limitRender, setLimitRenderPage, setPage, page)
 	})
 
-	console.log(data)
+	// console.log(data)
 
 	return (
 		<>

@@ -13,7 +13,7 @@ const DadataSuggest = () => {
 	const {city} = useCity()
 	const methods = useFormContext();
 
-	console.log(methods.control)
+	// console.log(methods.control)
 
 
 	const onSubmit = () => {
@@ -36,7 +36,7 @@ const DadataSuggest = () => {
 			.then(result => {
 				prevValue.current = value
 				setValue(JSON.parse(result)?.suggestions[0])
-				console.log(prevValue.current)
+				// console.log(prevValue.current)
 			})
 			.catch(error => console.log("error", error));
 			}

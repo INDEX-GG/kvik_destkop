@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-const Location = ({address}) => {
+const Location = () => {
 
    const classes = useStyles();
 //    const methods = useFormContext();
 
-   console.log(address)
+   // console.log(address)
 
    return (
       <Box className={classes.formElem}>

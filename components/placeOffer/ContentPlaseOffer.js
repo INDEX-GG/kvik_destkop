@@ -57,8 +57,8 @@ export default function ContentPlaseOffer({dialog, title, backFunc}) {
     }
 
     const onSubmit = data => {
-		console.log(data);
-		console.log(photoes)
+		// console.log(data);
+		// console.log(photoes)
         data.price = data.price.replace(/\D+/g, '');
 		const alias = [...title.split(",")]
 		let postId = 0;

@@ -175,7 +175,7 @@ const Location = memo(({ymaps, setData}) => {
 		  .then(() => {
 			  setMapMove(false)
 			  changeAddress(event.get('coords'))
-			  console.log(event.get('coords'))
+			//   console.log(event.get('coords'))
 			})
 	}
 
