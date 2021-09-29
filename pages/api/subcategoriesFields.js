@@ -4,12 +4,10 @@ export default async function handler(req, res) {
 		const prisma = new PrismaClient();
 		const main = async () => {
 			const subcategory = req.body.subcategory;
-			console.log(subcategory);
 			if (subcategory != null && subcategory !== '') {
 				const subs = await prisma.$queryRaw(`SELECT * FROM ${subcategory} WHERE post_id = '${req.body.post_id}'`)
 				let dict = subs[0]
 				dict.subcategory = subcategory
-				console.log(dict);
 				// for (var key in dict){
 				// 	if (dict[key] === false) {
 				// 		delete dict[key]

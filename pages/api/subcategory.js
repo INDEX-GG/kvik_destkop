@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
-	console.log(req.body)
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 

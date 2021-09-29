@@ -8,7 +8,6 @@ export default async function handler(req, res) {
 
 			// const name = 'комнаты'
 			// const searchResults = await prisma.$queryRaw(`SELECT name FROM categories WHERE name LIKE '%${name}%' LIMIT 5`)
-			// console.log(searchResults)
 
 			//Этот запрос нужно будет связать с таблицей
 			async function getPost(ids) {

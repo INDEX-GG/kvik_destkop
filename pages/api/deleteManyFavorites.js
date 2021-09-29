@@ -16,7 +16,6 @@ export default async function handler(req, res) {
                     }
             })
             let list = JSON.parse(favorites['favorites'])
-            console.log(list);
             const data = req.body.field
             for (let idx in data) {
                 let message = 'error'

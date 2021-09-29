@@ -63,7 +63,6 @@ const Index = () => {
 
 	useEffect(() => {
 		scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
-		console.log(lastIdAds)
 	}, [page])
 	
 	useEffect(() => {
