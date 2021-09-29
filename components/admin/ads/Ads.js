@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { brooklyn } from '../../../lib/services';
 import Loading from '../../../UI/icons/Loader';
 import RejectedAdmin from './tabs/RejectedAdmin';
 import WaitingAdmin from './tabs/WaitingAdmin';
+import axios from "axios";
 
 const RejecteBox = [
    { id: 1, imgs: ['https://source.unsplash.com/random?interior', 'https://source.unsplash.com/random?car', 'https://source.unsplash.com/random'], title: '2-комн. кваритра, 95 м', price: 3000000, date: '00.00.00', username: 'Ну прямо очень весьма и весьма длинное имя', userpic: 'https://source.unsplash.com/random?portrait', locality: 'Центральный административный округ, Москва', description: 'Продам на длительный срок 2-комнатную квартиру в центре города с мебелью. Хорошая квартира, уютная и светлая, расположение дома на второй линии от дороги-нет шума машин.Бытовая техника есть, балкон застеклен, комнаты смежные. Установлены евроокна, современные радиаторы, межкомнатные двери, балкончик застеклен.Продам на длительный срок 2-комнатную квартиру в центре города с мебелью. Хорошая квартира, уютная и светлая, расположение дома на второй линии от дороги-нет шума машин. Бытовая техника есть, балкон застеклен, комнаты смежные.  Установлены евроокна, современные радиаторы, межкомнатные двери, балкончик застеклен. Квартира оснащена кухонным гарнитуром. Окна выходят во двор. Хорошая квартира, уютная и светлая, расположение дома на второй линии, тихий двор.', categorys: [{ category: "Категория1" }, { category: "Категория2" }, { category: "Категория3" }, { category: "Категория4" }, { category: "Категория5" }] },
@@ -32,8 +33,16 @@ const navItems = [
 ];
 
 export const Ads = () => {
+
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
 
+   React.useEffect( () => {
+      axios.post(`/api/getPostsModerator`, {
+         "page_limit": 20, 
+         "last_post_id": 0
+      })
+      .then((responce) => console.log(responce))
+   },[])
 
    return (
       <>

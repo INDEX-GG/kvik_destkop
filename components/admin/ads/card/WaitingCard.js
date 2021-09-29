@@ -129,15 +129,16 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                             </SwiperSlide>
                         ))}
                     </Swiper>
-                        {/* добавить в свайпер ниже onActiveIndexChange  */}
+                        {/* добавить в свайпер ниже onActiveIndexChange есть баг при нажатии на картинки снижу они перелистываются в лево */}
                     <Swiper
                         onSwiper={setThumbsSwiper}
                         className="mySwiper productSliderNav admin-page_modal-swiper" 
                         style={{ height: '88px', display: "block"}}
                         spaceBetween={1}
+                        slideToClickedSlide={true}
                     >
                         { offer.imgs.map( (img, index) => (
-                            <SwiperSlide key={index} className="productSliderNavItem" >
+                            <SwiperSlide key={564+index} className="productSliderNavItem" >
                                 <img src={img} alt=""  style={{ height: "88px"}}/>
                             </SwiperSlide>
                         ))}
