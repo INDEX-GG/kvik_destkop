@@ -49,7 +49,7 @@ export default async function handler(req, res) {
 						date_verify: now,
 						verify: 1,
 						subcategory: req.body.subcategory,
-						verify_moderator: { "verify": ['1'] },
+						verify_moderator: { "verify": [] },
 											}
 				}
 				const allUsers = await prisma.posts.create(obj);
