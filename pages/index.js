@@ -60,7 +60,7 @@ const Index = () => {
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
 	const [lastIdAds ,setLastIdAds] = useState(0);
 	const limit = 10
-
+	console.log(lastIdAds)
 	useEffect(() => {
 		scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
 	}, [page])
