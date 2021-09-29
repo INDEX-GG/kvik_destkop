@@ -6,7 +6,7 @@ export default async function handler(req, res) {
             const page_limit = req.body.page_limit
             const page = (req.body.page - 1) * page_limit
             const user_id = (req.body.user_id).toString()
-            let answer = await prisma.$queryRaw(`SELECT id, user_id, category_id, price, old_price, photo, rating, created_at, delivery, reviewed, address, phone, trade, verify_moderator, commercial, secure_transaction, title, email, viewing FROM "posts" WHERE active = 0 ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+            let answer = await prisma.$queryRaw(`SELECT id, user_id, category_id, price, old_price, photo, rating, created_at, delivery, reviewed, address, phone, trade, verify_moderator, commercial, secure_transaction, title, email, viewing FROM "posts" WHERE active = 0 AND verify = 0 ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
             for (let index in answer) {
                 let views = (answer[index]).viewing
                 let preList = views.substring(1);
