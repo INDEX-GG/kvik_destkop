@@ -29,14 +29,14 @@ function MyApp({ Component, pageProps }) {
 				</Head>
 				<AuthProvider>
 					<ThemeProvider theme={theme}>
-						<CityProvider>
-							<StoreProvider>
+						<StoreProvider>
+							<CityProvider>
 								<MainLayout>
 									<CssBaseline />
 									<Component {...pageProps} />
 								</MainLayout>
-							</StoreProvider>
-						</CityProvider>
+							</CityProvider>
+						</StoreProvider>
 					</ThemeProvider>
 				</AuthProvider>
 			</SWRConfig>
