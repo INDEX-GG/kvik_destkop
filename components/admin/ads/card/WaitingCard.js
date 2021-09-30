@@ -3,7 +3,8 @@ import { ToRubles } from '../../../../lib/services';
 import { Modal } from "@material-ui/core";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
-import { STATIC_URL } from "../../../../lib/constants"
+import { STATIC_URL } from "../../../../lib/constants";
+import {initials, stringToColor} from "../../../../lib/services";
 
 SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
@@ -20,6 +21,8 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
     const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
     const [activeSlide, setActiveSlide] = React.useState(0);
 
+    console.log("ChildCheck=======>", check)
+    
     React.useEffect( () => {
         parentCheck ? check ? null : handleChange(parentCheck) : check === false ? null : offerId.length === 0 ? handleChange(parentCheck) : null;
     }, [parentCheck])
@@ -46,6 +49,8 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
     if (modalSwiper) {
         modalSwiper.slideTo(activeSlide, 0);
     }
+
+    /* <div className="clientPage__userinitials" style={{ backgroundColor: `${stringToColor(offer.name)}`, fontSize: "14px", fontWeight: "400" }}>{initials(offer.name)}</div> */
     
     return (
         <div key={offer.id} className="ad__wrapper">
@@ -94,11 +99,11 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                     </div>
                 </div>
                 <div className="ad__information__user">
-                    <div className="ad__information__user_icon">
-                        <img src={`${offer.userpic}?${offer.id}`} />
-                    </div>
+                    { offer.userPhoto && <div className="ad__information__user_icon"> <img src={`${STATIC_URL}/${offer.userPhoto}`}/> </div> 
+                      || <div className="ad__information__user_icon" style={{ backgroundColor: `${stringToColor(offer.name)}`}}> {initials(offer.name)} </div>
+                    }
                     <div className="ad__information__user_name">
-                        {offer.username}
+                        {offer.name}
                     </div>
                 </div>
                 <p value={index} className="ad__information__description ad_close">
@@ -131,7 +136,7 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                             </SwiperSlide>
                         ))}
                     </Swiper>
-                        {/* добавить в свайпер ниже onActiveIndexChange есть баг при нажатии на картинки снижу они перелистываются в лево */}
+                        {/* добавить в свайпер ниже onActiveIndexChange есть баг при нажатии на картинки снизу они перелистываются влево */}
                     <Swiper
                         onSwiper={setThumbsSwiper}
                         className="mySwiper productSliderNav admin-page_modal-swiper" 

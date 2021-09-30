@@ -15,13 +15,18 @@ function WaitingAdmin({offers}) {
       setOfferId(isCheck ?  ( previous => [...previous, id] )  :  ( previous => previous.filter( item => item !== id) ) );
    }
    useEffect(() => {
-      offers.length === offerId.length ? check ? null : setCheck(true) : check === false ? null : setCheck(false);
+      offers.length === offerId.length ? /* check ? null : */ setCheck(true) : /* check === false ? null : */ setCheck(false);
    },[offerId])
+
    if(offers.length < 1) {
       return <></>
    }
+   
+   console.log("offerId=======>", offerId)
+   console.log("parentCheck=======>", check)
+
    return (
-      <div className="clientPage__container_bottom">
+      <div className="clientPage__container_bottom" >
          <div className="clientPage__container_nav__radio">
             <label className="checkbox">
                <input 

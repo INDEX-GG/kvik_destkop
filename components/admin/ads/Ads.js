@@ -31,23 +31,48 @@ export const Ads = () => {
    ]; */
 
    const [WaitingBox, setWaitingBox] = useState([]);
+   const [fetch, setFetch] = useState(false);
 
    React.useLayoutEffect( () => {
       axios.post(`/api/getPostsModerator`, {
-         "page_limit": 10, 
+         "page_limit": 5, 
          "last_post_id": 0
       })
-      .then((responce) => setWaitingBox(responce.data))
-      console.log(WaitingBox)
+      .then((responce) => {setWaitingBox(responce.data)})
    },[])
 
+   React.useEffect ( () => {
+      if(fetch) {
+         axios.post(`/api/getPostsModerator`, {
+            "page_limit": 5, 
+            "last_post_id": WaitingBox[WaitingBox.length - 1].id
+         })
+         .then((responce) => {
+            setWaitingBox(prev => prev.concat(responce.data));
+            responce.data.length > 0 && setFetch(false);
+            console.log(responce)
+         })
+      }
+   }, [fetch])
+
+   React.useEffect ( () => {
+      document.addEventListener( "scroll", () => {
+         if((document.documentElement.scrollHeight - window.innerHeight)*0.7 <= document.documentElement.scrollTop && fetch === false) {
+            setFetch(true);
+            console.log("колво вызовов====>",fetch);
+         }
+      })
+   },[])
+
+   console.log(WaitingBox[WaitingBox.length - 1]?.id);
+
    const navItems = [
-      { id: 1, title: 'Ждут одобрения', content: < WaitingAdmin offers={WaitingBox} />, count: WaitingBox.length },
+      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin offers={WaitingBox} />, count: WaitingBox.length },
       { id: 2, title: 'Отклоненные', content: <RejectedAdmin offers={RejecteBox} />, count: RejecteBox.length }
    ];
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
-   console.log(WaitingBox)
+
    return (
       <>
          <div className="clientPage__container_top" >
@@ -70,7 +95,7 @@ export const Ads = () => {
          {navItems.map(item => {
             console.log(item)
             return (
-               (itemNav.i === item.id) && (item.content ? item.content : (<div key={item.id} className="userPageContentCompare"><Loading /> </div>))
+               (itemNav.i === item.id) && (item.content ? item.content : (<div key={item.id} className="userPageContentCompare" ><Loading /> </div>))
             )
          })}
       </>
