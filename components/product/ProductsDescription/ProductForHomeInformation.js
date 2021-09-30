@@ -14,7 +14,7 @@ const ProductForHomeInformation = ({data, mobile, description, productData}) => 
     let count = 0
     for (let key in data){
       if (key !== "id" && key !== "post_id" && key !== "subcategory"){
-        console.log(key);
+        // console.log(key);
         if (data[key]) count++
       }
     }

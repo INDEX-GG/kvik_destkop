@@ -4,10 +4,10 @@ import { Dialog } from '@material-ui/core';
 import WaitingCard from '../card/WaitingCard';
 
 function WaitingAdmin({offers}) {
-   
+   console.log(offers)
    const [check, setCheck] = useState(false);
    const [offerId, setOfferId] = useState([]);
-
+   
    const [openWaitForm, setOpenWaitForm] = useState(false);
    const handleWaitFormDialog = () => setOpenWaitForm(!openWaitForm);
 
@@ -15,12 +15,18 @@ function WaitingAdmin({offers}) {
       setOfferId(isCheck ?  ( previous => [...previous, id] )  :  ( previous => previous.filter( item => item !== id) ) );
    }
    useEffect(() => {
-      offers.length === offerId.length ? check ? null : setCheck(true) : check === false ? null : setCheck(false);
+      offers.length === offerId.length ? /* check ? null : */ setCheck(true) : /* check === false ? null : */ setCheck(false);
    },[offerId])
 
+   if(offers.length < 1) {
+      return <></>
+   }
    
+   console.log("offerId=======>", offerId)
+   console.log("parentCheck=======>", check)
+
    return (
-      <div className="clientPage__container_bottom">
+      <div className="clientPage__container_bottom" >
          <div className="clientPage__container_nav__radio">
             <label className="checkbox">
                <input 

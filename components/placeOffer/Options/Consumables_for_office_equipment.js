@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ConsumablesForOfficeEquipment({ data }) {
   const methods = useFormContext();
   const classes = useStyles();
-  console.log("odgs ++++>", data);
+  // // console.log("odgs ++++>", data);
   return (
     <>
       {data.map((item, idx) => {

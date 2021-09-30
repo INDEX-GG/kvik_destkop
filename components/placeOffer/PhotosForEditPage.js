@@ -176,9 +176,6 @@ const PhotoForEditPage = ({ctx, photo}) => {
         "Добавьте или перетащите фото"
     );
 
-
-
-
     useEffect(() => {
         setOldPhotos(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
     }, [stringPhotos]);
@@ -310,22 +307,20 @@ const PhotoForEditPage = ({ctx, photo}) => {
                     };
                 };
 
-                setErrorMessage("Добавьте или перетащите фото");
+                setErrorMessage("Попробуйте другой формат, например jpg или png");
             } else {
                 files[i]["invalid"] = true;
                 setSelectedFiles(files[i]);
-                setErrorMessage("Попробуте другой формат, например jpg или png");
+                setErrorMessage("Добавьте или перетащите фото");
                 setUnsupportedFiles((prevArray) => [...prevArray, files[i]]);
             }
         }
     };
 
     const validateFile = (file) => {
-        const validTypes = ["image/jpeg", "image/jpg", "image/png"];
-        if (validTypes.indexOf(file.type) === -1) {
-            return false;
-        }
-        return true;
+        const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+        return validTypes.indexOf(file.type) === -1;
+
     };
 
     const removeFile = (name) => {
@@ -344,7 +339,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
     }
 
     const rotate = (data) => {
-        const filteredValid = validFiles
+        const filteredValid = !data.old ? validFiles : oldPhotos
         const index = filteredValid.indexOf(data);
         if (!filteredValid[index].angle) {
             filteredValid[index].angle = 0;
@@ -353,20 +348,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
         if (filteredValid[index].angle === 360) {
             filteredValid[index].angle = 0;
         }
-        setValidFiles([...filteredValid]);
-    };
-
-    const rotateOld = (data) => {
-        const filteredValid = oldPhotos
-        const index = filteredValid.indexOf(data);
-        if (!filteredValid[index].angle) {
-            filteredValid[index].angle = 0;
-        }
-        filteredValid[index].angle += 90;
-        if (filteredValid[index].angle === 360) {
-            filteredValid[index].angle = 0;
-        }
-        setOldPhotos([...filteredValid]);
+        !data.old ?  setValidFiles([...filteredValid]) : setOldPhotos([...filteredValid]);
     };
 
     ctx(oldPhotosAndNewObjectsPhotos);
@@ -405,67 +387,34 @@ const PhotoForEditPage = ({ctx, photo}) => {
 
         const img = imageData.find((el) => el.name === data.name);
 
-        if ('old' in data) {
-            return (
-                <div
-                    style={{marginRight: "5px", userSelect: "none"}}
-                    className={classes.card}
-                >
-                    <img
-                        src={data.src}
-                        id={i}
-                        style={{
-                            transform: data.angle
-                                ? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-                                }`
-                                : null,
-                        }}
-                    />
+        return (
                     <div
-                        className={classes.rotate}
-                        onClick={() => rotateOld(data)}
-                    />
-                    <div
-                        className={classes.delete}
-                        onClick={() => removeSrc(data.name)}
-                    />
-                    {i === 0 && (
-                        <div className={classes.mainPhoto}>Главное фото</div>
-                    )}
-                </div>
-            );
-        } else {
-            // тут новые фото
-            return (
-                <div
-                    style={{marginRight: "5px", userSelect: "none"}}
-                    className={classes.card}
-                >
-                    <img
-                        src={img?.src}
-                        id={`prev${img?.id}`}
-                        style={{
-                            transform: data.angle
-                                ? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-                                }`
-                                : null,
-                        }}
-                    />
-
-                    <div
-                        className={classes.rotate}
-                        onClick={() => rotate(data)}
-                    />
-                    <div
-                        className={classes.delete}
-                        onClick={() => removeFile(img?.name)}
-                    />
-                    {i === 0 && (
-                        <div className={classes.mainPhoto}>Главное фото</div>
-                    )}
-                </div>
-            );
-        }
+                        style={{marginRight: "5px", userSelect: "none"}}
+                        className={classes.card}
+                    >
+                        <img
+                            src={!data.old ? img?.src : data.src}
+                            id={!data.old ? `prev${img?.id}` : i}
+                            style={{
+                                transform: data.angle
+                                    ? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+                                    }`
+                                    : null,
+                            }}
+                        />
+                        <div
+                            className={classes.rotate}
+                            onClick={() => rotate(data)}
+                        />
+                        <div
+                            className={classes.delete}
+                            onClick={() => !data.old ? removeFile(img?.name) : removeSrc(data.name)}
+                        />
+                        {i === 0 && (
+                            <div className={classes.mainPhoto}>Главное фото</div>
+                        )}
+                    </div>
+                );
     });
 
     const onSortEnd = ({oldIndex, newIndex}) => {

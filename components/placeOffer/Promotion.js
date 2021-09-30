@@ -4,6 +4,7 @@ import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
 import router, { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
+import {STATIC_URL} from "../../lib/constants";
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -192,7 +193,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function Promotion({ dialog = false, setDialog = false, product }) {
+export default function Promotion({ dialog = false, setDialog = false, product, editProduct }) {
 
 	const [promotion, setPromotion] = useState([false, false, false, false, false, false, false, false, false])
 	const [free, setFree] = useState(false)
@@ -210,7 +211,7 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 
 	function changeValue(str) {
 		setValue(str)
-		console.log(value)
+		// console.log(value)
 	}
 
 	function generateArr(index) {
@@ -294,12 +295,12 @@ export default function Promotion({ dialog = false, setDialog = false, product }
 				<div className={classes.productContainer}>
 					<div className={classes.productCard}>
 						{/* !!!!!!!!!! Change */}
-						<img src={product.photo} className={classes.productImg} alt="product photo" />
-						<div className={classes.productPrice}>{product.price} ₽</div>
-						<div className={classes.productName}>{product.title}</div>
+						<img src={!editProduct ? product.photo : `${STATIC_URL}/${editProduct.photo[0]}`} className={classes.productImg} alt="product photo" />
+						<div className={classes.productPrice}>{!editProduct ? product.price : editProduct.price} ₽</div>
+						<div className={classes.productName}>{!editProduct ? product.title : editProduct.title}</div>
 					</div>
-					<div onClick={() => router.push(`/product/${product.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>
-					<div className={classes.productPublished}>Ваше объявление опубликовано!</div>
+					<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>
+					<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление опубликовано!' : 'Ваше объявление отредактировано!'}</div>
 					<Button className={classes.productButton} onClick={() => rounter.push("/")}>Хорошо</Button>
 				</div>
 			</Dialog>

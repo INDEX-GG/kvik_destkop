@@ -87,7 +87,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						slidesPerView={6}
 						spaceBetween={1}
 						className="mySwiper2"
-						>
+					>
 						{/* <div className="seen__ad">Просмотрено</div> */}
 						{!matchesTablet && !matchesMobile ? 
 						data.map((img, i) => (

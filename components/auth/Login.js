@@ -61,9 +61,9 @@ const Login = () => {
   const { matchesMobile } = useMedia();
   const onSubmit = (data) => {
     data.phone = `+${data.phone.replace(/\D+/g, "")}`;
-    console.log(data);
+    // console.log(data);
     getDataByPost("/api/checkUser", data).then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res?.isset === false) {
         setError("phone", { type: "validate", message: " " });
         setError("password", {

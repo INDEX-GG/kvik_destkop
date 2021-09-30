@@ -113,11 +113,13 @@ const FilterColor = ({ alias, title }) => {
     })
   }
 
+
   useEffect(() => {
     if (methods.watch(alias) === undefined){
       setColors([])
     }
   },[methods.watch(alias)])
+
 
   return (
     <Box className={classes.formBox}>

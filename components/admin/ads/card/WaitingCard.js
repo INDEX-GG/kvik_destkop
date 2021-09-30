@@ -2,22 +2,31 @@ import React from 'react';
 import { ToRubles } from '../../../../lib/services';
 import { Modal } from "@material-ui/core";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination,Navigation } from 'swiper';
-SwiperCore.use([Pagination,Navigation]);
+import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
+import { STATIC_URL } from "../../../../lib/constants";
+import {initials, stringToColor} from "../../../../lib/services";
+
+SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
 
 function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, getDataChild, offerId}) {
+
+    const {photos} = JSON.parse(offer.photo);
+
     const [check, setCheck] = React.useState(false);
     const [openModal, setOpenModal] = React.useState(false);
-    // const [cardSwiper, setCardSwiper] = React.useState(null);
-    // const [modalSwiper, setModalSwiper] = React.useState(null);
-    //const [slide, setSlide] = React.useState(1);
+
+    const [cardSwiper, setCardSwiper] = React.useState(null);
+    const [modalSwiper, setModalSwiper] = React.useState(null);
+    const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
+    const [activeSlide, setActiveSlide] = React.useState(0);
+
+    console.log("ChildCheck=======>", check)
     
     React.useEffect( () => {
         parentCheck ? check ? null : handleChange(parentCheck) : check === false ? null : offerId.length === 0 ? handleChange(parentCheck) : null;
     }, [parentCheck])
-
-
+    
     const listRef = (e) => {
         const adInformation = document.querySelectorAll(".ad__information__description")[e.target.value]
         const loerMore = document.querySelectorAll(".btn__loer_more")[e.target.value]
@@ -35,7 +44,14 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
         setCheck(event);
         getDataChild({id: offer.id, isCheck: event })
     }
+    
+   
+    if (modalSwiper) {
+        modalSwiper.slideTo(activeSlide, 0);
+    }
 
+    /* <div className="clientPage__userinitials" style={{ backgroundColor: `${stringToColor(offer.name)}`, fontSize: "14px", fontWeight: "400" }}>{initials(offer.name)}</div> */
+    
     return (
         <div key={offer.id} className="ad__wrapper">
             <div className="ad__check">
@@ -43,27 +59,25 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                     <input 
                         type="checkbox" 
                         onChange={(event) => handleChange(event.target.checked) }
+                        checked={check}
                     />
                     <div className="checkbox__text"></div>
                 </label>
             </div>
-            <a  className="ad_slider" onClick={() => setOpenModal(!openModal)}>
-                {/* <img src={(offer.imgs)[0]} alt="" /> */}
+            <a  className="ad_slider"  >
                 <Swiper
+                    navigation={true}
                     pagination={{type: "fraction"}}
-                    /* onActiveIndexChange={(swiper) => {
-                        modalSwiper?.slideTo(swiper.activeIndex)
-                    }} */
+                    onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
                     className="mySwiper2 admin-page-swiper"
-                    //onSwiper={setCardSwiper}
+                    onSwiper={setCardSwiper}
                 >
-                    {offer.imgs.map( (img, index) => (
-                        <SwiperSlide key={index} >
-                            <img src={img} alt="" />
+                    {photos.map( (img, index) => (
+                        <SwiperSlide key={index} onClick={() =>{ setOpenModal(!openModal)}} >
+                            <img src={`${STATIC_URL}/${img}`} alt="" style={{ width: "280px"}}/>
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                {/* <div className="ad__photo_count">{slide}/{(offer.imgs).length}</div> */}
             </a>
             <div className="ad__information">
                 <div className="ad__information__blocks">
@@ -71,11 +85,12 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                         <div className="ad__information_price">{ToRubles(offer.price)}</div>
                         <div className="ad__information_title">{offer.title}</div>
                         <div className="ad__information_category">
-                        {offer.categorys.map(category => {
-                            return (
-                                <span key={category.id}>{category.category}</span>
-                            );
-                        })
+                        {   
+                            offer.category_id.split(',').map(category => {
+                                return (
+                                    <span key={category.id}>{category}</span>
+                                );
+                            })
                         }
                         </div>
                     </div>
@@ -84,11 +99,11 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                     </div>
                 </div>
                 <div className="ad__information__user">
-                    <div className="ad__information__user_icon">
-                        <img src={`${offer.userpic}?${offer.id}`} />
-                    </div>
+                    { offer.userPhoto && <div className="ad__information__user_icon"> <img src={`${STATIC_URL}/${offer.userPhoto}`}/> </div> 
+                      || <div className="ad__information__user_icon" style={{ backgroundColor: `${stringToColor(offer.name)}`}}> {initials(offer.name)} </div>
+                    }
                     <div className="ad__information__user_name">
-                        {offer.username}
+                        {offer.name}
                     </div>
                 </div>
                 <p value={index} className="ad__information__description ad_close">
@@ -97,20 +112,45 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                 <button className="btn__loer_more" value={index} onClick={(e, index) => listRef(e, index)} >Развернуть</button>
                 <button className="btn__ad_add">Одобрить</button>
             </div>
-            <Modal open={openModal} onClose={() => setOpenModal(!openModal)} className="productModal">
-                <Swiper
-                    className="productSliderWrapper"
-                    navigation={true}
-                    slidesPerView={1}
-                    slideToClickedSlide={true}
-                    //onSwiper={setModalSwiper}
-                >
-                    { offer.imgs.map( (img, index) => (
-                        <SwiperSlide key={index} className="productSliderItem" >
-                            <img src={img} alt=""  style={{objectFit: "contain", width: "100%", height: "100%"}}/>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+            <Modal 
+                open={openModal} 
+                onClose={() => {
+                    setOpenModal(!openModal); 
+                    setThumbsSwiper(null); 
+                    cardSwiper.slideTo(activeSlide, 0);
+                }} 
+                className="productModal"
+            >
+                <>
+                    <Swiper
+                        className="productSliderWrapper"
+                        navigation={true}
+                        slidesPerView={1}
+                        onSwiper={setModalSwiper}
+                        onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
+                        thumbs={{swiper: thumbsSwiper}}
+                    >
+                        {photos.map( (img, index) => (
+                            <SwiperSlide key={index} className="productSliderItem" >
+                                <img src={`${STATIC_URL}/${img}`} alt=""  style={{objectFit: "contain", width: "100%", height: "100%"}}/>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                        {/* добавить в свайпер ниже onActiveIndexChange есть баг при нажатии на картинки снизу они перелистываются влево */}
+                    <Swiper
+                        onSwiper={setThumbsSwiper}
+                        className="mySwiper productSliderNav admin-page_modal-swiper" 
+                        style={{ height: '88px', display: "block"}}
+                        spaceBetween={1}
+                        slideToClickedSlide={true}
+                    >
+                        {photos.map( (img, index) => (
+                            <SwiperSlide key={564+index} className="productSliderNavItem" >
+                                <img src={`${STATIC_URL}/${img}`} alt=""  style={{ height: "88px"}}/>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </>
             </Modal>
         </div>
     )

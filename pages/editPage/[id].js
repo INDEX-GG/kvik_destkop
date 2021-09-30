@@ -19,11 +19,6 @@ import Promotion from '../../components/placeOffer/Promotion';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
-// import { useCategoryPlaceOffer } from '../../hooks/useCategoryPlaceOffer';
-// import AdditionalInformation from '../../components/placeOffer/AdditionalInformation';
-// import Category from '../components/placeOffer/Category';
-// import { DelActiveCTX } from "../../lib/Context/DialogCTX"
-// import { useOfferAccount } from "../../lib/Context/OfferAccountCTX";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -61,18 +56,13 @@ const useStyles = makeStyles((theme) => ({
 
 function EditPage() {
 	const { query } = useRouter();
-
-	// const { productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
-
-	// запрос содержимого полей для редактирования
 	const { price, title, photo, description, address, productInfoFields } = useProduct(query.id)
-	console.log('postID from offer', productInfoFields.post_id)
 
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
 	const [promotion, setPromotion] = useState(false);
-	const [product, setProduct] = useState({});
+	const [editProduct, setEditProduct] = useState({});
 	const { matchesMobile, matchesTablet } = useMedia();
 	const [edit, setEdit] = useState(false)
 
@@ -83,57 +73,17 @@ function EditPage() {
 		return photoes = obj;
 	}
 
+	// убирает Категорию из verify
 	useEffect(() => {
-		setEdit(true)
+	setEdit(true)
 	}, []);
 
-	// console.log(methods)
-	/* получение дополнительных полей */
-	// const [asd, setAsd] = useState();
-	// const { ...newOBJ } = useCategoryPlaceOffer(asd);
-	// useEffect(() => {
-	// 	if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
-	// 		setAsd(methods?.watch('alias4'));
-	// 	} else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
-	// 		setAsd(methods?.watch('alias3'));
-	// 	} else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
-	// 		setAsd(methods?.watch('alias2'));
-	// 	} else {
-	// 		setAsd(undefined);
-	// 	}
-	// 	/*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
-	// 			 setAsd(methods?.watch('alias4'));
-	// 	 } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
-	// 			 setAsd(methods?.watch('alias3'));
-	// 	 } else if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
-	// 			 setAsd(methods?.watch('alias2'));
-	// 	 } else {
-	// 		 setAsd(undefined);
-	// 	 } */
-	// }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
 	const onSubmit = data => {
-		 console.log('DATATAAAAAAA',data)
-		console.log(photoes, photoes.length)
 		data.price = data.price.replace(/\D+/g, '');
-		const alias = [data?.alias1, data?.alias2];
-		if (data?.alias3) {
-			alias.push(data.alias3);
-		}
-		if (data?.alias4) {
-			alias.push(data.alias4);
-		}
-
-		console.log('alias',alias);
-		data.alias = alias.join(',');
 		data.user_id = id
-		delete data.alias1
-		delete data.alias2
-		delete data.alias3
-		delete data.alias4
 		delete data.photoes
 		const photoData = new FormData;
-		console.log('photoes',photoes)
 		if (photoes.length > 1) {
 			photoes.forEach(photo => photoData.append('files[]', photo));
 		} else if (photoes.length === 1) {
@@ -141,65 +91,57 @@ function EditPage() {
 		}
 
 		let obj = {}
-		// let additionalfields = { [asd]: [] }
-		// let additionalfields2 = { [asd]: [] }
-		//
-		// let additionalfields3 = { [asd]: [] }
+		for (let key in data) {
+			if (key === 'title'  || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
+				obj[key] = data[key];
+			}
+		}
 
-		// for (var key in data) {
-		// 	if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
-		// 		obj[key] = data[key];
-		// 	}
-		// 	else {
-		// 		/* console.log('key', key.replace(/[0-9]/g, '')) */
-		// 		additionalfields2[asd].push({ "alias": key.replace(/[0-9]/g, ''), "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
-		//
-		// 		additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key].replace(/\D+/g, '') : data[key] })
-		//
-		// 		additionalfields3[asd].push({ "alias": key.replace(/[0-9]/g, '') })
-		//
-		// 	}
-		// }
-
-		// console.log(additionalfields3[asd])
-
-		// if (newOBJ[asd] !== undefined) {
-		// 	obj.subcategory = asd
-		// }
-		// console.log(additionalfields)
-		// console.log(additionalfields2)
-
-		console.log('obj',obj)
 		setLoading(true);
 
-		axios.post(`${BASE_URL}/api/setPosts`, obj)
-			.then(r => {
-				console.log('r up',r)
-				console.log('postId',postId)
-				// additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
-				// console.log(additionalfields)
-				// axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-
-				axios.post(`${STATIC_URL}/post_update/${postId}`, photoData, {
-					headers: {
-						"Content-Type": "multipart/form-data"
+		 axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
+			headers: {
+				"Content-Type": "multipart/form-data"
+			}
+		})
+		.then((r) => {
+			let allConvertedPhoto = [...photoes]
+			let jj = 0
+			// для увиличения j во внутреннем цикле
+			for (let i = 0; i < allConvertedPhoto.length; i++) {
+				if (allConvertedPhoto[i].lastModified && allConvertedPhoto[i].lastModified !== undefined) {
+					for (let j = 0+jj; j < r.data.images.photos.length; j++) {
+						allConvertedPhoto[i] = r.data.images.photos[j]
+						jj = ++j;
+						if(allConvertedPhoto[i] === allConvertedPhoto[i]) break;
 					}
-				}).then((r) => {
-					console.log('r down',r)
-					setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-					console.log('product axios',product)
-					console.log('img',r?.data.images.photos[0])
-					setPromotion(true)
-				})
+				} else {
+					allConvertedPhoto[i] = allConvertedPhoto[i].src.replace('http://192.168.8.111:6001/', '')
+				}
+			}
+			axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
+				title : obj.title,
+				description: obj.description,
+				price: obj.price,
+				address: obj.location,
+				photo: allConvertedPhoto
 			})
+			setEditProduct({post_id: postId,
+				title : obj.title,
+				description: obj.description,
+				price: obj.price,
+				address: obj.location,
+				photo: allConvertedPhoto
+			})
+			setPromotion(true)
+		})
+
 
 	}
 
-
-
 	return (
 
-		promotion ? <Promotion product={product} /> :
+		promotion ? <Promotion editProduct={editProduct} /> :
 			<MetaLayout title={'Редактирование объявления'}>
 				{!matchesMobile && !matchesTablet && <Container className={classes.root}>
 					{price && title && photo && description && address && < Box className={classes.offersBox}>

@@ -104,18 +104,18 @@ const Favorites = () => {
 			seller_id: sellerID + ""
 		}
 
-		axios.post("/api/getSubscriptions", { user_id: String(id) }).then(data => console.log(data.data))
+		axios.post("/api/getSubscriptions", { user_id: String(id) })
 
 		await axios.post("/api/subscriptions", subscribe)
-			.then(res => console.log(res.data))
-			.catch(error => console.log(error))
+			// .then(res => console.log(res.data))
+			// .catch(error => console.log(error))
 
 		getDataByPost("/api/getSubscriptions", { user_id: String(id) }).then(r => setSeller(r))
 
 
 
 	}
-	console.log(seller)
+	// console.log(seller)
 	const navItems = [
 		{ id: 1, title: 'Объявления', content: <Offers key={1} itemsPost={favAciveOffer} />, count: favAciveOffer != undefined ? favAciveOffer?.length : 0 },
 		{ id: 2, title: 'Продавцы', content: <Sellers key={2} sellers={seller} sellerSub={subscribeUser} />, count: seller != undefined ? seller.length : 0 },
