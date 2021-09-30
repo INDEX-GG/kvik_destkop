@@ -49,6 +49,7 @@ const Price = (props) => {
 					<Controller
 						name="price"
 						control={methods.control}
+						shouldUnregister
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<TextField
 								defaultValue={props.price}
@@ -66,6 +67,7 @@ const Price = (props) => {
 					<Controller
 						name='trade'
 						control={methods.control}
+						shouldUnregister
 						defaultValue={false}
 						render={({ field: { onChange, value } }) => (
 							<FormControlLabel

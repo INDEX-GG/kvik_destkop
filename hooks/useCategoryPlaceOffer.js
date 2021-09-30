@@ -258,6 +258,7 @@ export const useCategoryPlaceOffer = (data, methods) => {
                                 case 'charge_power':
                                 case 'discrete_graphics_manufacturer':
                                 case 'land_area':
+                                case 'price':
                                 case 'wage':
                                 case 'tv_year':
                                 case "manipulators__input_devices_name":

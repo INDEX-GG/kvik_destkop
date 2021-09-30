@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MainPlaceholder({ data }) {
   const methods = useFormContext();
   const classes = useStyles();
+
   return (
     <>
       {data.map((item, idx) => {
@@ -424,7 +425,7 @@ export default function MainPlaceholder({ data }) {
         }
         if (
           item.alias === "pledge" ||
-          item.alias === "wage" ||
+          item.alias === "price" ||
           item.alias === "security_payment" 
         ) {
           switch (item.type) {
@@ -436,6 +437,7 @@ export default function MainPlaceholder({ data }) {
                   </Typography>
                   <Box className={classes.formInputField}>
                     <Controller
+                      shouldUnregister
                       name={item.alias}
                       control={methods.control}
                       defaultValue=""
@@ -467,6 +469,7 @@ export default function MainPlaceholder({ data }) {
                   </Typography>
                   <Box className={classes.formInputField}>
                     <Controller
+                      shouldUnregister
                       name={item.alias}
                       control={methods.control}
                       defaultValue=""
