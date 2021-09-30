@@ -17,9 +17,8 @@ import Loader from '../../UI/icons/Loader';
 import PlaceOfferMobile from '../../components/placeOffer/placeOfferMobile';
 import Promotion from '../../components/placeOffer/Promotion';
 import axios from 'axios';
-import {  STATIC_URL } from '../../lib/constants';
+import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
-
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -57,25 +56,15 @@ const useStyles = makeStyles((theme) => ({
 
 function EditPage() {
 	const { query } = useRouter();
-
-	// const { productInfoFields, name, raiting, address, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice } = useProduct(query.id);
-
-	// запрос содержимого полей для редактирования
 	const { price, title, photo, description, address, productInfoFields } = useProduct(query.id)
-
 
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
 	const [promotion, setPromotion] = useState(false);
-	const [product, setProduct] = useState({});
-	const [obj, setObj] = useState({});
-	const [allPhotos, setAllPhotos] = useState([]);
-	const [convertPhoto, setConvertPhoto] = useState([]);
-	// const [editProduct, setEditProduct] = useState({});
+	const [editProduct, setEditProduct] = useState({});
 	const { matchesMobile, matchesTablet } = useMedia();
 	const [edit, setEdit] = useState(false)
-
 
 	const methods = useForm();
 	let photoes = [];
@@ -84,16 +73,14 @@ function EditPage() {
 		return photoes = obj;
 	}
 
+	// убирает Категорию из verify
 	useEffect(() => {
 	setEdit(true)
 	}, []);
 
 
 	const onSubmit = data => {
-		 console.log('DATATAAAAAAA',data)
 		data.price = data.price.replace(/\D+/g, '');
-
-
 		data.user_id = id
 		delete data.photoes
 		const photoData = new FormData;
@@ -103,83 +90,58 @@ function EditPage() {
 			photoData.append('files[]', photoes[0]);
 		}
 
-
+		let obj = {}
 		for (let key in data) {
 			if (key === 'title'  || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
-				setObj(obj[key] = data[key]);
+				obj[key] = data[key];
 			}
 		}
+
 		setLoading(true);
 
-
-			// отправка фаилов для получения ссылок
-			axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
-				headers: {
-					"Content-Type": "multipart/form-data"
+		 axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
+			headers: {
+				"Content-Type": "multipart/form-data"
+			}
+		})
+		.then((r) => {
+			let allConvertedPhoto = [...photoes]
+			let jj = 0
+			// для увиличения j во внутреннем цикле
+			for (let i = 0; i < allConvertedPhoto.length; i++) {
+				if (allConvertedPhoto[i].lastModified && allConvertedPhoto[i].lastModified !== undefined) {
+					for (let j = 0+jj; j < r.data.images.photos.length; j++) {
+						allConvertedPhoto[i] = r.data.images.photos[j]
+						jj = ++j;
+						if(allConvertedPhoto[i] === allConvertedPhoto[i]) break;
+					}
+				} else {
+					allConvertedPhoto[i] = allConvertedPhoto[i].src.replace('http://192.168.8.111:6001/', '')
 				}
+			}
+			axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
+				title : obj.title,
+				description: obj.description,
+				price: obj.price,
+				address: obj.location,
+				photo: allConvertedPhoto
 			})
-			.then((r) => {
-				setConvertPhoto(r.data.images.photos)
-				setPromotion(true)
+			setEditProduct({post_id: postId,
+				title : obj.title,
+				description: obj.description,
+				price: obj.price,
+				address: obj.location,
+				photo: allConvertedPhoto
 			})
+			setPromotion(true)
+		})
+
 
 	}
 
-
-
-	useEffect(() => {
-		let ph = [...photoes]
-
-		const allUpdatePhotosCollector = () => {
-			for (let i = 0; i < ph.length; i++) {
-
-				// eslint-disable-next-line no-prototype-builtins
-				if (ph[i].lastModified && ph[i].lastModified !== undefined) {
-					for (let j = 0; j < convertPhoto.length; j++) {
-						ph[i] = convertPhoto[j];
-
-					}
-				} else {
-					ph[i] = ph[i].src
-				}
-			}
-
-
-		};
-		console.log('кукусик сработал', obj)
-		setAllPhotos(allUpdatePhotosCollector())
-		setProduct({post_id: postId,
-			title : obj.title,
-			description: obj.description,
-			price: obj.price,
-			address: obj.location,
-			photo: allPhotos
-		})
-	}, [convertPhoto]);
-
-
-	useEffect(() => {
-		// axios.post(`${STATIC_URL}/api/postUpdate`, product)
-		// console.log('convertPhoto=====>',convertPhoto)
-		// console.log('editProduct=====>',editProduct)
-		// console.log('allPhotos=down=USE====>',allPhotos)
-		// setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-	}, [product]);
-
-
-
-
-	// POST    /api/postUpdate
-	//
-	// {"post_id": 613,
-	// 	"title" :"newtitle",
-	// 	"description": "newdescr",
-	// 	"price": 22.22,  "address": "newad",
-	// 	"photo": ["images/po/d4/3a/06/44/b19d47d81fb2299f7004b3a987f7c20210928132107782171.webp", "images/po/d4/3a/06/44/b19d47d81fb2299f7004b3a987f7c20210928132107782172.webp"]
-	// }
 	return (
 
-		promotion ? <Promotion product={product} /> :
+		promotion ? <Promotion editProduct={editProduct} /> :
 			<MetaLayout title={'Редактирование объявления'}>
 				{!matchesMobile && !matchesTablet && <Container className={classes.root}>
 					{price && title && photo && description && address && < Box className={classes.offersBox}>
