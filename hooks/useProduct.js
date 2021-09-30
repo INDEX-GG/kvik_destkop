@@ -13,18 +13,15 @@ export function useProduct(id) {
 			getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })
 				.then((r) => {
 					if (r !== undefined) {
-						console.log("тут ошибка",r)
 						let photoes = JSON.parse(r.photo);
 						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 						r.photo = photoes
 						r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 						setProductInfo(r);
-
 						if (r.subcategory !== undefined) {
 							getDataByPost('/api/subcategoriesFields', { "post_id": id, "subcategory": r.subcategory })
 								.then((r) => { setProductInfoFields(r) })
 						}
-
 					}
 				})
 		}
