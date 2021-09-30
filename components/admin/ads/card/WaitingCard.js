@@ -3,18 +3,21 @@ import { ToRubles } from '../../../../lib/services';
 import { Modal } from "@material-ui/core";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
+import { STATIC_URL } from "../../../../lib/constants"
 
 SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
 
 function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, getDataChild, offerId}) {
 
+    const {photos} = JSON.parse(offer.photo);
+
     const [check, setCheck] = React.useState(false);
     const [openModal, setOpenModal] = React.useState(false);
 
     const [cardSwiper, setCardSwiper] = React.useState(null);
     const [modalSwiper, setModalSwiper] = React.useState(null);
-    const [thumbsSwiper, setThumbsSwiper] = React.useState(null)
+    const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
     const [activeSlide, setActiveSlide] = React.useState(0);
 
     React.useEffect( () => {
@@ -44,8 +47,6 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
         modalSwiper.slideTo(activeSlide, 0);
     }
     
-    
-    // console.log(activeSlide)
     return (
         <div key={offer.id} className="ad__wrapper">
             <div className="ad__check">
@@ -66,9 +67,9 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                     className="mySwiper2 admin-page-swiper"
                     onSwiper={setCardSwiper}
                 >
-                    {offer.imgs.map( (img, index) => (
+                    {photos.map( (img, index) => (
                         <SwiperSlide key={index} onClick={() =>{ setOpenModal(!openModal)}} >
-                            <img src={img} alt="" style={{ width: "280px"}}/>
+                            <img src={`${STATIC_URL}/${img}`} alt="" style={{ width: "280px"}}/>
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -79,11 +80,12 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                         <div className="ad__information_price">{ToRubles(offer.price)}</div>
                         <div className="ad__information_title">{offer.title}</div>
                         <div className="ad__information_category">
-                        {offer.categorys.map(category => {
-                            return (
-                                <span key={category.id}>{category.category}</span>
-                            );
-                        })
+                        {   
+                            offer.category_id.split(',').map(category => {
+                                return (
+                                    <span key={category.id}>{category}</span>
+                                );
+                            })
                         }
                         </div>
                     </div>
@@ -123,9 +125,9 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                         onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
                         thumbs={{swiper: thumbsSwiper}}
                     >
-                        { offer.imgs.map( (img, index) => (
+                        {photos.map( (img, index) => (
                             <SwiperSlide key={index} className="productSliderItem" >
-                                <img src={img} alt=""  style={{objectFit: "contain", width: "100%", height: "100%"}}/>
+                                <img src={`${STATIC_URL}/${img}`} alt=""  style={{objectFit: "contain", width: "100%", height: "100%"}}/>
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -137,9 +139,9 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                         spaceBetween={1}
                         slideToClickedSlide={true}
                     >
-                        { offer.imgs.map( (img, index) => (
+                        {photos.map( (img, index) => (
                             <SwiperSlide key={564+index} className="productSliderNavItem" >
-                                <img src={img} alt=""  style={{ height: "88px"}}/>
+                                <img src={`${STATIC_URL}/${img}`} alt=""  style={{ height: "88px"}}/>
                             </SwiperSlide>
                         ))}
                     </Swiper>

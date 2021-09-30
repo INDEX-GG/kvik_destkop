@@ -62,7 +62,7 @@ function Active({offers}) {
 			<Placeholder />
 		);
 	}
-	
+	console.log(offers)
 	return (
 		<>
 			<div className="clientPage__container_bottom">
