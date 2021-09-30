@@ -51,7 +51,7 @@ function Admin() {
 
 	return (
 		<MetaLayout title={'Панель администратора'} >
-			<div className="admin">
+			<div className="admin" >
 				<div className="clientPage text">
 					<div className="clientPage__menu" >
 						<div className="clientPage__userinfo">
