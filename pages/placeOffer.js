@@ -114,10 +114,9 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
-		console.log(data.location)
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
+		console.log(data.coordinates)
 		data.location = data.location?.value ? data.location.value : data.location
-		data.coordinates = data.location?.data ? [] : []
 
         console.log('alias',alias);
         console.log("data", data);

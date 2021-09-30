@@ -30,7 +30,7 @@ const ProductMap = ({address, mobile, coordinates}) => {
 				<div className="productPageCharacterMap" style={collMap ? { height: 0 } : { height: '400px' }}>
 					{/* проблема с CORS */}
 					{/* <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="618" height="400" frameBorder="0"></iframe> */}
-					{coordinates && <ProductYMAP coordinates={JSON.parse(coordinates)} width={617} height={400}/>}
+					{coordinates && <ProductYMAP coordinates={JSON.parse(coordinates)} width={'100%'} height={400}/>}
 				</div>
 			</div>
 	)
