@@ -2,12 +2,14 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
+  FormGroup,
   makeStyles,
   Typography,
 } from "@material-ui/core";
 import { Controller, useFormContext } from "react-hook-form";
 import OutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
 import Filledicon from "@material-ui/icons/Brightness1";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles(() => ({
   formBox: {
@@ -46,47 +48,69 @@ const useStyles = makeStyles(() => ({
 }));
 
 const FilterCheckbox = ({
-  title,
-  checkboxesData,
+  data
 }) => {
   const classes = useStyles();
   const methods = useFormContext();
+  const [checkboxes, setCheckboxes] = useState([])
+
+  const handleClick = (value, onChange) => {
+    setCheckboxes(col => {
+      if (col.includes(value)){
+        onChange (col.filter(el => el !== value))
+        return col.filter(el => el !== value)
+      }
+      onChange([...col, value])
+      return [...col, value]
+    })
+  }
+
+  useEffect(() => {
+    if (methods.watch(data.alias) === undefined){
+      setCheckboxes([])
+    }
+  },[methods.watch(data.alias)])
+  
+
   return (
     <Box className={classes.formBox}>
-      <Typography className={classes.formTitle}>{title}</Typography>
+      <Typography className={classes.formTitle}>{data.title}</Typography>
       <Box className={classes.checkboxes}>
-        {checkboxesData.map((item, i) => {
-          return <Controller
-              key={i}
-              name={item.alias}
+          <Controller
+              name={data.alias}
               control={methods.control}
+              defaultValue={[]}
               render={({ field: { onChange, value } }) => (
-                <FormControlLabel
-                  className={classes.check}
-                  value={value}
-                  onChange={(e) => onChange(e.target.value)}
-                  control={
-                    <Checkbox
-                    className={classes.checkbox}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          onChange(e.target.value);
-                        } else {
-                          onChange(null);
-                        }
-                      }}
-                      color="primary"
-                      icon={<OutlinedIcon fontSize="inherit" />}
-                      checkedIcon={<Filledicon fontSize="inherit" />}
-                      value={item.value}
-                    />
+                <FormGroup
+                value={value}
+                // onChange={() => {onChange([...checkboxes])}}
+                >
+                  {data.fields?.map((item, i) => (
+                    <FormControlLabel
+                    key={i}
+                    className={classes.check}
+                    value={value}
+                    control={
+                      <Checkbox
+                      className={classes.checkbox}
+                        onChange={(e) => {
+                          handleClick(e.target.value, onChange)
+                        }}
+                        color="primary"
+                        icon={<OutlinedIcon fontSize="inherit" />}
+                        checkedIcon={<Filledicon fontSize="inherit" />}
+                        checked={checkboxes.includes(`${item}`)}
+                        value={item}
+                      />
+                  
                   }
-                  label={item.value}
-                />
+                    label={item}
+                  />
+                  ))}
+                </FormGroup>
+               
               )}
             />
-        }
-        )}
       </Box>
     </Box>
   );

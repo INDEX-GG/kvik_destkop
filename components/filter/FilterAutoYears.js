@@ -1,4 +1,5 @@
 import { Box, makeStyles, MenuItem, TextField, Typography } from "@material-ui/core"
+import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const useStyles = makeStyles(() => ({
@@ -17,15 +18,20 @@ const useStyles = makeStyles(() => ({
   input: {
     margin: '8px',
     width: '100%',
+    '&:last-child':{
+      marginLeft: 0
+    },
     '& .MuiSelect-selectMenu': {
       paddingLeft: 8
     }
   }
 }));
 
-const FilterSelect = ({data, unmount }) => {
+const FilterAutoYears = ({data }) => {
   const classes = useStyles();
   const methods = useFormContext();
+  const [fromYear, setFromYear] = useState(null)
+  const [toYear, setToYear] = useState(null)
 
   return (
     <Box className={classes.formBox}>
@@ -34,10 +40,9 @@ const FilterSelect = ({data, unmount }) => {
       </Typography>
       <Box className={classes.formInputField}>
         <Controller
-          name={data.alias}
+          name={data.firstAlias}
           control={methods.control}
           defaultValue=""
-          shouldUnregister={unmount}
           render={({
             field: { onChange, value },
           }) => (
@@ -46,11 +51,43 @@ const FilterSelect = ({data, unmount }) => {
             className={classes.input}
             variant="outlined"
             value={value}
-            onChange={onChange}
+            onChange={(e) => {
+              if (e.target.value <= toYear || !toYear){
+                onChange(e)
+                setFromYear(e.target.value)
+              }
+            }}
           >
             {data.fields.map((option, i) => (
               <MenuItem key={i} value={option}>
-                {option}
+                {`от ${option}`}
+              </MenuItem>
+            ))}
+          </TextField>
+          )}
+        />
+        <Controller
+          name={data.secondAlias}
+          control={methods.control}
+          defaultValue=""
+          render={({
+            field: { onChange, value },
+          }) => (
+            <TextField
+            select
+            className={classes.input}
+            variant="outlined"
+            value={value}
+            onChange={(e) => {
+              if (e.target.value >= fromYear || !fromYear){
+                onChange(e)
+                setToYear(e.target.value)
+              }
+            }}
+          >
+            {data.fields.map((option, i) => (
+              <MenuItem key={i} value={option}>
+                {`до ${option}`}
               </MenuItem>
             ))}
           </TextField>
@@ -61,4 +98,4 @@ const FilterSelect = ({data, unmount }) => {
   )
 }
 
-export default FilterSelect
+export default FilterAutoYears

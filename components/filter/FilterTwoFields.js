@@ -1,5 +1,6 @@
 import { Box, makeStyles, TextField, Typography } from "@material-ui/core";
 import { Controller, useFormContext } from "react-hook-form";
+import { OnlyNumbersMask } from "../../lib/onlyNumbersMask";
 
 const useStyles = makeStyles(() => ({
   formBox: {
@@ -25,40 +26,41 @@ const useStyles = makeStyles(() => ({
   inputActuve: {
     "& .MuiOutlinedInput-input": {
       paddingLeft: 28,
-      maxWidth: 140,
+      maxWidth: 139,
     },
   },
   tooltip: {
     position: "absolute",
-    top: 9,
+    top: 8,
   },
 }));
 
-const FilterTwoFields = ({ firstAlias, secondAlias, title }) => {
+const FilterTwoFields = ({ data, unmount }) => {
   const classes = useStyles();
   const methods = useFormContext();
 
   return (
     <Box className={classes.formBox}>
-      <Typography className={classes.formTitle}>{title}</Typography>
+      <Typography className={classes.formTitle}>{data.title}</Typography>
       <Box className={classes.formInputField}>
         <Box style={{ position: "relative", maxWidth: "50%", margin: 8 }}>
           <Controller
-            name={firstAlias}
+            name={data.firstAlias}
             control={methods.control}
             defaultValue=""
+            shouldUnregister={unmount}
             render={({ field: { onChange, value } }) => (
               <>
                 <TextField
                   className={`${classes.input} ${
-                    value ? classes.inputActuve : ""
+                    value?.length && value.length < 8 ? classes.inputActuve : ""
                   }`}
                   variant="outlined"
                   value={value}
                   placeholder="от"
-                  onChange={onChange}
+                  onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                 />
-                {value?.length && value.length < 10 ? (
+                {value?.length && value.length < 8 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
                     от
                   </span>
@@ -69,21 +71,22 @@ const FilterTwoFields = ({ firstAlias, secondAlias, title }) => {
         </Box>
         <Box style={{ position: "relative", maxWidth: "50%",  margin: "8px 8px 8px 0" }}>
           <Controller
-            name={secondAlias}
+            name={data.secondAlias}
+            shouldUnregister={unmount}
             control={methods.control}
             defaultValue=""
             render={({ field: { onChange, value } }) => (
               <>
                 <TextField
                   className={`${classes.input} ${
-                    value ? classes.inputActuve : ""
+                    value?.length && value.length < 8 ? classes.inputActuve : ""
                   }`}
                   variant="outlined"
                   value={value}
                   placeholder="до"
-                  onChange={onChange}
+                  onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                 />
-                {value?.length && value.length < 10 ? (
+                {value?.length && value.length < 8 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
                     до
                   </span>

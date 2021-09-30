@@ -1,0 +1,90 @@
+{
+  "building": [
+    {"alias": "type", "title": "Тип квартиры", "fields": ["Вторичное жилье", "Новостройка"], "type": "list"},
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ], 
+      "type": "list"
+    },
+    {
+      "alias": "sale_type",
+      "title": "Тип продажи",
+      "fields": ["Свободная", "Альтернативная", "Ипотека", "Рассрочка", "Торг"], 
+      "type": "list"
+    },
+    {
+      "alias": "material",
+      "title": "Тип дома",
+      "fields": [
+        "Панель",
+        "Кирпич",
+        "Монолит",
+        "кирпично-монолитный",
+        "Блочный",
+        "Деревянный"
+      ], 
+      "type": "list"
+    },
+    { "firstAlias": "fromStorey","secondAlias": "toStorey", "title": "Этаж", "type": "twoTextTwoRadio" },
+    { "firstAlias": "fromArea", "secondAlias": "toArea", "title": "Площадь, м2", "type": "twoText" },
+    { "alias": "rooms", "title": "Количество комнат", "type": "checkbox", "fields": ["Студия","1-комнатные","2-комнатные","3-комнатные","4-комнатные","Многокомнатные","Свободная планировка"] },
+    {
+      "alias": "balcony_or_loggia",
+      "title": "Балкон или лоджия",
+      "fields": ["Нет", "Балкон", "Лоджия", "Несколько балконов"],
+      "type": "select"
+    }
+  ],
+  "rent_apartments": [
+    {"type": "price"},
+    {"type": "twoTextRadio" ,"firstAlias":"fromPrice", "secondAlias":"toPrice", "title":"Цена, ₽", "fields": [{"alias": "noPrepayment", "value": "Без предоплаты"},{"alias": "noСollateral", "value": "Без залога"},{"alias": "noСommission", "value": "Без комиссии"}]},
+    {"alias": "type", "title": "Тип квартиры", "fields": ["Вторичное жилье", "Новостройка"], "type": "list"},
+      {
+        "alias": "owner",
+        "title": "Право собственности",
+        "fields": [
+          "Собственник",
+          "Агенство",
+          "Застройщик",
+          "Подрядчик",
+          "Частный риелтор"
+        ], 
+        "type": "list"
+      },
+      {
+        "alias": "sale_type",
+        "title": "Тип продажи",
+        "fields": ["Свободная", "Альтернативная", "Ипотека", "Рассрочка", "Торг"], 
+        "type": "list"
+      },
+      {
+        "alias": "material",
+        "title": "Тип дома",
+        "fields": [
+          "Панель",
+          "Кирпич",
+          "Монолит",
+          "кирпично-монолитный",
+          "Блочный",
+          "Деревянный"
+        ], 
+        "type": "list"
+      },
+      { "firstAlias": "fromStorey","secondAlias": "toStorey", "title": "Этаж", "type": "twoTextTwoRadio" },
+      { "firstAlias": "fromArea", "secondAlias": "toArea", "title": "Площадь, м2", "type": "twoText" },
+      { "alias": "rooms", "title": "Количество комнат", "type": "checkbox", "fields": ["Студия","1-комнатные","2-комнатные","3-комнатные","4-комнатные","Многокомнатные","Свободная планировка"] },
+      {
+        "alias": "balcony_or_loggia",
+        "title": "Балкон или лоджия",
+        "fields": ["Нет", "Балкон", "Лоджия", "Несколько балконов"],
+        "type": "select"
+      }
+  ]
+}

@@ -1,5 +1,4 @@
 import { Box, makeStyles, MenuItem, TextField, Typography } from "@material-ui/core"
-import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const useStyles = makeStyles(() => ({
@@ -21,28 +20,26 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const FilterMultipleSelect = ({alias,  selectData, title, }) => {
+const FilterMultipleSelect = ({data }) => {
   const classes = useStyles();
   const methods = useFormContext();
-  const [selectValue, setSelectValue] = useState([])
 
   const handleSelectValue = (e, onChange) => {
-    setSelectValue([...e.target.value])
     onChange([...e.target.value])
   }
   
   return (
     <Box className={classes.formBox}>
       <Typography className={classes.formTitle}>
-          {title}
+          {data.title}
       </Typography>
       <Box className={classes.formInputField}>
         <Controller
-          name={alias}
+          name={data.alias}
           control={methods.control}
-          defaultValue=""
+          defaultValue={[]}
           render={({
-            field: { onChange },
+            field: { onChange, value },
           }) => (
             <TextField
             select
@@ -50,11 +47,11 @@ const FilterMultipleSelect = ({alias,  selectData, title, }) => {
             variant="outlined"
             SelectProps={{
               multiple: true,
-              value: selectValue,
+              value: value || [],
               onChange: (e) =>  {handleSelectValue(e, onChange);}
             }}
           >
-            {selectData.map((option, i) => (
+            {data.fields.map((option, i) => (
               <MenuItem key={i} value={option}>
                 {option}
               </MenuItem>

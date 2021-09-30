@@ -248,7 +248,11 @@ function PlaceOffer() {
                                     : ''}
                                 <Box className={classes.formPart}>
                                     <Description />
-                                    <Price />
+                                    {asd !== 'vacancies' && asd !== 'summary' ? 
+                                        <Price />
+                                        :
+                                        null
+                                    }
                                     <Photoes ctx={photoesCtx} />
                                 </Box>
 

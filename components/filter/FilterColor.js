@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Controller, useFormContext } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import colorsData from '../../components/json/color.json'
 
 
@@ -102,15 +102,24 @@ const FilterColor = ({ alias, title }) => {
   const methods = useFormContext();
   const [colors, setColors] = useState([]);
 
-  const handleChange = (value) => {
+  const handleChange = (value, onChange) => {
     setColors(col => {
       if (col.includes(value)){
+        onChange(col.filter(el => el !== value))
         return col.filter(el => el !== value)
       }
+      onChange([...col, value])
       return [...col, value]
     })
   }
-  // console.log(methods.watch());
+
+
+  useEffect(() => {
+    if (methods.watch(alias) === undefined){
+      setColors([])
+    }
+  },[methods.watch(alias)])
+
 
   return (
     <Box className={classes.formBox}>
@@ -118,13 +127,13 @@ const FilterColor = ({ alias, title }) => {
       <Box className={classes.formInputField}>
         <Controller
           name={alias}
+          defaultValue={[]}
           control={methods.control}
           render={({ field: { onChange, value }}) => (
             <FormGroup
               variant="outlined"
               value={value}
               className={classes.formColorMain}
-              onChange={() => onChange(colors)}
             >
               {colorsData.map((item, i) => (
                 <Tooltip
