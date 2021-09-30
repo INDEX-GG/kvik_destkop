@@ -2,7 +2,7 @@ import React, {useState, useRef } from 'react'
 import { AddressSuggestions } from 'react-dadata';
 import 'react-dadata/dist/react-dadata.css';
 import ProductYMAP from './product/ProductYMAP';
-import {useCity} from '../lib/Context/CityCTX'
+// import {useCity} from '../lib/Context/CityCTX'
 import { Controller, useFormContext } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core';
 import {invalidСharacterLocation} from "../lib/regulars"
@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const DadataSuggest = () => {
+const DadataSuggest = ({city, geolocation}) => {
 
 	const classes = useStyles()
 	const [value, setValue] = useState();
@@ -24,12 +24,7 @@ const DadataSuggest = () => {
 
 	const inputRef = useRef()
 	const prevValue = useRef()
-
-	const {city} = useCity()
 	const methods = useFormContext();
-
-	// console.log(methods.control)
-
 
 	const onSubmit = (onChange) => {
 		const value = inputRef.current.state.query
@@ -63,6 +58,9 @@ const DadataSuggest = () => {
 			.catch(error => console.log("error", error));
 			}
 	}
+
+
+	console.log(city)
 
 	return (
 		<div>
@@ -103,7 +101,7 @@ const DadataSuggest = () => {
 			   }}
             />
 			{error ? <div className={classes.mapDesc}>Введите корректный адрес</div> : <div className={classes.mapDesc}>Введите название и выберете из списка населенный пункт и улицу</div>}
-			<ProductYMAP coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [55.7558, 37.6173]} height={224} width={490} border={true}/>
+			<ProductYMAP coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [+geolocation[0], +geolocation[1]]} height={224} width={490} border={true}/>
 		</div>
 	)
 }
