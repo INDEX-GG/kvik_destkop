@@ -13,7 +13,7 @@ import Bulldozers from './Options/Bulldozers';
 const AdditionalInformation = (data) => {
 
 	
-	
+	console.log(">>>>", data);
 
 	switch (data.asd) {
 		case 'agricultural_machinery':

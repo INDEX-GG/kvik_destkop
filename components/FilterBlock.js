@@ -6,6 +6,8 @@ import defaultValues from "./filter/json/filterDefaultValues.json"
 import filterData from "./filter/json/filterFields.json"
 import FilterMain from "./filter/FilterMain"
 import FilterAuto from "./filter/FilterAuto"
+import FilterVacancies from './filter/FilterVacancies';
+import FilterProduct from './filter/FilterProduct';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles(() => ({
 
 const FilterBlock = ({categoryData}) => {
 	let filter;
-	const category = categoryData?.aliasName[0].alias
+	const category = categoryData?.aliasName[0].alias.toLowerCase()
 	const classes = useStyles();
   const methods = useForm({defaultValues: defaultValues	});
 
@@ -44,8 +46,33 @@ const FilterBlock = ({categoryData}) => {
 		case 'rent_apartments':
 			filter = <FilterMain data={filterData[category]} />
 			break;
+		case 'vacancies':
+		case 'summary':
+			filter = <FilterVacancies data={filterData[category]} />
+			break;
 		case 'auto':
 			filter = <FilterAuto />
+			break;
+		case 'for_home':
+		case 'for_personalized_care':
+		case 'for_kitchen':
+		case 'climatic_equipment':
+		case 'cats':
+		case 'dogs':
+		case 'monitors':
+		case 'manipulators__input_devices':
+		case 'expendable_materials':
+		case 'ram':
+		case 'data_storage':
+		case 'housings_corp':
+		case 'video_cards_componentsss':
+		case 'other_comp':
+		case 'personal_computer_accessories':
+		case 'ram_for_servers':
+		case 'server_network_hardware':
+		case 'steering_wheels_gamepads_joysticks':
+		case 'printers':
+			filter = <FilterProduct data={filterData[category]} />
 			break;
 			
 		default: 
@@ -65,6 +92,7 @@ const FilterBlock = ({categoryData}) => {
 				result[key] = data[key]
 			}
 		}
+		console.log(result);
 	}
 
 	const clearFields = () => {
