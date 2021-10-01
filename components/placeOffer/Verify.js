@@ -40,16 +40,14 @@ const Verify = ({edit}) => {
     const [verifyPhotoes, setVerifyPhotoes] = useState(false);
     const [verifyLocation, setVerifyLocation] = useState(false);
     const [verifyContacts, setVerifyContacts] = useState(false);
-    const [show, setShow] = useState(false);
+    const [showCategory, setShowCategory] = useState(false);
 
-
+    // проверка был переход из страница редактирования или нет
     useEffect(() => {
-        if(edit === true) {
-            setShow(true)
-        } else if (edit === undefined){
-            setShow(false)
-        }
+        edit ? setShowCategory(true) : setShowCategory(false)
     }, [edit]);
+
+
 
 
     useEffect(() => {
@@ -69,7 +67,7 @@ const Verify = ({edit}) => {
         
         
         setVerifyPrice(!!methods.watch('price'));
-        setVerifyPhotoes(!!methods.watch('photoes'));
+        edit ? setVerifyPhotoes(true) : setVerifyPhotoes(!!methods.watch('photoes'));
         setVerifyLocation(!!methods.watch('location'));
         setVerifyContacts(!!methods.watch('contact') && (!!methods.watch('bymessages') || !!methods.watch('byphone')) );
     })
@@ -105,11 +103,11 @@ const Verify = ({edit}) => {
                         </Typography>
                         <Divider className={classes.divider} style={{backgroundColor: `${(verifyTilte) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
-                {!show && <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
+                {!showCategory && <Typography className={classes.text} color={verifyCategory ? 'primary' : 'initial'}>
                             Категория
                             <ActiveIcon  Color={verifyCategory ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography> }
-                {!show && <Divider className={classes.divider} style={{backgroundColor: `${(verifyDesription) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>}
+                {!showCategory && <Divider className={classes.divider} style={{backgroundColor: `${(verifyDesription) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>}
 
                         <Typography className={classes.text} color={verifyDesription ? 'primary' : 'initial'}>
                             Описание
@@ -121,12 +119,14 @@ const Verify = ({edit}) => {
                             Цена
                             <ActiveIcon  Color={verifyPrice ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
-                        <Divider className={classes.divider} style={{backgroundColor: `${(verifyPhotoes) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
+                        <Divider className={classes.divider} style={{backgroundColor: `${(verifyPhotoes) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
                         <Typography className={classes.text} color={verifyPhotoes ? 'primary' : 'initial'}>
                             Фотографии
                             <ActiveIcon  Color={verifyPhotoes ? '#00a0ab' : '#c7c7c7'}/>
                         </Typography>
+
+
                         <Divider className={classes.divider} style={{backgroundColor: `${(verifyLocation) ? '#00a0ab' : '#c7c7c7'}` }} orientation="vertical"/>
 
                         <Typography className={classes.text} color={verifyLocation ? 'primary' : 'initial'}>

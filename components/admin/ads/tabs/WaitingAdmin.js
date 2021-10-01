@@ -5,10 +5,10 @@ import WaitingCard from '../card/WaitingCard';
 import axios from 'axios';
 
 function WaitingAdmin({offers}) {
-   console.log(offers)
-   const [check, setCheck] = useState( false );
+
+   const [check, setCheck] = useState(false);
    const [offerId, setOfferId] = useState([]);
-   console.log(check)
+   const [firstRender, setFirstRender] = useState(0);
    const [openWaitForm, setOpenWaitForm] = useState(false);
    const handleWaitFormDialog = () => setOpenWaitForm(!openWaitForm);
 
@@ -17,16 +17,20 @@ function WaitingAdmin({offers}) {
    }
 
    const fetchApprove = () => {
-      axios.post("/api/verifyActive", {
+      axios.post("/api/verifyModerActive", {
          "id": offerId,
          "verify": "0",
       })
-      .then( (responce) => console.log(responce))
-      console.log("nazat")
+      .then( (responce) => {
+         console.log(responce);
+         setOfferId([]);
+         setCheck(false);
+      })
    }
    
    useEffect(() => {
-      offerId.length === offers.length ? check ? null : setCheck(true) : check === false ? null : setCheck(false);
+      firstRender > 0 && offerId.length === offers.length ? setCheck(true) : setCheck(false);
+      setFirstRender(1);
    },[offerId])
 
    if(offers.length < 1) {
@@ -42,7 +46,7 @@ function WaitingAdmin({offers}) {
             <label className="checkbox">
                <input 
                   type="checkbox"
-                  onChange={ (event) => { setCheck(event.target.checked); event.target.checked === false ? setOfferId([]) : null }}
+                  onChange={ (event) => {event.target.checked === false ? ( setOfferId([]), setCheck(event.target.checked) ):  setCheck(event.target.checked) }}
                   checked={check}
                />
                <div className="checkbox__text"></div>

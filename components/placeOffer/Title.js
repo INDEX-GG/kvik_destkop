@@ -19,32 +19,33 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Title = (props) => {
-	// console.log('===================>', props.title)
+const Title = ({title}) => {
 
 	const classes = useStyles();
 	const methods = useFormContext();
 
-
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Название</Typography>
-			{/* {console.log('title in typography', props.title)} */}
 			<Box className={classes.formInputField}>
 				<Controller
 					name="title"
 					control={methods.control}
+					defaultValue={title}
 					render={({ field: { onChange, value }, fieldState: { error } }) => (
 						<TextField
 							variant='outlined'
-							defaultValue={props.title}
 							type="text"
 							fullWidth
 							autoComplete="on"
 							value={value}
 							inputProps={{ maxLength: 50 }}
 							onChange={onChange}
-							error={!!error} helperText={error ? error.message : ' '} />
+							error={!!error}
+							helperText={error ? error.message : ' '}
+						>
+							{title}
+						</TextField>
 					)}
 					rules={{
 						required: 'Введите название Товара',
