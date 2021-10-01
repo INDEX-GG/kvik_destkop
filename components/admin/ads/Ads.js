@@ -67,8 +67,8 @@ export const Ads = () => {
    console.log(WaitingBox[WaitingBox.length - 1]?.id);
 
    const navItems = [
-      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin offers={WaitingBox} />, count: WaitingBox.length },
-      { id: 2, title: 'Отклоненные', content: <RejectedAdmin offers={RejecteBox} />, count: RejecteBox.length }
+      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} />, count: WaitingBox.length },
+      { id: 2, title: 'Отклоненные', content: <RejectedAdmin key={2} offers={RejecteBox} />, count: RejecteBox.length }
    ];
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
@@ -81,7 +81,7 @@ export const Ads = () => {
                   {navItems.map(item => {
                      return (
                         <a 
-                           key={item.Itemid} 
+                           key={item.id} 
                            className={(itemNav.i === item.id) ? ('navActive') : ('')} 
                            onClick={() => setItemNav({ i: item.id, ttl: item.title })} 
                         >

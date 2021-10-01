@@ -53,7 +53,7 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
     /* <div className="clientPage__userinitials" style={{ backgroundColor: `${stringToColor(offer.name)}`, fontSize: "14px", fontWeight: "400" }}>{initials(offer.name)}</div> */
     
     return (
-        <div key={offer.id} className="ad__wrapper">
+        <div /* key={offer.id} */ className="ad__wrapper">
             <div className="ad__check">
                 <label className="checkbox">
                     <input 
@@ -73,7 +73,7 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                     onSwiper={setCardSwiper}
                 >
                     {photos.map( (img, index) => (
-                        <SwiperSlide key={index} onClick={() =>{ setOpenModal(!openModal)}} >
+                        <SwiperSlide key={index + offer.id} onClick={() =>{ setOpenModal(!openModal)}} >
                             <img src={`${STATIC_URL}/${img}`} alt="" style={{ width: "280px"}}/>
                         </SwiperSlide>
                     ))}
@@ -145,7 +145,7 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                         slideToClickedSlide={true}
                     >
                         {photos.map( (img, index) => (
-                            <SwiperSlide key={564+index} className="productSliderNavItem" >
+                            <SwiperSlide key={index} className="productSliderNavItem" >
                                 <img src={`${STATIC_URL}/${img}`} alt=""  style={{ height: "88px"}}/>
                             </SwiperSlide>
                         ))}
