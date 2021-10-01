@@ -12,6 +12,7 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../lib/regulars"
 import MobileModal from "../../../MobileModal";
 import DeleteAccountModal from "../../../DeleteAccountModal"
+import { AddressSuggestions } from "react-dadata";
 
 function PersonalData() {
 	const { isAuth, id} = useAuth();
@@ -52,6 +53,7 @@ function PersonalData() {
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [changeAddress, setChangeAddress] = useState(false)
 
 	userInfo?.name === undefined ? "" : test();
 
@@ -195,6 +197,12 @@ function PersonalData() {
 		}
 	}
 
+	function onChangeAddress(e) {
+		setChangeAddress(!changeAddress)
+	}
+
+	console.log(userInfo)
+
 	return (
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
@@ -221,8 +229,11 @@ function PersonalData() {
 					</div>
 					<div>
 						<div>Город</div>
-						<div className="clientPage__city">Город, Район, Улица</div>
-						{matchesMobile || matchesTablet ? <a><div className="changeMobile"><div>Город</div><RightArrow /></div></a> : <a>Изменить</a>}
+						{changeAddress ? <AddressSuggestions token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"  /> : 
+						<div className="clientPage__city">Город, Район, Улица</div>}
+						{matchesMobile || matchesTablet ? 
+						<a><div className="changeMobile"><div>Город</div><RightArrow /></div></a> : 
+						<a onClick={onChangeAddress}>{changeAddress ? 'Сохранить' : 'Изменить'}</a>}
 					</div>
 					<div>
 						<div>Телефон</div>
