@@ -7,8 +7,8 @@ export default async function handler(req, res) {
 
 		const main = async () => {
 			const id = req.body.id
-			const verify = "'" + req.body.verify + "'"
-			await prisma.$queryRaw(`UPDATE posts SET verify = ${verify} WHERE ID IN (${id})`)
+			const active = "'" + req.body.active + "'"
+			await prisma.$queryRaw(`UPDATE posts SET active = ${active} WHERE ID IN (${id})`)
 			return { message: 'successfully update' }
 		}
 		try {
@@ -18,8 +18,8 @@ export default async function handler(req, res) {
 			res.end(JSON.stringify(response))
 		}
 		catch (e) {
-			console.error(`ошибка api verifiActive${e}`)
-			res.json('ошибка api verifiActive', e)
+			console.error(`ошибка api verifyActive${e}`)
+			res.json('ошибка api verifyActive', e)
 			res.status(405).end();
 		}
 		finally {
