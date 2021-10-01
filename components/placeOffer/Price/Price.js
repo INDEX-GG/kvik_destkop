@@ -36,34 +36,36 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Price = (props) => {
+const Price = ({price}) => {
 
 	const classes = useStyles();
 	const methods = useFormContext();
 
 	return (
 		<Box className={classes.formElem}>
-			<Typography className={classes.formTitleField}>Цена</Typography>
+			<Typography className={classes.formTitleField}>Цена </Typography>
 			<Box className={classes.formInputField}>
 				<Box className={classes.priceField}>
 					<Controller
 						name="price"
 						control={methods.control}
-						shouldUnregister
+
+						defaultValue={price}
+
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<TextField
-								defaultValue={props.price}
 								variant='outlined'
 								type="text"
 								autoComplete="on"
 								value={value}
 								onKeyDown={e => cursorReplace(e)}
 								onChange={e => onChange(priceFormat(e))}
-								error={!!error} helperText={error ? error.message : ' '} />
-						)}
+								error={!!error} helperText={error ? error.message : ' '} >
+								{price}
+							</TextField>
+							)}
 						rules={{ required: `Введите цену ${methods.watch('title')}`, max: 10 }}
 					/>
-
 					<Controller
 						name='trade'
 						control={methods.control}

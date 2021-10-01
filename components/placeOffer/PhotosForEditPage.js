@@ -181,26 +181,12 @@ const PhotoForEditPage = ({ctx, photo}) => {
     }, [stringPhotos]);
 
     useEffect(() => {
-        if (!validFiles.find((el) => {
-            el.name === selectedFiles.name
-        })) {
-            if (selectedFiles) {
+        if (!validFiles.find((el) => el.name === selectedFiles.name)) {
+            if (selectedFiles && validFiles.length < 20) {
                 setValidFiles([...validFiles, selectedFiles]);
             }
         }
-        validFiles.forEach((el, i) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(el);
-            reader.onloadend = (e) => {
-                if (imageData.length === 0 || [imageData.find(im => im.data === el.data)].length === 0) {
-                    setImageData([
-                        ...imageData,
-                        {name: el.name, src: e.target.result, id: i},
-                    ]);
-                }
 
-            };
-        });
     }, [selectedFiles]);
 
     useEffect(() => {
@@ -307,20 +293,23 @@ const PhotoForEditPage = ({ctx, photo}) => {
                     };
                 };
 
-                setErrorMessage("Попробуйте другой формат, например jpg или png");
+                setErrorMessage("Добавьте или перетащите фото");
             } else {
                 files[i]["invalid"] = true;
-                setSelectedFiles(files[i]);
-                setErrorMessage("Добавьте или перетащите фото");
+                // setSelectedFiles(files[i]);
+                setErrorMessage("Попробуте другой формат, например jpg или png");
                 setUnsupportedFiles((prevArray) => [...prevArray, files[i]]);
             }
         }
     };
 
     const validateFile = (file) => {
-        const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-        return validTypes.indexOf(file.type) === -1;
-
+        const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+        // если в фаиле тип не соответствует ни одному типу из массива вернет фолс
+        if (validTypes.indexOf(file.type) === -1) {
+            return false;
+        }
+        return true;
     };
 
     const removeFile = (name) => {
@@ -429,8 +418,8 @@ const PhotoForEditPage = ({ctx, photo}) => {
                 <div>
                     <SortableList items={oldPhotosAndNewObjectsPhotos} axis="xy" onSortEnd={onSortEnd} distance={5}/>
                 </div>
-                <Typography className={classes.error}>
-                    {methods.formState.errors?.photoes?.message}
+                <Typography className={classes.error} style={{color: methods.formState.errors?.photoes?.message ? null : '#C7C7C7'}}>
+                    {methods.formState.errors?.photoes?.message || 'До 20 фотографий в формате JPG или PNG. Размер фото - до 25MB'}
                 </Typography>
             </Box>
         </Box>
