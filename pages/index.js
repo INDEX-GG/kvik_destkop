@@ -60,8 +60,6 @@ const Index = () => {
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
 	const [lastIdAds ,setLastIdAds] = useState(0);
 	const limit = 10
-
-	if (lastIdAds) return lastIdAds
 	
 	useEffect(() => {
 		scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
@@ -70,6 +68,8 @@ const Index = () => {
 	useEffect(() => {
 		 firstAds(id, isAuth, page, limit, setData, setLastIdAds)
 	}, [id]);
+
+	console.log(lastIdAds)
 
 	return (
 		<MetaLayout title={'Доска объявлений'}>
