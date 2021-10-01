@@ -30,11 +30,10 @@ const Description = ({ description }) => {
 				<Controller
 					name="description"
 					control={methods.control}
-
+					defaultValue={description}
 					render={({ field: { onChange, value }, fieldState: { error } }) => (
 						<TextField
 							variant='outlined'
-							defaultValue={description}
 							type="text"
 							multiline
 							rows='4'
@@ -44,7 +43,9 @@ const Description = ({ description }) => {
 							value={value}
 							inputProps={{ maxLength: 4000 }}
 							onChange={onChange}
-							error={!!error} helperText={error ? error.message : ' '} />
+							error={!!error} helperText={error ? error.message : ' '} >
+							{description}
+							</TextField>
 					)}
 					rules={{
 						required: `Опишите ${methods.watch('title')}`,

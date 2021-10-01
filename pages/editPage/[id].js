@@ -51,6 +51,12 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: 2000,
 		backgroundColor: 'rgba(255, 255, 255, 0.85)',
 	},
+	loader: {
+		display: 'flex',
+		justifyContent: 'center',
+		// alignItems: 'center',
+		minHeight: '100vh',
+	}
 
 }));
 
@@ -143,12 +149,12 @@ function EditPage() {
 
 		promotion ? <Promotion editProduct={editProduct} /> :
 			<MetaLayout title={'Редактирование объявления'}>
-				{!matchesMobile && !matchesTablet && <Container className={classes.root}>
-					{price && title && photo && description && address && < Box className={classes.offersBox}>
+				{!matchesMobile && !matchesTablet &&  <Container className={classes.root}>
+					 < Box className={classes.offersBox}>
 						<Typography className={classes.title} variant='h3'>Редактирование объявления</Typography>
 						<FormProvider {...methods} >
 							<Verify edit={edit}/>
-							<form onSubmit={methods.handleSubmit(onSubmit)}>
+							{ price && title && photo && description && address !== undefined  ? <form onSubmit={methods.handleSubmit(onSubmit)}>
 								<Box className={classes.formPart}>
 									<Title title={title} />
 								</Box>
@@ -165,13 +171,13 @@ function EditPage() {
 										<Button type='submit' color='primary' variant='contained'>Продолжить</Button>
 									</Box>
 								</Box>
-							</form>
+							</form>  : <box className={classes.loader}><Loader size={50} /></box> }
 						</FormProvider>
-					</Box>}
+					</Box>
 				</Container>}
 				{matchesMobile || matchesTablet ? <PlaceOfferMobile /> : null}
 				<Backdrop className={classes.backdrop} open={loading}>
-					<Loader size={64} />
+					<Loader  size={64} />
 				</Backdrop>
 			</MetaLayout >
 	)
