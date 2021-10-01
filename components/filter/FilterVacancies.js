@@ -5,10 +5,10 @@ import FilterTwoFields from "./FilterTwoFields";
 import FilterTwoFieldsRadio from "./FilterTwoFieldsRadio";
 import FilterTwoFieldsTwoRadio from "./FilterTwoFieldsTwoRadio";
 
-const FilterMain = ({ data }) => {
+const FilterVacancies = ({ data }) => {
   return (
     <>
-      { data[0]?.type !== "price" ? <FilterTwoFields data={{firstAlias:"fromPrice", secondAlias:'toPrice', title:"Цена, ₽"}} /> : null }
+      <FilterTwoFields data={{firstAlias:"fromPrice", secondAlias:'toPrice', title:"Заработная плата, ₽"}} /> 
       {data?.map((item, i) => {
         switch (item.type) {
           case "list":
@@ -30,4 +30,4 @@ const FilterMain = ({ data }) => {
   );
 };
 
-export default FilterMain;
+export default FilterVacancies;

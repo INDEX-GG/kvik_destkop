@@ -62,17 +62,18 @@ const FilterRadio = ({ data }) => {
         <Controller
           name={data.alias}
           control={methods.control}
+          defaultValue=""
           render={({ field: { onChange, value } }) => (
             <RadioGroup
               className={classes.check}
               value={value}
               onChange={(e) => onChange(e.target.value)}
             >
-              {data.radioData.map((el, i) => (
+              {data.fields.map((el, i) => (
                 <FormControlLabel
                   key={i}
-                  label={el.value}
-                  value={el.value}
+                  label={el}
+                  value={el}
                   control={
                     <Radio
                       className={classes.checkbox}

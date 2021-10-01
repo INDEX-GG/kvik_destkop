@@ -54,7 +54,13 @@ export default function ProductAction(data) {
                 <ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />
                 <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
                 <ProductDeal id={id} sellerID={user_id}>
-                  <ProductButton className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
+                  <ProductButton 
+				    className="SellerInfoMess button contained" 
+				    title='Написать продацу' 
+					onClick={() => data?.createChat()}
+				    icon={<IconMess/>
+					} 
+					/>
                   <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
                 </ProductDeal>
                 <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
