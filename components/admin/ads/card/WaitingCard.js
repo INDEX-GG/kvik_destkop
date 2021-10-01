@@ -45,6 +45,7 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
         getDataChild({id: offer.id, isCheck: event })
     }
     
+    /* написать проверку */
    
     if (modalSwiper) {
         modalSwiper.slideTo(activeSlide, 0);
@@ -143,6 +144,8 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                         style={{ height: '88px', display: "block"}}
                         spaceBetween={1}
                         slideToClickedSlide={true}
+                        slidesPerView={'auto'}
+                        watchSlidesProgress={true}
                     >
                         {photos.map( (img, index) => (
                             <SwiperSlide key={index} className="productSliderNavItem" >

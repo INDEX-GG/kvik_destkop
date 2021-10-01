@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { brooklyn } from '../../../lib/services';
 import Loading from '../../../UI/icons/Loader';
 import RejectedAdmin from './tabs/RejectedAdmin';
@@ -32,30 +32,33 @@ export const Ads = () => {
 
    const [WaitingBox, setWaitingBox] = useState([]);
    const [fetch, setFetch] = useState(false);
+   const [countOffers, setCountOffers] = useState(0);
 
-   React.useLayoutEffect( () => {
+   useEffect( () => {
       axios.post(`/api/getPostsModerator`, {
          "page_limit": 5, 
          "last_post_id": 0
       })
-      .then((responce) => {setWaitingBox(responce.data)})
+      .then((responce) => {
+         setWaitingBox(responce.data.posts);
+         setCountOffers(responce.data.count[0].count)});
    },[])
 
-   React.useEffect ( () => {
+   useEffect ( () => {
       if(fetch) {
          axios.post(`/api/getPostsModerator`, {
             "page_limit": 5, 
             "last_post_id": WaitingBox[WaitingBox.length - 1].id
          })
          .then((responce) => {
-            setWaitingBox(prev => prev.concat(responce.data));
-            responce.data.length > 0 && setFetch(false);
+            setWaitingBox(prev => prev.concat(responce.data.posts));
+            responce.data.posts.length > 0 && setFetch(false);
             console.log(responce)
          })
       }
    }, [fetch])
 
-   React.useEffect ( () => {
+   useEffect ( () => {
       document.addEventListener( "scroll", () => {
          if((document.documentElement.scrollHeight - window.innerHeight)*0.7 <= document.documentElement.scrollTop && fetch === false) {
             setFetch(true);
@@ -67,12 +70,12 @@ export const Ads = () => {
    console.log(WaitingBox[WaitingBox.length - 1]?.id);
 
    const navItems = [
-      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} />, count: WaitingBox.length },
+      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} />, count: countOffers },
       { id: 2, title: 'Отклоненные', content: <RejectedAdmin key={2} offers={RejecteBox} />, count: RejecteBox.length }
    ];
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
-
+  
    return (
       <>
          <div className="clientPage__container_top" >
@@ -83,7 +86,7 @@ export const Ads = () => {
                         <a 
                            key={item.id} 
                            className={(itemNav.i === item.id) ? ('navActive') : ('')} 
-                           onClick={() => setItemNav({ i: item.id, ttl: item.title })} 
+                           onClick={() => {setItemNav({ i: item.id, ttl: item.title })}} 
                         >
                            {item.title} {brooklyn(item.count)}
                         </a>
@@ -95,7 +98,7 @@ export const Ads = () => {
          {navItems.map(item => {
             console.log(item)
             return (
-               (itemNav.i === item.id) && (item.content ? item.content : (<div key={item.id} className="userPageContentCompare" ><Loading /> </div>))
+               (itemNav.i === item.id) && (item.content ? item.content : ( <div key={item.id} className="userPageContentCompare"> <Loading/> </div> ))
             )
          })}
       </>
