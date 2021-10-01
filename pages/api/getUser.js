@@ -21,7 +21,8 @@ export default async function handler(req, res) {
 					raiting: true,
 					favorites: true,
 					subscriptions: true,
-					location: true
+					location: true,
+					address: true
 				}
 			})
 		}
