@@ -4,7 +4,7 @@ import { Dialog } from '@material-ui/core';
 import WaitingCard from '../card/WaitingCard';
 import axios from 'axios';
 
-function WaitingAdmin({offers}) {
+function WaitingAdmin({offers, setWaitingBox/* , setCountOffers */}) {
 
    const [check, setCheck] = useState(false);
    const [offerId, setOfferId] = useState([]);
@@ -16,6 +16,7 @@ function WaitingAdmin({offers}) {
       setOfferId( isCheck ?  previous => [...previous, id] : previous => previous.filter( item => item !== id) );
    }
 
+   
    const fetchApprove = () => {
       axios.post("/api/verifyModerActive", {
          "id": offerId,
@@ -23,22 +24,26 @@ function WaitingAdmin({offers}) {
       })
       .then( (responce) => {
          console.log(responce);
+         setWaitingBox( prev => prev.filter( item => !offerId.includes(item.id) ) );
          setOfferId([]);
          setCheck(false);
       })
    }
-   
+   /* доделать отслеживание количества ждущих одобрения объявлений*/
+   useEffect( () => {
+      console.log("offers===IIIIIIIIIIIIII====>", offers)
+   }, [ offers ])
    useEffect(() => {
       firstRender > 0 && offerId.length === offers.length ? setCheck(true) : setCheck(false);
       setFirstRender(1);
-   },[offerId])
+   },[ offerId ])
 
    if(offers.length < 1) {
       return <></>
    }
    
    console.log("offerId=======>", offerId)
-   console.log("parentCheck=======>", offers.length)
+   //console.log("setWaitingBox=======>", setWaitingBox)
 
    return (
       <div className="clientPage__container_bottom" >
@@ -51,7 +56,12 @@ function WaitingAdmin({offers}) {
                />
                <div className="checkbox__text"></div>
             </label>
-            <a onClick={fetchApprove}>Одобрить</a>
+            <a 
+               onClick={offerId.length > 0 ? fetchApprove : null}
+               style={{color: offerId.length > 0 ? "black" : null}}
+            >
+               Одобрить
+            </a>
          </div>
          <div className="clientPage__container_content">
             <div className="ads__container">

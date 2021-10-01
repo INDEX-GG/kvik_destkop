@@ -198,6 +198,7 @@ function PersonalData() {
 	}
 
 	function onChangeAddress(e) {
+		console.log(e)
 		setChangeAddress(!changeAddress)
 	}
 
