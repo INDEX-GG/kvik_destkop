@@ -9,6 +9,7 @@ import {
 import { Controller, useFormContext } from "react-hook-form";
 import OutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
 import Filledicon from "@material-ui/icons/Brightness1";
+import { OnlyNumbersMask } from "../../lib/onlyNumbersMask";
 
 const useStyles = makeStyles(() => ({
   formBox: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles(() => ({
   inputActuve: {
     "& .MuiOutlinedInput-input": {
       paddingLeft: 28,
-      maxWidth: 140,
+      maxWidth: 139,
     },
   },
   tooltip: {
@@ -66,19 +67,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 const FilterTwoFieldsTwoRadio = ({
-  firstAlias,
-  secondAlias,
-  title,
+  data
 }) => {
   const classes = useStyles();
   const methods = useFormContext();
   return (
     <Box className={classes.formBox}>
-      <Typography className={classes.formTitle}>{title}</Typography>
+      <Typography className={classes.formTitle}>{data.title}</Typography>
       <Box className={classes.formInputField}>
       <Box style={{ position: "relative", maxWidth: "50%", margin: 8 }}>
           <Controller
-            name={firstAlias}
+            name={data.firstAlias}
             control={methods.control}
             defaultValue=""
             render={({ field: { onChange, value } }) => (
@@ -90,7 +89,7 @@ const FilterTwoFieldsTwoRadio = ({
                   variant="outlined"
                   value={value}
                   placeholder="от"
-                  onChange={onChange}
+                  onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                 />
                 {value?.length && value.length < 10 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
@@ -103,7 +102,7 @@ const FilterTwoFieldsTwoRadio = ({
         </Box>
         <Box style={{ position: "relative", maxWidth: "50%",  margin: "8px 8px 8px 0" }}>
           <Controller
-            name={secondAlias}
+            name={data.secondAlias}
             control={methods.control}
             defaultValue=""
             render={({ field: { onChange, value } }) => (
@@ -115,7 +114,7 @@ const FilterTwoFieldsTwoRadio = ({
                   variant="outlined"
                   value={value}
                   placeholder="до"
-                  onChange={onChange}
+                  onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                 />
                 {value?.length && value.length < 10 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
@@ -130,6 +129,7 @@ const FilterTwoFieldsTwoRadio = ({
       <Box className={classes.checkboxes}>
        <Controller
               name="notFirst"
+              defaultValue={null}
               control={methods.control}
               render={({ field: { onChange, value } }) => (
                 <FormControlLabel
@@ -147,6 +147,7 @@ const FilterTwoFieldsTwoRadio = ({
                         }
                       }}
                       color="primary"
+                      checked={value}
                       icon={<OutlinedIcon color="inherit" fontSize="inherit" />}
                       checkedIcon={<Filledicon fontSize="inherit" />}
                       value="Не послений"
@@ -159,6 +160,7 @@ const FilterTwoFieldsTwoRadio = ({
        <Controller
               name="notLast"
               control={methods.control}
+              defaultValue={null}
               render={({ field: { onChange, value } }) => (
                 <FormControlLabel
                   className={classes.check}
@@ -175,6 +177,7 @@ const FilterTwoFieldsTwoRadio = ({
                         }
                       }}
                       color="primary"
+                      checked={value}
                       icon={<OutlinedIcon fontSize="inherit" />}
                       checkedIcon={<Filledicon fontSize="inherit" />}
                       value="Не первый"

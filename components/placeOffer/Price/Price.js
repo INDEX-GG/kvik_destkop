@@ -49,7 +49,9 @@ const Price = ({price}) => {
 					<Controller
 						name="price"
 						control={methods.control}
+
 						defaultValue={price}
+
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<TextField
 								variant='outlined'
@@ -67,6 +69,7 @@ const Price = ({price}) => {
 					<Controller
 						name='trade'
 						control={methods.control}
+						shouldUnregister
 						defaultValue={false}
 						render={({ field: { onChange, value } }) => (
 							<FormControlLabel

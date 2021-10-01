@@ -19,6 +19,9 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     '&:last-child':{
       marginLeft: 0
+    },
+    '& .MuiSelect-selectMenu': {
+      paddingLeft: 8
     }
   }
 }));

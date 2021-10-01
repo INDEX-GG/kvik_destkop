@@ -23,7 +23,7 @@ const ProductYMAP = ({coordinates, width, height}) => {
 
 	return (
 		<YMaps>
-			<div>
+			<div style={{borderRadius: '8px'}}>
 				<Map 
 				height={height}
 				onLoad={ymapsLoad} 

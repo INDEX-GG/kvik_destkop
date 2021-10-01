@@ -1,9 +1,8 @@
 import {
   Box,
+  Checkbox,
   FormControlLabel,
   makeStyles,
-  Radio,
-  RadioGroup,
   Typography,
 } from "@material-ui/core";
 import { Controller, useFormContext } from "react-hook-form";
@@ -30,66 +29,69 @@ const useStyles = makeStyles(() => ({
     },
   },
   checkboxes: {
-    display: "flex",
+    display: 'flex',
     flexDirection: "column",
     padding: "0 8px"
   },
-  check: {
+  check:{
     marginLeft: 0,
-    "&>.MuiFormControlLabel-root": {
-      marginLeft: 0,
-    },
-    "& .MuiFormControlLabel-label": {
-      fontSize: 14
+    '&>.MuiFormControlLabel-label': {
+      fontSize: 14,
     }
   },
   checkbox: {
     padding: "4px 4px 4px 0",
-    fontSize: 18,
-  },
-  
+    fontSize: 18
+  }
 }));
 
-const FilterRadio = ({ data }) => {
+const FilterCheckboxDefault = ({
+  title,
+  checkboxesData,
+}) => {
   const classes = useStyles();
   const methods = useFormContext();
-
-
   return (
     <Box className={classes.formBox}>
-      <Typography className={classes.formTitle}>{data.title}</Typography>
+      <Typography className={classes.formTitle}>{title}</Typography>
       <Box className={classes.checkboxes}>
-        <Controller
-          name={data.alias}
-          control={methods.control}
-          defaultValue=""
-          render={({ field: { onChange, value } }) => (
-            <RadioGroup
-              className={classes.check}
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-            >
-              {data.fields.map((el, i) => (
+        {checkboxesData.map((item, i) => {
+          return <Controller
+              key={i}
+              name={item.alias}
+              control={methods.control}
+              defaultValue=""
+              render={({ field: { onChange, value } }) => (
                 <FormControlLabel
-                  key={i}
-                  label={el}
-                  value={el}
+                  className={classes.check}
+                  value={value}
+                  onChange={(e) => onChange(e.target.value)}
                   control={
-                    <Radio
-                      className={classes.checkbox}
+                    <Checkbox
+                    className={classes.checkbox}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          onChange(e.target.value);
+                        } else {
+                          onChange(null);
+                        }
+                      }}
                       color="primary"
                       icon={<OutlinedIcon fontSize="inherit" />}
                       checkedIcon={<Filledicon fontSize="inherit" />}
+                      checked={value}
+                      value={item.value}
                     />
                   }
+                  label={item.value}
                 />
-              ))}
-            </RadioGroup>
-          )}
-        />
+              )}
+            />
+        }
+        )}
       </Box>
     </Box>
   );
 };
 
-export default FilterRadio;
+export default FilterCheckboxDefault;

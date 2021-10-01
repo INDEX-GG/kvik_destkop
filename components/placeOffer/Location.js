@@ -31,6 +31,7 @@ const Location = () => {
 
    // console.log(address)
 
+
    return (
       <Box className={classes.formElem}>
         <Typography className={classes.formTitleField}>Местоположение</Typography>

@@ -104,7 +104,7 @@ const Product = () => {
 	}, []);
 
 
-	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice} = useProduct(query.id);
+	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice, coordinates} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
 	const [userAd, setUserAd] = useState();
@@ -188,7 +188,7 @@ const Product = () => {
 										)}
 										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={defaultStatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} />}
 										{/* адрес, карта, свойства и значения */}
-										<ProductInformation address={address} description={description} productionInfo={productInfoFields} caterory={subcategory} />
+										<ProductInformation address={address} coordinates={coordinates} description={description} productionInfo={productInfoFields} caterory={subcategory} />
 									</div>
 
 									{/* Блок информации*/}

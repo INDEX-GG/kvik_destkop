@@ -5,6 +5,7 @@ import {io} from 'socket.io-client';
 
 let sender = {"id": 7, "name": "Станислав Даль"}
 let recipient = {"id": 84}
+let product = {"id": 70}
 
 //? Говорим, на каком домене будем обслуживать сокерт
 // const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
@@ -12,7 +13,7 @@ const socket = io('http://192.168.8.111:6066')
 // const socket = io('http://127.0.0.1:5000')
 
 
-socket.emit('join', {'sender': sender, 'recipient': recipient})
+socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
 
 const Chat = () => {
 	const [message, setMessage] = useState('');
@@ -32,7 +33,7 @@ const Chat = () => {
 			const messageDate = `${data.getHours()}:${data.getMinutes() > 9 ? data.getMinutes() : `0${data.getMinutes()}`}`
 			//? Событие оправки между клиентом и сервером
 			//! Убрать дату
-			await socket.emit('text', {'message': message, 'sender': sender, 'recipient': recipient, 'date': messageDate})
+			await socket.emit('text', {'message': message, 'sender': sender, 'recipient': recipient, 'product': product, 'date': messageDate})
 			setMessage('')
 		}
 	}
@@ -61,7 +62,7 @@ const Chat = () => {
 	}, [])
 
 	const handleKeyDown = (e) => {
-		socket.emit('typing', {'sender': sender, 'recipient': recipient})
+		socket.emit('typing', {'sender': sender, 'recipient': recipient, 'product': product})
 		if (e.key == 'Enter') {
 			handleSend()
 		}

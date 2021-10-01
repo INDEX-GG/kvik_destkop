@@ -18,8 +18,8 @@ export default async function handler(req, res) {
 			res.end(JSON.stringify(response))
 		}
 		catch (e) {
-			console.error(`ошибка api verifiActive${e}`)
-			res.json('ошибка api verifiActive', e)
+			console.error(`ошибка api verifyActive${e}`)
+			res.json('ошибка api verifyActive', e)
 			res.status(405).end();
 		}
 		finally {
