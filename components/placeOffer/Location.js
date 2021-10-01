@@ -1,6 +1,5 @@
 // import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, Typography /** TextFiel */ } from '@material-ui/core';
-import { useCity } from '../../lib/Context/CityCTX';
 // import { invalidСharacterLocation } from '../../lib/regulars'
 // import YandexMap from '../YandexMap';
 import DadataSuggest from '../DadataSuggest'
@@ -32,7 +31,6 @@ const Location = () => {
 
    // console.log(address)
 
-   const {city, geo} = useCity()
 
    return (
       <Box className={classes.formElem}>
@@ -60,7 +58,7 @@ const Location = () => {
             />
             <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe> */}
 			{/* <YandexMap setData={setData}/> */}
-			<DadataSuggest city={city} geolocation={geo}/>
+			<DadataSuggest/>
          </Box>
       </Box>
    )
