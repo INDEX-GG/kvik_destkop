@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-
+import { useAuth } from '../../../../lib/Context/AuthCTX'
 import {io} from 'socket.io-client';
+import axios from 'axios';
 
 
-let sender = {"id": 7, "name": "Станислав Даль"}
-let recipient = {"id": 84}
+let sender = {"id": 50, "name": "Станислав Даль"}
+let recipient = {"id": 51}
 let product = {"id": 70}
 
 //? Говорим, на каком домене будем обслуживать сокерт
 // const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
-const socket = io('http://192.168.8.111:6066')
+const socket = io('http://192.168.8.111:6066', {path: "/socket.io"})
 // const socket = io('http://127.0.0.1:5000')
 
 
@@ -20,6 +21,22 @@ const Chat = () => {
 	const [msgList, setMsgList] = useState([]);
 	const refChat = useRef()
 	const refInput = useRef()
+
+	const {id} = useAuth()
+
+
+	if (id) {
+		// axios.post('http://192.168.8.111:6066/chat_last_messages', {'user_id': 84}, {
+		// 	headers: {
+		// 		'Access-Control-Allow-Origin': '*',
+		// 	},
+		// 	proxy: {
+		// 		host: '192.168.8.111',
+		// 		port: 6066
+		// 	}
+		// }).then(r => console.log(r.data))
+		axios.post('http://192.168.8.111:6066/chat_last_messages', {'user_id': 84}).then(r => console.log(r.data))
+	}
 
 	useEffect(() => {
 		if (refChat.current) {
@@ -52,6 +69,11 @@ const Chat = () => {
 	useEffect(() => {
 		socket.on('message', (data) => {
 			if (!data.msg) {
+				console.log(data.sender)
+				if (data.sender?.id != id) {
+					socket.emit('online', {'sender': sender, 'recipient': recipient, 'product': product})
+				}
+
 				setMsgList(prev => [...prev, data])
 			}
 		})
@@ -95,7 +117,7 @@ const Chat = () => {
                   </div>
                 </div> */}
 				{msgList.map((item, index) => {
-					const myMessage = item.sender.id == 84
+					const myMessage = item.sender.id == 50
 					return (
 						<div key={index} className={myMessage ? "chatUser" : "chatLocutor"}>
 							{myMessage ? null : <img src="https://source.unsplash.com/random?portrait" />}

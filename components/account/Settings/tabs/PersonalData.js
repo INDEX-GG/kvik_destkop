@@ -12,11 +12,12 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../lib/regulars"
 import MobileModal from "../../../MobileModal";
 import DeleteAccountModal from "../../../DeleteAccountModal"
-import { AddressSuggestions } from "react-dadata";
+import AccountCity from "./components/AccountCity";
+
 
 function PersonalData() {
 	const { isAuth, id} = useAuth();
-	const { userInfo } = useStore();
+	const { userInfo, setUserInfo } = useStore();
 
 	const [modal, setModal] = useState({});
 	function modalOlen(e, size, content, title) {
@@ -53,7 +54,6 @@ function PersonalData() {
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false);
 	const [open, setOpen] = useState(false);
-	const [changeAddress, setChangeAddress] = useState(false)
 
 	userInfo?.name === undefined ? "" : test();
 
@@ -197,9 +197,6 @@ function PersonalData() {
 		}
 	}
 
-	function onChangeAddress(e) {
-		setChangeAddress(!changeAddress)
-	}
 
 	console.log(userInfo)
 
@@ -227,14 +224,28 @@ function PersonalData() {
 						)}
 						{matchesMobile || matchesTablet ? <a href="/"><div className="changeMobile"><div>Имя пользователя</div><RightArrow /></div></a> : inputProfile ? <a onClick={() => setInputProfile(!inputProfile)}>Редактировать</a> : <a onClick={nameSubmit}>Сохранить</a>}
 					</div>
-					<div>
+					{/* <div>
 						<div>Город</div>
-						{changeAddress ? <AddressSuggestions token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"  /> : 
-						<div className="clientPage__city">Город, Район, Улица</div>}
+						{changeAddress ? 
+						<AddressSuggestions 
+							token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
+							value={cityValue}
+							ref={inputRef}
+							onChange={(e) => {
+								setCityValue(e)
+							}}
+							inputProps={{
+								onBlur: () => {
+									fetchAdress(inputRef)
+								}
+							}}
+							defaultQuery={userInfo?.address ? userInfo?.address : ''}  /> : 
+						<div className="clientPage__city">{userInfo?.address ? userInfo?.address : 'Город, Район, Улица'}</div>}
 						{matchesMobile || matchesTablet ? 
 						<a><div className="changeMobile"><div>Город</div><RightArrow /></div></a> : 
 						<a onClick={onChangeAddress}>{changeAddress ? 'Сохранить' : 'Изменить'}</a>}
-					</div>
+					</div> */}
+					<AccountCity userData={{id, userInfo, setUserInfo}}/>
 					<div>
 						<div>Телефон</div>
 						<div>

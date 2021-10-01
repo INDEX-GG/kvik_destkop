@@ -18,7 +18,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import Loader from "../../UI/icons/Loader";
-import { STATIC_URL } from "../../lib/constants";
+import { CHAT_URL, STATIC_URL } from "../../lib/constants";
 import ProductDate from "../../components/product/ProductSmallComponents/ProductDate";
 import ProductPrice from "../../components/product/ProductPrice";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
@@ -27,6 +27,8 @@ import ProductFavoriteNoteComp from "../../components/product/ProductSmallCompon
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
 // import axios from "axios";
 import { firstAds, scrollAds } from "../../lib/scrollAds";
+import { useStore } from "../../lib/Context/Store";
+import axios from "axios";
 
 /* const objP = {
 	id: 1,
@@ -69,6 +71,7 @@ import { firstAds, scrollAds } from "../../lib/scrollAds";
 const Product = () => {
 	const { query } = useRouter();
 	const { id, isAuth } = useAuth();
+	const { userInfo } = useStore()
 	const [openStatForm, setopenStatForm] = useState(false);
 	const handleStatFormDialog = () => setopenStatForm(!openStatForm);
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -109,6 +112,28 @@ const Product = () => {
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
+
+
+
+	const createChat = async () => {
+		if (productInfo && userInfo && id) {
+			const obj = {
+				'seller_id': productInfo?.user_id, 
+				'seller_name': productInfo?.name, 
+				'seller_photo': productInfo?.userPhoto,
+				'customer_id': id,
+				'customer_name': userInfo?.name,
+				'customer_photo': userInfo?.userPhoto,
+				'product_id': productInfo?.id,
+				'product_name': productInfo?.title,
+				'product_price': productInfo?.price,
+				'product_photo': productInfo?.photo[0],
+			}
+
+			await axios.post(`${CHAT_URL}/make_room`, obj).then(r => console.log(r.data))
+		}
+	}
+
 
 	// useEffect(() => {
 	// 	if (id && query.id) {	
@@ -194,7 +219,7 @@ const Product = () => {
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
 										{/* статус объявления, кнопки */}
-										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} status={defaultStatus} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus}/>}
+										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} status={defaultStatus} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} createChat={createChat}/>}
 										{/* пользователь и его объявления */}
 										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
 									</div>
