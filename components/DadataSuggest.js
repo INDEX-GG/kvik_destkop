@@ -6,6 +6,7 @@ import ProductYMAP from './product/ProductYMAP';
 import { Controller, useFormContext } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core';
 import {invalidСharacterLocation} from "../lib/regulars"
+import {useStore} from '../lib/Context/Store'
 
 const useStyles = makeStyles(() => ({
 	mapDesc: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const DadataSuggest = ({city, geolocation}) => {
+const DadataSuggest = () => {
 
 	const classes = useStyles()
 	const [value, setValue] = useState();
@@ -25,6 +26,10 @@ const DadataSuggest = ({city, geolocation}) => {
 	const inputRef = useRef()
 	const prevValue = useRef()
 	const methods = useFormContext();
+	const {userInfo} = useStore()
+
+	const userAddressName = userInfo?.location?.name
+	const userAddressGeo = userInfo?.location?.geo
 
 	const onSubmit = (onChange) => {
 		const value = inputRef.current.state.query
@@ -59,15 +64,13 @@ const DadataSuggest = ({city, geolocation}) => {
 			}
 	}
 
-
-	console.log(city)
-
 	return (
+		userAddressName && userAddressGeo ? 
 		<div>
 			 <Controller
                name="location"
                control={methods.control}
-			   defaultValue={city}
+			   defaultValue={userInfo?.location?.name}
                render={({field: {value, onChange: controlChange}}) => (
                   	<AddressSuggestions 
 					token="3fa959dcd662d65fdc2ef38f43c2b699a3485222" 
@@ -75,7 +78,7 @@ const DadataSuggest = ({city, geolocation}) => {
 					ref={inputRef} 
 					minChars={3}  
 					value={value}
-					defaultQuery={city}
+					defaultQuery={userInfo?.location?.name}
 					// containerClassName='productInputMap'
 					onChange={(e) => {
 						controlChange(e)
@@ -101,8 +104,8 @@ const DadataSuggest = ({city, geolocation}) => {
 			   }}
             />
 			{error ? <div className={classes.mapDesc}>Введите корректный адрес</div> : <div className={classes.mapDesc}>Введите название и выберете из списка населенный пункт и улицу</div>}
-			<ProductYMAP coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [+geolocation[0], +geolocation[1]]} height={224} width={490} border={true}/>
-		</div>
+			<ProductYMAP coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [+userAddressGeo[0], +userAddressGeo[1]]} height={224} width={490} border={true}/>
+		</div> : null
 	)
 }
 
