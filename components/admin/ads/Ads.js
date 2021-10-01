@@ -53,24 +53,21 @@ export const Ads = () => {
          .then((responce) => {
             setWaitingBox(prev => prev.concat(responce.data.posts));
             responce.data.posts.length > 0 && setFetch(false);
-            console.log(responce)
          })
       }
    }, [fetch])
 
    useEffect ( () => {
       document.addEventListener( "scroll", () => {
-         if((document.documentElement.scrollHeight - window.innerHeight)*0.7 <= document.documentElement.scrollTop && fetch === false) {
+         if( ( document.documentElement.scrollHeight - window.innerHeight ) * 0.7 <= document.documentElement.scrollTop && fetch === false) {
             setFetch(true);
-            console.log("колво вызовов====>",fetch);
+            console.log("колво вызовов====>");
          }
       })
    },[])
 
-   console.log(WaitingBox[WaitingBox.length - 1]?.id);
-
    const navItems = [
-      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} />, count: countOffers },
+      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} setWaitingBox={setWaitingBox} setCountOffers={setCountOffers}/>, count: countOffers },
       { id: 2, title: 'Отклоненные', content: <RejectedAdmin key={2} offers={RejecteBox} />, count: RejecteBox.length }
    ];
 
