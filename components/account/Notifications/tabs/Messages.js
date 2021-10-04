@@ -11,6 +11,7 @@ import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
 
 function Messages() {
+
   function ellipsis(string, count) {
     if (string.length > count) {
       return `${string.substr(0, count - 1)}...`;
@@ -32,26 +33,31 @@ function Messages() {
 
   useEffect(() => {
 	if (id, query?.product_id && query?.seller_id) {
-
+		
 		const obj = {
 			"page_limit": 15, 
 			"last_message_id": 0, 
 			"user_id": id, 
-			"companion_id": +query?.seller_id, 
+			"companion_id": +query?.seller_id == id ? +query?.customer_id : +query?.seller_id, 
 			"product_id": +query?.product_id
 		}
 
 		axios.post(`${CHAT_URL}/chat_history`, obj).then(r => {
-			setRoom(r.data.room)
 			setMessageHistory(r.data.data)
+			setRoom(r.data.room)
 		})
  	 }
   }, [id, query])
 
+//   console.log(messageHistory)
+
+
   useEffect(() => {
 	if (query?.seller_id && query?.product_id && id && userInfo?.name) {
 		const sender = {"id": id, "name": userInfo?.name}
-		const recipient = {"id": +query?.seller_id}
+		const recipient = {
+			"id": +query?.seller_id == id ? +query?.customer_id : +query?.seller_id
+		}
 		const product = {"id": +query?.product_id}
 		setChatUsers({sender, recipient, product})
 	}
@@ -69,26 +75,25 @@ function Messages() {
     setMessageModal(!messageModal)
   }
 
-  useEffect(() => {
-	console.log(1)
-  }, [query])
-
   const generateTime = (UTC, time) => {
-	console.log(time)
+	const dateObj = JSON.parse(time)
+	return `${dateObj.d}.${dateObj.mo}.${dateObj.y} ${UTC + +dateObj.h}:${dateObj.mi}`
   }
 
   const changeChat = (data) => {
-	  console.log(data)
-	  router.push({
+	  if (data?.seller_id != +query.seller_id && data?.customer_id != +query?.customer_id && data?.product_id != +query?.product_id) {
+		  console.log(data)
+		   router.push({
 			pathname: `/account/${id}`,
 			query: {
 				account: 5,
 				content: 1,
 				seller_id: data?.seller_id,
-				customer_id: id,
+				customer_id: data?.customer_id,
 				product_id: data?.product_id
 			}
 		})
+	  }
   }
 
   
@@ -122,7 +127,7 @@ function Messages() {
             <div className="messageDialogs">
 			  {allRooms.length ? 
 			  	allRooms.map((item, i) => {
-					generateTime('+2', item.time)
+					const time = generateTime(0, item.time)
 					return (
 						<a key={i} className="messageDialog" 
 						  onClick={() => {
@@ -146,7 +151,7 @@ function Messages() {
 								<img src={`${item.seller_photo}?${item.seller_id}`} />
 								<div>
 								<div>{item.seller_name}</div>
-								<div className="light">{item.time}</div>
+								<div className="light">{time}</div>
 								</div>
 							</div>
 							<div className="light">{item?.message}</div>
@@ -200,7 +205,11 @@ function Messages() {
                   <div>{room?.product_name}</div>
                 </div>
               </div> : null} 
-			  {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender && <Chat usersData={chatUsers} messageData={messageHistory}/>}
+			  {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender && 
+			  <Chat usersData={chatUsers} 
+			  	messageData={messageHistory.reverse()}
+				userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
+			  />}
             </div>
           </div>
         </div>
