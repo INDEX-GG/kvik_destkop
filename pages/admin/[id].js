@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import MetaLayout from '../../layout/MetaLayout';
 import Modal from '../../components/Modal';
-import { modalLogout } from '../../components/Modals';
 import { Ads } from "../../components/admin/ads/Ads";
 import { Setting } from '../../components/admin/Setting/Setting';
 import { initials, stringToColor } from '../../lib/services';
+import {modalLogout} from "../../components/Modals";
 
 const userInfo = {
 	userId: 1,
