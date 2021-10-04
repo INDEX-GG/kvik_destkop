@@ -149,7 +149,7 @@
       "fields": ["Нет", "Подключено", "Есть возможность подключения"]
     },
     {
-      "alias": "communal_payments",
+      "alias": "house_communal_payments",
       "name": "Коммунальные платежи",
       "fields": ["Включены", "Не включены"]
     }

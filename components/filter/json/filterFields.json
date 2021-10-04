@@ -1,5 +1,5 @@
 {
-  "building": [
+  "secondary_housing": [
     {
       "alias": "type",
       "title": "Тип квартиры",
@@ -50,6 +50,19 @@
       "type": "twoText"
     },
     {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Косметический",
+        "Капитальный",
+        "Дизайнерский",
+        "Евроремонт",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
       "alias": "rooms",
       "title": "Количество комнат",
       "type": "checkbox",
@@ -62,6 +75,146 @@
         "Многокомнатные",
         "Свободная планировка"
       ]
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": [
+        "Изолированная",
+        "Свободная",
+        "Смежная",
+        "Смежно-изолированная",
+        "другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "bathroom",
+      "title": "Санузел",
+      "fields": ["Раздельный", "Совмещенный", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "balcony_or_loggia",
+      "title": "Балкон или лоджия",
+      "fields": ["Нет", "Балкон", "Лоджия", "Несколько балконов"],
+      "type": "select"
+    }
+  ],
+  "new_building": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "deadline",
+      "title": "Срок сдачи",
+      "fields": [
+        "Дом сдан",
+        "1 квартал 2021",
+        "2 квартал 2021",
+        "3 квартал 2021",
+        "4 квартал 2021",
+        "1 квартал 2022",
+        "2 квартал 2022",
+        "3 квартал 2022",
+        "4 квартал 2022",
+        "2023 год и позднее"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "sale_type",
+      "title": "Тип продажи",
+      "fields": ["Свободная", "Альтернативная", "Ипотека", "Рассрочка", "Торг"],
+      "type": "list"
+    },
+    {
+      "alias": "material",
+      "title": "Тип дома",
+      "fields": [
+        "Панель",
+        "Кирпич",
+        "Монолит",
+        "кирпично-монолитный",
+        "Блочный",
+        "Деревянный"
+      ],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "rooms",
+      "title": "Количество комнат",
+      "type": "checkbox",
+      "fields": [
+        "Студия",
+        "1-комнатные",
+        "2-комнатные",
+        "3-комнатные",
+        "4-комнатные",
+        "Многокомнатные",
+        "Свободная планировка"
+      ]
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": [
+        "Изолированная",
+        "Свободная",
+        "Смежная",
+        "Смежно-изолированная",
+        "другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "bathroom",
+      "title": "Санузел",
+      "fields": ["Раздельный", "Совмещенный", "2 и более"],
+      "type": "list"
     },
     {
       "alias": "balcony_or_loggia",
@@ -84,27 +237,15 @@
       ]
     },
     {
-      "alias": "type",
-      "title": "Тип квартиры",
-      "fields": ["Вторичное жилье", "Новостройка"],
-      "type": "list"
+      "alias": "accommodations",
+      "title": "Условия проживания",
+      "fields": ["Можно с детьми", "Можно с животными"],
+      "type": "checkbox"
     },
     {
       "alias": "owner",
       "title": "Право собственности",
-      "fields": [
-        "Собственник",
-        "Агенство",
-        "Застройщик",
-        "Подрядчик",
-        "Частный риелтор"
-      ],
-      "type": "list"
-    },
-    {
-      "alias": "sale_type",
-      "title": "Тип продажи",
-      "fields": ["Свободная", "Альтернативная", "Ипотека", "Рассрочка", "Торг"],
+      "fields": ["Собственник", "Агенство", "Частный риелтор"],
       "type": "list"
     },
     {
@@ -147,10 +288,1032 @@
       ]
     },
     {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Косметический",
+        "Капитальный",
+        "Дизайнерский",
+        "Евроремонт",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": [
+        "Изолированная",
+        "Свободная",
+        "Смежная",
+        "Смежно-изолированная",
+        "другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "bathroom",
+      "title": "Санузел",
+      "fields": ["Раздельный", "Совмещенный", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
       "alias": "balcony_or_loggia",
       "title": "Балкон или лоджия",
       "fields": ["Нет", "Балкон", "Лоджия", "Несколько балконов"],
       "type": "select"
+    }
+  ],
+  "sell_commercial": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "class",
+      "title": "Класс",
+      "fields": ["A", "B", "C"],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "type_sale",
+      "title": "Условия продажи",
+      "fields": ["Ипотека", "Рассрочка"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": ["Кабинетная", "Коридорная", "open space", "другое"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Офисная отделка",
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
+    }
+  ],
+  "rent_commercial": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "type_transaction",
+      "title": "Тип сделки",
+      "fields": ["Прямая аренда", "Субаренда", "Продажа права аренды"],
+      "type": "list"
+    },
+    {
+      "alias": "class",
+      "title": "Класс",
+      "fields": ["A", "B", "C"],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "included",
+      "title": "Включено",
+      "fields": ["Коммунальные услуги", "Электричество", "Клининг"],
+      "type": "checkbox"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": ["Кабинетная", "Коридорная", "open space", "другое"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Офисная отделка",
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
+    }
+  ],
+  "sell_warehouse_space": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "class",
+      "title": "Класс",
+      "fields": ["A", "B", "C"],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "type_sale",
+      "title": "Условия продажи",
+      "fields": ["Ипотека", "Рассрочка"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": [
+        "Доступ 24/7",
+        "Вентиляция",
+        "Охранная сигнализация",
+        "Пожарная сигнализация"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "crane",
+      "title": "Кран",
+      "fields": ["Мостовой кран", "Козловой кран", "Кран-балка", "Ж/д кран"],
+      "type": "list"
+    }
+  ],
+  "rent_warehouse_space": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "class",
+      "title": "Класс",
+      "fields": ["A", "B", "C"],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "type_transaction",
+      "title": "Тип сделки",
+      "fields": ["Прямая аренда", "Субаренда", "Продажа права аренды"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": [
+        "Доступ 24/7",
+        "Вентиляция",
+        "Охранная сигнализация",
+        "Пожарная сигнализация"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "crane",
+      "title": "Кран",
+      "fields": ["Мостовой кран", "Козловой кран", "Кран-балка", "Ж/д кран"],
+      "type": "list"
+    }
+  ],
+  "sell_free_premises": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "type_sale",
+      "title": "Условия продажи",
+      "fields": ["Ипотека", "Рассрочка"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": [
+        "Доступ 24/7",
+        "Кондиционер",
+        "Вентиляция",
+        "Охранная сигнализация",
+        "Пожарная сигнализация"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Типовая отделка",
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
+    }
+  ],
+  "rent_free_premises": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "type_transaction",
+      "title": "Тип сделки",
+      "fields": ["Прямая аренда", "Субаренда", "Продажа права аренды"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": [
+        "Доступ 24/7",
+        "Кондиционер",
+        "Вентиляция",
+        "Охранная сигнализация",
+        "Пожарная сигнализация"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Типовая отделка",
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
+    }
+  ],
+  "sell_building": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "class",
+      "title": "Класс",
+      "fields": ["A", "B", "C"],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "type_sale",
+      "title": "Условия продажи",
+      "fields": ["Ипотека", "Рассрочка"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromFloor_home",
+      "secondAlias": "toFloor_home",
+      "title": "Этажность",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": [
+        "Доступ 24/7",
+        "Кондиционер",
+        "Вентиляция",
+        "Охранная сигнализация",
+        "Пожарная сигнализация"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Типовая отделка",
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
+    }
+  ],
+  "rent_building": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "class",
+      "title": "Класс",
+      "fields": ["A", "B", "C"],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "type_transaction",
+      "title": "Тип сделки",
+      "fields": ["Прямая аренда", "Субаренда", "Продажа права аренды"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromFloor_home",
+      "secondAlias": "toFloor_home",
+      "title": "Этажность",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": [
+        "Доступ 24/7",
+        "Кондиционер",
+        "Вентиляция",
+        "Охранная сигнализация",
+        "Пожарная сигнализация"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Типовая отделка",
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
     }
   ],
   "vacancies": [
@@ -680,11 +1843,7 @@
     {
       "alias": "type",
       "title": "Тип",
-      "fields": [
-        "Рули",
-        "Геймпады",
-        "Джойстики"
-    ],
+      "fields": ["Рули", "Геймпады", "Джойстики"],
       "type": "select"
     }
   ],
@@ -712,7 +1871,7 @@
     {
       "alias": "size_page_printers",
       "title": "Максимальный размер формата бумаги",
-      "fields":["А4", "А3", "А2", "А1"],
+      "fields": ["А4", "А3", "А2", "А1"],
       "type": "select"
     },
     {
@@ -745,6 +1904,1070 @@
       "fields": ["Да", "Нет"],
       "type": "select"
     }
-    
+  ],
+  "mfps_and_scanners": [
+    {
+      "alias": "mfps_and_scanners_color",
+      "title": "Цветная печать",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "size_page_mfps_and_scanners",
+      "title": "Максимальный размер формата бумаги",
+      "fields": ["А4", "А3", "А2", "А1"],
+      "type": "select"
+    },
+    {
+      "alias": "mfps_and_scanners_speed",
+      "title": "Скоростная печать",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "duplex_mfps_and_scanners",
+      "title": "Двустороннее сканирование",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "two_sided_mfps_and_scanners",
+      "title": "Двусторонняя печать",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "auto_mfps_and_scanners",
+      "title": "Наличие автоподатчика",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "network_mfps_and_scanners",
+      "title": "Сетевой",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "photo_mfps_and_scanners",
+      "title": "Печать фотографий",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    }
+  ],
+  "consumables_for_office_equipment": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": [
+        "Картриджи",
+        "Термопленки",
+        "Фотобарабаны",
+        "Тонеры",
+        "Бумага",
+        "Чернила",
+        "Термопленки "
+      ],
+      "type": "select"
+    }
+  ],
+  "ups_and_surge_protectors": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": ["Сетевые фильтры", "ИБП", "Батареи ИБП", "Стабилизаторы "],
+      "type": "select"
+    }
+  ],
+  "tv_sets_cat2": [
+    {
+      "alias": "type",
+      "title": "Тип панели",
+      "fields": ["Лучевая трубка", "Кинескоп", "ЖК"],
+      "type": "select"
+    },
+    {
+      "alias": "brand",
+      "title": "Брэнд",
+      "fields": [
+        "BBK",
+        "BQ",
+        "DIGMA",
+        "ERISSON",
+        "HISENSE",
+        "HUAWEI",
+        "HYUNDAI",
+        "IRBIS",
+        "KIVI",
+        "LG",
+        "PHILIPS",
+        "POLARLINE",
+        "PRESTIGI",
+        "SAMSUNG",
+        "SHARP",
+        "SONY",
+        "STARWIND",
+        "SUNWIND",
+        "SUPRA",
+        "TCL",
+        "TELEFUNKEN",
+        "XIAOMI"
+      ],
+      "type": "select"
+    },
+    {
+      "firstAlias": "fromTv_diagonal",
+      "secondAlias": "toTv_diagonal",
+      "title": "Диагональ, ”",
+      "type": "twoText"
+    },
+    {
+      "alias": "screen_resolution",
+      "title": "Разрешение экрана",
+      "fields": ["Ultra HD (4К)", "Full HD (1080p)", "Ready (720p)"],
+      "type": "select"
+    },
+    {
+      "alias": "smartTV",
+      "title": "Смарт ТВ",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "3dTV",
+      "title": "Поддержка 3D",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "сurved_screen",
+      "title": "Изогнутый экран",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "usbTV",
+      "title": "Поддержка USB",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "wifiTV",
+      "title": "Поддержка Wi-Fi",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "bluetoothTV",
+      "title": "Поддержка bluetooth",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    }
+  ],
+  "hi_fi_technology": [
+    {
+      "alias": "type",
+      "title": "Тип техники",
+      "fields": [
+        "Ресиверы",
+        "Усилители",
+        "Виниловые проигрыватели",
+        "Акустические системы",
+        "Сабвуферы"
+      ],
+      "type": "select"
+    }
+  ],
+  "tv_accessories": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": ["Пульты", "Кабели", "Кронштейны и подставки"],
+      "type": "select"
+    }
+  ],
+  "audio_engineering": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": [
+        "Умные колонки",
+        "Музцентры",
+        "Саундбары",
+        "Магнитолы",
+        "mp3 плееры",
+        "Диктофоны",
+        "Радиоприемники",
+        "Аудиосистемы"
+      ],
+      "type": "select"
+    }
+  ],
+  "video_engineering": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": ["Медиаплееры", "Дивидиплееры", "Домкинотеатры"],
+      "type": "select"
+    }
+  ],
+  "chargers_power_supplies": [
+    {
+      "alias": "manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "ACCORD",
+        "AEROCOOL",
+        "FSP",
+        "HIPRO",
+        "LINKWORLD",
+        "SEASONIC",
+        "THERMALTAKE",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "firstAlias": "fromCharge_power",
+      "secondAlias": "toCharge_power",
+      "title": "Мощность, Вт",
+      "type": "twoText"
+    },
+    {
+      "alias": "certification",
+      "title": "Сертификация",
+      "fields": [
+        "80 PLUS ",
+        "80 PLUS BRONZE",
+        "80 PLUS GOLD",
+        "80 PLUS PLATINUM",
+        "80 PLUS TITANIUM"
+      ],
+      "type": "select"
+    }
+  ],
+  "smart_watches_and_fitness_bracelets": [
+    {
+      "alias": "choosing_a_gadget",
+      "title": "Тип",
+      "fields": ["Смартчасы", "Браслеты"],
+      "type": "select"
+    },
+    {
+      "alias": "smart_manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "Amazfit",
+        "Apple",
+        "Canyon",
+        "Elari",
+        "Garmin",
+        "Geozon",
+        "Ginzzu",
+        "Honor",
+        "Hiper",
+        "Huawei I",
+        "JET",
+        "Oppo",
+        "KREZ",
+        "LEXAND",
+        "VERTEX",
+        "SAMSUNG",
+        "SMARTERRA",
+        "XIAOMI",
+        "КНОПКА ЖИЗНИ",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "sim_exist",
+      "title": "Наличие сим-карты",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "smart_communication",
+      "title": "Связь",
+      "fields": ["WiFi", "Bluetooth"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "features_of_the",
+      "title": "Особенности",
+      "fields": [
+        "Защита от влаги и пыли",
+        "Сенсорный дисплей",
+        "Встроенный динамик",
+        "Встроенный микрофон",
+        "Технология NFC",
+        "Навигация"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "materials_edit",
+      "title": "Материалы",
+      "fields": ["Металл", "Стекло", "Пластик", "Кожа", "Резина", "другой"],
+      "type": "select"
+    }
+  ],
+  "electronic_books": [
+    {
+      "alias": "tablet_manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "DEXP",
+        "digma",
+        "Onyx Boox",
+        "pocketbook",
+        "Vivacase",
+        "Bookeen",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "display_diagonal",
+      "title": "Диагональ дисплея",
+      "fields": ["До 7", "От 7 до 9", "От 9"],
+      "type": "select"
+    },
+    {
+      "alias": "display_resolution",
+      "title": "Разрешение дисплея",
+      "fields": [
+        "758х1024",
+        "800х600",
+        "1024x758",
+        "1200x825",
+        "1448x1072",
+        "1872x1404",
+        "Другое"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "battery_life",
+      "title": "Продолжительность автономной работы",
+      "fields": ["менее 10000 страниц", "более 15000 страниц"],
+      "type": "select"
+    },
+    {
+      "alias": "features_of_the",
+      "title": "Особенности",
+      "fields": [
+        "Сенсорный экран",
+        "Подсветка экрана",
+        "WiFi",
+        "bluetooth",
+        "Разъем для наушников",
+        "Поддержка карт памяти"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "builtin_memory",
+      "title": "Объем встроенной памяти",
+      "fields": ["4 Гб", "8 Гб", "16 Гб", "32 Гб"],
+      "type": "select"
+    }
+  ],
+  "tablets": [
+    {
+      "alias": "manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "Acer",
+        "Alcatel",
+        "APPLE",
+        "ARIAN",
+        "ARK",
+        "DELL",
+        "DIGMA",
+        "Haier",
+        "Honor",
+        "HP",
+        "HUAWEI",
+        "IRBIS",
+        "LENOVO",
+        "PRESTIGIO",
+        "SAMSUNG",
+        "Turbo",
+        "TurboKids",
+        "XIAOMI",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "cpu",
+      "title": "Процессор",
+      "fields": ["Apple", "INTEL", "RocKChip", "Qualcomm", "Другой"],
+      "type": "select"
+    },
+    {
+      "alias": "ram_size",
+      "title": "Объем оперативной памяти",
+      "fields": [
+        "512 Мб",
+        "1 Гб",
+        "1,5 Гб",
+        "2 Гб",
+        "3 Гб",
+        "4 Гб",
+        "6 Гб",
+        "8 Гб",
+        "16 Гб",
+        "32 Гб"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "builtin_memory",
+      "title": "Объем встроенной памяти",
+      "fields": [
+        "1 Гб",
+        "2 Гб",
+        "4 Гб",
+        "8 Гб",
+        "16 Гб",
+        "32 Гб",
+        "64 Гб",
+        "128 Гб",
+        "256 Гб",
+        "512 Гб и более"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "display_diagonal",
+      "title": "Диагональ дисплея",
+      "fields": ["до 8", "от 8 до 10", "от 10 до 12", "от 12"],
+      "type": "select"
+    },
+    {
+      "alias": "display_resolution",
+      "title": "Разрешение дисплея",
+      "fields": [
+        "1024x600",
+        "1200х800",
+        "1280x720",
+        "1280x800",
+        "1920x1080",
+        "1920x1200",
+        "1920x1280",
+        "2000х1200",
+        "2048x1536",
+        "2160х1350",
+        "2160х1620",
+        "2224х1668",
+        "2360х1640",
+        "2388х1668",
+        "2560x1600",
+        "2732х2048",
+        "2800х1752",
+        "2880x1920",
+        "Другое"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "battery_capacity",
+      "title": "Емкость батареи",
+      "fields": ["от 1500 до 2500 мАч", "от 2500 до 4000 мАч", "от 4000 мАч"],
+      "type": "select"
+    },
+    {
+      "alias": "connectors_and_interfaces",
+      "title": "Разъемы и интерфейсы",
+      "fields": [
+        "USB TypeC",
+        "micro HDMI",
+        "micro USB",
+        "mini USB",
+        "Lightning",
+        "Разъем для подключения наушников 3,5 мм"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "features_of_the",
+      "title": "Особенности",
+      "fields": [
+        "Защита от влаги и пыли",
+        "Сканер отпечатков пальцев",
+        "Поддержка двух SIMкарт",
+        "Поддержка карт памяти"
+      ],
+      "type": "checkbox"
+    }
+  ],
+  "sell_rooms": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "sale_type",
+      "title": "Тип продажи",
+      "fields": ["Свободная", "Альтернативная", "Ипотека", "Рассрочка", "Торг"],
+      "type": "list"
+    },
+    {
+      "alias": "material",
+      "title": "Тип дома",
+      "fields": [
+        "Панель",
+        "Кирпич",
+        "Монолит",
+        "кирпично-монолитный",
+        "Блочный",
+        "Деревянный"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "series_home",
+      "title": "Серия дома",
+      "fields": [
+        "Брежневка",
+        "Общежитие",
+        "Секционного типа",
+        "Малоэтажка",
+        "Cпецпроект",
+        "121 серия",
+        "97 серия",
+        "97 улудшенная серия",
+        "121T",
+        "Сталинка",
+        "Хрущевка",
+        "Ленинградский проект",
+        "другая"
+      ],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "tenure",
+      "title": "Срок владения",
+      "fields": ["До 3 лет", "От 3 до 5 лет", "Более 5 лет"],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Косметический",
+        "Капитальный",
+        "Дизайнерский",
+        "Евроремонт",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": [
+        "Изолированная",
+        "Свободная",
+        "Смежная",
+        "Смежно-изолированная",
+        "другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "bathroom",
+      "title": "Санузел",
+      "fields": ["Раздельный", "Совмещенный", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Косметический",
+        "Капитальный",
+        "Дизайнерский",
+        "Евроремонт",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "balcony_or_loggia",
+      "title": "Балкон или лоджия",
+      "fields": ["Нет", "Балкон", "Лоджия", "Несколько балконов"],
+      "type": "select"
+    },
+    {
+      "alias": "rooms",
+      "title": "Количество комнат",
+      "type": "checkbox",
+      "fields": [
+        "Студия",
+        "1-комнатные",
+        "2-комнатные",
+        "3-комнатные",
+        "4-комнатные",
+        "Многокомнатные",
+        "Свободная планировка"
+      ]
+    }
+  ],
+  "rent_rooms": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "lease_term",
+      "title": "Срок аренды",
+      "fields": ["Посуточно", "На короткий срок", "На длительный срок"],
+      "type": "list"
+    },
+    {
+      "alias": "accommodations",
+      "title": "Условия проживания",
+      "fields": ["Можно с детьми", "Можно с животными"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "material",
+      "title": "Тип дома",
+      "fields": [
+        "Панель",
+        "Кирпич",
+        "Монолит",
+        "кирпично-монолитный",
+        "Блочный",
+        "Деревянный"
+      ],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Косметический",
+        "Капитальный",
+        "Дизайнерский",
+        "Евроремонт",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": [
+        "Изолированная",
+        "Свободная",
+        "Смежная",
+        "Смежно-изолированная",
+        "другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "bathroom",
+      "title": "Санузел",
+      "fields": ["Раздельный", "Совмещенный", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "balcony_or_loggia",
+      "title": "Балкон или лоджия",
+      "fields": ["Нет", "Балкон", "Лоджия", "Несколько балконов"],
+      "type": "select"
+    },
+    {
+      "alias": "rooms",
+      "title": "Количество комнат",
+      "type": "checkbox",
+      "fields": [
+        "Студия",
+        "1-комнатные",
+        "2-комнатные",
+        "3-комнатные",
+        "4-комнатные",
+        "Многокомнатные",
+        "Свободная планировка"
+      ]
+    }
+  ],
+  "sell_houses_and_cottages": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "tenure",
+      "title": "Срок владения",
+      "fields": ["До 3 лет", "От 3 до 5 лет", "Более 5 лет"],
+      "type": "list"
+    },
+    {
+      "alias": "sale_type",
+      "title": "Тип продажи",
+      "fields": ["Свободная", "Альтернативная", "Ипотека", "Рассрочка"],
+      "type": "list"
+    },
+    {
+      "alias": "wall_material",
+      "title": "Материал стен",
+      "fields": [
+        "Кирпич",
+        "Брус",
+        "Бревно",
+        "сэндвич-панели",
+        "Пеноблоки",
+        "Газоблоки",
+        "Эксперементальный материал",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "firstAlias": "formRoom_number",
+      "secondAlias": "toRoom_number",
+      "title": "Количество комнат",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromNumber_of_storeys",
+      "secondAlias": "toNumber_of_storeys",
+      "title": "Этажность",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "bathrooms_number",
+      "title": "Количество санузлов",
+      "fields": ["На улице", "В доме", "Несколько"],
+      "type": "list"
+    },
+    {
+      "alias": "balcony_number",
+      "title": "Количество балконов",
+      "fields": ["Нет", "Балкон", "Лоджия", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Электричество", "Отопление", "Газ", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": ["Кондиционер", "Камин", "Бассейн", "Баня/сауна"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "garage",
+      "title": "Гараж",
+      "fields": ["Да", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "electricity",
+      "title": "Электричество",
+      "fields": ["Нет", "Подключено", "Есть возможность подключения"],
+      "type": "list"
+    },
+    {
+      "alias": "heating",
+      "title": "Отопление",
+      "fields": ["Печное", "Газовое", "Электрическое", "Центральное"],
+      "type": "list"
+    },
+    {
+      "alias": "gas",
+      "title": "Газ",
+      "fields": ["Нет", "Подключено", "Есть возможность подключения"],
+      "type": "list"
+    },
+    {
+      "alias": "water_supply",
+      "title": "Водоснабжение",
+      "fields": ["Автономное", "Централизованное", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "land_type",
+      "title": "Тип земельного участка",
+      "fields": [
+        "Сельхоз",
+        "Фермерское хозяйство",
+        "Поселение",
+        "Промназначение",
+        "Инвестпроект"
+      ],
+      "type": "listRec"
+    }
+  ],
+  "rent_houses_and_cottages": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "tenure",
+      "title": "Срок владения",
+      "fields": ["До 3 лет", "От 3 до 5 лет", "Более 5 лет"],
+      "type": "list"
+    },
+    {
+      "alias": "lease_term",
+      "title": "Срок аренды",
+      "fields": ["Посуточно", "На короткий срок", "На длительный срок"],
+      "type": "listRec"
+    },
+    {
+      "alias": "accommodations",
+      "title": "Условия проживания",
+      "fields": ["Можно с детьми", "Можно с животными"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "wall_material",
+      "title": "Материал стен",
+      "fields": [
+        "Кирпич",
+        "Брус",
+        "Бревно",
+        "сэндвич-панели",
+        "Пеноблоки",
+        "Газоблоки",
+        "Эксперементальный материал",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "firstAlias": "formRoom_number",
+      "secondAlias": "toRoom_number",
+      "title": "Количество комнат",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromNumber_of_storeys",
+      "secondAlias": "toNumber_of_storeys",
+      "title": "Этажность",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "bathrooms_number",
+      "title": "Количество санузлов",
+      "fields": ["На улице", "В доме", "Несколько"],
+      "type": "list"
+    },
+    {
+      "alias": "balcony_number",
+      "title": "Количество балконов",
+      "fields": ["Нет", "Балкон", "Лоджия", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Электричество", "Отопление", "Газ", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": ["Кондиционер", "Камин", "Бассейн", "Баня/сауна"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "multimedia",
+      "title": "Мультимедиа",
+      "fields": ["WI-FI", "Телевизор", "Цифровое/Кабельное ТВ"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "garage",
+      "title": "Гараж",
+      "fields": ["Да", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "electricity",
+      "title": "Электричество",
+      "fields": ["Нет", "Подключено", "Есть возможность подключения"],
+      "type": "list"
+    },
+    {
+      "alias": "heating",
+      "title": "Отопление",
+      "fields": ["Печное", "Газовое", "Электрическое", "Центральное"],
+      "type": "list"
+    },
+    {
+      "alias": "gas",
+      "title": "Газ",
+      "fields": ["Нет", "Подключено", "Есть возможность подключения"],
+      "type": "list"
+    },
+    {
+      "alias": "water_supply",
+      "title": "Водоснабжение",
+      "fields": ["Автономное", "Централизованное", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "facilities",
+      "title": "Удобства",
+      "fields": [
+        "Холодильник",
+        "Кондиционер",
+        "Телевизор",
+        "Стиральная машина",
+        "Посудомоечная машина",
+        "Плита",
+        "Фен",
+        "Утюг",
+        "Интернет"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "land_type",
+      "title": "Тип земельного участка",
+      "fields": [
+        "Сельхоз",
+        "Фермерское хозяйство",
+        "Поселение",
+        "Промназначение",
+        "Инвестпроект"
+      ],
+      "type": "listRec"
+    }
   ]
 }
