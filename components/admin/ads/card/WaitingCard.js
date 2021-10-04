@@ -1,15 +1,19 @@
 import React from 'react';
 import { ToRubles } from '../../../../lib/services';
-import { Modal } from "@material-ui/core";
+import { Dialog, Modal } from "@material-ui/core";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
 import { STATIC_URL } from "../../../../lib/constants";
 import {initials, stringToColor} from "../../../../lib/services";
+import RejectModal from "../../../RejectModal";
 
 SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
 
-function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, getDataChild, offerId}) {
+function WaitingCard({index, offer, parentCheck, getDataChild, offerId}) {
+
+    const [openWaitForm, setOpenWaitForm] = React.useState(false);
+    const handleWaitFormDialog = () => setOpenWaitForm(!openWaitForm);
 
     const {photos} = JSON.parse(offer.photo);
 
@@ -21,7 +25,7 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
     const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
     const [activeSlide, setActiveSlide] = React.useState(0);
 
-    console.log("ChildCheck=======>", check)
+    //console.log("ChildCheck=======>", check)
     
     React.useEffect( () => {
         parentCheck ? check ? null : handleChange(parentCheck) : check === false ? null : offerId.length === 0 ? handleChange(parentCheck) : null;
@@ -45,6 +49,9 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
         getDataChild({id: offer.id, isCheck: event })
     }
     
+    function reject (params) {
+        console.log(params)
+    }
     /* написать проверку */
    
     if (modalSwiper) {
@@ -137,7 +144,7 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                             </SwiperSlide>
                         ))}
                     </Swiper>
-                        {/* добавить в свайпер ниже onActiveIndexChange есть баг при нажатии на картинки снизу они перелистываются влево */}
+                       
                     <Swiper
                         onSwiper={setThumbsSwiper}
                         className="mySwiper productSliderNav admin-page_modal-swiper" 
@@ -155,6 +162,9 @@ function WaitingCard({index, offer, openWaitForm, setOpenWaitForm, parentCheck, 
                     </Swiper>
                 </>
             </Modal>
+            <Dialog open={openWaitForm || false} onClose={() => setOpenWaitForm(!openWaitForm)} fullWidth maxWidth='md'>
+                <RejectModal Close={handleWaitFormDialog}  reject={reject}/>
+            </Dialog>
         </div>
     )
 }

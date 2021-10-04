@@ -19,7 +19,7 @@ export default function Contacts() {
                         <div className="contacts__blocks__block_wrapper_top">
                             <p>Связь с нами: <a href="tel:+79191232395">8 (919) 123-23-95</a></p>
                             <p>Адрес: <span className="contacts__blocks__block_wrapper_adress">г. Челябинск, ул. Молодогвардейцев, 60-В</span></p>
-                            <p>E-mail: <span className="contacts__blocks__block_wrapper_email">support@1kvik.ru</span></p>
+                            <p>E-mail: <span className="contacts__blocks__block_wrapper_email">support@onekvik.ru</span></p>
                             <h6 className="social__title">Мы в социальных сетях</h6>
                             <div className="social__block">
                                 <a href="https://www.instagram.com/kvik.ru/"><Instagram /></a>

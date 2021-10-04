@@ -44,8 +44,13 @@ export const Ads = () => {
          setCountOffers(responce.data.count[0].count)});
    },[])
 
+   function lessCount (count) {
+      setCountOffers( prev => prev - count)
+   }
+
    useEffect ( () => {
       if(fetch) {
+         console.log("Запросы!??!?!?!");
          axios.post(`/api/getPostsModerator`, {
             "page_limit": 5, 
             "last_post_id": WaitingBox[WaitingBox.length - 1].id
@@ -61,13 +66,12 @@ export const Ads = () => {
       document.addEventListener( "scroll", () => {
          if( ( document.documentElement.scrollHeight - window.innerHeight ) * 0.7 <= document.documentElement.scrollTop && fetch === false) {
             setFetch(true);
-            console.log("колво вызовов====>");
          }
       })
-   },[])
+   })
 
    const navItems = [
-      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} setWaitingBox={setWaitingBox} setCountOffers={setCountOffers}/>, count: countOffers },
+      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} setWaitingBox={setWaitingBox} lessCount={lessCount}/>, count: countOffers },
       { id: 2, title: 'Отклоненные', content: <RejectedAdmin key={2} offers={RejecteBox} />, count: RejecteBox.length }
    ];
 
@@ -93,7 +97,6 @@ export const Ads = () => {
             </div>
          </div>
          {navItems.map(item => {
-            console.log(item)
             return (
                (itemNav.i === item.id) && (item.content ? item.content : ( <div key={item.id} className="userPageContentCompare"> <Loading/> </div> ))
             )

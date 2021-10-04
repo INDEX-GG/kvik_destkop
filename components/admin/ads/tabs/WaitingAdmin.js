@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { BtnReject } from '../../../Modals';
-import { Dialog } from '@material-ui/core';
 import WaitingCard from '../card/WaitingCard';
 import axios from 'axios';
 
-function WaitingAdmin({offers, setWaitingBox/* , setCountOffers */}) {
+function WaitingAdmin({offers, setWaitingBox, lessCount }) {
 
    const [check, setCheck] = useState(false);
    const [offerId, setOfferId] = useState([]);
    const [firstRender, setFirstRender] = useState(0);
-   const [openWaitForm, setOpenWaitForm] = useState(false);
-   const handleWaitFormDialog = () => setOpenWaitForm(!openWaitForm);
+   
 
    function getDataChild ({id, isCheck}) {
       setOfferId( isCheck ?  previous => [...previous, id] : previous => previous.filter( item => item !== id) );
@@ -25,13 +22,15 @@ function WaitingAdmin({offers, setWaitingBox/* , setCountOffers */}) {
       .then( (responce) => {
          console.log(responce);
          setWaitingBox( prev => prev.filter( item => !offerId.includes(item.id) ) );
+         lessCount(offerId.length)
          setOfferId([]);
          setCheck(false);
       })
+      
    }
    /* доделать отслеживание количества ждущих одобрения объявлений*/
    useEffect( () => {
-      console.log("offers===IIIIIIIIIIIIII====>", offers)
+     // console.log("offers===IIIIIIIIIIIIII====>", offers)
    }, [ offers ])
    useEffect(() => {
       firstRender > 0 && offerId.length === offers.length ? setCheck(true) : setCheck(false);
@@ -42,7 +41,7 @@ function WaitingAdmin({offers, setWaitingBox/* , setCountOffers */}) {
       return <></>
    }
    
-   console.log("offerId=======>", offerId)
+   //console.log("offerId=======>", offerId)
    //console.log("setWaitingBox=======>", setWaitingBox)
 
    return (
@@ -71,8 +70,6 @@ function WaitingAdmin({offers, setWaitingBox/* , setCountOffers */}) {
                         key={offer.id}
                         index={index}
                         offer={offer}
-                        openWaitForm={openWaitForm}
-                        setOpenWaitForm={setOpenWaitForm}
                         parentCheck={check}
                         getDataChild={getDataChild}
                         offerId={offerId}
@@ -81,9 +78,6 @@ function WaitingAdmin({offers, setWaitingBox/* , setCountOffers */}) {
                })}
             </div>
          </div>
-         <Dialog open={openWaitForm || false} onClose={() => setOpenWaitForm(!openWaitForm)} fullWidth maxWidth='md'>
-            <BtnReject Close={handleWaitFormDialog} />
-         </Dialog>
       </div>
    )
 }

@@ -31,7 +31,7 @@ function About() {
           <div className="text1">Широкая аудитория </div>
           <br />
           <div className="text2">
-            Тысячи продавцов и покупателей посещают сайт 1kvik.ru ежедневно.
+            Тысячи продавцов и покупателей посещают сайт onekvik.ru ежедневно.
           </div>
           <br />
           <div className="text1">Бесплатно</div>
@@ -58,13 +58,13 @@ function About() {
           <br />
           <div className="text2">
             {" "}
-            <span className="webInfo">Сайт 1kvik.ru</span> – это удобный и эффективный инструмент для бизнеса.
+            <span className="webInfo">Сайт onekvik.ru</span> – это удобный и эффективный инструмент для бизнеса.
             Подавайте объявления и находите новых клиентов бесплатно!
           </div>
           <br />
           <div className="text1">
             {" "}
-            Размещайте бесплатные объявления на 1kvik.ru, экономьте время и
+            Размещайте бесплатные объявления на onekvik.ru, экономьте время и
             средства!{" "}
           </div>
           <br />
