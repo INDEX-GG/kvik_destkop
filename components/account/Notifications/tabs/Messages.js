@@ -32,7 +32,7 @@ function Messages() {
   const {matchesTablet, matchesMobile} = useMedia()
 
   useEffect(() => {
-	if (id, query?.product_id && query?.seller_id) {
+	if (id && query?.product_id && query?.seller_id) {
 		
 		const obj = {
 			"page_limit": 15, 

@@ -26,11 +26,8 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 	const {userInfo} = useStore()
 	const {id} = useAuth()
 
-	console.log(recipient.photo)
-
-
 	useEffect(() => {
-		setMsgList(messageData.reverse())
+		setMsgList(messageData)
 	}, [messageData])
 
 	useEffect(() => {
