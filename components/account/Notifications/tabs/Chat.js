@@ -17,23 +17,24 @@ const socket = io('http://192.168.8.111:6066', {path: "/socket.io"})
 
 
 
-const Chat = ({usersData: {sender, recipient, product}, messageData}) => {
+const Chat = ({usersData: {sender, recipient, product}, messageData = [], userChatPhoto}) => {
 	const [message, setMessage] = useState('');
-	const [msgList, setMsgList] = useState([]);
+	const [msgList, setMsgList] = useState(messageData);
 	const {query} = useRouter()
 	const refChat = useRef()
 	const refInput = useRef()
 	const {userInfo} = useStore()
-
 	const {id} = useAuth()
 
+	console.log(recipient.photo)
+
+
 	useEffect(() => {
-		console.log(messageData)
+		setMsgList(messageData.reverse())
 	}, [messageData])
 
 	useEffect(() => {
 		if (query?.customer_id && query?.seller_id && query?.product_id && userInfo?.name && id) {
-			console.log('join')
 			// socket.disconnect()
 			socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
 		}
@@ -45,56 +46,46 @@ const Chat = ({usersData: {sender, recipient, product}, messageData}) => {
 		}
 	}, [msgList])
 
-	useEffect(() => {
-		setMsgList([])
-	}, [query])
+	// useEffect(() => {
+	// 	setMsgList([])
+	// }, [query])
 
  	const handleSend = async () => {
 		if (message.length > 0) {
 			let data = new Date()
 			const messageDate = `${data.getHours()}:${data.getMinutes() > 9 ? data.getMinutes() : `0${data.getMinutes()}`}`
-			//? Событие оправки между клиентом и сервером
-			//! Убрать дату
-			// const sendObj = {
-			// 	'delete': false, 
-			// 	'message': message, 
-			// 	'messages_is_read': false, 
-			// 	'recipient': recipient.id, 
-			// 	'sender': recipient,
-			// 	'product': product, 
-			// 	'time': messageDate
-			// }
-			await socket.emit('text', {'message': message, 'sender': sender, 'recipient': recipient, 'product': product, 'date': messageDate})
+			const sendObj = {
+				'delete': false, 
+				'message': message, 
+				'messages_is_read': false, 
+				'recipient': recipient, 
+				'sender': sender,
+				'sender_id': sender.id,
+				'product': product, 
+				'time': messageDate,
+				// 'userPhoto':
+			}
+			await socket.emit('text', sendObj)
+			//  {'message': message, 'sender': sender, 'recipient': recipient, 'product': product, 'date': messageDate}
 			setMessage('')
 		}
 	}
 
-	//? Пользователь подключается к серверу
-	socket.on('connect', () => {
-		// console.log('Зашёл')
-	})
-
-	socket.on("disconnect", (reason) => {
-		 console.log(reason) // undefined
-		// console.log('Ушёл')
-		// socket.emit('disconnect', {'sender': sender, 'recipient': recipient})
-	});
-
 	useEffect(() => {
 		socket.on('message', (data) => {
 			if (!data.msg) {
-				console.log(data.sender)
+				console.log(data)
 				if (data.sender?.id != id) {
 					socket.emit('online', {'sender': sender, 'recipient': recipient, 'product': product})
 				}
 				setMsgList(prev => [...prev, data])
 			}
 		})
-
-		return (() => {
-			setMsgList([])
-		})
+		// return (() => {
+		// 	setMsgList([])
+		// })
 	}, [])
+
 
 	const handleKeyDown = (e) => {
 		socket.emit('typing', {'sender': sender, 'recipient': recipient, 'product': product})
@@ -118,11 +109,11 @@ const Chat = ({usersData: {sender, recipient, product}, messageData}) => {
 		<>
 			<div ref={refChat} className="messageChats">
 				{msgList.map((item, index) => {
-					const myMessage = item.sender.id == id
+					const myMessage = item?.sender_id == id
 					return (
 						item?.delete ? null :
 						<div key={index} className={myMessage ? "chatUser" : "chatLocutor"}>
-							{myMessage ? null : <img src="https://source.unsplash.com/random?portrait" />}
+							{myMessage ? null : <img src={userChatPhoto} />}
 							<div>{item.message}</div>
 							<div>{item.tiem}</div>
 						</div>
