@@ -202,8 +202,10 @@ export const useCategoryPlaceOffer = (data, methods) => {
                                 case 'power_supply_power':
                                 case 'socket':
                                 case 'graphics_card_manufacturer':
+                                case 'house_communal_payments':
                                 case 'chip_manufacturer':
                                 case 'motherboard_manufacturer':
+                                case 'photo_mfps_and_scanners':
                                 case 'gender':
                                 case 'ram_size':
                                     newOBJ[i].type = 'list'

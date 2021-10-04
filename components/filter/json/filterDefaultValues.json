@@ -12,6 +12,16 @@
   "period": "",
   "fromWork_experience": "",
   "toWork_experience": "",
+  "fromTv_diagonal": "",
+  "toTv_diagonal": "",
+  "fromCharge_power": "",
+  "toCharge_power": "",
+  "fromFloor_home": "",
+  "toFloor_home": "",
+  "formRoom_number": "",
+  "toRoom_number": "",
+  "fromNumber_of_storeys": "",
+  "toNumber_of_storeys": "",
   "fromAge": "",
   "toAge": ""
 }
