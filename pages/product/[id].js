@@ -70,6 +70,7 @@ import axios from "axios";
 
 const Product = () => {
 	const { query } = useRouter();
+	const router = useRouter()
 	const { id, isAuth } = useAuth();
 	const { userInfo } = useStore()
 	const [openStatForm, setopenStatForm] = useState(false);
@@ -117,7 +118,8 @@ const Product = () => {
 
 	const createChat = async () => {
 		if (productInfo && userInfo && id) {
-			const obj = {
+			try {
+				const obj = {
 				'seller_id': productInfo?.user_id, 
 				'seller_name': productInfo?.name, 
 				'seller_photo': productInfo?.userPhoto,
@@ -128,9 +130,36 @@ const Product = () => {
 				'product_name': productInfo?.title,
 				'product_price': productInfo?.price,
 				'product_photo': productInfo?.photo[0],
-			}
+				}
 
-			await axios.post(`${CHAT_URL}/make_room`, obj).then(r => console.log(r.data))
+				await axios.post(`${CHAT_URL}/make_room`, obj).then(r => console.log(r.data))
+
+
+				router.push({
+					pathname: `/account/${id}`,
+					query: {
+						account: 5,
+						content: 1,
+						seller_id: productInfo?.user_id,
+						customer_id: id,
+						product_id: productInfo?.id
+					}
+				})
+
+			} catch (e) {
+				console.log('Чат существует')
+				
+				router.push({
+					pathname: `/account/${id}`,
+					query: {
+						account: 5,
+						content: 1,
+						seller_id: productInfo?.user_id,
+						customer_id: id,
+						product_id: productInfo?.id
+					}
+				})
+			}
 		}
 	}
 
