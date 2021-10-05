@@ -17,7 +17,12 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
         setCheck(event);
         getChildCheck({id: offer.id, isCheck: event});
     }
-
+	useEffect(() => {
+		offer.verify_moderator.verify.map( (item) => {
+						console.log(VerifyModerator[+item]);
+						console.log(item)
+					  })
+	},[]) 
 
     return (
         <div key={offer.id} className="offerContainer boxWrapper">
@@ -57,12 +62,14 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                   </div>
                 </div>
                 <div className="offerDescriptionBottom">
-                  {offer.verify !== 5 ? (
+                  {offer.verify !== 2 ? (
                     ""
                   ) : (
                     <div className="offerCauses small thin error">
                       <span className="light">Причина отклонения: </span>
-                      {VerifyModerator[offer.verify_moderator]}
+					  {offer.verify_moderator.verify.map( (item) => (
+							VerifyModerator[+item]
+				 		))}
                     </div>
                   )}
 

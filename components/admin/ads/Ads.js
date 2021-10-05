@@ -40,6 +40,7 @@ export const Ads = () => {
          "last_post_id": 0
       })
       .then((responce) => {
+		 console.log(responce)
          setWaitingBox(responce.data.posts);
          setCountOffers(responce.data.count[0].count)});
    },[])
