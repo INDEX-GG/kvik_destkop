@@ -7,6 +7,7 @@ import Verify from "../../../json/verify.json";
 function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
 
     const [check, setCheck] = useState(false);
+    console.log(offer)
 
     useEffect( () => {
         parentCheck ? check ? null : handleCheck(parentCheck) : check === false ? null : offerId.length < 1 ? handleCheck(parentCheck) : null;
@@ -24,9 +25,9 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                 <div className="offerPubCheck">
                   <label className="checkbox">
                     <input 
-                        type="checkbox"
-                        onChange={(event) => handleCheck(event.target.checked)}
-                        checked={check}
+                      type="checkbox"
+                      onChange={(event) => handleCheck(event.target.checked)}
+                      checked={check}
                     />
                     <div className="checkbox__text"></div>
                   </label>
@@ -40,8 +41,8 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
 
                 {/* {console.log(offer)} */}
                 {offer.verify == 4  ? 
-                <div className="offerWaitCause megaLight offerWaitBigName">{Verify[offer.verify === 1 ? 5 : offer.verify]}</div> :
-                <div className="offerWaitCause megaLight">{Verify[offer.verify === 1 ? 5 : offer.verify]}</div>}
+                <div className="offerWaitCause megaLight offerWaitBigName">{Verify[offer.verify === 1 ? 5 : 4]}</div> :
+                <div className="offerWaitCause megaLight">{Verify[offer.verify === 1 ? 5 : 4]}</div>}
               </div>
               <div className="offerDescription">
                 <div className="offerDescriptionTop">

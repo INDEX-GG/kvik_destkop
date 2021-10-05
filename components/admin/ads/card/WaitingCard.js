@@ -6,14 +6,14 @@ import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
 import { STATIC_URL } from "../../../../lib/constants";
 import {initials, stringToColor} from "../../../../lib/services";
 import RejectModal from "../../../RejectModal";
+import axios from 'axios';
 
 SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
 
-function WaitingCard({index, offer, parentCheck, getDataChild, offerId}) {
+function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaitingBox, lessCount}) {
 
     const [openWaitForm, setOpenWaitForm] = React.useState(false);
-    const handleWaitFormDialog = () => setOpenWaitForm(!openWaitForm);
 
     const {photos} = JSON.parse(offer.photo);
 
@@ -50,7 +50,20 @@ function WaitingCard({index, offer, parentCheck, getDataChild, offerId}) {
     }
     
     function reject (params) {
-        console.log(params)
+        axios.post("/api/verifyModerActive", {
+            "id": offer.id,
+            "verify": "2",
+        })
+        axios.post("/api/verifymoder", {
+            "id": `${offer.id}`,
+            "verify_moderator": params
+        })
+        .then( (responce) => {
+            console.log(responce);
+            setWaitingBox(prev => prev.filter( item => item.id !== offer.id));
+            lessCount(1);
+        })
+        //console.log({"id": `${offer.id}`, "verify_moderator": params});
     }
     /* написать проверку */
    
@@ -163,10 +176,10 @@ function WaitingCard({index, offer, parentCheck, getDataChild, offerId}) {
                 </>
             </Modal>
             <Dialog open={openWaitForm || false} onClose={() => setOpenWaitForm(!openWaitForm)} fullWidth maxWidth='md'>
-                <RejectModal Close={handleWaitFormDialog}  reject={reject}/>
+                <RejectModal setOpenWaitForm={setOpenWaitForm}  reject={reject}/>
             </Dialog>
         </div>
     )
 }
 
-export default WaitingCard
+export default WaitingCard;

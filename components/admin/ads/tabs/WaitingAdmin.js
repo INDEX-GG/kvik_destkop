@@ -73,6 +73,8 @@ function WaitingAdmin({offers, setWaitingBox, lessCount }) {
                         parentCheck={check}
                         getDataChild={getDataChild}
                         offerId={offerId}
+                        setWaitingBox={setWaitingBox}
+                        lessCount={lessCount}
                      />
                   )
                })}
