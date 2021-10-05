@@ -24,6 +24,7 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 	const [message, setMessage] = useState('');
 	const [msgList, setMsgList] = useState(messageData);
 	const [messageId, setMessageId] = useState(null)
+	const [messagUpdate, setMessageUpdate] = useState(false)
 
 	const refChat = useRef()
 	const refInput = useRef()
@@ -37,7 +38,6 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 
 
 	const generateChatHistory = (messageId = 0) => {
-		console.log(messageId)
 		return {
 			"page_limit": 50, 
 			"last_message_id": messageId, 
@@ -49,6 +49,7 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 
 
 	useEffect(() => {
+		setMessageId(messageData[0]?.id)
 		setMsgList(messageData)
 	}, [messageData])
 
@@ -59,10 +60,14 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 	}, [query, userInfo, id])
 
 	useEffect(() => {
-		if (refChat.current) {
+		console.log(msgList)
+		console.log(messageId)
+		console.log(refMessage.current)
+		if (refChat.current && !messagUpdate) {
 			refChat.current.scrollTop = refChat.current.scrollHeight
+		} else {
+			refChat.current.scrollTop = refChat.current.scrollHeight / 2
 		}
-		setMessageId(null)
 	}, [msgList])
 
 	// useEffect(() => {
@@ -107,9 +112,10 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 
 	const addChatHistory = () => {
 		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory(messageId)).then(r => {
-			// console.log(r.data.data)
 			if (r.data.data.length) {
-				setMsgList(prev => [...r.data.data.reverse(), ...prev])
+				setMessageId(r.data.data.reverse()[0]?.id)
+				setMessageUpdate(true)
+				setMsgList(prev => [...r.data.data, ...prev])
 			}
 		})
 	}
@@ -120,19 +126,19 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 		if (refMessage.current) {
 			var callback = function (entries) {
 			if (entries[0].isIntersecting) {
-				// console.log(refMessage.current)
-				// console.log('VISIBLE')
+				console.log(messageId, refMessage.current)
 				addChatHistory()
 			}
 			};
 			observer.current = new IntersectionObserver(callback);
 			observer.current.observe(refMessage.current);
 		}
-  	}, [messageId]);
+  	});
 
 
 	const handleKeyDown = (e) => {
 		socket.emit('typing', {'sender': sender, 'recipient': recipient, 'product': product})
+		if (messagUpdate) setMessageUpdate(false)
 		if (e.key == 'Enter') {
 			handleSend()
 		}
@@ -147,8 +153,7 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 		console.log(reader)
 		// reader.readAsDataURL(this.files[0]);
 	}
-	
-	console.log(msgList)
+
 
 
 	return (
@@ -156,10 +161,6 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 			<div ref={refChat} className="messageChats">
 				{msgList.map((item, index) => {
 					const myMessage = item?.sender_id == id
-					if (index == 0 && !messageId) {
-						setMessageId(item.id)
-						console.log(item.id)
-					}
 					return (
 						item?.delete ? null :
 						<div ref={item.id == messageId ? refMessage : null} key={index} className={myMessage ? "chatUser" : "chatLocutor"}>

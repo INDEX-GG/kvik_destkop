@@ -81,9 +81,7 @@ function Messages() {
   }
 
   const changeChat = (data) => {
-	  if (data?.seller_id != +query.seller_id && data?.customer_id != +query?.customer_id && data?.product_id != +query?.product_id) {
-		  console.log(data)
-		   router.push({
+	   router.push({
 			pathname: `/account/${id}`,
 			query: {
 				account: 5,
@@ -93,7 +91,6 @@ function Messages() {
 				product_id: data?.product_id
 			}
 		})
-	  }
   }
 
   
