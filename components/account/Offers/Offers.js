@@ -19,6 +19,9 @@ const Offers = () => {
   const router = useRouter();
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
   
+
+  console.log(userAccountProvider)
+
   useEffect(() => {
     if (userAccountProvider?.length > 0) {
       // Активные объявления
@@ -26,7 +29,7 @@ const Offers = () => {
       setActiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0));
       // Ждут действия
       //setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5));
-      setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 1 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5));
+      setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 1 || offer.verify === 2));
       // Архив
       //setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0 && offer.active !== 4));
       setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active !== 0 && offer.active !== 4));
