@@ -208,7 +208,7 @@ function PlaceOffer() {
                 postId = r?.data?.id;
                 console.log('postId',postId)
                 additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
-                console.log(additionalfields)
+                console.error('additionalfields',additionalfields)
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
                 console.log('r',r)
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
@@ -218,7 +218,6 @@ function PlaceOffer() {
                 }).then((r) => {
                     // console.log(r)
                     setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-                    console.log('product', product)
                     console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })

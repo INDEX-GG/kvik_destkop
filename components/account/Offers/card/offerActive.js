@@ -4,6 +4,7 @@ import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordO
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import { ToRubles, ToFullDate } from "../../../../lib/services";
 import OfferModal from "../../../OfferModal";
+import Router from "next/router";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -30,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function offerActive({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, i}) {
+export default function offerActive({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm}) {
 	const classes = useStyles();
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState([]);
 	const buttonId = "003";
 	const offerData = offer;
+	const offerID = offer.id;
 	
 	const cleanAll = () => {
 		getChildCheck({id: offer.id, isChecked: false});
@@ -61,8 +63,13 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
 		<>
-			<a href={`/product/${offer.id}`} key={i}
-				className="offerContainer boxWrapper">
+			<div key={offer.id} className="offerContainer boxWrapper"
+				 onClick={	(event) => {
+					 if(event.target.localName !== "button" && event.target.localName !== "input") {
+						 Router.push(`/product/${offer.id}`)
+					 }
+				 }}
+			>
 				<div className="offerImage">
 					<div className="offerPubCheck">
 						<Checkbox
@@ -91,7 +98,7 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 							<div className="offerLastDays">Осталось 30 дней</div>
 						</div>
 						<div className="offerDTRight">
-							<button type="submit" className="offerEdit thin editIcon offerSocialAction">
+							<button type="submit" className="offerEdit thin editIcon offerSocialAction" onClick={() => Router.push(`/editPage/${offerID}`)}>
 								Редактировать
 							</button>
 
@@ -115,7 +122,7 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 						<button className="offerButtonViews button contained">Увеличить просмотры</button>
 					</div>
 				</div>
-			</a>
+			</div>
 
 			<Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth='md'>
 				<OfferModal 

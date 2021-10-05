@@ -68,7 +68,7 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 	const [offerId, setOfferId] = useState();
 	const [buttonId, setButtonId] = useState('');
 	const offerData = offer;
-	const offerID = offer.id
+	const offerID = offer.id;
 
 	const cleanAll = () => {
 		getChildCheck({id: offer.id, isChecked: false});

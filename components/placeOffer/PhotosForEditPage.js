@@ -373,7 +373,6 @@ const PhotoForEditPage = ({ctx, photo}) => {
     });
 
     const SortableItem = SortableElement(({data, i}) => {
-
         const img = imageData.find((el) => el.name === data.name);
 
         return (
