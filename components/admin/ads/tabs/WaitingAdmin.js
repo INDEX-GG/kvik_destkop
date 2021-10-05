@@ -13,7 +13,7 @@ function WaitingAdmin({offers, setWaitingBox, lessCount }) {
       setOfferId( isCheck ?  previous => [...previous, id] : previous => previous.filter( item => item !== id) );
    }
 
-   
+   console.log(offers)
    const fetchApprove = () => {
       axios.post("/api/verifyModerActive", {
          "id": offerId,

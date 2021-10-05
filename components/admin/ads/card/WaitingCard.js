@@ -25,7 +25,7 @@ function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaiti
     const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
     const [activeSlide, setActiveSlide] = React.useState(0);
 
-    //console.log("ChildCheck=======>", check)
+    console.log("ChildCheck=======>", offer)
     
     React.useEffect( () => {
         parentCheck ? check ? null : handleChange(parentCheck) : check === false ? null : offerId.length === 0 ? handleChange(parentCheck) : null;
