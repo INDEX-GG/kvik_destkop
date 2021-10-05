@@ -18,7 +18,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import Loader from "../../UI/icons/Loader";
-import { CHAT_URL, STATIC_URL } from "../../lib/constants";
+import { CHAT_URL_API, STATIC_URL } from "../../lib/constants";
 import ProductDate from "../../components/product/ProductSmallComponents/ProductDate";
 import ProductPrice from "../../components/product/ProductPrice";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
@@ -132,7 +132,7 @@ const Product = () => {
 				'product_photo': productInfo?.photo[0],
 				}
 
-				await axios.post(`${CHAT_URL}/make_room`, obj).then(r => console.log(r.data))
+				await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
 
 
 				router.push({
