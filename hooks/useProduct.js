@@ -14,8 +14,10 @@ export function useProduct(id) {
 				.then((r) => {
 					if (r !== undefined) {
 						let photoes = JSON.parse(r.photo);
+						r.chatProductPhoto = photoes.photos[0]
 						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 						r.photo = photoes
+						r.chatPhoto = r.userPhoto;
 						r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 						setProductInfo(r);
 						if (r.subcategory !== undefined) {

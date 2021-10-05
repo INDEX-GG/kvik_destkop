@@ -4,6 +4,8 @@ import {io} from 'socket.io-client';
 // import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useStore } from '../../../../lib/Context/Store';
+import axios from 'axios';
+import { CHAT_URL_API, SOCKET_URL } from '../../../../lib/constants';
 
 
 // let sender = {"id": 50, "name": "Станислав Даль"}
@@ -12,19 +14,24 @@ import { useStore } from '../../../../lib/Context/Store';
 
 //? Говорим, на каком домене будем обслуживать сокерт
 // const socket = io('https://onekvik.ru', {path: "/cc/socket.io"})
-const socket = io('http://192.168.8.111:6066', {path: "/socket.io"})
+const socket = io('http://192.168.8.111:6066', {path: SOCKET_URL})
 // const socket = io('http://127.0.0.1:5000')
 
 
 
 const Chat = ({usersData: {sender, recipient, product}, messageData = [], userChatPhoto}) => {
+
 	const [message, setMessage] = useState('');
 	const [msgList, setMsgList] = useState(messageData);
-	const {query} = useRouter()
+	const [messageId, setMessageId] = useState(null)
+
 	const refChat = useRef()
 	const refInput = useRef()
 	const refMessage = useRef()
+	const observer = useRef()
+
 	const {userInfo} = useStore()
+	const {query} = useRouter()
 	const {id} = useAuth()
 
 	useEffect(() => {
@@ -34,7 +41,6 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 
 	useEffect(() => {
 		if (query?.customer_id && query?.seller_id && query?.product_id && userInfo?.name && id) {
-			// socket.disconnect()
 			socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
 		}
 	}, [query, userInfo, id])
@@ -65,7 +71,6 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 				// 'userPhoto':
 			}
 			await socket.emit('text', sendObj)
-			//  {'message': message, 'sender': sender, 'recipient': recipient, 'product': product, 'date': messageDate}
 			setMessage('')
 		}
 	}
@@ -84,6 +89,34 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 		// 	setMsgList([])
 		// })
 	}, [])
+
+	useEffect(() => {
+		const obj = {
+			"page_limit": 50, 
+			"last_message_id": messageId, 
+			"user_id": id, 
+			"companion_id": +query?.seller_id == id ? +query?.customer_id : +query?.seller_id, 
+			"product_id": +query?.product_id
+		}
+
+		axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
+			console.log(r.data.data)
+		})
+
+	}, [messageId])
+
+	useEffect(() => {
+		if (observer.current) observer.current.disconnect();
+		if (refMessage.current) {
+			var callback = function (entries) {
+			if (entries[0].isIntersecting) {
+				console.log(refMessage.current)
+			}
+			};
+			observer.current = new IntersectionObserver(callback);
+			observer.current.observe(refMessage.current);
+		}
+  }, [messageId]);
 
 
 	const handleKeyDown = (e) => {
@@ -105,15 +138,15 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 
 	console.log(refMessage.current)
 
-
 	return (
 		<>
 			<div ref={refChat} className="messageChats">
 				{msgList.map((item, index) => {
 					const myMessage = item?.sender_id == id
+					if (index == 0 && !messageId) setMessageId(item.id)
 					return (
 						item?.delete ? null :
-						<div ref={index == 0 ? refMessage : null} key={index} className={myMessage ? "chatUser" : "chatLocutor"}>
+						<div ref={item.id == messageId ? refMessage : null} key={index} className={myMessage ? "chatUser" : "chatLocutor"}>
 							{myMessage ? null : <img src={userChatPhoto} />}
 							<div>{item.message}</div>
 							<div>{item.tiem}</div>
