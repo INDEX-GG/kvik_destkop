@@ -6,7 +6,7 @@ import { useMedia } from "../../../../hooks/useMedia"
 import Chat from "./Chat";
 import { useRouter } from "next/router";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
-import { CHAT_URL_API } from "../../../../lib/constants";
+import { CHAT_URL_API, STATIC_URL } from "../../../../lib/constants";
 import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
 
@@ -142,13 +142,13 @@ function Messages() {
 								<div className="checkbox__text"></div>
 								</label>
 							</div>
-							<img src={`${item.product_photo}?${item.product_id}`} />
+							<img src={`${STATIC_URL}/${item.product_photo}?${item.product_id}`} />
 							<div>{item.product_price.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
 							<div>{ellipsis(item.product_name, 12)}</div>
 							</div>
 							<div className="messageUser small">
 							<div className="messageUserBlock">
-								<img src={`${item.seller_photo}?${item.seller_id}`} />
+								<img src={`${STATIC_URL}/${item.seller_photo}?${item.seller_id}`} />
 								<div>
 								<div>{item.seller_name}</div>
 								<div className="light">{time}</div>
@@ -192,21 +192,22 @@ function Messages() {
             <div className="messageWindow">
               {room?.seller_id ?
 				<div className="messageHeader small">
-                <img src={room?.product_photo}/>
+                <img src={`${STATIC_URL}/${room?.product_photo}`}/>
                 <div>
                   <div>
                     <div>
                       <div>{room?.seller_name}</div>
                       <div className="light">00.00.00 00:00</div>
                     </div>
-                    <img src={room?.seller_photo} />
+                    <img src={`${STATIC_URL}/${room?.seller_photo}`} />
                   </div>
                   <div>{room?.product_price} ₽</div>
                   <div>{room?.product_name}</div>
                 </div>
               </div> : null} 
 			  {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender && 
-			  <Chat usersData={chatUsers} 
+			  <Chat
+				usersData={chatUsers} 
 			  	messageData={messageHistory.reverse()}
 				userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
 			  />}

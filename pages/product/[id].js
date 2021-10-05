@@ -131,10 +131,8 @@ const Product = () => {
 				'product_price': productInfo?.price,
 				'product_photo': productInfo?.chatProductPhoto,
 				}
-
+				console.log(obj)
 				await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
-
-
 				router.push({
 					pathname: `/account/${id}`,
 					query: {
