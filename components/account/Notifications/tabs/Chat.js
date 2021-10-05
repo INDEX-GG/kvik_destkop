@@ -23,11 +23,13 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 	const {query} = useRouter()
 	const refChat = useRef()
 	const refInput = useRef()
+	const refMessage = useRef()
 	const {userInfo} = useStore()
 	const {id} = useAuth()
 
 	useEffect(() => {
 		setMsgList(messageData)
+		console.log(messageData)
 	}, [messageData])
 
 	useEffect(() => {
@@ -101,6 +103,8 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 		// reader.readAsDataURL(this.files[0]);
 	}
 
+	console.log(refMessage.current)
+
 
 	return (
 		<>
@@ -109,7 +113,7 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 					const myMessage = item?.sender_id == id
 					return (
 						item?.delete ? null :
-						<div key={index} className={myMessage ? "chatUser" : "chatLocutor"}>
+						<div ref={index == 0 ? refMessage : null} key={index} className={myMessage ? "chatUser" : "chatLocutor"}>
 							{myMessage ? null : <img src={userChatPhoto} />}
 							<div>{item.message}</div>
 							<div>{item.tiem}</div>

@@ -6,7 +6,7 @@ import { useMedia } from "../../../../hooks/useMedia"
 import Chat from "./Chat";
 import { useRouter } from "next/router";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
-import { CHAT_URL } from "../../../../lib/constants";
+import { CHAT_URL_API } from "../../../../lib/constants";
 import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
 
@@ -42,7 +42,7 @@ function Messages() {
 			"product_id": +query?.product_id
 		}
 
-		axios.post(`${CHAT_URL}/chat_history`, obj).then(r => {
+		axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
 			setMessageHistory(r.data.data)
 			setRoom(r.data.room)
 		})
@@ -65,7 +65,7 @@ function Messages() {
 
   useEffect(() => {
 	if (id) {
-		axios.post(`${CHAT_URL}/chat_last_messages`, {"user_id": id})
+		axios.post(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id})
 		  .then(r => setAllRooms(r.data.data))
 	}
   }, [id])
