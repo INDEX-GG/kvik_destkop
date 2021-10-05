@@ -1,0 +1,64 @@
+{
+  "sell_commercialland": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "type_sale",
+      "title": "Условия продажи",
+      "fields": ["Ипотека", "Рассрочка"],
+      "type": "list"
+    },
+    {
+      "alias": "type_law",
+      "title": "Вид права",
+      "fields": ["Собственность", "Аренда"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "road",
+      "title": "Дорога",
+      "fields": ["Асфальтовая", "Грунтовая"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromDistance_to_city",
+      "secondAlias": "toDistance_to_city",
+      "title": "Расстояние до города, км.",
+      "type": "twoText"
+    },
+    {
+      "alias": "project_availability",
+      "title": "Наличие проекта",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "availability_buildings",
+      "title": "Наличие построек",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "communications_checkbox",
+      "title": "Наличие коммуникаций",
+      "fields": ["Электричество", "Канализация", "Газ", "Водоснабжение"],
+      "type": "checkbox"
+    }
+  ]
+}

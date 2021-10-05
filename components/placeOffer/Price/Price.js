@@ -1,4 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form';
+import { useEffect } from 'react';
 import { Box, Checkbox, FormControlLabel, makeStyles, TextField, Typography } from '@material-ui/core';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
@@ -38,8 +39,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Price = ({price}) => {
 
+
 	const classes = useStyles();
 	const methods = useFormContext();
+
+	useEffect(() => {
+		
+		methods.setValue('price', '')
+	}, [])
 
 	return (
 		<Box className={classes.formElem}>
@@ -49,14 +56,14 @@ const Price = ({price}) => {
 					<Controller
 						name="price"
 						control={methods.control}
-
-						defaultValue={price}
+						shouldUnregister
+						defaultValue=""
 
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<TextField
 								variant='outlined'
 								type="text"
-								autoComplete="on"
+								// autoComplete="on"
 								value={value}
 								onKeyDown={e => cursorReplace(e)}
 								onChange={e => onChange(priceFormat(e))}
@@ -64,7 +71,7 @@ const Price = ({price}) => {
 								{price}
 							</TextField>
 							)}
-						rules={{ required: `Введите цену ${methods.watch('title')}`, max: 10 }}
+						rules={{ required: `Введите цену ${methods.watch('title')}`, maxLength: {value: 12, message: 'Слишком длинное значение'} }}
 					/>
 					<Controller
 						name='trade'

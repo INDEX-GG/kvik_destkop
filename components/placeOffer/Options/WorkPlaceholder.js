@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Checkbox,
@@ -69,11 +69,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function MainPlaceholder({ data }) {
+export default function WorkPlaceholder({ data }) {
   const methods = useFormContext();
   const classes = useStyles();
   
-
+  useEffect(()=> {
+    methods.clearErrors('price')
+    methods.setValue('price', "")
+  },[])
 
   return (
     <>
@@ -541,11 +544,10 @@ export default function MainPlaceholder({ data }) {
                   </Typography>
                   <Box className={classes.formInputField}>
                     <Controller
-                      shouldUnregister
                       name={item.alias}
                       control={methods.control}
                       defaultValue=""
-                      rules={{ required: "Введите " + item.name }}
+                      rules={{ required: "Введите Заработную плату", maxLength: {value: 12, message: 'Слишком длинное значение'} }}
                       render={({
                         field: { onChange, value },
                         fieldState: { error },

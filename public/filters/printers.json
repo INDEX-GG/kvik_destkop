@@ -1,0 +1,46 @@
+{
+  "printers": [
+    {
+      "alias": "printers",
+      "title": "Тип принтера",
+      "fields": ["Струйный", "Лазерный"],
+      "type": "select"
+    },
+    {
+      "alias": "size_page_printers",
+      "title": "Максимальный размер формата бумаги",
+      "fields": ["А4", "А3", "А2", "А1"],
+      "type": "select"
+    },
+    {
+      "alias": "printers_color",
+      "title": "Цветная печать",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "printers_speed",
+      "title": "Скоростная печать",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "two_sided_printing",
+      "title": "Двусторонняя печать",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "network_printers",
+      "title": "Сетевой",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "photo_printers",
+      "title": "Печать фотографий",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    }
+  ]
+}

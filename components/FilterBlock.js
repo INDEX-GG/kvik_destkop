@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, makeStyles } from "@material-ui/core";
 import DefaultFilter from "./filter/DefaultFilter";
 import { FormProvider, useForm } from "react-hook-form";
 import defaultValues from "./filter/json/filterDefaultValues.json";
-import filterData from "./filter/json/filterFields.json";
 import FilterMain from "./filter/FilterMain";
 import FilterAuto from "./filter/FilterAuto";
 import FilterVacancies from "./filter/FilterVacancies";
 import FilterProduct from "./filter/FilterProduct";
+import axios from "axios";
+import { BASE_URL } from "../lib/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -37,16 +38,19 @@ const FilterBlock = ({ categoryData }) => {
   const category = categoryData?.aliasName[0].alias.toLowerCase();
   const classes = useStyles();
   const methods = useForm({ defaultValues: defaultValues });
+  const [fetchedData, setFetchedData] = useState(null)
+  if (category){
+    axios.get(`${BASE_URL}/filters/` + category + `.json`)
+    .then(res => setFetchedData(res.data))
+    .catch(e => e)
+  }
+
 
   switch (category) {
     case "new_building":
     case "secondary_housing":
-      filter = <FilterMain data={filterData[category]} />;
-      break;
-    case "sell_office_space":
     case "sell_commercial_premises":
-      filter = <FilterMain data={filterData["sell_commercial"]} />;
-      break;
+    case "sell_office_space":
     case "rent_apartments":
     case "sell_free_premises":
     case "sell_building":
@@ -56,23 +60,29 @@ const FilterBlock = ({ categoryData }) => {
     case "rent_houses_and_cottages":
     case "sell_rooms":
 		case "rent_rooms":
-      filter = <FilterMain data={filterData[category]} />;
-      break;
+		case "sell_izhs":
+		case "sell_snt":
+		case "sell_agriculturalland":
+		case "sell_commercialland":
+		case "sell_garage":
+		case "rent_garage":
+		case "sell_parkingplace":
+		case "rent_parkingplace":
+		case "sell_abroad":
+		case "rent_abroad":
+    case "cats":
+    case "dogs":
+    case "sell_warehouse_space":
     case "rent_warehouse_space":
     case "rent_production_room":
-      filter = <FilterMain data={filterData["rent_warehouse_space"]} />;
-      break;
-    case "sell_warehouse_space":
     case "sell_production_room":
-      filter = <FilterMain data={filterData["sell_warehouse_space"]} />;
-      break;
     case "rent_office_space":
     case "rent_commercial_premises":
-      filter = <FilterMain data={filterData["rent_commercial"]} />;
+      filter = <FilterMain data={fetchedData?.[category]} />;
       break;
     case "vacancies":
     case "summary":
-      filter = <FilterVacancies data={filterData[category]} />;
+      filter = <FilterVacancies data={fetchedData?.[category]} />;
       break;
     case "auto":
       filter = <FilterAuto />;
@@ -81,8 +91,6 @@ const FilterBlock = ({ categoryData }) => {
     case "for_personalized_care":
     case "for_kitchen":
     case "climatic_equipment":
-    case "cats":
-    case "dogs":
     case "monitors":
     case "manipulators__input_devices":
     case "expendable_materials":
@@ -108,7 +116,12 @@ const FilterBlock = ({ categoryData }) => {
     case "smart_watches_and_fitness_bracelets":
     case "electronic_books":
     case "tablets":
-      filter = <FilterProduct data={filterData[category]} />;
+    case "motherboards_perif":
+    case "laptops":
+    case "smartphones":
+    case "telephones":
+    case "bicycles":
+      filter = <FilterProduct data={fetchedData?.[category]} />;
       break;
 
     default:

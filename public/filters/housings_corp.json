@@ -1,0 +1,24 @@
+{
+  "housings_corp": [
+    {
+      "alias": "form_factor",
+      "title": "Формфактор",
+      "fields": [
+        "MiniTower (152 x 432 x 432)",
+        "MidiTower (173 x 432 x 490)",
+        "BigTower (190 x 482 x 820)",
+        "Desktop (533 x 419 x 152)",
+        "FootPrint (406 x 406 x 152)",
+        "SlimLine (406 x 406 x 101)",
+        "UltraSlimLine (381 x 352 x 75)"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "backlight_housing",
+      "title": "Подсветка корпуса",
+      "fields": ["Да", "Нет"],
+      "type": "radio"
+    }
+  ]
+}

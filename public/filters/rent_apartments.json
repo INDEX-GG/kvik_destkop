@@ -1,0 +1,121 @@
+{
+  "rent_apartments": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "accommodations",
+      "title": "Условия проживания",
+      "fields": ["Можно с детьми", "Можно с животными"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": ["Собственник", "Агенство", "Частный риелтор"],
+      "type": "list"
+    },
+    {
+      "alias": "material",
+      "title": "Тип дома",
+      "fields": [
+        "Панель",
+        "Кирпич",
+        "Монолит",
+        "кирпично-монолитный",
+        "Блочный",
+        "Деревянный"
+      ],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "rooms",
+      "title": "Количество комнат",
+      "type": "checkbox",
+      "fields": [
+        "Студия",
+        "1-комнатные",
+        "2-комнатные",
+        "3-комнатные",
+        "4-комнатные",
+        "Многокомнатные",
+        "Свободная планировка"
+      ]
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Косметический",
+        "Капитальный",
+        "Дизайнерский",
+        "Евроремонт",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": [
+        "Изолированная",
+        "Свободная",
+        "Смежная",
+        "Смежно-изолированная",
+        "другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "bathroom",
+      "title": "Санузел",
+      "fields": ["Раздельный", "Совмещенный", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "balcony_or_loggia",
+      "title": "Балкон или лоджия",
+      "fields": ["Нет", "Балкон", "Лоджия", "Несколько балконов"],
+      "type": "select"
+    }
+  ]
+}

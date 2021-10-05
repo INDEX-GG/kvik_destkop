@@ -1,0 +1,37 @@
+{
+  "chargers_power_supplies": [
+    {
+      "alias": "manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "ACCORD",
+        "AEROCOOL",
+        "FSP",
+        "HIPRO",
+        "LINKWORLD",
+        "SEASONIC",
+        "THERMALTAKE",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "firstAlias": "fromCharge_power",
+      "secondAlias": "toCharge_power",
+      "title": "Мощность, Вт",
+      "type": "twoText"
+    },
+    {
+      "alias": "certification",
+      "title": "Сертификация",
+      "fields": [
+        "80 PLUS ",
+        "80 PLUS BRONZE",
+        "80 PLUS GOLD",
+        "80 PLUS PLATINUM",
+        "80 PLUS TITANIUM"
+      ],
+      "type": "select"
+    }
+  ]
+}

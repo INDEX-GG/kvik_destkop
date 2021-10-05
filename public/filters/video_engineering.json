@@ -1,0 +1,10 @@
+{
+  "video_engineering": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": ["Медиаплееры", "Дивидиплееры", "Домкинотеатры"],
+      "type": "select"
+    }
+  ]
+}

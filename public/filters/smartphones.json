@@ -1,0 +1,189 @@
+{
+  "smartphones": [
+    {
+      "alias": "manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "Alcatel",
+        "Apple",
+        "Asus",
+        "Blackview",
+        "BQ",
+        "Clevercel",
+        "Haier",
+        "Honor",
+        "HTC",
+        "Huawei",
+        "Meizu",
+        "Motorola",
+        "Nokia",
+        "Oppo",
+        "Philips",
+        "Realme",
+        "Redmi",
+        "Samsung",
+        "Vivo",
+        "Vsmart",
+        "Xiaomi",
+        "ZTE",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "cpu",
+      "title": "Процессор",
+      "fields": [
+        "MediaTek",
+        "Qualcomm",
+        "Apple",
+        "Helio",
+        "Exynos",
+        "Kirin",
+        "Spreadtrum"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "ram_size",
+      "title": "Объем оперативной памяти",
+      "fields": [
+        "1 Гб",
+        "1,5 Гб",
+        "2 Гб",
+        "3 Гб",
+        "4 Гб",
+        "6 Гб",
+        "8 Гб",
+        "16 Гб",
+        "32 Гб",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "builtin_memory",
+      "title": "Объем встроенной памяти",
+      "fields": [
+        "1 Гб",
+        "2 Гб",
+        "4 Гб",
+        "8 Гб",
+        "16 Гб",
+        "32 Гб",
+        "64 Гб",
+        "128 Гб",
+        "256 Гб",
+        "512 Гб и более "
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "display_diagonal",
+      "title": "Диагональ дисплея",
+      "fields": ["до 3.5", "от 3.5 до 5", "от 5 до 5.5", "от 5.5 до 6", "от 6"],
+      "type": "select"
+    },
+    {
+      "alias": "screen_type",
+      "title": "Тип экрана",
+      "fields": ["AMOLED", "IPS", "LCD", "OLED", "TFT"],
+      "type": "select"
+    },
+    {
+      "alias": "number_of_cameras",
+      "title": "Количество камер",
+      "fields": ["1", "2", "3 и больше"],
+      "type": "select"
+    },
+    {
+      "alias": "main_camera",
+      "title": "Основная камера",
+      "fields": [
+        "8 Мп",
+        "12Мп",
+        "13 Мп",
+        "16 Мп",
+        "48 Мп",
+        "64 Мп",
+        "108 Мп",
+        "другое "
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "network_support",
+      "title": "Поддержка сетей",
+      "fields": ["3G", "4G", "5G"],
+      "type": "select"
+    },
+    {
+      "alias": "sim_number",
+      "title": "Количество sim",
+      "fields": ["1", "2", "3"],
+      "type": "select"
+    },
+    {
+      "alias": "battery_capacity",
+      "title": "Емкость батареи",
+      "fields": ["от 1500 до 2500 мАч", "от 2500 до 4000 мАч", "от 4000 мАч"],
+      "type": "select"
+    },
+    {
+      "alias": "operating_system",
+      "title": "Операционная система",
+      "fields": ["Windows", "Android", "iOS", "Harmony", "другая"],
+      "type": "select"
+    },
+    {
+      "alias": "memory_card_slot",
+      "title": "Слот для карты памяти",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "display_resolution",
+      "title": "Разрешение дисплея",
+      "fields": [
+        "800x480",
+        "854x480",
+        "960x480",
+        "1280x600",
+        "1280x720 ",
+        "1334x750",
+        "1440x720",
+        "1480x720",
+        "1520x720 ",
+        "1544x720",
+        "1560x720",
+        "1600х720",
+        "1640x720",
+        "1792х828",
+        "1920х1080",
+        "1600х7200",
+        "2160х1080",
+        "2208х1768",
+        "2244x1080",
+        "2310x1080",
+        "2312x1080",
+        "2340x1080",
+        "Другое"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "features_of_the",
+      "title": "Особенности",
+      "fields": [
+        "Защита от влаги и пыли",
+        "eSIM",
+        "Игровой смартфон",
+        "Дополнительный дисплей",
+        "Бесконтактная оплата",
+        "Поддержка бесконтактной зарядки",
+        "Ударопрочный , защитный корпус"
+      ],
+      "type": "checkbox"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "tv_accessories": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": ["Пульты", "Кабели", "Кронштейны и подставки"],
+      "type": "select"
+    }
+  ]
+}

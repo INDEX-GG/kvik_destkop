@@ -1,0 +1,63 @@
+{
+  "electronic_books": [
+    {
+      "alias": "tablet_manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "DEXP",
+        "digma",
+        "Onyx Boox",
+        "pocketbook",
+        "Vivacase",
+        "Bookeen",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "display_diagonal",
+      "title": "Диагональ дисплея",
+      "fields": ["До 7", "От 7 до 9", "От 9"],
+      "type": "select"
+    },
+    {
+      "alias": "display_resolution",
+      "title": "Разрешение дисплея",
+      "fields": [
+        "758х1024",
+        "800х600",
+        "1024x758",
+        "1200x825",
+        "1448x1072",
+        "1872x1404",
+        "Другое"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "battery_life",
+      "title": "Продолжительность автономной работы",
+      "fields": ["менее 10000 страниц", "более 15000 страниц"],
+      "type": "select"
+    },
+    {
+      "alias": "features_of_the",
+      "title": "Особенности",
+      "fields": [
+        "Сенсорный экран",
+        "Подсветка экрана",
+        "WiFi",
+        "bluetooth",
+        "Разъем для наушников",
+        "Поддержка карт памяти"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "builtin_memory",
+      "title": "Объем встроенной памяти",
+      "fields": ["4 Гб", "8 Гб", "16 Гб", "32 Гб"],
+      "type": "select"
+    }
+  ]
+}

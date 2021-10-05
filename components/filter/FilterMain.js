@@ -8,7 +8,7 @@ import FilterTwoFieldsTwoRadio from "./FilterTwoFieldsTwoRadio";
 const FilterMain = ({ data }) => {
   return (
     <>
-      { data[0]?.type !== "price" ? <FilterTwoFields data={{firstAlias:"fromPrice", secondAlias:'toPrice', title:"Цена, ₽"}} /> : null }
+      { data?.[0]?.type !== "price" ? <FilterTwoFields data={{firstAlias:"fromPrice", secondAlias:'toPrice', title:"Цена, ₽"}} /> : null }
       {data?.map((item, i) => {
         switch (item.type) {
           case "list":
