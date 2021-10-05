@@ -35,7 +35,7 @@ function Messages() {
 	if (id && query?.product_id && query?.seller_id) {
 		
 		const obj = {
-			"page_limit": 15, 
+			"page_limit": 50, 
 			"last_message_id": 0, 
 			"user_id": id, 
 			"companion_id": +query?.seller_id == id ? +query?.customer_id : +query?.seller_id, 
