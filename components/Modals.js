@@ -178,22 +178,23 @@ export function ModalMessage({ modal }) {
 	)
 }
 
-/* Модальное окно "Выход" */
-export function modalLogout() {
-	return (
-		<div className="modal__wrapper">
-			<h6 className="modal__block_title accountLogout">Вы уверены что хотите выйти?</h6>
-			<div className="modal__block_btn ">
-				<a className="btn-blue accountLogoutButtonYes" href="">
-					ОТМЕНА
-				</a>
-				<a className="btn-red accountLogoutButtonNo" href="">
-					ВЫЙТИ
-				</a>
-			</div>
-		</div>
-	);
-}
+// /* Модальное окно "Выход" */
+// вынесен в отдельный компонент на mui
+// export function modalLogout() {
+// 	return (
+// 		<div className="modal__wrapper">
+// 			<h6 className="modal__block_title accountLogout">Вы уверены что хотите выйти?</h6>
+// 			<div className="modal__block_btn ">
+// 				<a className="btn-blue accountLogoutButtonYes" href="">
+// 					ОТМЕНА
+// 				</a>
+// 				<a className="btn-red accountLogoutButtonNo" href="">
+// 					ВЫЙТИ
+// 				</a>
+// 			</div>
+// 		</div>
+// 	);
+// }
 
 /* Модальное окно "Удалить аккаунт" */
 export function modalDeleteAccount() {

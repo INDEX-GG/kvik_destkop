@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import MetaLayout from '../../layout/MetaLayout';
 import Modal from '../../components/Modal';
-import { modalLogout } from '../../components/Modals';
 import { Ads } from "../../components/admin/ads/Ads";
 import { Setting } from '../../components/admin/Setting/Setting';
 import { initials, stringToColor } from '../../lib/services';
+import LogoutModal from "../../components/LogoutModal";
+import {Dialog} from "@material-ui/core";
+// import {modalLogout} from "../../components/Modals";
+
+
 
 const userInfo = {
 	userId: 1,
@@ -21,6 +25,7 @@ const menuItems = [
 
 function Admin() {
 	const [menuItem, setMenuItem] = useState({ i: 1, itm: 'menuOffers', ttl: 'Объявления' });
+	const [open, setOpen] = useState(false)
 
 	const [modal, setModal] = useState({});
 	function modalOlen(e, size, content, title) {
@@ -68,7 +73,7 @@ function Admin() {
 										<a key={item.id} onClick={() => setMenuItem({ i: item.id, itm: item.name, ttl: item.title })} className={item.name + ((item.title === menuItem.ttl) ? (` ${item.name}Active highlight smooth`) : (' smooth'))}>{item.title}</a>
 									)
 								})}
-								<a onClick={e => { modalOlen(e, 'sm', modalLogout()) }} className="offerUnpublish thin superLight menuLogoff smooth">Выход</a>
+								<a onClick={() =>   setOpen(true) } className="offerUnpublish thin superLight menuLogoff smooth">Выход</a>
 							</div>
 						</div>
 					</div>
@@ -81,6 +86,12 @@ function Admin() {
 						}
 					</div>
 				</div>
+				<Dialog
+					open={open}
+					onClose={() => setOpen(!open)}
+				>
+					<LogoutModal/>
+				</Dialog>
 				<Modal {...modal} />
 			</div>
 		</MetaLayout>
