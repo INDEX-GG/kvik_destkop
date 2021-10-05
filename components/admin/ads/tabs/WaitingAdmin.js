@@ -8,30 +8,24 @@ function WaitingAdmin({offers, setWaitingBox, lessCount }) {
    const [offerId, setOfferId] = useState([]);
    const [firstRender, setFirstRender] = useState(0);
    
-
    function getDataChild ({id, isCheck}) {
       setOfferId( isCheck ?  previous => [...previous, id] : previous => previous.filter( item => item !== id) );
    }
 
-   console.log(offers)
-   const fetchApprove = () => {
+   const fetchApprove = (oneOfferId) => {
       axios.post("/api/verifyModerActive", {
-         "id": offerId,
+         "id": oneOfferId ? oneOfferId : offerId,
          "verify": "0",
       })
       .then( (responce) => {
          console.log(responce);
-         setWaitingBox( prev => prev.filter( item => !offerId.includes(item.id) ) );
-         lessCount(offerId.length)
+         setWaitingBox( prev => prev.filter( item => oneOfferId ? item.id !== oneOfferId[0] : !offerId.includes(item.id) ) );
+         lessCount(oneOfferId ? oneOfferId.length : offerId.length)
          setOfferId([]);
          setCheck(false);
       })
-      
    }
-   /* доделать отслеживание количества ждущих одобрения объявлений*/
-   useEffect( () => {
-     // console.log("offers===IIIIIIIIIIIIII====>", offers)
-   }, [ offers ])
+  
    useEffect(() => {
       firstRender > 0 && offerId.length === offers.length ? setCheck(true) : setCheck(false);
       setFirstRender(1);
@@ -41,8 +35,6 @@ function WaitingAdmin({offers, setWaitingBox, lessCount }) {
       return <></>
    }
    
-   //console.log("offerId=======>", offerId)
-   //console.log("setWaitingBox=======>", setWaitingBox)
 
    return (
       <div className="clientPage__container_bottom" >
@@ -56,7 +48,7 @@ function WaitingAdmin({offers, setWaitingBox, lessCount }) {
                <div className="checkbox__text"></div>
             </label>
             <a 
-               onClick={offerId.length > 0 ? fetchApprove : null}
+               onClick={() => offerId.length > 0 ? fetchApprove() : null}
                style={{color: offerId.length > 0 ? "black" : null}}
             >
                Одобрить
@@ -75,6 +67,7 @@ function WaitingAdmin({offers, setWaitingBox, lessCount }) {
                         offerId={offerId}
                         setWaitingBox={setWaitingBox}
                         lessCount={lessCount}
+                        fetchApprove={fetchApprove}
                      />
                   )
                })}

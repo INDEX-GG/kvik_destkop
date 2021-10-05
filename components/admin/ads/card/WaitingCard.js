@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToRubles } from '../../../../lib/services';
-import { Dialog, Modal } from "@material-ui/core";
+import {Button, Dialog, Modal } from "@material-ui/core";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
 import { STATIC_URL } from "../../../../lib/constants";
@@ -11,7 +11,7 @@ import axios from 'axios';
 SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
 
-function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaitingBox, lessCount}) {
+function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaitingBox, lessCount, fetchApprove}) {
 
     const [openWaitForm, setOpenWaitForm] = React.useState(false);
 
@@ -24,8 +24,6 @@ function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaiti
     const [modalSwiper, setModalSwiper] = React.useState(null);
     const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
     const [activeSlide, setActiveSlide] = React.useState(0);
-
-    console.log("ChildCheck=======>", offer)
     
     React.useEffect( () => {
         parentCheck ? check ? null : handleChange(parentCheck) : check === false ? null : offerId.length === 0 ? handleChange(parentCheck) : null;
@@ -63,10 +61,8 @@ function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaiti
             setWaitingBox(prev => prev.filter( item => item.id !== offer.id));
             lessCount(1);
         })
-        //console.log({"id": `${offer.id}`, "verify_moderator": params});
     }
-    /* написать проверку */
-   
+  
     if (modalSwiper) {
         modalSwiper.slideTo(activeSlide, 0);
     }
@@ -131,7 +127,7 @@ function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaiti
                     {offer.description}
                 </p>
                 <button className="btn__loer_more" value={index} onClick={(e, index) => listRef(e, index)} >Развернуть</button>
-                <button className="btn__ad_add">Одобрить</button>
+                <Button className="btn__ad_add" onClick={() => fetchApprove([offer.id])}>Одобрить</Button>
             </div>
             <Modal 
                 open={openModal} 

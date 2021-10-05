@@ -161,6 +161,9 @@
             cursor: pointer;
             position: absolute;
             bottom: 8px;
+            &:hover{
+                background: #007077;
+            }
         }
     }
 }

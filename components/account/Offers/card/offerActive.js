@@ -44,7 +44,14 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 	}
 	
 	useEffect(() => {
-		parentCheck ? check ? null : ( getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck) ) : check===false ? null : allDataCheck.length===0 ? (getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck)) : null;
+		parentCheck ? check 
+			? null 
+			: ( getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck) ) 
+		: check===false 
+			? null 
+			: allDataCheck.length === 0 
+				? (getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck)) 
+				: null;
 	}, [parentCheck])
 
 	useEffect(() => {
