@@ -9,9 +9,6 @@ function RejectModal({reject, setOpenWaitForm}) {
     function getCause({id, isCheck}) {
         setId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id))
     }
-    // console.log(verifyModerator)
-    // console.log(setOpenWaitForm)
-    // console.log(id)
     
     return (
         <div className="modal__wrapper_reject">
@@ -26,7 +23,12 @@ function RejectModal({reject, setOpenWaitForm}) {
                  ))}
             </div>
             <div className="modal__footer">
-                <button className="btn_submit" onClick={() => {reject(id); setOpenWaitForm(prev => !prev);}}>Отправить</button>
+                <button 
+                    className="btn_submit" 
+                    onClick={() => {id.length > 0 ? (reject(id), setOpenWaitForm(prev => !prev)) : null}}
+                >
+                    Отправить
+                </button>
             </div>
         </div>
     );

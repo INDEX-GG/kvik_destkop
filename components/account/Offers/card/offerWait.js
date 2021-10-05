@@ -67,9 +67,9 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                   ) : (
                     <div className="offerCauses small thin error">
                       <span className="light">Причина отклонения: </span>
-					  {offer.verify_moderator.verify.map( (item) => (
-							VerifyModerator[+item]
-				 		))}
+                      {offer.verify_moderator.verify.map( (item, index) => (
+                        VerifyModerator[+item] + `${index < offer.verify_moderator.verify.length - 1 ? " / " : ""}`
+                      ))}
                     </div>
                   )}
 
