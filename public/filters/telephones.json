@@ -1,0 +1,47 @@
+{
+  "telephones": [
+    {
+      "alias": "manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "ARK",
+        "ALCATEL",
+        "BQ",
+        "Digma",
+        "FLY",
+        "MOTOROLA",
+        "ONEXT",
+        "NOKIA",
+        "Panasonic",
+        "PHILIPS",
+        "SAMSUNG",
+        "VERTEX",
+        "Другой "
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "form_factor",
+      "title": "Формфактор",
+      "fields": ["моноблок", "раскладной", "слайдер"],
+      "type": "select"
+    },
+    {
+      "alias": "number_of_sim_cards",
+      "title": "Количество симкарт",
+      "fields": ["1", "2", "3"],
+      "type": "select"
+    },
+    {
+      "alias": "features_of_the",
+      "title": "Особенности",
+      "fields": [
+        "Для пожилых людей",
+        "Защита от пыли и влаги",
+        "Поддержка карт памяти",
+        "Ударопрочный ,защитный корпус"
+      ],
+      "type": "checkbox"
+    }
+  ]
+}

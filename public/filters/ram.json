@@ -1,0 +1,26 @@
+{
+  "ram": [
+    {
+      "alias": "appointment",
+      "title": "Назначение",
+      "fields": [
+        "Для компьютеров(DIMM)",
+        "Для ноутбуков(SODIMM)",
+        "Для серверов"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "ram_type",
+      "title": "Тип оперативной памяти",
+      "fields": ["DDR2", "DDR3", "DDR3L", "DDR4"],
+      "type": "select"
+    },
+    {
+      "alias": "volume",
+      "title": "Объем",
+      "fields": ["до 2Гб", "2Гб", "4Гб", "8Гб", "16Гб", "32Гб"],
+      "type": "select"
+    }
+  ]
+}

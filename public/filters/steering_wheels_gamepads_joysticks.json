@@ -1,0 +1,10 @@
+{
+  "steering_wheels_gamepads_joysticks": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": ["Рули", "Геймпады", "Джойстики"],
+      "type": "select"
+    }
+  ]
+}

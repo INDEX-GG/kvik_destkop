@@ -22,6 +22,8 @@
   "toRoom_number": "",
   "fromNumber_of_storeys": "",
   "toNumber_of_storeys": "",
+  "fromDistance_to_city": "",
+  "toDistance_to_city": "",
   "fromAge": "",
   "toAge": ""
 }

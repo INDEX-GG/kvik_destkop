@@ -67,11 +67,6 @@
       ]
     },
     { "alias": "pledge", "name": "Залог", "fields": "NULL" },
-    { "alias": "commission", "name": "Комиссия", "fields": "NULL" },
-    {
-      "alias": "type_sale",
-      "name": "Условия продажи",
-      "fields": ["Ипотека", "Рассрочка"]
-    }
+    { "alias": "commission", "name": "Комиссия", "fields": "NULL" }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "ram_for_servers": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": ["DDR2", "DDR3", "DDR3L", "DDR4"],
+      "type": "select"
+    },
+    {
+      "alias": "type_size",
+      "title": "Объем модуля",
+      "fields": ["до 2Гб", "2Гб", "4Гб", "8Гб", "16Гб", "32Гб"],
+      "type": "select"
+    }
+  ]
+}

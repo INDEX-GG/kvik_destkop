@@ -63,7 +63,9 @@ function PlaceOffer() {
     const [promotion, setPromotion] = useState(false);
     const [product, setProduct] = useState({});
     const { matchesMobile, matchesTablet } = useMedia();
-    const methods = useForm();
+    const methods = useForm({defaultValues: {
+        price: ''
+    }});
     let photoes = [];
     let postId = 0;
     const photoesCtx = (obj) => {
@@ -101,6 +103,7 @@ function PlaceOffer() {
              setAsd(undefined);
          } */
     }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
+
 
     const onSubmit = data => {
         console.log('DATAAAAAAA',data)
@@ -248,7 +251,7 @@ function PlaceOffer() {
                                 <Box className={classes.formPart}>
                                     <Description />
                                     {asd !== 'vacancies' && asd !== 'summary' ? 
-                                        <Price />
+                                        <Price price=''/>
                                         :
                                         null
                                     }

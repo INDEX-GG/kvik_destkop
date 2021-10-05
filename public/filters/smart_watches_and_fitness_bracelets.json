@@ -1,0 +1,68 @@
+{
+  "smart_watches_and_fitness_bracelets": [
+    {
+      "alias": "choosing_a_gadget",
+      "title": "Тип",
+      "fields": ["Смартчасы", "Браслеты"],
+      "type": "select"
+    },
+    {
+      "alias": "smart_manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "Amazfit",
+        "Apple",
+        "Canyon",
+        "Elari",
+        "Garmin",
+        "Geozon",
+        "Ginzzu",
+        "Honor",
+        "Hiper",
+        "Huawei I",
+        "JET",
+        "Oppo",
+        "KREZ",
+        "LEXAND",
+        "VERTEX",
+        "SAMSUNG",
+        "SMARTERRA",
+        "XIAOMI",
+        "КНОПКА ЖИЗНИ",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "sim_exist",
+      "title": "Наличие сим-карты",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "smart_communication",
+      "title": "Связь",
+      "fields": ["WiFi", "Bluetooth"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "features_of_the",
+      "title": "Особенности",
+      "fields": [
+        "Защита от влаги и пыли",
+        "Сенсорный дисплей",
+        "Встроенный динамик",
+        "Встроенный микрофон",
+        "Технология NFC",
+        "Навигация"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "materials_edit",
+      "title": "Материалы",
+      "fields": ["Металл", "Стекло", "Пластик", "Кожа", "Резина", "другой"],
+      "type": "select"
+    }
+  ]
+}

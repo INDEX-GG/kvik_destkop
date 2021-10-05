@@ -1,0 +1,122 @@
+{
+  "rent_office_space": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "type_transaction",
+      "title": "Тип сделки",
+      "fields": ["Прямая аренда", "Субаренда", "Продажа права аренды"],
+      "type": "list"
+    },
+    {
+      "alias": "class",
+      "title": "Класс",
+      "fields": ["A", "B", "C"],
+      "type": "list"
+    },
+    {
+      "alias": "building_type",
+      "title": "Тип здания",
+      "fields": [
+        "Бизнес-центр",
+        "Офисное здание",
+        "Офисно-складской комплекс",
+        "Торгово-складской комплекс",
+        "Торгово-развлекательный центр",
+        "Торговый центр",
+        "Торгово-деловой комплекс",
+        "Административное здание",
+        "Жилой дом",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "included",
+      "title": "Включено",
+      "fields": ["Коммунальные услуги", "Электричество", "Клининг"],
+      "type": "checkbox"
+    },
+    {
+      "firstAlias": "fromStorey",
+      "secondAlias": "toStorey",
+      "title": "Этаж",
+      "type": "twoTextTwoRadio"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "elevator",
+      "title": "Лифт",
+      "fields": [
+        "Нет",
+        "Пассажирский",
+        "Пассажирский и грузовой",
+        "3 и более лифтов"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "entrance",
+      "title": "Вход",
+      "fields": ["Отдельный", "Общий"],
+      "type": "list"
+    },
+    {
+      "alias": "access",
+      "title": "Доступ",
+      "fields": ["Свободный", "По пропускам"],
+      "type": "list"
+    },
+    {
+      "alias": "layout",
+      "title": "Планировка",
+      "fields": ["Кабинетная", "Коридорная", "open space", "другое"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Отопление", "Канализация", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "furniture",
+      "title": "Мебель",
+      "fields": ["Есть", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "repairs",
+      "title": "Ремонт",
+      "fields": [
+        "Офисная отделка",
+        "Косметический",
+        "Капитальный",
+        "Требуется ремонт",
+        "Не требуется ремонт"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "parking",
+      "title": "Парковка",
+      "fields": ["Наземная", "Подземная", "Многоуровневая", "Нет"],
+      "type": "list"
+    }
+  ]
+}

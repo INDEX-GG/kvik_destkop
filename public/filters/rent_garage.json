@@ -1,0 +1,71 @@
+{
+  "rent_garage": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "lease_term",
+      "title": "Срок аренды",
+      "fields": ["Посуточно", "На короткий срок", "На длительный срок"],
+      "type": "list"
+    },
+    {
+      "alias": "material",
+      "title": "Материал",
+      "fields": ["Железнобетонный", "Кирпичный", "Металлический"],
+      "type": "list"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Электричество", "Отопление", "Свет", "Вода"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "infrastructure",
+      "title": "Инфраструктура",
+      "fields": ["Автосервис", "Автомойка", "Шиномонтаж"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": [
+        "Автоматические ворота",
+        "Система пожаротушения",
+        "Видеонаблюдение ",
+        "Охрана",
+        "Погреб",
+        "Смотровая яма "
+      ],
+      "type": "checkbox"
+    }
+  ]
+}

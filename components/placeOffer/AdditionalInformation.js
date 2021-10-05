@@ -4,6 +4,7 @@ import ChargersPowerSupplies from './Options/Chargers_power_supplies';
 import SmartWatches from './Options/Smart_watches_and_fitness_bracelets';
 import Tablets from './Options/Tablets';
 import MainPlaceholder from './Options/MainPlaceholder';
+import WorkPlaceholder from './Options/WorkPlaceholder';
 import Bulldozers from './Options/Bulldozers';
 
 
@@ -232,10 +233,8 @@ const AdditionalInformation = (data) => {
 		case 'ram_for_servers':
 		case 'ram':
 		case 'server_network_hardware':
-		case 'vacancies':
 		case 'mfps_and_scanners':
 		case 'manipulators__input_devices':
-		case 'summary':
 		case 'other_comp':
 		case 'personal_computer_accessories':
 		case 'rent_houses_and_cottages':
@@ -279,6 +278,10 @@ const AdditionalInformation = (data) => {
 		case 'video_cards_componentsss':
 		case 'telephones':
 			return <MainPlaceholder data={data.newOBJ[data.asd]} />;
+
+		case 'vacancies':
+		case 'summary':
+			return <WorkPlaceholder data={data.newOBJ[data.asd]} />;
 
 		
 		case 'sell_parkingplaceabroad':

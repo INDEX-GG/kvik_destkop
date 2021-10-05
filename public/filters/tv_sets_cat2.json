@@ -1,0 +1,87 @@
+{
+  "tv_sets_cat2": [
+    {
+      "alias": "type",
+      "title": "Тип панели",
+      "fields": ["Лучевая трубка", "Кинескоп", "ЖК"],
+      "type": "select"
+    },
+    {
+      "alias": "brand",
+      "title": "Брэнд",
+      "fields": [
+        "BBK",
+        "BQ",
+        "DIGMA",
+        "ERISSON",
+        "HISENSE",
+        "HUAWEI",
+        "HYUNDAI",
+        "IRBIS",
+        "KIVI",
+        "LG",
+        "PHILIPS",
+        "POLARLINE",
+        "PRESTIGI",
+        "SAMSUNG",
+        "SHARP",
+        "SONY",
+        "STARWIND",
+        "SUNWIND",
+        "SUPRA",
+        "TCL",
+        "TELEFUNKEN",
+        "XIAOMI"
+      ],
+      "type": "select"
+    },
+    {
+      "firstAlias": "fromTv_diagonal",
+      "secondAlias": "toTv_diagonal",
+      "title": "Диагональ, ”",
+      "type": "twoText"
+    },
+    {
+      "alias": "screen_resolution",
+      "title": "Разрешение экрана",
+      "fields": ["Ultra HD (4К)", "Full HD (1080p)", "Ready (720p)"],
+      "type": "select"
+    },
+    {
+      "alias": "smartTV",
+      "title": "Смарт ТВ",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "3dTV",
+      "title": "Поддержка 3D",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "сurved_screen",
+      "title": "Изогнутый экран",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "usbTV",
+      "title": "Поддержка USB",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "wifiTV",
+      "title": "Поддержка Wi-Fi",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    },
+    {
+      "alias": "bluetoothTV",
+      "title": "Поддержка bluetooth",
+      "fields": ["Да", "Нет"],
+      "type": "select"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "ups_and_surge_protectors": [
+    {
+      "alias": "type",
+      "title": "Тип",
+      "fields": ["Сетевые фильтры", "ИБП", "Батареи ИБП", "Стабилизаторы "],
+      "type": "select"
+    }
+  ]
+}

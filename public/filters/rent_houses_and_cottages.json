@@ -1,0 +1,167 @@
+{
+  "rent_houses_and_cottages": [
+    { "type": "price" },
+    {
+      "type": "twoTextRadio",
+      "firstAlias": "fromPrice",
+      "secondAlias": "toPrice",
+      "title": "Цена, ₽",
+      "fields": [
+        { "alias": "noPrepayment", "value": "Без предоплаты" },
+        { "alias": "noСollateral", "value": "Без залога" },
+        { "alias": "noСommission", "value": "Без комиссии" }
+      ]
+    },
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "tenure",
+      "title": "Срок владения",
+      "fields": ["До 3 лет", "От 3 до 5 лет", "Более 5 лет"],
+      "type": "list"
+    },
+    {
+      "alias": "lease_term",
+      "title": "Срок аренды",
+      "fields": ["Посуточно", "На короткий срок", "На длительный срок"],
+      "type": "listRec"
+    },
+    {
+      "alias": "accommodations",
+      "title": "Условия проживания",
+      "fields": ["Можно с детьми", "Можно с животными"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "wall_material",
+      "title": "Материал стен",
+      "fields": [
+        "Кирпич",
+        "Брус",
+        "Бревно",
+        "сэндвич-панели",
+        "Пеноблоки",
+        "Газоблоки",
+        "Эксперементальный материал",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "firstAlias": "formRoom_number",
+      "secondAlias": "toRoom_number",
+      "title": "Количество комнат",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromNumber_of_storeys",
+      "secondAlias": "toNumber_of_storeys",
+      "title": "Этажность",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "bathrooms_number",
+      "title": "Количество санузлов",
+      "fields": ["На улице", "В доме", "Несколько"],
+      "type": "list"
+    },
+    {
+      "alias": "balcony_number",
+      "title": "Количество балконов",
+      "fields": ["Нет", "Балкон", "Лоджия", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Электричество", "Отопление", "Газ", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": ["Кондиционер", "Камин", "Бассейн", "Баня/сауна"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "multimedia",
+      "title": "Мультимедиа",
+      "fields": ["WI-FI", "Телевизор", "Цифровое/Кабельное ТВ"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "garage",
+      "title": "Гараж",
+      "fields": ["Да", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "electricity",
+      "title": "Электричество",
+      "fields": ["Нет", "Подключено", "Есть возможность подключения"],
+      "type": "list"
+    },
+    {
+      "alias": "heating",
+      "title": "Отопление",
+      "fields": ["Печное", "Газовое", "Электрическое", "Центральное"],
+      "type": "list"
+    },
+    {
+      "alias": "gas",
+      "title": "Газ",
+      "fields": ["Нет", "Подключено", "Есть возможность подключения"],
+      "type": "list"
+    },
+    {
+      "alias": "water_supply",
+      "title": "Водоснабжение",
+      "fields": ["Автономное", "Централизованное", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "facilities",
+      "title": "Удобства",
+      "fields": [
+        "Холодильник",
+        "Кондиционер",
+        "Телевизор",
+        "Стиральная машина",
+        "Посудомоечная машина",
+        "Плита",
+        "Фен",
+        "Утюг",
+        "Интернет"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "land_type",
+      "title": "Тип земельного участка",
+      "fields": [
+        "Сельхоз",
+        "Фермерское хозяйство",
+        "Поселение",
+        "Промназначение",
+        "Инвестпроект"
+      ],
+      "type": "listRec"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "tablets": [
+    {
+      "alias": "manufacturer",
+      "title": "Производитель",
+      "fields": [
+        "Acer",
+        "Alcatel",
+        "APPLE",
+        "ARIAN",
+        "ARK",
+        "DELL",
+        "DIGMA",
+        "Haier",
+        "Honor",
+        "HP",
+        "HUAWEI",
+        "IRBIS",
+        "LENOVO",
+        "PRESTIGIO",
+        "SAMSUNG",
+        "Turbo",
+        "TurboKids",
+        "XIAOMI",
+        "Другой"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "cpu",
+      "title": "Процессор",
+      "fields": ["Apple", "INTEL", "RocKChip", "Qualcomm", "Другой"],
+      "type": "select"
+    },
+    {
+      "alias": "ram_size",
+      "title": "Объем оперативной памяти",
+      "fields": [
+        "512 Мб",
+        "1 Гб",
+        "1,5 Гб",
+        "2 Гб",
+        "3 Гб",
+        "4 Гб",
+        "6 Гб",
+        "8 Гб",
+        "16 Гб",
+        "32 Гб"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "builtin_memory",
+      "title": "Объем встроенной памяти",
+      "fields": [
+        "1 Гб",
+        "2 Гб",
+        "4 Гб",
+        "8 Гб",
+        "16 Гб",
+        "32 Гб",
+        "64 Гб",
+        "128 Гб",
+        "256 Гб",
+        "512 Гб и более"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "display_diagonal",
+      "title": "Диагональ дисплея",
+      "fields": ["до 8", "от 8 до 10", "от 10 до 12", "от 12"],
+      "type": "select"
+    },
+    {
+      "alias": "display_resolution",
+      "title": "Разрешение дисплея",
+      "fields": [
+        "1024x600",
+        "1200х800",
+        "1280x720",
+        "1280x800",
+        "1920x1080",
+        "1920x1200",
+        "1920x1280",
+        "2000х1200",
+        "2048x1536",
+        "2160х1350",
+        "2160х1620",
+        "2224х1668",
+        "2360х1640",
+        "2388х1668",
+        "2560x1600",
+        "2732х2048",
+        "2800х1752",
+        "2880x1920",
+        "Другое"
+      ],
+      "type": "select"
+    },
+    {
+      "alias": "battery_capacity",
+      "title": "Емкость батареи",
+      "fields": ["от 1500 до 2500 мАч", "от 2500 до 4000 мАч", "от 4000 мАч"],
+      "type": "select"
+    },
+    {
+      "alias": "connectors_and_interfaces",
+      "title": "Разъемы и интерфейсы",
+      "fields": [
+        "USB TypeC",
+        "micro HDMI",
+        "micro USB",
+        "mini USB",
+        "Lightning",
+        "Разъем для подключения наушников 3,5 мм"
+      ],
+      "type": "checkbox"
+    },
+    {
+      "alias": "features_of_the",
+      "title": "Особенности",
+      "fields": [
+        "Защита от влаги и пыли",
+        "Сканер отпечатков пальцев",
+        "Поддержка двух SIMкарт",
+        "Поддержка карт памяти"
+      ],
+      "type": "checkbox"
+    }
+  ]
+}

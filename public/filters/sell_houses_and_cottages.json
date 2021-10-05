@@ -1,0 +1,127 @@
+{
+  "sell_houses_and_cottages": [
+    {
+      "alias": "owner",
+      "title": "Право собственности",
+      "fields": [
+        "Собственник",
+        "Агенство",
+        "Застройщик",
+        "Подрядчик",
+        "Частный риелтор"
+      ],
+      "type": "list"
+    },
+    {
+      "alias": "tenure",
+      "title": "Срок владения",
+      "fields": ["До 3 лет", "От 3 до 5 лет", "Более 5 лет"],
+      "type": "list"
+    },
+    {
+      "alias": "sale_type",
+      "title": "Тип продажи",
+      "fields": ["Свободная", "Альтернативная", "Ипотека", "Рассрочка"],
+      "type": "list"
+    },
+    {
+      "alias": "wall_material",
+      "title": "Материал стен",
+      "fields": [
+        "Кирпич",
+        "Брус",
+        "Бревно",
+        "сэндвич-панели",
+        "Пеноблоки",
+        "Газоблоки",
+        "Эксперементальный материал",
+        "Другое"
+      ],
+      "type": "list"
+    },
+    {
+      "firstAlias": "formRoom_number",
+      "secondAlias": "toRoom_number",
+      "title": "Количество комнат",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromNumber_of_storeys",
+      "secondAlias": "toNumber_of_storeys",
+      "title": "Этажность",
+      "type": "twoText"
+    },
+    {
+      "firstAlias": "fromArea",
+      "secondAlias": "toArea",
+      "title": "Площадь, м2",
+      "type": "twoText"
+    },
+    {
+      "alias": "bathrooms_number",
+      "title": "Количество санузлов",
+      "fields": ["На улице", "В доме", "Несколько"],
+      "type": "list"
+    },
+    {
+      "alias": "balcony_number",
+      "title": "Количество балконов",
+      "fields": ["Нет", "Балкон", "Лоджия", "2 и более"],
+      "type": "list"
+    },
+    {
+      "alias": "communications",
+      "title": "Коммуникации",
+      "fields": ["Электричество", "Отопление", "Газ", "Водоснабжение"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "additionally",
+      "title": "Дополнительно",
+      "fields": ["Кондиционер", "Камин", "Бассейн", "Баня/сауна"],
+      "type": "checkbox"
+    },
+    {
+      "alias": "garage",
+      "title": "Гараж",
+      "fields": ["Да", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "electricity",
+      "title": "Электричество",
+      "fields": ["Нет", "Подключено", "Есть возможность подключения"],
+      "type": "list"
+    },
+    {
+      "alias": "heating",
+      "title": "Отопление",
+      "fields": ["Печное", "Газовое", "Электрическое", "Центральное"],
+      "type": "list"
+    },
+    {
+      "alias": "gas",
+      "title": "Газ",
+      "fields": ["Нет", "Подключено", "Есть возможность подключения"],
+      "type": "list"
+    },
+    {
+      "alias": "water_supply",
+      "title": "Водоснабжение",
+      "fields": ["Автономное", "Централизованное", "Нет"],
+      "type": "list"
+    },
+    {
+      "alias": "land_type",
+      "title": "Тип земельного участка",
+      "fields": [
+        "Сельхоз",
+        "Фермерское хозяйство",
+        "Поселение",
+        "Промназначение",
+        "Инвестпроект"
+      ],
+      "type": "listRec"
+    }
+  ]
+}

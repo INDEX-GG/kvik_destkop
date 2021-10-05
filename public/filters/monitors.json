@@ -1,0 +1,22 @@
+{
+  "monitors": [
+    {
+      "alias": "diagonal",
+      "title": "Диагональ",
+      "fields": ["до 19", "от 19 до 27", "от 27 и более"],
+      "type": "select"
+    },
+    {
+      "alias": "connectors",
+      "title": "Разъемы",
+      "fields": [
+        "Разъем DSUB",
+        "Разъем DVI",
+        "Разъем HDMI",
+        "Разъем Display Port",
+        "Разъем USB"
+      ],
+      "type": "select"
+    }
+  ]
+}
