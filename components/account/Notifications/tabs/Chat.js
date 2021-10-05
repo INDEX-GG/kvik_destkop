@@ -19,12 +19,14 @@ const socket = io('http://192.168.8.111:6066', {path: SOCKET_URL})
 
 
 
-const Chat = ({usersData: {sender, recipient, product}, messageData = [], userChatPhoto}) => {
+const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 	const [message, setMessage] = useState('');
-	const [msgList, setMsgList] = useState(messageData);
+	const [msgList, setMsgList] = useState();
 	const [messageId, setMessageId] = useState(null)
-	const [messagUpdate, setMessageUpdate] = useState(false)
+	const [messageUpdate, setMessageUpdate] = useState(false)
+	const [userOnline, setUserOnline] = useState(false)
+	const [loading, setLoading] = useState(true)
 
 	const refChat = useRef()
 	const refInput = useRef()
@@ -35,49 +37,45 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 	const {query} = useRouter()
 	const {id} = useAuth()
 
-
-
 	const generateChatHistory = (messageId = 0) => {
 		return {
 			"page_limit": 50, 
 			"last_message_id": messageId, 
 			"user_id": id, 
-			"companion_id": +query?.seller_id == id ? +query?.customer_id : +query?.seller_id, 
+			"companion_id": +query?.companion_id, 
 			"product_id": +query?.product_id
 		}
 	}
 
+	const chatHistory = () => {
+		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory()).then(r => {
+			setMsgList(r.data.data.reverse())
+			setMessageId(r.data.data[0]?.id)
+			setLoading(false)
+		})
+	}
 
 	useEffect(() => {
-		setMessageId(messageData[0]?.id)
-		setMsgList(messageData)
-	}, [messageData])
-
-	useEffect(() => {
-		if (query?.customer_id && query?.seller_id && query?.product_id && userInfo?.name && id) {
+		if (query?.companion_id && query?.product_id && userInfo?.name && id) {
 			socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
+			chatHistory()
 		}
 	}, [query, userInfo, id])
 
 	useEffect(() => {
-		console.log(msgList)
-		console.log(messageId)
-		console.log(refMessage.current)
-		if (refChat.current && !messagUpdate) {
+		if (refChat.current && !messageUpdate) {
 			refChat.current.scrollTop = refChat.current.scrollHeight
 		} else {
 			refChat.current.scrollTop = refChat.current.scrollHeight / 2
 		}
 	}, [msgList])
 
-	// useEffect(() => {
-	// 	setMsgList([])
-	// }, [query])
 
  	const handleSend = async () => {
 		if (message.length > 0) {
 			let data = new Date()
 			const messageDate = `${data.getHours()}:${data.getMinutes() > 9 ? data.getMinutes() : `0${data.getMinutes()}`}`
+
 			const sendObj = {
 				'delete': false, 
 				'message': message, 
@@ -87,27 +85,41 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 				'sender_id': sender.id,
 				'product': product, 
 				'time': messageDate,
-				// 'userPhoto':
 			}
 			await socket.emit('text', sendObj)
 			setMessage('')
 		}
 	}
 
+	console.log(1)
+
 	useEffect(() => {
-		socket.on('message', (data) => {
-			if (!data.msg) {
-				// console.log(data)
-				if (data.sender?.id != id) {
-					socket.emit('online', {'sender': sender, 'recipient': recipient, 'product': product})
+		if(!loading) {
+			socket.on('message', (data) => {
+
+				if (data.msg == 'user_online') {
+					if (!userOnline) setUserOnline(true)
+				} else if (data.msg == 'user_join') {
+					if (data.user_jo != id) {
+						if (!userOnline) setUserOnline(true)
+					}
+				} else if (data.msg == 'user_typing') {
+					return;
+				} else if (data.msg == 'msg_to_looooong') {
+					return;
 				}
-				setMsgList(prev => [...prev, data])
-			}
-		})
-		// return (() => {
-		// 	setMsgList([])
-		// })
-	}, [])
+
+				if (!data.msg) {
+					if (data.sender?.id != id) {
+						socket.emit('online', {'sender': sender, 'recipient': recipient, 'product': product})
+					}
+					setMsgList(prev => [...prev, data])
+				}
+			})
+		}
+	}, [loading])
+
+	console.log(userOnline)
 
 
 	const addChatHistory = () => {
@@ -124,7 +136,7 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 	useEffect(() => {
 		if (observer.current) observer.current.disconnect();
 		if (refMessage.current) {
-			var callback = function (entries) {
+			const callback = function (entries) {
 			if (entries[0].isIntersecting) {
 				console.log(messageId, refMessage.current)
 				addChatHistory()
@@ -135,11 +147,22 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 		}
   	});
 
+	const generateBackgroundMessage = (senderId, read) => {
+		if (senderId == id ) {
+			return '#e9e9e9'
+		}
+		if (!read) {
+			return 'lightblue'
+		} else {
+			return '#e9e9e9'
+		}
+	}	
+
 
 	const handleKeyDown = (e) => {
 		socket.emit('typing', {'sender': sender, 'recipient': recipient, 'product': product})
-		if (messagUpdate) setMessageUpdate(false)
-		if (e.key == 'Enter') {
+		if (messageUpdate) setMessageUpdate(false)
+		if (e.key == 'Enter' && e.target.value.length <= 300) {
 			handleSend()
 		}
 	}
@@ -159,13 +182,17 @@ const Chat = ({usersData: {sender, recipient, product}, messageData = [], userCh
 	return (
 		<>
 			<div ref={refChat} className="messageChats">
-				{msgList.map((item, index) => {
+				{msgList?.map((item, index) => {
 					const myMessage = item?.sender_id == id
 					return (
 						item?.delete ? null :
-						<div ref={item.id == messageId ? refMessage : null} key={index} className={myMessage ? "chatUser" : "chatLocutor"}>
+						<div key={index}
+						  ref={item.id == messageId ? refMessage : null} 
+						  className={myMessage ? "chatUser" : "chatLocutor"}>
 							{myMessage ? null : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
-							<div>{item.message}</div>
+							<div style={{backgroundColor: generateBackgroundMessage(item.id, item.messages_is_read)}}>
+								{item.message}
+							</div>
 							<div>{item.tiem}</div>
 						</div>
 					)
