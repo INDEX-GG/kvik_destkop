@@ -138,8 +138,7 @@ const Product = () => {
 					query: {
 						account: 5,
 						content: 1,
-						seller_id: productInfo?.user_id,
-						customer_id: id,
+						companion_id: productInfo?.user_id,
 						product_id: productInfo?.id
 					}
 				})
@@ -152,8 +151,7 @@ const Product = () => {
 					query: {
 						account: 5,
 						content: 1,
-						seller_id: productInfo?.user_id,
-						customer_id: id,
+						companion_id: productInfo?.user_id,
 						product_id: productInfo?.id
 					}
 				})

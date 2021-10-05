@@ -24,7 +24,6 @@ function Messages() {
   const [room, setRoom] = useState({})
   const [allRooms, setAllRooms] = useState([])
   const [chatUsers, setChatUsers] = useState()
-  const [messageHistory, setMessageHistory] = useState([])
   const {query} = useRouter()
   const router = useRouter()
   const {id} = useAuth()
@@ -32,18 +31,16 @@ function Messages() {
   const {matchesTablet, matchesMobile} = useMedia()
 
   useEffect(() => {
-	if (id && query?.product_id && query?.seller_id) {
-		
+	if (id && query?.companion_id) {
 		const obj = {
 			"page_limit": 50, 
 			"last_message_id": 0, 
 			"user_id": id, 
-			"companion_id": +query?.seller_id == id ? +query?.customer_id : +query?.seller_id, 
+			"companion_id": +query?.companion_id, 
 			"product_id": +query?.product_id
 		}
 
 		axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
-			setMessageHistory(r.data.data)
 			setRoom(r.data.room)
 		})
  	 }
@@ -53,10 +50,10 @@ function Messages() {
 
 
   useEffect(() => {
-	if (query?.seller_id && query?.product_id && id && userInfo?.name) {
+	if (query?.companion_id && id && userInfo?.name) {
 		const sender = {"id": id, "name": userInfo?.name}
 		const recipient = {
-			"id": +query?.seller_id == id ? +query?.customer_id : +query?.seller_id
+			'id': +query?.companion_id
 		}
 		const product = {"id": +query?.product_id}
 		setChatUsers({sender, recipient, product})
@@ -86,8 +83,7 @@ function Messages() {
 			query: {
 				account: 5,
 				content: 1,
-				seller_id: data?.seller_id,
-				customer_id: data?.customer_id,
+				companion_id: data?.seller_id == id ? data?.customer_id : data?.seller_id,
 				product_id: data?.product_id
 			}
 		})
@@ -205,7 +201,7 @@ function Messages() {
 			  {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender && 
 			  <Chat
 				usersData={chatUsers} 
-			  	messageData={messageHistory.reverse()}
+			  	// messageData={messageHistory.reverse()}
 				userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
 			  />}
             </div>
