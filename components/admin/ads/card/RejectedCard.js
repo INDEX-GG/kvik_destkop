@@ -3,11 +3,12 @@ import { ToRubles } from '../../../../lib/services';
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
 import { Modal } from '@material-ui/core';
+import { STATIC_URL } from "../../../../lib/constants";
 
 SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
 function RejectedCard({offer}) {
-
+    const {photos} = JSON.parse(offer.photo)
     const [cardSwiper, setCardSwiper] = React.useState(null);
     const [modalSwiper, setModalSwiper] = React.useState(null);
     const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
@@ -31,7 +32,7 @@ function RejectedCard({offer}) {
     if (modalSwiper) {
         modalSwiper.slideTo(activeSlide, 0);
     }
-
+    
     return (
         <div className="ad__wrapper">
             <a className="ad_slider">
@@ -42,9 +43,9 @@ function RejectedCard({offer}) {
                     onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
                     onSwiper={setCardSwiper}
                 >
-                    {offer.imgs.map( (item, index) => (
+                    {photos.map( (item, index) => (
                         <SwiperSlide key={index} onClick={() => setOpenModal(!openModal)}>
-                            <img src={item} alt="" />
+                            <img src={`${STATIC_URL}/${item}`} alt="" />
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -58,9 +59,9 @@ function RejectedCard({offer}) {
                         <div className="ad__information_title">{offer.title}</div>
                         <div className="ad__information_category">
                         {
-                            offer.categorys.map((category, i) => {
+                            offer.category_id.split(",").map((category, i) => {
                                 return (
-                                    <span key={i}>{category.category}</span>
+                                    <span key={i}>{category}</span>
                                 );
                             })
                         }
@@ -70,9 +71,9 @@ function RejectedCard({offer}) {
                     </div>
                 </div>
                 <div className="ad__information__user">
-                    <div className="ad__information__user_icon"><img src={`${offer.userpic}?${offer.id}`} /></div>
+                    <div className="ad__information__user_icon"><img src={`${STATIC_URL}/${offer.userPhoto}`} /></div>
                     <div className="ad__information__user_name">
-                        {offer.username}
+                        {offer.name}
                     </div>
                 </div>
                 <p /* value={index} */ className={"ad__information__description ad_close"}>
@@ -99,9 +100,9 @@ function RejectedCard({offer}) {
                         onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
                         thumbs={{swiper: thumbsSwiper}}
                     >
-                        {offer.imgs.map( (item, index) => (
+                        {photos.map( (item, index) => (
                             <SwiperSlide key={index} >
-                                <img src={item} alt="" style={{objectFit: "contain", width: "100%", height: "100%"}}/>
+                                <img src={`${STATIC_URL}/${item}`} alt="" style={{objectFit: "contain", width: "100%", height: "100%"}}/>
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -114,9 +115,9 @@ function RejectedCard({offer}) {
                         slidesPerView={'auto'}
                         watchSlidesProgress={true}
                     >
-                        {offer.imgs.map( (item, index) => (
+                        {photos.map( (item, index) => (
                             <SwiperSlide key={index} className="productSliderNavItem">
-                                <img src={item} alt="" style={{ height: "88px"}}/>
+                                <img src={`${STATIC_URL}/${item}`} alt="" style={{ height: "88px"}}/>
                             </SwiperSlide>
                         ))}
                     </Swiper>

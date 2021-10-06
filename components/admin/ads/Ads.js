@@ -8,13 +8,11 @@ import axios from "axios";
 
 export const Ads = () => {
 
-   
-   
    const [RejectedBox , setRejectedBox ] = useState([]);
+   const [countRejectedOffers, setCountRejectedOffers] = useState(0);
    const [WaitingBox, setWaitingBox] = useState([]);
-
-   const [fetch, setFetch] = useState(false);
    const [countOffers, setCountOffers] = useState(0);
+   const [fetch, setFetch] = useState(false);
 
    /* Данные для Отклоненные */
    useEffect( () => {
@@ -25,10 +23,10 @@ export const Ads = () => {
       .then((responce) => {
 		   console.log(responce)
          setRejectedBox(responce.data.posts);
-         /* setCountOffers(responce.data.count[0].count) */
+         setCountRejectedOffers(responce.data.count[0].count)
       });
    },[])
-   console.log(RejectedBox)
+   
    /* Данные для Ждут одобрения */
    useEffect( () => {
       axios.post(`/api/getPostsModerator`, {
@@ -69,7 +67,7 @@ export const Ads = () => {
 
    const navItems = [
       { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} setWaitingBox={setWaitingBox} lessCount={lessCount}/>, count: countOffers },
-      { id: 2, title: 'Отклоненные', content: <RejectedAdmin key={2} offers={RejectedBox} />, count: RejectedBox.length }
+      { id: 2, title: 'Отклоненные', content: <RejectedAdmin key={2} offers={RejectedBox} />, count: countRejectedOffers }
    ];
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
