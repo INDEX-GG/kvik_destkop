@@ -14,10 +14,10 @@ export const Ads = () => {
    const [countOffers, setCountOffers] = useState(0);
    const [fetch, setFetch] = useState(false);
 
-   /* Данные для Отклоненные */
+   /* Данные при первой загрузке для Отклоненные */
    useEffect( () => {
       axios.post(`/api/getPostsModeratorRejected`, {
-         "page_limit": 5, 
+         "page_limit": 4, 
          "last_post_id": 0
       })
       .then((responce) => {
@@ -27,7 +27,7 @@ export const Ads = () => {
       });
    },[])
    
-   /* Данные для Ждут одобрения */
+   /* Данные при первой загрузке для Ждут одобрения */
    useEffect( () => {
       axios.post(`/api/getPostsModerator`, {
          "page_limit": 5, 
@@ -40,7 +40,8 @@ export const Ads = () => {
    },[])
 
    function lessCount (count) {
-      setCountOffers( prev => prev - count)
+      setCountOffers( prev => prev - count);
+      setCountRejectedOffers(prev => prev + count);
    }
 
    useEffect ( () => {
@@ -66,8 +67,8 @@ export const Ads = () => {
    })
 
    const navItems = [
-      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} setWaitingBox={setWaitingBox} lessCount={lessCount}/>, count: countOffers },
-      { id: 2, title: 'Отклоненные', content: <RejectedAdmin key={2} offers={RejectedBox} />, count: countRejectedOffers }
+      { id: 1, title: 'Ждут одобрения', content: <WaitingAdmin key={1} offers={WaitingBox} setWaitingBox={setWaitingBox} lessCount={lessCount} />, count: countOffers },
+      { id: 2, title: 'Отклоненные', content: <RejectedAdmin key={2} offers={RejectedBox} setRejectedBox={setRejectedBox}/>, count: countRejectedOffers }
    ];
 
    const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
