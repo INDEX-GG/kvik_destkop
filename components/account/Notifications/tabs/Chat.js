@@ -27,6 +27,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	const [messageUpdate, setMessageUpdate] = useState(false)
 	const [userOnline, setUserOnline] = useState(false)
 	const [loading, setLoading] = useState(true)
+	const [socketConnect, setSocketConntect] = useState(false)
 
 	const refChat = useRef()
 	const refInput = useRef()
@@ -36,6 +37,25 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	const {userInfo} = useStore()
 	const {query} = useRouter()
 	const {id} = useAuth()
+
+
+
+	useEffect(() => {
+		return (() => {
+			if (socketConnect) {
+				console.log("SOCKET DISCONNECT")
+				socket.emit('leave', {'sender': sender, 'recipient': recipient, 'product': product})
+				socket.disconnect()
+				setUserOnline(false)
+				setSocketConntect(false)
+			}
+		})
+	}, [socketConnect])
+
+	useEffect(() => {
+		console.log(userOnline)
+	}, [userOnline])
+
 
 	const generateChatHistory = (messageId = 0) => {
 		return {
@@ -47,11 +67,15 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 		}
 	}
 
+	console.log()
+
 	const chatHistory = () => {
 		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory()).then(r => {
 			setMsgList(r.data.data.reverse())
 			setMessageId(r.data.data[0]?.id)
+			setSocketConntect(true)
 			setLoading(false)
+			socket.connect()
 		})
 	}
 
@@ -91,23 +115,55 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 		}
 	}
 
-	console.log(1)
-
 	useEffect(() => {
 		if(!loading) {
-			socket.on('message', (data) => {
+			socket.on('message', async (data) => {
 
-				if (data.msg == 'user_online') {
-					if (!userOnline) setUserOnline(true)
-				} else if (data.msg == 'user_join') {
-					if (data.user_jo != id) {
-						if (!userOnline) setUserOnline(true)
-					}
-				} else if (data.msg == 'user_typing') {
-					return;
-				} else if (data.msg == 'msg_to_looooong') {
-					return;
+				// switch (data?.msg) {
+				// 	case ('user_online'):
+				// 		if (!userOnline && data?.user_on == id) {
+				// 			console.log(data)
+				// 			setUserOnline(true)
+				// 		}
+				// 		break;
+				// 	case ('user_join'):
+				// 		if (!userOnline && data?.user_jo != id) {
+				// 			console.log('user join')
+				// 			setUserOnline(true)
+				// 		}
+				// 		break;
+				// 	case ('user_typing'):
+				// 		break;
+				// 	case ('msg_to_looooong'):
+				// 		break;
+				// }
+				
+				// console.log(data)
+
+				switch (data?.msg) {
+					case ('user_online'):
+						if (!userOnline && data?.user_on != id) {
+							console.log('online')
+							setUserOnline(true)
+						}
+						break;
+					case ('user_join'):
+						if (!userOnline && data?.user_jo != id) {
+							console.log('user join')
+							setUserOnline(true)
+						}
+						break;
+					case ('user_typing'):
+						break;
+					case ('msg_to_looooong'):
+						break;
+					default:
+						break;
 				}
+
+				console.log('userOnline', !userOnline && data?.user_on == id)
+
+
 
 				if (!data.msg) {
 					if (data.sender?.id != id) {
@@ -118,9 +174,6 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 			})
 		}
 	}, [loading])
-
-	console.log(userOnline)
-
 
 	const addChatHistory = () => {
 		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory(messageId)).then(r => {
@@ -148,13 +201,14 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
   	});
 
 	const generateBackgroundMessage = (senderId, read) => {
-		if (senderId == id ) {
+
+		if (senderId == id) {
+			if (userOnline) {
 			return '#e9e9e9'
-		}
-		if (!read) {
-			return 'lightblue'
-		} else {
-			return '#e9e9e9'
+			} else {
+				if (!read) return '#02bac7'
+				return '#e9e9e9'
+			}
 		}
 	}	
 
@@ -190,7 +244,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 						  ref={item.id == messageId ? refMessage : null} 
 						  className={myMessage ? "chatUser" : "chatLocutor"}>
 							{myMessage ? null : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
-							<div style={{backgroundColor: generateBackgroundMessage(item.id, item.messages_is_read)}}>
+							<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read)}}>
 								{item.message}
 							</div>
 							<div>{item.tiem}</div>
