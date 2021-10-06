@@ -9,6 +9,7 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { CHAT_URL_API, STATIC_URL } from "../../../../lib/constants";
 import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
+import { generateTime } from "./chatFunctions";
 
 function Messages() {
 
@@ -70,11 +71,6 @@ function Messages() {
 
   function changeModal() {
     setMessageModal(!messageModal)
-  }
-
-  const generateTime = (UTC, time) => {
-	const dateObj = JSON.parse(time)
-	return `${dateObj.d}.${dateObj.mo}.${dateObj.y} ${UTC + +dateObj.h}:${dateObj.mi}`
   }
 
   const changeChat = (data) => {
