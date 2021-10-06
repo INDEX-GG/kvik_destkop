@@ -197,14 +197,17 @@ function Messages() {
 			  {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender && 
 			  <Chat
 				usersData={chatUsers} 
-			  	// messageData={messageHistory.reverse()}
 				userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
 			  />}
             </div>
           </div>
         </div>
         <Dialog open={messageModal || false} onClose={() => setMessageModal(!messageModal)} fullScreen={true}>
-          <ModalMessage modal={changeModal}/>
+          <ModalMessage 
+		    modal={changeModal}
+			usersData={chatUsers} 
+			userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo} 
+		  />
         </Dialog>
       </div>
     )

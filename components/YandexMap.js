@@ -276,8 +276,6 @@ const YandexMap = ({setData}) => {
 
 	return (
 		<>
-			{/* Изменить api ключ */}
-			{/* 5170655d-fb30-4cc1-b1aa-3782984b9fb8 */}
 			<YMaps query={{apikey: ''}}>
 				<MainMap setData={setData}/>
 			</YMaps>
