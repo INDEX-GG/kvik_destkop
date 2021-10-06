@@ -1,6 +1,7 @@
 import Comments from "./Comments";
 import Subscribes from "./Subscribes";
 import StarRating from "./StarRating";
+import Chat from "./account/Notifications/tabs/Chat";
 
 /* Модальное окно "отзывы и рейтинг" */
 export function ModalRating({ rate = 0, comments = 0, modal, mobile }) {
@@ -118,56 +119,7 @@ export function ModalMessage({ modal }) {
 						<div>Название товара</div>
 					</div>
 				</div>
-				<div className="messageChats">
-					<div className="messageChat">
-						<div className="chatDate small light">00.00.00</div>
-						<div className="chatLocutor">
-							<img src="https://source.unsplash.com/random?portrait" />
-							<div>ТекстТекстТекстТекстТексТекстТекст</div>
-							<div>00:00</div>
-						</div>
-						<div className="chatUser">
-							<div>ТекстТе кстТек стТекс тТе ксТекстТекст ТекстТе кстТек стТекс тТе ксТекстТекст ТекстТе кстТек стТекс тТе ксТекстТекст ТекстТе кстТек стТекс тТе ксТекстТекст</div>
-							<div>00:00</div>
-						</div>
-					</div>
-					<div className="messageChat">
-						<div className="chatDate small light">00.00.00</div>
-						<div className="chatLocutor">
-							<img src="https://source.unsplash.com/random?portrait" />
-							<div>ТекстТекстТекстТекстТексТекстТекст</div>
-							<div>00:00</div>
-						</div>
-						<div className="chatUser">
-							<div>ТекстТекстТекстТекстТексТекстТекст</div>
-							<div>00:00</div>
-						</div>
-					</div>
-					<div className="messageChat">
-						<div className="chatDate small light">Вчера</div>
-						<div className="chatLocutor">
-							<img src="https://source.unsplash.com/random?portrait" />
-							<div>ТекстТекстТекстТекстТексТекстТекст ТекстТекстТекстТекстТексТекстТекст ТекстТекстТекстТекстТексТекстТекст</div>
-							<div>00:00</div>
-						</div>
-						<div className="chatUser">
-							<div>ТекстТекстТекстТекстТексТекстТекст</div>
-							<div>00:00</div>
-						</div>
-					</div>
-					<div className="messageChat">
-						<div className="chatDate small light">Сегодня</div>
-						<div className="chatLocutor">
-							<img src="https://source.unsplash.com/random?portrait" />
-							<div>ТекстТекстТекстТекстТексТекстТекст</div>
-							<div>00:00</div>
-						</div>
-						<div className="chatUser">
-							<div>ТекстТекстТекстТекстТексТекстТекст</div>
-							<div>00:00</div>
-						</div>
-					</div>
-				</div>
+				<Chat/>
 				<div className="messageChatInput">
 					<button className="messageFile"></button>
 					<input className="messageInput" type="text" placeholder="Написать сообщение" />
