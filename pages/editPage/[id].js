@@ -19,6 +19,7 @@ import Promotion from '../../components/placeOffer/Promotion';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
+import {number} from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 function EditPage() {
 	const { query } = useRouter();
 	const { price, title, photo, description, address, category_id } = useProduct(query.id)
-	console.log('category_id',category_id)
+	console.log('PRICE===%%%%%%',price)
 
 	const { id } = useAuth();
 	const classes = useStyles();
@@ -75,8 +76,10 @@ function EditPage() {
 
 	const methods = useForm();
 	let photoes = [];
-	let postId = query.id;
+	let postId = Number(query.id);
+	console.log('postId=======>>',postId)
 	const photoesCtx = (obj) => {
+		console.log('Это приходит из инпута всех фоток [id]',obj);
 		return photoes = obj;
 	}
 
@@ -86,12 +89,12 @@ function EditPage() {
 	}, []);
 
 	const additionalfields = {category_id: [{alias: 'post_id', fields: postId}]}
-	console.log('photoes',photoes)
+	console.log('photoes [id]',photoes)
 	// console.log('additionalfields',additionalfields)
 	// console.log('postID',postId)
 
 	const onSubmit = data => {
-		console.log('DATAAAA', data)
+		console.log('DATAAAA [id]', data)
 		data.price = data.price.replace(/\D+/g, '');
 		data.user_id = id
 		delete data.photoes
@@ -109,8 +112,10 @@ function EditPage() {
 			}
 		}
 
+		console.log('Объект обновленных данных и фоток',obj)
+
 		setLoading(true);
-		console.log('photoData',photoData)
+		console.log('photoData [id]',photoData)
 		 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
 		 axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
 			headers: {
@@ -118,7 +123,7 @@ function EditPage() {
 			}
 		})
 		.then((r) => {
-			console.log('r',r)
+			console.log('==on=Submit===r',r)
 			let allConvertedPhoto = [...photoes]
 			let jj = 0
 			// для увиличения j во внутреннем цикле
@@ -134,6 +139,12 @@ function EditPage() {
 				}
 			}
 			console.log('allConvertedPhoto',allConvertedPhoto)
+			console.log('Все изменения которые идт на сервер!!!',{post_id: postId,
+				title : obj.title,
+				description: obj.description,
+				price: Number(obj.price),
+				address: obj.location,
+				photo: allConvertedPhoto})
 			axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
 				title : obj.title,
 				description: obj.description,
@@ -148,7 +159,7 @@ function EditPage() {
 				address: obj.location,
 				photo: allConvertedPhoto
 			})
-
+			console.log('editProduct',editProduct)
 			setPromotion(true)
 		})
 
@@ -170,7 +181,7 @@ function EditPage() {
 								</Box>
 								<Box className={classes.formPart}>
 									<Description description={description} />
-									<Price price={price} />
+									<Price price={price} edit={edit}/>
 									<PhotosForEditPage ctx={photoesCtx} photo={photo} />
 								</Box>
 								<Box className={classes.formPart}>

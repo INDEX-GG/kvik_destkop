@@ -12,7 +12,7 @@ export function useProduct(id) {
 		if (typeof id === 'string' || typeof id === 'number') {
 			getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })
 				.then((r) => {
-
+					console.log('===Из хука====>r',r);
 					if (r !== undefined) {
 						let photoes = JSON.parse(r.photo);
 						r.chatProductPhoto = photoes.photos[0]
@@ -25,12 +25,11 @@ export function useProduct(id) {
 							getDataByPost('/api/subcategoriesFields', { "post_id": id, "subcategory": r.subcategory })
 								.then((r) => { setProductInfoFields(r) })
 						}
-						console.log('============>r',r)
 					}
 				})
 		}
 	}, [id])
-	console.log('productInfo',productInfo)
+	console.log('productInfo Из хука',productInfo)
 	return {
 		...productInfo,
 		productInfoFields

@@ -37,16 +37,16 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Price = ({price}) => {
-
-
+const Price = ({price, edit}) => {
 	const classes = useStyles();
 	const methods = useFormContext();
 
-	useEffect(() => {
-		
+	console.log('price+++++++',price);
+	console.log('edit+++++++',edit);
+
+	!edit ? useEffect(() => {
 		methods.setValue('price', '')
-	}, [])
+	}, []) : ''
 
 	return (
 		<Box className={classes.formElem}>
@@ -57,13 +57,13 @@ const Price = ({price}) => {
 						name="price"
 						control={methods.control}
 						shouldUnregister
-						defaultValue=""
+						defaultValue={price}
 
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<TextField
 								variant='outlined'
 								type="text"
-								// autoComplete="on"
+								autoComplete="on"
 								value={value}
 								onKeyDown={e => cursorReplace(e)}
 								onChange={e => onChange(priceFormat(e))}
