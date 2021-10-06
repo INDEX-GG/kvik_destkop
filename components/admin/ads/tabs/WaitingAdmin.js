@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import WaitingCard from '../card/WaitingCard';
 import axios from 'axios';
 
-function WaitingAdmin({offers, setWaitingBox, lessCount }) {
+function WaitingAdmin({offers, setWaitingBox, lessCount}) {
 
    const [check, setCheck] = useState(false);
    const [offerId, setOfferId] = useState([]);

@@ -30,11 +30,8 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                     <div className="checkbox__text"></div>
                   </label>
                 </div>
-                {
-                  offer.photo.slice(0, 1)
-                  .map((imgs) => (
-                    <img src={imgs} key={12321}/>
-                  ))}
+                
+                    <img src={offer.photo[0]} key={12321}/>
                 {/* <img src={offer.photo} /> */}
 
                 {/* {console.log(offer)} */}

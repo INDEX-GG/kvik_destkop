@@ -2,16 +2,17 @@ import React from 'react'
 import { ToRubles } from '../../../../lib/services';
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
-import { Modal } from '@material-ui/core';
+import CardSliderModal from "./CardSliderModal";
+import verifyModerator from "../../../json/verifyModerator.json";
 import { STATIC_URL } from "../../../../lib/constants";
 
 SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
-function RejectedCard({offer}) {
+function RejectedCard({offer, index}) {
+
     const {photos} = JSON.parse(offer.photo)
     const [cardSwiper, setCardSwiper] = React.useState(null);
-    const [modalSwiper, setModalSwiper] = React.useState(null);
-    const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
+    
     const [activeSlide, setActiveSlide] = React.useState(0);
 
     const [openModal, setOpenModal] = React.useState(false);
@@ -19,8 +20,8 @@ function RejectedCard({offer}) {
     const listRef = (e) => {
         const adInformation = document.querySelectorAll(".ad__information__description")[e.target.value]
         const loerMore = document.querySelectorAll(".btn__loer_more")[e.target.value]
-        loerMore.classList.toggle("btn__loer_more-open");
         adInformation.classList.toggle("ad_close");
+        loerMore.classList.toggle("btn__loer_more-open");
         if (adInformation.classList.contains('ad_close')) {
            loerMore.innerHTML = 'Развернуть';
         }
@@ -29,9 +30,6 @@ function RejectedCard({offer}) {
         }
     }
 
-    if (modalSwiper) {
-        modalSwiper.slideTo(activeSlide, 0);
-    }
     
     return (
         <div className="ad__wrapper">
@@ -76,55 +74,29 @@ function RejectedCard({offer}) {
                         {offer.name}
                     </div>
                 </div>
-                <p /* value={index} */ className={"ad__information__description ad_close"}>
+                <p value={index} className={"ad__information__description ad_close"}>
                     {offer.description}
                 </p>
-                <button className="btn__loer_more" /* value={index} */ onClick={(e) => listRef(e)}  >Развернуть</button>
-                <p className="description__rejected">Отклонено по причине: <span>Указана контактная информация в названии, тексте или на изображени, еще причина и еще причина</span> </p>
+                <button className="btn__loer_more" value={index} onClick={(e, index) => listRef(e, index)}  >Развернуть</button>
+                <p className="description__rejected">
+                    Отклонено по причине: 
+                    <span>
+                        {offer.verify_moderator.verify.map( (item, index) => (
+                            ` ${verifyModerator[item]}${index < offer.verify_moderator.verify.length - 1 ? " / " : ""}`      
+                        ))}
+                    </span> 
+                </p>
             </div>
-            <Modal
-                open={openModal}
-                onClose={() => {
-                    setOpenModal(!openModal); 
-                    setThumbsSwiper(null); 
-                    cardSwiper.slideTo(activeSlide, 0);
-                }}
-                className="productModal"
-            >
-                <>
-                    <Swiper
-                        className="productSliderWrapper"
-                        navigation={true}
-                        slidesPerView={1}
-                        onSwiper={setModalSwiper}
-                        onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
-                        thumbs={{swiper: thumbsSwiper}}
-                    >
-                        {photos.map( (item, index) => (
-                            <SwiperSlide key={index} >
-                                <img src={`${STATIC_URL}/${item}`} alt="" style={{objectFit: "contain", width: "100%", height: "100%"}}/>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                    <Swiper
-                        onSwiper={setThumbsSwiper}
-                        className="mySwiper productSliderNav admin-page_modal-swiper"
-                        style={{ height: '88px', display: "block"}}
-                        spaceBetween={1}
-                        slideToClickedSlide={true}
-                        slidesPerView={'auto'}
-                        watchSlidesProgress={true}
-                    >
-                        {photos.map( (item, index) => (
-                            <SwiperSlide key={index} className="productSliderNavItem">
-                                <img src={`${STATIC_URL}/${item}`} alt="" style={{ height: "88px"}}/>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </>
-            </Modal>
+            {openModal && < CardSliderModal 
+                openModal={openModal} 
+                setOpenModal={setOpenModal}
+                photos={photos}
+                setActiveSlide={setActiveSlide}
+                cardSwiper={cardSwiper}
+                activeSlide={activeSlide}
+            />}
         </div>
     )
 }
 
-export default RejectedCard
+export default RejectedCard;

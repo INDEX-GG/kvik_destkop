@@ -1,28 +1,23 @@
 import React from 'react';
 import { ToRubles } from '../../../../lib/services';
-import {Button, Dialog, Modal } from "@material-ui/core";
+import {Button, Dialog } from "@material-ui/core";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation, Thumbs } from "swiper/core";
 import { STATIC_URL } from "../../../../lib/constants";
 import {initials, stringToColor} from "../../../../lib/services";
 import RejectModal from "../../../RejectModal";
+import CardSliderModal from "./CardSliderModal";
 import axios from 'axios';
 
 SwiperCore.use( [ Pagination, Navigation, Thumbs ] );
 
 
 function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaitingBox, lessCount, fetchApprove}) {
-
     const [openWaitForm, setOpenWaitForm] = React.useState(false);
-
     const {photos} = JSON.parse(offer.photo);
-
     const [check, setCheck] = React.useState(false);
     const [openModal, setOpenModal] = React.useState(false);
-
     const [cardSwiper, setCardSwiper] = React.useState(null);
-    const [modalSwiper, setModalSwiper] = React.useState(null);
-    const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
     const [activeSlide, setActiveSlide] = React.useState(0);
     
     React.useEffect( () => {
@@ -62,11 +57,6 @@ function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaiti
             lessCount(1);
         })
     }
-  
-    if (modalSwiper) {
-        modalSwiper.slideTo(activeSlide, 0);
-    }
-
     /* <div className="clientPage__userinitials" style={{ backgroundColor: `${stringToColor(offer.name)}`, fontSize: "14px", fontWeight: "400" }}>{initials(offer.name)}</div> */
     
     return (
@@ -129,48 +119,14 @@ function WaitingCard({index, offer, parentCheck, getDataChild, offerId, setWaiti
                 <button className="btn__loer_more" value={index} onClick={(e, index) => listRef(e, index)} >Развернуть</button>
                 <Button className="btn__ad_add" onClick={() => fetchApprove([offer.id])}>Одобрить</Button>
             </div>
-            <Modal 
-                open={openModal} 
-                onClose={() => {
-                    setOpenModal(!openModal); 
-                    setThumbsSwiper(null); 
-                    cardSwiper.slideTo(activeSlide, 0);
-                }} 
-                className="productModal"
-            >
-                <>
-                    <Swiper
-                        className="productSliderWrapper"
-                        navigation={true}
-                        slidesPerView={1}
-                        onSwiper={setModalSwiper}
-                        onActiveIndexChange={(swiper) => setActiveSlide(swiper.activeIndex)}
-                        thumbs={{swiper: thumbsSwiper}}
-                    >
-                        {photos.map( (img, index) => (
-                            <SwiperSlide key={index} className="productSliderItem" >
-                                <img src={`${STATIC_URL}/${img}`} alt=""  style={{objectFit: "contain", width: "100%", height: "100%"}}/>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                       
-                    <Swiper
-                        onSwiper={setThumbsSwiper}
-                        className="mySwiper productSliderNav admin-page_modal-swiper" 
-                        style={{ height: '88px', display: "block"}}
-                        spaceBetween={1}
-                        slideToClickedSlide={true}
-                        slidesPerView={'auto'}
-                        watchSlidesProgress={true}
-                    >
-                        {photos.map( (img, index) => (
-                            <SwiperSlide key={index} className="productSliderNavItem" >
-                                <img src={`${STATIC_URL}/${img}`} alt=""  style={{ height: "88px"}}/>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </>
-            </Modal>
+            {openModal && <CardSliderModal 
+                            openModal={openModal} 
+                            setOpenModal={setOpenModal}
+                            photos={photos}
+                            setActiveSlide={setActiveSlide}
+                            cardSwiper={cardSwiper}
+                            activeSlide={activeSlide}
+                          />}
             <Dialog open={openWaitForm || false} onClose={() => setOpenWaitForm(!openWaitForm)} fullWidth maxWidth='md'>
                 <RejectModal setOpenWaitForm={setOpenWaitForm}  reject={reject}/>
             </Dialog>
