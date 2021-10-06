@@ -27,7 +27,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	const [messageUpdate, setMessageUpdate] = useState(false)
 	const [userOnline, setUserOnline] = useState(false)
 	const [loading, setLoading] = useState(true)
-	const [socketConnect, setSocketConntect] = useState(false)
+	const [socketConnect, setSocketConnect] = useState(false)
 
 	const refChat = useRef()
 	const refInput = useRef()
@@ -47,7 +47,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 				socket.emit('leave', {'sender': sender, 'recipient': recipient, 'product': product})
 				socket.disconnect()
 				setUserOnline(false)
-				setSocketConntect(false)
+				setSocketConnect(false)
 			}
 		})
 	}, [socketConnect])
@@ -71,9 +71,10 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 	const chatHistory = () => {
 		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory()).then(r => {
+			if (userOnline) setUserOnline(false)
 			setMsgList(r.data.data.reverse())
 			setMessageId(r.data.data[0]?.id)
-			setSocketConntect(true)
+			setSocketConnect(true)
 			setLoading(false)
 			socket.connect()
 		})
@@ -85,6 +86,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 			chatHistory()
 		}
 	}, [query, userInfo, id])
+
 
 	useEffect(() => {
 		if (refChat.current && !messageUpdate) {
@@ -119,26 +121,6 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 		if(!loading) {
 			socket.on('message', async (data) => {
 
-				// switch (data?.msg) {
-				// 	case ('user_online'):
-				// 		if (!userOnline && data?.user_on == id) {
-				// 			console.log(data)
-				// 			setUserOnline(true)
-				// 		}
-				// 		break;
-				// 	case ('user_join'):
-				// 		if (!userOnline && data?.user_jo != id) {
-				// 			console.log('user join')
-				// 			setUserOnline(true)
-				// 		}
-				// 		break;
-				// 	case ('user_typing'):
-				// 		break;
-				// 	case ('msg_to_looooong'):
-				// 		break;
-				// }
-				
-				// console.log(data)
 
 				switch (data?.msg) {
 					case ('user_online'):
@@ -157,12 +139,12 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 						break;
 					case ('msg_to_looooong'):
 						break;
+					case('user_leave'):
+						setUserOnline(false)
+						break;
 					default:
 						break;
 				}
-
-				console.log('userOnline', !userOnline && data?.user_on == id)
-
 
 
 				if (!data.msg) {
@@ -177,6 +159,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 	const addChatHistory = () => {
 		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory(messageId)).then(r => {
+			console.log(r.data.data)
 			if (r.data.data.length) {
 				setMessageId(r.data.data.reverse()[0]?.id)
 				setMessageUpdate(true)
@@ -238,6 +221,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 			<div ref={refChat} className="messageChats">
 				{msgList?.map((item, index) => {
 					const myMessage = item?.sender_id == id
+					item.messages_is_read = userOnline ? true: item.messages_is_read
 					return (
 						item?.delete ? null :
 						<div key={index}
