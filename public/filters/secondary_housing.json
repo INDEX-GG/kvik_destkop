@@ -1,12 +1,6 @@
 {
   "secondary_housing": [
     {
-      "alias": "type",
-      "title": "Тип квартиры",
-      "fields": ["Вторичное жилье", "Новостройка"],
-      "type": "list"
-    },
-    {
       "alias": "owner",
       "title": "Право собственности",
       "fields": [

@@ -78,6 +78,7 @@ export const useCategoryPlaceOffer = (data, methods) => {
                 case "type_law":
                 case "type_sale":
                 case "manufacturer":
+                case "truck_bodytype":
                 case "type_transaction":
                 case "tablet_manufacturer":
                   newOBJ[i].type = "listRec";
@@ -175,6 +176,7 @@ export const useCategoryPlaceOffer = (data, methods) => {
                 case "entrance":
                 case "access":
                 case "parking":
+                case "tires_product_condition":
                 case "crane":
                 case "road":
                 case "project_availability":
@@ -199,12 +201,15 @@ export const useCategoryPlaceOffer = (data, methods) => {
                 case "time_of_rent_abroad_property":
                 case "pledge_abroad_property":
                 case "power_supply_power":
+                case "disc_type":
                 case "socket":
                 case "graphics_card_manufacturer":
                 case "house_communal_payments":
                 case "chip_manufacturer":
                 case "motherboard_manufacturer":
                 case "photo_mfps_and_scanners":
+                case "processor_cores":
+                case "truck_additionally":
                 case "gender":
                 case "ram_size":
                   newOBJ[i].type = "list";
@@ -229,6 +234,8 @@ export const useCategoryPlaceOffer = (data, methods) => {
                 case "price":
                 case "communal_payments":
                 case "engine_volume":
+                case "truck_power":
+                case "truck_enginesize":
                 case "room_number":
                 case "owners_of_pts":
                   newOBJ[i].type = "textRec";
@@ -254,7 +261,6 @@ export const useCategoryPlaceOffer = (data, methods) => {
                 case "marking":
                 case "the_weight":
                 case "disc_model":
-                case "disc_type":
                 case "number_of_discs_included":
                 case "tires_and_rims":
                 case "charge_power":
@@ -262,6 +268,11 @@ export const useCategoryPlaceOffer = (data, methods) => {
                 case "land_area":
                 case "wage":
                 case "tv_year":
+                case "total_hard_drives":
+                case "body_volume":
+                case "carrying":
+                case "trailer_mileage":
+                case "total_ssd":
                 case "manipulators__input_devices_name":
                   newOBJ[i].type = "text";
                   break;

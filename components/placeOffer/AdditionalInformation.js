@@ -6,6 +6,8 @@ import Tablets from './Options/Tablets';
 import MainPlaceholder from './Options/MainPlaceholder';
 import WorkPlaceholder from './Options/WorkPlaceholder';
 import Bulldozers from './Options/Bulldozers';
+import Trailers from './Options/Trailers';
+import Trucks from './Options/Trucks';
 
 
 
@@ -273,6 +275,8 @@ const AdditionalInformation = (data) => {
 		case 'smartphones':
 		case 'tv_accessories':
 		case 'table_setting':	
+		case 'tires':
+		case 'wheels':
 		case 'video_surveillance':
 		case 'ups_and_surge_protectors':
 		case 'video_cards_componentsss':
@@ -310,23 +314,19 @@ const AdditionalInformation = (data) => {
 			return null;
 		case 'tablets':
 			return <Tablets data={data.newOBJ[data.asd]} />;
-		case 'tires':
-			return null;
 		case 'tractors_and_agricultural_machinery':
 			return null;
 		case 'tractors':
 			return null;
 		case 'trailers':
-			return null;
+			return <Trailers data={data.newOBJ[data.asd]} />;
 		case 'truck_cranes':
 			return null;
 		case 'trucks':
-			return null;
+			return <Trucks data={data.newOBJ[data.asd]} />;
 		case 'tv_sets_cat2':
 			return <TvSetCat2 data={data.newOBJ[data.asd]} />;
 	
-		case 'wheels':
-			return null;
 		default:
 			// console.log('')
 			return null;

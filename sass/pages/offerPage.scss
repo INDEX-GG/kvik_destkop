@@ -17,7 +17,7 @@
 		font-size: 22px;
 		line-height: 26px;
 		text-indent: 32px;
-		color: #00A0AB;
+		color: #2C2C2C;
 		position: relative;
 		cursor: pointer;
 		&::before {
@@ -28,7 +28,7 @@
 			width: 12px;
 			height: 2px;
 			border-radius: 10px;
-			background-color: #00A0AB;
+			background-color: #2C2C2C;
 			transform: rotate(45deg);
 		}
 		&::after {
@@ -39,7 +39,7 @@
 			width: 12px;
 			border-radius: 10px;
 			height: 2px;
-			background-color: #00A0AB;
+			background-color: #2C2C2C;
 			transform: rotate(-45deg);
 		}
 	}

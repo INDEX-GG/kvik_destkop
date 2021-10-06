@@ -146,7 +146,8 @@ export default function MainPlaceholder({ data }) {
           }
         }
         if (
-          item.alias === "build_year"
+          item.alias === "build_year" ||
+          item.alias === "tire_year"
         ) {
           switch (item.type) {
             case "text":
@@ -206,6 +207,75 @@ export default function MainPlaceholder({ data }) {
                           helperText={error ? error.message : " "}
                           />
                           {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> г.</span> : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+          }
+        }
+        if (
+          item.alias === "profile_height" 
+        ) {
+          switch (item.type) {
+            case "text":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                        <TextField
+                          className={classes.input}
+                          variant="outlined"
+                          value={value}
+                          onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                          error={!!error}
+                          helperText={error ? error.message : " "}
+                        />
+                        {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> мм</span> : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+            case "textRec":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      rules={{ required: "Введите " + item.name }}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                        <TextField
+                          className={classes.input}
+                          variant="outlined"
+                          value={value}
+                          onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                          error={!!error}
+                          helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? <span className={classes.tooltip} style={{left: 20 + value.length * 8 }}> мм</span> : null}
                         </>
                       )}
                     />
@@ -707,7 +777,9 @@ export default function MainPlaceholder({ data }) {
           }
         }
         if (
-          item.alias === "total_ram"
+          item.alias === "total_ram"||
+          item.alias === "total_hard_drives"||
+          item.alias === "total_ssd"
         ) {
           switch (item.type) {
             case "text":

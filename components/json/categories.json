@@ -231,10 +231,6 @@
 				"alias": "loaders",
 				"children": []
 			}, {
-				"name": "Прицепы",
-				"alias": "trailers",
-				"children": []
-			}, {
 				"name": "Строительная техника",
 				"alias": "construction_machinery",
 				"children": []
