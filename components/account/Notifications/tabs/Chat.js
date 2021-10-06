@@ -39,22 +39,17 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	const {id} = useAuth()
 
 
-
 	useEffect(() => {
 		return (() => {
 			if (socketConnect) {
+				setUserOnline(false)
+				setSocketConnect(false)
 				console.log("SOCKET DISCONNECT")
 				socket.emit('leave', {'sender': sender, 'recipient': recipient, 'product': product})
 				socket.disconnect()
-				setUserOnline(false)
-				setSocketConnect(false)
 			}
 		})
 	}, [socketConnect])
-
-	useEffect(() => {
-		console.log(userOnline)
-	}, [userOnline])
 
 
 	const generateChatHistory = (messageId = 0) => {
@@ -114,13 +109,13 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 			}
 			await socket.emit('text', sendObj)
 			setMessage('')
+			if (userOnline) setUserOnline(false)
 		}
 	}
 
 	useEffect(() => {
 		if(!loading) {
 			socket.on('message', async (data) => {
-
 
 				switch (data?.msg) {
 					case ('user_online'):
@@ -146,6 +141,10 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 						break;
 				}
 
+				if (!data?.user_on != id) {
+					console.log(data?.user_on)
+					// setUserOnline(true)
+				}
 
 				if (!data.msg) {
 					if (data.sender?.id != id) {
