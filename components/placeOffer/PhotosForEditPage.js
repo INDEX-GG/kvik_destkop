@@ -372,7 +372,6 @@ const PhotoForEditPage = ({ctx, photo}) => {
         );
     });
 
-    console.log('Новые и старые фото в объекте PhotosForEditPage',oldPhotosAndNewObjectsPhotos);
 
     const SortableItem = SortableElement(({data, i}) => {
         const img = imageData.find((el) => el.name === data.name);

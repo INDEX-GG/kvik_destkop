@@ -41,8 +41,6 @@ const Price = ({price, edit}) => {
 	const classes = useStyles();
 	const methods = useFormContext();
 
-	console.log('price+++++++',price);
-	console.log('edit+++++++',edit);
 
 	!edit ? useEffect(() => {
 		methods.setValue('price', '')
