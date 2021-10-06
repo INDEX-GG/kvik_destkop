@@ -80,6 +80,7 @@ export default function Bulldozers({ data }) {
   const modelData = useMemo(() => {
     return makeData?.find((el) => el.value === model)?.children
   }, [model])
+  
   return (
     <>
           <Box className={classes.formElem}>
@@ -172,13 +173,14 @@ export default function Bulldozers({ data }) {
                 control={methods.control}
                 defaultValue=""
                 render={({
-                  fieldState: { error },
+                field: { onChange },
+                fieldState: { error },
                 }) => (
                   <TextField
                     className={classes.input}
                     variant="outlined"
                     value={modelData[0].value}
-
+                    onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : " "}
                     InputProps={{
