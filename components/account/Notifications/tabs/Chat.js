@@ -27,7 +27,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	const {id} = useAuth()
 
 
-	console.log(message, msgList, messageId, messageUpdate, userOnline, loading, socketConnect)
+	// console.log(message, msgList, messageId, messageUpdate, userOnline, loading, socketConnect)
 
 
 

@@ -94,7 +94,7 @@ export function ModalSubscription({ data, subscription = 0, modal, mobile }) {
 	);
 }
 /* Модальное окно "Диалог" */
-export function ModalMessage({ modal }) {
+export function ModalMessage({ modal, usersData, userChatPhoto }) {
 	return (
 		<div className="modal__wrapper_md acoountContainer">
 			<div className="modal__block__top accountTop">
@@ -119,12 +119,7 @@ export function ModalMessage({ modal }) {
 						<div>Название товара</div>
 					</div>
 				</div>
-				<Chat/>
-				<div className="messageChatInput">
-					<button className="messageFile"></button>
-					<input className="messageInput" type="text" placeholder="Написать сообщение" />
-					<button className="messageSend"></button>
-				</div>
+				<Chat usersData={usersData} userChatPhoto={userChatPhoto}/>
 			</div>
 		</div>
 	)
