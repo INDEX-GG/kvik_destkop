@@ -7,7 +7,6 @@ import Verify from "../../../json/verify.json";
 function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
 
     const [check, setCheck] = useState(false);
-    console.log(offer)
 
     useEffect( () => {
         parentCheck ? check ? null : handleCheck(parentCheck) : check === false ? null : offerId.length < 1 ? handleCheck(parentCheck) : null;
@@ -17,12 +16,6 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
         setCheck(event);
         getChildCheck({id: offer.id, isCheck: event});
     }
-	useEffect(() => {
-		offer.verify_moderator.verify.map( (item) => {
-						console.log(VerifyModerator[+item]);
-						console.log(item)
-					  })
-	},[]) 
 
     return (
         <div key={offer.id} className="offerContainer boxWrapper">
@@ -37,12 +30,12 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                     <div className="checkbox__text"></div>
                   </label>
                 </div>
-                {/* {JSON.parse(offer.img)
-                  .img.slice(0, 1)
-                  .map((imgs) => {
-                    return <img src={imgs} />;
-                  })} */}
-                {<img src={offer.photo} />}
+                {
+                  offer.photo.slice(0, 1)
+                  .map((imgs) => (
+                    <img src={imgs} key={12321}/>
+                  ))}
+                {/* <img src={offer.photo} /> */}
 
                 {/* {console.log(offer)} */}
                 {offer.verify == 4  ? 
