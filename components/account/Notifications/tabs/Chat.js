@@ -27,9 +27,16 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	const {id} = useAuth()
 
 
+	console.log(message, msgList, messageId, messageUpdate, userOnline, loading, socketConnect)
+
+
 
 	useEffect(() => {
-		socket.disconnect()
+		if (socketConnect) {
+			socket.emit('leave', {'sender': sender, 'recipient': recipient, 'product': product})
+			socket.disconnect()
+			socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
+		}
 	}, [sender])
 
 	useEffect(() => {
@@ -43,11 +50,6 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 			}
 		})
 	}, [socketConnect])
-
-	useEffect(() => {
-		console.log(query?.companion_id)
-	}, [query])
-
 
 	const generateChatHistory = (messageId = 0) => {
 		return {
@@ -65,7 +67,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 			if (userOnline) setUserOnline(false)
 			console.log("SOCKET CONNECT")
 			setMsgList(r.data.data.reverse())
-			setMessageId(r.data.data[0]?.id)
+			if (r.data.data.length) setMessageId(r.data.data[0]?.id)
 			setSocketConnect(true)
 			setLoading(false)
 			socket.connect()
@@ -87,6 +89,9 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 			refChat.current.scrollTop = refChat.current.scrollHeight / 2
 		}
 	}, [msgList])
+
+
+	console.log(userOnline)
 
 
  	const handleSend = async () => {
@@ -118,6 +123,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 	useEffect(() => {
 		if(!loading) {
+			console.log('123')
 			socket.on('message', async (data) => {
 
 				switch (data?.msg) {
@@ -137,16 +143,11 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 				}
 
 				if (!data.msg) {
+					console.log(data)
 					if (data.sender?.id != id) {
 						socket.emit('online', {'sender': sender, 'recipient': recipient, 'product': product})
 					}
 					
-					console.log(data)
-
-					if (!msgList.length) {
-						setMessageId(data.id)
-					}
-
 					setMsgList(prev => [...prev, data])
 				}
 			})
@@ -214,7 +215,6 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 		<>
 			<div ref={refChat} className="messageChats">
 				{msgList?.map((item, index) => {
-					console.log(msgList)
 					const myMessage = item?.sender_id == id
 					item.messages_is_read = userOnline ? true: item.messages_is_read
 					return (
