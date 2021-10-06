@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme) => ({
 
 function EditPage() {
 	const { query } = useRouter();
-	const { price, title, photo, description, address, category_id } = useProduct(query.id)
-	console.log('category_id',category_id)
+	const { price, title, photo, description, address} = useProduct(query.id)
+
 
 	const { id } = useAuth();
 	const classes = useStyles();
@@ -75,7 +75,7 @@ function EditPage() {
 
 	const methods = useForm();
 	let photoes = [];
-	let postId = query.id;
+	let postId = Number(query.id);
 	const photoesCtx = (obj) => {
 		return photoes = obj;
 	}
@@ -85,13 +85,9 @@ function EditPage() {
 	setEdit(true)
 	}, []);
 
-	const additionalfields = {category_id: [{alias: 'post_id', fields: postId}]}
-	console.log('photoes',photoes)
-	// console.log('additionalfields',additionalfields)
-	// console.log('postID',postId)
+	// const additionalfields = {category_id: [{alias: 'post_id', fields: postId}]}
 
 	const onSubmit = data => {
-		console.log('DATAAAA', data)
 		data.price = data.price.replace(/\D+/g, '');
 		data.user_id = id
 		delete data.photoes
@@ -109,16 +105,15 @@ function EditPage() {
 			}
 		}
 
+
 		setLoading(true);
-		console.log('photoData',photoData)
-		 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
+		 // axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
 		 axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
 			headers: {
 				"Content-Type": "multipart/form-data"
 			}
 		})
 		.then((r) => {
-			console.log('r',r)
 			let allConvertedPhoto = [...photoes]
 			let jj = 0
 			// для увиличения j во внутреннем цикле
@@ -133,7 +128,6 @@ function EditPage() {
 					allConvertedPhoto[i] = allConvertedPhoto[i].src.replace('http://192.168.8.111:6001/', '')
 				}
 			}
-			console.log('allConvertedPhoto',allConvertedPhoto)
 			axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
 				title : obj.title,
 				description: obj.description,
@@ -148,11 +142,8 @@ function EditPage() {
 				address: obj.location,
 				photo: allConvertedPhoto
 			})
-
 			setPromotion(true)
 		})
-
-		console.log('editProduct',editProduct)
 	}
 
 	return (
@@ -170,7 +161,7 @@ function EditPage() {
 								</Box>
 								<Box className={classes.formPart}>
 									<Description description={description} />
-									<Price price={price} />
+									<Price price={price} edit={edit}/>
 									<PhotosForEditPage ctx={photoesCtx} photo={photo} />
 								</Box>
 								<Box className={classes.formPart}>

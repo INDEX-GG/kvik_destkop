@@ -25,12 +25,11 @@ export function useProduct(id) {
 							getDataByPost('/api/subcategoriesFields', { "post_id": id, "subcategory": r.subcategory })
 								.then((r) => { setProductInfoFields(r) })
 						}
-						console.log('============>r',r)
 					}
 				})
 		}
 	}, [id])
-	console.log('productInfo',productInfo)
+
 	return {
 		...productInfo,
 		productInfoFields

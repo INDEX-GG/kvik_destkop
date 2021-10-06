@@ -27,6 +27,7 @@
     "next": "^11.1.0",
     "next-connect": "^0.10.1",
     "next-iron-session": "^4.2.0",
+    "next-ym": "^2.3.5",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "pg-promise": "^10.10.2",

@@ -22,6 +22,9 @@ const useStyles = makeStyles(() => ({
 const SearchBlock = ({value}) => {
 	const classes = useStyles();
 
+
+    // todo: возможно тут проверку и в зависимости от value делаем
+
   return (
     <div className={classes.searchField}>
       <SearchItem category="transport">{value}</SearchItem>
