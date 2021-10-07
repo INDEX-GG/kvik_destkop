@@ -9,7 +9,7 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { CHAT_URL_API, STATIC_URL } from "../../../../lib/constants";
 import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
-import { generateTime } from "./chatFunctions";
+import { generateTime, generateProductPhoto } from "./chatFunctions";
 
 function Messages() {
 
@@ -42,7 +42,12 @@ function Messages() {
 		}
 
 		axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
-			setRoom(r.data.room)
+			console.log(r.data.room)
+			axios.post(`/api/roomInfo`, [r.data.room])
+				.then(r => {
+					console.log(r.data.list)
+					setRoom(r.data.list[0])
+				})
 		})
  	 }
   }, [id, query])
@@ -64,7 +69,12 @@ function Messages() {
   useEffect(() => {
 	if (id) {
 		axios.post(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id})
-		  .then(r => setAllRooms(r.data.data))
+		  .then(r => {
+			  axios.post(`/api/roomInfo`, r.data.data)
+				.then(r => {
+					setAllRooms(r.data.list)
+				})
+		  })
 	}
   }, [id])
 
@@ -84,7 +94,6 @@ function Messages() {
 			}
 		})
   }
-
   
 
   return (
@@ -116,6 +125,7 @@ function Messages() {
             <div className="messageDialogs">
 			  {allRooms.length ? 
 			  	allRooms.map((item, i) => {
+					const productPhoto = generateProductPhoto(item.product_photo)
 					const time = generateTime(0, item.time)
 					return (
 						<a key={i} className="messageDialog" 
@@ -131,7 +141,7 @@ function Messages() {
 								<div className="checkbox__text"></div>
 								</label>
 							</div>
-							<img src={`${STATIC_URL}/${item.product_photo}?${item.product_id}`} />
+							<img src={`${STATIC_URL}/${productPhoto}?${item.product_id}`} />
 							<div>{item.product_price.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
 							<div>{ellipsis(item.product_name, 12)}</div>
 							</div>
@@ -181,7 +191,7 @@ function Messages() {
             <div className="messageWindow">
               {room?.seller_id ?
 				<div className="messageHeader small">
-                <img src={`${STATIC_URL}/${room?.product_photo}`}/>
+                <img src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`}/>
                 <div>
                   <div>
                     <div>
