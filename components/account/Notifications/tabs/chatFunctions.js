@@ -20,3 +20,26 @@ export const generateDataTocken = (id, token) => {
 		const obj = {"user_id": id, "platform": 3, "token": r}
 		axios.post(`${CHAT_URL_API}/push_token`, obj)})
 }
+
+export const chatPush = (router, dataObj) => {
+	dataObj.mobile ? 
+	router.push({
+		pathname: `/account/${dataObj?.id}`,
+		query: {
+			account: 5,
+			content: 1,
+			companion_id: dataObj?.companion_id,
+			product_id: dataObj?.product_id,
+			mobile: 'on'
+		},
+	}) : 
+	router.push({
+		pathname: `/account/${dataObj?.id}`,
+		query: {
+			account: 5,
+			content: 1,
+			companion_id: dataObj?.companion_id,
+			product_id: dataObj?.product_id,
+		},
+	})
+}
