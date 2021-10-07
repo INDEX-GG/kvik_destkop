@@ -236,7 +236,7 @@ const Product = () => {
 												</div>
 
 										)}
-										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={defaultStatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} />}
+										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={defaultStatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} createChat={createChat} />}
 										{/* адрес, карта, свойства и значения */}
 										<ProductInformation address={address} coordinates={coordinates} description={description} productionInfo={productInfoFields} caterory={subcategory} />
 									</div>
