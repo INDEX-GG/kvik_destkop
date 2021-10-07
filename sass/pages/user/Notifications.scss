@@ -176,7 +176,7 @@
   flex-direction: column;
   overflow-y: auto;
   padding: 16px 10px 16px 0;
-  max-height: 450px;
+//   max-height: 60%;
   flex-grow: 1;
   overflow: scroll;
 }
@@ -365,10 +365,10 @@
   }
   .messageMobile{
     grid-area: 1 / 2 / 2 / 3;
-    height: 100%;
+    height: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     overflow-y: auto;
     padding: 0 12px
   }
