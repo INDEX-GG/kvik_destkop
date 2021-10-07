@@ -85,11 +85,12 @@ export default function Trailers({ data }) {
   }, [subtype]);
 
   const typeData = useMemo(() => {
+    methods.setValue("make", "");
     return subtypeData?.find((el) => el.value === type)?.children;
   }, [type]);
 
   const makeData = useMemo(() => {
-    console.log(typeData);
+    methods.setValue("model", "");
     return typeData?.find((el) => el.value === make)?.children;
   }, [make]);
 
@@ -100,6 +101,7 @@ export default function Trailers({ data }) {
         <Box className={classes.formInputField}>
           <Controller
             name={trailersData[0].alias}
+            rules={{ required: "Выберите Тип техники" }}
             control={methods.control}
             defaultValue=""
             render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -117,7 +119,7 @@ export default function Trailers({ data }) {
                 error={!!error}
                 helperText={error ? error.message : " "}
               >
-                {trailersData.map((option, i) => (
+                {trailersData?.map((option, i) => (
                   <MenuItem key={i} value={option.value}>
                     {option.value}
                   </MenuItem>
@@ -136,6 +138,7 @@ export default function Trailers({ data }) {
             <Controller
               name={subtypeData[0].alias}
               control={methods.control}
+              rules={{ required: "Выберите Тип прицепа" }}
               defaultValue=""
               render={({
                 field: { onChange, value },
@@ -172,6 +175,7 @@ export default function Trailers({ data }) {
             <Controller
               name={typeData[0].alias}
               control={methods.control}
+              rules={{ required: "Выберите Марку" }}
               defaultValue=""
               render={({
                 field: { onChange, value },
@@ -207,6 +211,7 @@ export default function Trailers({ data }) {
             <Controller
               name={makeData[0].alias}
               control={methods.control}
+              rules={{ required: "Выберите Модель" }}
               defaultValue=""
               render={({
                 field: { onChange, value },

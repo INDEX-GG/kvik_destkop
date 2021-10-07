@@ -11,7 +11,7 @@ import OfferModal from "../../OfferModal";
 
 
 
-const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo, /*update,*/ setUpdate}) => {
+const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo, /*update,*/ setUpdate, createChat}) => {
  	const router = useRouter();
 	const [openOfferModal, setOpenOfferModal] = React.useState(false);
 	const [buttonId, setButtonId] = React.useState('');
@@ -36,7 +36,7 @@ const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_trans
 								{/* {sellerId === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ""} */}
 								<div className="SellerInfo__adaptive_buttons__top">
 									<ProductDeal id={id} sellerID={sellerId}>
-										<ProductButton className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
+										<ProductButton onClick={createChat} className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
 										<ProductButton className="SellerInfoCall button contained" onClick={() => setDialog(true)} title='Показать номер' icon={<IconCall/>} />
 									</ProductDeal>
 								</div>

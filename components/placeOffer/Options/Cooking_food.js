@@ -64,7 +64,7 @@ export default function CookingFood({data}) {
               ))}
             </TextField>
           )}
-          rules={{ required: "Выберете Тип" }}
+          rules={{ required: "Выберите Тип" }}
         />
       </Box>
     </Box>

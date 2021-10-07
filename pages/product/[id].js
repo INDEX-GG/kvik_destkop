@@ -110,7 +110,8 @@ const Product = () => {
 
 	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice, coordinates} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
-	console.log('category_id%%%%%%%===>',category_id)
+
+
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
@@ -121,17 +122,11 @@ const Product = () => {
 			try {
 				const obj = {
 				'seller_id': productInfo?.user_id, 
-				'seller_name': productInfo?.name, 
-				'seller_photo': productInfo?.chatPhoto,
 				'customer_id': id,
-				'customer_name': userInfo?.name,
-				'customer_photo': userInfo?.userChatPhoto,
 				'product_id': productInfo?.id,
-				'product_name': productInfo?.title,
-				'product_price': productInfo?.price,
-				'product_photo': productInfo?.chatProductPhoto,
 				}
 				console.log(obj)
+
 				await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
 				router.push({
 					pathname: `/account/${id}`,
@@ -139,8 +134,9 @@ const Product = () => {
 						account: 5,
 						content: 1,
 						companion_id: productInfo?.user_id,
-						product_id: productInfo?.id
-					}
+						product_id: productInfo?.id,
+						mobile: matchesMobile || matchesTablet ? 'true' : ''
+					},
 				})
 
 			} catch (e) {
@@ -152,7 +148,8 @@ const Product = () => {
 						account: 5,
 						content: 1,
 						companion_id: productInfo?.user_id,
-						product_id: productInfo?.id
+						product_id: productInfo?.id,
+						mobile: matchesMobile || matchesTablet ? 'true' : ''
 					}
 				})
 			}
@@ -236,7 +233,7 @@ const Product = () => {
 												</div>
 
 										)}
-										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={defaultStatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} />}
+										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={defaultStatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} createChat={createChat} />}
 										{/* адрес, карта, свойства и значения */}
 										<ProductInformation address={address} coordinates={coordinates} description={description} productionInfo={productInfoFields} caterory={subcategory} />
 									</div>

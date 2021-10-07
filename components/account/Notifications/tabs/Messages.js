@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-// import Develop from '../../../../../components/inDev/Develop';
 import { Dialog } from "@material-ui/core";
 import { ModalMessage } from "../../../Modals";
 import { useMedia } from "../../../../hooks/useMedia"
@@ -9,7 +8,10 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { CHAT_URL_API, STATIC_URL } from "../../../../lib/constants";
 import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
-import { generateTime } from "./chatFunctions";
+import { generateTime, generateProductPhoto, generateDataTocken } from "./chatFunctions";
+import { askForPermissioToReceiveNotifications, initializeFirebase } from '../../../../firebase/clientApp';
+import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
+
 
 function Messages() {
 
@@ -25,11 +27,24 @@ function Messages() {
   const [room, setRoom] = useState({})
   const [allRooms, setAllRooms] = useState([])
   const [chatUsers, setChatUsers] = useState()
+  const [loading, setLoading] = useState(false)
+
   const {query} = useRouter()
   const router = useRouter()
   const {id} = useAuth()
   const {userInfo} = useStore()
   const {matchesTablet, matchesMobile} = useMedia()
+ 
+  useEffect(() => setLoading(true), [])
+
+  useEffect(() => {
+	initializeFirebase()
+	registerServiceWorkerNoSSR()
+	const token = askForPermissioToReceiveNotifications()
+	if (id) {
+		generateDataTocken(id, token)
+	}
+  }, [loading, id])
 
   useEffect(() => {
 	if (id && query?.companion_id) {
@@ -42,12 +57,14 @@ function Messages() {
 		}
 
 		axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
-			setRoom(r.data.room)
+			axios.post(`/api/roomInfo`, [r.data.room])
+				.then(r => {
+					setRoom(r.data.list[0])
+				})
 		})
  	 }
   }, [id, query])
 
-//   console.log(messageHistory)
 
 
   useEffect(() => {
@@ -64,13 +81,39 @@ function Messages() {
   useEffect(() => {
 	if (id) {
 		axios.post(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id})
-		  .then(r => setAllRooms(r.data.data))
+		  .then(r => {
+			  axios.post(`/api/roomInfo`, r.data.data)
+				.then(r => {
+					setAllRooms(r.data.list)
+				})
+		  })
 	}
   }, [id])
+
+  useEffect(() => {
+	if (!matchesTablet && !matchesMobile && messageModal) {
+		setMessageModal(false)
+	}
+  }, [matchesTablet])
+
+  useEffect(() => {
+	if (query?.mobile && room) {
+		if (!messageModal) {
+			setMessageModal(true)
+		}
+	}
+  }, [room])
 
 
   function changeModal() {
     setMessageModal(!messageModal)
+	// router.push({
+	// 	pathname: `/account/${id}`,
+	// 	query: {
+	// 		account: 5,
+	// 		content: 1
+	// 	}
+	// })
   }
 
   const changeChat = (data) => {
@@ -85,7 +128,7 @@ function Messages() {
 		})
   }
 
-  
+  console.log(room)
 
   return (
     (
@@ -114,14 +157,17 @@ function Messages() {
         <div className="clientPage__container_content">
           <div className="messageContainer">
             <div className="messageDialogs">
-			  {allRooms.length ? 
+			  {allRooms?.length ? 
 			  	allRooms.map((item, i) => {
+					const productPhoto = generateProductPhoto(item.product_photo)
 					const time = generateTime(0, item.time)
 					return (
 						<a key={i} className="messageDialog" 
 						  onClick={() => {
-							matchesMobile || matchesTablet ? changeModal() : null
-							changeChat(allRooms[i])
+							matchesMobile || matchesTablet ? setMessageModal(true) : null
+							if (allRooms[i].product_id != room.product_id) {
+								changeChat(allRooms[i])
+							}
 						  }
 						}>
 							<div className="messageOffer small">
@@ -131,13 +177,13 @@ function Messages() {
 								<div className="checkbox__text"></div>
 								</label>
 							</div>
-							<img src={`${STATIC_URL}/${item.product_photo}?${item.product_id}`} />
+							<img src={`${STATIC_URL}/${productPhoto}?${item.product_id}`} />
 							<div>{item.product_price.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
 							<div>{ellipsis(item.product_name, 12)}</div>
 							</div>
 							<div className="messageUser small">
 							<div className="messageUserBlock">
-								<img src={`${STATIC_URL}/${item.seller_photo}?${item.seller_id}`} />
+								<img src={item?.seller_photo ? `${STATIC_URL}/${item.seller_photo}?${item.seller_id}` : null} />
 								<div>
 								<div>{item.seller_name}</div>
 								<div className="light">{time}</div>
@@ -181,14 +227,14 @@ function Messages() {
             <div className="messageWindow">
               {room?.seller_id ?
 				<div className="messageHeader small">
-                <img src={`${STATIC_URL}/${room?.product_photo}`}/>
+                <img src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`}/>
                 <div>
                   <div>
                     <div>
                       <div>{room?.seller_name}</div>
                       <div className="light">00.00.00 00:00</div>
                     </div>
-                    <img src={`${STATIC_URL}/${room?.seller_photo}`} />
+                    <img src={room?.seller_photo ? `${STATIC_URL}/${room?.seller_photo}` : null} />
                   </div>
                   <div>{room?.product_price} ₽</div>
                   <div>{room?.product_name}</div>
@@ -206,6 +252,7 @@ function Messages() {
           <ModalMessage 
 		    modal={changeModal}
 			usersData={chatUsers} 
+			room={room}
 			userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo} 
 		  />
         </Dialog>

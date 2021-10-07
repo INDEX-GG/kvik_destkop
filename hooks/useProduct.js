@@ -7,7 +7,7 @@ import { getDataByPost } from '../lib/fetch';
 export function useProduct(id) {
 	const [productInfo, setProductInfo] = useState({});
 	const [productInfoFields, setProductInfoFields] = useState({});
-	const {id: userId} = useAuth()
+	const {id: userId} = useAuth();
 	useEffect(() => {
 		if (typeof id === 'string' || typeof id === 'number') {
 			getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })

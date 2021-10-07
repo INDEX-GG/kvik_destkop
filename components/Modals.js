@@ -2,6 +2,8 @@ import Comments from "./Comments";
 import Subscribes from "./Subscribes";
 import StarRating from "./StarRating";
 import Chat from "./account/Notifications/tabs/Chat";
+import { STATIC_URL } from "../lib/constants";
+import { generateProductPhoto } from "./account/Notifications/tabs/chatFunctions";
 
 /* Модальное окно "отзывы и рейтинг" */
 export function ModalRating({ rate = 0, comments = 0, modal, mobile }) {
@@ -94,7 +96,7 @@ export function ModalSubscription({ data, subscription = 0, modal, mobile }) {
 	);
 }
 /* Модальное окно "Диалог" */
-export function ModalMessage({ modal, usersData, userChatPhoto }) {
+export function ModalMessage({ modal, usersData, room, userChatPhoto }) {
 	return (
 		<div className="modal__wrapper_md acoountContainer">
 			<div className="modal__block__top accountTop">
@@ -104,19 +106,19 @@ export function ModalMessage({ modal, usersData, userChatPhoto }) {
 				</>
 			</div>
 
-			<div className="messageMobile">
+			<div className="messageMobile" style={{height: window.innerHeight - 98 - 12 + 'px' }}>
 				<div className="messageHeader small">
-					<img src="https://source.unsplash.com/random" />
+					<img src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`} />
 					<div>
 						<div>
 							<div>
-								<div>Имя пользователя</div>
+								<div>{room?.seller_name}</div>
 								<div className="light">00.00.00 00:00</div>
 							</div>
-							<img src="https://source.unsplash.com/random?portrait" />
+							<img src={room?.seller_photo ? `${STATIC_URL}/${room?.seller_photo}` : null} />
 						</div>
-						<div>0000</div>
-						<div>Название товара</div>
+						<div>{room?.product_price}</div>
+						<div>{room?.product_name}</div>
 					</div>
 				</div>
 				<Chat usersData={usersData} userChatPhoto={userChatPhoto}/>

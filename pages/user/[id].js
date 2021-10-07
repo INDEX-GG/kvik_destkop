@@ -152,7 +152,7 @@ function UserPage() {
               {isLoading ? null : <Avatar src={`${STATIC_URL}/${sellerPhoto}`} style={{ backgroundColor: `${stringToColor(sellerName)}` }}>{initials(sellerName)}</Avatar>}
             </div>
             <div className="clientPage__username">{sellerName}</div>
-            <div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(createdAt)}</div>
+            <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
             <div className="clientPage__userrate">
               <div className="clientPage__userrate__num">{raiting}</div>
               <StarRating rating={raiting} />

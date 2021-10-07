@@ -269,7 +269,7 @@
 }
 
 .messageInput {
-  width: 500px;
+//   width: 500px;
   padding: 5px;
   color: $tpll;
   font-size: 14px;
@@ -365,12 +365,16 @@
   }
   .messageMobile{
     grid-area: 1 / 2 / 2 / 3;
-    height: 100%;
+    height: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     overflow-y: auto;
     padding: 0 12px
+  }
+
+  .messageChats {
+	 max-height: none;
   }
   .messageChatInput{
     // justify-content: fle;

@@ -81,7 +81,7 @@ const Contacts = () => {
                             ))}
                         </TextField>
                     )}
-                    rules={{ required: 'Выберете номер для связи' }}
+                    rules={{ required: 'Выберите номер для связи' }}
                 />}
                 <Box>
                     <Controller
@@ -103,7 +103,7 @@ const Contacts = () => {
                                 label="Сообщения"
                             />
                         )}
-                        rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберете способ для обратной связи' : null }}
+                        rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберите способ для обратной связи' : null }}
                     />
                     <Controller
                         name='byphone'
@@ -124,7 +124,7 @@ const Contacts = () => {
                                 label="Телефон"
                             />
                         )}
-                        rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберете способ для обратной связи' : null }}
+                        rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберите способ для обратной связи' : null }}
                     />
                     <Typography className={classes.error}>{methods.formState.errors?.byphone?.message}</Typography>
                 </Box>

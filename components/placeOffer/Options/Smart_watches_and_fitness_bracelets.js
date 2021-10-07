@@ -128,7 +128,7 @@ export default function SmartWatches({ data }) {
                     control={methods.control}
                     defaultValue={item.alias === 'choosing_a_gadget' ? 'смартчасы' : ''}
                     rules={{
-                      required: item.alias === 'choosing_a_gadget' ? item.name : "Выберете " + item.name,
+                      required: item.alias === 'choosing_a_gadget' ? item.name : "Выберите " + item.name,
                     }}
                     render={({
                       field: { onChange, value },

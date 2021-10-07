@@ -26,10 +26,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	const {query} = useRouter()
 	const {id} = useAuth()
 
-
 	// console.log(message, msgList, messageId, messageUpdate, userOnline, loading, socketConnect)
-
-
 
 	useEffect(() => {
 		if (socketConnect) {
@@ -38,6 +35,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 			socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
 		}
 	}, [sender])
+
 
 	useEffect(() => {
 		return (() => {
@@ -91,7 +89,6 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	}, [msgList])
 
 
-	console.log(userOnline)
 
 
  	const handleSend = async () => {
@@ -123,7 +120,6 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 	useEffect(() => {
 		if(!loading) {
-			console.log('123')
 			socket.on('message', async (data) => {
 
 				switch (data?.msg) {
@@ -217,9 +213,10 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 				{msgList?.map((item, index) => {
 					const myMessage = item?.sender_id == id
 					item.messages_is_read = userOnline ? true: item.messages_is_read
+					const key = id?.id ? id?.id : index
 					return (
 						item?.delete ? null :
-						<div key={index}
+						<div key={key}
 						  ref={item.id == messageId ? refMessage : null} 
 						  className={myMessage ? "chatUser" : "chatLocutor"}>
 							{myMessage ? null : <img src={`${STATIC_URL}/${userChatPhoto}`} />}

@@ -1,0 +1,1351 @@
+{
+  "truck_cranes": [
+    {
+      "alias": "make",
+      "value": "Aichi",
+      "children": [
+        { "alias": "model", "value": "D520" },
+        { "alias": "model", "value": "F 507" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Altec",
+      "children": [
+        { "alias": "model", "value": "AC18-70B" },
+        { "alias": "model", "value": "AC18-70B-HL" },
+        { "alias": "model", "value": "AC18-70R-HL" },
+        { "alias": "model", "value": "AC23-95B" },
+        { "alias": "model", "value": "AC26-103B" },
+        { "alias": "model", "value": "AC26-103R" },
+        { "alias": "model", "value": "AC26-103S" },
+        { "alias": "model", "value": "AC28-103B" },
+        { "alias": "model", "value": "AC30-103S" },
+        { "alias": "model", "value": "AC35-127S" },
+        { "alias": "model", "value": "AC38-103S" },
+        { "alias": "model", "value": "AC38-103S-XHL" },
+        { "alias": "model", "value": "AC38-127S" },
+        { "alias": "model", "value": "AC38-127S-HL" },
+        { "alias": "model", "value": "AC38-127S-HL GT4500" },
+        { "alias": "model", "value": "AC38-127S-L" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Bizon",
+      "children": [{ "alias": "model", "value": "K8" }]
+    },
+    {
+      "alias": "make",
+      "value": "Broderson",
+      "children": [
+        { "alias": "model", "value": "IC-20" },
+        { "alias": "model", "value": "IC-200" },
+        { "alias": "model", "value": "IC-25" },
+        { "alias": "model", "value": "IC-250" },
+        { "alias": "model", "value": "IC-35" },
+        { "alias": "model", "value": "IC-40" },
+        { "alias": "model", "value": "IC-80" },
+        { "alias": "model", "value": "RT-300" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Bumar",
+      "children": [
+        { "alias": "model", "value": "DST-0184" },
+        { "alias": "model", "value": "DST-0402" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "CKD",
+      "children": [
+        { "alias": "model", "value": "AD 10 IVECO" },
+        { "alias": "model", "value": "AD 10 K" },
+        { "alias": "model", "value": "AD 10 MAN" },
+        { "alias": "model", "value": "AD 10 MB" },
+        { "alias": "model", "value": "AD 10 TATRA" },
+        { "alias": "model", "value": "AD 10 TATRA T810" },
+        { "alias": "model", "value": "AD 14 MAN" },
+        { "alias": "model", "value": "AD 14 MB" },
+        { "alias": "model", "value": "AD 14 TATRA" },
+        { "alias": "model", "value": "AD 20 IVECO" },
+        { "alias": "model", "value": "AD 20 MAN" },
+        { "alias": "model", "value": "AD 20 MAZ" },
+        { "alias": "model", "value": "AD 20 MB" },
+        { "alias": "model", "value": "AD 20 TATRA" },
+        { "alias": "model", "value": "AD 28 TATRA" },
+        { "alias": "model", "value": "AD 30 MAN" },
+        { "alias": "model", "value": "AD 30 MB" },
+        { "alias": "model", "value": "AD 30 TATRA" },
+        { "alias": "model", "value": "AV 30 MB" },
+        { "alias": "model", "value": "VA 8" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Cathefeng",
+      "children": [
+        { "alias": "model", "value": "10T" },
+        { "alias": "model", "value": "12T" },
+        { "alias": "model", "value": "16T" },
+        { "alias": "model", "value": "18T" },
+        { "alias": "model", "value": "25T" },
+        { "alias": "model", "value": "50T" },
+        { "alias": "model", "value": "70T" },
+        { "alias": "model", "value": "8T" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Compact Truck",
+      "children": [{ "alias": "model", "value": "CT.2" }]
+    },
+    {
+      "alias": "make",
+      "value": "Demag",
+      "children": [
+        { "alias": "model", "value": "AC 100" },
+        { "alias": "model", "value": "AC 100-4L" },
+        { "alias": "model", "value": "AC 1000" },
+        { "alias": "model", "value": "AC 140" },
+        { "alias": "model", "value": "AC 140 Compact" },
+        { "alias": "model", "value": "AC 155" },
+        { "alias": "model", "value": "AC 160-1" },
+        { "alias": "model", "value": "AC 160-2" },
+        { "alias": "model", "value": "AC 200-1" },
+        { "alias": "model", "value": "AC 250-1" },
+        { "alias": "model", "value": "AC 350-6" },
+        { "alias": "model", "value": "AC 40-2" },
+        { "alias": "model", "value": "AC 40-2L" },
+        { "alias": "model", "value": "AC 500-2" },
+        { "alias": "model", "value": "AC 55L" },
+        { "alias": "model", "value": "AC 60-3" },
+        { "alias": "model", "value": "AC 60-3L" },
+        { "alias": "model", "value": "AC 700" },
+        { "alias": "model", "value": "AC 80-2" },
+        { "alias": "model", "value": "Crossover 6000" },
+        { "alias": "model", "value": "LT 1020" },
+        { "alias": "model", "value": "LT 1025" },
+        { "alias": "model", "value": "LT 1036" },
+        { "alias": "model", "value": "LT 1055" },
+        { "alias": "model", "value": "LT 1070" },
+        { "alias": "model", "value": "LT 1130" },
+        { "alias": "model", "value": "QY8F" },
+        { "alias": "model", "value": "QYE10" },
+        { "alias": "model", "value": "QYE12-1" },
+        { "alias": "model", "value": "RS 70100" },
+        { "alias": "model", "value": "Roadmaster 5300" },
+        { "alias": "model", "value": "Roadmaster 9000" },
+        { "alias": "model", "value": "T 340-1" },
+        { "alias": "model", "value": "T 340-1 XL" },
+        { "alias": "model", "value": "T 560-1" },
+        { "alias": "model", "value": "T 780" },
+        { "alias": "model", "value": "TC 328720" },
+        { "alias": "model", "value": "TC 40" },
+        { "alias": "model", "value": "TC 40 L" },
+        { "alias": "model", "value": "TC 60" },
+        { "alias": "model", "value": "TC 60 L" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Elliott",
+      "children": [
+        { "alias": "model", "value": "32117F" },
+        { "alias": "model", "value": "3273" },
+        { "alias": "model", "value": "3295" },
+        { "alias": "model", "value": "40105" },
+        { "alias": "model", "value": "45127R" },
+        { "alias": "model", "value": "50105" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Eurogru Amici",
+      "children": [{ "alias": "model", "value": "200" }]
+    },
+    {
+      "alias": "make",
+      "value": "FMG",
+      "children": [
+        { "alias": "model", "value": "FC100" },
+        { "alias": "model", "value": "FC25" },
+        { "alias": "model", "value": "FC35" },
+        { "alias": "model", "value": "FC50" },
+        { "alias": "model", "value": "FC55" },
+        { "alias": "model", "value": "FC70" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Fablok",
+      "children": [{ "alias": "model", "value": "DST-0285" }]
+    },
+    {
+      "alias": "make",
+      "value": "Faun",
+      "children": [
+        { "alias": "model", "value": "ATF 30-2L" },
+        { "alias": "model", "value": "HK 100-05" },
+        { "alias": "model", "value": "RTF 40-3" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Fuwa",
+      "children": [{ "alias": "model", "value": "FRC25-2" }]
+    },
+    {
+      "alias": "make",
+      "value": "Gottwald",
+      "children": [
+        { "alias": "model", "value": "20T" },
+        { "alias": "model", "value": "35T" },
+        { "alias": "model", "value": "50T" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Grove",
+      "children": [
+        { "alias": "model", "value": "3330F" },
+        { "alias": "model", "value": "3330FL" },
+        { "alias": "model", "value": "3339" },
+        { "alias": "model", "value": "3340B" },
+        { "alias": "model", "value": "5540F" },
+        { "alias": "model", "value": "5560B" },
+        { "alias": "model", "value": "7755" },
+        { "alias": "model", "value": "AT1100" },
+        { "alias": "model", "value": "GBT35" },
+        { "alias": "model", "value": "GCK3045" },
+        { "alias": "model", "value": "GMK2035E" },
+        { "alias": "model", "value": "GMK3050-1" },
+        { "alias": "model", "value": "GMK3050-2" },
+        { "alias": "model", "value": "GMK3055" },
+        { "alias": "model", "value": "GMK3060" },
+        { "alias": "model", "value": "GMK3060L" },
+        { "alias": "model", "value": "GMK4080-1" },
+        { "alias": "model", "value": "GMK4090" },
+        { "alias": "model", "value": "GMK4100" },
+        { "alias": "model", "value": "GMK4100L" },
+        { "alias": "model", "value": "GMK4100L-1" },
+        { "alias": "model", "value": "GMK5095" },
+        { "alias": "model", "value": "GMK5110-1" },
+        { "alias": "model", "value": "GMK5130-2" },
+        { "alias": "model", "value": "GMK5150" },
+        { "alias": "model", "value": "GMK5150L" },
+        { "alias": "model", "value": "GMK5170" },
+        { "alias": "model", "value": "GMK5200-1" },
+        { "alias": "model", "value": "GMK5220" },
+        { "alias": "model", "value": "GMK5250L" },
+        { "alias": "model", "value": "GMK6220L" },
+        { "alias": "model", "value": "GMK6300" },
+        { "alias": "model", "value": "GMK6300L" },
+        { "alias": "model", "value": "GMK6400" },
+        { "alias": "model", "value": "GMK7450" },
+        { "alias": "model", "value": "GSK55" },
+        { "alias": "model", "value": "RT530E-2" },
+        { "alias": "model", "value": "RT540E" },
+        { "alias": "model", "value": "RT650E" },
+        { "alias": "model", "value": "RT765E-2" },
+        { "alias": "model", "value": "RT880E" },
+        { "alias": "model", "value": "RT890E" },
+        { "alias": "model", "value": "RT9130E" },
+        { "alias": "model", "value": "TM500E-2" },
+        { "alias": "model", "value": "TM9120" },
+        { "alias": "model", "value": "TMC540" },
+        { "alias": "model", "value": "TMS700E" },
+        { "alias": "model", "value": "TMS800E" },
+        { "alias": "model", "value": "TMS9000E" },
+        { "alias": "model", "value": "YB4409" },
+        { "alias": "model", "value": "YB4409-2" },
+        { "alias": "model", "value": "YB4409XL" },
+        { "alias": "model", "value": "YB4411" },
+        { "alias": "model", "value": "YB5515" },
+        { "alias": "model", "value": "YB5518" },
+        { "alias": "model", "value": "YB7722XL" },
+        { "alias": "model", "value": "YB7725" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Hitachi Sumitomo",
+      "children": [{ "alias": "model", "value": "UCX350" }]
+    },
+    {
+      "alias": "make",
+      "value": "Hyco",
+      "children": [{ "alias": "model", "value": "RT 121" }]
+    },
+    {
+      "alias": "make",
+      "value": "JCHI",
+      "children": [
+        { "alias": "model", "value": "QAY55E" },
+        { "alias": "model", "value": "QLY55A" },
+        { "alias": "model", "value": "QY12D" },
+        { "alias": "model", "value": "QY25D" },
+        { "alias": "model", "value": "QY55H" },
+        { "alias": "model", "value": "QY8D" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Kato",
+      "children": [
+        { "alias": "model", "value": "CR-100" },
+        { "alias": "model", "value": "KA-900" },
+        { "alias": "model", "value": "KR-100" },
+        { "alias": "model", "value": "KR-10HM" },
+        { "alias": "model", "value": "KR-20H-2" },
+        { "alias": "model", "value": "KR-22H-3" },
+        { "alias": "model", "value": "KR-25H-V5" },
+        { "alias": "model", "value": "KR-300S" },
+        { "alias": "model", "value": "KR-45H-3" },
+        { "alias": "model", "value": "MR-130" },
+        { "alias": "model", "value": "NK-1200S" },
+        { "alias": "model", "value": "NK-200" },
+        { "alias": "model", "value": "NK-200S-II" },
+        { "alias": "model", "value": "NK-300S" },
+        { "alias": "model", "value": "NK-400S-lllS" },
+        { "alias": "model", "value": "NK-450S" },
+        { "alias": "model", "value": "NK-500MS" },
+        { "alias": "model", "value": "NK-550VR" },
+        { "alias": "model", "value": "NK-750" },
+        { "alias": "model", "value": "NK-75M" },
+        { "alias": "model", "value": "SL-650R" },
+        { "alias": "model", "value": "SR-300L" },
+        { "alias": "model", "value": "SR-300LS" },
+        { "alias": "model", "value": "SR-700L" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Kobelco",
+      "children": [
+        { "alias": "model", "value": "MK500" },
+        { "alias": "model", "value": "RK160-2" },
+        { "alias": "model", "value": "RK250" },
+        { "alias": "model", "value": "RK450" },
+        { "alias": "model", "value": "RK70-2" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Komatsu",
+      "children": [
+        { "alias": "model", "value": "LT 500" },
+        { "alias": "model", "value": "LW 100-1E" },
+        { "alias": "model", "value": "LW 250-2" },
+        { "alias": "model", "value": "LW 250-3" },
+        { "alias": "model", "value": "LW 250-5" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Krupp",
+      "children": [
+        { "alias": "model", "value": "35 GMT-AT" },
+        { "alias": "model", "value": "KMK 2020" },
+        { "alias": "model", "value": "KMK 3070" },
+        { "alias": "model", "value": "KMK 5090" },
+        { "alias": "model", "value": "KMK 5110" },
+        { "alias": "model", "value": "KMK 6200" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Liebherr",
+      "children": [
+        { "alias": "model", "value": "13 HM.1" },
+        { "alias": "model", "value": "22 HM" },
+        { "alias": "model", "value": "LG 1750" },
+        { "alias": "model", "value": "LRT 1090-2.1" },
+        { "alias": "model", "value": "LRT 1100-2.1" },
+        { "alias": "model", "value": "LT 1025" },
+        { "alias": "model", "value": "LT 1080" },
+        { "alias": "model", "value": "LTC 1045-3.1" },
+        { "alias": "model", "value": "LTC 1050-3.1" },
+        { "alias": "model", "value": "LTC 1055-3.1" },
+        { "alias": "model", "value": "LTF 1035-3.1" },
+        { "alias": "model", "value": "LTF 1045-4.1" },
+        { "alias": "model", "value": "LTF 1045-4.1 Kenworth" },
+        { "alias": "model", "value": "LTF 1060-4.1" },
+        { "alias": "model", "value": "LTM -299497" },
+        { "alias": "model", "value": "LTM -310454" },
+        { "alias": "model", "value": "LTM 1030-2.1" },
+        { "alias": "model", "value": "LTM 1040-2.1" },
+        { "alias": "model", "value": "LTM 1045-3.1" },
+        { "alias": "model", "value": "LTM 1050-3.1" },
+        { "alias": "model", "value": "LTM 1055-3.2" },
+        { "alias": "model", "value": "LTM 1060-3.1" },
+        { "alias": "model", "value": "LTM 1060/1" },
+        { "alias": "model", "value": "LTM 1070-4.2" },
+        { "alias": "model", "value": "LTM 1070/1" },
+        { "alias": "model", "value": "LTM 1080/1" },
+        { "alias": "model", "value": "LTM 1090-4.1" },
+        { "alias": "model", "value": "LTM 1090-4.2" },
+        { "alias": "model", "value": "LTM 1095-5.1" },
+        { "alias": "model", "value": "LTM 1100-4.2" },
+        { "alias": "model", "value": "LTM 1100-5.2" },
+        { "alias": "model", "value": "LTM 1120-5.1" },
+        { "alias": "model", "value": "LTM 11200-9.1" },
+        { "alias": "model", "value": "LTM 1125" },
+        { "alias": "model", "value": "LTM 1130-5.1" },
+        { "alias": "model", "value": "LTM 1160-5.1" },
+        { "alias": "model", "value": "LTM 1160-5.2" },
+        { "alias": "model", "value": "LTM 1200-5.1" },
+        { "alias": "model", "value": "LTM 1220-5.2" },
+        { "alias": "model", "value": "LTM 1225" },
+        { "alias": "model", "value": "LTM 1250-5.1" },
+        { "alias": "model", "value": "LTM 1250-6.1" },
+        { "alias": "model", "value": "LTM 1300-6.2" },
+        { "alias": "model", "value": "LTM 1350-6.1" },
+        { "alias": "model", "value": "LTM 1400-7.1" },
+        { "alias": "model", "value": "LTM 1450-8.1" },
+        { "alias": "model", "value": "LTM 1500-8.1" },
+        { "alias": "model", "value": "LTM 1750-9.1" },
+        { "alias": "model", "value": "MK 100" },
+        { "alias": "model", "value": "MK 140" },
+        { "alias": "model", "value": "MK 63" },
+        { "alias": "model", "value": "MK 88" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Link-Belt",
+      "children": [
+        { "alias": "model", "value": "ATC-3250" },
+        { "alias": "model", "value": "ATC-3275" },
+        { "alias": "model", "value": "HC-238H II" },
+        { "alias": "model", "value": "HC-278H II" },
+        { "alias": "model", "value": "HTC-3140" },
+        { "alias": "model", "value": "HTC-3140 LB" },
+        { "alias": "model", "value": "HTC-86100" },
+        { "alias": "model", "value": "HTC-8640 SL" },
+        { "alias": "model", "value": "HTC-8660 Series II" },
+        { "alias": "model", "value": "HTC-8675 Series II" },
+        { "alias": "model", "value": "HTT-86100" },
+        { "alias": "model", "value": "HTT-8675 Series II" },
+        { "alias": "model", "value": "RTC-80100" },
+        { "alias": "model", "value": "RTC-80130" },
+        { "alias": "model", "value": "RTC-8030" },
+        { "alias": "model", "value": "RTC-8050" },
+        { "alias": "model", "value": "RTC-8065" },
+        { "alias": "model", "value": "RTC-8075" },
+        { "alias": "model", "value": "RTC-8080" },
+        { "alias": "model", "value": "RTC-8090" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Little Giant",
+      "children": [
+        { "alias": "model", "value": "6430" },
+        { "alias": "model", "value": "64R" },
+        { "alias": "model", "value": "SPR 48" },
+        { "alias": "model", "value": "SPR 64" },
+        { "alias": "model", "value": "С64" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Locatelli",
+      "children": [
+        { "alias": "model", "value": "GRIL 33.30" },
+        { "alias": "model", "value": "GRIL 44178" },
+        { "alias": "model", "value": "GRIL 50.45" },
+        { "alias": "model", "value": "GRIL 55.50" },
+        { "alias": "model", "value": "GRIL 70.65" },
+        { "alias": "model", "value": "GRIL 8125" },
+        { "alias": "model", "value": "GRIL 8300 T" },
+        { "alias": "model", "value": "GRIL 8400 T" },
+        { "alias": "model", "value": "GRIL 8500 T" },
+        { "alias": "model", "value": "GRIL 8500 TL" },
+        { "alias": "model", "value": "GRIL 8600 T" },
+        { "alias": "model", "value": "GRIL 87.80" },
+        { "alias": "model", "value": "АТС 20" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Lokomo",
+      "children": [
+        { "alias": "model", "value": "335" },
+        { "alias": "model", "value": "395" },
+        { "alias": "model", "value": "455" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Luna",
+      "children": [
+        { "alias": "model", "value": "AT-40(32)" },
+        { "alias": "model", "value": "AT-50(38)" },
+        { "alias": "model", "value": "AT-60(42)" },
+        { "alias": "model", "value": "AT-70(46)" },
+        { "alias": "model", "value": "AT-90(58)" },
+        { "alias": "model", "value": "GT-40(32)" },
+        { "alias": "model", "value": "GT-50(38)" },
+        { "alias": "model", "value": "GT-60(42)" },
+        { "alias": "model", "value": "GT-70(46)-4" },
+        { "alias": "model", "value": "GT-70(46)-5" },
+        { "alias": "model", "value": "GTR-30(110)" },
+        { "alias": "model", "value": "GTR-83" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Manitex",
+      "children": [
+        { "alias": "model", "value": "50155GT" },
+        { "alias": "model", "value": "S-6 3002-S-30112S" },
+        { "alias": "model", "value": "S-6 4002-S-40124S" },
+        { "alias": "model", "value": "S-6 4002-S-40124SHL" },
+        { "alias": "model", "value": "S-6 5002-S-50110S" },
+        { "alias": "model", "value": "S-6 5002-S-50155S" },
+        { "alias": "model", "value": "S-6 5002-S-5096S" },
+        { "alias": "model", "value": "ST-2 5002-ST-45110T" },
+        { "alias": "model", "value": "ST-2 5002-ST-4596T" },
+        { "alias": "model", "value": "SX-2 3002-SX-102SX" },
+        { "alias": "model", "value": "SX-2 3002-SX-124SX" },
+        { "alias": "model", "value": "T-2 3002-T-2281T" },
+        { "alias": "model", "value": "T-2 3002-T-30102T" },
+        { "alias": "model", "value": "TC700" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Manitowoc",
+      "children": [
+        { "alias": "model", "value": "GMK 3060" },
+        { "alias": "model", "value": "MLC 165" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Manotti",
+      "children": [
+        { "alias": "model", "value": "ARM 350" },
+        { "alias": "model", "value": "ARM 600" },
+        { "alias": "model", "value": "ARM 850" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Marchetti",
+      "children": [
+        { "alias": "model", "value": "MG 60.3 - 1" },
+        { "alias": "model", "value": "MG 70.4 S" },
+        { "alias": "model", "value": "MG 90.4" },
+        { "alias": "model", "value": "MTK 1004" },
+        { "alias": "model", "value": "MTK 1006" },
+        { "alias": "model", "value": "MTK 60" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Mercedes-Benz",
+      "children": [{ "alias": "model", "value": "Unimog" }]
+    },
+    {
+      "alias": "make",
+      "value": "Ormig",
+      "children": [
+        { "alias": "model", "value": "Diesel 10 tm" },
+        { "alias": "model", "value": "Diesel 16 tm" },
+        { "alias": "model", "value": "Diesel 20/25 tm" },
+        { "alias": "model", "value": "Diesel 33 tm" },
+        { "alias": "model", "value": "Diesel 33 tmBP" },
+        { "alias": "model", "value": "Diesel 43956 tm" },
+        { "alias": "model", "value": "Diesel 45 tm" },
+        { "alias": "model", "value": "Diesel 60 tm" },
+        { "alias": "model", "value": "Elettriche 10 tmE" },
+        { "alias": "model", "value": "Elettriche 16 tmE" },
+        { "alias": "model", "value": "Elettriche 25 tmE" },
+        { "alias": "model", "value": "Elettriche 33 tmBP" },
+        { "alias": "model", "value": "Elettriche 33 tmE" },
+        { "alias": "model", "value": "Elettriche 45 tmE" },
+        { "alias": "model", "value": "Elettriche 5 tmE" },
+        { "alias": "model", "value": "Truck crane" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "P&H",
+      "children": [{ "alias": "model", "value": "W250" }]
+    },
+    {
+      "alias": "make",
+      "value": "PPM",
+      "children": [{ "alias": "model", "value": "44099" }]
+    },
+    {
+      "alias": "make",
+      "value": "Palazzani",
+      "children": [
+        { "alias": "model", "value": "FPB 100" },
+        { "alias": "model", "value": "FPB 150" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Palfinger Sany",
+      "children": [
+        { "alias": "model", "value": "QY25C" },
+        { "alias": "model", "value": "QY25C-1" },
+        { "alias": "model", "value": "QY50C" },
+        { "alias": "model", "value": "SPC250" },
+        { "alias": "model", "value": "SRC350C" },
+        { "alias": "model", "value": "SRC550C" },
+        { "alias": "model", "value": "SRC750C" },
+        { "alias": "model", "value": "SRC900C" },
+        { "alias": "model", "value": "STC250-5" },
+        { "alias": "model", "value": "STC500" },
+        { "alias": "model", "value": "STC800" },
+        { "alias": "model", "value": "КС-5573А" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Sany",
+      "children": [
+        { "alias": "model", "value": "SAC100" },
+        { "alias": "model", "value": "SAC1800" },
+        { "alias": "model", "value": "SAC2200" },
+        { "alias": "model", "value": "SRC350" },
+        { "alias": "model", "value": "SRC550" },
+        { "alias": "model", "value": "SRC750" },
+        { "alias": "model", "value": "STC250" },
+        { "alias": "model", "value": "STC25C" },
+        { "alias": "model", "value": "STC500" },
+        { "alias": "model", "value": "STC50C" },
+        { "alias": "model", "value": "STC800" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Saurer",
+      "children": [
+        { "alias": "model", "value": "Gottwald 10DM" },
+        { "alias": "model", "value": "Gottwald 20T" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Sennebogen",
+      "children": [
+        { "alias": "model", "value": "613" },
+        { "alias": "model", "value": "630 M" },
+        { "alias": "model", "value": "643" },
+        { "alias": "model", "value": "683" },
+        { "alias": "model", "value": "HPC 35" },
+        { "alias": "model", "value": "HPC 40" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Sinomach",
+      "children": [
+        { "alias": "model", "value": "LT1025-2" },
+        { "alias": "model", "value": "LT1055-2" },
+        { "alias": "model", "value": "LT1070-1" },
+        { "alias": "model", "value": "LT1130" },
+        { "alias": "model", "value": "QY8F-1" },
+        { "alias": "model", "value": "QYE12-1" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Socage",
+      "children": [
+        { "alias": "model", "value": "TK30" },
+        { "alias": "model", "value": "TK35" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "TCM (Италия)",
+      "children": [
+        { "alias": "model", "value": "C1300" },
+        { "alias": "model", "value": "C1600" },
+        { "alias": "model", "value": "C2000" },
+        { "alias": "model", "value": "C300SP" },
+        { "alias": "model", "value": "C500SP" },
+        { "alias": "model", "value": "C700SP" },
+        { "alias": "model", "value": "C700SP_M" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Tadano",
+      "children": [
+        { "alias": "model", "value": "ATF 110G-5" },
+        { "alias": "model", "value": "ATF 130G-5" },
+        { "alias": "model", "value": "ATF 160G-5" },
+        { "alias": "model", "value": "ATF 220G-5" },
+        { "alias": "model", "value": "ATF 400G-6" },
+        { "alias": "model", "value": "ATF 40G-2" },
+        { "alias": "model", "value": "ATF 50G-3" },
+        { "alias": "model", "value": "ATF 70G-4" },
+        { "alias": "model", "value": "ATF 90G-4" },
+        { "alias": "model", "value": "GR 300EX" },
+        { "alias": "model", "value": "GR 550EX" },
+        { "alias": "model", "value": "GR 600EX" },
+        { "alias": "model", "value": "GR 700EX" },
+        { "alias": "model", "value": "GR 800EX" },
+        { "alias": "model", "value": "GR-750XL-2" },
+        { "alias": "model", "value": "GT 1200EX" },
+        { "alias": "model", "value": "HK 40" },
+        { "alias": "model", "value": "HK 60" },
+        { "alias": "model", "value": "HK 70" },
+        { "alias": "model", "value": "TG500EG" },
+        { "alias": "model", "value": "TR100M-1" },
+        { "alias": "model", "value": "TR500M" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Terex",
+      "children": [
+        { "alias": "model", "value": "RT 1100" },
+        { "alias": "model", "value": "RT 230-1" },
+        { "alias": "model", "value": "RT 780" },
+        { "alias": "model", "value": "T 340" },
+        { "alias": "model", "value": "Toplift 25" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Terex Bendini",
+      "children": [
+        { "alias": "model", "value": "A 350" },
+        { "alias": "model", "value": "A 600" },
+        { "alias": "model", "value": "AC 40 City" },
+        { "alias": "model", "value": "RC 30" },
+        { "alias": "model", "value": "RC 35" },
+        { "alias": "model", "value": "RC 40" },
+        { "alias": "model", "value": "RC 45" },
+        { "alias": "model", "value": "RC 60" },
+        { "alias": "model", "value": "RT 100" },
+        { "alias": "model", "value": "RT 130" },
+        { "alias": "model", "value": "RT 230-1" },
+        { "alias": "model", "value": "RT 230-1 XL" },
+        { "alias": "model", "value": "RT 345-1 XL" },
+        { "alias": "model", "value": "RT 35" },
+        { "alias": "model", "value": "RT 555-1" },
+        { "alias": "model", "value": "RT 670" },
+        { "alias": "model", "value": "RT 780" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Terex Demag",
+      "children": [
+        { "alias": "model", "value": "AC 100" },
+        { "alias": "model", "value": "AC 100/4" },
+        { "alias": "model", "value": "AC 110" },
+        { "alias": "model", "value": "AC 120-1" },
+        { "alias": "model", "value": "AC 140" },
+        { "alias": "model", "value": "AC 160-1" },
+        { "alias": "model", "value": "AC 160-2" },
+        { "alias": "model", "value": "AC 200" },
+        { "alias": "model", "value": "AC 200-1" },
+        { "alias": "model", "value": "AC 25" },
+        { "alias": "model", "value": "AC 250-1" },
+        { "alias": "model", "value": "AC 30 City" },
+        { "alias": "model", "value": "AC 350" },
+        { "alias": "model", "value": "AC 40" },
+        { "alias": "model", "value": "AC 40 City" },
+        { "alias": "model", "value": "AC 40-1 City" },
+        { "alias": "model", "value": "AC 50-1" },
+        { "alias": "model", "value": "AC 500" },
+        { "alias": "model", "value": "AC 500-1" },
+        { "alias": "model", "value": "AC 500-2" },
+        { "alias": "model", "value": "AC 55 City" },
+        { "alias": "model", "value": "AC 55-L" },
+        { "alias": "model", "value": "AC 70 City" },
+        { "alias": "model", "value": "AC 700" },
+        { "alias": "model", "value": "AC 80-2" },
+        { "alias": "model", "value": "TC 2500" },
+        { "alias": "model", "value": "TC 2800-1" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Wolwa",
+      "children": [{ "alias": "model", "value": "GNQY-C12" }]
+    },
+    {
+      "alias": "make",
+      "value": "XCMG",
+      "children": [
+        { "alias": "model", "value": "QAY1200" },
+        { "alias": "model", "value": "QAY130A" },
+        { "alias": "model", "value": "QAY160" },
+        { "alias": "model", "value": "QAY180" },
+        { "alias": "model", "value": "QAY200" },
+        { "alias": "model", "value": "QAY220" },
+        { "alias": "model", "value": "QAY240" },
+        { "alias": "model", "value": "QAY260" },
+        { "alias": "model", "value": "QAY300" },
+        { "alias": "model", "value": "QAY400" },
+        { "alias": "model", "value": "QAY500" },
+        { "alias": "model", "value": "QAY800" },
+        { "alias": "model", "value": "QY100K" },
+        { "alias": "model", "value": "QY100K-I" },
+        { "alias": "model", "value": "QY100KS" },
+        { "alias": "model", "value": "QY130K" },
+        { "alias": "model", "value": "QY130K-I" },
+        { "alias": "model", "value": "QY160K" },
+        { "alias": "model", "value": "QY16B-5" },
+        { "alias": "model", "value": "QY16C" },
+        { "alias": "model", "value": "QY20B.5" },
+        { "alias": "model", "value": "QY20G" },
+        { "alias": "model", "value": "QY20G-5" },
+        { "alias": "model", "value": "QY25B-5" },
+        { "alias": "model", "value": "QY25K-I" },
+        { "alias": "model", "value": "QY25K-II" },
+        { "alias": "model", "value": "QY25K5-I" },
+        { "alias": "model", "value": "QY25K5S" },
+        { "alias": "model", "value": "QY25k5" },
+        { "alias": "model", "value": "QY30K5" },
+        { "alias": "model", "value": "QY30K5-I" },
+        { "alias": "model", "value": "QY35K5" },
+        { "alias": "model", "value": "QY40K" },
+        { "alias": "model", "value": "QY50B-5" },
+        { "alias": "model", "value": "QY50K-I" },
+        { "alias": "model", "value": "QY50K-II" },
+        { "alias": "model", "value": "QY50KS" },
+        { "alias": "model", "value": "QY60k" },
+        { "alias": "model", "value": "QY65K" },
+        { "alias": "model", "value": "QY70K" },
+        { "alias": "model", "value": "QY70K-I" },
+        { "alias": "model", "value": "QY70KS" },
+        { "alias": "model", "value": "QY80k" },
+        { "alias": "model", "value": "QY8B-5" },
+        { "alias": "model", "value": "QY90K" },
+        { "alias": "model", "value": "RT100" },
+        { "alias": "model", "value": "RT120E" },
+        { "alias": "model", "value": "RT25" },
+        { "alias": "model", "value": "RT35" },
+        { "alias": "model", "value": "RT55E" },
+        { "alias": "model", "value": "RT60" },
+        { "alias": "model", "value": "RT70E" },
+        { "alias": "model", "value": "XCA100" },
+        { "alias": "model", "value": "XCA100 S" },
+        { "alias": "model", "value": "XCA220" },
+        { "alias": "model", "value": "XCA300" },
+        { "alias": "model", "value": "XCA350" },
+        { "alias": "model", "value": "XCA450" },
+        { "alias": "model", "value": "XCR70" },
+        { "alias": "model", "value": "XCT100" },
+        { "alias": "model", "value": "XCT130" },
+        { "alias": "model", "value": "XCT220" },
+        { "alias": "model", "value": "XCT25 S" },
+        { "alias": "model", "value": "XCT25L5S" },
+        { "alias": "model", "value": "XCT25L5SR" },
+        { "alias": "model", "value": "XCT30 S" },
+        { "alias": "model", "value": "XCT55" },
+        { "alias": "model", "value": "XCT55 S" },
+        { "alias": "model", "value": "XCT55L5 S" },
+        { "alias": "model", "value": "XCT70 S" },
+        { "alias": "model", "value": "XCT75" },
+        { "alias": "model", "value": "XCT75L5 S" },
+        { "alias": "model", "value": "XCT80 S" },
+        { "alias": "model", "value": "XGC70" },
+        { "alias": "model", "value": "XZJ5266JQZ20B" },
+        { "alias": "model", "value": "XZJ5328JQZ25K" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Zoomlion",
+      "children": [
+        { "alias": "model", "value": "QAY1000" },
+        { "alias": "model", "value": "QAY180" },
+        { "alias": "model", "value": "QAY220" },
+        { "alias": "model", "value": "QAY260" },
+        { "alias": "model", "value": "QAY350" },
+        { "alias": "model", "value": "QAY500" },
+        { "alias": "model", "value": "QAY800" },
+        { "alias": "model", "value": "QY100H-3" },
+        { "alias": "model", "value": "QY120V633" },
+        { "alias": "model", "value": "QY12D431" },
+        { "alias": "model", "value": "QY130H-1" },
+        { "alias": "model", "value": "QY150V633" },
+        { "alias": "model", "value": "QY16H431" },
+        { "alias": "model", "value": "QY20H431" },
+        { "alias": "model", "value": "QY25D531R" },
+        { "alias": "model", "value": "QY25E431" },
+        { "alias": "model", "value": "QY25V432" },
+        { "alias": "model", "value": "QY25V531.5" },
+        { "alias": "model", "value": "QY25V532" },
+        { "alias": "model", "value": "QY25V542.2T" },
+        { "alias": "model", "value": "QY25V552.1T" },
+        { "alias": "model", "value": "QY30V532" },
+        { "alias": "model", "value": "QY30V532.9" },
+        { "alias": "model", "value": "QY40V532" },
+        { "alias": "model", "value": "QY50D531" },
+        { "alias": "model", "value": "QY50V" },
+        { "alias": "model", "value": "QY50V532" },
+        { "alias": "model", "value": "QY55D531.1" },
+        { "alias": "model", "value": "QY55D531.2R" },
+        { "alias": "model", "value": "QY55V" },
+        { "alias": "model", "value": "QY55V532.2" },
+        { "alias": "model", "value": "QY55V552.1T" },
+        { "alias": "model", "value": "QY60V532" },
+        { "alias": "model", "value": "QY70V532" },
+        { "alias": "model", "value": "QY80V" },
+        { "alias": "model", "value": "QY90V533" },
+        { "alias": "model", "value": "RT100" },
+        { "alias": "model", "value": "RT35" },
+        { "alias": "model", "value": "RT55" },
+        { "alias": "model", "value": "RT550" },
+        { "alias": "model", "value": "RT60" },
+        { "alias": "model", "value": "RT75" },
+        { "alias": "model", "value": "ZAT1500" },
+        { "alias": "model", "value": "ZAT1500V" },
+        { "alias": "model", "value": "ZAT2000" },
+        { "alias": "model", "value": "ZAT2000V" },
+        { "alias": "model", "value": "ZAT3000V" },
+        { "alias": "model", "value": "ZMC85" },
+        { "alias": "model", "value": "ZRT300" },
+        { "alias": "model", "value": "ZRT600" },
+        { "alias": "model", "value": "ZRT850" },
+        { "alias": "model", "value": "ZTC1000" },
+        { "alias": "model", "value": "ZTC1000V" },
+        { "alias": "model", "value": "ZTC1500" },
+        { "alias": "model", "value": "ZTC1500V" },
+        { "alias": "model", "value": "ZTC800V" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Zoomlion-MAZ",
+      "children": [
+        { "alias": "model", "value": "ZMC-25" },
+        { "alias": "model", "value": "ZMC-25-1C" },
+        { "alias": "model", "value": "ZMC-60" },
+        { "alias": "model", "value": "ZMC-60-1C1" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Газакс",
+      "children": [
+        { "alias": "model", "value": "КС-45716" },
+        { "alias": "model", "value": "КС-5476А" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Галичанин",
+      "children": [
+        { "alias": "model", "value": "КС-45719-1" },
+        { "alias": "model", "value": "КС-4572" },
+        { "alias": "model", "value": "КС-4572А" },
+        { "alias": "model", "value": "КС-55713-1" },
+        { "alias": "model", "value": "КС-55713-1В" },
+        { "alias": "model", "value": "КС-55713-1Л" },
+        { "alias": "model", "value": "КС-55713-3" },
+        { "alias": "model", "value": "КС-55713-3В" },
+        { "alias": "model", "value": "КС-55713-4" },
+        { "alias": "model", "value": "КС-55713-4В" },
+        { "alias": "model", "value": "КС-55713-5" },
+        { "alias": "model", "value": "КС-55713-5В" },
+        { "alias": "model", "value": "КС-55713-5В-4" },
+        { "alias": "model", "value": "КС-55713-5Л" },
+        { "alias": "model", "value": "КС-55713-6" },
+        { "alias": "model", "value": "КС-55713-6В" },
+        { "alias": "model", "value": "КС-55721-1В" },
+        { "alias": "model", "value": "КС-55729-1В" },
+        { "alias": "model", "value": "КС-55729-3В" },
+        { "alias": "model", "value": "КС-55729-5B" },
+        { "alias": "model", "value": "КС-55729B" },
+        { "alias": "model", "value": "КС-55731-1" },
+        { "alias": "model", "value": "КС-55731-4" },
+        { "alias": "model", "value": "КС-59713-14Т" },
+        { "alias": "model", "value": "КС-64713-2" },
+        { "alias": "model", "value": "КС-65713-1" },
+        { "alias": "model", "value": "КС-65713-5" },
+        { "alias": "model", "value": "КС-65713-6" },
+        { "alias": "model", "value": "КС-65713-7" },
+        { "alias": "model", "value": "КС-65715" },
+        { "alias": "model", "value": "КС-65715-1" },
+        { "alias": "model", "value": "КС-65715-3" },
+        { "alias": "model", "value": "КС-65721" },
+        { "alias": "model", "value": "КС-65721-1" },
+        { "alias": "model", "value": "КС-65721-2" },
+        { "alias": "model", "value": "КС-65721-6" },
+        { "alias": "model", "value": "КС-74713" },
+        { "alias": "model", "value": "КС-74721-2 H&H" },
+        { "alias": "model", "value": "КС-75721 H&H" },
+        { "alias": "model", "value": "КС-75721-1 H&H" },
+        { "alias": "model", "value": "КС-75721-2" },
+        { "alias": "model", "value": "КС-75721-3 H&H" },
+        { "alias": "model", "value": "КС-75721-8 H&H" },
+        { "alias": "model", "value": "КС-85713" },
+        { "alias": "model", "value": "КС-85713-2" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Днепр",
+      "children": [
+        { "alias": "model", "value": "КС 5473" },
+        { "alias": "model", "value": "КС 5473Б" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Донэкс",
+      "children": [
+        { "alias": "model", "value": "АКС-55743Б" },
+        { "alias": "model", "value": "КС-55719Д-1" },
+        { "alias": "model", "value": "КС-55743" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Дрогобыч",
+      "children": [
+        { "alias": "model", "value": "КС-3575" },
+        { "alias": "model", "value": "КС-3575А" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "ЗИЛ",
+      "children": [
+        { "alias": "model", "value": "431412" },
+        { "alias": "model", "value": "КС-3575А" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Завидовский ЭМЗ",
+      "children": [{ "alias": "model", "value": "МТА-160" }]
+    },
+    {
+      "alias": "make",
+      "value": "Зубр",
+      "children": [
+        { "alias": "model", "value": "КС-5574BY" },
+        { "alias": "model", "value": "КС-5575BY-H" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Ивановец",
+      "children": [
+        { "alias": "model", "value": "КС-2561К" },
+        { "alias": "model", "value": "КС-35714" },
+        { "alias": "model", "value": "КС-35714-10" },
+        { "alias": "model", "value": "КС-35714-2" },
+        { "alias": "model", "value": "КС-35714К-2" },
+        { "alias": "model", "value": "КС-35714К-3" },
+        { "alias": "model", "value": "КС-35714К2-10" },
+        { "alias": "model", "value": "КС-35714К3-10" },
+        { "alias": "model", "value": "КС-35715" },
+        { "alias": "model", "value": "КС-35715-10" },
+        { "alias": "model", "value": "КС-35715-2" },
+        { "alias": "model", "value": "КС-3574" },
+        { "alias": "model", "value": "КС-3574М1" },
+        { "alias": "model", "value": "КС-3577" },
+        { "alias": "model", "value": "КС-3577-4" },
+        { "alias": "model", "value": "КС-45717-1" },
+        { "alias": "model", "value": "КС-45717-1Р" },
+        { "alias": "model", "value": "КС-45717-2" },
+        { "alias": "model", "value": "КС-45717-2М" },
+        { "alias": "model", "value": "КС-45717-2Р" },
+        { "alias": "model", "value": "КС-45717-2Р AIR" },
+        { "alias": "model", "value": "КС-45717-4В" },
+        { "alias": "model", "value": "КС-45717A-1" },
+        { "alias": "model", "value": "КС-45717K-1" },
+        { "alias": "model", "value": "КС-45717K-2" },
+        { "alias": "model", "value": "КС-45717А-1Р" },
+        { "alias": "model", "value": "КС-45717К-1Р" },
+        { "alias": "model", "value": "КС-45717К-2Р" },
+        { "alias": "model", "value": "КС-45717К-3" },
+        { "alias": "model", "value": "КС-45717К-3М" },
+        { "alias": "model", "value": "КС-45717К-3Р" },
+        { "alias": "model", "value": "КС-54711-1" },
+        { "alias": "model", "value": "КС-54711Б" },
+        { "alias": "model", "value": "КС-54712" },
+        { "alias": "model", "value": "КС-54713" },
+        { "alias": "model", "value": "КС-54714" },
+        { "alias": "model", "value": "КС-55717Б" },
+        { "alias": "model", "value": "КС-55717К-1" },
+        { "alias": "model", "value": "КС-55717К-3Р Air" },
+        { "alias": "model", "value": "КС-55735-6" },
+        { "alias": "model", "value": "КС-55735-7" },
+        { "alias": "model", "value": "КС-55744" },
+        { "alias": "model", "value": "КС-55744-1" },
+        { "alias": "model", "value": "КС-5576Б" },
+        { "alias": "model", "value": "КС-5576Б-1" },
+        { "alias": "model", "value": "КС-5576К" },
+        { "alias": "model", "value": "КС-5576К-1" },
+        { "alias": "model", "value": "КС-64714" },
+        { "alias": "model", "value": "КС-6476" },
+        { "alias": "model", "value": "КС-6478" },
+        { "alias": "model", "value": "КС-65731-2" },
+        { "alias": "model", "value": "КС-65740-1" },
+        { "alias": "model", "value": "КС-65740-6" },
+        { "alias": "model", "value": "КС-65740-7" },
+        { "alias": "model", "value": "КС-65740-8" },
+        { "alias": "model", "value": "КС-6577К-3" },
+        { "alias": "model", "value": "КС-6973" },
+        { "alias": "model", "value": "КС-6973Б" },
+        { "alias": "model", "value": "КС-7474" },
+        { "alias": "model", "value": "КС-8973" },
+        { "alias": "model", "value": "КС-8973+" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Ивэнергомаш",
+      "children": [{ "alias": "model", "value": "СМК-14" }]
+    },
+    {
+      "alias": "make",
+      "value": "КамАЗ",
+      "children": [{ "alias": "model", "value": "MTA160" }]
+    },
+    {
+      "alias": "make",
+      "value": "Камышинский КЗ",
+      "children": [
+        { "alias": "model", "value": "КС-4561А" },
+        { "alias": "model", "value": "КС-55713-5-21" },
+        { "alias": "model", "value": "КС-55713-5К-1" },
+        { "alias": "model", "value": "КС-55713-5К-4" },
+        { "alias": "model", "value": "КС-55721-5-21" },
+        { "alias": "model", "value": "КС-5576Д" },
+        { "alias": "model", "value": "КС-65740-5" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Клинцы",
+      "children": [
+        { "alias": "model", "value": "КС-35719-1" },
+        { "alias": "model", "value": "КС-35719-1-02" },
+        { "alias": "model", "value": "КС-35719-3-02" },
+        { "alias": "model", "value": "КС-35719-5" },
+        { "alias": "model", "value": "КС-35719-5-02" },
+        { "alias": "model", "value": "КС-35719-7-02" },
+        { "alias": "model", "value": "КС-35719-8А" },
+        { "alias": "model", "value": "КС-45719-3А" },
+        { "alias": "model", "value": "КС-45719-3К" },
+        { "alias": "model", "value": "КС-45719-5А" },
+        { "alias": "model", "value": "КС-45719-7А" },
+        { "alias": "model", "value": "КС-45719-7К" },
+        { "alias": "model", "value": "КС-45719-8А" },
+        { "alias": "model", "value": "КС-45719-8К" },
+        { "alias": "model", "value": "КС-45719-9А-1" },
+        { "alias": "model", "value": "КС-55713-10К-2" },
+        { "alias": "model", "value": "КС-55713-10К-3" },
+        { "alias": "model", "value": "КС-55713-1К" },
+        { "alias": "model", "value": "КС-55713-1К-1" },
+        { "alias": "model", "value": "КС-55713-1К-1В" },
+        { "alias": "model", "value": "КС-55713-1К-2" },
+        { "alias": "model", "value": "КС-55713-1К-3" },
+        { "alias": "model", "value": "КС-55713-1К-4" },
+        { "alias": "model", "value": "КС-55713-1К-4В" },
+        { "alias": "model", "value": "КС-55713-3К" },
+        { "alias": "model", "value": "КС-55713-3К-1" },
+        { "alias": "model", "value": "КС-55713-3К-2" },
+        { "alias": "model", "value": "КС-55713-3К-3" },
+        { "alias": "model", "value": "КС-55713-3К-4" },
+        { "alias": "model", "value": "КС-55713-3К-4В" },
+        { "alias": "model", "value": "КС-55713-4К-4В" },
+        { "alias": "model", "value": "КС-55713-5К" },
+        { "alias": "model", "value": "КС-55713-5К-1" },
+        { "alias": "model", "value": "КС-55713-5К-1В" },
+        { "alias": "model", "value": "КС-55713-5К-2" },
+        { "alias": "model", "value": "КС-55713-5К-3" },
+        { "alias": "model", "value": "КС-55713-5К-4" },
+        { "alias": "model", "value": "КС-55713-5К-4В" },
+        { "alias": "model", "value": "КС-55713-6К" },
+        { "alias": "model", "value": "КС-55713-6К-1" },
+        { "alias": "model", "value": "КС-55713-6К-2" },
+        { "alias": "model", "value": "КС-55713-6К-3" },
+        { "alias": "model", "value": "КС-55713-6К-4" },
+        { "alias": "model", "value": "КС-55713-6К-4В" },
+        { "alias": "model", "value": "КС-55713-9К-3" },
+        { "alias": "model", "value": "КС-55729-5К-3" },
+        { "alias": "model", "value": "КС-55741-1" },
+        { "alias": "model", "value": "КС-65719-1К" },
+        { "alias": "model", "value": "КС-65719-3К" },
+        { "alias": "model", "value": "КС-65719-3К-1" },
+        { "alias": "model", "value": "КС-65719-5К" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "КрАЗ",
+      "children": [
+        { "alias": "model", "value": "К-162" },
+        { "alias": "model", "value": "КС-3575А" },
+        { "alias": "model", "value": "КС-4561" },
+        { "alias": "model", "value": "КС-4562" },
+        { "alias": "model", "value": "КС-4574" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Краян",
+      "children": [
+        { "alias": "model", "value": "КС-5363" },
+        { "alias": "model", "value": "КС-5363В" },
+        { "alias": "model", "value": "КС-557Кр" },
+        { "alias": "model", "value": "КС-6362" },
+        { "alias": "model", "value": "КШТ-50.01" },
+        { "alias": "model", "value": "КШТ-80.01" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "МАЗ",
+      "children": [
+        { "alias": "model", "value": "КС 55727-7-(12)" },
+        { "alias": "model", "value": "КС-3561А" },
+        { "alias": "model", "value": "КС-35715-1" },
+        { "alias": "model", "value": "КС-3577-3" },
+        { "alias": "model", "value": "КС-3579" },
+        { "alias": "model", "value": "КС-5337" },
+        { "alias": "model", "value": "КС-5571BY-5-(22-171P)" },
+        { "alias": "model", "value": "КС-5571BY-Н-22" },
+        { "alias": "model", "value": "КС-55727-5-11" },
+        { "alias": "model", "value": "СМК-10" },
+        { "alias": "model", "value": "СМК-7" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Машека",
+      "children": [
+        { "alias": "model", "value": "КС-3579-2-00" },
+        { "alias": "model", "value": "КС-45729-3-02" },
+        { "alias": "model", "value": "КС-45729A-0-01" },
+        { "alias": "model", "value": "КС-5479" },
+        { "alias": "model", "value": "КС-55727-1-11" },
+        { "alias": "model", "value": "КС-55727-5-11" },
+        { "alias": "model", "value": "КС-55727-7-12" },
+        { "alias": "model", "value": "КС-55727-7-13" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Мотовилиха",
+      "children": [
+        { "alias": "model", "value": "КС-5477" },
+        { "alias": "model", "value": "КС-5579.2" },
+        { "alias": "model", "value": "КС-5579.21" },
+        { "alias": "model", "value": "КС-5579.22" },
+        { "alias": "model", "value": "КС-5579.3" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Силач",
+      "children": [
+        { "alias": "model", "value": "КТА-18" },
+        { "alias": "model", "value": "КТА-18E" },
+        { "alias": "model", "value": "КТА-25" },
+        { "alias": "model", "value": "КТА-25Е" },
+        { "alias": "model", "value": "КТА-28" },
+        { "alias": "model", "value": "КТА-32" },
+        { "alias": "model", "value": "КТА-35" },
+        { "alias": "model", "value": "КТА-50" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Сокол",
+      "children": [
+        { "alias": "model", "value": "КС-6575С (Скат-50)" },
+        { "alias": "model", "value": "СТ-2-2-40" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Туапсинский МашЗавод",
+      "children": [{ "alias": "model", "value": "МКТТ-63" }]
+    },
+    {
+      "alias": "make",
+      "value": "Угличмаш",
+      "children": [
+        { "alias": "model", "value": "КС-3577-3К" },
+        { "alias": "model", "value": "КС-45722-1" },
+        { "alias": "model", "value": "КС-45722-2" },
+        { "alias": "model", "value": "КС-45726-2" },
+        { "alias": "model", "value": "КС-45726-3" },
+        { "alias": "model", "value": "КС-45726-4" },
+        { "alias": "model", "value": "КС-55726" },
+        { "alias": "model", "value": "КС-55726-1" },
+        { "alias": "model", "value": "КС-55726-2" },
+        { "alias": "model", "value": "КС-55726-3" },
+        { "alias": "model", "value": "КС-55743Б" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Ульяновец",
+      "children": [
+        { "alias": "model", "value": "МКАТ-25" },
+        { "alias": "model", "value": "МКТ-20" },
+        { "alias": "model", "value": "МКТ-20.1" },
+        { "alias": "model", "value": "МКТ-25" },
+        { "alias": "model", "value": "МКТ-25.3" },
+        { "alias": "model", "value": "МКТ-25.7" },
+        { "alias": "model", "value": "МКТ-40" },
+        { "alias": "model", "value": "МКТ-50" },
+        { "alias": "model", "value": "МКТг-25.9" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Челябинец (ЧМЗ)",
+      "children": [
+        { "alias": "model", "value": "КС-45721" },
+        { "alias": "model", "value": "КС-45721-17" },
+        { "alias": "model", "value": "КС-45721-24" },
+        { "alias": "model", "value": "КС-45721-25" },
+        { "alias": "model", "value": "КС-45721-33" },
+        { "alias": "model", "value": "КС-55730" },
+        { "alias": "model", "value": "КС-55732" },
+        { "alias": "model", "value": "КС-55732-33" },
+        { "alias": "model", "value": "КС-55733-17" },
+        { "alias": "model", "value": "КС-55733-24" },
+        { "alias": "model", "value": "КС-65711-11" },
+        { "alias": "model", "value": "КС-65711-27" },
+        { "alias": "model", "value": "КС-65717-34" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Юргинец",
+      "children": [
+        { "alias": "model", "value": "КС-4361А" },
+        { "alias": "model", "value": "КС-4372Б" },
+        { "alias": "model", "value": "КС-55722" },
+        { "alias": "model", "value": "КС-55722-1" },
+        { "alias": "model", "value": "КС-55722-2" },
+        { "alias": "model", "value": "КС-55722-3" },
+        { "alias": "model", "value": "КС-5871" },
+        { "alias": "model", "value": "КС-65720" },
+        { "alias": "model", "value": "КС-65720-1" }
+      ]
+    },
+    {
+      "alias": "make",
+      "value": "Январец",
+      "children": [{ "alias": "model", "value": "КС-6471" }]
+    }
+  ]
+}
