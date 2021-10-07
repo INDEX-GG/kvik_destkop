@@ -29,6 +29,7 @@ import ProductMobileButtons from "../../components/product/ProductMobile/Product
 import { firstAds, scrollAds } from "../../lib/scrollAds";
 import { useStore } from "../../lib/Context/Store";
 import axios from "axios";
+import { chatPush } from "../../components/account/Notifications/tabs/chatFunctions";
 
 /* const objP = {
 	id: 1,
@@ -128,30 +129,32 @@ const Product = () => {
 				console.log(obj)
 
 				await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
-				router.push({
-					pathname: `/account/${id}`,
-					query: {
-						account: 5,
-						content: 1,
-						companion_id: productInfo?.user_id,
-						product_id: productInfo?.id,
-						mobile: matchesMobile || matchesTablet ? 'true' : ''
-					},
-				})
+				// router.push({
+				// 	pathname: `/account/${id}`,
+				// 	query: {
+				// 		account: 5,
+				// 		content: 1,
+				// 		companion_id: productInfo?.user_id,
+				// 		product_id: productInfo?.id,
+				// 		mobile: matchesMobile || matchesTablet ? 'true' : ''
+				// 	},
+				// })
+				const routerObj = {
+					id, 
+					companion_id: productInfo.user_id, 
+					product_id: productInfo?.id,
+					mobile: matchesMobile || matchesTablet
+				}
+				chatPush(router, routerObj)
 
 			} catch (e) {
-				console.log('Чат существует')
-				
-				router.push({
-					pathname: `/account/${id}`,
-					query: {
-						account: 5,
-						content: 1,
-						companion_id: productInfo?.user_id,
-						product_id: productInfo?.id,
-						mobile: matchesMobile || matchesTablet ? 'true' : ''
-					}
-				})
+				const routerObj = {
+					id, 
+					companion_id: productInfo.user_id, 
+					product_id: productInfo?.id,
+					mobile: matchesMobile || matchesTablet
+				}
+				chatPush(router, routerObj)
 			}
 		}
 	}

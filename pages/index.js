@@ -59,7 +59,7 @@ const Index = () => {
 	const [page, setPage] = useState(1);
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
 	const [lastIdAds ,setLastIdAds] = useState(0);
-	const limit = 10
+	const limit = 60
 
 	console.log(lastIdAds);
 	
