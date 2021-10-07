@@ -51,10 +51,12 @@ const SearchItem = ({children, category}) => {
 	const classes = useStyles();
   const {categoriesByAlias} = useFindCategory()
   
-  const splited = category.split(',')
+  const splited = category?.split(',')
+  console.log('splited',splited)
   const categoryData = categoriesByAlias(splited)
+  console.log('categoryData',categoryData)
   const categoryName = splited.length === 1 ? categoryData.name : categoryData.label
-
+  console.log('categoryName',categoryName);
 
   return (
     <div  className={classes.searchItem} onClick={() => Router.push(`/search/${splited.slice(-1)}`)} tabIndex={0}>
