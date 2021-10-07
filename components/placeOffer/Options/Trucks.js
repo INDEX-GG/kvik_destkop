@@ -81,31 +81,25 @@ export default function Trucks({ data }) {
 
 
   const makeData = useMemo(() => {
-    return trucksData.find((el) => el.value === make)?.children
+    methods.setValue('model', '')
+    return trucksData?.find((el) => el.value === make)?.children
   }, [make])
 
   const modelData = useMemo(() => {
     return makeData?.find((el) => el.value === model)?.children
   }, [model])
+  
+  const bodyType = useMemo(() => {
+    methods.setValue("bodytype", modelData?.[0].value)
+    return modelData?.[0].value
+  }, [model])
 
-  // const subtypeData = useMemo(() => {
-  //   methods.setValue("typeoftrailer", "");
-  //   return trucksData.find((el) => el.value === subtype)?.children;
-  // }, [subtype]);
 
-  // const typeData = useMemo(() => {
-  //   return subtypeData?.find((el) => el.value === type)?.children;
-  // }, [type]);
-
-  // const makeData = useMemo(() => {
-  //   console.log(typeData);
-  //   return typeData?.find((el) => el.value === make)?.children;
-  // }, [make]);
 
   return (
     <>
       
-      {data[0] && (
+      {data?.[0] && (
         <Box className={classes.formElem}>
         <Typography className={classes.formTitleField}>
           {data[0].name}
@@ -131,7 +125,7 @@ export default function Trucks({ data }) {
                 error={!!error}
                 helperText={error ? error.message : " "}
               >
-                {data[0].fields.map((option, i) => (
+                {data[0].fields?.map((option, i) => (
                   <MenuItem key={i} value={option}>
                     {option}
                   </MenuItem>
@@ -142,7 +136,7 @@ export default function Trucks({ data }) {
         </Box>
       </Box>
       )}
-      {data[1] && (
+      {data?.[1] && (
         <Box className={classes.formElem}>
         <Typography className={classes.formTitleField}>
           {data[1].name}
@@ -161,7 +155,7 @@ export default function Trucks({ data }) {
                 className={classes.input}
                 variant="outlined"
                 value={value}
-                onChange={onChange}
+                onChange={e => onChange(OnlyNumbersMask(e, "VIN"))}
                 error={!!error}
                 helperText={error ? error.message : " "}
               />
@@ -177,6 +171,7 @@ export default function Trucks({ data }) {
             name={trucksData[0].alias}
             control={methods.control}
             defaultValue=""
+            rules={{ required: "Выберите Марку" }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 select
@@ -203,12 +198,13 @@ export default function Trucks({ data }) {
       </Box>
       {make && (
         <Box className={classes.formElem}>
-          <Typography className={classes.formTitleField}>Марка</Typography>
+          <Typography className={classes.formTitleField}>Модель</Typography>
           <Box className={classes.formInputField}>
             <Controller
               name={makeData[0].alias}
               control={methods.control}
               defaultValue=""
+              rules={{ required: "Выберите Модель" }}
               render={({
                 field: { onChange, value },
                 fieldState: { error },
@@ -245,9 +241,11 @@ export default function Trucks({ data }) {
             </Typography>
             <Box className={classes.formInputField}>
               <Controller
+                shouldUnregister
                 name={modelData[0].alias}
                 control={methods.control}
-                defaultValue=""
+                
+                defaultValue={""}
                 render={({
                 field: { onChange },
                   fieldState: { error },
@@ -255,7 +253,7 @@ export default function Trucks({ data }) {
                   <TextField
                     className={classes.input}
                     variant="outlined"
-                    value={modelData[0].value}
+                    value={bodyType ?? ""}
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : " "}
@@ -270,6 +268,346 @@ export default function Trucks({ data }) {
           </Box>
           }
       {data?.slice(2).map((item, idx) => {
+        if (
+          item.alias === "truck_enginesize" 
+        ) {
+          switch (item.type) {
+            case "text":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <TextField
+                            className={classes.input}
+                            variant="outlined"
+                            value={value}
+                            onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                            error={!!error}
+                            helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? (
+                            <span
+                              className={classes.tooltip}
+                              style={{ left: 20 + value.length * 8 }}
+                            >
+                              {" "}
+                              см³
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+            case "textRec":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      rules={{ required: "Введите " + item.name }}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <TextField
+                            className={classes.input}
+                            variant="outlined"
+                            value={value}
+                            onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                            error={!!error}
+                            helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? (
+                            <span
+                              className={classes.tooltip}
+                              style={{ left: 20 + value.length * 8 }}
+                            >
+                              {" "}
+                              см³
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+          }
+        }
+        if (
+          item.alias === "truck_power" 
+        ) {
+          switch (item.type) {
+            case "text":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <TextField
+                            className={classes.input}
+                            variant="outlined"
+                            value={value}
+                            onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                            error={!!error}
+                            helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? (
+                            <span
+                              className={classes.tooltip}
+                              style={{ left: 20 + value.length * 8 }}
+                            >
+                              {" "}
+                              л.с.
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+            case "textRec":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      rules={{ required: "Введите " + item.name }}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <TextField
+                            className={classes.input}
+                            variant="outlined"
+                            value={value}
+                            onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                            error={!!error}
+                            helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? (
+                            <span
+                              className={classes.tooltip}
+                              style={{ left: 20 + value.length * 8 }}
+                            >
+                              {" "}
+                              л.с.
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+          }
+        }
+        if (
+          item.alias === "carrying" 
+        ) {
+          switch (item.type) {
+            case "text":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <TextField
+                            className={classes.input}
+                            variant="outlined"
+                            value={value}
+                            onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                            error={!!error}
+                            helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? (
+                            <span
+                              className={classes.tooltip}
+                              style={{ left: 20 + value.length * 8 }}
+                            >
+                              {" "}
+                              кг
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+            case "textRec":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      rules={{ required: "Введите " + item.name }}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <TextField
+                            className={classes.input}
+                            variant="outlined"
+                            value={value}
+                            onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                            error={!!error}
+                            helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? (
+                            <span
+                              className={classes.tooltip}
+                              style={{ left: 20 + value.length * 8 }}
+                            >
+                              {" "}
+                              кг
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+          }
+        }
+        if (
+          item.alias === "body_volume" 
+        ) {
+          switch (item.type) {
+            case "text":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <TextField
+                            className={classes.input}
+                            variant="outlined"
+                            value={value}
+                            onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                            error={!!error}
+                            helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? (
+                            <span
+                              className={classes.tooltip}
+                              style={{ left: 20 + value.length * 8, top: 8  }}
+                            >
+                              {" "}
+                              м³
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+            case "textRec":
+              return (
+                <Box className={classes.formElem}>
+                  <Typography className={classes.formTitleField}>
+                    {item.name}
+                  </Typography>
+                  <Box className={classes.formInputField}>
+                    <Controller
+                      name={item.alias}
+                      control={methods.control}
+                      defaultValue=""
+                      rules={{ required: "Введите " + item.name }}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <>
+                          <TextField
+                            className={classes.input}
+                            variant="outlined"
+                            value={value}
+                            onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                            error={!!error}
+                            helperText={error ? error.message : " "}
+                          />
+                          {value.length && value.length < 20 ? (
+                            <span
+                              className={classes.tooltip}
+                              style={{ left: 20 + value.length * 8, top: 8  }}
+                            >
+                              {" "}
+                              м³
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    />
+                  </Box>
+                </Box>
+              );
+          }
+        }
         if (item.alias === "trailer_mileage") {
           switch (item.type) {
             case "text":
@@ -346,7 +684,7 @@ export default function Trucks({ data }) {
                           {value.length && value.length < 20 ? (
                             <span
                               className={classes.tooltip}
-                              style={{ left: 20 + value.length * 8 }}
+                              style={{ left: 20 + value.length * 8}}
                             >
                               {" "}
                               г.

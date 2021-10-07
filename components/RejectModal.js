@@ -14,7 +14,7 @@ function RejectModal({reject, setOpenWaitForm}) {
         <div className="modal__wrapper_reject">
             <div className="modal__header">Причина отклонения</div>
             <div className="modal__middle">
-                <div className="modal__middle__description_rejected">Выберете причину отклонения объявления</div>
+                <div className="modal__middle__description_rejected">Выберите причину отклонения объявления</div>
                 {Object.keys(verifyModerator).map( (item) => (
                     <label className="checkbox" key={item}>
                         <input type="checkbox" onChange={(event) => getCause({id: +item, isCheck: event.target.checked})}/>

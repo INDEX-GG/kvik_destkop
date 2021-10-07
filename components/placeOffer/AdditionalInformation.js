@@ -8,6 +8,11 @@ import WorkPlaceholder from './Options/WorkPlaceholder';
 import Bulldozers from './Options/Bulldozers';
 import Trailers from './Options/Trailers';
 import Trucks from './Options/Trucks';
+import TruckCranes from './Options/Truck_cranes';
+import CommunalMachinery from './Options/Communal_machinery';
+import LightCommercialVehicles from './Options/Light_commercial_vehicles';
+import Attachments from './Options/Attachments';
+import Loaders from './Options/Loaders';
 
 
 
@@ -26,7 +31,7 @@ const AdditionalInformation = (data) => {
 			return null;
 
 		case 'attachments':
-			return null;
+			return <Attachments data={data.newOBJ[data.asd]} />;
 
 		case 'atvs_and_buggy':
 			return null;
@@ -58,7 +63,7 @@ const AdditionalInformation = (data) => {
 
 
 		case 'communal_machinery':
-			return null;
+			return <CommunalMachinery data={data.newOBJ[data.asd]} />;
 
 		case 'construction_machinery':
 			return null;
@@ -94,10 +99,10 @@ const AdditionalInformation = (data) => {
 
 		case 'light_commercial_vehicles':
 
-			return null;
+			return <LightCommercialVehicles data={data.newOBJ[data.asd]} />;
 		case 'loaders':
 
-			return null;
+			return <Loaders data={data.newOBJ[data.asd]} />;
 		case 'memory_card':
 
 			return null;
@@ -321,7 +326,7 @@ const AdditionalInformation = (data) => {
 		case 'trailers':
 			return <Trailers data={data.newOBJ[data.asd]} />;
 		case 'truck_cranes':
-			return null;
+			return <TruckCranes data={data.newOBJ[data.asd]} />;
 		case 'trucks':
 			return <Trucks data={data.newOBJ[data.asd]} />;
 		case 'tv_sets_cat2':
@@ -366,7 +371,7 @@ const AdditionalInformation = (data) => {
 	// 	//                                             ))}
 	// 	//                                         </TextField>
 	// 	//                                     )}
-	// 	//                                     rules={{ required: 'Выберете ' }}
+	// 	//                                     rules={{ required: 'Выберите ' }}
 	// 	//                                 />
 	// 	//                             </Box>
 	// 	//                         </Box>
@@ -397,7 +402,7 @@ const AdditionalInformation = (data) => {
 	// 	//                                                     }
 	// 	//                                                 </TextField>
 	// 	//                                             )}
-	// 	//                                             rules={{ required: 'Выберете ' }}
+	// 	//                                             rules={{ required: 'Выберите ' }}
 	// 	//                                         />
 	// 	//                                     </Box>
 	// 	//                                 </>
@@ -430,7 +435,7 @@ const AdditionalInformation = (data) => {
 	// 	//                                                     }
 	// 	//                                                 </TextField>
 	// 	//                                             )}
-	// 	//                                             rules={{ required: 'Выберете ' }}
+	// 	//                                             rules={{ required: 'Выберите ' }}
 	// 	//                                         />
 	// 	//                                     </Box>
 	// 	//                                 </>
@@ -486,7 +491,7 @@ const AdditionalInformation = (data) => {
 	// 	//                                                 ))}
 	// 	//                                             </TextField>
 	// 	//                                         )}
-	// 	//                                         rules={{ required: 'Выберете ' }}
+	// 	//                                         rules={{ required: 'Выберите ' }}
 	// 	//                                     />
 	// 	//                                 </Box>
 	// 	//                             </>

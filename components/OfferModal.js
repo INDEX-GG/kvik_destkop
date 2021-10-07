@@ -108,7 +108,7 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 		if ( id === "003" ) {
 			return  <>
 				<Typography className={classes.offer_form__desc}>Снять с публикации</Typography>
-				<Typography className={classes.offer_form__sub_desc}>Выберете причину</Typography>
+				<Typography className={classes.offer_form__sub_desc}>Выберите причину</Typography>
 				<Button onClick={() => PushDb(1)} className={classes.offer_form__btn}>Продано на Kvik</Button>
 				<Button onClick={() => PushDb(2)} className={classes.offer_form__btn}>Продано в другом месте</Button>
 				<Button onClick={() => PushDb(3)} className={classes.offer_form__btn}>Другая причина</Button>

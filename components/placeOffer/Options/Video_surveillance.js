@@ -64,7 +64,7 @@ export default function VideoSurveillance({data}) {
               ))}
             </TextField>
           )}
-          rules={{ required: "Выберете Тип" }}
+          rules={{ required: "Выберите Тип" }}
         />
       </Box>
     </Box>
