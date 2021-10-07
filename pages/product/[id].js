@@ -121,15 +121,15 @@ const Product = () => {
 			try {
 				const obj = {
 				'seller_id': productInfo?.user_id, 
-				'seller_name': productInfo?.name, 
-				'seller_photo': productInfo?.chatPhoto,
+				// 'seller_name': productInfo?.name, 
+				// 'seller_photo': productInfo?.chatPhoto,
 				'customer_id': id,
-				'customer_name': userInfo?.name,
-				'customer_photo': userInfo?.userChatPhoto,
+				// 'customer_name': userInfo?.name,
+				// 'customer_photo': userInfo?.userChatPhoto,
 				'product_id': productInfo?.id,
-				'product_name': productInfo?.title,
-				'product_price': productInfo?.price,
-				'product_photo': productInfo?.chatProductPhoto,
+				// 'product_name': productInfo?.title,
+				// 'product_price': productInfo?.price,
+				// 'product_photo': productInfo?.chatProductPhoto,
 				}
 				console.log(obj)
 				await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
