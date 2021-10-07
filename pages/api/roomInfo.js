@@ -24,7 +24,6 @@ export default async function handler(req, res) {
             const q_users =  await prisma.$queryRaw(`SELECT users.id as user_id, users.name, users."userPhoto" FROM "users" WHERE ID IN (${users})`)
             const q_products = await prisma.$queryRaw(`SELECT posts.id as post_id, posts.title, posts.photo, posts.price FROM "posts" WHERE ID IN (${products})`)
             const products_and_users = q_products.concat(q_users);
-            console.log(products_and_users);
             for (const val of list) {
                 for (const arg of products_and_users) {
                     if (arg.user_id === val.customer_id) {

@@ -163,7 +163,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 	useEffect(() => {
 		if (observer.current) observer.current.disconnect();
-		if (refMessage.current) {
+		if (refMessage.current && msgList) {
 			const callback = function (entries) {
 			if (entries[0].isIntersecting) {
 				addChatHistory()

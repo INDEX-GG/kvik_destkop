@@ -8,7 +8,7 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { CHAT_URL_API, STATIC_URL } from "../../../../lib/constants";
 import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
-import { generateTime, generateProductPhoto, generateDataTocken } from "./chatFunctions";
+import { generateTime, generateProductPhoto, generateDataTocken, chatPush } from "./chatFunctions";
 import { askForPermissioToReceiveNotifications, initializeFirebase } from '../../../../firebase/clientApp';
 import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
 
@@ -45,6 +45,20 @@ function Messages() {
 		generateDataTocken(id, token)
 	}
   }, [loading, id])
+
+
+  function changeModal() {
+	// router.push({
+	// 	pathname: `/account/${id}`,
+	// 	query: {
+	// 		account: 5,
+	// 		content: 1
+	// 	}
+	// })
+	console.log(1)
+	setMessageModal(!messageModal)
+  }
+
 
   useEffect(() => {
 	if (id && query?.companion_id) {
@@ -104,31 +118,15 @@ function Messages() {
 	}
   }, [room])
 
-
-  function changeModal() {
-    setMessageModal(!messageModal)
-	// router.push({
-	// 	pathname: `/account/${id}`,
-	// 	query: {
-	// 		account: 5,
-	// 		content: 1
-	// 	}
-	// })
-  }
-
   const changeChat = (data) => {
-	   router.push({
-			pathname: `/account/${id}`,
-			query: {
-				account: 5,
-				content: 1,
-				companion_id: data?.seller_id == id ? data?.customer_id : data?.seller_id,
-				product_id: data?.product_id
-			}
-		})
+		const routerObj = {
+			id,
+			companion_id: data?.seller_id == id ? data?.customer_id : data?.seller_id,
+			product_id: data?.product_id,
+			mobile: matchesMobile || matchesTablet
+		}
+		chatPush(router, routerObj)
   }
-
-  console.log(room)
 
   return (
     (
