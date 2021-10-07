@@ -97,9 +97,6 @@ export function ModalSubscription({ data, subscription = 0, modal, mobile }) {
 }
 /* Модальное окно "Диалог" */
 export function ModalMessage({ modal, usersData, room, userChatPhoto }) {
-
-	console.log(window.innerHeight)
-
 	return (
 		<div className="modal__wrapper_md acoountContainer">
 			<div className="modal__block__top accountTop">
@@ -109,7 +106,7 @@ export function ModalMessage({ modal, usersData, room, userChatPhoto }) {
 				</>
 			</div>
 
-			<div className="messageMobile" style={{height: window.innerHeight - 98 + 'px' }}>
+			<div className="messageMobile" style={{height: window.innerHeight - 98 - 12 + 'px' }}>
 				<div className="messageHeader small">
 					<img src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`} />
 					<div>
@@ -118,7 +115,7 @@ export function ModalMessage({ modal, usersData, room, userChatPhoto }) {
 								<div>{room?.seller_name}</div>
 								<div className="light">00.00.00 00:00</div>
 							</div>
-							<img src={`${STATIC_URL}/${room?.seller_photo}`} />
+							<img src={room?.seller_photo ? `${STATIC_URL}/${room?.seller_photo}` : null} />
 						</div>
 						<div>{room?.product_price}</div>
 						<div>{room?.product_name}</div>
