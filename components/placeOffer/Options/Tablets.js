@@ -127,7 +127,7 @@ export default function Tablets({ data }) {
                     control={methods.control}
                     defaultValue=""
                     rules={{
-                      required: "Выберете Производителя",
+                      required: "Выберите Производителя",
                     }}
                     render={({
                       field: { onChange, value },

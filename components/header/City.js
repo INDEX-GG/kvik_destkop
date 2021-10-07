@@ -122,7 +122,7 @@ export default function City({ dialog, setDialog }) {
 					<Search />
 				</div>
 			</div>
-			<div className={classes.citySubTitle}>Или Выберете из списка</div>
+			<div className={classes.citySubTitle}>Или Выберите из списка</div>
 			<div className={classes.cityBox}>
 				{stateJsonCity.length > 0 ? 
 				stateJsonCity.map((item, i) => {
