@@ -9,7 +9,10 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { CHAT_URL_API, STATIC_URL } from "../../../../lib/constants";
 import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
-import { generateTime, generateProductPhoto } from "./chatFunctions";
+import { generateTime, generateProductPhoto, generateDataTocken } from "./chatFunctions";
+import { askForPermissioToReceiveNotifications, initializeFirebase } from '../../../../firebase/clientApp';
+import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
+
 
 function Messages() {
 
@@ -25,11 +28,24 @@ function Messages() {
   const [room, setRoom] = useState({})
   const [allRooms, setAllRooms] = useState([])
   const [chatUsers, setChatUsers] = useState()
+  const [loading, setLoading] = useState(false)
+
   const {query} = useRouter()
   const router = useRouter()
   const {id} = useAuth()
   const {userInfo} = useStore()
   const {matchesTablet, matchesMobile} = useMedia()
+ 
+  useEffect(() => setLoading(true), [])
+
+  useEffect(() => {
+	initializeFirebase()
+	registerServiceWorkerNoSSR()
+	const token = askForPermissioToReceiveNotifications()
+	if (id) {
+		generateDataTocken(id, token)
+	}
+  }, [loading, id])
 
   useEffect(() => {
 	if (id && query?.companion_id) {
@@ -42,17 +58,14 @@ function Messages() {
 		}
 
 		axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
-			console.log(r.data.room)
 			axios.post(`/api/roomInfo`, [r.data.room])
 				.then(r => {
-					console.log(r.data.list)
 					setRoom(r.data.list[0])
 				})
 		})
  	 }
   }, [id, query])
 
-//   console.log(messageHistory)
 
 
   useEffect(() => {
@@ -123,7 +136,7 @@ function Messages() {
         <div className="clientPage__container_content">
           <div className="messageContainer">
             <div className="messageDialogs">
-			  {allRooms.length ? 
+			  {allRooms?.length ? 
 			  	allRooms.map((item, i) => {
 					const productPhoto = generateProductPhoto(item.product_photo)
 					const time = generateTime(0, item.time)
@@ -131,7 +144,9 @@ function Messages() {
 						<a key={i} className="messageDialog" 
 						  onClick={() => {
 							matchesMobile || matchesTablet ? changeModal() : null
-							changeChat(allRooms[i])
+							if (allRooms[i].product_id != room.product_id) {
+								changeChat(allRooms[i])
+							}
 						  }
 						}>
 							<div className="messageOffer small">
@@ -216,6 +231,7 @@ function Messages() {
           <ModalMessage 
 		    modal={changeModal}
 			usersData={chatUsers} 
+			room={room}
 			userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo} 
 		  />
         </Dialog>
