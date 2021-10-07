@@ -26,13 +26,12 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 	const {query} = useRouter()
 	const {id} = useAuth()
 
-	// console.log(message, msgList, messageId, messageUpdate, userOnline, loading, socketConnect)
-
 	useEffect(() => {
 		if (socketConnect) {
 			socket.emit('leave', {'sender': sender, 'recipient': recipient, 'product': product})
 			socket.disconnect()
 			socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
+			setMessageUpdate(false)
 		}
 	}, [sender])
 
@@ -86,6 +85,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 		} else {
 			refChat.current.scrollTop = refChat.current.scrollHeight / 2
 		}
+		// refChat.current.scrollTop = refChat.current.scrollHeight
 	}, [msgList])
 
 
