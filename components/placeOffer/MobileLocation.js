@@ -135,7 +135,7 @@ export default function MobileLocation() {
                   )}
                   rules={{ required: 'Укажите ваше местоположение...' }}
                />
-               <p className={classes.placeOfferMapDesc}>Введите название и выберете из списка населенный пункт и улицу</p>
+               <p className={classes.placeOfferMapDesc}>Введите название и Выберите из списка населенный пункт и улицу</p>
                <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe>
             </Box>
             <Button onClick={() => setCollapsed(!collapsed)} className={classes.buttonSend} color='primary' variant='contained'>Сохранить</Button>

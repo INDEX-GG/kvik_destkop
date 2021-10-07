@@ -205,27 +205,27 @@ function PlaceOffer() {
         console.log('obj',obj)
         setLoading(true);
 
-        axios.post(`${BASE_URL}/api/setPosts`, obj)
-            .then(r => {
-				console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
-                postId = r?.data?.id;
-                console.log('postId',postId)
-                additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
-                console.error('additionalfields',additionalfields)
-                axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-                console.log('r',r)
-                axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                }).then((r) => {
-                    // console.log(r)
-                    setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-                    console.log(r?.data.images.photos[0])
-                    setPromotion(true)
-                })
-				// axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})
-            })  
+        // axios.post(`${BASE_URL}/api/setPosts`, obj)
+        //     .then(r => {
+		// 		console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
+        //         postId = r?.data?.id;
+        //         console.log('postId',postId)
+        //         additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
+        //         console.error('additionalfields',additionalfields)
+        //         axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
+        //         console.log('r',r)
+        //         axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
+        //             headers: {
+        //                 "Content-Type": "multipart/form-data"
+        //             }
+        //         }).then((r) => {
+        //             // console.log(r)
+        //             setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+        //             console.log(r?.data.images.photos[0])
+        //             setPromotion(true)
+        //         })
+		// 		// axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})
+        //     })  
 
     }
     

@@ -109,7 +109,7 @@ export default function UnpublishForm() {
 					<Typography className={classes.unpublish_form__item__title}>{offerAction.title}</Typography>
 				</Box>
 				<Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
-				<Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
+				<Typography className={classes.unpublish_form__sub_desc}>Выберите причину</Typography>
 				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано на Kvik</Button>
 				<Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано в другом месте</Button>
 				<Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Другая причина</Button>
@@ -119,7 +119,7 @@ export default function UnpublishForm() {
 		return (
 			<Box className={classes.unpublish_form}>
 				<Typography className={classes.unpublish_form__desc}>Снять с публикации</Typography>
-				<Typography className={classes.unpublish_form__sub_desc}>Выберете причину</Typography>
+				<Typography className={classes.unpublish_form__sub_desc}>Выберите причину</Typography>
 				<Button id='001' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано на Kvik</Button>
 				<Button id='002' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Продано в другом месте</Button>
 				<Button id='003' onClick={(e) => PushBDVerify(e)} className={classes.unpublish_form__btn}>Другая причина</Button>

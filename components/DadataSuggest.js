@@ -103,7 +103,7 @@ const DadataSuggest = () => {
 				   pattern: {value: invalidСharacterLocation() , message: 'Недопустимые символы' },
 			   }}
             />
-			{error ? <div className={classes.mapDesc}>Введите корректный адрес</div> : <div className={classes.mapDesc}>Введите название и выберете из списка населенный пункт и улицу</div>}
+			{error ? <div className={classes.mapDesc}>Введите корректный адрес</div> : <div className={classes.mapDesc}>Введите название и Выберите из списка населенный пункт и улицу</div>}
 			<ProductYMAP coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [+userAddressGeo[0], +userAddressGeo[1]]} height={224} width={490} border={true}/>
 		</div> : null
 	)

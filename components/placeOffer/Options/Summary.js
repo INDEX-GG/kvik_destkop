@@ -261,7 +261,7 @@ export default function Summary({ data }) {
                 ))}
               </TextField>
             )}
-            rules={{ required: "Выберете Специализацию" }}
+            rules={{ required: "Выберите Специализацию" }}
           />
         </Box>
       </Box>
