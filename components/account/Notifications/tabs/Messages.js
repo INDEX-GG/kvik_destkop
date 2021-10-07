@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-// import Develop from '../../../../../components/inDev/Develop';
 import { Dialog } from "@material-ui/core";
 import { ModalMessage } from "../../../Modals";
 import { useMedia } from "../../../../hooks/useMedia"
@@ -91,9 +90,30 @@ function Messages() {
 	}
   }, [id])
 
+  useEffect(() => {
+	if (!matchesTablet && !matchesMobile && messageModal) {
+		setMessageModal(false)
+	}
+  }, [matchesTablet])
+
+  useEffect(() => {
+	if (query?.mobile && room) {
+		if (!messageModal) {
+			setMessageModal(true)
+		}
+	}
+  }, [room])
+
 
   function changeModal() {
     setMessageModal(!messageModal)
+	// router.push({
+	// 	pathname: `/account/${id}`,
+	// 	query: {
+	// 		account: 5,
+	// 		content: 1
+	// 	}
+	// })
   }
 
   const changeChat = (data) => {
@@ -107,7 +127,8 @@ function Messages() {
 			}
 		})
   }
-  
+
+  console.log(room)
 
   return (
     (
@@ -143,7 +164,7 @@ function Messages() {
 					return (
 						<a key={i} className="messageDialog" 
 						  onClick={() => {
-							matchesMobile || matchesTablet ? changeModal() : null
+							matchesMobile || matchesTablet ? setMessageModal(true) : null
 							if (allRooms[i].product_id != room.product_id) {
 								changeChat(allRooms[i])
 							}
@@ -162,7 +183,7 @@ function Messages() {
 							</div>
 							<div className="messageUser small">
 							<div className="messageUserBlock">
-								<img src={`${STATIC_URL}/${item.seller_photo}?${item.seller_id}`} />
+								<img src={item?.seller_photo ? `${STATIC_URL}/${item.seller_photo}?${item.seller_id}` : null} />
 								<div>
 								<div>{item.seller_name}</div>
 								<div className="light">{time}</div>
@@ -213,7 +234,7 @@ function Messages() {
                       <div>{room?.seller_name}</div>
                       <div className="light">00.00.00 00:00</div>
                     </div>
-                    <img src={`${STATIC_URL}/${room?.seller_photo}`} />
+                    <img src={room?.seller_photo ? `${STATIC_URL}/${room?.seller_photo}` : null} />
                   </div>
                   <div>{room?.product_price} ₽</div>
                   <div>{room?.product_name}</div>

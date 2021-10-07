@@ -9,13 +9,14 @@ export const generateTime = (UTC, time, onlyTime=false, onlyDate=false) => {
 }
 
 export const generateProductPhoto = (photos) => {
-	const photosArr = JSON.parse(photos)?.photos
-	return photosArr[0]
+	if (photos) {
+		const photosArr = JSON.parse(photos)?.photos
+		return photosArr[0]
+	}
   }
 
 export const generateDataTocken = (id, token) => {
 	token.then((r) => {
 		const obj = {"user_id": id, "platform": 3, "token": r}
-		console.log(obj)
 		axios.post(`${CHAT_URL_API}/push_token`, obj)})
 }
