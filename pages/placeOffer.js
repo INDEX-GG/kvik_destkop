@@ -76,20 +76,20 @@ function PlaceOffer() {
     /* получение дополнительных полей */
 
 
-    const [asd, setAsd] = useState();
-    const { ...newOBJ } = useCategoryPlaceOffer(asd, methods);
+    const [category, setCategory] = useState();
+    const { ...subcategoryData } = useCategoryPlaceOffer(category, methods);
     useEffect(() => {
 
 
 
         if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
-            setAsd(methods?.watch('alias4').toLowerCase());
+            setCategory(methods?.watch('alias4').toLowerCase());
         } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
-            setAsd(methods?.watch('alias3').toLowerCase());
+            setCategory(methods?.watch('alias3').toLowerCase());
         } else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
-            setAsd(methods?.watch('alias2').toLowerCase());
+            setCategory(methods?.watch('alias2').toLowerCase());
         } else {
-            setAsd(undefined);
+            setCategory(undefined);
         }
 
         
@@ -139,7 +139,7 @@ function PlaceOffer() {
         }
 
         let obj = {}
-        let additionalfields = { [asd]: [] }
+        let additionalfields = { [category]: [] }
         // let additionalfields2 = { [asd]: [] }
 
         // let additionalfields3 = { [asd]: [] }
@@ -156,14 +156,14 @@ function PlaceOffer() {
                 // additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
                 
                 const key1 = key.replace(/[0-9]/g, '')
-                const el = additionalfields[asd].find(el => el.alias === key1)
+                const el = additionalfields[category].find(el => el.alias === key1)
                 if (el){
-                    const index = additionalfields[asd].indexOf(el)
-                    if (!Array.isArray(additionalfields[asd][index].fields)){
-                        additionalfields[asd][index].fields = [additionalfields[asd][index].fields]
+                    const index = additionalfields[category].indexOf(el)
+                    if (!Array.isArray(additionalfields[category][index].fields)){
+                        additionalfields[category][index].fields = [additionalfields[category][index].fields]
                     }
                     if(data[key]){
-                        additionalfields[asd][index].fields.push(data[key])
+                        additionalfields[category][index].fields.push(data[key])
                     }
                 }else{
                     let field = data[key]
@@ -182,7 +182,7 @@ function PlaceOffer() {
                             field = data[key]  
                         }
                     }
-                    additionalfields[asd].push({"alias": key1, "fields": field !== undefined ? field : [] })
+                    additionalfields[category].push({"alias": key1, "fields": field !== undefined ? field : [] })
                 }
                 
 
@@ -196,8 +196,8 @@ function PlaceOffer() {
 
 
         // console.log("asdasdasd",newOBJ[asd]);
-        if (newOBJ[asd] !== undefined) {
-            obj.subcategory = asd
+        if (subcategoryData[category] !== undefined) {
+            obj.subcategory = category
         }
         console.log("addfields", additionalfields)
         // console.log(additionalfields2)
@@ -210,7 +210,7 @@ function PlaceOffer() {
 				console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
                 postId = r?.data?.id;
                 console.log('postId',postId)
-                additionalfields[asd].unshift({ "alias": 'post_id', "fields": postId })
+                additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
                 console.error('additionalfields',additionalfields)
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
                 console.log('r',r)
@@ -243,26 +243,25 @@ function PlaceOffer() {
                                     <Title />
                                     <Category />
                                 </Box>
-                                {newOBJ[asd] !== undefined ?
+                                {subcategoryData[category] !== undefined ?
                                     <Box className={classes.formPart}>
-                                        <AdditionalInformation newOBJ={newOBJ} asd={asd?.toLowerCase()} />
+                                        <AdditionalInformation newOBJ={subcategoryData} asd={category?.toLowerCase()} />
                                     </Box>
                                     : ''}
                                 <Box className={classes.formPart}>
                                     <Description />
-                                    {asd !== 'vacancies' && asd !== 'summary' ? 
+                                    {category !== 'vacancies' && category !== 'summary' ? 
                                         <Price price=''/>
                                         :
                                         null
                                     }
                                     <Photoes ctx={photoesCtx} />
                                 </Box>
-
                                 <Box className={classes.formPart}>
                                     <Location />
                                     <Contacts />
                                     <Box className={classes.submit}>
-                                        <ErrorMessages validate={newOBJ[asd]} type={asd}/>
+                                        <ErrorMessages validate={subcategoryData[category]} type={category}/>
                                         <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
                                     </Box>
                                 </Box>
