@@ -7,7 +7,7 @@ import { CHAT_URL_API, STATIC_URL } from '../../../../lib/constants';
 import { socket } from './socket';
 
 
-const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
+const Chat = ({usersData, userChatPhoto}) => {
 
 	const [message, setMessage] = useState('');
 	const [msgList, setMsgList] = useState();
@@ -28,12 +28,12 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 	useEffect(() => {
 		if (socketConnect) {
-			socket.emit('leave', {'sender': sender, 'recipient': recipient, 'product': product})
+			socket.emit('leave', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product':  usersData?.product})
 			socket.disconnect()
-			socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
+			socket.emit('join', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 			setMessageUpdate(false)
 		}
-	}, [sender])
+	}, [usersData?.sender])
 
 
 	useEffect(() => {
@@ -42,7 +42,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 				setUserOnline(false)
 				setSocketConnect(false)
 				console.log("SOCKET DISCONNECT")
-				socket.emit('leave', {'sender': sender, 'recipient': recipient, 'product': product})
+				socket.emit('leave', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 				socket.disconnect()
 			}
 		})
@@ -73,7 +73,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 	useEffect(() => {
 		if (query?.companion_id && query?.product_id && userInfo?.name && id) {
-			socket.emit('join', {'sender': sender, 'recipient': recipient, 'product': product})
+			socket.emit('join', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 			chatHistory()
 		}
 	}, [query, userInfo, id])
@@ -106,10 +106,10 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 				'delete': false, 
 				'message': message, 
 				'messages_is_read': false, 
-				'recipient': recipient, 
-				'sender': sender,
-				'sender_id': sender.id,
-				'product': product, 
+				'recipient': usersData?.recipient, 
+				'sender': usersData?.sender,
+				'sender_id': usersData?.sender.id,
+				'product': usersData?.product, 
 				'time': JSON.stringify(messageDate),
 			}
 			await socket.emit('text', sendObj)
@@ -141,7 +141,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 				if (!data.msg) {
 					console.log(data)
 					if (data.sender?.id != id) {
-						socket.emit('online', {'sender': sender, 'recipient': recipient, 'product': product})
+						socket.emit('online', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 					}
 					
 					setMsgList(prev => [...prev, data])
@@ -188,7 +188,7 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 
 
 	const handleKeyDown = (e) => {
-		socket.emit('typing', {'sender': sender, 'recipient': recipient, 'product': product})
+		socket.emit('typing', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 		if (messageUpdate) setMessageUpdate(false)
 		if (e.key == 'Enter' && e.target.value.length <= 300) {
 			handleSend()
@@ -214,12 +214,13 @@ const Chat = ({usersData: {sender, recipient, product}, userChatPhoto}) => {
 					const myMessage = item?.sender_id == id
 					item.messages_is_read = userOnline ? true: item.messages_is_read
 					const key = id?.id ? id?.id : index
+					const morePartnerMessage = msgList[index - 1]?.sender_id == item.sender_id
 					return (
 						item?.delete ? null :
 						<div key={key}
 						  ref={item.id == messageId ? refMessage : null} 
 						  className={myMessage ? "chatUser" : "chatLocutor"}>
-							{myMessage ? null : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
+							{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
 							<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 								{item.message}
 							</div>
