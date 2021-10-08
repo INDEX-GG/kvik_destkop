@@ -5,6 +5,8 @@ import { checkArray } from '../lib/services';
 export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard, favId, idOffer }) {
 	const { setLikeComment } = useStore()
 	const { userInfo } = useStore()
+	//console.log(isProduct, isAccountCard, favId, idOffer)
+	//console.log(userInfo)
 	let comment;
 /* 	if (isCard) {
 		const getFavorits = (e) => {
@@ -79,7 +81,7 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 					</div>
 					<a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
 					<div>
-						<span onClick={(e) => getFavoritsPost(e)} className="SellerInfoFavorite like-active"></span>
+						<span onClick={(e) => getFavoritsPost(e) } className="SellerInfoFavorite like-active"></span>
 					</div>
 				</>
 			)
@@ -87,11 +89,11 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 			return (
 				<>
 					<div className='main__input_note'>
-						<input onBlur={e => getNote(e)} title={`${comment}` !== '' ? comment : 'Ваша заметка'} className="SellerInfoNoteInput" placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'} />
+						<input onBlur={e =>  getNote(e)} title={`${comment}` !== '' ? comment : 'Ваша заметка'} className="SellerInfoNoteInput" placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'} />
 					</div>
-					<a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
+					<a className="SellerInfoNote" onClick={(e) => userInfo ? openNote(e) : null}></a>
 					<div>
-						<span onClick={(e) => getFavoritsPost(e)} className="SellerInfoFavorite"></span>
+						<span onClick={(e) => userInfo ? getFavoritsPost(e) : null } className="SellerInfoFavorite"></span>
 					</div>
 				</>
 			)

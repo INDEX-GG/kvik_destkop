@@ -53,7 +53,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		});
 	}
 
-
 	const handleWheelClick = (e, id) => {
 		if (e.button === 1) {
 			window.open(`/product/${id}`);
@@ -168,13 +167,13 @@ const AdCard_component = React.forwardRef((props, ref) => {
 							{offer.user_id != id ? (
 								userInfo !== undefined && userInfo.favorites.length > 0 && userInfo.favorites && userInfo.favorites.filter(item => item.post_id == offer.id)?.[0]?.condition ?
 									<IconButton
-										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites !== undefined && userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false)}
+										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites !== undefined && userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false) }
 										color='primary'
 										className='card_like'>
 										<FavoriteRoundedIcon />
 									</IconButton> :
 									<IconButton
-										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites !== undefined && userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true)}
+										onClick={() => id ? setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites !== undefined && userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true) : null }
 										color='secondary'
 										className='card_like'>
 										<FavoriteBorderRoundedIcon />

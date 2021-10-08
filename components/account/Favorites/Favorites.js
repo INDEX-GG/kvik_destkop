@@ -61,7 +61,7 @@ const Favorites = () => {
 	const { id } = useAuth();
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
 	const router = useRouter()
-
+	console.log(id)
 
 	const [offetFav, setOfferFav] = useState()
 
@@ -74,7 +74,7 @@ const Favorites = () => {
 		// if (offetFav) {
 		// 	favAciveOffer = offetFav?.posts.filter((item) => item.condition === 'true')
 		// }
-
+		console.log("работает чи нет?",id)
 	}, [id])
 
 	let favAciveOffer = offetFav?.posts?.filter((item) => item.condition === 'true')

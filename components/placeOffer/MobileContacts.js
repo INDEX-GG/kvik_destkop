@@ -10,7 +10,7 @@ import { useStore } from '../../lib/Context/Store';
 const useStyles = makeStyles(() => ({
 	plaseOfferBox: {
 		width: "100%",
-		padding: "0 12px",
+		padding: "0 8px",
 		backgroundColor: "#ffff",
 		boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
 	},
@@ -80,6 +80,15 @@ const useStyles = makeStyles(() => ({
 		transform: "translateX(-50%)",
 		marginTop: "104px"
 	},
+	label:{
+		"& > span":{
+			fontSize: "14px"
+		}
+	},
+	check: {
+		height: "22px",
+		width: "22px"
+	}
 }));
 
 export default function MobileContact() {
@@ -102,11 +111,13 @@ export default function MobileContact() {
 				<Typography className={classes.plaseOfferTitle}>Контакты</Typography>
 				<div className={`${classes.plaseOfferMore} ${collapsed ? classes.placeOfferMoreActive : ""}`} onClick={() => setCollapsed(!collapsed)}>{phones[0]?.value}</div>
 			</Box>
+			
 			<Box className={classes.plaseOfferBoxItem}>
+				<Box style={{marginRight: "auto", fontSize: "14px"}}>Способ связи:</Box>
 				<Controller
 					name='bymessages'
 					control={methods.control}
-					defaultValue={false}
+					defaultValue={true}
 					render={({ field: { onChange, value } }) => (
 						<FormControlLabel
 							className={classes.label}
@@ -127,7 +138,7 @@ export default function MobileContact() {
 				<Controller
 					name='byphone'
 					control={methods.control}
-					defaultValue={false}
+					defaultValue={true}
 					render={({ field: { onChange, value } }) => (
 						<FormControlLabel
 							className={classes.label}
