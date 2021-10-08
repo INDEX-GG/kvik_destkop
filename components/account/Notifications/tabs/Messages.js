@@ -48,15 +48,14 @@ function Messages() {
 
 
   function changeModal() {
-	// router.push({
-	// 	pathname: `/account/${id}`,
-	// 	query: {
-	// 		account: 5,
-	// 		content: 1
-	// 	}
-	// })
-	console.log(1)
 	setMessageModal(!messageModal)
+	router.push({
+		pathname: `/account/${id}`,
+		query: {
+			account: 5,
+			content: 1
+		}
+	})
   }
 
 
@@ -118,7 +117,7 @@ function Messages() {
 			}
 		})
 	}
-  }, [matchesTablet])
+  })
 
   useEffect(() => {
 	if (query?.mobile && room) {
