@@ -21,7 +21,6 @@ export default async function handler(req, res) {
 			// 	getPost[0].viewing_bool = false
 			// }
 
-
 			return await getPost;
 		}
 
