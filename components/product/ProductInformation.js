@@ -23,7 +23,7 @@ export default function ProductInformation({ productionInfo, description, catero
 	const [productData, setProductData] = useState(null)
 	const [fieldsCount, setFieldsCount] = useState(0)
 	const categoryName = caterory?.toLowerCase()
-
+	console.log(categoryName)
 	useEffect(() => {
 		let count = 0
 		for (let key in productionInfo){

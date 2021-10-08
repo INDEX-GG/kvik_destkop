@@ -10,7 +10,7 @@ function About() {
     <div className="about">
       <MetaLayout title={'Информация о компании'}>
         <div className="bodyAbout">
-          <h2 className="aboutTitle">Продавай и покупай легко с kvik</h2>
+          <h2 className="aboutTitle">Продавай и покупай легко с KVIK</h2>
           <div className="text1">Огромный ассортимент товаров и услуг</div>
           <br />
           <div className="text2">
