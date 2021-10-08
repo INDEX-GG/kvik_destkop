@@ -69,14 +69,19 @@ export default function OtherTransport({ data }) {
   const classes = useStyles();
   const [make, setMake] = useState(null);
   const [type, setType] = useState(null);
+  const [subType, setSubType] = useState(null);
   
   const typeData = useMemo(() => {
     methods.setValue('make', '')
     return data?.find((el) => el.value === type)?.children;
   }, [type])
+
+  const subTypeData = useMemo(() => {
+    return typeData?.find((el) => el.value === subType)?.children;
+  }, [subType])
+
   const makeData = useMemo(() => {
-    methods.setValue('model', '')
-    return typeData?.find((el) => el.value === make)?.children;
+    return subTypeData?.find((el) => el.value === make)?.children;
   }, [make]);
 
   return (
@@ -116,10 +121,46 @@ export default function OtherTransport({ data }) {
       </Box>
       {(type && typeData) && (
         <Box className={classes.formElem}>
-          <Typography className={classes.formTitleField}>Марка</Typography>
+          <Typography className={classes.formTitleField}>Подтип техники</Typography>
           <Box className={classes.formInputField}>
             <Controller
               name={typeData[0].alias}
+              rules={{ required: "Выберите Марку" }}
+              control={methods.control}
+              defaultValue=""
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  select
+                  className={classes.input}
+                  variant="outlined"
+                  value={value}
+                  onChange={(e) => {
+                    onChange(e);
+                    setSubType(e.target.value);
+                  }}
+                  error={!!error}
+                  helperText={error ? error.message : " "}
+                >
+                  {typeData.map((option, i) => (
+                    <MenuItem key={i} value={option.value}>
+                      {option.value}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
+          </Box>
+        </Box>
+      )}
+      {(type && typeData) && (subType && subTypeData) && (
+        <Box className={classes.formElem}>
+          <Typography className={classes.formTitleField}>Марка</Typography>
+          <Box className={classes.formInputField}>
+            <Controller
+              name={subTypeData[0].alias}
               rules={{ required: "Выберите Марку" }}
               control={methods.control}
               defaultValue=""
@@ -139,7 +180,7 @@ export default function OtherTransport({ data }) {
                   error={!!error}
                   helperText={error ? error.message : " "}
                 >
-                  {typeData.map((option, i) => (
+                  {subTypeData.map((option, i) => (
                     <MenuItem key={i} value={option.value}>
                       {option.value}
                     </MenuItem>
@@ -150,7 +191,7 @@ export default function OtherTransport({ data }) {
           </Box>
         </Box>
       )}
-      {(make && makeData && type && typeData) && (
+      {(make && makeData && type && typeData && subType && subTypeData) && (
         <Box className={classes.formElem}>
           <Typography className={classes.formTitleField}>Модель</Typography>
           <Box className={classes.formInputField}>

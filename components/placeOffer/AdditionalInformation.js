@@ -18,6 +18,7 @@ import AgriculturalMachinery from './Options/Agricultural_machinery';
 import ForestryEquipment from './Options/Forestry_equipment';
 import Tractors from './Options/Tractors';
 import Excavators from './Options/Excavators';
+import OtherTransport from './Options/Other_transport';
 
 
 
@@ -129,7 +130,7 @@ const AdditionalInformation = (data) => {
 
 		case 'other_transport':
 
-			return <Other data={data.newOBJ[data.asd]} />;
+			return <OtherTransport data={data.newOBJ[data.asd]} />;
 		case 'parts_and_accessories':
 
 			return null;
