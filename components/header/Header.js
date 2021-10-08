@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import HeaderAccount from "./HeaderAccount";
 import { useStore } from "../../lib/Context/Store";
 
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -96,6 +98,8 @@ const Header = ({ category }) => {
     document.addEventListener("scroll", listenScroll);
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
+
+  
 
   return (
     <>
