@@ -107,6 +107,16 @@ function Messages() {
   useEffect(() => {
 	if (!matchesTablet && !matchesMobile && messageModal) {
 		setMessageModal(false)
+		console.log(chatUsers)
+		router.push({
+			pathname: `/account/${id}`,
+			query: {
+				account: 5,
+				content: 1,
+				companion_id: chatUsers?.recipient?.id,
+				product_id: chatUsers?.product?.id
+			}
+		})
 	}
   }, [matchesTablet])
 
@@ -159,6 +169,9 @@ function Messages() {
 			  	allRooms.map((item, i) => {
 					const productPhoto = generateProductPhoto(item.product_photo)
 					const time = generateTime(0, item.time)
+					const senderPhoto = item?.sender_id == id ? `${item?.customer_photo}` : `${item?.seller_photo}`
+					const senderName = item?.sender_id == id ? item?.customer_name : item?.seller_name
+					console.log(senderName)
 					return (
 						<a key={i} className="messageDialog" 
 						  onClick={() => {
@@ -181,9 +194,9 @@ function Messages() {
 							</div>
 							<div className="messageUser small">
 							<div className="messageUserBlock">
-								<img src={item?.seller_photo ? `${STATIC_URL}/${item.seller_photo}?${item.seller_id}` : null} />
+								<img src={item?.seller_photo ? `${STATIC_URL}/${senderPhoto}` : null} />
 								<div>
-								<div>{item.seller_name}</div>
+								<div>{senderName}</div>
 								<div className="light">{time}</div>
 								</div>
 							</div>

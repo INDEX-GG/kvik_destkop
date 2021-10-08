@@ -106,7 +106,7 @@ export function ModalMessage({ modal, usersData, room, userChatPhoto }) {
 				</>
 			</div>
 
-			<div className="messageMobile" style={{height: window.innerHeight - 98 - 12 + 'px' }}>
+			<div className="messageMobile" style={{height: window.innerHeight - 98 - 68 + 'px' }}>
 				<div className="messageHeader small">
 					<img src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`} />
 					<div>
