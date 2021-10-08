@@ -23,7 +23,38 @@ const SearchBlock = ({value}) => {
     const classes = useStyles();
 
 
-    const dictionaryOfCars = ['bmw', 'лада', 'renault', 'toyota', 'skoda', 'hyundai', 'chery', 'kia']
+    const dictionaryOfCars = [
+        'acura', 'alfa Romeo', 'audi', 'ac', 'adler', 'alpina', 'amc', 'ariel', 'aro', 'asia', 'abum', 'austin', 'aston martin',
+        'baic', 'bajaj', 'baltijas dzips', 'boajun', 'barkas', 'baw', 'bentley', 'bmw', 'bio auto', 'brilliance', 'bufori', 'buick', 'byd',
+        'cadillac', 'caterham', 'changhe', 'changan', 'chery', 'cheryexeed', 'chevrolet', 'chrysler', 'citroen',
+        'dacia', 'dadi', 'daewoo', 'daihatsu', 'daimler', 'datsun', 'derways', 'dkw', 'dodge', 'dongfeng', 'doninvest', 'ds', 'dw hower',
+        'eagle', 'excalibur',
+        'faw', 'ferrari', 'fiat', 'fisker', 'ford', 'foton', 'fso',
+        'gac', 'geely', 'genesis', 'gmc', 'golden dragon', 'great wall',
+        'hafei', 'haima', 'hanomag', 'huanghai', 'hudson', 'haval', 'hawtai', 'honda', 'hummer', 'hyundai',
+        'infinity', 'iran khordo', 'isuzu', 'iveco',
+        'jac', 'jaguar', 'jeep', 'jensen', 'jinbei', 'jmc', 'kia',
+        'lamborghini', 'lancia', 'land rover', 'landwind', 'ldv', 'lexus', 'lifan', 'lincoln', 'luxgen',
+        'mahindra', 'marussia', 'maruti', 'maserati', 'maybach', 'mazda', 'mclaren', 'mercedes-benz', 'mercury', 'metrocab', 'mg', 'mini', 'mitsubishi', 'mitsuoka', 'morgan', 'morris',
+        'nissan', 'nysa',
+        'oldsmobile', 'osca', 'opel',
+        'packard', 'peugeot', 'plymouth', 'pontiac', 'porsche', 'proton', 'puch',
+        'ram', 'ravon', 'reliant', 'renault', 'renault samsung', 'rocar', 'rolls-royce', 'rover',
+        'saab', 'saturn', 'scion', 'seat', 'shunaghuan', 'skoda', 'sma', 'smart', 'ssangyong', 'steyr', 'studebaker', 'subaru', 'suzuki',
+        'talbot', 'tata', 'tatra', 'tazzari', 'tesla', 'tianma', 'tianye', 'toyota', 'trabant', 'triumph',
+        'vauxhall', 'volkswagen', 'volvo', 'vortex',
+        'wanderer', 'wartburg', 'weltmeister', 'westfield', 'willys', 'w motors',
+        'xin kai', 'xpeng',
+        'zibar', 'zotye', 'zx',
+        'автокам', 'апал', 'богдан',
+        'ваз (lada)', 'ваз', 'lada', 'вис', 'газ', 'ераз', 'заз', 'зил', 'зис', 'иж', 'канонир', 'комбат', 'луаз', 'москвич', 'раф', 'смз', 'тагаз', 'уаз']
+
+
+    const dictionaryOfRealEstate = [
+        'квартира', 'квартира в новостройках', 'квартира в аренду', 'квартира посуточно', 'отели',
+        'дом', 'дача', 'коттедж', 'комната', 'коммерческая недвижимость', 'земельный участок', 'гараж', 'машиноместо',]
+
+
     const dictionaryOfAnimals = ['кошка', 'собака', 'щенок', 'крот', 'пёсик', 'котенок', 'корова', 'рыбка', 'крыса']
 
     let category
@@ -32,13 +63,15 @@ const SearchBlock = ({value}) => {
 
     if (dictionaryOfCars.includes(value.toLowerCase())) {
         category = "transport"
-    } else if (dictionaryOfAnimals.includes(value.toLowerCase())){
+    } else if (dictionaryOfAnimals.includes(value.toLowerCase())) {
         category = "Animals"
+    } else if (dictionaryOfRealEstate.includes(value.toLowerCase())) {
+        category = "real_estate"
     }
     // dictionaryOfCars.includes(value.toLowerCase()) ? "transport" : ""
 
 
-        console.log(value)
+    console.log(value)
     // switch (value) {
     //     case dictionaryOfCars.includes(value.toLowerCase()):
     //         console.log('rere `gnf$$$$$$$$$',)
