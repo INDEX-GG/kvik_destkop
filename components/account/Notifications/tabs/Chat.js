@@ -5,6 +5,8 @@ import { useStore } from '../../../../lib/Context/Store';
 import axios from 'axios';
 import { CHAT_URL_API, STATIC_URL } from '../../../../lib/constants';
 import { socket } from './socket';
+import { generateTime } from './chatFunctions';
+// import { generateTime } from './chatFunctions';
 
 
 const Chat = ({usersData, userChatPhoto}) => {
@@ -136,14 +138,15 @@ const Chat = ({usersData, userChatPhoto}) => {
 					case('user_leave'):
 						setUserOnline(false)
 						break;
+					default: {
+						console.log(1)
+					}
 				}
 
 				if (!data.msg) {
-					console.log(data)
 					if (data.sender?.id != id) {
 						socket.emit('online', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 					}
-					
 					setMsgList(prev => [...prev, data])
 				}
 			})
@@ -214,7 +217,11 @@ const Chat = ({usersData, userChatPhoto}) => {
 					const myMessage = item?.sender_id == id
 					item.messages_is_read = userOnline ? true: item.messages_is_read
 					const key = id?.id ? id?.id : index
-					const morePartnerMessage = msgList[index - 1]?.sender_id == item.sender_id
+					const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
+					// const newDate = generateTime(0, item?.time, false, true)
+					// const prevDate = generateTime(0, msgList[index ? index - 1 : index]?.time, false, true)
+					// console.log(newDate)
+					// prevDate == newDate
 					return (
 						item?.delete ? null :
 						<div key={key}
@@ -224,7 +231,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 							<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 								{item.message}
 							</div>
-							<div>{item?.timet}</div>
+							<div>{generateTime(0, item?.time, true)}</div>
 						</div>
 					)
 				})}
