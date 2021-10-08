@@ -3,7 +3,6 @@ import { useStore } from '../lib/Context/Store';
 import { checkArray } from '../lib/services';
 
 export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard, favId, idOffer }) {
-
 	const { setLikeComment } = useStore()
 	const { userInfo } = useStore()
 	let comment;
