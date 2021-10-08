@@ -83,7 +83,7 @@ export default function Attachments({ data }) {
     <>
       
       <Box className={classes.formElem}>
-        <Typography className={classes.formTitleField}>Марка</Typography>
+        <Typography className={classes.formTitleField}>Тип техники</Typography>
         <Box className={classes.formInputField}>
           <Controller
             name={data[0].alias}
@@ -116,7 +116,7 @@ export default function Attachments({ data }) {
       </Box>
       {(type && typeData) && (
         <Box className={classes.formElem}>
-          <Typography className={classes.formTitleField}>Модель</Typography>
+          <Typography className={classes.formTitleField}>Марка</Typography>
           <Box className={classes.formInputField}>
             <Controller
               name={typeData[0].alias}

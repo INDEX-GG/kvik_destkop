@@ -13,6 +13,11 @@ import CommunalMachinery from './Options/Communal_machinery';
 import LightCommercialVehicles from './Options/Light_commercial_vehicles';
 import Attachments from './Options/Attachments';
 import Loaders from './Options/Loaders';
+import ConstructionMachinery from './Options/Construction_machinery';
+import AgriculturalMachinery from './Options/Agricultural_machinery';
+import ForestryEquipment from './Options/Forestry_equipment';
+import Tractors from './Options/Tractors';
+import Excavators from './Options/Excavators';
 
 
 
@@ -25,7 +30,7 @@ const AdditionalInformation = (data) => {
 
 	switch (data.asd) {
 		case 'agricultural_machinery':
-			return null;
+			return <AgriculturalMachinery data={data.newOBJ[data.asd]} />;
 
 		case 'all_marks':
 			return null;
@@ -66,13 +71,13 @@ const AdditionalInformation = (data) => {
 			return <CommunalMachinery data={data.newOBJ[data.asd]} />;
 
 		case 'construction_machinery':
-			return null;
+			return <ConstructionMachinery data={data.newOBJ[data.asd]} />;
 
 		case 'controllers_adapters_modules_for_servers':
 			return null;
 
 		case 'excavators':
-			return null;
+			return <Excavators data={data.newOBJ[data.asd]} />;
 
 
 		case 'flash_drive':
@@ -80,13 +85,9 @@ const AdditionalInformation = (data) => {
 
 		case 'forestry_equipment':
 
-			return null;
+			return <ForestryEquipment data={data.newOBJ[data.asd]} />;
 
 		case 'hdd':
-
-			return null;
-
-		case 'house_on_wheels':
 
 			return null;
 
@@ -128,7 +129,7 @@ const AdditionalInformation = (data) => {
 
 		case 'other_transport':
 
-			return null;
+			return <Other data={data.newOBJ[data.asd]} />;
 		case 'parts_and_accessories':
 
 			return null;
@@ -262,6 +263,7 @@ const AdditionalInformation = (data) => {
 		case 'sell_abroad':
 		case 'rent_abroad':
 		case 'secondary_housing':
+		case 'house_on_wheels':
 		case 'sell_agriculturalland':
 		case 'sell_building':
 		case 'sell_commercial_premises':
@@ -322,7 +324,7 @@ const AdditionalInformation = (data) => {
 		case 'tractors_and_agricultural_machinery':
 			return null;
 		case 'tractors':
-			return null;
+			return <Tractors data={data.newOBJ[data.asd]} />;
 		case 'trailers':
 			return <Trailers data={data.newOBJ[data.asd]} />;
 		case 'truck_cranes':
