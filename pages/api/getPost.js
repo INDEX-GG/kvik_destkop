@@ -7,8 +7,10 @@ export default async function handler(req, res) {
 
 		const main = async () => {
 			// const user_id = (req.body.user_id).toString()
-			let getPost = await prisma.$queryRaw(`WITH ver AS ( SELECT * FROM "posts" WHERE id = ${+req.body.id}) SELECT users."userPhoto",users.name, posts.user_id ,users.raiting, users.id,posts.secure_transaction,posts.description,verifed.desc,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email,posts.active, posts.subcategory, posts.viewing, posts.coordinates FROM "ver","posts","verifed","users" WHERE (posts.id = ${+req.body.id}) AND (users.id = posts.user_id)`)
-			// let getPost = await prisma.$queryRaw(`SELECT users."userPhoto",users.name, posts.user_id ,users.raiting, users.id,posts.secure_transaction,posts.description,verifed.desc,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email,posts.active, posts.subcategory, posts.viewing, posts.coordinates FROM "posts" WHERE posts.id = ${+req.body.id} INNER JOIN "users" ON posts.user_id = users.id`)
+			// let getPost = await prisma.$queryRaw(`WITH ver AS ( SELECT * FROM "posts" WHERE id = ${+req.body.id}) SELECT users."userPhoto",users.name, posts.user_id ,users.raiting, users.id,posts.secure_transaction,posts.description,verifed.desc,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email,posts.active, posts.subcategory, posts.viewing, posts.coordinates FROM "ver","posts","verifed","users" WHERE (posts.id = ${+req.body.id}) AND (users.id = posts.user_id)`)
+
+			let getPost = await prisma.$queryRaw(`SELECT users."userPhoto",users.name, posts.user_id ,users.raiting, users.id,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email,posts.active, posts.subcategory, posts.viewing, posts.coordinates FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = ${+req.body.id}`)
+
 			// let views = getPost[0].viewing
 			// let preList = views.substring(1);
 			// let preList2 = preList.substring(0, preList.length - 1);
@@ -18,7 +20,8 @@ export default async function handler(req, res) {
 			// } else {
 			// 	getPost[0].viewing_bool = false
 			// }
-			//
+
+
 			return await getPost;
 		}
 
