@@ -42,11 +42,10 @@ const Verify = ({edit}) => {
     const [verifyContacts, setVerifyContacts] = useState(false);
     const [showCategory, setShowCategory] = useState(false);
 
-    // проверка был переход из страница редактирования или нет
+    // проверка был переход из страницы редактирования или нет
     useEffect(() => {
         edit ? setShowCategory(true) : setShowCategory(false)
     }, [edit]);
-
 
 
 
@@ -72,11 +71,11 @@ const Verify = ({edit}) => {
         setVerifyContacts(!!methods.watch('contact') && (!!methods.watch('bymessages') || !!methods.watch('byphone')) );
     })
     useEffect(() => {
-        if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
+        if (methods?.watch('alias4') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
             setAlias(methods?.watch('alias4'));
-        } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
+        } else if (methods?.watch('alias3') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
             setAlias(methods?.watch('alias3'));
-        } else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
+        } else if (methods?.watch('alias2') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
             setAlias(methods?.watch('alias2'));
         } else {
             setAlias(false);

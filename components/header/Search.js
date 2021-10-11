@@ -1,10 +1,11 @@
 import { Box, TextField, makeStyles} from '@material-ui/core';
 
 import SearchIcon from '@material-ui/icons/Search';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useMedia } from '../../hooks/useMedia';
 import SearchBlock from './SearchBlock';
 import SearchCheckbox from './SearchCheckbox';
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles(() => ({
 	input: {
@@ -66,6 +67,20 @@ const Search = ({text = false}) => {
 	// 		.then(res => console.log(res))
 	// }, [result])
 
+
+	const router = useRouter()
+
+	useEffect(() => {
+		const handleRouteChange = () => {
+			setSearchValue('')
+		}
+		router.events.on('routeChangeStart', handleRouteChange)
+		return () => {
+			router.events.off('routeChangeStart', handleRouteChange)
+		}
+	}, [])
+
+
 	const handleChange = (e) => {
 		setSearchValue(e.target.value)
 	}
@@ -99,7 +114,7 @@ const Search = ({text = false}) => {
 					</div>
 				}
 				{(showButtons && searchValue && searchValue.length < 25) && 
-					<SearchBlock value={searchValue} />
+					<SearchBlock value={searchValue} setSearchValue={setSearchValue}/>
 				}
 				
 		</Box>

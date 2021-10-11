@@ -18,9 +18,7 @@ const Offers = () => {
   const [archiveOffersBox, setArchiveOffersBox] = useState([]);
   const router = useRouter();
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
-  
 
-  console.log(userAccountProvider)
 
   useEffect(() => {
     if (userAccountProvider?.length > 0) {
