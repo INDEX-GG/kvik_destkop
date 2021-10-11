@@ -47,7 +47,7 @@ const aliasIcon = {
   services: <BurgerServices  size={18} fill="#8F8F8F"  />
 };
 
-const SearchItem = ({children, category, setSearchValue, value}) => {
+const SearchItem = ({children, category, setSearchValue}) => {
 	const classes = useStyles();
   const {categoriesByAlias} = useFindCategory()
   
