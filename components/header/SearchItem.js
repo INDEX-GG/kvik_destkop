@@ -47,7 +47,7 @@ const aliasIcon = {
   services: <BurgerServices  size={18} fill="#8F8F8F"  />
 };
 
-const SearchItem = ({children, category}) => {
+const SearchItem = ({children, category, setSearchValue, value}) => {
 	const classes = useStyles();
   const {categoriesByAlias} = useFindCategory()
   
@@ -58,8 +58,14 @@ const SearchItem = ({children, category}) => {
   const categoryName = splited.length === 1 ? categoryData.name : categoryData.label
   console.log('categoryName',categoryName);
 
+  const RouterPush = () => {
+    setSearchValue('')
+    return Router.push(`/search/${splited.slice(-1)}`)
+  }
+
+
   return (
-    <div  className={classes.searchItem} onClick={() => Router.push(`/search/${splited.slice(-1)}`)} tabIndex={0}>
+    <div  className={classes.searchItem} onClick={() => RouterPush()} tabIndex={0}>
       <span className={classes.text}>{children}</span>
       <span className={classes.category}>{aliasIcon[category] ? aliasIcon[category] : <DefaultCategory />} <span style={{paddingLeft: 8}}>{categoryName}</span> </span>
     </div>

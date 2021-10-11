@@ -106,8 +106,8 @@ function PlaceOffer() {
 
 
     const onSubmit = data => {
-        console.log('DATAAAAAAA',data)
-        console.log(photoes, photoes.length)
+        // console.log('DATAAAAAAA',data)
+        // console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -228,7 +228,8 @@ function PlaceOffer() {
             })  
 
     }
-    
+
+
 
     return (
         promotion ? <Promotion product={product} /> :

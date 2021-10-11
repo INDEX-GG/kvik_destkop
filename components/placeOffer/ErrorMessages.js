@@ -1,5 +1,5 @@
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useFormContext } from 'react-hook-form';
 import { isObjectEmpty } from '../../lib/services';
 
@@ -11,9 +11,68 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const ErrorMessages = ({validate, type}) => {
+const ErrorMessages = ({validate, type, edit}) => {
 	const classes = useStyles();
 	const methods = useFormContext();
+
+	const [alias, setAlias] = useState(false);
+	const [verifyTilte, setVerifyTilte] = useState(false);
+	const [verifyDescription, setVerifyDescription] = useState(false);
+	const [verifyCategory, setVerifyCategory] = useState(false);
+	const [verifyPrice, setVerifyPrice] = useState(false);
+	const [verifyAllFields, setVerifyAllFields] = useState(false);
+	const [verifyPhotoes, setVerifyPhotoes] = useState(false);
+
+
+	useEffect(() => {
+		setVerifyTilte(!!methods.watch('title'));
+		setVerifyPrice(!!methods.watch('price'));
+		setVerifyCategory(alias)
+		edit ? setVerifyPhotoes(true) : setVerifyPhotoes(!!methods.watch('photoes'));
+
+
+		if (alias === 'auto'){
+			if (!!methods.watch('description') === true){
+				if(!!methods.watch('color') === true){
+					setVerifyDescription(validateAuto())
+				}
+			}
+		} else {
+			setVerifyDescription(!!methods.watch('description'))
+		}
+
+		if (verifyTilte && verifyDescription && verifyPrice && verifyCategory && verifyPhotoes) {
+			console.log('кукушка')
+			setVerifyAllFields(true)
+		} else {
+			setVerifyAllFields(false)
+		}
+
+	});
+
+
+
+	useEffect(() => {
+		if (methods?.watch('alias4') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
+			setAlias(methods?.watch('alias4'));
+		} else if (methods?.watch('alias3') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
+			setAlias(methods?.watch('alias3'));
+		} else if (methods?.watch('alias2') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
+			setAlias(methods?.watch('alias2'));
+		} else {
+			setAlias(false);
+		}
+	}, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
+
+	const reqAutoFields = ["type_park_auto", "vine","modelsAuto","submodels","generation","modification", "mileage","owners_of_pts","documents","condition","exchange_is_possible","status","steering_wheel", "color"];
+	const validateAuto = () => {
+		for (let field of reqAutoFields){
+			if(!methods.watch(field)) return false
+		}
+		return true
+	}
+
+
 	let validArr = []
 	if (type !== 'auto'){
 		validate?.forEach((el) => {
@@ -22,6 +81,8 @@ const ErrorMessages = ({validate, type}) => {
 			}
 		})
 	}
+
+
 
 	const auto = <>{!!methods.formState.errors?.type_park_auto && <Typography variant='subtitle2' color='error'>{methods.formState.errors?.type_park_auto?.message}</Typography>}
 	{!!methods.formState.errors?.vine && <Typography variant='subtitle2' color='error'>{methods.formState.errors?.vine?.message}</Typography>}
@@ -51,8 +112,8 @@ const ErrorMessages = ({validate, type}) => {
 			{!!methods.formState.errors?.photoes && <Typography variant='subtitle2' color='error'>{methods.formState.errors?.photoes?.message}</Typography>}
 			{!!methods.formState.errors?.location && <Typography variant='subtitle2' color='error'>{methods.formState.errors?.location?.message}</Typography>}
 			{type === "auto" ? auto : null}
-			{isObjectEmpty(methods.formState.errors) && <Typography variant='subtitle2'>Заполните все обязательные поля</Typography>}
-			
+			{isObjectEmpty(methods.formState.errors) && !verifyAllFields && <Typography variant='subtitle2'>Заполните все обязательные поля</Typography>}
+
 			{validArr.map((el, i) => {
 				if (methods.formState.errors?.[el]) return <Typography key={i} variant='subtitle2' color='error'>{methods.formState.errors?.[el]?.message}</Typography>
 			})}

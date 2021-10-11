@@ -168,7 +168,7 @@ function EditPage() {
 									<Location address={address}/>
 									<Contacts />
 									<Box className={classes.submit}>
-										<ErrorMessages />
+										<ErrorMessages edit={edit}/>
 										<Button type='submit' color='primary' variant='contained'>Продолжить</Button>
 									</Box>
 								</Box>
