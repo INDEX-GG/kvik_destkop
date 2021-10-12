@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
 			content: '""',
             border: "#8F8F8F solid 1px",
         }
+	},
+	btn__add_location: {
+		color: "#8F8F8F"
 	}
 }));
 

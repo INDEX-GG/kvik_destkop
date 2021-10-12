@@ -33,7 +33,7 @@ function Footer2() {
           <a className='contactsLinkFooter2' href="/contacts">Контакты</a>
           <a className='offerLinkFooter2' href='/offer'>Оферта</a>
         </div>
-        <div className='indexTitleFooter2'> <a href="https://lndex.ru">Разработано студией INDEX</a></div>
+        <div className='indexTitleFooter2'> <a target="_blank" href="https://lndex.ru" rel="noopener noreferrer">Разработано студией INDEX</a></div>
       </div>
     </div>
   );
