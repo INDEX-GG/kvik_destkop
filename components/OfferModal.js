@@ -77,7 +77,7 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 	const { setQuery } = useOfferAccount();
 
 	function PushDb(id) {
-		var arr = { 'id': offerId, 'active': `${id}` }
+		let arr = { 'id': offerId, 'active': `${id}` }
 		axios.post(`${BASE_URL}/api/verifyActive`, arr)
 			.then(r => r.data)
 			.finally(function () {
