@@ -52,11 +52,11 @@ const SearchItem = ({children, category, setSearchValue}) => {
   const {categoriesByAlias} = useFindCategory()
   
   const splited = category?.split(',')
-  console.log('splited',splited)
+  // console.log('splited',splited)
   const categoryData = categoriesByAlias(splited)
-  console.log('categoryData',categoryData)
+  // console.log('categoryData',categoryData)
   const categoryName = splited.length === 1 ? categoryData.name : categoryData.label
-  console.log('categoryName',categoryName);
+  // console.log('categoryName',categoryName);
 
   const RouterPush = () => {
     setSearchValue('')

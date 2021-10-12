@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function offerActive({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm}) {
+export default function offerActive({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength}) {
 	const classes = useStyles();
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
@@ -78,17 +78,20 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 				 }}
 			>
 				<div className="offerImage">
-					<div className="offerPubCheck">
+					{offersLength > 1 && <div className="offerPubCheck">
 						<Checkbox
 							className={classes.check}
 							color='primary'
-							icon={<FiberManualRecordOutlinedIcon />}
-							checkedIcon={<FiberManualRecordSharpIcon />}
+							icon={<FiberManualRecordOutlinedIcon/>}
+							checkedIcon={<FiberManualRecordSharpIcon/>}
 							value={offer.id}
-							onChange={(event) => {setCheck(event.target.checked); getChildCheck({id: offer.id, isChecked: event.target.checked}); /* handleCheck(event.target.checked) */}}
+							onChange={(event) => {
+								setCheck(event.target.checked);
+								getChildCheck({id: offer.id, isChecked: event.target.checked}); /* handleCheck(event.target.checked) */
+							}}
 							checked={check}
 						/>
-					</div>
+					</div>}
 					{offer.photo?.map((imgs, i) => {
 						return <img key={i} src={imgs} />;
 					})}

@@ -34,7 +34,7 @@ function Offers(data) {
 		let favoritesArray = [];
         likeId.map( (items) => {
 			let comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === +items)[0])?.comment !== undefined ? (userInfo?.favorites.filter(item => item.post_id === +items)[0])?.comment : ''
-        	let like = checkArray(userInfo?.favorites) && userInfo.favorites.filter(item => item.post_id === +items).map(item => item.condition).join() === 'false' ? true : false
+        	let like = checkArray(userInfo?.favorites) && userInfo.favorites.filter(item => item.post_id === +items).map(item => item.condition).join() === 'false'
         	favoritesArray.push({
 				post_id: `${items}`,
 				comment: `${comment}`,

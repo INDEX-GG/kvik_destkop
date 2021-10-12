@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function offerArchive({offer, parentCheck, getChildCheck, allOfferId, parentOpenDelActiveForm}) {
+export default function offerArchive({offer, parentCheck, getChildCheck, allOfferId, parentOpenDelActiveForm, offersLength}) {
 	const { matchesMobile, matchesTablet } = useMedia()
 	const classes = useStyles();
 
@@ -103,17 +103,22 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 				}}
 			>
 				<div className="offerImage">
-					<div className="offerPubCheck">
+					{offersLength > 1 && <div className="offerPubCheck">
 						<Checkbox
 							className={classes.check}
 							color='primary'
-							icon={<FiberManualRecordOutlinedIcon />}
-							checkedIcon={<FiberManualRecordSharpIcon />}
+							icon={<FiberManualRecordOutlinedIcon/>}
+							checkedIcon={<FiberManualRecordSharpIcon/>}
 							value={offer.id}
-							onChange={(event) => { getChildCheck({id: offer.id, isCheck: event.target.checked}), setCheck(event.target.checked) }}
+							onChange={(event) => {
+								getChildCheck({
+									id: offer.id,
+									isCheck: event.target.checked
+								}), setCheck(event.target.checked)
+							}}
 							checked={check}
 						/>
-					</div>
+					</div>}
 
 					{offer.photo?.slice(0, 1).map((imgs, i) => {
 						return (

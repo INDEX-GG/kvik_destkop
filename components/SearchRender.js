@@ -92,9 +92,9 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 					{state.sorting(data)?.map((obj, i) => <AdCard_component ref={lastElement} key={i} offer={obj} />)}
 				</div>
 				{page == 'end' || data?.length == 0 ? null : <div className='offer__placeholder_loader'><Loader /></div>}
-				{/* {data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null} */}
+				 {/*{data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null}*/}
 			<div className={classes.messageEnd}>
-				{/* {endMessage && data?.length ? <EndMessage/> : null} */}
+				 {/*{endMessage && data?.length ? <EndMessage/> : null}*/}
 			</div>
 			<ScrollTop />
 		</>

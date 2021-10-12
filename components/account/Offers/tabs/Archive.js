@@ -52,6 +52,7 @@ function Archive({offers}) {
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
 	const [buttonId, setButtonId] = useState('');
+	const offersLength = offers.length
 
 	const cleanAll = () => {
 		setCheck(false);
@@ -86,25 +87,29 @@ function Archive({offers}) {
 	return (
 		<>
 			<div className="clientPage__container_bottom">
-				<div className="clientPage__container_nav__radio">
+				{offers.length > 1 && <div className="clientPage__container_nav__radio">
 					<Checkbox
 						className={classes.check}
 						color="primary"
 						value=""
-						icon={<FiberManualRecordOutlinedIcon />}
-						checkedIcon={<FiberManualRecordSharpIcon />}
+						icon={<FiberManualRecordOutlinedIcon/>}
+						checkedIcon={<FiberManualRecordSharpIcon/>}
 						onChange={(e) => {
 							e.target.checked === false ? cleanAll() : setCheck(e.target.checked);
 						}}
 						checked={check}
 					/>
-					<button id='001' className={classes.btn__publish} onClick={(e) => { offerData.length > 0 ? pushCheck(e) : null }}>
+					<button id='001' className={classes.btn__publish} onClick={(e) => {
+						offerData.length > 0 ? pushCheck(e) : null
+					}}>
 						Активировать
 					</button>
-					<button id='002' className={classes.btn__delete} onClick={(e) => { offerData.length > 0 ? pushCheck(e) : null }}>
+					<button id='002' className={classes.btn__delete} onClick={(e) => {
+						offerData.length > 0 ? pushCheck(e) : null
+					}}>
 						Удалить
 					</button>
-				</div>
+				</div>}
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
@@ -115,6 +120,7 @@ function Archive({offers}) {
 								getChildCheck={getChildCheck}
 								parentOpenDelActiveForm={openOfferModal}
 								allOfferId={offerId}
+								offersLength={offersLength}
 							/>
 						);
 					})}

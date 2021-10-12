@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Box, Button, makeStyles } from "@material-ui/core";
 import DefaultFilter from "./filter/DefaultFilter";
 import { FormProvider, useForm } from "react-hook-form";
@@ -34,11 +34,18 @@ const useStyles = makeStyles(() => ({
 }));
 
 const FilterBlock = ({ categoryData }) => {
+  const classes = useStyles();
   let filter;
   const category = categoryData?.aliasName[0].alias.toLowerCase();
-  const classes = useStyles();
+  const servicesCategory = categoryData?.aliasBread[0].alias
   const methods = useForm({ defaultValues: defaultValues });
   const [fetchedData, setFetchedData] = useState(null)
+  const [services, setServices] = useState(false);
+
+  useEffect(() => {
+    servicesCategory === "services" ? setServices(true) : setServices(false)
+  }, [servicesCategory]);
+
   if (category){
     axios.get(`${BASE_URL}/filters/` + category + `.json`)
     .then(res => setFetchedData(res.data))
@@ -59,17 +66,17 @@ const FilterBlock = ({ categoryData }) => {
     case "sell_houses_and_cottages":
     case "rent_houses_and_cottages":
     case "sell_rooms":
-		case "rent_rooms":
-		case "sell_izhs":
-		case "sell_snt":
-		case "sell_agriculturalland":
-		case "sell_commercialland":
-		case "sell_garage":
-		case "rent_garage":
-		case "sell_parkingplace":
-		case "rent_parkingplace":
-		case "sell_abroad":
-		case "rent_abroad":
+    case "rent_rooms":
+    case "sell_izhs":
+    case "sell_snt":
+    case "sell_agriculturalland":
+    case "sell_commercialland":
+    case "sell_garage":
+    case "rent_garage":
+    case "sell_parkingplace":
+    case "rent_parkingplace":
+    case "sell_abroad":
+    case "rent_abroad":
     case "cats":
     case "dogs":
     case "sell_warehouse_space":
@@ -123,9 +130,8 @@ const FilterBlock = ({ categoryData }) => {
     case "bicycles":
       filter = <FilterProduct data={fetchedData?.[category]} />;
       break;
-
     default:
-      filter = <DefaultFilter />;
+      filter = <DefaultFilter services={services}/>;
   }
 
   const onSubmit = (data) => {

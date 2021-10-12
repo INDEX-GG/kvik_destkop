@@ -118,11 +118,11 @@ function PlaceOffer() {
         }
 
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
-		console.log(data.coordinates)
+		// console.log(data.coordinates)
 		data.location = data.location?.value ? data.location.value : data.location
 
-        console.log('alias',alias);
-        console.log("data", data);
+        // console.log('alias',alias);
+        // console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
@@ -131,7 +131,7 @@ function PlaceOffer() {
         delete data.alias4
         delete data.photoes
         const photoData = new FormData;
-        console.log('photoes', photoes)
+        // console.log('photoes', photoes)
         if (photoes.length > 1) {
             photoes.forEach(photo => photoData.append('files[]', photo));
         } else if (photoes.length === 1) {
@@ -150,7 +150,7 @@ function PlaceOffer() {
                 obj[key] = data[key];
             }
             else {
-                /* console.log('key', key.replace(/[0-9]/g, '')) */
+                // /* console.log('key', key.replace(/[0-9]/g, '')) */
                 // additionalfields2[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
 
                 // additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
@@ -192,28 +192,28 @@ function PlaceOffer() {
         }
 
 
-        // console.log('add 3', additionalfields3[asd])
+        // // console.log('add 3', additionalfields3[asd])
 
 
-        // console.log("asdasdasd",newOBJ[asd]);
+        // // console.log("asdasdasd",newOBJ[asd]);
         if (subcategoryData[category] !== undefined) {
             obj.subcategory = category
         }
-        console.log("addfields", additionalfields)
-        // console.log(additionalfields2)
+        // console.log("addfields", additionalfields)
+        // // console.log(additionalfields2)
 
-        console.log('obj',obj)
+        // console.log('obj',obj)
         setLoading(true);
 
         axios.post(`${BASE_URL}/api/setPosts`, obj)
             .then(r => {
-				console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
+				// console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
                 postId = r?.data?.id;
-                console.log('postId',postId)
+                // console.log('postId',postId)
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
                 console.error('additionalfields',additionalfields)
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-                console.log('r',r)
+                // console.log('r',r)
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"

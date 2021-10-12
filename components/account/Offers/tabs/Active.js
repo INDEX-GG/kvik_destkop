@@ -41,7 +41,8 @@ function Active({offers}) {
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
 	const buttonId = "003";
-	
+	const offersLength = offers.length
+
 	const cleanAll = () =>  {
 		setCheck(false);
 		setOfferId([]);
@@ -66,22 +67,24 @@ function Active({offers}) {
 	return (
 		<>
 			<div className="clientPage__container_bottom">
-				<div className="clientPage__container_nav__radio">
+				{offers.length > 1 && <div className="clientPage__container_nav__radio">
 					<Checkbox
 						className={classes.check}
 						color="primary"
 						value=""
-						icon={<FiberManualRecordOutlinedIcon />}
-						checkedIcon={<FiberManualRecordSharpIcon />}
+						icon={<FiberManualRecordOutlinedIcon/>}
+						checkedIcon={<FiberManualRecordSharpIcon/>}
 						onChange={(e) => {
-							e.target.checked===false ? cleanAll() : setCheck(e.target.checked);
+							e.target.checked === false ? cleanAll() : setCheck(e.target.checked);
 						}}
 						checked={check}
 					/>
-					<button className={classes.btn__unpublish} onClick={() => {offerData.length > 0 ? setOpenOfferModal(!openOfferModal) : null}}>
+					<button className={classes.btn__unpublish} onClick={() => {
+						offerData.length > 0 ? setOpenOfferModal(!openOfferModal) : null
+					}}>
 						Снять с публикации
 					</button>
-				</div>
+				</div>}
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
@@ -93,6 +96,7 @@ function Active({offers}) {
 								getChildCheck={getChildCheck} 
 								parentUnpublishForm={openOfferModal}
 								allDataCheck={offerId}
+								offersLength={offersLength}
 							/>
 						);
 					})}
@@ -106,6 +110,7 @@ function Active({offers}) {
 					openOfferModal={openOfferModal}
 					cleanAll={cleanAll}
 					buttonId={buttonId}
+					offersLength={offersLength}
 				/>
 			</Dialog>
 		</>
