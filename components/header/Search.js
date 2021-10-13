@@ -1,11 +1,13 @@
 import { Box, TextField, makeStyles} from '@material-ui/core';
-
 import SearchIcon from '@material-ui/icons/Search';
 import React, {useEffect, useState} from 'react';
 import { useMedia } from '../../hooks/useMedia';
 import SearchBlock from './SearchBlock';
 import SearchCheckbox from './SearchCheckbox';
 import {useRouter} from "next/router";
+import axios from 'axios';
+import { PUBLIC_SEARCH } from '../../lib/constants'
+
 
 const useStyles = makeStyles(() => ({
 	input: {
@@ -50,6 +52,7 @@ const Search = ({text = false}) => {
 	const [saveResult, setSaveResult] = useState(false)
 	const [searchValue, setSearchValue] = useState();
 	const {matchesTablet, matchesMobile} = useMedia()
+	const [suggestData, setSuggestData] = useState([]);
 	const mobile = matchesTablet || matchesMobile
 
 	// const [result, setRes] = useState();
@@ -82,6 +85,9 @@ const Search = ({text = false}) => {
 
 	const handleChange = (e) => {
 		setSearchValue(e.target.value)
+		console.log(PUBLIC_SEARCH)
+		axios.post(`${PUBLIC_SEARCH}/search`, {'text': e.target.value})
+		  .then(r => setSuggestData(r.data.data));
 	}
 	
 
@@ -113,7 +119,7 @@ const Search = ({text = false}) => {
 					</div>
 				}
 				{(showButtons && searchValue && searchValue.length < 25) && 
-					<SearchBlock value={searchValue} setSearchValue={setSearchValue}/>
+					<SearchBlock value={searchValue} setSearchValue={setSearchValue} suggestData={suggestData}/>
 				}
 				
 		</Box>
