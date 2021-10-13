@@ -7,7 +7,6 @@ const text2Bool = (string) => {
 		return false
 	}
 }
-
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
@@ -46,7 +45,8 @@ export default async function handler(req, res) {
 						updated_at: now,
 						deleted_at: now,
 						date_verify: now,
-						verify: 1,
+						verify: 0,
+						// verify: 1,
 						subcategory: req.body.subcategory,
 						verify_moderator: { "verify": [] },
 						coordinates: req.body.coordinates
