@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const SearchBlock = ({value, setSearchValue}) => {
+const SearchBlock = ({value, setSearchValue, suggestData}) => {
     const classes = useStyles();
 
 
@@ -150,6 +150,8 @@ const SearchBlock = ({value, setSearchValue}) => {
     // todo: возможно тут проверку и в зависимости от value подставляется категория
     // todo: максимум 8 строчек
 
+	console.log(suggestData);
+
     return (
         <div className={classes.searchField}>
             {category && <SearchItem category={category} value={value} setSearchValue={setSearchValue}>{value}</SearchItem>}
@@ -158,8 +160,11 @@ const SearchBlock = ({value, setSearchValue}) => {
             {/*<SearchItem category={category} >{value}</SearchItem>*/}
             {/*<SearchItem category={category} >{value}</SearchItem>*/}
             {/*<SearchItem category={category} >{value}</SearchItem>*/}
+            {/* <SearchItem category={category} >{value}</SearchItem> */}
             {/*<SearchItem category={category} >{value}</SearchItem>*/}
-            {/*<SearchItem category={category} >{value}</SearchItem>*/}
+			{suggestData.length && suggestData.map((item, index) => {
+				 return <SearchItem key={index} category={item.category} suggestData={true} >{item.text}</SearchItem>
+			})}
         </div>
     )
 }

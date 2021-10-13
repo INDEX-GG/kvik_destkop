@@ -47,8 +47,19 @@ const aliasIcon = {
   services: <BurgerServices  size={18} fill="#8F8F8F"  />
 };
 
-const SearchItem = ({children, category, setSearchValue}) => {
-	const classes = useStyles();
+const SearchItem = ({children, category, setSearchValue, suggestData}) => {
+  const classes = useStyles();
+
+  //? ПОСЛЕ ТЕСТОВ УДАЛИТЬ ПРОПС suggestData и проверку 
+  if (suggestData) {
+	return (
+		<div className={classes.searchItem}>
+			<span className={classes.text}>{children}</span>
+			<span className={classes.category}>{category}</span>
+		</div>
+  	)
+  }
+
   const {categoriesByAlias} = useFindCategory()
   
   const splited = category?.split(',')
