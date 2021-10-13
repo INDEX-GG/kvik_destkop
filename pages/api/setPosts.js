@@ -7,7 +7,6 @@ const text2Bool = (string) => {
 		return false
 	}
 }
-
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
