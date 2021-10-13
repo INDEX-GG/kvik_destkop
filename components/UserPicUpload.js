@@ -35,6 +35,7 @@ function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, C
 
 			postAvatar(id, sendData)
 				.then(r => {
+					localStorage.setItem('imageString', r);
 					setUserInfo(p => {
 						return {
 							...p,
@@ -45,6 +46,8 @@ function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, C
 				})
 		}, `image/${imageType}`, optimiztionLevel);
 	}
+
+	const imageString = localStorage.getItem('imageString')
 
 	const twinClick = () => {
 		if (fileInput.current.files?.length === 0) {
@@ -59,7 +62,7 @@ function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, C
 					onClick={twinClick}
 					ref={editorRef}
 					className="userPicUpload__editor"
-					image={Photo}
+					image={Photo ? Photo : imageString}
 					border={25}
 					color={[255, 255, 255, 0.8]}
 					borderRadius={100}

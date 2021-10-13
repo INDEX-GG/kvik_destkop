@@ -223,8 +223,11 @@ import EmptyPlaceholder from "../../EmptyPlaceholder";
 const Compare = () => {
 //   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Транспорт" });
 
-  return (
-	<EmptyPlaceholder title='Здесь буду ваши сравнения' subtitle='Текст'/>
+  // return (
+	// <EmptyPlaceholder title='Здесь буду ваши сравнения' subtitle='Текст'/>
+  // );
+return (
+	<EmptyPlaceholder title='К сожалению, данная функция сейчас не доступна.' subtitle='Наша команда уже работает над этим.'/>
   );
 
 //   return (
