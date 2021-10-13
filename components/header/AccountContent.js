@@ -32,16 +32,20 @@ export default function AccountContent({ id, icon, title, setState }) {
 	const [active, setActive] = useState(0);
 
 	useEffect(() => {
+		console.log('ID=====>',id)
 		if (router.query) setActive(+router.query?.account)
 	}, [router])
+
+	//исключить 2 3 6
 
 	const handlerClick = () => {
 		setState({ right: false })
 		router.push({
 			pathname: `/account/${id}`,
 			query: {
-				account: `${id}`
+				account: (id === 2 || id === 3 || id === 6 ? `/account/13` : `/account/${id}`)
 			},
+
 		})
 	}
 

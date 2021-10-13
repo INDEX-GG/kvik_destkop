@@ -166,7 +166,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 	);
 
 	return (
-		router.pathname == "/account/[id]" ? matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ?
+		router.pathname === "/account/[id]" ? matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ?
 			<>
 				<Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
 					{initials(name)}
