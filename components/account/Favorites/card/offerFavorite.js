@@ -49,8 +49,11 @@ const OfferFavorite = ({i, offer, parentCheck, getChildCheck, dataCheck, deleteB
 					    checkedIcon={<FiberManualRecordSharpIcon />}
                     />
                 </div>
-                <a className="favoritesCompare">
-                </a>
+
+
+                {/*<a className="favoritesCompare">*/}
+                {/*</a>*/}
+
                 <a href="javascript:void(0);">
                     <Favorits favId={offer.id} isAccountCard />
                 </a>

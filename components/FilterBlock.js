@@ -52,6 +52,7 @@ const FilterBlock = ({ categoryData }) => {
     .catch(e => e)
   }
 
+  console.log('category',category)
 
   switch (category) {
     case "new_building":
