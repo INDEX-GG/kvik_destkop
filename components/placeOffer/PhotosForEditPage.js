@@ -176,9 +176,11 @@ const PhotoForEditPage = ({ctx, photo}) => {
         "Добавьте или перетащите фото"
     );
 
+
     useEffect(() => {
-        setOldPhotos(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
+       setOldPhotos(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
     }, [stringPhotos]);
+
 
     useEffect(() => {
         if (!validFiles.find((el) => el.name === selectedFiles.name)) {
@@ -337,93 +339,102 @@ const PhotoForEditPage = ({ctx, photo}) => {
         if (filteredValid[index].angle === 360) {
             filteredValid[index].angle = 0;
         }
-        !data.old ?  setValidFiles([...filteredValid]) : setOldPhotos([...filteredValid]);
+        !data.old ? setValidFiles([...filteredValid]) : setOldPhotos([...filteredValid]);
     };
 
     ctx(oldPhotosAndNewObjectsPhotos);
 
     const SortableList = SortableContainer(({items}) => {
-        return (
-            <div className={classes.drag}>
-                {items.map((value, i) => (
-                    <SortableItem key={i} index={i} data={value} i={i}/>
-                ))}
-                <div
-                    className={classes.card}
-                    onDragOver={dragOver}
-                    onDragEnter={dragEnter}
-                    onDragLeave={dragLeave}
-                    onDrop={fileDrop}
-                    onClick={fileInputClicked}
-                >
-                    <div className={classes.notif}>{errorMessage}</div>
-                    <input
-                        {...methods.register("photoes", {
-                            required: "Загрузите хотя бы одну фотографию",
-                        })}
-                        ref={fileInputRef}
-                        className={classes.fi}
-                        type="file"
-                        multiple
-                        onChange={filesSelected}
-                    />
-                </div>
-            </div>
-        );
-    });
 
-
-    const SortableItem = SortableElement(({data, i}) => {
-        const img = imageData.find((el) => el.name === data.name);
-
-        return (
+            return (
+                <div className={classes.drag}>
+                    {items.map((value, i) => (
+                        <SortableItem key={i} index={i} data={value} i={i}/>
+                    ))}
                     <div
-                        style={{marginRight: "5px", userSelect: "none"}}
                         className={classes.card}
+                        onDragOver={dragOver}
+                        onDragEnter={dragEnter}
+                        onDragLeave={dragLeave}
+                        onDrop={fileDrop}
+                        onClick={fileInputClicked}
                     >
-                        <img
-                            src={!data.old ? img?.src : data.src}
-                            id={!data.old ? `prev${img?.id}` : i}
-                            style={{
-                                transform: data.angle
-                                    ? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
-                                    }`
-                                    : null,
-                            }}
+                        <div className={classes.notif}>{errorMessage}</div>
+                        <input
+
+                            {
+                                ...methods.register("photoes", {
+
+                                })
+                            }
+
+                            ref={fileInputRef}
+                            className={classes.fi}
+                            type="file"
+                            multiple
+                            onChange={filesSelected}
                         />
-                        <div
-                            className={classes.rotate}
-                            onClick={() => rotate(data)}
-                        />
-                        <div
-                            className={classes.delete}
-                            onClick={() => !data.old ? removeFile(img?.name) : removeSrc(data.name)}
-                        />
-                        {i === 0 && (
-                            <div className={classes.mainPhoto}>Главное фото</div>
-                        )}
                     </div>
-                );
+                </div>
+            );
+
     });
 
-    const onSortEnd = ({oldIndex, newIndex}) => {
-        const items = arrayMoveImmutable(oldPhotosAndNewObjectsPhotos, oldIndex, newIndex)
-        setOldPhotosAndNewObjectsPhotos([...items])
-    }
 
-    return (
-        <Box className={classes.formElem}>
-            <Typography className={classes.formTitleField}>Фотографии</Typography>
-            <Box className={classes.formInputField}>
-                <div>
-                    <SortableList items={oldPhotosAndNewObjectsPhotos} axis="xy" onSortEnd={onSortEnd} distance={5}/>
+
+        const SortableItem = SortableElement(({data, i}) => {
+            const img = imageData.find((el) => el.name === data.name);
+
+            return (
+                <div
+                    style={{marginRight: "5px", userSelect: "none"}}
+                    className={classes.card}
+                >
+                    <img
+                        src={!data.old ? img?.src : data.src}
+                        id={!data.old ? `prev${img?.id}` : i}
+                        style={{
+                            transform: data.angle
+                                ? `rotate(${data.angle}deg) ${!even(data.angle / 90) ? "scale(1.2)" : "scale(1)"
+                                }`
+                                : null,
+                        }}
+                    />
+                    <div
+                        className={classes.rotate}
+                        onClick={() => rotate(data)}
+                    />
+                    <div
+                        className={classes.delete}
+                        onClick={() => !data.old ? removeFile(img?.name) : removeSrc(data.name)}
+                    />
+                    {i === 0 && (
+                        <div className={classes.mainPhoto}>Главное фото</div>
+                    )}
                 </div>
-                <Typography className={classes.error} style={{color: methods.formState.errors?.photoes?.message ? null : '#C7C7C7'}}>
-                    {methods.formState.errors?.photoes?.message || 'До 20 фотографий в формате JPG или PNG. Размер фото - до 25MB'}
-                </Typography>
-            </Box>
-        </Box>
-    );
-};
+            );
+        });
 
-export default PhotoForEditPage;
+        const onSortEnd = ({oldIndex, newIndex}) => {
+            const items = arrayMoveImmutable(oldPhotosAndNewObjectsPhotos, oldIndex, newIndex)
+            setOldPhotosAndNewObjectsPhotos([...items])
+        }
+
+        return (
+            <Box className={classes.formElem}>
+                <Typography className={classes.formTitleField}>Фотографии</Typography>
+                <Box className={classes.formInputField}>
+                    <div>
+                        <SortableList items={oldPhotosAndNewObjectsPhotos} axis="xy" onSortEnd={onSortEnd}
+                                      distance={5}/>
+                    </div>
+                    <Typography className={classes.error}
+                                style={{color: methods.formState.errors?.photoes?.message ? null : '#C7C7C7'}}>
+                        {methods.formState.errors?.photoes?.message || 'До 20 фотографий в формате JPG или PNG. Размер фото - до 25MB'}
+                    </Typography>
+                </Box>
+            </Box>
+        );
+    };
+
+    export default PhotoForEditPage;
