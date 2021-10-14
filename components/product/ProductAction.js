@@ -13,7 +13,7 @@ import ProductDeal from "./ProductDeal";
 import ProductDate from "./ProductSmallComponents/ProductDate";
 import ProductPrice from "./ProductPrice";
 import ProductOption from "./ProductOption";
-import ProductStats from "./ProductSmallComponents/ProductStats";
+// import ProductStats from "./ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteCom from "./ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductAdsChange from "./ProductAdsChange";
 
@@ -49,7 +49,7 @@ export default function ProductAction(data) {
           user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
             <>
               <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
-                <ProductStats id={id} sellerId={user_id} status={objP.adstatus} dialog={openStatForm} setDialog={setOpenStatForm} />
+                {/*<ProductStats id={id} sellerId={user_id} status={objP.adstatus} dialog={openStatForm} setDialog={setOpenStatForm} />*/}
                 <ProductFavoriteNoteCom id={id} sellerId={user_id} isOffer={+data.router}/>
                 <ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />
                 <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />

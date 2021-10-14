@@ -42,11 +42,11 @@ const Verify = ({edit}) => {
     const [verifyContacts, setVerifyContacts] = useState(false);
     const [showCategory, setShowCategory] = useState(false);
 
+
     // проверка был переход из страницы редактирования или нет
     useEffect(() => {
         edit ? setShowCategory(true) : setShowCategory(false)
     }, [edit]);
-
 
 
     useEffect(() => {

@@ -211,7 +211,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 
 	function changeValue(str) {
 		setValue(str)
-		// console.log(value)
+
 	}
 
 	function generateArr(index) {
@@ -288,6 +288,9 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 
 
 	const classes = useStyles()
+
+
+
 	return (
 		<PromotionContent dialog={true} setDialog={setDialog}>
 			{promotionAwait(true)}

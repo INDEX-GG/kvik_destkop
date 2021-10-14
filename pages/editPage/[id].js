@@ -98,6 +98,7 @@ function EditPage() {
 			photoData.append('files[]', photoes[0]);
 		}
 
+
 		let obj = {}
 		for (let key in data) {
 			if (key === 'title'  || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id') {
@@ -107,7 +108,8 @@ function EditPage() {
 
 
 		setLoading(true);
-		 // axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
+
+		photoes[photoes.length -1].lastModified !== undefined ?
 		 axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
 			headers: {
 				"Content-Type": "multipart/form-data"
@@ -143,7 +145,22 @@ function EditPage() {
 				photo: allConvertedPhoto
 			})
 			setPromotion(true)
-		})
+		}) :
+			axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
+				title : obj.title,
+				description: obj.description,
+				price: obj.price,
+				address: obj.location,
+				photo: photo.map(item => item.replace('http://192.168.8.111:6001/', ''))
+			})
+			setEditProduct({post_id: postId,
+				title : obj.title,
+				description: obj.description,
+				price: obj.price,
+				address: obj.location,
+				photo: photo.map(item => item.replace('http://192.168.8.111:6001/', ''))
+			})
+		setPromotion(true)
 	}
 
 	return (

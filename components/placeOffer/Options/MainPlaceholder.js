@@ -72,12 +72,12 @@ const useStyles = makeStyles((theme) => ({
 export default function MainPlaceholder({ data }) {
   const methods = useFormContext();
   const classes = useStyles();
-  
 
 
   return (
     <>
       {data.map((item, idx) => {
+        console.log('(item.type====>',item.type)
          if (
           item.alias === "truck_enginesize" 
         ) {
@@ -620,8 +620,7 @@ export default function MainPlaceholder({ data }) {
           item.alias === "cadastral_number" ||
           item.alias === "room_count" ||
           item.alias === "room_number" ||
-          item.alias === "electric_power" ||
-          item.alias === "commission" 
+          item.alias === "electric_power"
         ) {
           switch (item.type) {
             case "text":
@@ -1034,8 +1033,11 @@ export default function MainPlaceholder({ data }) {
           }
         }
         if (
+
           item.alias === "pledge" ||
-          item.alias === "security_payment" 
+          item.alias === "security_payment" ||
+          item.alias === "communal_payments" ||
+          item.alias === "commission"
         ) {
           switch (item.type) {
             case "text":

@@ -21,14 +21,14 @@ const ErrorMessages = ({validate, type, edit}) => {
 	const [verifyCategory, setVerifyCategory] = useState(false);
 	const [verifyPrice, setVerifyPrice] = useState(false);
 	const [verifyAllFields, setVerifyAllFields] = useState(false);
-	const [verifyPhotoes, setVerifyPhotoes] = useState(false);
+	const [verifyPhotoes, setVerifyPhotoes] = useState(edit ? true :false);
 
 
 	useEffect(() => {
 		setVerifyTilte(!!methods.watch('title'));
 		setVerifyPrice(!!methods.watch('price'));
-		setVerifyCategory(alias)
-		edit ? setVerifyPhotoes(true) : setVerifyPhotoes(!!methods.watch('photoes'));
+		setVerifyCategory(alias);
+		setVerifyPhotoes(!!methods.watch('photoes'));
 
 
 		if (alias === 'auto'){
@@ -42,7 +42,7 @@ const ErrorMessages = ({validate, type, edit}) => {
 		}
 
 		if (verifyTilte && verifyDescription && verifyPrice && verifyCategory && verifyPhotoes) {
-			console.log('кукушка')
+
 			setVerifyAllFields(true)
 		} else {
 			setVerifyAllFields(false)

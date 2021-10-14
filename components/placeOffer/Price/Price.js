@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Checkbox, FormControlLabel, makeStyles, TextField, Typography } from '@material-ui/core';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
 		'& span': {
 			fontSize: '14px',
 		}
+	},
+	tooltip: {
+		position: "absolute",
+		top: 9,
 	}
 }));
 
@@ -55,9 +59,10 @@ const Price = ({price, edit}) => {
 						name="price"
 						control={methods.control}
 						shouldUnregister
-						defaultValue={price}
+						defaultValue={`${price} ₽`}
 
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
+							<>
 							<TextField
 								variant='outlined'
 								type="text"
@@ -66,8 +71,10 @@ const Price = ({price, edit}) => {
 								onKeyDown={e => cursorReplace(e)}
 								onChange={e => onChange(priceFormat(e))}
 								error={!!error} helperText={error ? error.message : ' '} >
-								{price}
+								{price.length && price.length < 20 ? <span className={classes.tooltip} style={{left: 20 + price.length * 8 }}> ₽</span> : null}
+
 							</TextField>
+							</>
 							)}
 						rules={{ required: `Введите цену ${methods.watch('title')}`, maxLength: {value: 12, message: 'Слишком длинное значение'} }}
 					/>
