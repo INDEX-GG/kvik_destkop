@@ -142,7 +142,7 @@ export default function Auto({ data }) {
         [color, setColor] = useState(false);
 
     useEffect(() => {
-        if (methods.watch('modelsAuto') != undefined) {
+        if (methods.watch('modelsAuto') !== undefined) {
             axios.get(`/auto_brand/` + (methods.watch('modelsAuto')) + `.json`)
                 .then((result) => setMark(result.data))
                 // .catch((e) => console.log(e))
@@ -156,7 +156,7 @@ export default function Auto({ data }) {
         setModification(undefined)
         setFullDescription(undefined)
 
-        if (mark != undefined) {
+        if (mark !== undefined) {
             setModel(mark.children.filter(item => item.value === methods.watch('submodels')).map(item => item.children.map(item => item)))
         }
     }, [methods.watch('submodels')])
@@ -165,7 +165,7 @@ export default function Auto({ data }) {
         setModification(undefined)
         setFullDescription(undefined)
         setGeneration(undefined)
-        if (model != undefined) {
+        if (model !== undefined) {
             let gen = model.map((item) => item.filter((item) => item.value === methods.watch('generation')))
             setGenerationUnical([...new Set((gen[0][0].children.sort((a, b) => a.value > b.value ? 1 : -1)).map(item => item.value))])
             setGeneration(gen)
@@ -173,7 +173,7 @@ export default function Auto({ data }) {
     }, [methods.watch('generation')])
 
     useEffect(() => {
-        if (generation != undefined) {
+        if (generation !== undefined) {
             setModification(undefined)
             let arr = []
             let mod = (generation[0].map(item => item.children.map(item => item)));
@@ -208,7 +208,7 @@ export default function Auto({ data }) {
         methods.unregister('complectations', '');
 
 
-        if (modification != undefined) {
+        if (modification !== undefined) {
             n = ((modification[0].filter(item => item.alias === 'yearfrom').map(item => +item.value)))[0];
             m = ((modification[0].filter(item => item.alias === 'yearto').map(item => +item.value)))[0];
             for (var i = n; i <= m; i++) {
@@ -222,7 +222,7 @@ export default function Auto({ data }) {
                 newObjcomplectations.push(...modification[i].filter(item => item.alias === 'complectations').map(item => item.value))
             }
 
-            setShowGbo(modification[0].filter(item => item.alias === 'fueltype')[0].value === "Электро" ? false : true)
+            setShowGbo(modification[0].filter(item => item.alias === 'fueltype')[0].value !== "Электро")
             
             mainObj.push({ alias: "year", name: "Год выпуска", value: newObjyear });
             mainObj.push({ alias: "fueltype", name: "Тип двигателя", value: modification[0].filter(item => item.alias === 'fueltype')[0].value });

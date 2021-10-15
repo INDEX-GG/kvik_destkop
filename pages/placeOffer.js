@@ -106,7 +106,7 @@ function PlaceOffer() {
 
 
     const onSubmit = data => {
-        // console.log('DATAAAAAAA',data)
+        console.log('DATAAAAAAA',data)
         // console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
@@ -117,8 +117,13 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
+        if(data?.alias1 === 'transport'){
+            data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
+        }
+
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
 		// console.log(data.coordinates)
+        // проверить alias если auto то хардкодим data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
 		data.location = data.location?.value ? data.location.value : data.location
 
         // console.log('alias',alias);
@@ -207,7 +212,7 @@ function PlaceOffer() {
 
         axios.post(`${BASE_URL}/api/setPosts`, obj)
             .then(r => {
-				// console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
+				console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
                 postId = r?.data?.id;
                 // console.log('postId',postId)
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
@@ -220,7 +225,8 @@ function PlaceOffer() {
                     }
                 }).then((r) => {
                     // console.log(r)
-                    setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+                    console.log('PRODUCT',{ title: `${data.modelsAuto} ${data.submodels},${data.year}`, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+                    setProduct({ title: `${data.modelsAuto} ${data.submodels},${data.year}`, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
                     console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
