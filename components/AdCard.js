@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination } from "swiper/core";
+// import SwiperCore, { Pagination } from "swiper/core";
+import SwiperCore, { Pagination } from 'swiper';
 import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import { useMedia } from '../hooks/useMedia';
 import { useAuth } from "../lib/Context/AuthCTX";
@@ -43,7 +44,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const {offer} = props;
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
-	let sheduled = false;
+	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
 	const handleCM = (e) => {
 		e.preventDefault();
@@ -59,31 +60,33 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		}
 	}
 
-	useEffect(() => {
-		currentSwiper.current.addEventListener("mousemove", switchSlide);
-	}, [currentSwiper]);
+	// useEffect(() => {
+	// 	currentSwiper.current.addEventListener("mousemove", switchSlide);
+	// }, [currentSwiper]);
 
-	function switchSlide(e) {
-		if (!sheduled) {
-			sheduled = true;
-			setTimeout(() => {
-				if (currentSwiper.current !== null && currentSwiper.current.swiper !== null) {
-					if (e.movementX > 0) {
-						currentSwiper.current.swiper.slideNext();
-
-					} else if (e.movementX < 0) {
-						currentSwiper.current.swiper.slidePrev();
-					}
-					sheduled = false;
-				}
-			}, 320);
-		}
-	}
+	// function switchSlide(e) {
+	// 	if (!scheduled) {
+	// 		scheduled = true;
+	// 		setTimeout(() => {
+	// 			if (currentSwiper.current !== null && currentSwiper.current.swiper !== null) {
+	// 				if (e.movementX > 0) {
+	// 					console.log('$$$$$$$$$$>',e.movementX )
+	// 					currentSwiper.current.swiper.slideNext();
+	//
+	// 				} else if (e.movementX < 0) {
+	// 					console.log('$$$$$$$$$$<',e.movementX )
+	// 					currentSwiper.current.swiper.slidePrev();
+	// 				}
+	// 				scheduled = false;
+	// 			}
+	// 		}, 320);
+	// 	}
+	// }
 
 	const call = true;
 
 	let archived = null
-	if (offer.archived == true) {
+	if (offer.archived === true) {
 		archived = "sold"
 	}
 
@@ -164,16 +167,16 @@ const AdCard_component = React.forwardRef((props, ref) => {
 							</div>}
 						<div className="card__top_info_right">
 							{/* {!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''} */}
-							{offer.user_id != id ? (
-								userInfo !== undefined && userInfo.favorites.length > 0 && userInfo.favorites && userInfo.favorites.filter(item => item.post_id == offer.id)?.[0]?.condition ?
+							{offer.user_id !== id ? (
+								userInfo !== undefined && userInfo.favorites.length > 0 && userInfo.favorites && userInfo.favorites.filter(item => item.post_id === offer.id)?.[0]?.condition ?
 									<IconButton
-										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites !== undefined && userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false) }
+										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false) }
 										color='primary'
 										className='card_like'>
 										<FavoriteRoundedIcon />
 									</IconButton> :
 									<IconButton
-										onClick={() => id ? setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites !== undefined && userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true) : null }
+										onClick={() => id ? setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true) : null }
 										color='secondary'
 										className='card_like'>
 										<FavoriteBorderRoundedIcon />

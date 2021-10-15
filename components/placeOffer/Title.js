@@ -24,6 +24,8 @@ const Title = ({title}) => {
 	const classes = useStyles();
 	const methods = useFormContext();
 
+	// methods.setValue('title', '')
+
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Название</Typography>
