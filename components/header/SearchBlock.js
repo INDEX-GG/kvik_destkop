@@ -163,7 +163,7 @@ const SearchBlock = ({suggestData}) => {
             {/* <SearchItem category={category} >{value}</SearchItem> */}
             {/*<SearchItem category={category} >{value}</SearchItem>*/}
 			{suggestData.length && suggestData.map((item, index) => {
-				 return <SearchItem key={index} category={item.category} suggestData={true} >{item.text}</SearchItem>
+				 return <SearchItem key={index} category={item.name} suggestData={item} >{item.text}</SearchItem>
 			})}
         </div>
     )
