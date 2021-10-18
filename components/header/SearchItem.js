@@ -10,6 +10,7 @@ import BurgerRealEstate from "../../UI/icons/BurgerRealEstate";
 import BurgerServices from "../../UI/icons/BurgerServices";
 import BurgerThing from "../../UI/icons/BurgerThing";
 import BurgerWork from "../../UI/icons/BurgerWork";
+import DefaultCategory from "../../UI/icons/DefaultCategory";
 
 const useStyles = makeStyles(() => ({
   searchItem: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
     '&:hover': {
       background: '#E9E9E9'
-    }
+    },
   },
   text: {
     padding: '0 24px 0 16px'
@@ -29,43 +30,62 @@ const useStyles = makeStyles(() => ({
     color: "#8F8F8F",
     display: 'inline-flex',
     alignItems: 'center',
+  },
+  categoryName: {
+	  marginRight: '10px'
   }
 }));
 
-const aliasIcon = {
-  real_estate: <BurgerRealEstate size={18} fill="#8F8F8F"  />,
-  transport: <BurgerAuto size={18} fill="#8F8F8F" />,
-  Consumer_electronics: <BurgerElectronic size={18} fill="#8F8F8F"  />,
-  job: <BurgerWork size={18} fill="#8F8F8F"  />,
-  for_busines: <BurgerBusiness  size={18} fill="#8F8F8F"  />,
-  for_home_and_d: <BurgerHome size={18} fill="#8F8F8F"  />,
-  Animals: <BurgerAnimal  size={18} fill="#8F8F8F"  />,
-  personal_floops: <BurgerThing size={18} fill="#8F8F8F"  />,
-  Hobbies_sports_and_leisure: <BurgerHobby  size={18} fill="#8F8F8F"  />,
-  services: <BurgerServices  size={18} fill="#8F8F8F"  />
+const iconsObj = {
+	real_estate: <BurgerRealEstate size={18} fill="#8F8F8F"  />,
+	transport: <BurgerAuto size={18} fill="#8F8F8F" />,
+	consumer_electronics: <BurgerElectronic size={18} fill="#8F8F8F"  />,
+	job: <BurgerWork size={18} fill="#8F8F8F"  />,
+	for_busines: <BurgerBusiness  size={18} fill="#8F8F8F"  />,
+	for_home_and_d: <BurgerHome size={18} fill="#8F8F8F"  />,
+	personal_floops: <BurgerThing size={18} fill="#8F8F8F"  />,
+	animals: <BurgerAnimal  size={18} fill="#8F8F8F"  />,
+	hobbies_sports_and_leisure: <BurgerHobby  size={18} fill="#8F8F8F"  />,
+	services: <BurgerServices  size={18} fill="#8F8F8F"  />,
 };
 
-const SearchItem = ({children, category, setSearchValue, suggestData}) => {
+const SearchItem = ({children, categoryName, /** setSearchValue */suggestData}) => {
   
   const classes = useStyles();
   const router = useRouter();
 
   //? ПОСЛЕ ТЕСТОВ УДАЛИТЬ ПРОПС suggestData и проверку 
 
-  const handleClick = () => {
+  const generateIcon = () => {
 
 	if (suggestData?.category) {
-		const category = suggestData.category.split(',').reverse()[0]
+		const categoryAlias = suggestData.category.split(',')[0].toLowerCase();
+		const AliasIcon = iconsObj[categoryAlias]
+		return AliasIcon
+	}
+
+	console.log(suggestData.category);
+
+	return <DefaultCategory/>;
+
+  }
+
+
+  const handleClick = () => {
+	if (suggestData?.category) {
+
+		const categoryAlias = suggestData.category.split(',').reverse()[0]
 
 		if (suggestData.type != 'query') {
-			router.push(`/search/${category}`)
+			router.push(`/search/${categoryAlias}`)
 			return;
 		}
 
 		router.push({
-			pathname: `/search/${category}`,
+			pathname: `/search/${categoryAlias}`,
 			query: {text: suggestData.text}
 		})
+
 
 	} else {
 		router.push({
@@ -80,7 +100,8 @@ const SearchItem = ({children, category, setSearchValue, suggestData}) => {
   return (
 		<div onClick={handleClick} className={classes.searchItem}>
 			<span className={classes.text}>{children}</span>
-			<span className={classes.category}>{category}</span>
+			<span className={`${classes.category} ${classes.categoryName}`}>{categoryName}</span>
+			<span className={classes.category}>{generateIcon()}</span>
 		</div>
   )
 
