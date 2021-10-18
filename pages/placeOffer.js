@@ -117,6 +117,8 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
+        console.log('data?.alias1',data?.alias1)
+
         if(data?.alias1 === 'transport'){
             data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
         }
@@ -224,9 +226,9 @@ function PlaceOffer() {
                         "Content-Type": "multipart/form-data"
                     }
                 }).then((r) => {
-                    // console.log(r)
+                     console.log(r)
                     console.log('PRODUCT',{ title: `${data.modelsAuto} ${data.submodels},${data.year}`, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-                    setProduct({ title: `${data.modelsAuto} ${data.submodels},${data.year}`, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+                    setProduct({ title: data.alias === 'transport' ? `${data.modelsAuto} ${data.submodels},${data.year}` : data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
                     console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
