@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useCategory } from '../../hooks/useCategory';
 import Link from 'next/link'
 import CategoriesAliasThree from './CategoriesAliasThree';
+import { generateAliasStr } from '../../lib/services';
 
 const CategoriesAliasTwo = ({alias, alias2, label, placeOffer, toggleDrawer}) => {
 
@@ -11,10 +12,6 @@ const CategoriesAliasTwo = ({alias, alias2, label, placeOffer, toggleDrawer}) =>
 	const [active, setActive] = useState(false)
 
 	const {categoriesByAlias} = useCategory();
-
-	function generateStr(str) {
-		return str[0].toUpperCase() + str.substring(1,)
-	}
 
 	const handlerClick = (str) => {
 		placeOffer(str)
@@ -47,7 +44,7 @@ const CategoriesAliasTwo = ({alias, alias2, label, placeOffer, toggleDrawer}) =>
 			</ListItem>
 			<Collapse in={open}>
 				{categoriesByAlias(alias, alias2)?.map((item, index) => {
-					return <CategoriesAliasThree key={index} alias={alias} alias2={alias2} alias3={item.alias} label={generateStr(item.label)} placeOffer={placeOffer} toggleDrawer={toggleDrawer} />
+					return <CategoriesAliasThree key={index} alias={alias} alias2={alias2} alias3={item.alias} label={generateAliasStr(item.label)} placeOffer={placeOffer} toggleDrawer={toggleDrawer} />
 				})}
 			</Collapse>
 		</>

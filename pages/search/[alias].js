@@ -11,6 +11,7 @@ import { getDataByPost } from "../../lib/fetch";
 import { STATIC_URL } from "../../lib/constants";
 import { categoryScroll } from "../../lib/scrollAds";
 import FilterBlock from "../../components/FilterBlock";
+import { generateAliasStr } from "../../lib/services";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -52,35 +53,32 @@ const useStyles = makeStyles(() => ({
 
 const Index = () => {
 
-	const router = useRouter()
-
-	const { matchesMobile, matchesTablet } = useMedia();
-	const [data, setData] = useState(null);
-
 	const classes = useStyles();
 
-	const aliasQuery = router.asPath.split("/").splice(2,).join("")
-
-	let aliasData = aliasName(aliasQuery, true)
-
-	const aliasFillUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
-
-
+	const [data, setData] = useState(null);
 	const [page, setPage] = useState(1);
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
-	const [lastIdAds ,setLastIdAds] = useState(0);
+	const [/** lastIdAds */ ,setLastIdAds] = useState(0);
+
+	const router = useRouter()
+	const { matchesMobile, matchesTablet } = useMedia();
+
+	const aliasQuery = router.asPath.split("/")[2].split('?')[0]
+	const aliasData = aliasName(aliasQuery, true)
+	const aliasFullUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
 	const limit = 5
+	const searchText = router?.query?.text
+	
 
 
 	useEffect(() => {
-		if (page == 'end') setPage(1)
-		console.log(lastIdAds)
+		setPage(1)
 	}, [router])
 
 
 	useEffect(() => {
-		if (aliasFillUrl !== undefined) {
-			getDataByPost('/api/postCategorySearch', { data: aliasFillUrl, 'page_limit': limit, 'page': 1 }).then(r => {
+		if (aliasFullUrl !== undefined) {
+			getDataByPost('/api/postCategorySearch', { data: aliasFullUrl, 'page_limit': limit, 'page': 1 }).then(r => {
 				if (r !== undefined) {
 					const offersData = r.map(offer => {
 						return {
@@ -93,22 +91,36 @@ const Index = () => {
 				}
 			})
 		}
-	}, [aliasFillUrl]);
+	}, [aliasFullUrl]);
 
 
 	useEffect(() => {
 		if (page > 1) {
-			categoryScroll(aliasFillUrl, limit, page, setData, setLimitRanderPage, setPage, setLastIdAds)
+			categoryScroll(aliasFullUrl, limit, page, setData, setLimitRanderPage, setPage, setLastIdAds)
 		}
 	}, [page])
+
+
+	const generateTitle = () => {
+		if (!router?.query?.text) {
+			return aliasData?.aliasName ? generateAliasStr(aliasData.aliasName[0].label) : ''
+		}
+
+		return router.query.text
+	}
 	
 	return (
-		// <MainlA isIndex title={'Доска объявлений'} category={"Транспорт"}>
 		<Container className={classes.root}>
-			<BreadCrumbs data={aliasData?.aliasBread} />
+			<BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''} />
 			<Box className={classes.main}>
 				<Box className={classes.offers} >
-					<SearchRender data={data} page={page} limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage} setPage={setPage} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() + aliasData.aliasName[0].label.substring(1,)} /></Box>
+					<SearchRender 
+						title={generateTitle()}
+						data={data} 
+						page={page} 
+						limitRender={limitRenderPage} 
+						setLimitRenderPage={setLimitRanderPage} 
+						setPage={setPage} /></Box>
 				{!matchesMobile && !matchesTablet &&
 					<Box className={classes.rightBlock}>
 						<FilterBlock categoryData={aliasData} />
@@ -122,7 +134,6 @@ const Index = () => {
 					</Box>}
 			</Box>
 		</Container>
-		// {/* // </MainlA > */}
 	)
 }
 
