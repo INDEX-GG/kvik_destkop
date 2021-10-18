@@ -150,7 +150,6 @@ const SearchBlock = ({suggestData}) => {
     // todo: возможно тут проверку и в зависимости от value подставляется категория
     // todo: максимум 8 строчек
 
-	console.log('suggestData====>',suggestData);
 
     return (
         <div className={classes.searchField}>
