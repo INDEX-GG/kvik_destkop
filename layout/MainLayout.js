@@ -8,8 +8,9 @@ import aliasName from "../components/header/CategoriesAliaseName";
 import { ellipsis } from "../lib/services";
 
 const MainLayout = ({ children}) => {
-  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1024 } = useMedia();
-	const router = useRouter();
+	
+  const { matchesMobile, matchesTablet, matchesCustom1024 } = useMedia();
+  const router = useRouter();
   const aliasQuery = router.asPath.split("/").splice(2,).join("")
   const [alias, setAlias] = useState("test")
 
@@ -19,12 +20,17 @@ const MainLayout = ({ children}) => {
     }  
   }
 
-  const finalName = aliasName(alias) == null ? null : aliasName(alias)[0].label
+   const categoryName = aliasName(alias) ? aliasName(alias)[0].label : router?.query?.text ? router?.query?.text : null 
+
+  const generateStr = (str) => {
+	return  str[0].toUpperCase() + str.substring(1,);
+  }
+
 
   return (
     <>
       <div>
-		    {!matchesMobile && !matchesTablet && <Header category={finalName == null ? null : ellipsis(finalName[0].toUpperCase() + finalName.substring(1, ), 20)}/>}
+		{!matchesMobile && !matchesTablet && <Header category={categoryName? ellipsis(generateStr(categoryName), 20) : null}/>}
         {matchesCustom1024 || matchesTablet && router.pathname != "/404" && router.pathname != "/500" ? <HeaderMobile chageMenu={true}/> : null}
         {matchesMobile && router.pathname != "/404" && router.pathname != "/500" && <HeaderMobile />}
         <>{children}</>
