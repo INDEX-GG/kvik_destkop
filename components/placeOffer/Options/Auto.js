@@ -129,6 +129,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Auto({ data }) {
 
+    // console.log('$$$data',data)
 
     const classes = useStyles();
     const methods = useFormContext();
@@ -244,6 +245,7 @@ export default function Auto({ data }) {
     return (
         <>
             {data.map((item) => {
+                console.log('$$$item$$$',item)
                 switch (item.type) {
                     case 'listRec':
                         switch (item.alias) {

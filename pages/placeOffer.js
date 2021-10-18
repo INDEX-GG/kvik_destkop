@@ -72,42 +72,40 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
-    // console.log(methods)
+    console.log(methods)
     /* получение дополнительных полей */
 
 
     const [category, setCategory] = useState();
     const { ...subcategoryData } = useCategoryPlaceOffer(category, methods);
+
+
+    console.log('ALIAS4', methods?.watch('alias4'))
+    console.log('ALIAS3', methods?.watch('alias3'))
+    console.log('ALIAS2', methods?.watch('alias2'))
+    console.log('ALIAS1', methods?.watch('alias1'))
+
+
     useEffect(() => {
-
-
-
-        if (methods?.watch('alias4') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
+        if (methods?.watch('alias4') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
             setCategory(methods?.watch('alias4').toLowerCase());
-        } else if (methods?.watch('alias3') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
+        } else if (methods?.watch('alias3') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
             setCategory(methods?.watch('alias3').toLowerCase());
-        } else if (methods?.watch('alias2') && (methods.control._fields == undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
+        } else if (methods?.watch('alias2') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
             setCategory(methods?.watch('alias2').toLowerCase());
         } else {
             setCategory(undefined);
         }
 
-        
-        /*  if (methods?.watch('alias4') && methods.control.fieldsRef.current.alias4?._f.value !== '') {
-             setAsd(methods?.watch('alias4'));
-         } else if (methods?.watch('alias3') && methods.control.fieldsRef.current.alias4?._f.name === undefined) {
-             setAsd(methods?.watch('alias3'));
-         } else if (methods?.watch('alias2') && methods.control.fieldsRef.current.alias3?._f.name === undefined) {
-             setAsd(methods?.watch('alias2'));
-         } else {
-             setAsd(undefined);
-         } */
     }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
 
+
+
+    console.log('category',category)
+
     const onSubmit = data => {
         console.log('DATAAAAAAA',data)
-        // console.log(photoes, photoes.length)
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -119,17 +117,43 @@ function PlaceOffer() {
 
         console.log('data?.alias1',data?.alias1)
 
-        if(data?.alias1 === 'transport'){
-            data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
+            //todo: Отрефакторить landType!!!! найти key в доп полях
+        const landType = () => {
+            if(data.alias4 === 'sell_snt'){
+                return 'СНТ'
+            } else if (data.alias4 === 'sell_izhs'){
+                return 'ИЖС'
+            } else if (data.alias4 === 'sell_agriculturalland'){
+                return 'Земли сельскохозяйственного назначения'
+            } else if (data.alias4 === 'sell_commercialland'){
+                return 'Земли коммерческого назначения'
+            }
         }
 
+        if(data?.alias1 === 'transport'){
+             data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
+        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'apartments_kv'){
+             data.title = `${data.room_number}-к. квартра, ${data.area}м², ${data.storey}/${data.floor_home}эт`
+        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'rooms' ){
+            data.title = `Комната, ${data.area}м², ${data.storey}/${data.floor_home}эт`
+        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'houses_and_cottages' ){
+            data.title = `Дом, ${data.home_area}м², на участке ${data.land_area} сот.`
+        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'land' ){
+            data.title = `Участок, ${data.area} сот. (${landType()})`
+        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'garages_and_parking_spaces_second' ){
+            data.title = data.type_park !== undefined ? `${data.type_park}, ${data.area}м².` : `Гараж, ${data.area}м².`
+        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'real_estate_abroad' ){
+            data.title = `${data.type_of_abroad_property} (${data.country_of_abroad_property})`
+        }
+
+
+
+        // rooms 'real_estate', 'real_estate_abroad', type_of_abroad_property
+
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
-		// console.log(data.coordinates)
-        // проверить alias если auto то хардкодим data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
 		data.location = data.location?.value ? data.location.value : data.location
 
-        // console.log('alias',alias);
-        // console.log("data", data);
+        console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
@@ -138,7 +162,6 @@ function PlaceOffer() {
         delete data.alias4
         delete data.photoes
         const photoData = new FormData;
-        // console.log('photoes', photoes)
         if (photoes.length > 1) {
             photoes.forEach(photo => photoData.append('files[]', photo));
         } else if (photoes.length === 1) {
@@ -147,9 +170,7 @@ function PlaceOffer() {
 
         let obj = {}
         let additionalfields = { [category]: [] }
-        // let additionalfields2 = { [asd]: [] }
 
-        // let additionalfields3 = { [asd]: [] }
 
         for (let key in data) {
 
@@ -226,9 +247,8 @@ function PlaceOffer() {
                         "Content-Type": "multipart/form-data"
                     }
                 }).then((r) => {
-                     console.log(r)
                     console.log('PRODUCT',{ title: `${data.modelsAuto} ${data.submodels},${data.year}`, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-                    setProduct({ title: data.alias === 'transport' ? `${data.modelsAuto} ${data.submodels},${data.year}` : data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+                    setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
                     console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
