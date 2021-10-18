@@ -129,7 +129,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Auto({ data }) {
 
-
     const classes = useStyles();
     const methods = useFormContext();
     const [mark, setMark] = useState(),
@@ -244,6 +243,7 @@ export default function Auto({ data }) {
     return (
         <>
             {data.map((item) => {
+                console.log('$$$item$$$',item)
                 switch (item.type) {
                     case 'listRec':
                         switch (item.alias) {

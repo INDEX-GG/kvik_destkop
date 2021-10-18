@@ -77,7 +77,7 @@ export default function MainPlaceholder({ data }) {
   return (
     <>
       {data.map((item, idx) => {
-        console.log('(item.type====>',item.type)
+        // console.log('(item.type====>',item.type)
          if (
           item.alias === "truck_enginesize" 
         ) {
