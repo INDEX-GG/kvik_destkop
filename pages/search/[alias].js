@@ -66,18 +66,48 @@ const Index = () => {
 	const aliasQuery = router.asPath.split("/")[2].split('?')[0]
 	const aliasData = aliasName(aliasQuery, true)
 	const aliasFullUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
-	const limit = 5
 	const searchText = router?.query?.text
+	const aliasAll = router?.query?.alias == 'all'
+	const limit = 10
 	
+
+	const generateTitle = () => {
+		if (!router?.query?.text) {
+			return aliasData?.aliasName ? generateAliasStr(aliasData.aliasName[0].label) : ''
+		}
+
+		return router.query.text
+	}
+
+	const generateDataArr = (arr) => {
+		const dataArr = arr.map(offer => {
+			return {
+				...offer,
+				photo: JSON.parse(offer.photo)?.photos.map(img => `${STATIC_URL}/${img}`)
+			}
+		})
+
+		return dataArr
+	} 
 
 
 	useEffect(() => {
 		setPage(1)
+		setLimitRanderPage(0)
+		setLastIdAds(0)
 	}, [router])
 
 
 	useEffect(() => {
-		if (aliasFullUrl !== undefined) {
+		if (searchText) {			
+			const data = {'category': aliasAll? '': aliasFullUrl, 'text': aliasAll ? '' : searchText , 'page_limit': limit, 'page': 1}
+			getDataByPost('/api/searchInsideCategory', data)
+			  .then(r => {
+				  setData(generateDataArr(r))
+				  setPage(1);
+			  });
+		} else {
+			if (aliasFullUrl) {
 			getDataByPost('/api/postCategorySearch', { data: aliasFullUrl, 'page_limit': limit, 'page': 1 }).then(r => {
 				if (r !== undefined) {
 					const offersData = r.map(offer => {
@@ -87,31 +117,45 @@ const Index = () => {
 						}
 					})
 					setData(offersData);
+					setPage(1);
 					if (r.length > 1) setLastIdAds(r[r.length - 1].id)
 				}
 			})
 		}
-	}, [aliasFullUrl]);
+		}
+	}, [router]);
 
 
 	useEffect(() => {
+		
+		const fetchDataObj = {
+			'data': aliasFullUrl, 
+			'page_limit': limit, 
+			'page': page
+		};
+
+		if (searchText) {
+			delete fetchDataObj.data
+			fetchDataObj.category = aliasFullUrl ? aliasFullUrl : ''
+			fetchDataObj.text = aliasAll ? '' : searchText
+		}
+
+		const setObj = {
+			setData, 
+			setLimitRanderPage, 
+			setPage, 
+			setLastIdAds
+		}
+
 		if (page > 1) {
-			categoryScroll(aliasFullUrl, limit, page, setData, setLimitRanderPage, setPage, setLastIdAds)
+			const api = searchText ?  '/api/searchInsideCategory' : '/api/postCategorySearch';
+			categoryScroll(api, fetchDataObj, setObj)
 		}
 	}, [page])
-
-
-	const generateTitle = () => {
-		if (!router?.query?.text) {
-			return aliasData?.aliasName ? generateAliasStr(aliasData.aliasName[0].label) : ''
-		}
-
-		return router.query.text
-	}
 	
 	return (
 		<Container className={classes.root}>
-			<BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''} />
+			{aliasData?.aliasBread && <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''} />}
 			<Box className={classes.main}>
 				<Box className={classes.offers} >
 					<SearchRender 

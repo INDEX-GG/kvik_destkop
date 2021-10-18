@@ -64,10 +64,7 @@ const SearchItem = ({children, categoryName, /** setSearchValue */suggestData}) 
 		return AliasIcon
 	}
 
-	console.log(suggestData.category);
-
 	return <DefaultCategory/>;
-
   }
 
 
@@ -96,11 +93,11 @@ const SearchItem = ({children, categoryName, /** setSearchValue */suggestData}) 
   }
 
 
-
   return (
 		<div onClick={handleClick} className={classes.searchItem}>
 			<span className={classes.text}>{children}</span>
-			<span className={`${classes.category} ${classes.categoryName}`}>{categoryName}</span>
+			{categoryName != suggestData.text ?
+			<span className={`${classes.category} ${classes.categoryName}`}>{categoryName}</span> : null}
 			<span className={classes.category}>{generateIcon()}</span>
 		</div>
   )

@@ -85,7 +85,6 @@ const Search = ({text = false}) => {
 
 	const handleChange = (e) => {
 		setSearchValue(e.target.value)
-		console.log(PUBLIC_SEARCH)
 		axios.post(`${PUBLIC_SEARCH}/search`, {'text': e.target.value})
 		  .then(r => setSuggestData(r.data.data));
 	}
@@ -98,6 +97,12 @@ const Search = ({text = false}) => {
 			}, 200)
 		}
 	}
+
+	const handleKeyDown = (e) => {
+		if (e.key == 'Enter') {
+			router.push({pathname: '/search/all',query: {text: e.target.value}})
+		}
+	}
 	
 
 	return (
@@ -106,6 +111,7 @@ const Search = ({text = false}) => {
 				<TextField
 					value={searchValue}
 					onChange={handleChange}
+					onKeyDown={handleKeyDown}
 					variant='outlined' size='small'
 					placeholder={text ? text : "Поиск по объявлениям"}
 					fullWidth className={classes.searchInput} 
