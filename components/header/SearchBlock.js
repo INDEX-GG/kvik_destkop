@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const SearchBlock = ({suggestData}) => {
+const SearchBlock = ({suggestData, activeSuggest, changeSuggestSelect}) => {
     const classes = useStyles();
 
 
@@ -151,6 +151,7 @@ const SearchBlock = ({suggestData}) => {
     // todo: максимум 8 строчек
 
 
+
     return (
         <div className={classes.searchField}>
             {/*{category && <SearchItem category={category} value={value} setSearchValue={setSearchValue}>{value}</SearchItem>}*/}
@@ -161,9 +162,20 @@ const SearchBlock = ({suggestData}) => {
             {/*<SearchItem category={category} >{value}</SearchItem>*/}
             {/* <SearchItem category={category} >{value}</SearchItem> */}
             {/*<SearchItem category={category} >{value}</SearchItem>*/}
-			{suggestData.length && suggestData.map((item, index) => {
-				 return <SearchItem key={index} categoryName={item.name} suggestData={item} >{item.text}</SearchItem>
-			})}
+            {suggestData.length && suggestData.map((item, index) => {
+              return (
+                <SearchItem 
+                  key={index} 
+                  categoryName={item.name} 
+                  suggestData={item}
+                  activeSugges={index == activeSuggest - 1}
+                  index={index}
+                  changeSuggestSelect={changeSuggestSelect}
+                  >
+                    {item.text}
+                  </SearchItem>
+              )
+            })}
         </div>
     )
 }
