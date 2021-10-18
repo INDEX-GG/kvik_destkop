@@ -19,7 +19,10 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
-    '&:hover': {
+  },
+  activeSearchItem: {
+	backgroundColor: '#E9E9E9',
+	'&:hover': {
       background: '#E9E9E9'
     },
   },
@@ -49,21 +52,17 @@ const iconsObj = {
 	services: <BurgerServices  size={18} fill="#8F8F8F"  />,
 };
 
-const SearchItem = ({children, categoryName, /** setSearchValue */suggestData}) => {
+const SearchItem = ({children, categoryName, /** setSearchValue */suggestData, activeSugges, changeSuggestSelect, index}) => {
   
   const classes = useStyles();
   const router = useRouter();
 
-  //? ПОСЛЕ ТЕСТОВ УДАЛИТЬ ПРОПС suggestData и проверку 
-
   const generateIcon = () => {
-
 	if (suggestData?.category) {
 		const categoryAlias = suggestData.category.split(',')[0].toLowerCase();
 		const AliasIcon = iconsObj[categoryAlias]
 		return AliasIcon
 	}
-
 	return <DefaultCategory/>;
   }
 
@@ -93,8 +92,12 @@ const SearchItem = ({children, categoryName, /** setSearchValue */suggestData}) 
   }
 
 
+
   return (
-		<div onClick={handleClick} className={classes.searchItem}>
+		<div className={`${classes.searchItem} ${activeSugges && classes.activeSearchItem}`} 
+		  onClick={handleClick}
+		  onMouseEnter={() => changeSuggestSelect(index + 1)}
+		  >
 			<span className={classes.text}>{children}</span>
 			{categoryName != suggestData.text ?
 			<span className={`${classes.category} ${classes.categoryName}`}>{categoryName}</span> : null}
