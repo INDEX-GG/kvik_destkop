@@ -1,6 +1,7 @@
 import { Collapse, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useCategory } from '../../hooks/useCategory';
+import { generateAliasStr } from '../../lib/services';
 import BurgerAnimal from '../../UI/icons/BurgerAnimal';
 import BurgerAuto from '../../UI/icons/BurgerAuto';
 import BurgerBusiness from '../../UI/icons/BurgerBusiness';
@@ -33,11 +34,7 @@ const CategoriesAliasOne = ({iconId, label, alias, placeOffer, toggleDrawer}) =>
 	const [open, setOpen] = useState(false)
 
 	const {categoriesByAlias} = useCategory();
-
-	function generateStr(str) {
-		return str[0].toUpperCase() + str.substring(1,)
-	}
-
+	
 	return (
 		<>
 			<ListItem style={{ backgroundColor: open ? "#E9E9E9" : "#fff" }} className="burgerList" button onClick={() => setOpen(!open)}>
@@ -49,7 +46,7 @@ const CategoriesAliasOne = ({iconId, label, alias, placeOffer, toggleDrawer}) =>
 			<Collapse in={open}>
 				<List component="div" disablePadding>
 				{categoriesByAlias(alias).map((item, index) => {
-					return <CategoriesAliasTwo key={index} alias={alias} alias2={item.alias} label={generateStr(item.label)} placeOffer={placeOffer} toggleDrawer={toggleDrawer}/>
+					return <CategoriesAliasTwo key={index} alias={alias} alias2={item.alias} label={generateAliasStr(item.label)} placeOffer={placeOffer} toggleDrawer={toggleDrawer}/>
 				})}
 				</List>
 			</Collapse>

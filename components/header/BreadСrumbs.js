@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }))
 
-export default function BreadCrumbs({ data, /**product = false**/ }) {
+export default function BreadCrumbs({ data, /**product = false,**/ searchData }) {
 	const classes = useStyles()
 
 	const {city} = useCity();
@@ -24,21 +24,25 @@ export default function BreadCrumbs({ data, /**product = false**/ }) {
 	return (
 		<div className={classes.bread}>
 			<div className="clientPage__breadcrumbs thin">
-				{data == undefined ? null : <Link href="/">
+				{data ? 
+				<Link href="/">
 					<a className="breadCrumb light">{city}</a>
-				</Link>
+				</Link> : null
 				}
-				{data == undefined ? null : data.map((item, index) => {
+				{data ? 
+				data.map((item, index) => {
 					const title = item.label[0].toUpperCase() + item.label.substring(1,)
 					return (
-						// index == data.length - 1 && product == false ?
-						// 	<a className={`breadCrumb light line ${classes.breadActiveItem}`}>{title}</a>
-						// 	:
-							<Link key={index + 1} href={`/search/${item.alias}`}>
-								<a className={`breadCrumb light line ${index == data.length - 1 ? classes.breadActiveItem : ''}`}>{title}</a>
-							</Link>
+						<Link key={item.alias + index} href={`/search/${item.alias}`}>
+							<a className={`breadCrumb light line 
+							${index == data.length - 1 && !searchData ? classes.breadActiveItem : ''}`}>
+								{title}
+							</a>
+						</Link>
 					)
-				})}
+				}) : null}
+				{searchData && 
+				<a className={`breadCrumb light line ${classes.breadActiveItem}`}>{searchData}</a>}
 				{/* {product ?
 					<Link href="#">
 						<a className={`breadCrumb light line ${classes.breadActiveItem}`}>{product}</a>
