@@ -129,8 +129,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Auto({ data }) {
 
-    // console.log('$$$data',data)
-
     const classes = useStyles();
     const methods = useFormContext();
     const [mark, setMark] = useState(),

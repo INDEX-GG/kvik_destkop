@@ -72,7 +72,7 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
-    console.log(methods)
+    // console.log(methods)
     /* получение дополнительных полей */
 
 
@@ -80,10 +80,10 @@ function PlaceOffer() {
     const { ...subcategoryData } = useCategoryPlaceOffer(category, methods);
 
 
-    console.log('ALIAS4', methods?.watch('alias4'))
-    console.log('ALIAS3', methods?.watch('alias3'))
-    console.log('ALIAS2', methods?.watch('alias2'))
-    console.log('ALIAS1', methods?.watch('alias1'))
+    // console.log('ALIAS4', methods?.watch('alias4'))
+    // console.log('ALIAS3', methods?.watch('alias3'))
+    // console.log('ALIAS2', methods?.watch('alias2'))
+    // console.log('ALIAS1', methods?.watch('alias1'))
 
 
     useEffect(() => {
@@ -102,10 +102,10 @@ function PlaceOffer() {
 
 
 
-    console.log('category',category)
+    // console.log('category',category)
 
     const onSubmit = data => {
-        console.log('DATAAAAAAA',data)
+        // console.log('DATAAAAAAA',data)
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -115,7 +115,7 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
-        console.log('data?.alias1',data?.alias1)
+        // console.log('data?.alias1',data?.alias1)
 
             //todo: Отрефакторить landType!!!! найти key в доп полях
         const landType = () => {
@@ -153,7 +153,7 @@ function PlaceOffer() {
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
 		data.location = data.location?.value ? data.location.value : data.location
 
-        console.log("data", data);
+        // console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
