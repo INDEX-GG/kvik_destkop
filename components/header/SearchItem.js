@@ -104,28 +104,6 @@ const SearchItem = ({children, categoryName, /** setSearchValue */suggestData}) 
 			<span className={classes.category}>{generateIcon()}</span>
 		</div>
   )
-
-//   const {categoriesByAlias} = useFindCategory()
-  
-//   const splited = category?.split(',')
-//   // console.log('splited',splited)
-//   const categoryData = categoriesByAlias(splited)
-//   // console.log('categoryData',categoryData)
-//   const categoryName = splited.length === 1 ? categoryData.name : categoryData.label
-//   // console.log('categoryName',categoryName);
-
-//   const RouterPush = () => {
-//     setSearchValue('')
-//     return Router.push(`/search/${splited.slice(-1)}`)
-//   }
-
-
-//   return (
-//     <div  className={classes.searchItem} onClick={() => RouterPush()} tabIndex={0}>
-//       <span className={classes.text}>{children}</span>
-//       <span className={classes.category}>{aliasIcon[category] ? aliasIcon[category] : <DefaultCategory />} <span style={{paddingLeft: 8}}>{categoryName}</span> </span>
-//     </div>
-//   )
 }
 
 export default SearchItem
