@@ -19,7 +19,10 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
-    '&:hover': {
+  },
+  activeSearchItem: {
+	backgroundColor: '#E9E9E9',
+	'&:hover': {
       background: '#E9E9E9'
     },
   },
@@ -49,25 +52,18 @@ const iconsObj = {
 	services: <BurgerServices  size={18} fill="#8F8F8F"  />,
 };
 
-const SearchItem = ({children, categoryName, /** setSearchValue */suggestData}) => {
+const SearchItem = ({children, categoryName, /** setSearchValue */suggestData, activeSugges, changeSuggestSelect, index}) => {
   
   const classes = useStyles();
   const router = useRouter();
 
-  //? ПОСЛЕ ТЕСТОВ УДАЛИТЬ ПРОПС suggestData и проверку 
-
   const generateIcon = () => {
-
 	if (suggestData?.category) {
 		const categoryAlias = suggestData.category.split(',')[0].toLowerCase();
 		const AliasIcon = iconsObj[categoryAlias]
 		return AliasIcon
 	}
-
-	console.log(suggestData.category);
-
 	return <DefaultCategory/>;
-
   }
 
 
@@ -98,34 +94,16 @@ const SearchItem = ({children, categoryName, /** setSearchValue */suggestData}) 
 
 
   return (
-		<div onClick={handleClick} className={classes.searchItem}>
+		<div className={`${classes.searchItem} ${activeSugges && classes.activeSearchItem}`} 
+		  onClick={handleClick}
+		  onMouseEnter={() => changeSuggestSelect(index + 1)}
+		  >
 			<span className={classes.text}>{children}</span>
-			<span className={`${classes.category} ${classes.categoryName}`}>{categoryName}</span>
+			{categoryName != suggestData.text ?
+			<span className={`${classes.category} ${classes.categoryName}`}>{categoryName}</span> : null}
 			<span className={classes.category}>{generateIcon()}</span>
 		</div>
   )
-
-//   const {categoriesByAlias} = useFindCategory()
-  
-//   const splited = category?.split(',')
-//   // console.log('splited',splited)
-//   const categoryData = categoriesByAlias(splited)
-//   // console.log('categoryData',categoryData)
-//   const categoryName = splited.length === 1 ? categoryData.name : categoryData.label
-//   // console.log('categoryName',categoryName);
-
-//   const RouterPush = () => {
-//     setSearchValue('')
-//     return Router.push(`/search/${splited.slice(-1)}`)
-//   }
-
-
-//   return (
-//     <div  className={classes.searchItem} onClick={() => RouterPush()} tabIndex={0}>
-//       <span className={classes.text}>{children}</span>
-//       <span className={classes.category}>{aliasIcon[category] ? aliasIcon[category] : <DefaultCategory />} <span style={{paddingLeft: 8}}>{categoryName}</span> </span>
-//     </div>
-//   )
 }
 
 export default SearchItem

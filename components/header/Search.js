@@ -46,28 +46,19 @@ const useStyles = makeStyles(() => ({
 
 const Search = ({text = false}) => {
 	const classes = useStyles();
+
 	const [showButtons, setShowButtons] = useState(false)
 	const [onlyPhoto, setOnlyPhoto] = useState(false)
 	const [safetyOffer, setSafetyOffer] = useState(false)
 	const [saveResult, setSaveResult] = useState(false)
 	const [searchValue, setSearchValue] = useState();
-	const {matchesTablet, matchesMobile} = useMedia()
+
 	const [suggestData, setSuggestData] = useState([]);
+	const [suggestNumber, setSuggestNumber] = useState(0);
+	const [suggestItem, setSuggestItem] = useState({});
+
+	const {matchesTablet, matchesMobile} = useMedia()
 	const mobile = matchesTablet || matchesMobile
-
-	// const [result, setRes] = useState();
-
-	// const handelSearch = e => {
-	// 	setSearch(e.target.value)
-	// 	if (search?.length > 2) {
-	// 		setRes(search)
-	// 	}
-	// }
-
-	// useEffect(() => {
-	// 	axios.post('/api/search', { product_name: result })
-	// 		.then(res => console.log(res))
-	// }, [result])
 
 
 	const router = useRouter()
@@ -82,10 +73,21 @@ const Search = ({text = false}) => {
 		}
 	}, [])
 
+	useEffect(() => {
+		if (suggestData) setSuggestNumber(0);
+	}, [suggestData])
+
+	useEffect(() => {
+		setSuggestItem(suggestData[suggestNumber - 1])
+		if (suggestData[suggestNumber - 1]?.text) {
+			setSearchValue(suggestData[suggestNumber - 1].text)
+		}
+	}, [suggestNumber])
+
+	
 
 	const handleChange = (e) => {
 		setSearchValue(e.target.value)
-		console.log(PUBLIC_SEARCH)
 		axios.post(`${PUBLIC_SEARCH}/search`, {'text': e.target.value})
 		  .then(r => setSuggestData(r.data.data));
 	}
@@ -98,14 +100,58 @@ const Search = ({text = false}) => {
 			}, 200)
 		}
 	}
+
+	const generateSuggest = (step, lastItem, start) => {
+
+		console.log(suggestNumber)
+
+		if (suggestNumber <= 0) {
+			setSuggestNumber(start)
+			return;
+		}
+
+		if (suggestNumber == lastItem) {
+			setSuggestNumber(start);
+			return;
+		}
+		setSuggestNumber(suggestNumber + step)
+	}
+
+	const handleKeyDown = (e) => {
+		console.log(suggestItem);
+		if (e.key == 'Enter' && e.target.value.length > 2 && !suggestItem?.category) {
+			router.push({pathname: '/search/all',query: {text: e.target.value}})
+		}
+
+		if (e.key == 'Enter' && suggestItem?.category) {
+			const category = suggestItem.category.split(',').reverse()[0]
+
+			if (suggestItem.type == 'query') {
+				router.push({pathname: `/search/${category}`,query: {text: suggestItem.text}})
+				return;
+			}
+
+			router.push(`/search/${category}`)
+		}
+
+		if (e.key == 'ArrowDown') generateSuggest(1, suggestData.length, 1) 
+		if (e.key == 'ArrowUp') generateSuggest(-1, 1, suggestData.length)
+	}
+
+
+	const changeSuggestSelect = (index) => {
+		setSuggestNumber(index);
+		setSuggestItem(suggestData[index])
+	}
+
 	
 
-	return (
-			
+	return (	
 		<Box className={classes.input} onBlur={handleBlur} onFocus={() => setShowButtons(true)} >
 				<TextField
 					value={searchValue}
 					onChange={handleChange}
+					onKeyDown={handleKeyDown}
 					variant='outlined' size='small'
 					placeholder={text ? text : "Поиск по объявлениям"}
 					fullWidth className={classes.searchInput} 
@@ -121,7 +167,15 @@ const Search = ({text = false}) => {
 					</div>
 				}
 				{(showButtons && searchValue && searchValue.length < 25) && 
-					<SearchBlock value={searchValue} setSearchValue={setSearchValue} suggestData={suggestData}/>
+					<div>
+						<SearchBlock 
+							value={searchValue}
+							setSearchValue={setSearchValue} 
+							suggestData={suggestData}
+							activeSuggest={suggestNumber} 
+							changeSuggestSelect={changeSuggestSelect}
+						/>
+					</div>
 				}
 				
 		</Box>

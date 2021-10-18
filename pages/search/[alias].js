@@ -11,6 +11,7 @@ import { getDataByPost } from "../../lib/fetch";
 import { STATIC_URL } from "../../lib/constants";
 import { categoryScroll } from "../../lib/scrollAds";
 import FilterBlock from "../../components/FilterBlock";
+import { generateAliasStr } from "../../lib/services";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -52,35 +53,62 @@ const useStyles = makeStyles(() => ({
 
 const Index = () => {
 
-	const router = useRouter()
-
-	const { matchesMobile, matchesTablet } = useMedia();
-	const [data, setData] = useState(null);
-
 	const classes = useStyles();
 
-	const aliasQuery = router.asPath.split("/").splice(2,).join("")
-
-	let aliasData = aliasName(aliasQuery, true)
-
-	const aliasFillUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
-
-
+	const [data, setData] = useState(null);
 	const [page, setPage] = useState(1);
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
-	const [lastIdAds ,setLastIdAds] = useState(0);
-	const limit = 5
+	const [/** lastIdAds */ ,setLastIdAds] = useState(0);
+
+	const router = useRouter()
+	const { matchesMobile, matchesTablet } = useMedia();
+
+	const aliasQuery = router.asPath.split("/")[2].split('?')[0]
+	const aliasData = aliasName(aliasQuery, true)
+	const aliasFullUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
+	const searchText = router?.query?.text
+	const aliasAll = router?.query?.alias == 'all'
+	const limit = 10
+	
+
+	const generateTitle = () => {
+		if (!router?.query?.text) {
+			return aliasData?.aliasName ? generateAliasStr(aliasData.aliasName[0].label) : ''
+		}
+
+		return router.query.text
+	}
+
+	const generateDataArr = (arr) => {
+		const dataArr = arr.map(offer => {
+			return {
+				...offer,
+				photo: JSON.parse(offer.photo)?.photos.map(img => `${STATIC_URL}/${img}`)
+			}
+		})
+
+		return dataArr
+	} 
 
 
 	useEffect(() => {
-		if (page == 'end') setPage(1)
-		console.log(lastIdAds)
+		setPage(1)
+		setLimitRanderPage(0)
+		setLastIdAds(0)
 	}, [router])
 
 
 	useEffect(() => {
-		if (aliasFillUrl !== undefined) {
-			getDataByPost('/api/postCategorySearch', { data: aliasFillUrl, 'page_limit': limit, 'page': 1 }).then(r => {
+		if (searchText) {			
+			const data = {'category': aliasAll? '': aliasFullUrl, 'text': aliasAll ? '' : searchText , 'page_limit': limit, 'page': 1}
+			getDataByPost('/api/searchInsideCategory', data)
+			  .then(r => {
+				  setData(generateDataArr(r))
+				  setPage(1);
+			  });
+		} else {
+			if (aliasFullUrl) {
+			getDataByPost('/api/postCategorySearch', { data: aliasFullUrl, 'page_limit': limit, 'page': 1 }).then(r => {
 				if (r !== undefined) {
 					const offersData = r.map(offer => {
 						return {
@@ -89,26 +117,54 @@ const Index = () => {
 						}
 					})
 					setData(offersData);
+					setPage(1);
 					if (r.length > 1) setLastIdAds(r[r.length - 1].id)
 				}
 			})
 		}
-	}, [aliasFillUrl]);
+		}
+	}, [router]);
 
 
 	useEffect(() => {
+		
+		const fetchDataObj = {
+			'data': aliasFullUrl, 
+			'page_limit': limit, 
+			'page': page
+		};
+
+		if (searchText) {
+			delete fetchDataObj.data
+			fetchDataObj.category = aliasFullUrl ? aliasFullUrl : ''
+			fetchDataObj.text = aliasAll ? '' : searchText
+		}
+
+		const setObj = {
+			setData, 
+			setLimitRanderPage, 
+			setPage, 
+			setLastIdAds
+		}
+
 		if (page > 1) {
-			categoryScroll(aliasFillUrl, limit, page, setData, setLimitRanderPage, setPage, setLastIdAds)
+			const api = searchText ?  '/api/searchInsideCategory' : '/api/postCategorySearch';
+			categoryScroll(api, fetchDataObj, setObj)
 		}
 	}, [page])
 	
 	return (
-		// <MainlA isIndex title={'Доска объявлений'} category={"Транспорт"}>
 		<Container className={classes.root}>
-			<BreadCrumbs data={aliasData?.aliasBread} />
+			{aliasData?.aliasBread && <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''} />}
 			<Box className={classes.main}>
 				<Box className={classes.offers} >
-					<SearchRender data={data} page={page} limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage} setPage={setPage} title={aliasData?.aliasName == null ? "" : aliasData.aliasName[0].label[0].toUpperCase() + aliasData.aliasName[0].label.substring(1,)} /></Box>
+					<SearchRender 
+						title={generateTitle()}
+						data={data} 
+						page={page} 
+						limitRender={limitRenderPage} 
+						setLimitRenderPage={setLimitRanderPage} 
+						setPage={setPage} /></Box>
 				{!matchesMobile && !matchesTablet &&
 					<Box className={classes.rightBlock}>
 						<FilterBlock categoryData={aliasData} />
@@ -122,7 +178,6 @@ const Index = () => {
 					</Box>}
 			</Box>
 		</Container>
-		// {/* // </MainlA > */}
 	)
 }
 
