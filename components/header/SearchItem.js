@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import Router from 'next/router'
-import { useFindCategory } from "../../hooks/useFindCategory";
+import { useRouter } from 'next/router'
 import BurgerAnimal from "../../UI/icons/BurgerAnimal";
 import BurgerAuto from "../../UI/icons/BurgerAuto";
 import BurgerBusiness from "../../UI/icons/BurgerBusiness";
@@ -11,7 +10,6 @@ import BurgerRealEstate from "../../UI/icons/BurgerRealEstate";
 import BurgerServices from "../../UI/icons/BurgerServices";
 import BurgerThing from "../../UI/icons/BurgerThing";
 import BurgerWork from "../../UI/icons/BurgerWork";
-import DefaultCategory from "../../UI/icons/DefaultCategory";
 
 const useStyles = makeStyles(() => ({
   searchItem: {
@@ -48,39 +46,65 @@ const aliasIcon = {
 };
 
 const SearchItem = ({children, category, setSearchValue, suggestData}) => {
+  
   const classes = useStyles();
+  const router = useRouter();
 
   //? ПОСЛЕ ТЕСТОВ УДАЛИТЬ ПРОПС suggestData и проверку 
-  if (suggestData) {
-	return (
-		<div className={classes.searchItem}>
-			<span className={classes.text}>{children}</span>
-			<span className={classes.category}>{category}</span>
-		</div>
-  	)
+
+  const handleClick = () => {
+
+	if (suggestData?.category) {
+		const category = suggestData.category.split(',').reverse()[0]
+
+		if (suggestData.type != 'query') {
+			router.push(`/search/${category}`)
+			return;
+		}
+
+		router.push({
+			pathname: `/search/${category}`,
+			query: {text: suggestData.text}
+		})
+
+	} else {
+		router.push({
+			pathname: '/search/all',
+			query:{text: suggestData.text}
+		})
+	}
   }
 
-  const {categoriesByAlias} = useFindCategory()
-  
-  const splited = category?.split(',')
-  // console.log('splited',splited)
-  const categoryData = categoriesByAlias(splited)
-  // console.log('categoryData',categoryData)
-  const categoryName = splited.length === 1 ? categoryData.name : categoryData.label
-  // console.log('categoryName',categoryName);
-
-  const RouterPush = () => {
-    setSearchValue('')
-    return Router.push(`/search/${splited.slice(-1)}`)
-  }
 
 
   return (
-    <div  className={classes.searchItem} onClick={() => RouterPush()} tabIndex={0}>
-      <span className={classes.text}>{children}</span>
-      <span className={classes.category}>{aliasIcon[category] ? aliasIcon[category] : <DefaultCategory />} <span style={{paddingLeft: 8}}>{categoryName}</span> </span>
-    </div>
+		<div onClick={handleClick} className={classes.searchItem}>
+			<span className={classes.text}>{children}</span>
+			<span className={classes.category}>{category}</span>
+		</div>
   )
+
+//   const {categoriesByAlias} = useFindCategory()
+  
+//   const splited = category?.split(',')
+//   // console.log('splited',splited)
+//   const categoryData = categoriesByAlias(splited)
+//   // console.log('categoryData',categoryData)
+//   const categoryName = splited.length === 1 ? categoryData.name : categoryData.label
+//   // console.log('categoryName',categoryName);
+
+//   const RouterPush = () => {
+//     setSearchValue('')
+//     return Router.push(`/search/${splited.slice(-1)}`)
+//   }
+
+
+//   return (
+//     <div  className={classes.searchItem} onClick={() => RouterPush()} tabIndex={0}>
+//       <span className={classes.text}>{children}</span>
+//       <span className={classes.category}>{aliasIcon[category] ? aliasIcon[category] : <DefaultCategory />} <span style={{paddingLeft: 8}}>{categoryName}</span> </span>
+//     </div>
+//   )
 }
 
 export default SearchItem

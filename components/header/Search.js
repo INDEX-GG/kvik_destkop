@@ -93,8 +93,10 @@ const Search = ({text = false}) => {
 
 	const handleBlur = (event) => {
 		if (!event.currentTarget.contains(event.relatedTarget)) {
-      setShowButtons(false);
-    }
+			setTimeout(() => {
+				setShowButtons(false);
+			}, 200)
+		}
 	}
 	
 
