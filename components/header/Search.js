@@ -95,9 +95,9 @@ const Search = ({text = false}) => {
 
 	const handleBlur = (event) => {
 		if (!event.currentTarget.contains(event.relatedTarget)) {
-			setTimeout(() => {
+			setTimeout(function() {
 				setShowButtons(false);
-			}, 200)
+			}.bind(this), 200)
 		}
 	}
 

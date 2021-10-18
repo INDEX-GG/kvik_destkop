@@ -202,10 +202,15 @@ const Chat = ({usersData, userChatPhoto}) => {
 		refInput.current.click()
 	}
 
-	function handleChangeFile()  {
+	function handleChangeFile(e)  {
+		const file = e.target.files[0];
 		const reader = new FileReader();
-		console.log(reader)
-		// reader.readAsDataURL(this.files[0]);
+
+		reader.onloadend = (ev) => {
+			console.log(ev.target.result);
+		}
+
+		reader.readAsDataURL(file)
 	}
 
 
@@ -238,7 +243,7 @@ const Chat = ({usersData, userChatPhoto}) => {
               </div>
               <div className="messageChatInput">
                 <button onClick={handleInputClick} className="messageFile">
-					<input ref={refInput} onChange={handleChangeFile} accept='image/.png, .jpg, .jpeg' type='file' hidden/>
+					<input ref={refInput} onChange={(e) => handleChangeFile(e)} accept='image/.png, .jpg, .jpeg' type='file' hidden/>
 				</button>
                 <input 
 				className="messageInput" 

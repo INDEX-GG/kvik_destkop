@@ -71,6 +71,7 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 		observerGenerate(lastElement, observer, limitRender, setLimitRenderPage, setPage, page)
 	})
 
+	
 	return (
 		<>
 			<Box className={classes.top}>
