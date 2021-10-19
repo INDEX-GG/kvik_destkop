@@ -16,6 +16,7 @@ import { useMedia } from "../../hooks/useMedia";
 import { getDataByPost } from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,6 +79,7 @@ export default function RegForm() {
   const { handleSubmit, control, setValue } = useForm();
   const { matchesMobile } = useMedia();
   const [showPassword, setShowPassword] = useState(false);
+
   const [valueInp, setValueInp] = useState("");
   const closeRegForm = () => {
     setValue("name", "");
@@ -214,32 +216,35 @@ export default function RegForm() {
                   //   helperText={error ? error.message : " "}
                   // />
 
-
-                    <TextField
-                      label="Введите пароль"
-                      variant="outlined"
-                      size="small"
-                      type={showPassword ? 'text' : 'password'}
-                      autoComplete="new-password"
-                      value={value}
-                      onChange={onChange}
-                      error={!!error}
-                      helperText={error ? error.message : " "}
-                      InputProps={{
-                        endAdornment: (
-                        <InputAdornment position="end">
-                        <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                        >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                        </InputAdornment>
-                        )
-                      }}
+                    <>
+                      <TextField
+                          label="Введите пароль"
+                          variant="outlined"
+                          size="small"
+                          type={showPassword ? 'text' : 'password'}
+                          autoComplete="new-password"
+                          value={value}
+                          onChange={onChange}
+                          error={!!error}
+                          helperText={error ? error.message : " "}
+                          InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                  <IconButton
+                                      aria-label="toggle password visibility"
+                                      onClick={handleClickShowPassword}
+                                      onMouseDown={handleMouseDownPassword}
+                                      edge="end"
+                                  >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                  </IconButton>
+                                </InputAdornment>
+                            )
+                          }}
                       />
+                        <PasswordStrengthBar  />
+                    </>
+
 
                 )}
                 rules={{ required: "Введите пароль" }}

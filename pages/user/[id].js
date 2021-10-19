@@ -4,8 +4,6 @@ import User from "../../components/User/User";
 import { ToRusAccountDate, stringToColor, initials, standartDate } from "../../lib/services";
 import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
 import { useRouter } from "next/router";
-import UserLock from "../../UI/icons/UserLock";
-import UserReport from "../../UI/icons/UserReport";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useAd } from "../../hooks/useAd";
 import axios from "axios"
