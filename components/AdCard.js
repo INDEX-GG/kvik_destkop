@@ -1,7 +1,6 @@
 import React, {  useRef, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import SwiperCore, { Pagination } from "swiper/core";
 import SwiperCore, { Pagination } from 'swiper';
 import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import { useMedia } from '../hooks/useMedia';
@@ -60,6 +59,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		}
 	}
 
+	// todo: перелистывание слайдера по движению мыши
 	// useEffect(() => {
 	// 	currentSwiper.current.addEventListener("mousemove", switchSlide);
 	// }, [currentSwiper]);

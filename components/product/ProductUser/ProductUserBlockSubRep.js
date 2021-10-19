@@ -79,7 +79,7 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
   }
 
 	return (
-		id == sellerId ? null : 
+		id === sellerId ? null :
 		<>
 		<div className="ad__block_bottom__adaptive">
 			{mobile && (

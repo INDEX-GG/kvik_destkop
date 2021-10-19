@@ -175,7 +175,7 @@ export default function RegForm() {
                       onChange(PhoneMask(e, valueInp, setValueInp))
                     }
                     onKeyDown={(e) => {
-                      if (e.key == "Backspace" && e.target.value.length === 3) {
+                      if (e.key === "Backspace" && e.target.value.length === 3) {
                         setValueInp("");
                       }
                     }}
