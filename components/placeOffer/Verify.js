@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },  
 }));
 
-const Verify = ({edit}) => {
+const Verify = ({edit, showTitle}) => {
     const methods = useFormContext();
     const classes = useStyles();
     const [alias, setAlias] = useState(false);
@@ -48,9 +48,10 @@ const Verify = ({edit}) => {
         edit ? setShowCategory(true) : setShowCategory(false)
     }, [edit]);
 
+    console.log('SHOWTITLE!!!!!!!+++++++++>>>>>>>>>',showTitle)
 
     useEffect(() => {
-        setVerifyTilte(!!methods.watch('title'));
+        showTitle ? setVerifyTilte(true) : setVerifyTilte(!!methods.watch('title'));
         setVerifyCategory(alias);
 
 
