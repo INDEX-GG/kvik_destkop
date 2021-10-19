@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const DadataSuggest = () => {
+const DadataSuggest = ({mobile = false}) => {
 
 	const classes = useStyles()
 	const [value, setValue] = useState();
@@ -104,7 +104,11 @@ const DadataSuggest = () => {
 			   }}
             />
 			{error ? <div className={classes.mapDesc}>Введите корректный адрес</div> : <div className={classes.mapDesc}>Введите название и Выберите из списка населенный пункт и улицу</div>}
-			<ProductYMAP coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [+userAddressGeo[0], +userAddressGeo[1]]} height={224} width={490} border={true}/>
+			<ProductYMAP 
+			  height={mobile ? 400 : 224} 
+			  width={490} 
+			  border={true}
+			 coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [+userAddressGeo[0], +userAddressGeo[1]]} />
 		</div> : null
 	)
 }

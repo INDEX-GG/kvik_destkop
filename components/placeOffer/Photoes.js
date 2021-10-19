@@ -242,7 +242,7 @@ const Photoes = ({ ctx }) => {
 					return [...img, { name: el.name, src: e.target.result, id: i }]
 					}
 					return [...img]
-			});
+				});
 
 			};
 		});
@@ -384,7 +384,7 @@ const Photoes = ({ ctx }) => {
 		setValidFiles([...filteredValid]);
 	};
 
-
+	console.log(validFiles[0]);
 	ctx(validFiles);
 
 	const SortableList = SortableContainer(({ items }) => {
