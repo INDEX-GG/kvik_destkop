@@ -40,12 +40,14 @@ export default function AccountContent({ id, icon, title, setState }) {
 
 	const handlerClick = () => {
 		setState({ right: false })
+		console.log(1);
 		router.push({
 			pathname: `/account/${id}`,
 			query: {
-				account: (id === 2 || id === 3 || id === 6 ? `/account/13` : `/account/${id}`)
+				// account: (id === 2 || id === 3 || id === 6 ? `/account/13` : `/account/${id}`)
+				account: id,
+				content: 1
 			},
-
 		})
 	}
 

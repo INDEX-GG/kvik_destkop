@@ -42,7 +42,11 @@ function Messages() {
 	registerServiceWorkerNoSSR()
 	const token = askForPermissioToReceiveNotifications()
 	if (id) {
-		generateDataTocken(id, token)
+		try {
+			generateDataTocken(id, token)
+		} catch(e) {
+			console.log(e)
+		}
 	}
   }, [loading, id])
 

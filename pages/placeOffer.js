@@ -72,6 +72,8 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
+	console.log(photoes);
+
     // console.log(methods)
     /* получение дополнительных полей */
 
@@ -105,7 +107,6 @@ function PlaceOffer() {
     // console.log('category',category)
 
     const onSubmit = data => {
-        // console.log('DATAAAAAAA',data)
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -156,17 +157,24 @@ function PlaceOffer() {
         // console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
+
         delete data.alias1
         delete data.alias2
         delete data.alias3
         delete data.alias4
         delete data.photoes
+		
         const photoData = new FormData;
         if (photoes.length > 1) {
             photoes.forEach(photo => photoData.append('files[]', photo));
         } else if (photoes.length === 1) {
             photoData.append('files[]', photoes[0]);
         }
+
+		console.log(photoData.getAll('files[]'))
+
+		// console.log(photoData, 'photo');
+
 
         let obj = {}
         let additionalfields = { [category]: [] }
@@ -235,21 +243,21 @@ function PlaceOffer() {
 
         axios.post(`${BASE_URL}/api/setPosts`, obj)
             .then(r => {
-				console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
+				// console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
                 postId = r?.data?.id;
-                // console.log('postId',postId)
+
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
                 console.error('additionalfields',additionalfields)
+
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-                // console.log('r',r)
+
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 }).then((r) => {
-                    console.log('PRODUCT',{ title: `${data.modelsAuto} ${data.submodels},${data.year}`, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+					console.log(`${STATIC_URL}/${r.data.images.photos[0]}`)
                     setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
-                    console.log(r?.data.images.photos[0])
                     setPromotion(true)
                 })
 				// axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})

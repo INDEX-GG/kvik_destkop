@@ -57,14 +57,17 @@ export default function ContentPlaseOffer({dialog, title, backFunc}) {
     }
 
     const onSubmit = data => {
-		// console.log(data);
-		// console.log(photoes)
         data.price = data.price.replace(/\D+/g, '');
 		const alias = [...title.split(",")]
 		let postId = 0;
 
         const sendData = new FormData;
 		const photoData = new FormData;
+
+		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
+		data.location = data.location?.value ? data.location.value : data.location
+
+
 		data.user_id = id;
 		delete data.photoes;
 		data.alias = alias.join(',')
