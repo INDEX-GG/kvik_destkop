@@ -83,11 +83,13 @@ const Chat = ({usersData, userChatPhoto}) => {
 
 	useEffect(() => {
 		if (refChat.current && !messageUpdate) {
-			refChat.current.scrollTop = refChat.current.scrollHeight
+			refChat.current.scrollTop = refChat.current.scrollHeight + 100
+			console.log(refChat.current.scrollTop)
 		} else {
 			refChat.current.scrollTop = refChat.current.scrollHeight / 2
 		}
 		// refChat.current.scrollTop = refChat.current.scrollHeight
+		console.log(1);
 	}, [msgList])
 
 
@@ -149,6 +151,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 					if (data.sender?.id != id) {
 						socket.emit('online', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 					}
+
 					setMsgList(prev => [...prev, data])
 				}
 			})
@@ -204,7 +207,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 		refInput.current.click()
 	}
 
-	function handleChangeFile(e)  {
+	const handleChangeFile = async (e) =>  {
 		const file = e.target.files[0];
 		const reader = new FileReader();
 
@@ -230,6 +233,22 @@ const Chat = ({usersData, userChatPhoto}) => {
 		}
 	}
 
+	const generateMessageData = (index) => {
+		//! Идём снизу вверх (от 50 к 1)
+
+		const currentItem = msgList.length - (index + 1) 
+		const prevItem = msgList.length - (index + 2)
+
+		if (prevItem >= 0) {
+			const currentItemTime = generateTime(0, msgList[currentItem]?.time, true)
+			const prevItemTime = generateTime(0, msgList[prevItem]?.time, true)
+
+			console.log(msgList[currentItem])
+			console.log(msgList[prevItem])
+			return (prevItemTime == currentItemTime)
+		}
+	}
+
 
 	return (
 		<>
@@ -239,10 +258,10 @@ const Chat = ({usersData, userChatPhoto}) => {
 					item.messages_is_read = userOnline ? true: item.messages_is_read
 					const key = id?.id ? id?.id : index
 					const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
-					// const newDate = generateTime(0, item?.time, false, true)
-					// const prevDate = generateTime(0, msgList[index ? index - 1 : index]?.time, false, true)
-					// console.log(newDate)
-					// prevDate == newDate
+					
+					const i = index == 0 ? index : index - 1
+					const test = generateMessageData(index)
+					const time = (generateTime(0, item.time, true) == generateTime(0, msgList[i]?.time, true))
 				
 					if (item.message.match('http://192.168.8.111:6001/images')) {
 						if (item.message.match('.webp')) {
@@ -255,7 +274,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 									<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 										<img className='chatImg' src={item.message} alt={altName} />
 									</div>
-									<div>{generateTime(0, item?.time, true)}</div>
+									<div>{test && generateTime(0, item?.time, true)}</div>
 								</div>
 							)
 						}
@@ -271,7 +290,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 							<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 								{item.message}
 							</div>
-							<div>{generateTime(0, item?.time, true)}</div>
+							<div>{!time && generateTime(0, item?.time, true)}</div>
 						</div>
 					)
 				})}
