@@ -1,6 +1,7 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import { useCategory } from '../../hooks/useCategory';
+import {useEffect} from "react";
 
 const useStyles = makeStyles((theme) => ({
     formElem: {
@@ -34,6 +35,10 @@ const Category = () => {
     const classes = useStyles();
     const methods = useFormContext();
     const { categoryMainAlias, categoriesByAlias } = useCategory();
+
+    useEffect(() => {
+        methods.setValue('alias1', '')
+    }, [])
 
     return (
         <Box className={classes.formElem}>

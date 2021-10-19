@@ -72,18 +72,19 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
-    // console.log(methods)
+
     /* получение дополнительных полей */
 
 
     const [category, setCategory] = useState();
+    const [showTitle, setShowTitle] = useState(false);
     const { ...subcategoryData } = useCategoryPlaceOffer(category, methods);
 
 
-    // console.log('ALIAS4', methods?.watch('alias4'))
-    // console.log('ALIAS3', methods?.watch('alias3'))
-    // console.log('ALIAS2', methods?.watch('alias2'))
-    // console.log('ALIAS1', methods?.watch('alias1'))
+    console.log('ALIAS4', methods?.watch('alias4'))
+    console.log('ALIAS3', methods?.watch('alias3'))
+    console.log('ALIAS2', methods?.watch('alias2'))
+    console.log('ALIAS1', methods?.watch('alias1'))
 
 
     useEffect(() => {
@@ -99,13 +100,17 @@ function PlaceOffer() {
 
     }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
+    useEffect(() => {
+        setShowTitle(
+            category === 'auto' || methods?.watch('alias1') === 'real_estate' ?  true : false)
+    }, [category, methods?.watch('alias1')]);
 
 
 
-    // console.log('category',category)
+    console.log('category',category)
 
     const onSubmit = data => {
-        // console.log('DATAAAAAAA',data)
+        console.log('DATAAAAAAA',data)
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -115,7 +120,7 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
-        // console.log('data?.alias1',data?.alias1)
+        console.log('data?.alias1',data?.alias1)
 
             //todo: Отрефакторить landType!!!! найти key в доп полях
         const landType = () => {
@@ -153,7 +158,7 @@ function PlaceOffer() {
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
 		data.location = data.location?.value ? data.location.value : data.location
 
-        // console.log("data", data);
+        console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
         delete data.alias1
@@ -220,28 +225,28 @@ function PlaceOffer() {
         }
 
 
-        // // console.log('add 3', additionalfields3[asd])
+        // console.log('add 3', additionalfields3[asd])
 
 
-        // // console.log("asdasdasd",newOBJ[asd]);
+        // console.log("asdasdasd",newOBJ[asd]);
         if (subcategoryData[category] !== undefined) {
             obj.subcategory = category
         }
-        // console.log("addfields", additionalfields)
-        // // console.log(additionalfields2)
+        console.log("addfields", additionalfields)
 
-        // console.log('obj',obj)
+
+        console.log('obj',obj)
         setLoading(true);
 
         axios.post(`${BASE_URL}/api/setPosts`, obj)
             .then(r => {
 				console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
                 postId = r?.data?.id;
-                // console.log('postId',postId)
+                console.log('postId',postId)
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
                 console.error('additionalfields',additionalfields)
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-                // console.log('r',r)
+                console.log('r',r)
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -266,11 +271,11 @@ function PlaceOffer() {
                     <Box className={classes.offersBox}>
                         <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
                         <FormProvider {...methods} >
-                            <Verify />
+                            <Verify showTitle={showTitle}/>
                             <form onSubmit={methods.handleSubmit(onSubmit)}>
                                 <Box className={classes.formPart}>
-                                    <Title />
-                                    <Category />
+                                    {showTitle ? null : <Title title='' />}
+                                    <Category/>
                                 </Box>
                                 {subcategoryData[category] !== undefined ?
                                     <Box className={classes.formPart}>
