@@ -1,6 +1,6 @@
-import { Controller, useFormContext } from 'react-hook-form';
-import { Box, Button, Collapse, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Collapse, makeStyles, Typography } from '@material-ui/core';
 import { useState } from 'react';
+import DadataSuggest from '../DadataSuggest';
 
 const useStyles = makeStyles((theme) => ({
    plaseOfferBox: {
@@ -106,7 +106,6 @@ const useStyles = makeStyles((theme) => ({
 export default function MobileLocation() {
    const [collapsed, setCollapsed] = useState(false)
    const classes = useStyles();
-   const methods = useFormContext();
 
    return (
       <Box className={classes.plaseOfferBox}>
@@ -116,7 +115,7 @@ export default function MobileLocation() {
          </Box>
          <Collapse in={collapsed}>
             <Box className={classes.placeOfferMapBox}>
-               <Controller
+               {/* <Controller
                   name="location"
                   control={methods.control}
                   defaultValue=''
@@ -136,7 +135,8 @@ export default function MobileLocation() {
                   rules={{ required: 'Укажите ваше местоположение...' }}
                />
                <p className={classes.placeOfferMapDesc}>Введите название и Выберите из списка населенный пункт и улицу</p>
-               <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe>
+               <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe> */}
+			   <DadataSuggest mobile/>
             </Box>
             <Button onClick={() => setCollapsed(!collapsed)} className={classes.buttonSend} color='primary' variant='contained'>Сохранить</Button>
          </Collapse>

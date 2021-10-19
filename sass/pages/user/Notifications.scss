@@ -178,7 +178,8 @@
   padding: 16px 10px 16px 0;
   max-height: 450px;
   flex-grow: 1;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .messageChats > *:last-child > *:last-child {
@@ -203,12 +204,12 @@
   align-self: center;
   margin: 6px 0;
 }
-.chatLocutor {
+.chatCompanion {
   align-self: flex-start;
   margin: 10px 0;
 }
 
-.chatLocutor > img {
+.chatCompanion > img {
   min-width: 32px;
   max-width: 32px;
   height: 32px;
@@ -219,19 +220,26 @@
   background-size: cover;
 }
 
-.chatLocutor > *:nth-child(2) {
+.chatCompanion > *:nth-child(2) {
   padding: 12px;
   background-color: $light;
   border-radius: 8px 8px 8px 0;
 }
 
-.chatLocutor > *:nth-child(3) {
+.chatCompanion > *:nth-child(3) {
   font-size: 12px;
   color: $tpsl;
 }
 
 .chatUser {
   align-self: flex-end;
+}
+
+.chatImg {
+	width: 100%;
+	height: 100%;
+	max-width: 500px;
+	max-height: 500px;
 }
 
 .chatUser > *:first-child {

@@ -93,8 +93,8 @@ const Chat = ({usersData, userChatPhoto}) => {
 
 
 
- 	const handleSend = async () => {
-		if (message.length > 0) {
+ 	const handleSend = async (img = false) => {
+		if (message.length > 0 || img) {
 			let data = new Date()
 			const messageDate = {
 				"y": data.getFullYear(), 
@@ -106,7 +106,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 
 			const sendObj = {
 				'delete': false, 
-				'message': message, 
+				'message': img ? img : message, 
 				'messages_is_read': false, 
 				'recipient': usersData?.recipient, 
 				'sender': usersData?.sender,
@@ -114,7 +114,9 @@ const Chat = ({usersData, userChatPhoto}) => {
 				'product': usersData?.product, 
 				'time': JSON.stringify(messageDate),
 			}
+
 			await socket.emit('text', sendObj)
+
 			setMessage('')
 			if (userOnline) setUserOnline(false)
 		}
@@ -206,13 +208,27 @@ const Chat = ({usersData, userChatPhoto}) => {
 		const file = e.target.files[0];
 		const reader = new FileReader();
 
-		reader.onloadend = (ev) => {
-			console.log(ev.target.result);
+		if (file?.type?.match('image')) {
+			reader.onloadend = () => {
+				const photoData = new FormData();
+				photoData.append('files[]', file);
+
+				console.log(photoData.getAll('files[]'))
+
+				axios.post(`${STATIC_URL}/chat`, photoData, {
+					headers: {
+						"Content-Type": "multipart/form-data"
+					}
+				}).then(r => {
+					const img = r.data?.images?.photos;			
+					if (img) handleSend(`${STATIC_URL}/${img}`)
+				})
+				
+			}
+
+			reader.readAsDataURL(file)
 		}
-
-		reader.readAsDataURL(file)
 	}
-
 
 
 	return (
@@ -227,11 +243,30 @@ const Chat = ({usersData, userChatPhoto}) => {
 					// const prevDate = generateTime(0, msgList[index ? index - 1 : index]?.time, false, true)
 					// console.log(newDate)
 					// prevDate == newDate
+				
+					if (item.message.match('http://192.168.8.111:6001/images')) {
+						if (item.message.match('.webp')) {
+							const altName = item.message.split('.webp')[0]
+							return (
+								<div key={key}
+								ref={item.id == messageId ? refMessage : null} 
+								className={myMessage ? "chatUser" : "chatCompanion"}>
+									{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
+									<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
+										<img className='chatImg' src={item.message} alt={altName} />
+									</div>
+									<div>{generateTime(0, item?.time, true)}</div>
+								</div>
+							)
+						}
+					}
+
+
 					return (
 						item?.delete ? null :
 						<div key={key}
 						  ref={item.id == messageId ? refMessage : null} 
-						  className={myMessage ? "chatUser" : "chatLocutor"}>
+						  className={myMessage ? "chatUser" : "chatCompanion"}>
 							{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
 							<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 								{item.message}
