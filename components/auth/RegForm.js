@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import {
   Box,
-  Button,  IconButton, InputAdornment,
+  Button, InputAdornment,
   makeStyles,
   TextField,
   Typography,
@@ -15,7 +15,6 @@ import PhoneMask from "../../lib/phoneMask";
 import { useMedia } from "../../hooks/useMedia";
 import { getDataByPost } from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
-import {Visibility, VisibilityOff} from "@material-ui/icons";
 import PasswordStrengthBar from 'react-password-strength-bar';
 
 const useStyles = makeStyles((theme) => ({
@@ -89,17 +88,10 @@ export default function RegForm() {
     setOpenRegForm((p) => !p);
   };
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
 
   const onSubmit = (data) => {
     data.phone = `+${valueInp.replace(/\D+/g, "")}`;
-    // console.log(data);
     setSendData(data);
     getDataByPost("/api/checkphone", { phone: data.phone }).then((res) => {
       setPhoneNum(res);
@@ -147,29 +139,6 @@ export default function RegForm() {
                 )}
                 rules={{ required: "Введите имя" }}
               />
-
-              {/*<Controller*/}
-              {/*  name="surname"*/}
-              {/*  control={control}*/}
-              {/*  defaultValue=""*/}
-              {/*  render={({*/}
-              {/*    field: { onChange, value },*/}
-              {/*    fieldState: { error },*/}
-              {/*  }) => (*/}
-              {/*    <TextField*/}
-              {/*      label="Фамилия"*/}
-              {/*      variant="outlined"*/}
-              {/*      size="small"*/}
-              {/*      type="text"*/}
-              {/*      autoComplete="family-name"*/}
-              {/*      value={value}*/}
-              {/*      onChange={onChange}*/}
-              {/*      error={!!error}*/}
-              {/*      helperText={error ? error.message : " "}*/}
-              {/*    />*/}
-              {/*  )}*/}
-              {/*  rules={{ required: "Введите фамилию" }}*/}
-              {/*/>*/}
               <Controller
                 name="phone"
                 control={control}
@@ -204,21 +173,9 @@ export default function RegForm() {
                   field: { onChange, value },
                   fieldState: { error },
                 }) => (
-                  // <TextField
-                  //   label="Введите пароль"
-                  //   variant="outlined"
-                  //   size="small"
-                  //   type="password"
-                  //   autoComplete="new-password"
-                  //   value={value}
-                  //   onChange={onChange}
-                  //   error={!!error}
-                  //   helperText={error ? error.message : " "}
-                  // />
-
                     <>
                       <TextField
-                          label="Введите пароль"
+                          label="Введите пароль "
                           variant="outlined"
                           size="small"
                           type={showPassword ? 'text' : 'password'}
@@ -230,19 +187,21 @@ export default function RegForm() {
                           InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                  <IconButton
-                                      aria-label="toggle password visibility"
-                                      onClick={handleClickShowPassword}
-                                      onMouseDown={handleMouseDownPassword}
-                                      edge="end"
-                                  >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                  </IconButton>
+                                    <a
+                                        className={!showPassword ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"}
+                                        onClick={() => {
+                                            setShowPassword(!showPassword);
+                                        }}
+                                    ></a>
                                 </InputAdornment>
                             )
                           }}
                       />
-                        <PasswordStrengthBar  />
+                      {value.length > 0 && <PasswordStrengthBar
+                          shortScoreWord={''}
+                          barColors={['#C7C7C7', '#F44545', '#F44545', '#00A0AB', '#00A0AB']}
+                          scoreWords={['Короткий', 'Короткий', 'Очень простой', 'Хороший', 'Надёжный']}
+                          password={value}/>}
                     </>
 
 
@@ -250,32 +209,6 @@ export default function RegForm() {
                 rules={{ required: "Введите пароль" }}
               />
 
-              {/*<Controller*/}
-              {/*  name="password_check"*/}
-              {/*  control={control}*/}
-              {/*  defaultValue=""*/}
-              {/*  render={({*/}
-              {/*    field: { onChange, value },*/}
-              {/*    fieldState: { error },*/}
-              {/*  }) => (*/}
-              {/*    <TextField*/}
-              {/*      label="Повторите пароль"*/}
-              {/*      variant="outlined"*/}
-              {/*      size="small"*/}
-              {/*      type="password"*/}
-              {/*      autoComplete="new-password"*/}
-              {/*      value={value}*/}
-              {/*      onChange={onChange}*/}
-              {/*      error={!!error}*/}
-              {/*      helperText={error ? error.message : " "}*/}
-              {/*    />*/}
-              {/*  )}*/}
-              {/*  rules={{*/}
-              {/*    required: "Повторите пароль",*/}
-              {/*    validate: (value) =>*/}
-              {/*      value === watch("password") ? null : "Пароли не совпадают",*/}
-              {/*  }}*/}
-              {/*/>*/}
               <Button
                 type="submit"
                 disabled={false}
@@ -312,3 +245,5 @@ export default function RegForm() {
     </>
   );
 }
+
+

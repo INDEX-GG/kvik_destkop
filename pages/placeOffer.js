@@ -73,8 +73,6 @@ function PlaceOffer() {
     }
 
 
-	console.log(photoes);
-
     // console.log(methods)
 
     /* получение дополнительных полей */
@@ -85,10 +83,10 @@ function PlaceOffer() {
     const { ...subcategoryData } = useCategoryPlaceOffer(category, methods);
 
 
-    console.log('ALIAS4', methods?.watch('alias4'))
-    console.log('ALIAS3', methods?.watch('alias3'))
-    console.log('ALIAS2', methods?.watch('alias2'))
-    console.log('ALIAS1', methods?.watch('alias1'))
+    // console.log('ALIAS4', methods?.watch('alias4'))
+    // console.log('ALIAS3', methods?.watch('alias3'))
+    // console.log('ALIAS2', methods?.watch('alias2'))
+    // console.log('ALIAS1', methods?.watch('alias1'))
 
 
     useEffect(() => {
@@ -111,7 +109,7 @@ function PlaceOffer() {
 
 
 
-    console.log('category',category)
+    // console.log('category',category)
 
     const onSubmit = data => {
 
@@ -124,7 +122,7 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
-        console.log('data?.alias1',data?.alias1)
+        // console.log('data?.alias1',data?.alias1)
 
             //todo: Отрефакторить landType!!!! найти key в доп полях
         const landType = () => {
@@ -162,7 +160,7 @@ function PlaceOffer() {
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
 		data.location = data.location?.value ? data.location.value : data.location
 
-        console.log("data", data);
+        // console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
 
@@ -179,7 +177,7 @@ function PlaceOffer() {
             photoData.append('files[]', photoes[0]);
         }
 
-		console.log(photoData.getAll('files[]'))
+		// console.log(photoData.getAll('files[]'))
 
 		// console.log(photoData, 'photo');
 
@@ -243,10 +241,10 @@ function PlaceOffer() {
         if (subcategoryData[category] !== undefined) {
             obj.subcategory = category
         }
-        console.log("addfields", additionalfields)
-
-
-        console.log('obj',obj)
+        // console.log("addfields", additionalfields)
+        //
+        //
+        // console.log('obj',obj)
         setLoading(true);
 
         axios.post(`${BASE_URL}/api/setPosts`, obj)
@@ -257,7 +255,7 @@ function PlaceOffer() {
 
 
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
-                console.error('additionalfields',additionalfields)
+                // console.error('additionalfields',additionalfields)
 
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
 
@@ -268,7 +266,7 @@ function PlaceOffer() {
                         "Content-Type": "multipart/form-data"
                     }
                 }).then((r) => {
-					console.log(`${STATIC_URL}/${r.data.images.photos[0]}`)
+					// console.log(`${STATIC_URL}/${r.data.images.photos[0]}`)
                     setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
                     setPromotion(true)
                 })

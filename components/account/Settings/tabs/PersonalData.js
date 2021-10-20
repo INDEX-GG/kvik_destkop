@@ -199,7 +199,7 @@ function PersonalData() {
 
 
 
-	console.log(userInfo)
+	// console.log(userInfo)
 
 	return (
 		<div className="clientPage__container_bottom">
@@ -337,7 +337,7 @@ function PersonalData() {
 							<div className="privateDataPass">
 								<div className="pDPassInputWrapper">
 									<input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} value={passwordOne} onChange={(e) => changePasswordInput(e)} />
-									<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)}></a>
+									<a className={inputFirstEye ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"} onClick={() => setInputFirstEye(!inputFirstEye)}></a>
 								</div>
 								{/* <p className="pDPassWarning">Минимум 8 символов</p>
                 <p className="pDPassWarning">Только латинские символы</p>
@@ -362,7 +362,7 @@ function PersonalData() {
 								<div className="pDPassInputWrapper">
 									<input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} value={passwordTwo} onChange={(e) => confirmPassword(e)} />
 									<a
-										className="pDPassInvis"
+										className={inputSecondEye ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"}
 										onClick={() => {
 											setInputSecondEye(!inputSecondEye);
 										}}
