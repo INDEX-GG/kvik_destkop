@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import {
   Box,
-  Button,
+  Button, InputAdornment,
   makeStyles,
   TextField,
   Typography,
@@ -15,6 +15,7 @@ import PhoneMask from "../../lib/phoneMask";
 import { useMedia } from "../../hooks/useMedia";
 import { getDataByPost } from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,13 +60,13 @@ const useStyles = makeStyles((theme) => ({
     padding: "16px 0px 27px",
     boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
     marginBottom: "24px",
-  },
+  }
 }));
 
 export default function RegForm() {
   const [sendData, setSendData] = useState({}),
     [openConfirmNum, setOpenConfirmNum] = useState(false),
-    [phoneNum, setPhoneNum] = useState(),
+    [phoneNum, setPhoneNum] = useState(''),
     {
       openRegForm,
       setOpenRegForm,
@@ -74,21 +75,23 @@ export default function RegForm() {
     } = useContext(DialogCTX);
 
   const classes = useStyles();
-  const { handleSubmit, control, watch, setValue } = useForm();
+  const { handleSubmit, control, setValue } = useForm();
   const { matchesMobile } = useMedia();
+  const [showPassword, setShowPassword] = useState(false);
+
   const [valueInp, setValueInp] = useState("");
   const closeRegForm = () => {
     setValue("name", "");
     setValue("surname", "");
     setValue("phone", "");
     setValue("password", "");
-    setValue("password_check", "");
     setOpenRegForm((p) => !p);
   };
 
+
+
   const onSubmit = (data) => {
     data.phone = `+${valueInp.replace(/\D+/g, "")}`;
-    // console.log(data);
     setSendData(data);
     getDataByPost("/api/checkphone", { phone: data.phone }).then((res) => {
       setPhoneNum(res);
@@ -136,29 +139,6 @@ export default function RegForm() {
                 )}
                 rules={{ required: "Введите имя" }}
               />
-
-              <Controller
-                name="surname"
-                control={control}
-                defaultValue=""
-                render={({
-                  field: { onChange, value },
-                  fieldState: { error },
-                }) => (
-                  <TextField
-                    label="Фамилия"
-                    variant="outlined"
-                    size="small"
-                    type="text"
-                    autoComplete="family-name"
-                    value={value}
-                    onChange={onChange}
-                    error={!!error}
-                    helperText={error ? error.message : " "}
-                  />
-                )}
-                rules={{ required: "Введите фамилию" }}
-              />
               <Controller
                 name="phone"
                 control={control}
@@ -175,7 +155,7 @@ export default function RegForm() {
                       onChange(PhoneMask(e, valueInp, setValueInp))
                     }
                     onKeyDown={(e) => {
-                      if (e.key == "Backspace" && e.target.value.length === 3) {
+                      if (e.key === "Backspace" && e.target.value.length === 3) {
                         setValueInp("");
                       }
                     }}
@@ -193,47 +173,42 @@ export default function RegForm() {
                   field: { onChange, value },
                   fieldState: { error },
                 }) => (
-                  <TextField
-                    label="Введите пароль"
-                    variant="outlined"
-                    size="small"
-                    type="password"
-                    autoComplete="new-password"
-                    value={value}
-                    onChange={onChange}
-                    error={!!error}
-                    helperText={error ? error.message : " "}
-                  />
+                    <>
+                      <TextField
+                          label="Введите пароль "
+                          variant="outlined"
+                          size="small"
+                          type={showPassword ? 'text' : 'password'}
+                          autoComplete="new-password"
+                          value={value}
+                          onChange={onChange}
+                          error={!!error}
+                          helperText={error ? error.message : " "}
+                          InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <a
+                                        className={!showPassword ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"}
+                                        onClick={() => {
+                                            setShowPassword(!showPassword);
+                                        }}
+                                    ></a>
+                                </InputAdornment>
+                            )
+                          }}
+                      />
+                      {value.length > 0 && <PasswordStrengthBar
+                          shortScoreWord={''}
+                          barColors={['#C7C7C7', '#F44545', '#F44545', '#00A0AB', '#00A0AB']}
+                          scoreWords={['Короткий', 'Короткий', 'Очень простой', 'Хороший', 'Надёжный']}
+                          password={value}/>}
+                    </>
+
+
                 )}
                 rules={{ required: "Введите пароль" }}
               />
 
-              <Controller
-                name="password_check"
-                control={control}
-                defaultValue=""
-                render={({
-                  field: { onChange, value },
-                  fieldState: { error },
-                }) => (
-                  <TextField
-                    label="Повторите пароль"
-                    variant="outlined"
-                    size="small"
-                    type="password"
-                    autoComplete="new-password"
-                    value={value}
-                    onChange={onChange}
-                    error={!!error}
-                    helperText={error ? error.message : " "}
-                  />
-                )}
-                rules={{
-                  required: "Повторите пароль",
-                  validate: (value) =>
-                    value === watch("password") ? null : "Пароли не совпадают",
-                }}
-              />
               <Button
                 type="submit"
                 disabled={false}
@@ -270,3 +245,5 @@ export default function RegForm() {
     </>
   );
 }
+
+

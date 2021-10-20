@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
   makeStyles,
   Typography,
-  TextField,
+  TextField, InputAdornment,
 } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
@@ -51,6 +51,7 @@ const Login = () => {
   const { signIn } = useAuth();
   const { storeUser } = useStore();
   const classes = useStyles();
+  const [showPassword, setShowPassword] = useState(false);
   const { handleSubmit, control, setError, setValue } = useForm();
   const {
     openRegForm,
@@ -141,12 +142,24 @@ const Login = () => {
                     label="Введите пароль"
                     variant="outlined"
                     size="small"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     autoComplete="current-password"
                     value={value}
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : " "}
+                    InputProps={{
+                      endAdornment: (
+                          <InputAdornment position="end">
+                            <a
+                                className={!showPassword ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"}
+                                onClick={() => {
+                                  setShowPassword(!showPassword);
+                                }}
+                            ></a>
+                          </InputAdornment>
+                      )
+                    }}
                   />
                 )}
                 rules={{ required: "Введите пароль" }}
@@ -159,6 +172,11 @@ const Login = () => {
               >
                 Войти
               </Button>
+              <Typography className={classes.title} >
+                или
+              </Typography>
+                <a className="socialNetworksIco"></a>
+
               <Button
                 onClick={() => {
                   setOpenLoginForm(!openLoginForm);

@@ -1,5 +1,5 @@
-import { Box, Button, makeStyles, Dialog } from "@material-ui/core";
-import { useState } from "react";
+import {Box, Button, makeStyles, Dialog} from "@material-ui/core";
+import {useEffect, useState} from "react";
 import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
 import router, { useRouter } from 'next/router';
@@ -195,12 +195,19 @@ const useStyles = makeStyles(theme => ({
 
 export default function Promotion({ dialog = false, setDialog = false, product, editProduct }) {
 
+	const classes = useStyles()
 	const [promotion, setPromotion] = useState([false, false, false, false, false, false, false, false, false])
 	const [free, setFree] = useState(false)
-	const [productModal, setProductModal] = useState(false)
+	const [productModal, setProductModal] = useState(true)
+
 	const [value, setValue] = useState(0)
 	const rounter = useRouter()
 	const { matchesTablet, matchesMobile } = useMedia()
+
+	useEffect(() => {
+		productModal ? '' : rounter.push("/")
+	}, [productModal]);
+
 
 	const title = ["Выделение цветом", "Поднятие в поиске", "Отметка на карте", "Показ в схожих категориях", "Размещение в других городах", "Защита номера", "VIP-объявление", "Приветственное сообщение", "Без продвижения"]
 
@@ -287,14 +294,12 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 	}
 
 
-	const classes = useStyles()
-
 
 
 	return (
 		<PromotionContent dialog={true} setDialog={setDialog}>
 			{promotionAwait(true)}
-			<Dialog open={/** productModal || false */ true} onClose={() => setProductModal(!productModal)}>
+			<Dialog open={/** productModal || false */ productModal}  BackdropClick onClose={() => setProductModal(!productModal)}>
 				<div className={classes.productContainer}>
 					<div className={classes.productCard}>
 						{/* !!!!!!!!!! Change */}

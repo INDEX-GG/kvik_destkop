@@ -92,13 +92,30 @@
     width: 250px;
     font-weight: 400;
 }
-.pDPassInputWrapper > a {
+//.pDPassInputWrapper > a {
+//    width: 24px;
+//    height: 24px;
+//    background: no-repeat center center url(../../../icons/invisible.svg);
+//    transition: all 250ms ease-in-out;
+//}
+.pDPassInputWrapperVis {
+    width: 24px;
+    height: 24px;
+    background: no-repeat center center url(../../../icons/visible.svg);
+    transition: all 250ms ease-in-out;
+}
+.pDPassInputWrapperInv {
     width: 24px;
     height: 24px;
     background: no-repeat center center url(../../../icons/invisible.svg);
     transition: all 250ms ease-in-out;
 }
-.pDPassInputWrapper > a:hover {
+.pDPassInputWrapperVis:hover {
+    transition: all 250ms ease-in-out;
+    transform: scale(1.2);
+    cursor: pointer;
+
+}.pDPassInputWrapperInv:hover {
     transition: all 250ms ease-in-out;
     transform: scale(1.2);
     cursor: pointer;
@@ -120,6 +137,16 @@
     font-size: 12px;
     color: $primered;
     background: no-repeat left center url(../../../icons/activate_green.svg);
+}
+
+.socialNetworksIco {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 168px;
+    height: 24px;
+    background-image: url(../../../icons/social_networks.svg);
+    transition: all 250ms ease-in-out;
 }
 
 .settingsNotifWrapper {

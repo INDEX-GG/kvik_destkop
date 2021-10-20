@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
 import { ToRusAccountDate, stringToColor, initials, standartDate } from "../../lib/services";
 import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
 import { useRouter } from "next/router";
-import UserLock from "../../UI/icons/UserLock";
-import UserReport from "../../UI/icons/UserReport";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useAd } from "../../hooks/useAd";
 import axios from "axios"
@@ -180,20 +178,14 @@ function UserPage() {
                 </div>
               </a>
             </div>
-            {+router.query.id == id  ? null : (
+            {+router.query.id === id  ? null : (
               <>
                 <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
-                <button className="btnActive" disabled={blockLoading} onClick={() => setBlockOpen(true)}>
-                  <span className="userActive" >{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</span>
-                  <div className="userIconBlock">
-                    <UserLock className="userActiveIcon" />
-                  </div>
-                </button>
-                <div className="btnActive">
-                  <a className="userActive">Пожаловаться</a>
-                  <div className="userIconBlock">
-                    <UserReport className="userActiveIcon" />
-                  </div>
+                <div className="ad__block_bottom__adaptive_right">
+                  <a className="SellerInfoShutUp small light underline" onClick={() => {
+                    if (!blockLoading) setBlockOpen(true)
+                  }}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>
+                  <a className="SellerInfoComplain small light underline">Пожаловаться</a>
                 </div>
               </>
             )}

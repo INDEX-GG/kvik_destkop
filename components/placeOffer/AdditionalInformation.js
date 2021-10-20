@@ -336,7 +336,7 @@ const AdditionalInformation = (data) => {
 			return <TvSetCat2 data={data.newOBJ[data.asd]} />;
 	
 		default:
-			// console.log('')
+
 			return null;
 	}
 

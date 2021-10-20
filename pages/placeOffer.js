@@ -72,13 +72,14 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
-	console.log(photoes);
 
     // console.log(methods)
+
     /* получение дополнительных полей */
 
 
     const [category, setCategory] = useState();
+    const [showTitle, setShowTitle] = useState(false);
     const { ...subcategoryData } = useCategoryPlaceOffer(category, methods);
 
 
@@ -101,12 +102,17 @@ function PlaceOffer() {
 
     }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
+    useEffect(() => {
+        setShowTitle(
+            category === 'auto' || methods?.watch('alias1') === 'real_estate' ?  true : false)
+    }, [category, methods?.watch('alias1')]);
 
 
 
     // console.log('category',category)
 
     const onSubmit = data => {
+
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -171,7 +177,7 @@ function PlaceOffer() {
             photoData.append('files[]', photoes[0]);
         }
 
-		console.log(photoData.getAll('files[]'))
+		// console.log(photoData.getAll('files[]'))
 
 		// console.log(photoData, 'photo');
 
@@ -228,16 +234,16 @@ function PlaceOffer() {
         }
 
 
-        // // console.log('add 3', additionalfields3[asd])
+        // console.log('add 3', additionalfields3[asd])
 
 
-        // // console.log("asdasdasd",newOBJ[asd]);
+        // console.log("asdasdasd",newOBJ[asd]);
         if (subcategoryData[category] !== undefined) {
             obj.subcategory = category
         }
         // console.log("addfields", additionalfields)
-        // // console.log(additionalfields2)
-
+        //
+        //
         // console.log('obj',obj)
         setLoading(true);
 
@@ -246,17 +252,21 @@ function PlaceOffer() {
 				// console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
                 postId = r?.data?.id;
 
+
+
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
-                console.error('additionalfields',additionalfields)
+                // console.error('additionalfields',additionalfields)
 
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
+
+
 
                 axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 }).then((r) => {
-					console.log(`${STATIC_URL}/${r.data.images.photos[0]}`)
+					// console.log(`${STATIC_URL}/${r.data.images.photos[0]}`)
                     setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
                     setPromotion(true)
                 })
@@ -274,11 +284,11 @@ function PlaceOffer() {
                     <Box className={classes.offersBox}>
                         <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
                         <FormProvider {...methods} >
-                            <Verify />
+                            <Verify showTitle={showTitle}/>
                             <form onSubmit={methods.handleSubmit(onSubmit)}>
                                 <Box className={classes.formPart}>
-                                    <Title />
-                                    <Category />
+                                    {showTitle ? null : <Title title='' />}
+                                    <Category/>
                                 </Box>
                                 {subcategoryData[category] !== undefined ?
                                     <Box className={classes.formPart}>
