@@ -243,6 +243,12 @@
 	max-height: 300px;
 }
 
+.chatDataDialog {
+	text-align: center;
+	color: #8F8F8F;
+	font-size: 12px;
+}
+
 .chatUser > *:first-child {
   padding: 12px;
   background-color: $light;

@@ -166,7 +166,7 @@ const Search = ({text = false}) => {
 						<SearchCheckbox checked={saveResult} changeChecked={setSaveResult} label='Сохранить поиск' />					
 					</div>
 				}
-				{(showButtons && searchValue && searchValue.length < 25) && 
+				{(showButtons && searchValue) && 
 					<div>
 						<SearchBlock 
 							value={searchValue}
