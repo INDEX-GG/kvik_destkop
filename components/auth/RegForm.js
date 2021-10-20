@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import {
   Box,
-  Button,  IconButton, InputAdornment,
+  Button, InputAdornment,
   makeStyles,
   TextField,
   Typography,
@@ -139,29 +139,6 @@ export default function RegForm() {
                 )}
                 rules={{ required: "Введите имя" }}
               />
-
-              {/*<Controller*/}
-              {/*  name="surname"*/}
-              {/*  control={control}*/}
-              {/*  defaultValue=""*/}
-              {/*  render={({*/}
-              {/*    field: { onChange, value },*/}
-              {/*    fieldState: { error },*/}
-              {/*  }) => (*/}
-              {/*    <TextField*/}
-              {/*      label="Фамилия"*/}
-              {/*      variant="outlined"*/}
-              {/*      size="small"*/}
-              {/*      type="text"*/}
-              {/*      autoComplete="family-name"*/}
-              {/*      value={value}*/}
-              {/*      onChange={onChange}*/}
-              {/*      error={!!error}*/}
-              {/*      helperText={error ? error.message : " "}*/}
-              {/*    />*/}
-              {/*  )}*/}
-              {/*  rules={{ required: "Введите фамилию" }}*/}
-              {/*/>*/}
               <Controller
                 name="phone"
                 control={control}
@@ -196,18 +173,6 @@ export default function RegForm() {
                   field: { onChange, value },
                   fieldState: { error },
                 }) => (
-                  // <TextField
-                  //   label="Введите пароль"
-                  //   variant="outlined"
-                  //   size="small"
-                  //   type="password"
-                  //   autoComplete="new-password"
-                  //   value={value}
-                  //   onChange={onChange}
-                  //   error={!!error}
-                  //   helperText={error ? error.message : " "}
-                  // />
-
                     <>
                       <TextField
                           label="Введите пароль "
@@ -244,32 +209,6 @@ export default function RegForm() {
                 rules={{ required: "Введите пароль" }}
               />
 
-              {/*<Controller*/}
-              {/*  name="password_check"*/}
-              {/*  control={control}*/}
-              {/*  defaultValue=""*/}
-              {/*  render={({*/}
-              {/*    field: { onChange, value },*/}
-              {/*    fieldState: { error },*/}
-              {/*  }) => (*/}
-              {/*    <TextField*/}
-              {/*      label="Повторите пароль"*/}
-              {/*      variant="outlined"*/}
-              {/*      size="small"*/}
-              {/*      type="password"*/}
-              {/*      autoComplete="new-password"*/}
-              {/*      value={value}*/}
-              {/*      onChange={onChange}*/}
-              {/*      error={!!error}*/}
-              {/*      helperText={error ? error.message : " "}*/}
-              {/*    />*/}
-              {/*  )}*/}
-              {/*  rules={{*/}
-              {/*    required: "Повторите пароль",*/}
-              {/*    validate: (value) =>*/}
-              {/*      value === watch("password") ? null : "Пароли не совпадают",*/}
-              {/*  }}*/}
-              {/*/>*/}
               <Button
                 type="submit"
                 disabled={false}

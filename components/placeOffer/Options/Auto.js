@@ -243,7 +243,6 @@ export default function Auto({ data }) {
     return (
         <>
             {data.map((item) => {
-                console.log('$$$item$$$',item)
                 switch (item.type) {
                     case 'listRec':
                         switch (item.alias) {
@@ -632,7 +631,10 @@ export default function Auto({ data }) {
                                                 onKeyDown={e => cursorReplace(e, item.name)}
                                                 onChange={e => onChange(OnlyNumbersMask(e, item.name))}
                                                 error={!!error}
-                                                helperText={error ? error.message : ' '}>
+                                                helperText={error ? error.message : ' '}
+                                                inputProps={
+                                                    {maxlength:  17}
+                                                }>
                                             </TextField>
                                         )}
                                         rules={{ required: 'Выберете ' + item.name }}

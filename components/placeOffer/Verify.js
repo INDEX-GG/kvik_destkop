@@ -48,7 +48,6 @@ const Verify = ({edit, showTitle}) => {
         edit ? setShowCategory(true) : setShowCategory(false)
     }, [edit]);
 
-    console.log('SHOWTITLE!!!!!!!+++++++++>>>>>>>>>',showTitle)
 
     useEffect(() => {
         showTitle ? setVerifyTilte(true) : setVerifyTilte(!!methods.watch('title'));

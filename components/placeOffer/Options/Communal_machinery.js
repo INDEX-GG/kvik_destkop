@@ -154,6 +154,9 @@ export default function CommunalMachinery({ data }) {
                 onChange={e => onChange(OnlyNumbersMask(e, "VIN"))}
                 error={!!error}
                 helperText={error ? error.message : " "}
+                inputProps={
+                  {maxlength:  17}
+                }
               />
             )}
           />

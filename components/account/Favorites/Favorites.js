@@ -74,7 +74,6 @@ const Favorites = () => {
 		// if (offetFav) {
 		// 	favAciveOffer = offetFav?.posts.filter((item) => item.condition === 'true')
 		// }
-		console.log("работает чи нет?",id)
 	}, [id])
 
 	let favAciveOffer = offetFav?.posts?.filter((item) => item.condition === 'true')

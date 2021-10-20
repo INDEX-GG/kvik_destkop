@@ -384,7 +384,6 @@ const Photoes = ({ ctx }) => {
 		setValidFiles([...filteredValid]);
 	};
 
-	console.log(validFiles[0]);
 	ctx(validFiles);
 
 	const SortableList = SortableContainer(({ items }) => {
