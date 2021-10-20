@@ -6,7 +6,7 @@ import axios from 'axios';
 import { CHAT_URL_API, STATIC_URL } from '../../../../lib/constants';
 import { socket } from './socket';
 import { generateTime } from './chatFunctions';
-// import { generateTime } from './chatFunctions';
+// import useMoment from 'moment-timezone'
 
 
 const Chat = ({usersData, userChatPhoto}) => {
@@ -253,22 +253,32 @@ const Chat = ({usersData, userChatPhoto}) => {
 	// 	}
 	// }
 
+	const testDate = () => {
+		const d1 = new Date(2017, 2, 11, 11, 30);
+		console.log(d1)
+	}
+
+
 	//! ГЕНИРАЦИЯ ДЛЯ ДИАЛОГОВ (СЕГОДНЯ, ВЧЕРА, 17.10.2021)
 	const generateDialogData = (index) => {
 		const currentIndex = index
 		const prevIndex = index - 1
+		const date = new Date()
+		const timeUTC = date.getTimezoneOffset() / 60
+		console.log(`${date.getUTCHours() - timeUTC}:${date.getUTCMinutes()}`);
+
+		// const moment = useMoment();
+		// console.log(moment.tz.guess())
+		// console.log(moment.tz("America/Los_Angeles").format())
+		testDate();
+
 
 		if (prevIndex >= 0) {
 
 			const prevDate = generateTime(0, msgList[prevIndex].time, false, true).split('.')
 			const currentDate = generateTime(0, msgList[currentIndex].time, false, true).split('.')
 			const messageStringDate = currentDate.join('.')
-
-			const date = new Date()
 			const today = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
-
-			console.log(msgList[currentIndex])
-			console.log(prevIndex)
 
 			// Проверка дня
 			if (currentDate[0] !== prevDate[0]) {
