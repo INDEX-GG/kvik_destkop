@@ -100,7 +100,7 @@ const Index = () => {
 
 	useEffect(() => {
 		if (searchText) {			
-			const data = {'category': aliasAll? '': aliasFullUrl, 'text': aliasAll ? '' : searchText , 'page_limit': limit, 'page': 1}
+			const data = {'category': aliasAll? '': aliasFullUrl, 'text': searchText , 'page_limit': limit, 'page': 1}
 			getDataByPost('/api/searchInsideCategory', data)
 			  .then(r => {
 				  setData(generateDataArr(r))
@@ -137,7 +137,7 @@ const Index = () => {
 		if (searchText) {
 			delete fetchDataObj.data
 			fetchDataObj.category = aliasFullUrl ? aliasFullUrl : ''
-			fetchDataObj.text = aliasAll ? '' : searchText
+			fetchDataObj.text = searchText
 		}
 
 		const setObj = {

@@ -64,9 +64,12 @@ const Chat = ({usersData, userChatPhoto}) => {
 	const chatHistory = () => {
 		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory()).then(r => {
 			if (userOnline) setUserOnline(false)
+			
 			console.log("SOCKET CONNECT")
 			setMsgList(r.data.data.reverse())
+
 			if (r.data.data.length) setMessageId(r.data.data[0]?.id)
+
 			setSocketConnect(true)
 			setLoading(false)
 			socket.connect()
@@ -83,13 +86,11 @@ const Chat = ({usersData, userChatPhoto}) => {
 
 	useEffect(() => {
 		if (refChat.current && !messageUpdate) {
-			refChat.current.scrollTop = refChat.current.scrollHeight + 100
-			console.log(refChat.current.scrollTop)
+			refChat.current.scrollTop = refChat.current.scrollHeight
 		} else {
-			refChat.current.scrollTop = refChat.current.scrollHeight / 2
+			refChat.current.scrollTop = refChat.current.scrollHeight / 3.5
 		}
 		// refChat.current.scrollTop = refChat.current.scrollHeight
-		console.log(1);
 	}, [msgList])
 
 
@@ -97,13 +98,13 @@ const Chat = ({usersData, userChatPhoto}) => {
 
  	const handleSend = async (img = false) => {
 		if (message.length > 0 || img) {
-			let data = new Date()
+			let date = new Date()
 			const messageDate = {
-				"y": data.getFullYear(), 
-				"mo": data.getMonth(), 
-				"d": data.getDate(), 
-				"h": data.getHours(), 
-				"mi": data.getMinutes()
+				"y": date.getFullYear(), 
+				"mo": date.getMonth() + 1, 
+				"d": date.getDate(), 
+				"h": date.getHours(), 
+				"mi": date.getMinutes() > 10 ? date.getMinutes() : `0${date.getMinutes()}`
 			}
 
 			const sendObj = {
@@ -143,7 +144,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 						setUserOnline(false)
 						break;
 					default: {
-						console.log(1)
+						break
 					}
 				}
 
@@ -233,19 +234,63 @@ const Chat = ({usersData, userChatPhoto}) => {
 		}
 	}
 
-	const generateMessageData = (index) => {
-		//! Идём снизу вверх (от 50 к 1)
+	//! ГЕНЕРАЦИЯ ВРЕМЕНИ ДЛЯ КАЖДОГО СООБЩЕНИЯ
+	// const generateMessageData = (index) => {
+	// 	const currentItem = index
+	// 	const prevItem = index + 1
 
-		const currentItem = msgList.length - (index + 1) 
-		const prevItem = msgList.length - (index + 2)
+	// 	if (currentItem < msgList.length && prevItem < msgList.length) {
+	// 		const currentItemTime = generateTime(0, msgList[currentItem]?.time, true)
+	// 		const prevItemTime = generateTime(0, msgList[prevItem]?.time, true)
+	// 		const senderMessage = msgList[currentItem].sender_id
+	// 		const prevSenderMessage = msgList[prevItem].sender_id
 
-		if (prevItem >= 0) {
-			const currentItemTime = generateTime(0, msgList[currentItem]?.time, true)
-			const prevItemTime = generateTime(0, msgList[prevItem]?.time, true)
+	// 		if (senderMessage !== prevSenderMessage) {
+	// 			return true
+	// 		}
 
-			console.log(msgList[currentItem])
-			console.log(msgList[prevItem])
-			return (prevItemTime == currentItemTime)
+	// 		return !(prevItemTime == currentItemTime)
+	// 	}
+	// }
+
+	//! ГЕНИРАЦИЯ ДЛЯ ДИАЛОГОВ (СЕГОДНЯ, ВЧЕРА, 17.10.2021)
+	const generateDialogData = (index) => {
+		const currentIndex = index
+		const prevIndex = index - 1
+
+		if (prevIndex >= 0) {
+
+			const prevDate = generateTime(0, msgList[prevIndex].time, false, true).split('.')
+			const currentDate = generateTime(0, msgList[currentIndex].time, false, true).split('.')
+			const messageStringDate = currentDate.join('.')
+
+			const date = new Date()
+			const today = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+
+			console.log(msgList[currentIndex])
+			console.log(prevIndex)
+
+			// Проверка дня
+			if (currentDate[0] !== prevDate[0]) {
+
+				// Проверка месяца
+				if (currentDate[1] !== prevDate[1]) {
+					return messageStringDate
+				}
+				// Проверка года
+				if (currentDate[2] !== prevDate[2]) {
+					return messageStringDate
+				}
+
+				if (messageStringDate == today) {
+					return 'Сегодня'
+				}
+
+				return messageStringDate
+			}
+
+		} else {
+			return generateTime(0, msgList[index].time, false, true)
 		}
 	}
 
@@ -259,23 +304,25 @@ const Chat = ({usersData, userChatPhoto}) => {
 					const key = id?.id ? id?.id : index
 					const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
 					
-					const i = index == 0 ? index : index - 1
-					const test = generateMessageData(index)
-					const time = (generateTime(0, item.time, true) == generateTime(0, msgList[i]?.time, true))
-				
+					// const messageData = index == msgList.length - 1 ? true : generateMessageData(index)
+					const dialogData = generateDialogData(index);
+			
 					if (item.message.match('http://192.168.8.111:6001/images')) {
 						if (item.message.match('.webp')) {
 							const altName = item.message.split('.webp')[0]
 							return (
-								<div key={key}
-								ref={item.id == messageId ? refMessage : null} 
-								className={myMessage ? "chatUser" : "chatCompanion"}>
-									{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
-									<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
-										<img className='chatImg' src={item.message} alt={altName} />
+								<>
+									{dialogData && <div className='chatDataDialog'>{dialogData}</div>}
+									<div key={key}
+									ref={item.id == messageId ? refMessage : null} 
+									className={myMessage ? "chatUser" : "chatCompanion"}>
+										{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
+										<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
+											<img className='chatImg' src={item.message} alt={altName} />
+										</div>
+										<div>{generateTime(0, item?.time, true)}</div>
 									</div>
-									<div>{test && generateTime(0, item?.time, true)}</div>
-								</div>
+								</>
 							)
 						}
 					}
@@ -283,15 +330,18 @@ const Chat = ({usersData, userChatPhoto}) => {
 
 					return (
 						item?.delete ? null :
-						<div key={key}
-						  ref={item.id == messageId ? refMessage : null} 
-						  className={myMessage ? "chatUser" : "chatCompanion"}>
-							{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
-							<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
-								{item.message}
+						<>
+							{dialogData && <div className='chatDataDialog'>{dialogData}</div>}
+							<div key={key}
+							ref={item.id == messageId ? refMessage : null} 
+							className={myMessage ? "chatUser" : "chatCompanion"}>
+								{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
+								<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
+									{item.message}
+								</div>
+								<div>{generateTime(0, item?.time, true)}</div>
 							</div>
-							<div>{!time && generateTime(0, item?.time, true)}</div>
-						</div>
+						</>
 					)
 				})}
               </div>
