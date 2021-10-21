@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Avatar, Dialog} from "@material-ui/core";
+import {Dialog} from "@material-ui/core";
 import { ModalMessage } from "../../../Modals";
 import { useMedia } from "../../../../hooks/useMedia"
 import Chat from "./Chat";
@@ -11,7 +11,7 @@ import { useStore } from "../../../../lib/Context/Store";
 import { generateTime, generateProductPhoto, generateDataTocken, chatPush } from "./chatFunctions";
 import { askForPermissioToReceiveNotifications, initializeFirebase } from '../../../../firebase/clientApp';
 import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
-import {initials, stringToColor} from "../../../../lib/services";
+import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 
 
 function Messages() {
@@ -74,12 +74,14 @@ function Messages() {
 			"product_id": +query?.product_id
 		}
 
-		axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
-			axios.post(`/api/roomInfo`, [r.data.room])
-				.then(r => {
-					setRoom(r.data.list[0])
-				})
-		})
+		if (obj.companion_id && obj.product_id) {
+			axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
+				axios.post(`/api/roomInfo`, [r.data.room])
+					.then(r => {
+						setRoom(r.data.list[0])
+					})
+			})
+		}
  	 }
   }, [id, query])
 
@@ -157,10 +159,10 @@ function Messages() {
   const onSenderMessage = (senderMessage) => {
 	  if (senderMessage) {
 
-		  if (senderMessage.match('http://192.168.8.111:6001/images')) {
+		  if (senderMessage.match('images/ch')) {
 			  if (senderMessage.match('.webp')) {
 				  console.log(senderMessage)
-				  return {img: true, src: senderMessage}
+				  return {img: true, src: `${STATIC_URL}/${senderMessage}`}
 			  }
 		  }
 
@@ -241,13 +243,8 @@ function Messages() {
 							<div onClick={(e) => handleClickUser(e, item?.sender_id)} className="messageUserBlock">
 								<span>
 									{senderPhoto ? <img src={`${STATIC_URL}/${senderPhoto}`} /> :
-										<div className='chatDefaultAvatar'>
-											<Avatar
-												src={`${STATIC_URL}/${senderPhoto}`}
-												style={{ backgroundColor: `${stringToColor(senderName)}` }}>
-												{initials(senderName)}
-											</Avatar>
-										</div>}
+										senderName && <ChatDefaultAvatar name={senderName}/>
+									}
 								</span>
 								<div>
 								<div>{senderName}</div>
@@ -306,13 +303,7 @@ function Messages() {
                       <div className="light">00.00.00 00:00</div>
                     </div>
 					  {room?.seller_photo ? <img src={`${STATIC_URL}/${room?.seller_photo}`} /> :
-						  <div className='chatDefaultAvatar'>
-							  <Avatar
-								  src={`${STATIC_URL}/${room?.seller_photo}`}
-								  style={{ backgroundColor: `${stringToColor(room?.seller_name)}` }}>
-								  {initials(room?.seller_name)}
-							  </Avatar>
-						  </div>}
+						  <ChatDefaultAvatar name={room?.seller_name}/>}
                   </div>
                   <div>{room?.product_price} ₽</div>
                   <div>{room?.product_name}</div>
@@ -332,7 +323,8 @@ function Messages() {
 		    modal={changeModal}
 			usersData={chatUsers} 
 			room={room}
-			userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo} 
+			userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
+			userChatName={room?.customer_id == id ? room?.seller_name : room?.customer_name}
 		  />
         </Dialog>
       </div>

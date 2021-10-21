@@ -6,8 +6,8 @@ import axios from 'axios';
 import { CHAT_URL_API, STATIC_URL } from '../../../../lib/constants';
 import { socket } from './socket';
 import { generateTime } from './chatFunctions';
-import {initials, stringToColor} from "../../../../lib/services";
-import {Avatar} from "@material-ui/core";
+import {Dialog} from "@material-ui/core";
+import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 // import useMoment from 'moment-timezone'
 
 
@@ -20,6 +20,7 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 	const [userOnline, setUserOnline] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const [socketConnect, setSocketConnect] = useState(false)
+	const [fullScreenImg, setFullScreenImg] = useState({state: false, src: ''})
 
 	const refChat = useRef()
 	const refInput = useRef()
@@ -64,18 +65,26 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 
 
 	const chatHistory = () => {
-		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory()).then(r => {
-			if (userOnline) setUserOnline(false)
-			
-			console.log("SOCKET CONNECT")
-			setMsgList(r.data.data.reverse())
+		const historyObj = generateChatHistory()
 
-			if (r.data.data.length) setMessageId(r.data.data[0]?.id)
+		if (historyObj.companion_id && historyObj.product_id) {
+			try {
+				axios.post(`${CHAT_URL_API}/chat_history`, historyObj).then(r => {
+					if (userOnline) setUserOnline(false)
 
-			setSocketConnect(true)
-			setLoading(false)
-			socket.connect()
-		})
+					console.log("SOCKET CONNECT")
+					setMsgList(r.data.data.reverse())
+
+					if (r.data.data.length) setMessageId(r.data.data[0]?.id)
+
+					setSocketConnect(true)
+					setLoading(false)
+					socket.connect()
+				})
+			} catch(e) {
+				console.log(e);
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -120,6 +129,8 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 				'time': JSON.stringify(messageDate),
 			}
 
+			console.log(sendObj);
+
 			await socket.emit('text', sendObj)
 
 			setMessage('')
@@ -162,13 +173,17 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 	}, [loading])
 
 	const addChatHistory = () => {
-		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory(messageId)).then(r => {
-			if (r.data.data.length) {
-				setMessageId(r.data.data.reverse()[0]?.id)
-				setMessageUpdate(true)
-				setMsgList(prev => [...r.data.data, ...prev])
-			}
-		})
+		const objHistory = generateChatHistory(messageId)
+
+		if (objHistory.companion_id && objHistory.companion_id) {
+			axios.post(`${CHAT_URL_API}/chat_history`, objHistory).then(r => {
+				if (r.data.data.length) {
+					setMessageId(r.data.data.reverse()[0]?.id)
+					setMessageUpdate(true)
+					setMsgList(prev => [...r.data.data, ...prev])
+				}
+			})
+		}
 	}
 
 
@@ -234,8 +249,9 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 						"Content-Type": "multipart/form-data"
 					}
 				}).then(r => {
-					const img = r.data?.images?.photos;			
-					if (img) handleSend(`${STATIC_URL}/${img}`)
+					const img = r.data?.images?.photos;
+					console.log(img);
+					if (img) handleSend(`${img}`)
 				})
 				
 			}
@@ -322,6 +338,25 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 		}
 	}
 
+	const openImage = (message) => {
+		setFullScreenImg({state: true, src: message})
+	}
+
+	const generateMessage = (message) => {
+		if (message.match('images/ch')) {
+			if (message.match('.webp')) {
+				const altName = message.split('.webp')[0]
+				return (
+					<div onClick={() => openImage(message)}>
+						<img className='chatImg' src={`${STATIC_URL}/${message}`} alt={altName} />
+					</div>
+				)
+			}
+		}
+
+		return <span>{message}</span>
+	}
+
 
 
 	return (
@@ -337,39 +372,6 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 					// const messageData = index == msgList.length - 1 ? true : generateMessageData(index)
 					const dialogData = generateDialogData(index);
 
-					console.log(msgList[0])
-			
-					if (item.message.match('http://192.168.8.111:6001/images')) {
-						if (item.message.match('.webp')) {
-							const altName = item.message.split('.webp')[0]
-							return (
-								<>
-									{dialogData && <div className='chatDataDialog'>{dialogData}</div>}
-									<div key={key}
-									ref={item.id == messageId ? refMessage : null} 
-									className={myMessage ? "chatUser" : "chatCompanion"}>
-										{myMessage ?  null :
-											morePartnerMessage ? <div></div> :
-												userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`} /> :
-													<div className='chatDefaultAvatar'>
-														<Avatar
-															src={`${STATIC_URL}/${userChatPhoto}`}
-															style={{ backgroundColor: `${stringToColor(userChatName)}` }}>
-															{initials(userChatName)}
-														</Avatar>
-													</div>}
-										<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
-											<img className='chatImg' src={item.message} alt={altName} />
-											<div className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
-										</div>
-										<div>{generateTime(0, item?.time, true)}</div>
-									</div>
-								</>
-							)
-						}
-					}
-
-
 					return (
 						item?.delete ? null :
 						<>
@@ -378,18 +380,12 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 							ref={item.id == messageId ? refMessage : null} 
 							className={myMessage ? "chatUser" : "chatCompanion"}>
 								{myMessage ?  null :
-									morePartnerMessage && index - 1 > 0 ? <div></div> :
+									morePartnerMessage ? <div></div> :
 										userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`} /> :
-										<div className='chatDefaultAvatar'>
-											<Avatar
-												src={`${STATIC_URL}/${userChatPhoto}`}
-												style={{ backgroundColor: `${stringToColor(userChatName)}` }}>
-													{initials(userChatName)}
-											</Avatar>
-										</div>
+											<ChatDefaultAvatar name={userChatName}/>
 								}
 								<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
-									{item.message}
+									{generateMessage(item?.message)}
 									<div className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
 								</div>
 								<div>{generateTime(0, item?.time, true)}</div>
@@ -412,6 +408,9 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 				/>
                 <button className="messageSend" onClick={() => handleSend()}></button>
               </div>
+			  <Dialog open={fullScreenImg.state} onClose={() => setFullScreenImg({state: false, src: ''})}>
+				  {fullScreenImg.src && <img src={`${STATIC_URL}/${fullScreenImg.src}`} alt='fullScreenImg'/>}
+			  </Dialog>
 		</>
 	)
 }
