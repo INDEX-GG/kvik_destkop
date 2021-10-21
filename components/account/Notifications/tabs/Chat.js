@@ -261,9 +261,9 @@ const Chat = ({usersData, userChatPhoto}) => {
 	// 	}
 	// }
 
-	const testDate = () => {
-		const d1 = new Date(2017, 2, 11, 11, 30);
-	}
+	// const testDate = () => {
+	// 	const d1 = new Date(2017, 2, 11, 11, 30);
+	// }
 
 
 	//! ГЕНИРАЦИЯ ДЛЯ ДИАЛОГОВ (СЕГОДНЯ, ВЧЕРА, 17.10.2021)
@@ -271,13 +271,13 @@ const Chat = ({usersData, userChatPhoto}) => {
 		const currentIndex = index
 		const prevIndex = index - 1
 		const date = new Date()
-		const timeUTC = date.getTimezoneOffset() / 60
+		// const timeUTC = date.getTimezoneOffset() / 60
 		// console.log(`${date.getUTCHours() - timeUTC}:${date.getUTCMinutes()}`);
 
 		// const moment = useMoment();
 		// console.log(moment.tz.guess())
 		// console.log(moment.tz("America/Los_Angeles").format())
-		testDate();
+		// testDate();
 
 
 		if (prevIndex >= 0) {
