@@ -6,10 +6,12 @@ import axios from 'axios';
 import { CHAT_URL_API, STATIC_URL } from '../../../../lib/constants';
 import { socket } from './socket';
 import { generateTime } from './chatFunctions';
+import {initials, stringToColor} from "../../../../lib/services";
+import {Avatar} from "@material-ui/core";
 // import useMoment from 'moment-timezone'
 
 
-const Chat = ({usersData, userChatPhoto}) => {
+const Chat = ({usersData, userChatPhoto, userChatName}) => {
 
 	const [message, setMessage] = useState('');
 	const [msgList, setMsgList] = useState();
@@ -271,6 +273,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 		const currentIndex = index
 		const prevIndex = index - 1
 		const date = new Date()
+		const today = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
 		// const timeUTC = date.getTimezoneOffset() / 60
 		// console.log(`${date.getUTCHours() - timeUTC}:${date.getUTCMinutes()}`);
 
@@ -285,7 +288,6 @@ const Chat = ({usersData, userChatPhoto}) => {
 			const prevDate = generateTime(0, msgList[prevIndex].time, false, true).split('.')
 			const currentDate = generateTime(0, msgList[currentIndex].time, false, true).split('.')
 			const messageStringDate = currentDate.join('.')
-			const today = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
 
 			// Проверка дня
 			if (currentDate[0] !== prevDate[0]) {
@@ -310,9 +312,16 @@ const Chat = ({usersData, userChatPhoto}) => {
 			}
 
 		} else {
-			return generateTime(0, msgList[index].time, false, true)
+			const firstMessageTime = generateTime(0, msgList[index].time, false, true)
+
+			if (firstMessageTime == today) {
+				return 'Сегодня'
+			}
+
+			return firstMessageTime
 		}
 	}
+
 
 
 	return (
@@ -320,12 +329,15 @@ const Chat = ({usersData, userChatPhoto}) => {
 			<div ref={refChat} className="messageChats">
 				{msgList?.map((item, index) => {
 					const myMessage = item?.sender_id == id
-					item.messages_is_read = userOnline ? true: item.messages_is_read
 					const key = id?.id ? id?.id : index
 					const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
-					
+
+					item.messages_is_read = userOnline ? true: item.messages_is_read
+
 					// const messageData = index == msgList.length - 1 ? true : generateMessageData(index)
 					const dialogData = generateDialogData(index);
+
+					console.log(msgList[0])
 			
 					if (item.message.match('http://192.168.8.111:6001/images')) {
 						if (item.message.match('.webp')) {
@@ -337,7 +349,15 @@ const Chat = ({usersData, userChatPhoto}) => {
 									ref={item.id == messageId ? refMessage : null} 
 									className={myMessage ? "chatUser" : "chatCompanion"}>
 										{myMessage ?  null :
-											morePartnerMessage ? <div></div> : <img src={userChatPhoto ? `${STATIC_URL}/${userChatPhoto}` : null} />}
+											morePartnerMessage ? <div></div> :
+												userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`} /> :
+													<div className='chatDefaultAvatar'>
+														<Avatar
+															src={`${STATIC_URL}/${userChatPhoto}`}
+															style={{ backgroundColor: `${stringToColor(userChatName)}` }}>
+															{initials(userChatName)}
+														</Avatar>
+													</div>}
 										<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 											<img className='chatImg' src={item.message} alt={altName} />
 											<div className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
@@ -358,7 +378,16 @@ const Chat = ({usersData, userChatPhoto}) => {
 							ref={item.id == messageId ? refMessage : null} 
 							className={myMessage ? "chatUser" : "chatCompanion"}>
 								{myMessage ?  null :
-									morePartnerMessage ? <div></div> : <img src={userChatPhoto ? `${STATIC_URL}/${userChatPhoto}` : null} />}
+									morePartnerMessage && index - 1 > 0 ? <div></div> :
+										userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`} /> :
+										<div className='chatDefaultAvatar'>
+											<Avatar
+												src={`${STATIC_URL}/${userChatPhoto}`}
+												style={{ backgroundColor: `${stringToColor(userChatName)}` }}>
+													{initials(userChatName)}
+											</Avatar>
+										</div>
+								}
 								<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 									{item.message}
 									<div className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
@@ -371,7 +400,7 @@ const Chat = ({usersData, userChatPhoto}) => {
               </div>
               <div className="messageChatInput">
                 <button onClick={handleInputClick} className="messageFile">
-					<input ref={refInput} onChange={(e) => handleChangeFile(e)} accept='image/.png, .jpg, .jpeg' type='file' hidden/>
+					<input ref={refInput} onChange={(e) => handleChangeFile(e)} accept='image/jpeg,image/png,image/jpg' type='file' hidden/>
 				</button>
                 <input 
 				className="messageInput" 
