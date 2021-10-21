@@ -87,6 +87,7 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 		}
 	}
 
+
 	useEffect(() => {
 		if (query?.companion_id && query?.product_id && userInfo?.name && id) {
 			socket.emit('join', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
@@ -100,8 +101,9 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 			refChat.current.scrollTop = refChat.current.scrollHeight
 		} else {
 			refChat.current.scrollTop = refChat.current.scrollHeight / 3.5
+			return;
 		}
-		// refChat.current.scrollTop = refChat.current.scrollHeight
+		refChat.current.scrollTop = refChat.current.scrollHeight
 	}, [msgList])
 
 
@@ -226,7 +228,7 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 	const handleKeyDown = (e) => {
 		socket.emit('typing', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 		if (messageUpdate) setMessageUpdate(false)
-		if (e.key == 'Enter' && e.target.value.length <= 300) {
+		if (e.key == 'Enter') {
 			handleSend()
 		}
 	}
@@ -316,8 +318,6 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 				if (currentDate[2] !== prevDate[2]) {
 					return messageStringDate
 				}
-
-				console.log(currentDate)
 
 
 				if (messageStringDate == today) {
@@ -409,7 +409,9 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
                 <button className="messageSend" onClick={() => handleSend()}></button>
               </div>
 			  <Dialog open={fullScreenImg.state} onClose={() => setFullScreenImg({state: false, src: ''})}>
-				  {fullScreenImg.src && <img src={`${STATIC_URL}/${fullScreenImg.src}`} alt='fullScreenImg'/>}
+				  <div className='fullScreenImg'>
+					  {fullScreenImg.src && <img src={`${STATIC_URL}/${fullScreenImg.src}`} alt='fullScreenImg'/>}
+				  </div>
 			  </Dialog>
 		</>
 	)
