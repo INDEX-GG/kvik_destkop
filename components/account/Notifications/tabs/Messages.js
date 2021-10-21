@@ -141,6 +141,33 @@ function Messages() {
 		chatPush(router, routerObj)
   }
 
+  const handleClickUser = (e, senderId) =>  {
+	  e.stopPropagation();
+	  if (senderId == id) return;
+
+	  router.push(`/user/${senderId}`)
+  }
+
+  const handleClickProduct = (e, productId) => {
+	  e.stopPropagation();
+	  router.push(`/product/${productId}`)
+  }
+
+  const onSenderMessage = (senderMessage) => {
+	  if (senderMessage) {
+
+		  if (senderMessage.match('http://192.168.8.111:6001/images')) {
+			  if (senderMessage.match('.webp')) {
+				  return 'Изображение'
+			  }
+		  }
+
+		  return senderMessage
+	  }
+
+	  return null
+  }
+
   return (
     (
 	// 	<div className="clientPage__container_bottom">
@@ -154,7 +181,7 @@ function Messages() {
     //       </div>
     //     </div>
     //   </div>
-	false
+	!allRooms.length
     ) || (
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_nav__radio">
@@ -170,40 +197,56 @@ function Messages() {
             <div className="messageDialogs">
 			  {allRooms?.length ? 
 			  	allRooms.map((item, i) => {
+
 					const productPhoto = generateProductPhoto(item.product_photo)
 					const time = generateTime(0, item.time)
-					const senderPhoto = item?.sender_id == id ? `${item?.customer_photo}` : `${item?.seller_photo}`
-					const senderName = item?.sender_id == id ? item?.customer_name : item?.seller_name
-					console.log(senderName)
+
+					const senderPhoto =
+						(item.seller_id === id ?
+							item?.sender_id === id ? item?.seller_photo : item?.customer_photo
+							: item?.sender_id == id ? item?.customer_photo : item?.seller_photo)
+
+					const senderName =
+						(item.seller_id === id ?
+							item?.sender_id === id ? item?.seller_name : item?.customer_name
+							: item?.sender_id == id ? item?.customer_name : item?.seller_name)
+
+					const senderMessage = onSenderMessage(item?.message)
+
 					return (
 						<a key={i} className="messageDialog" 
 						  onClick={() => {
 							matchesMobile || matchesTablet ? setMessageModal(true) : null
-							if (allRooms[i].product_id != room.product_id) {
+							if (allRooms[i].product_id !== room.product_id) {
 								changeChat(allRooms[i])
 							}
 						  }
 						}>
 							<div className="messageOffer small">
-							<div className="messageDiaCheck">
-								<label className="checkbox">
-								<input type="checkbox" />
-								<div className="checkbox__text"></div>
-								</label>
-							</div>
-							<img src={`${STATIC_URL}/${productPhoto}?${item.product_id}`} />
-							<div>{item.product_price.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
-							<div>{ellipsis(item.product_name, 12)}</div>
+								<div className="messageDiaCheck">
+									<label className="checkbox">
+									<input type="checkbox" />
+									<div className="checkbox__text"></div>
+									</label>
+								</div>
+								<div className='messageProductBlock' onClick={(e) => handleClickProduct(e, item?.product_id)}>
+									<img src={`${STATIC_URL}/${productPhoto}?${item.product_id}`} />
+									<div>{item.product_price.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
+									<div>{ellipsis(item.product_name, 12)}</div>
+								</div>
 							</div>
 							<div className="messageUser small">
-							<div className="messageUserBlock">
-								<img src={item?.seller_photo ? `${STATIC_URL}/${senderPhoto}` : null} />
+							<div onClick={(e) => handleClickUser(e, item?.sender_id)} className="messageUserBlock">
+								<span>
+									{/*<img src={item?.seller_photo ? `${STATIC_URL}/${senderPhoto}` : null} />*/}
+									<img src={senderPhoto ? `${STATIC_URL}/${senderPhoto}` : null} />
+								</span>
 								<div>
 								<div>{senderName}</div>
 								<div className="light">{time}</div>
 								</div>
 							</div>
-							<div className="light">{item?.message}</div>
+							<div className="light">{senderMessage}</div>
 							</div>
 						</a>
 					)
