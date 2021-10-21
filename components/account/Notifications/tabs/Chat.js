@@ -8,6 +8,7 @@ import { socket } from './socket';
 import { generateTime } from './chatFunctions';
 import {Dialog} from "@material-ui/core";
 import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
+import {ellipsis} from "../../../../lib/services";
 // import useMoment from 'moment-timezone'
 
 
@@ -30,6 +31,7 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 	const {userInfo} = useStore()
 	const {query} = useRouter()
 	const {id} = useAuth()
+
 
 	useEffect(() => {
 		if (socketConnect) {
@@ -60,6 +62,20 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 			"user_id": id, 
 			"companion_id": +query?.companion_id, 
 			"product_id": +query?.product_id
+		}
+	}
+
+	const generatePush = (id, message) => {
+		if (usersData?.recipient?.id && userInfo?.name) {
+			const pushObj = {
+				'user_id': usersData?.recipient.id,
+				'message': ellipsis(message, 20),
+				'user_name': userInfo.name
+			}
+
+			axios.post(`${CHAT_URL_API}/send_push`, pushObj).then(r => {
+				console.log(r);
+			})
 		}
 	}
 
@@ -131,9 +147,16 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 				'time': JSON.stringify(messageDate),
 			}
 
-			console.log(sendObj);
 
-			await socket.emit('text', sendObj)
+			if (!userOnline) {
+				generatePush(usersData?.sender.id, message)
+			}
+
+			if (navigator.onLine) {
+				await socket.emit('text', sendObj)
+			} else {
+				localStorage.setItem('message', JSON.stringify(sendObj))
+			}
 
 			setMessage('')
 			if (userOnline) setUserOnline(false)
@@ -146,7 +169,10 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 
 				switch (data?.msg) {
 					case ('user_online'):
-						if (!userOnline && data?.user_on !== id) setUserOnline(true)
+						if (!userOnline && data?.user_on !== id) {
+							setUserOnline(true)
+							console.log(data.msg);
+						}
 						break;
 					case ('user_join'):
 						if (!userOnline && data?.user_jo !== id) setUserOnline(true)
