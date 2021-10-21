@@ -6,10 +6,13 @@ import axios from 'axios';
 import { CHAT_URL_API, STATIC_URL } from '../../../../lib/constants';
 import { socket } from './socket';
 import { generateTime } from './chatFunctions';
+import {Dialog} from "@material-ui/core";
+import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
+import {ellipsis} from "../../../../lib/services";
 // import useMoment from 'moment-timezone'
 
 
-const Chat = ({usersData, userChatPhoto}) => {
+const Chat = ({usersData, userChatPhoto, userChatName}) => {
 
 	const [message, setMessage] = useState('');
 	const [msgList, setMsgList] = useState();
@@ -18,6 +21,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 	const [userOnline, setUserOnline] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const [socketConnect, setSocketConnect] = useState(false)
+	const [fullScreenImg, setFullScreenImg] = useState({state: false, src: ''})
 
 	const refChat = useRef()
 	const refInput = useRef()
@@ -27,6 +31,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 	const {userInfo} = useStore()
 	const {query} = useRouter()
 	const {id} = useAuth()
+
 
 	useEffect(() => {
 		if (socketConnect) {
@@ -60,21 +65,44 @@ const Chat = ({usersData, userChatPhoto}) => {
 		}
 	}
 
+	const generatePush = (id, message) => {
+		if (usersData?.recipient?.id && userInfo?.name) {
+			const pushObj = {
+				'user_id': usersData?.recipient.id,
+				'message': ellipsis(message, 20),
+				'user_name': userInfo.name
+			}
+
+			axios.post(`${CHAT_URL_API}/send_push`, pushObj).then(r => {
+				console.log(r);
+			})
+		}
+	}
+
 
 	const chatHistory = () => {
-		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory()).then(r => {
-			if (userOnline) setUserOnline(false)
-			
-			console.log("SOCKET CONNECT")
-			setMsgList(r.data.data.reverse())
+		const historyObj = generateChatHistory()
 
-			if (r.data.data.length) setMessageId(r.data.data[0]?.id)
+		if (historyObj.companion_id && historyObj.product_id) {
+			try {
+				axios.post(`${CHAT_URL_API}/chat_history`, historyObj).then(r => {
+					if (userOnline) setUserOnline(false)
 
-			setSocketConnect(true)
-			setLoading(false)
-			socket.connect()
-		})
+					console.log("SOCKET CONNECT")
+					setMsgList(r.data.data.reverse())
+
+					if (r.data.data.length) setMessageId(r.data.data[0]?.id)
+
+					setSocketConnect(true)
+					setLoading(false)
+					socket.connect()
+				})
+			} catch(e) {
+				console.log(e);
+			}
+		}
 	}
+
 
 	useEffect(() => {
 		if (query?.companion_id && query?.product_id && userInfo?.name && id) {
@@ -89,8 +117,9 @@ const Chat = ({usersData, userChatPhoto}) => {
 			refChat.current.scrollTop = refChat.current.scrollHeight
 		} else {
 			refChat.current.scrollTop = refChat.current.scrollHeight / 3.5
+			return;
 		}
-		// refChat.current.scrollTop = refChat.current.scrollHeight
+		refChat.current.scrollTop = refChat.current.scrollHeight
 	}, [msgList])
 
 
@@ -118,7 +147,16 @@ const Chat = ({usersData, userChatPhoto}) => {
 				'time': JSON.stringify(messageDate),
 			}
 
-			await socket.emit('text', sendObj)
+
+			if (!userOnline) {
+				generatePush(usersData?.sender.id, message)
+			}
+
+			if (navigator.onLine) {
+				await socket.emit('text', sendObj)
+			} else {
+				localStorage.setItem('message', JSON.stringify(sendObj))
+			}
 
 			setMessage('')
 			if (userOnline) setUserOnline(false)
@@ -131,7 +169,10 @@ const Chat = ({usersData, userChatPhoto}) => {
 
 				switch (data?.msg) {
 					case ('user_online'):
-						if (!userOnline && data?.user_on !== id) setUserOnline(true)
+						if (!userOnline && data?.user_on !== id) {
+							setUserOnline(true)
+							console.log(data.msg);
+						}
 						break;
 					case ('user_join'):
 						if (!userOnline && data?.user_jo !== id) setUserOnline(true)
@@ -160,13 +201,17 @@ const Chat = ({usersData, userChatPhoto}) => {
 	}, [loading])
 
 	const addChatHistory = () => {
-		axios.post(`${CHAT_URL_API}/chat_history`, generateChatHistory(messageId)).then(r => {
-			if (r.data.data.length) {
-				setMessageId(r.data.data.reverse()[0]?.id)
-				setMessageUpdate(true)
-				setMsgList(prev => [...r.data.data, ...prev])
-			}
-		})
+		const objHistory = generateChatHistory(messageId)
+
+		if (objHistory.companion_id && objHistory.companion_id) {
+			axios.post(`${CHAT_URL_API}/chat_history`, objHistory).then(r => {
+				if (r.data.data.length) {
+					setMessageId(r.data.data.reverse()[0]?.id)
+					setMessageUpdate(true)
+					setMsgList(prev => [...r.data.data, ...prev])
+				}
+			})
+		}
 	}
 
 
@@ -209,7 +254,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 	const handleKeyDown = (e) => {
 		socket.emit('typing', {'sender': usersData?.sender, 'recipient': usersData?.recipient, 'product': usersData?.product})
 		if (messageUpdate) setMessageUpdate(false)
-		if (e.key == 'Enter' && e.target.value.length <= 300) {
+		if (e.key == 'Enter') {
 			handleSend()
 		}
 	}
@@ -232,8 +277,9 @@ const Chat = ({usersData, userChatPhoto}) => {
 						"Content-Type": "multipart/form-data"
 					}
 				}).then(r => {
-					const img = r.data?.images?.photos;			
-					if (img) handleSend(`${STATIC_URL}/${img}`)
+					const img = r.data?.images?.photos;
+					console.log(img);
+					if (img) handleSend(`${img}`)
 				})
 				
 			}
@@ -271,6 +317,7 @@ const Chat = ({usersData, userChatPhoto}) => {
 		const currentIndex = index
 		const prevIndex = index - 1
 		const date = new Date()
+		const today = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
 		// const timeUTC = date.getTimezoneOffset() / 60
 		// console.log(`${date.getUTCHours() - timeUTC}:${date.getUTCMinutes()}`);
 
@@ -285,7 +332,6 @@ const Chat = ({usersData, userChatPhoto}) => {
 			const prevDate = generateTime(0, msgList[prevIndex].time, false, true).split('.')
 			const currentDate = generateTime(0, msgList[currentIndex].time, false, true).split('.')
 			const messageStringDate = currentDate.join('.')
-			const today = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
 
 			// Проверка дня
 			if (currentDate[0] !== prevDate[0]) {
@@ -299,8 +345,6 @@ const Chat = ({usersData, userChatPhoto}) => {
 					return messageStringDate
 				}
 
-				console.log(currentDate)
-
 
 				if (messageStringDate == today) {
 					return 'Сегодня'
@@ -310,9 +354,35 @@ const Chat = ({usersData, userChatPhoto}) => {
 			}
 
 		} else {
-			return generateTime(0, msgList[index].time, false, true)
+			const firstMessageTime = generateTime(0, msgList[index].time, false, true)
+
+			if (firstMessageTime == today) {
+				return 'Сегодня'
+			}
+
+			return firstMessageTime
 		}
 	}
+
+	const openImage = (message) => {
+		setFullScreenImg({state: true, src: message})
+	}
+
+	const generateMessage = (message) => {
+		if (message.match('images/ch')) {
+			if (message.match('.webp')) {
+				const altName = message.split('.webp')[0]
+				return (
+					<div onClick={() => openImage(message)}>
+						<img className='chatImg' src={`${STATIC_URL}/${message}`} alt={altName} />
+					</div>
+				)
+			}
+		}
+
+		return <span>{message}</span>
+	}
+
 
 
 	return (
@@ -320,35 +390,13 @@ const Chat = ({usersData, userChatPhoto}) => {
 			<div ref={refChat} className="messageChats">
 				{msgList?.map((item, index) => {
 					const myMessage = item?.sender_id == id
-					item.messages_is_read = userOnline ? true: item.messages_is_read
 					const key = id?.id ? id?.id : index
 					const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
-					
+
+					item.messages_is_read = userOnline ? true: item.messages_is_read
+
 					// const messageData = index == msgList.length - 1 ? true : generateMessageData(index)
 					const dialogData = generateDialogData(index);
-			
-					if (item.message.match('http://192.168.8.111:6001/images')) {
-						if (item.message.match('.webp')) {
-							const altName = item.message.split('.webp')[0]
-							return (
-								<>
-									{dialogData && <div className='chatDataDialog'>{dialogData}</div>}
-									<div key={key}
-									ref={item.id == messageId ? refMessage : null} 
-									className={myMessage ? "chatUser" : "chatCompanion"}>
-										{myMessage ?  null :
-											morePartnerMessage ? <div></div> : <img src={userChatPhoto ? `${STATIC_URL}/${userChatPhoto}` : null} />}
-										<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
-											<img className='chatImg' src={item.message} alt={altName} />
-											<div className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
-										</div>
-										<div>{generateTime(0, item?.time, true)}</div>
-									</div>
-								</>
-							)
-						}
-					}
-
 
 					return (
 						item?.delete ? null :
@@ -358,9 +406,12 @@ const Chat = ({usersData, userChatPhoto}) => {
 							ref={item.id == messageId ? refMessage : null} 
 							className={myMessage ? "chatUser" : "chatCompanion"}>
 								{myMessage ?  null :
-									morePartnerMessage ? <div></div> : <img src={userChatPhoto ? `${STATIC_URL}/${userChatPhoto}` : null} />}
+									morePartnerMessage ? <div></div> :
+										userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`} /> :
+											<ChatDefaultAvatar name={userChatName}/>
+								}
 								<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
-									{item.message}
+									{generateMessage(item?.message)}
 									<div className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
 								</div>
 								<div>{generateTime(0, item?.time, true)}</div>
@@ -371,7 +422,7 @@ const Chat = ({usersData, userChatPhoto}) => {
               </div>
               <div className="messageChatInput">
                 <button onClick={handleInputClick} className="messageFile">
-					<input ref={refInput} onChange={(e) => handleChangeFile(e)} accept='image/.png, .jpg, .jpeg' type='file' hidden/>
+					<input ref={refInput} onChange={(e) => handleChangeFile(e)} accept='image/jpeg,image/png,image/jpg' type='file' hidden/>
 				</button>
                 <input 
 				className="messageInput" 
@@ -383,6 +434,11 @@ const Chat = ({usersData, userChatPhoto}) => {
 				/>
                 <button className="messageSend" onClick={() => handleSend()}></button>
               </div>
+			  <Dialog open={fullScreenImg.state} onClose={() => setFullScreenImg({state: false, src: ''})}>
+				  <div className='fullScreenImg'>
+					  {fullScreenImg.src && <img src={`${STATIC_URL}/${fullScreenImg.src}`} alt='fullScreenImg'/>}
+				  </div>
+			  </Dialog>
 		</>
 	)
 }
