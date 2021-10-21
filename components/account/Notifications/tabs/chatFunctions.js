@@ -18,7 +18,13 @@ export const generateProductPhoto = (photos) => {
 export const generateDataTocken = (id, token) => {
 	token.then((r) => {
 		const obj = {"user_id": id, "platform": 3, "token": r}
-		axios.post(`${CHAT_URL_API}/push_token`, obj)})
+		console.log(r)
+		try {
+			axios.post(`${CHAT_URL_API}/push_token`, obj)
+		} catch (e) {
+			console.log(e)
+		}
+	})
 }
 
 export const chatPush = (router, dataObj) => {
