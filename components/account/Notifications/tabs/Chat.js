@@ -131,10 +131,10 @@ const Chat = ({usersData, userChatPhoto}) => {
 
 				switch (data?.msg) {
 					case ('user_online'):
-						if (!userOnline && data?.user_on != id) setUserOnline(true)
+						if (!userOnline && data?.user_on !== id) setUserOnline(true)
 						break;
 					case ('user_join'):
-						if (!userOnline && data?.user_jo != id) setUserOnline(true)
+						if (!userOnline && data?.user_jo !== id) setUserOnline(true)
 						break;
 					case ('user_typing'):
 						break;
@@ -184,7 +184,6 @@ const Chat = ({usersData, userChatPhoto}) => {
   	});
 
 	const generateBackgroundMessage = (senderId, read) => {
-
 		if (senderId == id) {
 			if (userOnline) {
 			return '#e9e9e9'
@@ -193,7 +192,18 @@ const Chat = ({usersData, userChatPhoto}) => {
 				return '#e9e9e9'
 			}
 		}
-	}	
+	}
+
+	const generateMessageStatus = (senderId, read) => {
+		if (senderId == id) {
+			if (userOnline) {
+				return 'Прочитано'
+			} else {
+				if (!read) return 'Доставлено'
+				return 'Прочитано'
+			}
+		}
+	}
 
 
 	const handleKeyDown = (e) => {
@@ -216,8 +226,6 @@ const Chat = ({usersData, userChatPhoto}) => {
 			reader.onloadend = () => {
 				const photoData = new FormData();
 				photoData.append('files[]', file);
-
-				console.log(photoData.getAll('files[]'))
 
 				axios.post(`${STATIC_URL}/chat`, photoData, {
 					headers: {
@@ -253,10 +261,9 @@ const Chat = ({usersData, userChatPhoto}) => {
 	// 	}
 	// }
 
-	const testDate = () => {
-		const d1 = new Date(2017, 2, 11, 11, 30);
-		console.log(d1)
-	}
+	// const testDate = () => {
+	// 	const d1 = new Date(2017, 2, 11, 11, 30);
+	// }
 
 
 	//! ГЕНИРАЦИЯ ДЛЯ ДИАЛОГОВ (СЕГОДНЯ, ВЧЕРА, 17.10.2021)
@@ -264,13 +271,13 @@ const Chat = ({usersData, userChatPhoto}) => {
 		const currentIndex = index
 		const prevIndex = index - 1
 		const date = new Date()
-		const timeUTC = date.getTimezoneOffset() / 60
-		console.log(`${date.getUTCHours() - timeUTC}:${date.getUTCMinutes()}`);
+		// const timeUTC = date.getTimezoneOffset() / 60
+		// console.log(`${date.getUTCHours() - timeUTC}:${date.getUTCMinutes()}`);
 
 		// const moment = useMoment();
 		// console.log(moment.tz.guess())
 		// console.log(moment.tz("America/Los_Angeles").format())
-		testDate();
+		// testDate();
 
 
 		if (prevIndex >= 0) {
@@ -291,6 +298,9 @@ const Chat = ({usersData, userChatPhoto}) => {
 				if (currentDate[2] !== prevDate[2]) {
 					return messageStringDate
 				}
+
+				console.log(currentDate)
+
 
 				if (messageStringDate == today) {
 					return 'Сегодня'
@@ -326,9 +336,11 @@ const Chat = ({usersData, userChatPhoto}) => {
 									<div key={key}
 									ref={item.id == messageId ? refMessage : null} 
 									className={myMessage ? "chatUser" : "chatCompanion"}>
-										{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
+										{myMessage ?  null :
+											morePartnerMessage ? <div></div> : <img src={userChatPhoto ? `${STATIC_URL}/${userChatPhoto}` : null} />}
 										<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 											<img className='chatImg' src={item.message} alt={altName} />
+											<div className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
 										</div>
 										<div>{generateTime(0, item?.time, true)}</div>
 									</div>
@@ -345,9 +357,11 @@ const Chat = ({usersData, userChatPhoto}) => {
 							<div key={key}
 							ref={item.id == messageId ? refMessage : null} 
 							className={myMessage ? "chatUser" : "chatCompanion"}>
-								{myMessage ?  null : morePartnerMessage ? <div></div> : <img src={`${STATIC_URL}/${userChatPhoto}`} />}
+								{myMessage ?  null :
+									morePartnerMessage ? <div></div> : <img src={userChatPhoto ? `${STATIC_URL}/${userChatPhoto}` : null} />}
 								<div style={{backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read), transition: '.1s all linear'}}>
 									{item.message}
+									<div className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
 								</div>
 								<div>{generateTime(0, item?.time, true)}</div>
 							</div>
