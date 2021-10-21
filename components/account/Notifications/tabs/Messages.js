@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Dialog } from "@material-ui/core";
+import {Avatar, Dialog} from "@material-ui/core";
 import { ModalMessage } from "../../../Modals";
 import { useMedia } from "../../../../hooks/useMedia"
 import Chat from "./Chat";
@@ -11,6 +11,7 @@ import { useStore } from "../../../../lib/Context/Store";
 import { generateTime, generateProductPhoto, generateDataTocken, chatPush } from "./chatFunctions";
 import { askForPermissioToReceiveNotifications, initializeFirebase } from '../../../../firebase/clientApp';
 import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
+import {initials, stringToColor} from "../../../../lib/services";
 
 
 function Messages() {
@@ -158,7 +159,8 @@ function Messages() {
 
 		  if (senderMessage.match('http://192.168.8.111:6001/images')) {
 			  if (senderMessage.match('.webp')) {
-				  return 'Изображение'
+				  console.log(senderMessage)
+				  return {img: true, src: senderMessage}
 			  }
 		  }
 
@@ -181,7 +183,7 @@ function Messages() {
     //       </div>
     //     </div>
     //   </div>
-	!allRooms.length
+	!'1'
     ) || (
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_nav__radio">
@@ -238,15 +240,27 @@ function Messages() {
 							<div className="messageUser small">
 							<div onClick={(e) => handleClickUser(e, item?.sender_id)} className="messageUserBlock">
 								<span>
-									{/*<img src={item?.seller_photo ? `${STATIC_URL}/${senderPhoto}` : null} />*/}
-									<img src={senderPhoto ? `${STATIC_URL}/${senderPhoto}` : null} />
+									{senderPhoto ? <img src={`${STATIC_URL}/${senderPhoto}`} /> :
+										<div className='chatDefaultAvatar'>
+											<Avatar
+												src={`${STATIC_URL}/${senderPhoto}`}
+												style={{ backgroundColor: `${stringToColor(senderName)}` }}>
+												{initials(senderName)}
+											</Avatar>
+										</div>}
 								</span>
 								<div>
 								<div>{senderName}</div>
 								<div className="light">{time}</div>
 								</div>
 							</div>
-							<div className="light">{senderMessage}</div>
+								{senderMessage?.img ?
+									<div className='light messageMiniatureBlock'>
+										<span>Фотография: </span>
+										<img src={senderMessage.src} alt='miniatureImg'  className="messageMiniatureImg"/>
+									</div>:
+									<div className="light">{senderMessage}</div>
+								}
 							</div>
 						</a>
 					)
@@ -291,7 +305,14 @@ function Messages() {
                       <div>{room?.seller_name}</div>
                       <div className="light">00.00.00 00:00</div>
                     </div>
-                    <img src={room?.seller_photo ? `${STATIC_URL}/${room?.seller_photo}` : null} />
+					  {room?.seller_photo ? <img src={`${STATIC_URL}/${room?.seller_photo}`} /> :
+						  <div className='chatDefaultAvatar'>
+							  <Avatar
+								  src={`${STATIC_URL}/${room?.seller_photo}`}
+								  style={{ backgroundColor: `${stringToColor(room?.seller_name)}` }}>
+								  {initials(room?.seller_name)}
+							  </Avatar>
+						  </div>}
                   </div>
                   <div>{room?.product_price} ₽</div>
                   <div>{room?.product_name}</div>
@@ -301,6 +322,7 @@ function Messages() {
 			  <Chat
 				usersData={chatUsers} 
 				userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
+				userChatName={room?.customer_id == id ? room?.seller_name : room?.customer_name}
 			  />}
             </div>
           </div>

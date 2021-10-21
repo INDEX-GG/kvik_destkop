@@ -21,7 +21,7 @@ function UserPage() {
   const { id } = useAuth()
   const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
   const {userInfo} = useAd(router.query.id)
-	const  userProfileInfo  = useUser();
+  const  userProfileInfo  = useUser();
   const { userSub } = useSubBool(id, sellerId)
   const { userBlocked } = useBlockedBool(id, sellerId)
   const { matchesMobile, matchesTablet } = useMedia()

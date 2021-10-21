@@ -117,6 +117,18 @@
   justify-content: space-between;
 }
 
+.messageMiniatureBlock {
+  display: flex;
+  align-items: center;
+}
+
+.messageMiniatureImg {
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+}
+
 .messageWindow {
   grid-area: 1 / 2 / 2 / 3;
   height: 100%;
@@ -257,6 +269,12 @@
 	text-align: center;
 	color: #8F8F8F;
 	font-size: 12px;
+}
+
+.chatDefaultAvatar {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 2px;
 }
 
 .chatUser > *:first-child {
