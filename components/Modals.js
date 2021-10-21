@@ -5,6 +5,8 @@ import Chat from "./account/Notifications/tabs/Chat";
 import { STATIC_URL } from "../lib/constants";
 import { generateProductPhoto } from "./account/Notifications/tabs/chatFunctions";
 import ChatDefaultAvatar from "./account/Notifications/components/ChatDefaultAvatar";
+import Loader from "../UI/icons/Loader";
+import React from "react";
 
 /* Модальное окно "отзывы и рейтинг" */
 export function ModalRating({ rate = 0, comments = 0, modal, mobile }) {
@@ -97,8 +99,9 @@ export function ModalSubscription({ data, subscription = 0, modal, mobile }) {
 	);
 }
 /* Модальное окно "Диалог" */
-export function ModalMessage({ modal, usersData, room, userChatPhoto, userChatName }) {
+export function ModalMessage({ modal, usersData, room, userChatPhoto, userChatName, loadingRoom}) {
 	return (
+		loadingRoom ? <div className='offer__placeholder_loader messagePlaceholder'><Loader /></div> :
 		<div className="modal__wrapper_md acoountContainer">
 			<div className="modal__block__top accountTop">
 				<>
@@ -118,7 +121,7 @@ export function ModalMessage({ modal, usersData, room, userChatPhoto, userChatNa
 								<div className="light">00.00.00 00:00</div>
 							</div>
 							<img src={room?.seller_photo ? `${STATIC_URL}/${room?.seller_photo}` :
-							<ChatDefaultAvatar name={room?.seller_name}/>} />
+									<ChatDefaultAvatar name={room?.seller_name}/>} />
 						</div>
 						<div>{room?.product_price}</div>
 						<div>{room?.product_name}</div>
