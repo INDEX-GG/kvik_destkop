@@ -15,6 +15,9 @@ import { useMedia } from "../../hooks/useMedia";
 import { useStore } from "../../lib/Context/Store";
 import { getDataByPost } from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
+import {Checkbox} from "@material-ui/core";
+import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
+import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,12 +42,61 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginBottom: theme.spacing(4),
   },
+  else: {
+    textAlign: "center",
+  },
   modalContainer: {
     textAlign: "center",
     padding: "16px 0px 27px",
     boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
     marginBottom: "24px",
   },
+  socialNetworks: {
+    display: "flex",
+    marginLeft: "auto",
+    marginRight: "auto",
+    justifyContent: "space-between",
+    marginBottom: "12px",
+    width: "60%",
+  },
+  passwordActionBlock: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "auto",
+  },
+  rememberPasswordCheck: {
+    padding: '0px',
+    background: theme.palette.secondary.main,
+    width: '14px',
+    height: '14px',
+
+    '&:hover': {
+      background: theme.palette.secondary.main,
+    },
+  },
+  rememberPassword: {
+    color: "#C7C7C7",
+    marginRight: "45px",
+    background: "none",
+    cursor: "pointer",
+    transition: "all 200ms ease-in-out",
+
+    "&:hover": {
+      transition: "all 200ms ease-in-out",
+    },
+  },
+  forgotPassword: {
+    color: "#00A0AB",
+    marginLeft: "12px",
+    background: "none",
+    cursor: "pointer",
+    transition: "all 200ms ease-in-out",
+
+    "&:hover": {
+      transition: "all 200ms ease-in-out"
+    },
+  },
+
 }));
 
 const Login = () => {
@@ -164,6 +216,35 @@ const Login = () => {
                 )}
                 rules={{ required: "Введите пароль" }}
               />
+              {/*<Box  className={classes.passwordActionBlock}>*/}
+              {/*  <Checkbox*/}
+              {/*      className={classes.rememberPasswordCheck}*/}
+              {/*      icon={<FiberManualRecordOutlinedIcon/>}*/}
+              {/*      checkedIcon={<FiberManualRecordSharpIcon/>}*/}
+              {/*      label="Запомнить пароль"*/}
+              {/*  />*/}
+
+              {/*  <Typography className={classes.forgotPassword} variant="body2"  >*/}
+              {/*    Забыли пароль?*/}
+              {/*  </Typography>*/}
+              {/*</Box>*/}
+
+              <div className={classes.passwordActionBlock}>
+                <Checkbox
+                    className={classes.rememberPasswordCheck}
+                    color="primary"
+                    value=""
+                    icon={<FiberManualRecordOutlinedIcon/>}
+                    checkedIcon={<FiberManualRecordSharpIcon/>}
+                />
+                <button  className={classes.rememberPassword} >
+                  Запомнить пароль
+                </button>
+                <button  className={classes.forgotPassword} >
+                  Забыли пароль?
+                </button>
+              </div>
+
               <Button
                 type="submit"
                 disabled={false}
@@ -172,11 +253,16 @@ const Login = () => {
               >
                 Войти
               </Button>
-              <Typography className={classes.title} >
+              <Typography className={classes.else} variant="body2" >
                 или
               </Typography>
-                <a className="socialNetworksIco"></a>
-
+              <div className={classes.socialNetworks}>
+                <a href="https://vk.com" className="vkLoginIcon"/>
+                <a href="https://ok.ru/" className="odLoginIcon"/>
+                <a href="https://www.apple.com/" className="appleLoginIcon"/>
+                <a href="https:/facebook.com" className="facebookLoginIcon"/>
+                <a href="https://google.com" className="googleLoginIcon"/>
+              </div>
               <Button
                 onClick={() => {
                   setOpenLoginForm(!openLoginForm);
@@ -186,7 +272,7 @@ const Login = () => {
                 size="large"
                 color="primary"
               >
-                Регистрация
+                Зарегистрироваться
               </Button>
             </form>
           </Box>
