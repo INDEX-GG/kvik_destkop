@@ -79,6 +79,38 @@
     height: 24px;
     transition: 300ms ease-in-out;
   }
+  .vkLoginIcon{
+    background: url(../../icons/vk_logo.svg) no-repeat center;
+    width: 24px;
+    height: 24px;
+    transition: 300ms ease-in-out;
+  }
+
+  .odLoginIcon{
+    background: url(../../icons/odnoklas_logo.svg) no-repeat center;
+    width: 24px;
+    height: 24px;
+    transition: 300ms ease-in-out;
+  }
+
+  .appleLoginIcon{
+    background: url(../../icons/apple_logo.svg) no-repeat center;
+    width: 24px;
+    height: 24px;
+    transition: 300ms ease-in-out;
+  }
+  .facebookLoginIcon{
+    background: url(../../icons/facebook_logo.svg) no-repeat center;
+    width: 24px;
+    height: 24px;
+    transition: 300ms ease-in-out;
+  }
+  .googleLoginIcon{
+    background: url(../../icons/google_logo.svg) no-repeat center;
+    width: 24px;
+    height: 24px;
+    transition: 300ms ease-in-out;
+  }
   
   .fbLinkIcon{
     background: url(../../icons/fb_r_light.svg) no-repeat center;
@@ -115,7 +147,33 @@
     background: url(../../icons/fb_r_grey.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
+  .vkLoginIcon:hover{
+    background: url(../../icons/vk_r_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+
+  .odLoginIcon:hover{
+    background: url(../../icons/ok_r_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+
+  .appleLoginIcon:hover{
+    background: url(../../icons/apple_rR_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+  .facebookLoginIcon:hover{
+    background: url(../../icons/fb_r_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+  .googleLoginIcon:hover{
+    background: url(../../icons/google_rR_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+
+
+
+
   .androidDownloadLinkIconFooter:hover{
     background: url(../../icons/android_grey.svg) no-repeat center;
     transition: 300ms ease-in-out;
@@ -139,7 +197,31 @@
     background: url(../../icons/fb_r_green.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
+  .vkLoginIcon:active{
+    background: url(../../icons/vk_r_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+
+  .odLoginIcon:active{
+    background: url(../../icons/ok_r_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+
+  .appleLoginIcon:active{
+    background: url(../../icons/apple_rR_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+  .facebookLoginIcon:active{
+    background: url(../../icons/fb_r_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+  .googleLoginIcon:active{
+    background: url(../../icons/google_rR_green.svg) no-repeat center;
+    transition: 300ms ease-in-out;
+  }
+
+
   .androidDownloadLinkIconFooter:active{
     background: url(../../icons/android_green.svg) no-repeat center;
     transition: 300ms ease-in-out;

@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import { Box, Dialog, makeStyles, TextField, Typography } from '@material-ui/core';
+import React, {useContext, useEffect, useState} from 'react'
+import {Box, Button, Dialog, makeStyles, TextField, Typography} from '@material-ui/core';
 import { RegistrationCTX } from '../../lib/Context/DialogCTX';
 import { getDataByPost } from '../../lib/fetch';
 import { useAuth } from '../../lib/Context/AuthCTX';
@@ -16,16 +16,45 @@ const useStyles = makeStyles((theme) => ({
 			margin: theme.spacing(1),
 		}
 	},
-	inputSubmit: {
+	// inputSubmit: {
+	// 	'& input': {
+	// 		textAlign: 'center',
+	// 	}
+	// },
+	inputSubmit1: {
 		'& input': {
 			textAlign: 'center',
-		}
-	}
+		},
+		width: "32px",
+		height: "32px",
+		border: "1px solid",
+		borderColor:"#8F8F8F",
+		boxSizing: "border-box",
+		borderRadius: "8px",
+		margin: "5px"
+	},
+	inputBlock: {
+		display: "flex",
+		marginLeft: "auto",
+		marginRight: "auto",
+		justifyContent: "center",
+		marginBottom: "12px",
+		width: "60%",
+	},
+	title: {
+		textAlign: "center",
+		marginBottom: theme.spacing(2),
+	},
 }));
 
 const ConfirmNumber = () => {
 	const {signIn} = useAuth();
 	const {storeUser} = useStore();
+	const [value1, setValue1] = useState('');
+	const [value2, setValue2] = useState('');
+	const [value3, setValue3] = useState('');
+	const [value4, setValue4] = useState('');
+	const [valueAll, setValueAll] = useState('');
 	const classes = useStyles();
 	const [errorVerify, setErrorVerify] = useState({ error: true, message: 'Введите цифры' }),
 		{ openConfirmNum, setOpenConfirmNum, phoneNum, sendData } = useContext(RegistrationCTX);
@@ -46,8 +75,21 @@ const ConfirmNumber = () => {
 		setOpenConfirmNum(!openConfirmNum);
 	}
 
-	const verifyNumber = (e) => {
-		if (e.target.value === String(phoneNum).slice(-4)) {
+
+	useEffect(() => {
+		setValueAll(`${value1}${value2}${value3}${value4}`)
+	}, [value1, value2, value3, value4]);
+
+	const jump = (field, autoMove) => {
+		if(value1.length >= 1){
+			document.getElementById(autoMove).focus();
+		}
+	}
+
+
+
+	const verifyNumber = () => {
+		if (valueAll === String(phoneNum).slice(-4)) {
 			setErrorVerify({ error: false, message: 'Код совпал' });
 			regUser();
 		} else {
@@ -55,13 +97,29 @@ const ConfirmNumber = () => {
 
 		}
 	}
-
 	return (
 		<Dialog open={openConfirmNum || false} onClose={() => setOpenConfirmNum(!openConfirmNum)} fullWidth maxWidth="sm">
 			<Box className={classes.submitNumber}>
-				<Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок. Пожалуйста введите последние 4 цифры звонящего номера в поле ниже</Typography>
-				<TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>
+				<Typography className={classes.title} variant="h6">
+					Регистрация
+				</Typography>
+				<Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок.<br/> Пожалуйста введите последние 4 цифры <br/> звонящего номера в поле ниже.</Typography>
+				{/*<TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>*/}
+				<Box className={classes.inputBlock}>
+					<TextField className={classes.inputSubmit1} id="01" onKeyUp={()=>jump(value1, '02')} InputProps={{ disableUnderline: value1.length > 0, maxLength: 1}} onChange={(e) => setValue1(e.target.value)} type='text' error={errorVerify.error} helperText={errorVerify.message}/>
+					<TextField className={classes.inputSubmit1} id="02" onKeyUp={()=>jump(value2, '03')} InputProps={{ disableUnderline: value2.length > 0, maxLength: 1}}  onChange={(e) => setValue2(e.target.value)} type='text' error={errorVerify.error}/>
+					<TextField className={classes.inputSubmit1} id="03" onKeyUp={()=>jump(value3, '04')} InputProps={{ disableUnderline: value3.length > 0, maxLength: 1}}  onChange={(e) => setValue3(e.target.value)} type='text' error={errorVerify.error}/>
+					<TextField className={classes.inputSubmit1} id="04"  InputProps={{ disableUnderline: value4.length > 0, maxLength: 1}}  onChange={(e) => setValue4(e.target.value)} type='text' error={errorVerify.error}/>
+				</Box>
 			</Box>
+			<Button
+				onClick={()=>verifyNumber(valueAll)}
+				variant="text"
+				size="large"
+				color="primary"
+			>
+				Зарегистрироваться
+			</Button>
 		</Dialog>
 	)
 }
