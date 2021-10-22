@@ -112,7 +112,7 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 								Редактировать
 							</button>
 
-							<a href="javascript:void(0);">
+							<a href="#">
 								<button
 									value={offer.id}
 									onClick={(e) => pushCheck(e)}

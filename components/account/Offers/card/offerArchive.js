@@ -138,7 +138,7 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 
 						<div className="offerDTRight">
 
-							<a href="javascript:void(0);">
+							<a href="#">
 								<button
 									id='001'
 									value={offer.id}
