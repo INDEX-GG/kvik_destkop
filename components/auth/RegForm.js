@@ -221,8 +221,9 @@ export default function RegForm() {
           </Box>
           <Typography variant="subtitle1">
             При регистрации вы соглашаетесь с
+              <Link href="#" className>Лицензионным соглашением</Link>
           </Typography>
-          <Link href="#">Лицензионным соглашением</Link>
+
           <Typography variant="subtitle2">Уже есть аккаунт?</Typography>
           <Button
             onClick={() => {
