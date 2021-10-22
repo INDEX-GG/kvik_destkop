@@ -155,7 +155,14 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 			if (navigator.onLine) {
 				await socket.emit('text', sendObj)
 			} else {
-				localStorage.setItem('message', JSON.stringify(sendObj))
+				const messageLocalStorageArr = localStorage.getItem('messageArr')
+
+				if (messageLocalStorageArr.length) {
+					messageLocalStorageArr.push(JSON.stringify(sendObj))
+					localStorage.setItem('message', JSON.stringify(messageLocalStorageArr))
+				} else {
+					localStorage.setItem('message', JSON.stringify([messageLocalStorageArr]))
+				}
 			}
 
 			setMessage('')
