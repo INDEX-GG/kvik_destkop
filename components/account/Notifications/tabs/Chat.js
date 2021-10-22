@@ -3,7 +3,7 @@ import {useAuth} from '../../../../lib/Context/AuthCTX'
 import {useRouter} from 'next/router';
 import {useStore} from '../../../../lib/Context/Store';
 import axios from 'axios';
-import {CHAT_URL_API, STATIC_URL} from '../../../../lib/constants';
+import {BASE_URL, CHAT_URL_API, STATIC_URL} from '../../../../lib/constants';
 import {socket} from './socket';
 import {generateTime} from './chatFunctions';
 import {Dialog} from "@material-ui/core";
@@ -13,7 +13,7 @@ import {ellipsis} from "../../../../lib/services";
 // import useMoment from 'moment-timezone'
 
 
-const Chat = ({usersData, userChatPhoto, userChatName}) => {
+const Chat = ({usersData, userChatPhoto, userChatName, localRoom}) => {
 
   const [message, setMessage] = useState('');
   const [msgList, setMsgList] = useState();
@@ -32,10 +32,9 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
   const observer = useRef()
 
   const {userInfo} = useStore()
-  const {query} = useRouter()
+  const {query, asPath} = useRouter()
   const {id} = useAuth()
   // const {matchesMobile, matchesTablet} = useMedia()
-
 
 
   const chatHistory = () => {
@@ -126,15 +125,28 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
     }
   }
 
-  const generatePush = (id, message) => {
+  const generatePush = (sendObj) => {
+    console.log(sendObj);
+
+    const img = sendObj.message.match('images/ch/') ? sendObj.message.match('.webp') ? true : false : false
+
+
+
     if (usersData?.recipient?.id && userInfo?.name) {
       const pushObj = {
         'user_id': usersData?.recipient.id,
-        'message': ellipsis(message, 20),
-        'user_name': userInfo.name
+        'message': ellipsis(img ? 'Вам отправили фото': sendObj.message, 20),
+        'user_name': userInfo.name,
+        "image": img ? sendObj.message : '',
+        "icon": 'http://192.168.8.111:4000/logo.svg',
+        "click_action": `${BASE_URL}/${asPath.substring(1,)}`,
       }
 
-      axios.post(`${CHAT_URL_API}/send_push`, pushObj)
+      try {
+        axios.post(`${CHAT_URL_API}/send_push`, pushObj)
+      } catch(e) {
+        console.log(e)
+      }
     }
   }
 
@@ -153,7 +165,9 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 
   useEffect(() => {
     if (refChat.current && !messageUpdate) {
-      refChat.current.scrollTop = refChat.current.scrollHeight
+      setTimeout(() => {
+        refChat.current.scrollTop = refChat.current?.scrollHeight
+      }, 500)
     } else {
       console.log(historyMessageLength)
       refChat.current.scrollTop = refChat.current.scrollHeight - ((msgList.length - historyMessageLength) * 78)
@@ -187,7 +201,7 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 
 
       if (!userOnline) {
-        generatePush(usersData?.sender.id, message)
+        generatePush(sendObj)
       }
 
       await socket.emit('text', sendObj)
@@ -206,14 +220,14 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
           case ('user_online'):
             if (!userOnline && data?.user_on !== id) {
               setUserOnline(true)
-              console.log(data.msg);
+              // console.log(data.msg);
             }
             break;
           case ('user_join'):
             if (!userOnline && data?.user_jo !== id) setUserOnline(true)
             break;
           case ('user_typing'):
-            console.log(data?.msg)
+            // console.log(data?.msg)
             setUserTyping(true)
             break;
           case ('msg_to_looooong'):
@@ -236,6 +250,12 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
           }
 
           setMsgList(prev => [...prev, data])
+
+
+          if (localRoom?.room) {
+            console.log(localRoom?.room)
+            localRoom.setLocalMessage(data);
+          }
         }
       })
     }
@@ -437,7 +457,7 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
   }
 
   useEffect(() => {
-    console.log(userTyping);
+    // console.log(userTyping);
   }, [userTyping])
 
 
