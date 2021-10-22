@@ -16,8 +16,14 @@ export function useProduct(id) {
 					if (r !== undefined) {
 						let photoes = JSON.parse(r.photo);
 						r.chatProductPhoto = photoes.photos[0]
+						console.log('$$$$$$$$$$$$$$$$',photoes)
+						let editPhotos = JSON.parse(r.photo);
+						editPhotos = editPhotos.photos.map(image => `${image}`)
+						r.editPhoto = editPhotos
+						console.log('editPhoto',editPhotos)
 						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 						r.photo = photoes
+						console.log('r.photo',r.photo)
 						r.chatPhoto = r.userPhoto;
 						r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 						setProductInfo(r);

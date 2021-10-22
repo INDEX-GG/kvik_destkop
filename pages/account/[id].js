@@ -60,11 +60,11 @@ function Account() {
 	}, [])
 
 	useEffect(() => {
-		if (id != undefined && subList.length == 0) {
+		if (id !== undefined && subList.length === 0) {
 			axios.post("/api/getSubscriptions", { user_id: `${id}` }).then((res) => setSubList(res.data))
 		}
 
-		if (id != undefined && subscribersList.length == 0) {
+		if (id !== undefined && subscribersList.length === 0) {
 			axios.post("/api/getSubscribers", { user_id: `${id}` }).then((res) => setSubscribersList(res.data))
 		}
 	}, [userInfo])
@@ -122,6 +122,8 @@ function Account() {
 		)
 	}
 
+	console.log('userInfo.name',)
+
 	return (
 		<MetaLayout title={"Личный кабинет"}>
 			<div className="clientPage text">
@@ -142,7 +144,7 @@ function Account() {
 									{initials(userInfo.name)}
 								</Avatar>
 
-								<button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"></button>
+								<button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"/>
 							</div>
 							<div className="clientPage__username">{userInfo.name}</div>
 							<div className="clientPage__userRegDate light small">на Kvik c {ToRusAccountDate(userInfo.createdAt)}</div>

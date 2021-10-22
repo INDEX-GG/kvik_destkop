@@ -38,13 +38,14 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: "auto",
 		marginRight: "auto",
 		justifyContent: "center",
-		marginBottom: "12px",
+		marginBottom: "22px",
 		width: "60%",
 	},
 	title: {
 		textAlign: "center",
 		marginBottom: theme.spacing(2),
 	},
+
 }));
 
 const ConfirmNumber = () => {
@@ -106,20 +107,20 @@ const ConfirmNumber = () => {
 				<Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок.<br/> Пожалуйста введите последние 4 цифры <br/> звонящего номера в поле ниже.</Typography>
 				{/*<TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>*/}
 				<Box className={classes.inputBlock}>
-					<TextField className={classes.inputSubmit1} id="01" onKeyUp={()=>jump(value1, '02')} InputProps={{ disableUnderline: value1.length > 0, maxLength: 1}} onChange={(e) => setValue1(e.target.value)} type='text' error={errorVerify.error} helperText={errorVerify.message}/>
+					<TextField className={classes.inputSubmit1} id="01" onKeyUp={()=>jump(value1, '02')} InputProps={{ disableUnderline: value1.length > 0, maxLength: 1}} onChange={(e) => setValue1(e.target.value)} type='text' error={errorVerify.error} helperText={valueAll.length !== 4 && errorVerify.message}/>
 					<TextField className={classes.inputSubmit1} id="02" onKeyUp={()=>jump(value2, '03')} InputProps={{ disableUnderline: value2.length > 0, maxLength: 1}}  onChange={(e) => setValue2(e.target.value)} type='text' error={errorVerify.error}/>
 					<TextField className={classes.inputSubmit1} id="03" onKeyUp={()=>jump(value3, '04')} InputProps={{ disableUnderline: value3.length > 0, maxLength: 1}}  onChange={(e) => setValue3(e.target.value)} type='text' error={errorVerify.error}/>
 					<TextField className={classes.inputSubmit1} id="04"  InputProps={{ disableUnderline: value4.length > 0, maxLength: 1}}  onChange={(e) => setValue4(e.target.value)} type='text' error={errorVerify.error}/>
 				</Box>
+				<Button
+					onClick={()=>verifyNumber(valueAll)}
+					variant="text"
+					size="large"
+					color="primary"
+				>
+					Зарегистрироваться
+				</Button>
 			</Box>
-			<Button
-				onClick={()=>verifyNumber(valueAll)}
-				variant="text"
-				size="large"
-				color="primary"
-			>
-				Зарегистрироваться
-			</Button>
 		</Dialog>
 	)
 }

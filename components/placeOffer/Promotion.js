@@ -4,7 +4,6 @@ import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
 import router, { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
-import {STATIC_URL} from "../../lib/constants";
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -293,17 +292,17 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 		</Box>
 	}
 
-
+	console.log('editProduct === Promotion',editProduct)
 
 
 	return (
 		<PromotionContent dialog={true} setDialog={setDialog}>
 			{promotionAwait(true)}
-			<Dialog open={/** productModal || false */ productModal}  BackdropClick onClose={() => setProductModal(!productModal)}>
+			<Dialog open={/** productModal || false */ productModal}  backdropclick="true" onClose={() => setProductModal(!productModal)}>
 				<div className={classes.productContainer}>
 					<div className={classes.productCard}>
 						{/* !!!!!!!!!! Change */}
-						<img src={!editProduct ? product.photo : `${STATIC_URL}/${editProduct.photo[0]}`} className={classes.productImg} alt="product photo" />
+						<img src={!editProduct ? product.photo : editProduct.photo} className={classes.productImg} alt="product photo" />
 						<div className={classes.productPrice}>{!editProduct ? product.price : editProduct.price} ₽</div>
 						<div className={classes.productName}>{!editProduct ? product.title : editProduct.title}</div>
 					</div>

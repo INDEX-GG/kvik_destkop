@@ -62,8 +62,10 @@ const useStyles = makeStyles((theme) => ({
 
 function EditPage() {
 	const { query } = useRouter();
-	const { price, title, photo, description, address} = useProduct(query.id)
+	const { price, title, photo, description, address, editPhotos} = useProduct(query.id)
 
+	console.log('photo in offer',photo)
+	// console.log('', photo.map(item => item.replace('http://192.168.8.111:6001/', '')))
 
 	const { id } = useAuth();
 	const classes = useStyles();
@@ -88,6 +90,7 @@ function EditPage() {
 	// const additionalfields = {category_id: [{alias: 'post_id', fields: postId}]}
 
 	const onSubmit = data => {
+		console.log('DATAAAAAAAAA+++>>>>>',data)
 		data.price = data.price.replace(/\D+/g, '');
 		data.user_id = id
 		delete data.photoes
@@ -146,19 +149,21 @@ function EditPage() {
 			})
 			setPromotion(true)
 		}) :
-			axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
+			axios.post(`${BASE_URL}/api/postUpdate`, {
+				post_id: postId,
 				title : obj.title,
 				description: obj.description,
 				price: obj.price,
 				address: obj.location,
-				photo: photo.map(item => item.replace('http://192.168.8.111:6001/', ''))
+				photo: editPhotos
 			})
+
 			setEditProduct({post_id: postId,
 				title : obj.title,
 				description: obj.description,
 				price: obj.price,
 				address: obj.location,
-				photo: photo.map(item => item.replace('http://192.168.8.111:6001/', ''))
+				photo: photo[0]
 			})
 		setPromotion(true)
 	}
@@ -189,7 +194,7 @@ function EditPage() {
 										<Button type='submit' color='primary' variant='contained'>Продолжить</Button>
 									</Box>
 								</Box>
-							</form>  : <box className={classes.loader}><Loader size={50} /></box> }
+							</form>  : <Box className={classes.loader}><Loader size={50} /></Box> }
 						</FormProvider>
 					</Box>
 				</Container>}
