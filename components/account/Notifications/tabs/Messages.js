@@ -265,7 +265,7 @@ function Messages() {
                             </a>
                         )
                       })
-                      : null
+                      : <div className='offer__placeholder_loader messagePlaceholder'><Loader /></div>
                   }
                 </div>
                 {!router.query?.companion_id && !router.query?.product_id ? (
