@@ -9,6 +9,7 @@ import { generateTime } from './chatFunctions';
 import {Dialog} from "@material-ui/core";
 import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 import {ellipsis} from "../../../../lib/services";
+import {useMedia} from "../../../../hooks/useMedia";
 // import useMoment from 'moment-timezone'
 
 
@@ -31,6 +32,7 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 	const {userInfo} = useStore()
 	const {query} = useRouter()
 	const {id} = useAuth()
+	const {matchesMobile, matchesTablet} = useMedia()
 
 
 	useEffect(() => {
@@ -116,7 +118,8 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 		if (refChat.current && !messageUpdate) {
 			refChat.current.scrollTop = refChat.current.scrollHeight
 		} else {
-			refChat.current.scrollTop = refChat.current.scrollHeight / 3.5
+			console.log(msgList.length);
+			refChat.current.scrollTop = refChat.current.scrollHeight - ((msgList.length - 50) * 78 - 12)
 			return;
 		}
 		refChat.current.scrollTop = refChat.current.scrollHeight
@@ -441,7 +444,11 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 				/>
                 <button className="messageSend" onClick={() => handleSend()}></button>
               </div>
-			  <Dialog open={fullScreenImg.state} onClose={() => setFullScreenImg({state: false, src: ''})}>
+			  <Dialog
+                  open={fullScreenImg.state}
+                  onClose={() => setFullScreenImg({state: false, src: ''})}
+                  // fullScreen={matchesMobile || matchesT}
+              >
 				  <div className='fullScreenImg'>
 					  {fullScreenImg.src && <img src={`${STATIC_URL}/${fullScreenImg.src}`} alt='fullScreenImg'/>}
 				  </div>
