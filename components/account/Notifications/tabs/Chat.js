@@ -9,7 +9,7 @@ import { generateTime } from './chatFunctions';
 import {Dialog} from "@material-ui/core";
 import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 import {ellipsis} from "../../../../lib/services";
-import {useMedia} from "../../../../hooks/useMedia";
+// import {useMedia} from "../../../../hooks/useMedia";
 // import useMoment from 'moment-timezone'
 
 
@@ -32,7 +32,7 @@ const Chat = ({usersData, userChatPhoto, userChatName}) => {
 	const {userInfo} = useStore()
 	const {query} = useRouter()
 	const {id} = useAuth()
-	const {matchesMobile, matchesTablet} = useMedia()
+	// const {matchesMobile, matchesTablet} = useMedia()
 
 
 	useEffect(() => {
