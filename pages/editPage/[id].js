@@ -67,6 +67,8 @@ function EditPage() {
 	console.log('photo in offer',photo)
 	// console.log('', photo.map(item => item.replace('http://192.168.8.111:6001/', '')))
 
+	console.log('editPhotos',editPhotos)
+
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);

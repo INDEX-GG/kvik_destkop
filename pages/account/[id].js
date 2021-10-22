@@ -122,7 +122,6 @@ function Account() {
 		)
 	}
 
-	console.log('userInfo.name',)
 
 	return (
 		<MetaLayout title={"Личный кабинет"}>

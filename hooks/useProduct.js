@@ -14,13 +14,14 @@ export function useProduct(id) {
 				.then((r) => {
 
 					if (r !== undefined) {
+						console.log('rrrrrrrrrr',r)
+						let editPhotos = JSON.parse(r.photo);
 						let photoes = JSON.parse(r.photo);
 						r.chatProductPhoto = photoes.photos[0]
 						console.log('$$$$$$$$$$$$$$$$',photoes)
-						let editPhotos = JSON.parse(r.photo);
 						editPhotos = editPhotos.photos.map(image => `${image}`)
-						r.editPhoto = editPhotos
-						console.log('editPhoto',editPhotos)
+						r.editPhotos = editPhotos
+						console.log('editPhotos',editPhotos)
 						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 						r.photo = photoes
 						console.log('r.photo',r.photo)
