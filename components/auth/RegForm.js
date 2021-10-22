@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext} from "react";
 import {
   Box,
   Button, InputAdornment,
@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import Link from "next/link";
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import { DialogCTX, RegistrationCTX } from "../../lib/Context/DialogCTX";
 import ConfirmNumber from "./ConfirmNumber";
 import PhoneMask from "../../lib/phoneMask";
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegForm() {
-  const [sendData, setSendData] = useState({}),
+    const [sendData, setSendData] = useState({}),
     [openConfirmNum, setOpenConfirmNum] = useState(false),
     [phoneNum, setPhoneNum] = useState(''),
     {
@@ -74,7 +74,8 @@ export default function RegForm() {
       setOpenLoginForm,
     } = useContext(DialogCTX);
 
-  const classes = useStyles();
+
+    const classes = useStyles();
   const { handleSubmit, control, setValue } = useForm();
   const { matchesMobile } = useMedia();
   const [showPassword, setShowPassword] = useState(false);
@@ -90,6 +91,7 @@ export default function RegForm() {
 
 
 
+
   const onSubmit = (data) => {
     data.phone = `+${valueInp.replace(/\D+/g, "")}`;
     setSendData(data);
@@ -99,6 +101,7 @@ export default function RegForm() {
       setOpenConfirmNum(true);
     });
   };
+
 
   return (
     <>
@@ -198,10 +201,12 @@ export default function RegForm() {
                           }}
                       />
                       {value.length > 0 && <PasswordStrengthBar
+                          minLength={1}
                           shortScoreWord={''}
                           barColors={['#C7C7C7', '#F44545', '#F44545', '#00A0AB', '#00A0AB']}
                           scoreWords={['Короткий', 'Короткий', 'Очень простой', 'Хороший', 'Надёжный']}
-                          password={value}/>}
+                          password={value}
+                      />}
                     </>
 
 
