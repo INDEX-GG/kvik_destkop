@@ -76,6 +76,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
                        matchesMobile || matchesTablet ? setData?.setMessageModal(true) : null
                        changeChat(allRooms[i]);
                        setData?.setLoadingRoom(true)
+                       setData?.setLocalRoom(false)
                      }
                      }>
                     <div className="messageOffer small">

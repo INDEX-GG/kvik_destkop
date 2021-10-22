@@ -13,7 +13,7 @@ import {ellipsis} from "../../../../lib/services";
 // import useMoment from 'moment-timezone'
 
 
-const Chat = ({usersData, userChatPhoto, userChatName, localRoom}) => {
+const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessage}) => {
 
   const [message, setMessage] = useState('');
   const [msgList, setMsgList] = useState();
@@ -126,18 +126,14 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom}) => {
   }
 
   const generatePush = (sendObj) => {
-    console.log(sendObj);
-
     const img = sendObj.message.match('images/ch/') ? sendObj.message.match('.webp') ? true : false : false
-
-
 
     if (usersData?.recipient?.id && userInfo?.name) {
       const pushObj = {
         'user_id': usersData?.recipient.id,
         'message': ellipsis(img ? 'Вам отправили фото': sendObj.message, 20),
         'user_name': userInfo.name,
-        "image": img ? sendObj.message : '',
+        "image": img ? `${BASE_URL}/${sendObj.message}` : '',
         "icon": `${BASE_URL}/logo.png`,
         "click_action": `${BASE_URL}/${asPath.substring(1,)}`,
       }
@@ -252,9 +248,9 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom}) => {
           setMsgList(prev => [...prev, data])
 
 
-          if (localRoom?.room) {
-            console.log(localRoom?.room)
-            localRoom.setLocalMessage(data);
+          console.log(localRoom);
+          if (localRoom) {
+            setLocalMessage(data);
           }
         }
       })

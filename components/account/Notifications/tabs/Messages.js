@@ -94,17 +94,17 @@ function Messages() {
     if (router?.query) {
       const productId = router.query.product_id;
 
-      if (room && !loadingAllRooms) {
+      if (room?.product_id && !loadingAllRooms) {
         const findItem = allRooms?.find(item => item.product_id == productId);
         if (!findItem) {
-          console.log(findItem)
           setLocalRoom(true)
         }
       }
     }
-  }, [room, allRooms, router])
+  }, [room, loadingAllRooms, router])
 
   useEffect(() => {
+    console.log(1)
     if (localRoom) {
       const sendObj2 = {
         "customer_id": room?.customer_id,
@@ -119,29 +119,36 @@ function Messages() {
         'message': localHistoryMessage?.message,
       }
 
+
       if (localHistoryMessage?.message) {
         const productId = router.query.product_id;
-        const findItem = allRooms?.find(item => item.product_id == productId);
+        const findItem = allRooms?.find(item => item.product_id === productId);
 
+        console.log(findItem);
+        setAllRooms([sendObj2])
 
-        if (!findItem) {
-          setAllRooms(prev => {
-            if (prev) {
-              return [sendObj2, ...prev]
-            } else {
-              return [sendObj2]
-            }
-          })
-          console.log(localHistoryMessage)
-        } else {
-          setAllRooms(prev => {
-            return [sendObj2, ...prev.splice(1,)]
-          })
-        }
+      //   if (!findItem) {
+      //     console.log(1)
+      //     setAllRooms(prev => {
+      //       if (prev) {
+      //         console.log(2)
+      //         return [sendObj2, ...prev]
+      //       } else {
+      //         console.log(3)
+      //         return [sendObj2]
+      //       }
+      //     })
+      //   } else {
+      //     setAllRooms(prev => {
+      //       console.log(4)
+      //       return [sendObj2, ...prev.splice(1,)]
+      //     })
+      //   }
       }
     }
   }, [localHistoryMessage])
 
+  console.log(localRoom)
 
   useEffect(() => {
     if (query?.companion_id && id && userInfo?.name) {
@@ -218,7 +225,7 @@ function Messages() {
               <div className="messageContainer">
                 <div className="messageDialogs">
                   {loadingAllRooms ? <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
-                      <ChatAllRoom allRooms={allRooms} setData={{setLoadingRoom, setMessageModal}}/>}
+                      <ChatAllRoom allRooms={allRooms} setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
                 </div>
                 {!router.query?.companion_id && !router.query?.product_id ? (
                         <div className='chatPlaceholder'>
@@ -254,10 +261,8 @@ function Messages() {
                               usersData={chatUsers}
                               userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
                               userChatName={room?.customer_id == id ? room?.seller_name : room?.customer_name}
-                              localRoom={localRoom ? {
-                                'room': localRoom,
-                                'setLocalMessage': setLocalHistoryMessage
-                              } : null}
+                              localRoom={localRoom ? localRoom : false}
+                              setLocalMessage={setLocalHistoryMessage}
                           />}
                         </div>}
               </div>
