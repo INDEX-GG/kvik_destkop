@@ -8,7 +8,7 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { CHAT_URL_API, STATIC_URL } from "../../../../lib/constants";
 import axios from "axios";
 import { useStore } from "../../../../lib/Context/Store";
-import { generateTime, generateProductPhoto, generateDataTocken, chatPush } from "./chatFunctions";
+import { generateTime, generateProductPhoto, generateDataToken, chatPush } from "./chatFunctions";
 import { askForPermissioToReceiveNotifications, initializeFirebase } from '../../../../firebase/clientApp';
 import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
 import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
@@ -48,7 +48,7 @@ function Messages() {
     const token = askForPermissioToReceiveNotifications()
     if (id) {
       try {
-        generateDataTocken(id, token)
+        generateDataToken(id, token)
       } catch(e) {
         console.log(e)
       }
