@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 
 			let getPost = await prisma.$queryRaw(`SELECT users."userPhoto",users.name, posts.user_id ,users.raiting, users.id,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email,posts.active, posts.subcategory, posts.viewing, posts.coordinates FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = ${+req.body.id}`)
 
+
 			// let views = getPost[0].viewing
 			// let preList = views.substring(1);
 			// let preList2 = preList.substring(0, preList.length - 1);
