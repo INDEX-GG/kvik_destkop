@@ -133,7 +133,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
         'user_id': usersData?.recipient.id,
         'message': ellipsis(img ? 'Вам отправили фото': sendObj.message, 20),
         'user_name': userInfo.name,
-        "image": img ? `${BASE_URL}/${sendObj.message}` : '',
+        "image": img ? `${STATIC_URL}/${sendObj.message}` : '',
         "icon": `${BASE_URL}/logo.png`,
         "click_action": `${BASE_URL}/${asPath.substring(1,)}`,
       }
