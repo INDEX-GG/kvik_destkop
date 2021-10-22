@@ -292,8 +292,6 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 		</Box>
 	}
 
-	console.log('editProduct === Promotion',editProduct)
-
 
 	return (
 		<PromotionContent dialog={true} setDialog={setDialog}>
