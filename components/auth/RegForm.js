@@ -90,9 +90,7 @@ export default function RegForm() {
   };
 
 
-
-
-  const onSubmit = (data) => {
+    const onSubmit = (data) => {
     data.phone = `+${valueInp.replace(/\D+/g, "")}`;
     setSendData(data);
     getDataByPost("/api/checkphone", { phone: data.phone }).then((res) => {
@@ -101,6 +99,7 @@ export default function RegForm() {
       setOpenConfirmNum(true);
     });
   };
+
 
 
   return (
