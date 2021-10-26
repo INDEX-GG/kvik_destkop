@@ -15,6 +15,7 @@ import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 import Loader from "../../../../UI/icons/Loader";
 import ChatPlaceholder from "../../../../UI/icons/ChatPlaceholder";
 import ChatAllRoom from "../components/ChatAllRoom";
+import ChatRoom from "../components/ChatRoom";
 
 
 function Messages() {
@@ -38,8 +39,11 @@ function Messages() {
   const {userInfo} = useStore()
   const {matchesTablet, matchesMobile} = useMedia()
 
+  //! Дожидаемся загрузки страницы
   useEffect(() => setLoading(true), [])
 
+
+  //! Инициализируем пуш уведомления (firebase) + генерируем токен (если пользователь разрешил уведомления)
   useEffect(() => {
     initializeFirebase()
     registerServiceWorkerNoSSR()
@@ -65,7 +69,7 @@ function Messages() {
     })
   }
 
-
+  //!
   useEffect(() => {
     if (id && query?.companion_id) {
       const obj = {
@@ -79,17 +83,17 @@ function Messages() {
       if (obj.companion_id && obj.product_id) {
         axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
           axios.post(`/api/roomInfo`, [r.data.room])
-              .then(r => {
-                console.log(allRooms);
-                setRoom(r.data.list[0])
-                setLoadingRoom(false)
-              })
+            .then(r => {
+              console.log(allRooms);
+              setRoom(r.data.list[0])
+              setLoadingRoom(false)
+            })
         })
       }
     }
   }, [id, query])
 
-  //Добовление несуществующей комнаты в список (Если нет сообщений в диалоге)
+  //Добавление несуществующей комнаты в список всех комнат (Если диалог начат впервые);
   useEffect(() => {
     if (router?.query) {
       const productId = router.query.product_id;
@@ -103,6 +107,8 @@ function Messages() {
     }
   }, [room, loadingAllRooms, router])
 
+
+  // Продолжение верхнего useEffect;
   useEffect(() => {
     console.log(1)
     if (localRoom) {
@@ -127,29 +133,30 @@ function Messages() {
         console.log(findItem);
         setAllRooms([sendObj2])
 
-      //   if (!findItem) {
-      //     console.log(1)
-      //     setAllRooms(prev => {
-      //       if (prev) {
-      //         console.log(2)
-      //         return [sendObj2, ...prev]
-      //       } else {
-      //         console.log(3)
-      //         return [sendObj2]
-      //       }
-      //     })
-      //   } else {
-      //     setAllRooms(prev => {
-      //       console.log(4)
-      //       return [sendObj2, ...prev.splice(1,)]
-      //     })
-      //   }
+        //   if (!findItem) {
+        //     console.log(1)
+        //     setAllRooms(prev => {
+        //       if (prev) {
+        //         console.log(2)
+        //         return [sendObj2, ...prev]
+        //       } else {
+        //         console.log(3)
+        //         return [sendObj2]
+        //       }
+        //     })
+        //   } else {
+        //     setAllRooms(prev => {
+        //       console.log(4)
+        //       return [sendObj2, ...prev.splice(1,)]
+        //     })
+        //   }
       }
     }
   }, [localHistoryMessage])
 
   console.log(localRoom)
 
+  //! Создаём модель пользователей в чате + продукт
   useEffect(() => {
     if (query?.companion_id && id && userInfo?.name) {
       const sender = {"id": id, "name": userInfo?.name}
@@ -161,19 +168,22 @@ function Messages() {
     }
   }, [query, id, userInfo])
 
+
+  //! Получаем все комнаты которые есть у пользователя (диалоги)
   useEffect(() => {
     if (id) {
       axios.post(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id})
-          .then(r => {
-            axios.post(`/api/roomInfo`, r.data.data)
-                .then(r => {
-                  setAllRooms(r.data.list)
-                  setLoadingAllRooms(false)
-                })
-          })
+        .then(r => {
+          axios.post(`/api/roomInfo`, r.data.data)
+            .then(r => {
+              setAllRooms(r.data.list)
+              setLoadingAllRooms(false)
+            })
+        })
     }
   }, [id])
 
+  // Если произошёл ресайз на больших сенсорных устройствах. После чего мы выходим из модального окна и сразу оказываемся в комнате (пк версия)
   useEffect(() => {
     if (!matchesTablet && !matchesMobile && messageModal) {
       setMessageModal(false)
@@ -189,6 +199,7 @@ function Messages() {
     }
   })
 
+  // Модальное окно (чат на телефоне)
   useEffect(() => {
     if (query?.mobile && room) {
       if (!messageModal) {
@@ -199,85 +210,99 @@ function Messages() {
 
 
   return (
-      !loadingAllRooms && !allRooms?.length && !room.product_id ?
-        <div className="clientPage__container_bottom">
-          <div className="clientPage__container_content">
-            <div className="notInfContainer">
-              <div className="notInf__title">Здесь буду ваши диалоги</div>
-              <p className="notInf__subtitle">
-                Нажмите на иконку чата, чтобы договориться
-                <br /> о покупке или продаже товаров и услуг
-              </p>
-            </div>
+    !loadingAllRooms && !allRooms?.length && !room.product_id ?
+      <div className="clientPage__container_bottom">
+        <div className="clientPage__container_content">
+          <div className="notInfContainer">
+            <div className="notInf__title">Здесь буду ваши диалоги</div>
+            <p className="notInf__subtitle">
+              Нажмите на иконку чата, чтобы договориться
+              <br/> о покупке или продаже товаров и услуг
+            </p>
           </div>
-        </div> :
+        </div>
+      </div> :
       (
-          <div className="clientPage__container_bottom">
-            <div className="clientPage__container_nav__radio">
-              <label className="checkbox">
-                <input type="checkbox"/>
-                <div className="checkbox__text"></div>
-              </label>
-              <a>Удалить</a>
-              <a>Заблокировать</a>
-            </div>
-            <div className="clientPage__container_content">
-              <div className="messageContainer">
-                <div className="messageDialogs">
-                  {loadingAllRooms ? <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
-                      <ChatAllRoom allRooms={allRooms} setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
-                </div>
-                {!router.query?.companion_id && !router.query?.product_id ? (
-                        <div className='chatPlaceholder'>
-                          <h2>Для начала переписки выберете чат</h2>
-                          <div className='chatPlaceholderCircleBlock'>
-                            <ChatPlaceholder/>
-                            <ChatPlaceholder/>
-                            <ChatPlaceholder/>
-                          </div>
-                        </div>
-                    ) :
-                    loadingRoom ?
-                        <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
-                        <div className="messageWindow">
-                          {room?.seller_id ?
-                              <div className="messageHeader small">
-                                <img src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`}/>
-                                <div>
-                                  <div>
-                                    <div>
-                                      <div>{room?.seller_name}</div>
-                                      <div className="light">00.00.00 00:00</div>
-                                    </div>
-                                    {room?.seller_photo ? <img src={`${STATIC_URL}/${room?.seller_photo}`}/> :
-                                        <ChatDefaultAvatar name={room?.seller_name}/>}
-                                  </div>
-                                  <div>{room?.product_price} ₽</div>
-                                  <div>{room?.product_name}</div>
-                                </div>
-                              </div> : null}
-                          {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender &&
-                          <Chat
-                              usersData={chatUsers}
-                              userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
-                              userChatName={room?.customer_id == id ? room?.seller_name : room?.customer_name}
-                              localRoom={localRoom ? localRoom : false}
-                              setLocalMessage={setLocalHistoryMessage}
-                          />}
-                        </div>}
-              </div>
-            </div>
-            <Dialog open={messageModal || false} onClose={() => setMessageModal(!messageModal)} fullScreen={true}>
-              <ModalMessage
-                  modal={changeModal}
-                  usersData={chatUsers}
-                  room={room}
-                  loadingRoom={loadingRoom}
-                  userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
-                  userChatName={room?.customer_id == id ? room?.seller_name : room?.customer_name}
-              />
-            </Dialog>
+        <div className="clientPage__container_bottom">
+          <div className="clientPage__container_nav__radio">
+            <label className="checkbox">
+              <input type="checkbox"/>
+              <div className="checkbox__text"></div>
+            </label>
+            <a>Удалить</a>
+            <a>Заблокировать</a>
           </div>
+          <div className="clientPage__container_content">
+            <div className="messageContainer">
+              <div className="messageDialogs">
+                {loadingAllRooms ?
+                  <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
+                  <ChatAllRoom allRooms={allRooms}
+                               setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
+              </div>
+              {!router.query?.companion_id && !router.query?.product_id ? (
+                  <div className='chatPlaceholder'>
+                    <h2>Для начала переписки выберете чат</h2>
+                    <div className='chatPlaceholderCircleBlock'>
+                      <ChatPlaceholder/>
+                      <ChatPlaceholder/>
+                      <ChatPlaceholder/>
+                    </div>
+                  </div>
+                ) :
+                loadingRoom ?
+                  <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
+                  // <div className="messageWindow">
+                  //   {room?.seller_id ?
+                  //       <div className="messageHeader small">
+                  //         <img src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`}/>
+                  //         <div>
+                  //           <div>
+                  //             <div>
+                  //               <div>{room?.seller_name}</div>
+                  //               <div className="light">00.00.00 00:00</div>
+                  //             </div>
+                  //             {room?.seller_photo ? <img src={`${STATIC_URL}/${room?.seller_photo}`}/> :
+                  //                 <ChatDefaultAvatar name={room?.seller_name}/>}
+                  //           </div>
+                  //           <div>{room?.product_price} ₽</div>
+                  //           <div>{room?.product_name}</div>
+                  //         </div>
+                  //       </div> : null}
+                  //   {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender &&
+                  //   <Chat
+                  //       usersData={chatUsers}
+                  //       userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
+                  //       userChatName={room?.customer_id == id ? room?.seller_name : room?.customer_name}
+                  //       localRoom={localRoom ? localRoom : false}
+                  //       setLocalMessage={setLocalHistoryMessage}
+                  //   />}
+                  // </div>}
+                  <ChatRoom roomData={room}>
+                    {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender &&
+                    <Chat
+                      usersData={chatUsers}
+                      userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
+                      userChatName={room?.customer_id == id ? room?.seller_name : room?.customer_name}
+                      localRoom={localRoom ? localRoom : false}
+                      setLocalMessage={setLocalHistoryMessage}
+                    />}
+                  </ChatRoom>
+              }
+            </div>
+          </div>
+          <Dialog open={messageModal || false} onClose={() => setMessageModal(!messageModal)}
+                  fullScreen={true}>
+            <ModalMessage
+              modal={changeModal}
+              usersData={chatUsers}
+              room={room}
+              loadingRoom={loadingRoom}
+              userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}
+              userChatName={room?.customer_id == id ? room?.seller_name : room?.customer_name}
+            />
+          </Dialog>
+        </div>
       )
   )
 }

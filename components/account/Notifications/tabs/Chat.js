@@ -36,7 +36,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   const {id} = useAuth()
   // const {matchesMobile, matchesTablet} = useMedia()
 
-
+  // Подгружаем конечную историю переписки (Последние 50 сообщений)
   const chatHistory = () => {
     const historyObj = generateChatHistory()
 
@@ -60,7 +60,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
-
+  //Отслеживаем находится ли пользователь на вкладке с чатом. Если вкалдка не активна (работает в фоновом режиме, то отключаемя от сокета)
   useEffect(() => {
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
@@ -81,6 +81,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     });
   }, []);
 
+  // Принудительное переподключение к сокету
   useEffect(() => {
     if (socketConnect) {
       socket.emit('leave', {
@@ -98,7 +99,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }, [usersData?.sender])
 
-
+  // ОТКЛЮЧЕНИЕ ОТ СОКЕТА
   useEffect(() => {
     return (() => {
       if (socketConnect) {
@@ -115,6 +116,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     })
   }, [socketConnect])
 
+  // Функция сделанная для удобства (Пото переместить)
   const generateChatHistory = (messageId = 0) => {
     return {
       "page_limit": 50,
@@ -125,6 +127,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
+  // Пуш уведомления другому пользователю. Срабатывает, когда другой пользователь не находится на сокете
   const generatePush = (sendObj) => {
     const img = sendObj.message.match('images/ch/') ? sendObj.message.match('.webp') ? true : false : false
 
@@ -146,7 +149,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
-
+  // Срабатывает когда пользователь зашёл в чат. Вызывает фунцкию, которая подгружает истоию сообщений
   useEffect(() => {
     if (query?.companion_id && query?.product_id && userInfo?.name && id) {
       socket.emit('join', {
@@ -158,21 +161,23 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }, [query, userInfo, id])
 
-
+  // Скролл чата
   useEffect(() => {
+    // Скорлит вниз, когда отправляем сообщение.
     if (refChat.current && !messageUpdate) {
       setTimeout(() => {
         refChat.current.scrollTop = refChat.current?.scrollHeight
       }, 500)
     } else {
-      console.log(historyMessageLength)
+      // Срабатывает, когда подгружаем историю сообщений (скролл вверх)
       refChat.current.scrollTop = refChat.current.scrollHeight - ((msgList.length - historyMessageLength) * 78)
       return;
     }
+    //! Дефолтное срабатывание (На всякий случей)
     refChat.current.scrollTop = refChat.current.scrollHeight
   }, [msgList])
 
-
+  // Отправка сообщений (Параметр img - говорит если в чат отправляется картинка).
   const handleSend = async (img = false) => {
     if (message.length > 0 || img) {
       let date = new Date()
@@ -208,10 +213,10 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
+  // Срабатывает, когда мы печатаем или отпровляем сообщение
   useEffect(() => {
     if (!loading) {
       socket.on('message', async (data) => {
-
         switch (data?.msg) {
           case ('user_online'):
             if (!userOnline && data?.user_on !== id) {
@@ -257,6 +262,8 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }, [loading])
 
+
+  // Подгружаем историю переписки, когда скроллим вверх
   const addChatHistory = () => {
     const objHistory = generateChatHistory(messageId)
 
@@ -272,7 +279,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
-
+  // Срабатывает, когда пользователь долистал до первого сообщения
   useEffect(() => {
     if (observer.current) observer.current.disconnect();
     if (refMessage.current && msgList) {
@@ -286,6 +293,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   });
 
+  // Генерирует задний фон сообзениям
   const generateBackgroundMessage = (senderId, read) => {
     if (senderId == id) {
       if (userOnline) {
@@ -297,6 +305,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
+  // Генерирует статус сообщениям
   const generateMessageStatus = (senderId, read) => {
     if (senderId == id) {
       if (userOnline) {
@@ -309,6 +318,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   }
 
 
+  // События нажатия клавиш внутри input
   const handleKeyDown = (e) => {
     socket.emit('typing', {
       'sender': usersData?.sender,
@@ -321,10 +331,11 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
+  // Открытие скрытого инпута для добовления фоток
   const handleInputClick = () => {
     refInput.current.click()
   }
-
+  // Отправление фоток в чат
   const handleChangeFile = async (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -432,11 +443,12 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
       return firstMessageTime
     }
   }
-
+  // Модальное окно для фоток
   const openImage = (message) => {
     setFullScreenImg({state: true, src: message})
   }
 
+  // Генерация сообщений. Проверка на картинку или текст отправленный пользователем
   const generateMessage = (message) => {
     if (message.match('images/ch')) {
       if (message.match('.webp')) {

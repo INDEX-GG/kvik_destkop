@@ -13,6 +13,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
   const router = useRouter()
   const {matchesMobile, matchesTablet} = useMedia()
 
+  //! Клик на пользлвателя
   const handleClickUser = (e, senderId) => {
     e.stopPropagation();
     if (senderId == id) return;
@@ -20,11 +21,13 @@ const ChatAllRoom = ({allRooms, setData}) => {
     router.push(`/user/${senderId}`)
   }
 
+  // Клик на объявление
   const handleClickProduct = (e, productId) => {
     e.stopPropagation();
     router.push(`/product/${productId}`)
   }
 
+  // Миниатюра фоток, если пользователь отправиль картинку
   const onSenderMessage = (senderMessage) => {
     if (senderMessage) {
 
@@ -40,6 +43,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
     return null
   }
 
+  // Изменение комнаты
   const changeChat = (data) => {
     const routerObj = {
       id,
