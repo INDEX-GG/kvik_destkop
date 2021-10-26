@@ -26,6 +26,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   const [historyMessageLength, setHistoryMessageLength] = useState(false)
   const [userTyping, setUserTyping] = useState(false);
   const [internetConnect, setInternetConnect] = useState(true);
+  const offlineMessages = localStorage.getItem('offlineMessages')
 
   const refChat = useRef()
   const refInput = useRef()
@@ -36,8 +37,6 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   const {query, asPath} = useRouter()
   const {id} = useAuth()
   // const {matchesMobile, matchesTablet} = useMedia()
-
-  console.log(internetConnect);
 
   const socketLeave = () => {
     socket.emit('leave', {
@@ -82,7 +81,12 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
           if (userOnline) setUserOnline(false)
 
           console.log("SOCKET CONNECT")
-          setMsgList(r.data.data.reverse())
+
+          if (!offlineMessages) {
+            setMsgList([...r.data.data.reverse()])
+          } else {
+            setMsgList([...r.data.data.reverse(), ...JSON.parse(offlineMessages)])
+          }
 
           if (r.data.data.length) setMessageId(r.data.data[0]?.id)
 
@@ -154,6 +158,26 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
+  const addOfflineMessages = (sendObj) => {
+    if (!internetConnect) {
+      if (!offlineMessages) {
+        localStorage.setItem('offlineMessages', JSON.stringify([{...sendObj, offline: true}]));
+      } else {
+        localStorage.setItem('offlineMessages', JSON.stringify([...JSON.parse(offlineMessages), {
+          ...sendObj,
+          offline: true
+        }]));
+      }
+
+    }
+  }
+
+  // useEffect(() => {
+  //   return(() => {
+  //     generatePush({message: '2323'})
+  //   })
+  // }, [window])
+
   // Пуш уведомления другому пользователю. Срабатывает, когда другой пользователь не находится на сокете
   const generatePush = (sendObj) => {
     const img = sendObj.message.match('images/ch/') ? sendObj.message.match('.webp') ? true : false : false
@@ -161,7 +185,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     if (usersData?.recipient?.id && userInfo?.name) {
       const pushObj = {
         'user_id': usersData?.recipient.id,
-        'message': ellipsis(img ? 'Вам отправили фото': sendObj.message, 20),
+        'message': ellipsis(img ? 'Вам отправили фото' : sendObj.message, 20),
         'user_name': userInfo.name,
         "image": img ? `${STATIC_URL}/${sendObj.message}` : '',
         "icon": `${BASE_URL}/logo.png`,
@@ -170,7 +194,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
 
       try {
         axios.post(`${CHAT_URL_API}/send_push`, pushObj)
-      } catch(e) {
+      } catch (e) {
         console.log(e)
       }
     }
@@ -228,28 +252,20 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
       }
 
 
-      if (!userOnline && internetConnect) {
-        generatePush(sendObj)
-      }
-
       if (internetConnect) {
         await socket.emit('text', sendObj)
       }
 
-      if (!internetConnect) {
-        const localMessage = localStorage.getItem('offlineMessages')
-
-        if (!localMessage) {
-          localStorage.setItem('messages', JSON.stringify([sendObj]));
-        } else {
-          localStorage.setItem('messages', JSON.stringify([...localMessage, sendObj]));
-        }
-
-      }
+      addOfflineMessages(sendObj)
 
       setUserTyping(false);
       setMessage('')
       if (userOnline) setUserOnline(false)
+
+      if (!userOnline && internetConnect) {
+        generatePush(sendObj)
+      }
+
     }
   }
 
@@ -290,8 +306,16 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
             })
           }
 
-          setMsgList(prev => [...prev, data])
-
+          if (!offlineMessages) {
+            setMsgList(prev => [...prev, data])
+          } else {
+            setMsgList(prev => {
+              const prevLength = prev.length
+              const offlineMessagesArr = JSON.parse(offlineMessages)
+              return [...prev.splice(0, prevLength - offlineMessagesArr.length), data, ...offlineMessagesArr]
+            })
+          }
+          // ...JSON.parse(offlineMessages)
 
           if (localRoom) {
             setLocalMessage(data);
@@ -333,8 +357,13 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   });
 
   // Генерирует задний фон сообзениям
-  const generateBackgroundMessage = (senderId, read) => {
+  const generateBackgroundMessage = (senderId, read, offline) => {
     if (senderId == id) {
+
+      if (offline) {
+        return '#f23022'
+      }
+
       if (userOnline) {
         return '#e9e9e9'
       } else {
@@ -345,8 +374,13 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   }
 
   // Генерирует статус сообщениям
-  const generateMessageStatus = (senderId, read) => {
+  const generateMessageStatus = (senderId, read, offline = false) => {
     if (senderId == id) {
+
+      if (offline) {
+        return 'Ошибка при отправке'
+      }
+
       if (userOnline) {
         return 'Прочитано'
       } else {
@@ -493,9 +527,9 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
       if (message.match('.webp')) {
         const altName = message.split('.webp')[0]
         return (
-            <div onClick={() => openImage(message)}>
-              <img className='chatImg' src={`${STATIC_URL}/${message}`} alt={altName}/>
-            </div>
+          <div onClick={() => openImage(message)}>
+            <img className='chatImg' src={`${STATIC_URL}/${message}`} alt={altName}/>
+          </div>
         )
       }
     }
@@ -503,75 +537,78 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     return <span>{message}</span>
   }
 
+  const onClickOffline = () => {
+    console.log(1)
+  }
+
   useEffect(() => {
     // console.log(userTyping);
   }, [userTyping])
 
-
   return (
-      <>
-        <div ref={refChat} className="messageChats">
-          {msgList?.map((item, index) => {
-            const myMessage = item?.sender_id == id
-            const key = id?.id ? id?.id : index
-            const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
+    <>
+      <div ref={refChat} className="messageChats">
+        {msgList?.map((item, index) => {
+          const myMessage = item?.sender_id == id
+          const key = id?.id ? id?.id : index
+          const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
+          item.messages_is_read = userOnline ? true : item.messages_is_read
 
-            item.messages_is_read = userOnline ? true : item.messages_is_read
+          // const messageData = index == msgList.length - 1 ? true : generateMessageData(index)
+          const dialogData = generateDialogData(index);
 
-            // const messageData = index == msgList.length - 1 ? true : generateMessageData(index)
-            const dialogData = generateDialogData(index);
-
-            return (
-                item?.delete ? null :
-                    <>
-                      {dialogData && <div className='chatDataDialog'>{dialogData}</div>}
-                      <div key={key}
-                           ref={item.id == messageId ? refMessage : null}
-                           className={myMessage ? "chatUser" : "chatCompanion"}>
-                        {myMessage ? null :
-                            morePartnerMessage && index - 1 >= 0 ? <div></div> :
-                                userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
-                                    <ChatDefaultAvatar name={userChatName}/>
-                        }
-                        <div style={{
-                          backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read),
-                          transition: '.1s all linear'
-                        }}>
-                          {generateMessage(item?.message)}
-                          <div
-                              className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read)}</div>
-                        </div>
-                        <div>{generateTime(0, item?.time, true)}</div>
-                      </div>
-                    </>
-            )
-          })}
+          return (
+            item?.delete ? null :
+              <>
+                {dialogData && <div className='chatDataDialog'>{dialogData}</div>}
+                <div key={key}
+                     ref={item.id == messageId ? refMessage : null}
+                     onClick={() => item?.offline ? onClickOffline() : null}
+                     className={myMessage ? "chatUser" : "chatCompanion"}>
+                  {myMessage ? null :
+                    morePartnerMessage && index - 1 >= 0 ? <div></div> :
+                      userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+                        <ChatDefaultAvatar name={userChatName}/>
+                  }
+                  <div style={{
+                    backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read, item?.offline),
+                    transition: '.1s all linear'
+                  }}>
+                    {generateMessage(item?.message)}
+                    <div
+                      className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read, item?.offline)}</div>
+                  </div>
+                  <div>{generateTime(0, item?.time, true)}</div>
+                </div>
+              </>
+          )
+        })}
+      </div>
+      <div className="messageChatInput">
+        <button onClick={handleInputClick} className="messageFile">
+          <input ref={refInput} onChange={(e) => handleChangeFile(e)} accept='image/jpeg,image/png,image/jpg'
+                 type='file' hidden/>
+        </button>
+        <input
+          className="messageInput"
+          type="text"
+          placeholder="Написать сообщение"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <button className="messageSend" onClick={() => handleSend()}></button>
+      </div>
+      <Dialog
+        open={fullScreenImg.state}
+        onClose={() => setFullScreenImg({state: false, src: ''})}
+        // fullScreen={true}
+      >
+        <div className='fullScreenImg'>
+          {fullScreenImg.src && <img src={`${STATIC_URL}/${fullScreenImg.src}`} alt='fullScreenImg'/>}
         </div>
-        <div className="messageChatInput">
-          <button onClick={handleInputClick} className="messageFile">
-            <input ref={refInput} onChange={(e) => handleChangeFile(e)} accept='image/jpeg,image/png,image/jpg'
-                   type='file' hidden/>
-          </button>
-          <input
-              className="messageInput"
-              type="text"
-              placeholder="Написать сообщение"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={handleKeyDown}
-          />
-          <button className="messageSend" onClick={() => handleSend()}></button>
-        </div>
-        <Dialog
-            open={fullScreenImg.state}
-            onClose={() => setFullScreenImg({state: false, src: ''})}
-            // fullScreen={true}
-        >
-          <div className='fullScreenImg'>
-            {fullScreenImg.src && <img src={`${STATIC_URL}/${fullScreenImg.src}`} alt='fullScreenImg'/>}
-          </div>
-        </Dialog>
-      </>
+      </Dialog>
+    </>
   )
 }
 
