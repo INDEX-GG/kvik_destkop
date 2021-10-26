@@ -5,13 +5,13 @@ import {useMedia} from "../../../../hooks/useMedia"
 import Chat from "./Chat";
 import {useRouter} from "next/router";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
-import {CHAT_URL_API, STATIC_URL} from "../../../../lib/constants";
+import {CHAT_URL_API, /** STATIC_URL*/} from "../../../../lib/constants";
 import axios from "axios";
 import {useStore} from "../../../../lib/Context/Store";
-import {generateProductPhoto, generateDataToken} from "./chatFunctions";
+import {/** generateProductPhoto, */ generateDataToken} from "./chatFunctions";
 import {askForPermissioToReceiveNotifications, initializeFirebase} from '../../../../firebase/clientApp';
 import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
-import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
+// import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 import Loader from "../../../../UI/icons/Loader";
 import ChatPlaceholder from "../../../../UI/icons/ChatPlaceholder";
 import ChatAllRoom from "../components/ChatAllRoom";
