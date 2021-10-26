@@ -177,7 +177,7 @@ const Product = () => {
 					const userOffers = r.map(offer => {
 						return {
 							...offer,
-							photo: JSON.parse(offer.photo).photos?.map(img => `${STATIC_URL}/${img}`)
+							photo: JSON.parse(offer.photo)?.photos?.map(img => `${STATIC_URL}/${img}`)
 						}
 					})
 

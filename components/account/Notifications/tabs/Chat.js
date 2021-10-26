@@ -25,6 +25,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   const [fullScreenImg, setFullScreenImg] = useState({state: false, src: ''})
   const [historyMessageLength, setHistoryMessageLength] = useState(false)
   const [userTyping, setUserTyping] = useState(false);
+  const [internetConnect, setInternetConnect] = useState(true);
 
   const refChat = useRef()
   const refInput = useRef()
@@ -35,6 +36,41 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   const {query, asPath} = useRouter()
   const {id} = useAuth()
   // const {matchesMobile, matchesTablet} = useMedia()
+
+  console.log(internetConnect);
+
+  const socketLeave = () => {
+    socket.emit('leave', {
+      'sender': usersData?.sender,
+      'recipient': usersData?.recipient,
+      'product': usersData?.product
+    })
+    socket.disconnect()
+  }
+
+  const socketJoin = () => {
+    chatHistory()
+    socket.emit('join', {
+      'sender': usersData?.sender,
+      'recipient': usersData?.recipient,
+      'product': usersData?.product
+    })
+  }
+
+
+  useEffect(() => {
+    window.addEventListener('offline', () => {
+      socketLeave()
+      setInternetConnect(false)
+      console.log('123')
+    })
+
+    window.addEventListener('online', () => {
+      socketJoin()
+      setInternetConnect(true)
+    })
+  }, [])
+
 
   // Подгружаем конечную историю переписки (Последние 50 сообщений)
   const chatHistory = () => {
@@ -60,23 +96,14 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     }
   }
 
+
   //Отслеживаем находится ли пользователь на вкладке с чатом. Если вкалдка не активна (работает в фоновом режиме, то отключаемя от сокета)
   useEffect(() => {
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
-        socket.emit('leave', {
-          'sender': usersData?.sender,
-          'recipient': usersData?.recipient,
-          'product': usersData?.product
-        })
-        socket.disconnect()
+        socketLeave()
       } else {
-        chatHistory()
-        socket.emit('join', {
-          'sender': usersData?.sender,
-          'recipient': usersData?.recipient,
-          'product': usersData?.product
-        })
+        socketJoin()
       }
     });
   }, []);
@@ -201,11 +228,24 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
       }
 
 
-      if (!userOnline) {
+      if (!userOnline && internetConnect) {
         generatePush(sendObj)
       }
 
-      await socket.emit('text', sendObj)
+      if (internetConnect) {
+        await socket.emit('text', sendObj)
+      }
+
+      if (!internetConnect) {
+        const localMessage = localStorage.getItem('offlineMessages')
+
+        if (!localMessage) {
+          localStorage.setItem('messages', JSON.stringify([sendObj]));
+        } else {
+          localStorage.setItem('messages', JSON.stringify([...localMessage, sendObj]));
+        }
+
+      }
 
       setUserTyping(false);
       setMessage('')
@@ -253,7 +293,6 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
           setMsgList(prev => [...prev, data])
 
 
-          console.log(localRoom);
           if (localRoom) {
             setLocalMessage(data);
           }
