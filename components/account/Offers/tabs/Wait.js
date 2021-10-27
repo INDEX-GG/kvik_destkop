@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EmptyPlaceholder from "../../../EmptyPlaceholder";
+// import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import OfferWait from "../card/offerWait";
 
 function Wait({offers}) {
@@ -15,14 +15,14 @@ function Wait({offers}) {
 		offerId.length === offers.length ? check ? null : setCheck(true) : check===false ? null : setCheck(false);
 	}, [offerId])
 
-  if (offers.lenght == 0) {
-    return (
-      <EmptyPlaceholder
-        title='Здесь буду ваши объявления'
-        subtitle='Текст'
-      />
-    );
-  }
+  // if (offers.length === 0) {
+  //   return (
+  //     <EmptyPlaceholder
+  //       title='Здесь буду ваши объявления'
+  //       subtitle='Текст'
+  //     />
+  //   );
+  // }
 
   return (
     <div className="clientPage__container_bottom">
