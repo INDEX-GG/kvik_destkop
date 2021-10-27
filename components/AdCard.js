@@ -41,6 +41,11 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const classes = useClass()
 	const { id } = useAuth();
 	const {offer} = props;
+	// console.log('',offer)
+	const clearPhoto = offer.photo.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
+		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
+		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
+	)
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
 	// let scheduled = false;
@@ -129,26 +134,26 @@ const AdCard_component = React.forwardRef((props, ref) => {
 							{offer?.photo?.length === 1 ?
 								<img
 									ref={currentSwiper}
-									src={`${offer.photo[0]}`}
-									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+									src={`${clearPhoto[0]}`}
+									onError={e => e.target.src = `${BASE_URL}/icons/clearPhotocard_placeholder.svg`}
 								/>
 								: <Swiper
 									ref={currentSwiper}
 									pagination={pagination}
 									slidesPerView={1}
 								>	
-									{offer.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
+									{clearPhoto && (clearPhoto?.slice(0, 5))?.map((img, i) => {
 										return (
 											<SwiperSlide key={i} style={{position: 'relative'}}>
 												<img
 													src={`${img}`}
-													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+													onError={e => e.target.src = `${BASE_URL}/icons/clearPhotocard_placeholder.svg`}
 												/>
 												{
-													i === 4 && (offer.photo.length - 5 > 0) ?
+													i === 4 && (clearPhoto.length - 5 > 0) ?
 													<div className={classes.morePhoto}>
 														<span className={classes.morePhotoText}>
-															Еще<br />{offer.photo.length - 5} фото
+															Еще<br />{clearPhoto.length - 5} фото
 														</span>
 													</div>
 													: null

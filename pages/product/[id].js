@@ -112,7 +112,13 @@ const Product = () => {
 	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice, coordinates} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
+	// console.log('PRODUCTPHOTO',photo)
 
+	const clearPhoto =  photo?.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
+		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
+		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/'))
+
+	// console.log('CLEARPHOTO',clearPhoto)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
@@ -126,7 +132,7 @@ const Product = () => {
 				'customer_id': id,
 				'product_id': productInfo?.id,
 				}
-				console.log(obj)
+				// console.log(obj)
 
 				await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
 				// router.push({
@@ -174,7 +180,7 @@ const Product = () => {
 		if (user_id !== undefined) {
 			getDataByPost("/api/getProductOfUser", { user_id: user_id }).then((r) => {
 				if (r !== undefined && r.length > 0) {
-					const userOffers = r.map(offer => {
+					const userOffers = r?.map(offer => {
 						return {
 							...offer,
 							photo: JSON.parse(offer.photo)?.photos?.map(img => `${STATIC_URL}/${img}`)
@@ -219,9 +225,9 @@ const Product = () => {
 								<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
 									<div className="productPageDescription">
 										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile /> : null}
-										<ProductCarousel title={title} photo={photo} mobile={matchesMobile || matchesTablet} />
+										<ProductCarousel title={title} photo={clearPhoto} mobile={matchesMobile || matchesTablet} />
 										{!matchesLaptop && !matchesDesktop && !matchesHD && (
-											photo == undefined ?
+											clearPhoto === undefined ?
 												<div className="placeholder_animation product__placeholder_mobil-action"></div>
 												:
 												<div className="productPageAdaptive">

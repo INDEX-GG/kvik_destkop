@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useRef} from "react";
 import {
   Box,
   Button, InputAdornment,
@@ -100,6 +100,7 @@ export default function RegForm() {
     });
   };
 
+    const passLengthRef = useRef()
 
 
   return (
@@ -200,6 +201,7 @@ export default function RegForm() {
                           }}
                       />
                       {value.length > 0 && <PasswordStrengthBar
+                          ref={passLengthRef}
                           minLength={1}
                           shortScoreWord={''}
                           barColors={['#C7C7C7', '#F44545', '#F44545', '#00A0AB', '#00A0AB']}

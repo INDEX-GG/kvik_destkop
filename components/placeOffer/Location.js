@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-const Location = () => {
+const Location = ({address}) => {
 
    const classes = useStyles();
 //    const methods = useFormContext();
@@ -58,7 +58,7 @@ const Location = () => {
             />
             <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe> */}
 			{/* <YandexMap setData={setData}/> */}
-			<DadataSuggest/>
+			<DadataSuggest address={address}/>
          </Box>
       </Box>
    )
