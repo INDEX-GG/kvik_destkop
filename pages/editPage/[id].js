@@ -66,7 +66,7 @@ function EditPage() {
 
 
 	// console.log('', photo.map(item => item.replace('http://192.168.8.111:6001/', '')))
-	console.log('editPhotos',editPhotos)
+	// console.log('editPhotos',editPhotos)
 
 	const clearEditPhoto = editPhotos?.map(photo => photo.includes('http://192.168.45.195:6001/')
 		? photo.replace('http://192.168.45.195:6001/','')
@@ -79,9 +79,9 @@ function EditPage() {
 			: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
 	)
 
-	console.log('clearEditPhoto',clearEditPhoto)
-	console.log('photo из offer',photo)
-	console.log('clearPhoto',clearPhoto)
+	// console.log('clearEditPhoto',clearEditPhoto)
+	// console.log('photo из offer',photo)
+	// console.log('clearPhoto',clearPhoto)
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
