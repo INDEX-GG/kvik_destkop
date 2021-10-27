@@ -72,9 +72,12 @@ function EditPage() {
 		? photo.replace('http://192.168.45.195:6001/','')
 		: photo.replace('https://onekvik.ru/zz/',''))
 
-	const clearPhoto =  photo?.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
+	const clearPhoto =  photo?.map(photo =>  photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
 		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
-		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/'))
+		: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
+			? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
+			: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
+	)
 
 	console.log('clearEditPhoto',clearEditPhoto)
 	console.log('photo из offer',photo)

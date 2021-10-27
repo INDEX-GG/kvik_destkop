@@ -41,11 +41,19 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const classes = useClass()
 	const { id } = useAuth();
 	const {offer} = props;
-	console.log('',offer)
+	// console.log('',offer)
 	const clearPhoto = offer.photo.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
 		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
+		: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
+			? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
 		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
 	)
+
+
+	// active Ofer https://onekvik.ru/zz/http://192.168.45.195:6001/images/po/22/18/b6/4d/3fee49456201db7a072872df3bccb20211026173744743172.webp
+
+	// https://onekvik.ru/zz/http://192.168.45.195:6001/images/po/22/18/b6/4d/3fee49456201db7a072872df3bccb20211026173744743172.webp
+
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
 	// let scheduled = false;
@@ -135,7 +143,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 								<img
 									ref={currentSwiper}
 									src={`${clearPhoto[0]}`}
-									onError={e => e.target.src = `${BASE_URL}/icons/clearPhotocard_placeholder.svg`}
+									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 								/>
 								: <Swiper
 									ref={currentSwiper}
@@ -147,7 +155,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 											<SwiperSlide key={i} style={{position: 'relative'}}>
 												<img
 													src={`${img}`}
-													onError={e => e.target.src = `${BASE_URL}/icons/clearPhotocard_placeholder.svg`}
+													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 												/>
 												{
 													i === 4 && (clearPhoto.length - 5 > 0) ?
