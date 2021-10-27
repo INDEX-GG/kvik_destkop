@@ -62,7 +62,7 @@ const ConfirmNumber = () => {
 
 	const regUser = () => {
 		getDataByPost('/api/setApi', sendData).then((r) => {
-			console.log(r)
+			// console.log(r)
 			switch (r?.message) {
 				case 'user created':
 					return ( 

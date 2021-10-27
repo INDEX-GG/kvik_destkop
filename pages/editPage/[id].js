@@ -64,11 +64,21 @@ function EditPage() {
 	const { query } = useRouter();
 	const { price, title, photo, description, address, editPhotos} = useProduct(query.id)
 
-	console.log('photo in offer',photo)
+
 	// console.log('', photo.map(item => item.replace('http://192.168.8.111:6001/', '')))
+	// console.log('editPhotos',editPhotos)
 
-	console.log('editPhotos',editPhotos)
+	const clearEditPhoto = editPhotos?.map(photo => photo.includes('http://192.168.45.195:6001/')
+		? photo.replace('http://192.168.45.195:6001/','')
+		: photo.replace('https://onekvik.ru/zz/',''))
 
+	const clearPhoto =  photo?.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
+		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
+		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/'))
+
+	// console.log('clearEditPhoto',clearEditPhoto)
+	// console.log('photo из offer',photo)
+	// console.log('clearPhoto',clearPhoto)
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
@@ -92,7 +102,7 @@ function EditPage() {
 	// const additionalfields = {category_id: [{alias: 'post_id', fields: postId}]}
 
 	const onSubmit = data => {
-		console.log('DATAAAAAAAAA+++>>>>>',data)
+		// console.log('DATAAAAAAAAA+++>>>>>',data)
 		data.price = data.price.replace(/\D+/g, '');
 		data.user_id = id
 		delete data.photoes
@@ -114,60 +124,76 @@ function EditPage() {
 
 		setLoading(true);
 
-		photoes[photoes.length -1].lastModified !== undefined ?
-		 axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
-			headers: {
-				"Content-Type": "multipart/form-data"
-			}
-		})
-		.then((r) => {
-			let allConvertedPhoto = [...photoes]
-			let jj = 0
-			// для увиличения j во внутреннем цикле
-			for (let i = 0; i < allConvertedPhoto.length; i++) {
-				if (allConvertedPhoto[i].lastModified && allConvertedPhoto[i].lastModified !== undefined) {
-					for (let j = 0+jj; j < r.data.images.photos.length; j++) {
-						allConvertedPhoto[i] = r.data.images.photos[j]
-						jj = ++j;
-						if(allConvertedPhoto[i] === allConvertedPhoto[i]) break;
-					}
-				} else {
-					allConvertedPhoto[i] = allConvertedPhoto[i].src.replace('http://192.168.8.111:6001/', '')
+		// console.log('PHOTOES@@@@@@@@@',photoes)
+
+		if(photoes[photoes.length -1].lastModified !== undefined) {
+			axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
+				headers: {
+					"Content-Type": "multipart/form-data"
 				}
-			}
-			axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
-				title : obj.title,
-				description: obj.description,
-				price: obj.price,
-				address: obj.location,
-				photo: allConvertedPhoto
 			})
-			setEditProduct({post_id: postId,
-				title : obj.title,
-				description: obj.description,
-				price: obj.price,
-				address: obj.location,
-				photo: allConvertedPhoto
-			})
-			setPromotion(true)
-		}) :
+
+				.then((r) => {
+					// console.log('Зашел с новыми фотками')
+					let allConvertedPhoto = [...photoes]
+					let jj = 0
+					// для увиличения j во внутреннем цикле
+					for (let i = 0; i < allConvertedPhoto.length; i++) {
+						if (allConvertedPhoto[i].lastModified && allConvertedPhoto[i].lastModified !== undefined) {
+							for (let j = 0+jj; j < r.data.images.photos.length; j++) {
+								allConvertedPhoto[i] = r.data.images.photos[j]
+								jj = ++j;
+								if(allConvertedPhoto[i] === allConvertedPhoto[i]) break;
+							}
+						} else {
+							allConvertedPhoto[i] = allConvertedPhoto[i].src.replace('http://192.168.8.111:6001/', '')
+						}
+					}
+					axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
+						title : obj.title,
+						description: obj.description,
+						price: obj.price,
+						address: obj.location.value,
+						photo: allConvertedPhoto
+					})
+					setEditProduct({post_id: postId,
+						title : obj.title,
+						description: obj.description,
+						price: obj.price,
+						address: obj.location.value,
+						photo: allConvertedPhoto[0]
+					})
+					// console.log('Добавлены новые фотки',)
+					setPromotion(true)
+				})
+		} else {
 			axios.post(`${BASE_URL}/api/postUpdate`, {
 				post_id: postId,
 				title : obj.title,
 				description: obj.description,
 				price: obj.price,
-				address: obj.location,
-				photo: editPhotos
+				address: obj.location.value,
+				photo: clearEditPhoto
 			})
+			// console.log('Что уходит на сервак',{
+			// 	post_id: postId,
+			// 	title : obj.title,
+			// 	description: obj.description,
+			// 	price: obj.price,
+			// 	address: obj.location.value,
+			// 	photo: clearEditPhoto
+			// })
 
-			setEditProduct({post_id: postId,
+			setEditProduct({
+				post_id: postId,
 				title : obj.title,
 				description: obj.description,
 				price: obj.price,
-				address: obj.location,
-				photo: photo[0]
+				address: obj.location.value,
+				photo: clearPhoto[0]
 			})
-		setPromotion(true)
+			setPromotion(true)
+		}
 	}
 
 	return (
@@ -186,7 +212,7 @@ function EditPage() {
 								<Box className={classes.formPart}>
 									<Description description={description} />
 									<Price price={price} edit={edit}/>
-									<PhotosForEditPage ctx={photoesCtx} photo={photo} />
+									<PhotosForEditPage ctx={photoesCtx} photo={clearPhoto} />
 								</Box>
 								<Box className={classes.formPart}>
 									<Location address={address}/>
