@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Dialog } from "@material-ui/core";
+import {Box, Dialog, makeStyles} from "@material-ui/core";
 import { getDataByPost } from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
@@ -17,7 +17,6 @@ import BreadCrumbs from "../../components/header/BreadСrumbs";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
-import Loader from "../../UI/icons/Loader";
 import { CHAT_URL_API, STATIC_URL } from "../../lib/constants";
 import ProductDate from "../../components/product/ProductSmallComponents/ProductDate";
 import ProductPrice from "../../components/product/ProductPrice";
@@ -25,11 +24,43 @@ import ProductReviewed from "../../components/product/ProductSmallComponents/Pro
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
+import {Grid, Skeleton} from '@mui/material';
 // import axios from "axios";
 import { firstAds, scrollAds } from "../../lib/scrollAds";
 import { useStore } from "../../lib/Context/Store";
 import axios from "axios";
 import { chatPush } from "../../components/account/Notifications/tabs/chatFunctions";
+
+
+const useStyles = makeStyles(() => ({
+	skeletonMain: {
+		display: "flex",
+		gap: '10px',
+		flexDirection: "column"
+	},
+	skeletonTitle: {
+		display: "flex",
+		gap: '10px',
+		flexDirection: "column"
+	},
+	skeletonRow: {
+		display: "flex",
+		flexDirection: "row",
+		gap: '10px',
+	},
+	skeletonOffer: {
+		display: "flex",
+		flexDirection: "column",
+		gap: '10px',
+	},
+	skeletonActions: {
+		display: "flex",
+		flexDirection: "column",
+		gap: '10px',
+	}
+}))
+
+
 
 /* const objP = {
 	id: 1,
@@ -70,6 +101,7 @@ import { chatPush } from "../../components/account/Notifications/tabs/chatFuncti
 
 
 const Product = () => {
+	const classes = useStyles()
 	const { query } = useRouter();
 	const router = useRouter()
 	const { id, isAuth } = useAuth();
@@ -112,8 +144,6 @@ const Product = () => {
 	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice, coordinates} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
-	console.log('PRODUCTPHOTO',photo)
-
 	const clearPhoto =  photo?.map(photo =>  photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
 		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
 		: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
@@ -121,8 +151,6 @@ const Product = () => {
 			: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
 	)
 
-
-	console.log('CLEARPHOTO',clearPhoto)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
@@ -220,45 +248,127 @@ const Product = () => {
 		<MetaLayout>
 			<OfferAccountProvider>
 				<div className="productPage" id="productPage">
-					{title == undefined ? <div className='product__placeholder_loader'><div><Loader /></div></div> : ''}
 					<div className="productPageContainer text">
-						{!matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
+						{!title ?
+
+								<Box sx={{ width: '100%' }}>
+									<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+										<Grid item xs={6} md={8}>
+											<Box className={classes.skeletonTitle}>
+												<Box>
+													<Skeleton animation="wave" variant="rectangular" width="100%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px' }}/>
+												</Box>
+												<Box>
+													<Skeleton animation="wave" variant="rectangular" width="40%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}/>
+												</Box>
+											</Box>
+										</Grid>
+										<Grid item xs={6} md={4}>
+											<Box></Box>
+											<Box></Box>
+										</Grid>
+										<Grid item xs={6}>
+											<Box className={classes.skeletonOffer}>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="100%" height="50%" sx={{ bgcolor: '#C7C7C780' , borderRadius: '15px'  }}><div style={{ paddingTop: '57%'}} />
+													</Skeleton>
+												</Box>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}/>
+												</Box>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
+													</Skeleton>
+												</Box>
+											</Box>
+										</Grid>
+										<Grid item xs={6} direction="column" >
+											<Box className={classes.skeletonActions}>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '60%'}} />
+													</Skeleton>
+												</Box>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
+													</Skeleton>
+												</Box>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '8%'}} />
+													</Skeleton>
+												</Box>
+											</Box>
+											<Grid container style={{paddingTop: "30px"}} rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
+												<Grid item xs={6} md={1}>
+													<Box>
+														<Skeleton variant="circular" animation="wave" width={50} height={50} />
+													</Box>
+												</Grid>
+												<Grid item xs={6} md={8}>
+													<Box>
+														<Skeleton  animation="wave" variant="rectangular"  width="57%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px', paddingLeft: "5px"  }}><div style={{ paddingTop: '20%'}} />
+														</Skeleton>
+													</Box>
+												</Grid>
+											</Grid>
+										</Grid>
+									</Grid>
+								</Box>
+
+							: !matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
 						{/* Блок объявления */}
 						<div className="product__wrapper">
 							<div className="productPageWrapper">
-								<div className={title == undefined ? 'placeholder_product__main_block product__main_block' : 'product__main_block'}>
+								 <div className='product__main_block'>
 									<div className="productPageDescription">
-										{matchesMobile || matchesTablet ? <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id} mobile /> : null}
-										<ProductCarousel title={title} photo={clearPhoto} mobile={matchesMobile || matchesTablet} />
-										{!matchesLaptop && !matchesDesktop && !matchesHD && (
-											clearPhoto === undefined ?
-												<div className="placeholder_animation product__placeholder_mobil-action"></div>
-												:
+										{matchesMobile || matchesTablet ?
+											<ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
+																	 mobile/> : null}
+										<ProductCarousel title={title} photo={clearPhoto}
+														 mobile={matchesMobile || matchesTablet}/>
+										{!matchesLaptop && !matchesDesktop && !matchesHD &&
 												<div className="productPageAdaptive">
-													<ProductPrice price={price} oldPrice={oldprice} id={id} sellerId={user_id} trade={trade} status={1} mobile />
+													<ProductPrice price={price} oldPrice={oldprice} id={id}
+																  sellerId={user_id} trade={trade} status={1} mobile/>
 													<div className="SellerInfo__adaptive_info">
 														<div className="SellerInfo__adaptive_info_top">
-															<ProductReviewed reviewed={reviewed} />
-															<ProductStats sellerId={user_id} id={id} dialog={openStatForm} setDialog={setopenStatForm} mobile />
+															<ProductReviewed reviewed={reviewed}/>
+															<ProductStats sellerId={user_id} id={id}
+																		  dialog={openStatForm}
+																		  setDialog={setopenStatForm} mobile/>
 														</div>
-														<ProductDate id={id} sellerId={user_id} mobile date={ToRusDate(created_at)} leftDay={30} />
+														<ProductDate id={id} sellerId={user_id} mobile
+																	 date={ToRusDate(created_at)} leftDay={30}/>
 													</div>
 												</div>
-
-										)}
-										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery} status={defaultStatus} secure_transaction={secure_transaction} setDialog={setPhoneModal} photo={photo} mobile={matchesMobile || matchesTablet} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} createChat={createChat} />}
+										}
+										{<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery}
+															   status={defaultStatus}
+															   secure_transaction={secure_transaction}
+															   setDialog={setPhoneModal} photo={photo}
+															   mobile={matchesMobile || matchesTablet}
+															   productInfo={productInfo} /*update={update}*/
+															   setUpdate={setDefaultStatus} createChat={createChat}/>}
 										{/* адрес, карта, свойства и значения */}
-										<ProductInformation address={address} coordinates={coordinates} description={description} productionInfo={productInfoFields} caterory={subcategory} />
+										<ProductInformation address={address} coordinates={coordinates}
+															description={description} productionInfo={productInfoFields}
+															caterory={subcategory}/>
 									</div>
 
 									{/* Блок информации*/}
 									<div className="block__my_active_ad">
 										{/* статус объявления, кнопки */}
-										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id} status={defaultStatus} oldprice={oldprice} price={price} created_at={created_at} delivery={delivery} trade={trade} secure_transaction={secure_transaction} productInfo={productInfo} /*update={update}*/ setUpdate={setDefaultStatus} createChat={createChat}/>}
+										{<ProductAction router={query.id} reviewed={reviewed} user_id={user_id}
+														status={defaultStatus} oldprice={oldprice} price={price}
+														created_at={created_at} delivery={delivery} trade={trade}
+														secure_transaction={secure_transaction}
+														productInfo={productInfo} /*update={update}*/
+														setUpdate={setDefaultStatus} createChat={createChat}/>}
 										{/* пользователь и его объявления */}
-										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting} user_id={user_id} userAd={userAd} productTitle={title} />
+										<ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting}
+														 user_id={user_id} userAd={userAd} productTitle={title}/>
 									</div>
 								</div>
+
 								{!matchesMobile && !matchesTablet && !matchesLaptop && (
 									<div className="showsmthWrapper">
 										<div className="freedomBlock_1"></div>
