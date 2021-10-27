@@ -46,9 +46,7 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                     <div className="offerTitle">{offer.title}</div>
                   </div>
                   <div className="offerDTRight">
-                    {offer.verify == 4 ? <a className="offerActivate thin superLight checkMarkIcon">Активировать</a> : null}
-                    <a className="offerEdit thin superLight editIcon">Редактировать</a>
-                    <a className="offerDelete thin superLight binIcon">Удалить</a>
+                    {/*{offer.verify == 4 ? <a className="offerActivate thin superLight checkMarkIcon">Активировать</a> : null}*/}
                   </div>
                 </div>
                 <div className="offerDescriptionBottom">
