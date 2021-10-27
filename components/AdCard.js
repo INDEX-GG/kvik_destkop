@@ -41,7 +41,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const classes = useClass()
 	const { id } = useAuth();
 	const {offer} = props;
-	// console.log('',offer)
+	console.log('',offer)
 	const clearPhoto = offer.photo.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
 		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
 		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')

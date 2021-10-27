@@ -36,7 +36,7 @@ const Offers = () => {
 
   useEffect(() => {
     if (router) {
-      if (router.query.content != undefined) {
+      if (router.query.content !== undefined) {
         setItemNav({ i: +router.query.content, ttl: navItems[router.query.content - 1].title })
       }
     }

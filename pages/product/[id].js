@@ -112,13 +112,13 @@ const Product = () => {
 	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice, coordinates} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
-	// console.log('PRODUCTPHOTO',photo)
+	console.log('PRODUCTPHOTO',photo)
 
 	const clearPhoto =  photo?.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
 		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
 		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/'))
 
-	// console.log('CLEARPHOTO',clearPhoto)
+	console.log('CLEARPHOTO',clearPhoto)
 
 	const [userAd, setUserAd] = useState();
 	const [phoneModal, setPhoneModal] = useState();
