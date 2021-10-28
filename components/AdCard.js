@@ -50,9 +50,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	)
 
 
-	// active Ofer https://onekvik.ru/zz/http://192.168.45.195:6001/images/po/22/18/b6/4d/3fee49456201db7a072872df3bccb20211026173744743172.webp
-
-	// https://onekvik.ru/zz/http://192.168.45.195:6001/images/po/22/18/b6/4d/3fee49456201db7a072872df3bccb20211026173744743172.webp
 
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();

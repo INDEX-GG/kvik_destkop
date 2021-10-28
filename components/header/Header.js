@@ -16,7 +16,8 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { useRouter } from "next/router";
 import HeaderAccount from "./HeaderAccount";
 import { useStore } from "../../lib/Context/Store";
-
+import {useProduct} from "../../hooks/useProduct";
+import {Skeleton} from "@mui/material";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -85,7 +86,7 @@ const Header = ({ category }) => {
   const [openRegForm, setOpenRegForm] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
   const [headerScroll, setHeaderScroll] = useState(classes.header);
-  
+
   const listenScroll = () => {
     if (scrollY > 0) {
       setHeaderScroll(classes.shadow);
@@ -122,7 +123,7 @@ const Header = ({ category }) => {
           {!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
             Войти
           </Button>
-            || (userInfo === undefined) && <Loader size={32} /> || (userInfo !== undefined) &&
+            || (userInfo === undefined) && <Skeleton variant="circular" width={32} height={32} />  || (userInfo !== undefined) &&
             <HeaderAccount userPhoto={userInfo.userPhoto} name={userInfo.name} />}
 
         </Container>

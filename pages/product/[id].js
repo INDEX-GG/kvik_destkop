@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
 	},
 	skeletonTitle: {
 		display: "flex",
-		gap: '10px',
+		gap: '20px',
 		flexDirection: "column"
 	},
 	skeletonRow: {
@@ -249,74 +249,94 @@ const Product = () => {
 			<OfferAccountProvider>
 				<div className="productPage" id="productPage">
 					<div className="productPageContainer text">
+						{!title ? null : !matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
+						{/* Блок объявления */}
 						{!title ?
 
-								<Box sx={{ width: '100%' }}>
-									<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-										<Grid item xs={6} md={8}>
-											<Box className={classes.skeletonTitle}>
-												<Box>
-													<Skeleton animation="wave" variant="rectangular" width="100%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px' }}/>
-												</Box>
-												<Box>
-													<Skeleton animation="wave" variant="rectangular" width="40%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}/>
-												</Box>
+							<Box sx={{ width: '100%' }}>
+								<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+									<Grid item xs={6} md={8}>
+										<Box className={classes.skeletonTitle}>
+											<Box>
+												<Skeleton animation="wave" variant="rectangular" width="100%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px' }}/>
 											</Box>
-										</Grid>
-										<Grid item xs={6} md={4}>
-											<Box></Box>
-											<Box></Box>
-										</Grid>
-										<Grid item xs={6}>
-											<Box className={classes.skeletonOffer}>
-												<Box>
-													<Skeleton  animation="wave" variant="rectangular"  width="100%" height="50%" sx={{ bgcolor: '#C7C7C780' , borderRadius: '15px'  }}><div style={{ paddingTop: '57%'}} />
-													</Skeleton>
-												</Box>
-												<Box>
-													<Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}/>
-												</Box>
-												<Box>
-													<Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
-													</Skeleton>
-												</Box>
+											<Box>
+												<Skeleton animation="wave" variant="rectangular" width="40%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}/>
 											</Box>
-										</Grid>
-										<Grid item xs={6} direction="column" >
-											<Box className={classes.skeletonActions}>
-												<Box>
-													<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '60%'}} />
-													</Skeleton>
-												</Box>
-												<Box>
-													<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
-													</Skeleton>
-												</Box>
-												<Box>
-													<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '8%'}} />
-													</Skeleton>
-												</Box>
+										</Box>
+									</Grid>
+									<Grid item xs={6} md={4}>
+										<Box></Box>
+										<Box></Box>
+									</Grid>
+									<Grid item xs={6}>
+										<Box className={classes.skeletonOffer}>
+											<Box>
+												<Skeleton  animation="wave" variant="rectangular"  width="100%" height="50%" sx={{ bgcolor: '#C7C7C780' , borderRadius: '15px'  }}><div style={{ paddingTop: '57%'}} />
+												</Skeleton>
 											</Box>
-											<Grid container style={{paddingTop: "30px"}} rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
-												<Grid item xs={6} md={1}>
-													<Box>
-														<Skeleton variant="circular" animation="wave" width={50} height={50} />
-													</Box>
-												</Grid>
-												<Grid item xs={6} md={8}>
-													<Box>
-														<Skeleton  animation="wave" variant="rectangular"  width="57%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px', paddingLeft: "5px"  }}><div style={{ paddingTop: '20%'}} />
-														</Skeleton>
-													</Box>
-												</Grid>
+											<Box>
+												<Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}/>
+											</Box>
+											<Box>
+												<Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
+												</Skeleton>
+											</Box>
+										</Box>
+									</Grid>
+									<Grid item xs={6}  >
+										<Box className={classes.skeletonActions}>
+											<Box>
+												<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '60%'}} />
+												</Skeleton>
+											</Box>
+											<Box>
+												<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
+												</Skeleton>
+											</Box>
+											<Box>
+												<Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '8%'}} />
+												</Skeleton>
+											</Box>
+										</Box>
+										<Grid container style={{paddingTop: "30px"}} rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
+											<Grid item xs={6} md={1}>
+												<Box>
+													<Skeleton variant="circular" animation="wave" width={50} height={50} />
+												</Box>
+											</Grid>
+											<Grid item xs={6} md={8}>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="57%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px', paddingLeft: "5px"  }}><div style={{ paddingTop: '20%'}} />
+													</Skeleton>
+												</Box>
+											</Grid>
+										</Grid>
+										<Grid container style={{paddingTop: "10px"}} direction="row" spacing={1}>
+											<Grid item  xs={6} md={2}>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
+													</Skeleton>
+												</Box>
+											</Grid>
+											<Grid item  xs={6} md={2}>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
+													</Skeleton>
+												</Box>
+											</Grid>
+											<Grid item  xs={6} md={2}>
+												<Box>
+													<Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
+													</Skeleton>
+												</Box>
 											</Grid>
 										</Grid>
 									</Grid>
-								</Box>
+								</Grid>
+							</Box>
 
-							: !matchesMobile && !matchesTablet && <BreadCrumbs data={breadData} product={title} />}
-						{/* Блок объявления */}
-						<div className="product__wrapper">
+							:<div className="product__wrapper">
 							<div className="productPageWrapper">
 								 <div className='product__main_block'>
 									<div className="productPageDescription">
@@ -393,7 +413,7 @@ const Product = () => {
 									)}
 								</div>
 							</div>
-						</div>
+						</div>}
 					</div>
 					<div className="productPageWhiteSpace"></div>
 					<Dialog open={openStatForm} onClose={() => setopenStatForm(!openStatForm)} fullWidth maxWidth="sm">

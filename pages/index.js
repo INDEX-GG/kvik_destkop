@@ -74,18 +74,22 @@ const Index = () => {
 
 	return (
 		<MetaLayout title={'Доска объявлений'}>
-			<Container className={classes.root}>
-				{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories} />}
+			{<Container className={classes.root}>
+				{!matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>}
 				<Box className={classes.main}>
-					<Box className={classes.offers} ><OffersRender data={data} page={page} limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage} setPage={setPage} title={'Рекомендуемое'} /></Box>
+					<Box className={classes.offers}>
+						<OffersRender data={data} page={page} limitRender={limitRenderPage}
+									setLimitRenderPage={setLimitRanderPage}
+									setPage={setPage} title={'Рекомендуемое'}/>
+					</Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
-						<JokerBlock />
+						<JokerBlock/>
 						<Box className={classes.footer}>
-							<Footer2 />
+							<Footer2/>
 						</Box>
 					</Box>}
 				</Box>
-			</Container>
+			</Container>}
 			{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
 		</MetaLayout >
 	)
