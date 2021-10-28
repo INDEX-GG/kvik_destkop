@@ -83,14 +83,17 @@ function Messages() {
       }
 
       if (obj.companion_id && obj.product_id) {
-        axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
+        try {
+          axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
           axios.post(`/api/roomInfo`, [r.data.room])
             .then(r => {
               console.log(allRooms);
               setRoom(r.data.list[0])
               setLoadingRoom(false)
-            })
-        })
+            })})
+        } catch(e) {
+          console.log(1)
+        }
       }
     }
   }, [id, query])

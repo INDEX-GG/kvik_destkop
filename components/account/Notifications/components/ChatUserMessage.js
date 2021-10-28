@@ -75,16 +75,13 @@ const ChatUserMessage = (
     }
   }
 
-  const onClickOffline = () => {
-    console.log(1)
-  }
+  console.log(1);
 
   return (
     <>
       {dialogData && <div className='chatDataDialog'>{dialogData}</div>}
       <div key={key}
            ref={item.id == messageId ? refMessage : null}
-           onClick={() => item?.offline ? onClickOffline() : null}
            className={myMessage ? "chatUser" : "chatCompanion"}>
         {myMessage ? null :
           morePartnerMessage && index - 1 >= 0 ? <div></div> :
