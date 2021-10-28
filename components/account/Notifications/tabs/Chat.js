@@ -19,7 +19,7 @@ const NoSsrEmoji = dynamic(() => import('../components/ChatEmoji'), {ssr: false}
 
 
 
-const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessage}) => {
+const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLocalMessage}) => {
 
   const [message, setMessage] = useState('');
   const [msgList, setMsgList] = useState();
