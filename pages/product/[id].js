@@ -167,21 +167,11 @@ const Product = () => {
 				// console.log(obj)
 
 				await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
-				// router.push({
-				// 	pathname: `/account/${id}`,
-				// 	query: {
-				// 		account: 5,
-				// 		content: 1,
-				// 		companion_id: productInfo?.user_id,
-				// 		product_id: productInfo?.id,
-				// 		mobile: matchesMobile || matchesTablet ? 'true' : ''
-				// 	},
-				// })
 				const routerObj = {
 					id, 
 					companion_id: productInfo.user_id, 
 					product_id: productInfo?.id,
-					mobile: matchesMobile || matchesTablet
+					mobile: matchesMobile || matchesTablet,
 				}
 				chatPush(router, routerObj)
 

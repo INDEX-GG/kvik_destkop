@@ -43,7 +43,7 @@ export const chatPush = (router, dataObj) => {
 			companion_id: dataObj?.companion_id,
 			product_id: dataObj?.product_id,
 			// mobile - говорит, что нужно открыть модальное окно с чатом (срабатывает на телефоне)
-			mobile: 'on'
+			mobile: 'on',
 		},
 	}) : 
 	router.push({

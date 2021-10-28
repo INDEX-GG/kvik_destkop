@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useAuth} from '../../../../lib/Context/AuthCTX'
-import {useRouter} from 'next/router';
+import router, {useRouter} from 'next/router';
 import {useStore} from '../../../../lib/Context/Store';
 import axios from 'axios';
 import {BASE_URL, CHAT_URL_API, STATIC_URL} from '../../../../lib/constants';
@@ -90,11 +90,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
 
           console.log("SOCKET CONNECT")
 
-          if (!offlineMessages) {
-            setMsgList([...r.data.data.reverse()])
-          } else {
-            setMsgList([...r.data.data.reverse(), ...JSON.parse(offlineMessages)])
-          }
+          setMsgList([...r.data.data.reverse()])
 
           if (r.data.data.length) setMessageId(r.data.data[0]?.id)
 
@@ -190,14 +186,20 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   const generatePush = (sendObj) => {
     const img = sendObj.message.match('images/ch/') ? sendObj.message.match('.webp') ? true : false : false
 
+    console.log(asPath);
+
     if (usersData?.recipient?.id && userInfo?.name) {
+
+      console.log(asPath.split('?')[1].split('&'))
+      console.log(router.query)
+
       const pushObj = {
         'user_id': usersData?.recipient.id,
         'message': ellipsis(img ? 'Вам отправили фото' : sendObj.message, 20),
         'user_name': userInfo.name,
         "image": img ? `${STATIC_URL}/${sendObj.message}` : '',
         "icon": `${BASE_URL}/logo.png`,
-        "click_action": `${BASE_URL}/${asPath.substring(1,)}`,
+        "click_action": `${BASE_URL}/account/${router?.query?.companion_id}?account=5&content=1&companion_id=${id}&product_id=${router?.query?.product_id}`,
       }
 
       try {
@@ -260,9 +262,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
       }
 
 
-      if (internetConnect) {
-        await socket.emit('text', sendObj)
-      }
+      await socket.emit('text', sendObj)
 
       addOfflineMessages(sendObj)
 
@@ -325,7 +325,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
           }
           // ...JSON.parse(offlineMessages)
 
-          if (localRoom) {
+          if (router.query?.newRoom == 'true') {
             setLocalMessage(data);
           }
         }
