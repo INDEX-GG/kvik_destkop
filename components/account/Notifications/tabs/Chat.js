@@ -7,10 +7,16 @@ import {BASE_URL, CHAT_URL_API, STATIC_URL} from '../../../../lib/constants';
 import {socket} from './socket';
 import {generateTime} from './chatFunctions';
 import {Dialog} from "@material-ui/core";
-import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
+// import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 import {ellipsis} from "../../../../lib/services";
+import ChatUserMessage from "../components/ChatUserMessage";
+import ChatSmile from '../../../../UI/icons/ChatSmile';
 // import {useMedia} from "../../../../hooks/useMedia";
 // import useMoment from 'moment-timezone'
+import dynamic from 'next/dynamic'
+
+const NoSsrEmoji = dynamic(() => import('../components/ChatEmoji'), {ssr: false})
+
 
 
 const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessage}) => {
@@ -26,6 +32,8 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   const [historyMessageLength, setHistoryMessageLength] = useState(false)
   const [userTyping, setUserTyping] = useState(false);
   const [internetConnect, setInternetConnect] = useState(true);
+  const [smileList, setSmileList] = useState(false);
+  const [innerSmileList, setInnerSmileList] = useState(false);
   const offlineMessages = localStorage.getItem('offlineMessages')
 
   const refChat = useRef()
@@ -217,7 +225,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
     // Скорлит вниз, когда отправляем сообщение.
     if (refChat.current && !messageUpdate) {
       setTimeout(() => {
-        refChat.current.scrollTop = refChat.current?.scrollHeight
+        refChat.current.scrollTop = refChat.current.scrollHeight
       }, 500)
     } else {
       // Срабатывает, когда подгружаем историю сообщений (скролл вверх)
@@ -357,38 +365,38 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   });
 
   // Генерирует задний фон сообзениям
-  const generateBackgroundMessage = (senderId, read, offline) => {
-    if (senderId == id) {
+  // const generateBackgroundMessage = (senderId, read, offline) => {
+  //   if (senderId == id) {
 
-      if (offline) {
-        return '#f23022'
-      }
+  //     if (offline) {
+  //       return '#f23022'
+  //     }
 
-      if (userOnline) {
-        return '#e9e9e9'
-      } else {
-        if (!read) return '#02bac7'
-        return '#e9e9e9'
-      }
-    }
-  }
+  //     if (userOnline) {
+  //       return '#e9e9e9'
+  //     } else {
+  //       if (!read) return '#02bac7'
+  //       return '#e9e9e9'
+  //     }
+  //   }
+  // }
 
-  // Генерирует статус сообщениям
-  const generateMessageStatus = (senderId, read, offline = false) => {
-    if (senderId == id) {
+  // // Генерирует статус сообщениям
+  // const generateMessageStatus = (senderId, read, offline = false) => {
+  //   if (senderId == id) {
 
-      if (offline) {
-        return 'Ошибка при отправке'
-      }
+  //     if (offline) {
+  //       return 'Ошибка при отправке'
+  //     }
 
-      if (userOnline) {
-        return 'Прочитано'
-      } else {
-        if (!read) return 'Доставлено'
-        return 'Прочитано'
-      }
-    }
-  }
+  //     if (userOnline) {
+  //       return 'Прочитано'
+  //     } else {
+  //       if (!read) return 'Доставлено'
+  //       return 'Прочитано'
+  //     }
+  //   }
+  // }
 
 
   // События нажатия клавиш внутри input
@@ -522,28 +530,39 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
   }
 
   // Генерация сообщений. Проверка на картинку или текст отправленный пользователем
-  const generateMessage = (message) => {
-    if (message.match('images/ch')) {
-      if (message.match('.webp')) {
-        const altName = message.split('.webp')[0]
-        return (
-          <div onClick={() => openImage(message)}>
-            <img className='chatImg' src={`${STATIC_URL}/${message}`} alt={altName}/>
-          </div>
-        )
-      }
+  // const generateMessage = (message) => {
+  //   if (message.match('images/ch')) {
+  //     if (message.match('.webp')) {
+  //       const altName = message.split('.webp')[0]
+  //       return (
+  //         <div onClick={() => openImage(message)}>
+  //           <img className='chatImg' src={`${STATIC_URL}/${message}`} alt={altName}/>
+  //         </div>
+  //       )
+  //     }
+  //   }
+
+  //   return <span>{message}</span>
+  // }
+
+  // const onClickOffline = () => {
+  //   console.log(1)
+  // }
+
+  const handleHoverSmileIcon = (state) => {
+    setSmileList(state)
+  }
+  
+  useEffect(() => {
+    if (!innerSmileList) {
+      setSmileList(false)
     }
-
-    return <span>{message}</span>
-  }
-
-  const onClickOffline = () => {
-    console.log(1)
-  }
+  }, [innerSmileList])
 
   useEffect(() => {
     // console.log(userTyping);
   }, [userTyping])
+
 
   return (
     <>
@@ -557,38 +576,70 @@ const Chat = ({usersData, userChatPhoto, userChatName, localRoom, setLocalMessag
           // const messageData = index == msgList.length - 1 ? true : generateMessageData(index)
           const dialogData = generateDialogData(index);
 
+
           return (
-            item?.delete ? null :
-              <>
-                {dialogData && <div className='chatDataDialog'>{dialogData}</div>}
-                <div key={key}
-                     ref={item.id == messageId ? refMessage : null}
-                     onClick={() => item?.offline ? onClickOffline() : null}
-                     className={myMessage ? "chatUser" : "chatCompanion"}>
-                  {myMessage ? null :
-                    morePartnerMessage && index - 1 >= 0 ? <div></div> :
-                      userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
-                        <ChatDefaultAvatar name={userChatName}/>
-                  }
-                  <div style={{
-                    backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read, item?.offline),
-                    transition: '.1s all linear'
-                  }}>
-                    {generateMessage(item?.message)}
-                    <div
-                      className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read, item?.offline)}</div>
-                  </div>
-                  <div>{generateTime(0, item?.time, true)}</div>
-                </div>
-              </>
+            <ChatUserMessage
+              index={index}
+              key={key}
+              item={item}
+              dialogData={dialogData}
+              refMessage={refMessage}
+              messageId={messageId}
+              myMessage={myMessage}
+              morePartnerMessage={morePartnerMessage}
+              userChatPhoto={userChatPhoto}
+              userChatName={userChatName}
+              openImage={openImage}
+              userOnline={userOnline}
+
+            />
           )
+
+
+          // return (
+          //   item?.delete ? null :
+          //     <>
+          //       {dialogData && <div className='chatDataDialog'>{dialogData}</div>}
+          //       <div key={key}
+          //            ref={item.id == messageId ? refMessage : null}
+          //            onClick={() => item?.offline ? onClickOffline() : null}
+          //            className={myMessage ? "chatUser" : "chatCompanion"}>
+          //         {myMessage ? null :
+          //           morePartnerMessage && index - 1 >= 0 ? <div></div> :
+          //             userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+          //               <ChatDefaultAvatar name={userChatName}/>
+          //         }
+          //         <div style={{
+          //           backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read, item?.offline),
+          //           transition: '.1s all linear'
+          //         }}>
+          //           {generateMessage(item?.message)}
+          //           <div
+          //             className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read, item?.offline)}</div>
+          //         </div>
+          //         <div>{generateTime(0, item?.time, true)}</div>
+          //       </div>
+          //     </>
+          // )
         })}
       </div>
+      {smileList && <NoSsrEmoji visible={setInnerSmileList} setInput={setMessage}/>}
       <div className="messageChatInput">
-        <button onClick={handleInputClick} className="messageFile">
-          <input ref={refInput} onChange={(e) => handleChangeFile(e)} accept='image/jpeg,image/png,image/jpg'
-                 type='file' hidden/>
-        </button>
+        <div className='messageMoreOptions'>
+          <button onClick={handleInputClick} className="messageFile">
+            <input 
+              ref={refInput} 
+              onChange={(e) => handleChangeFile(e)} 
+              accept='image/jpeg,image/png,image/jpg'
+              type='file' hidden/>
+          </button>
+          <div
+            // onMouseLeave={() => handleHoverSmileIcon(false)} 
+            onMouseEnter={() => handleHoverSmileIcon(true)} 
+            className='messageSmileIcon'>
+            <ChatSmile/>
+          </div>
+        </div>
         <input
           className="messageInput"
           type="text"

@@ -92,7 +92,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
                       </div>
                       <div className='messageProductBlock' onClick={(e) => handleClickProduct(e, item?.product_id)}>
                         <img src={`${STATIC_URL}/${productPhoto}?${item.product_id}`} />
-                        <div>{item.product_price.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
+                        <div>{item?.product_price && item.product_price.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
                         <div>{ellipsis(item.product_name, 12)}</div>
                       </div>
                     </div>

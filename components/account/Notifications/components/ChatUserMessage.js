@@ -37,6 +37,8 @@ const ChatUserMessage = (
         )
       }
     }
+
+    return <div>{item?.message}</div>
   }
 
   // Генерирует задний фон сообзениям
@@ -76,7 +78,6 @@ const ChatUserMessage = (
   const onClickOffline = () => {
     console.log(1)
   }
-
 
   return (
     <>
