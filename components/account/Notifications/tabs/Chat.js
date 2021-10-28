@@ -339,14 +339,18 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
     const objHistory = generateChatHistory(messageId)
 
     if (objHistory.companion_id && objHistory.companion_id) {
-      axios.post(`${CHAT_URL_API}/chat_history`, objHistory).then(r => {
-        if (r?.data?.data?.length) {
-          setMessageId(r.data.data.reverse()[0]?.id)
-          setMessageUpdate(true)
-          setHistoryMessageLength(r.data.data.length)
-          setMsgList(prev => [...r.data.data, ...prev])
-        }
-      })
+      try {
+        axios.post(`${CHAT_URL_API}/chat_history`, objHistory).then(r => {
+          if (r?.data?.data?.length) {
+            setMessageId(r.data.data.reverse()[0]?.id)
+            setMessageUpdate(true)
+            setHistoryMessageLength(r.data.data.length)
+            setMsgList(prev => [...r.data.data, ...prev])
+          }
+        })
+      } catch(e) {
+        console.log(e)
+      }
     }
   }
 
