@@ -5,6 +5,9 @@ import {Box, makeStyles} from "@material-ui/core";
 const useStyles = makeStyles(() => ({
     secondLineEnd: {
         display: "flex", justifyContent: "flex-end"
+    },
+    linerPadding: {
+        paddingLeft: "11px"
     }
 }));
 

@@ -56,25 +56,25 @@ const Offers = () => {
   ];
   
   return (
-    <>
-      <div className="clientPage__container_top">
-        <div className="clientPage__container_nav__wrapper">
-          <div className="clientPage__container_nav">
-            {navItems.map(item => {
-              return (
-                <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} onClick={() => {
-                  setItemNav({ i: item.id, ttl: item.title })
-                  safeAccountTab(item.id)
-                }}>
-                  {item.title} {brooklyn(item.count)}{" "}
-                </a>
-              );
-            })}
+      <>
+        <div className="clientPage__container_top">
+          <div className="clientPage__container_nav__wrapper">
+            <div className="clientPage__container_nav">
+              {navItems.map(item => {
+                return (
+                    <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} onClick={() => {
+                      setItemNav({i: item.id, ttl: item.title})
+                      safeAccountTab(item.id)
+                    }}>
+                      {item.title} {brooklyn(item.count)}{" "}
+                    </a>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-      {navItems.map(item => itemNav.i === item.id && ( item.count > 0 ? item.content : <Placeholder key={item.id} />))}
-    </>
+        {navItems.map(item => itemNav.i === item.id && (item.count > 0 ? item.content : <Placeholder key={item.id}/>))}
+      </>
   );
 };
 export default Offers;

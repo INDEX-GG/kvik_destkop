@@ -8,7 +8,6 @@ import Categories from "./Categories";
 import CategoriesMobile from "./CategoriesMobile";
 import { useMedia } from "../../hooks/useMedia";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Loader from "../../UI/icons/Loader";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
 import Login from "../auth/Login";
@@ -16,7 +15,6 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { useRouter } from "next/router";
 import HeaderAccount from "./HeaderAccount";
 import { useStore } from "../../lib/Context/Store";
-import {useProduct} from "../../hooks/useProduct";
 import {Skeleton} from "@mui/material";
 
 

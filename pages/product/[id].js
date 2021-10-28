@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import {Box, Dialog, makeStyles} from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 import { getDataByPost } from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
@@ -24,8 +24,6 @@ import ProductReviewed from "../../components/product/ProductSmallComponents/Pro
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
-import {Grid, Skeleton} from '@mui/material';
-// import axios from "axios";
 import { firstAds, scrollAds } from "../../lib/scrollAds";
 import { useStore } from "../../lib/Context/Store";
 import axios from "axios";
@@ -113,12 +111,12 @@ const Product = () => {
 	const {active, productInfoFields, address, subcategory, name, raiting, userPhoto, category_id, user_id, created_at, delivery, description, photo, reviewed, secure_transaction, title, trade, price, oldprice, coordinates} = useProduct(query.id);
 	const productInfo = useProduct(query.id)
 
-	const clearPhoto =  photo?.map(photo =>  photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
-		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
-		: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
-			? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
-			: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
-	)
+	// const clearPhoto =  photo?.map(photo =>  photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
+	// 	? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
+	// 	: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
+	// 		? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
+	// 		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
+	// )
 
 
 	const [userAd, setUserAd] = useState();
@@ -228,7 +226,7 @@ const Product = () => {
 										{matchesMobile || matchesTablet ?
 											<ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
 																	 mobile/> : null}
-										<ProductCarousel title={title} photo={clearPhoto}
+										<ProductCarousel title={title} photo={photo}
 														 mobile={matchesMobile || matchesTablet}/>
 										{!matchesLaptop && !matchesDesktop && !matchesHD &&
 												<div className="productPageAdaptive">

@@ -72,16 +72,16 @@ function EditPage() {
 		? photo.replace('http://192.168.45.195:6001/','')
 		: photo.replace('https://onekvik.ru/zz/',''))
 
-	const clearPhoto =  photo?.map(photo =>  photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
-		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
-		: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
-			? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
-			: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
-	)
+	// const clearPhoto =  photo?.map(photo =>  photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
+	// 	? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
+	// 	: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
+	// 		? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
+	// 		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
+	// )
 
 	// console.log('clearEditPhoto',clearEditPhoto)
 	// console.log('photo из offer',photo)
-	// console.log('clearPhoto',clearPhoto)
+	// console.log('photo',photo)
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
@@ -193,7 +193,7 @@ function EditPage() {
 				description: obj.description,
 				price: obj.price,
 				address: obj.location.value,
-				photo: clearPhoto[0]
+				photo: photo[0]
 			})
 			setPromotion(true)
 		}
@@ -215,7 +215,7 @@ function EditPage() {
 								<Box className={classes.formPart}>
 									<Description description={description} />
 									<Price price={price} edit={edit}/>
-									<PhotosForEditPage ctx={photoesCtx} photo={clearPhoto} />
+									<PhotosForEditPage ctx={photoesCtx} photo={photo} />
 								</Box>
 								<Box className={classes.formPart}>
 									<Location address={address}/>
