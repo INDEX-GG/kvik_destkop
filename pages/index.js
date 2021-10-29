@@ -52,12 +52,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-
-
-
-
-
-
 const Index = () => {
 	const { matchesMobile, matchesTablet } = useMedia();
 	const [data, setData] = useState();
@@ -69,6 +63,12 @@ const Index = () => {
 	const [lastIdAds ,setLastIdAds] = useState(0);
 	const limit = 60
 
+	const [isPending, setIsPending] = useState(false);
+
+	const pending = () =>  setIsPending(true)
+
+	setTimeout(pending, 1000)
+
 	console.log(lastIdAds);
 	
 	useEffect(() => {
@@ -79,13 +79,14 @@ const Index = () => {
 		 firstAds(id, isAuth, page, limit, setData, setLastIdAds)
 	}, [id]);
 
+	console.log('',page)
 
 	return (
 
 		<MetaLayout title={'Доска объявлений'}>
 			 <Container className={classes.root}>
-				  {!lastIdAds ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>}
-				 {!lastIdAds ? <IndexPlaceHolder />
+				  {!isPending ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>}
+				 {!isPending ? <IndexPlaceHolder />
 					 : <Box className={classes.main}>
 					<Box className={classes.offers}>
 						<OffersRender data={data} page={page} limitRender={limitRenderPage}
