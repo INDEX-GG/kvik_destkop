@@ -19,6 +19,7 @@ import Promotion from '../../components/placeOffer/Promotion';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
+import {useProductEditPhoto} from "../../hooks/useProductEditPhoto";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -62,26 +63,9 @@ const useStyles = makeStyles((theme) => ({
 
 function EditPage() {
 	const { query } = useRouter();
-	const { price, title, photo, description, address, editPhotos} = useProduct(query.id)
+	const { price, title, photo, description, address} = useProduct(query.id)
+	const { editPhotos } = useProductEditPhoto(query.id)
 
-
-	// console.log('', photo.map(item => item.replace('http://192.168.8.111:6001/', '')))
-	// console.log('editPhotos',editPhotos)
-
-	const clearEditPhoto = editPhotos?.map(photo => photo.includes('http://192.168.45.195:6001/')
-		? photo.replace('http://192.168.45.195:6001/','')
-		: photo.replace('https://onekvik.ru/zz/',''))
-
-	// const clearPhoto =  photo?.map(photo =>  photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
-	// 	? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
-	// 	: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
-	// 		? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
-	// 		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
-	// )
-
-	// console.log('clearEditPhoto',clearEditPhoto)
-	// console.log('photo из offer',photo)
-	// console.log('photo',photo)
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
@@ -96,6 +80,8 @@ function EditPage() {
 	const photoesCtx = (obj) => {
 		return photoes = obj;
 	}
+
+	console.log('photoes',photoes)
 
 	// убирает Категорию из verify
 	useEffect(() => {
@@ -137,21 +123,10 @@ function EditPage() {
 			})
 
 				.then((r) => {
-					// console.log('Зашел с новыми фотками')
-					let allConvertedPhoto = [...photoes]
-					let jj = 0
-					// для увиличения j во внутреннем цикле
-					for (let i = 0; i < allConvertedPhoto.length; i++) {
-						if (allConvertedPhoto[i].lastModified && allConvertedPhoto[i].lastModified !== undefined) {
-							for (let j = 0+jj; j < r.data.images.photos.length; j++) {
-								allConvertedPhoto[i] = r.data.images.photos[j]
-								jj = ++j;
-								if(allConvertedPhoto[i] === allConvertedPhoto[i]) break;
-							}
-						} else {
-							allConvertedPhoto[i] = allConvertedPhoto[i].src.replace('http://192.168.8.111:6001/', '')
-						}
-					}
+					// console.log('====>>>',r)
+					// console.log('====>>>r.data.images.photos=====>>>>',r.data.images.photos)
+					let allConvertedPhoto = [...editPhotos.photos, ...r.data.images.photos]
+					// console.log('$$$allConvertedPhoto$$$$',allConvertedPhoto)
 					axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
 						title : obj.title,
 						description: obj.description,
@@ -176,24 +151,15 @@ function EditPage() {
 				description: obj.description,
 				price: obj.price,
 				address: obj.location.value,
-				photo: clearEditPhoto
+				photo: editPhotos
 			})
-			// console.log('Что уходит на сервак',{
-			// 	post_id: postId,
-			// 	title : obj.title,
-			// 	description: obj.description,
-			// 	price: obj.price,
-			// 	address: obj.location.value,
-			// 	photo: clearEditPhoto
-			// })
-
 			setEditProduct({
 				post_id: postId,
 				title : obj.title,
 				description: obj.description,
 				price: obj.price,
 				address: obj.location.value,
-				photo: photo[0]
+				photo: editPhotos[0]
 			})
 			setPromotion(true)
 		}

@@ -15,17 +15,10 @@ export function useProduct(id) {
 
 					if (r !== undefined) {
 						// console.log('rrrrrrrrrr',r)
-						let editPhotos = JSON.parse(r.photo);
 						let photoes = JSON.parse(r.photo);
 						r.chatProductPhoto = photoes.photos[0]
 						// console.log('$$$$$$$$$$$$$$$$',photoes)
-						editPhotos = editPhotos.photos.map(image => {
-							if(image.includes('http://192.168.45.195:6001/')){
-								return image.replace('http://192.168.45.195:6001/','')
-							}
-							return `${image}`
-						})
-						r.editPhotos = editPhotos
+						r.editPhotos = photoes
 						// console.log('editPhotos',editPhotos)
 						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 						r.photo = photoes
