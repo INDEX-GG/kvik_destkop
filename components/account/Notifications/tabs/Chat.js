@@ -34,7 +34,8 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
   const [internetConnect, setInternetConnect] = useState(true);
   const [smileList, setSmileList] = useState(false);
   const [innerSmileList, setInnerSmileList] = useState(false);
-  const offlineMessages = localStorage.getItem('offlineMessages')
+  //! Убрать всё, что како-то связанно с оффлайн сообщениями
+  const [offlineMessages, setOfflineMessage] = useState('');
 
   const refChat = useRef()
   const refInput = useRef()
@@ -63,6 +64,10 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
       'product': usersData?.product
     })
   }
+
+  useEffect(() => {
+    setOfflineMessage(localStorage.getItem('offlineMessages'))
+  }, [])
 
 
   useEffect(() => {

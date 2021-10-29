@@ -69,7 +69,6 @@ function Messages() {
     })
   }
 
-  console.log(localHistoryMessage);
 
   //!
   useEffect(() => {
@@ -185,10 +184,8 @@ function Messages() {
     if (id) {
       axios.post(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id})
         .then(r => {
-          console.log('3333333333333333333312', r)
           axios.post(`/api/roomInfo`, r.data.data)
             .then(r => {
-               console.log('123123123213', r)
               setAllRooms(r.data.list)
               setLoadingAllRooms(false)
             })
