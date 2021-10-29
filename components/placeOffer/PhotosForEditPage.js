@@ -192,9 +192,20 @@ const PhotoForEditPage = ({ctx, photo}) => {
     }, [selectedFiles]);
 
     useEffect(() => {
-        setOldPhotosAndNewObjectsPhotos([...oldPhotos, ...validFiles.filter(item => oldPhotos.indexOf(item) === -1)])
-    }, [validFiles, oldPhotos])
+        // console.log('обновились старые фотки')
+        setOldPhotosAndNewObjectsPhotos([...oldPhotos])
+    }, [oldPhotos]);
 
+    useEffect(() => {
+        // console.log('обновились старые и новые фотки')
+        setOldPhotosAndNewObjectsPhotos([...oldPhotosAndNewObjectsPhotos, ...validFiles.filter(item => oldPhotosAndNewObjectsPhotos.indexOf(item) === -1)])
+    }, [validFiles])
+    // console.log('validFiles',validFiles)
+    // console.log('validFiles.filter',validFiles.filter(item => oldPhotosAndNewObjectsPhotos.indexOf(item) === -1))
+    //
+    //
+    //
+    console.log('oldPhotosAndNewObjectsPhotos',oldPhotosAndNewObjectsPhotos)
     useEffect(() => {
         if (validFiles && validFiles.length > 0) {
             methods.setValue("photoes", "ok");

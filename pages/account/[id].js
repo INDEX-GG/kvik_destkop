@@ -134,7 +134,8 @@ function Account() {
 
 
 	const CardOfferPlaceHolder = () => {
-		return (<Grid item container xs={12} spacing={1}>
+		return (
+			<Grid item container xs={12} spacing={1}>
 			{/*левый большой*/}
 			<Grid item xs={4}>
 				<Box>
@@ -233,7 +234,8 @@ function Account() {
 					</Grid>
 				</Grid>
 			</Grid>
-		</Grid>)
+		</Grid>
+		)
 	}
 
 	return (
