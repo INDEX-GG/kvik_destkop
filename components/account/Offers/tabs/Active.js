@@ -58,7 +58,7 @@ function Active({offers}) {
 		offerId.length === offers.length ? check ? null : setCheck(true) : check===false ? null : setCheck(false);
 	}, [offerId])
 
-	if (offers.length == 0) {
+	if (offers.length < 1) {
 		return (
 			<Placeholder />
 		);
