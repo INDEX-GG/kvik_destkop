@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 			}
 			let a = ((subscriptions.subscriptions).slice(1, -1)).split(",").map(Number)
 			let sellersList = await prisma.$queryRaw(`SELECT id, name, "userPhoto", raiting FROM users WHERE id IN (${a})`)
-			let productsList = await prisma.$queryRaw(`SELECT id, user_id, title, price, photo FROM posts WHERE user_id IN (${a})`)
+			let productsList = await prisma.$queryRaw(`SELECT id, user_id, title, price, photo FROM posts WHERE user_id IN (${a}) AND active = 0 AND verify = 0`)
 			let sellers = []
 			for (let index in sellersList) {
 				let seller = sellersList[index]
