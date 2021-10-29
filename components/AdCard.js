@@ -42,17 +42,14 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const { id } = useAuth();
 	const {offer} = props;
 	// console.log('',offer)
-	const clearPhoto = offer.photo.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
-		? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
-		: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
-			? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
-		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
-	)
+	// const clearPhoto = offer.photo.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
+	// 	? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
+	// 	: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
+	// 		? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
+	// 	: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
+	// )
 
 
-	// active Ofer https://onekvik.ru/zz/http://192.168.45.195:6001/images/po/22/18/b6/4d/3fee49456201db7a072872df3bccb20211026173744743172.webp
-
-	// https://onekvik.ru/zz/http://192.168.45.195:6001/images/po/22/18/b6/4d/3fee49456201db7a072872df3bccb20211026173744743172.webp
 
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
@@ -142,7 +139,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 							{offer?.photo?.length === 1 ?
 								<img
 									ref={currentSwiper}
-									src={`${clearPhoto[0]}`}
+									src={`${offer.photo[0]}`}
 									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 								/>
 								: <Swiper
@@ -150,7 +147,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 									pagination={pagination}
 									slidesPerView={1}
 								>	
-									{clearPhoto && (clearPhoto?.slice(0, 5))?.map((img, i) => {
+									{offer.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
 										return (
 											<SwiperSlide key={i} style={{position: 'relative'}}>
 												<img
@@ -158,10 +155,10 @@ const AdCard_component = React.forwardRef((props, ref) => {
 													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 												/>
 												{
-													i === 4 && (clearPhoto.length - 5 > 0) ?
+													i === 4 && (offer.photo.length - 5 > 0) ?
 													<div className={classes.morePhoto}>
 														<span className={classes.morePhotoText}>
-															Еще<br />{clearPhoto.length - 5} фото
+															Еще<br />{offer.photo.length - 5} фото
 														</span>
 													</div>
 													: null

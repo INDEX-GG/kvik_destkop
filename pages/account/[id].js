@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import MetaLayout from "../../layout/MetaLayout";
 import StarRating from "../../components/StarRating";
 import Offers from "../../components/account/Offers/Offers";
@@ -12,7 +12,7 @@ import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
 import { initials, stringToColor, ToRusAccountDate } from "../../lib/services";
 import { ModalRating, ModalSubscription } from "../../components/Modals";
-import { Avatar, Button, Dialog, DialogTitle } from "@material-ui/core";
+import {Avatar, Box, Button, Container, Dialog, DialogTitle} from "@material-ui/core";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
@@ -20,6 +20,7 @@ import { useMedia } from "../../hooks/useMedia";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import { useStore } from "../../lib/Context/Store";
+import {Grid, Skeleton} from "@mui/material";
 
 const menuItems = [
 	{ id: 1, name: "menuOffers", title: "Мои объявления" },
@@ -35,7 +36,16 @@ const menuItems = [
 const menuItemsIcon = ["menuOffers", "menuDeals", "menuWallet", "menuFavorites", "menuNotifications", "menuCompare", "menuReviews", "menuSettings"]
 const menuItemsTitle = ["Мои объявления", "Сделки", "Кошелек", "Избранное", "Уведомления", "Сравнить", "Отзывы", "Настройки"]
 
+
+// const useStyles = makeStyles(() => ({
+// 	linerPadding: {
+// 		paddingLeft: "11px"
+// 	}
+// }));
+
+
 function Account() {
+	// const classes = useStyles();
 	const router = useRouter();
 	const { userInfo } = useStore();
 	const countRender = useRef(0)
@@ -123,9 +133,261 @@ function Account() {
 	}
 
 
+	const CardOfferPlaceHolder = () => {
+		return (<Grid item container xs={12} spacing={1}>
+			{/*левый большой*/}
+			<Grid item xs={4}>
+				<Box>
+					<Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+						<div style={{width: "280px", height: "184px"}}/>
+					</Skeleton>
+				</Box>
+			</Grid>
+			{/*правый большой*/}
+			<Grid item container xs={8} spacing={1}>
+				{/*левый маленкьий 5 палочек*/}
+				<Grid item container xs={8} spacing={1}>
+					<Grid item xs={10}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={10}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={10}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={10}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "116px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={10}>
+						<Box style={{display: "flex", justifyContent: "flex-end"}}>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "224px", height: "24px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+				</Grid>
+				{/*правый маленький 2 палочки*/}
+				<Grid item container xs={4}>
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					{/*3 прозрачные*/}
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation={false} variant="rectangular"
+									  sx={{bgcolor: 'rgba(199,199,199,0)', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation={false} variant="rectangular"
+									  sx={{bgcolor: 'rgba(199,199,199,0)', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation={false} variant="rectangular"
+									  sx={{bgcolor: 'rgba(199,199,199,0)', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>)
+	}
+
 	return (
 		<MetaLayout title={"Личный кабинет"}>
-			<div className="clientPage text">
+			{!userInfo ?
+
+				<Container>
+					<Box>
+						<Grid container  spacing={2} >
+
+							{/*Колонка пользователя*/}
+							<Grid item container xs={2} style={{height: "538px"}} spacing={1}>
+								<Grid item xs={12} >
+									<Box style={{display: "flex", justifyContent: "center"}}>
+										<Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#C7C7C780', width: "80px", height: "80px"}}/>
+									</Box>
+								</Grid>
+								<Grid item xs={12}>
+									<Box style={{display: "flex", justifyContent: "center"}}>
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "134px", height: "16px"}} />
+										</Skeleton>
+									</Box>
+								</Grid>
+								<Grid item xs={12}>
+									<Box>
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+										</Skeleton>
+									</Box>
+								</Grid>
+								<Grid item xs={12}>
+									<Box style={{display: "flex", justifyContent: "center"}}>
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
+										</Skeleton>
+									</Box>
+								</Grid>
+
+								<Grid item xs={12}>
+									<Box >
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
+										</Skeleton>
+									</Box>
+								</Grid>
+
+								{/*многопалочек*/}
+								<Grid item container xs={10} spacing={1}>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }} >
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }}>
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }}>
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }}>
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }}>
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }}>
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }}>
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }}>
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={10}>
+										<Box style={{paddingLeft: "10px" }}>
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+								</Grid>
+
+							</Grid>
+
+							{/*Обьявления*/}
+							<Grid item container xs={10} spacing={2}>
+								<Grid item container xs={12} spacing={1}>
+									<Grid item xs={2}>
+										<Box >
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={2}>
+										<Box >
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+									<Grid item xs={2}>
+										<Box >
+											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+											</Skeleton>
+										</Box>
+									</Grid>
+								</Grid>
+								{/*длинная тонкая полоска*/}
+								<Grid item xs={12}>
+									<Box >
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "952px", height: "2px"}} />
+										</Skeleton>
+									</Box>
+								</Grid>
+								{/*короткая полоса над карточками*/}
+								<Grid item xs={12}>
+									<Box >
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "146px", height: "16px"}} />
+										</Skeleton>
+									</Box>
+								</Grid>
+								{/*карточка обьявления*/}
+								<CardOfferPlaceHolder/>
+								<CardOfferPlaceHolder/>
+								<CardOfferPlaceHolder/>
+
+							</Grid>
+
+						</Grid>
+					</Box>
+				</Container>
+
+
+
+
+				: <div className="clientPage text">
 				{/* <div className="clientPage__breadcrumbs thin">
 					<Link href="/">
 						<a className="breadCrumb light">Главная</a>
@@ -134,7 +396,7 @@ function Account() {
 						<a style={{ color: "#2C2C2C" }} className="line light">Личный кабинет</a>
 					</Link>
 				</div> */}
-				<div className="clientPage__menu">
+				 <div className="clientPage__menu">
 					{userInfo !== undefined && (
 						<div className="clientPage__userinfo">
 							<div className="clientPage__userpic">
@@ -197,7 +459,7 @@ function Account() {
 				<div className="clientPage__container">
 					{accountContent()}
 				</div>
-			</div>
+			</div>}
 			<div className="userPageWhiteSpace"></div>
 			<Dialog open={openPicUpload || false} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
 				<UserPicUpload {...{ imageType: "webp", optimiztionLevel: 0.7, maxScale: 5, Close: closePicUpload }} />
