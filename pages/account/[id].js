@@ -133,6 +133,109 @@ function Account() {
 	}
 
 
+	const CardOfferPlaceHolder = () => {
+		return (<Grid item container xs={12} spacing={1}>
+			{/*левый большой*/}
+			<Grid item xs={4}>
+				<Box>
+					<Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+						<div style={{width: "280px", height: "184px"}}/>
+					</Skeleton>
+				</Box>
+			</Grid>
+			{/*правый большой*/}
+			<Grid item container xs={8} spacing={1}>
+				{/*левый маленкьий 5 палочек*/}
+				<Grid item container xs={8} spacing={1}>
+					<Grid item xs={10}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={10}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={10}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={10}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "116px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={10}>
+						<Box style={{display: "flex", justifyContent: "flex-end"}}>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "224px", height: "24px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+				</Grid>
+				{/*правый маленький 2 палочки*/}
+				<Grid item container xs={4}>
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation="wave" variant="rectangular"
+									  sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					{/*3 прозрачные*/}
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation={false} variant="rectangular"
+									  sx={{bgcolor: 'rgba(199,199,199,0)', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation={false} variant="rectangular"
+									  sx={{bgcolor: 'rgba(199,199,199,0)', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+					<Grid item xs={8}>
+						<Box>
+							<Skeleton animation={false} variant="rectangular"
+									  sx={{bgcolor: 'rgba(199,199,199,0)', borderRadius: '15px'}}>
+								<div style={{width: "180px", height: "16px"}}/>
+							</Skeleton>
+						</Box>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>)
+	}
+
 	return (
 		<MetaLayout title={"Личный кабинет"}>
 			{!userInfo ?
@@ -142,15 +245,15 @@ function Account() {
 						<Grid container  spacing={2} >
 
 							{/*Колонка пользователя*/}
-							<Grid item container xs={2} spacing={1}>
+							<Grid item container xs={2} style={{height: "538px"}} spacing={1}>
 								<Grid item xs={12} >
-									<Box>
-										<Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#C7C7C780', width: "48px", height: "48px"}}/>
+									<Box style={{display: "flex", justifyContent: "center"}}>
+										<Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#C7C7C780', width: "80px", height: "80px"}}/>
 									</Box>
 								</Grid>
-								<Grid item xs={8}>
-									<Box >
-										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+								<Grid item xs={12}>
+									<Box style={{display: "flex", justifyContent: "center"}}>
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "134px", height: "16px"}} />
 										</Skeleton>
 									</Box>
 								</Grid>
@@ -160,72 +263,72 @@ function Account() {
 										</Skeleton>
 									</Box>
 								</Grid>
-								<Grid item xs={10}>
-									<Box >
-										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+								<Grid item xs={12}>
+									<Box style={{display: "flex", justifyContent: "center"}}>
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
 										</Skeleton>
 									</Box>
 								</Grid>
 
 								<Grid item xs={12}>
 									<Box >
-										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
 										</Skeleton>
 									</Box>
 								</Grid>
 
 								{/*многопалочек*/}
-								<Grid item container xs={5} spacing={1}>
+								<Grid item container xs={10} spacing={1}>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }} >
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
 									</Grid>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }}>
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
 									</Grid>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }}>
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
 									</Grid>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }}>
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
 									</Grid>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }}>
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
 									</Grid>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }}>
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
 									</Grid>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }}>
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
 									</Grid>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }}>
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
 									</Grid>
 									<Grid item xs={10}>
-										<Box >
+										<Box style={{paddingLeft: "10px" }}>
 											<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "296px", height: "16px"}} />
 											</Skeleton>
 										</Box>
@@ -235,7 +338,7 @@ function Account() {
 							</Grid>
 
 							{/*Обьявления*/}
-							<Grid item container xs={8} >
+							<Grid item container xs={10} spacing={2}>
 								<Grid item container xs={12} spacing={1}>
 									<Grid item xs={2}>
 										<Box >
@@ -256,12 +359,25 @@ function Account() {
 										</Box>
 									</Grid>
 								</Grid>
+								{/*длинная тонкая полоска*/}
 								<Grid item xs={12}>
 									<Box >
-										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "600px", height: "300px"}} />
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "952px", height: "2px"}} />
 										</Skeleton>
 									</Box>
 								</Grid>
+								{/*короткая полоса над карточками*/}
+								<Grid item xs={12}>
+									<Box >
+										<Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "146px", height: "16px"}} />
+										</Skeleton>
+									</Box>
+								</Grid>
+								{/*карточка обьявления*/}
+								<CardOfferPlaceHolder/>
+								<CardOfferPlaceHolder/>
+								<CardOfferPlaceHolder/>
+
 							</Grid>
 
 						</Grid>
