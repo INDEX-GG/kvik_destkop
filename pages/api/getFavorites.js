@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 			for (let index in list) {
 				postsList.push((list[index]).post_id)
 			}
-			let productsList = await prisma.$queryRaw(`SELECT * FROM posts WHERE id IN (${postsList})`)
+			let productsList = await prisma.$queryRaw(`SELECT * FROM posts WHERE id IN (${postsList}) AND active = 0 AND verify = 0`)
 			let peopleList = []
 			for (let index1 in productsList) {
 				peopleList.push((productsList[index1]).user_id)
