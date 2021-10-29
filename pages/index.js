@@ -68,9 +68,8 @@ const Index = () => {
 	const pending = () =>  setIsPending(true)
 
 	setTimeout(pending, 1000)
-
 	console.log(lastIdAds);
-	
+
 	useEffect(() => {
 		scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
 	}, [page])
@@ -79,7 +78,7 @@ const Index = () => {
 		 firstAds(id, isAuth, page, limit, setData, setLastIdAds)
 	}, [id]);
 
-	console.log('',page)
+	// console.log('',page)
 
 	return (
 
@@ -89,7 +88,7 @@ const Index = () => {
 				 {!isPending ? <IndexPlaceHolder />
 					 : <Box className={classes.main}>
 					<Box className={classes.offers}>
-						<OffersRender data={data} page={page} limitRender={limitRenderPage}
+						<OffersRender pending={pending} data={data} page={page} limitRender={limitRenderPage}
 									setLimitRenderPage={setLimitRanderPage}
 									setPage={setPage} title={'Рекомендуемое'}/>
 					</Box>

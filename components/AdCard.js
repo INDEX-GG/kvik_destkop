@@ -41,15 +41,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const classes = useClass()
 	const { id } = useAuth();
 	const {offer} = props;
-	// console.log('',offer)
-	// const clearPhoto = offer.photo.map(photo => photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
-	// 	? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
-	// 	: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
-	// 		? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
-	// 	: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
-	// )
-
-
 
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
@@ -138,6 +129,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 						<div className="card__top_slider">
 							{offer?.photo?.length === 1 ?
 								<img
+									loading="lazy"
 									ref={currentSwiper}
 									src={`${offer.photo[0]}`}
 									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
@@ -152,6 +144,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 											<SwiperSlide key={i} style={{position: 'relative'}}>
 												<img
 													src={`${img}`}
+													loading="lazy"
 													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 												/>
 												{
