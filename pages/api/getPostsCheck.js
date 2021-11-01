@@ -31,7 +31,8 @@ export default async function handler(req, res) {
                         if (value.length !== 0) {
                             let arrayQuery = ''
                             for (let variable of value) {
-                                arrayQuery = arrayQuery.concat(" LOWER (", category, ".", key, ") = '", variable.toLowerCase(), "' OR")
+                                console.log(variable);
+                                arrayQuery = arrayQuery.concat(" LOWER (", category, ".", key, ") = '", variable.toString().toLowerCase(), "' OR")
                             }
                             constructQuery =  constructQuery.concat("AND (", arrayQuery.substring(0, arrayQuery.length - 3), ")")
                         }
