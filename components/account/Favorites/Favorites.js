@@ -111,9 +111,8 @@ const Favorites = () => {
 
 		getDataByPost("/api/getSubscriptions", { user_id: String(id) }).then(r => setSeller(r))
 
-
-
 	}
+
 	// console.log(seller)
 	const navItems = [
 		{ id: 1, title: 'Объявления', content: <Offers key={1} itemsPost={favAciveOffer} />, count: favAciveOffer !== undefined ? favAciveOffer?.length : 0 },
@@ -124,22 +123,23 @@ const Favorites = () => {
 	return (
 		<>
 			<div className="clientPage__container_top">
-				<div className="clientPage__container_nav__wrapper">
-					<div className="clientPage__container_nav">
-						{navItems.map(item => {
-							return (
-								<a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')}  onClick={() => {
-									setItemNav({ i: item.id, ttl: item.title })
-									safeAccountTab(item.id)
-								}}>{item.title} {brooklyn(item.count)}</a>
-							)
-						})}
-					</div>
+			<div className="clientPage__container_nav__wrapper">
+				<div className="clientPage__container_nav">
+					{navItems.map(item => {
+						return (
+							<a key={item.id} className={(itemNav.i === item.id) ? ('navActive') : ('')}
+							   onClick={() => {
+								   setItemNav({i: item.id, ttl: item.title})
+								   safeAccountTab(item.id)
+							   }}>{item.title} {brooklyn(item.count)}</a>
+						)
+					})}
 				</div>
 			</div>
-			{navItems.map(item => {
+			</div>
+			{offetFav && navItems.map(item => {
 				return (
-					(itemNav.i === item.id) && (item.content)
+				(itemNav.i === item.id) && (item.content)
 				)
 			})}
 		</>
