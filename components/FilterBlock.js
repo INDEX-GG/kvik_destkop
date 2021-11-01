@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FilterBlock = ({ categoryData }) => {
+const FilterBlock = ({ categoryData, searchText, page, pageLimit }) => {
   const classes = useStyles();
   let filter;
   const category = categoryData?.aliasName[0].alias.toLowerCase();
@@ -42,17 +42,18 @@ const FilterBlock = ({ categoryData }) => {
   const [fetchedData, setFetchedData] = useState(null)
   const [services, setServices] = useState(false);
 
+
   useEffect(() => {
     servicesCategory === "services" ? setServices(true) : setServices(false)
   }, [servicesCategory]);
 
-  if (category){
-    axios.get(`${BASE_URL}/filters/` + category + `.json`)
-    .then(res => setFetchedData(res.data))
-    .catch(e => e)
-  }
-
-  console.log('category',category)
+  useEffect(() => {
+    if (category){
+      axios.get(`${BASE_URL}/filters/` + category + `.json`)
+        .then(res => setFetchedData(res.data))
+        .catch(e => e)
+    }
+  }, [category])
 
   switch (category) {
     case "new_building":
@@ -135,19 +136,52 @@ const FilterBlock = ({ categoryData }) => {
       filter = <DefaultFilter services={services}/>;
   }
 
+  const generateRangeKey = (data,fromKey, toKey, keyName) => {
+    data[keyName.toLowerCase()] = {
+      min: data[fromKey] ? +data[fromKey] : null,
+      max: data[toKey] ? +data[toKey] : null
+    }
+
+    delete data[fromKey]
+    delete data[toKey]
+  }
+
+
   const onSubmit = (data) => {
-    let result = {};
+
     for (let key in data) {
-      if (Array.isArray(data[key])) {
-        if (data[key].length > 0) {
-          result[key] = data[key];
-          continue;
-        }
-      } else if (data[key]) {
-        result[key] = data[key];
+      const fromKey = key.substring(0, 4)
+
+      if (fromKey === 'from') {
+        const keyName = key.substring(4,)
+        generateRangeKey(data, key, `to${keyName}`, keyName)
+      }
+
+      if (data[key] === undefined || data[key] === "") {
+        data[key] = null;
       }
     }
-    console.log(result);
+
+
+
+    const sendCheckObj = {
+      price: data.price,
+      category: categoryData?.aliasName[0]?.alias,
+      text: searchText ? searchText : "",
+      page: page == 'end' ? 1 : page,
+      page_limit: pageLimit,
+      check: {}
+    }
+
+    delete data.price
+
+    sendCheckObj.check = data
+
+    console.log(sendCheckObj);
+
+    axios.post('/api/getPostsCheck', sendCheckObj).then(r => {
+      console.log(r.data);
+    })
   };
 
   const clearFields = () => {
