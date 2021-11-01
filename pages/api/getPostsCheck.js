@@ -32,22 +32,22 @@ export default async function handler(req, res) {
                             let arrayQuery = ''
                             for (let variable of value) {
                                 console.log(variable);
-                                arrayQuery = arrayQuery.concat(" LOWER (", category, ".", key, ") = '", variable.toString().toLowerCase(), "' OR")
+                                arrayQuery = arrayQuery.concat(" (", category, ".\"", key, "\") = '", variable.toString().toLowerCase(), "' OR")
                             }
                             constructQuery =  constructQuery.concat("AND (", arrayQuery.substring(0, arrayQuery.length - 3), ")")
                         }
                     } else if (typeof value === 'object') {
                         if (!(value.max == null && value.min == null)) {
                             if (value.min == null) {
-                                constructQuery = constructQuery.concat(" AND ", category, ".", key, " <= ", value.max)
+                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" <= ", value.max)
                             } else if (value.max == null) {
-                                constructQuery = constructQuery.concat(" AND ", category, ".", key, " >= ", value.min)
+                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min)
                             } else {
-                                constructQuery = constructQuery.concat(" AND ", category, ".", key, " >= ", value.min, " AND ", category, ".", key, " <= ", value.max)
+                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min, " AND ", category, ".\"", key, "\" <= ", value.max)
                             }
                         }
                     } else {
-                        constructQuery = constructQuery.concat(" AND LOWER (", category, ".", key, ") = '", value.toLowerCase(), "'")
+                        constructQuery = constructQuery.concat(" AND LOWER (", category, ".\"", key, "\") = '", value.toLowerCase(), "'")
                     }
                 }
             }
