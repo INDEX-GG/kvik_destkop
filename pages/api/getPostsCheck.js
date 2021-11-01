@@ -28,11 +28,13 @@ export default async function handler(req, res) {
             for (const [key, value] of Object.entries(check)) {
                 if (value != null) {
                     if (Array.isArray(value)) {
-                        let arrayQuery = ''
-                        for (let variable of value) {
-                            arrayQuery = arrayQuery.concat(" LOWER (", category, ".", key, ") = '", variable.toLowerCase(), "' OR")
+                        if (value.length !== 0) {
+                            let arrayQuery = ''
+                            for (let variable of value) {
+                                arrayQuery = arrayQuery.concat(" LOWER (", category, ".", key, ") = '", variable.toLowerCase(), "' OR")
+                            }
+                            constructQuery =  constructQuery.concat("AND (", arrayQuery.substring(0, arrayQuery.length - 3), ")")
                         }
-                        constructQuery =  constructQuery.concat("AND (", arrayQuery.substring(0, arrayQuery.length - 3), ")")
                     } else if (typeof value === 'object') {
                         if (!(value.max == null && value.min == null)) {
                             if (value.min == null) {
