@@ -99,6 +99,9 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		}
 	}
 
+	// console.log('OFFER-PHOTO',offer.photo)
+	// console.log('OFFER-PHOTO',offer?.photo?.length)
+
 	const { matchesMobile, matchesTablet } = useMedia();
 	return (
 		<div
