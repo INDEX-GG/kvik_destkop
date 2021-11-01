@@ -26,21 +26,21 @@ function Wait({offers}) {
 
   return (
     <div className="clientPage__container_bottom">
-      <div className="clientPage__container_nav__radio">
-        <label className="checkbox">
-          <input 
-            type="checkbox"
-            onChange={(event) => {
-              setCheck(event.target.checked); 
-              event.target.checked ? null : setOfferId([])
-            }}
-            checked={check} 
-          />
-          <div className="checkbox__text"></div>
-        </label>
-        <a>Активировать</a>
-        <a>Удалить</a>
-      </div>
+      {/*<div className="clientPage__container_nav__radio">*/}
+      {/*  <label className="checkbox">*/}
+      {/*    <input */}
+      {/*      type="checkbox"*/}
+      {/*      onChange={(event) => {*/}
+      {/*        setCheck(event.target.checked); */}
+      {/*        event.target.checked ? null : setOfferId([])*/}
+      {/*      }}*/}
+      {/*      checked={check} */}
+      {/*    />*/}
+      {/*    <div className="checkbox__text"></div>*/}
+      {/*  </label>*/}
+      {/*  <a>Активировать</a>*/}
+      {/*  <a>Удалить</a>*/}
+      {/*</div>*/}
       <div className="clientPage__container_content">
         {offers.map((offer) => (
           <OfferWait 
