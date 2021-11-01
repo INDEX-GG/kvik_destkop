@@ -1,7 +1,6 @@
 import React from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import ReviewLeft from "../card/reviewLeft";
-import ReviewWaitPlaceHolder from "../../../placeHolders/ReviewPlaceHolder/ReviewWaitPlaceHolder/ReviewWaitPlaceHolder";
 import ReviewLeftPlaceHolder from "../../../placeHolders/ReviewPlaceHolder/ReviewLeftPlaceHolder/ReviewLeftPlaceHolder";
 
 
