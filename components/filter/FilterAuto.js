@@ -27,34 +27,34 @@ const FilterAuto = () => {
   }, [])
 
   useEffect(() => {
-    if (methods.watch('mark')) {
-        axios.get(`/auto_brand/` + (methods.watch('mark')) + `.json`)
+    if (methods.watch('modelsAuto')) {
+        axios.get(`/auto_brand/` + (methods.watch('modelsAuto')) + `.json`)
             .then((result) => setModel(result.data.children));
             // .catch((e) => console.log(e))
         setGeneration()
         methods.setValue('generation', '')
-        methods.setValue('modelsAuto', '')
-    }
-
-  }, [methods.watch('mark')])
-
-  useEffect(() => {
-    if (methods.watch('modelsAuto')) {
-      // console.log(model.find(el => el.value === methods.watch('modelsAuto')));
-      setGeneration(model.find(el => el.value === methods.watch('modelsAuto')).children)
-      methods.setValue('generation', '')
+        methods.setValue('submodels', '')
     }
 
   }, [methods.watch('modelsAuto')])
+
+  useEffect(() => {
+    if (methods.watch('submodels')) {
+      // console.log(model.find(el => el.value === methods.watch('modelsAuto')));
+      setGeneration(model.find(el => el.value === methods.watch('submodels')).children)
+      methods.setValue('generation', '')
+    }
+
+  }, [methods.watch('submodels')])
 
 
   return (
     <>
       <FilterTwoFields data={{firstAlias:"fromPrice", secondAlias:'toPrice', title:"Цена, ₽"}} /> 
-      <FilterSelect data={{alias:"type", title:"Тип автомобиля", fields: ["Любой", "Новые", "С пробегом" ]}} />
-      {methods.watch('type') !== 'Новые' && methods.watch('type') ? <FilterTwoFields unmount data={{firstAlias:"fromMileage", secondAlias:'toMileage', title:"Пробег, км"}} /> : null }
-      <FilterSelect data={{alias:"mark", title:"Марка", fields: mark}} />
-      {model && <FilterSelect data={{alias:"modelsAuto", title:"Модель", fields: model.map(el => el.value)}} />}
+      <FilterSelect data={{alias:"type_park_auto", title:"Тип автомобиля", fields: ["Любой", "Новый", "С пробегом" ]}} />
+      {methods.watch('type_park_auto') !== 'Новый' && methods.watch('type_park_auto') ? <FilterTwoFields unmount data={{firstAlias:"fromMileage", secondAlias:'toMileage', title:"Пробег, км"}} /> : null }
+      <FilterSelect data={{alias:"modelsAuto", title:"Марка", fields: mark}} />
+      {model && <FilterSelect data={{alias:"submodels", title:"Модель", fields: model.map(el => el.value)}} />}
       {generation && <FilterSelect data={{alias:"generation", title:"Поколение", fields: generation.map(el => el.value)}} />}
       <FilterMultipleSelect data={{alias:"bodytype", title:"Кузов", fields: ["Седан", "Хэтчбек 5 дв.","Хэтчбек 3 дв.","Лифтбек","Джип 5 дв.","Джип 3 дв.", "Универсал", "Минивэн", "Пикап", "Купе",  "Открытый" ]}} />
       <FilterAutoYears data={{firstAlias:"fromYear", secondAlias:'toYear', title:"Год выпуска", fields: years   }} />
@@ -63,10 +63,10 @@ const FilterAuto = () => {
       <FilterSelect data={{alias:"fueltype", title:"Двигатель", fields: ["Бензин", "Дизель", "Электро", "Гибрид" ]}} />
       <FilterAutoYears data={{firstAlias:"fromEnginesize", secondAlias:'toEnginesize', title:"Объем двигателя, л.", fields: enginesize }} />
       <FilterRadio data={{title:"Руль", alias:'steeringWheel', fields:['Любой','Правый','Левый'] }}  />
-      <FilterTwoFields data={{firstAlias:"fromPower", secondAlias:'toPower', title:"Мощность, л.с."}} /> 
+      <FilterTwoFields data={{firstAlias:"fromPower", secondAlias:'toPower', title:"Мощность, л.с."}} />
       <FilterColor alias='color' title='Цвет' />
-      {methods.watch('type') !== 'Новые' && methods.watch('type') ? <FilterSelect unmount data={{alias:"condition", title:"Состояние", fields: ["Битый", "Не битый", "На гарантии"]}} /> : null }
-      {methods.watch('type') !== 'С пробегом' && methods.watch('type') ? <FilterSelect unmount data={{alias:"status", title:"Статус", fields: ["В пути", "В наличии", "Под заказ"]}} /> : null }
+      {methods.watch('type_park_auto') !== 'Новый' && methods.watch('type_park_auto') ? <FilterSelect unmount data={{alias:"condition", title:"Состояние", fields: ["Битый", "Не битый", "На гарантии"]}} /> : null }
+      {methods.watch('type_park_auto') !== 'С пробегом' && methods.watch('type_park_auto') ? <FilterSelect unmount data={{alias:"status", title:"Статус", fields: ["В пути", "В наличии", "Под заказ"]}} /> : null }
       <FilterRadio data={{title:"Срок размещения", alias:'period', fields:['За все время','За последнюю неделю','За последние сутки'] }}  />
     </>
   );

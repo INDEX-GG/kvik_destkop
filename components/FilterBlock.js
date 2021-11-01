@@ -9,6 +9,7 @@ import FilterVacancies from "./filter/FilterVacancies";
 import FilterProduct from "./filter/FilterProduct";
 import axios from "axios";
 import { BASE_URL } from "../lib/constants";
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -35,12 +36,17 @@ const useStyles = makeStyles(() => ({
 
 const FilterBlock = ({ categoryData, searchText, page, pageLimit }) => {
   const classes = useStyles();
-  let filter;
   const category = categoryData?.aliasName[0].alias.toLowerCase();
   const servicesCategory = categoryData?.aliasBread[0].alias
   const methods = useForm({ defaultValues: defaultValues });
   const [fetchedData, setFetchedData] = useState(null)
   const [services, setServices] = useState(false);
+  let filter;
+
+
+  useEffect(() => {
+    methods.reset()
+  }, [categoryData, searchText])
 
 
   useEffect(() => {
@@ -157,7 +163,7 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit }) => {
         generateRangeKey(data, key, `to${keyName}`, keyName)
       }
 
-      if (data[key] === undefined || data[key] === "") {
+      if (data[key] === undefined || data[key] === "" || data[key] === 'Любой') {
         data[key] = null;
       }
     }
@@ -169,11 +175,13 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit }) => {
       category: categoryData?.aliasName[0]?.alias,
       text: searchText ? searchText : "",
       page: page == 'end' ? 1 : page,
+      period: data.period,
       page_limit: pageLimit,
       check: {}
     }
 
     delete data.price
+    delete data.period
 
     sendCheckObj.check = data
 
