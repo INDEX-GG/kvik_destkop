@@ -99,7 +99,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		}
 	}
 
-
 	const { matchesMobile, matchesTablet } = useMedia();
 	return (
 		<div
