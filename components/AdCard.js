@@ -99,9 +99,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		}
 	}
 
-	// console.log('OFFER-PHOTO',offer.photo)
-	// console.log('OFFER-PHOTO',offer?.photo?.length)
-
 	const { matchesMobile, matchesTablet } = useMedia();
 	return (
 		<div
@@ -142,7 +139,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 									pagination={pagination}
 									slidesPerView={1}
 								>	
-									{offer.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
+									{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
 										return (
 											<SwiperSlide key={i} style={{position: 'relative'}}>
 												<img
