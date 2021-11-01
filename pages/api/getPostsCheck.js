@@ -1,8 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import {Pool} from "pg";
 
 export default async function handler(req, res) {
+
     if (req.method === 'POST') {
-        const prisma = new PrismaClient();
+        const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
         const main = async () => {
             const category = req.body.category.toLowerCase();
@@ -12,28 +13,29 @@ export default async function handler(req, res) {
             const price_min = req.body.price.min
             const price_max = req.body.price.max
             const check = req.body.check
-            console.log(check);
-            console.log('-- -- --')
             let constructQuery = ''
             for (const [key, value] of Object.entries(check)) {
-                console.log(`${key}: ${value}`);
                 if (typeof value === 'object') {
-                    console.log("it`s Object!")
-                    constructQuery.concat()
+                    if (!(value.max == null && value.min == null)) {
+                        if (value.min == null) {
+                            constructQuery =  constructQuery.concat(" AND ", category, ".", key, " <= ", value.max)
+                        }
+                        else if (value.max == null) {
+                            constructQuery =  constructQuery.concat(" AND ", category, ".", key, " >= ", value.min)
+                        }
+                        else {
+                            constructQuery =  constructQuery.concat(" AND ", category, ".", key, " >= ", value.min, " AND ", category, ".", key, " <= ", value.max)
+                        }
+                    }
                 } else {
-                    console.log("it`s String!")
-                    constructQuery =  constructQuery.concat(" AND LOWER (", category, ".", key, ") = '", value.toLowerCase(), "'")
+                    if (value != null) {
+                        constructQuery =  constructQuery.concat(" AND LOWER (", category, ".", key, ") = '", value.toLowerCase(), "'")
+                    }
                 }
             }
-            console.log('--- --- ---')
-            console.log(constructQuery);
-
-
-            return await prisma.$queryRaw(`SELECT posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts","${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 AND posts.price >= ${price_min} AND posts.price <= ${price_max} ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
-
-
+            const answer  = await pool.query(`SELECT posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts","${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 AND posts.price >= ${price_min} AND posts.price <= ${price_max} ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+            return(answer.rows)
         }
-
         try {
             let response = await main();
             res.status(200);
@@ -46,7 +48,7 @@ export default async function handler(req, res) {
             res.status(405).end();
         }
         finally {
-            await prisma.$disconnect();
+            await pool.end();
         }
 
     } else {
