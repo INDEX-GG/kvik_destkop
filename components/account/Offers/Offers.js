@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Active from "./tabs/Active";
 import Wait from "./tabs/Wait";
 import Archive from "./tabs/Archive";
-import Placeholder from "./tabs/Placeholder";
 import { useRouter } from "next/router";
 import { brooklyn } from "../../../lib/services";
 
@@ -73,7 +72,7 @@ const Offers = () => {
             </div>
           </div>
         </div>
-        {navItems.map(item => itemNav.i === item.id && (item.count > 0 ? item.content : <Placeholder key={item.id}/>))}
+        {navItems.map(item => itemNav.i === item.id && item.content )}
       </>
   );
 };
