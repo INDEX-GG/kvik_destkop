@@ -12,7 +12,7 @@ import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
 import {initials, stringToColor, ToRusAccountDate} from "../../lib/services";
 import {ModalRating, ModalSubscription} from "../../components/Modals";
-import {Avatar, Button, Dialog, DialogTitle} from "@material-ui/core";
+import {Avatar, Box, Button, Dialog, DialogTitle} from "@material-ui/core";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {mutate} from "swr";
@@ -21,6 +21,8 @@ import {useAuth} from "../../lib/Context/AuthCTX";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import {useStore} from "../../lib/Context/Store";
 import AccountPlaceHolder from "../../components/placeHolders/AccountPlaceHolder/AccountPlaceHolder";
+import {Grid, Skeleton} from "@mui/material";
+import {MenuItem} from "../../components/placeHolders/AccountCardPlaceHolder/AccountCardPlaceHolder";
 
 
 const menuItems = [
@@ -156,7 +158,11 @@ function Account() {
                     <div className="clientPage__menu">
 
                         <div className="clientPage__userinfo">
-                            <div className="clientPage__userpic">
+
+                            {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
+                                    <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#C7C7C780', width: "80px", height: "80px"}}/>
+                                </Box>
+                                :<div className="clientPage__userpic">
 
                                 <Avatar src={userInfo.userPhoto}
                                         style={{backgroundColor: `${stringToColor(userInfo.name)}`}}>
@@ -164,15 +170,40 @@ function Account() {
                                 </Avatar>
 
                                 <button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"/>
-                            </div>
-                            <div className="clientPage__username">{userInfo.name}</div>
-                            <div className="clientPage__userRegDate light small">на Kvik
-                                c {ToRusAccountDate(userInfo.createdAt)}</div>
-                            <div className="clientPage__userrate">
+                            </div>}
+
+
+                            {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "6px"}}>
+                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "134px", height: "16px"}} />
+                                    </Skeleton>
+                                </Box>
+                                :<div className="clientPage__username">{userInfo.name}</div>}
+
+
+                            {!userInfo ? <Box style={{paddingBottom: "10px"}}>
+                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "196px", height: "16px"}} />
+                                    </Skeleton>
+                                </Box>
+                                :<div className="clientPage__userRegDate light small">на Kvik
+                                c {ToRusAccountDate(userInfo.createdAt)}</div>}
+
+
+                            {!userInfo
+                                ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
+                                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
+                                        </Skeleton>
+                                    </Box>
+                                :<div className="clientPage__userrate">
                                 <div className="clientPage__userrate__num">{userInfo.raiting}</div>
                                 <StarRating {...{rating: userInfo.raiting}} />
-                            </div>
-                            <div className="clientPage__userstats highlight small">
+                            </div>}
+
+
+                            {!userInfo ? <Box >
+                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
+                                    </Skeleton>
+                                </Box>
+                                :<div className="clientPage__userstats highlight small">
                                 <a onClick={() => setReviewsModal(!reviewsModal)}
                                    className="offerUnpublish thin superLight userInfoReviews">
                                     {'0'}
@@ -188,9 +219,20 @@ function Account() {
                                     {userInfo && userInfo?.subscriptions !== undefined ? userInfo.subscriptions?.length : '0'}
                                     <p>подписок</p>
                                 </a>
-                            </div>
+                            </div>}
                         </div>
-                        <div className="userMenuContainer">
+                        {!userInfo ? <Grid item container xs={10} spacing={1}>
+                                <MenuItem/>
+                                <MenuItem/>
+                                <MenuItem/>
+                                <MenuItem/>
+                                <MenuItem/>
+                                <MenuItem/>
+                                <MenuItem/>
+                                <MenuItem/>
+                                <MenuItem/>
+                            </Grid>
+                            :<div className="userMenuContainer">
                             {matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null :
                                 <>
                                     {menuItems.map((item) => {
@@ -216,7 +258,7 @@ function Account() {
                                    className="offerUnpublish thin superLight menuLogoff smooth">
                                     Выход
                                 </a>}
-                        </div>
+                        </div>}
                     </div>
                     <div className="clientPage__container">
                         {accountContent()}
