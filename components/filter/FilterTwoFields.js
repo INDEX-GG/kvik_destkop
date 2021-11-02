@@ -84,7 +84,8 @@ const FilterTwoFields = ({ data, unmount }) => {
                   variant="outlined"
                   value={value}
                   placeholder="до"
-                  onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                  onChange={(e) => onChange(OnlyNumbersMask(e, "num"))
+                  }
                 />
                 {value?.length && value.length < 8 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
