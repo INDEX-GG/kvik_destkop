@@ -47,7 +47,7 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
 
   useEffect(() => {
     methods.reset()
-  }, [categoryData, searchText])
+  }, [searchText, category])
 
 
   useEffect(() => {
@@ -213,7 +213,6 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
 
 
   const onSubmit = (data) => {
-
     if (window) {
       window.scrollTo(0, 0)
     }
@@ -243,11 +242,17 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
     }
 
 
+    if (data.color?.length) {
+      data.color = data.color.map(item => item + 1)
+    }
+
     delete data.price
     delete data?.period
 
     sendCheckObj.check = data
 
+
+    console.log(sendCheckObj);
 
     axios.post('/api/getPostsCheck', sendCheckObj)
       .then(r => {
