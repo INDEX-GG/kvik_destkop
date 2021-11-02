@@ -11,6 +11,7 @@ import axios from "axios";
 import { BASE_URL } from "../lib/constants";
 import {generateDataArr} from "../lib/services";
 import moment from 'moment'
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -42,6 +43,7 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
   const methods = useForm({ defaultValues: defaultValues });
   const [fetchedData, setFetchedData] = useState(null)
   const [services, setServices] = useState(false);
+  const router = useRouter()
   let filter;
 
 
@@ -143,11 +145,14 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
       filter = <DefaultFilter services={services}/>;
   }
 
-  const generateRangeKey = (data,fromKey, toKey, keyName) => {
+  const generateRangeKey = (data, fromKey, toKey, keyName, routeObj) => {
     data[keyName.toLowerCase()] = {
       min: data[fromKey] ? +data[fromKey] : null,
       max: data[toKey] ? +data[toKey] : null
     }
+
+    if (data[fromKey]) routeObj[fromKey] = String(data[fromKey])
+    if (data[toKey]) routeObj[toKey] = String(data[toKey])
 
     delete data[fromKey]
     delete data[toKey]
@@ -217,16 +222,20 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
       window.scrollTo(0, 0)
     }
 
+    const routeObj = {}
+
     for (let key in data) {
       const fromKey = key.substring(0, 4)
 
       if (fromKey === 'from') {
         const keyName = key.substring(4,)
-        generateRangeKey(data, key, `to${keyName}`, keyName)
+        generateRangeKey(data, key, `to${keyName}`, keyName, routeObj)
       }
 
       if (data[key] === undefined || data[key] === "" || data[key] === 'Любой') {
         data[key] = null;
+      } else {
+        routeObj[key] = String(data[key])
       }
     }
 
@@ -252,8 +261,6 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
     sendCheckObj.check = data
 
 
-    console.log(sendCheckObj);
-
     axios.post('/api/getPostsCheck', sendCheckObj)
       .then(r => {
       setCheckbox(generateDataArr(r.data));
@@ -261,10 +268,25 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
       .catch((e) => {
         console.log(e)
       })
+
+    router.push({
+      pathname: `${router.pathname}`,
+      query: {
+        alias: router.query.alias,
+        ...routeObj
+      }
+    })
   };
 
   const clearFields = () => {
     methods.reset();
+    setCheckbox(undefined)
+    router.push({
+      pathname: router.pathname,
+      query: {
+        alias: router.query.alias
+      }
+    })
   };
 
   return (
