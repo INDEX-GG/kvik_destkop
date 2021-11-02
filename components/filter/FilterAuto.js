@@ -62,7 +62,7 @@ const FilterAuto = () => {
       <FilterSelect data={{alias:"transmission", title:"Коробка передач", fields: ["Автомат", "Механика", "Вариатор", "Робот" ]}} />
       <FilterSelect data={{alias:"fueltype", title:"Двигатель", fields: ["Бензин", "Дизель", "Электро", "Гибрид" ]}} />
       <FilterAutoYears data={{firstAlias:"fromEnginesize", secondAlias:'toEnginesize', title:"Объем двигателя, л.", fields: enginesize }} />
-      <FilterRadio data={{title:"Руль", alias:'steeringWheel', fields:['Любой','Правый','Левый'] }}  />
+      <FilterRadio data={{title:"Руль", alias:'steering_wheel', fields:['Любой','Правый','Левый'] }}  />
       <FilterTwoFields data={{firstAlias:"fromPower", secondAlias:'toPower', title:"Мощность, л.с."}} />
       <FilterColor alias='color' title='Цвет' />
       {methods.watch('type_park_auto') !== 'Новый' && methods.watch('type_park_auto') ? <FilterSelect unmount data={{alias:"condition", title:"Состояние", fields: ["Битый", "Не битый", "На гарантии"]}} /> : null }
