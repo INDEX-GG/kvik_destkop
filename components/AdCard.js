@@ -42,6 +42,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const { id } = useAuth();
 	const {offer} = props;
 
+	const { matchesMobile, matchesTablet } = useMedia();
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
 	// let scheduled = false;
@@ -99,7 +100,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		}
 	}
 
-	const { matchesMobile, matchesTablet } = useMedia();
 	return (
 		<div
 			ref={ref}
