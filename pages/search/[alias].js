@@ -59,7 +59,7 @@ const Index = () => {
 	const [page, setPage] = useState(1);
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
 	const [/** lastIdAds */ ,setLastIdAds] = useState(0);
-	const [checkboxDate, setCheckboxDate] = useState([])
+	const [checkboxDate, setCheckboxDate] = useState(undefined)
 
 	const router = useRouter()
 	const { matchesMobile, matchesTablet } = useMedia();
@@ -160,7 +160,7 @@ const Index = () => {
 				<Box className={classes.offers} >
 					<SearchRender 
 						title={generateTitle()}
-						data={checkboxDate.length ? checkboxDate : data}
+						data={Array.isArray(checkboxDate) ? checkboxDate : data}
 						page={page} 
 						limitRender={limitRenderPage} 
 						setLimitRenderPage={setLimitRanderPage} 
