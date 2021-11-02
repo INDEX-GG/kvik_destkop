@@ -278,12 +278,12 @@ const Product = () => {
                     </div>
                   </div>
 
-                  {!matchesMobile && !matchesTablet && !matchesLaptop && (
-                    <div className="showsmthWrapper">
-                      <div className="freedomBlock_1"></div>
-                      <div className="freedomBlock_2"></div>
-                    </div>
-                  )}
+                  {/*{!matchesMobile && !matchesTablet && !matchesLaptop && (*/}
+                  {/*  <div className="showsmthWrapper">*/}
+                  {/*    <div className="freedomBlock_1"></div>*/}
+                  {/*    <div className="freedomBlock_2"></div>*/}
+                  {/*  </div>*/}
+                  {/*)}*/}
                 </div>
                 <div className="productPageContent">
                   <div className="productPageCard">
@@ -295,14 +295,14 @@ const Product = () => {
 										{(collSO && "Показать ещё") || "Скрыть"}
 									</div> */}
                   </div>
-                  <div className="productPageSimilar__advertisement">
-                    {!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (
-                      <div className="showsmthWrapper">
-                        <div className="freedomBlock_1"></div>
-                        <div className="freedomBlock_2"></div>
-                      </div>
-                    )}
-                  </div>
+                  {/*<div className="productPageSimilar__advertisement">*/}
+                  {/*  {!matchesMobile && !matchesTablet && !matchesDesktop && !matchesHD && (*/}
+                  {/*    <div className="showsmthWrapper">*/}
+                  {/*      <div className="freedomBlock_1"></div>*/}
+                  {/*      <div className="freedomBlock_2"></div>*/}
+                  {/*    </div>*/}
+                  {/*  )}*/}
+                  {/*</div>*/}
                 </div>
               </div>}
           </div>
