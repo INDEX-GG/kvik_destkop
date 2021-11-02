@@ -249,9 +249,13 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
     sendCheckObj.check = data
 
 
-    axios.post('/api/getPostsCheck', sendCheckObj).then(r => {
+    axios.post('/api/getPostsCheck', sendCheckObj)
+      .then(r => {
       setCheckbox(generateDataArr(r.data));
-    })
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   };
 
   const clearFields = () => {
