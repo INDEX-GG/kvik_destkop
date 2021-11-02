@@ -1,11 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import {Pool} from "pg";
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
-		const prisma = new PrismaClient();
+		const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 		const main = async () => {
 			const subcategory = req.body.subcategory;
 			if (subcategory != null && subcategory !== '') {
-				const subs = await prisma.$queryRaw(`SELECT * FROM ${subcategory} WHERE post_id = '${req.body.post_id}'`)
+				const subs = (await pool.query(`SELECT * FROM ${subcategory} WHERE post_id = '${req.body.post_id}'`)).rows
 				let dict = subs[0]
 				dict.subcategory = subcategory
 				// for (var key in dict){
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 			res.status(405).end();
 		}
 		finally {
-			await prisma.$disconnect();
+			await pool.end();
 		}
 
 	} else {
