@@ -7,6 +7,8 @@ import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordShar
 import OfferActive from "../card/offerActive";
 import Placeholder from "./Placeholder";
 import OfferModal from "../../../OfferModal";
+import OfferActivePlaceHolder
+	from "../../../placeHolders/OfferPlaceHolder/OfferActivePlaceHolder/OfferActivePlaceHolder";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,13 +62,18 @@ function Active({offers}) {
 
 	if (offers.length < 1) {
 		return (
-			<Placeholder />
+			<>
+				{!offers ? <OfferActivePlaceHolder/> : <Placeholder/>}
+			</>
 		);
 	}
 
+	console.log('offers',offers)
+
 	return (
 		<>
-			<div className="clientPage__container_bottom">
+			{!offers ? <OfferActivePlaceHolder/>
+				:<div className="clientPage__container_bottom">
 				{offers.length > 1 && <div className="clientPage__container_nav__radio">
 					<Checkbox
 						className={classes.check}
@@ -101,7 +108,7 @@ function Active({offers}) {
 						);
 					})}
 				</div>
-			</div>
+			</div>}
 			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
 				<OfferModal
 					offerId={offerId}

@@ -79,15 +79,17 @@ const ProductPlaceHolder = () => {
                             </Skeleton>
                         </Box>
                     </Box>
-                    <Grid container style={{paddingTop: "30px"}} rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
-                        <Grid item xs={6} md={1}>
+                    <Grid container style={{paddingTop: "30px"}} spacing={1}>
+                        {/*круг*/}
+                        <Grid item xs={1} >
                             <Box>
                                 <Skeleton variant="circular" animation="wave" width={50} height={50} />
                             </Box>
                         </Grid>
-                        <Grid item xs={6} md={8}>
-                            <Box>
-                                <Skeleton  animation="wave" variant="rectangular"  width="57%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px', paddingLeft: "5px"  }}><div style={{ paddingTop: '20%'}} />
+                        {/*прямоугольник*/}
+                        <Grid item xs={8} >
+                            <Box style={{ paddingLeft: "15px"}}>
+                                <Skeleton  animation="wave" variant="rectangular"  width="57%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
                                 </Skeleton>
                             </Box>
                         </Grid>

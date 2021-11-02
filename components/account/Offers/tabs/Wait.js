@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import OfferWait from "../card/offerWait";
+import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
+import Placeholder from "../../../User/tabs/Placeholder";
 
 function Wait({offers}) {
 
@@ -15,44 +17,46 @@ function Wait({offers}) {
 		offerId.length === offers.length ? check ? null : setCheck(true) : check===false ? null : setCheck(false);
 	}, [offerId])
 
-  // if (offers.length === 0) {
-  //   return (
-  //     <EmptyPlaceholder
-  //       title='Здесь буду ваши объявления'
-  //       subtitle='Текст'
-  //     />
-  //   );
-  // }
+  if (offers.length === 0) {
+    return (
+     <>
+       {!offers ? <OfferWaitPlaceHolder/> :<Placeholder />}
+     </>
+    );
+  }
 
   return (
-    <div className="clientPage__container_bottom">
-      {/*<div className="clientPage__container_nav__radio">*/}
-      {/*  <label className="checkbox">*/}
-      {/*    <input */}
-      {/*      type="checkbox"*/}
-      {/*      onChange={(event) => {*/}
-      {/*        setCheck(event.target.checked); */}
-      {/*        event.target.checked ? null : setOfferId([])*/}
-      {/*      }}*/}
-      {/*      checked={check} */}
-      {/*    />*/}
-      {/*    <div className="checkbox__text"></div>*/}
-      {/*  </label>*/}
-      {/*  <a>Активировать</a>*/}
-      {/*  <a>Удалить</a>*/}
-      {/*</div>*/}
-      <div className="clientPage__container_content">
-        {offers.map((offer) => (
-          <OfferWait 
-            key={offer.id} 
-            offer={offer}
-            parentCheck={check}
-            getChildCheck={getChildCheck}
-            offerId={offerId}
-          />
-        ))}
-      </div>
-    </div>
+      <>
+        {!offers ? <OfferWaitPlaceHolder/>
+            :<div className="clientPage__container_bottom">
+              {/*<div className="clientPage__container_nav__radio">*/}
+              {/*  <label className="checkbox">*/}
+              {/*    <input */}
+              {/*      type="checkbox"*/}
+              {/*      onChange={(event) => {*/}
+              {/*        setCheck(event.target.checked); */}
+              {/*        event.target.checked ? null : setOfferId([])*/}
+              {/*      }}*/}
+              {/*      checked={check} */}
+              {/*    />*/}
+              {/*    <div className="checkbox__text"></div>*/}
+              {/*  </label>*/}
+              {/*  <a>Активировать</a>*/}
+              {/*  <a>Удалить</a>*/}
+              {/*</div>*/}
+              <div className="clientPage__container_content">
+                {offers.map((offer) => (
+                    <OfferWait
+                        key={offer.id}
+                        offer={offer}
+                        parentCheck={check}
+                        getChildCheck={getChildCheck}
+                        offerId={offerId}
+                    />
+                ))}
+              </div>
+            </div>}
+      </>
   );
 }
 export default Wait;

@@ -11,7 +11,7 @@ import { getDataByPost } from "../../lib/fetch";
 import { STATIC_URL } from "../../lib/constants";
 import { categoryScroll } from "../../lib/scrollAds";
 import FilterBlock from "../../components/FilterBlock";
-import { generateAliasStr } from "../../lib/services";
+import { generateAliasStr, generateDataArr } from "../../lib/services";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -59,6 +59,7 @@ const Index = () => {
 	const [page, setPage] = useState(1);
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
 	const [/** lastIdAds */ ,setLastIdAds] = useState(0);
+	const [checkboxDate, setCheckboxDate] = useState([])
 
 	const router = useRouter()
 	const { matchesMobile, matchesTablet } = useMedia();
@@ -78,17 +79,6 @@ const Index = () => {
 
 		return router.query.text
 	}
-
-	const generateDataArr = (arr) => {
-		const dataArr = arr.map(offer => {
-			return {
-				...offer,
-				photo: JSON.parse(offer.photo)?.photos.map(img => `${STATIC_URL}/${img}`)
-			}
-		})
-
-		return dataArr
-	} 
 
 
 	useEffect(() => {
@@ -111,10 +101,15 @@ const Index = () => {
 			getDataByPost('/api/postCategorySearch', { data: aliasFullUrl, 'page_limit': limit, 'page': 1 }).then(r => {
 				if (r !== undefined) {
 					const offersData = r.map(offer => {
-						return {
-							...offer,
-							photo: JSON.parse(offer.photo)?.photos.map(img => `${STATIC_URL}/${img}`)
+
+						if (Array.isArray(JSON.parse(offer.photo)?.photos)) {
+							return {
+								...offer,
+								photo: JSON.parse(offer.photo)?.photos.map(img => `${STATIC_URL}/${img}`)
+							}
 						}
+
+						return offer;
 					})
 					setData(offersData);
 					setPage(1);
@@ -124,6 +119,11 @@ const Index = () => {
 		}
 		}
 	}, [router]);
+
+
+	useEffect(() => {
+		console.log(checkboxDate);
+	}, [checkboxDate])
 
 
 	useEffect(() => {
@@ -160,14 +160,20 @@ const Index = () => {
 				<Box className={classes.offers} >
 					<SearchRender 
 						title={generateTitle()}
-						data={data} 
+						data={checkboxDate.length ? checkboxDate : data}
 						page={page} 
 						limitRender={limitRenderPage} 
 						setLimitRenderPage={setLimitRanderPage} 
 						setPage={setPage} /></Box>
 				{!matchesMobile && !matchesTablet &&
 					<Box className={classes.rightBlock}>
-						<FilterBlock categoryData={aliasData} />
+						<FilterBlock
+							categoryData={aliasData}
+							searchText={searchText}
+							page={page}
+							pageLimit={limit}
+							setCheckbox={setCheckboxDate}
+						/>
 						<div className={classes.ad}>
 							<Image src={"/img/joker1.png"} width={224} height={480} />
 							<Image src={"/img/joker2.png"} width={224} height={480} />

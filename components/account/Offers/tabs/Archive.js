@@ -5,6 +5,7 @@ import OfferArchive from "../card/offerArchive";
 import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -71,10 +72,12 @@ function Archive({offers}) {
 
 	if (offers.length == 0) {
 		return (
-			<EmptyPlaceholder
-				title='Здесь будут ваши законченные объявления'
-				subtitle='Текст'
-			/>
+			<>
+				{!offers ? <OfferWaitPlaceHolder/> :<EmptyPlaceholder
+					title='Здесь будут ваши законченные объявления'
+					subtitle='Текст'
+				/>}
+			</>
 		);
 	}
 
@@ -86,7 +89,8 @@ function Archive({offers}) {
 
 	return (
 		<>
-			<div className="clientPage__container_bottom">
+			{!offers ? <OfferWaitPlaceHolder/>
+				:<div className="clientPage__container_bottom">
 				{offers.length > 1 && <div className="clientPage__container_nav__radio">
 					<Checkbox
 						className={classes.check}
@@ -125,7 +129,7 @@ function Archive({offers}) {
 						);
 					})}
 				</div>
-			</div>
+			</div>}
 			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
 				<OfferModal
 					offerId={offerId}

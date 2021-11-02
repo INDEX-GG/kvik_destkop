@@ -13,27 +13,51 @@ export default async function handler(req, res) {
             const price_min = req.body.price.min
             const price_max = req.body.price.max
             const check = req.body.check
+            const time = req.body.time
             let constructQuery = ''
+            if (time != null) {
+                constructQuery =  constructQuery.concat(" AND posts.created_at >= '", time, "'")
+            }
+            if (!(price_min == null && price_max == null)) {
+                if (price_min == null) {
+                    constructQuery =  constructQuery.concat(" AND posts.price <= ", price_max)
+                }
+                else if (price_max == null) {
+                    constructQuery =  constructQuery.concat(" AND posts.price >= ", price_min)
+                }
+                else {
+                    constructQuery =  constructQuery.concat(" AND posts.price <= ", price_max, " AND posts.price >= ", price_min)
+                }
+            }
             for (const [key, value] of Object.entries(check)) {
-                if (typeof value === 'object') {
-                    if (!(value.max == null && value.min == null)) {
-                        if (value.min == null) {
-                            constructQuery =  constructQuery.concat(" AND ", category, ".", key, " <= ", value.max)
+                if (value != null) {
+                    if (Array.isArray(value)) {
+                        if (value.length !== 0) {
+                            let arrayQuery = ''
+                            for (let variable of value) {
+                                console.log(variable);
+                                arrayQuery = arrayQuery.concat(" (", category, ".\"", key, "\") = '", variable.toString().toLowerCase(), "' OR")
+                            }
+                            constructQuery =  constructQuery.concat("AND (", arrayQuery.substring(0, arrayQuery.length - 3), ")")
                         }
-                        else if (value.max == null) {
-                            constructQuery =  constructQuery.concat(" AND ", category, ".", key, " >= ", value.min)
+                    } else if (typeof value === 'object') {
+                        if (!(value.max == null && value.min == null)) {
+                            if (value.min == null) {
+                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" <= ", value.max)
+                            } else if (value.max == null) {
+                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min)
+                            } else {
+                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min, " AND ", category, ".\"", key, "\" <= ", value.max)
+                            }
                         }
-                        else {
-                            constructQuery =  constructQuery.concat(" AND ", category, ".", key, " >= ", value.min, " AND ", category, ".", key, " <= ", value.max)
-                        }
-                    }
-                } else {
-                    if (value != null) {
-                        constructQuery =  constructQuery.concat(" AND LOWER (", category, ".", key, ") = '", value.toLowerCase(), "'")
+                    } else {
+                        constructQuery = constructQuery.concat(" AND LOWER (", category, ".\"", key, "\") = '", value.toLowerCase(), "'")
                     }
                 }
             }
-            const answer  = await pool.query(`SELECT posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts","${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 AND posts.price >= ${price_min} AND posts.price <= ${price_max} ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+            console.log(constructQuery);
+            const answer  = await pool.query(`SELECT posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts","${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+            console.log(constructQuery);
             return(answer.rows)
         }
         try {

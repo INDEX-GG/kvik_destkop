@@ -4,6 +4,7 @@ import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordO
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import ReviewWait from "../card/reviewWait";
+import ReviewWaitPlaceHolder from "../../../placeHolders/ReviewPlaceHolder/ReviewWaitPlaceHolder/ReviewWaitPlaceHolder";
 
 
 
@@ -26,45 +27,50 @@ function WaitReviews({data}) {
   
   if (data.lenght == 0) {
     return (
-      <EmptyPlaceholder
-        title='Сюда будут попадать объявления, на которые вы сможете оставлять отзывы'
-        subtitle='Договаривайтесь о сделках с другими пользователями и ставьте им свои оценки'
-      />
+      <>
+        {!data ? <ReviewWaitPlaceHolder/>
+            :<EmptyPlaceholder
+            title='Сюда будут попадать объявления, на которые вы сможете оставлять отзывы'
+            subtitle='Договаривайтесь о сделках с другими пользователями и ставьте им свои оценки'
+        />}
+      </>
     );
   }
   return (
-    <div className="clientPage__container_bottom">
-      <div className="clientPage__container_nav__radio">
-        <Checkbox
-          color='primary'
-          icon={<FiberManualRecordOutlinedIcon />}
-          checkedIcon={<FiberManualRecordSharpIcon />}
-          onChange={(event) => {setCheck(event.target.checked); event.target.checked ? null : setDataCheck([])}}
-          checked={check}
-        />
-        <a 
-          onClick={() => dataCheck.length > 0 ? console.log("clicked") : null}
-          style={dataCheck.length > 0 ? {color: "black"} : null}
-        >Удалить</a>
-      </div>
-      <div className="clientPage__container_content">
-        <div className="reviewsContainerWrapper">
-          { 
-            data.map((offer,) => {
-              return (  <ReviewWait 
-                          key={offer.id} 
-                          offer={offer}
-                          parentCheck={check}
-                          getChildData={getChildData}
-                          dataCheck={dataCheck}
-                        />
-              )
-            })
-          }
-        </div>
-      </div>
-      
-    </div>
+      <>
+        {!data ? <ReviewWaitPlaceHolder/>
+            :<div className="clientPage__container_bottom">
+                <div className="clientPage__container_nav__radio">
+                  <Checkbox
+                    color='primary'
+                    icon={<FiberManualRecordOutlinedIcon />}
+                    checkedIcon={<FiberManualRecordSharpIcon />}
+                    onChange={(event) => {setCheck(event.target.checked); event.target.checked ? null : setDataCheck([])}}
+                    checked={check}
+                  />
+                  <a
+                    onClick={() => dataCheck.length > 0 ? console.log("clicked") : null}
+                    style={dataCheck.length > 0 ? {color: "black"} : null}
+                  >Удалить</a>
+                </div>
+                <div className="clientPage__container_content">
+                  <div className="reviewsContainerWrapper">
+                    {
+                      data.map((offer,) => {
+                        return (  <ReviewWait
+                                    key={offer.id}
+                                    offer={offer}
+                                    parentCheck={check}
+                                    getChildData={getChildData}
+                                    dataCheck={dataCheck}
+                                  />
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+              </div>}
+      </>
   );
 }
 
