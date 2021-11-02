@@ -13,7 +13,11 @@ export default async function handler(req, res) {
             const price_min = req.body.price.min
             const price_max = req.body.price.max
             const check = req.body.check
+            const time = req.body.time
             let constructQuery = ''
+            if (time != null) {
+                constructQuery =  constructQuery.concat(" AND posts.created_at >= '", time, "'")
+            }
             if (!(price_min == null && price_max == null)) {
                 if (price_min == null) {
                     constructQuery =  constructQuery.concat(" AND posts.price <= ", price_max)
