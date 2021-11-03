@@ -10,6 +10,8 @@ import FilterColor from "./FilterColor";
 import axios from "axios";
 import { BASE_URL } from "../../lib/constants";
 import { useEffect, useState } from "react";
+import {generateDefaultValue} from "../../lib/utils/checkBoxFunction";
+import {useRouter} from "next/router";
 
 
 
@@ -17,8 +19,8 @@ const FilterAuto = () => {
   const methods = useFormContext();
   const [mark, setMark] = useState([]),
     [model, setModel] = useState(undefined),
-    [generation, setGeneration] = useState(undefined)
-
+    [generation, setGeneration] = useState(undefined),
+    router = useRouter()
 
 
   useEffect(()=>{
@@ -46,6 +48,30 @@ const FilterAuto = () => {
     }
 
   }, [methods.watch('submodels')])
+
+
+  useEffect(() => {
+    if (router?.query) {
+      const defaultValue = generateDefaultValue(router.query)
+
+      const defaultAllCategoryField = {
+        "fromPrice": router.query?.fromPrice,
+        "toPrice": router.query?.toPrice,
+        "period": router.query?.period
+      }
+
+      // Изменение defaultValue
+      if (defaultValue) {
+        methods.reset({
+          ...methods.getValues(),
+          ...defaultAllCategoryField,
+          ...defaultValue
+        })
+      } else {
+        methods.reset()
+      }
+    }
+  }, [router, methods.reset, methods.getValues])
 
 
   return (

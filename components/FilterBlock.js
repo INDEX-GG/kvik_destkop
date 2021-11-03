@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import { Box, Button, makeStyles } from "@material-ui/core";
 import DefaultFilter from "./filter/DefaultFilter";
 import { FormProvider, useForm } from "react-hook-form";
-import defaultValues from "./filter/json/filterDefaultValues.json";
 import FilterMain from "./filter/FilterMain";
 import FilterAuto from "./filter/FilterAuto";
 import FilterVacancies from "./filter/FilterVacancies";
@@ -40,11 +39,13 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
   const classes = useStyles();
   const category = categoryData?.aliasName[0].alias.toLowerCase();
   const servicesCategory = categoryData?.aliasBread[0].alias
-  const methods = useForm({ defaultValues: defaultValues });
+  const methods = useForm();
   const [fetchedData, setFetchedData] = useState(null)
   const [services, setServices] = useState(false);
   const router = useRouter()
   let filter;
+
+
 
 
   useEffect(() => {
@@ -151,6 +152,7 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
       window.scrollTo(0, 0)
     }
 
+
     const routeObj = {}
 
     generateCheckBoxObj(data, routeObj);
@@ -174,8 +176,6 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
     delete data?.period
 
     sendCheckObj.check = data
-
-    console.log(sendCheckObj);
 
 
     axios.post('/api/getPostsCheck', sendCheckObj)

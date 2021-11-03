@@ -25,5 +25,6 @@
   "fromDistance_to_city": "",
   "toDistance_to_city": "",
   "fromAge": "",
-  "toAge": ""
+  "toAge": "",
+  "modelsAuto" : ""
 }
