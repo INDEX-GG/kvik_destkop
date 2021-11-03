@@ -9,7 +9,7 @@ const CardOfferPlaceHolder = () => {
             {/*левый большой*/}
             <Grid item xs={4}>
                 <Box>
-                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                         <div style={{width: "280px", height: "184px"}}/>
                     </Skeleton>
                 </Box>
@@ -21,7 +21,7 @@ const CardOfferPlaceHolder = () => {
                     <Grid item xs={10}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "180px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
@@ -29,7 +29,7 @@ const CardOfferPlaceHolder = () => {
                     <Grid item xs={10}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "180px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
@@ -37,7 +37,7 @@ const CardOfferPlaceHolder = () => {
                     <Grid item xs={10}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "180px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
@@ -45,7 +45,7 @@ const CardOfferPlaceHolder = () => {
                     <Grid item xs={10}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "116px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
@@ -53,7 +53,7 @@ const CardOfferPlaceHolder = () => {
                     <Grid item xs={10}>
                         <Box style={{display: "flex", justifyContent: "flex-end"}}>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "224px", height: "24px"}}/>
                             </Skeleton>
                         </Box>
@@ -64,7 +64,7 @@ const CardOfferPlaceHolder = () => {
                     <Grid item xs={8}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "180px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
@@ -72,7 +72,7 @@ const CardOfferPlaceHolder = () => {
                     <Grid item xs={8}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "180px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
