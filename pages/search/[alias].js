@@ -99,18 +99,18 @@ const Index = () => {
 
 
 	useEffect(() => {
-		if (searchText) {			
+		if (searchText) {
+			console.log('search')
 			const data = {'category': aliasAll? '': aliasFullUrl, 'text': searchText , 'page_limit': limit, 'page': 1}
 			getDataByPost('/api/searchInsideCategory', data)
 			  .then(r => {
+				  console.log(r)
 				  setData(generateDataArr(r))
 				  setPage(1);
 			  });
 
 		} else if (Object.keys(queryObj).length) {
-
-			generateCheckBoxObj(queryObj)
-
+			console.log('checkbox')
 			const sendCheckObj = {
 				price: queryObj?.price ? queryObj?.price : {min: null, max: null},
 				category: aliasQuery,
@@ -128,13 +128,13 @@ const Index = () => {
 
 			getDataByPost('/api/getPostsCheck', sendCheckObj)
 				.then(r => {
-					console.log(r, sendCheckObj)
 					if (Array.isArray(r)) {
 						setData((generateDataArr(r)))
 						setPage(1)
 					}
 				})
 		} else {
+			console.log('category')
 			if (aliasFullUrl) {
 			getDataByPost('/api/postCategorySearch', { data: aliasFullUrl, 'page_limit': limit, 'page': 1 }).then(r => {
 				if (r !== undefined) {
@@ -149,6 +149,7 @@ const Index = () => {
 
 						return offer;
 					})
+					console.log(offersData)
 					setData(offersData);
 					setPage(1);
 					if (r.length > 1) setLastIdAds(r[r.length - 1].id)
