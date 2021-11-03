@@ -10,19 +10,19 @@ const DealsPlaceHolder = () => {
                 <Grid item container xs={12} spacing={1}>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
@@ -30,14 +30,14 @@ const DealsPlaceHolder = () => {
                 {/*длинная тонкая полоска*/}
                 <Grid item xs={12}>
                     <Box >
-                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "952px", height: "2px"}} />
+                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "952px", height: "2px"}} />
                         </Skeleton>
                     </Box>
                 </Grid>
                 {/*короткая полоса над карточками*/}
                 <Grid item xs={12}>
                     <Box >
-                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "146px", height: "16px"}} />
+                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "146px", height: "16px"}} />
                         </Skeleton>
                     </Box>
                 </Grid>

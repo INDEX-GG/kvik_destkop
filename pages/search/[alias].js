@@ -11,7 +11,8 @@ import { getDataByPost } from "../../lib/fetch";
 import { STATIC_URL } from "../../lib/constants";
 import { categoryScroll } from "../../lib/scrollAds";
 import FilterBlock from "../../components/FilterBlock";
-import { generateAliasStr, generateDataArr } from "../../lib/services";
+import {generateAliasStr, generateDataArr} from "../../lib/services";
+import {generateCheckBoxObj, generateCheckboxTime} from "../../lib/utils/checkBoxFunction";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -60,6 +61,7 @@ const Index = () => {
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
 	const [/** lastIdAds */ ,setLastIdAds] = useState(0);
 	const [checkboxDate, setCheckboxDate] = useState(undefined)
+	let queryObj = {}
 
 	const router = useRouter()
 	const { matchesMobile, matchesTablet } = useMedia();
@@ -80,6 +82,14 @@ const Index = () => {
 		return router.query.text
 	}
 
+	useEffect(() => {
+		queryObj = {}
+		for (let key in router.query) {
+			if (key === 'alias' || key === 'text') return;
+			queryObj[key] = router.query[key]
+		}
+	}, [router])
+
 
 	useEffect(() => {
 		setPage(1)
@@ -96,6 +106,32 @@ const Index = () => {
 				  setData(generateDataArr(r))
 				  setPage(1);
 			  });
+
+		} else if (Object.keys(queryObj).length) {
+
+			generateCheckBoxObj(queryObj)
+
+			const sendCheckObj = {
+				price: queryObj?.price ? queryObj?.price : {min: null, max: null},
+				category: aliasQuery,
+				text: searchText ? searchText : "",
+				time: generateCheckboxTime(queryObj?.period),
+				page:  1,
+				page_limit: limit,
+				check: {}
+			}
+
+			delete queryObj.price
+			delete queryObj.period
+			sendCheckObj.check = queryObj
+
+
+			getDataByPost('/api/getPostsCheck', sendCheckObj)
+				.then(r => {
+					console.log(r);
+					setData((generateDataArr(r)))
+					setPage(1)
+				})
 		} else {
 			if (aliasFullUrl) {
 			getDataByPost('/api/postCategorySearch', { data: aliasFullUrl, 'page_limit': limit, 'page': 1 }).then(r => {
@@ -119,11 +155,6 @@ const Index = () => {
 		}
 		}
 	}, [router]);
-
-
-	useEffect(() => {
-		console.log(checkboxDate);
-	}, [checkboxDate])
 
 
 	useEffect(() => {

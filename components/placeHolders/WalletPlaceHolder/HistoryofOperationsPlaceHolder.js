@@ -11,7 +11,7 @@ const TwoLine = () => {
           <Grid item xs={10}>
               <Box>
                   <Skeleton animation="wave" variant="rectangular"
-                            sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                            sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                       <div style={{width: "660px", height: "40px"}}/>
                   </Skeleton>
               </Box>
@@ -20,7 +20,7 @@ const TwoLine = () => {
           <Grid item xs={2}>
               <Box style={{display: "flex", justifyContent: "flex-end"}}>
                   <Skeleton animation="wave" variant="rectangular"
-                            sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                            sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                       <div style={{width: "141px", height: "40px"}}/>
                   </Skeleton>
               </Box>
@@ -37,19 +37,19 @@ const HistoryOfOperationsPlaceHolder = () => {
                 <Grid item container xs={12} spacing={1}>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
@@ -57,7 +57,7 @@ const HistoryOfOperationsPlaceHolder = () => {
                 {/*длинная тонкая полоска*/}
                 <Grid item xs={12}>
                     <Box >
-                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "952px", height: "2px"}} />
+                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "952px", height: "2px"}} />
                         </Skeleton>
                     </Box>
                 </Grid>
@@ -72,21 +72,21 @@ const HistoryOfOperationsPlaceHolder = () => {
                         <Grid item container spacing={1} xs={10}>
                             <Grid item xs={2}>
                                 <Box>
-                                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                         <div style={{width: "86px", height: "16px"}}/>
                                     </Skeleton>
                                 </Box>
                             </Grid>
                             <Grid item xs={2}>
                                 <Box>
-                                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                         <div style={{width: "86px", height: "16px"}}/>
                                     </Skeleton>
                                 </Box>
                             </Grid>
                             <Grid item xs={2}>
                                 <Box>
-                                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                         <div style={{width: "86px", height: "16px"}}/>
                                     </Skeleton>
                                 </Box>
@@ -96,7 +96,7 @@ const HistoryOfOperationsPlaceHolder = () => {
                         <Grid item container spacing={1} xs={2}>
                             <Grid item xs={12}>
                                 <Box style={{display: "flex", justifyContent: "flex-end"}}>
-                                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                         <div style={{width: "86px", height: "16px"}}/>
                                     </Skeleton>
                                 </Box>

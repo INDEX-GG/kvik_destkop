@@ -38,28 +38,28 @@ const ProductPlaceHolder = () => {
                 <Grid item xs={6} md={8}>
                     <Box className={classes.skeletonTitle}>
                         <Box>
-                            <Skeleton animation="wave" variant="rectangular" width="100%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px' }}/>
+                            <Skeleton animation="wave" variant="rectangular" width="100%" sx={{ bgcolor: '#F2F3F4', borderRadius: '15px' }}/>
                         </Box>
                         <Box>
-                            <Skeleton animation="wave" variant="rectangular" width="40%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}/>
+                            <Skeleton animation="wave" variant="rectangular" width="40%" sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}/>
                         </Box>
                     </Box>
                 </Grid>
                 <Grid item xs={6} md={4}>
-                    <Box></Box>
-                    <Box></Box>
+                    <Box/>
+                    <Box/>
                 </Grid>
                 <Grid item xs={6}>
                     <Box className={classes.skeletonOffer}>
                         <Box>
-                            <Skeleton  animation="wave" variant="rectangular"  width="100%" height="50%" sx={{ bgcolor: '#C7C7C780' , borderRadius: '15px'  }}><div style={{ paddingTop: '57%'}} />
+                            <Skeleton  animation="wave" variant="rectangular"  width="100%" height="50%" sx={{ bgcolor: '#F2F3F4' , borderRadius: '15px'  }}><div style={{ paddingTop: '57%'}} />
                             </Skeleton>
                         </Box>
                         <Box>
-                            <Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}/>
+                            <Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}/>
                         </Box>
                         <Box>
-                            <Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
+                            <Skeleton  animation="wave" variant="rectangular"  width="100%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
                             </Skeleton>
                         </Box>
                     </Box>
@@ -67,15 +67,15 @@ const ProductPlaceHolder = () => {
                 <Grid item xs={6}  >
                     <Box className={classes.skeletonActions}>
                         <Box>
-                            <Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '60%'}} />
+                            <Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '60%'}} />
                             </Skeleton>
                         </Box>
                         <Box>
-                            <Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
+                            <Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
                             </Skeleton>
                         </Box>
                         <Box>
-                            <Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '8%'}} />
+                            <Skeleton  animation="wave" variant="rectangular"  width="50%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '8%'}} />
                             </Skeleton>
                         </Box>
                     </Box>
@@ -89,7 +89,7 @@ const ProductPlaceHolder = () => {
                         {/*прямоугольник*/}
                         <Grid item xs={8} >
                             <Box style={{ paddingLeft: "15px"}}>
-                                <Skeleton  animation="wave" variant="rectangular"  width="57%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
+                                <Skeleton  animation="wave" variant="rectangular"  width="57%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '20%'}} />
                                 </Skeleton>
                             </Box>
                         </Grid>
@@ -97,19 +97,19 @@ const ProductPlaceHolder = () => {
                     <Grid container style={{paddingTop: "10px"}} direction="row" spacing={1}>
                         <Grid item  xs={6} md={2}>
                             <Box>
-                                <Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
+                                <Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
                                 </Skeleton>
                             </Box>
                         </Grid>
                         <Grid item  xs={6} md={2}>
                             <Box>
-                                <Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
+                                <Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
                                 </Skeleton>
                             </Box>
                         </Grid>
                         <Grid item  xs={6} md={2}>
                             <Box>
-                                <Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
+                                <Skeleton  animation="wave" variant="rectangular"  width="90%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '100%'}} />
                                 </Skeleton>
                             </Box>
                         </Grid>
