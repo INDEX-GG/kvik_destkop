@@ -9,9 +9,9 @@ import FilterVacancies from "./filter/FilterVacancies";
 import FilterProduct from "./filter/FilterProduct";
 import axios from "axios";
 import { BASE_URL } from "../lib/constants";
-import {generateDataArr} from "../lib/services";
-import moment from 'moment'
+import { generateDataArr} from "../lib/services";
 import {useRouter} from "next/router";
+import {generateCheckboxTime, generateCheckBoxObj} from "../lib/utils/checkBoxFunction";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -145,77 +145,6 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
       filter = <DefaultFilter services={services}/>;
   }
 
-  const generateRangeKey = (data, fromKey, toKey, keyName, routeObj) => {
-    data[keyName.toLowerCase()] = {
-      min: data[fromKey] ? +data[fromKey] : null,
-      max: data[toKey] ? +data[toKey] : null
-    }
-
-    if (data[fromKey]) routeObj[fromKey] = String(data[fromKey])
-    if (data[toKey]) routeObj[toKey] = String(data[toKey])
-
-    delete data[fromKey]
-    delete data[toKey]
-  }
-
-  const checkDateNumber = (date) => {
-    if (+date < 10) return `0${date}`
-    return date
-  }
-
-  const generateDateBack = (dateObj, dayBack) => {
-    const dayInPrevMonth = moment(`${dateObj.year}-${+dateObj.month - 1 ? dateObj.month - 1 : 12}`).daysInMonth()
-
-
-    let year = dateObj.year
-    let month = dateObj.month;
-    let day = dateObj.date - dayBack
-    let hours = dateObj.hour
-    let minutes = dateObj.minutes
-    let seconds = dateObj.seconds
-
-    // Переход на предыдущий месяц
-    if (day < 1) {
-      day = dayInPrevMonth + day
-      month = checkDateNumber(month - 1)
-
-      // Переход на предыдущий год
-      if (month < 1) {
-        year = year - 1
-        month = 12
-      }
-
-    }
-
-   return `${year}-${month}-${checkDateNumber(day)} ${hours}:${minutes}:${seconds}`
-  }
-
-  const generateCheckboxTime = (stringTime) => {
-
-    const date = new Date()
-
-    const dateObj = {
-      year: date.getUTCFullYear(),
-      month: checkDateNumber(date.getUTCMonth() + 1),
-      date: checkDateNumber(date.getUTCDate()),
-      hour: checkDateNumber(date.getUTCHours()),
-      minutes: checkDateNumber(date.getUTCMinutes()),
-      seconds: checkDateNumber(date.getUTCSeconds())
-    }
-
-
-    switch (stringTime) {
-      case null:
-        return null
-      case 'За все время':
-        return null
-      case 'За последнюю неделю':
-        return generateDateBack(dateObj, 7)
-      case 'За последние сутки':
-        return generateDateBack(dateObj, 1)
-    }
-  }
-
 
   const onSubmit = (data) => {
     if (window) {
@@ -224,21 +153,7 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
 
     const routeObj = {}
 
-    for (let key in data) {
-      const fromKey = key.substring(0, 4)
-
-      if (fromKey === 'from') {
-        const keyName = key.substring(4,)
-        generateRangeKey(data, key, `to${keyName}`, keyName, routeObj)
-      }
-
-      if (data[key] === undefined || data[key] === "" || data[key] === 'Любой') {
-        data[key] = null;
-      } else {
-        routeObj[key] = String(data[key])
-      }
-    }
-
+    generateCheckBoxObj(data, routeObj);
 
     const sendCheckObj = {
       price: data.price,
@@ -260,6 +175,8 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
 
     sendCheckObj.check = data
 
+    console.log(sendCheckObj);
+
 
     axios.post('/api/getPostsCheck', sendCheckObj)
       .then(r => {
@@ -277,6 +194,7 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
       }
     })
   };
+
 
   const clearFields = () => {
     methods.reset();
