@@ -160,7 +160,7 @@ function Account() {
                         <div className="clientPage__userinfo">
 
                             {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
-                                    <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#C7C7C780', width: "80px", height: "80px"}}/>
+                                    <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#F2F3F4', width: "80px", height: "80px"}}/>
                                 </Box>
                                 :<div className="clientPage__userpic">
 
@@ -174,14 +174,14 @@ function Account() {
 
 
                             {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "6px"}}>
-                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "134px", height: "16px"}} />
+                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "134px", height: "16px"}} />
                                     </Skeleton>
                                 </Box>
                                 :<div className="clientPage__username">{userInfo.name}</div>}
 
 
                             {!userInfo ? <Box style={{paddingBottom: "10px"}}>
-                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "196px", height: "16px"}} />
+                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "196px", height: "16px"}} />
                                     </Skeleton>
                                 </Box>
                                 :<div className="clientPage__userRegDate light small">на Kvik
@@ -190,7 +190,7 @@ function Account() {
 
                             {!userInfo
                                 ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
-                                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
+                                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
                                         </Skeleton>
                                     </Box>
                                 :<div className="clientPage__userrate">
@@ -200,7 +200,7 @@ function Account() {
 
 
                             {!userInfo ? <Box >
-                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
+                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
                                     </Skeleton>
                                 </Box>
                                 :<div className="clientPage__userstats highlight small">
