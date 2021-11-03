@@ -42,8 +42,7 @@ const FilterAuto = () => {
 
   useEffect(() => {
     if (methods.watch('submodels')) {
-      // console.log(model.find(el => el.value === methods.watch('modelsAuto')));
-      setGeneration(model.find(el => el.value === methods.watch('submodels')).children)
+      setGeneration(model?.find(el => el.value === methods.watch('submodels')).children)
       methods.setValue('generation', '')
     }
 
