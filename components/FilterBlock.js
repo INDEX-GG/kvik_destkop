@@ -47,11 +47,21 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
 
 
 
+  const clearFields = () => {
+    methods.reset();
+    setCheckbox(undefined)
+    router.push({
+      pathname: router.pathname,
+      query: {
+        alias: router.query.alias
+      }
+    })
+  };
+
 
   useEffect(() => {
-    methods.reset()
+    clearFields()
   }, [searchText, category])
-
 
   useEffect(() => {
     servicesCategory === "services" ? setServices(true) : setServices(false)
@@ -148,6 +158,10 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
 
 
   const onSubmit = (data) => {
+
+    console.log(data)
+
+
     if (window) {
       window.scrollTo(0, 0)
     }
@@ -194,21 +208,6 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
       }
     })
   };
-
-
-  const clearFields = () => {
-    methods.reset();
-    setCheckbox(undefined)
-    router.push({
-      pathname: router.pathname,
-      query: {
-        alias: router.query.alias
-      }
-    })
-  };
-
-
-  console.log(methods.getValues())
 
   return (
     <FormProvider {...methods}>
