@@ -68,8 +68,6 @@ function Active({offers}) {
 		);
 	}
 
-	console.log('offers',offers)
-
 	return (
 		<>
 			{!offers ? <OfferActivePlaceHolder/>

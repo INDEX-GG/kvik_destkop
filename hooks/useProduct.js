@@ -19,7 +19,6 @@ export function useProduct(id) {
 						r.chatProductPhoto = photoes.photos[0]
 						// console.log('$$$$$$$$$$$$$$$$',photoes)
 						r.editPhotos = photoes
-						// console.log('editPhotos',editPhotos)
 						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 						r.photo = photoes
 						// console.log('r.photo',r.photo)
