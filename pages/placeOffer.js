@@ -257,7 +257,11 @@ function PlaceOffer() {
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
                 // console.error('additionalfields',additionalfields)
 
+                console.log(additionalfields);
+
                 axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
+                  .then(r => console.log(r.data))
+                  .catch(e => console.log(e))
 
 
 

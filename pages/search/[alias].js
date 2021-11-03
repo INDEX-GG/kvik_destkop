@@ -160,10 +160,10 @@ const Index = () => {
 
 
 	useEffect(() => {
-		
+
 		const fetchDataObj = {
-			'data': aliasFullUrl, 
-			'page_limit': limit, 
+			'data': aliasFullUrl,
+			'page_limit': limit,
 			'page': page
 		};
 
@@ -174,9 +174,9 @@ const Index = () => {
 		}
 
 		const setObj = {
-			setData, 
-			setLimitRanderPage, 
-			setPage, 
+			setData,
+			setLimitRanderPage,
+			setPage,
 			setLastIdAds
 		}
 
