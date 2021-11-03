@@ -61,10 +61,10 @@ const FilterTwoFields = ({ data, unmount }) => {
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                   onBlur={(e) => {
                     const watchInput = methods.watch(data.secondAlias)
-                    if (watchInput?.length) {
-                      if (e.target.value > methods.watch(data.secondAlias)) {
-                        onChange('');
-                      }
+                    // console.log(+e.target.value, +watchInput)
+                    if (+e.target.value > +watchInput && +watchInput !== 0) {
+                      console.log(+e.target.value, +watchInput);
+                      methods.setValue(data.firstAlias, '')
                     }
                   }}
                 />
@@ -96,11 +96,10 @@ const FilterTwoFields = ({ data, unmount }) => {
                   }
                   onBlur={(e) => {
                     const watchInput = methods.watch(data.firstAlias)
-                    if (watchInput?.length) {
-                      if (e.target.value < watchInput) {
-                        onChange('');
+                     console.log(+e.target.value < +watchInput)
+                      if (+e.target.value < +watchInput && +watchInput !== 0) {
+                        methods.setValue(data.secondAlias, '')
                       }
-                    }
                   }}
                 />
                 {value?.length && value.length < 8 ? (

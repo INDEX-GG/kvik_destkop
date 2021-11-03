@@ -207,6 +207,9 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
     })
   };
 
+
+  console.log(methods.getValues())
+
   return (
     <FormProvider {...methods}>
       <form className={classes.root} onSubmit={methods.handleSubmit(onSubmit)}>
