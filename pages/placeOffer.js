@@ -140,9 +140,9 @@ function PlaceOffer() {
         if(data?.alias1 === 'transport' && data?.alias2 === 'auto'){
              data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
         } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'apartments_kv'){
-             data.title = `${data.room_number}-к. квартра, ${data.area}м², ${data.storey}/${data.floor_home}эт`
+             data.title = `${data.room_number}-к. квартира, ${data.area}м², ${data.storey}/${data.floor_home}эт.`
         } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'rooms' ){
-            data.title = `Комната, ${data.area}м², ${data.storey}/${data.floor_home}эт`
+            data.title = `Комната, ${data.area}м², ${data.storey}/${data.floor_home}эт.`
         } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'houses_and_cottages' ){
             data.title = `Дом, ${data.home_area}м², на участке ${data.land_area} сот.`
         } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'land' ){
