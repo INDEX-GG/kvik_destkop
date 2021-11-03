@@ -29,7 +29,6 @@ export default function ProductAction(data) {
 
   const objP = { adstatus: 8 };
   //const [offerId, setOfferId] = useState();
-
   const [openOfferModal, setOpenOfferModal] = useState(false);
   //const handleUnpublishFormDialog = () => setOpenUnpublishForm(!openUnpublishForm);
   const [buttonId, setButtonId] = useState('');
@@ -37,16 +36,13 @@ export default function ProductAction(data) {
   const offerId = [data.productInfo.id];
   const offerData = data.productInfo;
   const setUpdate = data.setUpdate;
-  
-
-  //console.log(data.viewing)
 
   const {user_id} = data;
 
   return (
     <>
         {!matchesMobile && !matchesTablet && (
-          user_id == undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"></div> :
+          user_id === undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"/> :
             <>
               <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
                 {/*<ProductStats id={id} sellerId={user_id} status={objP.adstatus} dialog={openStatForm} setDialog={setOpenStatForm} />*/}
