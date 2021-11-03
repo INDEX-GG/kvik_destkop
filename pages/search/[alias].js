@@ -12,7 +12,7 @@ import { STATIC_URL } from "../../lib/constants";
 import { categoryScroll } from "../../lib/scrollAds";
 import FilterBlock from "../../components/FilterBlock";
 import {generateAliasStr, generateDataArr} from "../../lib/services";
-import {generateCheckBoxObj, generateCheckboxTime} from "../../lib/utils/checkBoxFunction";
+import {generateCheckboxTime} from "../../lib/utils/checkBoxFunction";
 
 const useStyles = makeStyles(() => ({
 	root: {

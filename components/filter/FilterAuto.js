@@ -10,7 +10,7 @@ import FilterColor from "./FilterColor";
 import axios from "axios";
 import {BASE_URL} from "../../lib/constants";
 import {useEffect, useState} from "react";
-import {formDefaultValue, generateDefaultValue} from "../../lib/utils/checkBoxFunction";
+import {formDefaultValue} from "../../lib/utils/checkBoxFunction";
 import {useRouter} from "next/router";
 
 
