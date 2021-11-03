@@ -59,6 +59,14 @@ const FilterTwoFields = ({ data, unmount }) => {
                   value={value}
                   placeholder="от"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
+                  onBlur={(e) => {
+                    const watchInput = methods.watch(data.secondAlias)
+                    if (watchInput?.length) {
+                      if (e.target.value > methods.watch(data.secondAlias)) {
+                        onChange('');
+                      }
+                    }
+                  }}
                 />
                 {value?.length && value.length < 8 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
@@ -86,6 +94,14 @@ const FilterTwoFields = ({ data, unmount }) => {
                   placeholder="до"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))
                   }
+                  onBlur={(e) => {
+                    const watchInput = methods.watch(data.firstAlias)
+                    if (watchInput?.length) {
+                      if (e.target.value < watchInput) {
+                        onChange('');
+                      }
+                    }
+                  }}
                 />
                 {value?.length && value.length < 8 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>

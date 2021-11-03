@@ -21,10 +21,10 @@ const IndexPlaceHolder = () => {
                 <Grid item xs={6} md={12}>
                     <Box className={classes.skeletonSearch}>
                         <Box>
-                            <Skeleton animation="wave" variant="rectangular" width="15%" sx={{ bgcolor: '#C7C7C780', borderRadius: '15px' }}/>
+                            <Skeleton animation="wave" variant="rectangular" width="15%" sx={{ bgcolor: '#F2F3F4', borderRadius: '15px' }}/>
                         </Box>
                         <Box>
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780' , borderRadius: '15px'  }}><div style={{ width: "1248px", height: "182px" }} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4' , borderRadius: '15px'  }}><div style={{ width: "1248px", height: "182px" }} />
                             </Skeleton>
                         </Box>
                     </Box>
@@ -34,7 +34,7 @@ const IndexPlaceHolder = () => {
                 <Grid item md={12}>
                     <Grid item xs={8}>
                         <Box>
-                            <Skeleton  animation="wave" variant="rectangular"  width="15%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ paddingTop: '13%'}} />
+                            <Skeleton  animation="wave" variant="rectangular"  width="15%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ paddingTop: '13%'}} />
                             </Skeleton>
                         </Box>
                     </Grid>

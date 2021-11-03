@@ -15,25 +15,25 @@ const SkeletonFirstLine = () => {
         <Grid container md={2.5} spacing={1} >
             <Grid item xs={12}>
                 <Box>
-                    <Skeleton  animation="wave" variant="rectangular"  width="86%"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "224px", height: "260px"}} />
+                    <Skeleton  animation="wave" variant="rectangular"  width="86%"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "224px", height: "260px"}} />
                     </Skeleton>
                 </Box>
             </Grid>
             <Grid item xs={8}>
                 <Box className={classes.linerPadding}>
-                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "148px", height: "19.56px"}} />
+                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "148px", height: "19.56px"}} />
                     </Skeleton>
                 </Box>
             </Grid>
             <Grid item xs={8}>
                 <Box className={classes.linerPadding}>
-                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "148px", height: "16px"}} />
+                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "148px", height: "16px"}} />
                     </Skeleton>
                 </Box>
             </Grid>
             <Grid item xs={8}>
                 <Box className={classes.linerPadding}>
-                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "148px", height: "16px"}} />
+                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "148px", height: "16px"}} />
                     </Skeleton>
                 </Box>
             </Grid>

@@ -10,7 +10,7 @@ const CardBoxItem = () => {
             {/*левый квадрат*/}
             <Grid item xs={12}>
                 <Box>
-                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                         <div style={{width: "888px", height: "112px"}}/>
                     </Skeleton>
                 </Box>
@@ -25,7 +25,7 @@ const CardBigBoxItem = () => {
             {/*левый квадрат*/}
             <Grid item xs={12}>
                 <Box>
-                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                         <div style={{width: "888px", height: "183px"}}/>
                     </Skeleton>
                 </Box>
@@ -45,7 +45,7 @@ const ReviewLeftPlaceHolder = () => {
                     <Grid item xs={12}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "106px", height: "16px"}}/>
                             </Skeleton>
                         </Box>

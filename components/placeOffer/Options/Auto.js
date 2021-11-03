@@ -417,7 +417,7 @@ export default function Auto({ data }) {
                                                                             <Typography className={classes.formTitleField}>{item.name}</Typography>
                                                                             <Box className={classes.formInputField}>
                                                                                 <Controller
-                                                                                    name={"fullDescription"}
+                                                                                    name={"complectations"}
                                                                                     control={methods.control}
                                                                                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                                                                                         <TextField

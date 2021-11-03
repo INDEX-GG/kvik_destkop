@@ -128,9 +128,11 @@ const Index = () => {
 
 			getDataByPost('/api/getPostsCheck', sendCheckObj)
 				.then(r => {
-					console.log(r);
-					setData((generateDataArr(r)))
-					setPage(1)
+					console.log(r, sendCheckObj)
+					if (Array.isArray(r)) {
+						setData((generateDataArr(r)))
+						setPage(1)
+					}
 				})
 		} else {
 			if (aliasFullUrl) {
@@ -183,7 +185,8 @@ const Index = () => {
 			categoryScroll(api, fetchDataObj, setObj)
 		}
 	}, [page])
-	
+
+
 	return (
 		<Container className={classes.root}>
 			{aliasData?.aliasBread && <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''} />}

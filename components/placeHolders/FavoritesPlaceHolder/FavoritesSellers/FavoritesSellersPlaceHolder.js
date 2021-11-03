@@ -9,7 +9,7 @@ const CardPhoto = () => {
           {/*верхний квадрат*/}
           <Grid item xs={12}>
               <Box style={{display: "flex", justifyContent: "center"}}>
-                  <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                  <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                       <div style={{width: "94px", height: "91px"}}/>
                   </Skeleton>
               </Box>
@@ -17,7 +17,7 @@ const CardPhoto = () => {
           {/*нижняя палочка*/}
           <Grid item xs={12}>
               <Box style={{display: "flex", justifyContent: "center"}}>
-                  <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                  <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                       <div style={{width: "75px", height: "16px"}}/>
                   </Skeleton>
               </Box>
@@ -34,7 +34,7 @@ const CardBoxItem = () => {
                 {/*круг*/}
                 <Grid item xs={0.5}>
                     <Box>
-                        <Skeleton animation="wave" variant="circular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                        <Skeleton animation="wave" variant="circular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                             <div style={{width: "34px", height: "34px"}}/>
                         </Skeleton>
                     </Box>
@@ -44,7 +44,7 @@ const CardBoxItem = () => {
                      {/*левая палочка*/}
                     <Grid item xs={6}>
                         <Box>
-                            <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                            <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "86px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
@@ -52,7 +52,7 @@ const CardBoxItem = () => {
                     {/*правая палочка*/}
                     <Grid item xs={6}>
                         <Box style={{display: "flex", justifyContent: 'flex-end'}}>
-                            <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                            <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "86px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
