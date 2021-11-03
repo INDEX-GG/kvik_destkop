@@ -66,6 +66,8 @@ function EditPage() {
 	const { price, title, photo, description, address} = useProduct(query.id)
 	const { editPhotos } = useProductEditPhoto(query.id)
 
+	console.log('editPhotos',editPhotos)
+
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
@@ -81,7 +83,6 @@ function EditPage() {
 		return photoes = obj;
 	}
 
-	console.log('photoes',photoes)
 
 	// убирает Категорию из verify
 	useEffect(() => {
@@ -91,7 +92,7 @@ function EditPage() {
 	// const additionalfields = {category_id: [{alias: 'post_id', fields: postId}]}
 
 	const onSubmit = data => {
-		// console.log('DATAAAAAAAAA+++>>>>>',data)
+		console.log('data',data)
 		data.price = data.price.replace(/\D+/g, '');
 		data.user_id = id
 		delete data.photoes
@@ -113,9 +114,18 @@ function EditPage() {
 
 		setLoading(true);
 
-		// console.log('PHOTOES@@@@@@@@@',photoes)
 
-		if(photoes[photoes.length -1].lastModified !== undefined) {
+
+
+
+
+
+
+
+		console.log('',editPhotos.photos)
+
+
+		if(photoes.filter(item => item.lastModified !== undefined).length > 0) {
 			axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
 				headers: {
 					"Content-Type": "multipart/form-data"
@@ -123,35 +133,61 @@ function EditPage() {
 			})
 
 				.then((r) => {
-					// console.log('====>>>',r)
-					// console.log('====>>>r.data.images.photos=====>>>>',r.data.images.photos)
-					let allConvertedPhoto = [...editPhotos.photos, ...r.data.images.photos]
+					console.log('r.data',r.data)
+					let jj = 0
+					// для увиличения j во внутреннем цикле
+					for (let i = 0; i < photoes.length; i++) {
+						console.log(`photoes[i]===> на шаге ${i} цикла`,photoes[i])
+						if (photoes[i].lastModified && photoes[i].lastModified !== undefined) {
+							for (let j = 0+jj; j < r.data.images.photos.length; j++) {
+								console.log('jj==>',jj)
+								console.log(`Малый цикл шаг ${j}`)
+								console.log(`Заменил фаил ${photoes[i]} на ссылку ${r.data.images.photos[j]}!`)
+								photoes[i] = r.data.images.photos[j]
+								console.log(` ${photoes[i]} равен ? ${photoes[i]}`)
+								jj = ++j;
+								if(photoes[i] === photoes[i]) break;
+							}
+
+						} else {
+							console.log(`Удалил из  ${photoes[i]} http://192.168.8.111:6001/ ===inFor=== >`,)
+							photoes[i] = `images${photoes[i].src.split('images')[1]}`
+						}
+					}
+					console.log('photoesVVVVVVVVVVVVVVVV',photoes)
+					// console.log('...r.data.images.photos',...r.data.images.photos)
+					// console.log('старые фотки после редактирования',photoes.filter(item => item.lastModified === undefined).map(item => item.src.replace('http://192.168.145.195:6001/','')))
+					// console.log('общий массив фоток после редактирования',[...photoes.filter(item => item.lastModified === undefined).map(item => item.src.replace('http://192.168.145.195:6001/','')), ...r.data.images.photos])
+
+
 					// console.log('$$$allConvertedPhoto$$$$',allConvertedPhoto)
 					axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
 						title : obj.title,
 						description: obj.description,
 						price: obj.price,
 						address: obj.location.value,
-						photo: allConvertedPhoto
+						photo: photoes
 					})
 					setEditProduct({post_id: postId,
 						title : obj.title,
 						description: obj.description,
 						price: obj.price,
 						address: obj.location.value,
-						photo: allConvertedPhoto[0]
+						photo: photoes[0]
 					})
 					// console.log('Добавлены новые фотки',)
 					setPromotion(true)
 				})
 		} else {
+			console.log('photoes only photos', photoes.map(item => `images${item.src.split('images')[1]}`))
+			const photoWithoutChanges = photoes.map(item => `images${item.src.split('images')[1]}`)
 			axios.post(`${BASE_URL}/api/postUpdate`, {
 				post_id: postId,
 				title : obj.title,
 				description: obj.description,
 				price: obj.price,
 				address: obj.location.value,
-				photo: editPhotos
+				photo: photoWithoutChanges
 			})
 			setEditProduct({
 				post_id: postId,
@@ -159,7 +195,7 @@ function EditPage() {
 				description: obj.description,
 				price: obj.price,
 				address: obj.location.value,
-				photo: editPhotos[0]
+				photo: photoWithoutChanges[0]
 			})
 			setPromotion(true)
 		}

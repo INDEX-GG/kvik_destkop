@@ -166,7 +166,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
     const fileInputRef = useRef();
 
     const [oldPhotosAndNewObjectsPhotos, setOldPhotosAndNewObjectsPhotos] = useState([]);
-    const [stringPhotos, setStringPhotos] = useState(photo)
+    const stringPhotos = photo
     const [oldPhotos, setOldPhotos] = useState([])
     const [validFiles, setValidFiles] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState(null);
@@ -176,11 +176,18 @@ const PhotoForEditPage = ({ctx, photo}) => {
         "Добавьте или перетащите фото"
     );
 
+    useEffect(() => {
+         setOldPhotos(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
+    }, []);
+
+
+
+
 
     useEffect(() => {
-       setOldPhotos(stringPhotos.map((item) => ({angle: 0, src: item, name: item, old: true})))
-    }, [stringPhotos]);
-
+        //
+        setOldPhotosAndNewObjectsPhotos([...oldPhotosAndNewObjectsPhotos, ...oldPhotos])
+    }, [oldPhotos]);
 
     useEffect(() => {
         if (!validFiles.find((el) => el.name === selectedFiles.name)) {
@@ -191,21 +198,17 @@ const PhotoForEditPage = ({ctx, photo}) => {
 
     }, [selectedFiles]);
 
-    useEffect(() => {
-        // console.log('обновились старые фотки')
-        setOldPhotosAndNewObjectsPhotos([...oldPhotos])
-    }, [oldPhotos]);
 
     useEffect(() => {
-        // console.log('обновились старые и новые фотки')
+        //
+
+        // val = [2,3,4,5] old = [1,2,3] new = [123 45]
+        // val = [2,3,5] old = [1,2,3,4,5] new = [1,2,3,4,5 ]
+
         setOldPhotosAndNewObjectsPhotos([...oldPhotosAndNewObjectsPhotos, ...validFiles.filter(item => oldPhotosAndNewObjectsPhotos.indexOf(item) === -1)])
     }, [validFiles])
-    // console.log('validFiles',validFiles)
-    // console.log('validFiles.filter',validFiles.filter(item => oldPhotosAndNewObjectsPhotos.indexOf(item) === -1))
-    //
-    //
-    //
-    console.log('oldPhotosAndNewObjectsPhotos',oldPhotosAndNewObjectsPhotos)
+
+
     useEffect(() => {
         if (validFiles && validFiles.length > 0) {
             methods.setValue("photoes", "ok");
@@ -231,21 +234,17 @@ const PhotoForEditPage = ({ctx, photo}) => {
     const preventDefault = (e) => {
         e.preventDefault();
     };
-
     const dragOver = (e) => {
         preventDefault(e);
         setErrorMessage("Поместите ваши фото сюда");
     };
-
     const dragEnter = (e) => {
         preventDefault(e);
     };
-
     const dragLeave = (e) => {
         preventDefault(e);
         setErrorMessage("Добавьте или перетащите фото");
     };
-
     const even = (num) => {
         if (num % 2 === 0) {
             return true;
@@ -253,7 +252,6 @@ const PhotoForEditPage = ({ctx, photo}) => {
             return false;
         }
     };
-
     const fileDrop = (e) => {
         preventDefault(e);
         const files = e.dataTransfer.files;
@@ -261,17 +259,14 @@ const PhotoForEditPage = ({ctx, photo}) => {
             handleFiles(files);
         }
     };
-
     const filesSelected = () => {
         if (fileInputRef.current.files.length) {
             handleFiles(fileInputRef.current.files);
         }
     };
-
     const fileInputClicked = () => {
         fileInputRef.current.click();
     };
-
     const handleFiles = (files) => {
         for (let i = 0; i < files.length; i++) {
             if (validateFile(files[i])) {
@@ -315,7 +310,6 @@ const PhotoForEditPage = ({ctx, photo}) => {
             }
         }
     };
-
     const validateFile = (file) => {
         const validTypes = ["image/jpeg", "image/jpg", "image/png"];
         // если в фаиле тип не соответствует ни одному типу из массива вернет фолс
@@ -325,19 +319,29 @@ const PhotoForEditPage = ({ctx, photo}) => {
         return true;
     };
 
+
     const removeFile = (name) => {
+
         const index = validFiles.findIndex((e) => e.name === name);
         const index3 = unsupportedFiles.findIndex((e) => e.name === name);
+        const index4 = oldPhotosAndNewObjectsPhotos.findIndex((e) => e.name === name);
         validFiles.splice(index, 1);
         setValidFiles([...validFiles]);
+        oldPhotosAndNewObjectsPhotos.splice(index4, 1);
         if (index3 !== -1) {
             unsupportedFiles.splice(index3, 1);
             setUnsupportedFiles([...unsupportedFiles]);
         }
     };
 
+
+
     const removeSrc = (data) => {
-        setStringPhotos([...stringPhotos.filter((item) => item !== data)])
+
+        setOldPhotosAndNewObjectsPhotos([...oldPhotosAndNewObjectsPhotos.filter((item) => {
+
+            return item.src !== data
+        })])
     }
 
     const rotate = (data) => {
@@ -402,6 +406,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
                     className={classes.card}
                 >
                     <img
+                        alt="img"
                         src={!data.old ? img?.src : data.src}
                         id={!data.old ? `prev${img?.id}` : i}
                         style={{
