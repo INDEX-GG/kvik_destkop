@@ -9,19 +9,19 @@ const WalletPlaceHolder = () => {
                 <Grid item container xs={12} spacing={1}>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
                     <Grid item xs={2}>
                         <Box >
-                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
+                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "112px", height: "24px"}} />
                             </Skeleton>
                         </Box>
                     </Grid>
@@ -29,7 +29,7 @@ const WalletPlaceHolder = () => {
                 {/*длинная тонкая полоска*/}
                 <Grid item xs={12}>
                     <Box >
-                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#C7C7C780', borderRadius: '15px'  }}><div style={{ width: "952px", height: "2px"}} />
+                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "952px", height: "2px"}} />
                         </Skeleton>
                     </Box>
                 </Grid>
@@ -42,21 +42,21 @@ const WalletPlaceHolder = () => {
                     <Grid item container spacing={1} xs={12}>
                         <Grid item xs={12}>
                             <Box style={{display: "flex", justifyContent: "center"}}>
-                                <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                     <div style={{width: "58px", height: "24px"}}/>
                                 </Skeleton>
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
                             <Box style={{display: "flex", justifyContent: "center"}}>
-                                <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                     <div style={{width: "186px", height: "31px"}}/>
                                 </Skeleton>
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
                             <Box style={{display: "flex", justifyContent: "center"}}>
-                                <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                     <div style={{width: "338px", height: "24px"}}/>
                                 </Skeleton>
                             </Box>
@@ -68,7 +68,7 @@ const WalletPlaceHolder = () => {
                             <Grid item xs={4}>
                                 <Box>
                                     <Skeleton animation="wave" variant="rectangular"
-                                              sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                              sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                         <div style={{width: "210px", height: "210px"}}/>
                                     </Skeleton>
                                 </Box>
@@ -77,7 +77,7 @@ const WalletPlaceHolder = () => {
                             <Grid item xs={8}>
                                 <Box>
                                     <Skeleton animation="wave" variant="rectangular"
-                                              sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                              sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                         <div style={{width: "585px", height: "210px"}}/>
                                     </Skeleton>
                                 </Box>
@@ -87,7 +87,7 @@ const WalletPlaceHolder = () => {
                     <Grid item xs={12}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "835px", height: "70px"}}/>
                             </Skeleton>
                         </Box>

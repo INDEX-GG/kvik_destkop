@@ -13,6 +13,8 @@ const theme = createTheme({
          7: "custom1080",
          8: 'custom1100',
          9: 'custom1365',
+         10: 'custom2440',
+         11: 'custom3440',
       },
       values: {
          xs: 0,
@@ -25,6 +27,8 @@ const theme = createTheme({
          custom1080: 1081,
          custom1100: 1100,
          custom1365: 1365,
+         custom2440: 2440,
+         custom3440: 3440,
       },
    },
    palette: {

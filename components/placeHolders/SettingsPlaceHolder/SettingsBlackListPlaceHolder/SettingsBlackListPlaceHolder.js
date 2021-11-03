@@ -9,7 +9,7 @@ const CardBoxItem = () => {
             {/*левый квадрат*/}
             <Grid item xs={0.5}>
                 <Box>
-                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#C7C7C780', borderRadius: '8px'}}>
+                    <Skeleton animation="wave" variant="rectangular" sx={{bgcolor: '#F2F3F4', borderRadius: '8px'}}>
                         <div style={{width: "32px", height: "27px"}}/>
                     </Skeleton>
                 </Box>
@@ -18,7 +18,7 @@ const CardBoxItem = () => {
             <Grid item xs={0.5}>
                 <Box>
                     <Skeleton animation="wave" variant="circular"
-                              sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                              sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                         <div style={{width: "32px", height: "32px"}}/>
                     </Skeleton>
                 </Box>
@@ -27,7 +27,7 @@ const CardBoxItem = () => {
             <Grid item xs={4}>
                 <Box style={{display: "flex", justifyContent: "flex-start"}}>
                     <Skeleton animation="wave" variant="rectangular"
-                              sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                              sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                         <div style={{width: "203px", height: "27px"}}/>
                     </Skeleton>
                 </Box>
@@ -36,7 +36,7 @@ const CardBoxItem = () => {
             <Grid item xs={7}>
                 <Box style={{display: "flex", justifyContent: "flex-end"}}>
                     <Skeleton animation="wave" variant="rectangular"
-                              sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                              sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                         <div style={{width: "108px", height: "16px"}}/>
                     </Skeleton>
                 </Box>
@@ -55,7 +55,7 @@ const SettingsBlackListPlaceHolder = () => {
                     <Grid item xs={12}>
                         <Box>
                             <Skeleton animation="wave" variant="rectangular"
-                                      sx={{bgcolor: '#C7C7C780', borderRadius: '15px'}}>
+                                      sx={{bgcolor: '#F2F3F4', borderRadius: '15px'}}>
                                 <div style={{width: "106px", height: "16px"}}/>
                             </Skeleton>
                         </Box>
