@@ -76,34 +76,30 @@ import ProductNumberPng from "./ProductNumberPng";
   }));
 
 
-export default function PhoneModule({dialog, setDialog, productInfo = {name: 'defaultName', userPhoto: "https://mui.com/static/images/avatar/2.jpg", raiting: 2, user_id: 2}, userInfo}) {
+export default function PhoneModule({dialog, setDialog, productInfo = {name: '',  raiting: null, user_id: 2}, userInfo}) {
   const classes = useStyles();
   const { name, userPhoto, raiting, user_id, isLoading } = productInfo;  //useProduct(router.query.id);Исправить
   const {sellerPhone} = useOutherUser(user_id);
-
-  // console.log('userInfo ',userInfo )
-  // console.log('userInfo ',userInfo ? true : false )
-  // console.log('userInfo ',userInfo.userPhoto )
 
   return (
     <Dialog open={dialog || false} onClose={() => setDialog(!dialog)} fullWidth maxWidth="sm">
       <div className={classes.modalNumber}>
         <div className={classes.userProfile}>
           {isLoading || (
-            <Avatar alt="User" className={classes.small} src={userInfo ? userInfo.userPhoto : userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
-              {userInfo ? userInfo.name : name}
+            <Avatar alt="User" className={classes.small} src={userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
+              {name}
             </Avatar>
           )}
           <div className={classes.userInf}>
             <div className={classes.userName} onClick={() => router.push(`/user/${user_id}`)}>{name}</div>
             <div className={classes.userStar}>
               {raiting == null ? null : <div className={classes.numberStar}>{(raiting + "").split("").splice(0, 4).join("")}</div>}
-              <StarRating rating={userInfo? userInfo.raiting : raiting} />
+              <StarRating rating={raiting} />
             </div>
           </div>
         </div>
         {/* <h2 className={classes.userPhone}>{sellerPhone || "Не указан"}</h2> */}
-        {userInfo ? <ProductNumberPng name={userInfo.phone} x={0} y={25}/> : sellerPhone ? <ProductNumberPng name={sellerPhone} x={0} y={25}/> : null}
+        {userInfo ? <ProductNumberPng name={userInfo} x={0} y={25}/> : sellerPhone ? <ProductNumberPng name={sellerPhone} x={0} y={25}/> : null}
         <p className={classes.userMessage}>Номер защищён: смс и сообщения в Viber, WhatsApp и других мессенджерах не будут доставлены</p>
         <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
         <ul className={classes.warningBlock}>

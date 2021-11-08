@@ -2,11 +2,11 @@ import React from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 
 function Notifs(data) {
-  if (data.data.lenght == 0) {
+  if (data.data.length === 0) {
     return (
 	  <EmptyPlaceholder
 	  title='Здесь буду ваши уведомления'
-	  subtitle='Текст'
+	  // subtitle='Текст'
 	  />
     );
   }
