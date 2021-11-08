@@ -12,7 +12,7 @@ import { STATIC_URL } from "../../lib/constants";
 import { categoryScroll } from "../../lib/scrollAds";
 import FilterBlock from "../../components/FilterBlock";
 import {generateAliasStr, generateDataArr} from "../../lib/services";
-import {generateCheckboxTime} from "../../lib/utils/checkBoxFunction";
+import {generateCheckBoxObj, generateCheckboxTime} from "../../lib/utils/checkBoxFunction";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -58,9 +58,10 @@ const Index = () => {
 
 	const [data, setData] = useState(null);
 	const [page, setPage] = useState(1);
-	const [limitRenderPage, setLimitRanderPage] = useState(0);
+	const [limitRenderPage, setLimitRenderPage] = useState(0);
 	const [/** lastIdAds */ ,setLastIdAds] = useState(0);
 	const [checkboxDate, setCheckboxDate] = useState(undefined)
+	const [queryObjState, setQueryObjState] = useState({})
 	let queryObj = {}
 
 	const router = useRouter()
@@ -70,7 +71,7 @@ const Index = () => {
 	const aliasData = aliasName(aliasQuery, true)
 	const aliasFullUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
 	const searchText = router?.query?.text
-	const aliasAll = router?.query?.alias == 'all'
+	const aliasAll = router?.query?.alias === 'all'
 	const limit = 10
 	
 
@@ -82,35 +83,44 @@ const Index = () => {
 		return router.query.text
 	}
 
-	useEffect(() => {
-		queryObj = {}
-		for (let key in router.query) {
+	const generateRouteObj = (data) => {
+		for (let key in data) {
 			if (key === 'alias' || key === 'text') return;
-			queryObj[key] = router.query[key]
+			queryObj[key] = data[key]
 		}
+	}
+
+	useEffect(async () => {
+		queryObj = {}
+		await generateRouteObj(router.query)
+		// await generateCheckBoxObj(queryObj)
+		// console.log(queryObj)
 	}, [router])
 
 
 	useEffect(() => {
 		setPage(1)
-		setLimitRanderPage(0)
+		setLimitRenderPage(0)
 		setLastIdAds(0)
 	}, [router])
 
 
+
 	useEffect(() => {
 		if (searchText) {
-			console.log('search')
 			const data = {'category': aliasAll? '': aliasFullUrl, 'text': searchText , 'page_limit': limit, 'page': 1}
 			getDataByPost('/api/searchInsideCategory', data)
 			  .then(r => {
-				  console.log(r)
 				  setData(generateDataArr(r))
 				  setPage(1);
 			  });
 
 		} else if (Object.keys(queryObj).length) {
-			console.log('checkbox')
+
+
+			generateCheckBoxObj(queryObj)
+
+
 			const sendCheckObj = {
 				price: queryObj?.price ? queryObj?.price : {min: null, max: null},
 				category: aliasQuery,
@@ -121,9 +131,13 @@ const Index = () => {
 				check: {}
 			}
 
+
 			delete queryObj.price
 			delete queryObj.period
+
 			sendCheckObj.check = queryObj
+
+			setQueryObjState(sendCheckObj)
 
 
 			getDataByPost('/api/getPostsCheck', sendCheckObj)
@@ -133,8 +147,8 @@ const Index = () => {
 						setPage(1)
 					}
 				})
+
 		} else {
-			console.log('category')
 			if (aliasFullUrl) {
 			getDataByPost('/api/postCategorySearch', { data: aliasFullUrl, 'page_limit': limit, 'page': 1 }).then(r => {
 				if (r !== undefined) {
@@ -161,7 +175,6 @@ const Index = () => {
 
 
 	useEffect(() => {
-
 		const fetchDataObj = {
 			'data': aliasFullUrl,
 			'page_limit': limit,
@@ -176,16 +189,23 @@ const Index = () => {
 
 		const setObj = {
 			setData,
-			setLimitRanderPage,
+			setLimitRenderPage,
 			setPage,
 			setLastIdAds
 		}
 
+
 		if (page > 1) {
 			const api = searchText ?  '/api/searchInsideCategory' : '/api/postCategorySearch';
-			categoryScroll(api, fetchDataObj, setObj)
+			if (Object.keys(queryObjState).length) {
+				categoryScroll('/api/getPostsCheck', {...queryObjState, page: page}, setObj)
+			} else {
+				categoryScroll(api, fetchDataObj, setObj)
+			}
 		}
 	}, [page])
+
+
 
 
 	return (
@@ -198,7 +218,7 @@ const Index = () => {
 						data={Array.isArray(checkboxDate) ? checkboxDate : data}
 						page={page} 
 						limitRender={limitRenderPage} 
-						setLimitRenderPage={setLimitRanderPage} 
+						setLimitRenderPage={setLimitRenderPage} 
 						setPage={setPage} /></Box>
 				{!matchesMobile && !matchesTablet &&
 					<Box className={classes.rightBlock}>

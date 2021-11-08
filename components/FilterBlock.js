@@ -60,7 +60,9 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
 
 
   useEffect(() => {
-    clearFields()
+    if (searchText && category) {
+      clearFields()
+    }
   }, [searchText, category])
 
   useEffect(() => {
