@@ -94,18 +94,19 @@ const FilterAuto = () => {
       }}/>
       <FilterRadio data={{title: "Руль", alias: 'steering_wheel', fields: ['Любой', 'Правый', 'Левый']}}/>
       <FilterTwoFields data={{firstAlias: "fromPower", secondAlias: 'toPower', title: "Мощность, л.с."}}/>
-      <FilterColor alias='color' title='Цвет'/>
+      <FilterColor alias='color' title='Цвет' queryColor={router?.query?.color}/>
       {methods.watch('type_park_auto') !== 'Новый' && methods.watch('type_park_auto') ? <FilterSelect unmount data={{
         alias: "condition",
         title: "Состояние",
         fields: ["Битый", "Не битый", "На гарантии"]
       }}/> : null}
-      {methods.watch('type_park_auto') !== 'С пробегом' && methods.watch('type_park_auto') ? <FilterSelect unmount
-                                                                                                           data={{
-                                                                                                             alias: "status",
-                                                                                                             title: "Статус",
-                                                                                                             fields: ["В пути", "В наличии", "Под заказ"]
-                                                                                                           }}/> : null}
+      {methods.watch('type_park_auto') !== 'С пробегом' && methods.watch('type_park_auto') ?
+        <FilterSelect unmount
+           data={{
+             alias: "status",
+             title: "Статус",
+             fields: ["В пути", "В наличии", "Под заказ"]
+           }}/> : null}
       <FilterRadio data={{
         title: "Срок размещения",
         alias: 'period',

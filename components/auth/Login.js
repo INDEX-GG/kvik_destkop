@@ -172,7 +172,7 @@ const Login = () => {
                       onChange(PhoneMask(e, valueInp, setValueInp))
                     }
                     onKeyDown={(e) => {
-                      if (e.key == "Backspace" && e.target.value.length === 3) {
+                      if (e.key === "Backspace" && e.target.value.length === 3) {
                         setValueInp("");
                       }
                     }}
@@ -208,7 +208,7 @@ const Login = () => {
                                 onClick={() => {
                                   setShowPassword(!showPassword);
                                 }}
-                            ></a>
+                            />
                           </InputAdornment>
                       )
                     }}
@@ -260,7 +260,7 @@ const Login = () => {
                 <a href="https://vk.com" className="vkLoginIcon"/>
                 <a href="https://ok.ru/" className="odLoginIcon"/>
                 <a href="https://www.apple.com/" className="appleLoginIcon"/>
-                <a href="https:/facebook.com" className="facebookLoginIcon"/>
+                <a href="https://facebook.com" className="facebookLoginIcon"/>
                 <a href="https://google.com" className="googleLoginIcon"/>
               </div>
               <Button

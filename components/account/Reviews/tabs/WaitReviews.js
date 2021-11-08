@@ -25,7 +25,7 @@ function WaitReviews({data}) {
   }, [dataCheck])
   
   
-  if (data.lenght == 0) {
+  if (data.length === 0) {
     return (
       <>
         {!data ? <ReviewWaitPlaceHolder/>
