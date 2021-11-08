@@ -30,7 +30,7 @@ const menuItems = [
     {id: 2, name: "menuDeals", title: "Сделки"},
     {id: 3, name: "menuWallet", title: "Кошелек"},
     {id: 4, name: "menuFavorites", title: "Избранное"},
-    {id: 5, name: "menuNotifications", title: "Уведомления"},
+    {id: 5, name: "menuNotifications", title: "Сообщения"},
     {id: 6, name: "menuCompare", title: "Сравнить"},
     {id: 7, name: "menuReviews", title: "Отзывы"},
     {id: 8, name: "menuSettings", title: "Настройки"},
@@ -264,7 +264,7 @@ function Account() {
                         {accountContent()}
                     </div>
                 </div>}
-            <div className="userPageWhiteSpace"></div>
+            <div className="userPageWhiteSpace"/>
             <Dialog open={openPicUpload || false} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
                 <UserPicUpload {...{imageType: "webp", optimiztionLevel: 0.7, maxScale: 5, Close: closePicUpload}} />
             </Dialog>

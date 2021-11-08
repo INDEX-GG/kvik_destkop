@@ -1,13 +1,19 @@
 import {Pool} from "pg";
 
+const text2Bool = (string) => {
+    return (string === 'true') || (string === true);
+}
+
 export default async function handler(req, res) {
 
     if (req.method === 'POST') {
         const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-
         const main = async () => {
+            const key_list = ['auto', 'new_building', 'secondary_housing', 'rent_apartments', 'sell_rooms', 'rent_rooms', 'sell_houses_and_cottages', 'rent_houses_and_cottages', 'sell_office_space', 'sell_commercial_premises', 'sell_warehouse_space', 'sell_production_room', 'sell_free_premises', 'sell_building', 'rent_office_space', 'rent_commercial_premises', 'rent_warehouse_space', 'rent_production_room', 'rent_free_premises', 'rent_building', 'sell_izhs', 'sell_snt', 'sell_agriculturalland', 'sell_commercialland', 'sell_garage', 'sell_parkingplace', 'rent_garage', 'rent_parkingplace', 'sell_abroad', 'rent_abroad', 'vacancies', 'summary', 'laptops', 'smartphones', 'telephones', 'tablets', 'electronic_books', 'chargers_power_supplies', 'smart_watches_and_fitness_bracelets', 'desktop_computers', 'monitors', 'manipulators__input_devices', 'expendable_materials', 'motherboards_perif', 'ram', 'data_storage', 'housings_corp', 'video_cards_componentsss', 'other_comp', 'personal_computer_accessories', 'ram_for_servers', 'server_network_hardware', 'steering_wheels_gamepads_joysticks', 'printers', 'mfps_and_scanners', 'consumables_for_office_equipment', 'ups_and_surge_protectors', 'tv_sets_cat2', 'hi_fi_technology', 'tv_accessories', 'audio_engineering', 'video_engineering', 'for_home', 'for_personalized_care', 'for_kitchen', 'climatic_equipment', 'table_setting', 'cooking_food', 'food_storage', 'household_goods', 'video_surveillance', 'plants_and_seeds', 'cats', 'dogs', 'goods_for_children_toys', 'bicycles']
             const category = req.body.category.toLowerCase();
             const text = req.body.text.toLowerCase();
+            const delivery = text2Bool(req.body.delivery);
+            const save_deal = text2Bool(req.body.save_deal);
             const page_limit = req.body.page_limit
             const page = (req.body.page - 1) * page_limit
             const price_min = req.body.price.min
@@ -15,6 +21,12 @@ export default async function handler(req, res) {
             const check = req.body.check
             const time = req.body.time
             let constructQuery = ''
+            if (delivery === true) {
+                constructQuery =  constructQuery.concat(" AND posts.delivery = '", true, "'")
+            }
+            if (save_deal === true) {
+                constructQuery =  constructQuery.concat(" AND posts.secure_transaction = '", true, "'")
+            }
             if (time != null) {
                 constructQuery =  constructQuery.concat(" AND posts.created_at >= '", time, "'")
             }
@@ -29,34 +41,39 @@ export default async function handler(req, res) {
                     constructQuery =  constructQuery.concat(" AND posts.price <= ", price_max, " AND posts.price >= ", price_min)
                 }
             }
-            for (const [key, value] of Object.entries(check)) {
-                if (value != null) {
-                    if (Array.isArray(value)) {
-                        if (value.length !== 0) {
-                            let arrayQuery = ''
-                            for (let variable of value) {
-                                arrayQuery = arrayQuery.concat(" (", category, ".\"", key, "\") = '", variable.toString(), "' OR")
+            if (!(key_list.includes(category))) {
+                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (posts.subcategory LIKE '%${category}') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+                return(answer.rows)
+            } else {
+                for (const [key, value] of Object.entries(check)) {
+                    if (value != null) {
+                        if (Array.isArray(value)) {
+                            if (value.length !== 0) {
+                                let arrayQuery = ''
+                                for (let variable of value) {
+                                    arrayQuery = arrayQuery.concat(" (", category, ".\"", key, "\") = '", variable.toString(), "' OR")
+                                }
+                                constructQuery =  constructQuery.concat("AND (", arrayQuery.substring(0, arrayQuery.length - 3), ")")
                             }
-                            constructQuery =  constructQuery.concat("AND (", arrayQuery.substring(0, arrayQuery.length - 3), ")")
-                        }
-                    } else if (typeof value === 'object') {
-                        if (!(value.max == null && value.min == null)) {
-                            if (value.min == null) {
-                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" <= ", value.max)
-                            } else if (value.max == null) {
-                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min)
-                            } else {
-                                constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min, " AND ", category, ".\"", key, "\" <= ", value.max)
+                        } else if (typeof value === 'object') {
+                            if (!(value.max == null && value.min == null)) {
+                                if (value.min == null) {
+                                    constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" <= ", value.max)
+                                } else if (value.max == null) {
+                                    constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min)
+                                } else {
+                                    constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min, " AND ", category, ".\"", key, "\" <= ", value.max)
+                                }
                             }
+                        } else {
+                            constructQuery = constructQuery.concat(" AND LOWER (", category, ".\"", key, "\") = '", value.toLowerCase(), "'")
                         }
-                    } else {
-                        constructQuery = constructQuery.concat(" AND LOWER (", category, ".\"", key, "\") = '", value.toLowerCase(), "'")
                     }
                 }
+                const answer  = await pool.query(`SELECT posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts","${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+                console.log(constructQuery);
+                return(answer.rows)
             }
-            const answer  = await pool.query(`SELECT posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts","${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
-            console.log(constructQuery);
-            return(answer.rows)
         }
         try {
             let response = await main();
