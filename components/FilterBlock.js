@@ -45,6 +45,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
   const router = useRouter()
   let filter;
 
+  console.log(methods.getValues())
 
 
   const clearFields = () => {
@@ -187,17 +188,19 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
     }
 
 
-    if (data.color?.length) {
-      data.color = data.color.map(item => item + 1)
-    }
-
     delete data.price
     delete data?.period
 
     sendCheckObj.check = data
 
+    if (sendCheckObj.check?.color?.length) {
+      sendCheckObj.check.color = sendCheckObj.check?.color.map(item => {
+        return +item + 1
+      })
+    }
 
-    console.log(routeObj)
+
+    console.log(sendCheckObj)
 
     axios.post('/api/getPostsCheck', sendCheckObj)
       .then(r => {
