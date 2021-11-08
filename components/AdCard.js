@@ -11,6 +11,7 @@ import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded'
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
 import PhoneModule from "./product/PhoneModule";
+import {useOutherUser} from "../hooks/useOutherUser";
 
 SwiperCore.use([Pagination]);
 const initialState = {
@@ -42,9 +43,11 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const classes = useClass()
 	const { id } = useAuth();
 	const {offer} = props;
+	// const { query } = useRouter();
 
 	const { matchesMobile, matchesTablet } = useMedia();
 	const { userInfo, setLikeComment } = useStore();
+	const {sellerPhone, sellerPhoto} = useOutherUser(offer.user_id);
 	const currentSwiper = useRef();
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
@@ -173,7 +176,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 						{!matchesMobile && !matchesTablet &&
 							<div className="card__top_info_left">
 								{offer.email && offer.user_id !== id ? <span className="card_comment"/> : ''}
-								{call && offer.user_id !== id ? <span  onClick={() => setPhoneModuleState(true)}   className="card_call"/> : ''}
+								{call && offer.user_id !== id ? <span  onClick={() => setPhoneModuleState(true)}   className='card_call'/> : ''}
 							</div>}
 						<div className="card__top_info_right">
 							{/* {!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''} */}
@@ -201,8 +204,8 @@ const AdCard_component = React.forwardRef((props, ref) => {
 							<div className="card__bottom_info_right">
 								<span className="old__price">{offer.old_price == null ? ' ' : ellipsis(ToRubles(offer.old_price), 15)}</span>
 								<div className="card__bottom_info_right_commercial">
-									{!matchesMobile && offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}/> : ''}
-									{!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}/> : ''}
+									{!matchesMobile && offer.delivery ? <span className={!offer.commercial === 0 ? "card_delivery card_delivery-green" : "card_delivery"}/> : ''}
+									{!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial === 0 ? "card_secure card_secure-green" : "card_secure"}/> : ''}
 								</div>
 							</div>
 							<div className="card__bottom_info_left">
@@ -217,7 +220,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 					</div>
 				</Link>
 			</div>
-			<PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} userInfo={userInfo}/>
+			<PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} userInfo={sellerPhone} sellerPhoto={sellerPhoto}/>
 		</div>
 
 	);
