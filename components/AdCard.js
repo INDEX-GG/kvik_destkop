@@ -138,7 +138,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 							{offer?.photo?.length === 1 ?
 								<img
 									alt="фото объявления"
-									loading="lazy"
 									ref={currentSwiper}
 									src={`${offer.photo[0]}`}
 									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
@@ -154,7 +153,6 @@ const AdCard_component = React.forwardRef((props, ref) => {
 												<img
 													alt="фото объявления"
 													src={`${img}`}
-													loading="lazy"
 													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 												/>
 												{
