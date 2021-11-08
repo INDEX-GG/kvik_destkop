@@ -10,6 +10,7 @@ import { IconButton, Menu, MenuItem, makeStyles } from "@material-ui/core";
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
+import PhoneModule from "./product/PhoneModule";
 
 SwiperCore.use([Pagination]);
 const initialState = {
@@ -47,6 +48,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const currentSwiper = useRef();
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
+	const [phoneModuleState, setPhoneModuleState] = useState(false);
 	const handleCM = (e) => {
 		e.preventDefault();
 		setOpenMenu({
@@ -60,6 +62,9 @@ const AdCard_component = React.forwardRef((props, ref) => {
 			window.open(`/product/${id}`);
 		}
 	}
+
+
+
 
 	// todo: перелистывание слайдера по движению мыши
 	// useEffect(() => {
@@ -129,6 +134,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 						<div className="card__top_slider">
 							{offer?.photo?.length === 1 ?
 								<img
+									alt="фото объявления"
 									loading="lazy"
 									ref={currentSwiper}
 									src={`${offer.photo[0]}`}
@@ -143,6 +149,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 										return (
 											<SwiperSlide key={i} style={{position: 'relative'}}>
 												<img
+													alt="фото объявления"
 													src={`${img}`}
 													loading="lazy"
 													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
@@ -165,8 +172,8 @@ const AdCard_component = React.forwardRef((props, ref) => {
 					<div className="card__top_info">
 						{!matchesMobile && !matchesTablet &&
 							<div className="card__top_info_left">
-								{offer.email && offer.user_id != id ? <span className="card_comment"></span> : ''}
-								{call && offer.user_id != id ? <span href="#" className="card_call"></span> : ''}
+								{offer.email && offer.user_id !== id ? <span className="card_comment"/> : ''}
+								{call && offer.user_id !== id ? <span  onClick={() => setPhoneModuleState(true)}   className="card_call"/> : ''}
 							</div>}
 						<div className="card__top_info_right">
 							{/* {!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''} */}
@@ -194,8 +201,8 @@ const AdCard_component = React.forwardRef((props, ref) => {
 							<div className="card__bottom_info_right">
 								<span className="old__price">{offer.old_price == null ? ' ' : ellipsis(ToRubles(offer.old_price), 15)}</span>
 								<div className="card__bottom_info_right_commercial">
-									{!matchesMobile && offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}></span> : ''}
-									{!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}></span> : ''}
+									{!matchesMobile && offer.delivery ? <span className={!offer.commercial == 0 ? "card_delivery card_delivery-green" : "card_delivery"}/> : ''}
+									{!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial == 0 ? "card_secure card_secure-green" : "card_secure"}/> : ''}
 								</div>
 							</div>
 							<div className="card__bottom_info_left">
@@ -210,6 +217,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 					</div>
 				</Link>
 			</div>
+			<PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} userInfo={userInfo}/>
 		</div>
 
 	);
