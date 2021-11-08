@@ -11,6 +11,7 @@ export default async function handler(req, res) {
         const main = async () => {
             const key_list = ['auto', 'new_building', 'secondary_housing', 'rent_apartments', 'sell_rooms', 'rent_rooms', 'sell_houses_and_cottages', 'rent_houses_and_cottages', 'sell_office_space', 'sell_commercial_premises', 'sell_warehouse_space', 'sell_production_room', 'sell_free_premises', 'sell_building', 'rent_office_space', 'rent_commercial_premises', 'rent_warehouse_space', 'rent_production_room', 'rent_free_premises', 'rent_building', 'sell_izhs', 'sell_snt', 'sell_agriculturalland', 'sell_commercialland', 'sell_garage', 'sell_parkingplace', 'rent_garage', 'rent_parkingplace', 'sell_abroad', 'rent_abroad', 'vacancies', 'summary', 'laptops', 'smartphones', 'telephones', 'tablets', 'electronic_books', 'chargers_power_supplies', 'smart_watches_and_fitness_bracelets', 'desktop_computers', 'monitors', 'manipulators__input_devices', 'expendable_materials', 'motherboards_perif', 'ram', 'data_storage', 'housings_corp', 'video_cards_componentsss', 'other_comp', 'personal_computer_accessories', 'ram_for_servers', 'server_network_hardware', 'steering_wheels_gamepads_joysticks', 'printers', 'mfps_and_scanners', 'consumables_for_office_equipment', 'ups_and_surge_protectors', 'tv_sets_cat2', 'hi_fi_technology', 'tv_accessories', 'audio_engineering', 'video_engineering', 'for_home', 'for_personalized_care', 'for_kitchen', 'climatic_equipment', 'table_setting', 'cooking_food', 'food_storage', 'household_goods', 'video_surveillance', 'plants_and_seeds', 'cats', 'dogs', 'goods_for_children_toys', 'bicycles']
             const category = req.body.category.toLowerCase();
+            const full_category = req.body.categoryFullName.toLowerCase();
             const text = req.body.text.toLowerCase();
             const delivery = text2Bool(req.body.delivery);
             const save_deal = text2Bool(req.body.save_deal);
@@ -42,7 +43,7 @@ export default async function handler(req, res) {
                 }
             }
             if (!(key_list.includes(category))) {
-                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (posts.subcategory LIKE '%${category}') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE '%${full_category}%') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
                 return(answer.rows)
             } else {
                 for (const [key, value] of Object.entries(check)) {
