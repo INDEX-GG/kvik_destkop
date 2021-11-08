@@ -78,7 +78,7 @@ const Index = () => {
 		 firstAds(id, isAuth, page, limit, setData, setLastIdAds)
 	}, [id]);
 
-	// console.log('',page)
+	console.log('page======>>>',page)
 
 	return (
 
@@ -95,7 +95,7 @@ const Index = () => {
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 						<JokerBlock/>
 						<Box className={classes.footer}>
-							<Footer2/>
+							{!isPending ? null : <Footer2/>}
 						</Box>
 					</Box>}
 				</Box>}
