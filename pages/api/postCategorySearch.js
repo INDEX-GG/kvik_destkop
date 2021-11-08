@@ -1,18 +1,18 @@
-import { PrismaClient } from '@prisma/client';
+import {Pool} from "pg";
 
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
-		const prisma = new PrismaClient();
+		const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 		const main = async () => {
 			const data = req.body.data.toLowerCase();
 			const page_limit = req.body.page_limit
 			const page = (req.body.page - 1) * page_limit
-			return await prisma.$queryRaw(`SELECT * FROM posts WHERE LOWER (category_id) LIKE '${data}%' AND active = 0 AND verify = 0 ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+			const answer  = await pool.query(`SELECT * FROM posts WHERE LOWER (category_id) LIKE '${data}%' AND active = 0 AND verify = 0 ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+			return(answer.rows)
 			// return  await  prisma.$queryRaw(`SELECT * FROM "posts" WHERE active = 0 ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
 
 		}
-
 		try {
 			let response = await main();
 			res.status(200);
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 			res.status(405).end();
 		}
 		finally {
-			await prisma.$disconnect();
+			await pool.end();
 		}
 
 	} else {
