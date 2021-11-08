@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox }) => {
+const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFullName }) => {
   const classes = useStyles();
   const category = categoryData?.aliasName[0].alias.toLowerCase();
   const servicesCategory = categoryData?.aliasBread[0].alias
@@ -58,6 +58,10 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
     })
   };
 
+  useEffect(() => {
+    setCheckbox(undefined)
+  }, [router])
+
 
   useEffect(() => {
     if (searchText && category) {
@@ -76,6 +80,7 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
         .catch(e => e)
     }
   }, [category])
+
 
   switch (category) {
     case "new_building":
@@ -161,13 +166,10 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
 
   const onSubmit = (data) => {
 
-    console.log(data)
-
 
     if (window) {
       window.scrollTo(0, 0)
     }
-
 
     const routeObj = {}
 
@@ -176,9 +178,10 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
     const sendCheckObj = {
       price: data.price,
       category: categoryData?.aliasName[0]?.alias,
+      categoryFullName: aliasFullName,
       text: searchText ? searchText : "",
       time: generateCheckboxTime(data.period),
-      page: page === 'end' ? 1 : page,
+      page: 1,
       page_limit: pageLimit,
       check: {}
     }
@@ -194,8 +197,11 @@ const FilterBlock = ({ categoryData, searchText, page, pageLimit, setCheckbox })
     sendCheckObj.check = data
 
 
+    console.log(routeObj)
+
     axios.post('/api/getPostsCheck', sendCheckObj)
       .then(r => {
+        console.log(r)
       setCheckbox(generateDataArr(r.data));
       })
       .catch((e) => {
