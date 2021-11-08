@@ -97,10 +97,29 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FilterColor = ({ alias, title }) => {
+const FilterColor = ({ alias, title, queryColor }) => {
   const classes = useStyles();
   const methods = useFormContext();
   const [colors, setColors] = useState([]);
+  const [defaultState, setDefaultState] = useState([])
+
+
+  useEffect(() => {
+    if (queryColor?.length) {
+      if (Array.isArray(queryColor)) {
+        setDefaultState(queryColor.map(item => +item))
+      } else {
+        setDefaultState([+queryColor])
+      }
+    }
+  }, [queryColor])
+
+  useEffect(() => {
+    if (defaultState.length) {
+      setColors(defaultState)
+    }
+  }, [defaultState])
+
 
   const handleChange = (value, onChange) => {
     setColors(col => {

@@ -73,7 +73,7 @@ const Index = () => {
 	const searchText = router?.query?.text
 	const aliasAll = router?.query?.alias === 'all'
 	const limit = 10
-	
+
 
 	const generateTitle = () => {
 		if (!router?.query?.text) {
@@ -102,12 +102,14 @@ const Index = () => {
 		setPage(1)
 		setLimitRenderPage(0)
 		setLastIdAds(0)
+		setQueryObjState({})
 	}, [router])
 
 
 
 	useEffect(() => {
 		if (searchText) {
+			console.log(1)
 			const data = {'category': aliasAll? '': aliasFullUrl, 'text': searchText , 'page_limit': limit, 'page': 1}
 			getDataByPost('/api/searchInsideCategory', data)
 			  .then(r => {
@@ -117,13 +119,14 @@ const Index = () => {
 
 		} else if (Object.keys(queryObj).length) {
 
+			console.log(2)
 
 			generateCheckBoxObj(queryObj)
-
 
 			const sendCheckObj = {
 				price: queryObj?.price ? queryObj?.price : {min: null, max: null},
 				category: aliasQuery,
+				categoryFullName: aliasFullUrl ? aliasFullUrl : aliasQuery,
 				text: searchText ? searchText : "",
 				time: generateCheckboxTime(queryObj?.period),
 				page:  1,
@@ -135,9 +138,19 @@ const Index = () => {
 			delete queryObj.price
 			delete queryObj.period
 
+			if (queryObj?.color?.length) {
+				if (Array.isArray(queryObj.color)) {
+					queryObj.color = queryObj?.color?.map(item => +item + 1);
+				} else {
+					queryObj.color = [+queryObj.color + 1]
+				}
+			}
+
 			sendCheckObj.check = queryObj
 
+
 			setQueryObjState(sendCheckObj)
+
 
 
 			getDataByPost('/api/getPostsCheck', sendCheckObj)
@@ -150,6 +163,7 @@ const Index = () => {
 
 		} else {
 			if (aliasFullUrl) {
+				console.log(3)
 			getDataByPost('/api/postCategorySearch', { data: aliasFullUrl, 'page_limit': limit, 'page': 1 }).then(r => {
 				if (r !== undefined) {
 					const offersData = r.map(offer => {
@@ -163,7 +177,6 @@ const Index = () => {
 
 						return offer;
 					})
-					console.log(offersData)
 					setData(offersData);
 					setPage(1);
 					if (r.length > 1) setLastIdAds(r[r.length - 1].id)
@@ -207,7 +220,6 @@ const Index = () => {
 
 
 
-
 	return (
 		<Container className={classes.root}>
 			{aliasData?.aliasBread && <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''} />}
@@ -223,10 +235,11 @@ const Index = () => {
 				{!matchesMobile && !matchesTablet &&
 					<Box className={classes.rightBlock}>
 						<FilterBlock
+							aliasFullName={aliasFullUrl}
 							categoryData={aliasData}
 							searchText={searchText}
-							page={page}
 							pageLimit={limit}
+							setData={setData}
 							setCheckbox={setCheckboxDate}
 						/>
 						<div className={classes.ad}>
