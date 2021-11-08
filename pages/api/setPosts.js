@@ -1,11 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
 const text2Bool = (string) => {
-	if (string === 'true') {
-		return true
-	} else {
-		return false
-	}
+	return (string === 'true') || (string === true);
 }
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
@@ -14,7 +10,7 @@ export default async function handler(req, res) {
 			const main = async () => {
 				const communication = {
 					phone: text2Bool(req.body.byphone),
-					message: text2Bool(req.body.bymessage)
+					message: text2Bool(req.body.bymessages)
 				}
 				const alias = (req.body.alias).toString()
 				var now = new Date()
@@ -28,7 +24,7 @@ export default async function handler(req, res) {
 						price: req.body.price,
 						trade: text2Bool(req.body.trade),
 						delivery: text2Bool(req.body.delivery),
-						secure_transaction: text2Bool(req.body.safedeal),
+						secure_transaction: text2Bool(req.body.save_deal),
 						slug: "slug",
 						communication: JSON.stringify(communication),
 						address: req.body.location,
