@@ -243,6 +243,9 @@ export default function Auto({ data }) {
     return (
         <>
             {data.map((item) => {
+                console.log('item=====>>>>',item)
+                console.log('item.type=====>>>>',item.type)
+                console.log('item.alias=====>>>>',item.alias)
                 switch (item.type) {
                     case 'listRec':
                         switch (item.alias) {
@@ -616,8 +619,10 @@ export default function Auto({ data }) {
                         )
 
                     case 'textRec':
-                        return (
-                            <Box key={item.name} className={classes.formInputMainField}>
+                        if (item.alias === 'vine') {
+                            return (
+                            fullDescription && (
+                                <Box key={item.name} className={classes.formInputMainField}>
                                 <Typography className={classes.formTitleField}>{item.name}</Typography>
                                 <Box className={classes.formInputField}>
                                     <Controller
@@ -637,7 +642,58 @@ export default function Auto({ data }) {
                                                 }>
                                             </TextField>
                                         )}
-                                        rules={{ required: 'Выберете ' + item.name }}
+                                        rules={{ required: 'Заполните ' + item.name }}
+                                    />
+                                </Box>
+                            </Box>))
+                         } else if (item.alias === 'owners_of_pts') {
+                            return (
+                                fullDescription && (
+                                    <Box key={item.name} className={classes.formInputMainField}>
+                                        <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                        <Box className={classes.formInputField}>
+                                            <Controller
+                                                name={item.alias}
+                                                control={methods.control}
+                                                render={({field: {onChange, value}, fieldState: {error}}) => (
+                                                    <TextField
+                                                        className={classes.input}
+                                                        variant='outlined'
+                                                        value={value}
+                                                        onKeyDown={e => cursorReplace(e, item.name)}
+                                                        onChange={e => onChange(OnlyNumbersMask(e, item.name))}
+                                                        error={!!error}
+                                                        helperText={error ? error.message : ' '}
+                                                        inputProps={
+                                                            {maxlength: 2}
+                                                        }>
+                                                    </TextField>
+                                                )}
+                                                rules={{required: 'Заполните ' + item.name}}
+                                            />
+                                        </Box>
+                                    </Box>)
+                            )
+                        }
+                        return (
+                            <Box key={item.name} className={classes.formInputMainField}>
+                                <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                <Box className={classes.formInputField}>
+                                    <Controller
+                                        name={item.alias}
+                                        control={methods.control}
+                                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                            <TextField
+                                                className={classes.input}
+                                                variant='outlined'
+                                                value={value}
+                                                onKeyDown={e => cursorReplace(e, item.name)}
+                                                onChange={e => onChange(OnlyNumbersMask(e, item.name))}
+                                                error={!!error}
+                                                helperText={error ? error.message : ' '}>
+                                            </TextField>
+                                        )}
+                                        rules={{ required: 'Заполните ' + item.name }}
                                     />
                                 </Box>
                             </Box>
@@ -659,7 +715,10 @@ export default function Auto({ data }) {
                                                     value={value}
                                                     placeholder='17 ”'
                                                     onKeyDown={e => cursorReplace(e, item.name)}
-                                                    onChange={e => onChange(OnlyNumbersMask(e, item.name))}>
+                                                    onChange={e => onChange(OnlyNumbersMask(e, item.name))}
+                                                    inputProps={
+                                                        {maxlength: 4}
+                                                    }>
                                                 </TextField>
                                             )}
                                         />

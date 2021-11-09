@@ -122,9 +122,7 @@ function PlaceOffer() {
             alias.push(data.alias4);
         }
 
-        // console.log('data?.alias1',data?.alias1)
 
-            //todo: Отрефакторить landType!!!! найти key в доп полях
         const landType = () => {
             if(data.alias4 === 'sell_snt'){
                 return 'СНТ'
