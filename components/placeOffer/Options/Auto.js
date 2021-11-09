@@ -243,9 +243,6 @@ export default function Auto({ data }) {
     return (
         <>
             {data.map((item) => {
-                console.log('item=====>>>>',item)
-                console.log('item.type=====>>>>',item.type)
-                console.log('item.alias=====>>>>',item.alias)
                 switch (item.type) {
                     case 'listRec':
                         switch (item.alias) {
