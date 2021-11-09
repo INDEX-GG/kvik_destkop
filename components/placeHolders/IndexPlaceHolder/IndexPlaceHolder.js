@@ -38,7 +38,7 @@ const IndexPlaceHolder = () => {
                             </Skeleton>
                         </Box>
                     </Grid>
-                    <Grid container md={12} style={{paddingTop: "10px"}}  direction="row">
+                    <Grid item container md={12} style={{paddingTop: "10px"}}  direction="row">
                         <SkeletonFirstLine/>
                         <SkeletonFirstLine/>
                         <SkeletonFirstLine/>
@@ -48,7 +48,7 @@ const IndexPlaceHolder = () => {
 
                 {/*вторая линия обьявлений*/}
                 <Grid item md={12}>
-                    <Grid container md={12} style={{paddingTop: "10px"}}  direction="row">
+                    <Grid item container md={12} style={{paddingTop: "10px"}}  direction="row">
                         <SkeletonSecondLine/>
                         <SkeletonFirstLine/>
                         <SkeletonFirstLine/>
@@ -57,7 +57,7 @@ const IndexPlaceHolder = () => {
 
                 {/*третья линия обьявлений*/}
                 <Grid item md={12}>
-                    <Grid container md={12} style={{paddingTop: "10px"}}  direction="row">
+                    <Grid item container md={12} style={{paddingTop: "10px"}}  direction="row">
                         <SkeletonFirstLine/>
                         <SkeletonFirstLine/>
                         <SkeletonFirstLine/>

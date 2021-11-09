@@ -15,7 +15,7 @@ const SkeletonSecondLine = () => {
 
     const classes = useStyles();
     return (
-        <Grid container md={5} spacing={1} >
+        <Grid item container md={5} spacing={1} >
             <Grid item xs={12}>
                 <Box>
                     <Skeleton  animation="wave" variant="rectangular"    sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "480px", height: "263px"}} />

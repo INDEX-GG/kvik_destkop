@@ -201,6 +201,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 	const [productModal, setProductModal] = useState(true)
 
 	const [value, setValue] = useState(0)
+	// const [autoCloseProductModal, setAutoCloseProductModal] = useState(initState);
 	const rounter = useRouter()
 	const { matchesTablet, matchesMobile } = useMedia()
 
@@ -208,6 +209,11 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 		productModal ? '' : rounter.push("/")
 	}, [productModal]);
 
+	const redirectToIndex = () => {
+	  return rounter.push("/")
+	}
+
+	setTimeout(redirectToIndex, 3000)
 
 	const title = ["Выделение цветом", "Поднятие в поиске", "Отметка на карте", "Показ в схожих категориях", "Размещение в других городах", "Защита номера", "VIP-объявление", "Приветственное сообщение", "Без продвижения"]
 
@@ -253,7 +259,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 	
 		{matchesMobile || matchesTablet ?
 		<>
-			<div onClick={() => setDialog(!dialog)} className="accountArrowLeft"></div>
+			<div onClick={() => setDialog(!dialog)} className="accountArrowLeft"/>
 			<div className={classes.promotionMobileTitel}>
 				<h6 className="modal__block__top_title">Продвижение объявления</h6>
 				{/* <div className={classes.promotionMobileSubTitle}>2/2</div> */}
