@@ -47,7 +47,7 @@ function ReviewWait({offer, parentCheck, getChildData, dataCheck}) {
                     {offer.date}
                 </div>
                 </div>
-                <img className="reviewsUserpic" loading={"lazy"} src={`${offer.userpic}?${offer.id}`} />
+                <img className="reviewsUserpic"  src={`${offer.userpic}?${offer.id}`} />
             </div>
             <div className="reviewsMiddle">
                 <div>{ToRubles(offer.price)}</div>
