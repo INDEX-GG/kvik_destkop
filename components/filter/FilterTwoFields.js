@@ -1,6 +1,8 @@
 import { Box, makeStyles, TextField, Typography } from "@material-ui/core";
 import { Controller, useFormContext } from "react-hook-form";
 import { OnlyNumbersMask } from "../../lib/onlyNumbersMask";
+import {useEffect} from "react";
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles(() => ({
   formBox: {
@@ -38,6 +40,22 @@ const useStyles = makeStyles(() => ({
 const FilterTwoFields = ({ data, unmount }) => {
   const classes = useStyles();
   const methods = useFormContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (data.firstAlias === 'fromPrice' && data.secondAlias === 'toPrice') {
+      if (Object.keys(router.query).length) {
+        if (!router.query?.fromPrice) {
+          methods.setValue(data.firstAlias, '')
+        }
+
+        if (!router.query?.toPrice) {
+          methods.setValue(data.secondAlias, '')
+        }
+      }
+
+    }
+  }, [router])
 
   return (
     <Box className={classes.formBox}>

@@ -82,6 +82,8 @@ const SearchItem = ({children, categoryName, /** setSearchValue */suggestData, a
 			query: {text: suggestData.text}
 		})
 
+		console.log(suggestData)
+
 
 	} else {
 		router.push({
