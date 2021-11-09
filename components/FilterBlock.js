@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Box, Button, makeStyles } from "@material-ui/core";
 import DefaultFilter from "./filter/DefaultFilter";
 import { FormProvider, useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import axios from "axios";
 import { BASE_URL } from "../lib/constants";
 import { generateDataArr} from "../lib/services";
 import {useRouter} from "next/router";
-import {generateCheckboxTime, generateCheckBoxObj} from "../lib/utils/checkBoxFunction";
+import {generateCheckboxTime, generateCheckBoxObj, formDefaultValue} from "../lib/utils/checkBoxFunction";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -42,14 +42,28 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
   const methods = useForm();
   const [fetchedData, setFetchedData] = useState(null)
   const [services, setServices] = useState(false);
+  const [pathName, setPathName] = useState('');
+  const pageRender = useRef(0);
   const router = useRouter()
   let filter;
 
-  console.log(methods.getValues())
+
+  useEffect(async () => {
+    // Изменение изначальных значений формы (defaultValue)
+    await formDefaultValue(router.query, methods)
+  }, [router, methods.getValues])
+
+  useEffect(() => {
+    const asPath = router.asPath.split('?')[0]
+    if (pathName !== asPath) {
+      pageRender.current += 1
+      setPathName(asPath)
+    }
+  }, [router.asPath])
 
 
   const clearFields = () => {
-    methods.reset();
+    methods.reset({});
     setCheckbox(undefined)
     router.push({
       pathname: router.pathname,
@@ -59,14 +73,20 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
     })
   };
 
+
+
   useEffect(() => {
-    setCheckbox(undefined)
-  }, [router])
+    if (pageRender.current > 2) {
+      methods.reset({});
+      setCheckbox(undefined)
+    }
+  }, [pathName])
 
 
   useEffect(() => {
     if (searchText && category) {
-      clearFields()
+      methods.reset({});
+      setCheckbox(undefined)
     }
   }, [searchText, category])
 
@@ -199,6 +219,10 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
       })
     }
 
+    delete sendCheckObj.check?.alias
+    delete sendCheckObj.check?.text
+    delete routeObj?.text
+
 
     console.log(sendCheckObj)
 
@@ -234,7 +258,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
           >
             Показать объявления
           </Button>
-          {methods.formState.isDirty && (
+          {'methods.formState.isDirty' && (
             <Button
               className={`${classes.button} ${classes.buttonClear}`}
               onClick={clearFields}

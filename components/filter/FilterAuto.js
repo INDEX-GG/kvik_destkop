@@ -10,7 +10,6 @@ import FilterColor from "./FilterColor";
 import axios from "axios";
 import {BASE_URL} from "../../lib/constants";
 import {useEffect, useState} from "react";
-import {formDefaultValue} from "../../lib/utils/checkBoxFunction";
 import {useRouter} from "next/router";
 
 
@@ -21,11 +20,6 @@ const FilterAuto = () => {
     [generation, setGeneration] = useState(undefined),
     router = useRouter()
 
-
-  useEffect(() => {
-    // Изменение изначальных значений формы (defaultValue)
-    formDefaultValue(router.query, methods)
-  }, [router, methods.reset, methods.getValues])
 
   useEffect(() => {
     axios.get(`${BASE_URL}/subcategories/auto.json`)

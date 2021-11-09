@@ -168,7 +168,7 @@ const SearchBlock = ({suggestData, activeSuggest, changeSuggestSelect}) => {
                   key={index} 
                   categoryName={item.name} 
                   suggestData={item}
-                  activeSugges={index == activeSuggest - 1}
+                  activeSugges={index === activeSuggest - 1}
                   index={index}
                   changeSuggestSelect={changeSuggestSelect}
                   >
