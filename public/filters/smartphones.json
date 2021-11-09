@@ -132,7 +132,7 @@
     {
       "alias": "operating_system",
       "title": "Операционная система",
-      "fields": ["Windows", "Android", "iOS", "Harmony", "другая"],
+      "fields": ["Windows", "Android", "iOS", "Harmony", "Другая"],
       "type": "select"
     },
     {
