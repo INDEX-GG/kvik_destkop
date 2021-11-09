@@ -35,7 +35,6 @@ function Sellers({sellers, sellerSub}) {
     setBtnSellerArr(newArr)
   }
 
-  console.log('SELA',sellers)
 
   if (sellers?.message) {
     return (
