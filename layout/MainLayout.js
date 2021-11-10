@@ -11,7 +11,7 @@ const MainLayout = ({ children}) => {
 	
   const { matchesMobile, matchesTablet, matchesCustom1024 } = useMedia();
   const router = useRouter();
-  const aliasQuery = router.asPath.split("/").splice(2,).join("")
+  const aliasQuery = router.query.alias
   const [alias, setAlias] = useState("test")
 
   if (router.pathname == "/search/[alias]") {
@@ -20,7 +20,7 @@ const MainLayout = ({ children}) => {
     }  
   }
 
-   const categoryName = aliasName(alias) ? generateAliasStr(aliasName(alias)[0].label) : router?.query?.text ? router?.query?.text : null 
+   const categoryName = aliasName(alias) ? generateAliasStr(aliasName(alias)[0].label) : router?.query?.text ? router?.query?.text : null
 
   return (
     <>
