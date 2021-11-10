@@ -7,7 +7,7 @@ const EmptyPlaceholder = ({title, subtitle, img, imgAlt, customClass = ''}) => {
 				<div className="notInfContainer">
 					{title && <div className="notInf__title">{title}</div>}
 					{subtitle && <p className="notInf__subtitle">{subtitle}</p>}
-					{img && <img className={`notInf__img-${customClass}`} src={img} alt={imgAlt}/>}
+					{img && <img  className={`notInf__img-${customClass}`} style={{maxWidth: "650px"}} src={img} alt={imgAlt}/>}
 				</div>
 			</div>
 		</div>

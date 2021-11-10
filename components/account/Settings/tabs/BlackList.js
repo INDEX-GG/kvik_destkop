@@ -25,8 +25,9 @@ function BlackList({data, unblockUser}) {
             <>
                 {!data ? <SettingsBlackListPlaceHolder/>
                     :<EmptyPlaceholder
-                    title='В черном списке пока никого нет'
-                    img='/accountImage/blackList.png'
+                    title='Здесь будут заблокированные вами пользователи'
+                    subtitle='Нажмите пожаловаться в открывшемся меню выберете "Заблокировать пользователя"'
+                    img='/accountImage/BigBlackList.png'
                     customClass='blackList'
                     imgAlt='search_placeholder'
                 />}
@@ -48,7 +49,7 @@ function BlackList({data, unblockUser}) {
                             }}
                             checked={check}
                         />
-                        <div className="checkbox__text"></div>
+                        <div className="checkbox__text"/>
                     </label>
                     <a className="small light underline" style={dataCardId.length > 0 ? {color: "black"} : null}
                        onClick={() => {
