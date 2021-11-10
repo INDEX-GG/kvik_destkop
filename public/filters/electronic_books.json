@@ -17,7 +17,7 @@
     {
       "alias": "display_diagonal",
       "title": "Диагональ дисплея",
-      "fields": ["До 7", "От 7 до 9", "От 9"],
+      "fields": ["До 7", "От 7 До 9", "От 9"],
       "type": "select"
     },
     {
