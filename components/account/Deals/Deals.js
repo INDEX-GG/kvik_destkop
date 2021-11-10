@@ -3,6 +3,7 @@ import React from "react";
 import EmptyPlaceholder from "../../EmptyPlaceholder";
 import GearsPlaceholder from "../../../icons/gearsPlaceholder/GearsPlaceholder";
 import {Box, Grid} from "@mui/material";
+import {makeStyles} from "@material-ui/core";
 
 // import Sales from './tabs/Sales';
 // import Purch from './tabs/Purch';
@@ -40,9 +41,17 @@ import {Box, Grid} from "@mui/material";
 //    { id: 2, title: 'Покупки', content: <Purch key={2} deals={DealsBox}/>, count: purchDealsBox.length },
 // ];
 
+const useStyles = makeStyles(() => ({
+    gears: {
+        display: "flex",
+        justifyContent: "center",
+    },
+}))
+
+
 const Deals = () => {
 
-
+    const classes = useStyles();
     // Временно пока нет функционала кошелька
     return (
         <>
@@ -51,7 +60,7 @@ const Deals = () => {
                     <EmptyPlaceholder title='К сожалению, данная функция сейчас не доступна.' subtitle='Наша команда уже работает над этим.' />
                 </Grid>
                 <Grid item xs={12}>
-                    <Box style={{display: "flex", justifyContent: "center"}}>
+                    <Box className={classes.gears}>
                         <GearsPlaceholder />
                     </Box>
                 </Grid>

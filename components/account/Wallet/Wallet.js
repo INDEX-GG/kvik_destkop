@@ -6,6 +6,9 @@ import React from 'react';
 // import { useRouter } from 'next/router';
 // import safeAccountTab from '../../safeAccountTab';
 import EmptyPlaceholder from "../../EmptyPlaceholder";
+import {Box, Grid} from "@mui/material";
+import GearsPlaceholder from "../../../icons/gearsPlaceholder/GearsPlaceholder";
+import {makeStyles} from "@material-ui/core";
 
 //Баланс кошелька
 // const balance = 3454322;
@@ -37,11 +40,30 @@ import EmptyPlaceholder from "../../EmptyPlaceholder";
 // 	{ id: 3, title: 'Бонусные рубли', content: <Bonus key={3} data={data} /> }
 // ]
 
-const Wallet = () => {
+const useStyles = makeStyles(() => ({
+	gears: {
+		display: "flex",
+		justifyContent: "center",
+	},
+}))
 
+
+const Wallet = () => {
+	const classes = useStyles();
 	// Временно пока нет функционала кошелька
 	return (
-		<EmptyPlaceholder title='К сожалению, данная функция сейчас не доступна.' subtitle='Наша команда уже работает над этим.'/>
+		<>
+			<Grid container spacing={2}>
+				<Grid item xs={12}>
+					<EmptyPlaceholder title='К сожалению, данная функция сейчас не доступна.' subtitle='Наша команда уже работает над этим.' />
+				</Grid>
+				<Grid item xs={12}>
+					<Box className={classes.gears}>
+						<GearsPlaceholder />
+					</Box>
+				</Grid>
+			</Grid>
+		</>
 	);
 }
 //
