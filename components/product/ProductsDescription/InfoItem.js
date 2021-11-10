@@ -12,17 +12,21 @@ const useClass = makeStyles(() => ({
 }))
 
 
-
 const InfoItem = ({name, desc, mobile}) => {
   const classes = useClass()
 
-  if(name === 'Цвет:'){
+  if(name === 'Цвет:') {
     switch (desc) {
       case 1:
         desc = <div style={{borderRadius: "50%", width: "20px", height: "20px", background: "#FFFFFF"}}/>;
         break
       case 2:
-        desc = <div style={{borderRadius: "50%", width: "20px", height: "20px", background: "linear-gradient(180deg, #000000 0%, rgba(255, 255, 255, 0) 100%)"}}/>;
+        desc = <div style={{
+          borderRadius: "50%",
+          width: "20px",
+          height: "20px",
+          background: "linear-gradient(180deg, #000000 0%, rgba(255, 255, 255, 0) 100%)"
+        }}/>;
         break
       case 3:
         desc = <div style={{borderRadius: "50%", width: "20px", height: "20px", background: "##828282"}}/>;
@@ -64,14 +68,23 @@ const InfoItem = ({name, desc, mobile}) => {
         desc = <div style={{borderRadius: "50%", width: "20px", height: "20px", background: "#FFCADA"}}/>;
         break
       case 16:
-        desc = <div style={{borderRadius: "50%", width: "20px", height: "20px", background: "linear-gradient(180deg, #FF0000 0%, #FAFF00 32.29%, #05FF00 55.21%, #00F0FF 67.71%, #000AFF 81.25%, #FF00F5 100%)"}}/>;
+        desc = <div style={{
+          borderRadius: "50%",
+          width: "20px",
+          height: "20px",
+          background: "linear-gradient(180deg, #FF0000 0%, #FAFF00 32.29%, #05FF00 55.21%, #00F0FF 67.71%, #000AFF 81.25%, #FF00F5 100%)"
+        }}/>;
         break
 
       default:
         <div style={{borderRadius: "50%", width: "20px", height: "20px", background: "#FFFFFF"}}/>;
 
     }
+  } else if(name === 'VIN (номер кузова):') {
+    desc = `${desc.slice(0,4)}*************`;
   }
+
+
 
   return <div style={ {
     display: 'flex',
