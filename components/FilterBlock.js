@@ -39,27 +39,24 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
   const classes = useStyles();
   const category = categoryData?.aliasName[0].alias.toLowerCase();
   const servicesCategory = categoryData?.aliasBread[0].alias
-  const methods = useForm();
   const [fetchedData, setFetchedData] = useState(null)
   const [services, setServices] = useState(false);
-  const [pathName, setPathName] = useState('');
   const pageRender = useRef(0);
   const router = useRouter()
+  const methods = useForm();
   let filter;
 
 
   useEffect(async () => {
     // Изменение изначальных значений формы (defaultValue)
-    await formDefaultValue(router.query, methods)
-  }, [router, methods.getValues])
+    if (Object.keys(router.query).length) {
+      await formDefaultValue(router.query, methods)
+    }
+  }, [router, methods.getValues, searchText])
 
   useEffect(() => {
-    const asPath = router.asPath.split('?')[0]
-    if (pathName !== asPath) {
-      pageRender.current += 1
-      setPathName(asPath)
-    }
-  }, [router.asPath])
+    if (category) pageRender.current += 1
+  }, [category, searchText])
 
 
   const clearFields = () => {
@@ -75,20 +72,23 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
 
 
 
+  // ! ВОЗМОЖНЫ БАГИ
   useEffect(() => {
-    if (pageRender.current > 2) {
+
+    console.log(category, searchText, pageRender)
+    if (searchText) {
+      setCheckbox(undefined)
+      return
+    }
+
+    if (category && pageRender.current > 1) {
       methods.reset({});
       setCheckbox(undefined)
     }
-  }, [pathName])
+  }, [category, searchText])
 
 
-  useEffect(() => {
-    if (searchText && category) {
-      methods.reset({});
-      setCheckbox(undefined)
-    }
-  }, [searchText, category])
+
 
   useEffect(() => {
     servicesCategory === "services" ? setServices(true) : setServices(false)
@@ -185,8 +185,18 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
   }
 
 
-  const onSubmit = (data) => {
+  const changeDisableButton = () => {
+    const copyQuery = Object.assign({}, router.query)
 
+    if (copyQuery?.alias) delete copyQuery.alias
+    if (copyQuery?.text) delete copyQuery.text
+
+    return Object.keys(copyQuery).length
+  }
+
+
+
+  const onSubmit = (data) => {
 
     if (window) {
       window.scrollTo(0, 0)
@@ -200,7 +210,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
       price: data.price,
       category: categoryData?.aliasName[0]?.alias,
       categoryFullName: aliasFullName,
-      text: searchText ? searchText : "",
+      text: searchText ? "" : "",
       time: generateCheckboxTime(data.period),
       page: 1,
       page_limit: pageLimit,
@@ -258,7 +268,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
           >
             Показать объявления
           </Button>
-          {'methods.formState.isDirty' && (
+          {methods.formState.isDirty || changeDisableButton() ? (
             <Button
               className={`${classes.button} ${classes.buttonClear}`}
               onClick={clearFields}
@@ -267,7 +277,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
             >
               Очистить фильтр
             </Button>
-          )}
+          ) : null}
         </Box>
       </form>
     </FormProvider>

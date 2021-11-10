@@ -57,6 +57,7 @@ const FilterTwoFields = ({ data, unmount }) => {
     }
   }, [router])
 
+
   return (
     <Box className={classes.formBox}>
       <Typography className={classes.formTitle}>{data.title}</Typography>
@@ -74,7 +75,7 @@ const FilterTwoFields = ({ data, unmount }) => {
                     value?.length && value.length < 8 ? classes.inputActuve : ""
                   }`}
                   variant="outlined"
-                  value={value}
+                  value={value ? value : ''}
                   placeholder="от"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                   onBlur={(e) => {
@@ -108,7 +109,7 @@ const FilterTwoFields = ({ data, unmount }) => {
                     value?.length && value.length < 8 ? classes.inputActuve : ""
                   }`}
                   variant="outlined"
-                  value={value}
+                  value={value ? value : ''}
                   placeholder="до"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))
                   }
