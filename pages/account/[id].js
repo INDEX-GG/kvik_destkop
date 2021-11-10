@@ -207,17 +207,17 @@ function Account() {
                                 <a onClick={() => setReviewsModal(!reviewsModal)}
                                    className="offerUnpublish thin superLight userInfoReviews">
                                     {'0'}
-                                    <p>отзывов</p>
+                                    <p>Отзывов</p>
                                 </a>
                                 <a className="offerUnpublish thin superLight userInfoSubscribers">
                                     {subscribersList?.message ? 0 : subscribersList.length}
-                                    <p>подписчиков</p>
+                                    <p>Подписчиков</p>
                                 </a>
-                                <a onClick={() => setSubscriptionsModal(!subscriptionsModal)}
-                                   className="offerUnpublish thin superLight userInfoSubscribtions">
+                                <a style={{textDecoration: "none"}} onClick={() => setSubscriptionsModal(!subscriptionsModal)}
+                                   className="offerUnpublish thin superLight userInfoSubscribtions" >
 
                                     {userInfo && userInfo?.subscriptions !== undefined ? userInfo.subscriptions?.length : '0'}
-                                    <p>подписок</p>
+                                    <p>Подписки</p>
                                 </a>
                             </div>}
                         </div>
