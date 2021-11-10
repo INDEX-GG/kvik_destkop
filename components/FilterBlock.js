@@ -47,6 +47,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
   let filter;
 
 
+
   useEffect(async () => {
     // Изменение изначальных значений формы (defaultValue)
     if (Object.keys(router.query).length) {
@@ -54,11 +55,13 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
     }
   }, [router, methods.getValues, searchText])
 
+  // Количество рендеров страницы
   useEffect(() => {
     if (category) pageRender.current += 1
   }, [category, searchText])
 
 
+  // Очистка всех полей и query у router
   const clearFields = () => {
     methods.reset({});
     setCheckbox(undefined)
@@ -73,8 +76,8 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
 
 
   // ! ВОЗМОЖНЫ БАГИ
+  // ! Происходит очистка полей, когда обновляется category (auto, transport, animal) или когда пользователь что-то ищет через поиск
   useEffect(() => {
-
     console.log(category, searchText, pageRender)
     if (searchText) {
       setCheckbox(undefined)
@@ -185,6 +188,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
   }
 
 
+  // Проверяем есть ли в query данные для форм. Если есть, то показываем кнопку
   const changeDisableButton = () => {
     const copyQuery = Object.assign({}, router.query)
 
@@ -196,14 +200,16 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
 
 
 
+  // Событие отправки формы
   const onSubmit = (data) => {
-
+    // Скролл в начало
     if (window) {
       window.scrollTo(0, 0)
     }
 
     const routeObj = {}
 
+    // создание правильного объекта чекбоксов для запроса
     generateCheckBoxObj(data, routeObj);
 
     const sendCheckObj = {
@@ -223,6 +229,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
 
     sendCheckObj.check = data
 
+    // Мапим цвета, из-за разности value
     if (sendCheckObj.check?.color?.length) {
       sendCheckObj.check.color = sendCheckObj.check?.color.map(item => {
         return +item + 1
