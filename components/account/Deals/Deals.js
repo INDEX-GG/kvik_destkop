@@ -1,6 +1,9 @@
 // import React, { useState } from 'react';
 import React from "react";
 import EmptyPlaceholder from "../../EmptyPlaceholder";
+import GearsPlaceholder from "../../../icons/gearsPlaceholder/GearsPlaceholder";
+import {Box, Grid} from "@mui/material";
+
 // import Sales from './tabs/Sales';
 // import Purch from './tabs/Purch';
 // import { brooklyn } from '../../../lib/services';
@@ -42,9 +45,17 @@ const Deals = () => {
 
     // Временно пока нет функционала кошелька
     return (
-
         <>
-            <EmptyPlaceholder title='К сожалению, данная функция сейчас не доступна.' subtitle='Наша команда уже работает над этим.'/>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <EmptyPlaceholder title='К сожалению, данная функция сейчас не доступна.' subtitle='Наша команда уже работает над этим.' />
+                </Grid>
+                <Grid item xs={12}>
+                    <Box style={{display: "flex", justifyContent: "center"}}>
+                        <GearsPlaceholder />
+                    </Box>
+                </Grid>
+            </Grid>
         </>
 
     );
