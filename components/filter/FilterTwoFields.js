@@ -110,7 +110,7 @@ const FilterTwoFields = ({ data, unmount }) => {
                   }`}
                   variant="outlined"
                   value={value ? value : ''}
-                  placeholder="до"
+                  placeholder="До"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))
                   }
                   onBlur={(e) => {
@@ -123,7 +123,7 @@ const FilterTwoFields = ({ data, unmount }) => {
                 />
                 {value?.length && value.length < 8 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
-                    до
+                    До
                   </span>
                 ) : null}
               </>

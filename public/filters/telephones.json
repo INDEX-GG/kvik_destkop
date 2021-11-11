@@ -5,17 +5,17 @@
       "title": "Производитель",
       "fields": [
         "ARK",
-        "ALCATEL",
+        "Alcatel",
         "BQ",
         "Digma",
         "FLY",
-        "MOTOROLA",
-        "ONEXT",
-        "NOKIA",
+        "Motorola",
+        "Onext",
+        "Nokia",
         "Panasonic",
-        "PHILIPS",
-        "SAMSUNG",
-        "VERTEX",
+        "Philips",
+        "Samsung",
+        "Vertex",
         "Другой "
       ],
       "type": "select"
@@ -23,12 +23,12 @@
     {
       "alias": "form_factor",
       "title": "Формфактор",
-      "fields": ["моноблок", "раскладной", "слайдер"],
+      "fields": ["Моноблок", "Раскладной", "Слайдер"],
       "type": "select"
     },
     {
       "alias": "number_of_sim_cards",
-      "title": "Количество симкарт",
+      "title": "Количество SIM-карт",
       "fields": ["1", "2", "3"],
       "type": "select"
     },

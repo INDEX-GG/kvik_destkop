@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, makeStyles, TextField, Typography, MenuItem, Checkbox, Tooltip } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
@@ -765,10 +765,17 @@ export default function Auto({ data }) {
                                                         <FormControlLabel
                                                             className={classes.check}
                                                             value={value}
-                                                            onChange={(e) => onChange(e.target.value)}
+                                                            // onChange={(e) => onChange(e.target.value)}
                                                             control={
-                                                                <Radio
-                                                                    color='primary'
+                                                                <Checkbox
+                                                                    onChange={(e) => {
+                                                                        if (e.target.checked) {
+                                                                            onChange(e.target.value);
+                                                                        } else {
+                                                                            onChange(null);
+                                                                        }
+                                                                    }}
+                                                                    color="primary"
                                                                     icon={<OutlinedIcon />}
                                                                     checkedIcon={<Filledicon />}
                                                                     value={item2}

@@ -148,7 +148,7 @@ export const useCategoryPlaceOffer = (data, methods) => {
                 case "curved_screen":
                 case "usbTV":
                 case "wifiTV":
-                case "bluetoothTV":
+                case "BluetoothTV":
                 case "sale_type":
                 case "schedule":
                 case "willingness_to_travel":
