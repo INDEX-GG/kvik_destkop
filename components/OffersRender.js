@@ -78,6 +78,8 @@ const OffersRender = ({ data, title, isProduct, page = false, limitRender = fals
 	})
 
 
+	console.log(page)
+
 	return (
 		<>
 				<Box className={classes.top}>
@@ -101,7 +103,7 @@ const OffersRender = ({ data, title, isProduct, page = false, limitRender = fals
 				<div className="scrollableOffersHome">
 					{state.sorting(data)?.map((obj, i) => isProduct ? <AdCard_component key={i} offer={obj} /> :  <AdCard_component ref={lastElement} key={i} offer={obj} />)}
 				</div>
-				{page === 'end' && <div ref={data ? lastElement : null} className='offer__placeholder_loader'><Loader /></div>}
+				{page !== 'end' && <div ref={data ? lastElement : null} className='offer__placeholder_loader'><Loader /></div>}
 				<ScrollTop />
 				{/* {endMessage ? <EndMessage/> : null} */}
 		</>

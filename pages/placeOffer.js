@@ -20,6 +20,7 @@ import { useCategoryPlaceOffer } from '../hooks/useCategoryPlaceOffer';
 import AdditionalInformation from '../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
+import {useStore} from "../lib/Context/Store";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 function PlaceOffer() {
 
     const { id } = useAuth();
+    const {userInfo} = useStore()
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false);
@@ -71,6 +73,7 @@ function PlaceOffer() {
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
+
 
 
     // console.log(methods)
@@ -155,8 +158,10 @@ function PlaceOffer() {
 
         // rooms 'real_estate', 'real_estate_abroad', type_of_abroad_property
 
-		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([])
+		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([...userInfo?.location?.geo])
 		data.location = data.location?.value ? data.location.value : data.location
+
+        console.log(data.coordinates)
 
         // console.log("data", data);
         data.alias = alias.join(',');

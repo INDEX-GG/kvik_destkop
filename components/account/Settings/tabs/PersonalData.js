@@ -199,7 +199,7 @@ function PersonalData() {
 
 
 
-	// console.log(userInfo)
+	console.log(userInfo)
 
 	return (
 		<div className="clientPage__container_bottom">
@@ -253,7 +253,7 @@ function PersonalData() {
 							<p>{userSettings.phone}</p>
 							<a className="small highlight underline clientPage__phone">Добавить ещё телефон</a>
 						</div>
-						{matchesMobile || matchesTablet ? <a><div className="changeMobile"><div>+7 (000) 000-00-00</div><RightArrow /></div></a> : <a>Изменить</a>}
+						{matchesMobile || matchesTablet ? <a><div className="changeMobile"><div>{userInfo?.phone}</div><RightArrow /></div></a> : <a>Изменить</a>}
 					</div>
 					<div>
 						<div>E-mail</div>

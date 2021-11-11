@@ -252,12 +252,19 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
         console.log(e)
       })
 
+
+    const pushObj = {
+      alias: router.query.alias,
+      ...routeObj
+    }
+
+    if (router?.query?.text) {
+      pushObj.text = router.query.text
+    }
+
     router.push({
       pathname: `${router.pathname}`,
-      query: {
-        alias: router.query.alias,
-        ...routeObj
-      }
+      query: pushObj
     })
   };
 
