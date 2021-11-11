@@ -110,7 +110,7 @@ const FilterTwoFields = ({ data, unmount }) => {
                   }`}
                   variant="outlined"
                   value={value ? value : ''}
-                  placeholder="До"
+                  placeholder="до"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))
                   }
                   onBlur={(e) => {

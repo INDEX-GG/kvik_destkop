@@ -301,7 +301,8 @@ function Messages() {
               }
             </div>
           </div>
-          <Dialog open={messageModal || false} onClose={() => setMessageModal(!messageModal)}
+          <Dialog open={messageModal || false}
+                  onClose={() => setMessageModal(!messageModal)}
                   fullScreen={true}>
             <ModalMessage
               modal={changeModal}
