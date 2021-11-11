@@ -50,8 +50,8 @@
     { "alias": "usbTV", "name": "Поддержка USB", "fields": ["Да", "Нет"] },
     { "alias": "wifiTV", "name": "Поддержка Wi-Fi", "fields": ["Да", "Нет"] },
     {
-      "alias": "bluetoothTV",
-      "name": "Поддержка bluetooth",
+      "alias": "BluetoothTV",
+      "name": "Поддержка Bluetooth",
       "fields": ["Да", "Нет"]
     }
   ]
