@@ -46,7 +46,7 @@ function Admin() {
 						<div>Добавить фото</div>
 					</div>
 					<div className="thin small superLight">
-						JPG или PNG. Размер фото - до 25MB
+						JPG или PNG. Размер фото - До 25MB
 					</div>
 				</div>
 				<button className="button contained bhigh">Загрузить фото</button>

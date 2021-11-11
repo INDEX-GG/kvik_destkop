@@ -78,7 +78,6 @@ const Index = () => {
 		 firstAds(id, isAuth, page, limit, setData, setLastIdAds)
 	}, [id]);
 
-	// console.log('page======>>>',page)
 
 	return (
 

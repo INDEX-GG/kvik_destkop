@@ -87,7 +87,7 @@ const FilterAutoYears = ({data }) => {
           >
             {data.fields.map((option, i) => (
               <MenuItem key={i} value={option}>
-                {`до ${option}`}
+                {`До ${option}`}
               </MenuItem>
             ))}
           </TextField>
