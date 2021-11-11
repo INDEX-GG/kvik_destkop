@@ -159,7 +159,9 @@ const autoData = [
 ]
 const ProductAutoInformation = ({data, mobile, description}) => {
     const classes = useClass()
-
+    console.log('data',data)
+    console.log('mobile',mobile)
+    console.log('description',description)
     return (
         data.vine === undefined  ?
             //
