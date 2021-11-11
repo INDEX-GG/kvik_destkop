@@ -222,6 +222,15 @@
   flex-direction: column;
 }
 
+.chatRoomTitle {
+  cursor: pointer;
+}
+
+.chatRoomImage {
+  pointer-events: all;
+  cursor: pointer;
+}
+
 .chatDate {
   align-self: center;
   margin: 6px 0;
