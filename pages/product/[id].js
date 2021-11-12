@@ -85,6 +85,7 @@ const Product = () => {
 
   useEffect(() => {
     scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
+    // не удалять:)
     console.log(lastIdAds)
   }, [page])
 
@@ -272,7 +273,7 @@ const Product = () => {
                     <OffersRender isProduct data={data} title={"Похожие объявления"} page={page}
                                   limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage}
                                   setPage={setPage} /* endMessage={!collSO} */ />
-                    <div style={{marginTop: '60px'}}></div>
+                    <div style={{marginTop: '60px'}}/>
                     {/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
 									</div> */}

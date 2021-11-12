@@ -16,6 +16,7 @@ import ProductOption from "./ProductOption";
 // import ProductStats from "./ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteCom from "./ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductAdsChange from "./ProductAdsChange";
+import ProductStats from "./ProductSmallComponents/ProductStats";
 
 
 
@@ -45,7 +46,7 @@ export default function ProductAction(data) {
           user_id === undefined ? <div className="placeholder_animation product__placeholder_ProductAction_one"/> :
             <>
               <div className={objP.adstatus === 7 ? "ad__block_top ad__padding-top" : "ad__block_top"}>
-                {/*<ProductStats id={id} sellerId={user_id} status={objP.adstatus} dialog={openStatForm} setDialog={setOpenStatForm} />*/}
+                <ProductStats id={id} sellerId={user_id} status={objP.adstatus} dialog={openStatForm} setDialog={setOpenStatForm}  views={data.viewing ? JSON.parse(data.viewing).length : 0}/>
                 <ProductFavoriteNoteCom id={id} sellerId={user_id} isOffer={+data.router}/>
                 <ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />
                 <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
@@ -54,8 +55,7 @@ export default function ProductAction(data) {
 				    className="SellerInfoMess button contained" 
 				    title='Написать продацу' 
 					onClick={() => data?.createChat()}
-				    icon={<IconMess/>
-					} 
+				    icon={<IconMess/>}
 					/>
                   <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
                 </ProductDeal>
