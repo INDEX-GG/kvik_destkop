@@ -66,8 +66,6 @@ function EditPage() {
 	const { price, title, photo, description, address} = useProduct(query.id)
 	const { editPhotos } = useProductEditPhoto(query.id)
 
-	console.log('editPhotos',editPhotos)
-
 	const { id } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);

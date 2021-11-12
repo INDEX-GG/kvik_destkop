@@ -2,10 +2,10 @@ import { useState } from 'react';
 import Chart from "react-google-charts";
 
 import Loader from '../UI/icons/Loader';
-import Views from '../UI/icons/Views';
-import Like from '../UI/icons/Like';
 
-export default function Statistics_component({views}) {
+
+export default function Statistics_component() {
+
     const initialState = (true);
     const [state, setState] = useState(initialState);
 
@@ -78,10 +78,6 @@ export default function Statistics_component({views}) {
             <div className="statistic__header">
                 <div className="statistic__header__block_left">
                     <h6 className="statistic__header__block_left_title">Статистика</h6>
-                </div>
-                <div className="statistic__header__block_right">
-                    <span>{views ? views : 0} <Views /></span>
-                    <span>3 +1 <Like /></span>
                 </div>
             </div>
             <div className="statistic__buttons">

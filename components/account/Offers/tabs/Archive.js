@@ -6,6 +6,8 @@ import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
+import {Box, Grid} from "@mui/material";
+import ArchiveIco from "./ArchiveIco/ArchiveIco";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +44,11 @@ const useStyles = makeStyles((theme) => ({
 			transition: "all 200ms ease-in-out",
 			textDecoration: "underline",
 		},
-	}
+	},
+	archive: {
+		display: "flex",
+		justifyContent: "center",
+	},
 }));
 
 function Archive({offers}) {
@@ -70,13 +76,24 @@ function Archive({offers}) {
 		offerId.length === offers.length ? check ? null : setCheck(true) : check===false ? null : setCheck(false)
 	}, [offerId]);
 
-	if (offers.length == 0) {
+	if (offers.length === 0) {
 		return (
 			<>
-				{!offers ? <OfferWaitPlaceHolder/> :<EmptyPlaceholder
-					title='Здесь будут ваши законченные объявления'
-					subtitle='Текст'
-				/>}
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						{!offers ? <OfferWaitPlaceHolder/> : <EmptyPlaceholder
+							title='Здесь будет ваш архив объявлений'
+							subtitle=''
+						/>}
+					</Grid>
+					<Grid item xs={12}>
+						<Box className={classes.archive}>
+							<ArchiveIco />
+						</Box>
+					</Grid>
+				</Grid>
+
+
 			</>
 		);
 	}

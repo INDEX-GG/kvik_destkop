@@ -30,10 +30,10 @@
             font-size: 14px;
             font-weight: 500;
             color: $tpl;
-            margin-left: 36px;
+            margin-right: 36px;
             align-items: center;
-            & img {
-                margin-left: 6px;
+            & svg {
+                margin-right: 6px;
             }
         }
     }

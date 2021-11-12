@@ -85,6 +85,7 @@ const Product = () => {
 
   useEffect(() => {
     scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
+    // не удалять:)
     console.log(lastIdAds)
   }, [page])
 
@@ -127,14 +128,6 @@ const Product = () => {
   } = useProduct(query.id);
   const productInfo = useProduct(query.id)
 
-  // const clearPhoto =  photo?.map(photo =>  photo.includes('http://192.168.45.195:6001/http://192.168.45.195:6001/')
-  // 	? photo.replace('http://192.168.45.195:6001/http://192.168.45.195:6001/','http://192.168.45.195:6001/')
-  // 	: photo.includes('https://onekvik.ru/zz/http://192.168.45.195:6001/')
-  // 		? photo.replace('https://onekvik.ru/zz/http://192.168.45.195:6001/','https://onekvik.ru/zz/')
-  // 		: photo.replace('http://192.168.45.195:6001/https://onekvik.ru/zz/','http://192.168.45.195:6001/')
-  // )
-
-
   const [userAd, setUserAd] = useState();
   const [phoneModal, setPhoneModal] = useState();
 
@@ -147,7 +140,6 @@ const Product = () => {
           'customer_id': id,
           'product_id': productInfo?.id,
         }
-        // console.log(obj)
 
         await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
         const routerObj = {
@@ -169,15 +161,6 @@ const Product = () => {
       }
     }
   }
-
-
-  // useEffect(() => {
-  // 	if (id && query.id) {
-  // 		if (viewing_bool != true && viewing_bool != undefined) {
-  // 			axios.post('/api/post_viewing',{"post_id": Number(query.id), "user_id": id})
-  // 		}
-  // 	}
-  // }, [query.id, viewing_bool, id])
 
 
   useEffect(() => {
@@ -290,7 +273,7 @@ const Product = () => {
                     <OffersRender isProduct data={data} title={"Похожие объявления"} page={page}
                                   limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage}
                                   setPage={setPage} /* endMessage={!collSO} */ />
-                    <div style={{marginTop: '60px'}}></div>
+                    <div style={{marginTop: '60px'}}/>
                     {/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
 									</div> */}
