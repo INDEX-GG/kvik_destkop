@@ -59,7 +59,7 @@
 }
 .productWrap {
     display: flex;
-    align-items: center;
+    //align-items: center;
     
 }
 .productPageWrap, .ReactCollapse--content {
@@ -321,6 +321,22 @@
     background: no-repeat center center url(../../icons/subscribe_dark.svg);
     margin-left: auto;
 }
+.Tooltip {
+    border: #8F8F8F solid 1px;
+    background: #FFFFFF;
+    color: #5A5A5A;
+    font-size: 12px;
+    text-align: center;
+    max-width: 190px;
+}
+
+.TooltipArrow {
+    color: #FFFFFF;
+    &:before {
+        content: '';
+        border: #8F8F8F solid 1px;
+    }
+}
 .SellerInfoUserAdd__active {
     background: no-repeat center center url(../../icons/subscribe_green.svg);
 }
@@ -385,6 +401,8 @@
 /* Характеристики объявления */
 .productDescription {
     margin: 14px 0px;
+    word-wrap: break-word;
+    width: 100%
 }
 
 .productPageCharacterMapBlock {
@@ -930,6 +948,14 @@
         padding: 0;
     }
 }
+
+@media (max-width: 1279px) and (min-width: 960px) {
+    .productDescription {
+        width: calc(100vw - 550px)
+
+    }
+}
+
 
 @media (max-width: 1279px) {
     .productPageWrapper {

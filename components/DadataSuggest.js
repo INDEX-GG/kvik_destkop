@@ -28,6 +28,7 @@ const DadataSuggest = ({mobile = false, address}) => {
 	const methods = useFormContext();
 	const {userInfo} = useStore()
 
+
 	const userAddressName = userInfo?.location?.name
 	const userAddressGeo = userInfo?.location?.geo
 

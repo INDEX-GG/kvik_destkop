@@ -111,6 +111,8 @@ const FilterColor = ({ alias, title, queryColor }) => {
       } else {
         setDefaultState([+queryColor])
       }
+    } else {
+      setColors([])
     }
   }, [queryColor])
 
@@ -131,6 +133,7 @@ const FilterColor = ({ alias, title, queryColor }) => {
       return [...col, value]
     })
   }
+
 
 
   useEffect(() => {
