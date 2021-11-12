@@ -1,8 +1,9 @@
 import {makeStyles} from "@material-ui/core";
 import InfoItem from "./InfoItem";
 import ProductDescription from "../ProductDescription";
-import {Box, Skeleton} from "@mui/material";
 import React from "react";
+import ProductInformationPlaceHolder
+    from "../../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
 
 
 const useClass = makeStyles(() => ({
@@ -161,12 +162,7 @@ const ProductAutoInformation = ({data, mobile, description}) => {
     const classes = useClass()
 
     return (
-        data.vine === undefined  ?
-            //
-            <Box style={{paddingBottom: "10px"}}>
-                <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "620px", height: "182px"}} />
-                </Skeleton>
-            </Box>:
+        data.vine === undefined  ? <ProductInformationPlaceHolder/> :
             <>
                 <div className={classes.autoPlaceholder} style={{
                     flexWrap: mobile ? 'wrap' : "nowrap",
