@@ -2,9 +2,10 @@ import {makeStyles, TextField} from "@material-ui/core"
 import axios from "axios";
 import Search from '../../UI/icons/Search';
 import {useCity} from "../../lib/Context/CityCTX"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {BASE_URL} from "../../lib/constants";
 import {useAuth} from "../../lib/Context/AuthCTX";
+import {useStore} from "../../lib/Context/Store";
 
 const useStyles = makeStyles(() => ({
   cityContainer: {
@@ -67,8 +68,9 @@ export default function City({dialog, setDialog}) {
 
   const classes = useStyles()
   const {city, changeCity} = useCity()
-  const [inputValue, setInputValue] = useState('')
   const {id} = useAuth()
+  const {userInfo, setUserInfo} = useStore()
+  const [inputValue, setInputValue] = useState('')
   const [stateListCity, setStateListCity] = useState([]);
 
   const startArrCity = [
@@ -92,16 +94,24 @@ export default function City({dialog, setDialog}) {
     })
   }
 
+
   const onChangeCity = (name, geo) => {
     if (id) {
       axios.post('/api/userLocation', {user_id: id, data: {name: name, geo: geo}}).then(() => {
         changeCity(name)
+        setUserInfo({...userInfo, location: {name: name, geo: geo}})
       })
     } else {
       changeCity(name)
       localStorage.setItem('cities', JSON.stringify({city: name, geo: geo}))
     }
   }
+
+  useEffect(() => {
+    console.log(userInfo)
+  }, [userInfo])
+
+
 
 
   return (

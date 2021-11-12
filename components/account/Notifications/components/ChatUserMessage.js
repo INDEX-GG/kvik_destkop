@@ -19,7 +19,7 @@ const ChatUserMessage = (
     userChatPhoto,
     userChatName,
     openImage,
-    userOnline
+    userOnline,
   }
 ) => {
 

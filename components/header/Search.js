@@ -120,7 +120,34 @@ const Search = ({text = false}) => {
 
 	const handleKeyDown = (e) => {
 		if (e.key === 'Enter' && e.target.value.length > 2 && !suggestItem?.category) {
-			router.push({pathname: '/search/all',query: {text: e.target.value}})
+
+			const searchArr = suggestData.filter(item => {
+				if (item?.text?.toLowerCase() === e.target.value.toLowerCase() && item?.category) {
+					return item
+				}
+			})
+
+
+			if (searchArr.length) {
+				const item = searchArr[0]
+				const category = item.category.split(',').reverse()[0]
+				if (item.name === e.target.value) {
+					router.push(`/search/${category}`)
+
+				} else {
+					router.push({
+						pathname: `/search/${category}`,
+						query: {
+							text: item.text,
+							modelsAuto: item?.check?.mark,
+							submodels: item?.check?.model
+						}
+					})
+				}
+			} else {
+				router.push({pathname: '/search/all',query: {text: e.target.value}})
+			}
+
 		}
 
 		if (e.key === 'Enter' && suggestItem?.category) {
