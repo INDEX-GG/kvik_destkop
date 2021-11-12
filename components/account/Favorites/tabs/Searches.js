@@ -10,8 +10,8 @@ function Searches(data) {
 			<>
 				{!data ? <FavoritesSearchesPlaceHolder/>
 					:<EmptyPlaceholder
-					title='Сохраните поиск для того, чтобы получать уведомления и сохранить параметры ваших запросов'
-					subtitle='Поставьте галочку (отметку) напротив &quot;сохранить поиск&quot;, чтобы получать уведомления и сохранить параметры ваших запросов(поиска)'
+					title='Здесь будут ваши сохраненные поиски'
+					subtitle='Чтобы сохранить поиск, нажмите сохранить поиск при поиске по объявлениям'
 					img='/accountImage/SearchNone.png'
 					alt='search_placeholder'/>}
 			</>
