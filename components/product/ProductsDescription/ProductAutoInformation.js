@@ -169,7 +169,6 @@ const ProductAutoInformation = ({data, mobile, description}) => {
                     maxHeight: mobile ? null : '100%'
                 }}>
                     {autoDataReq.map((el, key) => {
-                      console.log('',el)
                         if (!el.name) {
                             return null
                         }
