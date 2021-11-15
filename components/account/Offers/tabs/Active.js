@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
-// import AddRounded from "@material-ui/icons/AddRounded";
-// import Router from "next/router";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import OfferActive from "../card/offerActive";
@@ -57,7 +55,7 @@ function Active({offers}) {
 	}
 
 	useEffect(() => {
-		offerId.length === offers.length ? check ? null : setCheck(true) : check===false ? null : setCheck(false);
+		offerId.length === offers.length ? check ? null : setCheck(false) : check===false ? null : setCheck(true);
 	}, [offerId])
 
 	if (offers.length < 1) {
