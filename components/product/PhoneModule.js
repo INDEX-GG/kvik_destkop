@@ -2,8 +2,6 @@ import React from "react";
 import { Avatar, makeStyles } from "@material-ui/core";
 import StarRating from "../StarRating";
 import Active_icon from "../../UI/icons/ActiveIcon";
-/* import {useRouter} from "next/router";
-import { useProduct } from "../../hooks/useProduct"; */
 import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
 import router from "next/router";

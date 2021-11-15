@@ -22,12 +22,11 @@ export function useOutherUser(user_id) {
           })
         }
 
-        if (user_id !== undefined) {
+        if (user_id != undefined) {
           getOutherUser()
         }
         
     }, [user_id])
-
 
   return {
     ...userInfo,
