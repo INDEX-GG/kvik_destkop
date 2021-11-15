@@ -81,7 +81,7 @@
     {
       "alias": "display_diagonal",
       "title": "Диагональ дисплея",
-      "fields": ["до 3.5", "от 3.5 до 5", "от 5 до 5.5", "от 5.5 до 6", "от 6"],
+      "fields": ["До 3.5", "От 3.5 До 5", "От 5 До 5.5", "От 5.5 До 6", "От 6"],
       "type": "select"
     },
     {
@@ -107,7 +107,7 @@
         "48 Мп",
         "64 Мп",
         "108 Мп",
-        "другое "
+        "Другое "
       ],
       "type": "select"
     },
@@ -119,20 +119,20 @@
     },
     {
       "alias": "sim_number",
-      "title": "Количество sim",
+      "title": "Количество SIM-карт",
       "fields": ["1", "2", "3"],
       "type": "select"
     },
     {
       "alias": "battery_capacity",
       "title": "Емкость батареи",
-      "fields": ["от 1500 до 2500 мАч", "от 2500 до 4000 мАч", "от 4000 мАч"],
+      "fields": ["От 1500 до 2500 мАч", "От 2500 до 4000 мАч", "От 4000 мАч"],
       "type": "select"
     },
     {
       "alias": "operating_system",
       "title": "Операционная система",
-      "fields": ["Windows", "Android", "iOS", "Harmony", "другая"],
+      "fields": ["Windows", "Android", "iOS", "Harmony", "Другая"],
       "type": "select"
     },
     {

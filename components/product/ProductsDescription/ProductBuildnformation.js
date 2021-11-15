@@ -1,8 +1,10 @@
 import { makeStyles } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UnmountClosed } from "react-collapse";
 import ProductDescription from "../ProductDescription";
 import ToggleButton from "./ToggleButton";
+import ProductInformationPlaceHolder
+    from "../../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
 
 
 const useClass = makeStyles(() => ({
@@ -49,8 +51,7 @@ const ProductBuildInformation = ({data, mobile, description, productData}) => {
 
 
 	return (
-		data.id == undefined ? 
-		<div style={{order: 0}} className="placeholder_animation product__placeholder_description"></div> :
+		data.id == undefined ? <ProductInformationPlaceHolder/> :
 		<>
       {fieldsCount > 3 && !mobile ? 
       <div style={{display: "flex", flexDirection: "column"}}>

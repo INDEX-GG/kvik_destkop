@@ -113,12 +113,12 @@ const FilterTwoFieldsTwoRadio = ({
                   }`}
                   variant="outlined"
                   value={value}
-                  placeholder="до"
+                  placeholder="До"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                 />
                 {value?.length && value.length < 10 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
-                    до
+                    До
                   </span>
                 ) : null}
               </>

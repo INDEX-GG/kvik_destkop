@@ -1,6 +1,9 @@
 import {makeStyles} from "@material-ui/core";
 import InfoItem from "./InfoItem";
 import ProductDescription from "../ProductDescription";
+import React from "react";
+import ProductInformationPlaceHolder
+    from "../../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
 
 
 const useClass = makeStyles(() => ({
@@ -159,15 +162,13 @@ const ProductAutoInformation = ({data, mobile, description}) => {
     const classes = useClass()
 
     return (
-        data.vine === undefined ?
-            <div style={{order: 0}} className="placeholder_animation product__placeholder_description"/> :
+        data.vine === undefined  ? <ProductInformationPlaceHolder/> :
             <>
                 <div className={classes.autoPlaceholder} style={{
                     flexWrap: mobile ? 'wrap' : "nowrap",
                     maxHeight: mobile ? null : '100%'
                 }}>
                     {autoDataReq.map((el, key) => {
-                      console.log('',el)
                         if (!el.name) {
                             return null
                         }

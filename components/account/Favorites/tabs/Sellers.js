@@ -35,7 +35,6 @@ function Sellers({sellers, sellerSub}) {
     setBtnSellerArr(newArr)
   }
 
-  console.log('SELA',sellers)
 
   if (sellers?.message) {
     return (
@@ -53,7 +52,7 @@ function Sellers({sellers, sellerSub}) {
 
   return (
       <>
-        {!sellers ? <FavoritesSellersPlaceHolder/> :<div className="clientPage__container_bottom">
+        {!sellers ? <FavoritesSellersPlaceHolder/> : <div className="clientPage__container_bottom">
           <div className="clientPage__container_content">
             <div className="sellersWrapper small">
               {sellers?.map((seller, index) => {

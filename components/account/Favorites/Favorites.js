@@ -56,12 +56,9 @@ const SearchesBox = [
 // Пагинация
 const Favorites = () => {
 
-
-
 	const { id } = useAuth();
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
 	const router = useRouter()
-	console.log(id)
 
 	const [offetFav, setOfferFav] = useState()
 

@@ -122,11 +122,11 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 
 					{offer.photo?.slice(0, 1).map((imgs, i) => {
 						return (
-							<img key={i} src={imgs} />
+							<img key={i} src={imgs} alt={"Изображение обьявления"} />
 						)
 					})}
 
-					{<img src={offer.img} />}
+					{<img src={offer.img} alt={"Изображение обьявления"}/>}
 					{offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.active]}</div>}
 				</div>
 				<div className="offerDescription">
@@ -152,7 +152,7 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 								Редактировать
 							</button>
 
-							<a href="javascript:void(0);">
+							<a href="#">
 								<button
 									id='002'
 									value={offer.id}

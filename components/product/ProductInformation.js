@@ -34,8 +34,6 @@ export default function ProductInformation({ productionInfo, description, catero
 		setFieldsCount(count)
 	}, [productionInfo])
 
-
-
 	useEffect(()=>{
 		axios.get(`${BASE_URL}/subcategories/` + categoryName + `.json`)
 		.then(res => {
@@ -47,7 +45,6 @@ export default function ProductInformation({ productionInfo, description, catero
 	}, [caterory])
 
 	// const testProperties = [{name: "Тип дома", desc: 'Кирпичный'}, {name: "Этаж", desc: '5 из 16'}, {name: "Количество комнта", desc: '2'}]
-
 	let info = null
 	switch (caterory){
 		case "auto":

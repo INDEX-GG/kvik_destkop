@@ -2,11 +2,12 @@ import Comments from "./Comments";
 import Subscribes from "./Subscribes";
 import StarRating from "./StarRating";
 import Chat from "./account/Notifications/tabs/Chat";
-import { STATIC_URL } from "../lib/constants";
-import { generateProductPhoto } from "./account/Notifications/tabs/chatFunctions";
-import ChatDefaultAvatar from "./account/Notifications/components/ChatDefaultAvatar";
+// import { STATIC_URL } from "../lib/constants";
+// import { generateProductPhoto } from "./account/Notifications/tabs/chatFunctions";
+// import ChatDefaultAvatar from "./account/Notifications/components/ChatDefaultAvatar";
 import Loader from "../UI/icons/Loader";
 import React from "react";
+import ChatRoom from "./account/Notifications/components/ChatRoom";
 
 /* Модальное окно "отзывы и рейтинг" */
 export function ModalRating({ rate = 0, comments = 0, modal, mobile }) {
@@ -111,27 +112,30 @@ export function ModalMessage({ modal, usersData, room, userChatPhoto, userChatNa
 					<h6 className="modal__block__top_title accountTitle">Диалоги</h6>
 				</>
 			</div>
+			{/*<div className="messageMobile">*/}
+				{/*<div className="messageHeader small">*/}
+				{/*	<img className='chatRoomImage'*/}
+				{/*		 src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`}*/}
+				{/*	/>*/}
+				{/*	<div>*/}
+				{/*		<div>*/}
+				{/*			<div>*/}
+				{/*				<div className='chatRoomTitle'>{room?.seller_name}</div>*/}
+				{/*				<div className="light">00.00.00 00:00</div>*/}
+				{/*			</div>*/}
+				{/*			{room?.seller_photo ?*/}
+				{/*				<img className='chatRoomImage' src={`${STATIC_URL}/${room?.seller_photo}`}/> :*/}
+				{/*				<ChatDefaultAvatar name={room?.seller_name}/>}*/}
+				{/*		</div>*/}
+				{/*		<div>{room?.product_price}</div>*/}
+				{/*		<div className='chatRoomTitle'>{room?.product_name}</div>*/}
+				{/*	</div>*/}
+				{/*</div>*/}
 
-			{/*style={{height: window.innerHeight - 98 - 68 + 'px' }}*/}
-			<div className="messageMobile">
-				<div className="messageHeader small">
-					<img src={`${STATIC_URL}/${generateProductPhoto(room?.product_photo)}`} />
-					<div>
-						<div>
-							<div>
-								<div>{room?.seller_name}</div>
-								<div className="light">00.00.00 00:00</div>
-							</div>
-							{room?.seller_photo ?
-								<img src={`${STATIC_URL}/${room?.seller_photo}`}/> :
-								<ChatDefaultAvatar name={room?.seller_name}/>}
-						</div>
-						<div>{room?.product_price}</div>
-						<div>{room?.product_name}</div>
-					</div>
-				</div>
+			{/*</div>*/}
+			<ChatRoom roomData={room} mobile>
 				<Chat usersData={usersData} userChatPhoto={userChatPhoto} userChatName={userChatName}/>
-			</div>
+			</ChatRoom>
 		</div>
 	)
 }

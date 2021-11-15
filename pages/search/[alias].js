@@ -93,8 +93,6 @@ const Index = () => {
 	useEffect(async () => {
 		queryObj = {}
 		await generateRouteObj(router.query)
-		// await generateCheckBoxObj(queryObj)
-		// console.log(queryObj)
 	}, [router])
 
 
@@ -118,9 +116,7 @@ const Index = () => {
 			  });
 
 		} else if (Object.keys(queryObj).length) {
-
 			console.log(2)
-
 			generateCheckBoxObj(queryObj)
 
 			const sendCheckObj = {
@@ -137,6 +133,8 @@ const Index = () => {
 
 			delete queryObj.price
 			delete queryObj.period
+			delete queryObj?.alias
+			delete queryObj?.text
 
 			if (queryObj?.color?.length) {
 				if (Array.isArray(queryObj.color)) {
@@ -152,6 +150,7 @@ const Index = () => {
 			setQueryObjState(sendCheckObj)
 
 
+			console.log(sendCheckObj)
 
 			getDataByPost('/api/getPostsCheck', sendCheckObj)
 				.then(r => {

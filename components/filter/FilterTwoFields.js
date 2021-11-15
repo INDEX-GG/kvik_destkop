@@ -1,6 +1,8 @@
 import { Box, makeStyles, TextField, Typography } from "@material-ui/core";
 import { Controller, useFormContext } from "react-hook-form";
 import { OnlyNumbersMask } from "../../lib/onlyNumbersMask";
+import {useEffect} from "react";
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles(() => ({
   formBox: {
@@ -38,6 +40,23 @@ const useStyles = makeStyles(() => ({
 const FilterTwoFields = ({ data, unmount }) => {
   const classes = useStyles();
   const methods = useFormContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (data.firstAlias === 'fromPrice' && data.secondAlias === 'toPrice') {
+      if (Object.keys(router.query).length) {
+        if (!router.query?.fromPrice) {
+          methods.setValue(data.firstAlias, '')
+        }
+
+        if (!router.query?.toPrice) {
+          methods.setValue(data.secondAlias, '')
+        }
+      }
+
+    }
+  }, [router])
+
 
   return (
     <Box className={classes.formBox}>
@@ -56,7 +75,7 @@ const FilterTwoFields = ({ data, unmount }) => {
                     value?.length && value.length < 8 ? classes.inputActuve : ""
                   }`}
                   variant="outlined"
-                  value={value}
+                  value={value ? value : ''}
                   placeholder="от"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))}
                   onBlur={(e) => {
@@ -90,7 +109,7 @@ const FilterTwoFields = ({ data, unmount }) => {
                     value?.length && value.length < 8 ? classes.inputActuve : ""
                   }`}
                   variant="outlined"
-                  value={value}
+                  value={value ? value : ''}
                   placeholder="до"
                   onChange={(e) => onChange(OnlyNumbersMask(e, "num"))
                   }
@@ -104,7 +123,7 @@ const FilterTwoFields = ({ data, unmount }) => {
                 />
                 {value?.length && value.length < 8 ? (
                   <span className={classes.tooltip} style={{ left: 8 }}>
-                    до
+                    До
                   </span>
                 ) : null}
               </>

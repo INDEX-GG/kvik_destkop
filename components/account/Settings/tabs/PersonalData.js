@@ -199,7 +199,7 @@ function PersonalData() {
 
 
 
-	// console.log(userInfo)
+	console.log(userInfo)
 
 	return (
 		<div className="clientPage__container_bottom">
@@ -253,7 +253,7 @@ function PersonalData() {
 							<p>{userSettings.phone}</p>
 							<a className="small highlight underline clientPage__phone">Добавить ещё телефон</a>
 						</div>
-						{matchesMobile || matchesTablet ? <a><div className="changeMobile"><div>+7 (000) 000-00-00</div><RightArrow /></div></a> : <a>Изменить</a>}
+						{matchesMobile || matchesTablet ? <a><div className="changeMobile"><div>{userInfo?.phone}</div><RightArrow /></div></a> : <a>Изменить</a>}
 					</div>
 					<div>
 						<div>E-mail</div>
@@ -366,7 +366,7 @@ function PersonalData() {
 										onClick={() => {
 											setInputSecondEye(!inputSecondEye);
 										}}
-									></a>
+									/>
 								</div>
 								{passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
 							</div>
@@ -389,7 +389,7 @@ function PersonalData() {
 						<div className="privateDataPass">
 							<div className="pDPassInputWrapper">
 								<input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} value={passwordOne} onChange={(e) => changePasswordInput(e)} />
-								<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)}></a>
+								<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)}/>
 							</div>
 							<p className="">
 								<Active_icon Size={14} Color={validateCheck[0]} />
@@ -414,7 +414,7 @@ function PersonalData() {
 									onClick={() => {
 										setInputSecondEye(!inputSecondEye);
 									}}
-								></a>
+								/>
 							</div>
 							{passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
 							{passwordCoincidence == "send" ? (

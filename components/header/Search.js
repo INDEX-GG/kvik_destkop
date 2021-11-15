@@ -52,6 +52,7 @@ const Search = ({text = false}) => {
 	const [safetyOffer, setSafetyOffer] = useState(false)
 	const [saveResult, setSaveResult] = useState(false)
 	const [searchValue, setSearchValue] = useState();
+	const [hovered, setHovered] = useState(false)
 
 	const [suggestData, setSuggestData] = useState([]);
 	const [suggestNumber, setSuggestNumber] = useState(0);
@@ -80,6 +81,7 @@ const Search = ({text = false}) => {
 	useEffect(() => {
 		setSuggestItem(suggestData[suggestNumber - 1])
 		if (suggestData[suggestNumber - 1]?.text) {
+			if (hovered) return;
 			setSearchValue(suggestData[suggestNumber - 1].text)
 		}
 	}, [suggestNumber])
@@ -103,7 +105,6 @@ const Search = ({text = false}) => {
 
 	const generateSuggest = (step, lastItem, start) => {
 
-		console.log(suggestNumber)
 
 		if (suggestNumber <= 0) {
 			setSuggestNumber(start)
@@ -118,30 +119,63 @@ const Search = ({text = false}) => {
 	}
 
 	const handleKeyDown = (e) => {
-		console.log(suggestItem);
-		if (e.key == 'Enter' && e.target.value.length > 2 && !suggestItem?.category) {
-			router.push({pathname: '/search/all',query: {text: e.target.value}})
+		if (e.key === 'Enter' && e.target.value.length > 2 && !suggestItem?.category) {
+
+			const searchArr = suggestData.filter(item => {
+				if (item?.text?.toLowerCase() === e.target.value.toLowerCase() && item?.category) {
+					return item
+				}
+			})
+
+
+			if (searchArr.length) {
+				const item = searchArr[0]
+				const category = item.category.split(',').reverse()[0]
+				if (item.name === e.target.value) {
+					router.push(`/search/${category}`)
+
+				} else {
+					router.push({
+						pathname: `/search/${category}`,
+						query: {
+							text: item.text,
+							modelsAuto: item?.check?.mark,
+							submodels: item?.check?.model
+						}
+					})
+				}
+			} else {
+				router.push({pathname: '/search/all',query: {text: e.target.value}})
+			}
+
 		}
 
-		if (e.key == 'Enter' && suggestItem?.category) {
+		if (e.key === 'Enter' && suggestItem?.category) {
 			const category = suggestItem.category.split(',').reverse()[0]
 
-			if (suggestItem.type == 'query') {
-				router.push({pathname: `/search/${category}`,query: {text: suggestItem.text}})
+			if (suggestItem.type === 'query') {
+				router.push({pathname: `/search/${category}`,query: {text: suggestItem.text, modelsAuto: suggestItem?.check?.mark, submodels: suggestItem?.check?.model}})
 				return;
 			}
 
 			router.push(`/search/${category}`)
 		}
 
-		if (e.key == 'ArrowDown') generateSuggest(1, suggestData.length, 1) 
-		if (e.key == 'ArrowUp') generateSuggest(-1, 1, suggestData.length)
+		if (e.key === 'ArrowDown') {
+			setHovered(false)
+			generateSuggest(1, suggestData.length, 1)
+		}
+		if (e.key === 'ArrowUp') {
+			setHovered(false)
+			generateSuggest(-1, 1, suggestData.length)
+		}
 	}
 
 
 	const changeSuggestSelect = (index) => {
 		setSuggestNumber(index);
 		setSuggestItem(suggestData[index])
+		setHovered(true)
 	}
 
 	

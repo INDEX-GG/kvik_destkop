@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Box, Button, makeStyles } from "@material-ui/core";
 import DefaultFilter from "./filter/DefaultFilter";
 import { FormProvider, useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import axios from "axios";
 import { BASE_URL } from "../lib/constants";
 import { generateDataArr} from "../lib/services";
 import {useRouter} from "next/router";
-import {generateCheckboxTime, generateCheckBoxObj} from "../lib/utils/checkBoxFunction";
+import {generateCheckboxTime, generateCheckBoxObj, formDefaultValue} from "../lib/utils/checkBoxFunction";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,16 +39,31 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
   const classes = useStyles();
   const category = categoryData?.aliasName[0].alias.toLowerCase();
   const servicesCategory = categoryData?.aliasBread[0].alias
-  const methods = useForm();
   const [fetchedData, setFetchedData] = useState(null)
   const [services, setServices] = useState(false);
+  const pageRender = useRef(0);
   const router = useRouter()
+  const methods = useForm();
   let filter;
 
 
 
+  useEffect(async () => {
+    // Изменение изначальных значений формы (defaultValue)
+    if (Object.keys(router.query).length) {
+      await formDefaultValue(router.query, methods)
+    }
+  }, [router, methods.getValues, searchText])
+
+  // Количество рендеров страницы
+  useEffect(() => {
+    if (category) pageRender.current += 1
+  }, [category, searchText])
+
+
+  // Очистка всех полей и query у router
   const clearFields = () => {
-    methods.reset();
+    methods.reset({});
     setCheckbox(undefined)
     router.push({
       pathname: router.pathname,
@@ -58,16 +73,25 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
     })
   };
 
-  useEffect(() => {
-    setCheckbox(undefined)
-  }, [router])
 
 
+  // ! ВОЗМОЖНЫ БАГИ
+  // ! Происходит очистка полей, когда обновляется category (auto, transport, animal) или когда пользователь что-то ищет через поиск
   useEffect(() => {
-    if (searchText && category) {
-      clearFields()
+    console.log(category, searchText, pageRender)
+    if (searchText) {
+      setCheckbox(undefined)
+      return
     }
-  }, [searchText, category])
+
+    if (category && pageRender.current > 1) {
+      methods.reset({});
+      setCheckbox(undefined)
+    }
+  }, [category, searchText])
+
+
+
 
   useEffect(() => {
     servicesCategory === "services" ? setServices(true) : setServices(false)
@@ -164,22 +188,35 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
   }
 
 
+  // Проверяем есть ли в query данные для форм. Если есть, то показываем кнопку
+  const changeDisableButton = () => {
+    const copyQuery = Object.assign({}, router.query)
+
+    if (copyQuery?.alias) delete copyQuery.alias
+    if (copyQuery?.text) delete copyQuery.text
+
+    return Object.keys(copyQuery).length
+  }
+
+
+
+  // Событие отправки формы
   const onSubmit = (data) => {
-
-
+    // Скролл в начало
     if (window) {
       window.scrollTo(0, 0)
     }
 
     const routeObj = {}
 
+    // создание правильного объекта чекбоксов для запроса
     generateCheckBoxObj(data, routeObj);
 
     const sendCheckObj = {
       price: data.price,
       category: categoryData?.aliasName[0]?.alias,
       categoryFullName: aliasFullName,
-      text: searchText ? searchText : "",
+      text: searchText ? "" : "",
       time: generateCheckboxTime(data.period),
       page: 1,
       page_limit: pageLimit,
@@ -187,17 +224,24 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
     }
 
 
-    if (data.color?.length) {
-      data.color = data.color.map(item => item + 1)
-    }
-
     delete data.price
     delete data?.period
 
     sendCheckObj.check = data
 
+    // Мапим цвета, из-за разности value
+    if (sendCheckObj.check?.color?.length) {
+      sendCheckObj.check.color = sendCheckObj.check?.color.map(item => {
+        return +item + 1
+      })
+    }
 
-    console.log(routeObj)
+    delete sendCheckObj.check?.alias
+    delete sendCheckObj.check?.text
+    delete routeObj?.text
+
+
+    console.log(sendCheckObj)
 
     axios.post('/api/getPostsCheck', sendCheckObj)
       .then(r => {
@@ -208,12 +252,19 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
         console.log(e)
       })
 
+
+    const pushObj = {
+      alias: router.query.alias,
+      ...routeObj
+    }
+
+    if (router?.query?.text) {
+      pushObj.text = router.query.text
+    }
+
     router.push({
       pathname: `${router.pathname}`,
-      query: {
-        alias: router.query.alias,
-        ...routeObj
-      }
+      query: pushObj
     })
   };
 
@@ -231,7 +282,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
           >
             Показать объявления
           </Button>
-          {methods.formState.isDirty && (
+          {methods.formState.isDirty || changeDisableButton() ? (
             <Button
               className={`${classes.button} ${classes.buttonClear}`}
               onClick={clearFields}
@@ -240,7 +291,7 @@ const FilterBlock = ({ categoryData, searchText, pageLimit, setCheckbox, aliasFu
             >
               Очистить фильтр
             </Button>
-          )}
+          ) : null}
         </Box>
       </form>
     </FormProvider>

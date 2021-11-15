@@ -59,7 +59,7 @@
 }
 .productWrap {
     display: flex;
-    align-items: center;
+    //align-items: center;
     
 }
 .productPageWrap, .ReactCollapse--content {
@@ -104,7 +104,7 @@
     margin-bottom: 18px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     min-height: 14px;
 }
@@ -321,6 +321,22 @@
     background: no-repeat center center url(../../icons/subscribe_dark.svg);
     margin-left: auto;
 }
+.Tooltip {
+    border: #8F8F8F solid 1px;
+    background: #FFFFFF;
+    color: #5A5A5A;
+    font-size: 12px;
+    text-align: center;
+    max-width: 190px;
+}
+
+.TooltipArrow {
+    color: #FFFFFF;
+    &:before {
+        content: '';
+        border: #8F8F8F solid 1px;
+    }
+}
 .SellerInfoUserAdd__active {
     background: no-repeat center center url(../../icons/subscribe_green.svg);
 }
@@ -365,7 +381,7 @@
 }
 .SellerInfoUserOffersCollapse {
     align-self: flex-end;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     display: block;
 }
 
@@ -376,7 +392,7 @@
     background-size: contain;
 }
 .SellerInfoComplain {
-    align-self: flex-end;
+    //align-self: flex-end;
     padding: 4px 24px 4px 0;
     background: no-repeat center right url(../../icons/danger.svg);
     background-size: contain;
@@ -385,6 +401,8 @@
 /* Характеристики объявления */
 .productDescription {
     margin: 14px 0px;
+    word-wrap: break-word;
+    width: 100%
 }
 
 .productPageCharacterMapBlock {
@@ -603,7 +621,6 @@
 
 .ad__block_top {
     text-align: center;
-    margin-bottom: 32px;
     margin-top: 12px;
     position: relative;
 }
@@ -930,6 +947,14 @@
         padding: 0;
     }
 }
+
+@media (max-width: 1279px) and (min-width: 960px) {
+    .productDescription {
+        width: calc(100vw - 550px)
+
+    }
+}
+
 
 @media (max-width: 1279px) {
     .productPageWrapper {

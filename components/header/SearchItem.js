@@ -79,8 +79,10 @@ const SearchItem = ({children, categoryName, /** setSearchValue */suggestData, a
 
 		router.push({
 			pathname: `/search/${categoryAlias}`,
-			query: {text: suggestData.text}
+			query: {text: suggestData.text, modelsAuto: suggestData?.check?.mark, submodels: suggestData?.check?.model  }
 		})
+
+		console.log(suggestData)
 
 
 	} else {

@@ -1,5 +1,8 @@
 import React from "react";
 import EmptyPlaceholder from "../../EmptyPlaceholder";
+import {makeStyles} from "@material-ui/core";
+import {Box, Grid} from "@mui/material";
+import GearsPlaceholder from "../../../icons/gearsPlaceholder/GearsPlaceholder";
 // import Loading from "../../../UI/icons/Loader";
 // import objNav from "./navigateObject.json";
 // import Develop from '../../../../components/inDev/Develop';
@@ -220,14 +223,30 @@ import EmptyPlaceholder from "../../EmptyPlaceholder";
 //   { id: 10, title: "Хобби спорт и отдых", count: 17 },
 // ];
 
+const useStyles = makeStyles(() => ({
+    gears: {
+        display: "flex",
+        justifyContent: "center",
+    },
+}))
+
 const Compare = () => {
 //   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Транспорт" });
+    const classes = useStyles();
 
-  // return (
-	// <EmptyPlaceholder title='Здесь буду ваши сравнения' subtitle='Текст'/>
-  // );
 return (
-	<EmptyPlaceholder title='К сожалению, данная функция сейчас не доступна.' subtitle='Наша команда уже работает над этим.'/>
+    <>
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <EmptyPlaceholder title='К сожалению, данная функция сейчас не доступна.' subtitle='Наша команда уже работает над этим.' />
+            </Grid>
+            <Grid item xs={12}>
+                <Box className={classes.gears}>
+                    <GearsPlaceholder />
+                </Box>
+            </Grid>
+        </Grid>
+    </>
   );
 
 //   return (

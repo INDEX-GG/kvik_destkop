@@ -28,15 +28,13 @@ const DadataSuggest = ({mobile = false, address}) => {
 	const methods = useFormContext();
 	const {userInfo} = useStore()
 
+
 	const userAddressName = userInfo?.location?.name
 	const userAddressGeo = userInfo?.location?.geo
 
 	const onSubmit = (onChange) => {
 		const value = inputRef.current.state.query
-		console.log('value',value)
-		console.log('prevValue.current',prevValue.current)
 		if (value.length && value.length > 1 && value !== prevValue.current) {
-			console.log('зашел сюда' )
 			const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
 			const token = "3fa959dcd662d65fdc2ef38f43c2b699a3485222";
 			var options = {
@@ -53,7 +51,7 @@ const DadataSuggest = ({mobile = false, address}) => {
 			.then(response => response.text())
 			.then(result => {
 				prevValue.current = value
-				console.log('JSON.parse(result)?.suggestions[0]',JSON.parse(result)?.suggestions[0])
+				// console.log('JSON.parse(result)?.suggestions[0]',JSON.parse(result)?.suggestions[0])
 				if (JSON.parse(result)?.suggestions[0] !== undefined) {
 					setValue(JSON.parse(result)?.suggestions[0])
 					onChange(JSON.parse(result)?.suggestions[0])
