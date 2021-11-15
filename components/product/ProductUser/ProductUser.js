@@ -64,7 +64,7 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
         router.push(`/user/${sellerId}`)
       }}/>
 
-      {sellerId === undefined ? <div className="placeholder_animation product__placeholder_userinfo"></div> :
+      {sellerId === undefined ? <div className="placeholder_animation product__placeholder_userinfo"/> :
         <>
           <div>
             <div className='productUserName' onClick={() => {
@@ -79,7 +79,7 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
                   <>
                     {sellerId != id && <span
                       className="count__ad">{userAd == undefined ? "" : ((userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
-                    {sellerId != id && <a className="SellerInfoloarmore"></a>}
+                    {sellerId != id && <a className="SellerInfoloarmore"/>}
                   </>
                 ) : ("")) : ("")}
             </div>

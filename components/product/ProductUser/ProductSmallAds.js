@@ -33,13 +33,15 @@ const ProductSmallAd = ({id, sellerId, status, mobile, smallAd}) => {
 					:
 					<div className="SellerInfoOffers">
 						{
-							(userSmallAd = smallAd?.filter((item) => item.id != router.query.id)) &&
+							(userSmallAd = smallAd?.filter((item) => {
+								return item.id !== router.query.id && item.active === 0 && item.verify === 0
+							})) &&
 							userSmallAd.slice(0, 3).map((userAd) => {
 								return (
 									<Link key={userAd.id} href={`/product/${userAd.id}`}>
 										<div className="SellerInfoOfferCard small">
 											{userAd.photo?.slice(0, 1).map((imgs, i) => {
-												return <img key={i} src={imgs} />;
+												return <img alt={"Offer photo"} key={i} src={imgs} />;
 											})}
 											<div>{ToRubles(userAd.price)}</div>
 											<div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>

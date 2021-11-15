@@ -15,14 +15,14 @@ const UsersPage = () => {
   const router = useRouter();
  
   const { userInfo, isLoading } = useAd(router.query.id);
-//   console.log(userInfo)
+
   
   useEffect(() => {
 
     if (userInfo && userInfo.length > 0) {
 
-      setActiveBox(userInfo.filter(item => item.archived == false))
-      setSoldBox(userInfo.filter(item => item.archived))
+      setActiveBox(userInfo.filter(item => item.active === 0 && item.archived === false))
+      setSoldBox(userInfo.filter(item => item.active !== 0 && item.archived))
     }
   }, [router, isLoading])
 
