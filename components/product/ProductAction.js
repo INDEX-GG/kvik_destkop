@@ -13,7 +13,6 @@ import ProductDeal from "./ProductDeal";
 import ProductDate from "./ProductSmallComponents/ProductDate";
 import ProductPrice from "./ProductPrice";
 import ProductOption from "./ProductOption";
-// import ProductStats from "./ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteCom from "./ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductAdsChange from "./ProductAdsChange";
 import ProductStats from "./ProductSmallComponents/ProductStats";
@@ -70,7 +69,7 @@ export default function ProductAction(data) {
           <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
-        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={data.productInfo}/>
+        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
         <Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">
           <OfferModal 
             isProductPages 

@@ -6,6 +6,8 @@ import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
 import router from "next/router";
 import ProductNumberPng from "./ProductNumberPng";
+import {useProduct} from "../../hooks/useProduct";
+import {STATIC_URL} from "../../lib/constants";
 
 
   const useStyles = makeStyles(() => ({
@@ -74,9 +76,9 @@ import ProductNumberPng from "./ProductNumberPng";
   }));
 
 
-export default function PhoneModule({dialog, setDialog, productInfo, }) {
+export default function PhoneModule({dialog, setDialog, userPhotoInIndex, userPhone, userName, userRating}) {
   const classes = useStyles();
-  const { name, userPhoto, raiting, user_id, isLoading } = productInfo;  //useProduct(router.query.id);Исправить
+  const { name, userPhoto, raiting, user_id, isLoading } = useProduct(router.query.id)
   const {sellerPhone} = useOutherUser(user_id);
 
   return (
@@ -84,23 +86,20 @@ export default function PhoneModule({dialog, setDialog, productInfo, }) {
       <div className={classes.modalNumber}>
         <div className={classes.userProfile}>
           {isLoading || (
-            // <Avatar alt="User" className={classes.small} src={userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
-            //   {name}
-              <Avatar alt="User" className={classes.small} src={userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
-                {name}
+            <Avatar alt="User photo" className={classes.small} src={!userPhoto? `${STATIC_URL}/${userPhotoInIndex}` : userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
+              {!name? userName : name}
             </Avatar>
           )}
           <div className={classes.userInf}>
-            <div className={classes.userName} onClick={() => router.push(`/user/${user_id}`)}>{name}</div>
+            <div className={classes.userName} onClick={() => router.push(`/user/${user_id}`)}>{!name? userName : name}</div>
             <div className={classes.userStar}>
               {raiting == null ? null : <div className={classes.numberStar}>{(raiting + "").split("").splice(0, 4).join("")}</div>}
-              <StarRating rating={raiting} />
+              <StarRating rating={raiting ? raiting : userRating} />
             </div>
           </div>
         </div>
-        {/* <h2 className={classes.userPhone}>{sellerPhone || "Не указан"}</h2> */}
-        {sellerPhone ? <ProductNumberPng name={sellerPhone} x={0} y={25}/> : null}
-        {/*{userInfo ? <ProductNumberPng name={userInfo} x={0} y={25}/> : sellerPhone ? <ProductNumberPng name={sellerPhone} x={0} y={25}/> : null}*/}
+         <h2 className={classes.userPhone}>{sellerPhone || userPhone || "Телефон не указан"}</h2>
+        { sellerPhone ? <ProductNumberPng name={sellerPhone ? sellerPhone : userPhone} x={0} y={25}/> : null}
         <p className={classes.userMessage}>Номер защищён: смс и сообщения в Viber, WhatsApp и других мессенджерах не будут доставлены</p>
         <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
         <ul className={classes.warningBlock}>
