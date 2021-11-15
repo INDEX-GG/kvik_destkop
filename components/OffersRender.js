@@ -78,7 +78,7 @@ const OffersRender = ({ data, title, isProduct, page = false, limitRender = fals
 	})
 
 
-	console.log(page)
+	// console.log(page)
 
 	return (
 		<>

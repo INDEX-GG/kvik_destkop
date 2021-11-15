@@ -13,7 +13,6 @@ import ProductDeal from "./ProductDeal";
 import ProductDate from "./ProductSmallComponents/ProductDate";
 import ProductPrice from "./ProductPrice";
 import ProductOption from "./ProductOption";
-// import ProductStats from "./ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteCom from "./ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductAdsChange from "./ProductAdsChange";
 import ProductStats from "./ProductSmallComponents/ProductStats";
@@ -60,7 +59,8 @@ export default function ProductAction(data) {
 					/>
                   <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
                 </ProductDeal>
-                <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
+                  {objP.adstatus && data.delivery && <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction}
+                                  reviewed={data.reviewed}/>}
               </div>
             </>
         )
@@ -70,7 +70,7 @@ export default function ProductAction(data) {
           <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
-        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={data.productInfo}/>
+        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
         <Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">
           <OfferModal 
             isProductPages 
