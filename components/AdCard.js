@@ -10,7 +10,7 @@ import { IconButton, Menu, MenuItem, makeStyles } from "@material-ui/core";
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
-import PhoneModule from "./product/PhoneModule";
+// import PhoneModule from "./product/PhoneModule";
 // import {useOutherUser} from "../hooks/useOutherUser";
 
 SwiperCore.use([Pagination]);
@@ -51,7 +51,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const currentSwiper = useRef();
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
-	const [phoneModuleState, setPhoneModuleState] = useState(false);
+	// const [phoneModuleState, setPhoneModuleState] = useState(false);
 	const handleCM = (e) => {
 		e.preventDefault();
 		setOpenMenu({
@@ -174,7 +174,8 @@ const AdCard_component = React.forwardRef((props, ref) => {
 						{!matchesMobile && !matchesTablet &&
 							<div className="card__top_info_left">
 								{offer.email && offer.user_id !== id ? <span className="card_comment"/> : ''}
-								{call && offer.user_id !== id ? <span  onClick={() => setPhoneModuleState(true)}   className='card_call'/> : ''}
+								{call && offer.user_id !== id ? <span  className="card_call"/> : ''}
+								{/*{call && offer.user_id !== id ? <span  onClick={() => setPhoneModuleState(true)}   className='card_call'/> : ''}*/}
 							</div>}
 						<div className="card__top_info_right">
 							{/* {!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''} */}
@@ -218,7 +219,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 					</div>
 				</Link>
 			</div>
-			<PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
+			{/*<PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />*/}
 		</div>
 
 	);
