@@ -116,6 +116,7 @@ function PlaceOffer() {
 
     const onSubmit = data => {
 
+
         data.price = data.price.replace(/\D+/g, '');
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
@@ -161,7 +162,7 @@ function PlaceOffer() {
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([...userInfo?.location?.geo])
 		data.location = data.location?.value ? data.location.value : data.location
 
-        console.log(data.coordinates)
+        // console.log(data.coordinates)
 
         // console.log("data", data);
         data.alias = alias.join(',');
@@ -274,7 +275,7 @@ function PlaceOffer() {
                     }
                 }).then((r) => {
 					// console.log(`${STATIC_URL}/${r.data.images.photos[0]}`)
-                    setProduct({ title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+                    setProduct({ title: data.title, location: data.location, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
                     setPromotion(true)
                 })
 				// axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})

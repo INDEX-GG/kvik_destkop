@@ -2,7 +2,7 @@ import {Box, Button, makeStyles, Dialog} from "@material-ui/core";
 import {useEffect, useState} from "react";
 import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
-import router, { useRouter } from 'next/router';
+import  { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
 import {STATIC_URL} from "../../lib/constants";
 
@@ -140,45 +140,48 @@ const useStyles = makeStyles(theme => ({
 		alignItems: "center"
 	},
 	productImg: {
-		width: "88px",
-		height: "88px",
+		width: "118px",
+		height: "136.5px",
+		borderRadius: "8px 8px 0 0",
 		objectFit: "cover",
-		padding: "3px 3px 2px",
+		paddingBottom: "5px"
 	},
 	productPrice: {
 		color: "#2C2C2C",
 		fontSize: "12px",
-		fontWeight: "500"
+		fontWeight: "500",
+		paddingLeft: "7px"
 	},
 	productName: {
 		color: "#2C2C2C",
 		fontSize: "12px",
-		fontWeight: "500"
+		fontWeight: "500",
+		padding: "5px 0 0 7px",
+	},
+	productLocation: {
+		color: "#8F8F8F",
+		fontSize: "9px",
+		fontWeight: "400",
+		padding: "7px 0 0 7px",
 	},
 	productCard: {
-		width: "94px",
-		height: "126px",
+		width: "118px",
+		height: "205.51px",
 		boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
-		borderRadius: "1px",
-		margin: "35px 0 16px",
+		borderRadius: "8px",
+		margin: "15px 0 26px",
 		display: 'flex',
 		flexDirection: "column",
-		alignItems: "center"
 	},
 
-	productUrl: {
-		color: "#00A0AB",
-		fontWeight: "500",
-		textDecoration: "underline",
-		marginBottom: "24px",
-	},
 	productPublished: {
 		fontSize: "18px",
 		fontWeight: "500",
-		margin: "0 20px",
+		margin: "0 50px 0 50px",
 		color: "#2C2C2C",
 		textAlign: "center",
-		marginBottom: "24px"
+		marginBottom: "24px",
+		width: "250px"
 	},
 	productButton: {
 		border: 0,
@@ -195,6 +198,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Promotion({ dialog = false, setDialog = false, product, editProduct }) {
 
+
 	const classes = useStyles()
 	const [promotion, setPromotion] = useState([false, false, false, false, false, false, false, false, false])
 	const [free, setFree] = useState(false)
@@ -208,6 +212,8 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 	useEffect(() => {
 		productModal ? '' : rounter.push("/")
 	}, [productModal]);
+
+
 
 	const redirectToIndex = () => {
 	  return rounter.push("/")
@@ -299,8 +305,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 		</Box>
 	}
 
-// `${STATIC_URL}/${image}`
-// 	console.log('',`${STATIC_URL}/${editProduct.photo}`)
+
 	return (
 		<PromotionContent dialog={true} setDialog={setDialog}>
 			{promotionAwait(true)}
@@ -311,10 +316,11 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 						<img src={!editProduct ? product.photo : `${STATIC_URL}/${editProduct.photo}`} className={classes.productImg} alt="product photo" />
 						<div className={classes.productPrice}>{!editProduct ? product.price : editProduct.price} ₽</div>
 						<div className={classes.productName}>{!editProduct ? product.title : editProduct.title}</div>
+						<div className={classes.productLocation}>{!editProduct ? product.location : editProduct.location}</div>
 					</div>
-					<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>
-					<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление опубликовано!' : 'Ваше объявление отредактировано!'}</div>
-					<Button className={classes.productButton} onClick={() => rounter.push("/")}>Хорошо</Button>
+					{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
+					<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление успешно опубликовано!' : 'Ваше объявление успешно отредактировано!'}</div>
+					<Button className={classes.productButton} onClick={() => rounter.push("/")}>Отлично</Button>
 				</div>
 			</Dialog>
 		</PromotionContent>

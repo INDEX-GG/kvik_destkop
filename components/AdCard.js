@@ -11,7 +11,7 @@ import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded'
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
 import PhoneModule from "./product/PhoneModule";
-import {useOutherUser} from "../hooks/useOutherUser";
+// import {useOutherUser} from "../hooks/useOutherUser";
 
 SwiperCore.use([Pagination]);
 const initialState = {
@@ -47,7 +47,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 
 	const { matchesMobile, matchesTablet } = useMedia();
 	const { userInfo, setLikeComment } = useStore();
-	const {sellerPhone, sellerPhoto} = useOutherUser(offer.user_id);
+	// const {sellerPhone, sellerPhoto} = useOutherUser(offer.user_id);
 	const currentSwiper = useRef();
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
@@ -218,7 +218,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 					</div>
 				</Link>
 			</div>
-			<PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} userInfo={sellerPhone} sellerPhoto={sellerPhoto}/>
+			<PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
 		</div>
 
 	);
