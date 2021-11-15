@@ -42,6 +42,7 @@ function Active({offers}) {
 	const [offerData, setOfferData] = useState([]);
 	const buttonId = "003";
 	const offersLength = offers.length
+	console.log('offersLength',offersLength)
 
 	const cleanAll = () =>  {
 		setCheck(false);
@@ -58,7 +59,7 @@ function Active({offers}) {
 		offerId.length === offers.length ? check ? null : setCheck(false) : check===false ? null : setCheck(true);
 	}, [offerId])
 
-	if (offers.length < 1) {
+	if (offers?.length === 0) {
 		return (
 			<>
 				{!offers ? <OfferActivePlaceHolder/> : <Placeholder/>}

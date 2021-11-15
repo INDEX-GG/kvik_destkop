@@ -11,7 +11,7 @@ const ProductSmallAd = ({id, sellerId, status, mobile, smallAd}) => {
 	return (
 		<>
 		{
-			status === 7 || sellerId != id ? (
+			status === 7 || sellerId !== id ? (
 			!mobile ? (
 				sellerId === undefined ?
 					<>

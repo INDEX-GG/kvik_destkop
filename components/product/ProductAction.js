@@ -59,7 +59,8 @@ export default function ProductAction(data) {
 					/>
                   <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
                 </ProductDeal>
-                <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction} reviewed={data.reviewed}/>
+                  {objP.adstatus && data.delivery && <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction}
+                                  reviewed={data.reviewed}/>}
               </div>
             </>
         )

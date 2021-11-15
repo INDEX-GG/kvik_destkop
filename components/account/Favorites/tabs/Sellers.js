@@ -71,7 +71,7 @@ function Sellers({sellers, sellerSub}) {
                         <button onClick={() => {
                           sellerSub(58, seller.id)
                           changeSubscribe(index)
-                        }} className="buttonGrey">{btnSellerArr[index] ? "Отписать" : "Подписаться"}</button>
+                        }} className="buttonGrey">{btnSellerArr[index] ? "Отписаться" : "Подписаться"}</button>
                       </div>
                       <div className="sellersOffers">
                         {seller.poducts.map((offer, i) => {
