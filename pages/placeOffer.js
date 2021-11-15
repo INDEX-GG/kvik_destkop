@@ -295,8 +295,8 @@ function PlaceOffer() {
                             <Verify showTitle={showTitle}/>
                             <form onSubmit={methods.handleSubmit(onSubmit)}>
                                 <Box className={classes.formPart}>
-                                    {showTitle ? null : <Title title='' />}
                                     <Category/>
+                                    {showTitle ? null : <Title title='' />}
                                 </Box>
                                 {subcategoryData[category] !== undefined ?
                                     <Box className={classes.formPart}>
