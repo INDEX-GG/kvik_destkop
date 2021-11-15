@@ -74,7 +74,7 @@ import ProductNumberPng from "./ProductNumberPng";
   }));
 
 
-export default function PhoneModule({dialog, setDialog, productInfo = {name: '',  raiting: null, user_id: 2}, userInfo}) {
+export default function PhoneModule({dialog, setDialog, productInfo, }) {
   const classes = useStyles();
   const { name, userPhoto, raiting, user_id, isLoading } = productInfo;  //useProduct(router.query.id);Исправить
   const {sellerPhone} = useOutherUser(user_id);
@@ -84,8 +84,10 @@ export default function PhoneModule({dialog, setDialog, productInfo = {name: '',
       <div className={classes.modalNumber}>
         <div className={classes.userProfile}>
           {isLoading || (
-            <Avatar alt="User" className={classes.small} src={userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
-              {name}
+            // <Avatar alt="User" className={classes.small} src={userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
+            //   {name}
+              <Avatar alt="User" className={classes.small} src={userPhoto} onClick={() => router.push(`/user/${user_id}`)} >
+                {name}
             </Avatar>
           )}
           <div className={classes.userInf}>
@@ -97,7 +99,8 @@ export default function PhoneModule({dialog, setDialog, productInfo = {name: '',
           </div>
         </div>
         {/* <h2 className={classes.userPhone}>{sellerPhone || "Не указан"}</h2> */}
-        {userInfo ? <ProductNumberPng name={userInfo} x={0} y={25}/> : sellerPhone ? <ProductNumberPng name={sellerPhone} x={0} y={25}/> : null}
+        {sellerPhone ? <ProductNumberPng name={sellerPhone} x={0} y={25}/> : null}
+        {/*{userInfo ? <ProductNumberPng name={userInfo} x={0} y={25}/> : sellerPhone ? <ProductNumberPng name={sellerPhone} x={0} y={25}/> : null}*/}
         <p className={classes.userMessage}>Номер защищён: смс и сообщения в Viber, WhatsApp и других мессенджерах не будут доставлены</p>
         <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
         <ul className={classes.warningBlock}>
