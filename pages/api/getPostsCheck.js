@@ -43,7 +43,7 @@ export default async function handler(req, res) {
                 }
             }
             if (!(key_list.includes(category))) {
-                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE '%${full_category}%') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE '${full_category}%') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
                 return(answer.rows)
             } else {
                 for (const [key, value] of Object.entries(check)) {
@@ -72,7 +72,6 @@ export default async function handler(req, res) {
                     }
                 }
                 const answer  = await pool.query(`SELECT posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts","${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
-                console.log(constructQuery);
                 return(answer.rows)
             }
         }
