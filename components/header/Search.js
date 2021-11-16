@@ -119,6 +119,7 @@ const Search = ({text = false}) => {
 	}
 
 	const handleKeyDown = (e) => {
+		console.log(suggestData)
 		if (e.key === 'Enter' && e.target.value.length > 2 && !suggestItem?.category) {
 
 			const searchArr = suggestData.filter(item => {
