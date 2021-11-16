@@ -82,6 +82,7 @@ export default function PhoneModule({dialog, setDialog, userPhotoInIndex, userPh
   const { name, userPhoto, raiting, user_id, isLoading } = useProduct(router.query.id)
   const {sellerPhone} = useOutherUser(user_id);
 
+
   return (
     <Dialog open={dialog || false} onClose={() => setDialog(!dialog)} fullWidth maxWidth="sm">
       <div className={classes.modalNumber}>
@@ -99,7 +100,7 @@ export default function PhoneModule({dialog, setDialog, userPhotoInIndex, userPh
             </div>
           </div>
         </div>
-         <h2 className={classes.userPhone}>{sellerPhone || userPhone || "Телефон не указан"}</h2>
+         {/*<h2 className={classes.userPhone}>{sellerPhone || userPhone || "Телефон не указан"}</h2>*/}
         { sellerPhone ? <ProductNumberPng name={sellerPhone ? sellerPhone : userPhone} x={0} y={25}/> : null}
         <p className={classes.userMessage}>Номер защищён: смс и сообщения в Viber, WhatsApp и других мессенджерах не будут доставлены</p>
         <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
