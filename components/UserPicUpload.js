@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import {useState, useRef, useEffect} from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { typeChange } from '../lib/services';
 import { useAuth } from '../lib/Context/AuthCTX';
@@ -21,6 +21,10 @@ function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, C
 			setRotate(0);
 		}
 	}
+
+	useEffect(() => {
+		console.log(scale, rotate)
+	}, [scale, rotate])
 
 	//Получаем отредактированное изображение и отправляем на route
 	const saveEditedPic = () => {
@@ -87,7 +91,7 @@ function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, C
 					type="file"
 					accept="image/png, image/jpg, image/jpeg, image/webp, image/heic, image/heif" />
 			</label>
-			{Photo ? <button onClick={() => saveEditedPic()} className="userPicUpload__button button contained bhigh">Сохранить</button> : ''}
+			{Photo || scale > 1 || rotate > 0 ? <button onClick={() => saveEditedPic()} className="userPicUpload__button button contained bhigh">Сохранить</button> : ''}
 		</div>
 	)
 }

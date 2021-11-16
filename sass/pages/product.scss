@@ -538,6 +538,10 @@
     height: 100%;
 }
 
+.mySwiper .swiper-slide img {
+    object-fit: cover;
+}
+
 .mySwiper2 .swiper-button-prev {
     left: 4px !important;
 }

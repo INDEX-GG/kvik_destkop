@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
 import { Modal } from "@material-ui/core";
@@ -29,11 +29,12 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 	useEffect(() => {
 		if (photo) {
 			if (photo.length > 6) {
+				// 6
 				setSliderProps({slidesPrevPhoto: 6, sliderDot: false, sliderNavigation: true})
 			} else if (photo.length >  1 && photo.length <= 6) {
-				setSliderProps({slidesPrevPhoto : false, sliderDot: true, sliderNavigation: true})
+				setSliderProps({slidesPrevPhoto : 3, sliderDot: true, sliderNavigation: true})
 			} else {
-				setSliderProps({slidesPrevPhoto : false, sliderDot: false, sliderNavigation: false})
+				setSliderProps({slidesPrevPhoto : 1, sliderDot: false, sliderNavigation: false})
 			}
 		}
 	}, [photo])
@@ -50,6 +51,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 	}, [router])
 
 	const {slidesPrevPhoto, sliderDot, sliderNavigation} = sliderProps;
+
 
 
 	const sliderClass = `mySwiper2 importantSlider ${sliderDot || photo?.length > 1 && (matchesTablet || matchesMobile) ? '' : 'dotNone'} ${sliderNavigation ? '' : 'navigationNone'}`
@@ -73,11 +75,15 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						thumbs={{swiper: thumbsSwiper}}
 						>
 						{/* <div className="seen__ad">Просмотрено</div> */}
-						{data?.map((img, i) => (
-							<SwiperSlide className='importantSlide' key={i} onClick={() => setModal(!modal)}>
-								<img src={img} />
-							</SwiperSlide>
-						))}
+						{data?.map((img, i) => {
+							return (
+								<SwiperSlide className='importantSlide' key={i} onClick={() => setModal(!modal)}>
+									<img src={img} alt={`sliderPhoto${i + 1}`} />
+									{/*ВОЗМОЖНОЕ РЕШЕНИЕ!*/}
+									{/*<ProductItemPhoto img={img} index={i}/>*/}
+								</SwiperSlide>
+							)
+						})}
 					</Swiper>
 					{slidesPrevPhoto &&
 					<Swiper 
@@ -86,7 +92,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						watchSlidesProgress={true}
 						slidesPerView={6}
 						spaceBetween={1}
-						className="mySwiper2"
+						className={`mySwiper2 ${slidesPrevPhoto > 1 ? '' : 'swiperNone'}`}
 					>
 						{/* <div className="seen__ad">Просмотрено</div> */}
 						{!matchesTablet && !matchesMobile ? 

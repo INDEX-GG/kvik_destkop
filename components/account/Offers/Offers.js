@@ -34,6 +34,8 @@ const Offers = () => {
     }
   }, [userAccountProvider]);
 
+  console.log(userAccountProvider)
+
   useEffect(() => {
     if (router) {
       if (router.query.content !== undefined) {
