@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import MetaLayout from "../../layout/MetaLayout";
-// import StarRating from "../../components/StarRating";
+import StarRating from "../../components/StarRating";
 import Offers from "../../components/account/Offers/Offers";
 import Deals from "../../components/account/Deals/Deals";
 import Wallet from "../../components/account/Wallet/Wallet";
@@ -12,7 +12,7 @@ import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
 import {initials, stringToColor, ToRusAccountDate} from "../../lib/services";
 import {ModalRating, ModalSubscription} from "../../components/Modals";
-import {Avatar, Box, Button, Dialog, DialogTitle} from "@material-ui/core";
+import {Avatar, Box, Button, Dialog, DialogTitle, makeStyles} from "@material-ui/core";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {mutate} from "swr";
@@ -21,7 +21,7 @@ import {useAuth} from "../../lib/Context/AuthCTX";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import {useStore} from "../../lib/Context/Store";
 import AccountPlaceHolder from "../../components/placeHolders/AccountPlaceHolder/AccountPlaceHolder";
-import {Grid, Skeleton} from "@mui/material";
+import {Grid, Skeleton, Tooltip} from "@mui/material";
 import {MenuItem} from "../../components/placeHolders/AccountCardPlaceHolder/AccountCardPlaceHolder";
 
 
@@ -40,8 +40,44 @@ const menuItemsIcon = ["menuOffers", "menuDeals", "menuWallet", "menuFavorites",
 const menuItemsTitle = ["Мои объявления", "Сделки", "Кошелек", "Избранное", "Уведомления", "Сравнить", "Отзывы", "Настройки"]
 
 
+const useStyles = makeStyles(() => ({
+    tooltip: {
+        border: "#8F8F8F solid 1px",
+        background: "#FFFFFF",
+        color: "#5A5A5A",
+        fontSize: "12px",
+        textAlign: 'center',
+        maxWidth: '190px',
+    },
+    arrow: {
+        color: '#FFFFFF',
+        "&:before": {
+            content: '""',
+            border: "#8F8F8F solid 1px",
+        }
+    },
+    userStats: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        background: "none",
+        color: "#5a5a5a",
+        transition: "all 200ms ease-in-out",
+        cursor: "pointer",
+
+        '&:hover': {
+            // transition: 'all 200ms ease-in-out',
+            // color: '#52B9C5FF',
+            textDecoration: "none",
+        }
+    },
+    buttonDesc: {
+        fontSize: "11px",
+    }
+}));
+
 function Account() {
-    // const classes = useStyles();
+    const classes = useStyles();
     const router = useRouter();
     const {userInfo} = useStore();
     const countRender = useRef(0)
@@ -189,37 +225,53 @@ function Account() {
                                 c {ToRusAccountDate(userInfo.createdAt)}</div>}
 
 
-                            {/*{!userInfo*/}
-                            {/*    ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>*/}
-                            {/*            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />*/}
-                            {/*            </Skeleton>*/}
-                            {/*        </Box>*/}
-                            {/*    :<div className="clientPage__userrate">*/}
-                            {/*    <div className="clientPage__userrate__num">{userInfo.raiting}</div>*/}
-                            {/*    <StarRating {...{rating: userInfo.raiting}} />*/}
-                            {/*</div>}*/}
+                            {!userInfo
+                                ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
+                                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
+                                        </Skeleton>
+                                    </Box>
+                                :
+                                <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                                    <div className="clientPage__userrate">
+                                        <div className="clientPage__userrate__num">{userInfo.raiting}</div>
+                                        <StarRating {...{rating: userInfo.raiting}} />
+                                    </div>
+                                </Tooltip>
+                            }
 
 
                             {!userInfo ? <Box >
                                     <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
                                     </Skeleton>
                                 </Box>
-                                :<div className="clientPage__userstats highlight small">
-                                {/*<a onClick={() => setReviewsModal(!reviewsModal)}*/}
-                                {/*   className="offerUnpublish thin superLight userInfoReviews">*/}
-                                {/*    {'0'}*/}
-                                {/*    <p>Отзывов</p>*/}
-                                {/*</a>*/}
-                                <a className="offerUnpublish thin superLight userInfoSubscribers">
-                                    {subscribersList?.message ? 0 : subscribersList.length}
-                                    <p>Подписчиков</p>
-                                </a>
-                                <a style={{textDecoration: "none"}} onClick={() => setSubscriptionsModal(!subscriptionsModal)}
-                                   className="offerUnpublish thin superLight userInfoSubscribtions" >
+                                :
+                                <div className="clientPage__userstats highlight small">
 
-                                    {userInfo && userInfo?.subscriptions !== undefined ? userInfo.subscriptions?.length : '0'}
-                                    <p>Подписки</p>
-                                </a>
+                                    <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                                        <Box className={classes.userStats}>
+                                            <span>{'0'}</span>
+                                            <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
+                                                <p>Отзывы</p>
+                                            </Button>
+                                        </Box>
+                                    </Tooltip>
+
+
+                                    <Box className={classes.userStats}>
+                                        <span>{subscribersList?.message ? 0 : subscribersList.length}</span>
+                                        <Button className={classes.buttonDesc} size="small" variant="text" >
+                                            <p>Подписчиков</p>
+                                        </Button>
+                                    </Box>
+
+
+                                    <Box className={classes.userStats}>
+                                        <span>{userInfo && userInfo?.subscriptions !== undefined ? userInfo.subscriptions?.length : '0'}</span>
+                                        <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                                            <p>Подписки</p>
+                                        </Button>
+                                    </Box>
+
                             </div>}
                         </div>
                         {!userInfo ? <Grid item container xs={10} spacing={1}>

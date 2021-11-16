@@ -1,8 +1,18 @@
+
 import React, { useEffect, useState } from "react";
-// import StarRating from "../../components/StarRating";
+import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
 import { ToRusAccountDate, stringToColor, initials} from "../../lib/services";
-import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  makeStyles
+} from "@material-ui/core";
 import { useRouter } from "next/router";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useAd } from "../../hooks/useAd";
@@ -15,9 +25,47 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { STATIC_URL } from "../../lib/constants";
 import { useBlockedBool } from "../../hooks/useBlocked";
 import { useUser } from "../../hooks/useUser";
-import {useStore} from "../../lib/Context/Store";
+import {Tooltip} from "@mui/material";
+
+
+
+
+const useStyles = makeStyles(() => ({
+  tooltip: {
+    border: "#8F8F8F solid 1px",
+    background: "#FFFFFF",
+    color: "#5A5A5A",
+    fontSize: "12px",
+    textAlign: 'center',
+    maxWidth: '190px',
+  },
+  arrow: {
+    color: '#FFFFFF',
+    "&:before": {
+      content: '""',
+      border: "#8F8F8F solid 1px",
+    }
+  },
+  userStats: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    background: "none",
+    color: "#5a5a5a",
+    transition: "all 200ms ease-in-out",
+    cursor: "pointer",
+
+    '&:hover': {
+      textDecoration: "none",
+    }
+  },
+  buttonDesc: {
+    fontSize: "11px",
+  }
+}));
 
 function UserPage() {
+  const classes = useStyles();
   const router = useRouter();
   const { id } = useAuth()
   const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
@@ -26,7 +74,6 @@ function UserPage() {
   const { userSub } = useSubBool(id, sellerId)
   const { userBlocked } = useBlockedBool(id, sellerId)
   const { matchesMobile, matchesTablet } = useMedia()
-  const userStoreObj = useStore()
 
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
@@ -99,26 +146,15 @@ function UserPage() {
   
       await axios.post("/api/subscriptions", subscribe)
   
-      await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id})
-        .then(r => {
-
-          const {userInfo, setUserInfo} = userStoreObj
-          const subscribeArr = userInfo.subscriptions
-
-          if (r.data === 'post') {
-            subscribeArr.push(sellerId)
-            setUserInfo({...userInfo, subscriptions: subscribeArr})
-          }
-
-          if (r.data === 'delete') {
-            const filter = subscribeArr.filter(item => item !== sellerId)
-            setUserInfo({...userInfo, subscriptions: filter})
-          }
-        });
+      await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
   
   
       setLoading(false)
     }
+
+    
+    
+
   }
 
   // const blockUser = async (option) => {
@@ -150,6 +186,7 @@ function UserPage() {
   //     setBlockLoading(false)
   //   }
   // }
+
   
   return (
     <MetaLayout>
@@ -161,33 +198,73 @@ function UserPage() {
             </div>
             <div className="clientPage__username">{sellerName}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
-            {/*<div className="clientPage__userrate">*/}
-            {/*  <div className="clientPage__userrate__num">{raiting}</div>*/}
-            {/*  <StarRating rating={raiting} />*/}
-            {/*</div> Скрыто пока не работает функционал */}
+            <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+              <div className="clientPage__userrate">
+                <div className="clientPage__userrate__num">{raiting}</div>
+                <StarRating rating={raiting} />
+              </div>
+            </Tooltip>
+
+
+
             <div className="clientPage__userstats highlight small">
-              {/*<a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">*/}
-              {/*  {userInfo.userReviews}*/}
+
+
+              <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                <Box className={classes.userStats}>
+                  <span>{'0'}</span>
+                  <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
+                    <p>Отзывы</p>
+                  </Button>
+                </Box>
+              </Tooltip>
+
+              {/*<a  className="offerUnpublish thin superLight userInfoReviews">*/}
+              {/*  */}
               {/*  <div style={{ textAlign: "center" }}>*/}
               {/*    <div>0</div>*/}
               {/*    <p>Отзывов</p>*/}
               {/*  </div>*/}
-              {/*</a> Скрыто пока не работает функционал */}
-              <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribers">
-                {userInfo.userSubscribers}
-                <div style={{ textAlign: "center" }}>
-                  <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>
+              {/*</a>*/}
+
+
+
+              <Box className={classes.userStats}>
+                <span>{subscribersList?.message ? 0 : subscribersList.length}</span>
+                <Button className={classes.buttonDesc} size="small" variant="text" onClick={() => setSubscribersModal(!subscriptionsModal)}>
                   <p>Подписчиков</p>
-                </div>
-              </a>
-              <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
-                {userInfo.userSubscriptions}
-                <div style={{ textAlign: "center" }}>
-                  <div>{subList?.length > 0 ? subList?.length : 0}</div>
+                </Button>
+              </Box>
+
+              {/*<a  className="offerUnpublish thin superLight userInfoSubscribers">*/}
+              {/*  */}
+              {/*  <div style={{ textAlign: "center" }}>*/}
+              {/*    <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>*/}
+              {/*    <p>Подписчиков</p>*/}
+              {/*  </div>*/}
+              {/*</a>*/}
+
+
+              <Box className={classes.userStats}>
+                <span>{subList?.length > 0 ? subList?.length : 0}</span>
+                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
                   <p>Подписки</p>
-                </div>
-              </a>
+                </Button>
+              </Box>
+
+              {/*<a  className="offerUnpublish thin superLight userInfoSubscribtions">*/}
+              {/*  {userInfo.userSubscriptions}*/}
+              {/*  <div style={{ textAlign: "center" }}>*/}
+              {/*    <div>{subList?.length > 0 ? subList?.length : 0}</div>*/}
+              {/*    <p>Подписки</p>*/}
+              {/*  </div>*/}
+              {/*</a>*/}
+
+
             </div>
+
+
+
             {+router.query.id === id  ? null : (
               <>
                 <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
