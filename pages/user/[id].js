@@ -213,7 +213,7 @@ function UserPage() {
                 <Box className={classes.userStats}>
                   <span>{'0'}</span>
                   <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
-                    <p>Отзывов</p>
+                    <p>Отзывы</p>
                   </Button>
                 </Box>
               </Tooltip>
