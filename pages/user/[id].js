@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
-import { ToRusAccountDate, stringToColor, initials, standartDate } from "../../lib/services";
+import { ToRusAccountDate, stringToColor, initials} from "../../lib/services";
 import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
@@ -34,7 +34,7 @@ function UserPage() {
   const [subList, setSubList] = useState([])
   const [subscribersList, setSubscribersList] = useState([])
   const [loading, setLoading] = useState(false)
-  const [blockLoading, setBlockLoading] = useState(false)
+  // const [blockLoading, setBlockLoading] = useState(false)
   const [blockOpen, setBlockOpen] = useState(false)
 
 
@@ -108,37 +108,35 @@ function UserPage() {
 
   }
 
-  const blockUser = async (option) => {
-    if (option) {
-      setBlockLoading(true)
-      const userBlockInfo = {
-      user_id: id,
-      block_user_id: sellerId,
-      time: standartDate(Date.now()),
-      block: true,
-      }
-      if (id && sellerId){
-        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r))
-        setUserBlockBool(!userBlockBool)
-        setBlockLoading(false)
-      }
-    }
-    if (!option) {
-      setBlockLoading(true)
-      const userBlockInfo = {
-      user_id: id,
-      block_user_id: sellerId,
-      block: false,
-      }
-      if (id && sellerId){
-        await axios.post('/api/blockUser', userBlockInfo)
-        setUserBlockBool(!userBlockBool)
-      }
-      setBlockLoading(false)
-    }
-    
-
-  }
+  // const blockUser = async (option) => {
+  //   if (option) {
+  //     setBlockLoading(true)
+  //     const userBlockInfo = {
+  //     user_id: id,
+  //     block_user_id: sellerId,
+  //     time: standartDate(Date.now()),
+  //     block: true,
+  //     }
+  //     if (id && sellerId){
+  //       await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r))
+  //       setUserBlockBool(!userBlockBool)
+  //       setBlockLoading(false)
+  //     }
+  //   }
+  //   if (!option) {
+  //     setBlockLoading(true)
+  //     const userBlockInfo = {
+  //     user_id: id,
+  //     block_user_id: sellerId,
+  //     block: false,
+  //     }
+  //     if (id && sellerId){
+  //       await axios.post('/api/blockUser', userBlockInfo)
+  //       setUserBlockBool(!userBlockBool)
+  //     }
+  //     setBlockLoading(false)
+  //   }
+  // }
 
   
   return (
@@ -182,9 +180,9 @@ function UserPage() {
               <>
                 <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
                 <div className="ad__block_bottom__adaptive_right">
-                  <a className="SellerInfoShutUp small light underline" onClick={() => {
-                    if (!blockLoading) setBlockOpen(true)
-                  }}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>
+                  {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
+                  {/*  if (!blockLoading) setBlockOpen(true)*/}
+                  {/*}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>*/}
                   <a className="SellerInfoComplain small light underline">Пожаловаться</a>
                 </div>
               </>
@@ -211,7 +209,7 @@ function UserPage() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>
+            {/*<Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>*/}
             <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
         </DialogActions>
       </Dialog>
