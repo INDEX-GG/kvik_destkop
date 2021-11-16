@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 const ProductNumberPng = ({name, x, y}) => {
 
 	const canvasRef = useRef()
+	console.log(name)
 	const [img, setImg] = useState('')
 	useEffect(async () => {
 		let canvasTxt = canvasRef.current.getContext("2d");

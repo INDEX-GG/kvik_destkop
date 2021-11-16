@@ -15,6 +15,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { STATIC_URL } from "../../lib/constants";
 import { useBlockedBool } from "../../hooks/useBlocked";
 import { useUser } from "../../hooks/useUser";
+import {useStore} from "../../lib/Context/Store";
 
 function UserPage() {
   const router = useRouter();
@@ -25,6 +26,7 @@ function UserPage() {
   const { userSub } = useSubBool(id, sellerId)
   const { userBlocked } = useBlockedBool(id, sellerId)
   const { matchesMobile, matchesTablet } = useMedia()
+  const userStoreObj = useStore()
 
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
@@ -97,15 +99,26 @@ function UserPage() {
   
       await axios.post("/api/subscriptions", subscribe)
   
-      await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
+      await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id})
+        .then(r => {
+
+          const {userInfo, setUserInfo} = userStoreObj
+          const subscribeArr = userInfo.subscriptions
+
+          if (r.data === 'post') {
+            subscribeArr.push(sellerId)
+            setUserInfo({...userInfo, subscriptions: subscribeArr})
+          }
+
+          if (r.data === 'delete') {
+            const filter = subscribeArr.filter(item => item !== sellerId)
+            setUserInfo({...userInfo, subscriptions: filter})
+          }
+        });
   
   
       setLoading(false)
     }
-
-    
-    
-
   }
 
   // const blockUser = async (option) => {
@@ -137,7 +150,6 @@ function UserPage() {
   //     setBlockLoading(false)
   //   }
   // }
-
   
   return (
     <MetaLayout>
