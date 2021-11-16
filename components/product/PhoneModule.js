@@ -4,7 +4,7 @@ import StarRating from "../StarRating";
 import Active_icon from "../../UI/icons/ActiveIcon";
 import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
-import router from "next/router";
+import {useRouter} from "next/router";
 import ProductNumberPng from "./ProductNumberPng";
 import {useProduct} from "../../hooks/useProduct";
 import {STATIC_URL} from "../../lib/constants";
@@ -78,6 +78,7 @@ import {STATIC_URL} from "../../lib/constants";
 
 export default function PhoneModule({dialog, setDialog, userPhotoInIndex, userPhone, userName, userRating}) {
   const classes = useStyles();
+  const router = useRouter()
   const { name, userPhoto, raiting, user_id, isLoading } = useProduct(router.query.id)
   const {sellerPhone} = useOutherUser(user_id);
 
