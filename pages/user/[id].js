@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import StarRating from "../../components/StarRating";
+import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
 import { ToRusAccountDate, stringToColor, initials} from "../../lib/services";
-import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
+import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, makeStyles} from "@material-ui/core";
 import { useRouter } from "next/router";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useAd } from "../../hooks/useAd";
@@ -15,8 +15,31 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { STATIC_URL } from "../../lib/constants";
 import { useBlockedBool } from "../../hooks/useBlocked";
 import { useUser } from "../../hooks/useUser";
+import {Tooltip} from "@mui/material";
+
+
+
+
+const useStyles = makeStyles(() => ({
+  tooltip: {
+    border: "#8F8F8F solid 1px",
+    background: "#FFFFFF",
+    color: "#5A5A5A",
+    fontSize: "12px",
+    textAlign: 'center',
+    maxWidth: '190px',
+  },
+  arrow: {
+    color: '#FFFFFF',
+    "&:before": {
+      content: '""',
+      border: "#8F8F8F solid 1px",
+    }
+  }
+}));
 
 function UserPage() {
+  const classes = useStyles();
   const router = useRouter();
   const { id } = useAuth()
   const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
@@ -149,18 +172,20 @@ function UserPage() {
             </div>
             <div className="clientPage__username">{sellerName}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
-            {/*<div className="clientPage__userrate">*/}
-            {/*  <div className="clientPage__userrate__num">{raiting}</div>*/}
-            {/*  <StarRating rating={raiting} />*/}
-            {/*</div> Скрыто пока не работает функционал */}
+            <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+              <div className="clientPage__userrate">
+                <div className="clientPage__userrate__num">{raiting}</div>
+                <StarRating rating={raiting} />
+              </div>
+            </Tooltip>
             <div className="clientPage__userstats highlight small">
-              {/*<a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">*/}
-              {/*  {userInfo.userReviews}*/}
-              {/*  <div style={{ textAlign: "center" }}>*/}
-              {/*    <div>0</div>*/}
-              {/*    <p>Отзывов</p>*/}
-              {/*  </div>*/}
-              {/*</a> Скрыто пока не работает функционал */}
+              <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">
+                {userInfo.userReviews}
+                <div style={{ textAlign: "center" }}>
+                  <div>0</div>
+                  <p>Отзывов</p>
+                </div>
+              </a>
               <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribers">
                 {userInfo.userSubscribers}
                 <div style={{ textAlign: "center" }}>
