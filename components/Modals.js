@@ -79,12 +79,12 @@ export function ModalSubscription({ data, subscription = 0, modal, mobile }) {
 			<div className="modal__block__top accountTop">
 				<>
 					{mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
-					<h6 className="modal__block__top_title accountTitle">{subscription} подписок</h6>
+					<h6 className="modal__block__top_title accountTitle">{subscription} Подписки</h6>
 				</>
 			</div>
 			{subscription == 0 ? (
 				<div className="modal__block__middle">
-					<h6 className="modal__block__middle__title">У Вас еще нет подписок</h6>
+					<h6 className="modal__block__middle__title">Вы еще ни на кого не подписаны</h6>
 					<p className="modal__block__middle_rating_description">Здесь будет отображаться список пользователей на которых вы подпишетесь</p>
 				</div>
 			) : (

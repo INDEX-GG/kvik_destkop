@@ -12,7 +12,6 @@ export default function ProductUserInfo(data) {
 
 	const { matchesMobile, matchesTablet } = useMedia();
 
-	console.log('data.userAd',data.userAd)
 	const userAdWithArchiveOffers = data.userAd?.filter(item => item.active === 0)
 
 	return (

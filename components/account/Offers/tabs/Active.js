@@ -42,7 +42,6 @@ function Active({offers}) {
 	const [offerData, setOfferData] = useState([]);
 	const buttonId = "003";
 	const offersLength = offers.length
-	console.log('offersLength',offersLength)
 
 	const cleanAll = () =>  {
 		setCheck(false);

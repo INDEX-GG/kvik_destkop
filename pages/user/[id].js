@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import StarRating from "../../components/StarRating";
+// import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
-import { ToRusAccountDate, stringToColor, initials, standartDate } from "../../lib/services";
+import { ToRusAccountDate, stringToColor, initials} from "../../lib/services";
 import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
@@ -34,7 +34,7 @@ function UserPage() {
   const [subList, setSubList] = useState([])
   const [subscribersList, setSubscribersList] = useState([])
   const [loading, setLoading] = useState(false)
-  const [blockLoading, setBlockLoading] = useState(false)
+  // const [blockLoading, setBlockLoading] = useState(false)
   const [blockOpen, setBlockOpen] = useState(false)
 
 
@@ -108,37 +108,35 @@ function UserPage() {
 
   }
 
-  const blockUser = async (option) => {
-    if (option) {
-      setBlockLoading(true)
-      const userBlockInfo = {
-      user_id: id,
-      block_user_id: sellerId,
-      time: standartDate(Date.now()),
-      block: true,
-      }
-      if (id && sellerId){
-        await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r))
-        setUserBlockBool(!userBlockBool)
-        setBlockLoading(false)
-      }
-    }
-    if (!option) {
-      setBlockLoading(true)
-      const userBlockInfo = {
-      user_id: id,
-      block_user_id: sellerId,
-      block: false,
-      }
-      if (id && sellerId){
-        await axios.post('/api/blockUser', userBlockInfo)
-        setUserBlockBool(!userBlockBool)
-      }
-      setBlockLoading(false)
-    }
-    
-
-  }
+  // const blockUser = async (option) => {
+  //   if (option) {
+  //     setBlockLoading(true)
+  //     const userBlockInfo = {
+  //     user_id: id,
+  //     block_user_id: sellerId,
+  //     time: standartDate(Date.now()),
+  //     block: true,
+  //     }
+  //     if (id && sellerId){
+  //       await axios.post('/api/blockUser', userBlockInfo).then(r => console.log(r))
+  //       setUserBlockBool(!userBlockBool)
+  //       setBlockLoading(false)
+  //     }
+  //   }
+  //   if (!option) {
+  //     setBlockLoading(true)
+  //     const userBlockInfo = {
+  //     user_id: id,
+  //     block_user_id: sellerId,
+  //     block: false,
+  //     }
+  //     if (id && sellerId){
+  //       await axios.post('/api/blockUser', userBlockInfo)
+  //       setUserBlockBool(!userBlockBool)
+  //     }
+  //     setBlockLoading(false)
+  //   }
+  // }
 
   
   return (
@@ -151,30 +149,30 @@ function UserPage() {
             </div>
             <div className="clientPage__username">{sellerName}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
-            <div className="clientPage__userrate">
-              <div className="clientPage__userrate__num">{raiting}</div>
-              <StarRating rating={raiting} />
-            </div>
+            {/*<div className="clientPage__userrate">*/}
+            {/*  <div className="clientPage__userrate__num">{raiting}</div>*/}
+            {/*  <StarRating rating={raiting} />*/}
+            {/*</div> Скрыто пока не работает функционал */}
             <div className="clientPage__userstats highlight small">
-              <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">
-                {userInfo.userReviews}
-                <div style={{ textAlign: "center" }}>
-                  <div>0</div>
-                  <p>отзывов</p>
-                </div>
-              </a>
+              {/*<a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">*/}
+              {/*  {userInfo.userReviews}*/}
+              {/*  <div style={{ textAlign: "center" }}>*/}
+              {/*    <div>0</div>*/}
+              {/*    <p>Отзывов</p>*/}
+              {/*  </div>*/}
+              {/*</a> Скрыто пока не работает функционал */}
               <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribers">
                 {userInfo.userSubscribers}
                 <div style={{ textAlign: "center" }}>
                   <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>
-                  <p>подписчиков</p>
+                  <p>Подписчиков</p>
                 </div>
               </a>
               <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
                 {userInfo.userSubscriptions}
                 <div style={{ textAlign: "center" }}>
                   <div>{subList?.length > 0 ? subList?.length : 0}</div>
-                  <p>подписок</p>
+                  <p>Подписки</p>
                 </div>
               </a>
             </div>
@@ -182,9 +180,9 @@ function UserPage() {
               <>
                 <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
                 <div className="ad__block_bottom__adaptive_right">
-                  <a className="SellerInfoShutUp small light underline" onClick={() => {
-                    if (!blockLoading) setBlockOpen(true)
-                  }}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>
+                  {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
+                  {/*  if (!blockLoading) setBlockOpen(true)*/}
+                  {/*}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>*/}
                   <a className="SellerInfoComplain small light underline">Пожаловаться</a>
                 </div>
               </>
@@ -211,7 +209,7 @@ function UserPage() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>
+            {/*<Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>*/}
             <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
         </DialogActions>
       </Dialog>

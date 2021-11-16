@@ -1,5 +1,5 @@
-import CategoryDark from '../../UI/icons/CategoryDark';
-import CompareDark from '../../UI/icons/CompareDark';
+// import CategoryDark from '../../UI/icons/CategoryDark';
+// import CompareDark from '../../UI/icons/CompareDark';
 import LikeDark from '../../UI/icons/LikeDark';
 import NotifDark from '../../UI/icons/NotifDark';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
@@ -84,8 +84,10 @@ const UpPanel = () => {
 								<RoomOutlinedIcon fontSize='small' />{city}
 							</Button>
 							{isAuth && <Box className={classes.btns__uppanel}>
-								<CustomTooltip str={<div>Выберайте вашу любимую категорию товаров <br /> для быстрого перехода</div>} icon={<CategoryDark />} />
-								<CustomTooltip str={'Статистика'} icon={<CompareDark />}/>
+								{/*<CustomTooltip str={<div>Выберайте вашу любимую категорию товаров <br /> для быстрого перехода</div>} icon={<CategoryDark />} />*/}
+								{/*  скрыто пока не работает */}
+								{/*<CustomTooltip str={'Статистика'} icon={<CompareDark />}/>*/}
+								{/*  скрыто пока не работает */}
 								<CustomTooltip str={'Избранное'} icon={<LikeDark/>} account='4' onClick />
 								<CustomTooltip str={'Сообщения'} icon={<NotifDark/>} account='5' onClick/>
 							</Box>}
