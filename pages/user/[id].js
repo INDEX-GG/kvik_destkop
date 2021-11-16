@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
 import { ToRusAccountDate, stringToColor, initials} from "../../lib/services";
-import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, makeStyles} from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  makeStyles
+} from "@material-ui/core";
 import { useRouter } from "next/router";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 import { useAd } from "../../hooks/useAd";
@@ -35,6 +44,22 @@ const useStyles = makeStyles(() => ({
       content: '""',
       border: "#8F8F8F solid 1px",
     }
+  },
+  userStats: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    background: "none",
+    color: "#5a5a5a",
+    transition: "all 200ms ease-in-out",
+    cursor: "pointer",
+
+    '&:hover': {
+      textDecoration: "none",
+    }
+  },
+  buttonDesc: {
+    fontSize: "11px",
   }
 }));
 
@@ -178,29 +203,67 @@ function UserPage() {
                 <StarRating rating={raiting} />
               </div>
             </Tooltip>
+
+
+
             <div className="clientPage__userstats highlight small">
-              <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">
-                {userInfo.userReviews}
-                <div style={{ textAlign: "center" }}>
-                  <div>0</div>
-                  <p>Отзывов</p>
-                </div>
-              </a>
-              <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribers">
-                {userInfo.userSubscribers}
-                <div style={{ textAlign: "center" }}>
-                  <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>
+
+
+              <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                <Box className={classes.userStats}>
+                  <span>{'0'}</span>
+                  <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
+                    <p>Отзывов</p>
+                  </Button>
+                </Box>
+              </Tooltip>
+
+              {/*<a  className="offerUnpublish thin superLight userInfoReviews">*/}
+              {/*  */}
+              {/*  <div style={{ textAlign: "center" }}>*/}
+              {/*    <div>0</div>*/}
+              {/*    <p>Отзывов</p>*/}
+              {/*  </div>*/}
+              {/*</a>*/}
+
+
+
+              <Box className={classes.userStats}>
+                <span>{subscribersList?.message ? 0 : subscribersList.length}</span>
+                <Button className={classes.buttonDesc} size="small" variant="text" onClick={() => setSubscribersModal(!subscriptionsModal)}>
                   <p>Подписчиков</p>
-                </div>
-              </a>
-              <a onClick={() => setSubscriptionsModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribtions">
-                {userInfo.userSubscriptions}
-                <div style={{ textAlign: "center" }}>
-                  <div>{subList?.length > 0 ? subList?.length : 0}</div>
+                </Button>
+              </Box>
+
+              {/*<a  className="offerUnpublish thin superLight userInfoSubscribers">*/}
+              {/*  */}
+              {/*  <div style={{ textAlign: "center" }}>*/}
+              {/*    <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>*/}
+              {/*    <p>Подписчиков</p>*/}
+              {/*  </div>*/}
+              {/*</a>*/}
+
+
+              <Box className={classes.userStats}>
+                <span>{subList?.length > 0 ? subList?.length : 0}</span>
+                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
                   <p>Подписки</p>
-                </div>
-              </a>
+                </Button>
+              </Box>
+
+              {/*<a  className="offerUnpublish thin superLight userInfoSubscribtions">*/}
+              {/*  {userInfo.userSubscriptions}*/}
+              {/*  <div style={{ textAlign: "center" }}>*/}
+              {/*    <div>{subList?.length > 0 ? subList?.length : 0}</div>*/}
+              {/*    <p>Подписки</p>*/}
+              {/*  </div>*/}
+              {/*</a>*/}
+
+
             </div>
+
+
+
             {+router.query.id === id  ? null : (
               <>
                 <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
