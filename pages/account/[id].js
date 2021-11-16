@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import MetaLayout from "../../layout/MetaLayout";
-import StarRating from "../../components/StarRating";
+// import StarRating from "../../components/StarRating";
 import Offers from "../../components/account/Offers/Offers";
 import Deals from "../../components/account/Deals/Deals";
 import Wallet from "../../components/account/Wallet/Wallet";
@@ -189,15 +189,15 @@ function Account() {
                                 c {ToRusAccountDate(userInfo.createdAt)}</div>}
 
 
-                            {!userInfo
-                                ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
-                                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
-                                        </Skeleton>
-                                    </Box>
-                                :<div className="clientPage__userrate">
-                                <div className="clientPage__userrate__num">{userInfo.raiting}</div>
-                                <StarRating {...{rating: userInfo.raiting}} />
-                            </div>}
+                            {/*{!userInfo*/}
+                            {/*    ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>*/}
+                            {/*            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />*/}
+                            {/*            </Skeleton>*/}
+                            {/*        </Box>*/}
+                            {/*    :<div className="clientPage__userrate">*/}
+                            {/*    <div className="clientPage__userrate__num">{userInfo.raiting}</div>*/}
+                            {/*    <StarRating {...{rating: userInfo.raiting}} />*/}
+                            {/*</div>}*/}
 
 
                             {!userInfo ? <Box >
@@ -205,11 +205,11 @@ function Account() {
                                     </Skeleton>
                                 </Box>
                                 :<div className="clientPage__userstats highlight small">
-                                <a onClick={() => setReviewsModal(!reviewsModal)}
-                                   className="offerUnpublish thin superLight userInfoReviews">
-                                    {'0'}
-                                    <p>Отзывов</p>
-                                </a>
+                                {/*<a onClick={() => setReviewsModal(!reviewsModal)}*/}
+                                {/*   className="offerUnpublish thin superLight userInfoReviews">*/}
+                                {/*    {'0'}*/}
+                                {/*    <p>Отзывов</p>*/}
+                                {/*</a>*/}
                                 <a className="offerUnpublish thin superLight userInfoSubscribers">
                                     {subscribersList?.message ? 0 : subscribersList.length}
                                     <p>Подписчиков</p>
@@ -281,12 +281,12 @@ function Account() {
                 </div>
             </Dialog>
             <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)}
-                    fullScreen={matchesMobile || matchesTablet ? true : false}>
+                    fullScreen={matchesMobile || matchesTablet}>
                 {<ModalRating rate={2} comments={2} modal={() => closeModal(reviewsModal, setReviewsModal)}
                               mobile={matchesTablet || matchesMobile}/>}
             </Dialog>
             <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)}
-                    fullScreen={matchesMobile || matchesTablet ? true : false}>
+                    fullScreen={matchesMobile || matchesTablet}>
                 <ModalSubscription data={subList} subscription={subList.length}
                                    modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)}
                                    mobile={matchesTablet || matchesMobile}/>
