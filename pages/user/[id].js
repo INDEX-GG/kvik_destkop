@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import StarRating from "../../components/StarRating";
+// import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
 import { ToRusAccountDate, stringToColor, initials} from "../../lib/services";
 import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
@@ -149,18 +149,18 @@ function UserPage() {
             </div>
             <div className="clientPage__username">{sellerName}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
-            <div className="clientPage__userrate">
-              <div className="clientPage__userrate__num">{raiting}</div>
-              <StarRating rating={raiting} />
-            </div>
+            {/*<div className="clientPage__userrate">*/}
+            {/*  <div className="clientPage__userrate__num">{raiting}</div>*/}
+            {/*  <StarRating rating={raiting} />*/}
+            {/*</div> Скрыто пока не работает функционал */}
             <div className="clientPage__userstats highlight small">
-              <a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">
-                {userInfo.userReviews}
-                <div style={{ textAlign: "center" }}>
-                  <div>0</div>
-                  <p>Отзывов</p>
-                </div>
-              </a>
+              {/*<a onClick={() => setReviewsModal(!reviewsModal)} className="offerUnpublish thin superLight userInfoReviews">*/}
+              {/*  {userInfo.userReviews}*/}
+              {/*  <div style={{ textAlign: "center" }}>*/}
+              {/*    <div>0</div>*/}
+              {/*    <p>Отзывов</p>*/}
+              {/*  </div>*/}
+              {/*</a> Скрыто пока не работает функционал */}
               <a onClick={() => setSubscribersModal(!subscriptionsModal)} className="offerUnpublish thin superLight userInfoSubscribers">
                 {userInfo.userSubscribers}
                 <div style={{ textAlign: "center" }}>
