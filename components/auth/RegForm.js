@@ -98,7 +98,7 @@ export default function RegForm() {
     //   closeRegForm();
     //   setOpenConfirmNum(true);
     // });
-    getDataByPost('/api/callPhone', {"phone": data.phone}).then(r => {
+    getDataByPost('/api/callPhone', {"phone": data.phone}).then(() => {
       closeRegForm();
       setOpenConfirmNum(true);
       setPhoneNum(data.phone)
