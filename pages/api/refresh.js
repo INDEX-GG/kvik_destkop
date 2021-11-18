@@ -1,6 +1,6 @@
 import { sign } from 'jsonwebtoken'
 export default async function handler(req, res) {
-    if (req.method === 'POST') {
+    if (req.method === 'GET') {
 
         const main = async () => {
             const jwt = require("jsonwebtoken");
