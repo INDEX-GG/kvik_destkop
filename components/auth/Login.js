@@ -116,7 +116,7 @@ const Login = () => {
     data.phone = `+${data.phone.replace(/\D+/g, "")}`;
     // console.log(data);
     getDataByPost("/api/checkUser", data).then((res) => {
-      // console.log(res);
+      console.log(res);
       if (res?.isset === false) {
         setError("phone", { type: "validate", message: " " });
         setError("password", {
@@ -124,7 +124,7 @@ const Login = () => {
           message: "Неверный номер или пароль",
         });
       } else {
-        getDataByPost("/api/login", { id: res?.idUser }).then(() => signIn()); //session//authCtx
+        getDataByPost("/api/login", { id: res?.idUser, authToken: res?.authToken }).then(() => signIn()); //session//authCtx
         storeUser(res?.idUser); //store
         setOpenLoginForm(!openLoginForm);
         setValueInp("");
