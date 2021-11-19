@@ -65,10 +65,13 @@ const ConfirmNumber = () => {
       // console.log(r)
       switch (r?.message) {
         case 'user created':
-          console.log(sendData.password);
           return (
-            getDataByPost('/api/login', {id: r.id}).then(() => signIn()),	//session//authCtx
-              storeUser(r.id)								//store
+            getDataByPost('/api/checkUser', sendData({phone: sendData.phone, password: sendData.password})).then(res => (
+              getDataByPost('/api/login', {id: r.id, RefreshAuthToken: res?.RefreshAuthToken }).then(() => signIn()),	//session//authCtx
+                storeUser(r.id)
+            ))
+            // getDataByPost('/api/login', {id: r.id}).then(() => signIn()),	//session//authCtx
+            //   storeUser(r.id)								//store
           )												//Сделать модалку
         case 'user already exists':
           return alert('Вы уже зарегестрированы')
