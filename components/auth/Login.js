@@ -124,7 +124,7 @@ const Login = () => {
           message: "Неверный номер или пароль",
         });
       } else {
-        getDataByPost("/api/login", { id: res?.idUser, authToken: res?.authToken }).then(() => signIn()); //session//authCtx
+        getDataByPost("/api/login", { id: res?.idUser, RefreshAuthToken: res?.RefreshAuthToken }).then(() => signIn()); //session//authCtx
         storeUser(res?.idUser); //store
         setOpenLoginForm(!openLoginForm);
         setValueInp("");

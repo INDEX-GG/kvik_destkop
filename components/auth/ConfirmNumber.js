@@ -65,6 +65,7 @@ const ConfirmNumber = () => {
       // console.log(r)
       switch (r?.message) {
         case 'user created':
+          console.log(sendData.password);
           return (
             getDataByPost('/api/login', {id: r.id}).then(() => signIn()),	//session//authCtx
               storeUser(r.id)								//store
@@ -102,15 +103,15 @@ const ConfirmNumber = () => {
       getDataByPost('/api/checkphone', {"phone": phoneNum, "code": valueAll})
         .then(r => {
 
-          if(r?.message === 'time error') {
-            setErrorVerify({ error: true, message: 'Превышено количество попыток, повторите позже' })
+          if (r?.message === 'time error') {
+            setErrorVerify({error: true, message: 'Превышено количество попыток, повторите позже'})
           }
 
 
           if (r?.check) {
             regUser()
           } else {
-            setErrorVerify({ error: true, message: 'Неверный код подтверждения' })
+            setErrorVerify({error: true, message: 'Неверный код подтверждения'})
           }
         })
     }
