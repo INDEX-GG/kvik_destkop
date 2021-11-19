@@ -27,7 +27,7 @@ import OtherTransport from './Options/Other_transport';
 const AdditionalInformation = (data) => {
 
 	
-	// console.log(">>>>", data);
+	console.log(">>>>", data);
 
 	switch (data.asd) {
 		case 'agricultural_machinery':

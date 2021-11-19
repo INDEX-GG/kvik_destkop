@@ -36,28 +36,6 @@ const Location = ({address}) => {
       <Box className={classes.formElem}>
         <Typography className={classes.formTitleField}>Местоположение</Typography>
          <Box className={classes.formInputField}>
-            {/* <Controller
-               name="location"
-               control={methods.control}
-               render={({ field: { onChange, value }, fieldState: { error } }) => (
-                  <TextField
-                     defaultValue={address}
-                     variant='outlined'
-                     type="text"
-                     fullWidth
-                     autoComplete="on"
-                     value={value}
-					 inputProps={{maxLength: 50}}
-                     onChange={onChange}
-                     error={!!error} helperText={error ? error.message : ' '} />
-               )}
-               rules={{ 
-				   required: 'Укажите ваше местоположение...',
-				   pattern: {value: invalidСharacterLocation() , message: 'Недопустимые символы' },
-			   }}
-            />
-            <iframe className={classes.map} src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade278bb067489a15a031480c20e3318914d391acd3e1995348d759fa5baa2167&amp;source=constructor" width="100%" height="100%" frameBorder="0"></iframe> */}
-			{/* <YandexMap setData={setData}/> */}
 			<DadataSuggest address={address}/>
          </Box>
       </Box>
