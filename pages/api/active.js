@@ -2,6 +2,10 @@ import { PrismaClient } from '@prisma/client';
 
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
+
+
+
+
 		const jwt = require("jsonwebtoken");
 		const token = req.headers["x-access-token"];
 		if (!token) {
@@ -16,6 +20,10 @@ export default async function handler(req, res) {
 		if (req.body.user_id !== tokenUser) {
 			return res.status(403).send("Invalid Token");
 		}
+
+
+
+
 		const prisma = new PrismaClient();
 		const main = async () => {
 			return await prisma.posts.findMany({
