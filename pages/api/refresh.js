@@ -3,8 +3,12 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
 
         const main = async () => {
+
             const jwt = require("jsonwebtoken");
-            const token = req.headers["x-access-token"];
+            const user = req.session.get('user')
+            const token = user.RefreshAuthToken
+
+            // const token = req.headers["x-access-token"];
             if (!token) {
                 return res.status(403).send("A token is required for authentication");
             }
