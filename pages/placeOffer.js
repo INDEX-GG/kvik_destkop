@@ -75,6 +75,7 @@ function PlaceOffer() {
     }
 
 
+
     // console.log(methods)
 
     /* получение дополнительных полей */
