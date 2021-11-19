@@ -4,6 +4,7 @@ import {RegistrationCTX} from '../../lib/Context/DialogCTX';
 import {getDataByPost} from '../../lib/fetch';
 import {useAuth} from '../../lib/Context/AuthCTX';
 import {useStore} from '../../lib/Context/Store';
+import {SecretData} from "../../lib/SecretData";
 
 const useStyles = makeStyles((theme) => ({
   submitNumber: {
@@ -66,13 +67,12 @@ const ConfirmNumber = () => {
       switch (r?.message) {
         case 'user created':
           return (
-            getDataByPost('/api/checkUser', sendData({phone: sendData.phone, password: sendData.password})).then(res => (
-              getDataByPost('/api/login', {id: r.id, RefreshAuthToken: res?.RefreshAuthToken }).then(() => signIn()),	//session//authCtx
-                storeUser(r.id)
+            getDataByPost('/api/checkUser', SecretData({phone: sendData.phone, password: sendData.password})).then(() => (
+              // getDataByPost('/api/login', {id: r.id, RefreshAuthToken: res?.RefreshAuthToken }).then(() => signIn()),	//session//authCtx
+              signIn(),
+              storeUser(r.id)
             ))
-            // getDataByPost('/api/login', {id: r.id}).then(() => signIn()),	//session//authCtx
-            //   storeUser(r.id)								//store
-          )												//Сделать модалку
+          )
         case 'user already exists':
           return alert('Вы уже зарегестрированы')
       }
