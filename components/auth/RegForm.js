@@ -7,13 +7,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import Link from "next/link";
-import { useState } from "react";
+import {useState} from "react";
 import {useForm, Controller} from "react-hook-form";
-import { DialogCTX, RegistrationCTX } from "../../lib/Context/DialogCTX";
+import {DialogCTX, RegistrationCTX} from "../../lib/Context/DialogCTX";
 import ConfirmNumber from "./ConfirmNumber";
 import PhoneMask from "../../lib/phoneMask";
-import { useMedia } from "../../hooks/useMedia";
-import { getDataByPost } from "../../lib/fetch";
+import {useMedia} from "../../hooks/useMedia";
+import {getDataByPost} from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
 import PasswordStrengthBar from 'react-password-strength-bar';
 
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RegForm() {
-    const [sendData, setSendData] = useState({}),
+  const [sendData, setSendData] = useState({}),
     [openConfirmNum, setOpenConfirmNum] = useState(false),
     [phoneNum, setPhoneNum] = useState(''),
     {
@@ -75,9 +75,9 @@ export default function RegForm() {
     } = useContext(DialogCTX);
 
 
-    const classes = useStyles();
-  const { handleSubmit, control, setValue } = useForm();
-  const { matchesMobile } = useMedia();
+  const classes = useStyles();
+  const {handleSubmit, control, setValue} = useForm();
+  const {matchesMobile} = useMedia();
   const [showPassword, setShowPassword] = useState(false);
 
   const [valueInp, setValueInp] = useState("");
@@ -90,17 +90,22 @@ export default function RegForm() {
   };
 
 
-    const onSubmit = (data) => {
+  const onSubmit = (data) => {
     data.phone = `+${valueInp.replace(/\D+/g, "")}`;
     setSendData(data);
-    getDataByPost("/api/checkphone", { phone: data.phone }).then((res) => {
-      setPhoneNum(res);
+    // getDataByPost("/api/checkphone", {phone: data.phone}).then((res) => {
+    //   setPhoneNum(res);
+    //   closeRegForm();
+    //   setOpenConfirmNum(true);
+    // });
+    getDataByPost('/api/callPhone', {"phone": data.phone}).then(() => {
       closeRegForm();
       setOpenConfirmNum(true);
-    });
+      setPhoneNum(data.phone)
+    })
   };
 
-    const passLengthRef = useRef()
+  const passLengthRef = useRef()
 
 
   return (
@@ -125,9 +130,9 @@ export default function RegForm() {
                 control={control}
                 defaultValue=""
                 render={({
-                  field: { onChange, value },
-                  fieldState: { error },
-                }) => (
+                           field: {onChange, value},
+                           fieldState: {error},
+                         }) => (
                   <TextField
                     label="Имя"
                     variant="outlined"
@@ -140,13 +145,13 @@ export default function RegForm() {
                     helperText={error ? error.message : " "}
                   />
                 )}
-                rules={{ required: "Введите имя" }}
+                rules={{required: "Введите имя"}}
               />
               <Controller
                 name="phone"
                 control={control}
                 defaultValue=""
-                render={({ field: { onChange }, fieldState: { error } }) => (
+                render={({field: {onChange}, fieldState: {error}}) => (
                   <TextField
                     label="Номер телефона"
                     variant="outlined"
@@ -166,53 +171,53 @@ export default function RegForm() {
                     helperText={error ? error.message : " "}
                   />
                 )}
-                rules={{ required: "Введите номер телефона" }}
+                rules={{required: "Введите номер телефона"}}
               />
               <Controller
                 name="password"
                 control={control}
                 defaultValue=""
                 render={({
-                  field: { onChange, value },
-                  fieldState: { error },
-                }) => (
-                    <>
-                      <TextField
-                          label="Введите пароль "
-                          variant="outlined"
-                          size="small"
-                          type={showPassword ? 'text' : 'password'}
-                          autoComplete="new-password"
-                          value={value}
-                          onChange={onChange}
-                          error={!!error}
-                          helperText={error ? error.message : " "}
-                          InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <a
-                                        className={!showPassword ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"}
-                                        onClick={() => {
-                                            setShowPassword(!showPassword);
-                                        }}
-                                    />
-                                </InputAdornment>
-                            )
-                          }}
-                      />
-                      {value.length > 0 && <PasswordStrengthBar
-                          ref={passLengthRef}
-                          minLength={1}
-                          shortScoreWord={''}
-                          barColors={['#C7C7C7', '#F44545', '#F44545', '#00A0AB', '#00A0AB']}
-                          scoreWords={['Короткий', 'Короткий', 'Очень простой', 'Хороший', 'Надёжный']}
-                          password={value}
-                      />}
-                    </>
+                           field: {onChange, value},
+                           fieldState: {error},
+                         }) => (
+                  <>
+                    <TextField
+                      label="Введите пароль "
+                      variant="outlined"
+                      size="small"
+                      type={showPassword ? 'text' : 'password'}
+                      autoComplete="new-password"
+                      value={value}
+                      onChange={onChange}
+                      error={!!error}
+                      helperText={error ? error.message : " "}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <a
+                              className={!showPassword ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"}
+                              onClick={() => {
+                                setShowPassword(!showPassword);
+                              }}
+                            />
+                          </InputAdornment>
+                        )
+                      }}
+                    />
+                    {value.length > 0 && <PasswordStrengthBar
+                      ref={passLengthRef}
+                      minLength={1}
+                      shortScoreWord={''}
+                      barColors={['#C7C7C7', '#F44545', '#F44545', '#00A0AB', '#00A0AB']}
+                      scoreWords={['Короткий', 'Короткий', 'Очень простой', 'Хороший', 'Надёжный']}
+                      password={value}
+                    />}
+                  </>
 
 
                 )}
-                rules={{ required: "Введите пароль" }}
+                rules={{required: "Введите пароль"}}
               />
 
               <Button
@@ -228,7 +233,7 @@ export default function RegForm() {
           <Typography variant="subtitle1">
             При регистрации вы соглашаетесь с
           </Typography>
-              <Link href="#">Лицензионным соглашением</Link>
+          <Link href="#">Лицензионным соглашением</Link>
 
           <Typography variant="subtitle2">Уже есть аккаунт?</Typography>
           <Button
@@ -245,9 +250,9 @@ export default function RegForm() {
         </Box>
       </DialogUIAuth>
       <RegistrationCTX.Provider
-        value={{ openConfirmNum, setOpenConfirmNum, phoneNum, sendData }}
+        value={{openConfirmNum, setOpenConfirmNum, phoneNum, sendData}}
       >
-        <ConfirmNumber />
+        <ConfirmNumber/>
       </RegistrationCTX.Provider>
     </>
   );

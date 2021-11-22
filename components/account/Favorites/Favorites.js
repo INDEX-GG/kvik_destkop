@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
-import axios from 'axios';
 import { brooklyn } from '../../../lib/services';
 import { useSubList } from '../../../hooks/useSubscriptions';
 import { useAuth } from '../../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import safeAccountTab from '../../safeAccountTab';
+import {getTokenDataByPost} from "../../../lib/fetch";
 // Поиски
 const SearchesBox = [
 	// {
@@ -55,7 +55,7 @@ const SearchesBox = [
 // Пагинация
 const Favorites = () => {
 
-	const { id } = useAuth();
+	const { id, token } = useAuth();
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
 	const router = useRouter()
 
@@ -63,8 +63,8 @@ const Favorites = () => {
 
 
 	useEffect(() => {
-		axios.post('/api/getFavorites', { user_id: id })
-			.then(data => setOfferFav(data.data))
+		getTokenDataByPost('/api/getFavorites', { user_id: id }, token)
+			.then(data => setOfferFav(data))
 			.catch(error => console.log(error))
 
 		// if (offetFav) {

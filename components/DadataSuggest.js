@@ -30,6 +30,9 @@ const DadataSuggest = ({mobile = false, address}) => {
 
 
 	const userAddressName = userInfo?.location?.name
+
+	console.log(userAddressName)
+
 	const userAddressGeo = userInfo?.location?.geo
 
 	const onSubmit = (onChange) => {
@@ -48,13 +51,13 @@ const DadataSuggest = ({mobile = false, address}) => {
 			body: JSON.stringify({query: value})
 			}
 			fetch(url, options)
-			.then(response => response.text())
+			.then(response => response.json())
 			.then(result => {
 				prevValue.current = value
-				// console.log('JSON.parse(result)?.suggestions[0]',JSON.parse(result)?.suggestions[0])
-				if (JSON.parse(result)?.suggestions[0] !== undefined) {
-					setValue(JSON.parse(result)?.suggestions[0])
-					onChange(JSON.parse(result)?.suggestions[0])
+				if (result?.suggestions[0] !== undefined) {
+					console.log(result?.suggestions[0])
+					setValue(result?.suggestions[0])
+					onChange(result?.suggestions[0])
 					setError(false)
 				} else {
 					onChange('')

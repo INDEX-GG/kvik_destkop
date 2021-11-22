@@ -68,7 +68,7 @@ const Index = () => {
 	const pending = () =>  setIsPending(true)
 
 	setTimeout(pending, 1000)
-	console.log(lastIdAds);
+	isNaN(lastIdAds);
 
 	useEffect(() => {
 		scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)

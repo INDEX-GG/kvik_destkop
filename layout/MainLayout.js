@@ -8,7 +8,7 @@ import aliasName from "../components/header/CategoriesAliaseName";
 import { ellipsis, generateAliasStr } from "../lib/services";
 
 const MainLayout = ({ children}) => {
-	
+
   const { matchesMobile, matchesTablet, matchesCustom1024 } = useMedia();
   const router = useRouter();
   const aliasQuery = router.query.alias
@@ -17,7 +17,7 @@ const MainLayout = ({ children}) => {
   if (router.pathname == "/search/[alias]") {
     if (alias != aliasQuery) {
       setAlias(aliasQuery)
-    }  
+    }
   }
 
    const categoryName = aliasName(alias) ? generateAliasStr(aliasName(alias)[0].label) : router?.query?.text ? router?.query?.text : null

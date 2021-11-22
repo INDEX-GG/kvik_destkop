@@ -21,6 +21,7 @@ import AdditionalInformation from '../components/placeOffer/AdditionalInformatio
 import axios from 'axios';
 import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 import {useStore} from "../lib/Context/Store";
+import {getTokenDataByPost} from "../lib/fetch";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PlaceOffer() {
 
-    const { id } = useAuth();
+    const { id, token } = useAuth();
     const {userInfo} = useStore()
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
@@ -192,7 +193,7 @@ function PlaceOffer() {
 
         for (let key in data) {
 
-            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id' || key == 'coordinates') {
+            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id' || key === 'coordinates') {
                 obj[key] = data[key];
             }
             else {
@@ -251,10 +252,10 @@ function PlaceOffer() {
         // console.log('obj',obj)
         setLoading(true);
 
-        axios.post(`${BASE_URL}/api/setPosts`, obj)
+        getTokenDataByPost(`${BASE_URL}/api/setPosts`, obj, token)
             .then(r => {
 				// console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
-                postId = r?.data?.id;
+                postId = r?.id;
 
 
 
@@ -262,14 +263,16 @@ function PlaceOffer() {
                 // console.error('additionalfields',additionalfields)
 
                 console.log(additionalfields);
+                console.log(r);
+                console.log(category);
 
-                axios.post(`${BASE_URL}/api/subcategory`, additionalfields)
-                  .then(r => console.log(r.data))
+                getTokenDataByPost(`${BASE_URL}/api/subcategory`, {user_id: id, post_id: r?.id, subcategory: category, fields: additionalfields[category]}, token)
+                  .then(r => console.log(r))
                   .catch(e => console.log(e))
 
 
 
-                axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
+                axios.post(`${STATIC_URL}/post/${r?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }

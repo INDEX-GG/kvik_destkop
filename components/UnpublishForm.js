@@ -2,9 +2,10 @@ import React, { useContext } from 'react'
 import { Typography, Button, Box, CardMedia, makeStyles } from "@material-ui/core";
 import { UnpublishCTX } from '../lib/Context/DialogCTX';
 import { ToRubles } from "../lib/services";
-import axios from 'axios';
 import { useOfferAccount } from '../lib/Context/OfferAccountCTX';
 import { BASE_URL } from '../lib/constants';
+import {getTokenDataByPost} from "../lib/fetch";
+import {useAuth} from "../lib/Context/AuthCTX";
 const useStyles = makeStyles((theme) => ({
 	unpublish_form: {
 		display: 'flex',
@@ -76,14 +77,16 @@ export default function UnpublishForm() {
 	const classes = useStyles();
 	const { dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll, setUpdate } = useContext(UnpublishCTX);
 
+	const {token} = useAuth();
+
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
 
 		var arr = { 'id': dataCheck, 'active': `${e.target.parentElement.id}` }
 
-		axios.post(`${BASE_URL}/api/verifyActive`, arr)
-			.then(r => r.data)
+		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
+			.then(r => r)
 			.finally(function () {
 				setQuery(p => !p)
 				setOpenUnpublishForm(!openUnpublishForm)

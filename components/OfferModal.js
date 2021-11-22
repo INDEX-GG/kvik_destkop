@@ -1,9 +1,10 @@
 import React from 'react'
 import { Typography, Button, Box, CardMedia, makeStyles } from "@material-ui/core";
 import { ToRubles } from "../lib/services";
-import axios from 'axios';
 import { useOfferAccount } from '../lib/Context/OfferAccountCTX';
 import { BASE_URL } from '../lib/constants';
+import {useAuth} from "../lib/Context/AuthCTX";
+import {getTokenDataByPost} from "../lib/fetch";
 
 const useStyles = makeStyles((theme) => ({
 	offer_form: {
@@ -75,11 +76,12 @@ const useStyles = makeStyles((theme) => ({
 export default function OfferModal({offerId, offerData, openOfferModal, setOpenOfferModal, buttonId, cleanAll, setUpdate}) {
 	const classes = useStyles();
 	const { setQuery } = useOfferAccount();
+	const {token} = useAuth();
 
 	function PushDb(id) {
 		let arr = { 'id': offerId, 'active': `${id}` }
-		axios.post(`${BASE_URL}/api/verifyActive`, arr)
-			.then(r => r.data)
+		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
+			.then(r => r)
 			.finally(function () {
 				setQuery(p => !p)
 				setOpenOfferModal(!openOfferModal)

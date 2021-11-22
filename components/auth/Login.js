@@ -18,6 +18,7 @@ import DialogUIAuth from "../UI/DialogUIAuth";
 import {Checkbox} from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
 import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
+import {SecretData} from "../../lib/SecretData";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,8 +116,7 @@ const Login = () => {
   const onSubmit = (data) => {
     data.phone = `+${data.phone.replace(/\D+/g, "")}`;
     // console.log(data);
-    getDataByPost("/api/checkUser", data).then((res) => {
-      // console.log(res);
+    getDataByPost("/api/checkUser", SecretData(data)).then((res) => {
       if (res?.isset === false) {
         setError("phone", { type: "validate", message: " " });
         setError("password", {
@@ -124,7 +124,8 @@ const Login = () => {
           message: "Неверный номер или пароль",
         });
       } else {
-        getDataByPost("/api/login", { id: res?.idUser }).then(() => signIn()); //session//authCtx
+        // getDataByPost("/api/login", { id: res?.idUser, RefreshAuthToken: res?.RefreshAuthToken }).then(() => signIn()); //session//authCtx
+        signIn()
         storeUser(res?.idUser); //store
         setOpenLoginForm(!openLoginForm);
         setValueInp("");

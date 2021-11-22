@@ -10,6 +10,7 @@ import axios from "axios";
 import Promotion from "./Promotion";
 import { BASE_URL, STATIC_URL } from "../../lib/constants";
 import MobileModal from "../MobileModal";
+import {getTokenDataByPost} from "../../lib/fetch";
 
 const useStyles = makeStyles(() => ({
     buttonSend: {
@@ -46,7 +47,7 @@ const useStyles = makeStyles(() => ({
 })) 
 
 export default function ContentPlaseOffer({dialog, title, backFunc}) {
-    const {id} = useAuth();
+    const {id, token} = useAuth();
     const classes = useStyles();
     const [promotionProduct, setPromotionProduct] = useState({})
     const [promotion, setPromotion] = useState(false)
@@ -88,10 +89,10 @@ export default function ContentPlaseOffer({dialog, title, backFunc}) {
             photoData.append('files[]', photoes[0]);
         }
 
-        axios.post(`${BASE_URL}/api/setPosts`, data,)
+        getTokenDataByPost(`${BASE_URL}/api/setPosts`, data, token)
         	.then(r => {
-			postId = r?.data?.id;
-			axios.post(`${STATIC_URL}/post/${r?.data?.id}`, photoData, {
+			postId = r?.id;
+			axios.post(`${STATIC_URL}/post/${r?.id}`, photoData, {
 				headers: {
 					"Content-Type": "multipart/form-data"
 				}
