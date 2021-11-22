@@ -23,7 +23,8 @@ export default async function handler(req, res) {
             const obj = {
                 where:
                     {
-                        id: req.body.post_id
+                        id: req.body.post_id,
+                        user_id: req.body.post_id
                     },
                 data: {
                     title :req.body.title,

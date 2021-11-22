@@ -19,10 +19,14 @@ export default async function handler(req, res) {
 			return res.status(403).send("Invalid Token");
 		}
 
+		const check  = await prisma.$queryRaw(`SELECT * FROM "posts" WHERE id = ${req.body.post_id} AND posts.user_id = ${req.body.user_id}`)
+		if (check.length === 0) {
+			return res.status(403).send("Invalid User");
+		}
+
 		const main = async () => {
 			const data = req.body
-			const key = (Object.keys(data))[0]
-			const array = data[key]
+			const array = data["fields"]
 			let columns = ''
 			let values = ''
 			array.forEach((element) => {
@@ -33,7 +37,7 @@ export default async function handler(req, res) {
 			})
 			columns = columns.slice(0, -2)
 			values = values.slice(0 ,-2)
-			await prisma.$queryRaw(`INSERT INTO ${key} (${columns}) VALUES (${values})`)
+			await prisma.$queryRaw(`INSERT INTO ${req.body.subcategory} (${columns}) VALUES (${values})`)
 			return{ message: 'successfully update' };
 		}
 

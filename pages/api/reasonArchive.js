@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 		const main = async () => {
 			const { id } = req.body
 			//Добавить причину перемещения в архив
-			await prisma.$queryRaw(`UPDATE posts SET active = false ,archived = true WHERE ID IN (${id})`)  //UPDATE posts SET ArchReason = ${reason}
+			await prisma.$queryRaw(`UPDATE posts SET active = false ,archived = true WHERE ID IN (${id}) AND user_id = ${req.body.user_id}`)  //UPDATE posts SET ArchReason = ${reason}
 			return { message: 'successfully update' };
 		}
 
