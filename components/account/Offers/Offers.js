@@ -34,7 +34,6 @@ const Offers = () => {
     }
   }, [userAccountProvider]);
 
-  console.log(userAccountProvider)
 
   useEffect(() => {
     if (router) {

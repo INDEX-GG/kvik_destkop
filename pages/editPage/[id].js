@@ -66,6 +66,7 @@ function EditPage() {
 	const { editPhotos } = useProductEditPhoto(query.id)
 
 	const { id } = useAuth();
+	console.log('id',id)
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
 	const [promotion, setPromotion] = useState(false);
@@ -204,7 +205,7 @@ function EditPage() {
 			<MetaLayout title={'Редактирование объявления'}>
 				{!matchesMobile && !matchesTablet &&  <Container className={classes.root}>
 					 < Box className={classes.offersBox}>
-						<Typography className={classes.title} variant='h3'>Редактирование объявления</Typography>
+						<Typography data-testid={'main-heading'} className={classes.title} variant='h3'>Редактирование объявления</Typography>
 						<FormProvider {...methods} >
 							<Verify edit={edit}/>
 							{ price && title && photo && description && address !== undefined  ? <form onSubmit={methods.handleSubmit(onSubmit)}>

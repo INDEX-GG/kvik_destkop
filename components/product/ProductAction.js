@@ -54,7 +54,7 @@ export default function ProductAction(data) {
                 <ProductDeal id={id} sellerID={user_id}>
                   <ProductButton 
 				    className="SellerInfoMess button contained" 
-				    title='Написать продацу' 
+				    title='Написать продавцу'
 					onClick={() => data?.createChat()}
 				    icon={<IconMess/>}
 					/>
