@@ -23,7 +23,7 @@ const PopularCategories = () => {
 	const classes = useStyles();
 	return (
 		<>
-			<Typography className={classes.popular_categories} variant='h2'>Популярные категории</Typography>
+			<Typography title="PopularCategories" className={classes.popular_categories} variant='h2'>Популярные категории</Typography>
 			<Swiper
 				className={classes.slider}
 				spaceBetween={0}
@@ -32,7 +32,7 @@ const PopularCategories = () => {
 			>
 				{Icons.map((icon, i) => {
 					return (
-						<SwiperSlide key={i} className={classes.slide} >
+						<SwiperSlide  key={i} className={classes.slide} >
 							<Link onClick={() => router.push(`/search/${icon.alias}`)}>	<PopularIcon icon={icon} random={0} /></Link>
 						</SwiperSlide>
 					)

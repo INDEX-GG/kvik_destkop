@@ -7,6 +7,7 @@
 @import "./UI/inputRange";
 @import "./UI/loading";
 @import "./UI/scrollTop";
+@import './UI/DaData.scss';
 @import "clientPage";
 @import "personal_account";
 @import "admin";
@@ -40,6 +41,7 @@
 @import "./pages/product";
 @import "./pages/contacts";
 @import './pages/offerPage.scss';
+
 /* Личный кабинет */
 @import "./pages/user/Compare";
 @import "./pages/user/Deals";

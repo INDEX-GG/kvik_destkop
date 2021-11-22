@@ -15,6 +15,7 @@ export function useProduct(id) {
 
 					if (r !== undefined) {
 						// console.log('rrrrrrrrrr',r)
+
 						let photoes = JSON.parse(r.photo);
 						r.chatProductPhoto = photoes.photos[0]
 						// console.log('$$$$$$$$$$$$$$$$',photoes)

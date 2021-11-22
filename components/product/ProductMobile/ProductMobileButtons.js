@@ -36,7 +36,7 @@ const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_trans
 								{/* {sellerId === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ""} */}
 								<div className="SellerInfo__adaptive_buttons__top">
 									<ProductDeal id={id} sellerID={sellerId}>
-										<ProductButton onClick={createChat} className="SellerInfoMess button contained" title='Написать продацу' icon={<IconMess/>} />
+										<ProductButton onClick={createChat} className="SellerInfoMess button contained" title='Написать продацву' icon={<IconMess/>} />
 										<ProductButton className="SellerInfoCall button contained" onClick={() => setDialog(true)} title='Показать номер' icon={<IconCall/>} />
 									</ProductDeal>
 								</div>
