@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-
         const jwt = require("jsonwebtoken");
         const token = req.headers["x-access-token"];
         if (!token) {
