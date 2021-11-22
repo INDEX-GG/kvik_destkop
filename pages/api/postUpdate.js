@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-
         const jwt = require("jsonwebtoken");
         const token = req.headers["x-access-token"];
         if (!token) {
@@ -23,7 +22,8 @@ export default async function handler(req, res) {
             const obj = {
                 where:
                     {
-                        id: req.body.post_id
+                        id: req.body.post_id,
+                        user_id: req.body.post_id
                     },
                 data: {
                     title :req.body.title,
