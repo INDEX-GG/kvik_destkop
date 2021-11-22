@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 import {useSubBool} from '../../../hooks/useSubscriptions';
+import {getTokenDataByPost} from "../../../lib/fetch";
+import {useAuth} from "../../../lib/Context/AuthCTX";
 // import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
 // import {standartDate} from "../../../lib/services";
 // import {useBlockedBool} from '../../../hooks/useBlocked';
@@ -8,6 +9,7 @@ import {useSubBool} from '../../../hooks/useSubscriptions';
 
 const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
     const {userSub} = useSubBool(id, sellerId)
+    const {token} = useAuth();
     const [userBool, setUserBool] = useState(false)
     const [loading, setLoading] = useState(false)
     // const {userBlocked} = useBlockedBool(id, sellerId)
@@ -35,9 +37,9 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
 
             setUserBool(!userBool)
 
-            await axios.post("/api/subscriptions", subscribe)
+            await getTokenDataByPost("/api/subscriptions", subscribe, token)
 
-            await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
+            await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
 
 
             setLoading(false)

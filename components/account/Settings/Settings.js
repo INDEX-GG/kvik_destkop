@@ -5,7 +5,7 @@ import BlackList from './tabs/BlackList';
 import { brooklyn } from '../../../lib/services';
 import { useRouter } from 'next/router';
 import safeAccountTab from '../../safeAccountTab';
-import axios from 'axios';
+import {getTokenDataByPost} from "../../../lib/fetch";
 
 // Чёрный список
 // const blackListBox = [
@@ -27,14 +27,14 @@ import axios from 'axios';
 // 	{ id: 16, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00' },
 // ];
 
-const Settings = ({userId}) => {
+const Settings = ({userId, token}) => {
 	const [blackListData, setBlackListData] = useState([])
 
 		// console.log(blackListData);
 	useEffect(()=>{
 		async function fetchBlockedUsers() {
-				if (userId){
-					await axios.post('/api/getBlockUsers', {user_id: userId}).then(res => setBlackListData(res.data.blocked_users?.length > 0 ? res.data.blocked_users : []))
+				if (userId && token){
+					await getTokenDataByPost('/api/getBlockUsers', {user_id: userId}, token).then(res => setBlackListData(res.data?.blocked_users?.length > 0 ? res.data.blocked_users : []))
 				}
 			}
 		fetchBlockedUsers()
@@ -52,12 +52,12 @@ const Settings = ({userId}) => {
 		if(Array.isArray(usersUnlock)){
 			updateBlackList(usersUnlock)
 			for (let user of usersUnlock){
-				axios.post('/api/blockUser', {user_id: userId, block_user_id: user,  block: false})
+				getTokenDataByPost('/api/blockUser', {user_id: userId, block_user_id: user,  block: false}, token)
 			}
 			return
 		}
 		updateBlackList(usersUnlock)
-		axios.post('/api/blockUser', {user_id: userId, block_user_id: usersUnlock,  block: false})
+		getTokenDataByPost('/api/blockUser', {user_id: userId, block_user_id: usersUnlock,  block: false}, token)
 	}
 	
 

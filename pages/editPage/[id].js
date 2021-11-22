@@ -20,6 +20,7 @@ import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
 import {useProductEditPhoto} from "../../hooks/useProductEditPhoto";
+import {getDataByPost} from "../../lib/fetch";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -65,7 +66,7 @@ function EditPage() {
 	const { price, title, photo, description, address} = useProduct(query.id)
 	const { editPhotos } = useProductEditPhoto(query.id)
 
-	const { id } = useAuth();
+	const { id, token } = useAuth();
 	const classes = useStyles();
 	const [loading, setLoading] = useState(false);
 	const [promotion, setPromotion] = useState(false);
@@ -158,13 +159,15 @@ function EditPage() {
 
 
 					// // console.log('$$$allConvertedPhoto$$$$',allConvertedPhoto)
-					axios.post(`${BASE_URL}/api/postUpdate`, {post_id: postId,
+					getDataByPost(`${BASE_URL}/api/postUpdate`, {
+						user_id: id,
+						post_id: postId,
 						title : obj.title,
 						description: obj.description,
 						price: obj.price,
 						address: obj.location.value,
 						photo: photoes
-					})
+					}, token)
 					setEditProduct({post_id: postId,
 						title : obj.title,
 						description: obj.description,
@@ -178,14 +181,15 @@ function EditPage() {
 		} else {
 			// console.log('photoes only photos', photoes.map(item => `images${item.src.split('images')[1]}`))
 			const photoWithoutChanges = photoes.map(item => `images${item.src.split('images')[1]}`)
-			axios.post(`${BASE_URL}/api/postUpdate`, {
+			getDataByPost(`${BASE_URL}/api/postUpdate`, {
+				user_id: id,
 				post_id: postId,
 				title : obj.title,
 				description: obj.description,
 				price: obj.price,
 				address: obj.location.value,
 				photo: photoWithoutChanges
-			})
+			}, token)
 			setEditProduct({
 				post_id: postId,
 				title : obj.title,

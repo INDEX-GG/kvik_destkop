@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {getTokenDataByPost} from "../lib/fetch";
+import {useAuth} from "../lib/Context/AuthCTX";
 
 export function useFavorits(id) {
 
     const [userFavorite, setUserFavorite] = useState({})
     const [isLoading, setLoading] = useState(true);
+    const {token} = useAuth();
     let arrFavorits = { 'user_id': `${id}` };
     useEffect(() => {
-        axios.post("/api/getFavorites", arrFavorits)
+        getTokenDataByPost("/api/getFavorites", arrFavorits, token)
             .then((res) => {
-                setUserFavorite(res.data
+                setUserFavorite(res
                 )
 
                 // res.data.map((item, i) => { 

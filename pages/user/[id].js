@@ -26,6 +26,7 @@ import { STATIC_URL } from "../../lib/constants";
 import { useBlockedBool } from "../../hooks/useBlocked";
 import { useUser } from "../../hooks/useUser";
 import {Tooltip} from "@mui/material";
+import {getTokenDataByPost} from "../../lib/fetch";
 
 
 
@@ -67,12 +68,12 @@ const useStyles = makeStyles(() => ({
 function UserPage() {
   const classes = useStyles();
   const router = useRouter();
-  const { id } = useAuth()
+  const { id, token } = useAuth()
   const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
   const {userInfo} = useAd(router.query.id)
   const  userProfileInfo  = useUser();
   const { userSub } = useSubBool(id, sellerId)
-  const { userBlocked } = useBlockedBool(id, sellerId)
+  const { userBlocked } = useBlockedBool(id, sellerId, token)
   const { matchesMobile, matchesTablet } = useMedia()
 
   const [reviewsModal, setReviewsModal] = useState(false);
@@ -144,9 +145,9 @@ function UserPage() {
         setSubscribersList(arr => [...arr, {id: id, name: userProfileInfo.name, raiting: userProfileInfo.raiting, userPhoto: userProfileInfo.userPhoto}])
       }
   
-      await axios.post("/api/subscriptions", subscribe)
+      await getTokenDataByPost("/api/subscriptions", subscribe, token)
   
-      await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
+      await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
   
   
       setLoading(false)

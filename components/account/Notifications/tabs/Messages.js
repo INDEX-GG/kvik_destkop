@@ -16,6 +16,7 @@ import Loader from "../../../../UI/icons/Loader";
 import ChatPlaceholder from "../../../../UI/icons/ChatPlaceholder";
 import ChatAllRoom from "../components/ChatAllRoom";
 import ChatRoom from "../components/ChatRoom";
+import {getTokenDataByPost} from "../../../../lib/fetch";
 
 
 function Messages() {
@@ -38,6 +39,7 @@ function Messages() {
   const {id} = useAuth()
   const {userInfo} = useStore()
   const {matchesTablet, matchesMobile} = useMedia()
+  const {token} = useAuth();
 
   //! Дожидаемся загрузки страницы
   useEffect(() => setLoading(true), [])
@@ -84,10 +86,10 @@ function Messages() {
       if (obj.companion_id && obj.product_id) {
         try {
           axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
-          axios.post(`/api/roomInfo`, [r.data.room])
+          getTokenDataByPost(`/api/roomInfo`, [r.data.room], token)
             .then(r => {
               console.log(allRooms);
-              setRoom(r.data.list[0])
+              setRoom(r.list[0])
               setLoadingRoom(false)
             })})
         } catch(e) {
@@ -184,11 +186,15 @@ function Messages() {
     if (id) {
       axios.post(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id})
         .then(r => {
-          axios.post(`/api/roomInfo`, r.data.data)
-            .then(r => {
-              setAllRooms(r.data.list)
-              setLoadingAllRooms(false)
-            })
+          if (r.data.length) {
+            getTokenDataByPost(`/api/roomInfo`, r.data.data, token)
+              .then(r => {
+                setAllRooms(r.list)
+                setLoadingAllRooms(false)
+              })
+          } else {
+            setLoadingAllRooms(false)
+          }
         })
     }
   }, [id])
