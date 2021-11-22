@@ -3,10 +3,10 @@ import {STATIC_URL} from "../../../../lib/constants";
 import {ellipsis, ToRubles} from "../../../../lib/services";
 import {useRouter} from "next/router";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
-import axios from 'axios'
+import {getTokenDataByPost} from "../../../../lib/fetch";
 
 const SellersItem = ({seller}) => {
-  const {id} = useAuth();
+  const {id, token} = useAuth();
   const [subscribe, setSubscribe] = useState(true)
   const router = useRouter();
 
@@ -17,8 +17,8 @@ const SellersItem = ({seller}) => {
       seller_id: sellerID + ""
     }
 
-    axios.post("/api/subscriptions", subscribe)
-      .then(res => console.log(res.data))
+    getTokenDataByPost("/api/subscriptions", subscribe, token)
+      .then(res => console.log(res))
       .catch(error => console.log(error))
 
   }

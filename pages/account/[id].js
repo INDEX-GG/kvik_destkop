@@ -23,6 +23,7 @@ import {useStore} from "../../lib/Context/Store";
 import AccountPlaceHolder from "../../components/placeHolders/AccountPlaceHolder/AccountPlaceHolder";
 import {Grid, Skeleton, Tooltip} from "@mui/material";
 import {MenuItem} from "../../components/placeHolders/AccountCardPlaceHolder/AccountCardPlaceHolder";
+import {getTokenDataByPost} from "../../lib/fetch";
 
 
 const menuItems = [
@@ -88,7 +89,7 @@ function Account() {
     const [logout, setLogout] = useState(false);
     const [reviewsModal, setReviewsModal] = useState(false);
     const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-    const {signOut, id} = useAuth();
+    const {signOut, id, token} = useAuth();
     const {matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080} = useMedia()
     const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? {
         i: 4,
@@ -114,14 +115,19 @@ function Account() {
     }, [])
 
     useEffect(() => {
-        if (id !== undefined && subList.length === 0) {
-            axios.post("/api/getSubscriptions", {user_id: `${id}`}).then((res) => setSubList(res.data))
-        }
+        if (token) {
+            if (id !== undefined && subList?.length === 0) {
+                getTokenDataByPost("/api/getSubscriptions", {user_id: `${id}`}, token).then((res) => setSubList(res))
+            }
 
-        if (id !== undefined && subscribersList.length === 0) {
-            axios.post("/api/getSubscribers", {user_id: `${id}`}).then((res) => setSubscribersList(res.data))
+            if (id !== undefined && subscribersList?.length === 0) {
+                getTokenDataByPost("/api/getSubscribers", {user_id: `${id}`}, token).then((res) => setSubscribersList(res))
+            }
         }
     }, [userInfo])
+
+
+
 
     function closeModal(modal, changeModal) {
         changeModal(!modal)
@@ -168,7 +174,7 @@ function Account() {
                         || (+router.query.account === 4 && <Favorites router={router.query.id}/>)
                         || (+router.query.account === 5 && <Notifications/>)
                         || (+router.query.account === 6 && <Compare/>) || (+router.query.account === 7 &&
-                            <Reviews/>) || (+router.query.account === 8 && <Settings username userId={id}/>)}
+                            <Reviews/>) || (+router.query.account === 8 && <Settings username userId={id} token={token}/>)}
                     </>) : (
                     <OfferAccountProvider>
                         <Offers router={router}/>
@@ -258,7 +264,7 @@ function Account() {
 
 
                                     <Box className={classes.userStats}>
-                                        <span>{subscribersList?.message ? 0 : subscribersList.length}</span>
+                                        <span>{subscribersList?.message ? '0' : subscribersList?.length}</span>
                                         <Button className={classes.buttonDesc} size="small" variant="text" >
                                             <p>Подписчиков</p>
                                         </Button>
@@ -339,7 +345,7 @@ function Account() {
             </Dialog>
             <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)}
                     fullScreen={matchesMobile || matchesTablet}>
-                <ModalSubscription data={subList} subscription={subList.length}
+                <ModalSubscription data={subList} subscription={subList?.length}
                                    modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)}
                                    mobile={matchesTablet || matchesMobile}/>
             </Dialog>

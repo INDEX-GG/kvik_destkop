@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 			return res.status(401).send("Invalid Token");
 		}
 		const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-		if (parseInt(req.body.user_id, 10) !== tokenUser) {
+		if (parseInt(req.body.subscriber_id, 10) !== tokenUser) {
 			return res.status(403).send("Invalid Token");
 		}
 

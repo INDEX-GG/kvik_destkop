@@ -1,10 +1,10 @@
 import {Avatar, makeStyles, Tooltip} from '@material-ui/core';
-import axios from 'axios';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 import {useMedia} from '../../../hooks/useMedia';
 import {useSubBool} from '../../../hooks/useSubscriptions';
 import StarRating from '../../StarRating';
+import {getTokenDataByPost} from "../../../lib/fetch";
 
 const useStyles = makeStyles(() => ({
   tooltip: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, status, userrate}) => {
+const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, status, userrate, token}) => {
   const router = useRouter();
   const {matchesMobile, matchesTablet} = useMedia();
   const {userSub} = useSubBool(id, sellerId)
@@ -48,8 +48,8 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
 
       setUserBool(!userBool)
 
-      await axios.post("/api/subscriptions", subscribe)
-      await axios.post('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id});
+      await getTokenDataByPost("/api/subscriptions", subscribe, token)
+      await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
 
 
       setLoading(false)

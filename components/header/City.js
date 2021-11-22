@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {BASE_URL} from "../../lib/constants";
 import {useAuth} from "../../lib/Context/AuthCTX";
 import {useStore} from "../../lib/Context/Store";
+import {getTokenDataByPost} from "../../lib/fetch";
 
 const useStyles = makeStyles(() => ({
   cityContainer: {
@@ -68,7 +69,7 @@ export default function City({dialog, setDialog}) {
 
   const classes = useStyles()
   const {city, changeCity} = useCity()
-  const {id} = useAuth()
+  const {id, token} = useAuth()
   const {userInfo, setUserInfo} = useStore()
   const [inputValue, setInputValue] = useState('')
   const [stateListCity, setStateListCity] = useState([]);
@@ -97,7 +98,7 @@ export default function City({dialog, setDialog}) {
 
   const onChangeCity = (name, geo) => {
     if (id) {
-      axios.post('/api/userLocation', {user_id: id, data: {name: name, geo: geo}}).then(() => {
+      getTokenDataByPost('/api/userLocation', {user_id: id, data: {name: name, geo: geo}}, token).then(() => {
         changeCity(name)
         setUserInfo({...userInfo, location: {name: name, geo: geo}})
       })
