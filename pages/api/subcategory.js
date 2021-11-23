@@ -18,9 +18,6 @@ export default async function handler(req, res) {
 		if (parseInt(req.body.user_id, 10) !== tokenUser) {
 			return res.status(403).send("Invalid Token");
 		}
-		if (parseInt(req.body.fields.post_id) !== parseInt(req.body.post_id)) {
-			return res.status(403).send("Invalid Post data");
-		}
 		const check  = await prisma.$queryRaw(`SELECT * FROM "posts" WHERE id = ${req.body.post_id} AND posts.user_id = ${req.body.user_id}`)
 		if (check.length === 0) {
 			return res.status(403).send("Invalid User");
@@ -31,14 +28,28 @@ export default async function handler(req, res) {
 			const array = data["fields"]
 			let columns = ''
 			let values = ''
+			let sub_post_id = 0
 			array.forEach((element) => {
 				if (element.fields !== '') {
 					columns += '"' + element.alias + '", '
 					values += "'" + element.fields + "', "
+					if (element.alias === 'post_id') {
+						sub_post_id = element.fields
+					}
 				}
 			})
+
+			if (parseInt(sub_post_id) !== parseInt(req.body.post_id)) {
+				return res.status(403).send("Invalid Post data");
+			}
 			columns = columns.slice(0, -2)
 			values = values.slice(0 ,-2)
+
+			const check_exist  = await prisma.$queryRaw(`SELECT * FROM ${req.body.subcategory} WHERE post_id = ${req.body.post_id}`)
+			if (check_exist.length !== 0) {
+				return res.status(403).send("Already exist");
+			}
+
 			await prisma.$queryRaw(`INSERT INTO ${req.body.subcategory} (${columns}) VALUES (${values})`)
 			return{ message: 'successfully update' };
 		}
