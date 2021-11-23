@@ -18,7 +18,9 @@ export default async function handler(req, res) {
 		if (parseInt(req.body.user_id, 10) !== tokenUser) {
 			return res.status(403).send("Invalid Token");
 		}
-
+		if (parseInt(req.body.fields.post_id) !== parseInt(req.body.post_id)) {
+			return res.status(403).send("Invalid Post data");
+		}
 		const check  = await prisma.$queryRaw(`SELECT * FROM "posts" WHERE id = ${req.body.post_id} AND posts.user_id = ${req.body.user_id}`)
 		if (check.length === 0) {
 			return res.status(403).send("Invalid User");
