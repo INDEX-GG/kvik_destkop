@@ -22,7 +22,6 @@ export default async function handler(req, res) {
                     }
                 })
                 if (user != null) {
-                    console.log(user.id);
                     const claims = {sub: user.id}
                     const jwt = sign(claims, process.env.NEXT_PUBLIC_JWT_SECRET, { expiresIn: 600})
                     return { check: true ,authToken: jwt }
