@@ -182,6 +182,8 @@ function PlaceOffer() {
             photoData.append('files[]', photoes[0]);
         }
 
+        console.log(photoes[0]);
+
 		// console.log(photoData.getAll('files[]'))
 
 		// console.log(photoData, 'photo');
@@ -272,9 +274,10 @@ function PlaceOffer() {
 
 
 
-                axios.post(`${STATIC_URL}/post/${r?.id}`, photoData, {
+                axios.post(`${STATIC_URL}/post/${id}/${r?.id}`, photoData, {
                     headers: {
-                        "Content-Type": "multipart/form-data"
+                        "Content-Type": "multipart/form-data",
+                        "x-access-token": token
                     }
                 }).then((r) => {
 					// console.log(`${STATIC_URL}/${r.data.images.photos[0]}`)

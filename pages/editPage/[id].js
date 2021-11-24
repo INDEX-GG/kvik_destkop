@@ -125,9 +125,10 @@ function EditPage() {
 
 
 		if(photoes.filter(item => item.lastModified !== undefined).length > 0) {
-			axios.post(`${STATIC_URL}/post/${postId}`, photoData, {
+			axios.post(`${STATIC_URL}/post/${id}/${postId}`, photoData, {
 				headers: {
-					"Content-Type": "multipart/form-data"
+					"Content-Type": "multipart/form-data",
+					"x-access-token": token
 				}
 			})
 

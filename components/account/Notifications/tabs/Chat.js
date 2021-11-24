@@ -14,6 +14,7 @@ import ChatSmile from '../../../../UI/icons/ChatSmile';
 // import {useMedia} from "../../../../hooks/useMedia";
 // import useMoment from 'moment-timezone'
 import dynamic from 'next/dynamic'
+import {getTokenDataByPost} from "../../../../lib/fetch";
 
 const NoSsrEmoji = dynamic(() => import('../components/ChatEmoji'), {ssr: false})
 
@@ -44,7 +45,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
 
   const {userInfo} = useStore()
   const {query, asPath} = useRouter()
-  const {id} = useAuth()
+  const {id, token} = useAuth()
   // const {matchesMobile, matchesTablet} = useMedia()
 
   const socketLeave = () => {
@@ -90,14 +91,14 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
 
     if (historyObj.companion_id && historyObj.product_id) {
       try {
-        axios.post(`${CHAT_URL_API}/chat_history`, historyObj).then(r => {
+        getTokenDataByPost(`${CHAT_URL_API}/chat_history`, historyObj, token).then(r => {
           if (userOnline) setUserOnline(false)
 
           console.log("SOCKET CONNECT")
 
-          setMsgList([...r.data.data.reverse()])
+          setMsgList([...r.data.reverse()])
 
-          if (r.data.data.length) setMessageId(r.data.data[0]?.id)
+          if (r.data.length) setMessageId(r.data[0]?.id)
 
           setSocketConnect(true)
           setLoading(false)
@@ -199,6 +200,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
       console.log(router.query)
 
       const pushObj = {
+        'from_user_id': id,
         'user_id': usersData?.recipient.id,
         'message': ellipsis(img ? 'Вам отправили фото' : sendObj.message, 20),
         'user_name': userInfo.name,
@@ -208,7 +210,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
       }
 
       try {
-        axios.post(`${CHAT_URL_API}/send_push`, pushObj)
+        getTokenDataByPost(`${CHAT_URL_API}/send_push`, pushObj, token)
       } catch (e) {
         console.log(e)
       }
@@ -345,12 +347,12 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
 
     if (objHistory.companion_id && objHistory.companion_id) {
       try {
-        axios.post(`${CHAT_URL_API}/chat_history`, objHistory).then(r => {
-          if (r?.data?.data?.length) {
-            setMessageId(r.data.data.reverse()[0]?.id)
+        getTokenDataByPost(`${CHAT_URL_API}/chat_history`, objHistory, token).then(r => {
+          if (r?.data?.length) {
+            setMessageId(r.data.reverse()[0]?.id)
             setMessageUpdate(true)
-            setHistoryMessageLength(r.data.data.length)
-            setMsgList(prev => [...r.data.data, ...prev])
+            setHistoryMessageLength(r.data.length)
+            setMsgList(prev => [...r.data, ...prev])
           }
         })
       } catch(e) {
@@ -443,9 +445,10 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
         }
 
 
-        axios.post(`${STATIC_URL}/chat`, photoData, {
+        axios.post(`${STATIC_URL}/chat/${id}`, photoData, {
           headers: {
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data",
+            "x-access-token": token
           }
         }).then(r => {
           const img = r.data?.images?.photos;

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useRouter} from "next/router";
 import {Dialog} from "@material-ui/core";
-import {getDataByPost} from '../../lib/fetch';
+import {getDataByPost, getTokenDataByPost} from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
 import Statistics from "../../components/Statistics";
@@ -26,7 +26,6 @@ import ProductFavoriteNoteComp from "../../components/product/ProductSmallCompon
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
 import {firstAds, scrollAds} from "../../lib/scrollAds";
 import {useStore} from "../../lib/Context/Store";
-import axios from "axios";
 import {chatPush} from "../../components/account/Notifications/tabs/chatFunctions";
 import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder/ProductPlaceHolder";
 
@@ -71,7 +70,7 @@ import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder
 const Product = () => {
   const {query} = useRouter();
   const router = useRouter()
-  const {id, isAuth} = useAuth();
+  const {id, isAuth, token} = useAuth();
   const {userInfo} = useStore()
   const [data, setData] = useState();
   const [openStatForm, setopenStatForm] = useState(false);
@@ -141,7 +140,7 @@ const Product = () => {
           'product_id': productInfo?.id,
         }
 
-        await axios.post(`${CHAT_URL_API}/make_room`, obj).then(r => console.log(r.data))
+        await getTokenDataByPost(`${CHAT_URL_API}/make_room`, obj, token).then(r => console.log(r.data))
         const routerObj = {
           id,
           companion_id: productInfo.user_id,
