@@ -81,7 +81,8 @@ const DadataSuggest = ({mobile = false, address}) => {
 					token="3fa959dcd662d65fdc2ef38f43c2b699a3485222" 
 					count={5}
 					ref={inputRef} 
-					minChars={3}  
+					minChars={3}
+					delay={5}
 					value={value}
 					defaultQuery={address || userInfo?.location?.name}
 					// containerClassName='productInputMap'

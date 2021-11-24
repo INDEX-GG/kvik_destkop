@@ -18,7 +18,7 @@ import DialogUIAuth from "../UI/DialogUIAuth";
 import {Checkbox} from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
 import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
-import {SecretData} from "../../lib/SecretData";
+import {SecretData, SecretPassword} from "../../lib/SecretData";
 import ConfirmNumber from "./ConfirmNumber";
 
 const useStyles = makeStyles((theme) => ({
@@ -152,7 +152,7 @@ const Login = () => {
 
     if (changePassword) {
       console.log(changePassword)
-      getTokenDataByPost('/api/settings/upPassword', {password: data.newPassword}, changePassword)
+      getTokenDataByPost('/api/settings/upPassword', SecretPassword({password: data.newPassword}), changePassword)
         .then(() => onSubmit({phone: data.checkPhone, password: data.newPassword}))
       return;
     }
@@ -293,7 +293,7 @@ const Login = () => {
           onClose={() => {
             setValueInp("");
             setValue("password", "");
-            setOpenLoginForm(!openLoginForm);
+            setOpenLoginForm(false);
           }}
           title="Вход"
           fullWidth
@@ -432,6 +432,7 @@ const Login = () => {
       <DialogUIAuth
         open={resetPassword || false}
         onClose={() => {
+          setOpenLoginForm(false)
           setResetPassword(false);
         }}
         title="Восстановление пароля"
