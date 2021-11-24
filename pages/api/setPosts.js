@@ -61,7 +61,8 @@ export default async function handler(req, res) {
 						// verify: 1,
 						subcategory: req.body.subcategory,
 						verify_moderator: { "verify": [] },
-						coordinates: req.body.coordinates
+						coordinates: req.body.coordinates,
+						city: req.body.city
 											}
 				}
 				const allUsers = await prisma.posts.create(obj);
