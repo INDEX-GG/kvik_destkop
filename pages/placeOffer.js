@@ -163,6 +163,9 @@ function PlaceOffer() {
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([...userInfo?.location?.geo])
 		data.location = data.location?.value ? data.location.value : data.location
 
+
+        console.log(data.location);
+
         // console.log(data.coordinates)
 
         // console.log("data", data);

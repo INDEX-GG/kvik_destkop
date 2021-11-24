@@ -62,7 +62,7 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
     {openConfirmNum, setOpenConfirmNum, phoneNum, sendData} = useContext(RegistrationCTX);
 
   const regUser = () => {
-    getDataByPost('/api/setApi', sendData).then((r) => {
+    getDataByPost('/api/setApi', {...sendData, ...SecretData(sendData)}).then((r) => {
       // console.log(r)
       switch (r?.message) {
         case 'user created':
