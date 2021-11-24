@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 				data: {
 					name: `${req.body.name} ${req.body.surname}`,
 					password: hashedPassword,
-					phone: req.body.phone,
+					phone: decrypt(req.body.phone),
 					createdAt: now
 				}
 			}
