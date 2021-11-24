@@ -160,11 +160,13 @@ function PlaceOffer() {
 
         // rooms 'real_estate', 'real_estate_abroad', type_of_abroad_property
 
+        if (data?.location?.data?.city_kladr_id) data.city = data.location.data.city_kladr_id
+        if (!data?.location?.data?.city_kladr_id && data?.location?.data?.settlement_kladr_id) data.city = data.location.data.settlement_kladr_id
+
+
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([...userInfo?.location?.geo])
 		data.location = data.location?.value ? data.location.value : data.location
 
-
-        console.log(data.location);
 
         // console.log(data.coordinates)
 
@@ -196,9 +198,11 @@ function PlaceOffer() {
         let additionalfields = { [category]: [] }
 
 
+
+
         for (let key in data) {
 
-            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id' || key === 'coordinates') {
+            if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id' || key === 'coordinates' || key === 'city') {
                 obj[key] = data[key];
             }
             else {

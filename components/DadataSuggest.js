@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const DadataSuggest = ({mobile = false, address}) => {
+const DadataSuggest = ({mobile = false, /**  address */}) => {
 
 	const classes = useStyles()
 	const [value, setValue] = useState();
@@ -75,7 +75,8 @@ const DadataSuggest = ({mobile = false, address}) => {
 			 <Controller
                name="location"
                control={methods.control}
-			   defaultValue={address || userInfo?.location?.name}
+			   // defaultValue={address || userInfo?.location?.name}
+			   defaultValue={''}
                render={({field: {value, onChange: controlChange}}) => (
                   	<AddressSuggestions 
 					token="3fa959dcd662d65fdc2ef38f43c2b699a3485222" 
@@ -84,7 +85,7 @@ const DadataSuggest = ({mobile = false, address}) => {
 					minChars={3}
 					delay={5}
 					value={value}
-					defaultQuery={address || userInfo?.location?.name}
+					// defaultQuery={address || userInfo?.location?.name}
 					// containerClassName='productInputMap'
 					onChange={(e) => {
 						controlChange(e)
