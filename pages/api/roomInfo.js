@@ -13,25 +13,27 @@ export default async function handler(req, res) {
             return res.status(401).send("Invalid Token");
         }
         const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-        if (parseInt(req.body.customer_id, 10) !== tokenUser && parseInt(req.body.seller_id, 10) !== tokenUser) {
-            return res.status(403).send("Invalid Token");
-        }
-
         const prisma = new PrismaClient();
         const main = async () => {
             let list = req.body
             let users = []
             let products = []
             for (const val of list) {
+                if (parseInt(val.customer_id, 10) !== tokenUser && parseInt(val.seller_id, 10) !== tokenUser) {
+                    return res.status(403).send("Invalid Token");
+                }
                 if (!(users.includes(val.seller_id))) {
                     users.push(val.seller_id)
                 }
-            }
-            for (const val of list) {
                 if (!(users.includes(val.customer_id))) {
                     users.push(val.customer_id)
                 }
             }
+            // for (const val of list) {
+            //     if (!(users.includes(val.customer_id))) {
+            //         users.push(val.customer_id)
+            //     }
+            // }
             for (const val of list) {
                 if (!(products.includes(val.product_id))) {
                     products.push(val.product_id)
