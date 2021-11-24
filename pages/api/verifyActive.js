@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 		const main = async () => {
 			const id = req.body.id
 			const active = "'" + req.body.active + "'"
-			await prisma.$queryRaw(`UPDATE posts SET active = ${active} WHERE ID IN (${id} AND user_id = ${req.body.user_id})`)
+			await prisma.$queryRaw(`UPDATE posts SET active = ${active} WHERE ID IN (${id}) AND user_id = ${req.body.user_id}`)
 			return { message: 'successfully update' }
 		}
 		try {

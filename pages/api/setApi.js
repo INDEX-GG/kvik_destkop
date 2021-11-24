@@ -29,9 +29,12 @@ export default async function handler(req, res) {
 		}
 
 		const main = async () => {
+			function decrypt(encrypt_text) {
+				return CryptoJS.AES.decrypt(encrypt_text, process.env.NEXT_PUBLIC_MY_SECRET).toString(CryptoJS.enc.Utf8);
+			}
 			const result = await prisma.users.findUnique({
 				where: {
-					phone: req.body.phone
+					phone: decrypt(req.body.phone)
 				},
 			})
 			if (result) {
@@ -40,7 +43,7 @@ export default async function handler(req, res) {
 				add();
 				const id = await prisma.users.findFirst({
 					where: {
-						phone: req.body.phone
+						phone: decrypt(req.body.phone)
 					},
 					select: {
 						id: true
