@@ -3,7 +3,6 @@ import Modal from "../../../Modal";
 import { phoneNumber } from "../../../../lib/services";
 import { modalDeletHistory/* , modalDeleteAccount */ } from "../../../Modals";
 import Active_icon from "../../../../UI/icons/ActiveIcon";
-import axios from "axios";
 import { useMedia } from "../../../../hooks/useMedia"
 import RightArrow from "../../../../UI/icons/RightArrow"
 import { Button, Dialog } from "@material-ui/core";
@@ -13,10 +12,11 @@ import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber,
 import MobileModal from "../../../MobileModal";
 import DeleteAccountModal from "../../../DeleteAccountModal"
 import AccountCity from "./components/AccountCity";
+import {getTokenDataByPost} from "../../../../lib/fetch";
 
 
 function PersonalData() {
-	const { isAuth, id} = useAuth();
+	const { isAuth, id, token} = useAuth();
 	const { userInfo, setUserInfo } = useStore();
 
 	const [modal, setModal] = useState({});
@@ -68,7 +68,7 @@ function PersonalData() {
 		setInputProfile(!inputProfile);
 		console.log(`SEND: ${valueName}`);
 		const obj = { id: id, name: valueName };
-		axios.post("/api/settings/upName", obj).then((res) => console.log(res));
+		getTokenDataByPost("/api/settings/upName", obj, token).then((res) => console.log(res));
 	}
 
 	function changeInput(e) {
@@ -193,7 +193,7 @@ function PersonalData() {
 			setPasswordOne("");
 			setPasswordTwo("");
 			const obj = { id: id, password: passwordSend };
-			axios.post("/api/settings/upPassword", obj).then((res) => console.log(res));
+			getTokenDataByPost("/api/settings/upPassword", obj, token).then((res) => console.log(res));
 		}
 	}
 
@@ -246,7 +246,7 @@ function PersonalData() {
 						<a><div className="changeMobile"><div>Город</div><RightArrow /></div></a> : 
 						<a onClick={onChangeAddress}>{changeAddress ? 'Сохранить' : 'Изменить'}</a>}
 					</div> */}
-					<AccountCity userData={{id, userInfo, setUserInfo}}/>
+					<AccountCity userData={{id, userInfo, setUserInfo, token}}/>
 					<div>
 						<div>Телефон</div>
 						<div>

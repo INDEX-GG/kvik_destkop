@@ -75,11 +75,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OfferModal({offerId, offerData, openOfferModal, setOpenOfferModal, buttonId, cleanAll, setUpdate}) {
 	const classes = useStyles();
+	const {id: user_id} = useAuth();
 	const { setQuery } = useOfferAccount();
 	const {token} = useAuth();
 
 	function PushDb(id) {
-		let arr = { 'id': offerId, 'active': `${id}` }
+		let arr = { 'id': offerId, 'active': `${id}`, 'user_id': user_id }
 		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
 			.then(r => r)
 			.finally(function () {

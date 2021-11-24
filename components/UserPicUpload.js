@@ -6,7 +6,7 @@ import { postAvatar } from '../lib/fetch';
 import { useStore } from '../lib/Context/Store';
 
 function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, Close }) {
-	const { id } = useAuth();
+	const { id, token } = useAuth();
 	const {setUserInfo} = useStore();
 	const fileInput = useRef(),
 		editorRef = useRef(),
@@ -37,7 +37,7 @@ function photoUpload({ imageType = "webp", optimiztionLevel = 1, maxScale = 3, C
 			const sendData = new FormData;
 			sendData.append('files[]', img);
 
-			postAvatar(id, sendData)
+			postAvatar(id, sendData, token)
 				.then(r => {
 					localStorage.setItem('imageString', r);
 					setUserInfo(p => {

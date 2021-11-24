@@ -92,9 +92,10 @@ export default function ContentPlaseOffer({dialog, title, backFunc}) {
         getTokenDataByPost(`${BASE_URL}/api/setPosts`, data, token)
         	.then(r => {
 			postId = r?.id;
-			axios.post(`${STATIC_URL}/post/${r?.id}`, photoData, {
+			axios.post(`${STATIC_URL}/post/${id}/${r?.id}`, photoData, {
 				headers: {
-					"Content-Type": "multipart/form-data"
+					"Content-Type": "multipart/form-data",
+                    "x-access-token": token
 				}
 			}).then((r) => {
                 setPromotionProduct({title: data.title, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}`})

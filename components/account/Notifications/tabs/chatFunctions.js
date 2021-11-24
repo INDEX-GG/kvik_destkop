@@ -1,5 +1,5 @@
-import axios from "axios"
 import { CHAT_URL_API } from "../../../../lib/constants"
+import {getTokenDataByPost} from "../../../../lib/fetch";
 
 // Возвращает дату из объекта
 export const generateTime = (UTC, time, onlyTime=false, onlyDate=false) => {
@@ -18,13 +18,13 @@ export const generateProductPhoto = (photos) => {
   }
 
 // Записываем в базу определённому пользователю полученный токен
-export const generateDataToken = (id, token) => {
+export const generateDataToken = (id, token, userToken) => {
 	token.then((r) => {
 		// platform - платформа с которой был получен токе (1 - Андроид(Приложение), 2 - IOS(Приложение), 3 - web)
 		const obj = {"user_id": id, "platform": 3, "token":r }
 		if (r) {
 			try {
-				axios.post(`${CHAT_URL_API}/push_token`, obj)
+				getTokenDataByPost(`${CHAT_URL_API}/push_token`, obj, userToken)
 			} catch (e) {
 				console.log(e)
 			}

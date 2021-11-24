@@ -6,7 +6,6 @@ import Chat from "./Chat";
 import {useRouter} from "next/router";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
 import {CHAT_URL_API, /** STATIC_URL*/} from "../../../../lib/constants";
-import axios from "axios";
 import {useStore} from "../../../../lib/Context/Store";
 import {/** generateProductPhoto, */ generateDataToken} from "./chatFunctions";
 import {askForPermissioToReceiveNotifications, initializeFirebase} from '../../../../firebase/clientApp';
@@ -36,10 +35,9 @@ function Messages() {
 
   const {query} = useRouter()
   const router = useRouter()
-  const {id} = useAuth()
+  const {id, token} = useAuth()
   const {userInfo} = useStore()
   const {matchesTablet, matchesMobile} = useMedia()
-  const {token} = useAuth();
 
   //! Дожидаемся загрузки страницы
   useEffect(() => setLoading(true), [])
@@ -49,10 +47,10 @@ function Messages() {
   useEffect(() => {
     initializeFirebase()
     registerServiceWorkerNoSSR()
-    const token = askForPermissioToReceiveNotifications()
+    const firebaseToken = askForPermissioToReceiveNotifications()
     if (id) {
       try {
-        generateDataToken(id, token)
+        generateDataToken(id, firebaseToken, token)
       } catch (e) {
         console.log(e)
       }
@@ -85,8 +83,8 @@ function Messages() {
 
       if (obj.companion_id && obj.product_id) {
         try {
-          axios.post(`${CHAT_URL_API}/chat_history`, obj).then(r => {
-          getTokenDataByPost(`/api/roomInfo`, [r.data.room], token)
+          getTokenDataByPost(`${CHAT_URL_API}/chat_history`, obj, token).then(r => {
+          getTokenDataByPost(`/api/roomInfo`, [r.room], token)
             .then(r => {
               console.log(allRooms);
               setRoom(r.list[0])
@@ -184,10 +182,10 @@ function Messages() {
   //! Получаем все комнаты которые есть у пользователя (диалоги)
   useEffect(() => {
     if (id) {
-      axios.post(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id})
+      getTokenDataByPost(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id}, token)
         .then(r => {
-          if (r.data.length) {
-            getTokenDataByPost(`/api/roomInfo`, r.data.data, token)
+          if (r.data?.length) {
+            getTokenDataByPost(`/api/roomInfo`, r.data, token)
               .then(r => {
                 setAllRooms(r.list)
                 setLoadingAllRooms(false)

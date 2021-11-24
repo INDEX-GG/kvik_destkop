@@ -4,6 +4,7 @@ import { AddressSuggestions } from 'react-dadata';
 import 'react-dadata/dist/react-dadata.css';
 import { useMedia } from '../../../../../hooks/useMedia';
 import RightArrow from '../../../../../UI/icons/RightArrow';
+import {getTokenDataByPost} from "../../../../../lib/fetch";
 
 
 const AccountCity = ({userData}) => {
@@ -12,14 +13,14 @@ const AccountCity = ({userData}) => {
 	const inputRef = useRef()
 	const {matchesMobile, matchesTablet} = useMedia()
 
-	const {id, setUserInfo, userInfo} = userData
+	const {id, setUserInfo, userInfo, token} = userData
 
 
 	async function onChangeAddress() {
 		setChangeAddress(!changeAddress)
 		if (changeAddress && cityValue?.value && cityValue?.value.length > 1 && cityValue?.value != userInfo.address) {
 			await fetchAdress(inputRef)
-			axios.post('/api/settings/upAddress', {id: id, address: cityValue.value})
+			getTokenDataByPost('/api/settings/upAddress', {id: id, address: cityValue.value}, token)
 			  .then(() => {
 				  setChangeAddress(!changeAddress)
 				  setUserInfo({...userInfo, address: cityValue.value})

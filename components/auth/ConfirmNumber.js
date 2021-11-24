@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const ConfirmNumber = () => {
+const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, onClose}) => {
   const {signIn} = useAuth();
   const {storeUser} = useStore();
   const [value1, setValue1] = useState('');
@@ -103,7 +103,7 @@ const ConfirmNumber = () => {
     // }
 
     if (valueAll.length === 4) {
-      getDataByPost('/api/checkphone', {"phone": phoneNum, "code": valueAll})
+      getDataByPost('/api/checkphone', {"phone": resetPhone ? resetPhone : phoneNum, "code": valueAll})
         .then(r => {
 
           if (r?.message === 'time error') {
@@ -112,7 +112,11 @@ const ConfirmNumber = () => {
 
 
           if (r?.check) {
-            regUser()
+            if (!registrantion) {
+              regUser()
+            } else {
+              changePassword(r.authToken)
+            }
           } else {
             setErrorVerify({error: true, message: 'Неверный код подтверждения'})
           }
@@ -120,10 +124,10 @@ const ConfirmNumber = () => {
     }
   }
   return (
-    <Dialog open={openConfirmNum || false} onClose={() => setOpenConfirmNum(!openConfirmNum)} fullWidth maxWidth="sm">
+    <Dialog open={openConfirmNum || registrantion || false} onClose={() => onClose ? onClose() : setOpenConfirmNum(!openConfirmNum)} fullWidth maxWidth="sm">
       <Box className={classes.submitNumber}>
         <Typography className={classes.title} variant="h6">
-          Регистрация
+          {registrantion ? 'Восстановление пароля' : 'Регистрация'}
         </Typography>
         <Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок.<br/> Пожалуйста
           введите последние 4 цифры <br/> звонящего номера в поле ниже.</Typography>
@@ -149,7 +153,7 @@ const ConfirmNumber = () => {
           size="large"
           color="primary"
         >
-          Зарегистрироваться
+          {registrantion ? 'Продолжить': 'Зарегистрироваться'}
         </Button>
       </Box>
     </Dialog>

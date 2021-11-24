@@ -75,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UnpublishForm() {
 	const classes = useStyles();
+	const {id} = useAuth();
 	const { dataCheck, offerData, openUnpublishForm, setOpenUnpublishForm, cleanAll, setUpdate } = useContext(UnpublishCTX);
 
 	const {token} = useAuth();
@@ -83,7 +84,7 @@ export default function UnpublishForm() {
 
 	function PushBDVerify(e) {
 
-		var arr = { 'id': dataCheck, 'active': `${e.target.parentElement.id}` }
+		var arr = { 'id': dataCheck, 'active': `${e.target.parentElement.id}`, 'user_id': id }
 
 		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
 			.then(r => r)
