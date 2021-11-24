@@ -86,6 +86,7 @@ const TestPage = () => {
       })
     }
 
+    console.log(1);
 
     const autoJson = await axios.get('http://localhost:3000/subcategories/auto.json').then(r => r.data.auto)
 
