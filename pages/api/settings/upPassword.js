@@ -18,18 +18,15 @@ export default async function handler(req, res) {
 			return res.status(401).send("Invalid Token");
 		}
 		const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-		if (parseInt(req.body.id, 10) !== tokenUser) {
-			return res.status(403).send("Invalid Token");
-		}
+
 		const prisma = new PrismaClient();
 		const main = async () => {
 			const saltedPassword = globalSalt + req.body.password + globalSalt
 			const hashedPassword = MD5(saltedPassword)
-			const idInt = Number(req.body.id)
 			const obj = {
 				where:
 				{
-					id: idInt
+					id: tokenUser
 				},
 				data: {
 					password: hashedPassword
