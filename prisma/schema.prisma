@@ -110,6 +110,7 @@ model posts{
   verify_moderator      Json?
   viewing               String?
   coordinates           String?
+  city                  String?
 
 
   @@index([address], name: "posts_address_index")
