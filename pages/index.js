@@ -12,6 +12,7 @@ import { useAuth } from "../lib/Context/AuthCTX";
 import theme from "../UI/theme"
 import { firstAds, scrollAds } from "../lib/scrollAds";
 import IndexPlaceHolder from "../components/placeHolders/IndexPlaceHolder/IndexPlaceHolder";
+import {useCity} from "../lib/Context/CityCTX";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -61,9 +62,13 @@ const Index = () => {
 	const [page, setPage] = useState(1);
 	const [limitRenderPage, setLimitRanderPage] = useState(0);
 	const [lastIdAds ,setLastIdAds] = useState(0);
+	const [sort, /** 60 */] = useState('default')
+	const {searchCity} = useCity()
 	const limit = 60
 
 	const [isPending, setIsPending] = useState(false);
+	const adsData = {id, isAuth, page: 1, limit, setData, setLastIdAds, sort, region_includes: searchCity, region_excludes : ''}
+	const scorllData = {id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage, sort, region_includes: searchCity, region_excludes : ''}
 
 	const pending = () =>  setIsPending(true)
 
@@ -71,12 +76,12 @@ const Index = () => {
 	isNaN(lastIdAds);
 
 	useEffect(() => {
-		scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
+		scrollAds(scorllData)
 	}, [page])
 	
 	useEffect(() => {
-		 firstAds(id, isAuth, page, limit, setData, setLastIdAds)
-	}, [id]);
+		 firstAds(adsData)
+	}, [id, searchCity]);
 
 
 	return (
