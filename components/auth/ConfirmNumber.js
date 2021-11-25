@@ -1,10 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react'
-import {Box, Button, Dialog, makeStyles, TextField, Typography} from '@material-ui/core';
+import React, {useContext, useEffect, useRef, useState} from 'react'
+import {Box, Button, Dialog, FormGroup, makeStyles, TextField, Typography} from '@material-ui/core';
 import {RegistrationCTX} from '../../lib/Context/DialogCTX';
 import {getDataByPost} from '../../lib/fetch';
 import {useAuth} from '../../lib/Context/AuthCTX';
 import {useStore} from '../../lib/Context/Store';
 import {SecretData} from "../../lib/SecretData";
+import {Controller, useForm} from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   submitNumber: {
@@ -17,22 +18,27 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     }
   },
-  // inputSubmit: {
-  // 	'& input': {
-  // 		textAlign: 'center',
-  // 	}
-  // },
-  inputSubmit1: {
-    '& input': {
-      textAlign: 'center',
+  formGroup: {
+    marginTop: '16px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    '& > *:last-child': {
+      marginRight: '0px'
+    }
+  },
+  formItem: {
+    width: 36,
+    height: 36,
+    marginRight: '12px',
+    '& > div': {
+      height: '36px',
+      '& > input': {
+        paddingLeft: '14px',
+        paddingRight: '14px',
+        fontSize: '14px !important',
+      }
     },
-    width: "32px",
-    height: "32px",
-    border: "1px solid",
-    borderColor: "#8F8F8F",
-    boxSizing: "border-box",
-    borderRadius: "8px",
-    margin: "5px"
   },
   inputBlock: {
     display: "flex",
@@ -46,20 +52,35 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginBottom: theme.spacing(2),
   },
+  error: {
+    color: '#F44545',
+    fontSize: '12px',
+    textAlign: 'center'
+  }
 
 }));
 
 const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, onClose}) => {
+
+  const classes = useStyles();
   const {signIn} = useAuth();
   const {storeUser} = useStore();
-  const [value1, setValue1] = useState('');
-  const [value2, setValue2] = useState('');
-  const [value3, setValue3] = useState('');
-  const [value4, setValue4] = useState('');
-  const [valueAll, setValueAll] = useState('');
-  const classes = useStyles();
-  const [errorVerify, setErrorVerify] = useState({error: true, message: 'Введите цифры'}),
-    {openConfirmNum, setOpenConfirmNum, phoneNum, sendData} = useContext(RegistrationCTX);
+  const methods = useForm();
+  const smsRef1 = useRef()
+  const smsRef2 = useRef()
+  const smsRef3 = useRef()
+  const smsRef4 = useRef()
+  const [allSms, setAllSms] = useState('');
+  const [error, setError] = useState(false);
+  const {openConfirmNum, setOpenConfirmNum, phoneNum, sendData} = useContext(RegistrationCTX);
+  // const [errorVerify, setErrorVerify] = useState(),
+
+  // const [value1, setValue1] = useState('');
+  // const [value2, setValue2] = useState('');
+  // const [value3, setValue3] = useState('');
+  // const [value4, setValue4] = useState('');
+  // const [valueAll, setValueAll] = useState('');
+
 
   const regUser = () => {
     getDataByPost('/api/setApi', {...sendData, ...SecretData(sendData)}).then((r) => {
@@ -81,33 +102,130 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
   }
 
 
+  // useEffect(() => {
+  //   setValueAll(`${value1}${value2}${value3}${value4}`)
+  // }, [value1, value2, value3, value4]);
+
+  // const jump = (field, autoMove) => {
+  //   if (value1.length >= 1) {
+  //     document.getElementById(autoMove).focus();
+  //   }
+  // }
+
   useEffect(() => {
-    setValueAll(`${value1}${value2}${value3}${value4}`)
-  }, [value1, value2, value3, value4]);
-
-
-  const jump = (field, autoMove) => {
-    if (value1.length >= 1) {
-      document.getElementById(autoMove).focus();
+    if (methods.watch('smsValue1') && methods.watch('smsValue2') && methods.watch('smsValue3') && methods.watch('smsValue4')) {
+      setAllSms(`${methods.watch('smsValue1')}${methods.watch('smsValue2')}${methods.watch('smsValue3')}${methods.watch('smsValue4')}`);
+    } else {
+      if (allSms) setAllSms('');
+      if (error) setError(false);
     }
-  }
+  }, [methods.watch('smsValue1'), methods.watch('smsValue2'), methods.watch('smsValue3'), methods.watch('smsValue4')]);
 
+
+
+  const changeSmsInput = (value, field, onChange ) => {
+
+    // console.log(+value + 0);
+    // console.log(isNaN(+value + 0));
+
+    if (!value.length) {
+      onChange(value);
+    } else {
+      onChange(value[value.length - 1]);
+    }
+
+    if (value.length) {
+      switch (field) {
+        case 1:
+          smsRef2.current.focus();
+          smsRef2.current.select();
+          break;
+        case 2:
+          smsRef3.current.focus();
+          smsRef3.current.select();
+          break;
+        case 3:
+          smsRef4.current.focus();
+          smsRef4.current.select();
+          break;
+      }
+    }
+  };
+
+  const handleKeyDown = (e, inputNumber) => {
+    if (e.key === 'ArrowLeft') {
+      if (inputNumber === 2) {
+        smsRef1.current.focus();
+      }
+      if (inputNumber === 3) {
+        smsRef2.current.focus();
+      }
+      if (inputNumber === 4) {
+        smsRef3.current.focus();
+      }
+    }
+
+    if (e.key === 'ArrowRight') {
+      if (inputNumber === 1) {
+        smsRef2.current.focus();
+      }
+      if (inputNumber === 2) {
+        smsRef3.current.focus();
+      }
+      if (inputNumber === 3) {
+        smsRef4.current.focus();
+      }
+    }
+
+    if (e.key === 'Backspace') {
+      if (inputNumber === 4) {
+        methods.setValue('smsValue4', '');
+        smsRef4.current.select();
+        setTimeout(function () {
+          smsRef3.current.focus();
+          smsRef3.current.select();
+        }.bind(this), 10);
+      }
+
+      if (inputNumber === 3) {
+        smsRef3.current.select();
+        setTimeout(function () {
+          smsRef2.current.focus();
+          smsRef2.current.select();
+        }.bind(this), 10);
+      }
+
+      if (inputNumber === 2) {
+        smsRef2.current.select();
+        setTimeout(function () {
+          smsRef1.current.focus();
+          smsRef1.current.select();
+        }.bind(this), 10);
+      }
+
+      if (inputNumber === 1) {
+        smsRef1.current.select();
+      }
+    }
+  };
+
+  console.log('resetPhone',resetPhone)
 
   const verifyNumber = () => {
-    // if (valueAll === String(phoneNum).slice(-4)) {
-    // 	setErrorVerify({ error: false, message: 'Код совпал' });
+    // if (allSms === String(phoneNum).slice(-4)) {
+    // 	setError({ error: false, message: 'Код совпал' });
     // 	regUser();
     // } else {
-    // 	setErrorVerify({ error: true, message: 'Неверный код подтверждения' })
+    // 	setError({ error: true, message: 'Неверный код подтверждения' })
     //
     // }
 
-    if (valueAll.length === 4) {
-      getDataByPost('/api/checkphone', {"phone": resetPhone ? resetPhone : phoneNum, "code": valueAll})
+    if (allSms.length === 4) {
+      getDataByPost('/api/checkphone', {"phone": resetPhone ? resetPhone : phoneNum, "code": allSms})
         .then(r => {
-
+          console.log('r.........>>>>>>>>',r)
           if (r?.message === 'time error') {
-            setErrorVerify({error: true, message: 'Превышено количество попыток, повторите позже'})
+            setError({error: true, message: 'Превышено количество попыток, повторите позже'})
           }
 
 
@@ -118,11 +236,14 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
               changePassword(r.authToken)
             }
           } else {
-            setErrorVerify({error: true, message: 'Неверный код подтверждения'})
+            setError({error: true, message: 'Неверный код подтверждения'})
           }
         })
     }
   }
+
+  console.log('allSms',allSms)
+
   return (
     <Dialog open={openConfirmNum || registrantion || false} onClose={() => onClose ? onClose() : setOpenConfirmNum(!openConfirmNum)} fullWidth maxWidth="sm">
       <Box className={classes.submitNumber}>
@@ -131,27 +252,89 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
         </Typography>
         <Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок.<br/> Пожалуйста
           введите последние 4 цифры <br/> звонящего номера в поле ниже.</Typography>
-        {/*<TextField className={classes.inputSubmit} onInput={(e) => verifyNumber(e)} label='4 последние цифры' variant="outlined" size='small' type='text' error={errorVerify.error} helperText={errorVerify.message}></TextField>*/}
         <Box className={classes.inputBlock}>
-          <TextField className={classes.inputSubmit1} id="01" onKeyUp={() => jump(value1, '02')}
-                     InputProps={{disableUnderline: value1.length > 0, maxLength: 1}}
-                     onChange={(e) => setValue1(e.target.value)} type='text' error={errorVerify.error}
-                     helperText={valueAll.length !== 4 && errorVerify.message}/>
-          <TextField className={classes.inputSubmit1} id="02" onKeyUp={() => jump(value2, '03')}
-                     InputProps={{disableUnderline: value2.length > 0, maxLength: 1}}
-                     onChange={(e) => setValue2(e.target.value)} type='text' error={errorVerify.error}/>
-          <TextField className={classes.inputSubmit1} id="03" onKeyUp={() => jump(value3, '04')}
-                     InputProps={{disableUnderline: value3.length > 0, maxLength: 1}}
-                     onChange={(e) => setValue3(e.target.value)} type='text' error={errorVerify.error}/>
-          <TextField className={classes.inputSubmit1} id="04"
-                     InputProps={{disableUnderline: value4.length > 0, maxLength: 1}}
-                     onChange={(e) => setValue4(e.target.value)} type='text' error={errorVerify.error}/>
+
+          <FormGroup className={classes.formGroup}>
+            <Controller
+                name='smsValue1'
+                control={methods.control}
+                defaultValue=''
+                render={({field: {onChange, value}}) => (
+                    <TextField
+                        className={classes.formItem}
+                        size='small'
+                        variant='outlined'
+                        type={'tel'}
+                        autoFocus={true}
+                        onKeyDown={(e) => handleKeyDown(e, 1) }
+                        inputRef={smsRef1}
+                        value={value}
+                        inputProps={{maxLength: 1}}
+                        onChange={(e) => changeSmsInput(e.target.value, 1,onChange)}
+                    />
+                )}/>
+            <Controller
+                name='smsValue2'
+                control={methods.control}
+                defaultValue=''
+                render={({field: {onChange, value}}) => (
+                    <TextField
+                        className={classes.formItem}
+                        size='small'
+                        variant='outlined'
+                        type={'tel'}
+                        onKeyDown={(e) => handleKeyDown(e, 2) }
+                        inputRef={smsRef2}
+                        value={value}
+                        inputProps={{maxLength: 1}}
+                        onChange={(e) => changeSmsInput(e.target.value, 2,onChange)}
+                    />
+                )}/>
+            <Controller
+                name='smsValue3'
+                control={methods.control}
+                defaultValue=''
+                render={({field: {onChange, value}}) => (
+                    <TextField
+                        className={classes.formItem}
+                        size='small'
+                        variant='outlined'
+                        type={'tel'}
+                        onKeyDown={(e) => handleKeyDown(e, 3) }
+                        inputRef={smsRef3}
+                        value={value}
+                        inputProps={{maxLength: 1}}
+                        onChange={(e) => changeSmsInput(e.target.value, 3, onChange)}
+                    />
+                )}/>
+            <Controller
+                name='smsValue4'
+                control={methods.control}
+                defaultValue=''
+                render={({field: {onChange, value}}) => (
+                    <TextField
+                        className={classes.formItem}
+                        size='small'
+                        type={'tel'}
+                        inputRef={smsRef4}
+                        onKeyDown={(e) => handleKeyDown(e, 4) }
+                        variant='outlined'
+                        value={value}
+                        inputProps={{maxLength: 1}}
+                        onChange={(e) => changeSmsInput(e.target.value, 4, onChange)}
+                    />
+                )}/>
+          </FormGroup>
         </Box>
+          {error && <Typography className={classes.error} variant='h6'>Неверный код подтвержения</Typography>}
         <Button
-          onClick={() => verifyNumber(valueAll)}
+          onClick={() => verifyNumber(allSms)}
           variant="text"
           size="large"
           color="primary"
+          className={allSms.length ? 'active' : 'disabled'}
+          // onClick={handleCheckCallPhone}
+          disabled={Boolean(!allSms)}
         >
           {registrantion ? 'Продолжить': 'Зарегистрироваться'}
         </Button>
