@@ -129,6 +129,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Auto({ data }) {
 
+    console.log('data',data)
+
     const classes = useStyles();
     const methods = useFormContext();
     const [mark, setMark] = useState(),
@@ -663,6 +665,34 @@ export default function Auto({ data }) {
                                                         helperText={error ? error.message : ' '}
                                                         inputProps={
                                                             {maxlength: 2}
+                                                        }>
+                                                    </TextField>
+                                                )}
+                                                rules={{required: 'Заполните ' + item.name}}
+                                            />
+                                        </Box>
+                                    </Box>)
+                            )
+                        } else if (item.alias === 'mileage') {
+                            return (
+                                fullDescription && (
+                                    <Box key={item.name} className={classes.formInputMainField}>
+                                        <Typography className={classes.formTitleField}>{item.name}</Typography>
+                                        <Box className={classes.formInputField}>
+                                            <Controller
+                                                name={item.alias}
+                                                control={methods.control}
+                                                render={({field: {onChange, value}, fieldState: {error}}) => (
+                                                    <TextField
+                                                        className={classes.input}
+                                                        variant='outlined'
+                                                        value={value}
+                                                        onKeyDown={e => cursorReplace(e, item.name)}
+                                                        onChange={e => onChange(OnlyNumbersMask(e, item.name))}
+                                                        error={!!error}
+                                                        helperText={error ? error.message : ' '}
+                                                        inputProps={
+                                                            {maxlength: 11}
                                                         }>
                                                     </TextField>
                                                 )}

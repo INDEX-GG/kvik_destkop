@@ -13,6 +13,9 @@ const useClass = makeStyles(() => ({
 
 
 const InfoItem = ({name, desc, mobile}) => {
+
+  console.log('name, desc, mobile ===>',name, desc, mobile)
+
   const classes = useClass()
 
   if(name === 'Цвет:') {

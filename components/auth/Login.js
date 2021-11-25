@@ -15,9 +15,9 @@ import { useMedia } from "../../hooks/useMedia";
 import { useStore } from "../../lib/Context/Store";
 import {getDataByPost, getTokenDataByPost} from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
-import {Checkbox} from "@material-ui/core";
-import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
-import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
+// import {Checkbox} from "@material-ui/core";
+// import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
+// import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 import {SecretData, SecretPassword} from "../../lib/SecretData";
 import ConfirmNumber from "./ConfirmNumber";
 
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
   passwordActionBlock: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     width: "auto",
   },
   rememberPasswordCheck: {
@@ -381,16 +381,16 @@ const Login = () => {
                 {/*</Box>*/}
 
                 <div className={classes.passwordActionBlock}>
-                  <Checkbox
-                    className={classes.rememberPasswordCheck}
-                    color="primary"
-                    value=""
-                    icon={<FiberManualRecordOutlinedIcon/>}
-                    checkedIcon={<FiberManualRecordSharpIcon/>}
-                  />
-                  <button  className={classes.rememberPassword} >
-                    Запомнить пароль
-                  </button>
+                  {/*<Checkbox*/}
+                  {/*  className={classes.rememberPasswordCheck}*/}
+                  {/*  color="primary"*/}
+                  {/*  value=""*/}
+                  {/*  icon={<FiberManualRecordOutlinedIcon/>}*/}
+                  {/*  checkedIcon={<FiberManualRecordSharpIcon/>}*/}
+                  {/*/>*/}
+                  {/*<button  className={classes.rememberPassword} >*/}
+                  {/*  Запомнить пароль*/}
+                  {/*</button>*/}
                   <button onClick={handleClickResetPassword}  className={classes.forgotPassword} >
                     Забыли пароль?
                   </button>
