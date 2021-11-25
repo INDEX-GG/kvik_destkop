@@ -82,6 +82,8 @@ const Product = () => {
   const [lastIdAds, setLastIdAds] = useState(0);
   const limit = 10
 
+  const scrollData = {id, isAuth, page, limit, setData, setLastIdAds}
+
   useEffect(() => {
     scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
     // не удалять:)
@@ -89,7 +91,7 @@ const Product = () => {
   }, [page])
 
   useEffect(() => {
-    firstAds(id, isAuth, page, limit, setData, setLastIdAds)
+    firstAds(scrollData)
   }, [id]);
 
   // const [collSO, setCollSO] = useState(true);
