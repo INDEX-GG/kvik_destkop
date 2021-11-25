@@ -63,7 +63,7 @@ export default async function handler(req, res) {
                     verify_moderator: { "verify": [] },
                     coordinates: req.body.coordinates,
                     city: req.body.city,
-                    photo: {"photos": [req.body.photo]}
+                    photo: "{\"photos\":[\"images/po/7c/21/31/ba/1ac5fb16b8a7837cf94d0565c44bb20211125143925761010.webp\"]}"
                 }
             }
             const allUsers = await prisma.posts.create(obj);
