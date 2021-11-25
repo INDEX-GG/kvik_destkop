@@ -22,6 +22,7 @@ import axios from 'axios';
 import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 import {useStore} from "../lib/Context/Store";
 import {getTokenDataByPost} from "../lib/fetch";
+import {generateCity} from "../lib/services";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -160,8 +161,17 @@ function PlaceOffer() {
 
         // rooms 'real_estate', 'real_estate_abroad', type_of_abroad_property
 
-        if (data?.location?.data?.city_kladr_id) data.city = data.location.data.city_kladr_id
-        if (!data?.location?.data?.city_kladr_id && data?.location?.data?.settlement_kladr_id) data.city = data.location.data.settlement_kladr_id
+        // if (data?.location?.data?.city_kladr_id) data.city = data.location.data.city_kladr_id
+        // if (!data?.location?.data?.city_kladr_id && data?.location?.data?.settlement_kladr_id) data.city = data.location.data.settlement_kladr_id
+
+        data.city = generateCity(data.location)
+
+        // ПРИННУДИТЕЛЬНЫЙ ВЫХОД
+        if (!data.city) {
+            console.log(methods)
+            methods.setError('location', 'Введите корректный адрес')
+            return
+        }
 
 
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([...userInfo?.location?.geo])

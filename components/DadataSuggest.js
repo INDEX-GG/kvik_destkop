@@ -13,6 +13,9 @@ const useStyles = makeStyles(() => ({
 		fontSize: '12px',
 		color: '#C7C7C7',
 		margin: '2px 0 16px'
+	},
+	mapError: {
+		color: 'red'
 	}
 }))
 
@@ -110,7 +113,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 				   pattern: {value: invalidСharacterLocation() , message: 'Недопустимые символы' },
 			   }}
             />
-			{error ? <div className={classes.mapDesc}>Введите корректный адрес</div> : <div className={classes.mapDesc}>Введите название и Выберите из списка населенный пункт и улицу</div>}
+			{error || methods.formState.errors?.location ? <div className={`${classes.mapDesc} ${classes.mapError}`}>Введите корректный адрес</div> : <div className={classes.mapDesc}>Введите название и Выберите из списка населенный пункт и улицу</div>}
 			<ProductYMAP 
 			  height={mobile ? 400 : 224} 
 			  width={490} 
