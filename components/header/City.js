@@ -127,10 +127,10 @@ export default function City({dialog, setDialog}) {
   const handleChange = (suggestion) => {
     let fullCity = ''
     const data = suggestion.data
-    const area = data.area ? `,${data.area}` : '';
-    const city = data.city ? `,${data.city}` : '';
-    const settlement = data.settlement ? `,${data.settlement}` : '';
-    fullCity += `${data.country_iso_code},${data.region_iso_code}${area}${city}${settlement}`
+    const area = data.area ? `$${data.area}` : '';
+    const city = data.city ? `$${data.city}` : '';
+    const settlement = data.settlement ? `$${data.settlement}` : '';
+    fullCity += `${data.country_iso_code}$${data.region_iso_code}${area}${city}${settlement}`
     const geo = [data.geo_lat, data.geo_lon]
     const name = suggestion.value
 
@@ -153,7 +153,7 @@ export default function City({dialog, setDialog}) {
             containerClassName={classes.cityInput}
             token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
             onChange={handleChange}
-            filterFromBound='city'
+            filterFromBound='city-region'
             filterToBound='settlement'
             count={5}
             defaultQuery={userInfo?.location?.name}
