@@ -73,7 +73,7 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
   const [allSms, setAllSms] = useState('');
   const [error, setError] = useState(false);
   const {openConfirmNum, setOpenConfirmNum, phoneNum, sendData} = useContext(RegistrationCTX);
-  // const [errorVerify, setErrorVerify] = useState(),
+
 
   // const [value1, setValue1] = useState('');
   // const [value2, setValue2] = useState('');
@@ -89,7 +89,6 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
         case 'user created':
           return (
             getDataByPost('/api/checkUser', SecretData({phone: sendData.phone, password: sendData.password})).then(() => (
-              // getDataByPost('/api/login', {id: r.id, RefreshAuthToken: res?.RefreshAuthToken }).then(() => signIn()),	//session//authCtx
               signIn(),
               storeUser(r.id)
             ))
@@ -101,17 +100,6 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
     setOpenConfirmNum(!openConfirmNum);
   }
 
-
-  // useEffect(() => {
-  //   setValueAll(`${value1}${value2}${value3}${value4}`)
-  // }, [value1, value2, value3, value4]);
-
-  // const jump = (field, autoMove) => {
-  //   if (value1.length >= 1) {
-  //     document.getElementById(autoMove).focus();
-  //   }
-  // }
-
   useEffect(() => {
     if (methods.watch('smsValue1') && methods.watch('smsValue2') && methods.watch('smsValue3') && methods.watch('smsValue4')) {
       setAllSms(`${methods.watch('smsValue1')}${methods.watch('smsValue2')}${methods.watch('smsValue3')}${methods.watch('smsValue4')}`);
@@ -120,7 +108,6 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
       if (error) setError(false);
     }
   }, [methods.watch('smsValue1'), methods.watch('smsValue2'), methods.watch('smsValue3'), methods.watch('smsValue4')]);
-
 
 
   const changeSmsInput = (value, field, onChange ) => {
@@ -209,7 +196,6 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
     }
   };
 
-  console.log('resetPhone',resetPhone)
 
   const verifyNumber = () => {
     // if (allSms === String(phoneNum).slice(-4)) {
@@ -223,7 +209,6 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
     if (allSms.length === 4) {
       getDataByPost('/api/checkphone', {"phone": resetPhone ? resetPhone : phoneNum, "code": allSms})
         .then(r => {
-          console.log('r.........>>>>>>>>',r)
           if (r?.message === 'time error') {
             setError({error: true, message: 'Превышено количество попыток, повторите позже'})
           }
@@ -242,7 +227,6 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
     }
   }
 
-  console.log('allSms',allSms)
 
   return (
     <Dialog open={openConfirmNum || registrantion || false} onClose={() => onClose ? onClose() : setOpenConfirmNum(!openConfirmNum)} fullWidth maxWidth="sm">
