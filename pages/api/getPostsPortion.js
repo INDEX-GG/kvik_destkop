@@ -33,7 +33,6 @@ export default async function handler(req, res) {
                     sort_value = ''
                     break;
             }
-            console.log(sort_value);
             const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing, posts.city FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE active = 0 AND verify = 0  AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '%${region_excludes}' ${sort_value} LIMIT ${page_limit} offset ${page}`)
 
 

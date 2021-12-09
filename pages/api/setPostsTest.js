@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import {Pool} from "pg";
 
 const text2Bool = (string) => {
     return (string === 'true') || (string === true);
@@ -6,6 +7,7 @@ const text2Bool = (string) => {
 export default async function handler(req, res) {
     if (req.method === 'POST') {
 
+        var data = req.body
 
         const prisma = new PrismaClient();
 
@@ -14,9 +16,6 @@ export default async function handler(req, res) {
                 phone: text2Bool(req.body.byphone),
                 message: text2Bool(req.body.bymessages)
             }
-
-
-
             const alias = (req.body.alias).toString()
             var now = new Date()
             const obj = {
@@ -66,7 +65,19 @@ export default async function handler(req, res) {
             res.end(JSON.stringify(response))
         }
         catch (e) {
-            console.error(`ошибка api setPosts${e}`)
+            try {
+                const pool = new Pool({ connectionString: "postgresql://kvik:2262@192.168.145.183:5432/kvik_reports?schema=public" });
+                data = JSON.stringify(data)
+                data = "'[" + data + "]'"
+                const error = "'[" + e.toString().replace(/"/g, '""').replace(/'/g, "''") + "]'"
+                const time = "'[" + new Date().toISOString() + "]'"
+                await pool.query(`INSERT INTO "public"."posts_reports" (request_body, time, error) VALUES (${data}, ${time}, ${error})`)
+                await pool.end();
+            } catch (e) {
+                console.error(` --- ошибка Записи posts_reports лога! --- `)
+            }
+            // console.error(`ошибка api setPosts: ${e}`)
+            console.log(`Ошибка api setPostsTest, логи в бд`)
             res.json('ошибка api setPosts', e)
             res.status(405).end();
         }
