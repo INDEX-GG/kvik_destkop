@@ -222,8 +222,9 @@ const PhotoForEditPage = ({ctx, photo}) => {
 
         // val = [2,3,4,5] old = [1,2,3] new = [123 45]
         // val = [2,3,5] old = [1,2,3,4,5] new = [1,2,3,4,5 ]
-
-        setOldPhotosAndNewObjectsPhotos([...oldPhotosAndNewObjectsPhotos, ...validFiles.filter(item => oldPhotosAndNewObjectsPhotos.indexOf(item) === -1)])
+        const commonArr = [...oldPhotosAndNewObjectsPhotos, ...validFiles.filter(item => oldPhotosAndNewObjectsPhotos.indexOf(item) === -1)].slice(0, 20)
+        // setOldPhotosAndNewObjectsPhotos([...oldPhotosAndNewObjectsPhotos, ...validFiles.filter(item => oldPhotosAndNewObjectsPhotos.indexOf(item) === -1)])
+        setOldPhotosAndNewObjectsPhotos(commonArr)
     }, [validFiles])
 
 
@@ -244,7 +245,6 @@ const PhotoForEditPage = ({ctx, photo}) => {
                     }
                     return [...img]
                 });
-
             };
         });
     }, [validFiles]);
@@ -278,6 +278,13 @@ const PhotoForEditPage = ({ctx, photo}) => {
         }
     };
     const filesSelected = () => {
+        if(oldPhotosAndNewObjectsPhotos.length >= 20) {
+            methods.setError("photoes", {
+                type: "string",
+                message: "Вы пытаетесь загрузить более 20 фотографий",
+              })
+              return
+        }
         if (fileInputRef.current.files.length) {
             handleFiles(fileInputRef.current.files);
         }
@@ -286,6 +293,9 @@ const PhotoForEditPage = ({ctx, photo}) => {
         fileInputRef.current.click();
     };
     const handleFiles = (files) => {
+        if(oldPhotosAndNewObjectsPhotos.length >= 20) {
+            return
+        }
         for (let i = 0; i < files.length; i++) {
             if (validateFile(files[i])) {
                 const reader = new FileReader();
@@ -378,6 +388,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
     ctx(oldPhotosAndNewObjectsPhotos);
 
     const SortableList = SortableContainer(({items}) => {
+
 
             return (
                 <div className={classes.drag}>

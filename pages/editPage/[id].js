@@ -21,6 +21,7 @@ import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
 import {useProductEditPhoto} from "../../hooks/useProductEditPhoto";
 import {getDataByPost} from "../../lib/fetch";
+// import { useStore } from '../../lib/Context/Store';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
