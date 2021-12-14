@@ -160,8 +160,6 @@ const autoData = [
 ]
 const ProductAutoInformation = ({data, mobile, description}) => {
     const classes = useClass()
-    console.log(description, 'description')
-    console.log(data, 'data')
     // if (data)
     return (
         data.vine === undefined  ? <ProductInformationPlaceHolder/> :
