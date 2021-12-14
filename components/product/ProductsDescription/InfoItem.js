@@ -14,7 +14,7 @@ const useClass = makeStyles(() => ({
 
 const InfoItem = ({name, desc, mobile}) => {
 
-  console.log('name, desc, mobile ===>',name, desc, mobile)
+  // console.log('name, desc, mobile ===>',name, desc, mobile)
 
   const classes = useClass()
 
@@ -78,17 +78,20 @@ const InfoItem = ({name, desc, mobile}) => {
   }
 
 
-
-  return <div style={ {
-    display: 'flex',
-    alignItems: name === 'Цвет:'? "center" : "flex-start",
-    width: mobile ? '50%' : "100%",
-    padding: "10px 0",
-
-  }}>
-    <div className={classes.title}>{name}</div>
-    <pre className={classes.content}>{desc}</pre>
-  </div>
+  return (
+    <>
+      {desc && <div style={ {
+        display: 'flex',
+        alignItems: name === 'Цвет:'? "center" : "flex-start",
+        width: mobile ? '50%' : "100%",
+        padding: "10px 0",
+      }}>
+        <div className={classes.title}>{name}</div>
+        <pre className={classes.content}>{desc}</pre>
+      </div>}
+    </>
+  )
+  
 }
 
 export default InfoItem
