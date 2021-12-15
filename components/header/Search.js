@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
 		position: 'relative',
 		flexGrow: 1,
 		'& input': {
-			padding: '7px 24px',
+			padding: '8px 24px',
 		}
     },
     icon: {

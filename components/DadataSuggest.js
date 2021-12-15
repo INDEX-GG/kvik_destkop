@@ -34,7 +34,6 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 
 	const userAddressName = userInfo?.location?.name
 
-	console.log(userAddressName)
 
 	const userAddressGeo = userInfo?.location?.geo
 
@@ -58,7 +57,6 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 			.then(result => {
 				prevValue.current = value
 				if (result?.suggestions[0] !== undefined) {
-					console.log(result?.suggestions[0])
 					setValue(result?.suggestions[0])
 					onChange(result?.suggestions[0])
 					setError(false)
@@ -88,6 +86,8 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 					minChars={3}
 					delay={5}
 					value={value}
+					filterFromBound='city-region'
+					filterToBound='house'
 					// defaultQuery={address || userInfo?.location?.name}
 					// containerClassName='productInputMap'
 					onChange={(e) => {

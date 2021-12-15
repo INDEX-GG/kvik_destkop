@@ -64,9 +64,19 @@
 }
 
 .messageStatus {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  right: 4px;
+
   font-size: 10px;
-  color: #000000;
+  // color: #000000;
+  color: #8F8F8F;
   text-align: right;
+
+  & svg {
+    margin-left: 2px;
+  }
 }
 
 .messageDiaCheck {
@@ -143,8 +153,8 @@
   display: flex;
   flex-direction: row;
   padding: 4px 0;
-  border-top: 1px solid $light;
-  border-bottom: 1px solid $light;
+  // border-top: 1px solid $light;
+  // border-bottom: 1px solid $light;
 }
 
 .messageHeader > img {
@@ -193,14 +203,14 @@
 }
 
 .messageChats {
-  width: 98%;
+  // width: 98%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 16px 10px 16px 0;
+  // padding: 16px 10px 16px 0;
   max-height: 450px;
   flex-grow: 1;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   overflow-x: hidden;
 }
 
@@ -236,11 +246,13 @@
   margin: 6px 0;
 }
 .chatCompanion {
+  display: flex;
   align-self: flex-start;
   margin: 10px 0;
 }
 
 .chatCompanion > img {
+  margin-right: 6px;
   min-width: 32px;
   max-width: 32px;
   height: 32px;
@@ -265,7 +277,17 @@
 }
 
 .chatUser {
+  position: relative;
   align-self: flex-end;
+  // 
+}
+
+.chatItem {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.17;
+  color: #2C2C2C;
+
 }
 
 .messageMoreOptions {
@@ -360,7 +382,8 @@
 .messageFile {
   width: 24px;
   height: 24px;
-  background: no-repeat center center url(../../../icons/plus_grey.svg);
+  // background: no-repeat center center url(../../../icons/plus_grey.svg);
+  background: no-repeat center center url(../../../icons/plus_grey_v2.svg);
   transition: all 250ms ease-in-out;
 }
 
