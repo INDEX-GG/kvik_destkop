@@ -53,11 +53,11 @@ export default function ProductAction(data) {
                 <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
                 <ProductDeal id={id} sellerID={user_id}>
                   <ProductButton 
-				    className="SellerInfoMess button contained" 
-				    title='Написать продавцу'
-					onClick={() => data?.createChat()}
-				    icon={<IconMess/>}
-					/>
+                    className="SellerInfoMess button contained" 
+                    title='Написать продавцу'
+                    onClick={() => data?.createChat()}
+                    icon={<IconMess/>}
+                    />
                   <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
                 </ProductDeal>
                   {objP.adstatus && data.delivery && <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction}

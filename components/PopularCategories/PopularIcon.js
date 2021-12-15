@@ -46,8 +46,8 @@ const PopularIcon = (icon) => {
 	return (
 		<button
 			className={classes.root}
-			onMouseEnter={() => setHover(!hover)}
-			onMouseLeave={() => setHover(!hover)}
+			onMouseEnter={() => setHover(true)}
+			onMouseLeave={() => setHover(false)}
 		>
 			<Box className={classes.icon}>{icon?.icon.icon}</Box>
 			<Box className={classes.bg}>

@@ -10,8 +10,10 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, setOpenOffe
 	return (
 		mobile ? '' : (
           sellerId == undefined ?
-            <div className='product__placeholder_ProductAction_main'><div className="placeholder_animation product__placeholder_ProductAction_two "></div>
-              <div className="placeholder_animation product__placeholder_ProductAction_two_tow "></div> </div> :
+            <div className='product__placeholder_ProductAction_main'>
+              <div className="placeholder_animation product__placeholder_ProductAction_two "></div>
+              <div className="placeholder_animation product__placeholder_ProductAction_two_tow "></div> 
+            </div> :
             <>
               {/* {sellerId !== id && <div className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")} >Купить</div>} */}
 			  {sellerId !== id && <ProductButton className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")}  title='Купить'/>}

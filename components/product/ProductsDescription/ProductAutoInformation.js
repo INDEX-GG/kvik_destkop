@@ -13,7 +13,7 @@ const useClass = makeStyles(() => ({
         flexWrap: 'wrap',
         maxHeight: 420,
         fontSize: 14,
-        padding: "10px 0"
+        padding: "10px 0",
     },
     title: {
         color: "#8F8F8F",
@@ -160,7 +160,7 @@ const autoData = [
 ]
 const ProductAutoInformation = ({data, mobile, description}) => {
     const classes = useClass()
-
+    // if (data)
     return (
         data.vine === undefined  ? <ProductInformationPlaceHolder/> :
             <>
@@ -206,8 +206,10 @@ const ProductAutoInformation = ({data, mobile, description}) => {
                             gridTemplateColumns: mobile ? "repeat(2, 1fr)" : "repeat(1, 1fr)",
                             width: "70%"
                         }}
-                    >{data[el.alias].split(',').map((des, key) => <div className={classes.descriptionItem}
-                                                                       key={key}>{des}</div>)}</div>
+                    >
+                        {data[el.alias].split(',').map((des, key) => <div className={classes.descriptionItem}
+                            key={key}>{des}</div>)}
+                    </div>
                 </div> : null))}
 
 

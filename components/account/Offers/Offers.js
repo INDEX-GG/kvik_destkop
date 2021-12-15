@@ -18,13 +18,20 @@ const Offers = () => {
   const router = useRouter();
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
 
-  // console.log(userAccountProvider);
 
   useEffect(() => {
     if (userAccountProvider?.length > 0) {
       // Активные объявления
       //setActiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0));
-      setActiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0));
+      const verifyOffers = userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0)
+      const sortedArray = [...verifyOffers].sort((prev, next) =>  {
+        const prevDate = Date.parse(prev.created_at)
+        const nextDate = Date.parse(next.created_at)
+        return nextDate - prevDate
+      })
+      setActiveOffersBox(sortedArray)
+      // setActiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0));
+      
       // Ждут действия
       //setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5));
       setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 1 || offer.verify === 2));
