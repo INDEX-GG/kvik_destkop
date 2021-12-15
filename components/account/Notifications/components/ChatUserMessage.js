@@ -46,21 +46,21 @@ const ChatUserMessage = (
   // Генерирует задний фон сообзениям
   // пока закомментил потому что фон всегда одного цвета.
   // 
-  // const generateBackgroundMessage = (senderId, read, offline) => {
-  //   if (senderId === id) {
+  const generateBackgroundMessage = (senderId, read, offline) => {
+    if (senderId === id) {
 
-  //     if (offline) {
-  //       return '#f23022'
-  //     }
+      if (offline) {
+        return '#f23022'
+      }
 
-  //     if (userOnline) {
-  //       return '#e9e9e9'
-  //     } else {
-  //       if (!read) return '#02bac7'
-  //       return '#e9e9e9'
-  //     }
-  //   }
-  // }
+      if (userOnline) {
+        return '#e9e9e9'
+      } else {
+        if (!read) return 'rgba(208, 237, 239, .5)'
+        return 'rgba(208, 237, 239, .5)'
+      }
+    }
+  }
 
   // Генерирует статус сообщениям
   const generateMessageStatus = (senderId, read, offline = false) => {
@@ -95,7 +95,7 @@ const ChatUserMessage = (
               <ChatDefaultAvatar name={userChatName}/>
         }
         <div style={{
-          backgroundColor: '#D0EDEF',
+          backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read, item?.offline),
           transition: '.1s all linear'
         }}>
             {generateMessage(item?.message)}
