@@ -108,13 +108,21 @@ const ChatAllRoom = ({allRooms, setData}) => {
                           <div className="light">{time}</div>
                         </div>
                       </div>
-                      {senderMessage ? senderMessage?.img ?
+                      {senderMessage ? 
+                      senderMessage?.img ?
                           <div className='light messageMiniatureBlock'>
                             <span>Фотография: </span>
                             <img src={senderMessage.src} alt='miniatureImg'  className="messageMiniatureImg"/>
                           </div>:
                           <div className="light">{ellipsis(senderMessage, 20)}</div> : null
                       }
+
+                      {/* стили для мобильной верстки, ждут пока подвяжем логику */}
+                      {/* <p className='previewPrice'>30 000 Р/Мес</p>
+                      <p className='previewDesc'>2-х комнатная квартира, 95 м</p>
+                      <p className='previewMessage'>Здравствуйте подскажите пожал</p> */}
+                      {/* стили для мобильной верстки, ждут пока подвяжем логику */}
+                      
                     </div>
                   </a>
               )

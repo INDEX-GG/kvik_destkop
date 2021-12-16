@@ -332,11 +332,13 @@ li {
 
 .SellerInfoFavorite {
   cursor: pointer;
-  margin: 0 18px 0 16px;
+  // margin: 0 18px 0 16px;
   display: inline-block;
-  width: 24px;
-  height: 24px;
-  background: no-repeat center center url(../../icons/like_dark.svg);
+  width: 50px;
+  height: 50px;
+  // background: no-repeat center center url(../../icons/like_dark.svg);
+  background: no-repeat url(../../icons/new_like_icon.svg);
+  background-position: center;
   transition: all 300ms ease-in-out;
 
   &:hover {

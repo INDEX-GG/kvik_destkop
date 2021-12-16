@@ -56,8 +56,8 @@ const ChatUserMessage = (
       if (userOnline) {
         return '#e9e9e9'
       } else {
-        if (!read) return 'rgba(208, 237, 239, 0.5)'
-        return 'rgba(208, 237, 239, 0.5)'
+        if (!read) return 'rgba(208, 237, 239, .5)'
+        return 'rgba(208, 237, 239, .5)'
       }
     }
   }
@@ -91,7 +91,8 @@ const ChatUserMessage = (
            className={myMessage ? "chatUser" : "chatCompanion"}>
         {myMessage ? null :
           morePartnerMessage && index - 1 >= 0 ? <div></div> :
-            userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+            // userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+            userChatPhoto ? <></> :
               <ChatDefaultAvatar name={userChatName}/>
         }
         <div style={{

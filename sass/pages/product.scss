@@ -3,7 +3,7 @@
 }
 .productPageContainer {
     max-width: 1280px;
-    padding: 0 12px;
+    // padding: 0 12px;
     margin: auto;
 }
 
@@ -31,6 +31,7 @@
 }
 
 .productPageDescription {
+    position: relative;
     margin-right: 30px;
     overflow: hidden;
     max-width: 620px;
@@ -521,6 +522,7 @@
 
 .productPage .swiper-container {
     margin-bottom: 4px;
+    padding: 0 12px;
     justify-content: center;
     z-index: 0 !important;
     border-radius: 2px;
@@ -534,7 +536,7 @@
 .mySwiper .swiper-slide img {
     object-fit: cover;
     width: 100%;
-    border-radius: 2px;
+    border-radius: 8px;
     height: 100%;
 }
 
@@ -647,9 +649,9 @@
     margin-bottom: 18px;
 }
 
-.ad__block_middle {
-    // margin-bottom: 40px;
-}
+// .ad__block_middle {
+//     // margin-bottom: 40px;
+// }
 
 .up_view_btn {
     width: 100%;
@@ -752,9 +754,9 @@
     justify-content: flex-end;
     margin-bottom: 60px;
 }
-.swiper-pagination {
-    // display: none;
-}
+// .swiper-pagination {
+//     // display: none;
+// }
 
 .ad__block_bottom__adaptive_right {
     display: flex;
@@ -850,9 +852,9 @@
         // margin-bottom: 0;
     }
 
-    .ad_btn_edit {
-        // margin: 8px 0;
-    }
+    // .ad_btn_edit {
+    //     // margin: 8px 0;
+    // }
 
     .ad__block_middle__description_service {
         margin-bottom: 18px;
@@ -968,9 +970,9 @@
         max-width: 100%;
         width: 100%;
     }
-    .productPageDescription .swiper-slide {
-        // width: 100% !important;
-    }
+    // .productPageDescription .swiper-slide {
+    //     // width: 100% !important;
+    // }
 
     .showsmthWrapper {
         margin: 47px 0 0 56px;
@@ -1009,7 +1011,7 @@
 
     .productPageContainer {
         grid-template-columns: 100%;
-        padding: 0 12px;
+        // padding: 0 12px;
     }
 
     .productPageSimilarOffers {
@@ -1028,8 +1030,11 @@
 @media (max-width: 959px) {
     .SellerInfoTopButtons {
         position: absolute;
-        right: 0;
-        padding: 8px 8px;
+        right: 20px;
+        top: 8px;
+        width: 76px;
+
+        // padding: 8px 8px;
     }
     .productPageDescription {
         margin: 0;
@@ -1128,6 +1133,7 @@
 @media (max-width: 483px) {
     .productPageTitle {
         font-size: 22px !important;
+        padding: 0 12px;
     }
     .productPageSimilarOffersContainer {
         grid-template-columns: repeat(1, 1fr);
