@@ -9,6 +9,7 @@ import { useAuth } from '../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import { useMedia } from '../../hooks/useMedia';
 import AccountContent from './AccountContent';
+import MobileMenu from '../../UI/icons/MobileMenu';
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -147,6 +148,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 				<List className="burgerContainer burgerAccount">
 					<div className={classes.accountBox}>
 						<div className={classes.accountTitle}>Личный кабинет</div>
+						<button className={classes.button} onClick={toggleDrawer("left", false)}><MobileMenu /></button>
 						<div onClick={toggleDrawer("left", false)} className={classes.accountIcon}></div>
 					</div>
 					{menuItems.map(item => (
@@ -215,8 +217,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 				<Avatar
 					className={classes.avatar}
 					src={userPhoto}
-					style={{ backgroundColor: `${stringToColor(name)}` }
-					}
+					style={{ backgroundColor: `${stringToColor(name)}` }}
 				>
 					{initials(name)}
 				</Avatar >

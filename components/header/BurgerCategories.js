@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-// import MobileMenu from '../../UI/icons/MobileMenu';
+import { makeStyles, Divider, Drawer } from '@material-ui/core';
+import MobileMenu from '../../UI/icons/MobileMenu';
 import CategoriesContent from './CategoriesContent';
 import { useCategory } from '../../hooks/useCategory';
-import MobileMenu from '../../UI/icons/MobileMenu';
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -36,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BurgerCategories() {
 	const classes = useStyles();
 	const { categoryMainAlias } = useCategory()
+	// eslint-disable-next-line no-unused-vars
 	const [state, setState] = useState({ left: false });
 
 
@@ -68,9 +66,9 @@ export default function BurgerCategories() {
 		<div className={classes.container}>
 			<React.Fragment key={"left"}>
 				<button className={classes.button} onClick={toggleDrawer("left", true)}><MobileMenu /></button>
-				{/* <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}> */}
+				<Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
 					{list("left")}
-				{/* </Drawer> */}
+				</Drawer>
 			</React.Fragment>
 		</div>
 	);

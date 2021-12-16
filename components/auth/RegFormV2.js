@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props 
  * @param {(arg: boolean) => void} props.changeAuthForm
  */
-const RegFormV2 = ({ changeAuthForm }) => {
+export function RegFormV2({ changeAuthForm }) {
 	const [sendData, setSendData] = useState({})
 	const [isPhoneValidation, switchValidationView] = useState(false)
 	const [phoneNum, setPhoneNum] = useState('')
@@ -270,5 +270,3 @@ const RegFormV2 = ({ changeAuthForm }) => {
 function formatPhoneNumber(phoneNumber) {
 	return `+${phoneNumber.replace(/\D+/g, "")}`
 }
-
-export default RegFormV2
