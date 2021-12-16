@@ -3,10 +3,8 @@ import { makeStyles, Avatar, Drawer } from "@material-ui/core";
 // import BurgerCategories from "./BurgerCategories";
 import HeaderAccount from "./HeaderAccount";
 import MobileMenu from '../../UI/icons/MobileMenu';
-// import Login from "../auth/Login";
-import { DialogCTX } from "../../lib/Context/DialogCTX";
-import Login from "../auth/Login";
-import ConfirmNumber from '../auth/ConfirmNumber';
+import { LoginV2 } from "../auth/LoginV2";
+import { RegFormV2 } from "../auth/RegFormV2";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	modal: {
 		width: "320px",
-		height: "70%",
+		height: "80%",
 		padding: "1.5em 1em",
 		[theme.breakpoints.down("480")]: {
 			marginBottom: '5px',
@@ -41,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 		height: "32px",
 		borderRadius: "4px"
 	},
-
 	avatar: {
 		width: "32px",
 		height: "32px",
@@ -61,15 +58,16 @@ const useStyles = makeStyles((theme) => ({
  * @param {API.User} [props.userInfo]
  */
 export const AuthHeader = (
-	{ 
-		isAuth, 
+	{
+		isAuth,
 		logFormState: [openLoginForm, setOpenLoginForm],
 		regFormState: [openRegForm, setOpenRegForm],
-		userInfo 
+		userInfo
 	}
 ) => {
 	const classes = useStyles();
 	const [modalState, setModalState] = useState({ left: false });
+	const [isRegForm, changeAuthForm] = useState(false)
 
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -79,7 +77,6 @@ export const AuthHeader = (
 		setModalState({ [anchor]: open });
 	};
 
-	console.log(openLoginForm);
 
 	if (!isAuth) {
 		return (<div className={classes.block}>
@@ -90,16 +87,33 @@ export const AuthHeader = (
 				open={modalState.left}
 				onClose={toggleDrawer("left", false)}
 			>
-				<header className={classes.header}>
-					<button className={classes.button} onClick={toggleDrawer("left", false)}><MobileMenu /></button>
-					<p className={classes.title}>
-						Регистрация
-					</p>
-				</header>
-				<DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm: true,	 setOpenLoginForm }}>
-					<Login />
-				</DialogCTX.Provider>
-				<ConfirmNumber/>
+				{
+					isRegForm
+						? (<>
+							<header className={classes.header}>
+								<button className={classes.button} onClick={toggleDrawer("left", false)}><MobileMenu /></button>
+								<p className={classes.title}>
+									Регистрация
+								</p>
+							</header>
+							<RegFormV2
+								regFormState={[openRegForm, setOpenRegForm]}
+								changeAuthForm={changeAuthForm}
+							/>
+						</>)
+						: (<>
+							<header className={classes.header}>
+								<button className={classes.button} onClick={toggleDrawer("left", false)}><MobileMenu /></button>
+								<p className={classes.title}>
+									Вход
+								</p>
+							</header>
+							<LoginV2
+								loginFormState={[openLoginForm, setOpenLoginForm]}
+								changeAuthForm={changeAuthForm}
+							/>
+						</>)
+				}
 			</Drawer >
 		</div>)
 	}
