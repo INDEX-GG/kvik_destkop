@@ -92,8 +92,8 @@ function HeaderMobile({ chageMenu = false }) {
 							<div className={classes.info}>
 								<AuthHeader 
 									isAuth={isAuth} 
-									setOpenLoginForm={setOpenLoginForm} 
-									openLoginForm={openLoginForm}
+									logFormState={[openLoginForm, setOpenLoginForm]}
+									regFormState={[openRegForm, setOpenRegForm]}
 									userInfo={userInfo} 
 								/>
 								<Logo className={classes.logo} />

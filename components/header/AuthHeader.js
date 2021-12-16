@@ -4,15 +4,20 @@ import { makeStyles, Avatar, Drawer } from "@material-ui/core";
 import HeaderAccount from "./HeaderAccount";
 import MobileMenu from '../../UI/icons/MobileMenu';
 // import Login from "../auth/Login";
+import { DialogCTX } from "../../lib/Context/DialogCTX";
+import Login from "../auth/Login";
 
 
 const useStyles = makeStyles((theme) => ({
 	block: {
 	},
 	modal: {
-		width: "360px",
+		width: "320px",
 		height: "70%",
-		padding: "1.5em 1em"
+		padding: "1.5em 1em",
+		[theme.breakpoints.down("480")]: {
+			marginBottom: '5px',
+		},
 	},
 	header: {
 		position: "relative",
@@ -48,11 +53,19 @@ const useStyles = makeStyles((theme) => ({
 /**
  * @param {object} props
  * @param {Boolean} props.isAuth
- * @param {() => void} props.setOpenLoginForm
+ * @param {[boolean, () => void]} props.logFormState
+ * @param {[boolean, () => void]} props.regFormState
  * @param {boolean} props.openLoginForm
  * @param {API.User} [props.userInfo]
  */
-export const AuthHeader = ({ isAuth, setOpenLoginForm, openLoginForm, userInfo }) => {
+export const AuthHeader = (
+	{ 
+		isAuth, 
+		logFormState: [openLoginForm, setOpenLoginForm],
+		regFormState: [openRegForm, setOpenRegForm],
+		userInfo 
+	}
+) => {
 	const classes = useStyles();
 	const [modalState, setModalState] = useState({ left: false });
 
@@ -79,7 +92,9 @@ export const AuthHeader = ({ isAuth, setOpenLoginForm, openLoginForm, userInfo }
 						Регистрация
 					</p>
 				</header>
-				
+				<DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
+					<Login />
+				</DialogCTX.Provider>
 			</Drawer >
 		</div>)
 	}
