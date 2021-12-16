@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	modal: {
 		width: "320px",
-		height: "80%",
+		height: "90%",
 		padding: "1.5em 1em",
 		[theme.breakpoints.down("480")]: {
 			marginBottom: '5px',
@@ -129,7 +129,6 @@ export const AuthHeader = (
 			{(userInfo !== undefined)
 				? <HeaderAccount name={userInfo.name} userPhoto={userInfo.userPhoto} />
 				: <Avatar onClick={() => setOpenLoginForm(!openLoginForm)} className={classes.avatar} />}
-
 		</Drawer>
 	</div>)
 }

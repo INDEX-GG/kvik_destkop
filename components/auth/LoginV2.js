@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-	Box,
-	Button,
-	makeStyles,
-	Typography,
-	TextField, InputAdornment,
-} from "@material-ui/core";
+import { Box, Button, makeStyles, Typography, TextField, InputAdornment } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import RegForm from "./RegForm";
 import { useAuth } from "../../lib/Context/AuthCTX";
