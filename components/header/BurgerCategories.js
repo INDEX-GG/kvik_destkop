@@ -3,9 +3,10 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
-import MobileMenu from '../../UI/icons/MobileMenu';
+// import MobileMenu from '../../UI/icons/MobileMenu';
 import CategoriesContent from './CategoriesContent';
 import { useCategory } from '../../hooks/useCategory';
+import MobileMenu from '../../UI/icons/MobileMenu';
 
 const useStyles = makeStyles((theme) => ({
 	list: {
@@ -23,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.down("1024")]: {
 			marginBottom: '5px',
 		}
+	},
+	button: {
+		backgroundColor: "#00A0AB", 
+		width: "32px", 
+		height: "32px", 
+		borderRadius: "4px"
 	}
 }));
 
@@ -56,14 +63,14 @@ export default function BurgerCategories() {
 			<CategoriesContent toggleDrawer={setState} categoryMainAlias={categoryMainAlias} />
 		</div>
 	);
-	
+
 	return (
 		<div className={classes.container}>
 			<React.Fragment key={"left"}>
-				<button style={{ backgroundColor: "#00A0AB", width: "32px", height: "32px", borderRadius: "4px" }} onClick={toggleDrawer("left", true)}><MobileMenu /></button>
-				<Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
+				<button className={classes.button} onClick={toggleDrawer("left", true)}><MobileMenu /></button>
+				{/* <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}> */}
 					{list("left")}
-				</Drawer>
+				{/* </Drawer> */}
 			</React.Fragment>
 		</div>
 	);
