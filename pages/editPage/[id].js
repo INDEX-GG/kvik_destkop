@@ -235,6 +235,7 @@ function EditPage() {
 						</FormProvider>
 					</Box>
 				</Container>}
+				{/* в 239 строке рендерится не верный компонент, заменить после того как будут готовы стили */}
 				{matchesMobile || matchesTablet ? <PlaceOfferMobile /> : null}
 				<Backdrop className={classes.backdrop} open={loading}>
 					<Loader  size={64} />

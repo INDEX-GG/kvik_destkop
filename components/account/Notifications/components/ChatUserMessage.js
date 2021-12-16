@@ -5,6 +5,8 @@ import {generateTime} from "../tabs/chatFunctions";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
 // import ChatDefaultAvatar from "./ChatDefaultAvatar";
 // import {generateTime} from "../tabs/chatFunctions";
+import ChatMessageIsSend from '../../../../UI/icons/ChatMessageIsSend';
+import ChatMessageIsRead from '../../../../UI/icons/ChatMessageIsRead';
 
 const ChatUserMessage = (
   {
@@ -38,10 +40,12 @@ const ChatUserMessage = (
       }
     }
 
-    return <div>{item?.message}</div>
+    return <div className='chatItem'>{item?.message}</div>
   }
 
   // Генерирует задний фон сообзениям
+  // пока закомментил потому что фон всегда одного цвета.
+  // 
   const generateBackgroundMessage = (senderId, read, offline) => {
     if (senderId === id) {
 
@@ -52,8 +56,8 @@ const ChatUserMessage = (
       if (userOnline) {
         return '#e9e9e9'
       } else {
-        if (!read) return '#02bac7'
-        return '#e9e9e9'
+        if (!read) return 'rgba(208, 237, 239, 0.5)'
+        return 'rgba(208, 237, 239, 0.5)'
       }
     }
   }
@@ -65,12 +69,14 @@ const ChatUserMessage = (
       if (offline) {
         return 'Ошибка при отправке'
       }
-
+// 
       if (userOnline) {
-        return 'Прочитано'
+        // return 'Прочитано'
+        return <ChatMessageIsRead />
       } else {
-        if (!read) return 'Доставлено'
-        return 'Прочитано'
+        // if (!read) return 'Доставлено'
+        if (!read) return <ChatMessageIsSend />
+        return <ChatMessageIsRead />
       }
     }
   }
@@ -92,11 +98,18 @@ const ChatUserMessage = (
           backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read, item?.offline),
           transition: '.1s all linear'
         }}>
-          {generateMessage(item?.message)}
-          <div
-            className='messageStatus'>{generateMessageStatus(item.sender_id, item.messages_is_read, item?.offline)}</div>
+            {generateMessage(item?.message)}
+            <div className='messageStatus'>
+              <div>
+                {generateTime(0, item?.time, true)}
+              </div>
+              {generateMessageStatus(item.sender_id, item.messages_is_read, item?.offline)}
+            </div>
+
+            {/* <div>
+              {generateTime(0, item?.time, true)}
+            </div> */}
         </div>
-        <div>{generateTime(0, item?.time, true)}</div>
       </div>
     </>
   )
