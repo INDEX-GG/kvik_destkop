@@ -6,10 +6,12 @@ import MobileMenu from '../../UI/icons/MobileMenu';
 // import Login from "../auth/Login";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Login from "../auth/Login";
+import ConfirmNumber from '../auth/ConfirmNumber';
 
 
 const useStyles = makeStyles((theme) => ({
 	block: {
+		height: "100%"
 	},
 	modal: {
 		width: "320px",
@@ -77,6 +79,8 @@ export const AuthHeader = (
 		setModalState({ [anchor]: open });
 	};
 
+	console.log(openLoginForm);
+
 	if (!isAuth) {
 		return (<div className={classes.block}>
 			<button className={classes.button} onClick={toggleDrawer("left", true)}><MobileMenu /></button>
@@ -92,9 +96,10 @@ export const AuthHeader = (
 						Регистрация
 					</p>
 				</header>
-				<DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
+				<DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm: true,	 setOpenLoginForm }}>
 					<Login />
 				</DialogCTX.Provider>
+				<ConfirmNumber/>
 			</Drawer >
 		</div>)
 	}

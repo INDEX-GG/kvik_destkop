@@ -18,6 +18,9 @@ import DialogUIAuth from "../UI/DialogUIAuth";
 import PasswordStrengthBar from 'react-password-strength-bar';
 
 const useStyles = makeStyles((theme) => ({
+	block: {
+		height: "100%"
+	},
   root: {
     display: "flex",
     paddingTop: theme.spacing(4),
@@ -116,6 +119,7 @@ export default function RegForm() {
         fullWidth
         maxWidth="sm"
         title="Регистрация"
+				extraClasses={{ root: classes.block}}
       >
         <Box className={classes.root}>
           <Box className={classes.reg}>

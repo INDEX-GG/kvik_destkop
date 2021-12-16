@@ -22,6 +22,9 @@ import {SecretData, SecretPassword} from "../../lib/SecretData";
 import ConfirmNumber from "./ConfirmNumber";
 
 const useStyles = makeStyles((theme) => ({
+	block: {
+		height: "100%",
+	},
   root: {
     display: "flex",
     paddingTop: theme.spacing(4),
@@ -440,7 +443,8 @@ const Login = () => {
         }}
         title="Восстановление пароля"
         fullWidth
-        maxWidth="sm">
+        maxWidth="sm"
+				extraClasses={{ root: classes.block }}>
         <ResetPassword/>
       </DialogUIAuth>}
       <RegForm />
