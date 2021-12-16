@@ -1,16 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Avatar, Divider, Dialog, DialogTitle } from '@material-ui/core';
-import { initials, stringToColor } from '../../lib/services';
-import { useState } from 'react';
 import axios from 'axios';
+import { makeStyles, Button, List, ListItem, ListItemText, Divider, Avatar, Dialog, DialogTitle } from "@material-ui/core";
+import { useState } from 'react';
 import { mutate } from "swr";
+import { initials, stringToColor } from '../../lib/services';
 import { useAuth } from '../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import { useMedia } from '../../hooks/useMedia';
@@ -86,23 +80,26 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
+/**
+ * @param {object} props
+ * @param {string} props.userPhoto
+ * @param {string} props.name
+ */
 export default function HeaderAccount({ userPhoto, name }) {
-
 	const router = useRouter()
-
 	const classes = useStyles();
 	const [state, setState] = useState({
-		right: false,
+		left: false,
 	});
-
 	const [logout, setLogout] = useState(false);
 	const { signOut, id } = useAuth();
 
-	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080, } = useMedia()
-
+	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia();
+	const isMatchingAThreshold = matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080;
+	const isAccountPage = router.pathname === "/account/[id]";
 
 	const menuItems = [
-		{ id: 1, name: "menuOffers", title: "Мои объявления" },
+		{ id: 1, name: "menuOffers", title: "Объявления" },
 		{ id: 2, name: "menuDeals", title: "Сделки" },
 		{ id: 3, name: "menuWallet", title: "Кошелек" },
 		{ id: 4, name: "menuFavorites", title: "Избранное" },
@@ -112,7 +109,13 @@ export default function HeaderAccount({ userPhoto, name }) {
 		{ id: 8, name: "menuSettings", title: "Настройки" },
 	];
 
+	// let avatarProps = 
 
+	/**
+	 * @param {string} anchor 
+	 * @param {boolean} open 
+	 * @returns {(event: KeyboardEvent) => void}
+	 */
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
 			return;
@@ -129,6 +132,9 @@ export default function HeaderAccount({ userPhoto, name }) {
 		});
 	};
 
+	/**
+	 * @param {string} anchor 
+	 */
 	const list = (anchor) => (
 		<>
 			<div
@@ -141,56 +147,104 @@ export default function HeaderAccount({ userPhoto, name }) {
 				<List className="burgerContainer burgerAccount">
 					<div className={classes.accountBox}>
 						<div className={classes.accountTitle}>Личный кабинет</div>
-						<div onClick={toggleDrawer("right", false)} className={classes.accountIcon}></div>
+						<div onClick={toggleDrawer("left", false)} className={classes.accountIcon}></div>
 					</div>
-					<Divider />
 					{menuItems.map(item => (
-						<AccountContent key={item.id} id={item.id} icon={item.name} title={item.title} setState={setState} />
+						<AccountContent
+							key={item.id}
+							id={item.id}
+							icon={item.name}
+							title={item.title}
+							setState={setState}
+						/>
 					))}
 				</List>
-				<ListItem onClick={() => setLogout(!logout)} button id={"10"} className="burgerList">
-					<ListItemText className={`${classes.accountItem} 
-            ${classes.logout} menuLogoff`} primary={"Выход"} />
+				<Divider />
+				<ListItem
+					button
+					id={"10"}
+					className="burgerList"
+					onClick={() => setLogout(!logout)}
+				>
+					<ListItemText 
+						className={`${classes.accountItem} ${classes.logout} menuLogoff`} 
+						primary={"Выход"} 
+					/>
 				</ListItem>
 			</div>
 			<Dialog open={logout || false} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
 				<DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
 				<div className="accountLogoutBtnBox">
-					<Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{ textTransform: "uppercase" }}>
+					<Button
+						variant="text"
+						color="primary"
+						style={{ textTransform: "uppercase" }}
+						onClick={() => setLogout(!logout)}
+					>
 						Отмена
 					</Button>
-					<Button onClick={() => logOut()} className="accountLogoutYes" style={{ color: "red", textTransform: "uppercase" }}>Выйти</Button>
+					<Button
+						onClick={() => logOut()}
+						className="accountLogoutYes"
+						style={{ color: "red", textTransform: "uppercase" }}
+					>
+						Выйти
+					</Button>
 				</div>
 			</Dialog>
 		</>
 	);
 
-	return (
-		router.pathname === "/account/[id]" ? matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ?
-			<>
-				<Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
+	if (isAccountPage) {
+		if (isMatchingAThreshold) {
+			return (
+				<>
+					<Avatar
+						className={classes.avatar}
+						src={userPhoto}
+						style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+						onClick={toggleDrawer("left", true)}
+					>
+						{initials(name)}
+					</Avatar>
+					{list("left")}
+				</>
+			)
+		} else {
+			return (
+				<Avatar
+					className={classes.avatar}
+					src={userPhoto}
+					style={{ backgroundColor: `${stringToColor(name)}` }
+					}
+				>
 					{initials(name)}
-				</Avatar>
-				<Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
-					{list("right")}
-				</Drawer>
-			</> :
-			<Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
+				</Avatar >
+			)
+		}
+
+	}
+
+	if (isMatchingAThreshold) {
+		return <>
+			<Avatar
+				className={classes.avatar}
+				src={userPhoto}
+				style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+				onClick={toggleDrawer("left", true)}
+			>
 				{initials(name)}
 			</Avatar>
-			:
-			<>
-				{matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? (
-					<>
-						<Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
-							{initials(name)}
-						</Avatar>
-						<Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
-							{list("right")}
-						</Drawer>
-					</>
-				) : <Avatar onClick={() => {
-					toggleDrawer("right", true)
+			{list("left")}
+		</>
+	} else {
+		return (
+			<Avatar
+				className={classes.avatar}
+				src={userPhoto}
+				style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+				onClick={() => {
+					toggleDrawer("left", true)
 					router.push({
 						pathname: `/account/${id}`,
 						query: {
@@ -198,9 +252,9 @@ export default function HeaderAccount({ userPhoto, name }) {
 							content: "1"
 						}
 					})
-				}} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
-					{initials(name)}
-				</Avatar>}
-			</>
-	);
+				}} >
+				{initials(name)}
+			</Avatar>)
+	}
 }
+

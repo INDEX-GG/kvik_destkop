@@ -41,11 +41,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	inputBlock: {
 		display: "flex",
-		marginLeft: "auto",
-		marginRight: "auto",
 		justifyContent: "center",
-		marginBottom: "22px",
-		width: "60%",
 	},
 	title: {
 		textAlign: "center",
@@ -88,14 +84,6 @@ export const ConfirmNumberV2 = ({
 	const [allSms, setAllSms] = useState('');
 	const [error, setError] = useState(false);
 
-
-	// const [value1, setValue1] = useState('');
-	// const [value2, setValue2] = useState('');
-	// const [value3, setValue3] = useState('');
-	// const [value4, setValue4] = useState('');
-	// const [valueAll, setValueAll] = useState('');
-
-
 	const regUser = () => {
 		getDataByPost('/api/setApi', { ...sendData, ...SecretData(sendData) }).then((r) => {
 			// console.log(r)
@@ -124,6 +112,11 @@ export const ConfirmNumberV2 = ({
 	}, [methods.watch('smsValue1'), methods.watch('smsValue2'), methods.watch('smsValue3'), methods.watch('smsValue4')]);
 
 
+	/**
+	 * @param {string} value 
+	 * @param {number} field 
+	 * @param {(...event: any[]) => void} onChange 
+	 */
 	const changeSmsInput = (value, field, onChange) => {
 
 		// console.log(+value + 0);
@@ -244,13 +237,17 @@ export const ConfirmNumberV2 = ({
 
 	return (
 		<Box className={classes.submitNumber}>
-			<Typography className={classes.title} variant="h6">
-				{registrantion ? 'Восстановление пароля' : 'Регистрация'}
-			</Typography>
+			{
+				registrantion && (
+					<Typography className={classes.title} variant="h6">
+						Восстановление пароля
+					</Typography>
+				)
+			}
+			
 			<Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок.<br /> Пожалуйста
 				введите последние 4 цифры <br /> звонящего номера в поле ниже.</Typography>
 			<Box className={classes.inputBlock}>
-
 				<FormGroup className={classes.formGroup}>
 					<Controller
 						name='smsValue1'

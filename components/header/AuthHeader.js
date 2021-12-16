@@ -128,7 +128,7 @@ export const AuthHeader = (
 			{/* <BurgerCategories /> */}
 			{(userInfo !== undefined)
 				? <HeaderAccount name={userInfo.name} userPhoto={userInfo.userPhoto} />
-				: <Avatar onClick={() => setOpenLoginForm(!openLoginForm)} className={classes.avatar} />}
+				: <Avatar className={classes.avatar} onClick={() => setOpenLoginForm(!openLoginForm)} />}
 		</Drawer>
 	</div>)
 }
