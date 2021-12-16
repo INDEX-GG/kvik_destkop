@@ -91,7 +91,8 @@ const ChatUserMessage = (
            className={myMessage ? "chatUser" : "chatCompanion"}>
         {myMessage ? null :
           morePartnerMessage && index - 1 >= 0 ? <div></div> :
-            userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+            // userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+            userChatPhoto ? <></> :
               <ChatDefaultAvatar name={userChatName}/>
         }
         <div style={{
