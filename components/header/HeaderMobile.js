@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
 		width: "100px",
 		height: "53px",
 	},
+	filler: {
+		width: "32px",
+	},
 	avatar: {
 		width: "32px",
 		height: "32px",
@@ -97,7 +100,7 @@ function HeaderMobile({ chageMenu = false }) {
 									userInfo={userInfo} 
 								/>
 								<Logo className={classes.logo} />
-								<div></div>
+								<div className={classes.filler}></div>
 							</div>
 						</HideOnScroll>
 						<div className={classes.block2}>

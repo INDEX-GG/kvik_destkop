@@ -57,14 +57,12 @@ const useStyles = makeStyles((theme) => ({
  * @param {boolean} props.openLoginForm
  * @param {API.User} [props.userInfo]
  */
-export const AuthHeader = (
-	{
+export const AuthHeader = ({
 		isAuth,
 		logFormState: [openLoginForm, setOpenLoginForm],
 		regFormState: [openRegForm, setOpenRegForm],
 		userInfo
-	}
-) => {
+}) => {
 	const classes = useStyles();
 	const [modalState, setModalState] = useState({ left: false });
 	const [isRegForm, changeAuthForm] = useState(false);

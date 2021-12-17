@@ -24,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "center",
 	},
 	reg: {
-		width: "300px",
+		width: "100%",
 	},
 	form: {
 		display: "flex",
 		flexDirection: "column",
 		"&>*": {
-			marginBottom: theme.spacing(2),
+			marginBottom: theme.spacing(1),
 		},
 	},
 	title: {
@@ -59,31 +59,60 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "flex-end",
 		width: "auto",
 	},
+	rememberPasswordBlock: {
+		display: "flex",
+		flexFlow: "row nowrap",
+		alignItems: "center",
+		gap: "0.5em",
+	},
 	rememberPasswordCheck: {
-		padding: '0px',
-		background: theme.palette.secondary.main,
-		width: '14px',
-		height: '14px',
-
-		'&:hover': {
-			background: theme.palette.secondary.main,
-		},
-	},
-	rememberPassword: {
-		color: "#C7C7C7",
-		marginRight: "45px",
-		background: "none",
+		appearance: "none",
+		width: "13px",
+		height: "13px",
+		borderRadius: "50%",
+		border: "1px solid #8F8F8F",
 		cursor: "pointer",
-		transition: "all 200ms ease-in-out",
-
-		"&:hover": {
-			transition: "all 200ms ease-in-out",
-		},
+		transitionDuration: "250ms",
+		transitionProperty: "border, background-color",
+		"&:checked": {
+			backgroundColor: "#00A0AB",
+			boredrColor: "#00A0AB",
+			"&+label": {
+				color: "#00A0AB"
+			}
+		}
 	},
+	rememberPasswordLabel: {
+		color: "#C7C7C7",
+		cursor: "pointer",
+		transitionDuration: "250ms",
+		transitionProperty: "color"
+	},
+	// rememberPasswordCheck: {
+	// 	padding: '0px',
+	// 	background: theme.palette.secondary.main,
+	// 	width: '14px',
+	// 	height: '14px',
+
+	// 	'&:hover': {
+	// 		background: theme.palette.secondary.main,
+	// 	},
+	// },
+	// rememberPassword: {
+	// 	color: "#C7C7C7",
+	// 	marginRight: "45px",
+	// 	background: "none",
+	// 	cursor: "pointer",
+	// 	transition: "all 200ms ease-in-out",
+
+	// 	"&:hover": {
+	// 		transition: "all 200ms ease-in-out",
+	// 	},
+	// },
 	forgotPassword: {
 		color: "#00A0AB",
-		marginLeft: "12px",
 		background: "none",
+		fontWeight: "500",
 		cursor: "pointer",
 		transition: "all 200ms ease-in-out",
 
@@ -102,9 +131,9 @@ const useStyles = makeStyles((theme) => ({
  * @param {[boolean, () => void]} props.loginFormState
  * @param {(arg: boolean) => void} props.changeAuthForm
  */
-export const LoginV2 = ({ 
-		loginFormState: [openLoginForm,	setOpenLoginForm], 
-		changeAuthForm
+export const LoginV2 = ({
+	loginFormState: [openLoginForm, setOpenLoginForm],
+	changeAuthForm
 }) => {
 	const { signIn } = useAuth();
 	const { storeUser } = useStore();
@@ -355,6 +384,7 @@ export const LoginV2 = ({
 									)}
 									rules={{ required: "Введите пароль" }}
 								/>
+
 								{/*<Box  className={classes.passwordActionBlock}>*/}
 								{/*  <Checkbox*/}
 								{/*      className={classes.rememberPasswordCheck}*/}
@@ -369,6 +399,28 @@ export const LoginV2 = ({
 								{/*</Box>*/}
 
 								<div className={classes.passwordActionBlock}>
+									{/* TODO: endpoint */}
+									{/* <div className={classes.rememberPasswordBlock}>
+										<Controller
+											// name=""
+											control={control}
+											defaultValue={false}
+											render={() => (
+												<>
+													<input
+														id="login-rememberPass"
+														className={classes.rememberPasswordCheck}
+														type="checkbox"
+													/>
+													<label
+														className={classes.rememberPasswordLabel}
+														htmlFor="login-rememberPass"
+													>
+														Запомнить пароль
+													</label>
+												</>
+											)} />
+									</div> */}
 									{/*<Checkbox*/}
 									{/*  className={classes.rememberPasswordCheck}*/}
 									{/*  color="primary"*/}
@@ -403,12 +455,13 @@ export const LoginV2 = ({
 									<a href="https://google.com" className="googleLoginIcon" />
 								</div>
 								<Button
-									onClick={() => {
-										changeAuthForm(true)
-									}}
+									className={classes.link}
 									variant="text"
 									size="large"
 									color="primary"
+									onClick={() => {
+										changeAuthForm(true)
+									}}
 								>
 									Зарегистрироваться
 								</Button>

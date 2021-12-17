@@ -19,13 +19,13 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "center",
 	},
 	reg: {
-		width: "300px",
+		width: "100%",
 	},
 	form: {
 		display: "flex",
 		flexDirection: "column",
 		"&>*": {
-			marginBottom: theme.spacing(2),
+			marginBottom: theme.spacing(1),
 		},
 	},
 	title: {
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 		flexFlow: "column nowrap",
 		justifyContent: "center",
 		alignItems: "center",
-		padding: "1em 0"
+		padding: "2em 0"
 	},
 	loginButton: {
 		color: "#00A0AB",
@@ -101,11 +101,6 @@ export function RegFormV2({ changeAuthForm }) {
 	const onSubmit = async (data) => {
 		data.phone = formatPhoneNumber(valueInp);
 		setSendData(data);
-		// getDataByPost("/api/checkphone", {phone: data.phone}).then((res) => {
-		//   setPhoneNum(res);
-		//   closeRegForm();
-		//   setOpenConfirmNum(true);
-		// });
 		getDataByPost('/api/callPhone', { "phone": data.phone }).then(() => {
 			clearFields();
 			switchValidationView(true);

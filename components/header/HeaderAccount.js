@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import axios from 'axios';
+import NextLink from "next/link";
 import { makeStyles, Button, List, ListItem, ListItemText, Divider, Avatar, Dialog, DialogTitle } from "@material-ui/core";
 import { useState } from 'react';
 import { mutate } from "swr";
@@ -12,7 +13,6 @@ import AccountContent from './AccountContent';
 import MobileMenu from '../../UI/icons/MobileMenu';
 
 const useStyles = makeStyles((theme) => ({
-
 	accountBox: {
 		position: "relative",
 		display: "flex",
@@ -36,18 +36,29 @@ const useStyles = makeStyles((theme) => ({
 		color: "#2C2C2C",
 		fontWeight: "500",
 		fontSize: "22px",
-		transform: "translateX(-50%)"
+		transform: "translateX(-45%)"
 	},
 	fullList: {
 		width: 'auto',
 	},
+	avatarWrapper: {
+		display: "flex",
+		flexFlow: "row nowrap",
+		gap: "1em",
+		alignItems: "center",
+		padding: "0 8px"
+	},
 	avatar: {
-		width: "32px",
-		height: "32px",
+		width: "34px",
+		height: "34px",
 		alignSelf: "flex-end",
 		[theme.breakpoints.down("1024")]: {
 			marginBottom: '5px',
 		},
+	},
+	avatarName: {
+		fontSize: "18px",
+		fontWeight: "500",
 	},
 	list: {
 		width: "176px",
@@ -107,60 +118,87 @@ const useStyles = makeStyles((theme) => ({
  * @param {boolean} props.isAccountPage
  * @param {(anchor: string, open: boolean) => void} props.toggleDrawer
  */
-const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, toggleDrawer }) => {
+export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, toggleDrawer }) => {
 	const router = useRouter()
 	const classes = useStyles();
-	const { id } = useAuth();
+	const { id: AccountID } = useAuth();
 	const { name, userPhoto } = userInfo;
 
+	/**
+	 * @param {object} props 
+	 * @param {string} [props.name]
+	 */
+	const AvatarWrapper = ({ name = undefined, children }) => {
+		return (<div className={classes.avatarWrapper}>
+			{children}
+			<span className={classes.avatarName}>{name}</span>
+		</div>)
+	}
 
 	if (isAccountPage) {
 		if (isMatchingAThreshold) {
 			return (
+				<AvatarWrapper name={name}>
+					<Avatar
+						className={classes.avatar}
+						src={userPhoto}
+						style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+						onClick={toggleDrawer("left", true)}
+					>
+						{initials(name)}
+					</Avatar>
+					
+				</AvatarWrapper>
+			)
+		} else {
+			return (
+				<AvatarWrapper name={name}>
+					<Avatar
+						className={classes.avatar}
+						src={userPhoto}
+						style={{ backgroundColor: `${stringToColor(name)}` }}
+					>
+						{initials(name)}
+					</Avatar>
+				</AvatarWrapper>)
+		}
+	} else {
+		if (isMatchingAThreshold) {
+			return (
+				<AvatarWrapper name={name}>
+					<NextLink href={{
+						pathname: "/account/[id]",
+						query: { id: AccountID }
+					}}>
+						<Avatar
+							className={classes.avatar}
+							src={userPhoto}
+							style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+							onClick={toggleDrawer("left", true)}
+						>
+							{initials(name)}
+						</Avatar>
+					</NextLink >
+				</AvatarWrapper>)
+		} else {
+			return (<AvatarWrapper name={name}>
 				<Avatar
 					className={classes.avatar}
 					src={userPhoto}
 					style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
-					onClick={toggleDrawer("left", true)}
-				>
+					onClick={() => {
+						toggleDrawer("left", true)
+						router.push({
+							pathname: `/account/${AccountID}`,
+							query: {
+								account: "1",
+								content: "1"
+							}
+						})
+					}} >
 					{initials(name)}
-				</Avatar>)
-		} else {
-			return (<Avatar
-				className={classes.avatar}
-				src={userPhoto}
-				style={{ backgroundColor: `${stringToColor(name)}` }}
-			>
-				{initials(name)}
-			</Avatar >)
-		}
-	} else {
-		if (isMatchingAThreshold) {
-			return (<Avatar
-				className={classes.avatar}
-				src={userPhoto}
-				style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
-				onClick={toggleDrawer("left", true)}
-			>
-				{initials(name)}
-			</Avatar>)
-		} else {
-			return (<Avatar
-				className={classes.avatar}
-				src={userPhoto}
-				style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
-				onClick={() => {
-					toggleDrawer("left", true)
-					router.push({
-						pathname: `/account/${id}`,
-						query: {
-							account: "1",
-							content: "1"
-						}
-					})
-				}} >
-				{initials(name)}
-			</Avatar>)
+				</Avatar>
+			</AvatarWrapper>)
 		}
 	}
 }
@@ -232,6 +270,7 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 				</button>
 				<p className={classes.accountTitle}>Личный кабинет</p>
 			</div>
+			<AccountAvatar {...avatarProps} />
 			<div
 				className={clsx(classes.list, {
 					[classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -240,7 +279,6 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 				onKeyDown={toggleDrawer(anchor, false)}
 			>
 				<List className={`burgerContainer burgerAccount ${classes.itemList}`}>
-					<AccountAvatar {...avatarProps} />
 					{menuItems.map(item => (
 						<AccountContent
 							key={item.id}
