@@ -8,7 +8,7 @@ import Statistics from "../../components/Statistics";
 import ProductInformation from "../../components/product/ProductInformation";
 import ProductAction from "../../components/product/ProductAction";
 import ProductUserInfo from "../../components/product/ProductUserInfo";
-import {ToRusDate} from "../../lib/services";
+// import {ToRusDate} from "../../lib/services";
 import {useMedia} from "../../hooks/useMedia";
 import {useProduct} from "../../hooks/useProduct";
 import OffersRender from "../../components/OffersRender";
@@ -18,7 +18,7 @@ import {useAuth} from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import {CHAT_URL_API, STATIC_URL} from "../../lib/constants";
-import ProductDate from "../../components/product/ProductSmallComponents/ProductDate";
+// import ProductDate from "../../components/product/ProductSmallComponents/ProductDate";
 import ProductPrice from "../../components/product/ProductPrice";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
@@ -28,6 +28,7 @@ import {firstAds, scrollAds} from "../../lib/scrollAds";
 import {useStore} from "../../lib/Context/Store";
 import {chatPush} from "../../components/account/Notifications/tabs/chatFunctions";
 import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder/ProductPlaceHolder";
+
 
 /* const objP = {
 	id: 1,
@@ -222,15 +223,18 @@ const Product = () => {
                       <div className="productPageAdaptive">
                         <ProductPrice price={price} oldPrice={oldprice} id={id}
                                       sellerId={user_id} trade={trade} status={1} mobile/>
+                        <div className="productPageTitle xl">{title}</div>
                         <div className="SellerInfo__adaptive_info">
                           <div className="SellerInfo__adaptive_info_top">
                             <ProductReviewed reviewed={reviewed}/>
                             <ProductStats sellerId={user_id} id={id}
-                                          dialog={openStatForm}
-                                          setDialog={setopenStatForm} mobile/>
+                              dialog={openStatForm}
+                              setDialog={setopenStatForm} mobile/>
                           </div>
-                          <ProductDate id={id} sellerId={user_id} mobile
-                                       date={ToRusDate(created_at)} leftDay={30}/>
+                        {/* закоментил. для нового дизайна данные компоненты пока не нужны */}
+                          {/* <ProductDate id={id} sellerId={user_id} mobile
+                            date={ToRusDate(created_at)} leftDay={30}/> */}
+                        {/* закоментил. для нового дизайна данные компоненты пока не нужны */}
                         </div>
                       </div>
                       }

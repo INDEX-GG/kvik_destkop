@@ -47,9 +47,9 @@
 	border-radius: 8px !important;
 }
 
-.productPageTitle {
-    margin-bottom: 18px;
-}
+// .productPageTitle {
+//     margin-bottom: 18px;
+// }
 .productPageCharacter {
     width: 100%;
     display: flex;
@@ -59,8 +59,9 @@
     transition: height .4s ease-in-out;
 }
 .productWrap {
-    display: flex;
-    //align-items: center;
+    padding: 10px 16px;
+    // display: flex;
+    // align-items: center;
     
 }
 .productPageWrap, .ReactCollapse--content {
@@ -202,7 +203,13 @@
     color: $tp;
 }
 .SellerInfoPrice {
-    margin: 4px 0;
+    // margin: 4px 0;
+    padding: 0 16px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.17;
+
+    color: rgba(44, 44, 44, 1)
 }
 .SellerInfoBargain {
     height: 16px;
@@ -401,30 +408,88 @@
 
 /* Характеристики объявления */
 .productDescription {
-    margin: 14px 0px;
+    // margin: 11px 0px;
+    margin-top: 11px;
+    margin-bottom: 5px;
     word-wrap: break-word;
-    width: 100%
+    max-height: 54px;
+    width: 100%;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 1.14;
+
+    &Active {
+        max-height: 100%;
+    }
+}
+
+.productDescriptionTitle {
+    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.17;
+    color: rgba(44, 44, 44, 1);
+    // border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.productDescriptionunderLine {
+    display: block;
+    margin: 0 -16px;
+    border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.productShowMore {
+    display: block;
+    width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.17;
+    color: rgba(0, 160, 171, 1);
+    background-color: transparent;
+}
+
+.productHide {
+    display: block;
+    width: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+    line-height: 1.17;
+    color: rgba(0, 160, 171, 1);
+    background-color: transparent;
 }
 
 .productPageCharacterMapBlock {
-    border-bottom: 1px solid $light;
+    // border-bottom: 1px solid $light;
     transition: all 650ms ease-in-out;
     margin-top: 22px;
 }
 
 .productLocality {
+    margin-bottom: 5px;
     color: $tpsl;
     width: 150px;
-    margin-right: 20px;
-    padding: 14px 0px;
+    font-size: 16px
+    // margin-right: 20px;
+    // padding: 14px 0px;
+}
+
+.productShareTitle {
+    text-align: center;
+    margin-bottom: 5px;
+    color: $tpsl;
+    // width: 150px;
+    font-size: 14px;
 }
 
 .productPageCharacterLocality {
     width: 100%;
-    display: flex;
+    // display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 18px 0;
+    padding: 0px 16px;
     color: $tp;
     font-weight: 400;
 }
@@ -522,21 +587,22 @@
 
 .productPage .swiper-container {
     margin-bottom: 4px;
-    padding: 0 12px;
+    padding: 0 10px;
     justify-content: center;
     z-index: 0 !important;
     border-radius: 2px;
 }
 
 .mySwiper2 .swiper-wrapper {
-    height: 400px !important;
+    // height: 271px !important;
+    // width: 341px;
     position: relative;
 }
 .mySwiper2 .swiper-slide img,
 .mySwiper .swiper-slide img {
     object-fit: cover;
     width: 100%;
-    border-radius: 8px;
+    // border-radius: 8px;
     height: 100%;
 }
 
@@ -620,9 +686,10 @@
 
 .block__my_active_ad {
     display: flex;
+    padding-bottom: 60px;
     max-width: 320px;
     min-width: 320px;
-    flex-direction: column;
+    // flex-direction: column;
 }
 
 .ad__block_top {
@@ -661,9 +728,9 @@
 	padding: 7px 0;
 }
 
-.ad__block_middle__description_service {
-    margin-bottom: 32px;
-}
+// .ad__block_middle__description_service {
+//     margin-bottom: 32px;
+// }
 .description_service,
 .service_days_left {
     font-weight: 500;
@@ -692,7 +759,7 @@
 }
 
 .ad__block_bottom {
-    border-top: 1px solid $light;
+    // border-top: 1px solid $light;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -752,7 +819,7 @@
 .ad__block_bottom__adaptive {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 60px;
+    // margin-bottom: 60px;
 }
 // .swiper-pagination {
 //     // display: none;
@@ -796,13 +863,13 @@
         grid-area: 3 / 1 / 4 / 2;
     }
 
-    .productPageAdaptive {
-        display: flex;
-        justify-content: space-between;
-    }
+    // .productPageAdaptive {
+    //     display: flex;
+    //     justify-content: space-between;
+    // }
 
     .SellerInfo__adaptive_info_top {
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: flex-end;
         margin: 8px 0;
@@ -856,22 +923,22 @@
     //     // margin: 8px 0;
     // }
 
-    .ad__block_middle__description_service {
-        margin-bottom: 18px;
-    }
+    // .ad__block_middle__description_service {
+    //     margin-bottom: 18px;
+    // }
 
     .productPageCharacterLocality {
         padding-top: 0;
     }
 
-    .ad__block_bottom {
-        border-bottom: 1px solid $light;
-    }
+    // .ad__block_bottom {
+    //     border-bottom: 1px solid $light;
+    // }
 
-    .block__my_active_ad {
-        display: flex;
-        flex-direction: column;
-    }
+    // .block__my_active_ad {
+    //     display: flex;
+    //     flex-direction: column;
+    // }
     .main_ad__dottom {
         border-top: 1px solid $light;
         border-bottom: 1px solid $light;
@@ -1006,7 +1073,12 @@
         display: block;
     }
     .productPageTitle {
-        margin: 4px 0;
+        margin-top: 5px;
+        // margin: 4px 0;
+        padding: 0 16px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.17;
     }
 
     .productPageContainer {
@@ -1035,6 +1107,14 @@
         width: 76px;
 
         // padding: 8px 8px;
+    }
+
+    .SellerInfoMess {
+        border-radius: 0;
+    }
+
+    .SellerInfoCall {
+        border-radius: 0;
     }
     .productPageDescription {
         margin: 0;
@@ -1075,6 +1155,7 @@
     }
 
     .SellerInfoBargain {
+        display: none;
         margin-bottom: 0;
     }
 
@@ -1131,10 +1212,10 @@
 }
 
 @media (max-width: 483px) {
-    .productPageTitle {
-        font-size: 22px !important;
-        padding: 0 12px;
-    }
+    // .productPageTitle {
+    //     font-size: 22px !important;
+    //     padding: 0 12px;
+    // }
     .productPageSimilarOffersContainer {
         grid-template-columns: repeat(1, 1fr);
     }
@@ -1158,9 +1239,9 @@
         padding-right: 28px;
     }
 
-    .productPageTitle {
-        font-size: 18px !important;
-    }
+    // .productPageTitle {
+    //     font-size: 18px !important;
+    // }
 
     .SellerInfoOldPrice,
     .SellerInfoBargain,
