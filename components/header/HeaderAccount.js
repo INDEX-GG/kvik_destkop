@@ -13,10 +13,30 @@ import MobileMenu from '../../UI/icons/MobileMenu';
 
 const useStyles = makeStyles((theme) => ({
 	list: {
-		width: '382px',
-		[theme.breakpoints.down(375)]: {
-			width: '330px'
-		}
+	},
+	accountBox: {
+		position: "relative",
+		display: "flex",
+		flexFlow: "row nowrap",
+		alignItems: "center",
+		gap: "1em"
+	},
+	button: {
+		backgroundColor: "#00A0AB",
+		width: "32px",
+		height: "32px",
+		borderRadius: "4px",
+		cursor: "pointer"
+	},
+	accountTitle: {
+		position: "absolute",
+		left: "50%",
+		width: "200px",
+		color: "#2C2C2C",
+		fontWeight: "500",
+		fontSize: "22px",
+		textAlign: "center",
+		transform: "translateX(-50%)"
 	},
 	fullList: {
 		width: 'auto',
@@ -41,12 +61,7 @@ const useStyles = makeStyles((theme) => ({
 			color: "#00A0AB",
 		}
 	},
-	accountTitle: {
-		color: "#2C2C2C",
-		fontWeight: "500",
-		fontSize: "18px",
-		marginLeft: '30px'
-	},
+
 	accountIcon: {
 		cursor: 'pointer',
 		"&::before": {
@@ -75,18 +90,17 @@ const useStyles = makeStyles((theme) => ({
 	logout: {
 		marginLeft: "10px"
 	},
-	accountBox: {
-		position: 'relative',
-		margin: '26px 0px 25px 40px'
-	}
+
 }));
 
 /**
  * @param {object} props
+ * @param {(arg: boolean) => void} props.changeAccPage
+ * @param {API.User} props.userInfo
  * @param {string} props.userPhoto
  * @param {string} props.name
  */
-export default function HeaderAccount({ userPhoto, name }) {
+export default function HeaderAccount({ changeAccPage, userInfo, userPhoto, name }) {
 	const router = useRouter()
 	const classes = useStyles();
 	const [state, setState] = useState({
@@ -98,6 +112,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia();
 	const isMatchingAThreshold = matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080;
 	const isAccountPage = router.pathname === "/account/[id]";
+	const avatarProps = { userInfo, isMatchingAThreshold, isAccountPage }
 
 	const menuItems = [
 		{ id: 1, name: "menuOffers", title: "Объявления" },
@@ -109,8 +124,6 @@ export default function HeaderAccount({ userPhoto, name }) {
 		{ id: 7, name: "menuReviews", title: "Отзывы" },
 		{ id: 8, name: "menuSettings", title: "Настройки" },
 	];
-
-	// let avatarProps = 
 
 	/**
 	 * @param {string} anchor 
@@ -133,6 +146,8 @@ export default function HeaderAccount({ userPhoto, name }) {
 		});
 	};
 
+	// const avatar = () => {}
+
 	/**
 	 * @param {string} anchor 
 	 */
@@ -147,9 +162,13 @@ export default function HeaderAccount({ userPhoto, name }) {
 			>
 				<List className="burgerContainer burgerAccount">
 					<div className={classes.accountBox}>
-						<div className={classes.accountTitle}>Личный кабинет</div>
-						<button className={classes.button} onClick={toggleDrawer("left", false)}><MobileMenu /></button>
-						<div onClick={toggleDrawer("left", false)} className={classes.accountIcon}></div>
+						<button
+							className={classes.button}
+							onClick={() => { changeAccPage(false) }}
+						>
+							<MobileMenu />
+						</button>
+						<p className={classes.accountTitle}>Личный кабинет</p>
 					</div>
 					{menuItems.map(item => (
 						<AccountContent
@@ -168,9 +187,9 @@ export default function HeaderAccount({ userPhoto, name }) {
 					className="burgerList"
 					onClick={() => setLogout(!logout)}
 				>
-					<ListItemText 
-						className={`${classes.accountItem} ${classes.logout} menuLogoff`} 
-						primary={"Выход"} 
+					<ListItemText
+						className={`${classes.accountItem} ${classes.logout} menuLogoff`}
+						primary={"Выход"}
 					/>
 				</ListItem>
 			</div>
@@ -201,33 +220,20 @@ export default function HeaderAccount({ userPhoto, name }) {
 		if (isMatchingAThreshold) {
 			return (
 				<>
-					<Avatar
-						className={classes.avatar}
-						src={userPhoto}
-						style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
-						onClick={toggleDrawer("left", true)}
-					>
-						{initials(name)}
-					</Avatar>
+					<AccountAvatar {...avatarProps} />
 					{list("left")}
 				</>
 			)
 		} else {
 			return (
-				<Avatar
-					className={classes.avatar}
-					src={userPhoto}
-					style={{ backgroundColor: `${stringToColor(name)}` }}
-				>
-					{initials(name)}
-				</Avatar >
+				<AccountAvatar {...avatarProps} />
 			)
 		}
 
 	}
 
 	if (isMatchingAThreshold) {
-		return <>
+		return (<>
 			<Avatar
 				className={classes.avatar}
 				src={userPhoto}
@@ -237,7 +243,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 				{initials(name)}
 			</Avatar>
 			{list("left")}
-		</>
+		</>)
 	} else {
 		return (
 			<Avatar
@@ -259,3 +265,62 @@ export default function HeaderAccount({ userPhoto, name }) {
 	}
 }
 
+/**
+ * @param {object} props
+ * @param {API.User} props.userInfo
+ * @param {boolean} props.isMatchingAThreshold
+ * @param {boolean} props.isAccountPage
+ */
+function AccountAvatar({ userInfo, isMatchingAThreshold, isAccountPage }) {
+	const classes = useStyles();
+	const { name, userPhoto } = userInfo;
+	if (isAccountPage) {
+		if (isMatchingAThreshold) {
+			return (
+				<Avatar
+					className={classes.avatar}
+					src={userPhoto}
+					style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+				// onClick={toggleDrawer("left", true)}
+				>
+					{initials(name)}
+				</Avatar>)
+		} else {
+			return (<Avatar
+				className={classes.avatar}
+				src={userPhoto}
+				style={{ backgroundColor: `${stringToColor(name)}` }}
+			>
+				{initials(name)}
+			</Avatar >)
+		}
+	} else {
+		if (isMatchingAThreshold) {
+			return (<Avatar
+				className={classes.avatar}
+				src={userPhoto}
+				style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+				onClick={toggleDrawer("left", true)}
+			>
+				{initials(name)}
+			</Avatar>)
+		} else {
+			return (<Avatar
+				className={classes.avatar}
+				src={userPhoto}
+				style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+				onClick={() => {
+					toggleDrawer("left", true)
+					router.push({
+						pathname: `/account/${id}`,
+						query: {
+							account: "1",
+							content: "1"
+						}
+					})
+				}} >
+				{initials(name)}
+			</Avatar>)
+		}
+	}
+}

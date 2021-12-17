@@ -67,8 +67,13 @@ export const AuthHeader = (
 ) => {
 	const classes = useStyles();
 	const [modalState, setModalState] = useState({ left: false });
-	const [isRegForm, changeAuthForm] = useState(false)
+	const [isRegForm, changeAuthForm] = useState(false);
+	const [isAccPage, changeAccPage] = useState(false);
 
+	/**
+	 * @param {string} anchor 
+	 * @param {boolean} open 
+	 */
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
 			return;
@@ -118,17 +123,25 @@ export const AuthHeader = (
 		</div>)
 	}
 
-	return (<div className={classes.block}>
-		<button className={classes.button} onClick={toggleDrawer("left", true)}><MobileMenu /></button>
-		<Drawer
-			anchor="left"
-			open={modalState.left}
-			onClose={toggleDrawer("left", false)}
-		>
-			{/* <BurgerCategories /> */}
-			{(userInfo !== undefined)
-				? <HeaderAccount name={userInfo.name} userPhoto={userInfo.userPhoto} />
-				: <Avatar className={classes.avatar} onClick={() => setOpenLoginForm(!openLoginForm)} />}
-		</Drawer>
-	</div>)
+	return (
+		<div className={classes.block}>
+			<button className={classes.button} onClick={toggleDrawer("left", true)}><MobileMenu /></button>
+			<Drawer
+				anchor="left"
+				classes={{ paper: classes.modal }}
+				open={modalState.left}
+				onClose={toggleDrawer("left", false)}
+			>
+				{/* <BurgerCategories /> */}
+				{(userInfo !== undefined)
+					? <HeaderAccount 
+						changeAccPage={changeAccPage}
+						userInfo={userInfo}
+						name={userInfo.name} 
+						userPhoto={userInfo.userPhoto} 
+					/>
+					: <Avatar className={classes.avatar} onClick={() => setOpenLoginForm(!openLoginForm)} />}
+			</Drawer>
+		</div>
+	)
 }
