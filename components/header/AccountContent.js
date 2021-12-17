@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => ({
+	item: {
+		padding: "0 !important"
+	},
 	accountItem: {
 		paddingLeft: "33px",
 		"& > span": {
@@ -24,12 +27,25 @@ const useStyles = makeStyles(() => ({
 
 }))
 
-
+/**
+ * 
+ * @param {object} props 
+ * @param {string} props.id 
+ * @param {string} props.icon
+ * @param {string} props.title 
+ * @param {() => void} props.setState 
+ */
 export default function AccountContent({ id, icon, title, setState }) {
 	const classes = useStyles();
 	const router = useRouter();
 	const [hover, setHover] = useState(false);
 	const [active, setActive] = useState(0);
+	const itemClassName = [
+		id == active || hover ? icon + "Active" : icon,
+		id == active ? `${classes.accountItem} ${classes.accountItemActive}` : classes.accountItem,
+		id == active ? classes.activeItem : '',
+		hover ? classes.accountItemHover : ''
+	].join(" ")
 
 	useEffect(() => {
 		console.log('ID=====>',id)
@@ -61,13 +77,10 @@ export default function AccountContent({ id, icon, title, setState }) {
 			onMouseEnter={() => handlerMouse(true)}
 			onMouseLeave={() => handlerMouse(false)}
 			button
-			className="burgerList">
+			className={`burgerList ${classes.item}`}>
 			<ListItemText
 				style={{ height: "30px", display: "flex", alignItems: "center", }}
-				className={`${id == active || hover ? icon + "Active" : icon} 
-				${id == active ? `${classes.accountItem} ${classes.accountItemActive}` : classes.accountItem} 
-				${id == active ? classes.activeItem : ''}
-				${hover ? classes.accountItemHover : ''}`}
+				className={itemClassName}
 				primary={title} />
 		</ListItem>
 	)

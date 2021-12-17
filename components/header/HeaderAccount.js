@@ -12,14 +12,15 @@ import AccountContent from './AccountContent';
 import MobileMenu from '../../UI/icons/MobileMenu';
 
 const useStyles = makeStyles((theme) => ({
-	list: {
-	},
+
 	accountBox: {
 		position: "relative",
 		display: "flex",
 		flexFlow: "row nowrap",
 		alignItems: "center",
-		gap: "1em"
+		gap: "1em",
+		// переписываю сассовское правило в `sass/components/burger.scss#.burger-list`
+		padding: "0 8px 8px !important"
 	},
 	button: {
 		backgroundColor: "#00A0AB",
@@ -35,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 		color: "#2C2C2C",
 		fontWeight: "500",
 		fontSize: "22px",
-		textAlign: "center",
 		transform: "translateX(-50%)"
 	},
 	fullList: {
@@ -49,6 +49,11 @@ const useStyles = makeStyles((theme) => ({
 			marginBottom: '5px',
 		},
 	},
+	list: {
+		width: "176px",
+		// переписываю сассовское правило в `sass/components/burger.scss#.burger-list`
+		padding: "0 !important",
+	},
 	accountItem: {
 		paddingLeft: "33px",
 		"& > span": {
@@ -61,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
 			color: "#00A0AB",
 		}
 	},
-
 	accountIcon: {
 		cursor: 'pointer',
 		"&::before": {
@@ -87,6 +91,9 @@ const useStyles = makeStyles((theme) => ({
 			transform: "rotate(-45deg)"
 		}
 	},
+	logoutItem: {
+		padding: "0.5em 0 !important"
+	},
 	logout: {
 		marginLeft: "10px"
 	},
@@ -95,185 +102,18 @@ const useStyles = makeStyles((theme) => ({
 
 /**
  * @param {object} props
- * @param {(arg: boolean) => void} props.changeAccPage
- * @param {API.User} props.userInfo
- * @param {string} props.userPhoto
- * @param {string} props.name
- */
-export default function HeaderAccount({ changeAccPage, userInfo, userPhoto, name }) {
-	const router = useRouter()
-	const classes = useStyles();
-	const [state, setState] = useState({
-		left: false,
-	});
-	const [logout, setLogout] = useState(false);
-	const { signOut, id } = useAuth();
-
-	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia();
-	const isMatchingAThreshold = matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080;
-	const isAccountPage = router.pathname === "/account/[id]";
-	const avatarProps = { userInfo, isMatchingAThreshold, isAccountPage }
-
-	const menuItems = [
-		{ id: 1, name: "menuOffers", title: "Объявления" },
-		{ id: 2, name: "menuDeals", title: "Сделки" },
-		{ id: 3, name: "menuWallet", title: "Кошелек" },
-		{ id: 4, name: "menuFavorites", title: "Избранное" },
-		{ id: 5, name: "menuNotifications", title: "Уведомления" },
-		{ id: 6, name: "menuCompare", title: "Сравнить" },
-		{ id: 7, name: "menuReviews", title: "Отзывы" },
-		{ id: 8, name: "menuSettings", title: "Настройки" },
-	];
-
-	/**
-	 * @param {string} anchor 
-	 * @param {boolean} open 
-	 * @returns {(event: KeyboardEvent) => void}
-	 */
-	const toggleDrawer = (anchor, open) => (event) => {
-		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-			return;
-		}
-
-		setState({ ...state, [anchor]: open });
-	};
-
-	const logOut = () => {
-		axios.get("/api/logout").then(() => {
-			mutate("/api/user");
-			signOut();
-			router.push("/");
-		});
-	};
-
-	// const avatar = () => {}
-
-	/**
-	 * @param {string} anchor 
-	 */
-	const list = (anchor) => (
-		<>
-			<div
-				className={clsx(classes.list, {
-					[classes.fullList]: anchor === 'top' || anchor === 'bottom',
-				})}
-				role="presentation"
-				onKeyDown={toggleDrawer(anchor, false)}
-			>
-				<List className="burgerContainer burgerAccount">
-					<div className={classes.accountBox}>
-						<button
-							className={classes.button}
-							onClick={() => { changeAccPage(false) }}
-						>
-							<MobileMenu />
-						</button>
-						<p className={classes.accountTitle}>Личный кабинет</p>
-					</div>
-					{menuItems.map(item => (
-						<AccountContent
-							key={item.id}
-							id={item.id}
-							icon={item.name}
-							title={item.title}
-							setState={setState}
-						/>
-					))}
-				</List>
-				<Divider />
-				<ListItem
-					button
-					id={"10"}
-					className="burgerList"
-					onClick={() => setLogout(!logout)}
-				>
-					<ListItemText
-						className={`${classes.accountItem} ${classes.logout} menuLogoff`}
-						primary={"Выход"}
-					/>
-				</ListItem>
-			</div>
-			<Dialog open={logout || false} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
-				<DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
-				<div className="accountLogoutBtnBox">
-					<Button
-						variant="text"
-						color="primary"
-						style={{ textTransform: "uppercase" }}
-						onClick={() => setLogout(!logout)}
-					>
-						Отмена
-					</Button>
-					<Button
-						onClick={() => logOut()}
-						className="accountLogoutYes"
-						style={{ color: "red", textTransform: "uppercase" }}
-					>
-						Выйти
-					</Button>
-				</div>
-			</Dialog>
-		</>
-	);
-
-	if (isAccountPage) {
-		if (isMatchingAThreshold) {
-			return (
-				<>
-					<AccountAvatar {...avatarProps} />
-					{list("left")}
-				</>
-			)
-		} else {
-			return (
-				<AccountAvatar {...avatarProps} />
-			)
-		}
-
-	}
-
-	if (isMatchingAThreshold) {
-		return (<>
-			<Avatar
-				className={classes.avatar}
-				src={userPhoto}
-				style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
-				onClick={toggleDrawer("left", true)}
-			>
-				{initials(name)}
-			</Avatar>
-			{list("left")}
-		</>)
-	} else {
-		return (
-			<Avatar
-				className={classes.avatar}
-				src={userPhoto}
-				style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
-				onClick={() => {
-					toggleDrawer("left", true)
-					router.push({
-						pathname: `/account/${id}`,
-						query: {
-							account: "1",
-							content: "1"
-						}
-					})
-				}} >
-				{initials(name)}
-			</Avatar>)
-	}
-}
-
-/**
- * @param {object} props
  * @param {API.User} props.userInfo
  * @param {boolean} props.isMatchingAThreshold
  * @param {boolean} props.isAccountPage
+ * @param {(anchor: string, open: boolean) => void} props.toggleDrawer
  */
-function AccountAvatar({ userInfo, isMatchingAThreshold, isAccountPage }) {
+const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, toggleDrawer }) => {
+	const router = useRouter()
 	const classes = useStyles();
+	const { id } = useAuth();
 	const { name, userPhoto } = userInfo;
+
+
 	if (isAccountPage) {
 		if (isMatchingAThreshold) {
 			return (
@@ -281,7 +121,7 @@ function AccountAvatar({ userInfo, isMatchingAThreshold, isAccountPage }) {
 					className={classes.avatar}
 					src={userPhoto}
 					style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
-				// onClick={toggleDrawer("left", true)}
+					onClick={toggleDrawer("left", true)}
 				>
 					{initials(name)}
 				</Avatar>)
@@ -324,3 +164,152 @@ function AccountAvatar({ userInfo, isMatchingAThreshold, isAccountPage }) {
 		}
 	}
 }
+
+/**
+ * @param {object} props
+ * @param {(arg: boolean) => void} props.changeAccPage
+ * @param {API.User} props.userInfo
+ * @param {string} props.userPhoto
+ * @param {string} props.name
+ */
+export default function HeaderAccount({ changeAccPage, userInfo }) {
+	const router = useRouter()
+	const classes = useStyles();
+	const [state, setState] = useState({
+		left: false,
+	});
+	const [logout, setLogout] = useState(false);
+	const { signOut } = useAuth();
+
+	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia();
+	const isMatchingAThreshold = matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080;
+	const isAccountPage = router.pathname === "/account/[id]";
+
+	const menuItems = [
+		{ id: 1, name: "menuOffers", title: "Объявления" },
+		{ id: 2, name: "menuDeals", title: "Сделки" },
+		{ id: 3, name: "menuWallet", title: "Кошелек" },
+		{ id: 4, name: "menuFavorites", title: "Избранное" },
+		{ id: 5, name: "menuNotifications", title: "Уведомления" },
+		{ id: 6, name: "menuCompare", title: "Сравнить" },
+		{ id: 7, name: "menuReviews", title: "Отзывы" },
+		{ id: 8, name: "menuSettings", title: "Настройки" },
+	];
+
+	/**
+	 * @param {string} anchor 
+	 * @param {boolean} open 
+	 * @returns {(event: KeyboardEvent) => void}
+	 */
+	const toggleDrawer = (anchor, open) => (event) => {
+		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+			return;
+		}
+
+		setState({ ...state, [anchor]: open });
+	};
+	const avatarProps = { userInfo, isMatchingAThreshold, isAccountPage, toggleDrawer }
+
+	const logOut = () => {
+		axios.get("/api/logout").then(() => {
+			mutate("/api/user");
+			signOut();
+			router.push("/");
+		});
+	};
+
+	/**
+	 * @param {string} anchor 
+	 */
+	const list = (anchor) => (
+		<>
+			<div className={classes.accountBox}>
+				<button
+					className={classes.button}
+					onClick={() => { changeAccPage(false) }}
+				>
+					<MobileMenu />
+				</button>
+				<p className={classes.accountTitle}>Личный кабинет</p>
+			</div>
+			<div
+				className={clsx(classes.list, {
+					[classes.fullList]: anchor === 'top' || anchor === 'bottom',
+				})}
+				role="presentation"
+				onKeyDown={toggleDrawer(anchor, false)}
+			>
+				<List className={`burgerContainer burgerAccount ${classes.itemList}`}>
+					<AccountAvatar {...avatarProps} />
+					{menuItems.map(item => (
+						<AccountContent
+							key={item.id}
+							id={item.id}
+							icon={item.name}
+							title={item.title}
+							setState={setState}
+						/>
+					))}
+				</List>
+				<Divider />
+				<ListItem
+					button
+					id={"10"}
+					className={`burgerList ${classes.logoutItem}`}
+					onClick={() => setLogout(!logout)}
+				>
+					<ListItemText
+						className={`${classes.accountItem} ${classes.logout} menuLogoff`}
+						primary={"Выход"}
+					/>
+				</ListItem>
+			</div>
+			<Dialog open={logout || false} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
+				<DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
+				<div className="accountLogoutBtnBox">
+					<Button
+						variant="text"
+						color="primary"
+						style={{ textTransform: "uppercase" }}
+						onClick={() => setLogout(!logout)}
+					>
+						Отмена
+					</Button>
+					<Button
+						onClick={() => logOut()}
+						className="accountLogoutYes"
+						style={{ color: "red", textTransform: "uppercase" }}
+					>
+						Выйти
+					</Button>
+				</div>
+			</Dialog>
+		</>
+	);
+
+	if (isAccountPage) {
+		if (isMatchingAThreshold) {
+			return (
+				<>
+					{list("left")}
+				</>
+			)
+		} else {
+			return (
+				<AccountAvatar {...avatarProps} />
+			)
+		}
+
+	}
+
+	if (isMatchingAThreshold) {
+		return (<>
+			{list("left")}
+		</>)
+	} else {
+		return (
+			<AccountAvatar {...avatarProps} />
+		)
+	}
+}
+

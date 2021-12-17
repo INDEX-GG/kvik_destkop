@@ -68,7 +68,8 @@ export const AuthHeader = (
 	const classes = useStyles();
 	const [modalState, setModalState] = useState({ left: false });
 	const [isRegForm, changeAuthForm] = useState(false);
-	const [isAccPage, changeAccPage] = useState(false);
+	// eslint-disable-next-line no-unused-vars
+	const [isAccPage, changeAccPage] = useState(true);
 
 	/**
 	 * @param {string} anchor 
@@ -81,7 +82,6 @@ export const AuthHeader = (
 
 		setModalState({ [anchor]: open });
 	};
-
 
 	if (!isAuth) {
 		return (<div className={classes.block}>
@@ -133,14 +133,21 @@ export const AuthHeader = (
 				onClose={toggleDrawer("left", false)}
 			>
 				{/* <BurgerCategories /> */}
-				{(userInfo !== undefined)
-					? <HeaderAccount 
-						changeAccPage={changeAccPage}
+				{userInfo !== undefined
+					? (<HeaderAccount
+						changeAccPage={toggleDrawer("left", false)}
 						userInfo={userInfo}
-						name={userInfo.name} 
-						userPhoto={userInfo.userPhoto} 
-					/>
-					: <Avatar className={classes.avatar} onClick={() => setOpenLoginForm(!openLoginForm)} />}
+						name={userInfo.name}
+						userPhoto={userInfo.userPhoto}
+					/>)
+				: (<Avatar
+					className={classes.avatar}
+					onClick={() => {
+						changeAuthForm(true)
+						changeAccPage(false)
+					}}
+				/>)
+				}
 			</Drawer>
 		</div>
 	)
