@@ -134,9 +134,11 @@ export default function City({dialog, setDialog}) {
     const geo = [data.geo_lat, data.geo_lon]
     const name = suggestion.value
 
-    getTokenDataByPost('/api/userLocation', {user_id: id, data: {name: name, geo: geo, searchName: fullCity}}, token).then(() => {
-      changeCity(name)
-      setUserInfo({...userInfo, location: {name: name, geo: geo, searchName: fullCity}})
+    getTokenDataByPost('/api/userLocation', {user_id: id, data: {name: name, geo: geo, searchName: fullCity}}, token)
+      .then(() => {
+        changeCity(name)
+        setUserInfo({...userInfo, location: {name: name, geo: geo, searchName: fullCity}})
+        setDialog(false);
     })
 
     // console.log(fullCity, suggestion)
@@ -167,44 +169,6 @@ export default function City({dialog, setDialog}) {
       </div>
       <div className={classes.citySubTitle}>Или Выберите из списка</div>
       <div className={classes.cityBox}>
-        {/*{inputValue.length > 0 ?*/}
-        {/*  stateListCity.length ?*/}
-        {/*  stateListCity.map((item, i) => {*/}
-
-        {/*    const cityName = item.settlement*/}
-        {/*    const region = !item.unical_in_country ? `, ${item.region}` : ''*/}
-        {/*    const municipality = !item.unical_in_region ? `, ${item.municipality}` : ''*/}
-        {/*    const cityType = item.type == 'г' ? '' : `${item.type}. `*/}
-        {/*    const finalName = `${cityType}${cityName}${region}${municipality}`*/}
-
-
-        {/*    if (i <= 26) {*/}
-        {/*      return <div*/}
-        {/*        key={i + 1}*/}
-        {/*        onClick={() => {*/}
-        {/*          onChangeCity(item.settlement, [item.latitude_dd, item.longitude_dd])*/}
-        {/*          setDialog(!dialog)*/}
-        {/*        }}*/}
-        {/*        className={`${classes.city} ${cityName == city ? classes.cityActive : ""}`}>*/}
-        {/*        {finalName}*/}
-        {/*      </div>*/}
-        {/*    }*/}
-        {/*    return null*/}
-        {/*  }) : <h1>Ничего ненайдено</h1> :*/}
-        {/*  startArrCity.map((item, i) => {*/}
-        {/*    return (*/}
-        {/*      <div*/}
-        {/*        key={i}*/}
-        {/*        onClick={() => {*/}
-        {/*          onChangeCity(item.name, item.geo)*/}
-        {/*          setDialog(!dialog)*/}
-        {/*        }}*/}
-        {/*        className={`${classes.city} ${item.name == city ? classes.cityActive : ""}`}>*/}
-        {/*        {item.name}*/}
-        {/*      </div>*/}
-        {/*    )*/}
-        {/*  })*/}
-        {/*}*/}
         {
           startArrCity.map((item, i) => {
             return (
