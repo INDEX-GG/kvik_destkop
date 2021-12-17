@@ -1,7 +1,7 @@
 import {makeStyles} from "@material-ui/core";
 import InfoItem from "./InfoItem";
-import ProductDescription from "../ProductDescription";
-import React from "react";
+// import ProductDescription from "../ProductDescription";
+import React, {useState} from "react";
 import ProductInformationPlaceHolder
     from "../../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
 
@@ -11,9 +11,20 @@ const useClass = makeStyles(() => ({
         display: "flex",
         flexDirection: 'column',
         flexWrap: 'wrap',
-        maxHeight: 420,
+        // maxHeight: 420,
+        maxHeight: '170px',
         fontSize: 14,
-        padding: "10px 0",
+        padding: "10px 16px",
+        overflow: 'hidden'
+    },
+    autoPlaceHolderActive: {
+        display: "flex",
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        maxHeight: '100%',
+        fontSize: 14,
+        padding: "10px 16px",
+        overflow: 'hidden'
     },
     title: {
         color: "#8F8F8F",
@@ -158,16 +169,31 @@ const autoData = [
         "name": "Мультимедиа и навигация",
     },
 ]
-const ProductAutoInformation = ({data, mobile, description}) => {
+// const ProductAutoInformation = ({data, mobile, description}) => {
+const ProductAutoInformation = ({data, mobile}) => {
     const classes = useClass()
+    const [isOpenDescription, setIsOpenDescription] = useState(false)
+
+    function showMoreClickHandler(event) {
+        console.log(event)
+        setIsOpenDescription(!isOpenDescription)
+    }
+
+    function classSwitcher() {
+        if(isOpenDescription) return classes.autoPlaceHolderActive
+        if(!isOpenDescription) return classes.autoPlaceholder
+    }
+
     // if (data)
     return (
         data.vine === undefined  ? <ProductInformationPlaceHolder/> :
             <>
-                <div className={classes.autoPlaceholder} style={{
+                <div className={classSwitcher()} style={{
                     flexWrap: mobile ? 'wrap' : "nowrap",
-                    maxHeight: mobile ? null : '100%'
+                    // maxHeight: mobile ? null : '100%'
                 }}>
+                    <div className="productDescriptionTitle">О автомобиле</div>
+                    <span className='productDescriptionunderLine'></span>
                     {autoDataReq.map((el, key) => {
                         if (!el.name) {
                             return null
@@ -191,9 +217,12 @@ const ProductAutoInformation = ({data, mobile, description}) => {
                         return <InfoItem mobile={mobile} key={key} name={el.name} desc={data[el.alias]}/>
                     })}
                 </div>
-                <ProductDescription description={description} mobile={mobile}
-                                    style={{borderTop: "1px solid #e9e9e9", borderBottom: "1px solid #e9e9e9"}}/>
-                {autoData.map((el, i) => (data[el.alias] ? <div key={i} style={{
+                {/* в новом дизайне не нужно */}
+                {/* <ProductDescription description={description} mobile={mobile}
+                                    style={{borderTop: "1px solid #e9e9e9", borderBottom: "1px solid #e9e9e9"}}/> */}
+                {/* в новом дизайне не нужно */}
+                {autoData.map((el, i) => (data[el.alias] ? 
+                <div key={i} style={{
                     display: 'flex',
                     flexDirection: !mobile ? "column" : null,
                     borderBottom: "1px solid #e9e9e9"
@@ -210,9 +239,12 @@ const ProductAutoInformation = ({data, mobile, description}) => {
                         {data[el.alias].split(',').map((des, key) => <div className={classes.descriptionItem}
                             key={key}>{des}</div>)}
                     </div>
-                </div> : null))}
+                </div> : 
+                null))}
 
-
+                {/* <span className='productShowMore'>Показать больше</span> */}
+                {!isOpenDescription && <button onClick={showMoreClickHandler} className='productShowMore'>Показать больше</button>}
+				{isOpenDescription && <button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>}
             </>
 
     )
