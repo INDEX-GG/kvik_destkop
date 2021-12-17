@@ -130,7 +130,7 @@ const TestPage = () => {
 
 
   const handleSend = async () => {
-    for (let current = 0; current < 10; current++) {
+    for (let current = 0; current < 1000; current++) {
       const random = await matchesRandom(4)
       const location = cityArr[random]
       const autoPhoto = arr[random]
