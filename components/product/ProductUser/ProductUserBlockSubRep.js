@@ -88,8 +88,9 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
                         <button
                             className={`ad__block_bottom__adaptive_left ${userBool ? 'ad__block_bottom__adaptive_left__active' : ''}`}
                             disabled={loading} onClick={() => subscribeUser()}>
+                            {userBool ? "Отписаться" : "Подписаться"}
                             <span
-                                className={`SellerInfoUserAdd ${userBool ? "SellerInfoUserAdd__active" : ''}`}/>{userBool ? "Отписаться" : "Подписаться"}
+                                className={`SellerInfoUserAdd ${userBool ? "SellerInfoUserAdd__active" : ''}`}/>
                         </button>
                     )}
                     <div className="ad__block_bottom__adaptive_right">

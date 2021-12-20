@@ -3,14 +3,13 @@ import { makeStyles } from "@material-ui/core";
 
 const useClass = makeStyles(() => ({
   title: {
-    fontSize: '16px',
+    fontSize: '14px',
     color: "rgba(143, 143, 143, 1)",
     marginRight: 4,
   },
   content: {
-    fontSize: '16px',
-    color: "rgba(21, 21, 21, 1)"
-
+    fontSize: '14px',
+    color: "rgba(21, 21, 21, 1)",
   },
 }))
 
@@ -83,12 +82,16 @@ const InfoItem = ({name, desc, mobile}) => {
 
   return (
     <>
-      {desc && <div style={ {
+      {desc && <div className="productAboutItem" style={ {
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: !mobile ? 'space-between' : 'normal',
         alignItems: name === 'Цвет:'? "center" : "flex-start",
-        width: mobile ? '50%' : "100%",
-        padding: "10px 0",
+        // maxWidth: !mobile ? '100%' : '40%',
+        // flexBasis: !mobile ? '100%' : '34%',
+        // maxWidth: '50%',
+        // minWidth: '40%',
+        // width: mobile ? '50%' : "100%",
+        // padding: "10px 0",
       }}>
         <div className={classes.title}>{name}</div>
         <pre className={classes.content}>{desc}</pre>

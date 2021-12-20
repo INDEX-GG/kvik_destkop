@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ProductYMAP from './ProductYMAP';
 
 
-const ProductMap = ({address, coordinates}) => {
+const ProductMap = ({address, coordinates, mobile}) => {
 
 	const [collMap, setCollMap] = useState(true);
 	const formatingAddress = address.split(',').map((element, index) => {
@@ -25,10 +25,11 @@ const ProductMap = ({address, coordinates}) => {
 
 				{address == undefined ? <div className="placeholder_animation product__placeholder_address"></div> :
 					<div className="productPageCharacterLocality">
-						{/* {mobile && <div className="productLocality">Местоположение</div>} */}
+						{!mobile && <div className="productLocality">Местоположение</div>}
+						{!mobile && <p className='productLocality'>{address}</p>}
 						{/* <div>{address == undefined ? '' : address.length > 45 ? address.slice(0, 45) + '...' : address}</div> */}
-						<p className='productLocality'>{formatingAddress[0]}</p>
-						<p className='productLocality'>{formatingAddress[1] + ' ' + formatingAddress[2]}</p>
+						{mobile && <p className='productLocality'>{formatingAddress[0]}</p>}
+						{mobile && <p className='productLocality'>{formatingAddress[1] + ' ' + formatingAddress[2]}</p>}
 						<a className={`productPageCharacterMapSwitch highlight underline ${collMap ? ('') : ('collMapSw')}`} onClick={e => handleCollMap(e)}>Показать на карте</a>
 						<span></span>
 					</div>
