@@ -27,8 +27,8 @@ export default withSession(async (req, res) => {
             res.end(JSON.stringify(response))
         }
         catch (e) {
-            console.error(`ошибка api refresh${e}`)
-            res.json('ошибка api refresh', e)
+            console.error(`ошибка api refresh ${e}`)
+            res.json('ошибка api refresh, ', e)
             res.status(405).end();
         }
 

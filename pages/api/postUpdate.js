@@ -44,8 +44,8 @@ export default async function handler(req, res) {
             res.end(JSON.stringify(response))
         }
         catch (e) {
-            console.error(`ошибка api postUpdate${e}`)
-            res.json('ошибка api postUpdate', e)
+            console.error(`ошибка api postUpdate ${e}`)
+            res.json('ошибка api postUpdate, ', e)
             res.status(405).end();
         }
         finally {
