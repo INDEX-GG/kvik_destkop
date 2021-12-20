@@ -1,14 +1,14 @@
-import { Checkbox, makeStyles} from '@material-ui/core';
-import React,{ useEffect, useState } from 'react'
+import { Checkbox, makeStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react'
 import Favorits from '../../../../UI/Favorits';
 import { BASE_URL, STATIC_URL } from "../../../../lib/constants";
-import { ToRubles, ToRusDate} from "../../../../lib/services";
+import { ToRubles, ToRusDate } from "../../../../lib/services";
 import { useStore } from "../../../../lib/Context/Store";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 
 
-const useStyles = makeStyles ( () => ({
+const useStyles = makeStyles(() => ({
 	check: {
 		position: "absolute",
 	},
@@ -44,9 +44,23 @@ const OfferFavorite = ({index, offer, parentCheck, getChildCheck, dataCheck, del
 
 	
 
-    useEffect( () => {
-        parentCheck ? check ? null : ( getChildCheck({isChecked: parentCheck, id: offer.id}), setCheck(parentCheck) ) : check===false ? null : dataCheck.length===0 ? (getChildCheck({isChecked: parentCheck, id: offer.id}), setCheck(parentCheck)) : null        
-    }, [parentCheck, deleteButton]);
+
+	useEffect(() => {
+		parentCheck
+			? check
+				? null
+				: (
+					getChildCheck({ isChecked: parentCheck, id: offer.id }),
+					setCheck(parentCheck)
+				)
+			: check === false
+				? null
+				: dataCheck.length === 0
+					? (
+						getChildCheck({ isChecked: parentCheck, id: offer.id }), setCheck(parentCheck)
+					)
+					: null
+	}, [parentCheck, deleteButton]);
 
 
     return (
@@ -64,8 +78,8 @@ const OfferFavorite = ({index, offer, parentCheck, getChildCheck, dataCheck, del
                 </div>
 
 
-                {/*<a className="favoritesCompare">*/}
-                {/*</a>*/}
+				{/*<a className="favoritesCompare">*/}
+				{/*</a>*/}
 
                 <a href="javascript:void(0);">
                     <Favorits favId={offer.id} isAccountCard />
