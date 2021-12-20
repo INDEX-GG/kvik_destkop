@@ -4,7 +4,7 @@ import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
 import { Modal } from "@material-ui/core";
 import ProductModalCarousel from "./ProductModalCarousel";
 import { useMedia } from "../hooks/useMedia";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/dist/client/router"
 
 SwiperCore.use([Navigation, Thumbs, Pagination,]);
 
@@ -60,7 +60,10 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 		<div style={{display: 'flex', flexDirection: mobile ? 'column-reverse' : 'column'}}>
 			{title == undefined ? 
 			<div className="placeholder_animation product__placeholder_title"></div>
-			: <div className="productPageTitle xl">{title}</div>}
+			// раньше тут был заголовок, в новом дизайне уже не нужно, вместо заголовка рендерим цену
+			// : <div className="productPageTitle xl">{title}</div>}
+			// раньше тут был заголовок, в новом дизайне уже не нужно, вместо заголовка рендерим цену
+			:null}
 			{photo ? 
 				<div>
 					<Swiper

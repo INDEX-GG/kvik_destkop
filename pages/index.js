@@ -1,18 +1,16 @@
-import React, { useState, useEffect} from "react";
+import React, { useState} from "react";
 import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
 import { PrismaClient } from '@prisma/client';
 import { Box, Container, makeStyles } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
-import OffersRender from "../components/OffersRender";
 import JokerBlock from "../components/JokerBlock";
 import MetaLayout from "../layout/MetaLayout";
 import PlaceOfferButton from "../components/PlaceOfferButton";
 import { useAuth } from "../lib/Context/AuthCTX";
 import theme from "../UI/theme"
-import { firstAds, scrollAds } from "../lib/scrollAds";
 import IndexPlaceHolder from "../components/placeHolders/IndexPlaceHolder/IndexPlaceHolder";
-import {useCity} from "../lib/Context/CityCTX";
+import ScrollPostData from "../components/ScrollPostData";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -55,34 +53,15 @@ const useStyles = makeStyles(() => ({
 
 const Index = () => {
 	const { matchesMobile, matchesTablet } = useMedia();
-	const [data, setData] = useState();
 	// modifyGetPostsData(offers)
 	const classes = useStyles();
-	const { isAuth, id } = useAuth();
-	const [page, setPage] = useState(1);
-	const [limitRenderPage, setLimitRanderPage] = useState(0);
-	const [lastIdAds ,setLastIdAds] = useState(0);
-	const [sort, /** 60 */] = useState('default')
-	const {searchCity} = useCity()
-	const limit = 60
+	const { isAuth } = useAuth();
 
 	const [isPending, setIsPending] = useState(false);
-	const adsData = {id, isAuth, page: 1, limit, setData, setLastIdAds, sort, region_includes: searchCity, region_excludes : ''}
-	const scorllData = {id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage, sort, region_includes: searchCity, region_excludes : ''}
 
 	const pending = () =>  setIsPending(true)
 
 	setTimeout(pending, 1000)
-	isNaN(lastIdAds);
-
-	useEffect(() => {
-		scrollAds(scorllData)
-	}, [page])
-	
-	useEffect(() => {
-		 firstAds(adsData)
-	}, [id, searchCity]);
-
 
 	return (
 
@@ -92,9 +71,10 @@ const Index = () => {
 				 {!isPending ? <IndexPlaceHolder />
 					 : <Box className={classes.main}>
 					<Box className={classes.offers}>
-						<OffersRender pending={pending} data={data} page={page} limitRender={limitRenderPage}
-									setLimitRenderPage={setLimitRanderPage}
-									setPage={setPage} title={'Рекомендуемое'}/>
+						{/*<OffersRender pending={pending} data={data} page={page} limitRender={limitRenderPage}*/}
+						{/*			setLimitRenderPage={setLimitRanderPage}*/}
+						{/*			setPage={setPage} title={'Рекомендуемое'}/>*/}
+						<ScrollPostData/>
 					</Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 						<JokerBlock/>

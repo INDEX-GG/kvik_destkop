@@ -42,8 +42,8 @@ export default async function handler(req, res) {
             res.end(JSON.stringify(response))
         }
         catch (e) {
-            console.error(`ошибка api callphone${e}`)
-            res.json('ошибка api callphone', e)
+            console.error(`ошибка api callPhone ${e}`)
+            res.json('ошибка api callPhone, ', e)
             res.status(405).end();
         }
 

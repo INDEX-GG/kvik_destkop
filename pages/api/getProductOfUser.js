@@ -20,8 +20,8 @@ export default async function handler(req, res) {
 				res.end(JSON.stringify(response))
 			}
 			catch (e) {
-				console.error(`ошибка api getProductOfUser${e}`)
-				res.json('ошибка api getProductOfUser', e)
+				console.error(`ошибка api getProductOfUser ${e}`)
+				res.json('ошибка api getProductOfUser, ', e)
 				res.status(405).end();
 			}
 			finally {
