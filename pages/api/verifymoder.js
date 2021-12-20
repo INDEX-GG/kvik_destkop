@@ -32,8 +32,8 @@ export default async function handler(req, res) {
 			res.end(JSON.stringify(response))
 		}
 		catch (e) {
-			console.error(`ошибка api verifymoder${e}`)
-			res.json('ошибка api verifymoder', e)
+			console.error(`ошибка api verifyModer ${e}`)
+			res.json('ошибка api verifyModer, ', e)
 			res.status(405).end();
 		}
 		finally {

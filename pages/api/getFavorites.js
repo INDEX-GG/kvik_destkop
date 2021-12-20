@@ -70,8 +70,8 @@ export default async function handler(req, res) {
 			res.end(JSON.stringify(response))
 		}
 		catch (e) {
-			console.error(`ошибка api getFavorites${e}`)
-			res.json('ошибка api getFavorites', e)
+			console.error(`ошибка api getFavorites ${e}`)
+			res.json('ошибка api getFavorites, ', e)
 			res.status(405).end();
 		}
 		finally {

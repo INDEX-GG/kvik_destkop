@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-
         const jwt = require("jsonwebtoken");
         const token = req.headers["x-access-token"];
         if (!token) {
@@ -60,8 +59,8 @@ export default async function handler(req, res) {
             res.end(JSON.stringify(response))
         }
         catch (e) {
-            console.error(`ошибка api getBlockUsers${e}`)
-            res.json('ошибка api getBlockUsers', e)
+            console.error(`ошибка api getBlockUsers ${e}`)
+            res.json('ошибка api getBlockUsers, ', e)
             res.status(405).end();
         }
         finally {

@@ -42,7 +42,7 @@ export default async function handler(req, res) {
         }
         catch (e) {
             console.error(`ошибка api userLocation ${e}`)
-            res.json('ошибка api userLocation', e)
+            res.json('ошибка api userLocation, ', e)
             res.status(405).end();
         }
         finally {

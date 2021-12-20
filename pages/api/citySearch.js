@@ -65,8 +65,8 @@ export default async function handler(req, res) {
 			res.end(JSON.stringify(response))
 		}
 		catch (e) {
-			console.error(`ошибка api citySearch${e}`)
-			res.json('ошибка api citySearch', e)
+			console.error(`ошибка api citySearch ${e}`)
+			res.json('ошибка api citySearch, ', e)
 			res.status(405).end();
 		}
 		finally {
