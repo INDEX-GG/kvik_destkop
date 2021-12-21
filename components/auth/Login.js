@@ -117,6 +117,7 @@ const Login = () => {
     setOpenLoginForm,
   } = useContext(DialogCTX);
   const { matchesMobile } = useMedia();
+
   const onSubmit = (data) => {
     data.phone = `+${data.phone.replace(/\D+/g, "")}`;
 
@@ -141,7 +142,7 @@ const Login = () => {
   };
 
   const onClose = () => {
-    setResetPassword(false)
+    // setResetPassword(false)
     setCheckSms(false)
     setChangePassword(false)
     setOpenLoginForm(false)
@@ -284,10 +285,7 @@ const Login = () => {
       </Box>
     )
   }
-
-
-
-
+	console.log(resetPassword);
   return (
     <>
       {!resetPassword ?
@@ -394,7 +392,7 @@ const Login = () => {
                   {/*<button  className={classes.rememberPassword} >*/}
                   {/*  Запомнить пароль*/}
                   {/*</button>*/}
-                  <button onClick={handleClickResetPassword}  className={classes.forgotPassword} >
+                  <button type="button" onClick={handleClickResetPassword}  className={classes.forgotPassword} >
                     Забыли пароль?
                   </button>
                 </div>
