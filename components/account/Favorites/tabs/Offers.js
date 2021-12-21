@@ -19,37 +19,160 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
+/**
+ * @callback GetChildCheck 
+ * @param {{ isChecked: boolean, id: string }} childCheck
+ * @returns {void}
+ */
 
+/**
+ * @typedef ItemPost
+ * @property {number} active
+ * @property {{ fields: string }} add_fields
+ * @property {string} address
+ * @property {boolean} archived
+ * @property {boolean} archived_manually
+ * @property {string} archived_time
+ * @property {string} category_id
+ * @property {string} city
+ * @property {string} comment
+ * @property {boolean} commercial
+ * @property {string} communication JSON { phone: boolean, message: boolean }
+ * @property {string} condition booleanString
+ * @property {[number, number]} coordinates
+ * @property {number} country_code
+ * @property {string} created_at
+ * @property {string} date_start_commercial
+ * @property {string} date_stop_commercial
+ * @property {string} date_verify
+ * @property {string} deleted_at
+ * @property {boolean} delivery
+ * @property {string} description
+ * @property {boolean} draft
+ * @property {null} email
+ * @property {null} email_token
+ * @property {number} featured
+ * @property {number} id
+ * @property {number} lat
+ * @property {number} lon
+ * @property {null} old_price
+ * @property {null} phone
+ * @property {boolean} phone_hidden
+ * @property {null} phone_token
+ * @property {string} photo JSON { photos: string[] }
+ * @property {null} post_type_id
+ * @property {number} price
+ * @property {number} rating
+ * @property {number} reviewed
+ * @property {boolean} secure_transaction
+ * @property {string} slug"
+ * @property {string} subcategory
+ * @property {null} tags
+ * @property {string} title
+ * @property {null} tmp_token
+ * @property {boolean} trade
+ * @property {string} updated_at
+ * @property {boolean} user_blocked: false
+ * @property {number} user_id
+ * @property {string} user_name
+ * @property {null} user_photo
+ * @property {number} verify
+ * @property {{ verify: [] }} verify_moderator
+ * @property {null} video
+ * @property {string} viewing JSON {[]}
+ * @property {number} visits
+ */
+
+/**
+ * @typedef IOfferData
+ * @property {ItemPost[]} itemsPost
+ */
+
+/**
+ * @param {IOfferData} data 
+ */
 function Offers(data) {
     const classes = useStyles();
-    const [check, setCheck] = useState(false);
+		const [favPosts, changeFavPosts] = useState(data.itemsPost);
+    const [deletionCheck, setDeletionCheck] = useState(false);
     const [deleteButton, setDeleteButton] = useState(false);
-    const [dataCheck, setDataCheck] = useState([]);
+		/**
+		 * @type[number[], React.Dispatch < React.SetStateAction < number[] >>]
+		 */
+    const [deletedPostIDs, setDeletedPostIDs] = useState([]);
     const {userInfo, setLikeCommentArray} = useStore();
 
-    function getChildCheck(childCheck) {
-        setDataCheck(childCheck.isChecked ? prev => [...prev, childCheck.id] : dataCheck => dataCheck.filter(item => item !== childCheck.id));
+		/**
+		 * @type {GetChildCheck }
+		 */
+    const getChildCheck = (childCheck) => {
+			setDeletedPostIDs(
+				childCheck.isChecked 
+					? prev => [...prev, childCheck.id] 
+					: dataCheck => dataCheck.filter(item => item !== childCheck.id)
+			);
     }
 
-    const getFavoritsUser = (likeId) => {
-        let favoritesArray = [];
-        likeId.map((items) => {
-            let comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === +items)[0])?.comment !== undefined ? (userInfo?.favorites.filter(item => item.post_id === +items)[0])?.comment : ''
-            let like = checkArray(userInfo?.favorites) && userInfo.favorites.filter(item => item.post_id === +items).map(item => item.condition).join() === 'false'
-            favoritesArray.push({
-                post_id: `${items}`,
-                comment: `${comment}`,
-                condition: `${like}`,
-            })
-        })
-        setLikeCommentArray(favoritesArray)
+		/**
+		 * @param {[]} likeID 
+		 * @return {UserFavorite[]}
+		 */
+    const getUserFavorites = (likeID) => {
+			const favoritesArray = [];
+			likeID.map((items) => {
+					let comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === +items)[0])?.comment !== undefined ? (userInfo?.favorites.filter(item => item.post_id === +items)[0])?.comment : ''
+					let like = checkArray(userInfo?.favorites) && userInfo.favorites.filter(item => item.post_id === +items).map(item => item.condition).join() === 'false'
+					favoritesArray.push({
+							post_id: `${items}`,
+							comment: `${comment}`,
+							condition: `${like}`,
+					})
+			})
+			setLikeCommentArray(favoritesArray);
+			return favoritesArray;
     }
+	
+	/**
+	 * @param {React.ChangeEvent<HTMLInputElement>} event 
+	 */	
+	const handlerDeletionCheckbox = (event) => {
+		setDeletionCheck(!deletionCheck);
+		if (!event.target.checked) {
+			setDeletedPostIDs(() => [])
+		}
+	}
+
+	const handlerPostDelete = () => {
+		if (deletedPostIDs.length) {
+			const favs = getUserFavorites(deletedPostIDs);
+
+			const nonDeletedPosts = favPosts.filter((postItem) => {
+				const isDeleted = deletedPostIDs.includes(postItem.id) && favs.includes(String(postItem));
+				
+				return isDeleted
+			})
+			setDeletedPostIDs([]);
+			changeFavPosts(() => nonDeletedPosts);
+			setDeletionCheck(false);
+			setDeleteButton(!deleteButton)
+		}
+	}
 
     useEffect(() => {
-        dataCheck.length > 0 ? data.itemsPost.length === dataCheck.length ? setCheck(true) : setCheck(false) : null;
-    }, [dataCheck])
+				if (!deletedPostIDs.length) {
+					return;
+				}
 
-    if (data.itemsPost?.length === 0 || data.itemsPost?.length === undefined) {
+				if (favPosts.length === deletedPostIDs.length) {
+					setDeletionCheck(true)
+				} else {
+					setDeletionCheck(false)
+				}
+			},
+			[deletedPostIDs]
+		)
+
+    if (!favPosts?.length) {
         return (
             <>
                 {!userInfo ? <FavoritesOffersPlaceHolder/>
@@ -70,32 +193,29 @@ function Offers(data) {
                     <div className="clientPage__container_nav__radio">
                         <Checkbox
                             color="primary"
-                            onChange={(event) => {
-                                setCheck(!check);
-                                event.target.checked ? null : setDataCheck([])
-                            }}
-                            checked={check}
+														onChange={handlerDeletionCheckbox}
+                            checked={deletionCheck}
                             icon={<FiberManualRecordOutlinedIcon/>}
                             checkedIcon={<FiberManualRecordSharpIcon/>}
                         />
                         <a
-                            onClick={() => dataCheck.length > 0 ? (getFavoritsUser(dataCheck), setDataCheck([]), setCheck(false), setDeleteButton(!deleteButton)) : null}
-                            style={dataCheck.length > 0 ? {color: "black"} : null}
+                            onClick={handlerPostDelete}
+                            style={deletedPostIDs.length > 0 ? {color: "black"} : null}
                             className={classes.delete}
                         >
-                            Удалить
+                            Удалить выбранные
                         </a>
                     </div>
                     <div className="clientPage__container_content">
                         <div className="favoritesContainerWrapper">
-                            {data.itemsPost?.map((offer, i) =>
+                            {favPosts.map((offer, index) =>
                                 <OfferFavorite
                                     offer={offer}
-                                    key={i}
-                                    i={i}
-                                    parentCheck={check}
+                                    key={index}
+                                    index={index}
+                                    parentCheck={deletionCheck}
                                     getChildCheck={getChildCheck}
-                                    dataCheck={dataCheck}
+                                    dataCheck={deletedPostIDs}
                                     deleteButton={deleteButton}
                                 />
                             )}

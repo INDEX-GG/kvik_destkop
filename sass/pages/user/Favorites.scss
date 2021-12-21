@@ -30,15 +30,6 @@
     overflow: hidden;
 }
 
-.favoritesImage img {
-    user-select: none;
-    max-height: 100%; /*Решение проблем с вайтспейсом*/
-    min-width: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 10px;
-}
-
 .favoritesDescription {
     height: 100%;
     max-width: 260.56px;
