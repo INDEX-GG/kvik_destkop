@@ -66,14 +66,15 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
         }}/>
         <div className='productUserName' onClick={() => {
                 router.push(`/user/${sellerId}`)
-
-              }}> {name} </div>
+          }}> 
+          {name} 
+        </div>
       </div>
       
 
       {sellerId === undefined ? <div className="placeholder_animation product__placeholder_userinfo"/> :
         <>
-          <div>
+          <div className='productSubDesktop'>
             {/* <div className='productUserName' onClick={() => {
               router.push(`/user/${sellerId}`)
 
@@ -97,19 +98,21 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
                         className="count__ad">{userAd == undefined ? "" : ((userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>
                 </>
               ) : null} */}
+
+            {sellerId !== id ?
+              mobile ? '' :
+                <div className="ad__block_bottom__adaptive_left">
+                  <Tooltip title='Подписаться' classes={{tooltip: classes.tooltip, arrow: classes.arrow}} arrow>
+                    <button onClick={() => subscribeUser()} disabled={loading}
+                            className={`SellerInfoUserAdd ${userBool ? 'SellerInfoUserAdd__active' : ''}`}></button>
+                  </Tooltip>
+                </div>
+              : ''
+            }
           </div>
 
 
-          {sellerId !== id ?
-            mobile ? '' :
-              <div className="ad__block_bottom__adaptive_left">
-                <Tooltip title='Подписаться' classes={{tooltip: classes.tooltip, arrow: classes.arrow}} arrow>
-                  <button onClick={() => subscribeUser()} disabled={loading}
-                          className={`SellerInfoUserAdd ${userBool ? 'SellerInfoUserAdd__active' : ''}`}></button>
-                </Tooltip>
-              </div>
-            : ''
-          }
+
 
           {/* {status === 7 && sellerId === id ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : "" : ""} */}
 
