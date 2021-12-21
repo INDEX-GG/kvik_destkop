@@ -18,7 +18,14 @@ SwiperCore.use([Navigation, Keyboard]);
  */
 export default function ProductModalCarousel({ photos, activeSlideIndex, setActiveSlideIndex }) {
 	const [activeSlide, setActiveSlide] = useState([]);
+
+	/**
+	 * @type { [SwiperCore, Dispatch < SwiperCore>] }
+	 */
 	const [firstSwiper, setFirstSwiper] = useState(null);
+	/**
+	 * @type {[SwiperCore, Dispatch < SwiperCore>]}
+	 */
 	const [secondSwiper, setSecondSwiper] = useState(null);
 	const hasPhotos = Boolean(photos?.length);
 	let CarouselPag = { type: "fraction" };
@@ -67,7 +74,9 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 		if (firstSwiper) firstSwiper.slideTo(activeSlideIndex, 0)
 	}
 
-
+	/**
+	 * @param {SwiperCore} swiper 
+	 */
 	const changeSwiperOne = (swiper) => {
 		if (firstSwiper && secondSwiper) {
 			secondSwiper.slideTo(swiper.activeIndex, 1000)
@@ -76,9 +85,12 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 		}
 	}
 
-	const changeSwiperTwo = (e) => {
+	/**
+	 * @param {Event} event 
+	 */
+	const changeSwiperTwo = (event) => {
 		if (firstSwiper && secondSwiper) {
-			const slide = e.target.getAttribute('id')
+			const slide = event.target.getAttribute('id')
 			firstSwiper.slideTo(slide, 1000)
 			secondSwiper.slideTo(slide, 1000)
 			setActiveSlideIndex(slide)
@@ -112,10 +124,18 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 					slideToClickedSlide={true}
 				// watchSlidesVisibility={true}
 				>
-					{hasPhotos && photos.map((img, i) => (
+					{hasPhotos && photos.map((img, index) => (
 						// onClick={() => changeSlide(i, activeSlide, setActiveSlide)}
-						<SwiperSlide key={i} id={i} className="productSliderNavItem" onClick={changeSwiperTwo}>
-							<img src={img} style={{ border: activeSlide[i] ? "6px solid #52b9c5" : "none", borderRadius: "5px" }} />
+						<SwiperSlide
+							key={index}
+							id={index}
+							className="productSliderNavItem"
+							onClick={changeSwiperTwo}
+						>
+							<img
+								src={img}
+								style={{ border: activeSlide[index] ? "6px solid #52b9c5" : "none", borderRadius: "5px" }}
+							/>
 						</SwiperSlide>
 					))}
 				</Swiper>
