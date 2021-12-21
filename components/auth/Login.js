@@ -166,6 +166,7 @@ const Login = () => {
 
   }
 
+
   const handleClickResetPassword = () => {
     setResetPassword(true)
     setOpenLoginForm(false)
@@ -283,6 +284,8 @@ const Login = () => {
       </Box>
     )
   }
+
+
 
 
   return (
@@ -437,7 +440,8 @@ const Login = () => {
         }}
         title="Восстановление пароля"
         fullWidth
-        maxWidth="sm">
+        maxWidth="sm"
+				extraClasses={{ root: classes.block }}>
         <ResetPassword/>
       </DialogUIAuth>}
       <RegForm />

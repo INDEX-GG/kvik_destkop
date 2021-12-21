@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import NextLink from "next/link";
 import Router from "next/router";
-import { AppBar, Button, Container, Box, makeStyles } from "@material-ui/core";
+import { AppBar, Button, Container, Box, makeStyles, Avatar } from "@material-ui/core";
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import Logo from "./Logo";
@@ -13,10 +14,9 @@ import Search from "./Search";
 import Login from "../auth/Login";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import { useRouter } from "next/router";
-import HeaderAccount from "./HeaderAccount";
 import { useStore } from "../../lib/Context/Store";
 import {Skeleton} from "@mui/material";
-
+import { initials, stringToColor } from "../../lib/services";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({ category }) => {
-  const {isAuth} = useAuth();
+  const {isAuth, id: accountID} = useAuth();
   const router = useRouter();
   const {userInfo} = useStore();
   const classes = useStyles();
@@ -121,8 +121,22 @@ const Header = ({ category }) => {
           {!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
             Войти
           </Button>
-            || (userInfo === undefined) && <Skeleton variant="circular" width={32} height={32} />  || (userInfo !== undefined) &&
-            <HeaderAccount userPhoto={userInfo.userPhoto} name={userInfo.name} />}
+            || (userInfo === undefined) && (<Skeleton variant="circular" width={32} height={32} /> ) 
+						|| (userInfo !== undefined) && (
+							<NextLink href={{
+								pathname: "/account/[id]",
+								query: { id: accountID }
+							}}>
+								<Avatar
+									className={classes.avatar}
+									src={userInfo.userPhoto}
+									style={{ backgroundColor: `${stringToColor(userInfo.name)}`, cursor: "pointer" }}
+								>
+									{initials(userInfo.name)}
+								</Avatar>
+							</NextLink>	
+						)
+					}
 
         </Container>
         {openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}

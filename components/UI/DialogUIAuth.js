@@ -46,6 +46,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * @param {object} props
+ * @param {() => void} props.onClose
+ * @param {string} props.title
+ * @param {any} props.children
+ * @param {boolean} props.open
+ * @param {boolean} [props.subTitle]
+ * @param {string} [props.maxWidth]
+ * @param {boolean} [props.fullWidth]
+ * @param {Partial<ClassNameMap<DialogClassKey>>} [props.extraClasses] Аттрибут `classes` диалога.
+ */
 const DialogUIAuth = ({
   onClose,
   title,
@@ -54,6 +65,7 @@ const DialogUIAuth = ({
   subTitle = false,
   maxWidth = false,
   fullWidth = false,
+	extraClasses = undefined
 }) => {
   const { matchesMobile, matchesTablet } = useMedia();
   const mobile = matchesMobile || matchesTablet;
@@ -66,6 +78,7 @@ const DialogUIAuth = ({
       onClose={() => onClose()}
       maxWidth={maxWidth}
       fullWidth={fullWidth}
+			classes={extraClasses}
     >
       <div className={classes.wrapper}>
         {mobile && (
