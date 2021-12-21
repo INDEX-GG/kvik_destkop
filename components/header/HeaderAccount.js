@@ -1,38 +1,69 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Avatar, Divider, Dialog, DialogTitle } from '@material-ui/core';
-import { initials, stringToColor } from '../../lib/services';
-import { useState } from 'react';
 import axios from 'axios';
+import NextLink from "next/link";
+import { makeStyles, Button, List, ListItem, ListItemText, Divider, Avatar, Dialog, DialogTitle } from "@material-ui/core";
+import { useState } from 'react';
 import { mutate } from "swr";
+import { initials, stringToColor } from '../../lib/services';
 import { useAuth } from '../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import { useMedia } from '../../hooks/useMedia';
 import AccountContent from './AccountContent';
+import MobileMenu from '../../UI/icons/MobileMenu';
 
 const useStyles = makeStyles((theme) => ({
-	list: {
-		width: '382px',
-		[theme.breakpoints.down(375)]: {
-			width: '330px'
-		}
+	accountBox: {
+		position: "relative",
+		display: "flex",
+		flexFlow: "row nowrap",
+		alignItems: "center",
+		gap: "1em",
+		// переписываю сассовское правило в `sass/components/burger.scss#.burger-list`
+		padding: "0 8px 8px !important"
+	},
+	button: {
+		backgroundColor: "#00A0AB",
+		width: "32px",
+		height: "32px",
+		borderRadius: "4px",
+		cursor: "pointer"
+	},
+	accountTitle: {
+		position: "absolute",
+		left: "50%",
+		width: "200px",
+		color: "#2C2C2C",
+		fontWeight: "500",
+		fontSize: "22px",
+		transform: "translateX(-45%)"
 	},
 	fullList: {
 		width: 'auto',
 	},
+	avatarWrapper: {
+		display: "flex",
+		flexFlow: "row nowrap",
+		gap: "1em",
+		alignItems: "center",
+		padding: "0 8px"
+	},
 	avatar: {
-		width: "32px",
-		height: "32px",
+		width: "34px",
+		height: "34px",
 		alignSelf: "flex-end",
 		[theme.breakpoints.down("1024")]: {
 			marginBottom: '5px',
 		},
+	},
+	avatarName: {
+		fontSize: "18px",
+		fontWeight: "500",
+	},
+	list: {
+		width: "176px",
+		// переписываю сассовское правило в `sass/components/burger.scss#.burger-list`
+		padding: "0 !important",
 	},
 	accountItem: {
 		paddingLeft: "33px",
@@ -45,12 +76,6 @@ const useStyles = makeStyles((theme) => ({
 		"& > span": {
 			color: "#00A0AB",
 		}
-	},
-	accountTitle: {
-		color: "#2C2C2C",
-		fontWeight: "500",
-		fontSize: "18px",
-		marginLeft: '30px'
 	},
 	accountIcon: {
 		cursor: 'pointer',
@@ -77,32 +102,129 @@ const useStyles = makeStyles((theme) => ({
 			transform: "rotate(-45deg)"
 		}
 	},
+	logoutItem: {
+		padding: "0.5em 0 !important"
+	},
 	logout: {
 		marginLeft: "10px"
 	},
-	accountBox: {
-		position: 'relative',
-		margin: '26px 0px 25px 40px'
-	}
+
 }));
 
-export default function HeaderAccount({ userPhoto, name }) {
-
+/**
+ * @param {object} props
+ * @param {API.User} props.userInfo
+ * @param {boolean} props.isMatchingAThreshold
+ * @param {boolean} props.isAccountPage
+ * @param {(anchor: string, open: boolean) => void} props.toggleDrawer
+ */
+export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, toggleDrawer }) => {
 	const router = useRouter()
+	const classes = useStyles();
+	const { id: AccountID } = useAuth();
+	const { name, userPhoto } = userInfo;
 
+	/**
+	 * @param {object} props 
+	 * @param {string} [props.name]
+	 */
+	const AvatarWrapper = ({ name = undefined, children }) => {
+		return (<div className={classes.avatarWrapper}>
+			{children}
+			<span className={classes.avatarName}>{name}</span>
+		</div>)
+	}
+
+	if (isAccountPage) {
+		if (isMatchingAThreshold) {
+			return (
+				<AvatarWrapper name={name}>
+					<Avatar
+						className={classes.avatar}
+						src={userPhoto}
+						style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+						onClick={toggleDrawer("left", true)}
+					>
+						{initials(name)}
+					</Avatar>
+					
+				</AvatarWrapper>
+			)
+		} else {
+			return (
+				<AvatarWrapper name={name}>
+					<Avatar
+						className={classes.avatar}
+						src={userPhoto}
+						style={{ backgroundColor: `${stringToColor(name)}` }}
+					>
+						{initials(name)}
+					</Avatar>
+				</AvatarWrapper>)
+		}
+	} else {
+		if (isMatchingAThreshold) {
+			return (
+				<AvatarWrapper name={name}>
+					<NextLink href={{
+						pathname: "/account/[id]",
+						query: { id: AccountID }
+					}}>
+						<Avatar
+							className={classes.avatar}
+							src={userPhoto}
+							style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+							onClick={toggleDrawer("left", true)}
+						>
+							{initials(name)}
+						</Avatar>
+					</NextLink >
+				</AvatarWrapper>)
+		} else {
+			return (<AvatarWrapper name={name}>
+				<Avatar
+					className={classes.avatar}
+					src={userPhoto}
+					style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
+					onClick={() => {
+						toggleDrawer("left", true)
+						router.push({
+							pathname: `/account/${AccountID}`,
+							query: {
+								account: "1",
+								content: "1"
+							}
+						})
+					}} >
+					{initials(name)}
+				</Avatar>
+			</AvatarWrapper>)
+		}
+	}
+}
+
+/**
+ * @param {object} props
+ * @param {(arg: boolean) => void} props.changeAccPage
+ * @param {API.User} props.userInfo
+ * @param {string} props.userPhoto
+ * @param {string} props.name
+ */
+export default function HeaderAccount({ changeAccPage, userInfo }) {
+	const router = useRouter()
 	const classes = useStyles();
 	const [state, setState] = useState({
-		right: false,
+		left: false,
 	});
-
 	const [logout, setLogout] = useState(false);
-	const { signOut, id } = useAuth();
+	const { signOut } = useAuth();
 
-	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080, } = useMedia()
-
+	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia();
+	const isMatchingAThreshold = matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080;
+	const isAccountPage = router.pathname === "/account/[id]";
 
 	const menuItems = [
-		{ id: 1, name: "menuOffers", title: "Мои объявления" },
+		{ id: 1, name: "menuOffers", title: "Объявления" },
 		{ id: 2, name: "menuDeals", title: "Сделки" },
 		{ id: 3, name: "menuWallet", title: "Кошелек" },
 		{ id: 4, name: "menuFavorites", title: "Избранное" },
@@ -112,7 +234,11 @@ export default function HeaderAccount({ userPhoto, name }) {
 		{ id: 8, name: "menuSettings", title: "Настройки" },
 	];
 
-
+	/**
+	 * @param {string} anchor 
+	 * @param {boolean} open 
+	 * @returns {(event: KeyboardEvent) => void}
+	 */
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
 			return;
@@ -120,6 +246,7 @@ export default function HeaderAccount({ userPhoto, name }) {
 
 		setState({ ...state, [anchor]: open });
 	};
+	const avatarProps = { userInfo, isMatchingAThreshold, isAccountPage, toggleDrawer }
 
 	const logOut = () => {
 		axios.get("/api/logout").then(() => {
@@ -129,8 +256,21 @@ export default function HeaderAccount({ userPhoto, name }) {
 		});
 	};
 
+	/**
+	 * @param {string} anchor 
+	 */
 	const list = (anchor) => (
 		<>
+			<div className={classes.accountBox}>
+				<button
+					className={classes.button}
+					onClick={() => { changeAccPage(false) }}
+				>
+					<MobileMenu />
+				</button>
+				<p className={classes.accountTitle}>Личный кабинет</p>
+			</div>
+			<AccountAvatar {...avatarProps} />
 			<div
 				className={clsx(classes.list, {
 					[classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -138,69 +278,76 @@ export default function HeaderAccount({ userPhoto, name }) {
 				role="presentation"
 				onKeyDown={toggleDrawer(anchor, false)}
 			>
-				<List className="burgerContainer burgerAccount">
-					<div className={classes.accountBox}>
-						<div className={classes.accountTitle}>Личный кабинет</div>
-						<div onClick={toggleDrawer("right", false)} className={classes.accountIcon}></div>
-					</div>
-					<Divider />
+				<List className={`burgerContainer burgerAccount ${classes.itemList}`}>
 					{menuItems.map(item => (
-						<AccountContent key={item.id} id={item.id} icon={item.name} title={item.title} setState={setState} />
+						<AccountContent
+							key={item.id}
+							id={item.id}
+							icon={item.name}
+							title={item.title}
+							setState={setState}
+						/>
 					))}
 				</List>
-				<ListItem onClick={() => setLogout(!logout)} button id={"10"} className="burgerList">
-					<ListItemText className={`${classes.accountItem} 
-            ${classes.logout} menuLogoff`} primary={"Выход"} />
+				<Divider />
+				<ListItem
+					button
+					id={"10"}
+					className={`burgerList ${classes.logoutItem}`}
+					onClick={() => setLogout(!logout)}
+				>
+					<ListItemText
+						className={`${classes.accountItem} ${classes.logout} menuLogoff`}
+						primary={"Выход"}
+					/>
 				</ListItem>
 			</div>
 			<Dialog open={logout || false} onClose={() => setLogout(!logout)} fullWidth maxWidth="xs">
 				<DialogTitle className="accountLogout">Вы уверены, что хотите выйти?</DialogTitle>
 				<div className="accountLogoutBtnBox">
-					<Button onClick={() => setLogout(!logout)} variant="text" color="primary" style={{ textTransform: "uppercase" }}>
+					<Button
+						variant="text"
+						color="primary"
+						style={{ textTransform: "uppercase" }}
+						onClick={() => setLogout(!logout)}
+					>
 						Отмена
 					</Button>
-					<Button onClick={() => logOut()} className="accountLogoutYes" style={{ color: "red", textTransform: "uppercase" }}>Выйти</Button>
+					<Button
+						onClick={() => logOut()}
+						className="accountLogoutYes"
+						style={{ color: "red", textTransform: "uppercase" }}
+					>
+						Выйти
+					</Button>
 				</div>
 			</Dialog>
 		</>
 	);
 
-	return (
-		router.pathname === "/account/[id]" ? matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ?
-			<>
-				<Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
-					{initials(name)}
-				</Avatar>
-				<Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
-					{list("right")}
-				</Drawer>
-			</> :
-			<Avatar className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}` }}>
-				{initials(name)}
-			</Avatar>
-			:
-			<>
-				{matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? (
-					<>
-						<Avatar onClick={toggleDrawer("right", true)} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
-							{initials(name)}
-						</Avatar>
-						<Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer('right', false)}>
-							{list("right")}
-						</Drawer>
-					</>
-				) : <Avatar onClick={() => {
-					toggleDrawer("right", true)
-					router.push({
-						pathname: `/account/${id}`,
-						query: {
-							account: "1",
-							content: "1"
-						}
-					})
-				}} className={classes.avatar} src={userPhoto} style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}>
-					{initials(name)}
-				</Avatar>}
-			</>
-	);
+	if (isAccountPage) {
+		if (isMatchingAThreshold) {
+			return (
+				<>
+					{list("left")}
+				</>
+			)
+		} else {
+			return (
+				<AccountAvatar {...avatarProps} />
+			)
+		}
+
+	}
+
+	if (isMatchingAThreshold) {
+		return (<>
+			{list("left")}
+		</>)
+	} else {
+		return (
+			<AccountAvatar {...avatarProps} />
+		)
+	}
 }
+

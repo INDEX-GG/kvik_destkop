@@ -212,11 +212,23 @@ const Product = () => {
             {!title ? <ProductPlaceHolder/>
               : <div className="product__wrapper">
                 <div className="productPageWrapper">
+                  {!matchesMobile && !matchesTablet && 
+                  <div className="productHeader">
+                      <div className="productPageTitle xl">{title}</div>
+                      <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
+                        mobile/>
+                      </div>}
+                  <div>
                   <div className='product__main_block'>
                     <div className="productPageDescription">
-                      {matchesMobile || matchesTablet ?
-                        <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
-                                                 mobile/> : null}
+                      {(matchesMobile || matchesTablet) &&
+                      <ProductFavoriteNoteComp 
+                        id={id} 
+                        sellerId={user_id} 
+                        isOffer={+query.id} 
+                        mobile
+                      />}
+                      {/* {!matchesMobile && !matchesTablet ? <div className="productPageTitle xl">{title}</div> : null} */}
                       <ProductCarousel title={title} photo={photo}
                                        mobile={matchesMobile || matchesTablet}/>
                       {!matchesLaptop && !matchesDesktop && !matchesHD &&
@@ -254,6 +266,8 @@ const Product = () => {
                     {/* Блок информации*/}
                     <div className="block__my_active_ad">
                       {/* статус объявления, кнопки */}
+                      {/* {!matchesMobile && !matchesTablet && <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
+                        mobile/>} */}
                       {<ProductAction router={query.id} reviewed={reviewed} user_id={user_id}
                                       status={defaultStatus} oldprice={oldprice} price={price}
                                       created_at={created_at} delivery={delivery} trade={trade}
@@ -265,6 +279,7 @@ const Product = () => {
                                        user_id={user_id} userAd={userAd} productTitle={title}/>
                     </div>
                   </div>
+                  </div>  
 
                   {/*{!matchesMobile && !matchesTablet && !matchesLaptop && (*/}
                   {/*  <div className="showsmthWrapper">*/}

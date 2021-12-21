@@ -60,36 +60,43 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
 
   return (
     <>
-      <Avatar alt="User" src={userPhoto} className="SellerInfoUserPic" onClick={() => {
-        router.push(`/user/${sellerId}`)
-      }}/>
+      <div className='ProductuserContainer'>
+        <Avatar alt="User" src={userPhoto} className="SellerInfoUserPic" onClick={() => {
+          router.push(`/user/${sellerId}`)
+        }}/>
+        <div className='productUserName' onClick={() => {
+                router.push(`/user/${sellerId}`)
+
+              }}> {name} </div>
+      </div>
+      
 
       {sellerId === undefined ? <div className="placeholder_animation product__placeholder_userinfo"/> :
         <>
           <div>
-            <div className='productUserName' onClick={() => {
+            {/* <div className='productUserName' onClick={() => {
               router.push(`/user/${sellerId}`)
 
-            }}> {name} </div>
+            }}> {name} </div> */}
             <div>
               <div className="SellerInfoRateNumber">{userrate} </div>
               <StarRating rating={raiting}/>
               {sellerId === id || status === 2 || status === 3 || status === 4 || status === 5 || status === 6 ? (
                 mobile ? (
                   <>
-                    {sellerId != id && <span
+                    {/* {sellerId != id && <span
                       className="count__ad">{userAd == undefined ? "" : ((userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>}
-                    {sellerId != id && <a className="SellerInfoloarmore"/>}
+                    {sellerId != id && <a className="SellerInfoloarmore"/>} */}
                   </>
                 ) : ("")) : ("")}
             </div>
-            {matchesMobile ?
+            {/* {matchesMobile ?
               (
                 <>
                   <span style={{marginLeft: "0px"}}
                         className="count__ad">{userAd == undefined ? "" : ((userAd).filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0)).length} объявлений</span>
                 </>
-              ) : null}
+              ) : null} */}
           </div>
 
 

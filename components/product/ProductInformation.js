@@ -149,7 +149,7 @@ export default function ProductInformation({ productionInfo, description, catero
 
 	return (
 		<>
-			<ProductMap address={address} coordinates={coordinates} mobile={!matchesMobile && !matchesTablet}/>
+			<ProductMap address={address} coordinates={coordinates} mobile={matchesMobile && matchesTablet}/>
 			<div className="productPageCharacter thin">
 			<ProductDescription description={description} />
 				{info}
