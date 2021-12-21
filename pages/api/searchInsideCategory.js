@@ -46,8 +46,9 @@ export default async function handler(req, res) {
 			if (region_excludes === '') {
 				region_excludes = '!'
 			}
-			return await pool.query(`SELECT * FROM posts WHERE LOWER (category_id) LIKE '${category}%' AND active = 0 AND verify = 0 AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '%${region_excludes}' ${sort_value} desc LIMIT ${page_limit} offset ${page}`)
-		}
+			const answer =  await pool.query(`SELECT * FROM posts WHERE LOWER (category_id) LIKE '${category}%' AND active = 0 AND verify = 0 AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '%${region_excludes}' ${sort_value} LIMIT ${page_limit} offset ${page}`)
+		    return (answer.rows)
+        }
 		try {
 			let response = await main();
 			res.status(200);
