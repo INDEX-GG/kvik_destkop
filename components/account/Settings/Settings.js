@@ -121,7 +121,10 @@ const Settings = ({userID, token}) => {
 				<div className="clientPage__container_nav__wrapper">
 					<div className="clientPage__container_nav">
 						{navItems.map(item => {
-							const titleClass = [classes.title, (itemNav.i === item.id) && 'navActive'].join(" ");
+							const titleClass = [
+								classes.title, 
+								(itemNav.i === item.id) ? 'navActive' : ""
+							].join(" ");
 
 							return (
 								<a 
