@@ -325,6 +325,7 @@
 
 	&__item {
 		display: flex;
+		justify-content: space-between;
 		align-items: center;
 		min-height: 24px;
 		padding-left: 2.5em;
@@ -343,9 +344,7 @@
 		}
 	}
 
-	&__link {
-		
-	}
+	// &__link {}
 }
 
 .userInfoStats {

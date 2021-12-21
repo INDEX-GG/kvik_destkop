@@ -14,6 +14,7 @@ import MobileModal from "../../../MobileModal";
 // import DeleteAccountModal from "../../../DeleteAccountModal"
 // import AccountCity from "./components/AccountCity";
 import { getTokenDataByPost } from "../../../../lib/fetch";
+import { CheckBoxSwitch } from "../../../inputs/CheckBoxSwitch";
 
 /**
  * Секция в списке.
@@ -231,27 +232,19 @@ const PersonalData = () => {
 						<ul className="social">
 							<li className="social__item social__item--vk">
 								<a className="social__link">Вконтакте</a>
-								<span>
-									<input type="checkbox" />
-								</span>
+								<CheckBoxSwitch checkID="social-vk"/>
 							</li>
 							<li className="social__item social__item--ok">
 								<a className="social__link">Одноклассники</a>
-								<span>
-									<input type="checkbox" />
-								</span>
+								<CheckBoxSwitch checkID="social-ok"/>
 							</li>
 							<li className="social__item social__item--inst">
 								<a className="social__link">Instagram</a>
-								<span>
-									<input type="checkbox" />
-								</span>
+								<CheckBoxSwitch checkID="social-inst"/>
 							</li>
 							<li className="social__item social__item--fb">
 								<a className="social__link">Facebook</a>
-								<span>
-									<input type="checkbox" />
-								</span>
+								<CheckBoxSwitch checkID="social-fb"/>
 							</li>
 						</ul>
 					</Section>
