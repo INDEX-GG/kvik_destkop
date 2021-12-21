@@ -117,6 +117,7 @@ const Login = () => {
     setOpenLoginForm,
   } = useContext(DialogCTX);
   const { matchesMobile } = useMedia();
+
   const onSubmit = (data) => {
     data.phone = `+${data.phone.replace(/\D+/g, "")}`;
 
@@ -141,7 +142,7 @@ const Login = () => {
   };
 
   const onClose = () => {
-    setResetPassword(false)
+    // setResetPassword(false)
     setCheckSms(false)
     setChangePassword(false)
     setOpenLoginForm(false)
@@ -151,7 +152,6 @@ const Login = () => {
   const onReset = (data) => {
 
     if (changePassword) {
-      console.log(changePassword)
       getTokenDataByPost('/api/settings/upPassword', SecretPassword({password: data.newPassword}), changePassword)
         .then(() => onSubmit({phone: data.checkPhone, password: data.newPassword}))
       return;
@@ -285,10 +285,7 @@ const Login = () => {
     )
   }
 
-
-
-
-  return (
+	return (
     <>
       {!resetPassword ?
         <DialogUIAuth
@@ -394,7 +391,7 @@ const Login = () => {
                   {/*<button  className={classes.rememberPassword} >*/}
                   {/*  Запомнить пароль*/}
                   {/*</button>*/}
-                  <button onClick={handleClickResetPassword}  className={classes.forgotPassword} >
+                  <button type="button" onClick={handleClickResetPassword}  className={classes.forgotPassword} >
                     Забыли пароль?
                   </button>
                 </div>

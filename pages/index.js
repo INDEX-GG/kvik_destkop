@@ -76,7 +76,7 @@ const Index = () => {
 						{/*<OffersRender pending={pending} data={data} page={page} limitRender={limitRenderPage}*/}
 						{/*			setLimitRenderPage={setLimitRanderPage}*/}
 						{/*			setPage={setPage} title={'Рекомендуемое'}/>*/}
-						<ScrollPostData />
+						<ScrollPostData title='Рекомендуемое' url='/api/getPostsPortion'/>
 					</Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 						<JokerBlock/>
