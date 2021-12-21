@@ -9,7 +9,6 @@ import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWa
 import {Box, Grid} from "@mui/material";
 import ArchiveIco from "./ArchiveIco/ArchiveIco";
 
-
 const useStyles = makeStyles((theme) => ({
 	check: {
 		padding: "0px",
@@ -49,8 +48,19 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		justifyContent: "center",
 	},
+	text: {
+		fontSize: "18px"
+	},
 }));
 
+/**
+ * @typedef ArchiveProps
+ * @property {any[]} offers
+ */
+
+/**
+ * @param {ArchiveProps} props
+ */
 function Archive({offers}) {
 	const classes = useStyles();
 
@@ -73,7 +83,13 @@ function Archive({offers}) {
 	}
 
 	useEffect( () => {
-		offerId.length === offers.length ? check ? null : setCheck(true) : check===false ? null : setCheck(false)
+		offerId.length === offers.length 
+			? check 
+				? null 
+				: setCheck(true) 
+			: check===false 
+				? null 
+				: setCheck(false)
 	}, [offerId]);
 
 	if (offers.length === 0) {
@@ -81,10 +97,14 @@ function Archive({offers}) {
 			<>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						{!offers ? <OfferWaitPlaceHolder/> : <EmptyPlaceholder
-							title='Здесь будет ваш архив объявлений'
-							subtitle=''
-						/>}
+						{!offers 
+							? <OfferWaitPlaceHolder/> 
+							: <EmptyPlaceholder
+								title='Здесь будет ваш архив объявлений'
+								subtitle=''
+								className={classes.text}
+							/>
+						}
 					</Grid>
 					<Grid item xs={12}>
 						<Box className={classes.archive}>
