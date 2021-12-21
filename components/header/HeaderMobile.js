@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Button, Container, makeStyles, useScrollTrigger, Slide} from "@material-ui/core";
+import { AppBar, Button, Container, makeStyles, useScrollTrigger, Slide} from "@material-ui/core";
 import Logo from "./Logo";
 import Search from "./Search";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
@@ -9,8 +9,7 @@ import { DialogCTX } from "../../lib/Context/DialogCTX";
 import { useState } from "react";
 import { useMedia } from "../../hooks/useMedia"
 import Login from "../auth/Login";
-import BurgerCategories from "./BurgerCategories";
-import HeaderAccount from "./HeaderAccount";
+import { AuthHeader } from "./AuthHeader";
 import { useStore } from "../../lib/Context/Store";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
 	logo: {
 		width: "100px",
 		height: "53px",
+	},
+	filler: {
+		width: "32px",
 	},
 	avatar: {
 		width: "32px",
@@ -63,13 +65,16 @@ const useStyles = makeStyles((theme) => ({
 
 function HeaderMobile({ chageMenu = false }) {
 	const { isAuth } = useAuth()
+	/**
+	 * @type {{userInfo: API.User}}
+	 */
 	const {userInfo} = useStore();
 	const classes = useStyles();
 	const [openRegForm, setOpenRegForm] = useState(false);
 	const [openLoginForm, setOpenLoginForm] = useState(false);
 	const Router = useRouter()
 	const { matchesMobile, matchesCustom1024 } = useMedia()
-
+	
 	function HideOnScroll(props) {
 		const { children, window } = props;
 		const trigger = useScrollTrigger({
@@ -83,17 +88,19 @@ function HeaderMobile({ chageMenu = false }) {
 	}
 
 	return (
-		
 			<>
 				<AppBar position="fixed" color="secondary">
 					<Container className={classes.container}>
 						<HideOnScroll>
 							<div className={classes.info}>
-								<BurgerCategories className={classes.categories} />
+								<AuthHeader 
+									isAuth={isAuth} 
+									logFormState={[openLoginForm, setOpenLoginForm]}
+									regFormState={[openRegForm, setOpenRegForm]}
+									userInfo={userInfo} 
+								/>
 								<Logo className={classes.logo} />
-								{(isAuth && userInfo !==undefined) ?
-									<HeaderAccount name={userInfo.name} userPhoto={userInfo.userPhoto} /> :
-									<Avatar onClick={() => setOpenLoginForm(!openLoginForm)} className={classes.avatar} />}
+								<div className={classes.filler}></div>
 							</div>
 						</HideOnScroll>
 						<div className={classes.block2}>
