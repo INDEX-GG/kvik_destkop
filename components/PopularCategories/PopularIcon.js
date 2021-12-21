@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import Bg from '../../UI/icons/popularCategories/Bg';
 import BgActive from '../../UI/icons/popularCategories/BgActive';
+// import { useMedia } from '../../hooks/useMedia';
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles(() => ({
 	},
 	bg: {
 		position: 'absolute',
+		width: '80%',
 		zIndex: -1,
 		transition: 'all 650ms ease-in-out'
 	},
@@ -35,13 +37,29 @@ const useStyles = makeStyles(() => ({
 		top: 0,
 		width: '150px',
 		textAlign: 'center',
-		fontWeight: "500"
-	}
+		fontWeight: "500",
+	},
+
+	['@media screen and (max-width: 727px)']: {
+		root: {
+			width: '100%',
+			height: '80px'
+		},
+		title: {
+			// top: 'auto',
+			top: '85%',
+			width: '100%',
+			fontSize: '10px'
+		},
+	},
 }));
 
 const PopularIcon = (icon) => {
+	// const {matchesMobile, matchesTablet} = useMedia()
+	// console.log(matchesMobile, matchesTablet)
 	const [hover, setHover] = useState(false);
 	const classes = useStyles();
+	// console.log(icon.icon.icon, 'icon')
 
 	return (
 		<button

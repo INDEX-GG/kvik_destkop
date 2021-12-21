@@ -38,6 +38,7 @@ const useStyles = makeStyles(() => ({
 	},
 	main: {
 		display: 'flex',
+		marginTop: '10px',
 		height: '100%',
 	},
 	offers: {
@@ -67,7 +68,8 @@ const Index = () => {
 
 		<MetaLayout title={'Доска объявлений'}>
 			 <Container className={classes.root}>
-				  {!isPending ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>}
+				  {/* {!isPending ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>} */}
+				  {!isPending ? null : <PopularCategories className={classes.popularCategories}/>}
 				 {!isPending ? <IndexPlaceHolder />
 					 : <Box className={classes.main}>
 					<Box className={classes.offers}>
