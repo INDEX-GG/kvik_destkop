@@ -4,11 +4,23 @@ import SwiperCore, { Navigation, Keyboard } from "swiper/core";
 
 SwiperCore.use([Navigation, Keyboard]);
 
+/**
+ * @typedef ProductModalCarousel
+ * @property {[]} photos
+ * @property {number} activeSlideIndex
+ * @property {number} setActiveSlideIndex
+ */
+
+/**
+ * 
+ * @param {ProductModalCarousel} props
+ * @returns 
+ */
 export default function ProductModalCarousel({photos, activeSlideIndex, setActiveSlideIndex}) {
   const [activeSlide, setActiveSlide] = useState([]);
   const [firstSwiper, setFirstSwiper] = useState(null);
   const [secondSwiper, setSecondSwiper] = useState(null);
-
+	const hasPhotos = Boolean(photos?.length);
   let CarouselPag = { type: "fraction" };
   let CarouselNav = true;
   let SecondCarousel = true;
