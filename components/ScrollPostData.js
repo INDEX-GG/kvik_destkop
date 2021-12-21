@@ -1,107 +1,135 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import OffersRender from "./OffersRender";
-// import {firstAds} from "../lib/scrollAds";
 import {useAuth} from "../lib/Context/AuthCTX";
 import {useCity} from "../lib/Context/CityCTX";
 import {getDataByPost} from "../lib/fetch";
 import {modifyGetPostsData} from "../lib/services";
 
-const ScrollPostData = () => {
+const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) => {
 
-  const {isAuth, id} = useAuth();
-  const {searchCity} = useCity()
+    const {id} = useAuth();
+    const {searchCity} = useCity()
 
-  const [data, setData] = useState([]);
-  const [sort, /** 60 */] = useState('default')
+    const [post, setPost] = useState([]);
+    const [sort, setSort] = useState('default')
 
-  const [page, setPage] = useState(1);
-  const [lastIdAds ,setLastIdAds] = useState(0);
-  const [limitRenderPage, setLimitRenderPage] = useState(0);
-  const currentRanderPage = useRef();
+    const [page, setPage] = useState(1);
+    const [/** lastIdAds */, setLastIdAds] = useState(0);
+    const [limitRenderPage, setLimitRenderPage] = useState(0);
+    const [excludesLength, setExcludesLength] = useState(1);
+    const [contentUpdate, setContentUpdate] = useState(false);
 
-  const limit = 50
-
-  console.log(lastIdAds);
-
-
-  const scrollDataObj = {
-    'user_id': id ? id : 0,
-    'sort': sort,
-    'page': page,
-    'page_limit': limit,
-    'region_includes': searchCity,
-    'region_excludes': ''
-  }
+    const limit = 50
 
 
-  // Запрос при скролле
-  const generateDataScroll = async (scroll = false) => {
+    const handlerSortChange = (value) => {
+        setSort(value);
+    }
 
-    await getDataByPost('/api/getPostsPortion', scrollDataObj)
-      .then(response => {
+    console.log(sendObj);
 
-        if (scroll) {
-          setLimitRenderPage(0);
+
+    // Запрос при скролле
+    const generateDataScroll = async (scroll = false) => {
+        if (searchCity) {
+
+            const searchCityArr = searchCity.split('$')
+            const regionIncludes = searchCityArr.splice(0, searchCityArr.length - excludesLength + 1).join('$')
+            const regionExcludes = searchCityArr.reverse().splice(0, excludesLength).reverse().join('$')
+
+            const scrollDataObj = {
+                'user_id': id ? id : 0,
+                'sort': sort,
+                'page': page,
+                'page_limit': limit,
+                'region_includes': regionIncludes,
+                'region_excludes': regionExcludes,
+                ...sendObj
+            }
+
+
+            await getDataByPost(url, scrollDataObj)
+                .then(response => {
+
+                    if (Array.isArray(response) && response?.length) {
+
+                        const lastId = response[response.length - 1]?.id
+
+                        if (lastId) {
+                            setLastIdAds(lastId)
+                        }
+
+                        setPost(prevState => [...prevState, ...modifyGetPostsData(response)])
+
+
+                        if (scroll) {
+                            setLimitRenderPage(0);
+                        }
+
+                        setContentUpdate(false);
+
+                        if (response.length !== limit) {
+                            setExcludesLength(excludesLength + 1);
+                            setPage('end')
+                        }
+
+                    } else {
+
+                        if (excludesLength > 4) {
+                            setPage('end')
+                            return;
+                        }
+
+                        setExcludesLength(excludesLength + 1);
+                        setPage('end')
+                    }
+                })
         }
+    };
 
-        if (Array.isArray(response) && response?.length) {
 
-          const lastId = response[response.length - 1]?.id
-          setData([...data, ...modifyGetPostsData(response)])
-
-          if (lastId) setLastIdAds(lastId)
-          if (response.length !== limit) setPage('end')
-
-        } else {
-          setPage('end')
+    // Изменение города
+    useEffect(() => {
+        if (searchCity) {
+            setContentUpdate(true);
+            setExcludesLength(1);
+            setPage(1);
+            setPost([]);
+            setLimitRenderPage(0);
         }
-      })
-  };
+    }, [searchCity, sort, sendObj]);
+
+    // Когда в текущей в текущей области поиска нету объявлений, перейдём выше по вложенности
+    useEffect(() => {
+        if (excludesLength > 1) {
+            setPage(1);
+        }
+    }, [excludesLength])
+
+    // Первая подгрузка (первый рендер, изменение области поиска, изменение города, сортировка)
+    useEffect(() => {
+        if (page === 1 && contentUpdate) {
+            generateDataScroll()
+        }
+    }, [contentUpdate, page, excludesLength]);
 
 
-  useEffect(() => {
-    currentRanderPage.current += 1;
-  })
+    // Прогрузка объявлений при скролле
+    useEffect(() => {
+        if (page > 1 && post.length) {
+            generateDataScroll(true)
+        }
+    }, [page])
 
-  // Первая подгрузка
-  useEffect(() => {
-    generateDataScroll()
-  }, []);
-
-
-  useEffect(() => {
-    if (searchCity) {
-      setPage(1);
-      setData([]);
-    }
-  }, [searchCity]);
-
-
-  // Прогрузка объявлений при скролле
-  useEffect(() => {
-    if (isAuth && page > 1 && id) {
-      generateDataScroll(true)
-      return;
-    }
-
-    if (page > 1) {
-      generateDataScroll(true)
-    }
-  }, [page])
-
-
-
-
-  return (
-    <OffersRender
-      title={'Рекомендуемое'}
-      data={data}
-      page={page}
-      limitRender={limitRenderPage}
-      setLimitRenderPage={setLimitRenderPage}
-      setPage={setPage}
-    />
-  );
+    return (
+        <OffersRender
+            title={title}
+            data={post}
+            pageObj={{page, setPage}}
+            limitRenderObj={{limitRenderPage, setLimitRenderPage}}
+            setSort={handlerSortChange}
+        />
+    );
 };
 
 export default ScrollPostData;
