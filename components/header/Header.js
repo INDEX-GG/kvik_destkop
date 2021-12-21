@@ -13,7 +13,6 @@ import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
 import Login from "../auth/Login";
 import { useAuth } from "../../lib/Context/AuthCTX";
-import { useRouter } from "next/router";
 import { useStore } from "../../lib/Context/Store";
 import {Skeleton} from "@mui/material";
 import { initials, stringToColor } from "../../lib/services";
@@ -74,9 +73,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Header = ({ category }) => {
+const Header = () => {
   const {isAuth, id: accountID} = useAuth();
-  const router = useRouter();
   const {userInfo} = useStore();
   const classes = useStyles();
   const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
@@ -106,8 +104,15 @@ const Header = ({ category }) => {
       <AppBar className={headerScroll} position="sticky" color="secondary">
         <Container className={classes.root}>
           <Logo />
-          <Button className={classes.menu__categorys} variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => setCategories(!openCat)}>
-            {router.route === '/search/[alias]' ? category : "Категории"}
+          <Button 
+						className={classes.menu__categorys} 
+						variant="contained" 
+						color="primary" 
+						aria-controls="simple-menu" 
+						aria-haspopup="true" 
+						onClick={() => setCategories(!openCat)}
+					>
+            Категории
             <ExpandMoreIcon />
           </Button>
           <Search />
