@@ -11,30 +11,31 @@ const useStyles = makeStyles({
 		
 	},
 	check: {
+		position: "absolute",
+		width: "1px",
+		height: "1px",
 		appearance: "none",
 		"&:checked+label span": {
-			right: "0"
+			transform: "translateX(100%)"
 		}
 	},
 	label: {
-		position: "relative",
-		display: "block",
+		display: "flex",
+		alignItems: "center",
 		width: "100%",
 		height: "100%",
 		cursor: "pointer",
 	},
 	ball: {
-		position: "absolute",
-		top: "50%",
 		display: "block",
-		width: "11px",
-		height: "11px",
+		width: "12px",
+		height: "12px",
 		lineHeight: "1.15",
 		borderRadius: "50%",
 		background: "#00A0AB",
 		cursor: "pointer",
 		transitionDuration: "250ms",
-		transitionProperty: "position"
+		transitionProperty: "transform"
 	},
 });
 
