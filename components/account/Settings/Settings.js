@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core';
 import PersonalData from './tabs/PersonalData';
 import Pushes from './tabs/Pushes';
 import BlackList from './tabs/BlackList';
@@ -28,13 +27,6 @@ import { blockUser, getBlockedUsers } from "../../../lib/fetch";
 // 	{ id: 16, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00' },
 // ];
 
-const useStyles = makeStyles({
-	title: {
-		fontWeight: "500",
-		fontSize: "14px",
-	}
-})
-
 /**
  * @typedef SettingsProps
  * @property {number} userID
@@ -45,20 +37,7 @@ const useStyles = makeStyles({
  * @param {SettingsProps} props
  */
 const Settings = ({userID, token}) => {
-	const classes = useStyles();
 	const [blackListData, setBlackListData] = useState([]);
-
-		// console.log(blackListData);
-	useEffect(()=> {
-		(async () => {
-			if (userID && token) {
-				const data = await getBlockedUsers(userID, token);
-				if (data?.blocked_users?.length) {
-					setBlackListData(data.blocked_users)
-				}
-			}
-		})();
-	}, [])
 
 	/**
 	 * @param {string | string[]} users 
@@ -106,6 +85,17 @@ const Settings = ({userID, token}) => {
 	const router = useRouter();
 
 	useEffect(() => {
+		(async () => {
+			if (userID && token) {
+				const data = await getBlockedUsers(userID, token);
+				if (data?.blocked_users?.length) {
+					setBlackListData(data.blocked_users)
+				}
+			}
+		})();
+	}, [])
+
+	useEffect(() => {
 		if (router) {
 			if (router.query.content != undefined) {
 				setItemNav({ i: +router.query.content, ttl: navItems[router.query.content - 1].title })
@@ -119,10 +109,10 @@ const Settings = ({userID, token}) => {
 		<>
 			<div className="clientPage__container_top">
 				<div className="clientPage__container_nav__wrapper">
-					<div className="clientPage__container_nav">
+					<nav className="clientPage__container_nav">
 						{navItems.map(item => {
 							const titleClass = [
-								classes.title, 
+								"clientPage__container_nav__title", 
 								(itemNav.i === item.id) ? 'navActive' : ""
 							].join(" ");
 
@@ -137,7 +127,7 @@ const Settings = ({userID, token}) => {
 								>{item.title} {brooklyn(item.count)}</a>
 							)
 						})}
-					</div>
+					</nav>
 				</div>
 			</div>
 			{navItems.map(item => {

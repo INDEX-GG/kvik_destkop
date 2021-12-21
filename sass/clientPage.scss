@@ -188,6 +188,14 @@
         }
       }
 
+			&__title {
+				font-weight: 500;
+				font-size: 14px;
+				padding: 0;
+				// грязный хак, чтобы подчёркивание по центру было
+				transform: translateY(12.5%);
+			}
+
       & > * {
         margin: 0 40px 0 0;
         padding: 0px 0 16px 0;
@@ -419,6 +427,7 @@
 @media (max-width: 520px) {
   .clientPage__container_nav > * {
     font-size: 14px;
+		padding: 0;
   }
 }
 
@@ -427,9 +436,6 @@
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, 1fr);
     height: 368px;
-  }
-  .clientPage__container_nav > * {
-    font-size: 11px;
   }
 }
 
