@@ -152,7 +152,6 @@ const Login = () => {
   const onReset = (data) => {
 
     if (changePassword) {
-      console.log(changePassword)
       getTokenDataByPost('/api/settings/upPassword', SecretPassword({password: data.newPassword}), changePassword)
         .then(() => onSubmit({phone: data.checkPhone, password: data.newPassword}))
       return;
@@ -285,8 +284,8 @@ const Login = () => {
       </Box>
     )
   }
-	console.log(resetPassword);
-  return (
+
+	return (
     <>
       {!resetPassword ?
         <DialogUIAuth
