@@ -289,12 +289,63 @@
   width: 24px;
   height: 24px;
   transition: all 350ms ease-in-out;
+
+	&:hover {
+		cursor: pointer;
+		transition: all 350ms ease-in-out;
+		transform: scale(1.2);
+	}
 }
 
-.addPhoto:hover {
-  transition: all 350ms ease-in-out;
-  cursor: pointer;
-  transform: scale(1.2);
+.user-info {
+	display: grid;
+	grid-template-columns: 100%;
+	gap: 2.5em;
+
+	&__section {
+		width: 100%;
+		border-bottom: 1px solid hsl(0, 0%, 91%);
+
+		&--social {
+			padding-bottom: 0.25em;
+		}
+	}
+}
+
+.social {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 1em;
+
+	& > * {
+		flex-basis: 40%;
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		min-height: 24px;
+		padding-left: 2.5em;
+
+		&--vk {
+			background: no-repeat left center url("../icons/vk_r_color.svg");
+		}
+		&--inst {
+			background: no-repeat left center url("../icons/ig_r_color.svg");
+		}
+		&--fb {
+			background: no-repeat left center url("../icons/fb_r_color.svg");
+		}
+		&--ok {
+			background: no-repeat left center url("../icons/ok_r_color.svg");
+		}
+	}
+
+	&__link {
+		
+	}
 }
 
 .userInfoStats {
