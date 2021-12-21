@@ -8,14 +8,14 @@ import ProductInformationPlaceHolder
 
 const useClass = makeStyles(() => ({
     autoPlaceholder: {
-        display: "flex",
+        // display: "flex",
         flexDirection: 'column',
         flexWrap: 'wrap',
         // maxHeight: 420,
         maxHeight: '170px',
         fontSize: 14,
         padding: "10px 16px",
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     autoPlaceHolderActive: {
         display: "flex",
@@ -194,28 +194,30 @@ const ProductAutoInformation = ({data, mobile}) => {
                 }}>
                     <div className="productDescriptionTitle">О автомобиле</div>
                     <span className='productDescriptionunderLine'></span>
-                    {autoDataReq.map((el, key) => {
-                        if (!el.name) {
-                            return null
-                        }
-                        if (el.alias === 'fueltype') {
-                            return <InfoItem mobile={mobile} key={key} name={el.name}
-                                             desc={`${data[el.alias]} ${data['enginesize'] !== null ? data['enginesize'] : ''}`}/>
-                        }
-                        if (el.alias === 'GBO') {
-                            if (data[el.alias] !== null) return <InfoItem mobile={mobile} key={key} name={el.name}
-                                                                          desc={`${data[el.alias] === true ? "Есть" : "Нет"}`}/>
-                            return null
-                        }
-                        if (el.alias === 'mileage') {
-                            return <InfoItem mobile={mobile} key={key} name={el.name} desc={`${data[el.alias]} км.`}/>
-                        }
-                        if (el.alias === 'tires_and_rims') {
-                            return <InfoItem mobile={mobile} key={key} name={el.name}
-                                             desc={data[el.alias] ? `${data[el.alias]}” ${data['set_tires']}` : data['set_tires']}/>
-                        }
-                        return <InfoItem mobile={mobile} key={key} name={el.name} desc={data[el.alias]}/>
-                    })}
+                    <div className="productAbout">
+                        {autoDataReq.map((el, key) => {
+                            if (!el.name) {
+                                return null
+                            }
+                            if (el.alias === 'fueltype') {
+                                return <InfoItem mobile={mobile} key={key} name={el.name}
+                                                desc={`${data[el.alias]} ${data['enginesize'] !== null ? data['enginesize'] : ''}`}/>
+                            }
+                            if (el.alias === 'GBO') {
+                                if (data[el.alias] !== null) return <InfoItem mobile={mobile} key={key} name={el.name}
+                                                                            desc={`${data[el.alias] === true ? "Есть" : "Нет"}`}/>
+                                return null
+                            }
+                            if (el.alias === 'mileage') {
+                                return <InfoItem mobile={mobile} key={key} name={el.name} desc={`${data[el.alias]} км.`}/>
+                            }
+                            if (el.alias === 'tires_and_rims') {
+                                return <InfoItem mobile={mobile} key={key} name={el.name}
+                                                desc={data[el.alias] ? `${data[el.alias]}” ${data['set_tires']}` : data['set_tires']}/>
+                            }
+                            return <InfoItem mobile={mobile} key={key} name={el.name} desc={data[el.alias]}/>
+                        })}
+                    </div>
                 </div>
                 {/* в новом дизайне не нужно */}
                 {/* <ProductDescription description={description} mobile={mobile}

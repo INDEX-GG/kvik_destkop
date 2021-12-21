@@ -92,8 +92,8 @@ const ChatAllRoom = ({allRooms, setData}) => {
                       </div>
                       <div className='messageProductBlock' onClick={(e) => handleClickProduct(e, item?.product_id)}>
                         <img src={`${STATIC_URL}/${productPhoto}?${item.product_id}`} />
-                        <div>{item?.product_price && item.product_price?.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
-                        <div>{ellipsis(item.product_name, 12)}</div>
+                        {/* <div>{item?.product_price && item.product_price?.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
+                        <div>{ellipsis(item.product_name, 12)}</div> */}
                       </div>
                     </div>
                     <div className="messageUser small">
@@ -101,21 +101,26 @@ const ChatAllRoom = ({allRooms, setData}) => {
                         <span>
                             {senderPhoto ? <img src={`${STATIC_URL}/${senderPhoto}`} /> :
                                 senderName && <ChatDefaultAvatar name={senderName}/>
-                            }
+                              }
                         </span>
                         <div>
                           <div>{senderName}</div>
-                          <div className="light">{time}</div>
+                          <div className="messageUserBlockTime">{time}</div>
                         </div>
                       </div>
                       {senderMessage ? 
                       senderMessage?.img ?
-                          <div className='light messageMiniatureBlock'>
-                            <span>Фотография: </span>
-                            <img src={senderMessage.src} alt='miniatureImg'  className="messageMiniatureImg"/>
-                          </div>:
-                          <div className="light">{ellipsis(senderMessage, 20)}</div> : null
-                      }
+                      <div className='light messageMiniatureBlock'>
+                        <span>Фотография: </span>
+                        <img src={senderMessage.src} alt='miniatureImg'  className="messageMiniatureImg"/>
+                      </div>:
+                          <>
+                          <div className='messageUserBlockPrice'>{item?.product_price && item.product_price?.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
+                          <div className='messageUserBlockName'>{ellipsis(item.product_name, 12)}</div>
+                          <div className="light">{ellipsis(senderMessage, 20)}</div> 
+                          </>
+                          : null
+                        }
 
                       {/* стили для мобильной верстки, ждут пока подвяжем логику */}
                       {/* <p className='previewPrice'>30 000 Р/Мес</p>
