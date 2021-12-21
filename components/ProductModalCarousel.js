@@ -6,15 +6,13 @@ SwiperCore.use([Navigation, Keyboard]);
 
 /**
  * @typedef ProductModalCarousel
- * @property {[]} photos
+ * @property {string[]} photos
  * @property {number} activeSlideIndex
  * @property {number} setActiveSlideIndex
  */
 
 /**
- * 
  * @param {ProductModalCarousel} props
- * @returns 
  */
 export default function ProductModalCarousel({ photos, activeSlideIndex, setActiveSlideIndex }) {
 	const [activeSlide, setActiveSlide] = useState([]);
@@ -109,8 +107,8 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 				keyboard={{ enabled: true }}
 				centeredSlides={true}
 			>
-				{hasPhotos && photos.map((img, i) => (
-					<SwiperSlide key={i} className="productSliderItem">
+				{hasPhotos && photos.map((img, index) => (
+					<SwiperSlide key={index} className="productSliderItem">
 						<div style={{ width: "100%", height: "100%" }}>
 							<img style={{ objectFit: "contain", width: "100%", height: "100%" }} src={img} />
 						</div>
