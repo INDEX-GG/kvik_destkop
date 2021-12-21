@@ -118,7 +118,7 @@ const Index = () => {
             //         setPage(1);
             //     });
 
-        } else if (Object.keys(queryObj).length || Object.keys(checkboxDate).length) {
+        } else if (Object.keys(queryObj).length) {
             console.log(2)
             generateCheckBoxObj(queryObj)
 
