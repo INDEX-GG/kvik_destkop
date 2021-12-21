@@ -89,7 +89,7 @@ class ReactErrorBoundary extends React.Component {
 	render() {
 		const { classes } = this.props;
 		// переключить перед пушем
-		if (!this.state.hasError) {
+		if (this.state.hasError) {
 			return (
 				<div className={classes.block}>
 					<header className={classes.image}>
