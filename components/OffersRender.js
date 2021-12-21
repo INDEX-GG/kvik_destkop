@@ -4,6 +4,7 @@ import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/c
 import ScrollTop from '../UI/ScrollTop';
 import { observerGenerate } from '../lib/scrollAds';
 import Loader from '../UI/icons/Loader';
+import { useMedia } from '../hooks/useMedia';
 // import EndMessage from './EndMessage';
 
 const useStyles = makeStyles((theme) => ({
@@ -69,6 +70,9 @@ const OffersRender = ({ data, title, isProduct, page = false, limitRender = fals
 	const classes = useStyles();
 	const observer = useRef()
 	const lastElement = useRef()
+	const {matchesMobile, matchesTablet} = useMedia()
+	
+	const screenIsMobile = matchesMobile || matchesTablet;
 
 	// console.log(lastElement)
 	
@@ -82,7 +86,7 @@ const OffersRender = ({ data, title, isProduct, page = false, limitRender = fals
 
 	return (
 		<>
-				<Box className={classes.top}>
+				{!screenIsMobile && <Box className={classes.top}>
 					<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
 
 					{!isProduct &&
@@ -99,7 +103,7 @@ const OffersRender = ({ data, title, isProduct, page = false, limitRender = fals
 						</TextField>
 					}
 
-				</Box>
+				</Box>}
 				<div className="scrollableOffersHome">
 					{state.sorting(data)?.map((obj, i) => isProduct ? <AdCard_component key={i} offer={obj} /> :  <AdCard_component ref={lastElement} key={i} offer={obj} />)}
 				</div>

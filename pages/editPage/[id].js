@@ -92,7 +92,6 @@ function EditPage() {
 	// const additionalfields = {category_id: [{alias: 'post_id', fields: postId}]}
 
 	const onSubmit = data => {
-		// console.log('data',data)
 		data.price = data.price.replace(/\D+/g, '');
 		data.user_id = id
 		delete data.photoes
@@ -203,6 +202,7 @@ function EditPage() {
 			})
 			setPromotion(true)
 		}
+		console.log(obj, 'obj')
 	}
 
 	return (

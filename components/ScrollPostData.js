@@ -7,7 +7,6 @@ import {getDataByPost} from "../lib/fetch";
 import {modifyGetPostsData} from "../lib/services";
 
 const ScrollPostData = () => {
-
   const {isAuth, id} = useAuth();
   const {searchCity} = useCity()
 

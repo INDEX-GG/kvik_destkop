@@ -38,6 +38,7 @@ const useStyles = makeStyles(() => ({
 	},
 	main: {
 		display: 'flex',
+		marginTop: '10px',
 		height: '100%',
 	},
 	offers: {
@@ -67,14 +68,15 @@ const Index = () => {
 
 		<MetaLayout title={'Доска объявлений'}>
 			 <Container className={classes.root}>
-				  {!isPending ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>}
+				  {/* {!isPending ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>} */}
+				  {!isPending ? null : <PopularCategories className={classes.popularCategories}/>}
 				 {!isPending ? <IndexPlaceHolder />
 					 : <Box className={classes.main}>
 					<Box className={classes.offers}>
 						{/*<OffersRender pending={pending} data={data} page={page} limitRender={limitRenderPage}*/}
 						{/*			setLimitRenderPage={setLimitRanderPage}*/}
 						{/*			setPage={setPage} title={'Рекомендуемое'}/>*/}
-						<ScrollPostData/>
+						<ScrollPostData />
 					</Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 						<JokerBlock/>
