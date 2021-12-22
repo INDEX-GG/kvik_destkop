@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { brooklyn } from '#lib/services';
+import { blockUser, getBlockedUsers } from "#lib/fetch";
+import safeAccountTab from '#components/safeAccountTab';
 import { PersonalData } from './tabs/PersonalData/component';
 import Pushes from './tabs/Pushes';
 import BlackList from './tabs/BlackList';
-import { brooklyn } from '../../../lib/services';
-import { useRouter } from 'next/router';
-import safeAccountTab from '../../safeAccountTab';
-import { blockUser, getBlockedUsers } from "../../../lib/fetch";
 
 // Чёрный список
 // const blackListBox = [

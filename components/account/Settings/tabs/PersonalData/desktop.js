@@ -1,25 +1,33 @@
 import { useRef, useState } from "react";
 // import { Button, Dialog } from "@material-ui/core";
-import Modal from "../../../../Modal";
-import { phoneNumber } from "../../../../../lib/services";
-import { modalDeletHistory } from "../../../../Modals";
-import Active_icon from "../../../../../UI/icons/ActiveIcon";
-import { useMedia } from "../../../../../hooks/useMedia"
-import RightArrow from "../../../../../UI/icons/RightArrow"
-import { useStore } from "../../../../../lib/Context/Store";
-import { useAuth } from "../../../../../lib/Context/AuthCTX";
-import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../../lib/regulars"
-import MobileModal from "../../../../MobileModal";
-import DeleteAccountModal from "../../../../DeleteAccountModal"
-import AccountCity from "../components/AccountCity";
-import { getTokenDataByPost } from "../../../../../lib/fetch";
-import { CheckBoxSwitch } from "../../../../inputs/CheckBoxSwitch";
-import { InternalLink } from "../../../../links/InternalLink";
+import Modal from "#components/Modal";
+import { phoneNumber } from "#lib/services";
+import { getTokenDataByPost } from "#lib/fetch";
+import { useStore } from "#lib/Context/Store";
+import { useAuth } from "#lib/Context/AuthCTX";
+import {
+	invalidCharacterChangePassword,
+	checkLatin,
+	checkRegister,
+	checkNumber,
+	checkWhitespace,
+	checkCyrillic,
+	endOfValidation
+} from "#lib/regulars";
+import { useMedia } from "#hooks/useMedia"
+import { modalDeletHistory } from "#components/Modals";
+import Active_icon from "#UI/icons/ActiveIcon";
+import RightArrow from "#UI/icons/RightArrow"
+import MobileModal from "#components/MobileModal";
+import DeleteAccountModal from "#components/DeleteAccountModal"
+import AccountCity from "#components/account/Settings/tabs/components/AccountCity";
+import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
+import { InternalLink } from "#components/links/InternalLink";
+import { FormSection } from "#components/forms/FormSection";
+import { BaseInput } from "#components/inputs/BaseInput";
+import { Label } from "#components/forms/Label";
+import { Button } from "#components/buttons/button";
 import { PersonalDataSection as Section } from "./section";
-import { FormSection } from "../../../../forms/FormSection";
-import { BaseInput } from "../../../../inputs/BaseInput";
-import { Label } from "../../../../forms/Label";
-import { Button } from "../../../../buttons/button";
 
 export const PersonalDataDesktop = () => {
 	const { isAuth, id: userID, token } = useAuth();

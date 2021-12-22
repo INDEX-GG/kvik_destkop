@@ -1,4 +1,4 @@
-import { useMedia } from "../../../../../hooks/useMedia"
+import { useMedia } from "#hooks/useMedia"
 import { PersonalDataDesktop } from "./desktop";
 import { PersonalDataMobile } from "./mobile";
 
