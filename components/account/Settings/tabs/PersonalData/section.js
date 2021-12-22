@@ -8,15 +8,18 @@ const useStyles = makeStyles({
 })
 
 /**
- * Секция в списке.
- * @param {object} props
- * @param {JSX.Element} [props.children]
- * @param {string} props.className `className`, добавляющийся к корневому элементу как `Element.classList.add()`.
- * @param {any} props.sectionProps `props` `<section>` тэга
+ * @typedef {React.ComponentPropsWithoutRef<"section">} PersonalDataSectionProps
  */
-export const PersonalDataSection = ({ className = undefined, children, ...sectionProps }) => {
-	const classes = useStyles()
-	const sectionClass = [classes.block, className && className].join(" ").trim();
+
+/**
+ * @param {PersonalDataSectionProps} props
+ */
+export const PersonalDataSection = ({ className, children, ...sectionProps }) => {
+	const classes = useStyles();
+	const sectionClass = [
+		classes.block, className && className
+	].join(" ").trim();
+
 	return (
 		<section className={sectionClass} {...sectionProps} >
 			{children}

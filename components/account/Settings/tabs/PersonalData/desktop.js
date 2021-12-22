@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Button, Dialog } from "@material-ui/core";
+// import { Button, Dialog } from "@material-ui/core";
 import Modal from "../../../../Modal";
 import { phoneNumber } from "../../../../../lib/services";
 import { modalDeletHistory } from "../../../../Modals";
@@ -16,6 +16,10 @@ import { getTokenDataByPost } from "../../../../../lib/fetch";
 import { CheckBoxSwitch } from "../../../../inputs/CheckBoxSwitch";
 import { InternalLink } from "../../../../links/InternalLink";
 import { PersonalDataSection as Section } from "./section";
+import { FormSection } from "../../../../forms/FormSection";
+import { BaseInput } from "../../../../inputs/BaseInput";
+import { Label } from "../../../../forms/Label";
+import { Button } from "../../../../buttons/button";
 
 export const PersonalDataDesktop = () => {
 	const { isAuth, id: userID, token } = useAuth();
@@ -205,17 +209,20 @@ export const PersonalDataDesktop = () => {
 				<div className="privateDataWrapper thin user-info">
 					<Section className="user-info__section">
 						<h2 className="user-info__heading">Личная информация</h2>
-						<div>
-							<label htmlFor="">Имя</label><input type="text" />
-						</div>
-						<div>
-							<label htmlFor="">Адрес</label><input type="text" />
-						</div>
-						<div>
-							<span>+7 (965) 611 - 72 - 45</span>
-							<button type="button">Добавить номер</button>
+						<FormSection>
+							<Label htmlFor="user-name">Имя</Label>
+							<BaseInput id="user-name" type="text" />
+						</FormSection>
+						<FormSection>
+							<Label htmlFor="user-address">Адрес</Label>
+							<BaseInput id="user-address" type="text" />
+						</FormSection>
+						<FormSection>
+							<Label htmlFor="user-phone">Телефон</Label>
+							<span id="user-phone">+7 (965) 611 - 72 - 45</span>
+							<Button>Добавить номер</Button>
 							<InternalLink href={location.toString()}>Сохранить</InternalLink>
-						</div>
+						</FormSection>
 					</Section>
 					<Section className="user-info__section">
 						<h2 className="user-info__heading">Соцсети и сервисы</h2>
@@ -237,30 +244,32 @@ export const PersonalDataDesktop = () => {
 								<CheckBoxSwitch checkID="social-fb" />
 							</li>
 						</ul>
-						<button type="button">Добавить почту</button>
+						<Button>Добавить почту</Button>
 					</Section>
 					<Section className="user-info__section">
 						<h2 className="user-info__heading">Устройства</h2>
 						<dl>
 							<div>
-								<dt>Windows, браузер Chrome</dt>
-								<dd>Сегодня в 12:52, Челябинск, Россия</dd>
+								<dt className="user-info__device">Windows, браузер Chrome</dt>
+								<dd className="user-info__visit">Сегодня в 12:52, Челябинск, Россия</dd>
 							</div>
 							<div>
-								<dt>Windows, браузер Yandex</dt>
-								<dd>Вчера в 12:52, Тюмень, Россия</dd>
+								<dt className="user-info__device">Windows, браузер Yandex</dt>
+								<dd className="user-info__visit">Вчера в 12:52, Тюмень, Россия</dd>
 							</div>
 						</dl>
 						<InternalLink href={location.toString()}>Очистить</InternalLink>
 					</Section>
 					<Section className="user-info__section">
 						<h2 className="user-info__heading">Смена пароля</h2>
-						<div>
-							<label htmlFor="">Текущий пароль</label><input type="password" />
-						</div>
-						<div>
-							<label htmlFor="">Новый пароль</label><input type="password" />
-						</div>
+						<FormSection>
+							<Label htmlFor="user-current-pass">Текущий пароль</Label>
+							<BaseInput id="user-current-pass" type="password" />
+						</FormSection>
+						<FormSection>
+							<Label htmlFor="user-new-pass">Новый пароль</Label>
+							<BaseInput id="user-new-pass" type="password" />
+						</FormSection>
 						<InternalLink href={location.toString()}>Изменить</InternalLink>
 					</Section>
 					<Section className="user-info__section">

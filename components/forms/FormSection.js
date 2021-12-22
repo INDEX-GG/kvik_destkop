@@ -6,11 +6,22 @@ const useStyles = makeStyles({
 	}
 });
 
-export const FormSection = ({ children, ...props }) => {
+/**
+ * @typedef {React.ComponentPropsWithoutRef<"div">} FormSectionProps
+ */
+
+/**
+ * @param {FormSectionProps} props
+ */
+export const FormSection = ({ className, children, ...divProps }) => {
 	const classes = useStyles();
+	const blockClass = [
+		classes.block,
+		className ? className : ""
+	].join("").trim();
 
 	return (
-		<div className={classes.block} {...props}>
+		<div className={blockClass} {...divProps}>
 			{children}
 		</div>
 	)
