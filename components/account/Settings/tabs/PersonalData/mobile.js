@@ -16,6 +16,8 @@ import AccountCity from "./components/AccountCity";
 import { getTokenDataByPost } from "../../../../lib/fetch";
 import { CheckBoxSwitch } from "../../../inputs/CheckBoxSwitch";
 import { InternalLink } from "../../../links/InternalLink";
+import { PersonalDataSection } from "./section";
+
 
 /**
  * Секция в списке.
@@ -33,7 +35,7 @@ const Section = ({ className = undefined, children, ...sectionProps }) => {
 	)
 }
 
-const PersonalData = () => {
+export const PersonalDataMobile = () => {
 	const { isAuth, id: userID, token } = useAuth();
 	// eslint-disable-next-line no-unused-vars
 	const { userInfo, setUserInfo } = useStore();
@@ -147,17 +149,17 @@ const PersonalData = () => {
 
 		function createArr() {
 			return [
-				length 
-					? "#C7C7C7" 
-					: "#F44545", 
-				languageEu 
-					? "#C7C7C7" 
-					: "#F44545", 
-				number 
-					? "#C7C7C7" 
-					: "#F44545", 
-				registr 
-					? "#C7C7C7" 
+				length
+					? "#C7C7C7"
+					: "#F44545",
+				languageEu
+					? "#C7C7C7"
+					: "#F44545",
+				number
+					? "#C7C7C7"
+					: "#F44545",
+				registr
+					? "#C7C7C7"
 					: "#F44545"
 			];
 		}
@@ -338,13 +340,13 @@ const PersonalData = () => {
 						</div>
 					}
 					<div>
-						{matchesMobile || matchesTablet 
-							? <div>Удалить аккаунт</div> 
+						{matchesMobile || matchesTablet
+							? <div>Удалить аккаунт</div>
 							: <div>Аккаунт</div>
 						}
 						<div>Удалить аккаунт</div>
-						{matchesMobile || matchesTablet 
-							? <RightArrow /> 
+						{matchesMobile || matchesTablet
+							? <RightArrow />
 							: (<a
 								onClick={() => {
 									setOpen(!open)
@@ -455,8 +457,6 @@ const PersonalData = () => {
 		</div>
 	);
 }
-
-export default PersonalData;
 
 /*
 	<p className="pDPassWarning">Минимум 8 символов</p>

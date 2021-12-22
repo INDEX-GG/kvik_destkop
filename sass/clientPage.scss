@@ -309,6 +309,25 @@
 		&--social {
 			padding-bottom: 0.25em;
 		}
+
+		&--phone {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			gap: 1em;
+		}
+	}
+
+	&__heading {
+		display: none;
+	}
+
+	&__phone-link {
+		color: hsl(184, 100%, 34%);
+	}
+
+	@media (min-width: 1024px) {
+		
 	}
 }
 
