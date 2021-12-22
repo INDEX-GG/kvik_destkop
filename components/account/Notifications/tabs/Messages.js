@@ -21,7 +21,6 @@ import {getTokenDataByPost} from "../../../../lib/fetch";
 function Messages() {
 
   const [messageModal, setMessageModal] = useState(false)
-  console.log(messageModal, 'modalmessage')
   const [room, setRoom] = useState({})
   const [allRooms, setAllRooms] = useState([])
   const [chatUsers, setChatUsers] = useState()
@@ -39,9 +38,9 @@ function Messages() {
   const {id, token} = useAuth()
   const {userInfo} = useStore()
   const {matchesTablet, matchesMobile} = useMedia()
-  
+  console.log(userInfo, 'userInfo')
   // временный буль для проверки открытия окна переписки
-  const dialogIsOpen = router.asPath.includes('companion')
+  const chatIsOpen = router.asPath.includes('companion')
   
 
   //! Дожидаемся загрузки страницы
@@ -254,12 +253,15 @@ function Messages() {
             <div className="messageContainer">
               {/* накостылил временное решение для скрытия окна всех чатов
               в десктопной версии оно рендерилось поверх окна диалога с другим юзером */}
-            {!dialogIsOpen && <div className="messageDialogs">
+            {!chatIsOpen && 
+            <div className="messageDialogs">
                 {loadingAllRooms ?
-                  <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
+                  <div className='offer__placeholder_loader messagePlaceholder'>
+                    <Loader/>
+                  </div> :
                   <ChatAllRoom allRooms={allRooms}
                     setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
-              </div>}
+            </div>}
               {!router.query?.companion_id && !router.query?.product_id ? (
                   <div className='chatPlaceholder'>
                     <h2>Для начала переписки выберете чат</h2>

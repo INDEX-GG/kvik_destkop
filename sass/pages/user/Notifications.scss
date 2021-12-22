@@ -206,7 +206,7 @@
 
 .messageHeader > img {
   min-width: 88px;
-  width: 88px;
+  width: 160px;
   height: 88px;
   border-radius: 2px;
   object-fit: cover;
@@ -606,6 +606,10 @@
   .fullScreenImg {
     max-width: 300px;
     max-height: 300px;
+  }
+
+  .messageHeader > img {
+    width: 80px;
   }
 }
 

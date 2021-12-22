@@ -9,7 +9,7 @@ import { useMedia } from '../../hooks/useMedia';
 const useStyles = makeStyles(() => ({
 	root: {
 		// position: 'relative',
-		width: '210px',
+		// width: '210px',
 		height: '210px',
 		cursor: 'pointer',
 		backgroundColor: 'transparent',

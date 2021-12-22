@@ -11,8 +11,9 @@ const useStyles = makeStyles(() => ({
 		width: '100%',
 	},
 	slide: {
-		// width: 'calc(100% / 5.8)',
-		width: '210px',
+		width: 'calc(1256px / 6)',
+		// width: '210px',
+		// width:'100%',
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -22,11 +23,16 @@ const useStyles = makeStyles(() => ({
 		marginTop: '22px',
 	},
 
+	['@media screen and (max-width: 1023px)']: {
+		slide: {
+			width: 'calc(1000px / 5)',
+		}
+	},
+
 	['@media screen and (max-width: 959px)']: {
 		slide: {
-			// backgroundColor: 'red',
-			// width: 'calc(100% / 3)',
-			// width: '50px',
+			// width: 210px,
+			width: '150px',
 			margin: '0 15px',
 		}
 	},
@@ -34,7 +40,6 @@ const useStyles = makeStyles(() => ({
 	['@media screen and (max-width: 727px)']: {
 		slide: {
 			width: 'calc((100% / 4.9) - 15px)',
-			// width: '50px',
 			margin: '0 15px',
 		},
 	},
