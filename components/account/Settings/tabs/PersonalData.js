@@ -15,6 +15,7 @@ import MobileModal from "../../../MobileModal";
 // import AccountCity from "./components/AccountCity";
 import { getTokenDataByPost } from "../../../../lib/fetch";
 import { CheckBoxSwitch } from "../../../inputs/CheckBoxSwitch";
+import { InternalLink } from "../../../links/InternalLink";
 
 /**
  * Секция в списке.
@@ -220,8 +221,9 @@ const PersonalData = () => {
 							{userInfo.address}
 						</Section>)
 					}
-					<Section>
-						{userInfo.phone}
+					<Section className="user-info__section--phone">
+						<span>{userInfo.phone}</span>
+						<InternalLink href="">Добавить телефон</InternalLink>
 					</Section>
 					{userInfo.email &&
 						(<Section>
