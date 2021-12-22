@@ -48,6 +48,8 @@
 		display: flex;
 		flex-direction: column-reverse;
 
+	
+
 		& .swiper-pagination {
 			margin-top: 16px;
 			display: block;
@@ -57,8 +59,8 @@
 		& > .swiper-button-prev,
 		& > .swiper-button-next {
 			position: absolute;
-			// visibility: hidden;
-			// opacity: 0;
+			visibility: hidden;
+			opacity: 0;
 			top: 50%;
 			height: 100%;
 			background: hsla(0, 0%, 77%, 0.3);
@@ -68,11 +70,6 @@
 			transform: translateY(-50%);
 			transition-duration: 250ms;
 			transition-property: visiblity, opacity;
-
-			&--visible {
-				visibility: visible;
-				opacity: 1;
-			}
 		}
 
 		& > .swiper-button-prev {
@@ -82,6 +79,20 @@
 
 		& > .swiper-button-next {
 			background-image: url("../../public/icons/swiper/next.svg");
+		}
+
+		&--prev {
+			& .swiper-button-prev {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+
+		&--next {
+			& .swiper-button-next {
+				visibility: visible;
+				opacity: 1;
+			}
 		}
 
 		& > .swiper-button-disabled {

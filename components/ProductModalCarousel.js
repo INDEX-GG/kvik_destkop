@@ -29,12 +29,9 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 	 * @type {[SwiperCore, Dispatch < SwiperCore>]}
 	 */
 	const [secondSwiper, setSecondSwiper] = useState(null);
-	// const [visibleButton, changeVisibleButton] = useState({
-	// 	prev: false,
-	// 	next: false
-	// })
+	const [wrapperClassName, changeWrapperClassName] = useState("productSliderWrapper")
 	const hasPhotos = Boolean(photos?.length);
-	let CarouselPag = { type: "fraction" };
+	let CarouselPagination = { type: "fraction" };
 	let CarouselNav = true;
 	let hasSecondCarousel = true;
 
@@ -66,7 +63,7 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 
 	if (hasPhotos) {
 		if (photos.length == 1) {
-			CarouselPag = false;
+			CarouselPagination = false;
 			CarouselNav = false;
 			hasSecondCarousel = false;
 		}
@@ -104,61 +101,45 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 		}
 	}
 
-	// /**
-	//  * @param {React.MouseEvent<HTMLDivElement, MouseEvent>} event
-	//  */
-	// const handlerSwiperButtonVisibility = (event) => {
-	// 	event.stopPropagation();
-	// 	const wrapper = event.currentTarget;
+	/**
+	 * @param {React.MouseEvent<HTMLDivElement, MouseEvent>} event
+	 */
+	const handlerSwiperButtonVisibility = (event) => {
+		event.stopPropagation();
+		const wrapper = event.currentTarget;
 
-	// 	// ховер слева
-	// 	if (event.clientX <= wrapper.clientWidth / 2) {
-	// 		changeVisibleButton({
-	// 			prev: true,
-	// 			next: false
-	// 		})
-	// 	}
-
-	// 	// ховер справа
-	// 	if (event.clientX > wrapper.clientWidth / 2) {
-	// 		changeVisibleButton({
-	// 			prev: false,
-	// 			next: true
-	// 		})
-	// 	}
-
-	// 	changeVisibleButton({
-	// 		prev: false,
-	// 		next: false
-	// 	})
-	// }
+		if (event.clientX <= wrapper.clientWidth / 2) {
+			changeWrapperClassName("productSliderWrapper productSliderWrapper--prev")
+		} else if (event.clientX > wrapper.clientWidth / 2) {
+			changeWrapperClassName("productSliderWrapper productSliderWrapper--next")
+		} else {
+			changeWrapperClassName("productSliderWrapper")
+		}
+	}
 
 	return (
 		<>
 			<Swiper
-				className="productSliderWrapper"
+				className={wrapperClassName}
 				onSwiper={firstSwiperInit}
 				onActiveIndexChange={changeSwiperOne}
-				pagination={CarouselPag}
+				pagination={CarouselPagination}
 				navigation={CarouselNav}
-				// 	&& {
-				// 	nextEl: visibleButton.prev && "swiper-button-prev--visible",
-				// 	prevEl: visibleButton.next && "swiper-button-next--visible"
-				// }}
 				keyboard={{ enabled: true }}
 				centeredSlides={true}
+				
 			>
 				{hasPhotos && photos.map((img, index) => (
 					<SwiperSlide 
 						key={index} 
-						className="productSliderItem" 
+						className="productSliderItem"
+						onMouseMove={handlerSwiperButtonVisibility}
 					>
 						<div 
 							style={{ 
 								width: "100%", 
 								height: "100%" 
 							}}
-							// onMouseMove={handlerSwiperButtonVisibility}
 						>
 							<img 
 								style={{ 
