@@ -318,11 +318,6 @@ export const LoginV2 = ({
 				? (
 					<Box className={classes.root}>
 						<Box className={classes.reg}>
-							{matchesMobile ? null : (
-								<Typography className={classes.title} variant="h6">
-									Вход
-								</Typography>
-							)}
 							<form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
 								<Controller
 									name="phone"
