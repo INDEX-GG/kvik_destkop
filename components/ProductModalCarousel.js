@@ -4,106 +4,185 @@ import SwiperCore, { Navigation, Keyboard } from "swiper/core";
 
 SwiperCore.use([Navigation, Keyboard]);
 
-export default function ProductModalCarousel({photos, activeSlideIndex, setActiveSlideIndex}) {
-  const [activeSlide, setActiveSlide] = useState([]);
-  const [firstSwiper, setFirstSwiper] = useState(null);
-  const [secondSwiper, setSecondSwiper] = useState(null);
+/**
+ * @typedef ProductModalCarousel
+ * @property {string[]} photos
+ * @property {number} activeSlideIndex
+ * @property {number} setActiveSlideIndex
+ */
 
-  let CarouselPag = { type: "fraction" };
-  let CarouselNav = true;
-  let SecondCarousel = true;
+/**
+ * @param {ProductModalCarousel} props
+ */
+export default function ProductModalCarousel({ photos, activeSlideIndex, setActiveSlideIndex }) {
+	 
+	/**
+	 * @type { [number, React.Dispatch < React.SetStateAction < number[] >>] }
+	 */
+	const [activeSlide, setActiveSlide] = useState([]);
 
-  useEffect(() => {
-    const arr = [];
-    if (photos != undefined) {
-      for (let inner = 0; inner < photos.length; inner++) {
-        if (inner == 0) {
-          arr.push(true);
-        } else {
-          arr.push(false);
-        }
-      }
-      setActiveSlide(arr);
-    }
-  }, []);
+	/**
+	 * @type { [SwiperCore, Dispatch < SwiperCore>] }
+	 */
+	const [firstSwiper, setFirstSwiper] = useState(null);
+	/**
+	 * @type {[SwiperCore, Dispatch < SwiperCore>]}
+	 */
+	const [secondSwiper, setSecondSwiper] = useState(null);
+	const [wrapperClassName, changeWrapperClassName] = useState("productSliderWrapper")
+	const hasPhotos = Boolean(photos?.length);
+	let CarouselPagination = { type: "fraction" };
+	let CarouselNav = true;
+	let hasSecondCarousel = true;
 
-  function changeSlide(index) {
-    const newArr = activeSlide.map((item, i) => (index == i ? true : false));
-    setActiveSlide(newArr);
-  }
+	useEffect(() => {
+		const arr = [];
+		if (hasPhotos) {
+			for (let inner = 0; inner < photos.length; inner++) {
+				if (inner == 0) {
+					arr.push(true);
+				} else {
+					arr.push(false);
+				}
+			}
+			setActiveSlide(arr);
+		}
+	}, []);
 
-  useEffect(() => {
-	  if (firstSwiper) firstSwiper?.slideTo(activeSlideIndex, 0)
-  }, [firstSwiper, activeSlideIndex])
+	/**
+	 * @param {number} sliderIndex 
+	 */
+	function changeSlide(sliderIndex) {
+		const newArr = activeSlide.map((item, index) => (sliderIndex == index ? true : false));
+		setActiveSlide(newArr);
+	}
 
-  if (photos != undefined) {
-    if (photos.length == 1) {
-      CarouselPag = false;
-      CarouselNav = false;
-      SecondCarousel = false;
-    }
-  }
+	useEffect(() => {
+		if (firstSwiper) firstSwiper?.slideTo(activeSlideIndex, 0)
+	}, [firstSwiper, activeSlideIndex])
 
-  const firstSwiperInit = (swiper) => {
-	  setFirstSwiper(swiper)
-	  if (firstSwiper) firstSwiper.slideTo(activeSlideIndex, 0)
-  } 
+	if (hasPhotos) {
+		if (photos.length == 1) {
+			CarouselPagination = false;
+			CarouselNav = false;
+			hasSecondCarousel = false;
+		}
+	}
 
+	/**
+	 * @param {SwiperCore} swiper 
+	 */
+	const firstSwiperInit = (swiper) => {
+		setFirstSwiper(swiper)
+		if (firstSwiper) firstSwiper.slideTo(activeSlideIndex, 0)
+	}
 
-  const changeSwiperOne = (swiper) => {
-	  if (firstSwiper && secondSwiper) {
-		secondSwiper.slideTo(swiper.activeIndex, 1000)
-		setActiveSlideIndex(swiper.activeIndex)
-		changeSlide(swiper.activeIndex)
-	  }
-  }
+	/**
+	 * @param {SwiperCore} swiper 
+	 */
+	const changeSwiperOne = (swiper) => {
+		if (firstSwiper && secondSwiper) {
+			secondSwiper.slideTo(swiper.activeIndex, 1000)
+			setActiveSlideIndex(swiper.activeIndex)
+			changeSlide(swiper.activeIndex)
+		}
+	}
 
-  const changeSwiperTwo = (e) => {
-	  if (firstSwiper && secondSwiper) {
-		const slide = e.target.getAttribute('id')
-	  	firstSwiper.slideTo(slide, 1000)
-	  	secondSwiper.slideTo(slide, 1000)
-		setActiveSlideIndex(slide)
-		changeSlide(slide)
-	  }
-  }
+	/**
+	 * @param {Event} event 
+	 */
+	const changeSwiperTwo = (event) => {
+		if (firstSwiper && secondSwiper) {
+			const slide = event.target.getAttribute('id')
+			firstSwiper.slideTo(slide, 1000)
+			secondSwiper.slideTo(slide, 1000)
+			setActiveSlideIndex(slide)
+			changeSlide(slide)
+		}
+	}
 
-  return (
-    <>
-      <Swiper className="productSliderWrapper"
-        onSwiper={firstSwiperInit}
-		onActiveIndexChange={changeSwiperOne}
-		pagination={CarouselPag} 
-		navigation={CarouselNav}
-		keyboard={{enabled: true}} 
-		centeredSlides={true} >
-        {photos == undefined
-          ? ""
-          : photos.map((img, i) => (
-              <SwiperSlide key={i} className="productSliderItem">
-                <div style={{width: "100%", height: "100%"}}>
-                  <img style={{objectFit: "contain", width: "100%", height: "100%"}} src={img} />
-                </div>
-              </SwiperSlide>
-            ))}
-      </Swiper>
-      {SecondCarousel ? (
-        <Swiper className="mySwiper productSliderNav"        
-        onSwiper={setSecondSwiper}
-		slidesPerView={"auto"}
-		slideToClickedSlide={true}
-		// watchSlidesVisibility={true}
-		>
-          {photos == undefined
-            ? ""
-            : photos.map((img, i) => (
-				// onClick={() => changeSlide(i, activeSlide, setActiveSlide)}
-                <SwiperSlide key={i} id={i} className="productSliderNavItem" onClick={changeSwiperTwo}>
-                  <img src={img} style={{ border: activeSlide[i] ? "6px solid #52b9c5" : "none", borderRadius: "5px" }} />
-                </SwiperSlide>
-              ))}
-        </Swiper>
-      ) : null}
-    </>
-  );
+	/**
+	 * @param {React.MouseEvent<HTMLDivElement, MouseEvent>} event
+	 */
+	const handlerSwiperButtonVisibility = (event) => {
+		event.stopPropagation();
+		const wrapper = event.currentTarget;
+
+		if (event.clientX <= wrapper.clientWidth / 2) {
+			changeWrapperClassName("productSliderWrapper productSliderWrapper--prev")
+		} else if (event.clientX > wrapper.clientWidth / 2) {
+			changeWrapperClassName("productSliderWrapper productSliderWrapper--next")
+		} else {
+			changeWrapperClassName("productSliderWrapper")
+		}
+	}
+
+	return (
+		<>
+			<Swiper
+				className={wrapperClassName}
+				onSwiper={firstSwiperInit}
+				onActiveIndexChange={changeSwiperOne}
+				pagination={CarouselPagination}
+				navigation={CarouselNav}
+				keyboard={{ enabled: true }}
+				centeredSlides={true}
+				
+			>
+				{hasPhotos && photos.map((img, index) => (
+					<SwiperSlide 
+						key={index} 
+						className="productSliderItem"
+						onMouseMove={handlerSwiperButtonVisibility}
+					>
+						<div 
+							style={{ 
+								width: "100%", 
+								height: "100%" 
+							}}
+						>
+							<img 
+								style={{ 
+									objectFit: "contain", 
+									width: "100%", 
+									height: "100%" 
+								}} 
+								src={img} 
+							/>
+						</div>
+					</SwiperSlide>
+				))}
+			</Swiper>
+			{hasSecondCarousel && (
+				<Swiper 
+					className="mySwiper productSliderNav"
+					onSwiper={setSecondSwiper}
+					slidesPerView={"auto"}
+					slideToClickedSlide={true}
+				// watchSlidesVisibility={true}
+				>
+					{hasPhotos && photos.map((img, index) => (
+						// onClick={() => changeSlide(i, activeSlide, setActiveSlide)}
+						<SwiperSlide
+							key={index}
+							id={index}
+							className="productSliderNavItem"
+							onClick={changeSwiperTwo}
+						>
+							<img
+								src={img}
+								// TODO: перенести в стили
+								style={{ 
+									border: activeSlide[index] 
+										? "2px solid hsl(186, 50%, 55%)" 
+										: "2px solid transparent",
+									borderRadius: "2px"
+								}}
+							/>
+						</SwiperSlide>
+					))}
+				</Swiper>
+			)}
+		</>
+	);
 }

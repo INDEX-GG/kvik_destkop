@@ -22,7 +22,7 @@ import axios from 'axios';
 import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 import {useStore} from "../lib/Context/Store";
 import {getTokenDataByPost} from "../lib/fetch";
-import {generateCity} from "../lib/services";
+import {generateSearchName} from "../lib/services";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -164,7 +164,7 @@ function PlaceOffer() {
         // if (data?.location?.data?.city_kladr_id) data.city = data.location.data.city_kladr_id
         // if (!data?.location?.data?.city_kladr_id && data?.location?.data?.settlement_kladr_id) data.city = data.location.data.settlement_kladr_id
 
-        data.city = generateCity(data.location)
+        data.city = generateSearchName(data.location)
 
         // ПРИННУДИТЕЛЬНЫЙ ВЫХОД
         if (!data.city) {

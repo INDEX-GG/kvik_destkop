@@ -21,6 +21,30 @@ export default async function handler(req, res) {
             const price_max = req.body.price.max
             const check = req.body.check
             const time = req.body.time
+            const sort = req.body.sort.toLowerCase()
+            let sort_value
+            switch (sort) {
+                case 'default':
+                    sort_value = 'ORDER BY id desc'
+                    break;
+                case 'new':
+                    sort_value = 'ORDER BY id desc'
+                    break;
+                case 'price_by_ascending':
+                    sort_value = 'ORDER BY price asc'
+                    break;
+                case 'price_by_descending':
+                    sort_value = 'ORDER BY price desc'
+                    break;
+                default:
+                    sort_value = ''
+                    break;
+            }
+            const region_includes = req.body.region_includes.toLowerCase()
+            let region_excludes = req.body.region_excludes.toLowerCase()
+            if (region_excludes === '') {
+                region_excludes = '!'
+            }
             let constructQuery = ''
             if (delivery === true) {
                 constructQuery =  constructQuery.concat(" AND posts.delivery = '", true, "'")
@@ -43,7 +67,7 @@ export default async function handler(req, res) {
                 }
             }
             if (!(key_list.includes(category))) {
-                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE '${full_category}%') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE '${full_category}%') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' ${sort_value} LIMIT ${page_limit} offset ${page}`)
                 return(answer.rows)
             } else {
                 for (const [key, value] of Object.entries(check)) {
@@ -71,7 +95,7 @@ export default async function handler(req, res) {
                         }
                     }
                 }
-                const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id,"${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') ORDER BY id desc LIMIT ${page_limit} offset ${page}`)
+                const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id,"${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' ${sort_value} LIMIT ${page_limit} offset ${page}`)
                 return(answer.rows)
             }
         }
