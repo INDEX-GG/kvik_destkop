@@ -25,6 +25,11 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 	 * @type {[SwiperCore, Dispatch < SwiperCore>]}
 	 */
 	const [secondSwiper, setSecondSwiper] = useState(null);
+	// eslint-disable-next-line no-unused-vars
+	const [visibleButton, changeVisibleButton] = useState({
+		prev: false,
+		next: false
+	})
 	const hasPhotos = Boolean(photos?.length);
 	let CarouselPag = { type: "fraction" };
 	let CarouselNav = true;
@@ -96,6 +101,11 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 		}
 	}
 
+	// eslint-disable-next-line no-unused-vars
+	const handlerSwiperButtonVisibility = () => {
+
+	}
+
 	return (
 		<>
 			<Swiper
@@ -109,8 +119,20 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 			>
 				{hasPhotos && photos.map((img, index) => (
 					<SwiperSlide key={index} className="productSliderItem">
-						<div style={{ width: "100%", height: "100%" }}>
-							<img style={{ objectFit: "contain", width: "100%", height: "100%" }} src={img} />
+						<div 
+							style={{ 
+								width: "100%", 
+								height: "100%" 
+							}}
+						>
+							<img 
+								style={{ 
+									objectFit: "contain", 
+									width: "100%", 
+									height: "100%" 
+								}} 
+								src={img} 
+							/>
 						</div>
 					</SwiperSlide>
 				))}
