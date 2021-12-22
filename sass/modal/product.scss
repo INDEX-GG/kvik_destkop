@@ -57,6 +57,8 @@
 		& > .swiper-button-prev,
 		& > .swiper-button-next {
 			position: absolute;
+			// visibility: hidden;
+			// opacity: 0;
 			top: 50%;
 			height: 100%;
 			background: hsla(0, 0%, 77%, 0.3);
@@ -67,13 +69,9 @@
 			transition-duration: 250ms;
 			transition-property: visiblity, opacity;
 
-			// &::after {
-			// 	display: none;
-			// }
-
-			&--disabled {
-				visibility: hidden;
-				opacity: 0;
+			&--visible {
+				visibility: visible;
+				opacity: 1;
 			}
 		}
 
