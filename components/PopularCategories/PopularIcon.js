@@ -65,6 +65,7 @@ const PopularIcon = (icon) => {
 	const [hover, setHover] = useState(false);
 	const classes = useStyles();
 
+	// функция возвращает компонент для отрисовки фона, в зависимости от устройства
 	function backgroundPicker(){
 		if(matchesMobile || matchesTablet) {
 			return <BgMobile />
@@ -72,6 +73,7 @@ const PopularIcon = (icon) => {
 		return <Bg/>
 	}
 
+	// функция возвращает компонент для отрисовки фона, в зависимости от устройства
 	function backgroundActivePicker(){
 		if(matchesMobile || matchesTablet) {
 			return <BgMobileActive />
