@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PersonalData from './tabs/PersonalData';
+import { PersonalData } from './tabs/PersonalData/base';
 import Pushes from './tabs/Pushes';
 import BlackList from './tabs/BlackList';
 import { brooklyn } from '../../../lib/services';

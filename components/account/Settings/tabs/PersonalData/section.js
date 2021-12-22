@@ -1,3 +1,12 @@
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+	block: {
+		width: "100%",
+		borderBottom: "1px solid hsl(0, 0%, 91 %)",
+	}
+})
+
 /**
  * Секция в списке.
  * @param {object} props
@@ -6,7 +15,8 @@
  * @param {any} props.sectionProps `props` `<section>` тэга
  */
 export const PersonalDataSection = ({ className = undefined, children, ...sectionProps }) => {
-	const sectionClass = ["user-info__section", className && className].join(" ");
+	const classes = useStyles()
+	const sectionClass = [classes.block, className && className].join(" ").trim();
 	return (
 		<section className={sectionClass} {...sectionProps} >
 			{children}

@@ -1,14 +1,13 @@
 import React, { useRef, useState } from "react";
 import Modal from "../../../Modal";
 import { phoneNumber } from "../../../../lib/services";
-import { modalDeletHistory } from "../../../Modals";
+import { modalDeletHistory } from "../../../../Modals";
 import Active_icon from "../../../../UI/icons/ActiveIcon";
 import { useMedia } from "../../../../hooks/useMedia"
 import RightArrow from "../../../../UI/icons/RightArrow"
-// eslint-disable-next-line no-unused-vars
 import { Button, Dialog } from "@material-ui/core";
-import { useStore } from "../../../../lib/Context/Store";
-import { useAuth } from "../../../../lib/Context/AuthCTX";
+import { useStore } from "../../../../../lib/Context/Store";
+import { useAuth } from "../../../../../lib/Context/AuthCTX";
 import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../lib/regulars"
 import MobileModal from "../../../MobileModal";
 import DeleteAccountModal from "../../../DeleteAccountModal"
@@ -16,31 +15,13 @@ import AccountCity from "./components/AccountCity";
 import { getTokenDataByPost } from "../../../../lib/fetch";
 import { CheckBoxSwitch } from "../../../inputs/CheckBoxSwitch";
 import { InternalLink } from "../../../links/InternalLink";
-
-/**
- * Секция в списке.
- * @param {object} props
- * @param {JSX.Element} [props.children]
- * @param {string} props.className `className`, добавляющийся к корневому элементу как `Element.classList.add()`.
- * @param {any} props.sectionProps `props` `<section>` тэга
- */
-const Section = ({ className = undefined, children, ...sectionProps }) => {
-	const sectionClass = ["user-info__section", className && className].join(" ");
-	return (
-		<section className={sectionClass} {...sectionProps} >
-			{children}
-		</section>
-	)
-}
+import { PersonalDataSection as Section } from "./section";
 
 export const PersonalDataDesktop = () => {
 	const { isAuth, id: userID, token } = useAuth();
-	// eslint-disable-next-line no-unused-vars
 	const { userInfo, setUserInfo } = useStore();
-	const { matchesCustom1024 } = useMedia()
 
 	const [modal, setModal] = useState({});
-	// eslint-disable-next-line no-unused-vars
 	function modalOlen(e, size, content, title) {
 		function smf() {
 			setModal({ title: title, content: content, size: size, isOpen: false });
@@ -56,16 +37,12 @@ export const PersonalDataDesktop = () => {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	} else {
-		// eslint-disable-next-line no-unused-vars
 		userSettings = {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	}
-	// eslint-disable-next-line no-unused-vars
 	const { matchesTablet, matchesMobile } = useMedia();
-	// eslint-disable-next-line no-unused-vars
 	const [inputProfile, setInputProfile] = useState(true);
-	// eslint-disable-next-line no-unused-vars
 	const [valueName, setValueName] = useState("");
 	const limit = useRef(0);
 	const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
@@ -77,7 +54,6 @@ export const PersonalDataDesktop = () => {
 	const [inputFirstEye, setInputFirstEye] = useState(true);
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false);
-	// eslint-disable-next-line no-unused-vars
 	const [open, setOpen] = useState(false);
 
 	userInfo?.name === undefined ? "" : test();
@@ -227,55 +203,22 @@ export const PersonalDataDesktop = () => {
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info">
-					{/* <Section>
-						{userInfo.name}
-					</Section>
-					{userInfo.address &&
-						(<Section>
-							{userInfo.address}
-						</Section>)
-					}
-					<Section className="user-info__section--phone">
-						<span>{userInfo.phone}</span>
-						<InternalLink className="user-info__phone-link" href={location.toString()} >
-							Добавить телефон
-						</InternalLink>
-					</Section>
-					{userInfo.email &&
-						(<Section>
-							<span>{userInfo.email}</span>
-						</Section>)
-					}
-					<Section className="user-info__section--social">
-						<ul className="social">
-							<li className="social__item social__item--vk">
-								<a className="social__link">Вконтакте</a>
-								<CheckBoxSwitch checkID="social-vk"/>
-							</li>
-							<li className="social__item social__item--ok">
-								<a className="social__link">Одноклассники</a>
-								<CheckBoxSwitch checkID="social-ok"/>
-							</li>
-							<li className="social__item social__item--inst">
-								<a className="social__link">Instagram</a>
-								<CheckBoxSwitch checkID="social-inst"/>
-							</li>
-							<li className="social__item social__item--fb">
-								<a className="social__link">Facebook</a>
-								<CheckBoxSwitch checkID="social-fb"/>
-							</li>
-						</ul>
+					<Section>
+						<h2>Личная информация</h2>
 					</Section>
 					<Section>
-						Устройства
+						<h2>Соцсети и сервисы</h2>
 					</Section>
 					<Section>
-						Смена пароля
+						<h2>Устройства</h2>
 					</Section>
 					<Section>
-						Удалить аккаунт
-					</Section> */}
-					<div>
+						<h2>Смена пароля</h2>
+					</Section>
+					<Section>
+						<h2>Удаление профиля</h2>
+					</Section>
+					{/* <div>
 						<div>Телефон</div>
 						<div>
 							<p>{userSettings.phone}</p>
@@ -361,7 +304,7 @@ export const PersonalDataDesktop = () => {
 						>
 							<DeleteAccountModal setOpen={setOpen} />
 						</Dialog>
-					</div>
+					</div> */}
 					{/* <div>
 						<div>Сменить пароль</div>
 						<div>
