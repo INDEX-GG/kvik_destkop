@@ -15,6 +15,10 @@ SwiperCore.use([Navigation, Keyboard]);
  * @param {ProductModalCarousel} props
  */
 export default function ProductModalCarousel({ photos, activeSlideIndex, setActiveSlideIndex }) {
+	 
+	/**
+	 * @type { [number, React.Dispatch < React.SetStateAction < number[] >>] }
+	 */
 	const [activeSlide, setActiveSlide] = useState([]);
 
 	/**
@@ -154,7 +158,13 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 						>
 							<img
 								src={img}
-								style={{ border: activeSlide[index] ? "6px solid #52b9c5" : "none", borderRadius: "5px" }}
+								// TODO: перенести в стили
+								style={{ 
+									border: activeSlide[index] 
+										? "2px solid hsl(186, 50%, 55%)" 
+										: "2px solid transparent",
+									borderRadius: "2px"
+								}}
 							/>
 						</SwiperSlide>
 					))}
