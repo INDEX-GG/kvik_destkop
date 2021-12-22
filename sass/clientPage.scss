@@ -316,7 +316,8 @@
 	}
 
 	&__heading {
-		display: none;
+		font-size: 20px;
+		font-weight: normal;
 	}
 
 	&__phone-link {
@@ -324,7 +325,9 @@
 	}
 
 	@media (min-width: 1024px) {
-		
+		&__section {
+			padding-bottom: 1em;
+		}
 	}
 }
 

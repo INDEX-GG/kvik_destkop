@@ -1,21 +1,20 @@
-import React, { useRef, useState } from "react";
-import Modal from "../../../Modal";
-import { phoneNumber } from "../../../../lib/services";
-import { modalDeletHistory } from "../../../Modals";
-import Active_icon from "../../../../UI/icons/ActiveIcon";
-import { useMedia } from "../../../../hooks/useMedia"
-import RightArrow from "../../../../UI/icons/RightArrow"
-// eslint-disable-next-line no-unused-vars
+import { useRef, useState } from "react";
 import { Button, Dialog } from "@material-ui/core";
-import { useStore } from "../../../../lib/Context/Store";
-import { useAuth } from "../../../../lib/Context/AuthCTX";
-import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../lib/regulars"
-import MobileModal from "../../../MobileModal";
-import DeleteAccountModal from "../../../DeleteAccountModal"
-import AccountCity from "./components/AccountCity";
-import { getTokenDataByPost } from "../../../../lib/fetch";
-import { CheckBoxSwitch } from "../../../inputs/CheckBoxSwitch";
-import { InternalLink } from "../../../links/InternalLink";
+import Modal from "../../../../Modal";
+import { phoneNumber } from "../../../../../lib/services";
+import { modalDeletHistory } from "../../../../Modals";
+import Active_icon from "../../../../../UI/icons/ActiveIcon";
+import { useMedia } from "../../../../../hooks/useMedia"
+import RightArrow from "../../../../../UI/icons/RightArrow"
+import { useStore } from "../../../../../lib/Context/Store";
+import { useAuth } from "../../../../../lib/Context/AuthCTX";
+import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../../lib/regulars"
+import MobileModal from "../../../../MobileModal";
+import DeleteAccountModal from "../../../../DeleteAccountModal"
+import AccountCity from "../components/AccountCity";
+import { getTokenDataByPost } from "../../../../../lib/fetch";
+import { CheckBoxSwitch } from "../../../../inputs/CheckBoxSwitch";
+import { InternalLink } from "../../../../links/InternalLink";
 import { PersonalDataSection } from "./section";
 
 
@@ -37,12 +36,9 @@ const Section = ({ className = undefined, children, ...sectionProps }) => {
 
 export const PersonalDataMobile = () => {
 	const { isAuth, id: userID, token } = useAuth();
-	// eslint-disable-next-line no-unused-vars
 	const { userInfo, setUserInfo } = useStore();
-	const { matchesCustom1024 } = useMedia()
-
 	const [modal, setModal] = useState({});
-	// eslint-disable-next-line no-unused-vars
+	
 	function modalOlen(e, size, content, title) {
 		function smf() {
 			setModal({ title: title, content: content, size: size, isOpen: false });
@@ -58,16 +54,16 @@ export const PersonalDataMobile = () => {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	} else {
-		// eslint-disable-next-line no-unused-vars
+		
 		userSettings = {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	}
-	// eslint-disable-next-line no-unused-vars
+	
 	const { matchesTablet, matchesMobile } = useMedia();
-	// eslint-disable-next-line no-unused-vars
+	
 	const [inputProfile, setInputProfile] = useState(true);
-	// eslint-disable-next-line no-unused-vars
+	
 	const [valueName, setValueName] = useState("");
 	const limit = useRef(0);
 	const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
@@ -79,7 +75,7 @@ export const PersonalDataMobile = () => {
 	const [inputFirstEye, setInputFirstEye] = useState(true);
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false);
-	// eslint-disable-next-line no-unused-vars
+	
 	const [open, setOpen] = useState(false);
 
 	userInfo?.name === undefined ? "" : test();
@@ -229,7 +225,7 @@ export const PersonalDataMobile = () => {
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info">
-					{/* <Section>
+					<Section>
 						{userInfo.name}
 					</Section>
 					{userInfo.address &&
@@ -276,8 +272,8 @@ export const PersonalDataMobile = () => {
 					</Section>
 					<Section>
 						Удалить аккаунт
-					</Section> */}
-					<div>
+					</Section>
+					{/* <div>
 						<div>Телефон</div>
 						<div>
 							<p>{userSettings.phone}</p>
@@ -363,7 +359,7 @@ export const PersonalDataMobile = () => {
 						>
 							<DeleteAccountModal setOpen={setOpen} />
 						</Dialog>
-					</div>
+					</div> */}
 					{/* <div>
 						<div>Сменить пароль</div>
 						<div>

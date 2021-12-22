@@ -3,9 +3,9 @@ import { PersonalDataDesktop } from "./desktop";
 import { PersonalDataMobile } from "./mobile";
 
 export const PersonalData = () => {
-	const { matchesCustom1024 } = useMedia();
+	const { matchesDesktop } = useMedia();
 
-	if (matchesCustom1024) {
+	if (matchesDesktop) {
 		return <PersonalDataDesktop />
 	}
 

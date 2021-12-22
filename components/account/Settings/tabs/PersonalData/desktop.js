@@ -1,20 +1,20 @@
-import React, { useRef, useState } from "react";
-import Modal from "../../../Modal";
-import { phoneNumber } from "../../../../lib/services";
-import { modalDeletHistory } from "../../../../Modals";
-import Active_icon from "../../../../UI/icons/ActiveIcon";
-import { useMedia } from "../../../../hooks/useMedia"
-import RightArrow from "../../../../UI/icons/RightArrow"
+import { useRef, useState } from "react";
 import { Button, Dialog } from "@material-ui/core";
+import Modal from "../../../../Modal";
+import { phoneNumber } from "../../../../../lib/services";
+import { modalDeletHistory } from "../../../../Modals";
+import Active_icon from "../../../../../UI/icons/ActiveIcon";
+import { useMedia } from "../../../../../hooks/useMedia"
+import RightArrow from "../../../../../UI/icons/RightArrow"
 import { useStore } from "../../../../../lib/Context/Store";
 import { useAuth } from "../../../../../lib/Context/AuthCTX";
-import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../lib/regulars"
-import MobileModal from "../../../MobileModal";
-import DeleteAccountModal from "../../../DeleteAccountModal"
-import AccountCity from "./components/AccountCity";
-import { getTokenDataByPost } from "../../../../lib/fetch";
-import { CheckBoxSwitch } from "../../../inputs/CheckBoxSwitch";
-import { InternalLink } from "../../../links/InternalLink";
+import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "../../../../../lib/regulars"
+import MobileModal from "../../../../MobileModal";
+import DeleteAccountModal from "../../../../DeleteAccountModal"
+import AccountCity from "../components/AccountCity";
+import { getTokenDataByPost } from "../../../../../lib/fetch";
+import { CheckBoxSwitch } from "../../../../inputs/CheckBoxSwitch";
+import { InternalLink } from "../../../../links/InternalLink";
 import { PersonalDataSection as Section } from "./section";
 
 export const PersonalDataDesktop = () => {
@@ -67,9 +67,9 @@ export const PersonalDataDesktop = () => {
 
 	//!! Валидация формы
 
-	function changePasswordInput(e) {
+	function changePasswordInput(event) {
 
-		if (!e.target.value.match(invalidCharacterChangePassword())) {
+		if (!event.target.value.match(invalidCharacterChangePassword())) {
 			return;
 		}
 
@@ -81,31 +81,31 @@ export const PersonalDataDesktop = () => {
 		let lenguageRu = false;
 		// ! Проверка на длинну
 
-		if (e.target.value.length >= 8) {
+		if (event.target.value.length >= 8) {
 			length = true;
 		}
 
 		// ! Проверка на Латиницу
-		if (e.target.value.match(checkLatin()) || e.target.value.match(checkLatin()) != null) {
+		if (event.target.value.match(checkLatin()) || event.target.value.match(checkLatin()) != null) {
 			languageEu = true;
 		}
 		// ! Провека на цифру
-		if (e.target.value.match(checkNumber())) {
+		if (event.target.value.match(checkNumber())) {
 			number = true;
 		}
 		//! Проверка на регистр
-		if (e.target.value.match(checkRegister()) && e.target.value.match(checkRegister()) != null) {
+		if (event.target.value.match(checkRegister()) && event.target.value.match(checkRegister()) != null) {
 			registr = true;
 		}
 		//! Проверка на пробел
-		if (!e.target.value.match(checkWhitespace())) {
-			e.target.value = e.target.value
+		if (!event.target.value.match(checkWhitespace())) {
+			event.target.value = event.target.value
 				.split("")
-				.splice(0, e.target.value.length - 1)
+				.splice(0, event.target.value.length - 1)
 				.join("");
 		}
 		//! Проверка на кириллицу
-		if (e.target.value.match(checkCyrillic())) {
+		if (event.target.value.match(checkCyrillic())) {
 			lenguageRu = true;
 			languageEu = false;
 		}
@@ -115,7 +115,7 @@ export const PersonalDataDesktop = () => {
 		}
 
 		//! Конец валидации
-		if (e.target.value.match(endOfValidation()) && !lenguageRu) {
+		if (event.target.value.match(endOfValidation()) && !lenguageRu) {
 			setPasswordValid(true);
 		} else {
 			setPasswordValid(false);
@@ -138,8 +138,8 @@ export const PersonalDataDesktop = () => {
 			];
 		}
 
-		setPasswordOne(e.target.value);
-		confirmPassword(e, "input1");
+		setPasswordOne(event.target.value);
+		confirmPassword(event, "input1");
 		setValidateCheck(createArr());
 	}
 
@@ -203,20 +203,70 @@ export const PersonalDataDesktop = () => {
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info">
-					<Section>
-						<h2>Личная информация</h2>
+					<Section className="user-info__section">
+						<h2 className="user-info__heading">Личная информация</h2>
+						<div>
+							<label htmlFor="">Имя</label><input type="text" />
+						</div>
+						<div>
+							<label htmlFor="">Адрес</label><input type="text" />
+						</div>
+						<div>
+							<span>+7 (965) 611 - 72 - 45</span>
+							<button type="button">Добавить номер</button>
+							<InternalLink href={location.toString()}>Сохранить</InternalLink>
+						</div>
 					</Section>
-					<Section>
-						<h2>Соцсети и сервисы</h2>
+					<Section className="user-info__section">
+						<h2 className="user-info__heading">Соцсети и сервисы</h2>
+						<ul className="social">
+							<li className="social__item social__item--vk">
+								<a className="social__link">Вконтакте</a>
+								<CheckBoxSwitch checkID="social-vk" />
+							</li>
+							<li className="social__item social__item--ok">
+								<a className="social__link">Одноклассники</a>
+								<CheckBoxSwitch checkID="social-ok" />
+							</li>
+							<li className="social__item social__item--inst">
+								<a className="social__link">Instagram</a>
+								<CheckBoxSwitch checkID="social-inst" />
+							</li>
+							<li className="social__item social__item--fb">
+								<a className="social__link">Facebook</a>
+								<CheckBoxSwitch checkID="social-fb" />
+							</li>
+						</ul>
+						<button type="button">Добавить почту</button>
 					</Section>
-					<Section>
-						<h2>Устройства</h2>
+					<Section className="user-info__section">
+						<h2 className="user-info__heading">Устройства</h2>
+						<dl>
+							<div>
+								<dt>Windows, браузер Chrome</dt>
+								<dd>Сегодня в 12:52, Челябинск, Россия</dd>
+							</div>
+							<div>
+								<dt>Windows, браузер Yandex</dt>
+								<dd>Вчера в 12:52, Тюмень, Россия</dd>
+							</div>
+						</dl>
+						<InternalLink href={location.toString()}>Очистить</InternalLink>
 					</Section>
-					<Section>
-						<h2>Смена пароля</h2>
+					<Section className="user-info__section">
+						<h2 className="user-info__heading">Смена пароля</h2>
+						<div>
+							<label htmlFor="">Текущий пароль</label><input type="password" />
+						</div>
+						<div>
+							<label htmlFor="">Новый пароль</label><input type="password" />
+						</div>
+						<InternalLink href={location.toString()}>Изменить</InternalLink>
 					</Section>
-					<Section>
-						<h2>Удаление профиля</h2>
+					<Section className="user-info__section">
+						<h2 className="user-info__heading">Удаление профиля</h2>
+						<div>Все данные, включая объявления будут стерты</div>
+						<InternalLink href={location.toString()}>Удалить</InternalLink>
 					</Section>
 					{/* <div>
 						<div>Телефон</div>

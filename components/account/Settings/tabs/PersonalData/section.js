@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
 	block: {
 		width: "100%",
-		borderBottom: "1px solid hsl(0, 0%, 91 %)",
+		borderBottom: "1px solid hsl(0, 0%, 91%)",
 	}
 })
 
