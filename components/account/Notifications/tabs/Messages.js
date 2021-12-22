@@ -222,7 +222,7 @@ function Messages() {
     }
   }, [room])
 
-
+  console.log(allRooms, 'id')
   return (
     !loadingAllRooms && !allRooms?.length && !room.product_id ?
       <div className="clientPage__container_bottom">
@@ -252,7 +252,7 @@ function Messages() {
                 {loadingAllRooms ?
                   <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
                   <ChatAllRoom allRooms={allRooms}
-                               setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
+                    setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
               </div>
               {!router.query?.companion_id && !router.query?.product_id ? (
                   <div className='chatPlaceholder'>
