@@ -81,8 +81,6 @@ const ChatUserMessage = (
     }
   }
 
-  console.log(1);
-
   return (
     <>
       {dialogData && <div className='chatDataDialog'>{dialogData}</div>}

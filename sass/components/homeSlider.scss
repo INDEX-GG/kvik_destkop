@@ -27,6 +27,7 @@
         display: flex;
         align-items: center;
         position: relative;
+        min-height: 200px;
 }
 
 // .scrollableOffersHome .swiper-container {
@@ -182,5 +183,12 @@
         .swiper-button-prev,
         .swiper-button-next {
                 display: none;
+        }
+}
+
+@media screen and (max-width: 727px) {
+        .swiper-container {
+                align-items: start;
+                min-height: 70px;
         }
 }
