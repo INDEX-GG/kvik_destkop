@@ -134,7 +134,7 @@ export default function City({dialog, setDialog}) {
             })
         } else {
             changeCity(name, searchName)
-            localStorage.setItem('cities', JSON.stringify({city: name, geo: geo, searchName}))
+            localStorage.setItem('cities', JSON.stringify({name: name, geo: geo, searchName}))
         }
     }
 
