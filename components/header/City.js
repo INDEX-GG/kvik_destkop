@@ -1,11 +1,12 @@
 import {makeStyles} from "@material-ui/core"
 import Search from '../../UI/icons/Search';
 import {useCity} from "../../lib/Context/CityCTX"
-import React, {useEffect} from "react";
+import React from "react";
 import {useAuth} from "../../lib/Context/AuthCTX";
 import {useStore} from "../../lib/Context/Store";
 import {getTokenDataByPost} from "../../lib/fetch";
 import {AddressSuggestions} from "react-dadata";
+import {generateCityObj} from "../../lib/services";
 
 const useStyles = makeStyles(() => ({
     cityContainer: {
@@ -80,7 +81,7 @@ const useStyles = makeStyles(() => ({
 export default function City({dialog, setDialog}) {
 
     const classes = useStyles()
-    const {city, changeCity} = useCity()
+    const {city, changeCity,} = useCity()
     const {id, token} = useAuth()
     const {userInfo, setUserInfo} = useStore()
 
@@ -125,44 +126,39 @@ export default function City({dialog, setDialog}) {
     // }
 
 
-    const onChangeCity = (name, geo, searchName) => {
+    const handlerCityChange = (name, geo, searchName) => {
         if (id) {
             getTokenDataByPost('/api/userLocation', {user_id: id, data: {name, geo, searchName}}, token).then(() => {
                 changeCity(name)
                 setUserInfo({...userInfo, location: {name: name, geo: geo, searchName}})
             })
         } else {
-            changeCity(name)
-            localStorage.setItem('cities', JSON.stringify({city: name, geo: geo, searchName}))
+            changeCity(name, searchName)
+            localStorage.setItem('cities', JSON.stringify({name: name, geo: geo, searchName}))
         }
     }
 
-    useEffect(() => {
-        console.log(userInfo)
-    }, [userInfo])
-
 
     const handleChange = (suggestion) => {
-        let fullCity = ''
-        const data = suggestion.data
-        const area = data.area ? `$${data.area}` : '';
-        const city = data.city ? `$${data.city}` : '';
-        const settlement = data.settlement ? `$${data.settlement}` : '';
-        fullCity += `${data.country_iso_code}$${data.region_iso_code}${area}${city}${settlement}`
-        const geo = [data.geo_lat, data.geo_lon]
-        const name = suggestion.value
+        const cityObj = generateCityObj(suggestion);
+        const {name, searchName} = cityObj;
 
         getTokenDataByPost('/api/userLocation', {
             user_id: id,
-            data: {name: name, geo: geo, searchName: fullCity}
+            data: cityObj
         }, token)
             .then(() => {
-                changeCity(name)
-                setUserInfo({...userInfo, location: {name: name, geo: geo, searchName: fullCity}})
+                changeCity(name, searchName)
+
+                if (id) {
+                    setUserInfo({...userInfo, location: cityObj})
+                } else {
+                    localStorage.setItem('cities', JSON.stringify(cityObj) + '')
+                }
+
                 setDialog(false);
             })
 
-        // console.log(fullCity, suggestion)
     }
 
 
@@ -195,7 +191,7 @@ export default function City({dialog, setDialog}) {
                             <div
                                 key={i}
                                 onClick={() => {
-                                    onChangeCity(item.name, item.geo, item.searchName)
+                                    handlerCityChange(item.name, item.geo, item.searchName)
                                     setDialog(!dialog)
                                 }}
                                 className={`${classes.city} ${item.name == city ? classes.cityActive : ""}`}>

@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles, createStyles } from "@material-ui/core";
 import Icecream from "../UI/icons/Icecream";
+import { InternalLink } from "./links/InternalLink";
 
 
 const useStyles = createStyles({
@@ -19,6 +20,7 @@ const useStyles = createStyles({
 		fontFamily: "Roboto",
 		fontSize: "14px",
 		fontWeight: "500",
+		color: "hsl(0, 0%, 20%)",
 	},
 	image: {
 		gridArea: "header",
@@ -28,7 +30,6 @@ const useStyles = createStyles({
 		position: "absolute",
 		fontWeight: "500",
 		fontSize: "24px",
-		color: "#5A5A5A",
 		top: "30px",
 		left: "-45px",
 	},
@@ -39,19 +40,18 @@ const useStyles = createStyles({
 	},
 	heading: {
 		fontSize: "36px",
-		color: "#5A5A5A",
 	},
 	text: {
 		fontSize: "24px",
-		color: "#8F8F8F",
 	},
 	button__container: {
 		gridArea: "footer",
 		marginTop: "2em",
 	},
 	reload: {
+		display: "inline-block",
 		minWidth: "230px",
-		boxSizing: "border-box",
+		textAlign: "center",
 		color: "white",
 		background: "#00A0AB",
 		borderRadius: "8px",
@@ -87,7 +87,7 @@ class ReactErrorBoundary extends React.Component {
 	 * You can render any custom fallback UI
 	 */
 	render() {
-		const { classes } = this.props;
+		const { classes, children } = this.props;
 		// переключить перед пушем
 		if (this.state.hasError) {
 			return (
@@ -106,19 +106,15 @@ class ReactErrorBoundary extends React.Component {
 					</section>
 
 					<footer className={classes.button__container}>
-						<button 
-							type="button" 
-							className={classes.reload}
-							onClick={()=> {location.reload()}}
-						>
+						<InternalLink className={classes.reload} href="/">
 							Обновить
-						</button>
+						</InternalLink>
 					</footer>
 				</div>
 			)
 		}
 		
-		return this.props.children;
+		return children;
 	}
 }
 
