@@ -51,7 +51,13 @@
   grid-template-columns: repeat(4, 1fr);
   justify-self: left;
   width: 100%;
+
+  &.scrollableOffersHomeV2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
+
+
 
 .homeOffersSort {
   position: relative;
