@@ -6,16 +6,18 @@ const useStyles = makeStyles({
 		display: "grid",
 		width: "26px",
 		height: "14px",
-		borderRadius: "5px",
-		border: "1px solid #00A0AB",
-		
+		borderColor: "transparent",
 	},
 	check: {
 		position: "absolute",
 		width: "1px",
 		height: "1px",
 		appearance: "none",
+		"&:checked+label": {
+			borderColor: "#00A0AB",
+		},
 		"&:checked+label span": {
+			backgroundColor: "#00A0AB",
 			transform: "translateX(100%)"
 		}
 	},
@@ -24,7 +26,11 @@ const useStyles = makeStyles({
 		alignItems: "center",
 		width: "100%",
 		height: "100%",
+		border: "1px solid #C4C4C4",
 		cursor: "pointer",
+		borderRadius: "5px",
+		transitionDuration: "250ms",
+		transitionProperty: "border-color"
 	},
 	ball: {
 		display: "block",
@@ -32,10 +38,10 @@ const useStyles = makeStyles({
 		height: "12px",
 		lineHeight: "1.15",
 		borderRadius: "50%",
-		background: "#00A0AB",
+		background: "#C4C4C4",
 		cursor: "pointer",
 		transitionDuration: "250ms",
-		transitionProperty: "transform"
+		transitionProperty: "transform, background-color"
 	},
 });
 
