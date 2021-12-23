@@ -1,13 +1,18 @@
+import { useStore } from "#lib/Context/Store";
+import { useAuth } from "#lib/Context/AuthCTX";
 import { SubmitButton } from "#components/buttons/SubmitButton"
 import { Form } from "#components/forms/Form"
 import { FormSection } from "#components/forms/FormSection"
 import { Label } from "#components/forms/Label"
 import { PasswordInput } from "#components/inputs/PasswordInput"
+import { updatePassword } from "#lib/fetch"
 import { useForm } from "react-hook-form"
+import { validatePassword } from "#lib/validatePassword";
+import { PasswordSection } from "#components/forms/PasswordSection";
 
 /**
  * @typedef Helper
- * @property {(data: any) => void} onSubmit
+ * @property {(result: boolean) => void} onSubmit
  * @typedef {Helper & import("#components/forms/Form").FormProps } PasswordFormProps
  */
 
@@ -15,15 +20,28 @@ import { useForm } from "react-hook-form"
  * @param {PasswordFormProps} props 
  */
 export const PasswordForm = ({ onSubmit, ...formProps }) => {
-	const { register, handleSubmit } = useForm()
+	const { isAuth, id: userID, token } = useAuth();
+	const { userInfo, setUserInfo } = useStore();
+	const { register, handleSubmit, control } = useForm()
 
-	const handlerPasswordChange = async (data) => {
-		onSubmit(data)
+	/**
+	 * @param {{ old_password: string, password: string }} formData 
+	 */
+	const handlerPasswordChange = async (formData) => {
+		console.log(formData);
+		try {
+			const [isValidPassord, formattedPassword] = validatePassword(formData.password)
+			const data = await updatePassword(formData, token);
+			onSubmit(data);
+		} catch (error) {
+			console.error(error);
+		}
+		
 	}
 
 	return (
 		<Form 
-			className="user-info__form user-info__form--password" 
+			className="user-info__form user-info__form--password"
 			{...formProps} 
 			onSubmit={handleSubmit(handlerPasswordChange)}
 		>

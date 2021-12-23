@@ -12,6 +12,10 @@ const useStyles = makeStyles({
  */
 
 /**
+ * @typedef {import("#components/inputs/BaseInput").BaseInputProps} PasswordInputProps
+ */
+
+/**
  * @param {PasswordInputProps} props
  */
 export const PasswordInput = ({ className, ...baseInputProps }) => {
@@ -19,6 +23,6 @@ export const PasswordInput = ({ className, ...baseInputProps }) => {
 	const blockClass = clsx(classes.block, className);
 
 	return (
-		<BaseInput className={blockClass} type="password" {...baseInputProps} />
+		<BaseInput type="password" className={blockClass} {...baseInputProps} />
 	)
 }

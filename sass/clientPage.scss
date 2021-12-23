@@ -353,6 +353,7 @@
 		}
 
 		&--address {
+			padding-bottom: 1em;
 
 			& .user-info__content {
 				flex-flow : row nowrap;
@@ -360,6 +361,7 @@
 
 				& .user-info__section {
 					grid-template-columns: 1fr;
+					padding-bottom: 0;
 				}
 
 				& label {

@@ -32,6 +32,7 @@ import { Form } from "#components/forms/Form";
 import { SubmitButton } from "#components/buttons/SubmitButton";
 import { TextInput } from "#components/inputs/TextInput";
 import { PasswordForm } from "./PasswordForm";
+import { PasswordSection } from "#components/forms/PasswordSection";
 
 
 export const PersonalDataDesktop = () => {
@@ -207,20 +208,11 @@ export const PersonalDataDesktop = () => {
 		}
 	}
 
-	function passwordSubmit(e) {
-		e.preventDefault();
-		if (passwordSend.length > 0) {
-			setPasswordOne("");
-			setPasswordTwo("");
-			const obj = { id: userID, password: passwordSend };
-			getTokenDataByPost("/api/settings/upPassword", obj, token).then((res) => console.log(res));
-		}
-	}
-
 	return (
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info">
+					{/* <PasswordSection id="example-pass">Пример</PasswordSection> */}
 					<Form className="user-info__form">
 						<h2 className="user-info__heading">Личная информация</h2>
 						<FormSection className="user-info__section">
@@ -319,7 +311,7 @@ export const PersonalDataDesktop = () => {
 						</FormSection>
 					</Form>
 					
-					<PasswordForm />
+					<PasswordForm onSubmit={(data) => console.log(data)} />
 
 					<Form className="user-info__form user-info__form--erase">
 						<h2 className="user-info__heading">Удаление профиля</h2>

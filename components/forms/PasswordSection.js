@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core"
 import clsx from "clsx";
 import { Label } from "#components/forms/Label";
@@ -7,12 +8,22 @@ import { Button } from "#components/buttons/Button";
 const useStyles = makeStyles({
 	block: {
 		display: "grid",
-
+		gridTemplate: `
+		"label password" auto / auto 1fr
+		`
+	},
+	label: {
+		gridArea: "label"
 	},
 	password: {
-		position: "relative"
+		gridArea: "password",
+		position: "relative",
 	},
-	button: {}
+	button: {
+		position: "absolute",
+		right: "1em"
+	},
+	icon: {}
 });
 
 /**
@@ -22,26 +33,32 @@ const useStyles = makeStyles({
  */
 
 /**
+ * TODO: вешает браузер при рендере
  * @param {PasswordSectionProps} props
  */
-export const PasswordSection = ({ id, className, children, inputProps, ...formSectionProps }) => {
+export const PasswordSection = ({ id, className, inputProps, children, ...formSectionProps }) => {
 	const classes = useStyles();
+	const [isVisible, changeVisibility] = useState(false);
 	const blockClass = clsx(classes.block, className);
 
 	/**
-	 * @param {import("#components/buttons/Button").ClickCallback} event 
+	 * @type {import("#components/buttons/Button").ClickCallback} event 
 	 */
-	const handlerVisibility = (event) => {
-		console.log(event);
+	const handlerVisibility = () => {
+		changeVisibility(!isVisible)
 	}
 
 	return (
 		<PasswordSection className={blockClass} {...formSectionProps}>
 			<Label htmlFor={id}>{children}</Label>
 			<div className={classes.password}>
-				<PasswordInput id={id} {...inputProps} />
+				<PasswordInput 
+					{...inputProps}
+					id={id}
+					type={isVisible ? "text" : "password"}
+				/>
 				<Button className={classes.button} onClick={handlerVisibility}>
-					HideIcon
+					{isVisible ? "Hide" : "Show"}
 				</Button>
 			</div>
 		</PasswordSection>
