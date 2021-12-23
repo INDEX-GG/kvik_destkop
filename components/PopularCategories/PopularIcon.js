@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import Bg from '../../UI/icons/popularCategories/Bg';
-import BgMobile from '../../UI/icons/popularCategories/bgMobile';
+import BgMobile from '../../UI/icons/popularCategories/BgMobile';
 import BgActive from '../../UI/icons/popularCategories/BgActive';
 import BgMobileActive from '../../UI/icons/popularCategories/BgMobileActive';
 import { useMedia } from '../../hooks/useMedia';
