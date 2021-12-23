@@ -23,6 +23,7 @@ import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 import {useStore} from "../lib/Context/Store";
 import {getTokenDataByPost} from "../lib/fetch";
 import {generateSearchName} from "../lib/services";
+import useCategoryV2 from "#hooks/useCategoryV2";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -65,6 +66,9 @@ function PlaceOffer() {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false);
+    const {mainCategory, getMoreCategory} = useCategoryV2();
+
+
     const [product, setProduct] = useState({});
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm({defaultValues: {
@@ -76,16 +80,23 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
-
-
     // console.log(methods)
 
     /* получение дополнительных полей */
 
-
     const [category, setCategory] = useState();
     const [showTitle, setShowTitle] = useState(false);
     const { ...subcategoryData } = useCategoryPlaceOffer(category, methods);
+
+    const aliasObj = {
+        aliasOne: methods.watch('alias1'),
+        aliasTwo: methods.watch('alias2'),
+        aliasThree: methods.watch('alias3'),
+    }
+
+
+    // Текущая категория
+    const currentCategory = getMoreCategory(aliasObj.aliasOne, aliasObj.aliasTwo, aliasObj.aliasThree);
 
 
     // console.log('ALIAS4', methods?.watch('alias4'))
@@ -307,7 +318,6 @@ function PlaceOffer() {
     }
 
 
-
     return (
         promotion ? <Promotion product={product} /> :
             <MetaLayout title={'Подать объявление'}>
@@ -318,14 +328,15 @@ function PlaceOffer() {
                             <Verify showTitle={showTitle}/>
                             <form onSubmit={methods.handleSubmit(onSubmit)}>
                                 <Box className={classes.formPart}>
-                                    <Category/>
+                                    <Category category={mainCategory}/>
                                     {showTitle ? null : <Title title='' />}
                                 </Box>
-                                {subcategoryData[category] !== undefined ?
+                                {/* Проверка на доп. поле*/}
+                                {!!currentCategory?.additional_fields.length && (
                                     <Box className={classes.formPart}>
-                                        <AdditionalInformation newOBJ={subcategoryData} asd={category?.toLowerCase()} />
+                                        <AdditionalInformation currentCategory={currentCategory} />
                                     </Box>
-                                    : ''}
+                                )}
                                 <Box className={classes.formPart}>
                                     <Description />
                                     {category !== 'vacancies' && category !== 'summary' ? 
