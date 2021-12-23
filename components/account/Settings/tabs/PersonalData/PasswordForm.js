@@ -7,15 +7,15 @@ import { useForm } from "react-hook-form"
 
 /**
  * @typedef Helper
- * @property 
- * @typedef {import("#components/forms/Form").FormProps} PasswordFormProps
+ * @property {(data: any) => void} onSubmit
+ * @typedef {Helper & import("#components/forms/Form").FormProps } PasswordFormProps
  */
 
 /**
  * @param {PasswordFormProps} props 
  */
 export const PasswordForm = ({ onSubmit, ...formProps }) => {
-	const { handleSubmit } = useForm()
+	const { register, handleSubmit } = useForm()
 
 	const handlerPasswordChange = async (data) => {
 		onSubmit(data)
@@ -32,8 +32,8 @@ export const PasswordForm = ({ onSubmit, ...formProps }) => {
 				<FormSection className="user-info__section">
 					<Label className="user-info__label" htmlFor="user-current-pass">Текущий пароль</Label>
 					<PasswordInput
+						{...register("old_password")}
 						id="user-current-pass"
-						name="old_password"
 						autocomplete="current-password"
 					/>
 				</FormSection>
@@ -41,8 +41,8 @@ export const PasswordForm = ({ onSubmit, ...formProps }) => {
 				<FormSection className="user-info__section">
 					<Label className="user-info__label" htmlFor="user-new-pass">Новый пароль</Label>
 					<PasswordInput
+						{...register("password")}
 						id="user-new-pass"
-						name="password"
 						autocomplete="new-password"
 					/>
 				</FormSection>

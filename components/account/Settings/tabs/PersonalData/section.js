@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import clsx from "clsx";
 
 const useStyles = makeStyles({
 	block: {
@@ -16,9 +17,7 @@ const useStyles = makeStyles({
  */
 export const PersonalDataSection = ({ className, children, ...sectionProps }) => {
 	const classes = useStyles();
-	const sectionClass = [
-		classes.block, className && className
-	].join(" ").trim();
+	const sectionClass = clsx(classes.block, className);
 
 	return (
 		<section className={sectionClass} {...sectionProps} >

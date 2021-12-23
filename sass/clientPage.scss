@@ -353,26 +353,19 @@
 		}
 
 		&--address {
-			display: flex;
-			flex-flow: row nowrap;
-			justify-content: flex-start;
-			align-items: center;
 
 			& .user-info__content {
-				display: grid;
-				grid-template-rows: auto;
-				grid-template-columns: 1fr 1fr;
+				flex-flow : row nowrap;
 				gap: 2em;
 
 				& .user-info__section {
-					display: grid;
+					grid-template-columns: 1fr;
 				}
 
 				& label {
 					position: absolute;
 					color: hsl(0, 0%, 17%);
 				}
-			
 			}
 		}
 	}

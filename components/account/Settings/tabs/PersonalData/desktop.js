@@ -28,11 +28,9 @@ import { FormSection } from "#components/forms/FormSection";
 import { BaseInput } from "#components/inputs/BaseInput";
 import { Label } from "#components/forms/Label";
 import { Button } from "#components/buttons/Button";
-import { PersonalDataSection as Section } from "./section";
 import { Form } from "#components/forms/Form";
 import { SubmitButton } from "#components/buttons/SubmitButton";
 import { TextInput } from "#components/inputs/TextInput";
-import { PasswordInput } from "#components/inputs/PasswordInput";
 import { PasswordForm } from "./PasswordForm";
 
 
@@ -218,8 +216,6 @@ export const PersonalDataDesktop = () => {
 			getTokenDataByPost("/api/settings/upPassword", obj, token).then((res) => console.log(res));
 		}
 	}
-
-	const updatePassword = () => {}
 
 	return (
 		<div className="clientPage__container_bottom">
