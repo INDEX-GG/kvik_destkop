@@ -7,19 +7,19 @@ const useStyles = makeStyles({
 });
 
 /**
- * @typedef {import("./BaseButton").BaseButtonProps} ButtonProps
+ * @typedef {import("./BaseButton").BaseButtonProps} SubmitButtonProps
  */
 
 /**
- * Кнопка с `type="button"`.
- * @param {ButtonProps} props
+ * Кнопка с `type="submit"`.
+ * @param {SubmitButtonProps} props
  */
-export const Button = ({ className, children, ...buttonProps }) => {
+export const SubmitButton = ({ className, children, ...buttonProps }) => {
 	const classes = useStyles();
 	const blockClass = clsx(classes.block, className);
 
 	return (
-		<BaseButton className={blockClass} {...buttonProps} type="button">
+		<BaseButton className={blockClass} {...buttonProps} type="submit">
 			{children}
 		</BaseButton>
 	)

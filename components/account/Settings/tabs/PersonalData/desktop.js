@@ -26,8 +26,10 @@ import { InternalLink } from "#components/links/InternalLink";
 import { FormSection } from "#components/forms/FormSection";
 import { BaseInput } from "#components/inputs/BaseInput";
 import { Label } from "#components/forms/Label";
-import { Button } from "#components/buttons/button";
+import { Button } from "#components/buttons/Button";
 import { PersonalDataSection as Section } from "./section";
+import { Form } from "#components/forms/Form";
+import { SubmitButton } from "#components/buttons/SubmitButton";
 
 export const PersonalDataDesktop = () => {
 	const { isAuth, id: userID, token } = useAuth();
@@ -215,7 +217,7 @@ export const PersonalDataDesktop = () => {
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info">
-					<Section className="user-info__section">
+					<Form className="user-info__section">
 						<h2 className="user-info__heading">Личная информация</h2>
 						<FormSection>
 							<Label htmlFor="user-name">Имя</Label>
@@ -229,10 +231,10 @@ export const PersonalDataDesktop = () => {
 							<Label htmlFor="user-phone">Телефон</Label>
 							<span id="user-phone">+7 (965) 611 - 72 - 45</span>
 							<Button>Добавить номер</Button>
-							<InternalLink href={location.toString()}>Сохранить</InternalLink>
+							<SubmitButton>Сохранить</SubmitButton>
 						</FormSection>
-					</Section>
-					<Section className="user-info__section">
+					</Form>
+					<Form className="user-info__section">
 						<h2 className="user-info__heading">Соцсети и сервисы</h2>
 						<ul className="social">
 							<li className="social__item social__item--vk">
@@ -253,8 +255,8 @@ export const PersonalDataDesktop = () => {
 							</li>
 						</ul>
 						<Button>Добавить почту</Button>
-					</Section>
-					<Section className="user-info__section">
+					</Form>
+					<Form className="user-info__section">
 						<h2 className="user-info__heading">Устройства</h2>
 						<dl>
 							<div>
@@ -266,25 +268,25 @@ export const PersonalDataDesktop = () => {
 								<dd className="user-info__visit">Вчера в 12:52, Тюмень, Россия</dd>
 							</div>
 						</dl>
-						<InternalLink href={location.toString()}>Очистить</InternalLink>
-					</Section>
-					<Section className="user-info__section">
-						<h2 className="user-info__heading">Смена пароля</h2>
-						<FormSection>
-							<Label htmlFor="user-current-pass">Текущий пароль</Label>
-							<BaseInput id="user-current-pass" type="password" />
-						</FormSection>
-						<FormSection>
-							<Label htmlFor="user-new-pass">Новый пароль</Label>
-							<BaseInput id="user-new-pass" type="password" />
-						</FormSection>
-						<InternalLink href={location.toString()}>Изменить</InternalLink>
-					</Section>
-					<Section className="user-info__section">
+						<SubmitButton>Очистить</SubmitButton>
+					</Form>
+					<Form className="user-info__section">
+							<h2 className="user-info__heading">Смена пароля</h2>
+							<FormSection>
+								<Label htmlFor="user-current-pass">Текущий пароль</Label>
+								<BaseInput id="user-current-pass" type="password" />
+							</FormSection>
+							<FormSection>
+								<Label htmlFor="user-new-pass">Новый пароль</Label>
+								<BaseInput id="user-new-pass" type="password" />
+							</FormSection>
+						<SubmitButton>Изменить</SubmitButton>
+					</Form>
+					<Form className="user-info__section">
 						<h2 className="user-info__heading">Удаление профиля</h2>
 						<div>Все данные, включая объявления будут стерты</div>
-						<InternalLink href={location.toString()}>Удалить</InternalLink>
-					</Section>
+						<SubmitButton>Удалить</SubmitButton>
+					</Form>
 					{/* <div>
 						<div>Телефон</div>
 						<div>
