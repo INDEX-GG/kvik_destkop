@@ -1,13 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 import clsx from "clsx";
-import { BaseButton } from "./base-button";
+import { BaseButton } from "./BaseButton";
 
 const useStyles = makeStyles({
 	block: {}
 });
 
 /**
- * @typedef {import("./base-button").BaseButtonProps} ButtonProps
+ * @typedef {import("./BaseButton").BaseButtonProps} ButtonProps
  */
 
 /**
