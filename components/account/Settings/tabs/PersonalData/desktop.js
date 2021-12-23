@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 // import { Button, Dialog } from "@material-ui/core";
+import { useForm } from "react-hook-form";
 import Modal from "#components/Modal";
 import { phoneNumber } from "#lib/services";
 import { getTokenDataByPost } from "#lib/fetch";
@@ -32,11 +33,13 @@ import { Form } from "#components/forms/Form";
 import { SubmitButton } from "#components/buttons/SubmitButton";
 import { TextInput } from "#components/inputs/TextInput";
 import { PasswordInput } from "#components/inputs/PasswordInput";
+import { PasswordForm } from "./PasswordForm";
+
 
 export const PersonalDataDesktop = () => {
 	const { isAuth, id: userID, token } = useAuth();
 	const { userInfo, setUserInfo } = useStore();
-
+	const updatePassForm = useForm()
 	const [modal, setModal] = useState({});
 	function modalOlen(e, size, content, title) {
 		function smf() {
@@ -216,6 +219,8 @@ export const PersonalDataDesktop = () => {
 		}
 	}
 
+	const updatePassword = () => {}
+
 	return (
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
@@ -317,25 +322,8 @@ export const PersonalDataDesktop = () => {
 							
 						</FormSection>
 					</Form>
-
-					<Form className="user-info__form user-info__form--password">
-						<h2 className="user-info__heading">Смена пароля</h2>
-						<FormSection className="user-info__content">
-							<FormSection className="user-info__section">
-								<Label className="user-info__label" htmlFor="user-current-pass">Текущий пароль</Label>
-								<PasswordInput id="user-current-pass" />
-							</FormSection>
-							<FormSection className="user-info__section">
-								<Label className="user-info__label" htmlFor="user-new-pass">Новый пароль</Label>
-								<PasswordInput id="user-new-pass" />
-							</FormSection>
-							<FormSection className="user-info__section">
-								<div className="user-info__label"></div>
-								<SubmitButton>Изменить</SubmitButton>
-							</FormSection>
-							
-						</FormSection>
-					</Form>
+					
+					<PasswordForm />
 
 					<Form className="user-info__form user-info__form--erase">
 						<h2 className="user-info__heading">Удаление профиля</h2>
@@ -350,7 +338,6 @@ export const PersonalDataDesktop = () => {
 								<SubmitButton>Удалить</SubmitButton>
 							</FormSection>	
 						</FormSection>
-					
 					</Form>
 					{/* <div>
 						<div>Телефон</div>
