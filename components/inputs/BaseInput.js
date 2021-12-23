@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import clsx from "clsx";
 
 const useStyles = makeStyles({
 	block: {
@@ -10,7 +11,7 @@ const useStyles = makeStyles({
 		fontSize: "100%",
 		borderRadius:"4px",
 		border: "1px solid #C7C7C7",
-		padding: 0,
+		padding: "0 1em",
 		margin: 0,
 	}
 });
@@ -24,10 +25,7 @@ const useStyles = makeStyles({
  */
 export const BaseInput = ({ className, ...inputProps}) => {
 	const classes = useStyles();
-	const blockClass = [
-		classes.block,
-		className ? className : ""
-	].join("").trim();
+	const blockClass = clsx(classes.block, className);
 
 	return (
 		<input className={blockClass} {...inputProps}/>

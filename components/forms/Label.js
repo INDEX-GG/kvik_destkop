@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import clsx from "clsx";
 
 const useStyles = makeStyles({
 	block: {
@@ -16,10 +17,7 @@ const useStyles = makeStyles({
  */
 export const Label = ({ className, children, ...labelProps }) => {
 	const classes = useStyles();
-	const blockClass = [
-		classes.block,
-		className ? className : ""
-	].join("").trim();
+	const blockClass = clsx(classes.block, className)
 
 	return (
 		<label className={blockClass} {...labelProps}>

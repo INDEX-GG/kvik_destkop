@@ -30,6 +30,8 @@ import { Button } from "#components/buttons/Button";
 import { PersonalDataSection as Section } from "./section";
 import { Form } from "#components/forms/Form";
 import { SubmitButton } from "#components/buttons/SubmitButton";
+import { TextInput } from "#components/inputs/TextInput";
+import { PasswordInput } from "#components/inputs/PasswordInput";
 
 export const PersonalDataDesktop = () => {
 	const { isAuth, id: userID, token } = useAuth();
@@ -55,6 +57,7 @@ export const PersonalDataDesktop = () => {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	}
+
 	const { matchesTablet, matchesMobile } = useMedia();
 	const [inputProfile, setInputProfile] = useState(true);
 	const [valueName, setValueName] = useState("");
@@ -217,75 +220,137 @@ export const PersonalDataDesktop = () => {
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info">
-					<Form className="user-info__section">
+					<Form className="user-info__form">
 						<h2 className="user-info__heading">Личная информация</h2>
-						<FormSection>
-							<Label htmlFor="user-name">Имя</Label>
-							<BaseInput id="user-name" type="text" />
+						<FormSection className="user-info__section">
+							<Label className="user-info__label" htmlFor="user-name">Имя</Label>
+							<FormSection className="user-info__content">
+								<TextInput id="user-name" defaultValue={userInfo.name} />
+							</FormSection>
 						</FormSection>
-						<FormSection>
-							<Label htmlFor="user-address">Адрес</Label>
-							<BaseInput id="user-address" type="text" />
+
+						<FormSection className="user-info__section user-info__section--address">
+							<span className="user-info__label">Адрес</span>
+							<FormSection className="user-info__content">
+								<FormSection className="user-info__section">
+									<Label className="user-info__label" htmlFor="user-city">Город</Label>
+									<TextInput id="user-city" />
+								</FormSection>
+								<FormSection className="user-info__section">
+									<Label className="user-info__label" htmlFor="user-street">Улица</Label>
+									<TextInput id="user-street" />
+								</FormSection>
+							</FormSection>
 						</FormSection>
-						<FormSection>
-							<Label htmlFor="user-phone">Телефон</Label>
-							<span id="user-phone">+7 (965) 611 - 72 - 45</span>
-							<Button>Добавить номер</Button>
-							<SubmitButton>Сохранить</SubmitButton>
+
+						<FormSection className="user-info__section user-info__section--phone">
+							<Label className="user-info__label" htmlFor="user-phone">Телефон</Label>
+							<FormSection className="user-info__content">
+								<span 
+									id="user-phone" 
+									className="user-info__phone-number"
+								>
+									{phoneNumber(userInfo.phone)}
+								</span>
+								<Button className="user-info__button" disabled >
+									Добавить номер
+								</Button>
+								<SubmitButton>Сохранить</SubmitButton>
+							</FormSection>
 						</FormSection>
 					</Form>
-					<Form className="user-info__section">
+
+					<Form className="user-info__form user-info__form--social">
 						<h2 className="user-info__heading">Соцсети и сервисы</h2>
-						<ul className="social">
-							<li className="social__item social__item--vk">
-								<a className="social__link">Вконтакте</a>
-								<CheckBoxSwitch checkID="social-vk" />
-							</li>
-							<li className="social__item social__item--ok">
-								<a className="social__link">Одноклассники</a>
-								<CheckBoxSwitch checkID="social-ok" />
-							</li>
-							<li className="social__item social__item--inst">
-								<a className="social__link">Instagram</a>
-								<CheckBoxSwitch checkID="social-inst" />
-							</li>
-							<li className="social__item social__item--fb">
-								<a className="social__link">Facebook</a>
-								<CheckBoxSwitch checkID="social-fb" />
-							</li>
-						</ul>
-						<Button>Добавить почту</Button>
+						
+						<FormSection className="user-info__content">
+							<FormSection className="user-info__section">
+								<div className="user-info__label"></div>
+								<ul className="social">
+									<li className="social__item social__item--vk">
+										<a className="social__link">Вконтакте</a>
+										<CheckBoxSwitch checkID="social-vk" />
+									</li>
+									<li className="social__item social__item--ok">
+										<a className="social__link">Одноклассники</a>
+										<CheckBoxSwitch checkID="social-ok" />
+									</li>
+									<li className="social__item social__item--inst">
+										<a className="social__link">Instagram</a>
+										<CheckBoxSwitch checkID="social-inst" />
+									</li>
+									<li className="social__item social__item--fb">
+										<a className="social__link">Facebook</a>
+										<CheckBoxSwitch checkID="social-fb" />
+									</li>
+								</ul>
+							</FormSection>
+
+							<FormSection className="user-info__section">
+								<div className="user-info__label"></div>
+								<Button className="user-info__button" disabled>Добавить почту</Button>
+							</FormSection>
+						</FormSection>
 					</Form>
-					<Form className="user-info__section">
+
+					<Form className="user-info__form">
 						<h2 className="user-info__heading">Устройства</h2>
-						<dl>
-							<div>
-								<dt className="user-info__device">Windows, браузер Chrome</dt>
-								<dd className="user-info__visit">Сегодня в 12:52, Челябинск, Россия</dd>
-							</div>
-							<div>
-								<dt className="user-info__device">Windows, браузер Yandex</dt>
-								<dd className="user-info__visit">Вчера в 12:52, Тюмень, Россия</dd>
-							</div>
-						</dl>
-						<SubmitButton>Очистить</SubmitButton>
-					</Form>
-					<Form className="user-info__section">
-							<h2 className="user-info__heading">Смена пароля</h2>
-							<FormSection>
-								<Label htmlFor="user-current-pass">Текущий пароль</Label>
-								<BaseInput id="user-current-pass" type="password" />
+						<FormSection className="user-info__content">
+							<FormSection className="user-info__section">
+								{/* <div className="user-info__label"></div>
+									<dl>
+										<div>
+											<dt className="user-info__device">Windows, браузер Chrome</dt>
+											<dd className="user-info__visit">Сегодня в 12:52, Челябинск, Россия</dd>
+										</div>
+										<div>
+											<dt className="user-info__device">Windows, браузер Yandex</dt>
+											<dd className="user-info__visit">Вчера в 12:52, Тюмень, Россия</dd>
+										</div>
+									</dl>						 */}
 							</FormSection>
-							<FormSection>
-								<Label htmlFor="user-new-pass">Новый пароль</Label>
-								<BaseInput id="user-new-pass" type="password" />
+
+							<FormSection className="user-info__section">
+								<div className="user-info__label"></div>
+								{/* <SubmitButton>Очистить</SubmitButton> */}
 							</FormSection>
-						<SubmitButton>Изменить</SubmitButton>
+							
+						</FormSection>
 					</Form>
-					<Form className="user-info__section">
+
+					<Form className="user-info__form user-info__form--password">
+						<h2 className="user-info__heading">Смена пароля</h2>
+						<FormSection className="user-info__content">
+							<FormSection className="user-info__section">
+								<Label className="user-info__label" htmlFor="user-current-pass">Текущий пароль</Label>
+								<PasswordInput id="user-current-pass" />
+							</FormSection>
+							<FormSection className="user-info__section">
+								<Label className="user-info__label" htmlFor="user-new-pass">Новый пароль</Label>
+								<PasswordInput id="user-new-pass" />
+							</FormSection>
+							<FormSection className="user-info__section">
+								<div className="user-info__label"></div>
+								<SubmitButton>Изменить</SubmitButton>
+							</FormSection>
+							
+						</FormSection>
+					</Form>
+
+					<Form className="user-info__form user-info__form--erase">
 						<h2 className="user-info__heading">Удаление профиля</h2>
-						<div>Все данные, включая объявления будут стерты</div>
-						<SubmitButton>Удалить</SubmitButton>
+						<FormSection className="user-info__content">
+							<FormSection className="user-info__section">
+								<div className="user-info__label"></div>
+								<span>Все данные, включая объявления будут стерты</span>
+							</FormSection>
+							
+							<FormSection className="user-info__section">
+								<div className="user-info__label"></div>
+								<SubmitButton>Удалить</SubmitButton>
+							</FormSection>	
+						</FormSection>
+					
 					</Form>
 					{/* <div>
 						<div>Телефон</div>
@@ -422,7 +487,7 @@ export const PersonalDataDesktop = () => {
 					</div> */}
 				</div>
 			</div>
-			<Modal {...modal} />
+			{/* <Modal {...modal} />
 			<MobileModal dialog={passwordDialog || false} title='Cмена пароля' close={() => setPasswordDialog(false)}>
 				<div className="mobilePasswordContainer">
 					<div className="privateDataPass">
@@ -463,7 +528,7 @@ export const PersonalDataDesktop = () => {
 						) : null}
 					</div>
 				</div>
-			</MobileModal>
+			</MobileModal> */}
 		</div>
 	);
 }

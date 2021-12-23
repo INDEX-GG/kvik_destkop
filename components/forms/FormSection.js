@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/core"
+import clsx from "clsx";
 
 const useStyles = makeStyles({
 	block: {
-		width: "100%"
+		// width: "100%"
 	}
 });
 
@@ -15,10 +16,7 @@ const useStyles = makeStyles({
  */
 export const FormSection = ({ className, children, ...divProps }) => {
 	const classes = useStyles();
-	const blockClass = [
-		classes.block,
-		className ? className : ""
-	].join("").trim();
+	const blockClass = clsx(classes.block, className);
 
 	return (
 		<div className={blockClass} {...divProps}>

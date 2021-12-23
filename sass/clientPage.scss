@@ -302,26 +302,102 @@
 	grid-template-columns: 100%;
 	gap: 2.5em;
 
+	&__form {
+		display: flex;
+		flex-flow: column nowrap;
+		width: 100%;
+		border-bottom: 1px solid hsl(0, 0%, 91%);
+
+		&--social {
+			& .user-info__button {
+				padding: 0 1em;
+			}
+		}
+
+		&--password {
+			& input {
+				width: 230px;
+			}
+		}
+
+		&--erase {
+			& span {
+				color: hsl(0, 0%, 56%);
+				flex: 1 0 auto;
+			}
+		}
+	}
+
 	&__section {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		align-items: center;
+		
 		&--social {
 			padding-bottom: 0.25em;
 		}
 
 		&--phone {
+			& label {
+				align-self: baseline;
+			}
+
+			& span {
+				padding-bottom: 1em;
+			}
+
+			& button {
+				max-width: 160px;
+				max-height: 44px;
+			}
+		}
+
+		&--address {
 			display: flex;
 			flex-flow: row nowrap;
-			justify-content: space-between;
-			gap: 1em;
+			justify-content: flex-start;
+			align-items: center;
+
+			& .user-info__content {
+				position: relative;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+				align-items: center;
+
+				& label {
+					position: absolute;
+					color: hsl(0, 0%, 17%);
+				}
+			
+			}
 		}
 	}
 
 	&__heading {
 		font-size: 20px;
 		font-weight: normal;
+		padding-bottom: 1em;
+	}
+
+	&__content {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: flex-start;
+		width: 480px;
 	}
 	
 	&__label {
+		flex: 0 0 200px;
 		color: hsl(0, 0%, 55%);
+	}
+
+	&__button {
+		max-width: 160px;
+	}
+
+	&__phone-number {
+
 	}
 
 	&__phone-link {

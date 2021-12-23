@@ -3,7 +3,13 @@ import { BaseButton } from "./BaseButton";
 import clsx from "clsx";
 
 const useStyles = makeStyles({
-	block: {}
+	block: {
+		width: "auto",
+		color: "#00A0AB",
+		backgroundColor: "transparent",
+		borderRadius: "0",
+		border: "none",
+	}
 });
 
 /**
