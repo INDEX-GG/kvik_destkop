@@ -17,6 +17,7 @@ import { PasswordSection } from "#components/forms/PasswordSection";
  */
 
 /**
+ * TODO: работающая валидация.
  * @param {PasswordFormProps} props 
  */
 export const PasswordForm = ({ onSubmit, ...formProps }) => {
@@ -28,9 +29,9 @@ export const PasswordForm = ({ onSubmit, ...formProps }) => {
 	 * @param {{ old_password: string, password: string }} formData 
 	 */
 	const handlerPasswordChange = async (formData) => {
-		console.log(formData);
+		const [isValidPassword, formattedPassword] = validatePassword(formData.password)
 		try {
-			const [isValidPassord, formattedPassword] = validatePassword(formData.password)
+			
 			const data = await updatePassword(formData, token);
 			onSubmit(data);
 		} catch (error) {

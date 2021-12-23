@@ -212,7 +212,6 @@ export const PersonalDataDesktop = () => {
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info">
-					{/* <PasswordSection id="example-pass">Пример</PasswordSection> */}
 					<Form className="user-info__form">
 						<h2 className="user-info__heading">Личная информация</h2>
 						<FormSection className="user-info__section">
