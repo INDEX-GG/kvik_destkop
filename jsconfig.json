@@ -3,6 +3,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"#components/*": ["components/*"],
+			"#components/buttons": ["components/buttons/_index.js"],
+			"#components/forms": ["components/forms/_index.js"],
 			"#hooks/*": ["hooks/*"],
 			"#icons/*": ["icons/*"],
 			"#layout/*": ["layout/*"],
