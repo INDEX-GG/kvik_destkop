@@ -13,7 +13,6 @@ const MainLayout = ({ children}) => {
   const [alias, setAlias] = useState("test")
 
 
-
   if (router.pathname == "/search/[alias]") {
     if (alias != aliasQuery) {
       setAlias(aliasQuery)

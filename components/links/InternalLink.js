@@ -3,6 +3,7 @@ import NextLink from "next/link";
 /**
  * @typedef HelperProps
  * @property {string} className
+ * @property {React.ComponentPropsWithoutRef<"a">} anchourProps 
  * 
  * @typedef {React.PropsWithChildren<import("next/link").LinkProps> & HelperProps} InternalLinkProps
  */
@@ -13,10 +14,10 @@ import NextLink from "next/link";
  * @param {InternalLinkProps} props
  * @param props.className `className` `<a>` тэга
  */
-export const InternalLink = ({ href, className, children, ...NextLinkProps }) => {
+export const InternalLink = ({ href, className, children, anchourProps, ...NextLinkProps }) => {
 	return (
 		<NextLink href={href} {...NextLinkProps}>
-			<a className={className}>
+			<a {...anchourProps} className={className}>
 				{children}
 			</a>
 		</NextLink>
