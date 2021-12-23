@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {makeStyles, MenuItem, TextField, } from "@material-ui/core";
-// import SortItemIcon from '#UI/icons/SortItemIcon';
+import {makeStyles, MenuItem, TextField, InputAdornment, } from "@material-ui/core";
+import SortItemIcon from '#UI/icons/SortItemIcon';
 
 
 const useStyles = makeStyles(() => ({
@@ -18,7 +18,6 @@ const sortItems = [
 
 
 const SortItem = ({setSort}) => {
-
     const [state, setState] = useState('default')
     const classes = useStyles();
 
@@ -30,17 +29,24 @@ const SortItem = ({setSort}) => {
     }
 
     return (
-        <TextField
-            select
-            value={state}
-            onChange={handlerSortChange}
-        >
-            {sortItems.map((option, i) => (
-                <MenuItem key={i} className={classes.title_filter} value={option.value}>
-                    {option.label}
-                </MenuItem>
-            ))}
-        </TextField>
+            <TextField
+                select
+                value={state}
+                onChange={handlerSortChange}
+                InputProps={{startAdornment:
+                    <InputAdornment>
+                        <SortItemIcon/>
+                  </InputAdornment>}
+                    
+                }
+                
+            >
+                {sortItems.map((option, i) => (
+                    <MenuItem  key={i} className={classes.title_filter} value={option.value}>
+                        {option.label}
+                    </MenuItem>
+                ))}
+            </TextField>
     );
 };
 

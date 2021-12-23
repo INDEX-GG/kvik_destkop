@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AdCard_component from './AdCard';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
@@ -7,12 +7,15 @@ import Loader from '../UI/icons/Loader';
 import { useMedia } from '../hooks/useMedia';
 import SortItem from "./SortItem";
 // import EndMessage from './EndMessage';
+import OffersRenderGridIcon from '#UI/icons/OffersRenderGridIcon';
+import OffersRenderListIcon from '#UI/icons/OffersRenderListIcon';
 
 const useStyles = makeStyles((theme) => ({
 	top: {
 		marginBottom: '7px',
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'space-between'
 	},
 	title: {
 		flexGrow: 1,
@@ -25,6 +28,16 @@ const useStyles = makeStyles((theme) => ({
 	title_filter: {
 		fontSize: '14px',
 	},
+
+	offersGridSwitcher: {
+		display: 'flex',
+		'& svg:first-child': {
+			marginRight: '15px'
+		},
+		'& svg': {
+			// display: 'inline-block'
+		}
+	}
 }));
 
 
@@ -33,6 +46,8 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 	const observer = useRef()
 	const lastElement = useRef()
 	const {matchesMobile, matchesTablet} = useMedia()
+	// буль для условия отображения списка объявления (либо сетка, либо список)
+	const [gridView, setGridView] = useState(true)
 	
 	const screenIsMobile = matchesMobile || matchesTablet;
 
@@ -41,11 +56,18 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 		observerGenerate(lastElement, observer, limitRenderObj.limitRenderPage, limitRenderObj.setLimitRenderPage, pageObj.setPage, pageObj.page)
 	})
 
+	const classSwitcher = () => {
+		if(gridView) return 'scrollableOffersHome'
+		if(!gridView && screenIsMobile) return 'scrollableOffersHome scrollableOffersHomeV2'
+		else return 'scrollableOffersHome'
+	}
+
+	console.log(gridView, 'gridView from wrapper')
 
 	return (
 		<>
-				{!screenIsMobile && <Box className={classes.top}>
-					<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
+				{screenIsMobile && <Box className={classes.top}>
+				{!screenIsMobile && <Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>}
 
 					{!isProduct &&
 						// <TextField
@@ -61,10 +83,17 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 						// </TextField>
                         <SortItem setSort={setSort}/>
 					}
+					{screenIsMobile && <div className={classes.offersGridSwitcher}>
+						<OffersRenderGridIcon clickHandler={()=>setGridView(true)} color={gridView ? '#5a5a5a' : '#8f8f8f'} />
+						<OffersRenderListIcon clickHandler={()=>setGridView(false)} color={gridView ? '#8f8f8f' : '#5a5a5a'}/>
+					</div>}
 
 				</Box>}
-				<div className="scrollableOffersHome">
-					{data?.map((obj, i) => isProduct ? <AdCard_component key={i} offer={obj} /> :  <AdCard_component ref={lastElement} key={i} offer={obj} />)}
+				{/* <div className="scrollableOffersHome"> */}
+				<div className={classSwitcher()}>
+					{data?.map((obj, i) => isProduct ? 
+					<AdCard_component isGrid={gridView} key={i} offer={obj} /> :  
+					<AdCard_component isGrid={gridView} ref={lastElement} key={i} offer={obj} />)}
 				</div>
 				{pageObj.page !== 'end' && <div className='offer__placeholder_loader'><Loader /></div>}
 				<ScrollTop />
