@@ -26,14 +26,12 @@ import AccountCity from "#components/account/Settings/tabs/components/AccountCit
 import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
 import { InternalLink } from "#components/links/InternalLink";
 import { FormSection } from "#components/forms/FormSection";
-import { BaseInput } from "#components/inputs/BaseInput";
-import { Label } from "#components/forms/Label";
 import { Button } from "#components/buttons/Button";
 import { Form } from "#components/forms/Form";
 import { SubmitButton } from "#components/buttons/SubmitButton";
-import { TextInput } from "#components/inputs/TextInput";
 import { PasswordForm } from "./PasswordForm";
-import { PasswordSection } from "#components/forms/PasswordSection";
+import { changePersonalData } from "#lib/account/changePersonalData";
+import clsx from "clsx";
 
 
 /**
@@ -41,44 +39,78 @@ import { PasswordSection } from "#components/forms/PasswordSection";
  * @param {import("#lib/fetch").UserInfo} userInfo
  */
 const PersonalForm = ({ userInfo }) => {
+	const { handleSubmit, register } = useForm();
+
+	/**
+	 * @param {{ name: string, address: string }} formData 
+	 */
+	const handlerUserDataChange = async (formData) => {
+		console.log(formData);
+		const resData = await changePersonalData();
+	}
+
+	/**
+	 * @type {import("#components/buttons/Button").ClickCallback}
+	 */
+	const handlerPhoneNumberAddition = async () => {
+		return;
+	}
+
 	return (
-		<form className="user-info__form">
-			
-			<div className="user-info__section">
-				<Label className="user-info__label" htmlFor="user-name">Имя</Label>
-				<FormSection className="user-info__content">
-					<TextInput id="user-name" defaultValue={userInfo.name} />
-				</FormSection>
+		<form className="form" onSubmit={handleSubmit(handlerUserDataChange)}>
+			<div className="form__section">
+				<label className="form__label" htmlFor="user-name">Имя</label>
+				<div className="form__content">
+					<input 
+						className="form__input" 
+						id="user-name" 
+						type="text" 
+						defaultValue={userInfo.name}
+						{...register("name")} 
+					/>
+				</div>
 			</div>
 
-			<div className="user-info__section user-info__section--address">
-				<span className="user-info__label">Адрес</span>
-				<FormSection className="user-info__content">
-					<FormSection className="user-info__section">
-						<Label className="user-info__label" htmlFor="user-city">Город</Label>
-						<TextInput id="user-city" />
-					</FormSection>
-					<FormSection className="user-info__section">
-						<Label className="user-info__label" htmlFor="user-street">Улица</Label>
-						<TextInput id="user-street" />
-					</FormSection>
-				</FormSection>
+			<div className="form__section">
+				<label className="form__label" htmlFor="user-address">Адрес</label>
+				<div className="form__content">
+					<input 
+						className="form__input" 
+						id="user-address" 
+						type="text" 
+						{...register("address")}   
+					/>
+				</div>
 			</div>
 
-			<div className="user-info__section user-info__section--phone">
-				<Label className="user-info__label" htmlFor="user-phone">Телефон</Label>
-				<FormSection className="user-info__content">
+			<div className="form__section form__section--phone">
+				<label className="form__label" htmlFor="user-phone">Телефон</label>
+				<div className="form__content">
 					<span
 						id="user-phone"
 						className="user-info__phone-number"
 					>
 						{phoneNumber(userInfo.phone)}
 					</span>
-					<Button className="user-info__button" disabled >
+					<button 
+						className={clsx(
+							"form__button", 
+							"form__button--button", 
+						)}
+						type="button" 
+						disabled 
+						onClick={handlerPhoneNumberAddition}
+					>
 						Добавить номер
-					</Button>
-					<SubmitButton>Сохранить</SubmitButton>
-				</FormSection>
+					</button>
+					
+				</div>
+			</div>
+			<div className="form__section">
+				<button 
+					className="form__button form__submit" 
+					type="submit"
+				>Сохранить</button>
 			</div>
 		</form>
 	)

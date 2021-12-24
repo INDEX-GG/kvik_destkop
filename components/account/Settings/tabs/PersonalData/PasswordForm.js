@@ -70,7 +70,6 @@ export const PasswordForm = ({ onSubmit, ...formProps }) => {
 				</FormSection>
 
 				<FormSection className="user-info__section">
-					<div className="user-info__label"></div>
 					<SubmitButton>Изменить</SubmitButton>
 				</FormSection>
 			</FormSection>

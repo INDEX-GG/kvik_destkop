@@ -1,0 +1,74 @@
+.form {
+	display: grid;
+	grid-template-columns: 100%;
+	width: 100%;
+	gap: 1.5em;
+
+	&__section {
+		display: grid;
+		grid-template: 
+			"label content" auto / auto 1fr;
+		align-items: center;
+	}
+
+	&__label {
+		grid-area: label;
+		display: "inline-block";
+		cursor: "pointer";
+	}
+
+	&__content {
+		grid-area: content;
+	}
+
+	&__input {
+		box-sizing: border-box;
+		min-width: 44px;
+		min-height: 44px;
+		width: 100%;
+		font-family: inherit;
+		font-size: 100%;
+		border-radius: 4px;
+		border: 1px solid hsl(0, 0%, 78%);
+		padding: 1em;
+		margin: 0;
+	}
+
+	// TODO: перенести в `.button`
+	&__button {
+		box-sizing: border-box;
+		display: inline-block;
+		min-width: 44px;
+		min-height: 44px;
+		width: 100%;
+		font-family: inherit;
+		font-size: 100%;
+		border-radius: 4px;
+		border: 1px solid hsl(0, 0%, 78%);
+		padding: 0;
+		margin: 0;
+		cursor: pointer;
+
+		&--button {
+			border-color: hsl(0, 0%, 78%);
+			background-color: hsl(0, 0%, 100%);
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+	}
+
+
+
+	&__submit {
+		grid-area: content;
+		justify-self: baseline;
+		width: auto;
+		color: hsl(184, 100%, 34%);
+		background-color: transparent;
+		border-radius: 0;
+		border: none;
+	}
+}

@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import clsx from "clsx";
-import { Controller, C } from "react-hook-form";
+// import { Controller } from "react-hook-form";
 
 const useStyles = makeStyles({
 	block: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles({
  */
 
 /**
+ * Не использовать, пока не разобрались с контроллерами.
  * @param {BaseInputProps} props
  */
 export const BaseInput = ({ className, ...inputProps }) => {
