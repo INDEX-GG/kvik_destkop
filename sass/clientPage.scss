@@ -308,6 +308,10 @@
 		gap: 1em;
 		width: 100%;
 		border-bottom: 1px solid hsl(0, 0%, 91%);
+
+		&--phone {
+			grid-template-columns: 1fr 1fr;
+		}
 	}
 
 	& .form__section {

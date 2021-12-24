@@ -38,7 +38,7 @@ export const PersonalDataMobile = () => {
 	const { isAuth, id: userID, token } = useAuth();
 	const { userInfo, setUserInfo } = useStore();
 	const [modal, setModal] = useState({});
-	
+
 	function modalOlen(e, size, content, title) {
 		function smf() {
 			setModal({ title: title, content: content, size: size, isOpen: false });
@@ -54,16 +54,16 @@ export const PersonalDataMobile = () => {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	} else {
-		
+
 		userSettings = {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	}
-	
+
 	const { matchesTablet, matchesMobile } = useMedia();
-	
+
 	const [inputProfile, setInputProfile] = useState(true);
-	
+
 	const [valueName, setValueName] = useState("");
 	const limit = useRef(0);
 	const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
@@ -75,151 +75,8 @@ export const PersonalDataMobile = () => {
 	const [inputFirstEye, setInputFirstEye] = useState(true);
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false);
-	
+
 	const [open, setOpen] = useState(false);
-
-	userInfo?.name === undefined ? "" : test();
-
-	function test() {
-		if (limit.current == 0) {
-			setValueName(userInfo?.name);
-			limit.current = 1;
-		}
-	}
-
-	//!! Валидация формы
-
-	function changePasswordInput(e) {
-
-		if (!e.target.value.match(invalidCharacterChangePassword())) {
-			return;
-		}
-
-
-		let length = false;
-		let number = false;
-		let registr = false;
-		let languageEu = false;
-		let lenguageRu = false;
-		// ! Проверка на длинну
-
-		if (e.target.value.length >= 8) {
-			length = true;
-		}
-
-		// ! Проверка на Латиницу
-		if (e.target.value.match(checkLatin()) || e.target.value.match(checkLatin()) != null) {
-			languageEu = true;
-		}
-		// ! Провека на цифру
-		if (e.target.value.match(checkNumber())) {
-			number = true;
-		}
-		//! Проверка на регистр
-		if (e.target.value.match(checkRegister()) && e.target.value.match(checkRegister()) != null) {
-			registr = true;
-		}
-		//! Проверка на пробел
-		if (!e.target.value.match(checkWhitespace())) {
-			e.target.value = e.target.value
-				.split("")
-				.splice(0, e.target.value.length - 1)
-				.join("");
-		}
-		//! Проверка на кириллицу
-		if (e.target.value.match(checkCyrillic())) {
-			lenguageRu = true;
-			languageEu = false;
-		}
-
-		if (lenguageRu) {
-			setPasswordValid(false);
-		}
-
-		//! Конец валидации
-		if (e.target.value.match(endOfValidation()) && !lenguageRu) {
-			setPasswordValid(true);
-		} else {
-			setPasswordValid(false);
-		}
-
-		function createArr() {
-			return [
-				length
-					? "#C7C7C7"
-					: "#F44545",
-				languageEu
-					? "#C7C7C7"
-					: "#F44545",
-				number
-					? "#C7C7C7"
-					: "#F44545",
-				registr
-					? "#C7C7C7"
-					: "#F44545"
-			];
-		}
-
-		setPasswordOne(e.target.value);
-		confirmPassword(e, "input1");
-		setValidateCheck(createArr());
-	}
-
-	function confirmPassword(e, field = null) {
-		if (field === "input1") {
-			if (e.target.value == passwordTwo && passwordTwo.length > 0) {
-				setPasswordCoincidence("send");
-			} else {
-				if (passwordTwo.length > 0) {
-					setPasswordCoincidence(false);
-				} else {
-					setPasswordCoincidence(null);
-				}
-			}
-
-			return;
-		}
-
-		if (!e.target.value.match(invalidCharacterChangePassword())) {
-			return;
-		}
-
-
-		if (!e.target.value.match(checkWhitespace())) {
-			return;
-		} else {
-			setPasswordTwo(e.target.value);
-		}
-
-		if (e.target.value.length === 0) {
-			setPasswordCoincidence(null);
-			return;
-		}
-
-		if (!passwordValid && e.target.value.length > 0) {
-			setPasswordCoincidence("noValid");
-			return;
-		}
-
-		if (passwordValid && e.target.value.length > 0) {
-			if (e.target.value == passwordOne) {
-				setPasswordCoincidence("send");
-				setPasswordSend(passwordOne);
-			} else {
-				setPasswordCoincidence(false);
-			}
-		}
-	}
-
-	function passwordSubmit(e) {
-		e.preventDefault();
-		if (passwordSend.length > 0) {
-			setPasswordOne("");
-			setPasswordTwo("");
-			const obj = { id: userID, password: passwordSend };
-			getTokenDataByPost("/api/settings/upPassword", obj, token).then((res) => console.log(res));
-		}
-	}
 
 	return (
 		<div className="clientPage__container_bottom">
@@ -244,26 +101,28 @@ export const PersonalDataMobile = () => {
 							<span>{userInfo.email}</span>
 						</Section>)
 					}
-					<Section className="user-info__section--social">
-						<ul className="social">
-							<li className="social__item social__item--vk">
-								<a className="social__link">Вконтакте</a>
-								<CheckBoxSwitch checkID="social-vk"/>
-							</li>
-							<li className="social__item social__item--ok">
-								<a className="social__link">Одноклассники</a>
-								<CheckBoxSwitch checkID="social-ok"/>
-							</li>
-							<li className="social__item social__item--inst">
-								<a className="social__link">Instagram</a>
-								<CheckBoxSwitch checkID="social-inst"/>
-							</li>
-							<li className="social__item social__item--fb">
-								<a className="social__link">Facebook</a>
-								<CheckBoxSwitch checkID="social-fb"/>
-							</li>
-						</ul>
-					</Section>
+					<div className="form__section" style={{ padding: 0 }}>
+						<div className="form__content">
+							<ul className="social">
+								<li className="social__item social__item--vk">
+									<a className="social__link">Вконтакте</a>
+									<CheckBoxSwitch checkID="social-vk" />
+								</li>
+								<li className="social__item social__item--ok">
+									<a className="social__link">Одноклассники</a>
+									<CheckBoxSwitch checkID="social-ok" />
+								</li>
+								<li className="social__item social__item--inst">
+									<a className="social__link">Instagram</a>
+									<CheckBoxSwitch checkID="social-inst" />
+								</li>
+								<li className="social__item social__item--fb">
+									<a className="social__link">Facebook</a>
+									<CheckBoxSwitch checkID="social-fb" />
+								</li>
+							</ul>
+						</div>
+					</div>
 					<Section>
 						Устройства
 					</Section>
