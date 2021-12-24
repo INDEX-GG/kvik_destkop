@@ -331,20 +331,15 @@
 	&__label {
 		color: hsl(0, 0%, 56%)
 	}
+
 	&__button {
+		width: 160px;
 	}
 
 	&__phone-link {
 		color: hsl(184, 100%, 34%);
 	}
 
-	&__device {
-		color: hsl(0, 0%, 17%);
-	}
-
-	&__visit {
-		color: hsl(0, 0%, 65%);
-	}
 
 	@media (min-width: 1024px) {
 		&__section {
@@ -386,6 +381,20 @@
 	}
 
 	// &__link {}
+}
+
+.devices {
+	&__item {
+		margin-bottom: 1em;
+	}
+	
+	&__device {
+		color: hsl(0, 0%, 17%);
+	}
+
+	&__visit {
+		color: hsl(0, 0%, 65%);
+	}
 }
 
 .userInfoStats {

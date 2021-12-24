@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 // import { Button, Dialog } from "@material-ui/core";
 import { useForm } from "react-hook-form";
+import clsx from "clsx";
 import { AddressSuggestions } from "react-dadata";
 import Modal from "#components/Modal";
 import { phoneNumber } from "#lib/services";
-import { getTokenDataByPost } from "#lib/fetch";
+import { getTokenDataByPost, updatePassword } from "#lib/fetch";
 import { useStore } from "#lib/Context/Store";
 import { useAuth } from "#lib/Context/AuthCTX";
 import {
@@ -29,9 +30,8 @@ import { FormSection } from "#components/forms/FormSection";
 import { Button } from "#components/buttons/Button";
 import { Form } from "#components/forms/Form";
 import { SubmitButton } from "#components/buttons/SubmitButton";
-import { PasswordForm } from "./PasswordForm";
 import { changePersonalData } from "#lib/account/changePersonalData";
-import clsx from "clsx";
+import { validatePassword } from "#lib/account/validatePassword";
 
 
 /**
@@ -48,10 +48,11 @@ const PersonalForm = ({ userInfo }) => {
 	const handlerUserDataChange = async (formData) => {
 		try {
 			console.log(formData);
-			const resData = await changePersonalData({ 
+			const resData = await changePersonalData({
 				userID,
 				userName: formData.name,
-				token 
+				userAddress: formData.address,
+				token
 			});
 			console.log(resData);
 		} catch (error) {
@@ -71,12 +72,12 @@ const PersonalForm = ({ userInfo }) => {
 			<div className="form__section">
 				<label className="form__label user-info__label" htmlFor="user-name">Имя</label>
 				<div className="form__content">
-					<input 
-						className="form__input" 
-						id="user-name" 
-						type="text" 
+					<input
+						className="form__input"
+						id="user-name"
+						type="text"
 						defaultValue={userInfo.name}
-						{...register("name")} 
+						{...register("name")}
 					/>
 				</div>
 			</div>
@@ -84,12 +85,12 @@ const PersonalForm = ({ userInfo }) => {
 			<div className="form__section">
 				<label className="form__label user-info__label" htmlFor="user-address">Адрес</label>
 				<div className="form__content">
-					<input 
-						className="form__input" 
-						id="user-address" 
-						type="text" 
+					<input
+						className="form__input"
+						id="user-address"
+						type="text"
 						defaultValue={userInfo.address}
-						{...register("address")}   
+						{...register("address")}
 					/>
 				</div>
 			</div>
@@ -103,25 +104,194 @@ const PersonalForm = ({ userInfo }) => {
 					>
 						{phoneNumber(userInfo.phone)}
 					</span>
-					<button 
+					<button
 						className={clsx(
-							"form__button", 
-							"form__button--button", 
+							"form__button",
+							"form__button--button",
 						)}
-						type="button" 
-						disabled 
+						type="button"
+						disabled
 						onClick={handlerPhoneNumberAddition}
 					>
 						Добавить номер
 					</button>
-					
+
 				</div>
 			</div>
 			<div className="form__section">
-				<button 
-					className="form__button form__submit" 
+				<button
+					className="form__button form__submit"
 					type="submit"
-				>Сохранить</button>
+				>
+					Сохранить
+				</button>
+			</div>
+		</form>
+	)
+}
+
+const SocialForm = () => {
+	return (
+		<form className="form">
+			<div className="form__section">
+				<div className="form__content">
+					<ul className="social">
+						<li className="social__item social__item--vk">
+							<a className="social__link">Вконтакте</a>
+							<CheckBoxSwitch checkID="social-vk" />
+						</li>
+						<li className="social__item social__item--ok">
+							<a className="social__link">Одноклассники</a>
+							<CheckBoxSwitch checkID="social-ok" />
+						</li>
+						<li className="social__item social__item--inst">
+							<a className="social__link">Instagram</a>
+							<CheckBoxSwitch checkID="social-inst" />
+						</li>
+						<li className="social__item social__item--fb">
+							<a className="social__link">Facebook</a>
+							<CheckBoxSwitch checkID="social-fb" />
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div className="form__section">
+				<div className="user-info__label"></div>
+				<button
+					className="form__button form__button--button user-info__button"
+					type="button"
+					disabled
+				>
+					Добавить почту
+				</button>
+			</div>
+		</form>
+	)
+}
+
+const DeviceForm = () => {
+	const { handleSubmit } = useForm();
+	const handlerClearDevices = async () => {
+		return
+	}
+
+	return (
+		<form className="form" onSubmit={handleSubmit(handlerClearDevices)}>
+			<div className="form__section">
+				<div className="form__label"></div>
+				<dl className="devices">
+					<div className="devices__item">
+						<dt className="devices__device">Windows, браузер Chrome</dt>
+						<dd className="devices__visit">Сегодня в 12:52, Челябинск, Россия</dd>
+					</div>
+					<div className="devices__item">
+						<dt className="devices__device">Windows, браузер Yandex</dt>
+						<dd className="devices__visit">Вчера в 12:52, Тюмень, Россия</dd>
+					</div>
+				</dl>
+			</div>
+
+			<div className="form__section">
+				<div className="form__label"></div>
+				<button
+					className="form__button form__submit"
+					type="submit"
+				>
+					Очистить
+				</button>
+			</div>
+		</form>
+	)
+}
+
+const PasswordForm = () => {
+	const { token } = useAuth();
+	const { register, handleSubmit } = useForm()
+
+	/**
+	 * @param {{ old_password: string, password: string }} formData 
+	 */
+	const handlerPasswordChange = async (formData) => {
+		const [isValidPassword, formattedPassword] = validatePassword(formData.old_password, formData.password);
+
+		if (!isValidPassword) {
+			return;
+		}
+
+		try {
+			const data = await updatePassword(formattedPassword, token);
+			console.log(data);
+		} catch (error) {
+			console.error(error);
+		}
+
+	}
+
+	return (
+		<form
+			id="user-password-change"
+			className="form"
+			onSubmit={handleSubmit(handlerPasswordChange)}
+		>
+			<div className="form__section">
+				<label className="form__label" htmlFor="user-current-pass">Текущий пароль</label>
+				<div className="form__content">
+					<input
+						{...register("old_password")}
+						type="password"
+						id="user-current-pass"
+						className="form__input"
+						autoComplete="current-password"
+					/>
+				</div>
+			</div>
+
+			<div className="form__section">
+				<label className="form__label" htmlFor="user-new-pass">Новый пароль</label>
+				<div className="form__content">
+					<input
+						{...register("password")}
+						type="password"
+						id="user-new-pass"
+						className="form__input"
+						autoComplete="new-password"
+					/>
+				</div>
+			</div>
+
+			<div className="form__section">
+				<button
+					className="form__button form__submit"
+					type="submit"
+				>
+					Изменить
+				</button>
+			</div>
+		</form >
+	)
+}
+
+const AccountDeletionForm = () => {
+	const { handleSubmit } = useForm()
+	const handlerDeleteAccount = async () => {
+		return;
+	}
+
+	return (
+		<form className="form" onSubmit={handleSubmit(handlerDeleteAccount)}>
+			<div className="form__section">
+				<div className="form__label"></div>
+				<span>Все данные, включая объявления, будут стерты</span>
+			</div>
+
+			<div className="form__section">
+				<button
+					className="form__button form__submit"
+					type="submit"
+				>
+					Удалить
+				</button>
 			</div>
 		</form>
 	)
@@ -130,7 +300,6 @@ const PersonalForm = ({ userInfo }) => {
 export const PersonalDataDesktop = () => {
 	const { isAuth, id: userID, token } = useAuth();
 	const { userInfo, setUserInfo } = useStore();
-	const updatePassForm = useForm()
 	const [modal, setModal] = useState({});
 
 	function modalOlen(e, size, content, title) {
@@ -177,130 +346,6 @@ export const PersonalDataDesktop = () => {
 		}
 	}
 
-	//!! Валидация формы
-
-	function changePasswordInput(event) {
-
-		if (!event.target.value.match(invalidCharacterChangePassword())) {
-			return;
-		}
-
-
-		let length = false;
-		let number = false;
-		let registr = false;
-		let languageEu = false;
-		let lenguageRu = false;
-		// ! Проверка на длинну
-
-		if (event.target.value.length >= 8) {
-			length = true;
-		}
-
-		// ! Проверка на Латиницу
-		if (event.target.value.match(checkLatin()) || event.target.value.match(checkLatin()) != null) {
-			languageEu = true;
-		}
-		// ! Провека на цифру
-		if (event.target.value.match(checkNumber())) {
-			number = true;
-		}
-		//! Проверка на регистр
-		if (event.target.value.match(checkRegister()) && event.target.value.match(checkRegister()) != null) {
-			registr = true;
-		}
-		//! Проверка на пробел
-		if (!event.target.value.match(checkWhitespace())) {
-			event.target.value = event.target.value
-				.split("")
-				.splice(0, event.target.value.length - 1)
-				.join("");
-		}
-		//! Проверка на кириллицу
-		if (event.target.value.match(checkCyrillic())) {
-			lenguageRu = true;
-			languageEu = false;
-		}
-
-		if (lenguageRu) {
-			setPasswordValid(false);
-		}
-
-		//! Конец валидации
-		if (event.target.value.match(endOfValidation()) && !lenguageRu) {
-			setPasswordValid(true);
-		} else {
-			setPasswordValid(false);
-		}
-
-		function createArr() {
-			return [
-				length
-					? "#C7C7C7"
-					: "#F44545",
-				languageEu
-					? "#C7C7C7"
-					: "#F44545",
-				number
-					? "#C7C7C7"
-					: "#F44545",
-				registr
-					? "#C7C7C7"
-					: "#F44545"
-			];
-		}
-
-		setPasswordOne(event.target.value);
-		confirmPassword(event, "input1");
-		setValidateCheck(createArr());
-	}
-
-	function confirmPassword(e, field = null) {
-		if (field === "input1") {
-			if (e.target.value == passwordTwo && passwordTwo.length > 0) {
-				setPasswordCoincidence("send");
-			} else {
-				if (passwordTwo.length > 0) {
-					setPasswordCoincidence(false);
-				} else {
-					setPasswordCoincidence(null);
-				}
-			}
-
-			return;
-		}
-
-		if (!e.target.value.match(invalidCharacterChangePassword())) {
-			return;
-		}
-
-
-		if (!e.target.value.match(checkWhitespace())) {
-			return;
-		} else {
-			setPasswordTwo(e.target.value);
-		}
-
-		if (e.target.value.length === 0) {
-			setPasswordCoincidence(null);
-			return;
-		}
-
-		if (!passwordValid && e.target.value.length > 0) {
-			setPasswordCoincidence("noValid");
-			return;
-		}
-
-		if (passwordValid && e.target.value.length > 0) {
-			if (e.target.value == passwordOne) {
-				setPasswordCoincidence("send");
-				setPasswordSend(passwordOne);
-			} else {
-				setPasswordCoincidence(false);
-			}
-		}
-	}
-
 	return (
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
@@ -310,80 +355,27 @@ export const PersonalDataDesktop = () => {
 						<PersonalForm userInfo={userInfo} />
 					</section>
 
-					<Form className="user-info__form user-info__form--social">
+					<section className="user-info__section">
 						<h2 className="user-info__heading">Соцсети и сервисы</h2>
+						<SocialForm />
+					</section>
 
-						<FormSection className="user-info__content">
-							<FormSection className="user-info__section">
-								<div className="user-info__label"></div>
-								<ul className="social">
-									<li className="social__item social__item--vk">
-										<a className="social__link">Вконтакте</a>
-										<CheckBoxSwitch checkID="social-vk" />
-									</li>
-									<li className="social__item social__item--ok">
-										<a className="social__link">Одноклассники</a>
-										<CheckBoxSwitch checkID="social-ok" />
-									</li>
-									<li className="social__item social__item--inst">
-										<a className="social__link">Instagram</a>
-										<CheckBoxSwitch checkID="social-inst" />
-									</li>
-									<li className="social__item social__item--fb">
-										<a className="social__link">Facebook</a>
-										<CheckBoxSwitch checkID="social-fb" />
-									</li>
-								</ul>
-							</FormSection>
-
-							<FormSection className="user-info__section">
-								<div className="user-info__label"></div>
-								<Button className="user-info__button" disabled>Добавить почту</Button>
-							</FormSection>
-						</FormSection>
-					</Form>
-
-					<Form className="user-info__form">
+					<section className="user-info__section">
 						<h2 className="user-info__heading">Устройства</h2>
-						<FormSection className="user-info__content">
-							<FormSection className="user-info__section">
-								{/* <div className="user-info__label"></div>
-									<dl>
-										<div>
-											<dt className="user-info__device">Windows, браузер Chrome</dt>
-											<dd className="user-info__visit">Сегодня в 12:52, Челябинск, Россия</dd>
-										</div>
-										<div>
-											<dt className="user-info__device">Windows, браузер Yandex</dt>
-											<dd className="user-info__visit">Вчера в 12:52, Тюмень, Россия</dd>
-										</div>
-									</dl>						 */}
-							</FormSection>
+						<DeviceForm />
+					</section>
 
-							<FormSection className="user-info__section">
-								<div className="user-info__label"></div>
-								{/* <SubmitButton>Очистить</SubmitButton> */}
-							</FormSection>
+					<section className="user-info__section">
+						<h2 className="user-info__heading">Смена пароля</h2>
+						<PasswordForm />
+					</section>
 
-						</FormSection>
-					</Form>
-
-					<PasswordForm onSubmit={(data) => console.log(data)} />
-
-					<Form className="user-info__form user-info__form--erase">
+					<section className="user-info__section">
 						<h2 className="user-info__heading">Удаление профиля</h2>
-						<FormSection className="user-info__content">
-							<FormSection className="user-info__section">
-								<div className="user-info__label"></div>
-								<span>Все данные, включая объявления будут стерты</span>
-							</FormSection>
+						<AccountDeletionForm />
+					</section>
 
-							<FormSection className="user-info__section">
-								<div className="user-info__label"></div>
-								<SubmitButton>Удалить</SubmitButton>
-							</FormSection>
-						</FormSection>
-					</Form>
+
 					{/* <div>
 						<div>Телефон</div>
 						<div>

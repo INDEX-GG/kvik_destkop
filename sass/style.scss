@@ -1,4 +1,7 @@
 /* Front-end */
+// поставил здесь, чтобы стили не перезаписывали.
+@import "./components/forms";
+
 /* User Interface */
 @import "mixins";
 @import "./UI/UI-Kit";
@@ -14,7 +17,7 @@
 @import "./errors";
 
 /* Components */
-@import "./components/forms";
+
 @import "./components/homeSlider";
 @import "./components/starRating";
 @import "./components/statistics";
