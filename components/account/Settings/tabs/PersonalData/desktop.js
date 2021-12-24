@@ -36,17 +36,27 @@ import clsx from "clsx";
 
 /**
  * @param {object} props
- * @param {import("#lib/fetch").UserInfo} userInfo
+ * @param {import("#lib/fetch").UserInfo} props.userInfo
  */
 const PersonalForm = ({ userInfo }) => {
+	const { id: userID, token } = useAuth();
 	const { handleSubmit, register } = useForm();
 
 	/**
 	 * @param {{ name: string, address: string }} formData 
 	 */
 	const handlerUserDataChange = async (formData) => {
-		console.log(formData);
-		const resData = await changePersonalData();
+		try {
+			console.log(formData);
+			const resData = await changePersonalData({ 
+				userID,
+				userName: formData.name,
+				token 
+			});
+			console.log(resData);
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
 	/**
@@ -59,7 +69,7 @@ const PersonalForm = ({ userInfo }) => {
 	return (
 		<form className="form" onSubmit={handleSubmit(handlerUserDataChange)}>
 			<div className="form__section">
-				<label className="form__label" htmlFor="user-name">Имя</label>
+				<label className="form__label user-info__label" htmlFor="user-name">Имя</label>
 				<div className="form__content">
 					<input 
 						className="form__input" 
@@ -72,19 +82,20 @@ const PersonalForm = ({ userInfo }) => {
 			</div>
 
 			<div className="form__section">
-				<label className="form__label" htmlFor="user-address">Адрес</label>
+				<label className="form__label user-info__label" htmlFor="user-address">Адрес</label>
 				<div className="form__content">
 					<input 
 						className="form__input" 
 						id="user-address" 
 						type="text" 
+						defaultValue={userInfo.address}
 						{...register("address")}   
 					/>
 				</div>
 			</div>
 
 			<div className="form__section form__section--phone">
-				<label className="form__label" htmlFor="user-phone">Телефон</label>
+				<label className="form__label user-info__label" htmlFor="user-phone">Телефон</label>
 				<div className="form__content">
 					<span
 						id="user-phone"
