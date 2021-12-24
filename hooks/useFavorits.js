@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import {getTokenDataByPost} from "../lib/fetch";
 import {useAuth} from "../lib/Context/AuthCTX";
 
