@@ -7,7 +7,7 @@ import { Label } from "#components/forms/Label"
 import { PasswordInput } from "#components/inputs/PasswordInput"
 import { updatePassword } from "#lib/fetch"
 import { useForm } from "react-hook-form"
-import { validatePassword } from "#lib/validatePassword";
+import { validatePassword } from "#lib/account/validatePassword";
 import { PasswordSection } from "#components/forms/PasswordSection";
 
 /**
@@ -31,8 +31,11 @@ export const PasswordForm = ({ onSubmit, ...formProps }) => {
 	const handlerPasswordChange = async (formData) => {
 		const [isValidPassword, formattedPassword] = validatePassword(formData.password)
 		try {
-			
-			const data = await updatePassword(formData, token);
+			if (!isValidPassword) {
+				return;
+			}
+
+			const data = await updatePassword(formattedPassword, token);
 			onSubmit(data);
 		} catch (error) {
 			console.error(error);

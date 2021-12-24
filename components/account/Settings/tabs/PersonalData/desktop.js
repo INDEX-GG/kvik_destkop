@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 // import { Button, Dialog } from "@material-ui/core";
 import { useForm } from "react-hook-form";
+import { AddressSuggestions } from "react-dadata";
 import Modal from "#components/Modal";
 import { phoneNumber } from "#lib/services";
 import { getTokenDataByPost } from "#lib/fetch";
@@ -35,11 +36,60 @@ import { PasswordForm } from "./PasswordForm";
 import { PasswordSection } from "#components/forms/PasswordSection";
 
 
+/**
+ * @param {object} props
+ * @param {import("#lib/fetch").UserInfo} userInfo
+ */
+const PersonalForm = ({ userInfo }) => {
+	return (
+		<form className="user-info__form">
+			
+			<div className="user-info__section">
+				<Label className="user-info__label" htmlFor="user-name">Имя</Label>
+				<FormSection className="user-info__content">
+					<TextInput id="user-name" defaultValue={userInfo.name} />
+				</FormSection>
+			</div>
+
+			<div className="user-info__section user-info__section--address">
+				<span className="user-info__label">Адрес</span>
+				<FormSection className="user-info__content">
+					<FormSection className="user-info__section">
+						<Label className="user-info__label" htmlFor="user-city">Город</Label>
+						<TextInput id="user-city" />
+					</FormSection>
+					<FormSection className="user-info__section">
+						<Label className="user-info__label" htmlFor="user-street">Улица</Label>
+						<TextInput id="user-street" />
+					</FormSection>
+				</FormSection>
+			</div>
+
+			<div className="user-info__section user-info__section--phone">
+				<Label className="user-info__label" htmlFor="user-phone">Телефон</Label>
+				<FormSection className="user-info__content">
+					<span
+						id="user-phone"
+						className="user-info__phone-number"
+					>
+						{phoneNumber(userInfo.phone)}
+					</span>
+					<Button className="user-info__button" disabled >
+						Добавить номер
+					</Button>
+					<SubmitButton>Сохранить</SubmitButton>
+				</FormSection>
+			</div>
+		</form>
+	)
+}
+
 export const PersonalDataDesktop = () => {
 	const { isAuth, id: userID, token } = useAuth();
 	const { userInfo, setUserInfo } = useStore();
 	const updatePassForm = useForm()
 	const [modal, setModal] = useState({});
+
 	function modalOlen(e, size, content, title) {
 		function smf() {
 			setModal({ title: title, content: content, size: size, isOpen: false });
@@ -212,49 +262,14 @@ export const PersonalDataDesktop = () => {
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info">
-					<Form className="user-info__form">
+					<section className="user-info__section">
 						<h2 className="user-info__heading">Личная информация</h2>
-						<FormSection className="user-info__section">
-							<Label className="user-info__label" htmlFor="user-name">Имя</Label>
-							<FormSection className="user-info__content">
-								<TextInput id="user-name" defaultValue={userInfo.name} />
-							</FormSection>
-						</FormSection>
-
-						<FormSection className="user-info__section user-info__section--address">
-							<span className="user-info__label">Адрес</span>
-							<FormSection className="user-info__content">
-								<FormSection className="user-info__section">
-									<Label className="user-info__label" htmlFor="user-city">Город</Label>
-									<TextInput id="user-city" />
-								</FormSection>
-								<FormSection className="user-info__section">
-									<Label className="user-info__label" htmlFor="user-street">Улица</Label>
-									<TextInput id="user-street" />
-								</FormSection>
-							</FormSection>
-						</FormSection>
-
-						<FormSection className="user-info__section user-info__section--phone">
-							<Label className="user-info__label" htmlFor="user-phone">Телефон</Label>
-							<FormSection className="user-info__content">
-								<span 
-									id="user-phone" 
-									className="user-info__phone-number"
-								>
-									{phoneNumber(userInfo.phone)}
-								</span>
-								<Button className="user-info__button" disabled >
-									Добавить номер
-								</Button>
-								<SubmitButton>Сохранить</SubmitButton>
-							</FormSection>
-						</FormSection>
-					</Form>
+						<PersonalForm userInfo={userInfo} />
+					</section>
 
 					<Form className="user-info__form user-info__form--social">
 						<h2 className="user-info__heading">Соцсети и сервисы</h2>
-						
+
 						<FormSection className="user-info__content">
 							<FormSection className="user-info__section">
 								<div className="user-info__label"></div>
@@ -306,10 +321,10 @@ export const PersonalDataDesktop = () => {
 								<div className="user-info__label"></div>
 								{/* <SubmitButton>Очистить</SubmitButton> */}
 							</FormSection>
-							
+
 						</FormSection>
 					</Form>
-					
+
 					<PasswordForm onSubmit={(data) => console.log(data)} />
 
 					<Form className="user-info__form user-info__form--erase">
@@ -319,11 +334,11 @@ export const PersonalDataDesktop = () => {
 								<div className="user-info__label"></div>
 								<span>Все данные, включая объявления будут стерты</span>
 							</FormSection>
-							
+
 							<FormSection className="user-info__section">
 								<div className="user-info__label"></div>
 								<SubmitButton>Удалить</SubmitButton>
-							</FormSection>	
+							</FormSection>
 						</FormSection>
 					</Form>
 					{/* <div>
