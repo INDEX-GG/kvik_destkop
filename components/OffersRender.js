@@ -62,11 +62,9 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 		else return 'scrollableOffersHome'
 	}
 
-	console.log(gridView, 'gridView from wrapper')
-
 	return (
 		<>
-				{screenIsMobile && <Box className={classes.top}>
+				<Box className={classes.top}>
 				{!screenIsMobile && <Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>}
 
 					{!isProduct &&
@@ -83,12 +81,13 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 						// </TextField>
                         <SortItem setSort={setSort}/>
 					}
-					{screenIsMobile && <div className={classes.offersGridSwitcher}>
+					{screenIsMobile && 
+					<div className={classes.offersGridSwitcher}>
 						<OffersRenderGridIcon clickHandler={()=>setGridView(true)} color={gridView ? '#5a5a5a' : '#8f8f8f'} />
 						<OffersRenderListIcon clickHandler={()=>setGridView(false)} color={gridView ? '#8f8f8f' : '#5a5a5a'}/>
 					</div>}
 
-				</Box>}
+				</Box>
 				{/* <div className="scrollableOffersHome"> */}
 				<div className={classSwitcher()}>
 					{data?.map((obj, i) => isProduct ? 
