@@ -1,57 +1,36 @@
-import { useRef, useState } from "react";
-// import { Button, Dialog } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { AddressSuggestions } from "react-dadata";
-import Modal from "#components/Modal";
+import Search from '#UI/icons/Search';
 import { phoneNumber } from "#lib/services";
-import { getTokenDataByPost, updatePassword } from "#lib/fetch";
 import { useStore } from "#lib/Context/Store";
 import { useAuth } from "#lib/Context/AuthCTX";
-import {
-	invalidCharacterChangePassword,
-	checkLatin,
-	checkRegister,
-	checkNumber,
-	checkWhitespace,
-	checkCyrillic,
-	endOfValidation
-} from "#lib/regulars";
-import { useMedia } from "#hooks/useMedia"
-import { modalDeletHistory } from "#components/Modals";
-import Active_icon from "#UI/icons/ActiveIcon";
-import RightArrow from "#UI/icons/RightArrow"
-import MobileModal from "#components/MobileModal";
-import DeleteAccountModal from "#components/DeleteAccountModal"
-import AccountCity from "#components/account/Settings/tabs/components/AccountCity";
 import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
-import { InternalLink } from "#components/links/InternalLink";
-import { FormSection } from "#components/forms/FormSection";
-import { Button } from "#components/buttons/Button";
-import { Form } from "#components/forms/Form";
-import { SubmitButton } from "#components/buttons/SubmitButton";
 import { changePersonalData } from "#lib/account/changePersonalData";
 import { validatePassword } from "#lib/account/validatePassword";
+import { useState } from "react";
+import { updatePassword } from "#lib/fetch";
 
 
 /**
+ * TODO: переписать на бесконтрольный вариант.
  * @param {object} props
  * @param {import("#lib/fetch").UserInfo} props.userInfo
  */
 const PersonalForm = ({ userInfo }) => {
 	const { id: userID, token } = useAuth();
 	const { handleSubmit, register } = useForm();
+	const [userAddress, changeUserAddress] = useState(userInfo.address || userInfo?.location?.name);
 
 	/**
 	 * @param {{ name: string, address: string }} formData 
 	 */
 	const handlerUserDataChange = async (formData) => {
 		try {
-			console.log(formData);
 			const resData = await changePersonalData({
 				userID,
 				userName: formData.name,
-				userAddress: formData.address,
+				userAddress: userAddress,
 				token
 			});
 			console.log(resData);
@@ -67,8 +46,15 @@ const PersonalForm = ({ userInfo }) => {
 		return;
 	}
 
+	/**
+	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion 
+	 */
+	const handlerLocationSuggestion = (suggestion) => {
+		changeUserAddress(suggestion.value)
+	}
+
 	return (
-		<form className="form" onSubmit={handleSubmit(handlerUserDataChange)}>
+		<form className="form " onSubmit={handleSubmit(handlerUserDataChange)}>
 			<div className="form__section">
 				<label className="form__label user-info__label" htmlFor="user-name">Имя</label>
 				<div className="form__content">
@@ -82,15 +68,24 @@ const PersonalForm = ({ userInfo }) => {
 				</div>
 			</div>
 
-			<div className="form__section">
+			<div className="form__section user-info__section--location">
 				<label className="form__label user-info__label" htmlFor="user-address">Адрес</label>
-				<div className="form__content">
-					<input
-						className="form__input"
-						id="user-address"
-						type="text"
-						defaultValue={userInfo.address}
-						{...register("address")}
+				<div className="form__content user-info__location">
+					<input 
+						className="form__input" 
+						type="hidden"
+						value={userAddress} 
+					/>
+					<AddressSuggestions
+						containerClassName="user-info__suggest"
+						token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
+						filterFromBound='city-region'
+						filterToBound='settlement'
+						defaultQuery={userAddress}
+						count={5}
+						minChars={2}
+						delay={5}
+						onChange={handlerLocationSuggestion}
 					/>
 				</div>
 			</div>
@@ -282,7 +277,7 @@ const AccountDeletionForm = () => {
 		<form className="form" onSubmit={handleSubmit(handlerDeleteAccount)}>
 			<div className="form__section">
 				<div className="form__label"></div>
-				<span>Все данные, включая объявления, будут стерты</span>
+				<span className="user-info__notice">Все данные, включая объявления, будут стерты</span>
 			</div>
 
 			<div className="form__section">
@@ -298,53 +293,7 @@ const AccountDeletionForm = () => {
 }
 
 export const PersonalDataDesktop = () => {
-	const { isAuth, id: userID, token } = useAuth();
-	const { userInfo, setUserInfo } = useStore();
-	const [modal, setModal] = useState({});
-
-	function modalOlen(e, size, content, title) {
-		function smf() {
-			setModal({ title: title, content: content, size: size, isOpen: false });
-		}
-		e.preventDefault();
-		setModal({ title: title, content: content, size: size, isOpen: true });
-		setTimeout(smf, 500);
-	}
-
-	let userSettings = {};
-	if (typeof isAuth !== "undefined") {
-		userSettings = {
-			phone: phoneNumber(userInfo?.phone),
-		};
-	} else {
-		userSettings = {
-			phone: phoneNumber(userInfo?.phone),
-		};
-	}
-
-	const { matchesTablet, matchesMobile } = useMedia();
-	const [inputProfile, setInputProfile] = useState(true);
-	const [valueName, setValueName] = useState("");
-	const limit = useRef(0);
-	const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
-	const [passwordValid, setPasswordValid] = useState(false);
-	const [passwordOne, setPasswordOne] = useState("");
-	const [passwordTwo, setPasswordTwo] = useState("");
-	const [passwordSend, setPasswordSend] = useState("");
-	const [passwordCoincidence, setPasswordCoincidence] = useState(null);
-	const [inputFirstEye, setInputFirstEye] = useState(true);
-	const [inputSecondEye, setInputSecondEye] = useState(true);
-	const [passwordDialog, setPasswordDialog] = useState(false);
-	const [open, setOpen] = useState(false);
-
-	userInfo?.name === undefined ? "" : test();
-
-	function test() {
-		if (limit.current == 0) {
-			setValueName(userInfo?.name);
-			limit.current = 1;
-		}
-	}
+	const { userInfo } = useStore();
 
 	return (
 		<div className="clientPage__container_bottom">
@@ -511,48 +460,6 @@ export const PersonalDataDesktop = () => {
 					</div> */}
 				</div>
 			</div>
-			{/* <Modal {...modal} />
-			<MobileModal dialog={passwordDialog || false} title='Cмена пароля' close={() => setPasswordDialog(false)}>
-				<div className="mobilePasswordContainer">
-					<div className="privateDataPass">
-						<div className="pDPassInputWrapper">
-							<input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} value={passwordOne} onChange={(e) => changePasswordInput(e)} />
-							<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)} />
-						</div>
-						<p className="">
-							<Active_icon Size={14} Color={validateCheck[0]} />
-							&nbsp;Минимум 8 символов
-						</p>
-						<p className="">
-							<Active_icon Size={14} Color={validateCheck[1]} />
-							&nbsp;Только латинские символы
-						</p>
-						<p className="">
-							<Active_icon Size={14} Color={validateCheck[2]} />
-							&nbsp;Как минимум одна цифра
-						</p>
-						<p className="">
-							<Active_icon Size={14} Color={validateCheck[3]} />
-							&nbsp;Строчные и заглавные буквы
-						</p>
-						<div className="pDPassInputWrapper">
-							<input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} value={passwordTwo} onChange={(e) => confirmPassword(e)} />
-							<a
-								className="pDPassInvis"
-								onClick={() => {
-									setInputSecondEye(!inputSecondEye);
-								}}
-							/>
-						</div>
-						{passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
-						{passwordCoincidence == "send" ? (
-							<Button className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
-								Изменить пароль
-							</Button>
-						) : null}
-					</div>
-				</div>
-			</MobileModal> */}
 		</div>
 	);
 }
