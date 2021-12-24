@@ -4,6 +4,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import OutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
 import Filledicon from "@material-ui/icons/Brightness1";
 import {Controller, useFormContext} from "react-hook-form";
+import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
 
 
 const useStyles = makeStyles(() => ({
@@ -38,7 +39,7 @@ const AdditionalFieldCheckList = ({fieldData}) => {
     }
 
     return (
-        <>
+        <AdditionalWrapper title={fieldData.title} type={fieldData.type}>
             {check_list_values.map((checkItem, index) => (
                 <Controller
                     key={alias + index}
@@ -65,7 +66,7 @@ const AdditionalFieldCheckList = ({fieldData}) => {
                     rules={{ required: required.state ? required.value : false }}
                 />
             ))}
-        </>
+        </AdditionalWrapper>
     )
 };
 
