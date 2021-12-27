@@ -24,7 +24,7 @@ const AdditionalFieldNumber = ({fieldData}) => {
         number_unit_of_measure,
         required,
         default_value,
-        placeholder
+        placeholder,
     } = fieldData
 
     const handlerChangeInput = (event, onChange) => {
@@ -61,7 +61,6 @@ const AdditionalFieldNumber = ({fieldData}) => {
             onChange(onlyNumber + ` ${number_unit_of_measure}`)
         }
     }
-
 
     return (
         <AdditionalWrapper title={fieldData.title} type={fieldData.type}>

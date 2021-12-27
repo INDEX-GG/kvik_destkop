@@ -1,21 +1,26 @@
 import React from 'react';
-import {makeStyles, TextField} from "@material-ui/core";
+import {Checkbox} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
 import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
+import OutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
+import Filledicon from "@material-ui/icons/Brightness1";
 
 
-const useStyles = makeStyles(() => ({
-    input: {
-        width: "264px",
-    },
-}));
 
 const AdditionalFieldBoolean = ({fieldData}) => {
 
-    const classes = useStyles();
     const {control} = useFormContext();
 
     const {alias, required, default_value} = fieldData;
+
+    const handlerCheckboxChange = (e, onChange) => {
+        if (e.target.checked) {
+            onChange(e.target.value);
+        } else {
+            onChange(null);
+        }
+    }
+
 
     return (
         <AdditionalWrapper title={fieldData.title} type={fieldData.type}>
@@ -23,15 +28,14 @@ const AdditionalFieldBoolean = ({fieldData}) => {
                 name={alias}
                 control={control}
                 defaultValue={default_value}
-                render={({field: {onChange, value}, fieldState: {error}}) => (
-                    <TextField
-                        select
-                        className={classes.input}
-                        variant='outlined'
+                render={({field: {onChange, value}}) => (
+                    <Checkbox
+                        onChange={(e) => handlerCheckboxChange(e, onChange)}
+                        color="primary"
+                        icon={<OutlinedIcon />}
+                        checkedIcon={<Filledicon />}
                         value={value}
-                        onChange={onChange}
-                        error={!!error}
-                        helperText={error ? error.message : ' '}/>
+                    />
                 )}
                 rules={{required: required.state ? required.value : false}}
             />
