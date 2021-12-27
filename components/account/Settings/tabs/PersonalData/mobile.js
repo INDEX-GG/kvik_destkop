@@ -1,21 +1,23 @@
+// eslint-disable-next-line no-unused-vars
 import { useRef, useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { Button, Dialog } from "@material-ui/core";
 import Modal from "#components/Modal";
-import { modalDeletHistory } from "#components/Modals";
+// import { modalDeletHistory } from "#components/Modals";
 import { phoneNumber } from "#lib/services";
 import Active_icon from "#UI/icons/ActiveIcon";
-import { useMedia } from "#hooks/useMedia"
-import RightArrow from "#UI/icons/RightArrow"
+// import { useMedia } from "#hooks/useMedia"
+// import RightArrow from "#UI/icons/RightArrow"
 import { useStore } from "#lib/Context/Store";
 import { useAuth } from "#lib/Context/AuthCTX";
-import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "#lib/regulars"
+// import { invalidCharacterChangePassword, checkLatin, checkRegister, checkNumber, checkWhitespace, checkCyrillic, endOfValidation } from "#lib/regulars"
 import MobileModal from "#components//MobileModal";
-import DeleteAccountModal from "#components/DeleteAccountModal"
-import AccountCity from "#components/account/Settings/tabs/components/AccountCity";
-import { getTokenDataByPost } from "#lib/fetch";
+// import DeleteAccountModal from "#components/DeleteAccountModal"
+// import AccountCity from "#components/account/Settings/tabs/components/AccountCity";
+// import { getTokenDataByPost } from "#lib/fetch";
 import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
 import { InternalLink } from "#components/links/InternalLink";
-import { PersonalDataSection } from "./section";
+// import { PersonalDataSection } from "./section";
 
 
 /**
@@ -35,10 +37,13 @@ const Section = ({ className = undefined, children, ...sectionProps }) => {
 }
 
 export const PersonalDataMobile = () => {
+	// eslint-disable-next-line no-unused-vars
 	const { isAuth, id: userID, token } = useAuth();
+	// eslint-disable-next-line no-unused-vars
 	const { userInfo, setUserInfo } = useStore();
 	const [modal, setModal] = useState({});
 
+	// eslint-disable-next-line no-unused-vars
 	function modalOlen(e, size, content, title) {
 		function smf() {
 			setModal({ title: title, content: content, size: size, isOpen: false });
@@ -54,29 +59,34 @@ export const PersonalDataMobile = () => {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	} else {
-
+		
+		// eslint-disable-next-line no-unused-vars
 		userSettings = {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	}
 
-	const { matchesTablet, matchesMobile } = useMedia();
+	// const { matchesTablet, matchesMobile } = useMedia();
 
-	const [inputProfile, setInputProfile] = useState(true);
+	// const [inputProfile, setInputProfile] = useState(true);
 
-	const [valueName, setValueName] = useState("");
-	const limit = useRef(0);
+	// const [valueName, setValueName] = useState("");
+	// const limit = useRef(0);
+	// eslint-disable-next-line no-unused-vars
 	const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
-	const [passwordValid, setPasswordValid] = useState(false);
+	// const [passwordValid, setPasswordValid] = useState(false);
+	// eslint-disable-next-line no-unused-vars
 	const [passwordOne, setPasswordOne] = useState("");
+	// eslint-disable-next-line no-unused-vars
 	const [passwordTwo, setPasswordTwo] = useState("");
-	const [passwordSend, setPasswordSend] = useState("");
+	// const [passwordSend, setPasswordSend] = useState("");
+	// eslint-disable-next-line no-unused-vars
 	const [passwordCoincidence, setPasswordCoincidence] = useState(null);
 	const [inputFirstEye, setInputFirstEye] = useState(true);
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false);
 
-	const [open, setOpen] = useState(false);
+	// const [open, setOpen] = useState(false);
 
 	return (
 		<div className="clientPage__container_bottom">
@@ -272,7 +282,12 @@ export const PersonalDataMobile = () => {
 				<div className="mobilePasswordContainer">
 					<div className="privateDataPass">
 						<div className="pDPassInputWrapper">
-							<input placeholder="Введите новый пароль" type={inputFirstEye ? "password" : "text"} value={passwordOne} onChange={(e) => changePasswordInput(e)} />
+							<input 
+								placeholder="Введите новый пароль" 
+								type={inputFirstEye ? "password" : "text"} 
+								value={passwordOne} 
+								// onChange={(e) => changePasswordInput(e)} 
+							/>
 							<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)} />
 						</div>
 						<p className="">
@@ -292,7 +307,12 @@ export const PersonalDataMobile = () => {
 							&nbsp;Строчные и заглавные буквы
 						</p>
 						<div className="pDPassInputWrapper">
-							<input placeholder="Повторите пароль еще раз" type={inputSecondEye ? "password" : "text"} value={passwordTwo} onChange={(e) => confirmPassword(e)} />
+							<input 
+								placeholder="Повторите пароль еще раз" 
+								type={inputSecondEye ? "password" : "text"} 
+								value={passwordTwo} 
+								// onChange={(e) => confirmPassword(e)} 
+							/>
 							<a
 								className="pDPassInvis"
 								onClick={() => {
@@ -300,9 +320,19 @@ export const PersonalDataMobile = () => {
 								}}
 							/>
 						</div>
-						{passwordCoincidence == null ? null : passwordCoincidence == "noValid" ? <p className="error small">Условия не выполнены</p> : passwordCoincidence == "send" ? <p className="success small">Пароли совпадают</p> : <p className="error small">Пароли не совпадают</p>}
+						{passwordCoincidence == null 
+							? null 
+							: passwordCoincidence == "noValid" 
+								? (<p className="error small">Условия не выполнены</p>) 
+								: passwordCoincidence == "send" 
+									? (<p className="success small">Пароли совпадают</p>) 
+									: <p className="error small">Пароли не совпадают</p>}
 						{passwordCoincidence == "send" ? (
-							<Button className="sendButton" type="button" onClick={(e) => passwordSubmit(e)}>
+							<Button 
+								className="sendButton" 
+								type="button" 
+								// onClick={(e) => passwordSubmit(e)}
+							>
 								Изменить пароль
 							</Button>
 						) : null}
