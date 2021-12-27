@@ -4,28 +4,20 @@ export default async function handler(req, res) {
 
 	if (req.method === 'POST') {
 		const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-
 		const main = async () => {
-			// const user_id = (req.body.user_id).toString()
-
-
 			const answer  = await pool.query(`SELECT users."userPhoto",users.name, posts.user_id ,users.raiting, users.id,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email,posts.active, posts.subcategory, posts.viewing, posts.coordinates FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = ${+req.body.id}`)
-
-
-
-			// for (let index in answer.rows) {
-			//     let views = (answer.rows[index]).viewing
-			//     let preList = views.substring(1);
-			//     let preList2 = preList.substring(0, preList.length - 1);
-			//     let list = preList2.split(',');
-			//     if (list.includes(user_id)) {
-			//         (answer.rows[index]).viewing_bool = true
-			//     } else {
-			//         (answer.rows[index]).viewing_bool = false
-			//     }
-			// }
-
-
+			const subcategory = answer.rows[0]['subcategory']
+			answer.rows[0]['additional_fields'] = null
+			try {
+				const subs = (await pool.query(`SELECT * FROM "subcategories".${subcategory} WHERE post_id = '${req.body.id}'`)).rows
+				let additional_fields = subs[0]
+				if (additional_fields !== undefined) {
+					answer.rows[0]['additional_fields'] = additional_fields
+				}
+			}
+			catch (e) {
+				console.error(`Внутренняя ошибка api getPost ${e}`)
+			}
 			return(answer.rows[0])
 		}
 		try {
