@@ -379,6 +379,7 @@
 	}
 
 	&__phone-link {
+		justify-self: flex-end;
 		color: hsl(184, 100%, 34%);
 	}
 
@@ -437,7 +438,9 @@
 		}
 	}
 
-	// &__link {}
+	&__link {
+		color: hsl(0, 0%, 17%);
+	}
 }
 
 .devices {
