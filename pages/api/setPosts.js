@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import {Pool} from "pg";
 
 const text2Bool = (string) => {
 	return (string === 'true') || (string === true);
@@ -21,15 +22,15 @@ export default async function handler(req, res) {
 			return res.status(403).send("Invalid Token");
 		}
 
+		const pool = new Pool({ connectionString: process.env.DATABASE_URL});
 		const prisma = new PrismaClient();
-
 			const main = async () => {
 				const communication = {
 					phone: text2Bool(req.body.byphone),
 					message: text2Bool(req.body.bymessages)
 				}
 				const alias = (req.body.alias).toString()
-				var now = new Date()
+				let now = new Date()
 				const obj = {
 					data: {
 						country_code: 7,
@@ -65,10 +66,30 @@ export default async function handler(req, res) {
 						city: req.body.city
 											}
 				}
-				const allUsers = await prisma.posts.create(obj);
-				return { id: allUsers.id };
+				const createPost = await prisma.posts.create(obj);
+				if (req.body.additional_fields !== null && req.body.additional_fields !== undefined) {
+					try {
+						const additional_fields = req.body.additional_fields
+						let columns = ''
+						let values = ''
+						columns += '"' + 'post_id' + '", '
+						values += "'" + createPost.id + "', "
+						additional_fields.forEach((element) => {
+							if (element.value !== '') {
+								columns += '"' + element.alias + '", '
+								values += "'" + element.value + "', "
+							}
+						})
+						columns = columns.slice(0, -2)
+						values = values.slice(0 ,-2)
+						await pool.query(`INSERT INTO "subcategories".${req.body.subcategory} (${columns}) VALUES (${values})`)
+					}
+					catch (e) {
+						console.error(`Внутренняя ошибка api setPosts ${e}`)
+					}
+				}
+				return { id: createPost.id };
 			}
-
 		try {
 			let response = await main();
 			res.status(200);
@@ -82,6 +103,7 @@ export default async function handler(req, res) {
 		}
 		finally {
 			await prisma.$disconnect();
+			await pool.end();
 		}
 	} else {
 		res.json({ message: 'method not allowed' })
