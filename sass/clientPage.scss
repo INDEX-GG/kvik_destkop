@@ -374,6 +374,10 @@
 		width: 160px;
 	}
 
+	&__password {
+		width: 230px;
+	}
+
 	&__phone-link {
 		color: hsl(184, 100%, 34%);
 	}
@@ -390,6 +394,11 @@
 }
 
 .social {
+
+	&--mobile {
+
+	}
+	
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: flex-start;

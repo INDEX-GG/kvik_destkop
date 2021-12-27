@@ -9,6 +9,29 @@
 		grid-template: 
 			"label content" auto / auto 1fr;
 		align-items: center;
+
+		&--password {
+			& .form__content {
+				position: relative;
+				transition-duration: 250ms;
+				transition-property: background;
+				
+				& .form__button {
+					position: absolute;
+					left: calc(230px - 40px);
+					width: 18px;
+					height: 18px;
+					background: no-repeat center center url("../../icons/invisible.svg");
+					border: none;
+				}
+
+				&--visible {
+					& .form__button {
+						background: no-repeat center center url("../../icons/visible.svg");
+					}
+				}
+			}
+		}
 	}
 
 	&__label {
