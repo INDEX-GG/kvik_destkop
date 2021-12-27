@@ -44,6 +44,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 	const {offer} = props;
 
 	const { matchesMobile, matchesTablet } = useMedia();
+	const screenIsMobile = matchesMobile || matchesTablet;
 	const { userInfo, setLikeComment } = useStore();
 	const currentSwiper = useRef();
 	// let scheduled = false;
@@ -63,7 +64,18 @@ const AdCard_component = React.forwardRef((props, ref) => {
 		}
 	}
 
+	// вешает класс или классы на враппер карточки по условию
+	const classSwitcher = () => {
+		const isCommercial = offer.commercial === 1 || offer.commercial === 2;
 
+		if(isCommercial) return 'card__wrapper-yellow';
+		if(!props.isGrid && screenIsMobile) return 'card__wrapperV2'
+		if(!props.isGrid && isCommercial && screenIsMobile ) return 'card__wrapper-yellow card__wrapperV2'
+
+		return 'card__wrapper'
+	}
+
+	
 
 
 	// todo: перелистывание слайдера по движению мыши
@@ -127,7 +139,8 @@ const AdCard_component = React.forwardRef((props, ref) => {
 				<MenuItem>Добавить к сравнению</MenuItem>
 				<MenuItem>Не показывать</MenuItem>
 			</Menu>
-			<div className={offer.commercial === 1 || offer.commercial === 2 ? 'card__wrapper-yellow' : "card__wrapper"}>
+			{/* <div className={offer.commercial === 1 || offer.commercial === 2 ? 'card__wrapper-yellow' : "card__wrapper"}> */}
+			<div className={classSwitcher()}>
 				<div className={"card__top " + archived}>
 					{offer?.viewing_bool ? <div className="card__top_seen">Просмотрено</div> : ""}
 					<Link href={`/product/${offer.id}`} prefetch={false}>
@@ -198,20 +211,44 @@ const AdCard_component = React.forwardRef((props, ref) => {
 					<div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
 						<div className="card__bottom_info">
 							<div className="card__bottom_info_right">
-								<span className="old__price">{offer.old_price == null ? ' ' : ellipsis(ToRubles(offer.old_price), 15)}</span>
+								{/* компонент для старой цены, пока не нужен */}
+								{/* <span className="old__price">{offer.old_price == null ? ' ' : ellipsis(ToRubles(offer.old_price), 15)}</span> */}
 								<div className="card__bottom_info_right_commercial">
 									{!matchesMobile && offer.delivery ? <span className={!offer.commercial === 0 ? "card_delivery card_delivery-green" : "card_delivery"}/> : ''}
 									{!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial === 0 ? "card_secure card_secure-green" : "card_secure"}/> : ''}
 								</div>
 							</div>
 							<div className="card__bottom_info_left">
-								<span className="new__price">{ellipsis(ToRubles(offer.price), 15)}</span>
+								<span className={(!props.isGrid && screenIsMobile) ? 
+									"new__priceV2" : 
+									'new__price'
+								}>
+									{ellipsis(ToRubles(offer.price), 15)}
+								</span>
 							</div>
 						</div>
-						<div className="card__bottom_info_middle">{offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 24)}</div>
+
+						<div className={(!props.isGrid && screenIsMobile) ? 
+							"card__bottom_info_middleV2" : 
+							'card__bottom_info_middle'
+						}>
+							{offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 24)}
+						</div>
+
 						<div className="card__bottom_info_footer">
-							<div className="card__bottom_info_footer_left">{offer.address}</div>
-							<div className="card__bottom_info_footer_right">{ToRusDate(offer.created_at)}</div>
+							<div className={(!props.isGrid && screenIsMobile) ? 
+							"card__bottom_info_footer_leftV2" : 
+							'card__bottom_info_footer_left'
+							}>
+								{offer.address}
+							</div>
+
+							<div className={(!props.isGrid && screenIsMobile) ? 
+							"card__bottom_info_footer_rightV2" : 
+							'card__bottom_info_footer_right'
+							}>
+								{ToRusDate(offer.created_at)}
+							</div>
 						</div>
 					</div>
 				</Link>

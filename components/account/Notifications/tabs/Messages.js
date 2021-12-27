@@ -38,6 +38,10 @@ function Messages() {
   const {id, token} = useAuth()
   const {userInfo} = useStore()
   const {matchesTablet, matchesMobile} = useMedia()
+  console.log(userInfo, 'userInfo')
+  // временный буль для проверки открытия окна переписки
+  const chatIsOpen = router.asPath.includes('companion')
+  
 
   //! Дожидаемся загрузки страницы
   useEffect(() => setLoading(true), [])
@@ -222,7 +226,6 @@ function Messages() {
     }
   }, [room])
 
-
   return (
     !loadingAllRooms && !allRooms?.length && !room.product_id ?
       <div className="clientPage__container_bottom">
@@ -248,12 +251,17 @@ function Messages() {
           </div>
           <div className="clientPage__container_content">
             <div className="messageContainer">
-              <div className="messageDialogs">
+              {/* накостылил временное решение для скрытия окна всех чатов
+              в десктопной версии оно рендерилось поверх окна диалога с другим юзером */}
+            {!chatIsOpen && 
+            <div className="messageDialogs">
                 {loadingAllRooms ?
-                  <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
+                  <div className='offer__placeholder_loader messagePlaceholder'>
+                    <Loader/>
+                  </div> :
                   <ChatAllRoom allRooms={allRooms}
-                               setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
-              </div>
+                    setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
+            </div>}
               {!router.query?.companion_id && !router.query?.product_id ? (
                   <div className='chatPlaceholder'>
                     <h2>Для начала переписки выберете чат</h2>

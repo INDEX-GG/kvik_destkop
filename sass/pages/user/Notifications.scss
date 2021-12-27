@@ -206,7 +206,7 @@
 
 .messageHeader > img {
   min-width: 88px;
-  width: 88px;
+  width: 160px;
   height: 88px;
   border-radius: 2px;
   object-fit: cover;
@@ -257,6 +257,7 @@
   // padding: 16px 10px 16px 0;
   padding: 0 12px;
   max-height: 450px;
+  min-height: 450px;
   flex-grow: 1;
   // overflow-y: scroll;
   overflow-x: hidden;
@@ -606,6 +607,10 @@
   .fullScreenImg {
     max-width: 300px;
     max-height: 300px;
+  }
+
+  .messageHeader > img {
+    width: 80px;
   }
 }
 

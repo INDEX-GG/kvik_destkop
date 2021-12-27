@@ -1,11 +1,12 @@
 .card {
     min-width: 100%;
     width: 100%;
-    // border-radius: 8px;
+    border-radius: 8px;
     // filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.1));
     position: relative;
     cursor: pointer;
-    // overflow: hidden;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    overflow: hidden;
     background: $ts;
 
     & .card_like,
@@ -36,6 +37,13 @@
             background: $primeyellow;
         }
     }
+
+    &__wrapperV2 {
+        display: grid;
+        grid-template-columns: .55fr 1fr;
+        // max-height: 137px;
+    }
+
     &__img {
         &_wrapper {
             width: 100%;
@@ -47,6 +55,7 @@
         height: 260px;
         overflow: hidden;
         position: relative;
+        // border-radius: 8px 8px 0 0;
         &_img {
             object-fit: contain;
             height: 100%;
@@ -143,7 +152,8 @@
 
     &__bottom {
         padding: 2px 12px 12px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        // border-radius: 0 0 8px 8px;
 
         &_info {
             margin-bottom: 6px;
@@ -154,7 +164,16 @@
                     color: $tp;
                     font-weight: 700;
                 }
+
+                & .new__priceV2 {
+                    display: block;
+                    margin-top: 12px;
+                    font-size: 18px;
+                    color: $tp;
+                    font-weight: 700;
+                }
             }
+
 
             &_right {
                 display: flex;
@@ -215,9 +234,28 @@
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
+
+                &_leftV2 {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    font-size: 12px;
+                }
+
+                &_rigthV2 {
+
+                    font-size: 12px;
+                }
             }
         }
     }
+}
+
+.card__bottom_info_middleV2 {
+    margin-top: 14px;
+    margin-bottom: 33px;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .card__top_slider .swiper-container .swiper-slide {
@@ -260,18 +298,19 @@
     .card__top_info_right {
         right: 8px;
     }
+
 }
 
 @media screen and (max-width: 727px) {
     .card__top {
         overflow: hidden;
         max-height: 163px;
-        border-radius: 16px 16px 0 0;
+        // border-radius: 8px 8px 0 0;
     }
 
     .card__bottom {
         overflow: hidden;
-        border-radius: 0 0 16px 16px;
+        // border-radius: 0 0 8px 8px;
     }
 
     .card__bottom_info {
@@ -280,6 +319,13 @@
 
     .card__bottom_info_middle {
         margin-bottom: 4px;
+    }
+
+    .card__bottom_info_middleV2 {
+        margin-top: 14px;
+        margin-bottom: 33px;
+        font-size: 16px;
+        font-weight: 500;
     }
 }
 
