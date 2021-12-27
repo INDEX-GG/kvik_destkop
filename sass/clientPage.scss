@@ -396,7 +396,11 @@
 .social {
 
 	&--mobile {
-
+		& .social__item {
+			flex-basis: 145px;
+			height: 19px;
+			font-size: 10px;
+		}
 	}
 	
 	display: flex;
@@ -413,20 +417,23 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		min-height: 24px;
-		padding-left: 2.5em;
+		height: 24px;
+		padding-left: 3.5em;
+		background-repeat: no-repeat;
+		background-position: left;
+		background-size: auto 100%;
 
 		&--vk {
-			background: no-repeat left center url("../icons/vk_r_color.svg");
+			background-image: url("../icons/vk_r_color.svg");
 		}
 		&--inst {
-			background: no-repeat left center url("../icons/ig_r_color.svg");
+			background-image: url("../icons/ig_r_color.svg");
 		}
 		&--fb {
-			background: no-repeat left center url("../icons/fb_r_color.svg");
+			background-image: url("../icons/fb_r_color.svg");
 		}
 		&--ok {
-			background: no-repeat left center url("../icons/ok_r_color.svg");
+			background-image: url("../icons/ok_r_color.svg");
 		}
 	}
 

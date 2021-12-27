@@ -10,7 +10,6 @@ import { changePersonalData } from "#lib/account/changePersonalData";
 import { validatePassword } from "#lib/account/validatePassword";
 import { useState } from "react";
 import { updatePassword } from "#lib/fetch";
-import { Button } from "#components/buttons/Button";
 
 
 /**

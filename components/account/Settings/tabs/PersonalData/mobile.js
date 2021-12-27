@@ -103,7 +103,7 @@ export const PersonalDataMobile = () => {
 					}
 					<div className="form__section" style={{ padding: 0 }}>
 						<div className="form__content">
-							<ul className="social">
+							<ul className="social social--mobile">
 								<li className="social__item social__item--vk">
 									<a className="social__link">Вконтакте</a>
 									<CheckBoxSwitch checkID="social-vk" />
