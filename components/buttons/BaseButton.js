@@ -8,7 +8,7 @@ const useStyles = makeStyles({
 		display: "inline-block",
 		cursor: "pointer",
 		minWidth: "44px",
-		minHeight: "44px",
+		minHeight: "39px",
 		width: "100%",
 		fontFamily: "inherit",
 		fontSize: "100%",
@@ -16,6 +16,10 @@ const useStyles = makeStyles({
 		border: "1px solid #C7C7C7",
 		padding: 0,
 		margin: 0,
+		"&:disabled": {
+			opacity: "0.5",
+			cursor: "not-allowed"
+		}
 	}
 });
 
