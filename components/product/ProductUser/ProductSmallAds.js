@@ -5,13 +5,14 @@ import { useRouter } from 'next/router';
 import ProductAdsLength from '../ProductSmallComponents/ProductAdsLength';
 
 
-const ProductSmallAd = ({id, sellerId, status, mobile, smallAd}) => {
+const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
+	// проп status не используется
 	const router = useRouter();
 	let userSmallAd = ''
 	return (
 		<>
 		{
-			status === 7 || sellerId !== id ? (
+			// status === 7 || sellerId !== id ? (
 			!mobile ? (
 				sellerId === undefined ?
 					<>
@@ -71,7 +72,7 @@ const ProductSmallAd = ({id, sellerId, status, mobile, smallAd}) => {
 				) : (
 					""
 				)
-			) : ("")
+			// ) : ("")
 		}
 		<ProductAdsLength id={id} sellerId={sellerId} smallAd={smallAd} mobile={mobile} />
 		</>

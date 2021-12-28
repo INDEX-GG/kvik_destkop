@@ -81,7 +81,8 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						{data?.map((img, i) => {
 							return (
 								<SwiperSlide className='importantSlide' key={i} onClick={() => setModal(!modal)}>
-									<img src={img} alt={`sliderPhoto${i + 1}`} />
+									<img   src={img} alt={`sliderPhoto${i + 1}`} />
+									{/* style={{backgroundImage: `url(${img})`, backgroundSize: 'cover', backdropFilter: 'blur(150px)'}}*/}
 									{/*ВОЗМОЖНОЕ РЕШЕНИЕ!*/}
 									{/*<ProductItemPhoto img={img} index={i}/>*/}
 								</SwiperSlide>
