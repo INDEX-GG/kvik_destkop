@@ -11,21 +11,16 @@ const useStyles = makeStyles({
 		fontSize: "100%",
 		borderRadius: "4px",
 		border: "1px solid #C7C7C7",
-		padding: "0 1em",
+		padding: 0,
 		margin: 0,
 	}
 });
 
-
-
 /**
- * @typedef Helper
- *
  * @typedef {React.ComponentPropsWithoutRef<"input">} BaseInputProps
  */
 
 /**
- * Не использовать, пока не разобрались с контроллерами.
  * @param {BaseInputProps} props
  */
 export const BaseInput = ({ className, ...inputProps }) => {
