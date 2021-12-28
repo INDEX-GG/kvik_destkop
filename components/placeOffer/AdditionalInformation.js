@@ -20,17 +20,23 @@
 // import Excavators from './Options/Excavators';
 // import OtherTransport from './Options/Other_transport';
 import AdditionalFields from "#components/placeOffer/newPlaceOffer/AdditionalFields";
+import {useState} from "react";
 
 
 const AdditionalInformation = ({currentCategory}) => {
 
 
     const allAdditionalFields = currentCategory.additional_fields;
+    const [otherJson, setOtherJson] = useState([{name: '', data: []}]);
 
 
     return (
         allAdditionalFields.map(currentField => (
-            <AdditionalFields key={currentField.alias} fieldData={currentField}/>
+            <AdditionalFields
+                key={currentField.alias}
+                fieldData={currentField}
+                otherJsonObj={{otherJson, setOtherJson}}
+            />
         ))
     );
 

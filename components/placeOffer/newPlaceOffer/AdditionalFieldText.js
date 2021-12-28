@@ -10,20 +10,19 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const AdditionalFieldText = ({fieldData}) => {
+const AdditionalFieldText = ({fieldData, defaultValue}) => {
 
     const classes = useStyles();
 
     const {text_max_len, required, alias, default_value, title, type} = fieldData;
     const {control} = useFormContext();
 
-
     return (
         <AdditionalWrapper title={title} type={type}>
             <Controller
                 name={alias}
                 control={control}
-                defaultValue={default_value}
+                defaultValue={defaultValue ? defaultValue : default_value}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <TextField
                         className={classes.input}

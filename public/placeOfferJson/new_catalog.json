@@ -2513,25 +2513,23 @@
                             "text_list_search_type": 0,
                             "text_list_filter_type": 0,
                             "text_list_rendering_type": 0,
-                           "json": "/auto_brand/",
+                            "json": "/auto_brand/",
                             "dependencies": ["brand", "model", "generation"]
                         },
                         {
                             "alias": "year_of_issue",
                             "title": "Год выпуска",
                             "default_value": null,
-                            "type": "number",
+                            "type": "period",
                             "required": {"state": true, "value": ""},
-                            "placeholder": "0",
-                            "number_min_value": 0,
-                            "number_max_value": 5000,
-                            "number_version": "int",
-                            "number_unit_of_measure": "шт.",
-                            "number_step": {},
-                            "number_rendering_type": 0
+                            "period_minimum": "yearfrom",
+                            "period_maximum": "yearto",
+                            "period_step": 1,
+                            "json": "/auto_brand/",
+                            "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
-                            "alias": "engines_type",
+                            "alias": "fueltype",
                             "title": "Тип двигателя",
                             "default_value": null,
                             "type": "text_list",
@@ -2539,17 +2537,19 @@
                             "text_list_values": [],
                             "text_list_search_type": 0,
                             "text_list_filter_type": 0,
-                            "text_list_rendering_type": 0
+                            "text_list_rendering_type": 0,
+                            "json": "/auto_brand/",
+                            "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
                             "alias": "hbo",
                             "title": "ГБО",
                             "default_value": null,
                             "type": "boolean",
-                            "required": true
+                            "required": {"state": false, "value": ""}
                         },
                         {
-                            "alias": "drive_unit",
+                            "alias": "drivetype",
                             "title": "Привод",
                             "default_value": null,
                             "type": "text_list",
@@ -2557,7 +2557,9 @@
                             "text_list_values": [],
                             "text_list_search_type": 0,
                             "text_list_filter_type": 0,
-                            "text_list_rendering_type": 0
+                            "text_list_rendering_type": 0,
+                          "json": "/auto_brand/",
+                            "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
                             "alias": "transmission",
@@ -2568,7 +2570,9 @@
                             "text_list_values": [],
                             "text_list_search_type": 0,
                             "text_list_filter_type": 0,
-                            "text_list_rendering_type": 0
+                            "text_list_rendering_type": 0,
+                          "json": "/auto_brand/",
+                           "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
                             "alias": "power",
@@ -2582,10 +2586,11 @@
                             "number_version": "int",
                             "number_unit_of_measure": "л.с.",
                             "number_step": {},
-                            "number_rendering_type": 0
+                            "number_rendering_type": 0,
+                            "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
-                            "alias": "engine_capacity",
+                            "alias": "enginesize",
                             "title": "Объем двигателя",
                             "default_value": null,
                             "type": "number",
@@ -2596,10 +2601,11 @@
                             "number_version": "int",
                             "number_unit_of_measure": "л",
                             "number_step": {},
-                            "number_rendering_type": 0
+                            "number_rendering_type": 0,
+                            "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
-                            "alias": "body_type",
+                            "alias": "bodytype",
                             "title": "Тип кузова",
                             "default_value": null,
                             "type": "text_list",
@@ -2607,10 +2613,12 @@
                             "text_list_values": [],
                             "text_list_search_type": 0,
                             "text_list_filter_type": 0,
-                            "text_list_rendering_type": 0
+                            "text_list_rendering_type": 0,
+                            "json": "/auto_brand/",
+                            "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
-                            "alias": "number_of_doors",
+                            "alias": "doors",
                             "title": "Количество дверей",
                             "default_value": null,
                             "type": "number",
@@ -2621,10 +2629,11 @@
                             "number_version": "int",
                             "number_unit_of_measure": "шт.",
                             "number_step": {},
-                            "number_rendering_type": 0
+                            "number_rendering_type": 0,
+                            "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
-                            "alias": "equipment",
+                            "alias": "complectations",
                             "title": "Комплектация",
                             "default_value": null,
                             "type": "text_list",
@@ -2632,7 +2641,9 @@
                             "text_list_values": [],
                             "text_list_search_type": 0,
                             "text_list_filter_type": 0,
-                            "text_list_rendering_type": 0
+                            "text_list_rendering_type": 0,
+                            "json": "/auto_brand/",
+                            "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
                             "alias": "mileage",
@@ -2748,6 +2759,7 @@
                             "default_value": null,
                             "type": "check_list",
                             "required": {"state": true, "value": ""},
+                             "dependencies": ["brand", "model", "generation", "modification"],
                             "check_list_values": ["Зимние шины", "Летние шины"]
                         },
                         {
@@ -2756,6 +2768,7 @@
                             "default_value": null,
                             "type": "check_list",
                             "required": {"state": true, "value": ""},
+                          "dependencies": ["brand", "model", "generation", "modification"],
                             "check_list_values": ["Передних сидений", "Задних сидений", "Зеркал", "Заднего стекла", "Руля", "Подогрев зоны дворников"]
                         },
                         {
@@ -2764,6 +2777,7 @@
                             "default_value": null,
                             "type": "check_list",
                             "required": {"state": true, "value": ""},
+                          "dependencies": ["brand", "model", "generation", "modification"],
                             "check_list_values": ["Сигнализация", "Центральный замок", "Иммобилайзер", "Спутник", "Датчик объема"]
                         },
                         {
@@ -2772,6 +2786,7 @@
                             "default_value": null,
                             "type": "check_list",
                             "required": {"state": true, "value": ""},
+                          "dependencies": ["brand", "model", "generation", "modification"],
                             "check_list_values": ["Пассажира", "Водителя", "Коленные", "Шторки", "Боковые передние", "Боковые задние"]
                         },
                         {
@@ -2780,6 +2795,7 @@
                             "default_value": null,
                             "type": "check_list",
                             "required": {"state": true, "value": ""},
+                          "dependencies": ["brand", "model", "generation", "modification"],
                             "check_list_values": ["Мультимедиа система с ЖКэкраном", "AUX", "Bluetooth", "USB", "Мультимедиа система для задних пассажиров", "Навигационная система", "Голосовое управление", "Android Auto", "CarPlay", "Яндекс Авто", "Розетка 12V", "Розетка 220V"]
                         },
                         {
@@ -2788,6 +2804,7 @@
                             "default_value": null,
                             "type": "check_list",
                             "required": {"state": true, "value": ""},
+                          "dependencies": ["brand", "model", "generation", "modification"],
                             "check_list_values": ["Автоматический парковщик", "Парктроник задний", "Парктроник передний", "Датчик дождя", "Датчик света", "Система контроля слепых зон", "Камера заднего вида", "Круизконтроль", "Бортовой компьютер"]
                         },
                         {
@@ -2796,6 +2813,7 @@
                             "default_value": null,
                             "type": "check_list",
                             "required": {"state": true, "value": ""},
+                            "dependencies": ["brand", "model", "generation", "modification"],
                             "check_list_values": ["Антипробуксовочная(ASR)", "Помощи при торможении", "Помощи при старте в гору", "Выбора режима движения", "Помощи при спуске", "Предотвращения столкновения", "Контроля слепых зон", "Контроля за полосой движения", "Датчик усталости водителя", "Распознавания дорожных знаков", "Ночного видения"]
                         },
                         {
@@ -2804,6 +2822,7 @@
                             "default_value": null,
                             "type": "text_list",
                             "required": {"state": true, "value": "Выберите цвет"},
+                            "dependencies": ["brand", "model", "generation", "modification"],
                             "text_list_values": [
                                 {
                                   "id": 1,
@@ -3041,7 +3060,7 @@
                                     "text_list_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -3056,7 +3075,7 @@
                                     "title": "ГБО",
                                     "default_value": null,
                                     "type": "boolean",
-                                    "required": true
+                                    "required": {"state": false, "value": ""}
                                 },
                                 {
                                     "alias": "engine_capacity",
@@ -3207,7 +3226,7 @@
                                     "text_list_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -3222,7 +3241,7 @@
                                     "title": "ГБО",
                                     "default_value": null,
                                     "type": "boolean",
-                                    "required": true
+                                    "required": {"state": false, "value": ""}
                                 },
                                 {
                                     "alias": "engine_capacity",
@@ -3965,7 +3984,7 @@
                                     "number_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -4069,7 +4088,7 @@
                                     "number_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -4176,7 +4195,7 @@
                                     "number_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -4283,7 +4302,7 @@
                                     "number_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -4390,7 +4409,7 @@
                                     "number_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -4497,7 +4516,7 @@
                                     "number_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -4650,7 +4669,7 @@
                                     "text_list_rendering_type": 0
                                 },
                                 {
-                                    "alias": "engines_type",
+                                    "alias": "fueltype",
                                     "title": "Тип двигателя",
                                     "default_value": null,
                                     "type": "text_list",
@@ -5354,7 +5373,8 @@
                                     "text_list_values": [
                                         "Выезжающая",
                                         "Откидывающаяся",
-                                        "Стандартная"
+                                        "Стандартная",
+                                        "Нет"
                                     ],
                                     "text_list_search_type": 0,
                                     "text_list_filter_type": 0,
@@ -5375,20 +5395,6 @@
                                         "64 Мп",
                                         "108 Мп",
                                         "другое"
-                                    ],
-                                    "text_list_search_type": 0,
-                                    "text_list_filter_type": 0,
-                                    "text_list_rendering_type": 0
-                                },
-                                {
-                                    "alias": "front_camera",
-                                    "title": "Фронтальная камера",
-                                    "default_value": null,
-                                    "type": "text_list",
-                                    "required": {"state": true, "value": ""},
-                                    "text_list_values": [
-                                        "Да",
-                                        "Нет"
                                     ],
                                     "text_list_search_type": 0,
                                     "text_list_filter_type": 0,
@@ -6072,9 +6078,21 @@
                             "alias": "tablets_and_e_books_accessories",
                             "children": [],
                             "additional_fields": [
-                                "for_a_while",
-                                "for_a_while",
-                                "for_a_while"
+                                {
+                                    "alias": "type",
+                                    "title": "Тип",
+                                    "default_value": null,
+                                    "type": "text_list",
+                                    "required": {"state": true, "value": ""},
+                                    "text_list_values": [
+                                        "for_a_while",
+                                        "for_a_while",
+                                        "for_a_while"
+                                    ],
+                                    "text_list_search_type": 0,
+                                    "text_list_filter_type": 0,
+                                    "text_list_rendering_type": 0
+                                }
                             ]
                         },
                         {
@@ -7395,14 +7413,14 @@
                                     "title": "Смарт ТВ",
                                     "default_value": false,
                                     "type": "boolean",
-                                    "required": true
+                                    "required": {"state": false, "value": ""}
                                 },
                                 {
                                     "alias": "three_d_support",
                                     "title": "Поддержка  3D",
-                                    "default_value": null,
+                                    "default_value": false,
                                     "type": "boolean",
-                                    "required": true
+                                    "required": {"state": false, "value": ""}
                                 },
                                 {
                                     "alias": "screen_resolution",
@@ -7422,30 +7440,30 @@
                                 {
                                     "alias": "curved_screen",
                                     "title": "Изогнутый экран",
-                                    "default_value": null,
+                                    "default_value": false,
                                     "type": "boolean",
-                                    "required": true
+                                    "required": {"state": false, "value": ""}
                                 },
                                 {
                                     "alias": "usb_support",
                                     "title": "Поддержка USB",
-                                    "default_value": null,
+                                    "default_value": false,
                                     "type": "boolean",
-                                    "required": true
+                                    "required": {"state": false, "value": ""}
                                 },
                                 {
                                     "alias": "wi_fi_support",
                                     "title": "Поддержка Wi-Fi",
-                                    "default_value": null,
+                                    "default_value": false,
                                     "type": "boolean",
-                                    "required": true
+                                    "required": {"state": false, "value": ""}
                                 },
                                 {
                                     "alias": "bluetooth_support",
                                     "title": "Поддержка Bluetooth",
-                                    "default_value": null,
+                                    "default_value": false,
                                     "type": "boolean",
-                                    "required": true
+                                    "required": {"state": false, "value": ""}
                                 }
                             ]
                         },
