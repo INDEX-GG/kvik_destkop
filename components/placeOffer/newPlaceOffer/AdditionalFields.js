@@ -5,60 +5,86 @@ import AdditionalFieldBoolean from "#components/placeOffer/newPlaceOffer/Additio
 import AdditionalFieldCheckList from "#components/placeOffer/newPlaceOffer/AdditionalFieldCheckList";
 import AdditionalFieldTextList from "#components/placeOffer/newPlaceOffer/AdditionalFieldTextList";
 import AdditionalFieldColor from "#components/placeOffer/newPlaceOffer/AdditionalFieldColor";
+import AdditionalView from "#components/placeOffer/newPlaceOffer/AdditionalView";
 
 
-const generateFields = (fieldData) => {
+const generateFields = (fieldData, otherJsonObj) => {
 
     const {text_list_rendering_type} = fieldData;
+    const {otherJson} = otherJsonObj
 
     switch (fieldData.type) {
         case 'text':
             return (
-                <AdditionalFieldText
-                    fieldData={fieldData}
-                />
+                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                    <AdditionalFieldText
+                        fieldData={fieldData}
+                        otherJsonObj={otherJsonObj}
+                    />
+                </AdditionalView>
             )
         case 'text_list':
             // Цвет
-            if (text_list_rendering_type == 1) {
+            if (text_list_rendering_type === 1) {
                 return (
-                    <AdditionalFieldColor
-                        fieldData={fieldData}
-                    />
+                    <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                        <AdditionalFieldColor
+                            fieldData={fieldData}
+                            otherJsonObj={otherJsonObj}
+                        />
+                    </AdditionalView>
                 )
             } else {
                 return (
                     <AdditionalFieldTextList
                         fieldData={fieldData}
+                        otherJsonObj={otherJsonObj}
                     />
                 )
             }
         case 'number':
             return (
-                <AdditionalFieldNumber
-                    fieldData={fieldData}
-                />
+                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                    <AdditionalFieldNumber
+                        fieldData={fieldData}
+                        otherJsonObj={otherJsonObj}
+                    />
+                </AdditionalView>
             )
         case 'boolean':
             return (
-                <AdditionalFieldBoolean
-                    fieldData={fieldData}
-                />
+                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                    <AdditionalFieldBoolean
+                        fieldData={fieldData}
+                        otherJsonObj={otherJsonObj}
+                    />
+                </AdditionalView>
             )
         case 'check_list':
             return (
-                <AdditionalFieldCheckList
-                    fieldData={fieldData}
-                />
+                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                    <AdditionalFieldCheckList
+                        fieldData={fieldData}
+                        otherJsonObj={otherJsonObj}
+                    />
+                </AdditionalView>
+            )
+        case 'period':
+            return (
+                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                    <h1>ok</h1>
+                </AdditionalView>
             )
     }
 }
 
 
-const AdditionalFields = ({fieldData}) => {
+const AdditionalFields = ({fieldData, otherJsonObj}) => {
+
+
 
     return (
-        generateFields(fieldData)
+        generateFields(fieldData, otherJsonObj)
     );
 };
 
