@@ -6,12 +6,17 @@ import { makeStyles } from "@material-ui/core";
 
 const PasswordValidationBox = () => {
 	const classes = makeStyles({
-		block: {}
+		block: {},
+		constraint: {
+
+		},
 	})();
 
 	return (
 		<p className={classes.block}>
-			Придумайте пароль от 8 знаков из цифр и латинских букв
+			Придумайте пароль от <span className={classes.constraint}>8 знаков</span>{" "}
+			из <span className={classes.constraint}>цифр</span>{" "}
+			и <span className={classes.constraint}>латинских букв</span> 
 		</p>
 	)
 }
@@ -112,14 +117,16 @@ export const PasswordForm = () => {
 export const PasswordFormMobile = () => {
 	const classes = makeStyles({
 		form: {
-			padding: "1em",
+			display: "grid",
 			gap: "1em",
+			padding: "1em",
 		},
 		section: {
 			width: "100%"
 		},
-		input: {
-			
+		eye: {
+			left: "reset",
+			right: "1em"
 		}
 	})();
 	const { token } = useAuth();
@@ -183,11 +190,11 @@ export const PasswordFormMobile = () => {
 						autoComplete="current-password"
 						placeholder="Текущий пароль"
 					/>
-					<button className="form__button" onClick={handlerPasswordVisiblity}></button>
+					<button className={`form__button ${classes.eye}`} onClick={handlerPasswordVisiblity}></button>
 				</div>
 			</div>
 
-			<div className={`form__section form__section--password" ${classes.section}`}>
+			<div className={`form__section form__section--password ${classes.section}`}>
 				<div className="form__content">
 					<input
 						{...register("password")}
@@ -197,7 +204,7 @@ export const PasswordFormMobile = () => {
 						autoComplete="new-password"
 						placeholder="Новый пароль"
 					/>
-					<button className="form__button" onClick={handlerPasswordVisiblity}></button>
+					<button className={`form__button ${classes.eye}`} onClick={handlerPasswordVisiblity}></button>
 				</div>
 			</div>
 			<div className="form__section form__section">

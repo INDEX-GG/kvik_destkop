@@ -60,7 +60,7 @@ const UserAddressTab = () => {
 				
 			}
 		}
-	})()
+	})();
 	const { id: userID, token } = useAuth();
 	const { userInfo } = useStore();
 
