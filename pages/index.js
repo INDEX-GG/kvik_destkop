@@ -1,11 +1,12 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
+import { NextSeo } from "next-seo";
+import { createSEOProps } from "#lib/seo";
 import Footer2 from '../components/Footer2';
 import { useMedia } from '../hooks/useMedia';
 import { PrismaClient } from '@prisma/client';
 import { Box, Container, makeStyles } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
 import JokerBlock from "../components/JokerBlock";
-import MetaLayout from "../layout/MetaLayout";
 import PlaceOfferButton from "../components/PlaceOfferButton";
 import { useAuth } from "../lib/Context/AuthCTX";
 import theme from "../UI/theme"
@@ -44,13 +45,17 @@ const useStyles = makeStyles(() => ({
 	offers: {
 		flexGrow: 1,
 	},
-	
+
 	footer: {
 		top: 'calc(100% - 205px)',
 		position: 'sticky',
 	}
 }));
 
+const seoProps = createSEOProps({
+	title: "Доска объявлений",
+	link: "/"
+})
 
 const Index = () => {
 	const { matchesMobile, matchesTablet } = useMedia();
@@ -60,35 +65,35 @@ const Index = () => {
 
 	const [isPending, setIsPending] = useState(false);
 
-	const pending = () =>  setIsPending(true)
+	const pending = () => setIsPending(true)
 
 	setTimeout(pending, 1000)
 
-	return (
-
-		<MetaLayout title={'Доска объявлений'}>
-			 <Container className={classes.root}>
-				  {/* {!isPending ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>} */}
-				  {!isPending ? null : <PopularCategories className={classes.popularCategories}/>}
-				 {!isPending ? <IndexPlaceHolder />
-					 : <Box className={classes.main}>
+	return (<>
+		<NextSeo {...seoProps} />
+		<Container className={classes.root}>
+			{/* {!isPending ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>} */}
+			{!isPending ? null : <PopularCategories className={classes.popularCategories} />}
+			{!isPending ? <IndexPlaceHolder />
+				: <Box className={classes.main}>
 					<Box className={classes.offers}>
 						{/*<OffersRender pending={pending} data={data} page={page} limitRender={limitRenderPage}*/}
 						{/*			setLimitRenderPage={setLimitRanderPage}*/}
 						{/*			setPage={setPage} title={'Рекомендуемое'}/>*/}
-						<ScrollPostData title='Рекомендуемое' url='/api/getPostsPortion'/>
+						<ScrollPostData title='Рекомендуемое' url='/api/getPostsPortion' />
 					</Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
-						<JokerBlock/>
+						<JokerBlock />
 						<Box className={classes.footer}>
-							{!isPending ? null : <Footer2/>}
+							{!isPending ? null : <Footer2 />}
 						</Box>
 					</Box>}
 				</Box>}
+		</Container>
+		{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
+	</>
 
-			</Container>
-			{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
-		</MetaLayout >
+
 
 	)
 }

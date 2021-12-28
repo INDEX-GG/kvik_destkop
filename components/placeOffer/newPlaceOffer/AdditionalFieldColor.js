@@ -4,6 +4,7 @@ import {Box, makeStyles, Tooltip} from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {Controller, useFormContext} from "react-hook-form";
+import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
 
 const useStyles = makeStyles(() => ({
     formColorMain: {
@@ -66,29 +67,31 @@ const AdditionalFieldColor = ({fieldData}) => {
     const {text_list_values, required} = fieldData
 
     return (
-        <Controller
-            name="color"
-            control={control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                <RadioGroup
-                    variant='outlined'
-                    value={value}
-                    error={!!error}
-                    className={classes.formColorMain}
-                    // onChange={(e) => onChange(e.target.value)}
-                >
-                    {text_list_values.map((item, i) => (
-                        <Tooltip key={i} arrow placement="top" title={item.name} classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
-                            <Box className={value === i ? classes.formColorWrapperActive : classes.formColorWrapper}>
-                                <Box className={classes.formColor} onClick={() => onChange(i)} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ><Radio className={classes.formRadioColor} value={item.id}></Radio></Box>
-                            </Box>
-                        </Tooltip>
-                    ))}
-                    <FormHelperText className={classes.formError}>{error ? error.message : ' '}</FormHelperText>
-                </RadioGroup>
-            )}
-            rules={{ required: required.state ? required.value : false }}
-        />
+        <AdditionalWrapper title={fieldData.title} type={fieldData.type}>
+            <Controller
+                name="color"
+                control={control}
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                    <RadioGroup
+                        variant='outlined'
+                        value={value}
+                        error={!!error}
+                        className={classes.formColorMain}
+                        // onChange={(e) => onChange(e.target.value)}
+                    >
+                        {text_list_values.map((item, i) => (
+                            <Tooltip key={i} arrow placement="top" title={item.name} classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                                <Box className={value === i ? classes.formColorWrapperActive : classes.formColorWrapper}>
+                                    <Box className={classes.formColor} onClick={() => onChange(i)} style={{ background: item.value, border: item.value === '#FFFFFF' ? '1px solid #5A5A5A' : '' }} ><Radio className={classes.formRadioColor} value={item.id}></Radio></Box>
+                                </Box>
+                            </Tooltip>
+                        ))}
+                        <FormHelperText className={classes.formError}>{error ? error.message : ' '}</FormHelperText>
+                    </RadioGroup>
+                )}
+                rules={{ required: required.state ? required.value : false }}
+            />
+        </AdditionalWrapper>
     );
 };
 

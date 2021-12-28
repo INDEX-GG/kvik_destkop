@@ -1,6 +1,7 @@
 import React from 'react';
 import {makeStyles, TextField} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
+import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
 
 
 const useStyles = makeStyles(() => ({
@@ -9,20 +10,19 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const AdditionalFieldText = ({fieldData}) => {
+const AdditionalFieldText = ({fieldData, defaultValue}) => {
 
     const classes = useStyles();
 
-    const {text_max_len, required, alias, default_value} = fieldData;
+    const {text_max_len, required, alias, default_value, title, type} = fieldData;
     const {control} = useFormContext();
 
-
     return (
-        <>
+        <AdditionalWrapper title={title} type={type}>
             <Controller
                 name={alias}
                 control={control}
-                defaultValue={default_value}
+                defaultValue={defaultValue ? defaultValue : default_value}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <TextField
                         className={classes.input}
@@ -36,7 +36,7 @@ const AdditionalFieldText = ({fieldData}) => {
                 )}
                 rules={{ required: required.state ? required.value : false }}
             />
-        </>
+        </AdditionalWrapper>
     );
 };
 

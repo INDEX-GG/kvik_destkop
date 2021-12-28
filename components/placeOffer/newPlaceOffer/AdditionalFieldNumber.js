@@ -2,6 +2,7 @@ import React from 'react';
 import {makeStyles, TextField} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
 import {num} from "#lib/regulars";
+import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
 
 
 const useStyles = makeStyles(() => ({
@@ -23,7 +24,7 @@ const AdditionalFieldNumber = ({fieldData}) => {
         number_unit_of_measure,
         required,
         default_value,
-        placeholder
+        placeholder,
     } = fieldData
 
     const handlerChangeInput = (event, onChange) => {
@@ -61,25 +62,26 @@ const AdditionalFieldNumber = ({fieldData}) => {
         }
     }
 
-
     return (
-        <Controller
-            name={alias}
-            control={control}
-            defaultValue={default_value}
-            render={({field: {onChange, value}, fieldState: {error}}) => (
-                <TextField
-                    value={value}
-                    onChange={(e) => handlerChangeInput(e, onChange)}
-                    onKeyDown={(e) => cursorReplace(e, value, onChange)}
-                    className={classes.input}
-                    variant='outlined'
-                    placeholder={`${placeholder} ${number_unit_of_measure}`}
-                    error={!!error}
-                    helperText={error ? error.message : ' '}/>
-            )}
-            rules={{required: required.state ? required.value : false}}
-        />
+        <AdditionalWrapper title={fieldData.title} type={fieldData.type}>
+            <Controller
+                name={alias}
+                control={control}
+                defaultValue={default_value}
+                render={({field: {onChange, value}, fieldState: {error}}) => (
+                    <TextField
+                        value={value}
+                        onChange={(e) => handlerChangeInput(e, onChange)}
+                        onKeyDown={(e) => cursorReplace(e, value, onChange)}
+                        className={classes.input}
+                        variant='outlined'
+                        placeholder={`${placeholder} ${number_unit_of_measure}`}
+                        error={!!error}
+                        helperText={error ? error.message : ' '}/>
+                )}
+                rules={{required: required.state ? required.value : false}}
+            />
+        </AdditionalWrapper>
     );
 };
 

@@ -1,6 +1,7 @@
-import Head from 'next/head';
+import Head from "next/head";
 import Router from "next/router";
 import withYM from "next-ym";
+import { DefaultSeo } from 'next-seo';
 import { SWRConfig } from 'swr'
 import 'swiper/swiper.scss';
 import "swiper/components/thumbs/thumbs.min.css";
@@ -11,6 +12,7 @@ import theme from '../UI/theme';
 import fetch from '../lib/fetchJson';
 import AuthProvider from '../lib/Context/AuthCTX';
 import MainLayout from '../layout/MainLayout';
+import { defaultSEO } from "#lib/seo";
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import CityProvider from '../lib/Context/CityCTX';
 import StoreProvider from '../lib/Context/Store';
@@ -19,6 +21,7 @@ export default withYM("85786957", Router)(
 	function MyApp({ Component, pageProps }) {
 		return (
 			<ErrorBoundary>
+				<DefaultSeo {...defaultSEO}/>
 				<SWRConfig
 					value={{
 						fetcher: fetch,
