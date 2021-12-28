@@ -3,11 +3,11 @@ import Favorits from '../../../UI/Favorits';
 // import Views from "../../../UI/icons/Views";
 
 
-const ProductFavoriteNoteCom = ({sellerId, id, isOffer}) => {
-	// mobile, views
+const ProductFavoriteNoteCom = ({isOffer}) => {
+	// mobile, views, sellerId, id - неиспользуемые пропсы
 
 	return (
-		sellerId === id ? null:
+		// sellerId === id ? null:
 		<div className="SellerInfoTopButtons">
 			{/* <div style={{display: "flex"}}> */}
 				{/*<div className="statistic__header__block_right">*/}

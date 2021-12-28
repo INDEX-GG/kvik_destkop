@@ -16,7 +16,13 @@ const ProductAdsLength = ({id, sellerId, smallAd, mobile}) => {
 				""
 			)
 		) : (
-			""
+			<a className="SellerInfoUserOffersCollapse highlight underline" target="_blank" 
+			onClick={() => router.push({
+				pathname: `/user/${sellerId}`
+			})}
+			/* onClick={(e) => { handleCollapse(e)}} */>
+				{(`Все объявления (${smallAd == undefined ? "0" : smallAd.length})`) || `Скрыть`}
+			</a>
 		)
 	)
 }

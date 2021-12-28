@@ -1,22 +1,36 @@
 import React from 'react';
-import {makeStyles, TextField} from "@material-ui/core";
+import {Box, makeStyles, TextField} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
-import {num} from "#lib/regulars";
 import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
 
 
 const useStyles = makeStyles(() => ({
     input: {
         width: "264px",
+        '& input[type=number]': {
+            '-moz-appearance': 'textfield'
+        },
+        '& input[type=number]::-webkit-outer-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0
+        },
+        '& input[type=number]::-webkit-inner-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0
+        }
     },
+    numberDesignation: {
+        position: 'absolute',
+        top: '12px',
+        pointerEvents: 'none'
+    }
 }));
 
 
 const AdditionalFieldNumber = ({fieldData}) => {
 
     const classes = useStyles();
-    const {setError, clearErrors, control} = useFormContext();
-
+    const {setError, clearErrors, control, getValues} = useFormContext();
     const {
         alias,
         number_min_value,
@@ -27,8 +41,11 @@ const AdditionalFieldNumber = ({fieldData}) => {
         placeholder,
     } = fieldData
 
+
+    const valueLength = getValues(alias)?.length ? getValues(alias)?.length : 0;
+
     const handlerChangeInput = (event, onChange) => {
-        const inputValue = +event.target.value.replace(num(), '')
+        const inputValue = event.target.value
 
         if (inputValue > number_max_value) {
             setError(alias, {type: 'string', message: `Маскимальное значение: ${number_max_value}`})
@@ -41,26 +58,9 @@ const AdditionalFieldNumber = ({fieldData}) => {
             clearErrors(alias);
         }
 
-
-        if (inputValue) {
-            onChange(inputValue + ` ${number_unit_of_measure}`);
-        }
+        onChange(inputValue);
     };
 
-
-    const cursorReplace = (e, value, onChange) => {
-        if (e.key === 'Backspace' && value) {
-            const inputValue = value.replace(num(), '')
-            const onlyNumber = inputValue.substr(0, inputValue.length - 1)
-
-            if (!onlyNumber) {
-                onChange('')
-                return
-            }
-
-            onChange(onlyNumber + ` ${number_unit_of_measure}`)
-        }
-    }
 
     return (
         <AdditionalWrapper title={fieldData.title} type={fieldData.type}>
@@ -72,15 +72,16 @@ const AdditionalFieldNumber = ({fieldData}) => {
                     <TextField
                         value={value}
                         onChange={(e) => handlerChangeInput(e, onChange)}
-                        onKeyDown={(e) => cursorReplace(e, value, onChange)}
                         className={classes.input}
                         variant='outlined'
-                        placeholder={`${placeholder} ${number_unit_of_measure}`}
+                        type='number'
+                        placeholder={`${placeholder}`}
                         error={!!error}
                         helperText={error ? error.message : ' '}/>
                 )}
                 rules={{required: required.state ? required.value : false}}
             />
+            {!!valueLength && (<Box className={classes.numberDesignation} style={{left: `${28 + (7 * valueLength)}px`}}>{number_unit_of_measure}</Box>)}
         </AdditionalWrapper>
     );
 };

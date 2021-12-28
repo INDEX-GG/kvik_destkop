@@ -6,6 +6,8 @@ import AdditionalFieldCheckList from "#components/placeOffer/newPlaceOffer/Addit
 import AdditionalFieldTextList from "#components/placeOffer/newPlaceOffer/AdditionalFieldTextList";
 import AdditionalFieldColor from "#components/placeOffer/newPlaceOffer/AdditionalFieldColor";
 import AdditionalView from "#components/placeOffer/newPlaceOffer/AdditionalView";
+import AdditionalFieldPeriod from "#components/placeOffer/newPlaceOffer/AdditionalFieldPeriod";
+import AdditionalFieldTextListData from "#components/placeOffer/newPlaceOffer/AdditionalFieldTextListData";
 
 
 const generateFields = (fieldData, otherJsonObj) => {
@@ -72,7 +74,17 @@ const generateFields = (fieldData, otherJsonObj) => {
         case 'period':
             return (
                 <AdditionalView fieldData={fieldData} jsonData={otherJson}>
-                    <h1>ok</h1>
+                    <AdditionalFieldPeriod
+                        jsonData={otherJson}
+                        fieldData={fieldData}
+                    />
+                </AdditionalView>
+            )
+        case 'text_list_time':
+            return (
+                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                    <AdditionalFieldTextListData
+                        fieldData={fieldData}/>
                 </AdditionalView>
             )
     }

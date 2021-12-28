@@ -28,24 +28,18 @@ const AdditionalFieldCheckList = ({fieldData}) => {
     const classes = useStyles();
     const {control} = useFormContext();
 
-    const {alias, required, default_value, check_list_values} = fieldData;
+    /** required **/
+    const {alias, default_value, check_list_values} = fieldData;
 
-    const handlerCheckboxChange = (e, onChange) => {
-        if (e.target.checked) {
-            onChange(e.target.value);
-        } else {
-            onChange(null);
-        }
-    }
 
     return (
         <AdditionalWrapper title={fieldData.title} type={fieldData.type}>
             {check_list_values.map((checkItem, index) => (
                 <Controller
                     key={alias + index}
-                    name={alias + index}
+                    name={alias + (index + 1)}
                     control={control}
-                    defaultValue={default_value}
+                    defaultValue={!!default_value}
                     render={({ field: { onChange, value } }) => (
                         <FormControlLabel
                             className={classes.check}
@@ -53,7 +47,7 @@ const AdditionalFieldCheckList = ({fieldData}) => {
                             // onChange={(e) => onChange(e.target.value)}
                             control={
                                 <Checkbox
-                                    onChange={(e) => handlerCheckboxChange(e, onChange)}
+                                    onChange={(e) => onChange(e.target.checked)}
                                     color="primary"
                                     icon={<OutlinedIcon />}
                                     checkedIcon={<Filledicon />}
@@ -63,7 +57,7 @@ const AdditionalFieldCheckList = ({fieldData}) => {
                             label={checkItem}
                         />
                     )}
-                    rules={{ required: required.state ? required.value : false }}
+                    // rules={{required: required.state ? required.value ? required.value : false : false}}
                 />
             ))}
         </AdditionalWrapper>

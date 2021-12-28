@@ -80,8 +80,19 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						{/* <div className="seen__ad">Просмотрено</div> */}
 						{data?.map((img, i) => {
 							return (
-								<SwiperSlide className='importantSlide' key={i} onClick={() => setModal(!modal)}>
-									<img src={img} alt={`sliderPhoto${i + 1}`} />
+								<SwiperSlide style={{overflow: 'hidden'}} className='importantSlide' key={i} onClick={() => setModal(!modal)}>
+									<img 
+									style={{display: 'block'}}  
+									src={img} 
+									alt={`sliderPhoto${i + 1}`} 
+									/>
+
+									<div 
+									style={{backgroundImage: `url(${img})`, 
+										backgroundSize: 'cover', 
+										filter: 'blur(20px)'}} 
+									className="testBack">
+									</div>
 									{/*ВОЗМОЖНОЕ РЕШЕНИЕ!*/}
 									{/*<ProductItemPhoto img={img} index={i}/>*/}
 								</SwiperSlide>

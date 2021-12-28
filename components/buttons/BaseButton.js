@@ -1,3 +1,4 @@
+import { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core";
 
@@ -23,7 +24,13 @@ const useStyles = makeStyles({
 });
 
 /**
- * @typedef {React.ComponentPropsWithoutRef<"button">} BaseButtonProps
+ * @callback HandlerButtonClick
+ * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
+ * @returns {void}
+ */
+
+/**
+ * @typedef {React.ComponentPropsWithRef<"button">} BaseButtonProps
  */
 
 /**
@@ -42,12 +49,28 @@ const useStyles = makeStyles({
  * ```
  * @param {BaseButtonProps} props
  */
-export const BaseButton = ({ className, children, ...buttonProps }) => {
+export const BaseButton = ({ onClick, className, children, ...buttonProps }) => {
 	const classes = useStyles();
+	const [isDebouncing, changeDebounceState] = useState(false);
 	const blockClass = clsx(classes.block, className);
 
+	/**
+	 * @type {HandlerButtonClick}
+	 */
+	const handlerDelayedClick = (event) => {
+		if (!onClick || isDebouncing) {
+			return;
+		}
+
+		onClick(event)
+		changeDebounceState(true)
+		setTimeout(() => {
+			changeDebounceState(false)
+		}, 250)
+	}
+
 	return (
-		<button className={blockClass} {...buttonProps}>
+		<button className={blockClass} onClick={handlerDelayedClick} {...buttonProps}>
 			{children}
 		</button>
 	)

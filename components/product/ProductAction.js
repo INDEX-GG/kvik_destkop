@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMedia } from "../../hooks/useMedia";
-import { ToRusDate } from "../../lib/services";
+// import { ToRusDate } from "../../lib/services";
 import { Dialog } from "@material-ui/core";
 import IconCall from "../../UI/icons/IconCall";
 import IconMess from "../../UI/icons/IconMess";
@@ -10,7 +10,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import OfferModal from "../OfferModal";
 import ProductButton from "./ProductUI/ProductButton";
 import ProductDeal from "./ProductDeal";
-import ProductDate from "./ProductSmallComponents/ProductDate";
+// import ProductDate from "./ProductSmallComponents/ProductDate";
 import ProductPrice from "./ProductPrice";
 import ProductOption from "./ProductOption";
 // import ProductFavoriteNoteCom from "./ProductSmallComponents/ProductFavoriteNoteCom";
@@ -55,7 +55,7 @@ export default function ProductAction(data) {
                   isOffer={+data.router} 
                   views={data.viewing ? JSON.parse(data.viewing).length : 0}
                 />: null} */}
-                <ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />
+                {/* <ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />в новом дизайне не нужно */} 
                 <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
                 <ProductDeal id={id} sellerID={user_id}>
                   <ProductButton 
