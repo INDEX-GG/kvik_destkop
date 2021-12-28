@@ -24,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
 	form: {
 		display: "flex",
 		flexDirection: "column",
-		"&>*": {
-			marginBottom: theme.spacing(1),
-		},
 	},
 	title: {
 		textAlign: "center",
@@ -145,6 +142,7 @@ export function RegFormV2({ changeAuthForm }) {
 										onChange={onChange}
 										error={!!error}
 										helperText={error ? error.message : " "}
+										inputProps={{ className: classes.input }}
 									/>
 								)}
 								rules={{ required: "Введите имя" }}
@@ -171,6 +169,7 @@ export function RegFormV2({ changeAuthForm }) {
 										}}
 										error={!!error}
 										helperText={error ? error.message : " "}
+										inputProps={{ className: classes.input }}
 									/>
 								)}
 								rules={{ required: "Введите номер телефона" }}
@@ -185,7 +184,7 @@ export function RegFormV2({ changeAuthForm }) {
 								}) => (
 									<>
 										<TextField
-											label="Введите пароль "
+											label="Введите пароль"
 											variant="outlined"
 											size="small"
 											type={showPassword ? 'text' : 'password'}
@@ -204,7 +203,8 @@ export function RegFormV2({ changeAuthForm }) {
 															}}
 														/>
 													</InputAdornment>
-												)
+												),
+												className: classes.input
 											}}
 										/>
 										{value.length > 0 && <PasswordStrengthBar
