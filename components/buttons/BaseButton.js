@@ -7,7 +7,7 @@ const useStyles = makeStyles({
 		display: "inline-block",
 		cursor: "pointer",
 		minWidth: "44px",
-		minHeight: "44px",
+		minHeight: "39px",
 		width: "100%",
 		fontFamily: "inherit",
 		fontSize: "100%",

@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { Button, Dialog } from "@material-ui/core";
+import { AddressSuggestions } from "react-dadata";
 import Modal from "#components/Modal";
 // import { modalDeletHistory } from "#components/Modals";
 import { phoneNumber } from "#lib/services";
@@ -18,7 +19,10 @@ import MobileModal from "#components//MobileModal";
 import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
 import { InternalLink } from "#components/links/InternalLink";
 // import { PersonalDataSection } from "./section";
-import { updateUserAddress, updateUserName } from "#lib/fetch";
+import { updateUserName } from "#lib/fetch";
+import DialogUI from "#components/UI/DialogUI";
+import { PasswordForm } from "./Forms";
+// import { NavigationButton } from "#components/buttons/NavigationButton";
 
 
 /**
@@ -77,44 +81,6 @@ const UserNameForm = () => {
 	)
 }
 
-/**
- * TODO: всплывающее меню
- */
-const UserAddressForm = () => {
-	const { id: userID, token } = useAuth();
-	const { userInfo } = useStore();
-
-	/**
-	 * @param {React.FocusEvent<HTMLInputElement>} event 
-	 */
-	const handleUserAddressChange = async (event) => {
-		try {
-			await updateUserAddress({
-				userAddress: event.target.value,
-				userID,
-				token
-			});
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
-	return (
-		<div className="form user-info__section">
-			<div className="form__section">
-				<input
-					id="user-address"
-					className="form__input"
-					type="text"
-					name="user-address"
-					defaultValue={userInfo.address}
-					onBlur={handleUserAddressChange}
-				/>
-			</div>
-		</div>
-	)
-}
-
 export const PersonalDataMobile = () => {
 	// eslint-disable-next-line no-unused-vars
 	const { isAuth, id: userID, token } = useAuth();
@@ -164,6 +130,7 @@ export const PersonalDataMobile = () => {
 	const [inputFirstEye, setInputFirstEye] = useState(true);
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false);
+	const [isAddressPageOpen, switchAddressPage] = useState(false)
 
 	// const [open, setOpen] = useState(false);
 
@@ -172,7 +139,35 @@ export const PersonalDataMobile = () => {
 			<div className="clientPage__container_content">
 				<div className="privateDataWrapper thin user-info user-info--mobile">
 					<UserNameForm />
-					<UserAddressForm />
+					<div className="user-info__section">
+						<button 
+							type="button" 
+							className="nav-button" 
+							style={{ flexFlow: "row nowrap" }} 
+							onClick={() => {switchAddressPage(true)}}
+						>
+							<span className="nav-button__text">
+								{userInfo.address || userInfo?.location?.name}
+							</span>
+							<span className="nav-button__arrow">
+								<svg 
+									width="11" 
+									height="17" 
+									viewBox="0 0 11 17" 
+									fill="none" 
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path 
+										d="M1.954 15.883L9.14214 8.92896L1.954 1.97495" 
+										stroke="#C7C7C7" 
+										strokeWidth="2" 
+										strokeLinecap="round" 
+										strokeLinejoin="round" 
+									/>
+								</svg>
+							</span>
+						</button>
+					</div>
 					<Section className="user-info__section--phone">
 						<span>{userInfo.phone}</span>
 						<InternalLink className="user-info__phone-link" href={location.toString()} >
@@ -412,6 +407,13 @@ export const PersonalDataMobile = () => {
 					</div>
 				</div>
 			</MobileModal>
+			<DialogUI
+				title="Местоположение"
+				open={isAddressPageOpen}
+				onClose={switchAddressPage(false)}
+			>
+			 <PasswordForm />
+			</DialogUI>
 		</div>
 	);
 }

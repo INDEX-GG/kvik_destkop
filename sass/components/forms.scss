@@ -95,3 +95,27 @@
 		border: none;
 	}
 }
+
+.nav-button {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: flex-end;
+	gap: 1em;
+	width: auto;
+	min-height: 39px;
+	font-family: inherit;
+	font-size: 100%;
+	color: black;
+	background-color: hsl(0, 0%, 100%);
+	border-radius: 5px;
+	border: 1px solid hsl(0, 0%, 78%);
+	padding: 1em;
+	cursor: pointer;
+
+	&__text {}
+
+	&__arrow {
+		justify-self: flex-end;
+		align-self: center;
+	}
+}

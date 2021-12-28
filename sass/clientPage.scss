@@ -309,6 +309,21 @@
 			justify-content: space-between;
 			gap: 1em;
 			padding: 0;
+
+			.nav-button {
+				width: 100%;
+				min-height: 0;
+				color: black;
+				border: none;
+
+				&__arrow {
+					transform: translateY(-10px);
+				}
+			}
+
+			&--location {
+				
+			}
 		}
 
 		& .form__input {
@@ -345,6 +360,10 @@
 			& .form__button--button {
 				width: 160px;
 			}
+		}
+
+		&--password {
+			
 		}
 
 		&--device {
