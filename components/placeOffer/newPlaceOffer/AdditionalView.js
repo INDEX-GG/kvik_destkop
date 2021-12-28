@@ -9,6 +9,7 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
     const {getValues, setValue} = useFormContext();
 
     const [view, setView] = useState(false);
+    const [valueObj, setValueObj] = useState({});
 
     const {dependencies, alias} = fieldData
     const dependenciesEffect = dependencies ? getValues(dependencies) : []
@@ -42,16 +43,26 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
 
             // Проверка на объект
             if (typeof values === 'object' && !Array.isArray(values)) {
-                setValue(alias, values.value)
+                // Изменение значения поля
+                setValue(alias, `${values.value}`)
+            }
+
+            // Исключительный алиас (единичный случай)
+            if (alias === 'year_of_issue') {
+                setValueObj(values)
             }
 
         }
     }, [view])
 
+
     return (
         view && (
             <>
-                {children}
+                {/* Проверка на исключительный alias*/}
+                {alias === 'year_of_issue'
+                    ? React.cloneElement(children, {yearsData: valueObj})
+                    : children}
             </>
         )
     );

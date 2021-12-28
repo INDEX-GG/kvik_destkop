@@ -219,53 +219,9 @@ function PlaceOffer() {
         let additionalfields = { [category]: [] }
 
 
-
-
         for (let key in data) {
-
             if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id' || key === 'coordinates' || key === 'city') {
                 obj[key] = data[key];
-            }
-            else {
-
-                // /* console.log('key', key.replace(/[0-9]/g, '')) */
-                // additionalfields2[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
-
-                // additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
-                
-                // const key1 = key.replace(/[0-9]/g, '')
-                // const el = additionalfields[category].find(el => el.alias === key1)
-                // if (el){
-                //     const index = additionalfields[category].indexOf(el)
-                //     if (!Array.isArray(additionalfields[category][index].fields)){
-                //         additionalfields[category][index].fields = [additionalfields[category][index].fields]
-                //     }
-                //     if(data[key]){
-                //         additionalfields[category][index].fields.push(data[key])
-                //     }
-                // }else{
-                //     let field = data[key]
-                //     if (key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' || key === 'power'){
-                //         if ( key === 'tires_and_rims'){
-                //             let str = data[key] ? data[key].slice(0, -2) : ''
-                //             field = str
-                //         }else if (key === 'mileage' ){
-                //             let str = data[key].slice(0, -3)
-                //             field = str
-                //         }else if (key === 'power' ){
-                //             let str = data[key].replace(/[А-яа-я.\s]/gi, '')
-                //             field = str
-                //         }
-                //         else{
-                //             field = data[key]
-                //         }
-                //     }
-                //     additionalfields[category].push({"alias": key1, "fields": field !== undefined ? field : [] })
-                // }
-                
-
-                // additionalfields3[asd].push({ "alias": key.replace(/[0-9]/g, '') })
-
             }
         }
 
@@ -283,7 +239,14 @@ function PlaceOffer() {
         // console.log('obj',obj)
         setLoading(true);
 
-        getTokenDataByPost(`${BASE_URL}/api/setPosts`, obj, token)
+
+        const sendObj = {
+            ...obj,
+            additional_fields: generateAdditionalFields(data),
+            subcategory: obj.alias.split(',').reverse()[0]
+        }
+
+        getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
             .then(r => {
 				// console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
                 postId = r?.id;
@@ -296,11 +259,10 @@ function PlaceOffer() {
                 console.log(additionalfields);
                 console.log(r);
                 console.log(category);
-                // console.log(generateAdditionalFields(data));
 
-                getTokenDataByPost(`${BASE_URL}/api/subcategory`, {user_id: id, post_id: r?.id, subcategory: category, additional_fields: generateAdditionalFields(data)}, token)
-                  .then(r => console.log(r))
-                  .catch(e => console.log(e))
+                // getTokenDataByPost(`${BASE_URL}/api/subcategory`, {user_id: id, post_id: r?.id, subcategory: category, additional_fields: generateAdditionalFields(data)}, token)
+                //   .then(r => console.log(r))
+                //   .catch(e => console.log(e))
 
 
 

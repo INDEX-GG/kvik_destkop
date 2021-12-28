@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: "4px 5px 4px 0",
         maxWidth: 158,
+        position: 'relative'
     },
     formInputFieldCheck: {
         width: "490px",
@@ -26,7 +27,6 @@ const AdditionalWrapper = ({title, type, children}) => {
 
     const classes = useStyles();
     const wrapper = type === 'check_list' ? classes.formInputFieldCheck : classes.formTitleField
-
 
     return (
         <Box className={classes.formElem}>

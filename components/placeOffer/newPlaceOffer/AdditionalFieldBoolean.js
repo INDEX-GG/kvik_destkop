@@ -11,15 +11,8 @@ const AdditionalFieldBoolean = ({fieldData}) => {
 
     const {control} = useFormContext();
 
-    const {alias, required, default_value} = fieldData;
-
-    const handlerCheckboxChange = (e, onChange) => {
-        if (e.target.checked) {
-            onChange(e.target.value);
-        } else {
-            onChange(null);
-        }
-    }
+    /** required **/
+    const {alias, default_value} = fieldData;
 
 
     return (
@@ -27,17 +20,17 @@ const AdditionalFieldBoolean = ({fieldData}) => {
             <Controller
                 name={alias}
                 control={control}
-                defaultValue={default_value}
+                defaultValue={!!default_value}
                 render={({field: {onChange, value}}) => (
                     <Checkbox
-                        onChange={(e) => handlerCheckboxChange(e, onChange)}
+                        onChange={(e) => onChange(e.target.checked)}
                         color="primary"
                         icon={<OutlinedIcon />}
                         checkedIcon={<Filledicon />}
                         value={value}
                     />
                 )}
-                rules={{required: required.state ? required.value : false}}
+                // rules={{required: required.state ? required.value ? required.value : false : false}}
             />
         </AdditionalWrapper>
     )
