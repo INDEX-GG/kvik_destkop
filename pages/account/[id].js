@@ -77,7 +77,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const Account = () => {
+function Account() {
     const classes = useStyles();
     const router = useRouter();
     const {userInfo} = useStore();
@@ -91,21 +91,15 @@ const Account = () => {
     const [subscriptionsModal, setSubscriptionsModal] = useState(false);
     const {signOut, id, token} = useAuth();
     const {matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080} = useMedia()
-    const [menuItem, setMenuItem] = useState(
-			router.query.favorite === '' 
-				? {
-						i: 4,
-						itm: "menuFavorites",
-						ttl: "idИзбранное"
-					} 
-				: router.query?.account 
-					? {
-							i: +router.query.account,
-							itm: menuItemsIcon[+router.query.account - 1],
-							ttl: menuItemsTitle[+router.query.account - 1]
-						} 
-					: {i: "1", itm: "menuOffers", ttl: "Мои объявления"}
-		);
+    const [menuItem, setMenuItem] = useState(router.query.favorite === '' ? {
+        i: 4,
+        itm: "menuFavorites",
+        ttl: "idИзбранное"
+    } : router.query?.account ? {
+        i: +router.query.account,
+        itm: menuItemsIcon[+router.query.account - 1],
+        ttl: menuItemsTitle[+router.query.account - 1]
+    } : {i: "1", itm: "menuOffers", ttl: "Мои объявления"});
 
     useEffect(() => {
         setMenuItem({
@@ -121,19 +115,15 @@ const Account = () => {
     }, [])
 
     useEffect(() => {
-			if (token) {
-				(async () => {
-					if (id !== undefined && subList?.length === 0) {
-						getTokenDataByPost("/api/getSubscriptions", { user_id: `${id}` }, token)
-						.then((res) => setSubList(res))
-					}
+        if (token) {
+            if (id !== undefined && subList?.length === 0) {
+                getTokenDataByPost("/api/getSubscriptions", {user_id: `${id}`}, token).then((res) => setSubList(res))
+            }
 
-					if (id !== undefined && subscribersList?.length === 0) {
-						getTokenDataByPost("/api/getSubscribers", { user_id: `${id}` }, token)
-						.then((res) => setSubscribersList(res))
-					}
-				})();
-			}
+            if (id !== undefined && subscribersList?.length === 0) {
+                getTokenDataByPost("/api/getSubscribers", {user_id: `${id}`}, token).then((res) => setSubscribersList(res))
+            }
+        }
     }, [userInfo])
 
 
