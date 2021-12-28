@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import { useRef, useState } from "react";
 // eslint-disable-next-line no-unused-vars
-import { Button, Dialog } from "@material-ui/core";
-import { AddressSuggestions } from "react-dadata";
+import { Button, Dialog, makeStyles } from "@material-ui/core";
+
 import Modal from "#components/Modal";
 // import { modalDeletHistory } from "#components/Modals";
 import { phoneNumber } from "#lib/services";
@@ -19,9 +19,10 @@ import MobileModal from "#components//MobileModal";
 import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
 import { InternalLink } from "#components/links/InternalLink";
 // import { PersonalDataSection } from "./section";
-import { updateUserName } from "#lib/fetch";
+import { updateUserAddress, updateUserName } from "#lib/fetch";
 import DialogUI from "#components/UI/DialogUI";
-import { PasswordForm } from "./Forms";
+import { AddressSuggestions } from "react-dadata";
+import { PasswordFormMobile } from "./Forms";
 // import { NavigationButton } from "#components/buttons/NavigationButton";
 
 
@@ -39,6 +40,61 @@ const Section = ({ className = undefined, children, ...sectionProps }) => {
 			{children}
 		</section>
 	)
+}
+
+const UserAddressTab = () => {
+	const classes = makeStyles({
+		block: {
+			position: "relative",
+			background: "#FFFFFF",
+			boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+		},
+		input: {
+			width: "100%",
+			fontSize: "100%",
+			fontFamily: "inherit",
+			height: "48px",
+			border: "none",
+			padding: "1em",
+			"&:focus": {
+				
+			}
+		}
+	})()
+	const { id: userID, token } = useAuth();
+	const { userInfo } = useStore();
+
+	/**
+	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion 
+	 */
+	const handlerLocationSuggestion = async (suggestion) => {
+		try {
+			await updateUserAddress({
+				userAddress: suggestion.value,
+				userID,
+				token
+			})
+		} catch (error) {
+			console.error(error);
+		}
+
+	}
+
+	return (
+		<div className={classes.block}>
+			<AddressSuggestions
+				containerClassName={classes.suggest}
+				token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
+				filterFromBound='city-region'
+				filterToBound='settlement'
+				defaultQuery={userInfo.address}
+				count={5}
+				minChars={2}
+				delay={5}
+				onChange={handlerLocationSuggestion}
+				inputProps={{ className: classes.input}}
+			/>
+		</div>)
 }
 
 /**
@@ -130,7 +186,8 @@ export const PersonalDataMobile = () => {
 	const [inputFirstEye, setInputFirstEye] = useState(true);
 	const [inputSecondEye, setInputSecondEye] = useState(true);
 	const [passwordDialog, setPasswordDialog] = useState(false);
-	const [isAddressPageOpen, switchAddressPage] = useState(false)
+	const [isAddressPageOpen, switchAddressPage] = useState(false);
+	const [isPasswordPageOpen, switchPasswordPage] = useState(false);
 
 	// const [open, setOpen] = useState(false);
 
@@ -140,29 +197,29 @@ export const PersonalDataMobile = () => {
 				<div className="privateDataWrapper thin user-info user-info--mobile">
 					<UserNameForm />
 					<div className="user-info__section">
-						<button 
-							type="button" 
-							className="nav-button" 
-							style={{ flexFlow: "row nowrap" }} 
-							onClick={() => {switchAddressPage(true)}}
+						<button
+							type="button"
+							className="nav-button"
+							style={{ flexFlow: "row nowrap" }}
+							onClick={() => { switchAddressPage(true) }}
 						>
 							<span className="nav-button__text">
 								{userInfo.address || userInfo?.location?.name}
 							</span>
 							<span className="nav-button__arrow">
-								<svg 
-									width="11" 
-									height="17" 
-									viewBox="0 0 11 17" 
-									fill="none" 
+								<svg
+									width="11"
+									height="17"
+									viewBox="0 0 11 17"
+									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
 								>
-									<path 
-										d="M1.954 15.883L9.14214 8.92896L1.954 1.97495" 
-										stroke="#C7C7C7" 
-										strokeWidth="2" 
-										strokeLinecap="round" 
-										strokeLinejoin="round" 
+									<path
+										d="M1.954 15.883L9.14214 8.92896L1.954 1.97495"
+										stroke="#C7C7C7"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
 									/>
 								</svg>
 							</span>
@@ -204,9 +261,35 @@ export const PersonalDataMobile = () => {
 					<Section>
 						Устройства
 					</Section>
-					<Section>
-						Смена пароля
-					</Section>
+					<div className="user-info__section">
+						<button
+							type="button"
+							className="nav-button"
+							style={{ flexFlow: "row nowrap" }}
+							onClick={() => { switchPasswordPage(true) }}
+						>
+							<span className="nav-button__text">
+								Смена пароля
+							</span>
+							<span className="nav-button__arrow">
+								<svg
+									width="11"
+									height="17"
+									viewBox="0 0 11 17"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M1.954 15.883L9.14214 8.92896L1.954 1.97495"
+										stroke="#C7C7C7"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+								</svg>
+							</span>
+						</button>
+					</div>
 					<Section>
 						Удалить аккаунт
 					</Section>
@@ -410,9 +493,16 @@ export const PersonalDataMobile = () => {
 			<DialogUI
 				title="Местоположение"
 				open={isAddressPageOpen}
-				onClose={switchAddressPage(false)}
+				onClose={switchAddressPage}
 			>
-			 <PasswordForm />
+				<UserAddressTab />
+			</DialogUI>
+			<DialogUI
+				title="Смена пароля"
+				open={isPasswordPageOpen}
+				onClose={switchPasswordPage}
+			>
+				<PasswordFormMobile />
 			</DialogUI>
 		</div>
 	);
