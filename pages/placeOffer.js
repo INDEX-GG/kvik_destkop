@@ -22,7 +22,7 @@ import axios from 'axios';
 import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 import {useStore} from "../lib/Context/Store";
 import {getTokenDataByPost} from "../lib/fetch";
-import {generateSearchName} from "../lib/services";
+import {generateAdditionalFields, generateSearchName} from "../lib/services";
 import useCategoryV2 from "#hooks/useCategoryV2";
 
 const useStyles = makeStyles((theme) => ({
@@ -227,40 +227,41 @@ function PlaceOffer() {
                 obj[key] = data[key];
             }
             else {
+
                 // /* console.log('key', key.replace(/[0-9]/g, '')) */
                 // additionalfields2[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
 
                 // additionalfields[asd].push({ "alias": key, "fields": data[key] === '' ? '' : key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' ? +data[key] : data[key] })
                 
-                const key1 = key.replace(/[0-9]/g, '')
-                const el = additionalfields[category].find(el => el.alias === key1)
-                if (el){
-                    const index = additionalfields[category].indexOf(el)
-                    if (!Array.isArray(additionalfields[category][index].fields)){
-                        additionalfields[category][index].fields = [additionalfields[category][index].fields]
-                    }
-                    if(data[key]){
-                        additionalfields[category][index].fields.push(data[key])
-                    }
-                }else{
-                    let field = data[key]
-                    if (key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' || key === 'power'){
-                        if ( key === 'tires_and_rims'){
-                            let str = data[key] ? data[key].slice(0, -2) : ''
-                            field = str 
-                        }else if (key === 'mileage' ){
-                            let str = data[key].slice(0, -3)
-                            field = str
-                        }else if (key === 'power' ){
-                            let str = data[key].replace(/[А-яа-я.\s]/gi, '')
-                            field = str
-                        }
-                        else{
-                            field = data[key]  
-                        }
-                    }
-                    additionalfields[category].push({"alias": key1, "fields": field !== undefined ? field : [] })
-                }
+                // const key1 = key.replace(/[0-9]/g, '')
+                // const el = additionalfields[category].find(el => el.alias === key1)
+                // if (el){
+                //     const index = additionalfields[category].indexOf(el)
+                //     if (!Array.isArray(additionalfields[category][index].fields)){
+                //         additionalfields[category][index].fields = [additionalfields[category][index].fields]
+                //     }
+                //     if(data[key]){
+                //         additionalfields[category][index].fields.push(data[key])
+                //     }
+                // }else{
+                //     let field = data[key]
+                //     if (key === 'mileage' || key === 'tires_and_rims' || key === 'owners_of_pts' || key === 'color' || key === 'power'){
+                //         if ( key === 'tires_and_rims'){
+                //             let str = data[key] ? data[key].slice(0, -2) : ''
+                //             field = str
+                //         }else if (key === 'mileage' ){
+                //             let str = data[key].slice(0, -3)
+                //             field = str
+                //         }else if (key === 'power' ){
+                //             let str = data[key].replace(/[А-яа-я.\s]/gi, '')
+                //             field = str
+                //         }
+                //         else{
+                //             field = data[key]
+                //         }
+                //     }
+                //     additionalfields[category].push({"alias": key1, "fields": field !== undefined ? field : [] })
+                // }
                 
 
                 // additionalfields3[asd].push({ "alias": key.replace(/[0-9]/g, '') })
@@ -295,8 +296,9 @@ function PlaceOffer() {
                 console.log(additionalfields);
                 console.log(r);
                 console.log(category);
+                // console.log(generateAdditionalFields(data));
 
-                getTokenDataByPost(`${BASE_URL}/api/subcategory`, {user_id: id, post_id: r?.id, subcategory: category, fields: additionalfields[category]}, token)
+                getTokenDataByPost(`${BASE_URL}/api/subcategory`, {user_id: id, post_id: r?.id, subcategory: category, additional_fields: generateAdditionalFields(data)}, token)
                   .then(r => console.log(r))
                   .catch(e => console.log(e))
 
