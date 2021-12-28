@@ -18,6 +18,7 @@ import MobileModal from "#components//MobileModal";
 import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
 import { InternalLink } from "#components/links/InternalLink";
 // import { PersonalDataSection } from "./section";
+import { updateUserAddress, updateUserName } from "#lib/fetch";
 
 
 /**
@@ -33,6 +34,84 @@ const Section = ({ className = undefined, children, ...sectionProps }) => {
 		<section className={sectionClass} {...sectionProps} >
 			{children}
 		</section>
+	)
+}
+
+/**
+ * @param {object} props
+ * @param {import("#lib/fetch").UserInfo} props.userInfo
+ * @param {string} props.name 
+ */
+const UserNameForm = () => {
+	const { id: userID, token } = useAuth();
+	const { userInfo } = useStore();
+
+	/**
+	 * @param {React.FocusEvent<HTMLInputElement>} event 
+	 */
+	const handlerUserNameChange = async (event) => {
+		try {
+			await updateUserName({
+				userName: event.target.value,
+				userID,
+				token
+			});
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	return (
+		<div className="form user-info__section">
+			<div className="form__section">
+				<input
+					id="user-name"
+					className="form__input"
+					type="text"
+					name="user-name"
+					defaultValue={userInfo.name}
+					onBlur={handlerUserNameChange}
+				/>
+			</div>
+		</div>
+	)
+}
+
+/**
+ * TODO: всплывающее меню
+ */
+const UserAddressForm = () => {
+	const { id: userID, token } = useAuth();
+	const { userInfo } = useStore();
+
+	/**
+	 * @param {React.FocusEvent<HTMLInputElement>} event 
+	 */
+	const handleUserAddressChange = async (event) => {
+		try {
+			await updateUserAddress({
+				userAddress: event.target.value,
+				userID,
+				token
+			});
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	return (
+		<div className="form user-info__section">
+			<div className="form__section">
+				<input
+					id="user-address"
+					className="form__input"
+					type="text"
+					name="user-address"
+					defaultValue={userInfo.address}
+					onBlur={handleUserAddressChange}
+				/>
+			</div>
+		</div>
 	)
 }
 
@@ -59,7 +138,7 @@ export const PersonalDataMobile = () => {
 			phone: phoneNumber(userInfo?.phone),
 		};
 	} else {
-		
+
 		// eslint-disable-next-line no-unused-vars
 		userSettings = {
 			phone: phoneNumber(userInfo?.phone),
@@ -91,15 +170,9 @@ export const PersonalDataMobile = () => {
 	return (
 		<div className="clientPage__container_bottom">
 			<div className="clientPage__container_content">
-				<div className="privateDataWrapper thin user-info">
-					<Section>
-						{userInfo.name}
-					</Section>
-					{userInfo.address &&
-						(<Section>
-							{userInfo.address}
-						</Section>)
-					}
+				<div className="privateDataWrapper thin user-info user-info--mobile">
+					<UserNameForm />
+					<UserAddressForm />
 					<Section className="user-info__section--phone">
 						<span>{userInfo.phone}</span>
 						<InternalLink className="user-info__phone-link" href={location.toString()} >
@@ -282,11 +355,11 @@ export const PersonalDataMobile = () => {
 				<div className="mobilePasswordContainer">
 					<div className="privateDataPass">
 						<div className="pDPassInputWrapper">
-							<input 
-								placeholder="Введите новый пароль" 
-								type={inputFirstEye ? "password" : "text"} 
-								value={passwordOne} 
-								// onChange={(e) => changePasswordInput(e)} 
+							<input
+								placeholder="Введите новый пароль"
+								type={inputFirstEye ? "password" : "text"}
+								value={passwordOne}
+							// onChange={(e) => changePasswordInput(e)} 
 							/>
 							<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)} />
 						</div>
@@ -307,11 +380,11 @@ export const PersonalDataMobile = () => {
 							&nbsp;Строчные и заглавные буквы
 						</p>
 						<div className="pDPassInputWrapper">
-							<input 
-								placeholder="Повторите пароль еще раз" 
-								type={inputSecondEye ? "password" : "text"} 
-								value={passwordTwo} 
-								// onChange={(e) => confirmPassword(e)} 
+							<input
+								placeholder="Повторите пароль еще раз"
+								type={inputSecondEye ? "password" : "text"}
+								value={passwordTwo}
+							// onChange={(e) => confirmPassword(e)} 
 							/>
 							<a
 								className="pDPassInvis"
@@ -320,18 +393,18 @@ export const PersonalDataMobile = () => {
 								}}
 							/>
 						</div>
-						{passwordCoincidence == null 
-							? null 
-							: passwordCoincidence == "noValid" 
-								? (<p className="error small">Условия не выполнены</p>) 
-								: passwordCoincidence == "send" 
-									? (<p className="success small">Пароли совпадают</p>) 
+						{passwordCoincidence == null
+							? null
+							: passwordCoincidence == "noValid"
+								? (<p className="error small">Условия не выполнены</p>)
+								: passwordCoincidence == "send"
+									? (<p className="success small">Пароли совпадают</p>)
 									: <p className="error small">Пароли не совпадают</p>}
 						{passwordCoincidence == "send" ? (
-							<Button 
-								className="sendButton" 
-								type="button" 
-								// onClick={(e) => passwordSubmit(e)}
+							<Button
+								className="sendButton"
+								type="button"
+							// onClick={(e) => passwordSubmit(e)}
 							>
 								Изменить пароль
 							</Button>

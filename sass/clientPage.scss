@@ -302,6 +302,22 @@
 	grid-template-columns: 100%;
 	gap: 25px;
 
+	&--mobile {
+		& .user-info__section {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			gap: 1em;
+			padding: 0;
+		}
+
+		& .form__input {
+			min-height: 0;
+			border-color: transparent;
+			padding: 0;
+		}
+	}
+
 	&__section {
 		display: grid;
 		grid-template-columns: 100%;
@@ -412,6 +428,7 @@
 			flex-basis: 145px;
 			height: 19px;
 			font-size: 10px;
+			padding-left: 23px;
 		}
 	}
 
