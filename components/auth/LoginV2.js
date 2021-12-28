@@ -29,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
 	form: {
 		display: "flex",
 		flexDirection: "column",
-		"&>*": {
-			marginBottom: theme.spacing(1),
-		},
 	},
 	title: {
 		textAlign: "center",
@@ -373,7 +370,7 @@ export const LoginV2 = ({
 															}}
 														/>
 													</InputAdornment>
-												)
+												),
 											}}
 										/>
 									)}
