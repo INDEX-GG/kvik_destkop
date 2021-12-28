@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import PersonalData from './tabs/PersonalData';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { brooklyn } from '#lib/services';
+import { blockUser, getBlockedUsers } from "#lib/fetch";
+import safeAccountTab from '#components/safeAccountTab';
+import { PersonalData } from './tabs/PersonalData/component';
 import Pushes from './tabs/Pushes';
 import BlackList from './tabs/BlackList';
-import { brooklyn } from '../../../lib/services';
-import { useRouter } from 'next/router';
-import safeAccountTab from '../../safeAccountTab';
-import {getTokenDataByPost} from "../../../lib/fetch";
 
 // Чёрный список
 // const blackListBox = [
@@ -27,20 +27,23 @@ import {getTokenDataByPost} from "../../../lib/fetch";
 // 	{ id: 16, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00' },
 // ];
 
-const Settings = ({userId, token}) => {
-	const [blackListData, setBlackListData] = useState([])
+/**
+ * @typedef SettingsProps
+ * @property {number} userID
+ * @property {string} token
+ */
 
-		// console.log(blackListData);
-	useEffect(()=>{
-		async function fetchBlockedUsers() {
-				if (userId && token){
-					await getTokenDataByPost('/api/getBlockUsers', {user_id: userId}, token).then(res => setBlackListData(res.data?.blocked_users?.length > 0 ? res.data.blocked_users : []))
-				}
-			}
-		fetchBlockedUsers()
-	},[])
+/**
+ * @param {SettingsProps} props
+ */
+const Settings = ({userID, token}) => {
+	const [blackListData, setBlackListData] = useState([]);
 
-	function updateBlackList (users) {
+	/**
+	 * @param {string | string[]} users 
+	 * @returns 
+	 */
+	const updateBlackList = (users) => {
 		if (Array.isArray(users)) {
 			setBlackListData(arr => arr.filter(el => !users.includes(el.id)))
 			return
@@ -48,26 +51,49 @@ const Settings = ({userId, token}) => {
 		setBlackListData(arr => arr.filter(el => el.id !== users))
 	}
 
-	function unblockUsers (usersUnlock) {
-		if(Array.isArray(usersUnlock)){
-			updateBlackList(usersUnlock)
-			for (let user of usersUnlock){
-				getTokenDataByPost('/api/blockUser', {user_id: userId, block_user_id: user,  block: false}, token)
-			}
-			return
-		}
+	/**
+	 * @param {string[] | string} usersUnlock
+	 */
+	const unblockUsers = async (usersUnlock) => {
 		updateBlackList(usersUnlock)
-		getTokenDataByPost('/api/blockUser', {user_id: userId, block_user_id: usersUnlock,  block: false}, token)
+		
+		if (Array.isArray(usersUnlock)) {
+			for (let user of usersUnlock) {
+				await blockUser(userID, user, false, token)
+			}
+		} else {
+			await blockUser(userID, usersUnlock, false, token)
+		}
+		
 	}
 	
-
 	const navItems = [
 		{ id: 1, title: 'Личные данные', content: <PersonalData key={1} />, count: 0 },
 		{ id: 2, title: 'Уведомления', content: <Pushes key={2} />, count: 0 },
-		{ id: 3, title: 'Черный список', content: <BlackList key={3} data={blackListData} unblockUser={(u) => unblockUsers(u)} />, count: blackListData.length },
+		{ 
+			id: 3, 
+			title: 'Черный список', 
+			content: (<BlackList 
+				key={3} 
+				data={blackListData} 
+				unblockUser={(u) => unblockUsers(u)} />
+			), 
+			count: blackListData.length 
+		},
 	]
 
 	const router = useRouter();
+
+	useEffect(() => {
+		(async () => {
+			if (userID && token) {
+				const data = await getBlockedUsers(userID, token);
+				if (data?.blocked_users?.length) {
+					setBlackListData(data.blocked_users)
+				}
+			}
+		})();
+	}, [])
 
 	useEffect(() => {
 		if (router) {
@@ -78,20 +104,30 @@ const Settings = ({userId, token}) => {
 	}, [router])
 
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Личные данные' });
+
 	return (
 		<>
 			<div className="clientPage__container_top">
 				<div className="clientPage__container_nav__wrapper">
-					<div className="clientPage__container_nav">
+					<nav className="clientPage__container_nav">
 						{navItems.map(item => {
+							const titleClass = [
+								"clientPage__container_nav__title", 
+								(itemNav.i === item.id) ? 'navActive' : ""
+							].join(" ");
+
 							return (
-								<a className={(itemNav.i === item.id) ? ('navActive') : ('')} key={item.id} onClick={() => {
-									setItemNav({ i: item.id, ttl: item.title })
-									safeAccountTab(item.id)
-								}}>{item.title} {brooklyn(item.count)}</a>
+								<a 
+									className={titleClass} 
+									key={item.id} 
+									onClick={() => {
+										setItemNav({ i: item.id, ttl: item.title })
+										safeAccountTab(item.id)
+									}}
+								>{item.title} {brooklyn(item.count)}</a>
 							)
 						})}
-					</div>
+					</nav>
 				</div>
 			</div>
 			{navItems.map(item => {

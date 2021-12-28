@@ -1,10 +1,20 @@
 import { makeStyles } from "@material-ui/core";
-import clsx from "clsx";
 import { BaseButton } from "./BaseButton";
+import clsx from "clsx";
 
 const useStyles = makeStyles({
-	block: {}
+	block: {
+		borderColor: "#C7C7C7",
+		backgroundColor: "#ffffff",
+	}
 });
+
+/**
+ * Реактовский колбэк на клик.
+ * @callback ClickCallback
+ * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
+ * @returns {void}
+ */
 
 /**
  * @typedef {import("./BaseButton").BaseButtonProps} ButtonProps

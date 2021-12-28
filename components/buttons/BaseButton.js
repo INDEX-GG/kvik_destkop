@@ -15,6 +15,10 @@ const useStyles = makeStyles({
 		border: "1px solid #C7C7C7",
 		padding: 0,
 		margin: 0,
+		"&:disabled": {
+			opacity: "0.5",
+			cursor: "not-allowed"
+		}
 	}
 });
 
