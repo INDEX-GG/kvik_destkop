@@ -3,20 +3,85 @@ import { validatePassword } from "#lib/account/validatePassword";
 import { useAuth } from "#lib/Context/AuthCTX";
 import { updatePassword } from "#lib/fetch";
 import { makeStyles } from "@material-ui/core";
+import clsx from "clsx";
+import { createRef, useEffect } from "react";
 
-const PasswordValidationBox = () => {
+/**
+ * @typedef PasswordValidationResults
+ * @property {boolean} [length]
+ * @property {boolean} [number]
+ * @property {boolean} [letter]
+ */
+
+/**
+ * @param {object} props 
+ * @param {string} props.className
+ * @param {PasswordValidationResults} props.results
+ */
+const PasswordValidationBox = ({ results, className }) => {
 	const classes = makeStyles({
-		block: {},
-		constraint: {
-
+		block: {
+			position: "absolute",
+			top: "50%",
+			left: "250px",
+			width: "257px",
+			fontSize: "16px",
+			background: "#FFFFFF",
+			borderRadius: "7px",
+			boxShadow: "0px 0px 25px rgba(0, 0, 0, 0.15)",
+			padding: "1em",
+			transform: "translateY(-50%)"
 		},
+		constraint: {
+			color: "#8f8f8f"
+		},
+		valid: {
+			color: "#adff2f"
+		},
+		invalid: {
+			color: "#ff0000"
+		},
+		length: {},
+		number: {},
+		letter: {}
 	})();
+	const blockRef = createRef(undefined);
+	const blockClass = clsx(classes.block, className);
+
+	useEffect(() => {
+		/**
+		 * @type {HTMLParagraphElement}
+		 */
+		const block = blockRef.current;
+
+		// пробегаемся по ключам `results`
+		Object.keys(results).forEach((constraint) => {
+			/**
+			 * @type {HTMLSpanElement}
+			 */
+			const constraintEl = block.querySelector(classes[constraint]);
+
+			if (constraint === undefined) {
+				constraintEl.classList.remove(classes.valid, classes.invalid);
+				return;
+			}
+
+			if (constraint === false) {
+				constraintEl.classList.add(classes.invalid);
+				constraintEl.classList.remove(classes.valid);
+				return;
+			}
+
+			constraintEl.classList.remove(classes.invalid);
+			constraintEl.classList.add(classes.valid);
+		})
+	}, [results])
 
 	return (
-		<p className={classes.block}>
-			Придумайте пароль от <span className={classes.constraint}>8 знаков</span>{" "}
-			из <span className={classes.constraint}>цифр</span>{" "}
-			и <span className={classes.constraint}>латинских букв</span> 
+		<p ref={blockRef} className={blockClass}>
+			Придумайте пароль от <span className={clsx(classes.constraint, classes.length)}>8 знаков</span>{" "}
+			из <span className={clsx(classes.constraint, classes.number)}>цифр</span>{" "}
+			и <span className={clsx(classes.constraint, classes.letter)}>латинских букв</span> 
 		</p>
 	)
 }
@@ -98,7 +163,7 @@ export const PasswordForm = () => {
 						autoComplete="new-password"
 					/>
 					<button className="form__button" onClick={handlerPasswordVisiblity}></button>
-					<PasswordValidationBox />
+					<PasswordValidationBox results={{}}/>
 				</div>
 			</div>
 
@@ -207,9 +272,9 @@ export const PasswordFormMobile = () => {
 					<button className={`form__button ${classes.eye}`} onClick={handlerPasswordVisiblity}></button>
 				</div>
 			</div>
-			<div className="form__section form__section">
-				<PasswordValidationBox />
-			</div>
+			{/* <div className="form__section form__section">
+				<PasswordValidationBox results={{}}/>
+			</div> */}
 		</form >
 	)
 }
