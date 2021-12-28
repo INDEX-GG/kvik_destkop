@@ -28,7 +28,6 @@ const useStyles = makeStyles({
 		height: "100%",
 		border: "1px solid #C4C4C4",
 		cursor: "pointer",
-		borderRadius: "5px",
 		transitionDuration: "250ms",
 		transitionProperty: "border-color"
 	},
@@ -37,7 +36,6 @@ const useStyles = makeStyles({
 		width: "12px",
 		height: "12px",
 		lineHeight: "1.15",
-		borderRadius: "50%",
 		background: "#C4C4C4",
 		cursor: "pointer",
 		transitionDuration: "250ms",
@@ -48,20 +46,36 @@ const useStyles = makeStyles({
 /**
  * @typedef CheckBoxSwitchProps
  * @property {string} checkID
+ * @property {string} name
+ * @property {string} borderRadius
+ * @property {string} checkboxBorderRadius
  */
 
 /**
  * @param {CheckBoxSwitchProps} props
  */
-// eslint-disable-next-line no-unused-vars
-export const CheckBoxSwitch = ({ checkID, name }) => {
+export const CheckBoxSwitch = ({ 
+	borderRadius = "5px" , 
+	checkboxBorderRadius = "50%", 
+	checkID, 
+	name 
+}) => {
 	const classes = useStyles();
 
 	return (
-		<span className={classes.block}>
-			<input id={checkID} className={classes.check} type="checkbox" name={name}  />
-			<label className={classes.label} htmlFor={checkID}>
-				<span className={classes.ball} ></span>
+		<span className={classes.block} >
+			<input 
+				id={checkID} 
+				className={classes.check} 
+				type="checkbox" 
+				name={name}  
+			/>
+			<label 
+				className={classes.label} 
+				htmlFor={checkID} 
+				style={{ borderRadius: borderRadius }} 
+			>
+				<span className={classes.ball} style={{ borderRadius: checkboxBorderRadius }}></span>
 			</label>
 		</span>
 	)

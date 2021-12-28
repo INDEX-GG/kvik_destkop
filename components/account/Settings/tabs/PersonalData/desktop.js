@@ -11,7 +11,6 @@ import { validatePassword } from "#lib/account/validatePassword";
 import { useState } from "react";
 import { updatePassword } from "#lib/fetch";
 
-
 /**
  * TODO: переписать на бесконтрольный вариант.
  * @param {object} props
@@ -130,22 +129,38 @@ const SocialForm = () => {
 		<form className="form">
 			<div className="form__section">
 				<div className="form__content">
-					<ul className="social">
+					<ul className="social social--desktop">
 						<li className="social__item social__item--vk">
 							<a className="social__link">Вконтакте</a>
-							<CheckBoxSwitch checkID="social-vk" />
+							<CheckBoxSwitch 
+								checkID="social-vk"  
+								borderRadius="3px" 
+								checkboxBorderRadius="4px"
+							/>
 						</li>
 						<li className="social__item social__item--ok">
 							<a className="social__link">Одноклассники</a>
-							<CheckBoxSwitch checkID="social-ok" />
+							<CheckBoxSwitch 
+								checkID="social-ok"  
+								borderRadius="3px" 
+								checkboxBorderRadius="4px"
+							/>
 						</li>
 						<li className="social__item social__item--inst">
 							<a className="social__link">Instagram</a>
-							<CheckBoxSwitch checkID="social-inst" />
+							<CheckBoxSwitch 
+								checkID="social-inst"  
+								borderRadius="3px" 
+								checkboxBorderRadius="4px"
+							/>
 						</li>
 						<li className="social__item social__item--fb">
 							<a className="social__link">Facebook</a>
-							<CheckBoxSwitch checkID="social-fb" />
+							<CheckBoxSwitch 
+								checkID="social-fb"  
+								borderRadius="3px" 
+								checkboxBorderRadius="4px"
+							/>
 						</li>
 					</ul>
 				</div>
