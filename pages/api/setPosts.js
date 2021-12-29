@@ -66,6 +66,7 @@ export default async function handler(req, res) {
 						city: req.body.city
 											}
 				}
+
 				const createPost = await prisma.posts.create(obj);
 				if (req.body.additional_fields !== null && req.body.additional_fields !== undefined) {
 					try {
