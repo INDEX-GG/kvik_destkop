@@ -2,7 +2,7 @@
 	display: grid;
 	grid-template-columns: 100%;
 	width: 100%;
-	gap: 1.5em;
+	gap: 25px;
 
 	&__section {
 		display: grid;
@@ -18,7 +18,7 @@
 				
 				& .form__button {
 					position: absolute;
-					// left: calc(230px - 40px);
+					right: 0.125em;
 					width: 18px;
 					height: 18px;
 					background: no-repeat center center url("../../icons/invisible.svg");
@@ -90,6 +90,7 @@
 		grid-area: content;
 		justify-self: baseline;
 		width: auto;
+		min-height: 0;
 		color: hsl(184, 100%, 34%);
 		background-color: transparent;
 		border-radius: 0;

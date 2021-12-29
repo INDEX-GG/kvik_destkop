@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { validatePassword } from "#lib/account/validatePassword";
 import { useAuth } from "#lib/Context/AuthCTX";
 import { updatePassword } from "#lib/fetch";
 import { makeStyles } from "@material-ui/core";
 import clsx from "clsx";
-import { createRef, useEffect } from "react";
+import { useEffect } from "react";
 
 /**
  * @typedef PasswordValidationResults
@@ -18,7 +19,7 @@ import { createRef, useEffect } from "react";
  * @param {string} props.className
  * @param {PasswordValidationResults} props.results
  */
-const PasswordValidationBox = ({ results, className }) => {
+const PasswordValidationBox = ({ results = undefined, className }) => {
 	const classes = makeStyles({
 		block: {
 			position: "absolute",
@@ -29,84 +30,73 @@ const PasswordValidationBox = ({ results, className }) => {
 			background: "#FFFFFF",
 			borderRadius: "7px",
 			boxShadow: "0px 0px 25px rgba(0, 0, 0, 0.15)",
-			padding: "1em",
+			padding: "0.5em",
 			transform: "translateY(-50%)"
 		},
+		block_mobile: {
+
+		},
 		constraint: {
-			color: "#8f8f8f"
+			color: "#8f8f8f",
+			transitionDuration: "250ms",
+			transitionProperty: "color"
 		},
 		valid: {
-			color: "#adff2f"
+			color: "#008000"
 		},
 		invalid: {
 			color: "#ff0000"
-		},
-		length: {},
-		number: {},
-		letter: {}
+		}
 	})();
-	const blockRef = createRef(undefined);
+	const [validationResults, changeValidationResults] = useState({ results });
 	const blockClass = clsx(classes.block, className);
+	const lengthClass = clsx(classes.constraint, results && validationResults ? classes.valid : classes.invalid);
+	const numberClass = clsx(classes.constraint, results && validationResults ? classes.valid : classes.invalid);
+	const letterClass = clsx(classes.constraint, results && validationResults ? classes.valid : classes.invalid);
 
 	useEffect(() => {
-		/**
-		 * @type {HTMLParagraphElement}
-		 */
-		const block = blockRef.current;
-
-		// пробегаемся по ключам `results`
-		Object.keys(results).forEach((constraint) => {
-			/**
-			 * @type {HTMLSpanElement}
-			 */
-			const constraintEl = block.querySelector(classes[constraint]);
-
-			if (constraint === undefined) {
-				constraintEl.classList.remove(classes.valid, classes.invalid);
-				return;
+		changeValidationResults((oldResults) => {
+			return {
+				...oldResults, 
+				...results 
 			}
-
-			if (constraint === false) {
-				constraintEl.classList.add(classes.invalid);
-				constraintEl.classList.remove(classes.valid);
-				return;
-			}
-
-			constraintEl.classList.remove(classes.invalid);
-			constraintEl.classList.add(classes.valid);
-		})
+		});
 	}, [results])
 
 	return (
-		<p ref={blockRef} className={blockClass}>
-			Придумайте пароль от <span className={clsx(classes.constraint, classes.length)}>8 знаков</span>{" "}
-			из <span className={clsx(classes.constraint, classes.number)}>цифр</span>{" "}
-			и <span className={clsx(classes.constraint, classes.letter)}>латинских букв</span> 
+		<p className={blockClass}>
+			Придумайте пароль от <span className={lengthClass}>8 знаков</span>{" "}
+			из <span className={numberClass}>цифр</span>{" "}
+			и <span className={letterClass}>латинских букв</span> 
 		</p>
 	)
 }
 
 export const PasswordForm = () => {
 	const { token } = useAuth();
-	const { register, handleSubmit } = useForm()
+	const { register, handleSubmit } = useForm();
+	
+	/**
+	 * @type { [import("./Forms").PasswordValidationResults, Dispatch < SetStateAction < import("./Forms").PasswordValidationResults>>] }
+	 */
+	const [validationResults, changeValidationResults] = useState(undefined);
 
 	/**
 	 * @param {{ old_password: string, password: string }} formData 
 	 */
 	const handlerPasswordChange = async (formData) => {
-		const [isValidPassword, formattedPassword] = validatePassword(formData.old_password, formData.password);
+		const [isValidPassword, results] = validatePassword(formData.old_password, formData.password);
+		changeValidationResults({ ...validationResults, ...results });
 
 		if (!isValidPassword) {
 			return;
 		}
 
 		try {
-			const data = await updatePassword(formattedPassword, token);
-			console.log(data);
+			await updatePassword(formData.password, token);
 		} catch (error) {
 			console.error(error);
 		}
-
 	}
 
 	/**
@@ -163,7 +153,7 @@ export const PasswordForm = () => {
 						autoComplete="new-password"
 					/>
 					<button className="form__button" onClick={handlerPasswordVisiblity}></button>
-					<PasswordValidationBox results={{}}/>
+					<PasswordValidationBox results={validationResults}/>
 				</div>
 			</div>
 

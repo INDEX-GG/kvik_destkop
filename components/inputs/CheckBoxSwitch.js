@@ -45,6 +45,9 @@ const useStyles = makeStyles({
 
 /**
  * @typedef CheckBoxSwitchProps
+ * @property {string} width
+ * @property {string} height
+ * @property {string} checkboxSize
  * @property {string} checkID
  * @property {string} name
  * @property {string} borderRadius
@@ -55,6 +58,9 @@ const useStyles = makeStyles({
  * @param {CheckBoxSwitchProps} props
  */
 export const CheckBoxSwitch = ({ 
+	width = "26px",
+	height = "14px",
+	checkboxSize = "12px",
 	borderRadius = "5px" , 
 	checkboxBorderRadius = "50%", 
 	checkID, 
@@ -63,7 +69,7 @@ export const CheckBoxSwitch = ({
 	const classes = useStyles();
 
 	return (
-		<span className={classes.block} >
+		<span className={classes.block} style={{ width: width, height: height }}>
 			<input 
 				id={checkID} 
 				className={classes.check} 
@@ -75,7 +81,15 @@ export const CheckBoxSwitch = ({
 				htmlFor={checkID} 
 				style={{ borderRadius: borderRadius }} 
 			>
-				<span className={classes.ball} style={{ borderRadius: checkboxBorderRadius }}></span>
+				<span 
+					className={classes.ball} 
+					style={{ 
+						borderRadius: checkboxBorderRadius, 
+						width: checkboxSize, 
+						height: checkboxSize 
+					}}
+				>
+				</span>
 			</label>
 		</span>
 	)
