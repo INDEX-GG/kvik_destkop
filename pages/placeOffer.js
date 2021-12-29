@@ -159,17 +159,17 @@ function PlaceOffer() {
         }
 
 
-        const landType = () => {
-            if(data.alias4 === 'sell_snt'){
-                return 'СНТ'
-            } else if (data.alias4 === 'sell_izhs'){
-                return 'ИЖС'
-            } else if (data.alias4 === 'sell_agriculturalland'){
-                return 'Земли сельскохозяйственного назначения'
-            } else if (data.alias4 === 'sell_commercialland'){
-                return 'Земли коммерческого назначения'
-            }
-        }
+        // const landType = () => {
+        //     if(data.alias4 === 'sell_snt'){
+        //         return 'СНТ'
+        //     } else if (data.alias4 === 'sell_izhs'){
+        //         return 'ИЖС'
+        //     } else if (data.alias4 === 'sell_agriculturalland'){
+        //         return 'Земли сельскохозяйственного назначения'
+        //     } else if (data.alias4 === 'sell_commercialland'){
+        //         return 'Земли коммерческого назначения'
+        //     }
+        // }
 
         // if(data?.alias1 === 'transport' && data?.alias2 === 'auto'){
         //      data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
