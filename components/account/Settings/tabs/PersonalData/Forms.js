@@ -116,6 +116,15 @@ export const PasswordForm = () => {
 		}
 	}
 
+	/**
+	 * @param {import("react").ChangeEvent<HTMLInputElement>} event 
+	 */
+	const handlerOnChangeValidator = (event) => {
+		// eslint-disable-next-line no-unused-vars
+		const [isValid, result] = validatePassword("", event.target.value);
+		changeValidationResults(result);
+	}
+
 	return (
 		<form
 			id="user-password-change"
@@ -145,6 +154,7 @@ export const PasswordForm = () => {
 						id="user-new-pass"
 						className="form__input user-info__password"
 						autoComplete="new-password"
+						onChange={handlerOnChangeValidator}
 					/>
 					<button className="form__button" onClick={handlerPasswordVisiblity}></button>
 					<PasswordValidationBox results={validationResults}/>
@@ -189,15 +199,18 @@ export const PasswordFormMobile = () => {
 	 * @param {{ old_password: string, password: string }} formData 
 	 */
 	const handlerPasswordChange = async (formData) => {
+		console.log(formData);
 		const [isValidPassword, validResults] = validatePassword(formData.old_password, formData.password);
 		changeValidationResults(() => validResults)
+
+		console.log(validResults);
 
 		if (!isValidPassword) {
 			return;
 		}
 
 		try {
-			await updatePassword(validResults, token);
+			await updatePassword(formData.password, token);
 		} catch (error) {
 			console.error(error);
 		}
@@ -225,6 +238,15 @@ export const PasswordFormMobile = () => {
 			content.classList.add("form__content--visible");
 			input.type = "text"
 		}
+	}
+
+	/**
+   * @param {import("react").ChangeEvent<HTMLInputElement>} event 
+   */
+	const handlerOnChangeValidator = (event) => {
+		// eslint-disable-next-line no-unused-vars
+		const [isValid, result] = validatePassword("", event.target.value);
+		changeValidationResults(result);
 	}
 
 	return (
@@ -256,6 +278,7 @@ export const PasswordFormMobile = () => {
 						className="form__input"
 						autoComplete="new-password"
 						placeholder="Новый пароль"
+						onChange={handlerOnChangeValidator}
 					/>
 					<button className={`form__button ${classes.eye}`} onClick={handlerPasswordVisiblity}></button>
 				</div>
