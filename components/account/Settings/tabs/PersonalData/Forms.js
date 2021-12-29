@@ -46,9 +46,10 @@ const PasswordValidationBox = ({ results = undefined, className, ...paragraphPro
 	})();
 	const [validationResults, changeValidationResults] = useState(results);
 	const blockClass = clsx(classes.block, className);
-	const lengthClass = clsx(classes.constraint, validationResults?.length ? classes.valid : classes.invalid);
-	const numberClass = clsx(classes.constraint, validationResults?.number ? classes.valid : classes.invalid);
-	const letterClass = clsx(classes.constraint, validationResults?.letter ? classes.valid : classes.invalid);
+	// проверка на `undefined` чтобы исключить начальное состояние
+	const lengthClass = clsx(classes.constraint, validationResults?.length !== undefined && (validationResults?.length ? classes.valid : classes.invalid));
+	const numberClass = clsx(classes.constraint, validationResults?.number !== undefined && (validationResults?.number ? classes.valid : classes.invalid));
+	const letterClass = clsx(classes.constraint, validationResults?.letter !== undefined && (validationResults?.letter ? classes.valid : classes.invalid));
 
 	useEffect(() => {
 		changeValidationResults((oldResults) => {
