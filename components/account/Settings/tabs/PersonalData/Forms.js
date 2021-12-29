@@ -38,10 +38,10 @@ const PasswordValidationBox = ({ results = undefined, className, ...paragraphPro
 			transitionProperty: "color"
 		},
 		valid: {
-			color: "#008000"
+			color: "#52B9C5"
 		},
 		invalid: {
-			color: "#ff0000"
+			color: "#F44545"
 		}
 	})();
 	const [validationResults, changeValidationResults] = useState(results);

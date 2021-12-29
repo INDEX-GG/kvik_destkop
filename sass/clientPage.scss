@@ -466,14 +466,17 @@
 	justify-content: flex-start;
 	align-items: center;
 	font-size: 18px;
-	gap: 12px;
+	gap: 25px 50px;
 
 	&--mobile {
+		gap: 12px;
+		
 		& .social__item {
 			flex-basis: 145px;
 			height: 19px;
 			font-size: 10px;
 			padding-left: 23px;
+		
 		}
 	}
 
