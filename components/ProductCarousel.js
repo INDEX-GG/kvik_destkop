@@ -91,7 +91,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 									style={{backgroundImage: `url(${img})`, 
 										backgroundSize: 'cover', 
 										filter: 'blur(20px)'}} 
-									className="testBack">
+									className="imageBlur">
 									</div>
 									{/*ВОЗМОЖНОЕ РЕШЕНИЕ!*/}
 									{/*<ProductItemPhoto img={img} index={i}/>*/}
