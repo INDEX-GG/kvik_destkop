@@ -143,7 +143,7 @@ const SocialForm = ({ className }) => {
 								height="23px"
 								checkboxSize="19px"
 								borderRadius="4px"
-								checkboxBorderRadius="4px"
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 						<li className="social__item social__item--vk">
@@ -154,7 +154,7 @@ const SocialForm = ({ className }) => {
 								height="23px"
 								checkboxSize="19px"
 								borderRadius="4px" 
-								checkboxBorderRadius="4px"
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 						<li className="social__item social__item--ok">
@@ -165,10 +165,9 @@ const SocialForm = ({ className }) => {
 								height="23px"
 								checkboxSize="19px"
 								borderRadius="4px" 
-								checkboxBorderRadius="4px"
+								checkboxBorderRadius="6px"
 							/>
 						</li>
-						
 						<li className="social__item social__item--fb">
 							<a className="social__link">Facebook</a>
 							<CheckBoxSwitch 
@@ -177,7 +176,7 @@ const SocialForm = ({ className }) => {
 								height="23px"
 								checkboxSize="19px"
 								borderRadius="4px" 
-								checkboxBorderRadius="4px"
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 					</ul>
