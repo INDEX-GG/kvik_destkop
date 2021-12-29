@@ -203,7 +203,7 @@ export const PersonalDataMobile = () => {
 							style={{ flexFlow: "row nowrap" }}
 							onClick={() => { switchAddressPage(true) }}
 						>
-							<span className="nav-button__text">
+							<span className="nav-button__text" style={{ textAlign: "left" }}>
 								{userInfo.address || userInfo?.location?.name}
 							</span>
 							<span className="nav-button__arrow">

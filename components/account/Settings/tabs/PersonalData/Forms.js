@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import clsx from "clsx";
 import { validatePassword } from "#lib/account/validatePassword";
 import { useAuth } from "#lib/Context/AuthCTX";
 import { updatePassword } from "#lib/fetch";
 import { makeStyles } from "@material-ui/core";
-import clsx from "clsx";
-import { useEffect } from "react";
 
 /**
  * @typedef PasswordValidationResults
@@ -19,7 +18,7 @@ import { useEffect } from "react";
  * @param {string} props.className
  * @param {PasswordValidationResults} props.results
  */
-const PasswordValidationBox = ({ results = undefined, className }) => {
+const PasswordValidationBox = ({ results = undefined, className, ...paragraphProps }) => {
 	const classes = makeStyles({
 		block: {
 			position: "absolute",
@@ -33,9 +32,6 @@ const PasswordValidationBox = ({ results = undefined, className }) => {
 			padding: "0.5em",
 			transform: "translateY(-50%)"
 		},
-		block_mobile: {
-
-		},
 		constraint: {
 			color: "#8f8f8f",
 			transitionDuration: "250ms",
@@ -48,11 +44,11 @@ const PasswordValidationBox = ({ results = undefined, className }) => {
 			color: "#ff0000"
 		}
 	})();
-	const [validationResults, changeValidationResults] = useState({ results });
+	const [validationResults, changeValidationResults] = useState(results);
 	const blockClass = clsx(classes.block, className);
-	const lengthClass = clsx(classes.constraint, results && validationResults ? classes.valid : classes.invalid);
-	const numberClass = clsx(classes.constraint, results && validationResults ? classes.valid : classes.invalid);
-	const letterClass = clsx(classes.constraint, results && validationResults ? classes.valid : classes.invalid);
+	const lengthClass = clsx(classes.constraint, validationResults?.length ? classes.valid : classes.invalid);
+	const numberClass = clsx(classes.constraint, validationResults?.number ? classes.valid : classes.invalid);
+	const letterClass = clsx(classes.constraint, validationResults?.letter ? classes.valid : classes.invalid);
 
 	useEffect(() => {
 		changeValidationResults((oldResults) => {
@@ -64,10 +60,8 @@ const PasswordValidationBox = ({ results = undefined, className }) => {
 	}, [results])
 
 	return (
-		<p className={blockClass}>
-			Придумайте пароль от <span className={lengthClass}>8 знаков</span>{" "}
-			из <span className={numberClass}>цифр</span>{" "}
-			и <span className={letterClass}>латинских букв</span> 
+		<p className={blockClass} {...paragraphProps}>
+			Придумайте пароль от <span className={lengthClass}>8 знаков</span> из <span className={numberClass}>цифр</span> и <span className={letterClass}>латинских букв</span> 
 		</p>
 	)
 }
@@ -182,24 +176,28 @@ export const PasswordFormMobile = () => {
 		eye: {
 			left: "reset",
 			right: "1em"
-		}
+		},
+		validContainer: {
+			width: "100%",
+		},
 	})();
 	const { token } = useAuth();
-	const { register, handleSubmit } = useForm()
+	const { register, handleSubmit } = useForm();
+	const [validationResults, changeValidationResults] = useState(undefined);
 
 	/**
 	 * @param {{ old_password: string, password: string }} formData 
 	 */
 	const handlerPasswordChange = async (formData) => {
-		const [isValidPassword, formattedPassword] = validatePassword(formData.old_password, formData.password);
+		const [isValidPassword, validResults] = validatePassword(formData.old_password, formData.password);
+		changeValidationResults(() => validResults)
 
 		if (!isValidPassword) {
 			return;
 		}
 
 		try {
-			const data = await updatePassword(formattedPassword, token);
-			console.log(data);
+			await updatePassword(validResults, token);
 		} catch (error) {
 			console.error(error);
 		}
@@ -262,9 +260,19 @@ export const PasswordFormMobile = () => {
 					<button className={`form__button ${classes.eye}`} onClick={handlerPasswordVisiblity}></button>
 				</div>
 			</div>
-			{/* <div className="form__section form__section">
-				<PasswordValidationBox results={{}}/>
-			</div> */}
+			<div className={`form__section ${classes.validContainer}`}>
+				<PasswordValidationBox 
+					results={validationResults} 
+					className={classes.validBox} 
+					style={{ 
+						position: "static", 
+						transform: "none", 
+						boxShadow: "none", 
+						width: "100%",
+						padding: "0",
+					}} 
+				/>
+			</div>
 		</form >
 	)
 }
