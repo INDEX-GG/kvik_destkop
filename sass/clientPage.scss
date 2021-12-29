@@ -433,7 +433,9 @@
 	}
 
 	&__phone-link {
-		justify-self: flex-end;
+		flex-flow: row nowrap;
+		align-items: flex-end;
+		font-size: 12px;
 		color: hsl(184, 100%, 34%);
 	}
 
