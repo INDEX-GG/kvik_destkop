@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import clsx from "clsx";
 
 const useStyles = makeStyles({
 	block: {
@@ -19,6 +20,11 @@ const useStyles = makeStyles({
 		"&:checked+label span": {
 			backgroundColor: "#00A0AB",
 			transform: "translateX(123%)"
+		}
+	},
+	check_mobile: {
+		"&:checked+label span": {
+			transform: "translateX(100%)"
 		}
 	},
 	label: {
@@ -52,6 +58,7 @@ const useStyles = makeStyles({
  * @property {string} name
  * @property {string} borderRadius
  * @property {string} checkboxBorderRadius
+ * @property {boolean} isMobile
  */
 
 /**
@@ -64,15 +71,17 @@ export const CheckBoxSwitch = ({
 	borderRadius = "5px" , 
 	checkboxBorderRadius = "50%", 
 	checkID, 
-	name 
+	name,
+	isMobile = undefined
 }) => {
 	const classes = useStyles();
+	const checkClass = clsx(classes.check, isMobile && classes.check_mobile)
 
 	return (
 		<span className={classes.block} style={{ width: width, height: height }}>
 			<input 
 				id={checkID} 
-				className={classes.check} 
+				className={checkClass} 
 				type="checkbox" 
 				name={name}  
 			/>

@@ -241,19 +241,19 @@ export const PersonalDataMobile = () => {
 							<ul className="social social--mobile">
 								<li className="social__item social__item--vk">
 									<a className="social__link">Вконтакте</a>
-									<CheckBoxSwitch checkID="social-vk" />
+									<CheckBoxSwitch checkID="social-vk" isMobile />
 								</li>
 								<li className="social__item social__item--ok">
 									<a className="social__link">Одноклассники</a>
-									<CheckBoxSwitch checkID="social-ok" />
+									<CheckBoxSwitch checkID="social-ok" isMobile />
 								</li>
 								<li className="social__item social__item--inst">
 									<a className="social__link">Instagram</a>
-									<CheckBoxSwitch checkID="social-inst" />
+									<CheckBoxSwitch checkID="social-inst" isMobile />
 								</li>
 								<li className="social__item social__item--fb">
 									<a className="social__link">Facebook</a>
-									<CheckBoxSwitch checkID="social-fb" />
+									<CheckBoxSwitch checkID="social-fb" isMobile />
 								</li>
 							</ul>
 						</div>
