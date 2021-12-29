@@ -199,11 +199,9 @@ export const PasswordFormMobile = () => {
 	 * @param {{ old_password: string, password: string }} formData 
 	 */
 	const handlerPasswordChange = async (formData) => {
-		console.log(formData);
 		const [isValidPassword, validResults] = validatePassword(formData.old_password, formData.password);
 		changeValidationResults(() => validResults)
 
-		console.log(validResults);
 
 		if (!isValidPassword) {
 			return;
