@@ -17,13 +17,16 @@ import ProductWorkInformation from './ProductsDescription/ProductWorkInformation
 import ProductTechInformation from './ProductsDescription/ProductTechInformation';
 import ProductForHomeInformation from './ProductsDescription/ProductForHomeInformation';
 
-export default function ProductInformation({ productionInfo, description, caterory, address, coordinates}) {
+import placeOfferJson from '../../public/placeOfferJson/new_catalog.json';
+import ProductAdditionalFields from './ProductsDescription/ProductAdditionalFields';
+
+export default function ProductInformation({ productionInfo, description, caterory, address, coordinates, category_id, allProductInfo}) {
 	const { matchesMobile, matchesTablet } = useMedia();
 	// const [dataMap, setDataMap] = useState({})
 	const [productData, setProductData] = useState(null)
 	const [fieldsCount, setFieldsCount] = useState(0)
 	const categoryName = caterory?.toLowerCase()
-	// console.log(categoryName)
+
 	useEffect(() => {
 		let count = 0
 		for (let key in productionInfo){
@@ -151,7 +154,9 @@ export default function ProductInformation({ productionInfo, description, catero
 		<>
 			<ProductMap address={address} coordinates={coordinates} mobile={matchesMobile && matchesTablet}/>
 			<div className="productPageCharacter thin">
-			{info} 
+			{false && info} 
+			<ProductAdditionalFields category_id={category_id} allProductInfo={allProductInfo} placeOfferJson={placeOfferJson} />
+			<ProductDescription description={description}/>
 			<ProductSocial/>
 			</div>
 		</>

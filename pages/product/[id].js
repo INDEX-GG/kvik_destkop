@@ -103,6 +103,9 @@ const Product = () => {
         coordinates
     } = productInfo
 
+    const allProductInfo = useProduct(query.id)
+
+
 
     // const [data, setData] = useState();
     const [openStatForm, setopenStatForm] = useState(false);
@@ -270,7 +273,10 @@ const Product = () => {
                                                 <ProductInformation address={address} coordinates={coordinates}
                                                                     description={description}
                                                                     productionInfo={productInfoFields}
-                                                                    caterory={subcategory}/>
+                                                                    caterory={subcategory}
+                                                                    category_id={category_id}
+                                                                    allProductInfo={allProductInfo}
+                                                                    />
                                             </div>
                                             {/* Блок информации*/}
                                             <div className="block__my_active_ad">
