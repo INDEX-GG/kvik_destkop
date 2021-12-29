@@ -113,7 +113,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						data.map((img, i) => (
 							<SwiperSlide key={i}>
 								<div>
-									<img style={{ height: '88px', }} src={img} />
+									<img style={{ height: '88px', objectFit: 'cover' }} src={img} />
 								</div>
 							</SwiperSlide>
 						)) : null}

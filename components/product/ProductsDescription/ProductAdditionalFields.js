@@ -74,7 +74,7 @@ const ProductAdditionalFields = ({ category_id, placeOfferJson, allProductInfo})
     useEffect(() => {
         if (allProductInfo) {
             const categoryPlaceOffer = placeOfferJson.category;
-        const productCategoryArr = category_id.split(',');
+            const productCategoryArr = category_id.split(',');
     
         console.log(productCategoryArr, categoryPlaceOffer)
     
