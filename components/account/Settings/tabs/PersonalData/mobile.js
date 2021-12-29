@@ -225,7 +225,7 @@ export const PersonalDataMobile = () => {
 							</span>
 						</button>
 					</div>
-					<Section className="user-info__section--phone">
+					<Section className="user-info__section--phone user-info__section--disabled">
 						<span>{userInfo.phone}</span>
 						<InternalLink className="user-info__phone-link" href={location.toString()} >
 							Добавить телефон
@@ -236,7 +236,7 @@ export const PersonalDataMobile = () => {
 							<span>{userInfo.email}</span>
 						</Section>)
 					}
-					<div className="form__section" style={{ padding: 0 }}>
+					<div className="form__section user-info__section--disabled" style={{ padding: 0 }} >
 						<div className="form__content">
 							<ul className="social social--mobile">
 								<li className="social__item social__item--vk">
@@ -258,7 +258,7 @@ export const PersonalDataMobile = () => {
 							</ul>
 						</div>
 					</div>
-					<div className="user-info__section">
+					<div className="user-info__section user-info__section--disabled">
 						Устройства
 					</div >
 					<div className="user-info__section">
@@ -290,7 +290,7 @@ export const PersonalDataMobile = () => {
 							</span>
 						</button>
 					</div>
-					<div className="user-info__section">
+					<div className="user-info__section user-info__section--disabled">
 						Удалить аккаунт
 					</div>
 					{/* <div>

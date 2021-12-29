@@ -189,7 +189,6 @@ const SocialForm = ({ className }) => {
 				<button
 					className="form__button form__button--button user-info__button"
 					type="button"
-					disabled
 					style={{ fontSize: "18px" }}
 				>
 					Добавить почту
@@ -199,6 +198,7 @@ const SocialForm = ({ className }) => {
 	)
 }
 
+// eslint-disable-next-line no-unused-vars
 const DeviceForm = () => {
 	const { handleSubmit } = useForm();
 	const handlerClearDevices = async () => {
@@ -206,7 +206,7 @@ const DeviceForm = () => {
 	}
 
 	return (
-		<form className="form" onSubmit={handleSubmit(handlerClearDevices)}>
+		<form className="form" onSubmit={handleSubmit(handlerClearDevices)} >
 			<div className="form__section">
 				<div className="form__label"></div>
 				<dl className="devices">
@@ -271,14 +271,14 @@ export const PersonalDataDesktop = () => {
 						<PersonalForm userInfo={userInfo} />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Соцсети и сервисы</h2>
 						<SocialForm className="user-info--social" />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Устройства</h2>
-						<DeviceForm />
+						{/* <DeviceForm /> */}
 					</section>
 
 					<section className="user-info__section">
@@ -286,7 +286,7 @@ export const PersonalDataDesktop = () => {
 						<PasswordForm />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Удаление профиля</h2>
 						<AccountDeletionForm />
 					</section>

@@ -348,6 +348,15 @@
 		&--phone {
 			grid-template-columns: 1fr 1fr;
 		}
+
+		&--disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+
+			& * {
+				pointer-events: none;
+			}
+		}
 	}
 
 	& .form__section {
