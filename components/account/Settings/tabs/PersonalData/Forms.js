@@ -1,10 +1,10 @@
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import clsx from "clsx";
 import { validatePassword } from "#lib/account/validatePassword";
 import { useAuth } from "#lib/Context/AuthCTX";
 import { updatePassword } from "#lib/fetch";
 import { makeStyles } from "@material-ui/core";
-import clsx from "clsx";
-import { createRef, useEffect } from "react";
 
 /**
  * @typedef PasswordValidationResults
@@ -18,7 +18,7 @@ import { createRef, useEffect } from "react";
  * @param {string} props.className
  * @param {PasswordValidationResults} props.results
  */
-const PasswordValidationBox = ({ results, className }) => {
+const PasswordValidationBox = ({ results = undefined, className, ...paragraphProps }) => {
 	const classes = makeStyles({
 		block: {
 			position: "absolute",
@@ -29,84 +29,84 @@ const PasswordValidationBox = ({ results, className }) => {
 			background: "#FFFFFF",
 			borderRadius: "7px",
 			boxShadow: "0px 0px 25px rgba(0, 0, 0, 0.15)",
-			padding: "1em",
+			padding: "0.5em",
 			transform: "translateY(-50%)"
 		},
 		constraint: {
-			color: "#8f8f8f"
+			color: "#8f8f8f",
+			transitionDuration: "250ms",
+			transitionProperty: "color"
 		},
 		valid: {
-			color: "#adff2f"
+			color: "#52B9C5"
 		},
 		invalid: {
-			color: "#ff0000"
-		},
-		length: {},
-		number: {},
-		letter: {}
+			color: "#F44545"
+		}
 	})();
-	const blockRef = createRef(undefined);
+	const [validationResults, changeValidationResults] = useState(results);
 	const blockClass = clsx(classes.block, className);
+	// проверка на `undefined` чтобы исключить начальное состояние
+	const lengthClass = clsx(classes.constraint, validationResults?.length !== undefined && (validationResults?.length ? classes.valid : classes.invalid));
+	const numberClass = clsx(classes.constraint, validationResults?.number !== undefined && (validationResults?.number ? classes.valid : classes.invalid));
+	const letterClass = clsx(classes.constraint, validationResults?.letter !== undefined && (validationResults?.letter ? classes.valid : classes.invalid));
 
 	useEffect(() => {
-		/**
-		 * @type {HTMLParagraphElement}
-		 */
-		const block = blockRef.current;
-
-		// пробегаемся по ключам `results`
-		Object.keys(results).forEach((constraint) => {
-			/**
-			 * @type {HTMLSpanElement}
-			 */
-			const constraintEl = block.querySelector(classes[constraint]);
-
-			if (constraint === undefined) {
-				constraintEl.classList.remove(classes.valid, classes.invalid);
-				return;
+		changeValidationResults((oldResults) => {
+			return {
+				...oldResults,
+				...results
 			}
-
-			if (constraint === false) {
-				constraintEl.classList.add(classes.invalid);
-				constraintEl.classList.remove(classes.valid);
-				return;
-			}
-
-			constraintEl.classList.remove(classes.invalid);
-			constraintEl.classList.add(classes.valid);
-		})
+		});
 	}, [results])
 
 	return (
-		<p ref={blockRef} className={blockClass}>
-			Придумайте пароль от <span className={clsx(classes.constraint, classes.length)}>8 знаков</span>{" "}
-			из <span className={clsx(classes.constraint, classes.number)}>цифр</span>{" "}
-			и <span className={clsx(classes.constraint, classes.letter)}>латинских букв</span> 
+		<p className={blockClass} {...paragraphProps}>
+			Придумайте пароль от <span className={lengthClass}>8 знаков</span> из <span className={numberClass}>цифр</span> и <span className={letterClass}>латинских букв</span>
 		</p>
 	)
 }
 
 export const PasswordForm = () => {
+	const classes = makeStyles({
+		validContainer: {
+			opacity: "0",
+			visibility: "hidden",
+			transitionDuration: "250ms",
+			transitionProperty: "visibility, opacity"
+		},
+		visible: {
+			visibility: "visible",
+			opacity: "1"
+		}
+	})();
 	const { token } = useAuth();
-	const { register, handleSubmit } = useForm()
+	const { register, handleSubmit } = useForm();
+	const [isValidationVisible, changeValidationVisibility] = useState(false);
+	const valBoxClass = clsx(classes.validContainer, (validationResults || isValidationVisible) && classes.visible);
+
+
+	/**
+	 * @type { [import("./Forms").PasswordValidationResults, Dispatch < SetStateAction < import("./Forms").PasswordValidationResults>>] }
+	 */
+	const [validationResults, changeValidationResults] = useState(undefined);
 
 	/**
 	 * @param {{ old_password: string, password: string }} formData 
 	 */
 	const handlerPasswordChange = async (formData) => {
-		const [isValidPassword, formattedPassword] = validatePassword(formData.old_password, formData.password);
+		const [isValidPassword, results] = validatePassword(formData.old_password, formData.password);
+		changeValidationResults({ ...validationResults, ...results });
 
 		if (!isValidPassword) {
 			return;
 		}
 
 		try {
-			const data = await updatePassword(formattedPassword, token);
-			console.log(data);
+			await updatePassword(formData.password, token);
 		} catch (error) {
 			console.error(error);
 		}
-
 	}
 
 	/**
@@ -130,6 +130,15 @@ export const PasswordForm = () => {
 			content.classList.add("form__content--visible");
 			input.type = "text"
 		}
+	}
+
+	/**
+	 * @param {import("react").ChangeEvent<HTMLInputElement>} event 
+	 */
+	const handlerOnChangeValidator = (event) => {
+		// eslint-disable-next-line no-unused-vars
+		const [isValid, result] = validatePassword("", event.target.value);
+		changeValidationResults(result);
 	}
 
 	return (
@@ -161,9 +170,20 @@ export const PasswordForm = () => {
 						id="user-new-pass"
 						className="form__input user-info__password"
 						autoComplete="new-password"
+						onChange={handlerOnChangeValidator}
+						onFocus={() => {
+							if (!isValidationVisible) {
+								changeValidationVisibility(true)
+							}
+						}}
+						onBlur={() => {
+							if (!validationResults) {
+								changeValidationVisibility(false)
+							}
+						}}
 					/>
 					<button className="form__button" onClick={handlerPasswordVisiblity}></button>
-					<PasswordValidationBox results={{}}/>
+					<PasswordValidationBox className={valBoxClass} results={validationResults} />
 				</div>
 			</div>
 
@@ -192,24 +212,40 @@ export const PasswordFormMobile = () => {
 		eye: {
 			left: "reset",
 			right: "1em"
+		},
+		validContainer: {
+			width: "100%",
+			opacity: "0",
+			visibility: "hidden",
+			transitionDuration: "250ms",
+			transitionProperty: "visibility, opacity"
+		},
+		visible: {
+			visibility: "visible",
+			opacity: "1"
 		}
 	})();
 	const { token } = useAuth();
-	const { register, handleSubmit } = useForm()
+	const { register, handleSubmit } = useForm();
+	const [validationResults, changeValidationResults] = useState(undefined);
+	const [isValidationVisible, changeValidationVisibility] = useState(false);
+	const valBoxClass = clsx("form__section", classes.validContainer, (validationResults || isValidationVisible) && classes.visible);
+
 
 	/**
 	 * @param {{ old_password: string, password: string }} formData 
 	 */
 	const handlerPasswordChange = async (formData) => {
-		const [isValidPassword, formattedPassword] = validatePassword(formData.old_password, formData.password);
+		const [isValidPassword, validResults] = validatePassword(formData.old_password, formData.password);
+		changeValidationResults(() => validResults)
+
 
 		if (!isValidPassword) {
 			return;
 		}
 
 		try {
-			const data = await updatePassword(formattedPassword, token);
-			console.log(data);
+			await updatePassword(formData.password, token);
 		} catch (error) {
 			console.error(error);
 		}
@@ -237,6 +273,15 @@ export const PasswordFormMobile = () => {
 			content.classList.add("form__content--visible");
 			input.type = "text"
 		}
+	}
+
+	/**
+	 * @param {import("react").ChangeEvent<HTMLInputElement>} event 
+	 */
+	const handlerOnChangeValidator = (event) => {
+		// eslint-disable-next-line no-unused-vars
+		const [isValid, result] = validatePassword("", event.target.value);
+		changeValidationResults(result);
 	}
 
 	return (
@@ -268,13 +313,34 @@ export const PasswordFormMobile = () => {
 						className="form__input"
 						autoComplete="new-password"
 						placeholder="Новый пароль"
+						onChange={handlerOnChangeValidator}
+						onFocus={() => {
+							if (!isValidationVisible) {
+								changeValidationVisibility(true)
+							}
+						}}
+						onBlur={() => {
+							if (!validationResults) {
+								changeValidationVisibility(false)
+							}
+						}}
 					/>
 					<button className={`form__button ${classes.eye}`} onClick={handlerPasswordVisiblity}></button>
 				</div>
 			</div>
-			{/* <div className="form__section form__section">
-				<PasswordValidationBox results={{}}/>
-			</div> */}
+			<div className={valBoxClass}>
+				<PasswordValidationBox
+					results={validationResults}
+					className={classes.validBox}
+					style={{
+						position: "static",
+						transform: "none",
+						boxShadow: "none",
+						width: "100%",
+						padding: "0",
+					}}
+				/>
+			</div>
 		</form >
 	)
 }

@@ -66,6 +66,7 @@ export default async function handler(req, res) {
 						city: req.body.city
 											}
 				}
+
 				const createPost = await prisma.posts.create(obj);
 				if (req.body.additional_fields !== null && req.body.additional_fields !== undefined) {
 					try {
@@ -85,6 +86,11 @@ export default async function handler(req, res) {
 						await pool.query(`INSERT INTO "subcategories".${req.body.subcategory} (${columns}) VALUES (${values})`)
 					}
 					catch (e) {
+						try{
+							const error = "'[" + e.toString().replace(/"/g, '""').replace(/'/g, "''") + "]'"
+							await pool.query(`UPDATE "posts" SET "additional_fields_error" = ${error} WHERE id = ${createPost.id}`)
+						}
+						catch (e) {`Внутренняя ошибка api setPosts ${e}`}
 						console.error(`Внутренняя ошибка api setPosts ${e}`)
 					}
 				}

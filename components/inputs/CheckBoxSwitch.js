@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import clsx from "clsx";
 
 const useStyles = makeStyles({
 	block: {
@@ -18,6 +19,11 @@ const useStyles = makeStyles({
 		},
 		"&:checked+label span": {
 			backgroundColor: "#00A0AB",
+			transform: "translateX(123%)"
+		}
+	},
+	check_mobile: {
+		"&:checked+label span": {
 			transform: "translateX(100%)"
 		}
 	},
@@ -45,28 +51,37 @@ const useStyles = makeStyles({
 
 /**
  * @typedef CheckBoxSwitchProps
+ * @property {string} width
+ * @property {string} height
+ * @property {string} checkboxSize
  * @property {string} checkID
  * @property {string} name
  * @property {string} borderRadius
  * @property {string} checkboxBorderRadius
+ * @property {boolean} isMobile
  */
 
 /**
  * @param {CheckBoxSwitchProps} props
  */
 export const CheckBoxSwitch = ({ 
+	width = "26px",
+	height = "14px",
+	checkboxSize = "12px",
 	borderRadius = "5px" , 
 	checkboxBorderRadius = "50%", 
 	checkID, 
-	name 
+	name,
+	isMobile = undefined
 }) => {
 	const classes = useStyles();
+	const checkClass = clsx(classes.check, isMobile && classes.check_mobile)
 
 	return (
-		<span className={classes.block} >
+		<span className={classes.block} style={{ width: width, height: height }}>
 			<input 
 				id={checkID} 
-				className={classes.check} 
+				className={checkClass} 
 				type="checkbox" 
 				name={name}  
 			/>
@@ -75,7 +90,15 @@ export const CheckBoxSwitch = ({
 				htmlFor={checkID} 
 				style={{ borderRadius: borderRadius }} 
 			>
-				<span className={classes.ball} style={{ borderRadius: checkboxBorderRadius }}></span>
+				<span 
+					className={classes.ball} 
+					style={{ 
+						borderRadius: checkboxBorderRadius, 
+						width: checkboxSize, 
+						height: checkboxSize 
+					}}
+				>
+				</span>
 			</label>
 		</span>
 	)

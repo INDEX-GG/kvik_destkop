@@ -23,7 +23,6 @@ const AdditionalFieldPeriod = ({fieldData, yearsData}) => {
     const {title, type, alias, default_value, dependencies, required} = fieldData
 
 
-
     const generateYears = (obj) => {
         if (Array.isArray(obj?.children)) {
 

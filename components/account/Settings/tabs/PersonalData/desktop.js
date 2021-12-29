@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { AddressSuggestions } from "react-dadata";
-import { phoneNumber } from "#lib/services";
+// import { phoneNumber } from "#lib/services";
 import { useStore } from "#lib/Context/Store";
 import { useAuth } from "#lib/Context/AuthCTX";
 // import Search from '#UI/icons/Search';
@@ -9,6 +9,7 @@ import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
 import { changePersonalData } from "#lib/account/changePersonalData";
 import { useState } from "react";
 import { PasswordForm } from "./Forms";
+import { formatPhoneNumber } from "#lib/phoneMask";
 
 /**
  * TODO: переписать на бесконтрольный вариант.
@@ -95,7 +96,7 @@ const PersonalForm = ({ userInfo }) => {
 						id="user-phone"
 						className="user-info__phone-number"
 					>
-						{phoneNumber(userInfo.phone)}
+						{formatPhoneNumber(userInfo.phone)}
 					</span>
 					<button
 						className={clsx(
@@ -123,42 +124,60 @@ const PersonalForm = ({ userInfo }) => {
 	)
 }
 
-const SocialForm = () => {
+/**
+ * @param {object} props
+ * @param {string} props.className
+ */
+const SocialForm = ({ className }) => {
+	const blockClass = clsx("form", className);
+
 	return (
-		<form className="form">
-			<div className="form__section">
+		<form className={blockClass}>
+			<div className="form__section form__section--social">
 				<div className="form__content">
 					<ul className="social social--desktop">
+						<li className="social__item social__item--inst">
+							<a className="social__link">Instagram</a>
+							<CheckBoxSwitch
+								checkID="social-inst"
+								width="45px"
+								height="23px"
+								checkboxSize="19px"
+								borderRadius="4px"
+								checkboxBorderRadius="6px"
+							/>
+						</li>
 						<li className="social__item social__item--vk">
 							<a className="social__link">Вконтакте</a>
 							<CheckBoxSwitch 
 								checkID="social-vk"  
-								borderRadius="3px" 
-								checkboxBorderRadius="4px"
+								width="45px"
+								height="23px"
+								checkboxSize="19px"
+								borderRadius="4px" 
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 						<li className="social__item social__item--ok">
 							<a className="social__link">Одноклассники</a>
 							<CheckBoxSwitch 
 								checkID="social-ok"  
-								borderRadius="3px" 
-								checkboxBorderRadius="4px"
-							/>
-						</li>
-						<li className="social__item social__item--inst">
-							<a className="social__link">Instagram</a>
-							<CheckBoxSwitch 
-								checkID="social-inst"  
-								borderRadius="3px" 
-								checkboxBorderRadius="4px"
+								width="45px"
+								height="23px"
+								checkboxSize="19px"
+								borderRadius="4px" 
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 						<li className="social__item social__item--fb">
 							<a className="social__link">Facebook</a>
 							<CheckBoxSwitch 
 								checkID="social-fb"  
-								borderRadius="3px" 
-								checkboxBorderRadius="4px"
+								width="45px"
+								height="23px"
+								checkboxSize="19px"
+								borderRadius="4px" 
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 					</ul>
@@ -170,7 +189,7 @@ const SocialForm = () => {
 				<button
 					className="form__button form__button--button user-info__button"
 					type="button"
-					disabled
+					style={{ fontSize: "18px" }}
 				>
 					Добавить почту
 				</button>
@@ -179,6 +198,7 @@ const SocialForm = () => {
 	)
 }
 
+// eslint-disable-next-line no-unused-vars
 const DeviceForm = () => {
 	const { handleSubmit } = useForm();
 	const handlerClearDevices = async () => {
@@ -186,7 +206,7 @@ const DeviceForm = () => {
 	}
 
 	return (
-		<form className="form" onSubmit={handleSubmit(handlerClearDevices)}>
+		<form className="form" onSubmit={handleSubmit(handlerClearDevices)} >
 			<div className="form__section">
 				<div className="form__label"></div>
 				<dl className="devices">
@@ -251,14 +271,14 @@ export const PersonalDataDesktop = () => {
 						<PersonalForm userInfo={userInfo} />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Соцсети и сервисы</h2>
-						<SocialForm />
+						<SocialForm className="user-info--social" />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Устройства</h2>
-						<DeviceForm />
+						{/* <DeviceForm /> */}
 					</section>
 
 					<section className="user-info__section">
@@ -266,7 +286,7 @@ export const PersonalDataDesktop = () => {
 						<PasswordForm />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Удаление профиля</h2>
 						<AccountDeletionForm />
 					</section>

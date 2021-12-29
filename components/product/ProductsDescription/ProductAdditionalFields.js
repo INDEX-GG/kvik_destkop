@@ -6,38 +6,38 @@ import ProductInformationPlaceHolder
 
 // import InfoItem from './InfoItem'
 
-import { makeStyles } from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 
 
 const useClass = makeStyles(() => ({
-  title: {
-    fontSize: '14px',
-    color: "rgba(143, 143, 143, 1)",
-    marginRight: 4,
-  },
-  content: {
-    fontSize: '14px',
-    color: "rgba(21, 21, 21, 1)",
-  },
-  autoPlaceholder: {
-    // display: "flex",
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    // maxHeight: 420,
-    maxHeight: '170px',
-    fontSize: 14,
-    padding: "10px 16px",
-    overflow: 'hidden',
-},
-autoPlaceHolderActive: {
-    display: "flex",
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    maxHeight: '100%',
-    fontSize: 14,
-    padding: "10px 16px",
-    overflow: 'hidden'
-},
+    title: {
+        fontSize: '14px',
+        color: "rgba(143, 143, 143, 1)",
+        marginRight: 4,
+    },
+    content: {
+        fontSize: '14px',
+        color: "rgba(21, 21, 21, 1)",
+    },
+    autoPlaceholder: {
+        // display: "flex",
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        // maxHeight: 420,
+        maxHeight: '170px',
+        fontSize: 14,
+        padding: "10px 16px",
+        overflow: 'hidden',
+    },
+    autoPlaceHolderActive: {
+        display: "flex",
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        maxHeight: '100%',
+        fontSize: 14,
+        padding: "10px 16px",
+        overflow: 'hidden'
+    },
 // title: {
 //     color: "#8F8F8F",
 //     marginRight: 4,
@@ -45,151 +45,176 @@ autoPlaceHolderActive: {
 // content: {
 //     color: "#2C2C2C"
 // },
-descriptionPlaseholder: {
-    // display: 'flex',
-    // flexDirection: "column",
-    // flexWrap: "wrap",
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    // maxHeight: 250,
-    // width: "100%"
-},
-descriptionItem: {
-    padding: "18px 0",
-},
+    descriptionPlaseholder: {
+        // display: 'flex',
+        // flexDirection: "column",
+        // flexWrap: "wrap",
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        // maxHeight: 250,
+        // width: "100%"
+    },
+    descriptionItem: {
+        padding: "18px 0",
+    },
 }))
 
-const ProductAdditionalFields = ({ category_id, placeOfferJson, allProductInfo}) => {
+const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo}) => {
 
 
-
-    const [data, setData] = useState([])
+    const [data, setData] = useState(undefined)
     const prevItem = useRef();
     const classes = useClass()
     // const { matchesMobile, matchesTablet } = useMedia();
     // const mobile = matchesMobile || matchesTablet;
 
 
+    const generateJson = (category, json) => {
+        console.log(json);
+
+        if (Array.isArray(json)) {
+            let currentObj = json.find(item => item.alias === category[0])?.children
+
+            for (let i = 1; i < category.length; i++) {
+                if (i === category.length - 1) {
+                    currentObj = currentObj.find(item => item.alias === category[i])
+                } else {
+                    currentObj = currentObj.find(item => item.alias === category[i])?.children
+                }
+            }
+
+            return currentObj?.additional_fields
+        }
+    }
+
 
     useEffect(() => {
         if (allProductInfo) {
             const categoryPlaceOffer = placeOfferJson.category;
             const productCategoryArr = category_id.split(',');
-    
-        console.log(productCategoryArr, categoryPlaceOffer)
-    
-    
-    
-        const jsonOne = categoryPlaceOffer.find(item => item.alias == productCategoryArr[0])?.children
-        const jsonTwo = jsonOne.find(item => item.alias == productCategoryArr[1])?.additional_fields
-        const additionalFieldProduct = allProductInfo?.additional_fields
-    
-    
-        let newArr = []
-    
-        if (additionalFieldProduct) {
-            for (const [key, value] of Object.entries(additionalFieldProduct)) {
-    
-                if (key == 'id' || key === 'post_id' || key === 'color') {
-                    continue
-                }
-    
-    
-                const numberOfCheck = parseInt(key.match(/\d+/))
-    
-    
-                if (!numberOfCheck) {
-                    newArr.push({
-                        title: jsonTwo.find(item => item.alias == key)?.title,
-                        value
-                    })
-                    continue
-                }
-    
-                const aliasName = key.split(numberOfCheck)[0]
-                const checkListObj = jsonTwo.find(item => item.alias == aliasName)
-    
-    
-                if (checkListObj.title == prevItem.current) {
-                    newArr = newArr.map((item, index) => {
-    
-                        
-                        if (item.title === checkListObj.title && value) {
-                            return newArr[index] = {title: checkListObj.title, value: [...newArr[index].value, checkListObj?.check_list_values[numberOfCheck - 1]].filter(item => item)}
+
+
+
+            // const jsonOne = categoryPlaceOffer.find(item => item.alias == productCategoryArr[0])?.children
+            // const additionalFieldJson = jsonOne.find(item => item.alias == productCategoryArr[1])?.additional_fields
+            const additionalFieldJson = generateJson(productCategoryArr, categoryPlaceOffer)
+            const additionalFieldProduct = allProductInfo?.additional_fields
+
+
+            console.log(additionalFieldJson);
+
+            let newArr = []
+
+            if (additionalFieldProduct) {
+                for (const [key, value] of Object.entries(additionalFieldProduct)) {
+
+                    if (key == 'id' || key === 'post_id' || key === 'color') {
+                        continue
+                    }
+
+
+                    const numberOfCheck = parseInt(key.match(/\d+/))
+
+
+                    if (!numberOfCheck) {
+                        newArr.push({
+                            title: additionalFieldJson.find(item => item.alias == key)?.title,
+                            value
+                        })
+                        continue
+                    }
+
+                    const aliasName = key.split(numberOfCheck)[0]
+                    const checkListObj = additionalFieldJson.find(item => item.alias == aliasName)
+
+
+                    if (checkListObj) {
+                        if (checkListObj.title == prevItem.current) {
+                            newArr = newArr.map((item, index) => {
+
+
+                                if (item.title === checkListObj.title && value) {
+                                    return newArr[index] = {
+                                        title: checkListObj.title,
+                                        value: [...newArr[index].value, checkListObj?.check_list_values[numberOfCheck - 1]].filter(item => item)
+                                    }
+                                }
+
+                                return item
+                            })
+                        } else {
+                            newArr.push({
+                                title: checkListObj.title,
+                                value: [value ? checkListObj?.check_list_values[numberOfCheck - 1] : null]
+                            })
                         }
-    
-                        return item
-                    })
-                } else {
-                    newArr.push({
-                        title: checkListObj.title,
-                        value: [value ? checkListObj?.check_list_values[numberOfCheck - 1] : null]
-                    }) 
+
+                        prevItem.current = checkListObj.title
+                    }
+
                 }
-    
-                prevItem.current = checkListObj.title
-                // ?.check_list_values[numberOfCheck]
-    
-    
-                // console.log(aliasName, additionalFieldProduct);
             }
-        }
-         setData(newArr)
+            setData(newArr)
         }
     }, [allProductInfo])
 
 
-    const addsField = data.filter(item => Array.isArray(item.value) !== true)
+    // const addsField = data.filter(item => Array.isArray(item.value) !== true)
 
-    console.log(addsField);
-    console.log(data, 'data')
+
+    // console.log(addsField);
+    // console.log(data, 'data')
     // console.log(addsField, 'addsField')
 
 
     // <ProductInformationPlaceHolder/>
 
     return (
-		// description === undefined ? <ProductInformationPlaceHolder/> :
-		<>
-			    <div className="productWrap">
-                <div className="productDescriptionTitle">Об автомобиле</div>
-				<span className='productDescriptionunderLine'></span>
-                <div className="productAbout">
+        // description === undefined ? <ProductInformationPlaceHolder/> :
+        data === undefined ? (
+            <ProductInformationPlaceHolder/>
+        ) : (
+            <>
                 {data.length ? (
-                    data.map((item) => (
                     <>
-                            
-                            {/* <h1 key={i}>{item.title}</h1> */}
-                            <div className="productAboutItem" style={ {
-                            display: 'flex',
-                            justifyContent: 'space-between'
-                            // justifyContent: mobile ? 'space-between' : 'normal',
-                            // alignItems: name === 'Цвет:'? "center" : "flex-start",
-                            // flexDirection: !mobile ? "column" : null,
-                            // minWidth: mobile ? '100%' : '40%',
-                            // flexBasis: !mobile ? '100%' : '34%',
-                            // maxWidth: '50%',
-                            // minWidth: '40%',
-                            // width: mobile ? '50%' : "100%",
-                            // padding: "10px 0",
-                            }}>
-                                    <div className={classes.title}>{item.title}</div>
-                                    <pre className={classes.content}>{item.value}</pre>
+                        <div className="productWrap">
+                            <span className='productDescriptionunderLine'></span>
+                            <div className="productAbout">
+                                {data.map((item) => (
+                                    <>
+
+                                        {/* <h1 key={i}>{item.title}</h1> */}
+                                        <div className="productAboutItem" style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between'
+                                            // justifyContent: mobile ? 'space-between' : 'normal',
+                                            // alignItems: name === 'Цвет:'? "center" : "flex-start",
+                                            // flexDirection: !mobile ? "column" : null,
+                                            // minWidth: mobile ? '100%' : '40%',
+                                            // flexBasis: !mobile ? '100%' : '34%',
+                                            // maxWidth: '50%',
+                                            // minWidth: '40%',
+                                            // width: mobile ? '50%' : "100%",
+                                            // padding: "10px 0",
+                                        }}>
+                                            <div className={classes.title}>{item.title}</div>
+                                            <pre className={classes.content}>{item.value}</pre>
+                                        </div>
+
+
+                                    </>
+                                ))}
                             </div>
-
-
-                        
+                        </div>
                     </>
-                    ))
-                ) : <ProductInformationPlaceHolder/>}
-                </div>
-				{/* <pre ref={preRef} className={classSwitcher()}><span ref={textRef}>{description}</span></pre> */}
-				{/* {(!isOpenDescription && textRef.current.offsetHeight > 60 ) && <button onClick={showMoreClickHandler} className='productShowMore'>Показать больше</button>} */}
-				{/* {isOpenDescription && <button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>} */}
-			</div>
-		</>
-				
-	)
+                ) : null}
+                {/* <pre ref={preRef} className={classSwitcher()}><span ref={textRef}>{description}</span></pre> */}
+                {/* {(!isOpenDescription && textRef.current.offsetHeight > 60 ) && <button onClick={showMoreClickHandler} className='productShowMore'>Показать больше</button>} */}
+                {/* {isOpenDescription && <button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>} */}
+            </>
+        )
+
+    )
 
 };
 
@@ -227,10 +252,9 @@ const ProductAdditionalFields = ({ category_id, placeOfferJson, allProductInfo})
 //         .find(item=>item.alias === splitedCategory[0])
 //         .children.find(item => item.alias === splitedCategory[1])
 //         .additional_fields;
-    
+
 //         console.log(jsonPath, 'path')
 //         console.log(entireObj, 'entire')
-
 
 
 //         entireObj.forEach(item => {
@@ -250,8 +274,8 @@ const ProductAdditionalFields = ({ category_id, placeOfferJson, allProductInfo})
 //             // })
 
 //             if(!x) {
-                
-                    // const numberOfCheck = parseInt(item[0].match(/\d+/))
+
+// const numberOfCheck = parseInt(item[0].match(/\d+/))
 //                     const stringNumberOfCheck = numberOfCheck.toString()
 //                     const sliceNumber =  -Math.abs(stringNumberOfCheck.length)
 //                     const aliasName = item[0].slice(0, sliceNumber)
@@ -286,22 +310,20 @@ const ProductAdditionalFields = ({ category_id, placeOfferJson, allProductInfo})
 //         // console.log(parseInt(testInt.match(/\d+/)))
 
 
-    
+// return (
+// 	// description === undefined ? <ProductInformationPlaceHolder/> :
+// 	<>
+// 		<div className="productWrap">
+// 			<div className="productDescriptionTitle">Об автомобиле</div>
+// 			<span className='productDescriptionunderLine'></span>
+//             <p>disc</p>
+// 			{/* <pre ref={preRef} className={classSwitcher()}><span ref={textRef}>{description}</span></pre> */}
+// 			{/* {(!isOpenDescription && textRef.current.offsetHeight > 60 ) && <button onClick={showMoreClickHandler} className='productShowMore'>Показать больше</button>} */}
+// 			{/* {isOpenDescription && <button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>} */}
+// 		</div>
+// 	</>
 
-	// return (
-	// 	// description === undefined ? <ProductInformationPlaceHolder/> :
-	// 	<>
-	// 		<div className="productWrap">
-	// 			<div className="productDescriptionTitle">Об автомобиле</div>
-	// 			<span className='productDescriptionunderLine'></span>
-    //             <p>disc</p>
-	// 			{/* <pre ref={preRef} className={classSwitcher()}><span ref={textRef}>{description}</span></pre> */}
-	// 			{/* {(!isOpenDescription && textRef.current.offsetHeight > 60 ) && <button onClick={showMoreClickHandler} className='productShowMore'>Показать больше</button>} */}
-	// 			{/* {isOpenDescription && <button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>} */}
-	// 		</div>
-	// 	</>
-				
-	// )
+// )
 // }
 
 

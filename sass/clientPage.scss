@@ -134,7 +134,7 @@
     background: $ts;
 
     &_top {
-      position: sticky;
+      // position: sticky;
       top: 65px;
       background-color: $ts;
       z-index: 1;
@@ -301,8 +301,11 @@
 	display: grid;
 	grid-template-columns: 100%;
 	gap: 25px;
+	font-size: 18px;
 
 	&--mobile {
+		font-size: 16px;
+		
 		& .user-info__section {
 			display: flex;
 			flex-flow: row nowrap;
@@ -338,21 +341,35 @@
 	&__section {
 		display: grid;
 		grid-template-columns: 100%;
-		gap: 1em;
+		gap: 25px;
 		width: 100%;
 		border-bottom: 1px solid hsl(0, 0%, 91%);
 
 		&--phone {
 			grid-template-columns: 1fr 1fr;
 		}
+
+		&--disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+
+			& * {
+				pointer-events: none;
+			}
+		}
 	}
 
 	& .form__section {
 		grid-template-columns: 250px 480px;
 
+		&--social {
+			grid-template-columns: 250px 600px;
+		}
+
 		&--phone {
 			display: grid;
 			align-items: baseline;
+			gap: 25px 0;
 
 			& .form__content {
 				display: grid;
@@ -361,11 +378,14 @@
 
 			& .form__button--button {
 				width: 160px;
+				font-size: 18px;
 			}
 		}
 
 		&--password {
-			
+			.form__content {
+				width: 230px;
+			}
 		}
 
 		&--device {
@@ -422,7 +442,10 @@
 	}
 
 	&__phone-link {
-		justify-self: flex-end;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: flex-end;
+		font-size: 12px;
 		color: hsl(184, 100%, 34%);
 	}
 
@@ -432,7 +455,7 @@
 
 	@media (min-width: 1024px) {
 		&__section {
-			padding-bottom: 1em;
+			padding-bottom: 25px;
 		}
 	}
 }
@@ -442,19 +465,23 @@
 	flex-flow: row wrap;
 	justify-content: flex-start;
 	align-items: center;
-	gap: 1em;
+	font-size: 18px;
+	gap: 25px 50px;
 
 	&--mobile {
+		gap: 12px;
+		
 		& .social__item {
 			flex-basis: 145px;
 			height: 19px;
 			font-size: 10px;
 			padding-left: 23px;
+		
 		}
 	}
 
 	& > * {
-		flex-basis: 190px;
+		flex-basis: 230px;
 	}
 
 	&__item {
@@ -462,7 +489,8 @@
 		justify-content: space-between;
 		align-items: center;
 		height: 24px;
-		padding-left: 3.5em;
+		
+		padding-left: 2em;
 		background-repeat: no-repeat;
 		background-position: left;
 		background-size: auto 100%;
@@ -487,8 +515,12 @@
 }
 
 .devices {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	gap: 10px;
 	&__item {
-		margin-bottom: 1em;
+		
 	}
 	
 	&__device {

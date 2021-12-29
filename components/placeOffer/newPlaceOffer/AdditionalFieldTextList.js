@@ -113,7 +113,7 @@ const AdditionalFieldTextList = ({fieldData, otherJsonObj}) => {
                             value={value}
                             onChange={onChange}
                             error={!!error}
-                            // inputProps={{readOnly: !isProps}}
+                            // inputProps={{readOnly: readOnly}}
                             helperText={error ? error.message : ' '}>
                             {textFieldList}
                         </TextField>
