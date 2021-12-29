@@ -23,6 +23,7 @@ import { updateUserAddress, updateUserName } from "#lib/fetch";
 import DialogUI from "#components/UI/DialogUI";
 import { AddressSuggestions } from "react-dadata";
 import { PasswordFormMobile } from "./Forms";
+import { formatPhoneNumber } from "#lib/phoneMask";
 // import { NavigationButton } from "#components/buttons/NavigationButton";
 
 
@@ -203,7 +204,7 @@ export const PersonalDataMobile = () => {
 							style={{ flexFlow: "row nowrap" }}
 							onClick={() => { switchAddressPage(true) }}
 						>
-							<span className="nav-button__text">
+							<span className="nav-button__text" style={{ textAlign: "left" }}>
 								{userInfo.address || userInfo?.location?.name}
 							</span>
 							<span className="nav-button__arrow">
@@ -225,8 +226,8 @@ export const PersonalDataMobile = () => {
 							</span>
 						</button>
 					</div>
-					<Section className="user-info__section--phone">
-						<span>{userInfo.phone}</span>
+					<Section className="user-info__section--phone user-info__section--disabled">
+						<span>{formatPhoneNumber(userInfo.phone)}{}</span>
 						<InternalLink className="user-info__phone-link" href={location.toString()} >
 							Добавить телефон
 						</InternalLink>
@@ -236,29 +237,29 @@ export const PersonalDataMobile = () => {
 							<span>{userInfo.email}</span>
 						</Section>)
 					}
-					<div className="form__section" style={{ padding: 0 }}>
+					<div className="form__section user-info__section--disabled" style={{ padding: 0 }} >
 						<div className="form__content">
 							<ul className="social social--mobile">
 								<li className="social__item social__item--vk">
 									<a className="social__link">Вконтакте</a>
-									<CheckBoxSwitch checkID="social-vk" />
+									<CheckBoxSwitch checkID="social-vk" isMobile />
 								</li>
 								<li className="social__item social__item--ok">
 									<a className="social__link">Одноклассники</a>
-									<CheckBoxSwitch checkID="social-ok" />
+									<CheckBoxSwitch checkID="social-ok" isMobile />
 								</li>
 								<li className="social__item social__item--inst">
 									<a className="social__link">Instagram</a>
-									<CheckBoxSwitch checkID="social-inst" />
+									<CheckBoxSwitch checkID="social-inst" isMobile />
 								</li>
 								<li className="social__item social__item--fb">
 									<a className="social__link">Facebook</a>
-									<CheckBoxSwitch checkID="social-fb" />
+									<CheckBoxSwitch checkID="social-fb" isMobile />
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div className="user-info__section">
+					<div className="user-info__section user-info__section--disabled">
 						Устройства
 					</div >
 					<div className="user-info__section">
@@ -290,7 +291,7 @@ export const PersonalDataMobile = () => {
 							</span>
 						</button>
 					</div>
-					<div className="user-info__section">
+					<div className="user-info__section user-info__section--disabled">
 						Удалить аккаунт
 					</div>
 					{/* <div>

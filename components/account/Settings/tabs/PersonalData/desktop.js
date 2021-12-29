@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { AddressSuggestions } from "react-dadata";
-import { phoneNumber } from "#lib/services";
+// import { phoneNumber } from "#lib/services";
 import { useStore } from "#lib/Context/Store";
 import { useAuth } from "#lib/Context/AuthCTX";
 // import Search from '#UI/icons/Search';
@@ -9,6 +9,7 @@ import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
 import { changePersonalData } from "#lib/account/changePersonalData";
 import { useState } from "react";
 import { PasswordForm } from "./Forms";
+import { formatPhoneNumber } from "#lib/phoneMask";
 
 /**
  * TODO: переписать на бесконтрольный вариант.
@@ -95,7 +96,7 @@ const PersonalForm = ({ userInfo }) => {
 						id="user-phone"
 						className="user-info__phone-number"
 					>
-						{phoneNumber(userInfo.phone)}
+						{formatPhoneNumber(userInfo.phone)}
 					</span>
 					<button
 						className={clsx(
@@ -143,7 +144,7 @@ const SocialForm = ({ className }) => {
 								height="23px"
 								checkboxSize="19px"
 								borderRadius="4px"
-								checkboxBorderRadius="4px"
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 						<li className="social__item social__item--vk">
@@ -154,7 +155,7 @@ const SocialForm = ({ className }) => {
 								height="23px"
 								checkboxSize="19px"
 								borderRadius="4px" 
-								checkboxBorderRadius="4px"
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 						<li className="social__item social__item--ok">
@@ -165,10 +166,9 @@ const SocialForm = ({ className }) => {
 								height="23px"
 								checkboxSize="19px"
 								borderRadius="4px" 
-								checkboxBorderRadius="4px"
+								checkboxBorderRadius="6px"
 							/>
 						</li>
-						
 						<li className="social__item social__item--fb">
 							<a className="social__link">Facebook</a>
 							<CheckBoxSwitch 
@@ -177,7 +177,7 @@ const SocialForm = ({ className }) => {
 								height="23px"
 								checkboxSize="19px"
 								borderRadius="4px" 
-								checkboxBorderRadius="4px"
+								checkboxBorderRadius="6px"
 							/>
 						</li>
 					</ul>
@@ -189,7 +189,6 @@ const SocialForm = ({ className }) => {
 				<button
 					className="form__button form__button--button user-info__button"
 					type="button"
-					disabled
 					style={{ fontSize: "18px" }}
 				>
 					Добавить почту
@@ -199,6 +198,7 @@ const SocialForm = ({ className }) => {
 	)
 }
 
+// eslint-disable-next-line no-unused-vars
 const DeviceForm = () => {
 	const { handleSubmit } = useForm();
 	const handlerClearDevices = async () => {
@@ -206,7 +206,7 @@ const DeviceForm = () => {
 	}
 
 	return (
-		<form className="form" onSubmit={handleSubmit(handlerClearDevices)}>
+		<form className="form" onSubmit={handleSubmit(handlerClearDevices)} >
 			<div className="form__section">
 				<div className="form__label"></div>
 				<dl className="devices">
@@ -271,14 +271,14 @@ export const PersonalDataDesktop = () => {
 						<PersonalForm userInfo={userInfo} />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Соцсети и сервисы</h2>
 						<SocialForm className="user-info--social" />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Устройства</h2>
-						<DeviceForm />
+						{/* <DeviceForm /> */}
 					</section>
 
 					<section className="user-info__section">
@@ -286,7 +286,7 @@ export const PersonalDataDesktop = () => {
 						<PasswordForm />
 					</section>
 
-					<section className="user-info__section">
+					<section className="user-info__section user-info__section--disabled">
 						<h2 className="user-info__heading">Удаление профиля</h2>
 						<AccountDeletionForm />
 					</section>
