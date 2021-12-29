@@ -353,6 +353,7 @@
 		&--phone {
 			display: grid;
 			align-items: baseline;
+			gap: 25px 0;
 
 			& .form__content {
 				display: grid;
@@ -432,7 +433,7 @@
 
 	@media (min-width: 1024px) {
 		&__section {
-			padding-bottom: 1em;
+			padding-bottom: 25px;
 		}
 	}
 }
@@ -487,6 +488,11 @@
 }
 
 .devices {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	gap: 10px;
+
 	&__item {
 		margin-bottom: 1em;
 	}

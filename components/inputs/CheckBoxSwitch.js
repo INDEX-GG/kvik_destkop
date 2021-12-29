@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 		},
 		"&:checked+label span": {
 			backgroundColor: "#00A0AB",
-			transform: "translateX(100%)"
+			transform: "translateX(123%)"
 		}
 	},
 	label: {
