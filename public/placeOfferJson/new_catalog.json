@@ -45,7 +45,9 @@
                                     "text_list_values": ["Дом сдан", "1 квартал 2021", "2 квартал 2021", "3 квартал 2021", "4 квартал 2021", "1 квартал 2022", "2 квартал 2022", "3 квартал 2022", "4 квартал 2022", "2023 год и позднее"],
                                     "text_list_search_type": 0,
                                     "text_list_filter_type": 0,
-                                    "text_list_rendering_type": 0
+                                    "text_list_rendering_type": 0,
+                                    "dependenciesValues": ["Новостройка"],
+                                    "dependencies": ["resale_new_building"]
                                 },
                                 {
                                     "alias": "ad_owner",
@@ -2432,6 +2434,7 @@
                     "name": "Автомобили",
                     "alias": "auto",
                     "children": [],
+                    "title": ["brand", "model", "year_of_issue"],
                     "additional_fields": [
                         {
                             "alias": "new_used",
@@ -2450,7 +2453,7 @@
                             "default_value": null,
                             "type": "text_list",
                             "required": {"state": true, "value": "Введите корректное значение"},
-                            "text_list_values": ["Новые", "С пробегом"],
+                            "text_list_values": ["Иномарка", "Автопром"],
                             "text_list_search_type": 0,
                             "text_list_filter_type": 0,
                             "text_list_rendering_type": 0
@@ -2579,7 +2582,7 @@
                             "title": "Мощность",
                             "default_value": null,
                             "type": "number",
-                            "required": {"state": true, "value": "Введите корректное значение"},
+                            "required": {"state": true, "value": "Введите корректное значение", "readOnly": true},
                             "placeholder": "0",
                             "number_min_value": 0,
                             "number_max_value": 2000,
@@ -2594,7 +2597,7 @@
                             "title": "Объем двигателя",
                             "default_value": null,
                             "type": "number",
-                            "required": {"state": true, "value": "Введите корректное значение"},
+                            "required": {"state": true, "value": "Введите корректное значение", "readOnly":  true},
                             "placeholder": "0",
                             "number_min_value": 0,
                             "number_max_value": 10,
@@ -2622,7 +2625,7 @@
                             "title": "Количество дверей",
                             "default_value": null,
                             "type": "number",
-                            "required": {"state": true, "value": "Введите корректное значение"},
+                            "required": {"state": true, "value": "Введите корректное значение", "readOnly":  true},
                             "placeholder": "0",
                             "number_min_value": 0,
                             "number_max_value": 20,

@@ -2,6 +2,7 @@ import React from 'react';
 import {makeStyles, TextField} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
 import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
+import {handleKeyDownInput} from "#components/placeOffer/newPlaceOffer/AdditionalServices";
 
 
 const useStyles = makeStyles(() => ({
@@ -29,9 +30,10 @@ const AdditionalFieldText = ({fieldData, defaultValue}) => {
                         variant='outlined'
                         value={value}
                         onChange={onChange}
+                        onKeyDown={handleKeyDownInput}
                         error={!!error}
                         helperText={error ? error.message : ' '}
-                        inputProps={{maxLength: text_max_len}}
+                        inputProps={{maxLength: text_max_len, readOnly: required?.readOnly}}
                     />
                 )}
                 rules={{ required: required.state ? required.value : false }}

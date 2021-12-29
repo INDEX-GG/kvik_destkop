@@ -34,6 +34,11 @@ export const generateOtherMenu = (array) => {
     }
 }
 
+export  const handleKeyDownInput = (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault()
+    }
+}
 
 export const generateListArray = (fieldData, jsonValue, getValues, onlyData = false) => {
 

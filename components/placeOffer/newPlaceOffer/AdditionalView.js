@@ -11,9 +11,15 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
     const [view, setView] = useState(false);
     const [valueObj, setValueObj] = useState({});
 
-    const {dependencies, alias} = fieldData
+    const {dependencies, alias, dependenciesValues} = fieldData
     const dependenciesEffect = dependencies ? getValues(dependencies) : []
 
+
+    const clearValue = (alias) => {
+        if (getValues(alias)) {
+            setValue(alias, '')
+        }
+    }
 
     useEffect(() => {
         // Если нет зависимостей
@@ -28,9 +34,26 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
         const dependenciesView = dependenciesFilter.length === dependencies?.length
 
         if (dependenciesView) {
-            setView(true)
+            // Если из json подтягивается определённое value для alias
+            if (dependenciesValues) {
+
+                for (let i = 0; i < dependenciesValues.length; i++) {
+                    if (dependenciesValues[i] !== dependenciesFilter[i]) {
+                        setView(false)
+                        clearValue(alias)
+                        return;
+                    }
+                }
+
+                setView(true);
+
+            } else {
+                setView(true)
+            }
+
         } else {
             setView(false)
+            clearValue(alias)
         }
 
 
@@ -44,16 +67,18 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
             // Проверка на объект
             if (typeof values === 'object' && !Array.isArray(values)) {
                 // Изменение значения поля
-                setValue(alias, `${values.value}`)
-            }
-
-            // Исключительный алиас (единичный случай)
-            if (alias === 'year_of_issue') {
-                setValueObj(values)
+                if (getValues(alias) !== values.value) {
+                    setValue(alias, `${values.value}`)
+                }
+            } else {
+                // Исключительный алиас (единичный случай)
+                if (alias === 'year_of_issue') {
+                    setValueObj(values)
+                }
             }
 
         }
-    }, [view])
+    }, [view, dependenciesEffect])
 
 
     return (

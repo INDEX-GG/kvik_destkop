@@ -21,16 +21,20 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "16px",
         padding: "4px 0",
     },
+    paddingTitle: {
+        paddingTop: '10px'
+    }
 }));
 
 const AdditionalWrapper = ({title, type, children}) => {
 
     const classes = useStyles();
     const wrapper = type === 'check_list' ? classes.formInputFieldCheck : classes.formTitleField
+    const classNameTitle = type !== 'check_list' ? `${classes.formTitleField} ${classes.paddingTitle}` : `${classes.formTitleField}`
 
     return (
         <Box className={classes.formElem}>
-            <Typography className={classes.formTitleField}>
+            <Typography className={classNameTitle}>
                 {title}
             </Typography>
             <Box className={wrapper}>

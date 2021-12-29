@@ -125,6 +125,25 @@ function PlaceOffer() {
 
 
 
+    const generateTitle = (title) => {
+
+        if (Array.isArray(currentCategory?.title)) {
+
+            let newTitle = ''
+
+            for (let i = 0; i < currentCategory.title.length; i++) {
+                newTitle += `${methods.getValues(currentCategory.title[i])} `
+            }
+            console.log(newTitle)
+            return newTitle
+        }
+
+        return title
+    }
+
+    // console.log(methods.getValues());
+
+
     // console.log('category',category)
 
     const onSubmit = data => {
@@ -152,21 +171,23 @@ function PlaceOffer() {
             }
         }
 
-        if(data?.alias1 === 'transport' && data?.alias2 === 'auto'){
-             data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
-        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'apartments_kv'){
-             data.title = `${data.room_number}-к. квартира, ${data.area}м², ${data.storey}/${data.floor_home}эт.`
-        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'rooms' ){
-            data.title = `Комната, ${data.area}м², ${data.storey}/${data.floor_home}эт.`
-        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'houses_and_cottages' ){
-            data.title = `Дом, ${data.home_area}м², на участке ${data.land_area} сот.`
-        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'land' ){
-            data.title = `Участок, ${data.area} сот. (${landType()})`
-        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'garages_and_parking_spaces_second' ){
-            data.title = data.type_park !== undefined ? `${data.type_park}, ${data.area}м².` : `Гараж, ${data.area}м².`
-        } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'real_estate_abroad' ){
-            data.title = `${data.type_of_abroad_property} (${data.country_of_abroad_property})`
-        }
+        // if(data?.alias1 === 'transport' && data?.alias2 === 'auto'){
+        //      data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
+        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'apartments_kv'){
+        //      data.title = `${data.room_number}-к. квартира, ${data.area}м², ${data.storey}/${data.floor_home}эт.`
+        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'rooms' ){
+        //     data.title = `Комната, ${data.area}м², ${data.storey}/${data.floor_home}эт.`
+        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'houses_and_cottages' ){
+        //     data.title = `Дом, ${data.home_area}м², на участке ${data.land_area} сот.`
+        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'land' ){
+        //     data.title = `Участок, ${data.area} сот. (${landType()})`
+        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'garages_and_parking_spaces_second' ){
+        //     data.title = data.type_park !== undefined ? `${data.type_park}, ${data.area}м².` : `Гараж, ${data.area}м².`
+        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'real_estate_abroad' ){
+        //     data.title = `${data.type_of_abroad_property} (${data.country_of_abroad_property})`
+        // }
+
+        data.title = generateTitle(data.title)
 
 
 

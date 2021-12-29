@@ -31,6 +31,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
         setSort(value);
     }
 
+
     // Создание region_includes / region_excludes в запросе
     const generateCityArr = (action) => {
         const sarchCityArr = searchCity?.split('$');
@@ -61,6 +62,8 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
                 'region_excludes': regionExcludes,
                 ...sendObj
             }
+
+            console.log(scrollDataObj);
 
             // Если город в котором ищем будет пустой
             // if (!scrollDataObj.region_includes) {

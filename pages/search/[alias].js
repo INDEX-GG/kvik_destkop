@@ -226,7 +226,6 @@ const Index = () => {
     // }, [page])
 
 
-
     return (
         <Container className={classes.root}>
             {aliasData?.aliasBread &&
