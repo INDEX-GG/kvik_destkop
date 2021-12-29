@@ -314,7 +314,7 @@ function PlaceOffer() {
                             <form onSubmit={methods.handleSubmit(onSubmit)}>
                                 <Box className={classes.formPart}>
                                     <Category category={mainCategory}/>
-                                    {showTitle ? null : <Title title='' />}
+                                    {currentCategory?.title ? null : <Title title='' />}
                                 </Box>
                                 {/* Проверка на доп. поле*/}
                                 {!!currentCategory?.additional_fields.length && (

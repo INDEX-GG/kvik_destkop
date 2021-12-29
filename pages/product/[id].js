@@ -78,6 +78,8 @@ const Product = () => {
     const router = useRouter()
     const {matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD} = useMedia();
 
+    const productInfo = useProduct(query.id)
+
     const {
         active,
         productInfoFields,
@@ -99,7 +101,7 @@ const Product = () => {
         price,
         oldprice,
         coordinates
-    } = useProduct(query.id);
+    } = productInfo
 
 
     // const [data, setData] = useState();
@@ -108,7 +110,7 @@ const Product = () => {
     const [userAd, setUserAd] = useState();
     const [phoneModal, setPhoneModal] = useState();
 
-    const productInfo = useProduct(query.id)
+
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
     let breadData = null;
 
