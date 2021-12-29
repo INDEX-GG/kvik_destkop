@@ -680,11 +680,11 @@
 }
 
 .productPage .swiper-container {
-  margin-bottom: 4px;
-  padding: 0 10px;
-  justify-content: center;
-  z-index: 0 !important;
-  border-radius: 2px;
+    margin-bottom: 4px;
+    // padding: 0 10px;
+    justify-content: center;
+    z-index: 0 !important;
+    border-radius: 2px;
 }
 
 .mySwiper2 .swiper-wrapper {
@@ -696,11 +696,11 @@
 
 .mySwiper2 .swiper-slide img,
 .mySwiper .swiper-slide img {
-  object-fit: contain;
-  width: 100%;
-  // border-radius: 8px;
-  // height: 100%;
-  max-height: 400px;
+    object-fit: contain;
+    width: 100%;
+    // border-radius: 8px;
+    height: 400px;
+    max-height: 400px;
 }
 
 .mySwiper .swiper-slide img {

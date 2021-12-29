@@ -94,6 +94,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo}) 
             const productCategoryArr = category_id.split(',');
 
 
+
             // const jsonOne = categoryPlaceOffer.find(item => item.alias == productCategoryArr[0])?.children
             // const additionalFieldJson = jsonOne.find(item => item.alias == productCategoryArr[1])?.additional_fields
             const additionalFieldJson = generateJson(productCategoryArr, categoryPlaceOffer)

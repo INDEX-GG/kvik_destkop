@@ -3,7 +3,8 @@ import ProductInformationPlaceHolder from "../placeHolders/ProductInformationPla
 import {useMedia} from "#hooks/useMedia";
 
 
-// const ProductDescription = ({description, mobile, style}) => {
+
+
 const ProductDescription = ({description}) => {
 
     const [isOpenDescription, setIsOpenDescription] = useState(false)
