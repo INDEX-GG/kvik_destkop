@@ -258,9 +258,9 @@ export const PersonalDataMobile = () => {
 							</ul>
 						</div>
 					</div>
-					<Section>
+					<div className="user-info__section">
 						Устройства
-					</Section>
+					</div >
 					<div className="user-info__section">
 						<button
 							type="button"
@@ -290,9 +290,9 @@ export const PersonalDataMobile = () => {
 							</span>
 						</button>
 					</div>
-					<Section>
+					<div className="user-info__section">
 						Удалить аккаунт
-					</Section>
+					</div>
 					{/* <div>
 						<div>Телефон</div>
 						<div>
