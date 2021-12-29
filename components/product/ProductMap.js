@@ -25,8 +25,8 @@ const ProductMap = ({address, coordinates, mobile}) => {
 
 				{address == undefined ? <div className="placeholder_animation product__placeholder_address"></div> :
 					<div className="productPageCharacterLocality">
-						{!mobile && <div className="productLocality">Местоположение</div>}
-						{!mobile && <p className='productLocality'>{address}</p>}
+						{!mobile && <div className="productLocality productLocation">Местоположение</div>}
+						{!mobile && <p className='productLocality productAddress'>{address}</p>}
 						{/* <div>{address == undefined ? '' : address.length > 45 ? address.slice(0, 45) + '...' : address}</div> */}
 						{mobile && <p className='productLocality'>{formatingAddress[0]}</p>}
 						{mobile && <p className='productLocality'>{formatingAddress[1] + ' ' + formatingAddress[2]}</p>}
