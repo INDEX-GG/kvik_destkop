@@ -23,6 +23,7 @@ import { updateUserAddress, updateUserName } from "#lib/fetch";
 import DialogUI from "#components/UI/DialogUI";
 import { AddressSuggestions } from "react-dadata";
 import { PasswordFormMobile } from "./Forms";
+import { formatPhoneNumber } from "#lib/phoneMask";
 // import { NavigationButton } from "#components/buttons/NavigationButton";
 
 
@@ -226,7 +227,7 @@ export const PersonalDataMobile = () => {
 						</button>
 					</div>
 					<Section className="user-info__section--phone user-info__section--disabled">
-						<span>{userInfo.phone}</span>
+						<span>{formatPhoneNumber(userInfo.phone)}{}</span>
 						<InternalLink className="user-info__phone-link" href={location.toString()} >
 							Добавить телефон
 						</InternalLink>

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { AddressSuggestions } from "react-dadata";
-import { phoneNumber } from "#lib/services";
+// import { phoneNumber } from "#lib/services";
 import { useStore } from "#lib/Context/Store";
 import { useAuth } from "#lib/Context/AuthCTX";
 // import Search from '#UI/icons/Search';
@@ -9,6 +9,7 @@ import { CheckBoxSwitch } from "#components/inputs/CheckBoxSwitch";
 import { changePersonalData } from "#lib/account/changePersonalData";
 import { useState } from "react";
 import { PasswordForm } from "./Forms";
+import { formatPhoneNumber } from "#lib/phoneMask";
 
 /**
  * TODO: переписать на бесконтрольный вариант.
@@ -95,7 +96,7 @@ const PersonalForm = ({ userInfo }) => {
 						id="user-phone"
 						className="user-info__phone-number"
 					>
-						{phoneNumber(userInfo.phone)}
+						{formatPhoneNumber(userInfo.phone)}
 					</span>
 					<button
 						className={clsx(
