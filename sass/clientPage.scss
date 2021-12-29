@@ -433,6 +433,7 @@
 	}
 
 	&__phone-link {
+		display: flex;
 		flex-flow: row nowrap;
 		align-items: flex-end;
 		font-size: 12px;
