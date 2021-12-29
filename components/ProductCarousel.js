@@ -57,7 +57,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 	const sliderClass = `mySwiper2 importantSlider ${sliderDot || photo?.length > 1 && (matchesTablet || matchesMobile) ? '' : 'dotNone'} ${sliderNavigation ? '' : 'navigationNone'}`
 
 	return (
-		<div style={{display: 'flex', flexDirection: mobile ? 'column-reverse' : 'column'}}>
+		<div style={{padding: '0 12px', display: 'flex', flexDirection: mobile ? 'column-reverse' : 'column'}}>
 			{title == undefined ? 
 			<div className="placeholder_animation product__placeholder_title"></div>
 			// раньше тут был заголовок, в новом дизайне уже не нужно, вместо заголовка рендерим цену
