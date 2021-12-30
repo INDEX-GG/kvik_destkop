@@ -1,8 +1,9 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useRef, useState} from 'react';
 // import { json } from 'stream/consumers';
 import ProductInformationPlaceHolder
     from "../../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
-// import {useMedia} from '../../../hooks/useMedia';
+import ProductDescription from '../../product/./ProductDescription';
+import {useMedia} from '../../../hooks/useMedia';
 
 // import InfoItem from './InfoItem'
 
@@ -11,12 +12,15 @@ import {makeStyles} from "@material-ui/core";
 
 const useClass = makeStyles(() => ({
     title: {
+        maxWidth: '50%',
         fontSize: '14px',
         color: "rgba(143, 143, 143, 1)",
         marginRight: 4,
+        
     },
     content: {
         fontSize: '14px',
+        fontWeight: '500',
         color: "rgba(21, 21, 21, 1)",
     },
     autoPlaceholder: {
@@ -45,6 +49,9 @@ const useClass = makeStyles(() => ({
 // content: {
 //     color: "#2C2C2C"
 // },
+    additionalFieldsWrap:{
+        padding: '0 12px'
+    },
     descriptionPlaseholder: {
         // display: 'flex',
         // flexDirection: "column",
@@ -57,274 +64,383 @@ const useClass = makeStyles(() => ({
     descriptionItem: {
         padding: "18px 0",
     },
+    productAbout: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap'
+    },
+    // productAboutClosed: {
+    //     maxHeight: '140px',
+    //     overflow: 'hidden'
+    // },
+    productCheckList: {
+        width: '100%'
+    },
+    checkListTitle: {
+        fontSize: '14px',
+        color: "rgba(143, 143, 143, 1)",
+        width: '40%'
+        // marginRight: 4,
+    },
+    checkListUl: {
+        // width: '100%'
+        width: '60%',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+    },
+    aboutUnderline: {
+        display: 'block',
+        margin: '0 -16px',
+        marginBottom: '10px',
+        borderBottom: '1px solid #e9e9e9'
+    },
+    checkListItem: {
+        display: 'flex',
+        marginBottom: '10px',
+    },
+    checkListContent: {
+        wordBreak: 'break-word',
+        fontSize: '14px',
+        color: "rgba(21, 21, 21, 1)",
+        fontWeight: '500',
+        // margin: '5px',
+        marginBottom: '10px',
+        // textAlign: 'right'
+        ['&:nth-child(2n)']: {
+            paddingLeft: '10px'
+        }
+    },
+    checkListUnderLine: {
+        display: 'block',
+        margin: '0 -16px',
+        width: '200%',
+        marginBottom: '10px',
+        borderBottom: '1px solid #e9e9e9'
+    },
+
+    ['@media screen and (max-width: 959px)']:{
+        checkListUl: {
+            gridTemplateColumns: 'repeat(1, 1fr)',
+        },
+        checkListContent: {
+            ['&:nth-child(2n)']: {
+                paddingLeft: '0'
+            }
+        },
+        checkListItem: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)'
+        },
+
+        productAboutClosed: {
+            maxHeight: '140px',
+            overflow: 'hidden'
+        },
+    },
+
+
+
 }))
 
-const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo}) => {
+function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck) {
+    const splitedCategory_id = category_id.split(',');
+    const backJs = allProductInfo.additional_fields ? 
+    Object.entries(allProductInfo.additional_fields).filter(item => item[1] !== false) : 
+    [];
 
+    // const frontJs = placeOfferJson.category.find(item => item.alias === splitedCategory_id[0])
+    //   .children.find(item => item.alias === splitedCategory_id[1])
+    //   .additional_fields;
 
-    const [data, setData] = useState(undefined)
-    const prevItem = useRef();
-    const classes = useClass()
-    // const { matchesMobile, matchesTablet } = useMedia();
-    // const mobile = matchesMobile || matchesTablet;
-
-
-    const generateJson = (category, json) => {
-        console.log(json);
-
-        if (Array.isArray(json)) {
-            let currentObj = json.find(item => item.alias === category[0])?.children
-
-            for (let i = 1; i < category.length; i++) {
-                if (i === category.length - 1) {
-                    currentObj = currentObj.find(item => item.alias === category[i])
-                } else {
-                    currentObj = currentObj.find(item => item.alias === category[i])?.children
-                }
-            }
-
-            return currentObj?.additional_fields
+    
+    const frontJs = splitedCategory_id.reduce((acc, item, index) => {
+        if(splitedCategory_id.length - 1 === index) {
+            return acc.children.find(child=> child.alias === item)
         }
+
+        if(acc) {
+            return acc.children.find(child => child.alias === item)
+        }
+         return placeOfferJson.category.find(category => category.alias === item)
+         
+    }, undefined).additional_fields
+   
+
+    backJs.forEach((item) => {
+        // поля с айдишниками нам не интересны
+        // Гбо и цвет времено исключены
+        if (item[0] === 'id' || item[0] === 'post_id' || item[0] === 'color' || item[0] === 'hbo') {
+            return 
+        }
+
+        // Находим образец объекта на фронте и пушим новый объект в финальный массив, если удалось найтия 
+        
+        const commonObj = frontJs.find(it => it.alias === item[0])
+
+      if (commonObj !== undefined) {
+        finalArr.push({
+          title: commonObj?.title,
+          value: item[1]
+        })
+        return 
+      }
+      // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
+      // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
+      const numberOfCheck = parseInt(item[0].match(/\d+/))
+      const sliceNumber = -Math.abs(numberOfCheck.toString().length)
+      const aliasName = item[0].slice(0, sliceNumber)
+  
+      // Находим образец с чеклистами на фронте, по полученому выше алиасу.
+      const checkObj = frontJs.find(it => it.alias === aliasName)
+  
+      // проверяем был ли подобный объект запушен в финальный массив, если да то делаем спред, если нет то создаем новый объект.
+      const findedCheckObj = finalArrCheck.find(it => it?.title === checkObj?.title)
+  
+      if (findedCheckObj) {
+        findedCheckObj.value = [...findedCheckObj?.value, checkObj?.check_list_values[numberOfCheck - 1]]
+        return
+      }
+      // тут создается новый объект, если условие выше не выполнилось
+      finalArrCheck.push({
+        title: checkObj?.title,
+        value: [checkObj?.check_list_values[numberOfCheck - 1]],
+      })
+  
+      return 
+    })
+}
+
+const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, description}) => {
+    const [showMore, setShowMore] = useState(false)
+    const additional_fieldsRef = useRef()
+
+    const classes = useClass()
+    const { matchesMobile, matchesTablet } = useMedia();
+    const mobile = matchesMobile || matchesTablet;
+    // массив для обычных полей
+    const finalArr = []
+    // массив для чеклистов
+    const finalArrCheck = []
+
+    generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck)
+
+    function clickHandler() {
+        setShowMore(!showMore)
     }
 
-
-    useEffect(() => {
-        if (allProductInfo) {
-            const categoryPlaceOffer = placeOfferJson.category;
-            const productCategoryArr = category_id.split(',');
-
-
-
-            // const jsonOne = categoryPlaceOffer.find(item => item.alias == productCategoryArr[0])?.children
-            // const additionalFieldJson = jsonOne.find(item => item.alias == productCategoryArr[1])?.additional_fields
-            const additionalFieldJson = generateJson(productCategoryArr, categoryPlaceOffer)
-            const additionalFieldProduct = allProductInfo?.additional_fields
-
-
-            console.log(additionalFieldJson);
-
-            let newArr = []
-
-            if (additionalFieldProduct) {
-                for (const [key, value] of Object.entries(additionalFieldProduct)) {
-
-                    if (key == 'id' || key === 'post_id' || key === 'color') {
-                        continue
-                    }
-
-
-                    const numberOfCheck = parseInt(key.match(/\d+/))
-
-
-                    if (!numberOfCheck) {
-                        newArr.push({
-                            title: additionalFieldJson.find(item => item.alias == key)?.title,
-                            value
-                        })
-                        continue
-                    }
-
-                    const aliasName = key.split(numberOfCheck)[0]
-                    const checkListObj = additionalFieldJson.find(item => item.alias == aliasName)
-
-
-                    if (checkListObj) {
-                        if (checkListObj.title == prevItem.current) {
-                            newArr = newArr.map((item, index) => {
-
-
-                                if (item.title === checkListObj.title && value) {
-                                    return newArr[index] = {
-                                        title: checkListObj.title,
-                                        value: [...newArr[index].value, checkListObj?.check_list_values[numberOfCheck - 1]].filter(item => item)
-                                    }
-                                }
-
-                                return item
-                            })
-                        } else {
-                            newArr.push({
-                                title: checkListObj.title,
-                                value: [value ? checkListObj?.check_list_values[numberOfCheck - 1] : null]
-                            })
-                        }
-
-                        prevItem.current = checkListObj.title
-                    }
-
-                }
-            }
-            setData(newArr)
+    function classSwitcher() {
+        if(showMore){
+            return classes.productAbout
         }
-    }, [allProductInfo])
+        return `${classes.productAbout} ${classes.productAboutClosed}`
+    }
+  
 
-
-    // const addsField = data.filter(item => Array.isArray(item.value) !== true)
-
-
-    // console.log(addsField);
-    // console.log(data, 'data')
-    // console.log(addsField, 'addsField')
-
-
-    // <ProductInformationPlaceHolder/>
-
+    const wrapHeight = additional_fieldsRef?.current?.offsetHeight;
+    
     return (
-        // description === undefined ? <ProductInformationPlaceHolder/> :
-        data === undefined ? (
-            <ProductInformationPlaceHolder/>
-        ) : (
-            <>
-                {data.length ? (
-                    <>
+
+        <div>
+            {mobile && <ProductDescription description={description}/>}
+
+            {finalArr.length >= 1 && 
+                // <div className="productWrap descriptionIsClosed">
+                <div ref={additional_fieldsRef} className={classes.additionalFieldsWrap}>
+                    {!mobile && <span className={classes.aboutUnderline}></span>}
+                    <div className={classSwitcher()}>
+                        {finalArr.map((item, index) => (
+                            <div key={index} className="productAboutItem">
+                                <span className={classes.title}>{item.title}:</span>
+                                <pre className={classes.content}>{item.value}</pre>
+                            </div>
+                        ))}
+
+                    {!mobile && <ProductDescription description={description}/>}
+
+                    {finalArrCheck.length >= 1 && 
                         <div className="productWrap">
-                            <span className='productDescriptionunderLine'></span>
-                            <div className="productAbout">
-                                {data.map((item) => (
-                                    <>
-
-                                        {/* <h1 key={i}>{item.title}</h1> */}
-                                        <div className="productAboutItem" style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between'
-                                            // justifyContent: mobile ? 'space-between' : 'normal',
-                                            // alignItems: name === 'Цвет:'? "center" : "flex-start",
-                                            // flexDirection: !mobile ? "column" : null,
-                                            // minWidth: mobile ? '100%' : '40%',
-                                            // flexBasis: !mobile ? '100%' : '34%',
-                                            // maxWidth: '50%',
-                                            // minWidth: '40%',
-                                            // width: mobile ? '50%' : "100%",
-                                            // padding: "10px 0",
-                                        }}>
-                                            <div className={classes.title}>{item.title}</div>
-                                            <pre className={classes.content}>{item.value}</pre>
-                                        </div>
-
-
-                                    </>
+                            {!mobile && <span className={classes.checkListUnderLine}></span>}
+                            <div className={classes.productCheckList}>
+                                {finalArrCheck.map((item, index) => (
+                                    <div key={index} className={classes.checkListItem}>
+                                        <span className={classes.checkListTitle}>{item.title}:</span>
+                                        <ul className={classes.checkListUl}>
+                                            {item.value.map((value, index) => <li className={classes.checkListContent} key={index}>{value}</li>)}
+                                        </ul>
+                                    </div>
                                 ))}
                             </div>
                         </div>
-                    </>
-                ) : null}
-                {/* <pre ref={preRef} className={classSwitcher()}><span ref={textRef}>{description}</span></pre> */}
-                {/* {(!isOpenDescription && textRef.current.offsetHeight > 60 ) && <button onClick={showMoreClickHandler} className='productShowMore'>Показать больше</button>} */}
-                {/* {isOpenDescription && <button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>} */}
-            </>
-        )
+                                }
+                    </div>
+
+                    {(mobile && !showMore) && (wrapHeight > 140) && 
+                    <button onClick={clickHandler} className='productShowMore'>Показать больше</button>}
+
+                    {showMore && 
+                    <button onClick={clickHandler} className='productShowMore'>Скрыть</button>}
+                </div>
+            }
+
+            
+
+            {/* {finalArrCheck.length >= 1 && 
+                <div className="productWrap">
+                    {!mobile && <span className={classes.checkListUnderLine}></span>}
+                    <div className={classes.productCheckList}>
+                        {finalArrCheck.map((item, index) => (
+                            <div key={index} className={classes.checkListItem}>
+                                <div className={classes.checkListTitle}>{item.title}:</div>
+                                <ul className={classes.checkListUl}>
+                                    {item.value.map((value, index) => <li className={classes.checkListContent} key={index}>{value}</li>)}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            } */}
+
+
+            {!finalArr.length && !finalArrCheck.length && <ProductInformationPlaceHolder/>}
+        </div>
+        
+
+        // data === undefined ? (
+        //     <ProductInformationPlaceHolder/>
+        // ) : (
+        //     <>
+        //         {data.length ? (
+        //             <>
+        //                 <div className="productWrap">
+        //                     <span className='productDescriptionunderLine'></span>
+        //                     <div className="productAbout">
+        //                         {data.map((item) => (
+        //                             <>
+
+        //                                 {/* <h1 key={i}>{item.title}</h1> */}
+        //                                 <div className="productAboutItem" style={{
+        //                                     display: 'flex',
+        //                                     justifyContent: 'space-between'
+        //                                     // justifyContent: mobile ? 'space-between' : 'normal',
+        //                                     // alignItems: name === 'Цвет:'? "center" : "flex-start",
+        //                                     // flexDirection: !mobile ? "column" : null,
+        //                                     // minWidth: mobile ? '100%' : '40%',
+        //                                     // flexBasis: !mobile ? '100%' : '34%',
+        //                                     // maxWidth: '50%',
+        //                                     // minWidth: '40%',
+        //                                     // width: mobile ? '50%' : "100%",
+        //                                     // padding: "10px 0",
+        //                                 }}>
+        //                                     <div className={classes.title}>{item.title}</div>
+        //                                     <pre className={classes.content}>{item.value}</pre>
+        //                                 </div>
+
+
+        //                             </>
+        //                         ))}
+        //                     </div>
+        //                 </div>
+        //             </>
+        //         ) : null}
+        //     </>
+        // )
 
     )
 
 };
 
 
-// const ProductAdditionalFields = ({description, category_id, placeOfferJson, allProductInfo}) => {
-// 		const [isOpenDescription, setIsOpenDescription] = useState(false);
-//         const textRef = useRef({})
-// 		const preRef = useRef({})
-//         // const [additionFieldsObject, setAdditionFieldsObject] = useState([])
-//         // поле без чеклиста
-//         const addsField = []
-//         // поле с чек листом
-//         const addsFieldWitchCheck = {}
-
-// 		function showMoreClickHandler(event) {
-// 			console.log(event)
-// 			setIsOpenDescription(!isOpenDescription)
-// 		}
-
-// 		function classSwitcher() {
-// 			if(isOpenDescription) return 'productDescription productDescriptionActive'
-// 			if(!isOpenDescription) return 'productDescription'
-// 		}
-//         const splitedCategory = category_id.split(',')
-//         // console.log(splitedCategory, 'splited cat')
-//         // console.log(category_id, 'categoryid')
-//         // console.log(placeOfferJson, 'JSON')
-//         // console.log(allProductInfo, 'allInfo')
-//         const entireObj = allProductInfo.additional_fields ? 
-//         Object.entries(allProductInfo.additional_fields)
-//         .filter(item => item[1] !== false) : 
-//         [];
-
-//         const jsonPath = placeOfferJson.category
-//         .find(item=>item.alias === splitedCategory[0])
-//         .children.find(item => item.alias === splitedCategory[1])
-//         .additional_fields;
-
-//         console.log(jsonPath, 'path')
-//         console.log(entireObj, 'entire')
-
-
-//         entireObj.forEach(item => {
-
-//             const x = jsonPath.find(jsonitem=>item[0] === jsonitem.alias)
-//             if(x) {
-//                 addsField.push( {
-//                     title: x.title,
-//                     value: item[1]
-//                 })
-//             }
-//             // jsonPath.find(checkItem => 
-//             //     console.log(checkItem))
-//             // addsFieldWitchCheck.push({
-//             //     title:item[0],
-//             //     value: item[1]
-//             // })
-
-//             if(!x) {
-
-// const numberOfCheck = parseInt(item[0].match(/\d+/))
-//                     const stringNumberOfCheck = numberOfCheck.toString()
-//                     const sliceNumber =  -Math.abs(stringNumberOfCheck.length)
-//                     const aliasName = item[0].slice(0, sliceNumber)
-
-//                     const newArr = []
-
-
-//                     const y = jsonPath.find(jsonitem => jsonitem.alias === aliasName)
-//                     addsFieldWitchCheck[aliasName] = y?.check_list_values[numberOfCheck]
-//                     // console.log(y)
-//                     // console.log(y)
-//                     // for (let i = 0; i <= stringNumberOfCheck; i++) {
-//                         // addsFieldWitchCheck[y?.title] = [].push(y?.check_list_values[numberOfCheck])
-//                         // addsFieldWitchCheck[y?.title]: [1, 2]
-//                         // addsFieldWitchCheck.push({
-//                         //     title: y?.title,
-//                         //     value: [y?.check_list_values[i]]
-//                         // })
-//                     // }
-//                     // addsFieldWitchCheck.push({
-//                         // title: y?.title,
-//                         // value: [y?.check_list_values[numberOfCheck]]
-//                         // value: [].push(y.check_list_values[numberOfCheck])
-//                     // })
-//                     // addsFieldWitchCheck.
-//             }
-
-
-//         })
-//         console.log(addsField, 'finalObject')
-//         console.log(addsFieldWitchCheck)
-//         // console.log(parseInt(testInt.match(/\d+/)))
-
-
-// return (
-// 	// description === undefined ? <ProductInformationPlaceHolder/> :
-// 	<>
-// 		<div className="productWrap">
-// 			<div className="productDescriptionTitle">Об автомобиле</div>
-// 			<span className='productDescriptionunderLine'></span>
-//             <p>disc</p>
-// 			{/* <pre ref={preRef} className={classSwitcher()}><span ref={textRef}>{description}</span></pre> */}
-// 			{/* {(!isOpenDescription && textRef.current.offsetHeight > 60 ) && <button onClick={showMoreClickHandler} className='productShowMore'>Показать больше</button>} */}
-// 			{/* {isOpenDescription && <button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>} */}
-// 		</div>
-// 	</>
-
-// )
-// }
-
 
 export default ProductAdditionalFields;
+
+// Рабочий вариант на случай поломок
+
+// const prevItem = useRef();
+// const [data, setData] = useState(undefined)
+
+    // const generateJson = (category, json) => {
+    //     console.log(json);
+
+    //     if (Array.isArray(json)) {
+    //         let currentObj = json.find(item => item.alias === category[0])?.children
+
+    //         for (let i = 1; i < category.length; i++) {
+    //             if (i === category.length - 1) {
+    //                 currentObj = currentObj.find(item => item.alias === category[i])
+    //             } else {
+    //                 currentObj = currentObj.find(item => item.alias === category[i])?.children
+    //             }
+    //         }
+
+    //         return currentObj?.additional_fields
+    //     }
+    // }
+
+
+    // useEffect(() => {
+    //     if (allProductInfo) {
+    //         const categoryPlaceOffer = placeOfferJson.category;
+    //         const productCategoryArr = category_id.split(',');
+
+
+
+    //         const additionalFieldJson = generateJson(productCategoryArr, categoryPlaceOffer)
+    //         const additionalFieldProduct = allProductInfo?.additional_fields
+
+
+    //         console.log(additionalFieldJson);
+
+    //         let newArr = []
+
+    //         if (additionalFieldProduct) {
+    //             for (const [key, value] of Object.entries(additionalFieldProduct)) {
+
+    //                 if (key == 'id' || key === 'post_id' || key === 'color') {
+    //                     continue
+    //                 }
+
+
+    //                 const numberOfCheck = parseInt(key.match(/\d+/))
+
+
+    //                 if (!numberOfCheck) {
+    //                     newArr.push({
+    //                         title: additionalFieldJson.find(item => item.alias == key)?.title,
+    //                         value
+    //                     })
+    //                     continue
+    //                 }
+
+    //                 const aliasName = key.split(numberOfCheck)[0]
+    //                 const checkListObj = additionalFieldJson.find(item => item.alias == aliasName)
+
+
+    //                 if (checkListObj) {
+    //                     if (checkListObj.title == prevItem.current) {
+    //                         newArr = newArr.map((item, index) => {
+
+
+    //                             if (item.title === checkListObj.title && value) {
+    //                                 return newArr[index] = {
+    //                                     title: checkListObj.title,
+    //                                     value: [...newArr[index].value, checkListObj?.check_list_values[numberOfCheck - 1]].filter(item => item)
+    //                                 }
+    //                             }
+
+    //                             return item
+    //                         })
+    //                     } else {
+    //                         newArr.push({
+    //                             title: checkListObj.title,
+    //                             value: [value ? checkListObj?.check_list_values[numberOfCheck - 1] : null]
+    //                         })
+    //                     }
+
+    //                     prevItem.current = checkListObj.title
+    //                 }
+
+    //             }
+    //         }
+    //         setData(newArr)
+    //     }
+    // }, [allProductInfo])

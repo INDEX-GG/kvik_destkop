@@ -155,8 +155,8 @@ export default function ProductInformation({ productionInfo, description, catero
 			<ProductMap address={address} coordinates={coordinates} mobile={matchesMobile && matchesTablet}/>
 			<div className="productPageCharacter thin">
 			{false && info} 
-			<ProductAdditionalFields category_id={category_id} allProductInfo={allProductInfo} placeOfferJson={placeOfferJson} />
-			<ProductDescription description={description}/>
+			<ProductAdditionalFields description={description} category_id={category_id} allProductInfo={allProductInfo} placeOfferJson={placeOfferJson} />
+			{/* <ProductDescription description={description}/> */}
 			<ProductSocial/>
 			</div>
 		</>

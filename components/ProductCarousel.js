@@ -80,7 +80,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						{/* <div className="seen__ad">Просмотрено</div> */}
 						{data?.map((img, i) => {
 							return (
-								<SwiperSlide style={{overflow: 'hidden'}} className='importantSlide' key={i} onClick={() => setModal(!modal)}>
+								<SwiperSlide style={{overflow: 'hidden', borderRadius: (matchesTablet || matchesMobile) && '8px 8px 0 0'}} className='importantSlide' key={i} onClick={() => setModal(!modal)}>
 									<img 
 									style={{display: 'block'}}  
 									src={img} 
@@ -100,8 +100,8 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						})}
 					</Swiper>
 					{slidesPrevPhoto &&
-					<Swiper 
-						style={{ height: '88px', display: "block"}}
+					<Swiper
+						style={{ height: '88px', display: !matchesTablet && !matchesMobile ? 'block' : 'none'}}
 						onSwiper={setThumbsSwiper}
 						watchSlidesProgress={true}
 						slidesPerView={6}
