@@ -19,7 +19,7 @@
 // import Tractors from './Options/Tractors';
 // import Excavators from './Options/Excavators';
 // import OtherTransport from './Options/Other_transport';
-import AdditionalFields from "#components/placeOffer/newPlaceOffer/AdditionalFields";
+import AdditionalFields from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFields";
 import {useState} from "react";
 
 

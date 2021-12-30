@@ -1,29 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Backdrop, Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
-import Verify from '../components/placeOffer/Verify';
+import { useState } from 'react';
+import { Backdrop, makeStyles } from '@material-ui/core';
 import MetaLayout from '../layout/MetaLayout';
 import { useMedia } from '../hooks/useMedia';
-import { useForm, FormProvider } from 'react-hook-form';
-import Title from '../components/placeOffer/Title';
-import Category from '../components/placeOffer/Category';
-import Description from '../components/placeOffer/Description';
-import Price from '../components/placeOffer/Price/Price';
-import Photoes from '../components/placeOffer/Photoes';
-import Location from '../components/placeOffer/Location';
-import Contacts from '../components/placeOffer/Contacts';
-import ErrorMessages from '../components/placeOffer/ErrorMessages';
 import { useAuth } from '../lib/Context/AuthCTX';
 import Loader from '../UI/icons/Loader';
 import PlaceOfferMobile from '../components/placeOffer/placeOfferMobile';
 import Promotion from '../components/placeOffer/Promotion';
-import { useCategoryPlaceOffer } from '../hooks/useCategoryPlaceOffer';
-import AdditionalInformation from '../components/placeOffer/AdditionalInformation';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 import {useStore} from "../lib/Context/Store";
 import {getTokenDataByPost} from "../lib/fetch";
-import {generateAdditionalFields, generateSearchName} from "../lib/services";
-import useCategoryV2 from "#hooks/useCategoryV2";
+import {generateAdditionalFields, generateSearchName, generateTitle} from "../lib/services";
+import NewPlaceOfferContent from "#components/placeOffer/newPlaceOffer/NewPlaceOfferContent";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -61,95 +49,30 @@ const useStyles = makeStyles((theme) => ({
 
 function PlaceOffer() {
 
+    const classes = useStyles();
+    const { matchesMobile, matchesTablet } = useMedia();
+
+
     const { id, token } = useAuth();
     const {userInfo} = useStore()
-    const classes = useStyles();
+
+
     const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false);
-    const {mainCategory, getMoreCategory} = useCategoryV2();
-
-
     const [product, setProduct] = useState({});
-    const { matchesMobile, matchesTablet } = useMedia();
-    const methods = useForm({defaultValues: {
-        price: ''
-    }});
+
+
     let photoes = [];
-    let postId = 0;
+
+
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
 
-    // console.log(methods)
 
-    /* получение дополнительных полей */
-
-    const [category, setCategory] = useState();
-    const [showTitle, setShowTitle] = useState(false);
-    const { ...subcategoryData } = useCategoryPlaceOffer(category, methods);
-
-    const aliasObj = {
-        aliasOne: methods.watch('alias1'),
-        aliasTwo: methods.watch('alias2'),
-        aliasThree: methods.watch('alias3'),
-    }
-
-
-    // Текущая категория
-    const currentCategory = getMoreCategory(aliasObj.aliasOne, aliasObj.aliasTwo, aliasObj.aliasThree);
-
-
-    // console.log('ALIAS4', methods?.watch('alias4'))
-    // console.log('ALIAS3', methods?.watch('alias3'))
-    // console.log('ALIAS2', methods?.watch('alias2'))
-    // console.log('ALIAS1', methods?.watch('alias1'))
-
-
-    useEffect(() => {
-        if (methods?.watch('alias4') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias4?._f.value !== '' : methods.control._fields.alias4?._f.value !== '')) {
-            setCategory(methods?.watch('alias4').toLowerCase());
-        } else if (methods?.watch('alias3') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias4?._f.name === undefined : methods.control._fields.alias4?._f.name === undefined)) {
-            setCategory(methods?.watch('alias3').toLowerCase());
-        } else if (methods?.watch('alias2') && (methods.control._fields === undefined ? methods.control.fieldsRef.current.alias3?._f.name === undefined : methods.control._fields.alias3?._f.name === undefined)) {
-            setCategory(methods?.watch('alias2').toLowerCase());
-        } else {
-            setCategory(undefined);
-        }
-
-    }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
-
-    useEffect(() => {
-        setShowTitle(
-            category === 'auto' || methods?.watch('alias1') === 'real_estate' ?  true : false)
-    }, [category, methods?.watch('alias1')]);
-
-
-
-    const generateTitle = (title) => {
-
-        if (Array.isArray(currentCategory?.title)) {
-
-            let newTitle = ''
-
-            for (let i = 0; i < currentCategory.title.length; i++) {
-                newTitle += `${methods.getValues(currentCategory.title[i])} `
-            }
-            console.log(newTitle)
-            return newTitle
-        }
-
-        return title
-    }
-
-    // console.log(methods.getValues());
-
-
-    // console.log('category',category)
-
-    const onSubmit = data => {
-
-
+    const onSubmit = (data, methods, category, currentCategory) => {
         data.price = data.price.replace(/\D+/g, '');
+
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
             alias.push(data.alias3);
@@ -159,43 +82,7 @@ function PlaceOffer() {
         }
 
 
-        // const landType = () => {
-        //     if(data.alias4 === 'sell_snt'){
-        //         return 'СНТ'
-        //     } else if (data.alias4 === 'sell_izhs'){
-        //         return 'ИЖС'
-        //     } else if (data.alias4 === 'sell_agriculturalland'){
-        //         return 'Земли сельскохозяйственного назначения'
-        //     } else if (data.alias4 === 'sell_commercialland'){
-        //         return 'Земли коммерческого назначения'
-        //     }
-        // }
-
-        // if(data?.alias1 === 'transport' && data?.alias2 === 'auto'){
-        //      data.title = `${data.modelsAuto} ${data.submodels},${data.year}`
-        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'apartments_kv'){
-        //      data.title = `${data.room_number}-к. квартира, ${data.area}м², ${data.storey}/${data.floor_home}эт.`
-        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'rooms' ){
-        //     data.title = `Комната, ${data.area}м², ${data.storey}/${data.floor_home}эт.`
-        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'houses_and_cottages' ){
-        //     data.title = `Дом, ${data.home_area}м², на участке ${data.land_area} сот.`
-        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'land' ){
-        //     data.title = `Участок, ${data.area} сот. (${landType()})`
-        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'garages_and_parking_spaces_second' ){
-        //     data.title = data.type_park !== undefined ? `${data.type_park}, ${data.area}м².` : `Гараж, ${data.area}м².`
-        // } else if(data?.alias1 === 'real_estate' && data?.alias2 === 'real_estate_abroad' ){
-        //     data.title = `${data.type_of_abroad_property} (${data.country_of_abroad_property})`
-        // }
-
-        data.title = generateTitle(data.title)
-
-
-
-        // rooms 'real_estate', 'real_estate_abroad', type_of_abroad_property
-
-        // if (data?.location?.data?.city_kladr_id) data.city = data.location.data.city_kladr_id
-        // if (!data?.location?.data?.city_kladr_id && data?.location?.data?.settlement_kladr_id) data.city = data.location.data.settlement_kladr_id
-
+        data.title = generateTitle(data.title, currentCategory, methods.getValue)
         data.city = generateSearchName(data.location)
 
         // ПРИННУДИТЕЛЬНЫЙ ВЫХОД
@@ -205,14 +92,8 @@ function PlaceOffer() {
             return
         }
 
-
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([...userInfo?.location?.geo])
 		data.location = data.location?.value ? data.location.value : data.location
-
-
-        // console.log(data.coordinates)
-
-        // console.log("data", data);
         data.alias = alias.join(',');
         data.user_id = id
 
@@ -221,7 +102,7 @@ function PlaceOffer() {
         delete data.alias3
         delete data.alias4
         delete data.photoes
-		
+
         const photoData = new FormData;
         if (photoes.length > 1) {
             photoes.forEach(photo => photoData.append('files[]', photo));
@@ -229,16 +110,8 @@ function PlaceOffer() {
             photoData.append('files[]', photoes[0]);
         }
 
-        console.log(photoes[0]);
-
-		// console.log(photoData.getAll('files[]'))
-
-		// console.log(photoData, 'photo');
-
-
         let obj = {}
         let additionalfields = { [category]: [] }
-
 
         for (let key in data) {
             if (key === 'title' || key === 'alias' || key === 'bymessages' || key === 'byphone' || key === 'contact' || key === 'description' || key === 'location' || key === 'price' || key === 'trade' || key === 'user_id' || key === 'coordinates' || key === 'city') {
@@ -247,17 +120,10 @@ function PlaceOffer() {
         }
 
 
-        // console.log('add 3', additionalfields3[asd])
+        // if (subcategoryData[category] !== undefined) {
+        //     obj.subcategory = category
+        // }
 
-
-        // console.log("asdasdasd",newOBJ[asd]);
-        if (subcategoryData[category] !== undefined) {
-            obj.subcategory = category
-        }
-        // console.log("addfields", additionalfields)
-        //
-        //
-        // console.log('obj',obj)
         setLoading(true);
 
 
@@ -269,23 +135,9 @@ function PlaceOffer() {
 
         getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
             .then(r => {
-				// console.log("DDDDDDDDDDDDDDDDDATA", obj, data)
-                postId = r?.id;
 
-
-
+                const postId = r?.id;
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
-                // console.error('additionalfields',additionalfields)
-
-                console.log(additionalfields);
-                console.log(r);
-                console.log(category);
-
-                // getTokenDataByPost(`${BASE_URL}/api/subcategory`, {user_id: id, post_id: r?.id, subcategory: category, additional_fields: generateAdditionalFields(data)}, token)
-                //   .then(r => console.log(r))
-                //   .catch(e => console.log(e))
-
-
 
                 axios.post(`${STATIC_URL}/post/${id}/${r?.id}`, photoData, {
                     headers: {
@@ -293,12 +145,19 @@ function PlaceOffer() {
                         "x-access-token": token
                     }
                 }).then((r) => {
-					// console.log(`${STATIC_URL}/${r.data.images.photos[0]}`)
-                    setProduct({ title: data.title, location: data.location, price: data.price, id: postId, photo: `${STATIC_URL}/${r?.data.images.photos[0]}` })
+
+                    const productObj = {
+                        title: data.title,
+                        location: data.location,
+                        price: data.price,
+                        id: postId,
+                        photo: `${STATIC_URL}/${r?.data.images.photos[0]}`
+                    }
+
+                    setProduct(productObj)
                     setPromotion(true)
                 })
-				// axios.post(`${CACHE_URL}/cache/${postId}`, {data: {...mapData}})
-            })  
+            })
 
     }
 
@@ -306,44 +165,56 @@ function PlaceOffer() {
     return (
         promotion ? <Promotion product={product} /> :
             <MetaLayout title={'Подать объявление'}>
-                {!matchesMobile && !matchesTablet && <Container className={classes.root}>
-                    <Box className={classes.offersBox}>
-                        <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
-                        <FormProvider {...methods} >
-                            <Verify showTitle={showTitle}/>
-                            <form onSubmit={methods.handleSubmit(onSubmit)}>
-                                <Box className={classes.formPart}>
-                                    <Category category={mainCategory}/>
-                                    {currentCategory?.title ? null : <Title title='' />}
-                                </Box>
-                                {/* Проверка на доп. поле*/}
-                                {!!currentCategory?.additional_fields.length && (
-                                    <Box className={classes.formPart}>
-                                        <AdditionalInformation currentCategory={currentCategory} />
-                                    </Box>
-                                )}
-                                <Box className={classes.formPart}>
-                                    <Description />
-                                    {category !== 'vacancies' && category !== 'summary' ? 
-                                        <Price price=''/>
-                                        :
-                                        null
-                                    }
-                                    <Photoes ctx={photoesCtx} />
-                                </Box>
-                                <Box className={classes.formPart}>
-                                    <Location />
-                                    <Contacts />
-                                    <Box className={classes.submit}>
-                                        <ErrorMessages validate={subcategoryData[category]} type={category}/>
-                                        <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
-                                    </Box>
-                                </Box>
-                            </form>
-                        </FormProvider>
-                    </Box>
-                </Container>}
-                {matchesMobile || matchesTablet ? <PlaceOfferMobile /> : null}
+                {!matchesMobile && !matchesTablet && (
+                    // <Container className={classes.root}>
+                    //     <Box className={classes.offersBox}>
+                    //         <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
+                    //         <FormProvider {...methods} >
+                    //             <Verify showTitle={showTitle}/>
+                    //             <form onSubmit={methods.handleSubmit(onSubmit)}>
+                    //                 <Box className={classes.formPart}>
+                    //                     <Category category={mainCategory}/>
+                    //                     {currentCategory?.title ? null : <Title title='' />}
+                    //                 </Box>
+                    //                 {/* Проверка на доп. поле*/}
+                    //                 {!!currentCategory?.additional_fields.length && (
+                    //                     <Box className={classes.formPart}>
+                    //                         <AdditionalInformation currentCategory={currentCategory} />
+                    //                     </Box>
+                    //                 )}
+                    //                 <Box className={classes.formPart}>
+                    //                     <Description />
+                    //                     {category !== 'vacancies' && category !== 'summary' ?
+                    //                         <Price price=''/>
+                    //                         :
+                    //                         null
+                    //                     }
+                    //                     <Photoes ctx={photoesCtx} />
+                    //                 </Box>
+                    //                 <Box className={classes.formPart}>
+                    //                     <Location />
+                    //                     <Contacts />
+                    //                     <Box className={classes.submit}>
+                    //                         <ErrorMessages validate={subcategoryData[category]} type={category}/>
+                    //                         <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
+                    //                     </Box>
+                    //                 </Box>
+                    //             </form>
+                    //         </FormProvider>
+                    //     </Box>
+                    // </Container>
+                    <NewPlaceOfferContent
+                        functionObj={{
+                            onSubmit,
+                            photoesCtx
+                        }}
+                    />
+                )}
+                {matchesMobile || matchesTablet ? (
+                    <PlaceOfferMobile>
+
+                    </PlaceOfferMobile>
+                ) : null}
 
                 <Backdrop className={classes.backdrop} open={loading}>
                     <Loader size={64} />

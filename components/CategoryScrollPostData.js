@@ -5,7 +5,7 @@ import {useCity} from "../lib/Context/CityCTX";
 import {getDataByPost} from "../lib/fetch";
 import {generateCityArr, modifyGetPostsData} from "../lib/services";
 
-const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) => {
+const CategoryScrollPostData = ({title = 'Рекомендуемое', url, sendObj, category}) => {
 
     const {id} = useAuth();
     const {searchCity} = useCity()
@@ -23,7 +23,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
     // Говорит когда нужно сдлеать глобальное обнавление (page = 1)
     const [contentUpdate, setContentUpdate] = useState(false);
 
-    const limit = 120
+    const limit = 50
 
 
     // Изменение сортировки
@@ -31,6 +31,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
         setSort(value);
     }
 
+    console.log(category)
 
     // Запрос при скролле
     const generateDataScroll = async (defaultPage = false) => {
@@ -39,6 +40,9 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
             const regionIncludes = generateCityArr('includes', searchCity, excludesLength)
             const regionExcludes = generateCityArr('excludes', searchCity, excludesLength)
 
+            const categoryIncludes = generateCityArr('includes', searchCity, excludesLength)
+            const categoryExcludes = generateCityArr('excludes', searchCity, excludesLength)
+
             const scrollDataObj = {
                 'user_id': id ? id : 0,
                 'sort': sort,
@@ -46,10 +50,10 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
                 'page_limit': limit,
                 'region_includes': regionIncludes,
                 'region_excludes': regionExcludes,
+                'category_includes': categoryIncludes,
+                'category_excludes': categoryExcludes,
                 ...sendObj
             }
-
-            console.log(scrollDataObj);
 
             // Если город в котором ищем будет пустой
             // if (!scrollDataObj.region_includes) {
@@ -126,7 +130,6 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
     }, [excludesLength])
 
 
-
     // Первая подгрузка (первый рендер, изменение области поиска, изменение города, сортировка)
     useEffect(() => {
         if (page === 1 && contentUpdate) {
@@ -142,6 +145,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
         }
     }, [page])
 
+
     return (
         <OffersRender
             title={title}
@@ -153,4 +157,4 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
     );
 };
 
-export default ScrollPostData;
+export default CategoryScrollPostData;

@@ -8,65 +8,23 @@ import Statistics from "../../components/Statistics";
 import ProductInformation from "../../components/product/ProductInformation";
 import ProductAction from "../../components/product/ProductAction";
 import ProductUserInfo from "../../components/product/ProductUserInfo";
-// import {ToRusDate} from "../../lib/services";
 import {useMedia} from "../../hooks/useMedia";
 import {useProduct} from "../../hooks/useProduct";
-// import OffersRender from "../../components/OffersRender";
 import BreadCrumbsProduct from "../../components/product/BreadCrumbsProduct";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import {useAuth} from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import {CHAT_URL_API, STATIC_URL} from "../../lib/constants";
-// import ProductDate from "../../components/product/ProductSmallComponents/ProductDate";
 import ProductPrice from "../../components/product/ProductPrice";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
 import ProductFavoriteNoteComp from "../../components/product/ProductSmallComponents/ProductFavoriteNoteCom";
 import ProductMobileButtons from "../../components/product/ProductMobile/ProductMobileButtons";
-// import {firstAds, scrollAds} from "../../lib/scrollAds";
 import {useStore} from "../../lib/Context/Store";
 import {chatPush} from "../../components/account/Notifications/tabs/chatFunctions";
 import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder/ProductPlaceHolder";
-import ScrollPostData from "#components/ScrollPostData";
-
-
-/* const objP = {
-	id: 1,
-	title: "Продам 2-комню квартиру, 95м в центре",
-	offerImg: [
-		{ id: 1, offerpic: "https://source.unsplash.com/random?interior" },
-		{ id: 2, offerpic: "https://source.unsplash.com/random?interior" },
-		{ id: 3, offerpic: "https://source.unsplash.com/random?interior" },
-		{ id: 4, offerpic: "https://source.unsplash.com/random?interior" },
-		{ id: 5, offerpic: "https://source.unsplash.com/random?interior" },
-		{ id: 6, offerpic: "https://source.unsplash.com/random?interior" },
-		{ id: 7, offerpic: "https://source.unsplash.com/random?interior" },
-		{ id: 8, offerpic: "https://source.unsplash.com/random?interior" },
-		{ id: 9, offerpic: "https://source.unsplash.com/random?interior" },
-	],
-	locality: "Челябинск, ул. Елькина, 94з",
-	date: "12 апреля 11:37",
-	price: 4200000,
-	oldprice: 5000000,
-	bargain: true,
-	userid: 777  id пользователя для проверки отображения блока объявления ,
-	username: "Иван Иванов" статус для отображения блока объявления 1-активное, 2-истек срок размещения, 3-продано, 4-отклонено, 5-архив, 6-черновик, 7-неактивное (другой пльзователь) 8-активное (другой пльзователь),
-	
-	userpic: "https://source.unsplash.com/random?portrait",
-	userrate: 3.7,
-	userOffers: [
-		{ id: 1, offerimg: "https://source.unsplash.com/random?1", offerprice: 56, offertitle: "Товар" },
-		{ id: 2, offerimg: "https://source.unsplash.com/random?2", offerprice: 3453, offertitle: "Продукт" },
-		{ id: 3, offerimg: "https://source.unsplash.com/random?3", offerprice: 25600, offertitle: "Авто" },
-		{ id: 4, offerimg: "https://source.unsplash.com/random?4", offerprice: 30000, offertitle: "Услуга" },
-		{ id: 5, offerimg: "https://source.unsplash.com/random?5", offerprice: 3458, offertitle: "Квартира" },
-		{ id: 6, offerimg: "https://source.unsplash.com/random?6", offerprice: 33, offertitle: "Стул" },
-		{ id: 7, offerimg: "https://source.unsplash.com/random?7", offerprice: 800, offertitle: "Недвижимость" },
-		{ id: 8, offerimg: "https://source.unsplash.com/random?8", offerprice: 12079000, offertitle: "Телевизор" },
-	],
-};
- */
+import CategoryScrollPostData from "#components/CategoryScrollPostData";
 
 
 const Product = () => {
@@ -116,34 +74,6 @@ const Product = () => {
 
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
     let breadData = null;
-
-
-    // const [page, setPage] = useState(1);
-    // const [limitRenderPage, setLimitRanderPage] = useState(0);
-    // const [lastIdAds, setLastIdAds] = useState(0);
-    // const limit = 10
-
-    // const scrollData = {id, isAuth, page, limit, setData, setLastIdAds}
-
-    // useEffect(() => {
-    //   scrollAds(id, isAuth, page, limit, data, setData, setLastIdAds, setLimitRanderPage, setPage)
-    //   // не удалять:)
-    //   console.log(lastIdAds)
-    // }, [page])
-    //
-    // useEffect(() => {
-    //   firstAds(scrollData)
-    // }, [id]);
-
-    // const [collSO, setCollSO] = useState(true);
-    /* const handleCollSO = (e) => {
-        e.preventDefault();
-        if (collSO) {
-            setCollSO(false);
-        } else {
-            setCollSO(true);
-        }
-    }; */
 
 
     const createChat = async () => {
@@ -199,16 +129,9 @@ const Product = () => {
     if (category_id !== undefined) {
         breadData = BreadCrumbsProduct(category_id);
     }
-    //const [update, setUpdate] = useState(false);
-    /* if(update) {
-        const { active } = useProduct(query.id)
 
-    } */
     useEffect(() => {
         setDefaultStatus(active)
-        //console.log("updated update", update)
-
-        //console.log("default defaultStatus", defaultStatus)
     }, [active])
 
 
@@ -310,7 +233,7 @@ const Product = () => {
                                         {/*<OffersRender isProduct data={data} title={"Похожие объявления"} page={page}*/}
                                         {/*              limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage}*/}
                                         {/*              setPage={setPage} /* endMessage={!collSO} */ }
-                                        <ScrollPostData url='/api/getPostsPortion'  title={'Похожие объявления'}/>
+                                        {category_id && (<CategoryScrollPostData url='/api/getPostsPortion'  title={'Похожие объявления'} category={category_id} />)}
                                         <div style={{marginTop: '60px'}}/>
                                         {/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}

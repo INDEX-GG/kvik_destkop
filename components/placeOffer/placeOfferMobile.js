@@ -2,7 +2,9 @@ import React, {useState} from "react"
 import CategoriesPlaseOffer from "./CategoriesPlaseOffer"
 import ContentPlaseOffer from "./ContentPlaseOffer"
 
-export default function PlaceOfferMobile() {
+export default function PlaceOfferMobile({children}) {
+
+
     const [categories, setCategories] = useState(null)
     const [categoriesDialog, setCategoriesDialog] = useState(true)
     const [contentDialog, setContentDialog] = useState(false)
@@ -25,6 +27,7 @@ export default function PlaceOfferMobile() {
         <>
             <CategoriesPlaseOffer categories={categories} categoriesFunc={changeCategories} dialog={categoriesDialog} dialogFunc={changeCategoriesDialog}/>
             <ContentPlaseOffer dialog={contentDialog} title={categories} backFunc={contentBack}/>
+            {children}
         </>
     )
 }

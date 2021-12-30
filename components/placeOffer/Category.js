@@ -45,9 +45,6 @@ const Category = ({category}) => {
     const categoryNestingTwo = getMoreCategory(category, aliasOne, aliasTwo)
 
 
-    // useEffect(() => {
-    //     methods.setValue('alias1', '')
-    // }, [])
 
     // Очитска полей при изменении категории
     const handlerResetCategory = (alias) => {
@@ -150,32 +147,6 @@ const Category = ({category}) => {
                     )}
                     rules={{ required: 'Выберите Категорию' }}
                 />}
-
-                {/*{categoriesByAlias(methods.watch('alias1'), methods.watch('alias2'), methods.watch('alias3')) &&*/}
-                {/*methods.watch('alias3') && */}
-                {/*<Controller*/}
-                {/*    name="alias4"*/}
-                {/*    control={methods.control}*/}
-                {/*    defaultValue=''*/}
-                {/*    render={({ field: { onChange, value }, fieldState: { error } }) => (*/}
-                {/*        <TextField*/}
-                {/*            select*/}
-                {/*            className={classes.input}*/}
-                {/*            variant='outlined'*/}
-                {/*            value={value}*/}
-                {/*            onChange={onChange}*/}
-                {/*            error={!!error}*/}
-                {/*          */}
-                {/*            helperText={error ? error.message : ' '}>*/}
-                {/*            {categoriesByAlias(methods.watch('alias1'), methods.watch('alias2'), methods.watch('alias3')).map((option, i) => (*/}
-                {/*                <MenuItem key={i} value={option.alias}>*/}
-                {/*                    {option.label}*/}
-                {/*                </MenuItem>*/}
-                {/*            ))}*/}
-                {/*        </TextField>*/}
-                {/*    )}*/}
-                {/*    rules={{ required: 'Выберите Категорию' }}*/}
-                {/*/>}*/}
             </Box>
         </Box>
     )
