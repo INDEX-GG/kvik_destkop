@@ -52,16 +52,28 @@ const AdditionalFieldNumber = ({fieldData}) => {
 
         if (inputValue > number_max_value) {
             setError(alias, {type: 'string', message: `Маскимальное значение: ${number_max_value}`})
-        } else if (inputValue < number_min_value) {
-            setError(alias, {type: 'string', message: `Минимальное значение: ${number_min_value}`})
-            onChange('');
-            return;
         } else {
             clearErrors(alias);
         }
 
         onChange(inputValue);
     };
+
+    const handlerBlur = (event) => {
+        const inputValue = event.target.value.replace(/[^0-9]/g, '')
+
+        if (inputValue < number_min_value) {
+            setError(alias, {type: 'string', message: `Минимальное значение: ${number_min_value}`})
+        }
+    }
+
+    const handlerFocus = (event) => {
+        const inputValue = event.target.value.replace(/[^0-9]/g, '')
+
+        if (inputValue < number_min_value) {
+            clearErrors('')
+        }
+    }
 
 
     const generateLeft = (valueLength) => {
@@ -88,6 +100,8 @@ const AdditionalFieldNumber = ({fieldData}) => {
                         variant='outlined'
                         placeholder={`${placeholder}`}
                         error={!!error}
+                        onFocus={handlerFocus}
+                        onBlur={handlerBlur}
                         inputProps={{maxLength: '15', readOnly: required?.readOnly}}
                         helperText={error ? error.message : ' '}/>
                 )}

@@ -1,13 +1,13 @@
 import React from 'react';
-import AdditionalFieldText from "#components/placeOffer/newPlaceOffer/AdditionalFieldText";
-import AdditionalFieldNumber from "#components/placeOffer/newPlaceOffer/AdditionalFieldNumber";
-import AdditionalFieldBoolean from "#components/placeOffer/newPlaceOffer/AdditionalFieldBoolean";
-import AdditionalFieldCheckList from "#components/placeOffer/newPlaceOffer/AdditionalFieldCheckList";
-import AdditionalFieldTextList from "#components/placeOffer/newPlaceOffer/AdditionalFieldTextList";
-import AdditionalFieldColor from "#components/placeOffer/newPlaceOffer/AdditionalFieldColor";
+import AdditionalFieldText from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldText";
+import AdditionalFieldNumber from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldNumber";
+import AdditionalFieldBoolean from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldBoolean";
+import AdditionalFieldCheckList from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldCheckList";
+import AdditionalFieldTextList from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldTextList";
+import AdditionalFieldColor from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldColor";
 import AdditionalView from "#components/placeOffer/newPlaceOffer/AdditionalView";
-import AdditionalFieldPeriod from "#components/placeOffer/newPlaceOffer/AdditionalFieldPeriod";
-import AdditionalFieldTextListData from "#components/placeOffer/newPlaceOffer/AdditionalFieldTextListData";
+import AdditionalFieldPeriod from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldPeriod";
+import AdditionalFieldTextListData from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldTextListData";
 
 
 const generateFields = (fieldData, otherJsonObj) => {
