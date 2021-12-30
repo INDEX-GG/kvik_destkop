@@ -8,7 +8,7 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, setOpenOffe
 	const router = useRouter();
 
 	return (
-		mobile ? '' : (
+		
           sellerId == undefined ?
             <div className='product__placeholder_ProductAction_main'>
               <div className="placeholder_animation product__placeholder_ProductAction_two "></div>
@@ -67,7 +67,7 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, setOpenOffe
                 : ''
               }
             </>
-        )
+        
 	)
 }
 

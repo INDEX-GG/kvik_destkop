@@ -72,7 +72,15 @@ export default function ProductAction(data) {
             </>
         )
         }
-		    <ProductAdsChange id={id} sellerId={user_id} mobile={matchesMobile || matchesTablet} status={data.status} setOpenOfferModal={setOpenOfferModal} setButtonId={setButtonId}/>
+		    <ProductAdsChange
+         id={id} 
+         sellerId={user_id} 
+         mobile={matchesMobile || matchesTablet} 
+         status={data.status} 
+         setOpenOfferModal={setOpenOfferModal} 
+         setButtonId={setButtonId}
+         />
+         
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
           <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
