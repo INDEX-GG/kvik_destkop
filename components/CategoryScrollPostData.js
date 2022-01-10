@@ -5,7 +5,8 @@ import {useCity} from "../lib/Context/CityCTX";
 import {getDataByPost} from "../lib/fetch";
 import {generateCityArr, modifyGetPostsData} from "../lib/services";
 
-const CategoryScrollPostData = ({title = 'Рекомендуемое', url, sendObj, category}) => {
+const CategoryScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) => {
+    // all props {title = 'Рекомендуемое', url, sendObj, category}
 
     const {id} = useAuth();
     const {searchCity} = useCity()
@@ -31,7 +32,7 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
         setSort(value);
     }
 
-    console.log(category)
+    // console.log(category)
 
     // Запрос при скролле
     const generateDataScroll = async (defaultPage = false) => {

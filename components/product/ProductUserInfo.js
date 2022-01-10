@@ -21,9 +21,11 @@ export default function ProductUserInfo(data) {
 				<div className="SellerInfoUserBlock">
 					<ProductUser id={id} token={token} sellerId={data.user_id} userPhoto={data.userPhoto} name={data.name} raiting={data.raiting} userrate={objP.userrate} status={4} userAd={userAdWithArchiveOffers}  mobile={matchesTablet || matchesMobile} />
 				</div>
+			</div>
+			<div className="userSubScribeContainer">
+				<ProductUserBlockSubRep id={id} sellerId={data.user_id} mobile={matchesMobile || matchesTablet} />
 				<ProductSmallAds id={id} sellerId={data.user_id} smallAd={userAdWithArchiveOffers} mobile={matchesTablet || matchesMobile}/>
 			</div>
-			<ProductUserBlockSubRep id={id} sellerId={data.user_id} mobile={matchesMobile || matchesTablet} />
 		</> : null
 	);
 }

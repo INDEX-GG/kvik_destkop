@@ -358,6 +358,11 @@ li {
 }
 
 @media screen and (max-width: 959px) {
+  .buttonGrey{
+    border-radius: 0;
+    background-color: rgba(199, 199, 199, 1);
+    color: rgba(255, 255, 255, 1);
+  }
   .SellerInfoFavorite {
     // height: 50px;
     // width: 50px;

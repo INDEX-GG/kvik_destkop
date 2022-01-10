@@ -2,7 +2,7 @@
 import React from 'react'
 import IconCall from '../../../UI/icons/IconCall';
 import IconMess from '../../../UI/icons/IconMess';
-// import ProductButtonChangeAds from '../ProductButtonsChangeAds';
+import ProductButtonChangeAds from '../ProductButtonsChangeAds';
 import ProductDeal from '../ProductDeal';
 // import ProductOption from '../ProductOption';
 import ProductButton from '../ProductUI/ProductButton';
@@ -12,11 +12,11 @@ import OfferModal from "../../OfferModal";
 
 
 // const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo, /*update,*/ setUpdate, createChat}) => {
-	const ProductMobileButtons = ({id, sellerId, mobile, photo, setDialog, productInfo, /*update,*/ setUpdate, createChat}) => { 	
+	const ProductMobileButtons = ({id, sellerId, mobile, photo, setDialog, productInfo, status, /*update,*/ setUpdate, createChat}) => { 	
 	// const router = useRouter();
 	const [openOfferModal, setOpenOfferModal] = React.useState(false);
-	// const [buttonId, setButtonId] = React.useState('');
-	const [buttonId] = React.useState('');
+	const [buttonId, setButtonId] = React.useState('');
+	// const [buttonId] = React.useState('');
 	const offerId = [productInfo?.id]
 	const offerData = productInfo;
 	
@@ -42,7 +42,7 @@ import OfferModal from "../../OfferModal";
 										<ProductButton className="SellerInfoCall button contained" onClick={() => setDialog(true)} title='Показать номер' icon={<IconCall/>} />
 									</ProductDeal>
 								</div>
-
+								<ProductButtonChangeAds id={id} sellerId={sellerId} status={status} lastDate={0} mobile={mobile} setOpenOfferModal={setOpenOfferModal} setButtonId={setButtonId}/>
 								{/* для нового дизайна не нужно */}
 								{/* {sellerId === id || sellerId !== id ? (
 									<ProductOption safeDeal={secure_transaction} deliver={delivery} mobile/>

@@ -9,7 +9,7 @@ import Router, {useRouter} from "next/router";
 
 
 const ProductButtonChangeAds = ({id, sellerId, status, lastDate, mobile, setOpenOfferModal, setButtonId}) => {
-	const { query } = useRouter();
+  const { query } = useRouter();
   const offerID = query.id
   const {matchesTablet} = useMedia();
   const width = matchesTablet ? status === 2 || status === 3 || status === 6 ? '100' : '' : '';
