@@ -23,7 +23,7 @@ const generateListItem = (array, alias, changeCategories) => {
                         <ListItem className="burgerList" key={item.alias}>
                             <ListItemText>
                                 <div
-                                    onClick={() => changeCategories(alias + item.alias)}
+                                    onClick={() => changeCategories(`${alias},${item.alias}`)}
                                     className="burgerItem burgerLink">
                                     {item.name}
                                 </div>
@@ -35,7 +35,7 @@ const generateListItem = (array, alias, changeCategories) => {
                 return (
                     <CategoriesAliasTwo
                         key={index}
-                        alias={alias + item.alias}
+                        alias={`${alias},${item.alias}`}
                         label={item.name}
                         currentAlias={item?.children}
                         changeCategories={changeCategories}
@@ -49,8 +49,6 @@ const generateListItem = (array, alias, changeCategories) => {
 
 
 
-
-
 const CategoriesAliasOne = ({iconId, label, alias, categoryAlias, changeCategories}) => {
 
     const [open, setOpen] = useState(false)
@@ -58,14 +56,14 @@ const CategoriesAliasOne = ({iconId, label, alias, categoryAlias, changeCategori
     const aliasIcon = [
 		<BurgerRealEstate key={0} />,
 		<BurgerAuto key={1} />,
-		<BurgerWork key={2} />,
 		<BurgerElectronic key={3} />,
-		<BurgerHome key={4} />,
-		<BurgerAnimal key={5} />,
-		<BurgerThing key={6} />,
+        <BurgerHome key={4} />,
+        <BurgerWork key={2} />,
+        <BurgerAnimal key={5} />,
+        <BurgerServices key={9} />,
+        <BurgerThing key={6} />,
 		<BurgerBusiness key={7} />,
 		<BurgerHobby key={8} />,
-		<BurgerServices key={9} />
 	];
 
     const categories = useMemo(() => {

@@ -3,14 +3,13 @@ import { useRouter } from "next/router"
 import MobileModal from "../MobileModal"
 import categoryJson from '/public/placeOfferJson/new_catalog.json'
 
-export default function CategoriesPlaseOffer({categoriesFunc, dialog, dialogFunc}) {
+export default function CategoriesPlaseOffer({setCategories, dialog}) {
 
     const router = useRouter()
     const categoryMainAlias = categoryJson?.category
 
 	const categoriesChange = (str) => {
-		categoriesFunc(str)
-		dialogFunc()
+        setCategories(str);
 	}
 
 
