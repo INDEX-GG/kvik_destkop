@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: "14px",
 		flexGrow: 1,
 		padding: "4px 0",
+        [theme.breakpoints.down(960)]: {
+            display: 'none'
+        }
 	},
 	formInputField: {
 		width: "490px",

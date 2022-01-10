@@ -1,11 +1,11 @@
 import React from 'react';
-import {Box, makeStyles, TextField} from "@material-ui/core";
+import {Box, makeStyles, TextField, useMediaQuery} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
 import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
 import {handleKeyDownInput} from "#components/placeOffer/newPlaceOffer/AdditionalServices";
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     input: {
         width: "264px",
         '& input[type=number]': {
@@ -18,6 +18,60 @@ const useStyles = makeStyles(() => ({
         '& input[type=number]::-webkit-inner-spin-button': {
             '-webkit-appearance': 'none',
             margin: 0
+        },
+        [theme.breakpoints.down(960)]: {
+            width: '100%',
+            height: '48px',
+            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+
+            '& > .Mui-error': {
+                borderWidth: 1,
+                borderRadius: '0'
+            },
+
+            '& > .MuiInputBase-multiline': {
+                paddingLeft: '0px'
+            },
+
+            '& > div': {
+                height: '100%',
+                '&  > input': {
+                    padding: '0 0 0 10px',
+                    height: '100%',
+                    color: '#8F8F8F',
+                    fontSize: '16px',
+                    "&::placeholder": {
+                        opacity: '1 !important'
+                    },
+                },
+
+                '&  > textarea': {
+                    padding: '0 0 0 10px',
+                    height: '100%',
+                    color: '#8F8F8F',
+                    fontSize: '14px',
+                    "&::placeholder": {
+                        opacity: '1 !important'
+                    },
+                },
+
+                '& > fieldset': {
+                    borderRadius: 0,
+                    border: 0
+                },
+            },
+
+
+            '& > div.Mui-error': {
+                '& > fieldset': {
+                    border: '1px solid red !important'
+                },
+            },
+
+            '& > p': {
+                display: 'none',
+                margin: '0',
+            },
         }
     },
     numberDesignation: {
@@ -32,6 +86,8 @@ const AdditionalFieldNumber = ({fieldData}) => {
 
     const classes = useStyles();
     const {setError, clearErrors, control, getValues} = useFormContext();
+    const media960 = useMediaQuery('(max-width: 960px)');
+
     const {
         alias,
         number_min_value,
@@ -98,7 +154,7 @@ const AdditionalFieldNumber = ({fieldData}) => {
                         onKeyDown={handleKeyDownInput}
                         className={classes.input}
                         variant='outlined'
-                        placeholder={`${placeholder}`}
+                        placeholder={`${media960 ? fieldData.title : placeholder}`}
                         error={!!error}
                         onFocus={handlerFocus}
                         onBlur={handlerBlur}

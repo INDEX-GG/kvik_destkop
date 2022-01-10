@@ -6275,7 +6275,7 @@
                     "additional_fields": []
                 },
                 {
-                    "name": "Компьютеры, комплектующие и периферия",
+                    "name": "Компьютеры",
                     "alias": "computers_accessories_and_peripherals",
                     "children": [
                         {
@@ -7237,7 +7237,6 @@
                                     "required": {"state": true, "value": "Введите корректное значение"},
                                     "text_list_values": [
                                         "Картриджи",
-                                        "Термопленки",
                                         "Фотобарабаны",
                                         "Тонеры",
                                         "Бумага",

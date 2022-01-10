@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {makeStyles, TextField} from "@material-ui/core";
+import {makeStyles, TextField, useMediaQuery} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
 import {getDataByGet} from "#lib/fetch";
 import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
 import {generateListArray, handlerResetsValues} from "#components/placeOffer/newPlaceOffer/AdditionalServices";
+import AdditionalFieldModal from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldModal";
 
 
 const useStyles = makeStyles(() => ({
@@ -17,6 +18,7 @@ const AdditionalFieldTextList = ({fieldData, otherJsonObj}) => {
 
     const classes = useStyles();
     const {control, getValues, setValue} = useFormContext();
+    const media960 = useMediaQuery('(max-width: 960px');
     // Подтянутый отдельный json
     const {otherJson, setOtherJson} = otherJsonObj
 
@@ -101,25 +103,35 @@ const AdditionalFieldTextList = ({fieldData, otherJsonObj}) => {
     return (
         view && (
             <AdditionalWrapper title={title} type={type}>
-                <Controller
-                    name={alias}
-                    control={control}
-                    defaultValue={default_value}
-                    render={({field: {onChange, value}, fieldState: {error}}) => (
-                        <TextField
-                            select
-                            className={classes.input}
-                            variant='outlined'
-                            value={value}
-                            onChange={onChange}
-                            error={!!error}
-                            // inputProps={{readOnly: readOnly}}
-                            helperText={error ? error.message : ' '}>
-                            {textFieldList}
-                        </TextField>
-                    )}
-                    rules={{required: required.state ? required.value : false}}
-                />
+                {media960 ? (
+                    <AdditionalFieldModal
+                        title={title}
+                        dataItems={textFieldList}
+                        alias={alias}
+                        getValues={getValues}
+                        setValue={setValue}
+                    />
+                ) : (
+                    <Controller
+                        name={alias}
+                        control={control}
+                        defaultValue={default_value}
+                        render={({field: {onChange, value}, fieldState: {error}}) => (
+                            <TextField
+                                select
+                                className={classes.input}
+                                variant='outlined'
+                                value={value}
+                                onChange={onChange}
+                                error={!!error}
+                                // inputProps={{readOnly: readOnly}}
+                                helperText={error ? error.message : ' '}>
+                                {textFieldList}
+                            </TextField>
+                        )}
+                        rules={{required: required.state ? required.value : false}}
+                    />
+                )}
             </AdditionalWrapper>
         )
     )

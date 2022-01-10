@@ -7,6 +7,7 @@ const useCategoryV2 = () => {
     const [categoryArray, setCategoryArr] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+
     // Запрашиваем все категории
     useEffect(() => {
         axios.get('/placeOfferJson/new_catalog.json')
@@ -15,6 +16,7 @@ const useCategoryV2 = () => {
                 setIsLoading(false);
             });
     }, [isLoading])
+
 
     const getMoreCategory = (category, category2, category3) => {
         if (category && categoryArray) {

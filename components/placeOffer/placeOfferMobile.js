@@ -1,33 +1,54 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import CategoriesPlaseOffer from "./CategoriesPlaseOffer"
-import ContentPlaseOffer from "./ContentPlaseOffer"
+import MobileModal from "#components/MobileModal";
+import {useFormContext} from "react-hook-form";
 
 export default function PlaceOfferMobile({children}) {
 
 
     const [categories, setCategories] = useState(null)
-    const [categoriesDialog, setCategoriesDialog] = useState(true)
-    const [contentDialog, setContentDialog] = useState(false)
+    const methods = useFormContext()
 
-    function changeCategories(str) {
-        setCategories(str)
+
+    const generateAlias = (categories, reset = false) => {
+        const categoriesArr = categories.split(',');
+        for (let i = 1; i <= categoriesArr.length; i++) {
+            const alias = 'alias' + i
+            const item = reset ? null : categoriesArr[i - 1]
+            methods.setValue(alias, item)
+        }
     }
 
-    function changeCategoriesDialog() {
-        setCategoriesDialog(false)
-        setContentDialog(true)
+
+    const changeCategory = () => {
+        methods.setValue('alias', null)
+        generateAlias(categories, true)
+        setCategories(false);
     }
 
-    function contentBack() {
-        setCategoriesDialog(true)
-        setContentDialog(false)
-    }
+
+    useEffect(() => {
+        if (categories) {
+            methods.setValue('alias', categories)
+            generateAlias(categories)
+        }
+    }, [categories])
+
 
     return (
         <>
-            <CategoriesPlaseOffer categories={categories} categoriesFunc={changeCategories} dialog={categoriesDialog} dialogFunc={changeCategoriesDialog}/>
-            <ContentPlaseOffer dialog={contentDialog} title={categories} backFunc={contentBack}/>
-            {children}
+            <CategoriesPlaseOffer
+                categories={categories}
+                dialog={!categories}
+                setCategories={setCategories}
+            />
+            <MobileModal
+                title='Новое объявление'
+                dialog={categories}
+                close={changeCategory}
+            >
+                {children}
+            </MobileModal>
         </>
     )
 }
