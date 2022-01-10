@@ -83,23 +83,23 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
     return (
         id === sellerId ? null :
             <>
-                <div className="ad__block_bottom__adaptive">
+                {mobile&&<div className="ad__block_bottom__adaptive">
                     {mobile && (
                         <button
                             className={`ad__block_bottom__adaptive_left ${userBool ? 'ad__block_bottom__adaptive_left__active' : ''}`}
                             disabled={loading} onClick={() => subscribeUser()}>
-                            {userBool ? "Отписаться" : "Подписаться"}
+                            {/* {userBool ? "Отписаться" : "Подписаться"} */}
                             <span
                                 className={`SellerInfoUserAdd ${userBool ? "SellerInfoUserAdd__active" : ''}`}/>
                         </button>
                     )}
-                    <div className="ad__block_bottom__adaptive_right">
+                    {/* <div className="ad__block_bottom__adaptive_right"> */}
                         {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
                         {/*    if (!blockLoading) setBlockOpen(true)*/}
                         {/*}}>{userBlockBool ? 'Разбокировать' : 'Заблокировать'} пользователя</a>*/}
-                        <a className="SellerInfoComplain small light underline">Пожаловаться</a>
-                    </div>
-                </div>
+                        {/* <a className="SellerInfoComplain small light underline">Пожаловаться</a>  */}
+                    {/* </div> */}
+                </div>}
                 {/*<Dialog open={blockOpen} onClose={() => setBlockOpen(false)}>*/}
                 {/*    <DialogContent>*/}
                 {/*        <DialogContentText>*/}

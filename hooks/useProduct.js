@@ -6,7 +6,6 @@ import { getDataByPost } from '../lib/fetch';
 
 export function useProduct(id) {
 	const [productInfo, setProductInfo] = useState({});
-	const [productInfoFields, setProductInfoFields] = useState({});
 	const {id: userId} = useAuth();
 	useEffect(() => {
 		if (typeof id === 'string' || typeof id === 'number') {
@@ -26,10 +25,6 @@ export function useProduct(id) {
 						r.chatPhoto = r.userPhoto;
 						r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 						setProductInfo(r);
-						if (r.subcategory !== undefined) {
-							getDataByPost('/api/subcategoriesFields', { "post_id": id, "subcategory": r.subcategory })
-								.then((r) => { setProductInfoFields(r) })
-						}
 					}
 				})
 		}
@@ -37,6 +32,5 @@ export function useProduct(id) {
 
 	return {
 		...productInfo,
-		productInfoFields
 	}
 }

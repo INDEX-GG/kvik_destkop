@@ -134,6 +134,7 @@ const Product = () => {
         setDefaultStatus(active)
     }, [active])
 
+    console.log('render ID page')
 
     return (
         <MetaLayout>
@@ -218,8 +219,14 @@ const Product = () => {
                                                                  user_id={user_id} userAd={userAd}
                                                                  productTitle={title}/>
                                             </div>
+                                            {matchesTablet || matchesMobile &&
+                                                <div className="ad__block_bottom__adaptive_right">
+                                                        <a className="SellerInfoComplain small light underline">Пожаловаться</a>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
+                                            
 
                                     {/*{!matchesMobile && !matchesTablet && !matchesLaptop && (*/}
                                     {/*  <div className="showsmthWrapper">*/}

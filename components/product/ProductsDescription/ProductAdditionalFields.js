@@ -12,7 +12,7 @@ import {makeStyles} from "@material-ui/core";
 
 const useClass = makeStyles(() => ({
     title: {
-        maxWidth: '50%',
+        // maxWidth: '50%',
         fontSize: '14px',
         color: "rgba(143, 143, 143, 1)",
         marginRight: 4,
@@ -20,7 +20,7 @@ const useClass = makeStyles(() => ({
     },
     content: {
         fontSize: '14px',
-        fontWeight: '500',
+        fontWeight: '400',
         color: "rgba(21, 21, 21, 1)",
     },
     autoPlaceholder: {
@@ -49,8 +49,21 @@ const useClass = makeStyles(() => ({
 // content: {
 //     color: "#2C2C2C"
 // },
-    additionalFieldsWrap:{
+    productWrap: {
         padding: '0 12px'
+    },
+    additionalFieldsWrap:{
+        padding: '0 12px',
+        overflow: 'hidden'
+    },
+    additionalFieldsWrapIsOpen:{
+        padding: '0 12px',
+        overflow: 'hidden'
+    },
+    additionalFieldsContainer: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gridColumnGap: '10px',
     },
     descriptionPlaseholder: {
         // display: 'flex',
@@ -79,30 +92,33 @@ const useClass = makeStyles(() => ({
     checkListTitle: {
         fontSize: '14px',
         color: "rgba(143, 143, 143, 1)",
-        width: '40%'
+        // width: '40%'
         // marginRight: 4,
     },
     checkListUl: {
         // width: '100%'
-        width: '60%',
+        // width: '60%',
         display: 'grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
     },
     aboutUnderline: {
         display: 'block',
-        margin: '0 -16px',
+        // margin: '0 -16px',
         marginBottom: '10px',
         borderBottom: '1px solid #e9e9e9'
     },
     checkListItem: {
-        display: 'flex',
+        // display: 'flex',
+        display: 'grid',
+        gridTemplateColumns: '.4fr 1fr',
+        gridColumnGap: '40px',
         marginBottom: '10px',
     },
     checkListContent: {
         wordBreak: 'break-word',
         fontSize: '14px',
         color: "rgba(21, 21, 21, 1)",
-        fontWeight: '500',
+        fontWeight: '400',
         // margin: '5px',
         marginBottom: '10px',
         // textAlign: 'right'
@@ -119,6 +135,12 @@ const useClass = makeStyles(() => ({
     },
 
     ['@media screen and (max-width: 959px)']:{
+        aboutUnderline: {
+            margin: '0 -16px',
+        },
+        additionalFieldsContainer: {
+            display: 'block'
+        },
         checkListUl: {
             gridTemplateColumns: 'repeat(1, 1fr)',
         },
@@ -132,10 +154,25 @@ const useClass = makeStyles(() => ({
             gridTemplateColumns: 'repeat(2, 1fr)'
         },
 
-        productAboutClosed: {
+        additionalFieldsWrap:{
+            maxHeight: '140px',
+        },
+
+        productWrap: {
+            padding: '0 12px',
             maxHeight: '140px',
             overflow: 'hidden'
         },
+
+        productWrapIsOpen: {
+            padding: '0 12px',
+            overflow: 'hidden'
+        }
+
+        // productAboutClosed: {
+        //     maxHeight: '140px',
+        //     overflow: 'hidden'
+        // },
     },
 
 
@@ -210,44 +247,63 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, f
     })
 }
 
-const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, description}) => {
-    const [showMore, setShowMore] = useState(false)
-    const additional_fieldsRef = useRef()
 
+const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, description}) => {
     const classes = useClass()
+    const [showMore, setShowMore] = useState(false)
+    const [showMoreCheckList, SetShowMoreCheckList] = useState(false)
     const { matchesMobile, matchesTablet } = useMedia();
+    const additional_fieldsRef = useRef()
+    const checkListWrapper = useRef()
+
+    const wrapHeight = additional_fieldsRef?.current?.offsetHeight;
+    const checkWrapHeight = checkListWrapper?.current?.offsetHeight;
     const mobile = matchesMobile || matchesTablet;
     // массив для обычных полей
     const finalArr = []
     // массив для чеклистов
     const finalArrCheck = []
+    // буль для рендера плейсхолдера
+    const additionalFieldsIsPending = allProductInfo.additional_fields === undefined
 
     generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck)
+
+    
 
     function clickHandler() {
         setShowMore(!showMore)
     }
+    
+    function checkListClickHandler() {
+        SetShowMoreCheckList(!showMoreCheckList)
+    }
 
     function classSwitcher() {
         if(showMore){
-            return classes.productAbout
+            return classes.additionalFieldsWrapIsOpen
         }
-        return `${classes.productAbout} ${classes.productAboutClosed}`
+        return `${classes.additionalFieldsWrap}`
+    }
+
+    function checkListClassSwitcher() {
+        if(showMoreCheckList){
+            return classes.productWrapIsOpen
+        }
+        return `${classes.productWrap}`
     }
   
 
-    const wrapHeight = additional_fieldsRef?.current?.offsetHeight;
+    
     
     return (
 
         <div>
             {mobile && <ProductDescription description={description}/>}
-
             {finalArr.length >= 1 && 
                 // <div className="productWrap descriptionIsClosed">
-                <div ref={additional_fieldsRef} className={classes.additionalFieldsWrap}>
+                <div className={classSwitcher()}>
                     {!mobile && <span className={classes.aboutUnderline}></span>}
-                    <div className={classSwitcher()}>
+                    <div ref={additional_fieldsRef} className={classes.additionalFieldsContainer}>
                         {finalArr.map((item, index) => (
                             <div key={index} className="productAboutItem">
                                 <span className={classes.title}>{item.title}:</span>
@@ -255,32 +311,61 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                             </div>
                         ))}
 
-                    {!mobile && <ProductDescription description={description}/>}
+                    {/* {!mobile && <ProductDescription description={description}/>} */}
 
-                    {finalArrCheck.length >= 1 && 
-                        <div className="productWrap">
-                            {!mobile && <span className={classes.checkListUnderLine}></span>}
-                            <div className={classes.productCheckList}>
-                                {finalArrCheck.map((item, index) => (
-                                    <div key={index} className={classes.checkListItem}>
-                                        <span className={classes.checkListTitle}>{item.title}:</span>
-                                        <ul className={classes.checkListUl}>
-                                            {item.value.map((value, index) => <li className={classes.checkListContent} key={index}>{value}</li>)}
-                                        </ul>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                                }
+
                     </div>
-
-                    {(mobile && !showMore) && (wrapHeight > 140) && 
-                    <button onClick={clickHandler} className='productShowMore'>Показать больше</button>}
-
-                    {showMore && 
-                    <button onClick={clickHandler} className='productShowMore'>Скрыть</button>}
                 </div>
             }
+            {(mobile && !showMore) && (wrapHeight > 140) &&
+                <button onClick={clickHandler} 
+                    className='productShowMore'>
+                        Показать больше
+                </button>
+            }
+
+            {(mobile && showMore) && 
+                <button 
+                    onClick={clickHandler} 
+                    className='productShowMore'>
+                        Скрыть
+                </button>
+            }
+
+            {!mobile && <ProductDescription description={description}/>}
+
+            {finalArrCheck.length >= 1 && 
+                <div className={checkListClassSwitcher()}>
+                    {!mobile && <span className={classes.checkListUnderLine}></span>}
+                    <div ref={checkListWrapper} className={classes.productCheckList}>
+                        {finalArrCheck.map((item, index) => (
+                            <div key={index} className={classes.checkListItem}>
+                                <span className={classes.checkListTitle}>{item.title}:</span>
+                                <ul className={classes.checkListUl}>
+                                    {item.value.map((value, index) => <li className={classes.checkListContent} key={index}>{value}</li>)}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            }
+
+            {(mobile && !showMoreCheckList) && (checkWrapHeight > 140) &&
+                <button onClick={checkListClickHandler} 
+                className='productShowMore'>
+                    Показать больше
+                </button>
+            }
+
+            {(mobile && showMoreCheckList) && 
+                <button 
+                onClick={checkListClickHandler} 
+                className='productShowMore'>
+                    Скрыть
+                </button>
+            }
+
+
 
             
 
@@ -301,7 +386,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
             } */}
 
 
-            {!finalArr.length && !finalArrCheck.length && <ProductInformationPlaceHolder/>}
+            {additionalFieldsIsPending && <ProductInformationPlaceHolder/>}
         </div>
         
 
