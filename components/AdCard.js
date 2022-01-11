@@ -4,13 +4,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from 'swiper';
 import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import { useMedia } from '../hooks/useMedia';
-import { useAuth } from "../lib/Context/AuthCTX";
+// import { useAuth } from "../lib/Context/AuthCTX";
 import { BASE_URL } from "../lib/constants";
 import { IconButton, Menu, MenuItem, makeStyles } from "@material-ui/core";
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
-import PhoneModule from "./product/PhoneModule";
+// import PhoneModule from "./product/PhoneModule";
 
 SwiperCore.use([Pagination]);
 const initialState = {
@@ -38,18 +38,21 @@ const useClass = makeStyles(() => ({
 	}
 }))
 
-const AdCard_component = React.forwardRef((props, ref) => {
+const AdCard_component = React.forwardRef((props, ref, id) => {
 	const classes = useClass()
-	const { id } = useAuth();
+	// const { id } = useAuth();
 	const {offer} = props;
 
 	const { matchesMobile, matchesTablet } = useMedia();
 	const screenIsMobile = matchesMobile || matchesTablet;
 	const { userInfo, setLikeComment } = useStore();
+
 	const currentSwiper = useRef();
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
-	const [phoneModuleState, setPhoneModuleState] = useState(false);
+	// const [phoneModuleState, setPhoneModuleState] = useState(false);
+	// закоментил, пока не разбереся с запросами.
+	const [, setPhoneModuleState] = useState(false);
 	const handleCM = (e) => {
 		e.preventDefault();
 		setOpenMenu({
@@ -123,7 +126,7 @@ const AdCard_component = React.forwardRef((props, ref) => {
 			className={offer.commercial === 2 ? "card card__lg" : "card"}
 			onContextMenu={(e) => handleCM(e)}
 			onMouseDown={(e) => handleWheelClick(e, offer.id)}
-		>
+		>	
 			<Menu
 				open={openMenu.mouseY !== null}
 				onClose={() => setOpenMenu(initialState)}
@@ -253,7 +256,8 @@ const AdCard_component = React.forwardRef((props, ref) => {
 					</div>
 				</Link>
 			</div>
-			<PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/>
+			{/* телефонный модуль делает очень много запросов. Отключен пока не пофиксится баг */}
+			{/* <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
 		</div>
 
 	);
