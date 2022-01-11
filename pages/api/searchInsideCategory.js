@@ -5,24 +5,14 @@ export default async function handler(req, res) {
 		const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 		const main = async () => {
-			// const categoryId = req.body.category_id
-			// const categoryIdInt = Number(categoryId)
-			// const text = req.body.text.toLowerCase()
-			//
-			// // Поиск по всем категориям по совпадениям title, description
-			// if (categoryId == undefined || categoryId == '') {
-			// 	const results = await prisma.$queryRaw(`SELECT id, category_id, price, photo, rating, created_at, delivery, reviewed, address, phone, trade, verify_moderator, commercial, secure_transaction, title, email FROM posts WHERE LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%'`)
-			// 	return { results: results };
-			// 	// Поиск по категории из тела по совпадениям title, description
-			// } else {
-			// 	const results = await prisma.$queryRaw(`SELECT id, category_id, price, photo, rating, created_at, delivery, reviewed, address, phone, trade, verify_moderator, commercial, secure_transaction, title, email FROM posts WHERE category_id = ${categoryIdInt} AND LOWER (title) LIKE '%${text}%' OR category_id = ${categoryIdInt} AND LOWER (description) LIKE '%${text}%'`)
-			// 	return { results: results };
-			// }
 			const category = req.body.category.toLowerCase();
 			const page_limit = req.body.page_limit
 			const page = (req.body.page - 1) * page_limit
 			const text = req.body.text.toLowerCase();
 			const sort = req.body.sort.toLowerCase()
+			if (typeof req.body.page !== 'number' || typeof req.body.page_limit !== 'number') {
+				return("err")
+			}
 			let sort_value
 			switch (sort) {
 				case 'default':
@@ -46,7 +36,7 @@ export default async function handler(req, res) {
 			if (region_excludes === '') {
 				region_excludes = '!'
 			}
-			const answer =  await pool.query(`SELECT * FROM posts WHERE LOWER (category_id) LIKE '${category}%' AND active = 0 AND verify = 0 AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' ${sort_value} LIMIT ${page_limit} offset ${page}`)
+			const answer =  await pool.query(`SELECT * FROM posts WHERE LOWER (category_id) LIKE $1 AND active = 0 AND verify = 0 AND (LOWER (title) LIKE $2 OR LOWER (description) LIKE $2) AND LOWER (city) LIKE $3 AND LOWER (city) NOT LIKE $4 ${sort_value} LIMIT $5 offset $6`, [category + '%', '%' + text + '%', region_includes + '%', region_excludes + '%', page_limit, page])
 		    return (answer.rows)
         }
 		try {

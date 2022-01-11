@@ -43,9 +43,6 @@ export default async function handler(req, res) {
             return "asgasfasfsafsaf"
         }
 
-
-
-
         try {
             const response = await main();
             res.status(200);

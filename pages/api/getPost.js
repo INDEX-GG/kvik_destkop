@@ -18,10 +18,7 @@ export default async function handler(req, res) {
 					}
 				}
 				try {
-					const subs = (await pool.query(`SELECT * FROM "subcategories".${subcategory} WHERE post_id = '${req.body.id}'`)).rows
-
-					// const subs = (await pool.query(`SELECT * FROM "subcategories".$1 WHERE post_id = $2`, [subcategory, req.body.id])).rows
-
+					const subs = (await pool.query(`SELECT * FROM "subcategories"."${subcategory}" WHERE post_id = $1`, [req.body.id])).rows
 					let additional_fields = subs[0]
 					if (additional_fields !== undefined) {
 						answer.rows[0]['additional_fields'] = additional_fields

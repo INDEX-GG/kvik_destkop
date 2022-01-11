@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import {Pool} from "pg";
 
 const text2Bool = (string) => {
 	return (string === 'true') || (string === true);
@@ -22,7 +21,6 @@ export default async function handler(req, res) {
 			return res.status(403).send("Invalid Token");
 		}
 
-		const pool = new Pool({ connectionString: process.env.DATABASE_URL});
 		const prisma = new PrismaClient();
 			const main = async () => {
 				const communication = {
@@ -83,7 +81,11 @@ export default async function handler(req, res) {
 						})
 						columns = columns.slice(0, -2)
 						values = values.slice(0 ,-2)
-						await pool.query(`INSERT INTO "subcategories".${req.body.subcategory} (${columns}) VALUES (${values})`)
+
+						// await prisma.$queryRaw(`SELECT id, name, "userPhoto", raiting FROM users WHERE id IN (${a})`)
+
+						await prisma.$queryRaw(`INSERT INTO "subcategories".${req.body.subcategory} (${columns}) VALUES (${values})`)
+
 					}
 					catch (e) {
 						try{
@@ -109,7 +111,6 @@ export default async function handler(req, res) {
 		}
 		finally {
 			await prisma.$disconnect();
-			await pool.end();
 		}
 	} else {
 		res.json({ message: 'method not allowed' })
