@@ -9,6 +9,7 @@ import SortItem from "./SortItem";
 // import EndMessage from './EndMessage';
 import OffersRenderGridIcon from '#UI/icons/OffersRenderGridIcon';
 import OffersRenderListIcon from '#UI/icons/OffersRenderListIcon';
+import { useAuth } from '#lib/Context/AuthCTX';
 
 const useStyles = makeStyles((theme) => ({
 	top: {
@@ -46,6 +47,7 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 	const observer = useRef()
 	const lastElement = useRef()
 	const {matchesMobile, matchesTablet} = useMedia()
+	const {id} = useAuth()
 	// буль для условия отображения списка объявления (либо сетка, либо список)
 	const [gridView, setGridView] = useState(true)
 	
@@ -61,8 +63,6 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 		if(!gridView && screenIsMobile) return 'scrollableOffersHome scrollableOffersHomeV2'
 		else return 'scrollableOffersHome'
 	}
-
-	console.log(data, 'data')
 	return (
 		<>
 				<Box className={classes.top}>
@@ -92,8 +92,8 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 				{/* <div className="scrollableOffersHome"> */}
 				<div className={classSwitcher()}>
 					{data?.map((obj, i) => isProduct ? 
-					<AdCard_component isGrid={gridView} key={i} offer={obj} /> :  
-					<AdCard_component isGrid={gridView} ref={lastElement} key={i} offer={obj} id={obj.id} />)}
+					<AdCard_component id={id} isGrid={gridView} key={i} offer={obj} /> :  
+					<AdCard_component isGrid={gridView} ref={lastElement} key={i} offer={obj} id={id} />)}
 				</div>
 				{pageObj.page !== 'end' && <div className='offer__placeholder_loader'><Loader /></div>}
 				<ScrollTop />

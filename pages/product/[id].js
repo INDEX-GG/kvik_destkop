@@ -134,7 +134,6 @@ const Product = () => {
         setDefaultStatus(active)
     }, [active])
 
-    console.log('render ID page')
 
     return (
         <MetaLayout>
