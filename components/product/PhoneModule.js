@@ -80,7 +80,7 @@ export default function PhoneModule({dialog, setDialog, userPhotoInIndex, userPh
   const classes = useStyles();
   const router = useRouter()
   const { name, userPhoto, raiting, user_id, isLoading } = useProduct(router.query.id)
-  const {sellerPhone} = useOutherUser(user_id);
+  const {sellerPhone} = useOutherUser(user_id)
 
 
   return (

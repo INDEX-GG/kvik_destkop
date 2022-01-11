@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 // import { json } from 'stream/consumers';
 import ProductInformationPlaceHolder
     from "../../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
@@ -160,7 +160,7 @@ const useClass = makeStyles(() => ({
 
         productWrap: {
             padding: '0 12px',
-            maxHeight: '150px',
+            maxHeight: '145px',
             overflow: 'hidden'
         },
 
@@ -178,31 +178,31 @@ const useClass = makeStyles(() => ({
 
 
 }))
-
-function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck) {
-    const splitedCategory_id = category_id.split(',');
-    const backJs = allProductInfo.additional_fields ? 
-    Object.entries(allProductInfo.additional_fields).filter(item => item[1] !== false) : 
+function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[], finalArrCheck=[]) {
+    const splitedCategory_id = category_id?.split(',');
+    const backJs = allProductInfo?.additional_fields ? 
+    Object.entries(allProductInfo?.additional_fields).filter(item => item[1] !== false) : 
     [];
-
+    // console.log(splitedCategory_id, 'splited id')
+    // console.log(backJs, 'back js')
+    // console.log(placeOfferJson, 'frontjs')
     // const frontJs = placeOfferJson.category.find(item => item.alias === splitedCategory_id[0])
     //   .children.find(item => item.alias === splitedCategory_id[1])
     //   .additional_fields;
 
     
     const frontJs = splitedCategory_id.reduce((acc, item, index) => {
-        if(splitedCategory_id.length - 1 === index) {
-            return acc.children.find(child=> child.alias === item)
+        if(splitedCategory_id?.length - 1 === index) {
+            return acc?.children.find(child=> child?.alias === item)
         }
 
         if(acc) {
-            return acc.children.find(child => child.alias === item)
+            return acc?.children.find(child => child?.alias === item)
         }
-         return placeOfferJson.category.find(category => category.alias === item)
+         return placeOfferJson?.category.find(category => category?.alias === item)
          
-    }, undefined).additional_fields
+    }, undefined)?.additional_fields
    
-
     backJs.forEach((item) => {
         // поля с айдишниками нам не интересны
         // Гбо и цвет времено исключены
@@ -212,7 +212,7 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, f
 
         // Находим образец объекта на фронте и пушим новый объект в финальный массив, если удалось найтия 
         
-        const commonObj = frontJs.find(it => it.alias === item[0])
+        const commonObj = frontJs.find(it => it?.alias === item[0])
 
       if (commonObj !== undefined) {
         finalArr.push({
@@ -223,16 +223,15 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, f
       }
       // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
       // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
-      const numberOfCheck = parseInt(item[0].match(/\d+/))
-      const sliceNumber = -Math.abs(numberOfCheck.toString().length)
-      const aliasName = item[0].slice(0, sliceNumber)
+      const numberOfCheck = parseInt(item[0]?.match(/\d+/))
+      const sliceNumber = -Math?.abs(numberOfCheck.toString()?.length)
+      const aliasName = item[0]?.slice(0, sliceNumber)
   
       // Находим образец с чеклистами на фронте, по полученому выше алиасу.
-      const checkObj = frontJs.find(it => it.alias === aliasName)
+      const checkObj = frontJs?.find(it => it?.alias === aliasName)
   
       // проверяем был ли подобный объект запушен в финальный массив, если да то делаем спред, если нет то создаем новый объект.
-      const findedCheckObj = finalArrCheck.find(it => it?.title === checkObj?.title)
-  
+      const findedCheckObj = finalArrCheck?.find(it => it?.title === checkObj?.title)
       if (findedCheckObj) {
         findedCheckObj.value = [...findedCheckObj?.value, checkObj?.check_list_values[numberOfCheck - 1]]
         return
@@ -242,7 +241,6 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, f
         title: checkObj?.title,
         value: [checkObj?.check_list_values[numberOfCheck - 1]],
       })
-  
       return 
     })
 }
@@ -255,18 +253,24 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
     const { matchesMobile, matchesTablet } = useMedia();
     const additional_fieldsRef = useRef()
     const checkListWrapper = useRef()
-
+    
     const wrapHeight = additional_fieldsRef?.current?.offsetHeight;
     const checkWrapHeight = checkListWrapper?.current?.offsetHeight;
     const mobile = matchesMobile || matchesTablet;
     // массив для обычных полей
-    const finalArr = []
+    let finalArr = []
     // массив для чеклистов
-    const finalArrCheck = []
+    let finalArrCheck = []
     // буль для рендера плейсхолдера
     const additionalFieldsIsPending = allProductInfo.additional_fields === undefined
-
     generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck)
+
+    
+    useEffect(()=> {
+        // закрывашка свойсв при отрисовке новой страницы
+        setShowMore(false)
+        SetShowMoreCheckList(false)
+    }, [allProductInfo])
 
     
 
@@ -350,7 +354,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                 </div>
             }
 
-            {(mobile && !showMoreCheckList) && (checkWrapHeight > 150) &&
+            {(mobile && !showMoreCheckList) && (checkWrapHeight > 145) &&
                 <button onClick={checkListClickHandler} 
                 className='productShowMore'>
                     Показать больше
