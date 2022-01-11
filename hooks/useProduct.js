@@ -7,9 +7,14 @@ import { getDataByPost } from '../lib/fetch';
 export function useProduct(id) {
 	const [productInfo, setProductInfo] = useState({});
 	const {id: userId} = useAuth();
+	// преобразование в число для новой версии бека
+	const intId = parseInt(id)
+
 	useEffect(() => {
 		if (typeof id === 'string' || typeof id === 'number') {
-			getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })
+			// запрос для старой версии бека (id это число )
+			// getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })
+			getDataByPost('/api/getPost?123', { id: intId, 'user_id': userId })
 				.then((r) => {
 
 					if (r !== undefined) {
