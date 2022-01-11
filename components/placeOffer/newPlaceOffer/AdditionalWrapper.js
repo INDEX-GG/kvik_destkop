@@ -6,13 +6,22 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "row",
         marginBottom: theme.spacing(3),
+        [theme.breakpoints.down(960)]: {
+            marginBottom: '15px',
+            width: '100%'
+        }
     },
     formTitleField: {
         fontSize: "14px",
         flexGrow: 1,
         padding: "4px 5px 4px 0",
         maxWidth: 158,
-        position: 'relative'
+        position: 'relative',
+        [theme.breakpoints.down(960)]: {
+            width: '100%',
+            maxWidth: 'none',
+            padding: 0
+        }
     },
     formInputFieldCheck: {
         width: "490px",
@@ -23,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingTitle: {
         paddingTop: '10px'
+    },
+    mobile : {
+        [theme.breakpoints.down(960)]: {
+            display: 'none'
+        }
     }
 }));
 
@@ -34,7 +48,7 @@ const AdditionalWrapper = ({title, type, children}) => {
 
     return (
         <Box className={classes.formElem}>
-            <Typography className={classNameTitle}>
+            <Typography className={`${classNameTitle} ${classes.mobile}`}>
                 {title}
             </Typography>
             <Box className={wrapper}>

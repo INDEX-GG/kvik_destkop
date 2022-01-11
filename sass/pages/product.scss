@@ -9,8 +9,11 @@
 }
 
 .productSocialContainer {
-  display: flex; 
-  align-items: center;
+  // display: flex; 
+  // align-items: center;
+  display: grid;
+  grid-column-gap: 40px;
+  grid-template-columns: .4fr 1fr;
   padding-left: 12px;
   margin-top: 10px;
   border-bottom: 1px solid #e9e9e9;
@@ -20,6 +23,7 @@
 .productUserName {
   cursor: pointer;
   transition: all 150ms ease-in-out;
+  padding-left:5px;
 
   &:hover {
     transition: all 150ms ease-in-out;
@@ -40,6 +44,7 @@
 
 .productHeader {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
 }
@@ -75,6 +80,7 @@
 .productPageTitle {
   // margin-bottom: 18px;
   padding: 0 10px;
+  max-width: 600px;
 }
 
 .productPageCharacter {
@@ -87,12 +93,12 @@
   transition: height .4s ease-in-out;
 }
 
-// .productWrap {
-  // padding: 10px 12px;
+.productWrap {
+  padding: 0 12px;
   // display: flex;
   // align-items: center;
-
-// }
+  grid-column: 1/3;
+}
 
 .productPageWrap, .ReactCollapse--content {
   display: flex;
@@ -339,6 +345,12 @@
   cursor: pointer;
 }
 
+.userSubScribeContainer {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 5px;
+}
+
 // .SellerInfoUserBlock *:nth-child(2) {
 //     height: 100%;
 //     display: flex;
@@ -419,7 +431,7 @@
   display: flex;
   // max-width: 40%;
   // min-width: 40%;
-  flex-basis: 50%;
+  flex-basis: 10%;
   padding: 10px 0;
   // &:nth-child(1n) {
   //   margin-right: 10px;
@@ -469,9 +481,10 @@
 }
 
 .SellerInfoUserOffersCollapse {
-  align-self: flex-end;
+  // align-self: flex-end;
   margin-bottom: 10px;
   display: block;
+  justify-self: end;
 }
 
 .SellerInfoShutUp {
@@ -521,6 +534,8 @@
   width: 160px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.17;
@@ -562,7 +577,8 @@
 }
 
 .productShareTitle {
-  width: 30%;
+  // width: 30%;
+
   text-align: left;
   margin-bottom: 5px;
   color: $tpsl;
@@ -576,7 +592,7 @@
   // display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px 16px;
+  padding: 0px 12px;
   color: $tp;
   font-weight: 400;
 }
@@ -947,11 +963,12 @@
   max-width: 250px;
 }
 
-// .ad__block_bottom__adaptive {
-//     display: flex;
-//     justify-content: flex-end;
-//     // margin-bottom: 60px;
-// }
+.ad__block_bottom__adaptive {
+    // display: flex;
+    // justify-content: flex-end;
+    // margin-bottom: 60px;
+    justify-self: end;
+}
 // .swiper-pagination {
 //     // display: none;
 // }
@@ -960,13 +977,15 @@
   // margin-top: 18px;
   display: flex;
   justify-content: flex-end;
+  padding: 0 12px;
+  border-top:  1px solid #E9E9E9;
 }
 
 .productPageCard {
   padding: 10px 12px;
   max-width: 968px;
   width: 100%;
-  border-top: 1px solid #E9E9E9;
+  // border-top: 1px solid #E9E9E9;
 }
 
 .SellerProductInfo {
@@ -976,6 +995,12 @@
 .ProductuserContainer {
   display: flex;
   align-items: center;
+}
+
+.ProductUserSubContainer{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
 }
 
 .ProductuserContainer .MuiAvatar-root {
@@ -1055,6 +1080,7 @@
   .SellerInfo__adaptive_buttons {
     display: flex;
     justify-content: space-between;
+    margin-top: 12px;
   }
 
   .ad_btn {
@@ -1250,6 +1276,10 @@
   // .ad__block_bottom__adaptive_right {
   //     margin-top: 10px;
   // }
+  .ad_btn_edit {
+    margin-bottom: 0;
+  }
+
 .productSocialContainer {
   display: flex; 
   flex-direction: column;
@@ -1401,7 +1431,8 @@
   }
 
   .ad_btn_edit {
-    margin-bottom: 18px;
+    // margin-bottom: 18px;
+    margin-bottom: 12px;
     width: 100%;
     max-width: 100%;
   }
@@ -1461,9 +1492,9 @@
   .productUserName {
     padding-top: 8px;
   }
-  .ad__block_bottom {
-    height: 90px;
-  }
+  // .ad__block_bottom {
+  //   height: 90px;
+  // }
   .SellerProductInfo {
     padding-top: 3px;
   }

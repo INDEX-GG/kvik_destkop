@@ -9,15 +9,15 @@ const CategoriesAliasTwo = ({alias, label, currentAlias, changeCategories}) => {
 
 	return (
 		<>
-			<ListItem className="burgerList pl-1" button onClick={() => setOpen(!open)}>
+			<ListItem className="burgerList" button onClick={() => setOpen(!open)}>
 				<ListItemText className={`burgerItem ${open ? "burgerItemActive" : ""}`} primary={label} />
 			</ListItem>
 			<Collapse in={open}>
                 {Array.isArray(currentAlias) && (
                     currentAlias.map(item => (
-                        <ListItem className="burgerList pl-2" key={item.alias}>
+                        <ListItem className="burgerList pl-1" key={item.alias}>
                             <ListItemText>
-                                <div className="burgerItem burgerLink" onClick={() => changeCategories(alias + item.alias)}>
+                                <div className="burgerItem burgerLink" onClick={() => changeCategories(`${alias},${item.alias}`)}>
                                     {item.name}
                                 </div>
                             </ListItemText>

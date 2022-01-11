@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { Backdrop, makeStyles } from '@material-ui/core';
 import MetaLayout from '../layout/MetaLayout';
 import { useMedia } from '../hooks/useMedia';
@@ -12,6 +12,8 @@ import {useStore} from "../lib/Context/Store";
 import {getTokenDataByPost} from "../lib/fetch";
 import {generateAdditionalFields, generateSearchName, generateTitle} from "../lib/services";
 import NewPlaceOfferContent from "#components/placeOffer/newPlaceOffer/NewPlaceOfferContent";
+import {useForm, FormProvider} from "react-hook-form";
+import useCategoryV2 from "#hooks/useCategoryV2";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -51,15 +53,17 @@ function PlaceOffer() {
 
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
-
+    const methods = useForm({defaultValues: { price: ''} });
 
     const { id, token } = useAuth();
     const {userInfo} = useStore()
+    const {getMoreCategory} = useCategoryV2();
 
 
     const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false);
     const [product, setProduct] = useState({});
+    const [category, setCategory] = useState();
 
 
     let photoes = [];
@@ -69,8 +73,42 @@ function PlaceOffer() {
         return photoes = obj;
     }
 
+    /* получение дополнительных полей */
+    const aliasObj = {
+        aliasOne: methods.watch('alias1'),
+        aliasTwo: methods.watch('alias2'),
+        aliasThree: methods.watch('alias3'),
+    }
 
-    const onSubmit = (data, methods, category, currentCategory) => {
+    // текущий объект категории
+    const currentCategory = getMoreCategory(aliasObj.aliasOne, aliasObj.aliasTwo, aliasObj.aliasThree);
+    const title = currentCategory?.title
+
+
+    // Получаем выбранную категорию
+    useEffect(() => {
+        const getValue = methods.getValues
+        const aliasValue = (aliasNum) => getValue('alias' + aliasNum);
+
+        const alias2 = aliasValue(2)
+        const alias3 = aliasValue(3)
+        const alias4 = aliasValue(4)
+
+        if (alias4) {
+            setCategory(alias4.toLowerCase())
+        } else if (alias3) {
+            setCategory(alias3.toLowerCase())
+        } else if (alias2) {
+            setCategory(alias2.toLowerCase())
+        } else {
+            setCategory(undefined)
+        }
+
+    }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
+
+
+    // methods, category, currentCategory
+    const onSubmit = (data) => {
         data.price = data.price.replace(/\D+/g, '');
 
         const alias = [data?.alias1, data?.alias2];
@@ -165,57 +203,28 @@ function PlaceOffer() {
     return (
         promotion ? <Promotion product={product} /> :
             <MetaLayout title={'Подать объявление'}>
-                {!matchesMobile && !matchesTablet && (
-                    // <Container className={classes.root}>
-                    //     <Box className={classes.offersBox}>
-                    //         <Typography className={classes.title} variant='h3'>Новое объявление</Typography>
-                    //         <FormProvider {...methods} >
-                    //             <Verify showTitle={showTitle}/>
-                    //             <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    //                 <Box className={classes.formPart}>
-                    //                     <Category category={mainCategory}/>
-                    //                     {currentCategory?.title ? null : <Title title='' />}
-                    //                 </Box>
-                    //                 {/* Проверка на доп. поле*/}
-                    //                 {!!currentCategory?.additional_fields.length && (
-                    //                     <Box className={classes.formPart}>
-                    //                         <AdditionalInformation currentCategory={currentCategory} />
-                    //                     </Box>
-                    //                 )}
-                    //                 <Box className={classes.formPart}>
-                    //                     <Description />
-                    //                     {category !== 'vacancies' && category !== 'summary' ?
-                    //                         <Price price=''/>
-                    //                         :
-                    //                         null
-                    //                     }
-                    //                     <Photoes ctx={photoesCtx} />
-                    //                 </Box>
-                    //                 <Box className={classes.formPart}>
-                    //                     <Location />
-                    //                     <Contacts />
-                    //                     <Box className={classes.submit}>
-                    //                         <ErrorMessages validate={subcategoryData[category]} type={category}/>
-                    //                         <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
-                    //                     </Box>
-                    //                 </Box>
-                    //             </form>
-                    //         </FormProvider>
-                    //     </Box>
-                    // </Container>
-                    <NewPlaceOfferContent
-                        functionObj={{
-                            onSubmit,
-                            photoesCtx
-                        }}
-                    />
-                )}
-                {matchesMobile || matchesTablet ? (
-                    <PlaceOfferMobile>
-
-                    </PlaceOfferMobile>
-                ) : null}
-
+                <FormProvider {...methods} >
+                    <form onSubmit={methods.handleSubmit(onSubmit)}>
+                        {!matchesMobile && !matchesTablet && (
+                            <NewPlaceOfferContent
+                                photoesCtx={photoesCtx}
+                                title={title}
+                                category={category}
+                                currentCategory={currentCategory}
+                            />
+                        )}
+                        {matchesMobile || matchesTablet ? (
+                            <PlaceOfferMobile>
+                                <NewPlaceOfferContent
+                                    photoesCtx={photoesCtx}
+                                    title={title}
+                                    category={category}
+                                    currentCategory={currentCategory}
+                                />
+                            </PlaceOfferMobile>
+                        ) : null}
+                    </form>
+                </FormProvider>
                 <Backdrop className={classes.backdrop} open={loading}>
                     <Loader size={64} />
                 </Backdrop>

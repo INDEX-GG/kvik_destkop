@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         marginBottom: theme.spacing(3),
+        [theme.breakpoints.down(960)]: {
+            marginBottom: '15px'
+        }
     },
     formTitleField: {
         fontSize: '14px',
@@ -40,6 +43,7 @@ const Category = ({category}) => {
 
     const aliasOne = methods.watch('alias1');
     const aliasTwo = methods.watch('alias2');
+
 
     const categoryNestingOne = getMoreCategory(category, aliasOne)
     const categoryNestingTwo = getMoreCategory(category, aliasOne, aliasTwo)
