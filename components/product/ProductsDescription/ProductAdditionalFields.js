@@ -179,16 +179,21 @@ const useClass = makeStyles(() => ({
 
 }))
 function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[], finalArrCheck=[]) {
-    const splitedCategory_id = category_id?.split(',');
-    const backJs = allProductInfo?.additional_fields ? 
-    Object.entries(allProductInfo?.additional_fields).filter(item => item[1] !== false) : 
-    [];
-    // console.log(splitedCategory_id, 'splited id')
-    // console.log(backJs, 'back js')
-    // console.log(placeOfferJson, 'frontjs')
-    // const frontJs = placeOfferJson.category.find(item => item.alias === splitedCategory_id[0])
-    //   .children.find(item => item.alias === splitedCategory_id[1])
-    //   .additional_fields;
+    try {
+        
+    
+        // console.log(finalArr, 'final Arr')
+        // console.log(finalArrCheck, 'final arrCheck')
+        const splitedCategory_id = category_id?.split(',');
+        const backJs = allProductInfo?.additional_fields ? 
+        Object.entries(allProductInfo?.additional_fields).filter(item => item[1] !== false) : 
+        [];
+        // console.log(splitedCategory_id, 'splited id')
+        // console.log(backJs, 'back js')
+        // console.log(placeOfferJson, 'frontjs')
+        // const frontJs = placeOfferJson.category.find(item => item.alias === splitedCategory_id[0])
+        //   .children.find(item => item.alias === splitedCategory_id[1])
+        //   .additional_fields;
 
     
     const frontJs = splitedCategory_id.reduce((acc, item, index) => {
@@ -202,47 +207,49 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
          return placeOfferJson?.category.find(category => category?.alias === item)
          
     }, undefined)?.additional_fields
-   
-    backJs.forEach((item) => {
-        // поля с айдишниками нам не интересны
-        // Гбо и цвет времено исключены
-        if (item[0] === 'id' || item[0] === 'post_id' || item[0] === 'color' || item[0] === 'hbo') {
+        backJs.forEach((item) => {
+            // поля с айдишниками нам не интересны
+            // Гбо и цвет времено исключены
+            if (item[0] === 'id' || item[0] === 'post_id' || item[0] === 'color' || item[0] === 'hbo') {
+                return 
+            }
+
+            // Находим образец объекта на фронте и пушим новый объект в финальный массив, если удалось найтия 
+            
+            const commonObj = frontJs.find(it => it?.alias === item[0])
+
+        if (commonObj !== undefined) {
+            finalArr.push({
+            title: commonObj?.title,
+            value: item[1]
+            })
             return 
         }
-
-        // Находим образец объекта на фронте и пушим новый объект в финальный массив, если удалось найтия 
-        
-        const commonObj = frontJs.find(it => it?.alias === item[0])
-
-      if (commonObj !== undefined) {
-        finalArr.push({
-          title: commonObj?.title,
-          value: item[1]
+        // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
+        // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
+        const numberOfCheck = parseInt(item[0]?.match(/\d+/))
+        const sliceNumber = -Math?.abs(numberOfCheck.toString()?.length)
+        const aliasName = item[0]?.slice(0, sliceNumber)
+    
+        // Находим образец с чеклистами на фронте, по полученому выше алиасу.
+        const checkObj = frontJs?.find(it => it?.alias === aliasName)
+    
+        // проверяем был ли подобный объект запушен в финальный массив, если да то делаем спред, если нет то создаем новый объект.
+        const findedCheckObj = finalArrCheck?.find(it => it?.title === checkObj?.title)
+        if (findedCheckObj) {
+            findedCheckObj.value = [...findedCheckObj?.value, checkObj?.check_list_values[numberOfCheck - 1]]
+            return
+        }
+        // тут создается новый объект, если условие выше не выполнилось
+        finalArrCheck.push({
+            title: checkObj?.title,
+            value: [checkObj?.check_list_values[numberOfCheck - 1]],
         })
         return 
-      }
-      // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
-      // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
-      const numberOfCheck = parseInt(item[0]?.match(/\d+/))
-      const sliceNumber = -Math?.abs(numberOfCheck.toString()?.length)
-      const aliasName = item[0]?.slice(0, sliceNumber)
-  
-      // Находим образец с чеклистами на фронте, по полученому выше алиасу.
-      const checkObj = frontJs?.find(it => it?.alias === aliasName)
-  
-      // проверяем был ли подобный объект запушен в финальный массив, если да то делаем спред, если нет то создаем новый объект.
-      const findedCheckObj = finalArrCheck?.find(it => it?.title === checkObj?.title)
-      if (findedCheckObj) {
-        findedCheckObj.value = [...findedCheckObj?.value, checkObj?.check_list_values[numberOfCheck - 1]]
-        return
-      }
-      // тут создается новый объект, если условие выше не выполнилось
-      finalArrCheck.push({
-        title: checkObj?.title,
-        value: [checkObj?.check_list_values[numberOfCheck - 1]],
-      })
-      return 
-    })
+        })
+    } catch (error) {
+            console.log(error)
+        }
 }
 
 
@@ -310,8 +317,8 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                     <div ref={additional_fieldsRef} className={classes.additionalFieldsContainer}>
                         {finalArr.map((item, index) => (
                             <div key={index} className="productAboutItem">
-                                <span className={classes.title}>{item.title}:</span>
-                                <pre className={classes.content}>{item.value}</pre>
+                                <span className={classes.title}>{item?.title}:</span>
+                                <pre className={classes.content}>{item?.value}</pre>
                             </div>
                         ))}
 
@@ -344,9 +351,9 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                     <div ref={checkListWrapper} className={classes.productCheckList}>
                         {finalArrCheck.map((item, index) => (
                             <div key={index} className={classes.checkListItem}>
-                                <span className={classes.checkListTitle}>{item.title}:</span>
+                                <span className={classes.checkListTitle}>{item?.title}:</span>
                                 <ul className={classes.checkListUl}>
-                                    {item.value.map((value, index) => <li className={classes.checkListContent} key={index}>{value}</li>)}
+                                    {item?.value.map((value, index) => <li className={classes.checkListContent} key={index}>{value}</li>)}
                                 </ul>
                             </div>
                         ))}
