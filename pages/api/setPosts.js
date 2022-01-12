@@ -90,7 +90,7 @@ export default async function handler(req, res) {
 					catch (e) {
 						try{
 							const error = "'[" + e.toString().replace(/"/g, '""').replace(/'/g, "''") + "]'"
-							await pool.query(`UPDATE "posts" SET "additional_fields_error" = ${error} WHERE id = ${createPost.id}`)
+							await prisma.$queryRaw(`UPDATE "posts" SET "additional_fields_error" = ${error} WHERE id = ${createPost.id}`)
 						}
 						catch (e) {`Внутренняя ошибка api setPosts ${e}`}
 						console.error(`Внутренняя ошибка api setPosts ${e}`)
