@@ -1,20 +1,28 @@
 import {Pool} from "pg";
 
-const text2Bool = (string) => {
-    return (string === 'true') || (string === true);
-}
+
+// const text2Bool = (string) => {
+//     return (string === 'true') || (string === true);
+// }
+
 
 export default async function handler(req, res) {
-
     if (req.method === 'POST') {
         const pool = new Pool({ connectionString: process.env.DATABASE_URL });
         const main = async () => {
-            const key_list = ['auto', 'new_building', 'secondary_housing', 'rent_apartments', 'sell_rooms', 'rent_rooms', 'sell_houses_and_cottages', 'rent_houses_and_cottages', 'sell_office_space', 'sell_commercial_premises', 'sell_warehouse_space', 'sell_production_room', 'sell_free_premises', 'sell_building', 'rent_office_space', 'rent_commercial_premises', 'rent_warehouse_space', 'rent_production_room', 'rent_free_premises', 'rent_building', 'sell_izhs', 'sell_snt', 'sell_agriculturalland', 'sell_commercialland', 'sell_garage', 'sell_parkingplace', 'rent_garage', 'rent_parkingplace', 'sell_abroad', 'rent_abroad', 'vacancies', 'summary', 'laptops', 'smartphones', 'telephones', 'tablets', 'electronic_books', 'chargers_power_supplies', 'smart_watches_and_fitness_bracelets', 'desktop_computers', 'monitors', 'manipulators__input_devices', 'expendable_materials', 'motherboards_perif', 'ram', 'data_storage', 'housings_corp', 'video_cards_componentsss', 'other_comp', 'personal_computer_accessories', 'ram_for_servers', 'server_network_hardware', 'steering_wheels_gamepads_joysticks', 'printers', 'mfps_and_scanners', 'consumables_for_office_equipment', 'ups_and_surge_protectors', 'tv_sets_cat2', 'hi_fi_technology', 'tv_accessories', 'audio_engineering', 'video_engineering', 'for_home', 'for_personalized_care', 'for_kitchen', 'climatic_equipment', 'table_setting', 'cooking_food', 'food_storage', 'household_goods', 'video_surveillance', 'plants_and_seeds', 'cats', 'dogs', 'goods_for_children_toys', 'bicycles']
+            const key_list = ['sell_apartments', 'rent_apartments', 'sell_rooms', 'rent_rooms', 'sell_houses_and_cottages', 'rent_houses_and_cottages', 'sell_commercial_property', 'rent_commercial_property', 'sell_land', 'sell_garages_and_parking_spaces_second', 'rent_garages_and_parking_spaces_second', 'sell_abroad', 'rent_abroad', 'auto', 'buses', 'trucks', 'construction_machinery', 'agricultural_machinery', 'all_terrain_vehicle', 'house_on_wheels', 'motorcycles', 'mopeds_and_scooters', 'atvs_quad', 'karting', 'atvs_and_buggy', 'snowmobiles', 'boats_and_yachts', 'jet_skis', 'motor_boats', 'trailers', 'laptops', 'laptops_consumables_and_spare_parts', 'smartphones', 'telephones', 'smartphones_consumables_and_spare_parts', 'electronic_books', 'tablets', 'tablets_and_e_books_accessories', 'tablets_and_e_books_consumables_and_spare_parts', 'protective_glasses_films', 'smart_watches_and_fitness_bracelets', 'monitors', 'processors_cat', 'motherboards_periphery', 'ram', 'video_cards_components', 'pc_housings', 'hard_drives_and_ssd', 'data_storage', 'consumables_and_spare_parts', 'personal_computer_accessories', 'printers', 'mfp_and_scanners', 'consumables_for_office_equipment', 'tv_sets', 'hi_fi_technology', 'tv_accessories', 'games_consoles_and_programs', 'for_home', 'for_personalized_care', 'for_kitchen', 'climatic_equipment', 'table_setting', 'cooking_food', 'food_storage', 'household_goods', 'video_surveillance', 'plants_and_seeds', 'vacancies_it', 'vacancies_auto_biz', 'vacancies_amin_job', 'vacancies_invest', 'vacancies_students_ve', 'vacancies_fin', 'vacancies_manager', 'vacancies_nko', 'vacancies_homer', 'vacancies_zkh', 'vacancies_art', 'vacancies_talk', 'vacancies_pr', 'vacancies_medical', 'vacancies_science', 'vacancies_security', 'vacancies_sales', 'vacancies_product', 'vacancies_insure', 'vacancies_build', 'vacancies_logistic', 'vacancies_tourism', 'vacancies_personal_manager', 'vacancies_beauty', 'vacancies_lower', 'summary_it', 'summary_auto_biz', 'summary_amin_job', 'summary_invest', 'summary_students_ve', 'summary_fin', 'summary_manager', 'summary_nko', 'summary_homer', 'summary_zkh', 'summary_art', 'summary_talk', 'summary_pr', 'summary_medical', 'summary_science', 'summary_security', 'summary_sales', 'summary_product', 'summary_insure', 'summary_build', 'summary_logistic', 'summary_tourism', 'summary_personal_manager', 'summary_beauty', 'summary_lower', 'cats', 'dogs', 'goods_for_children_toys', 'bicycles']
+
+
+
+
+
+
+
             const category = req.body.category.toLowerCase();
             const full_category = req.body.categoryFullName.toLowerCase();
             const text = req.body.text.toLowerCase();
-            const delivery = text2Bool(req.body.delivery);
-            const save_deal = text2Bool(req.body.save_deal);
+            // const delivery = text2Bool(req.body.delivery);
+            // const save_deal = text2Bool(req.body.save_deal);
             const page_limit = req.body.page_limit
             const page = (req.body.page - 1) * page_limit
             const price_min = req.body.price.min
@@ -22,6 +30,18 @@ export default async function handler(req, res) {
             const check = req.body.check
             const time = req.body.time
             const sort = req.body.sort.toLowerCase()
+            const region_includes = req.body.region_includes.toLowerCase()
+            let region_excludes = req.body.region_excludes.toLowerCase()
+            if (region_excludes === '') {
+                region_excludes = '!'
+            }
+
+
+
+
+
+
+
             let sort_value
             switch (sort) {
                 case 'default':
@@ -40,18 +60,20 @@ export default async function handler(req, res) {
                     sort_value = ''
                     break;
             }
-            const region_includes = req.body.region_includes.toLowerCase()
-            let region_excludes = req.body.region_excludes.toLowerCase()
-            if (region_excludes === '') {
-                region_excludes = '!'
-            }
+
+
+
+
+
+
+
             let constructQuery = ''
-            if (delivery === true) {
-                constructQuery =  constructQuery.concat(" AND posts.delivery = '", true, "'")
-            }
-            if (save_deal === true) {
-                constructQuery =  constructQuery.concat(" AND posts.secure_transaction = '", true, "'")
-            }
+            // if (delivery === true) {
+            //     constructQuery =  constructQuery.concat(" AND posts.delivery = '", true, "'")
+            // }
+            // if (save_deal === true) {
+            //     constructQuery =  constructQuery.concat(" AND posts.secure_transaction = '", true, "'")
+            // }
             if (time != null) {
                 constructQuery =  constructQuery.concat(" AND posts.created_at >= '", time, "'")
             }
@@ -66,9 +88,22 @@ export default async function handler(req, res) {
                     constructQuery =  constructQuery.concat(" AND posts.price <= ", price_max, " AND posts.price >= ", price_min)
                 }
             }
+
+
+
+
+
+
+
             if (!(key_list.includes(category))) {
                 const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE '${full_category}%') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' ${sort_value} LIMIT ${page_limit} offset ${page}`)
                 return(answer.rows)
+
+
+
+
+
+
             } else {
                 for (const [key, value] of Object.entries(check)) {
                     if (value != null) {
@@ -99,6 +134,14 @@ export default async function handler(req, res) {
                 return(answer.rows)
             }
         }
+
+
+
+
+
+
+
+
         try {
             let response = await main();
             res.status(200);
