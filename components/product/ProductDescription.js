@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import ProductInformationPlaceHolder from "../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
 import {useMedia} from "#hooks/useMedia";
 import {makeStyles} from "@material-ui/core";
@@ -60,6 +60,10 @@ const ProductDescription = ({description}) => {
 
     const mobile = matchesMobile || matchesTablet;
     // const checkTextHieght = textRef.current.offsetHeight > mobile ? 50 : 60
+
+    useEffect(() => {
+        setIsOpenDescription(false)
+    }, [description])
 
 
     function showMoreClickHandler() {

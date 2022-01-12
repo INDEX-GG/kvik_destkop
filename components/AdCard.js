@@ -38,9 +38,10 @@ const useClass = makeStyles(() => ({
 	}
 }))
 
-const AdCard_component = React.forwardRef((props, ref, id) => {
+const AdCard_component = React.forwardRef((props, ref,) => {
 	const classes = useClass()
 	// const { id } = useAuth();
+	const {id} = props;
 	const {offer} = props;
 
 	const { matchesMobile, matchesTablet } = useMedia();
@@ -50,8 +51,8 @@ const AdCard_component = React.forwardRef((props, ref, id) => {
 	const currentSwiper = useRef();
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
+	// закоментил стейт, пока не разбереся с запросами.
 	// const [phoneModuleState, setPhoneModuleState] = useState(false);
-	// закоментил, пока не разбереся с запросами.
 	const [, setPhoneModuleState] = useState(false);
 	const handleCM = (e) => {
 		e.preventDefault();
@@ -119,7 +120,7 @@ const AdCard_component = React.forwardRef((props, ref, id) => {
 			return '<span class="' + className + '">' + "</span>"
 		}
 	}
-
+	// console.log(product, 'product')
 	return (
 		<div
 			ref={ref}
@@ -257,7 +258,7 @@ const AdCard_component = React.forwardRef((props, ref, id) => {
 				</Link>
 			</div>
 			{/* телефонный модуль делает очень много запросов. Отключен пока не пофиксится баг */}
-			{/* <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
+			{/* <PhoneModule product={product} dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
 		</div>
 
 	);
