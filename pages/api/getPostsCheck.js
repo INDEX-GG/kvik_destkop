@@ -1,11 +1,12 @@
 import {Pool} from "pg";
 
-const text2Bool = (string) => {
-    return (string === 'true') || (string === true);
-}
+
+// const text2Bool = (string) => {
+//     return (string === 'true') || (string === true);
+// }
+
 
 export default async function handler(req, res) {
-
     if (req.method === 'POST') {
         const pool = new Pool({ connectionString: process.env.DATABASE_URL });
         const main = async () => {
@@ -15,11 +16,13 @@ export default async function handler(req, res) {
 
 
 
+
+
             const category = req.body.category.toLowerCase();
             const full_category = req.body.categoryFullName.toLowerCase();
             const text = req.body.text.toLowerCase();
-            const delivery = text2Bool(req.body.delivery);
-            const save_deal = text2Bool(req.body.save_deal);
+            // const delivery = text2Bool(req.body.delivery);
+            // const save_deal = text2Bool(req.body.save_deal);
             const page_limit = req.body.page_limit
             const page = (req.body.page - 1) * page_limit
             const price_min = req.body.price.min
@@ -27,6 +30,18 @@ export default async function handler(req, res) {
             const check = req.body.check
             const time = req.body.time
             const sort = req.body.sort.toLowerCase()
+            const region_includes = req.body.region_includes.toLowerCase()
+            let region_excludes = req.body.region_excludes.toLowerCase()
+            if (region_excludes === '') {
+                region_excludes = '!'
+            }
+
+
+
+
+
+
+
             let sort_value
             switch (sort) {
                 case 'default':
@@ -45,18 +60,20 @@ export default async function handler(req, res) {
                     sort_value = ''
                     break;
             }
-            const region_includes = req.body.region_includes.toLowerCase()
-            let region_excludes = req.body.region_excludes.toLowerCase()
-            if (region_excludes === '') {
-                region_excludes = '!'
-            }
+
+
+
+
+
+
+
             let constructQuery = ''
-            if (delivery === true) {
-                constructQuery =  constructQuery.concat(" AND posts.delivery = '", true, "'")
-            }
-            if (save_deal === true) {
-                constructQuery =  constructQuery.concat(" AND posts.secure_transaction = '", true, "'")
-            }
+            // if (delivery === true) {
+            //     constructQuery =  constructQuery.concat(" AND posts.delivery = '", true, "'")
+            // }
+            // if (save_deal === true) {
+            //     constructQuery =  constructQuery.concat(" AND posts.secure_transaction = '", true, "'")
+            // }
             if (time != null) {
                 constructQuery =  constructQuery.concat(" AND posts.created_at >= '", time, "'")
             }
@@ -71,9 +88,22 @@ export default async function handler(req, res) {
                     constructQuery =  constructQuery.concat(" AND posts.price <= ", price_max, " AND posts.price >= ", price_min)
                 }
             }
+
+
+
+
+
+
+
             if (!(key_list.includes(category))) {
                 const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE '${full_category}%') AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' ${sort_value} LIMIT ${page_limit} offset ${page}`)
                 return(answer.rows)
+
+
+
+
+
+
             } else {
                 for (const [key, value] of Object.entries(check)) {
                     if (value != null) {
@@ -104,6 +134,14 @@ export default async function handler(req, res) {
                 return(answer.rows)
             }
         }
+
+
+
+
+
+
+
+
         try {
             let response = await main();
             res.status(200);
