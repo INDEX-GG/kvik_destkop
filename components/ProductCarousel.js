@@ -91,8 +91,8 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 									<img
 										style={{
 											display: 'block',
-											width:'100%',
 											heigth: '100%',
+											width:'100%',
 											backgroundImage: `url(${img})`,
 											backgroundSize: 'contain',
 											backgroundRepeat: 'no-repeat',
