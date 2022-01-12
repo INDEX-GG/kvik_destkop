@@ -65,6 +65,12 @@ const useClass = makeStyles(() => ({
         gridTemplateColumns: '1fr 1fr',
         gridColumnGap: '10px',
     },
+
+    additionalFieldsTitle: {
+        color: 'black',
+        fontSize: '22px',
+        fontWeight: '500'
+    },
     descriptionPlaseholder: {
         // display: 'flex',
         // flexDirection: "column",
@@ -134,6 +140,7 @@ const useClass = makeStyles(() => ({
         borderBottom: '1px solid #e9e9e9'
     },
 
+
     ['@media screen and (max-width: 959px)']:{
         aboutUnderline: {
             margin: '0 -16px',
@@ -142,7 +149,9 @@ const useClass = makeStyles(() => ({
             display: 'block'
         },
         checkListUl: {
-            gridTemplateColumns: 'repeat(1, 1fr)',
+            // gridTemplateColumns: 'repeat(1, 1fr)',
+            gridTemplateColumns: '1fr 1fr',
+            gridColumnGap: '10px'
         },
         checkListContent: {
             ['&:nth-child(2n)']: {
@@ -151,7 +160,8 @@ const useClass = makeStyles(() => ({
         },
         checkListItem: {
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)'
+            // gridTemplateColumns: 'repeat(2, 1fr)'
+            gridTemplateColumns: '.7fr 1fr'
         },
 
         additionalFieldsWrap:{
@@ -173,6 +183,21 @@ const useClass = makeStyles(() => ({
         //     maxHeight: '140px',
         //     overflow: 'hidden'
         // },
+    },
+
+
+
+    ['@media screen and (max-width: 649px)']: {
+        checkListUl: {
+            gridTemplateColumns: 'repeat(1, 1fr)',
+            gridColumnGap: '10px'
+        },
+
+        checkListItem: {
+            display: 'grid',
+            // gridTemplateColumns: 'repeat(2, 1fr)'
+            gridTemplateColumns: '1fr 1fr'
+        },
     },
 
 
@@ -313,7 +338,8 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
             {finalArr.length >= 1 && 
                 // <div className="productWrap descriptionIsClosed">
                 <div className={classSwitcher()}>
-                    {!mobile && <span className={classes.aboutUnderline}></span>}
+                    {mobile && <p className={classes.additionalFieldsTitle}>О товаре</p>}
+                    <span className={classes.aboutUnderline}></span>
                     <div ref={additional_fieldsRef} className={classes.additionalFieldsContainer}>
                         {finalArr.map((item, index) => (
                             <div key={index} className="productAboutItem">
@@ -347,7 +373,8 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
 
             {finalArrCheck.length >= 1 && 
                 <div className={checkListClassSwitcher()}>
-                    {!mobile && <span className={classes.checkListUnderLine}></span>}
+                    {mobile && <p className={classes.additionalFieldsTitle}>Дополнительно</p>}
+                    <span className={classes.checkListUnderLine}></span>
                     <div ref={checkListWrapper} className={classes.productCheckList}>
                         {finalArrCheck.map((item, index) => (
                             <div key={index} className={classes.checkListItem}>

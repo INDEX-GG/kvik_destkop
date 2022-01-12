@@ -3,8 +3,11 @@ import Favorits from '../../../UI/Favorits';
 // import Views from "../../../UI/icons/Views";
 
 
-const ProductFavoriteNoteCom = ({isOffer}) => {
+const ProductFavoriteNoteCom = ({isOffer, id, sellerId}) => {
 	// mobile, views, sellerId, id - неиспользуемые пропсы
+
+	// проверяем булем, находимся ли мы на своей странице
+	const isPageOwner = sellerId === id
 
 	return (
 		// sellerId === id ? null:
@@ -15,7 +18,7 @@ const ProductFavoriteNoteCom = ({isOffer}) => {
 				{/*</div>         Скрыто пока не работает функцианал                        */}
 			{/* </div> */}
 			<div className={'favoritsContainer'}>
-				<Favorits isProduct idOffer={isOffer} />
+				{!isPageOwner && <Favorits isProduct idOffer={isOffer} />}
 				{/*{mobile ? null : <a className="SellerInfoCompare"></a>}     Скрыто пока не работает функцианал           */}
 			</div>
 		</div>

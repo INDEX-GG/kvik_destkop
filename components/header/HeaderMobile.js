@@ -48,8 +48,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	block2: {
 		display: "flex",
+		alignItems: 'center',
 		// margin: "12px 0 19px",
-		marginTop: '12px'
+		marginTop: '12px',
+		paddingBottom: '12px'
 	},
 	changeMenu: {
 		marginLeft: "24px",

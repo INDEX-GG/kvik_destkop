@@ -148,27 +148,98 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 				<div className={"card__top " + archived}>
 					{offer?.viewing_bool ? <div className="card__top_seen">Просмотрено</div> : ""}
 					<Link href={`/product/${offer.id}`} prefetch={false}>
-						<div className="card__top_slider">
+						<div 
+							className="card__top_slider"
+							style={{
+								// height: '263px'
+							}}
+						>
 							{offer?.photo?.length === 1 ?
-								<img
+							<>
+								{/* <img
+									src={`${offer.photo[0]}`}
+									style={{
+										objectFit: 'cover',
+										width: '100%',
+										objectPosition: 'center',
+										height: '100%',
+
+										
+									}}
 									alt="фото объявления"
 									ref={currentSwiper}
-									src={`${offer.photo[0]}`}
 									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
-								/>
+								/> */}
+									<div 
+										style={{
+											backgroundImage: `url(${offer.photo[0]})`, 
+											width: '100%',
+											height: '100%',
+											backgroundSize: 'cover', 
+											backgroundPosition: 'center'
+										}} 
+										ref={currentSwiper}
+										onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+									/>
+									
+									<div 
+										style={{
+											backgroundImage: `url(${offer.photo[0]})`, 
+											backgroundSize: 'cover', 
+											filter: 'blur(20px)'
+										}} 
+										className="imageBlur">
+									</div>
+								</>
 								: <Swiper
 									ref={currentSwiper}
 									pagination={pagination}
 									slidesPerView={1}
+									style={{width: '100%', height: '100%',}}
 								>	
 									{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
 										return (
-											<SwiperSlide key={i} style={{position: 'relative'}}>
+											<SwiperSlide key={i} style={{position: 'relative',}}>
 												<img
-													alt="фото объявления"
-													src={`${img}`}
+													style={{
+														// display: 'block',
+														// width: '100%',
+														// height: '100%',
+														// minHeight: '100%',
+														// objectFit: 'cover',
+														width: '100%',
+														height: '100%',
+														backgroundImage: `url(${img})`, 
+														backgroundSize: 'cover', 
+														backgroundPosition: 'center',
+														backgroundRepeat: 'no-repeat',
+														// border: '0'
+
+													}}
+													// alt="фото объявления"
+													// src={`${img}`}
+													// srt={true}
 													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 												/>
+												{/* <img
+													style={{
+														width: '100%',
+														height: '100%',
+														backgroundImage: `url(${img})`, 
+														backgroundSize: 'cover', 
+														backgroundPosition: 'center'
+													}}
+												/> */}
+
+												{/* <div 
+													style={{
+														backgroundImage: `url(${img})`, 
+														backgroundSize: 'cover', 
+														filter: 'blur(20px)'
+													}} 
+													className="imageBlur"
+												>
+												</div> */}
 												{
 													i === 4 && (offer.photo.length - 5 > 0) ?
 													<div className={classes.morePhoto}>
