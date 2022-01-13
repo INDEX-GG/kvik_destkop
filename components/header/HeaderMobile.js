@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	info: {
 		display: "flex",
-		justifyContent: "space-between",
+		justifyContent: "center",
 		alignItems: "center",
 		margin: "4px 0 0"
 	},
@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	block2: {
+		position: 'relative',
 		display: "flex",
 		alignItems: 'center',
 		// margin: "12px 0 19px",
@@ -54,16 +55,23 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: '12px'
 	},
 	changeMenu: {
-		marginLeft: "24px",
-		position: "relative",
+		right: '5px',
+		marginLeft: '24px',
+		top: '0.5px'
 	},
-	filter: {
-		display: "none",
-		transition: "0.2s all linear",
-	},
+	// filter: {
+	// 	display: "none",
+	// 	transition: "0.2s all linear",
+	// },
 	test: {
 		marginBottom: "124px",
 	},
+
+	['@media screen and (max-width: 599px)']: {
+		changeMenu: {
+			position: 'absolute',
+		},
+	}
 }));
 
 function HeaderMobile({ chageMenu = false }) {
@@ -96,18 +104,25 @@ function HeaderMobile({ chageMenu = false }) {
 					<Container className={classes.container}>
 						<HideOnScroll>
 							<div className={classes.info}>
-								<AuthHeader 
+								{/* <AuthHeader 
 									isAuth={isAuth} 
 									logFormState={[openLoginForm, setOpenLoginForm]}
 									regFormState={[openRegForm, setOpenRegForm]}
 									userInfo={userInfo} 
-								/>
+								/> */}
 								<Logo className={classes.logo} />
-								<div className={classes.filler}></div>
+								{/* <div className={classes.filler}></div> */}
 							</div>
 						</HideOnScroll>
 						<div className={classes.block2}>
+							<AuthHeader 
+								isAuth={isAuth} 
+								logFormState={[openLoginForm, setOpenLoginForm]}
+								regFormState={[openRegForm, setOpenRegForm]}
+								userInfo={userInfo} 
+							/>
 							<Search text={matchesMobile ? "Поиск" : false} />
+							{/* отрисовка фильтров для поска в мобильной версии. Тут не нужно будет рендерится внутри инпута поиса */}
 							{isAuth ?
 								(chageMenu ? (
 									<Button className={classes.changeMenu} onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
@@ -116,9 +131,10 @@ function HeaderMobile({ chageMenu = false }) {
 									</Button>
 								) : (
 									<div className={classes.changeMenu}>
-										<MobileFilter className={classes.filter} number={10} />
+										<MobileFilter className={classes.filter} number={0} />
 									</div>
 								)) : null}
+							{/* отрисовка фильтров для поска в мобильной версии. Тут не нужно будет рендерится внутри инпута поиса */}
 						</div>
 					</Container>
 					<DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>

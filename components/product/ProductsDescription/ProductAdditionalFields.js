@@ -170,7 +170,7 @@ const useClass = makeStyles(() => ({
 
         productWrap: {
             padding: '0 12px',
-            maxHeight: '145px',
+            maxHeight: '155px',
             overflow: 'hidden'
         },
 
@@ -388,7 +388,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                 </div>
             }
 
-            {(mobile && !showMoreCheckList) && (checkWrapHeight > 145) &&
+            {(mobile && !showMoreCheckList) && (checkWrapHeight > 155) &&
                 <button onClick={checkListClickHandler} 
                 className='productShowMore'>
                     Показать больше

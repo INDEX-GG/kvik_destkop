@@ -90,7 +90,7 @@ const Account = () => {
     const [reviewsModal, setReviewsModal] = useState(false);
     const [subscriptionsModal, setSubscriptionsModal] = useState(false);
     const {signOut, id, token} = useAuth();
-    const {matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080} = useMedia()
+    const {matchesMobile, matchesTablet,} = useMedia()
     const [menuItem, setMenuItem] = useState(
 			router.query.favorite === '' 
 				? {
@@ -290,44 +290,50 @@ const Account = () => {
 
                             </div>}
                         </div>
-                        {!userInfo ? <Grid item container xs={10} spacing={1}>
-                                <MenuItem/>
-                                <MenuItem/>
-                                <MenuItem/>
-                                <MenuItem/>
-                                <MenuItem/>
-                                <MenuItem/>
-                                <MenuItem/>
-                                <MenuItem/>
-                                <MenuItem/>
-                            </Grid>
-                            :<div className="userMenuContainer">
-                            {matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null :
-                                <>
-                                    {menuItems.map((item) => {
-                                        return (
-                                            <a key={item.id} onClick={() => {
-                                                setMenuItem({i: item.id, itm: item.name, ttl: item.title})
-                                                router.push({
-                                                    pathname: `/account/${id}`,
-                                                    query: {
-                                                        account: item.id,
-                                                        content: "1"
-                                                    }
-                                                })
-                                            }}
-                                               className={item.name + (item.title === menuItem.ttl ? ` ${item.name}Active highlight smooth` : " smooth")}>
-                                                {item.title}
-                                            </a>
-                                        );
-                                    })}
-                                </>}
-                            {matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080 ? null :
-                                <a onClick={() => setLogout(!logout)}
-                                   className="offerUnpublish thin superLight menuLogoff smooth">
-                                    Выход
-                                </a>}
-                        </div>}
+                        {!userInfo 
+                            ?   <Grid item container xs={10} spacing={1}>
+                                    <MenuItem/>
+                                    <MenuItem/>
+                                    <MenuItem/>
+                                    <MenuItem/>
+                                    <MenuItem/>
+                                    <MenuItem/>
+                                    <MenuItem/>
+                                    <MenuItem/>
+                                    <MenuItem/>
+                                </Grid>
+                            :   <div className="userMenuContainer">
+                                    {matchesMobile || matchesTablet ? null :
+                                        <>
+                                            {menuItems.map((item) => {
+                                                return (
+                                                    <a 
+                                                        key={item.id} 
+                                                        onClick={() => {
+                                                            setMenuItem({i: item.id, itm: item.name, ttl: item.title})
+                                                            router.push({
+                                                                pathname: `/account/${id}`,
+                                                                query: {
+                                                                    account: item.id,
+                                                                    content: "1"
+                                                                }
+                                                            })
+                                                        }}
+                                                        className={item.name + (item.title === menuItem.ttl 
+                                                            ? ` ${item.name}Active highlight smooth` 
+                                                            : " smooth")}
+                                                    >
+                                                        {item.title}
+                                                    </a>
+                                                );
+                                            })}
+                                        </>}
+                                        {matchesMobile || matchesTablet  ? null :
+                                            <a onClick={() => setLogout(!logout)}
+                                            className="offerUnpublish thin superLight menuLogoff smooth">
+                                                Выход
+                                            </a>}
+                                </div>}
                     </div>
                     <div className="clientPage__container">
                         {accountContent()}

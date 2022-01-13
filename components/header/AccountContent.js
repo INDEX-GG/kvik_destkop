@@ -40,6 +40,7 @@ export default function AccountContent({ id, icon, title, setState }) {
 	const router = useRouter();
 	const [hover, setHover] = useState(false);
 	const [active, setActive] = useState(0);
+
 	const itemClassName = [
 		id == active || hover ? icon + "Active" : icon,
 		id == active ? `${classes.accountItem} ${classes.accountItemActive}` : classes.accountItem,
@@ -48,7 +49,7 @@ export default function AccountContent({ id, icon, title, setState }) {
 	].join(" ")
 
 	useEffect(() => {
-		console.log('ID=====>',id)
+		// console.log('ID=====>',id)
 		if (router.query) setActive(+router.query?.account)
 	}, [router])
 

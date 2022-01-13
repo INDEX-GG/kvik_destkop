@@ -62,7 +62,7 @@ const Offers = () => {
     { id: 2, title: "Ждут действия", content: <Wait key={2} offers={waitOffersBox} />, count: waitOffersBox.length },
     { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: archiveOffersBox.length },
   ];
-  
+
   return (
       <>
         <div className="clientPage__container_top">
@@ -70,10 +70,13 @@ const Offers = () => {
             <div className="clientPage__container_nav">
               {navItems.map(item => {
                 return (
-                    <a key={item.id} className={itemNav.i === item.id ? "navActive" : ""} onClick={() => {
-                      setItemNav({i: item.id, ttl: item.title})
-                      safeAccountTab(item.id)
-                    }}>
+                    <a 
+                      key={item.id} 
+                      className={itemNav.i === item.id ? "navActive" : ""} 
+                      onClick={() => {
+                        setItemNav({i: item.id, ttl: item.title})
+                        safeAccountTab(item.id)}}
+                    >
                       {item.title} {brooklyn(item.count)}{" "}
                     </a>
                 );
