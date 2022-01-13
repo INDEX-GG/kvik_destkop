@@ -9,7 +9,9 @@ import { RegFormV2 } from "../auth/RegFormV2";
 
 const useStyles = makeStyles((theme) => ({
 	block: {
-		height: "100%"
+		display: 'flex',
+		height: "100%",
+		marginRight: '9px'
 	},
 	modal: {
 		width: "320px",

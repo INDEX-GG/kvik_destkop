@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 const useStyles = makeStyles((theme) => ({
     buttonContainer: {
         position: "fixed",
-        bottom: "18%",
+        bottom: "22px",
         left: "50%",
         transform: "translateX(-50%)",
         zIndex: 1

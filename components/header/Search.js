@@ -15,11 +15,17 @@ const useStyles = makeStyles(() => ({
 		flexGrow: 1,
 		'& input': {
 			padding: '8px 24px',
+			paddingLeft: '32px'
 		}
     },
     icon: {
         position: 'absolute',
         right: '24px',
+        height: '100%',
+    },
+	iconMobile: {
+        position: 'absolute',
+        left: '8px',
         height: '100%',
     },
 		checkbox: {
@@ -191,7 +197,7 @@ const Search = ({text = false}) => {
 					placeholder={text ? text : "Поиск по объявлениям"}
 					fullWidth className={classes.searchInput} 
 				/>
-				<SearchIcon className={classes.icon} />
+				<SearchIcon className={mobile ? classes.iconMobile : classes.icon} />
 				{(showButtons && !mobile) && 
 					<div className={classes.checkboxes}>
 						<div style={{display: 'flex'}}>

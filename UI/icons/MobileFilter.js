@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-const MobileFilter = ({ number = 0 }) => {
+const MobileFilter = ({ number = 0, }) => {
   let right = 4.5;
 
   if (number >= 10) {

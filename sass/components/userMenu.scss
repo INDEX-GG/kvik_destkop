@@ -64,14 +64,24 @@
     background: no-repeat left center url(../../icons/like_green.svg);
   }
   
+  // .menuNotifications {
+  //   background: no-repeat left center url(../../icons/note_dark.svg);
+  // }
+  // .menuNotifications:hover {
+  //   background: no-repeat left center url(../../icons/note_grey.svg);
+  // }
+  // .menuNotificationsActive {
+  //   background: no-repeat left center url(../../icons/note_green.svg);
+  // }
+
   .menuNotifications {
-    background: no-repeat left center url(../../icons/note_dark.svg);
+    background: no-repeat left center url(../../icons/notif_dark.svg);
   }
   .menuNotifications:hover {
-    background: no-repeat left center url(../../icons/note_grey.svg);
+    background: no-repeat left center url(../../icons/notif_grey.svg);
   }
   .menuNotificationsActive {
-    background: no-repeat left center url(../../icons/note_green.svg);
+    background: no-repeat left center url(../../icons/notif_green.svg);
   }
   
   .menuCompare {
@@ -114,4 +124,10 @@
   }
   .menuLogoff:active {
     background: no-repeat left center url(../../icons/quit_green.svg) !important;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .userMenuContainer {
+      display: none;
+    }
   }

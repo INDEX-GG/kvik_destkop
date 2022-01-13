@@ -88,10 +88,11 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 									key={i} 
 									onClick={() => setModal(!modal)}
 								>
-									<img
+									{/* после оптимизации проекта, переделать на тег img для семантики */}
+									<div
 										style={{
 											display: 'block',
-											heigth: '100%',
+											height: '400px',
 											width:'100%',
 											backgroundImage: `url(${img})`,
 											backgroundSize: 'contain',
@@ -101,16 +102,17 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 										  
 										// src={img} 
 										// alt={`sliderPhoto${i + 1}`} 
-										/>
+									/>
 									
-										<div 
-										style={{
-											backgroundImage: `url(${img})`, 
-											backgroundSize: 'cover', 
-											filter: 'blur(20px)'
-										}} 
-										className="imageBlur">
-										</div>
+									
+									<div 
+									style={{
+										backgroundImage: `url(${img})`, 
+										backgroundSize: 'cover', 
+										filter: 'blur(20px)'
+									}} 
+									className="imageBlur">
+									</div>
 									{/*ВОЗМОЖНОЕ РЕШЕНИЕ!*/}
 									{/*<ProductItemPhoto img={img} index={i}/>*/}
 								</SwiperSlide>

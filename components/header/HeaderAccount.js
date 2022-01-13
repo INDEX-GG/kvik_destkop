@@ -143,7 +143,17 @@ export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, t
 						className={classes.avatar}
 						src={userPhoto}
 						style={{ backgroundColor: `${stringToColor(name)}`, cursor: "pointer" }}
-						onClick={toggleDrawer("left", true)}
+						onClick={() =>{
+								toggleDrawer("left", true)
+								router.push({
+									pathname: `/account/${AccountID}`,
+									query: {
+										account: "1",
+										content: "1"
+									}
+								})
+							}
+						}
 					>
 						{initials(name)}
 					</Avatar>
@@ -168,7 +178,11 @@ export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, t
 				<AvatarWrapper name={name}>
 					<NextLink href={{
 						pathname: "/account/[id]",
-						query: { id: AccountID }
+						query: { 
+							id: AccountID, 
+							account: "1",
+							content: "1" 
+						}
 					}}>
 						<Avatar
 							className={classes.avatar}
@@ -228,7 +242,7 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 		{ id: 2, name: "menuDeals", title: "Сделки" },
 		{ id: 3, name: "menuWallet", title: "Кошелек" },
 		{ id: 4, name: "menuFavorites", title: "Избранное" },
-		{ id: 5, name: "menuNotifications", title: "Уведомления" },
+		{ id: 5, name: "menuNotifications", title: "Сообщения" },
 		{ id: 6, name: "menuCompare", title: "Сравнить" },
 		{ id: 7, name: "menuReviews", title: "Отзывы" },
 		{ id: 8, name: "menuSettings", title: "Настройки" },

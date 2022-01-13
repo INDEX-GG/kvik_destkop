@@ -170,6 +170,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 									ref={currentSwiper}
 									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 								/> */}
+								{/* после оптимизации приложения, див переписать на тег img */}
 									<div 
 										style={{
 											backgroundImage: `url(${offer.photo[0]})`, 
@@ -200,7 +201,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 									{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
 										return (
 											<SwiperSlide key={i} style={{position: 'relative',}}>
-												<img
+												{/* после оптимизации приложения, див переписать на тег img */}
+												<div
 													style={{
 														// display: 'block',
 														// width: '100%',
