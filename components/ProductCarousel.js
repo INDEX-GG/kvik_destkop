@@ -103,7 +103,6 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 										// alt={`sliderPhoto${i + 1}`} 
 										/>
 									
-										s
 										<div 
 										style={{
 											backgroundImage: `url(${img})`, 
