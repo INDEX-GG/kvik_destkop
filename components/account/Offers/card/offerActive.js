@@ -134,8 +134,8 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 				</div>
 			</div>
 
-			<Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth='md'>
-				<OfferModal 
+			<Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth='xs'>
+				<OfferModal
 					offerId={offerId}
 					offerData={offerData}
 					setOpenOfferModal={setOpenOfferModal}
