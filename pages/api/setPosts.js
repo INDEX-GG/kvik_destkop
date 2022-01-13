@@ -82,8 +82,6 @@ export default async function handler(req, res) {
 						columns = columns.slice(0, -2)
 						values = values.slice(0 ,-2)
 
-						// await prisma.$queryRaw(`SELECT id, name, "userPhoto", raiting FROM users WHERE id IN (${a})`)
-
 						await prisma.$queryRaw(`INSERT INTO "subcategories".${req.body.subcategory} (${columns}) VALUES (${values})`)
 
 					}
