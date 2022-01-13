@@ -41,7 +41,6 @@ export default async function handler(req, res) {
             res.json('ошибка api callPhone, ', e)
             res.status(405).end();
         }
-
     } else {
         res.json({ message: 'method not allowed' })
         res.status(405).end()
