@@ -137,31 +137,36 @@ export default function offerArchive({offer, parentCheck, getChildCheck, allOffe
 						</div>
 
 						<div className="offerDTRight">
+							<div className="offerDTRight__item">
+								<a href="#">
+									<button
+										id='001'
+										value={offer.id}
+										onClick={(e) => pushCheck(e)}
+										className="offerActivate thin superLight checkMarkIcon offerSocialAction">
+										Активировать
+									</button>
+								</a>
+							</div>
 
-							<a href="#">
-								<button
-									id='001'
-									value={offer.id}
-									onClick={(e) => pushCheck(e)}
-									className="offerActivate thin superLight checkMarkIcon offerSocialAction">
-									Активировать
+							<div className="offerDTRight__item">
+								<button className="offerEdit thin editIcon offerSocialAction" onClick={() => Router.push(`/editPage/${offerID}`)} >
+									Редактировать
 								</button>
-							</a>
+							</div>
 
-							<button className="offerEdit thin editIcon offerSocialAction" onClick={() => Router.push(`/editPage/${offerID}`)} >
-								Редактировать
-							</button>
-
-							<a href="#">
-								<button
-									id='002'
-									value={offer.id}
-									onClick={(e) => pushCheck(e)}
-									className="offerEdit thin superLight offerSocialAction binIcon"
-								>
-									Удалить
-								</button>
-							</a>
+							<div className="offerDTRight__item">
+								<a href="#">
+									<button
+										id='002'
+										value={offer.id}
+										onClick={(e) => pushCheck(e)}
+										className="offerEdit thin superLight offerSocialAction binIcon"
+									>
+										Удалить
+									</button>
+								</a>
+							</div>
 
 						</div>
 
