@@ -5,6 +5,7 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
 
         const main = async () => {
+
             const urlAuth = 'https://pbx-guru-2.web.pbxmaker.ru/index.php/restapi/auth',
                 urlCall = 'https://pbx-guru-2.web.pbxmaker.ru/index.php/restapi/number/call-auth',
                 urlApprove = 'https://pbx-guru-2.web.pbxmaker.ru/index.php/restapi/number/approve',
