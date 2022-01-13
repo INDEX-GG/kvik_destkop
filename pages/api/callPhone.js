@@ -5,26 +5,21 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
 
         const main = async () => {
-            const urlAuth = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/auth',
-                urlCall = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/call-auth',
-                urlApprove = 'https://pbx-guru.web.pbxmaker.ru/index.php/restapi/number/approve',
-                dataAuth = qs.stringify({ 'grant_type': 'password', 'scope': 'users', 'client_id': process.env.NEXT_PUBLIC_PHONE_LOGIN, 'client_secret': process.env.NEXT_PUBLIC_PHONE_PASS }),
+            const urlAuth = 'https://pbx-guru-2.web.pbxmaker.ru/index.php/restapi/auth',
+                urlCall = 'https://pbx-guru-2.web.pbxmaker.ru/index.php/restapi/number/call-auth',
+                urlApprove = 'https://pbx-guru-2.web.pbxmaker.ru/index.php/restapi/number/approve',
+                dataAuth = qs.stringify({ 'grant_type': 'password', 'scope': 'number', 'client_id': process.env.NEXT_PUBLIC_PHONE_LOGIN, 'client_secret': process.env.NEXT_PUBLIC_PHONE_PASS }),
                 phoneNumber = qs.stringify({'caller_id': JSON.parse(JSON.stringify(req.body.phone))});
-            const auth = await axios.post(urlAuth, dataAuth, {headers: {
-                    'content-type': 'application/x-www-form-urlencoded'
-                }})
+            const auth = await axios.post(urlAuth, dataAuth, {headers: {'content-type': 'application/x-www-form-urlencoded'}})
                 .then(r => r.data)
-            const call = await axios.post(urlCall, phoneNumber, {headers: {
-                    'content-type': 'application/x-www-form-urlencoded', 'Authorization': `Bearer ${auth.access_token}`
-                }})
+            const call = await axios.post(urlCall, phoneNumber, {headers: {'content-type': 'application/x-www-form-urlencoded', 'Authorization': `Bearer ${auth.access_token}`}})
                 .then(r => r.data)
             const dataApprove = qs.stringify({
                 'action': 'call-auth',
                 'caller_id': call.caller_id,
                 'tmp_caller_id': call.tmp_caller_id
             });
-            await axios.post(urlApprove, dataApprove, {headers: {
-                    'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${auth.access_token}`
+            await axios.post(urlApprove, dataApprove, {headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: `Bearer ${auth.access_token}`
                 }})
             const urlSaveCache = process.env.NEXT_PUBLIC_REDIS + '/cache_phone_kvik/' + req.body.phone
             const dataSaveCache = {
@@ -46,7 +41,6 @@ export default async function handler(req, res) {
             res.json('ошибка api callPhone, ', e)
             res.status(405).end();
         }
-
     } else {
         res.json({ message: 'method not allowed' })
         res.status(405).end()
