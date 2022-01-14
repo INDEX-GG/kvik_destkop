@@ -62,7 +62,7 @@
 }
 
 .offerDTRight a {
-  margin-bottom: 12px;
+  // margin-bottom: 12px;
   color: #00a0ab;
 }
 
@@ -72,6 +72,24 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
+}
+
+.offerDTRight__item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.offerDTRight__item:hover {
+	cursor: pointer;
+}
+
+.offerIcon {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	margin-right: 4px;
 }
 
 .offerTitle,
@@ -106,8 +124,9 @@
 }
 
 .offerEdit {
-  width: 125px;
+  width: auto;
   text-align: right;
+	background-color: #fff;
 }
 
 .offerSocialCount {
@@ -167,8 +186,9 @@
 }
 
 .offerActivate {
-  width: 112px;
+  width: auto;
   text-align: right;
+	background-color: #fff;
 }
 
 .offerDelete {
