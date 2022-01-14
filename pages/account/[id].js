@@ -38,7 +38,7 @@ const menuItems = [
 ];
 
 const menuItemsIcon = ["menuOffers", "menuDeals", "menuWallet", "menuFavorites", "menuNotifications", "menuCompare", "menuReviews", "menuSettings"]
-const menuItemsTitle = ["Мои объявления", "Сделки", "Кошелек", "Избранное", "Уведомления", "Сравнить", "Отзывы", "Настройки"]
+const menuItemsTitle = ["Мои объявления", "Сделки", "Кошелек", "Избранное", "Сообщения", "Сравнить", "Отзывы", "Настройки"]
 
 
 const useStyles = makeStyles(() => ({
