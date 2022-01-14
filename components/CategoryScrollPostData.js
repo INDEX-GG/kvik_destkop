@@ -7,6 +7,7 @@ import {generateCityArr, modifyGetPostsData} from "../lib/services";
 import { makeStyles } from '@material-ui/core';
 import { useProduct } from '#hooks/useProduct';
 import { useRouter } from 'next/router';
+// import addCardComponent from './AdCard'
 
 
 const useStyles = makeStyles(() => ({
@@ -56,7 +57,7 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
     const [endPage, setEndPage] = useState(8)
     const [pageStash, setPageStash] = useState(8)
     const [showButton, setShowButton] = useState(true)
-    // const [similarData, setSimilarData] = useState([])
+    const [similarData, setSimilarData] = useState([])
 
     useEffect(()=>{
         // console.log(product, ' product')
@@ -66,8 +67,8 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
         }   
         // console.log(data, 'data')
         getDataByPost('/api/similarPosts', data)
-        .then(r=>console.log(r))
-    }, [product])
+        .then(r => setSimilarData(modifyGetPostsData(r)))
+    }, [post]) 
 
     // {"post_id": 2366, "region": "", "model": "A4", "brand": "Audi"}
     // // POST        /api/similarPosts
@@ -81,20 +82,32 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
 
         setEndPage(endPage  + 8)  
     }
+    
 
     useEffect(() => {
-        setRecommendData([...post.slice(0, 8)])
+        if(post?.length){
+        setRecommendData([...post?.slice(0, 8)])
+    }
     }, [post])
 
     useEffect(() => {
-        setRecommendData([...post.slice(0, endPage)])
+        if(post?.length){
+        setRecommendData([...post?.slice(0, endPage)])
         setShowButton(true)
+        }
     }, [endPage])
 
     useEffect(()=>{
         recommendData.length < 8 ? setShowButton(false) : setShowButton(true)
+        // post.length - 8 < 8 ? setPageStash(post.length - 8) : setPageStash(8)
+        // if(recommendData.length - endPage < 0) {
+        //     setPageStash(-10)
+        // }
+
     },[recommendData])
 
+    
+    // console.log(recommendData, 'recdata')
 
 
     // Изменение сортировки
@@ -133,14 +146,13 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
             // }
             await getDataByPost(url, scrollDataObj)
                 .then(response => {
-
                     if (Array.isArray(response) && response?.length) {
 
                         // Id последнего объявления
                         const lastId = response[response.length - 1]?.id
 
                         // Посты
-                        setPost(prevState => [...prevState, ...modifyGetPostsData(response)])
+                        setPost(prevState => [...prevState, ...modifyGetPostsData(response)].slice(0, 17))
 
 
                         if (lastId) {
@@ -225,7 +237,8 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
             setSort={handlerSortChange}
         />
         {pageStash > 0 
-        && showButton
+        &&
+        showButton
         &&
         <button 
             className={classes.button}

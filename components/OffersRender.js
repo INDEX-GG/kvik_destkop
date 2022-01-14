@@ -55,6 +55,7 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 
 
 	useEffect(() => {
+		
 		observerGenerate(lastElement, observer, limitRenderObj.limitRenderPage, limitRenderObj.setLimitRenderPage, pageObj.setPage, pageObj.page)
 	})
 
