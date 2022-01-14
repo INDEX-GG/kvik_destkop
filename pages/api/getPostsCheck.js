@@ -48,12 +48,12 @@ export default async function handler(req, res) {
             }
             for (let symbol of category) {
                 if (["_","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"].includes(symbol) === false) {
-                    return("err")
+                    throw "Er"
                 }
             }
             for (let symbol of full_category) {
                 if (["_",",","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"].includes(symbol) === false) {
-                    return("err")
+                    throw "Er"
                 }
             }
             let constructQuery = ''
@@ -66,7 +66,7 @@ export default async function handler(req, res) {
             if (time != null) {
                 for (let symbol of time) {
                     if (["-",":"," ","0","1","2","3","4","5","6","7","8","9"].includes(symbol) === false) {
-                        return("err")
+                        throw "Er"
                     }
                 }
                 constructQuery =  constructQuery.concat(" AND posts.created_at >= '", time, "'")
@@ -74,19 +74,19 @@ export default async function handler(req, res) {
             if (!(price_min == null && price_max == null)) {
                 if (price_min == null) {
                     if (typeof price_max !== 'number') {
-                        return("err")
+                        throw "Er"
                     }
                     constructQuery =  constructQuery.concat(" AND posts.price <= '", price_max, "'")
                 }
                 else if (price_max == null) {
                     if (typeof price_min !== 'number') {
-                        return("err")
+                        throw "Er"
                     }
                     constructQuery =  constructQuery.concat(" AND posts.price >= '", price_min, "'")
                 }
                 else {
                     if (typeof price_min !== 'number' || typeof price_max !== 'number') {
-                        return("err")
+                        throw "Er"
                     }
                     constructQuery =  constructQuery.concat(" AND posts.price <= '", price_max, "' AND posts.price >= '", price_min, "'")
                 }
@@ -107,7 +107,7 @@ export default async function handler(req, res) {
                 for (const [key, value] of Object.entries(check)) {
                     for (let symbol of key) {
                         if (["_","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"].includes(symbol) === false) {
-                            return("err")
+                            throw "Er"
                         }
                     }
                     if (value != null) {
@@ -115,7 +115,7 @@ export default async function handler(req, res) {
                             if (value.length !== 0) {
                                 let arrayQuery = ''
                                 for (let variable of value) {
-                                    arrayQuery = arrayQuery.concat(" (", category, ".\"", key, "\") = '", variable.toString(), "' OR")
+                                    arrayQuery = arrayQuery.concat(" (\"subcategories\".\"", category, "\".\"", key, "\") = '", variable.toString(), "' OR")
                                 }
                                 constructQuery =  constructQuery.concat("AND (", arrayQuery.substring(0, arrayQuery.length - 3), ")")
                             }
@@ -123,25 +123,26 @@ export default async function handler(req, res) {
 
                             if (!(value.max == null && value.min == null)) {
                                 if (value.min == null) {
-                                    constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" <= ", value.max)
+                                    constructQuery = constructQuery.concat(" AND \"subcategories\".\"", category, "\".\"", key, "\" <= ", value.max)
                                 } else if (value.max == null) {
-                                    constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min)
+                                    constructQuery = constructQuery.concat(" AND \"subcategories\".\"", category, "\".\"", key, "\" >= ", value.min)
                                 } else {
-                                    constructQuery = constructQuery.concat(" AND ", category, ".\"", key, "\" >= ", value.min, " AND ", category, ".\"", key, "\" <= ", value.max)
+                                    constructQuery = constructQuery.concat(" AND \"subcategories\".\"", category, "\".\"", key, "\" >= ", value.min, " AND \"subcategories\".\"", category, "\".\"", key, "\" <= ", value.max)
                                 }
                             }
                         } else {
-                            for (let symbol of value.toLowerCase()) {
-                                if (["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-                                    "а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"].includes(symbol) === false) {
-                                    return("err")
-                                }
-                            }
-                            constructQuery = constructQuery.concat(" AND LOWER (", category, ".\"", key, "\") = '", value.toLowerCase(), "'")
+                            // for (let symbol of value.toLowerCase()) {
+                            //     if (["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+                            //         "а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"].includes(symbol) === false) {
+                            //         throw "Er"
+                            //     }
+                            // }
+                            constructQuery = constructQuery.concat(" AND LOWER (\"subcategories\".\"", category, "\".\"", key, "\") = '", value.toLowerCase(), "'")
                         }
                     }
                 }
-                const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id,"${category}" WHERE (posts.id = ${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' ${sort_value} LIMIT ${page_limit} offset ${page}`)
+                console.log(constructQuery);
+                const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id, "subcategories"."${category}" WHERE (posts.id = "subcategories".${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' ${sort_value} LIMIT ${page_limit} offset ${page}`)
                 return(answer.rows)
             }
         }

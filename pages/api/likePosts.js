@@ -22,7 +22,7 @@
 //         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 //         const main = async () => {
 //             if (typeof req.body.user_id !== 'number') {
-//                 return("err")
+//                 throw "Er"
 //             }
 //
 //

@@ -15,7 +15,7 @@ export default async function handler(req, res) {
                 region_excludes = '!'
             }
             if (typeof req.body.page !== 'number' || typeof req.body.page_limit !== 'number') {
-                return("err")
+                throw "Er"
             }
             let sort_value
             switch (sort) {
