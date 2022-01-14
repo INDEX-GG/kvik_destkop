@@ -35,7 +35,13 @@ const useStyles = makeStyles((theme) => ({
     offersBox: {
         width: '712px',
         [theme.breakpoints.down(960)]: {
-            width: '100%'
+            width: '100%',
+            '& > * > *:last-child': {
+                marginBottom: '0px',
+            },
+            '& > *:last-child': {
+                paddingBottom: '25px'
+            }
         },
     },
     formPart: {
@@ -44,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[2],
         marginBottom: theme.spacing(4),
         [theme.breakpoints.down(960)]: {
-            margin: '0 0 15px 0',
-            padding: 0,
+            margin: '0 0 0 0',
+            padding: '0 0 15px 0',
             background: '#fff'
         },
     },
@@ -58,9 +64,19 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'rgba(255, 255, 255, 0.85)',
     },
 
+    button: {
+        [theme.breakpoints.down(960)]: {
+            width: '100%',
+            borderRadius: '0',
+            height: '32px',
+            // backgroundColor: '#A1DCE0',
+            padding: '8px 0',
+            lineHeight: '16,41px'
+        }
+    }
 }));
 
-const NewPlaceOfferContent = ({photoesCtx, category, title, currentCategory}) => {
+const NewPlaceOfferContent = ({photoesCtx, category, title, currentCategory, onSubmit}) => {
 
     const classes = useStyles();
 
@@ -103,8 +119,15 @@ const NewPlaceOfferContent = ({photoesCtx, category, title, currentCategory}) =>
                     <Location/>
                     <Contacts/>
                     <Box className={classes.submit}>
-                        <ErrorMessages validate={subcategoryData[category]} type={category}/>
-                        <Button type='submit' color='primary' variant='contained'>Продолжить</Button>
+                        {!media960 && <ErrorMessages validate={subcategoryData[category]} type={category}/>}
+                        <Button
+                            onClick={onSubmit ? methods.handleSubmit(onSubmit) : null}
+                            type='submit'
+                            color='primary'
+                            className={classes.button}
+                            variant='contained'>
+                            Продолжить
+                        </Button>
                     </Box>
                 </Box>
             </Box>

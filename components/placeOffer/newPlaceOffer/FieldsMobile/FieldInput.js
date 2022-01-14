@@ -24,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
             height: '100%',
             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
 
+            '& > label': {
+                lineHeight: 0.5,
+                left: '-4px',
+                color: '#8F8F8F !important'
+            },
+
+
             '& > .Mui-error': {
                 borderWidth: 1,
                 borderRadius: '0'
@@ -38,18 +45,17 @@ const useStyles = makeStyles((theme) => ({
                 '&  > input': {
                     padding: '0 0 0 10px',
                     height: '100%',
-                    color: '#8F8F8F',
-                    fontSize: '14px',
+                    fontSize: '16px',
                     "&::placeholder": {
-                        opacity: '1 !important'
+                        opacity: '1 !important',
                     },
                 },
 
                 '&  > textarea': {
                     padding: '0 0 0 10px',
                     height: '100%',
-                    color: '#8F8F8F',
-                    fontSize: '14px',
+                    // color: '#8F8F8F',
+                    fontSize: '16px',
                     "&::placeholder": {
                         opacity: '1 !important'
                     },

@@ -29,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
                 borderRadius: '0'
             },
 
+            '& > label': {
+                lineHeight: 0.5,
+                color: '#8F8F8F !important',
+                left: '-4px'
+            },
+
             '& > .MuiInputBase-multiline': {
                 paddingLeft: '0px'
             },
@@ -38,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
                 '&  > input': {
                     padding: '0 0 0 10px',
                     height: '100%',
-                    color: '#8F8F8F',
+                    color: '#151515',
                     fontSize: '16px',
                     "&::placeholder": {
                         opacity: '1 !important'
@@ -77,7 +83,10 @@ const useStyles = makeStyles((theme) => ({
     numberDesignation: {
         position: 'absolute',
         top: '12px',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        [theme.breakpoints.down(960)]: {
+            top: '17px',
+        }
     }
 }));
 
@@ -154,7 +163,8 @@ const AdditionalFieldNumber = ({fieldData}) => {
                         onKeyDown={handleKeyDownInput}
                         className={classes.input}
                         variant='outlined'
-                        placeholder={`${media960 ? fieldData.title : placeholder}`}
+                        label={media960 ? fieldData.title : ''}
+                        placeholder={`${!media960 ? placeholder : ''}`}
                         error={!!error}
                         onFocus={handlerFocus}
                         onBlur={handlerBlur}

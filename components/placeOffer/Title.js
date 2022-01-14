@@ -1,5 +1,5 @@
 import {Controller, useFormContext} from 'react-hook-form';
-import {Box, makeStyles, Typography} from '@material-ui/core';
+import {Box, makeStyles, Typography, useMediaQuery} from '@material-ui/core';
 import {invalidСharacterProduct} from '../../lib/regulars'
 import FieldInput from "#components/placeOffer/newPlaceOffer/FieldsMobile/FieldInput";
 
@@ -34,6 +34,7 @@ const Title = ({title}) => {
 
     const classes = useStyles();
     const methods = useFormContext();
+    const media960 = useMediaQuery('(max-width: 960px)');
 
     // methods.setValue('title', '')
 
@@ -50,8 +51,9 @@ const Title = ({title}) => {
                             value={value}
                             onChange={onChange}
                             error={!!error}
+                            label={media960 ? 'Название' : ''}
                             helperText={error ? error.message : ''}
-                            placeholder='Название'>
+                            placeholder=''>
                             {title}
                         </FieldInput>
                     )}

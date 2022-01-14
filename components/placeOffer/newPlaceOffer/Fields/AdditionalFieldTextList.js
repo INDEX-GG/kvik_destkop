@@ -105,9 +105,8 @@ const AdditionalFieldTextList = ({fieldData, otherJsonObj}) => {
             <AdditionalWrapper title={title} type={type}>
                 {media960 ? (
                     <AdditionalFieldModal
-                        title={title}
+                        jsonData={fieldData}
                         dataItems={textFieldList}
-                        alias={alias}
                         getValues={getValues}
                         setValue={setValue}
                     />

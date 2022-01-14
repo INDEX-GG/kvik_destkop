@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
 		"&>*": {
 			margin: "5px",
 		},
+        [theme.breakpoints.down(960)]: {
+            flexDirection: "column",
+            width: '100%'
+        }
 	},
 	card: {
 		position: "relative",
@@ -148,6 +152,10 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: theme.spacing(1),
 		color: theme.palette.error.main,
 		fontSize: "12px",
+        [theme.breakpoints.down(960)]: {
+            maxWidth: '250px',
+            marginBottom: 0
+        }
 	},
 	drag: {
 		display: "flex",
@@ -158,6 +166,9 @@ const useStyles = makeStyles((theme) => ({
 			marginRight: "10px",
 			marginBottom: "10px",
 		},
+        [theme.breakpoints.down(960)]: {
+            paddingLeft: '6px'
+        }
 	},
 }));
 
