@@ -18,13 +18,13 @@ function Footer2() {
 
       <div className="footer__bottom">
         <div className="socialNetworksFooter2">
-          <a href="https://instagram.com" className="instagramLinkFooter">
+					<a href="https://www.instagram.com/kvik_baraholka/" className="instagramLinkFooter">
             <div className="instagramLinkIcon"></div>
           </a>
-          <a href="https://vk.com" className="vkLinkFooter">
+					<a href="https://vk.com/1kvik_ru" className="vkLinkFooter">
             <div className="vkLinkIcon"></div>
           </a>
-          <a href="https:/facebook.com" className="fbLinkFooter">
+					<a href="https://www.facebook.com/Kvik-Барахолкачелябинск-107509641798965" className="fbLinkFooter">
             <div className="fbLinkIcon" ></div>
           </a>
         </div>

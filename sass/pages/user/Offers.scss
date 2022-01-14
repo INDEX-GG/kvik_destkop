@@ -62,7 +62,6 @@
 }
 
 .offerDTRight a {
-  margin-bottom: 12px;
   color: #00a0ab;
 }
 
@@ -72,6 +71,9 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
+}
+.offerDTRight .offerDTRight__item {
+	margin-bottom: 14px;
 }
 
 .offerTitle,
@@ -161,7 +163,7 @@
   text-align: center;
   border-radius: 8px;
   position: relative;
-  bottom: 30px;
+  bottom: 50px;
   background-color: #2c2c2cb6;
   display: inline;
 }

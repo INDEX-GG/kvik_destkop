@@ -32,17 +32,35 @@ const useStyles = createStyles({
 		fontSize: "24px",
 		top: "30px",
 		left: "-45px",
+		'@media (max-width:450px)': {
+			fontSize: "18px",
+			top: "15px",
+			left: "-30px",
+		}
 	},
-	image__icon: {},
+	image__icon: {
+		'& svg': {
+			'@media (max-width:450px)': {
+				width: "87px",
+				height: "120px",
+			}
+		}
+	},
 	message: {
 		gridArea: "body",
 		textAlign: "center",
 	},
 	heading: {
 		fontSize: "36px",
+		'@media (max-width:450px)': {
+			fontSize: "20px",
+		}
 	},
 	text: {
 		fontSize: "24px",
+		'@media (max-width:450px)': {
+			fontSize: "14px",
+		}
 	},
 	button__container: {
 		gridArea: "footer",
