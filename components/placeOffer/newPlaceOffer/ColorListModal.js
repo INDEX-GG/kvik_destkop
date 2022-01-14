@@ -34,49 +34,33 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const generateData = (type, item, currentValue) => {
-    switch (type) {
-        case 'text_list':
-            return  {
-                value: item?.props?.value,
-                key: item?.key,
-                activeButton: item?.props?.value === currentValue
-            };
-        case 'period':
-            return {
-                value: item,
-                key: item,
-                activeButton: item === currentValue
-            }
-        default:
-            return  {
-                value: item,
-                key: item,
-                activeButton: item === currentValue
-            }
-    }
-}
-
-
-const TextListModal = ({alias, type, dataItems, getValues, setValue}) => {
+const ColorListModal = ({alias, dataItems, getValues, setValue}) => {
 
     const classes = useStyles();
     const currentValue = getValues(alias)
 
-    const handleChangeValue = (item) => {
+
+    const handleChangeValue = (item, alias, currentValue) => {
         if (item !== currentValue) {
-            setValue(alias, item)
+            setValue(alias, item);
         } else {
-            setValue(alias, null)
+            setValue(alias, null);
         }
     }
+
+    console.log(dataItems)
+
 
     return (
         <Box className={classes.wrapper}>
             {Array.isArray(dataItems) && (
                 dataItems.map((item, index) => {
 
-                    const data = generateData(type, item, currentValue)
+
+                    const data = {
+                        key: item.id,
+                        value: item.name
+                    }
                     const activeButton = generateActive(data.value, currentValue)
 
 
@@ -84,7 +68,7 @@ const TextListModal = ({alias, type, dataItems, getValues, setValue}) => {
                         <Box
                             key={data.key + index}
                             className={classes.item}
-                            onClick={() => handleChangeValue(data.value)}
+                            onClick={() => handleChangeValue(data.value, alias, currentValue)}
                         >
                             <button
                                 className={`${classes.button} ${activeButton ? classes.active : ''}`}
@@ -102,4 +86,4 @@ const TextListModal = ({alias, type, dataItems, getValues, setValue}) => {
     );
 };
 
-export default TextListModal;
+export default ColorListModal;

@@ -80,6 +80,7 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
         }
     }, [view, dependenciesEffect])
 
+    console.log(valueObj)
 
     return (
         view && (

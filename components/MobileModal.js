@@ -11,8 +11,8 @@ const MobileModal = ({title, subtitle = false, dialog = false, close, children})
 			<div className="modal__wrapper_md">
 			<div className="modal__block__top mobileModalTop">
 				<>
-					{MobileDevice ? <div className="mobileModalBack" onClick={() => close()}></div> : null}
 					<div className='modalModalTitleBox'>
+                        {MobileDevice ? <div className="mobileModalArrow" onClick={() => close()}/> : null}
                         <h6 className="modal__block__top_title mobileModalTitle">{title}</h6>
 						{subtitle && <div className='mobileModalSubtitle'>{subtitle}</div>}
                     </div>

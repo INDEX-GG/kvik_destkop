@@ -109,6 +109,7 @@ function PlaceOffer() {
 
     // methods, category, currentCategory
     const onSubmit = (data) => {
+        console.log(data);
         data.price = data.price.replace(/\D+/g, '');
 
         const alias = [data?.alias1, data?.alias2];
@@ -120,7 +121,7 @@ function PlaceOffer() {
         }
 
 
-        data.title = generateTitle(data.title, currentCategory, methods.getValue)
+        data.title = generateTitle(data.title, currentCategory, methods.getValues)
         data.city = generateSearchName(data.location)
 
         // ПРИННУДИТЕЛЬНЫЙ ВЫХОД
@@ -216,6 +217,7 @@ function PlaceOffer() {
                         {matchesMobile || matchesTablet ? (
                             <PlaceOfferMobile>
                                 <NewPlaceOfferContent
+                                    onSubmit={onSubmit}
                                     photoesCtx={photoesCtx}
                                     title={title}
                                     category={category}

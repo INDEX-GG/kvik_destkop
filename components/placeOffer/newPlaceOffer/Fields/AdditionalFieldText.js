@@ -13,6 +13,12 @@ const useStyles = makeStyles((theme) => ({
             height: '48px',
             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
 
+            '& > label': {
+                lineHeight: 0.5,
+                color: '#8F8F8F !important',
+                left: '-4px'
+            },
+
             '& > .Mui-error': {
                 borderWidth: 1,
                 borderRadius: '0'
@@ -27,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
                 '&  > input': {
                     padding: '0 0 0 10px',
                     height: '100%',
-                    color: '#8F8F8F',
+                    color: '#151515',
                     fontSize: '16px',
                     "&::placeholder": {
                         opacity: '1 !important'
@@ -80,20 +86,20 @@ const AdditionalFieldText = ({fieldData, defaultValue}) => {
                 name={alias}
                 control={control}
                 defaultValue={defaultValue ? defaultValue : default_value}
-                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                render={({field: {onChange, value}, fieldState: {error}}) => (
                     <TextField
                         className={classes.input}
                         variant='outlined'
                         value={value}
+                        label={placeholder}
                         onChange={onChange}
-                        placeholder={placeholder}
                         onKeyDown={handleKeyDownInput}
                         error={!!error}
                         helperText={error ? error.message : ' '}
                         inputProps={{maxLength: text_max_len, readOnly: required?.readOnly}}
                     />
                 )}
-                rules={{ required: required.state ? required.value : false }}
+                rules={{required: required.state ? required.value : false}}
             />
         </AdditionalWrapper>
     );

@@ -1,5 +1,5 @@
 import {Controller, useFormContext} from 'react-hook-form';
-import {Box, makeStyles, Typography} from '@material-ui/core';
+import {Box, makeStyles, Typography, useMediaQuery} from '@material-ui/core';
 import FieldInput from "#components/placeOffer/newPlaceOffer/FieldsMobile/FieldInput";
 
 
@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         marginBottom: theme.spacing(3),
+        [theme.breakpoints.down(960)]: {
+            marginBottom: '15px'
+        }
     },
     formTitleField: {
         fontSize: '14px',
@@ -30,6 +33,7 @@ const Description = ({description}) => {
 
     const classes = useStyles();
     const methods = useFormContext();
+    const media960 = useMediaQuery('(max-width: 960px)');
 
     return (
         <Box className={classes.formElem}>
@@ -56,10 +60,10 @@ const Description = ({description}) => {
                         // </TextField>
                         <FieldInput
                             multiline={true}
-                            placeholder='Описание'
                             rows='4'
                             rowsMax='6'
                             value={value}
+                            label={media960 ? 'Описание': ''}
                             inputProps={{maxLength: 4000}}
                             onChange={onChange}
                             error={!!error} helperText={error ? error.message : ' '}>

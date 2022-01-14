@@ -30,6 +30,7 @@ export default function PlaceOfferMobile({children}) {
     useEffect(() => {
         if (categories) {
             methods.setValue('alias', categories)
+            methods.reset();
             generateAlias(categories)
         }
     }, [categories])

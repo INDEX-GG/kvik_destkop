@@ -4,11 +4,11 @@ import { AddressSuggestions } from 'react-dadata';
 import ProductYMAP from './product/ProductYMAP';
 // import {useCity} from '../lib/Context/CityCTX'
 import { Controller, useFormContext } from 'react-hook-form';
-import { makeStyles } from '@material-ui/core';
+import {makeStyles, useMediaQuery} from '@material-ui/core';
 import {invalidСharacterLocation} from "../lib/regulars"
 import {useStore} from '../lib/Context/Store'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	mapDesc: {
 		fontSize: '12px',
 		color: '#C7C7C7',
@@ -16,7 +16,33 @@ const useStyles = makeStyles(() => ({
 	},
 	mapError: {
 		color: 'red'
-	}
+	},
+    mobile: {
+        [theme.breakpoints.down(960)]: {
+
+            '& > *:first-child': {
+                '& > div > input': {
+                    borderRadius: '0',
+                    height: '48px',
+                    fontSize: '18px',
+                    fontWeight: '500',
+                    marginBottom: '18px',
+                    background: '#FFFFFF',
+                    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+                    border: '0',
+                    fontFamily: 'inherit',
+                    color: '#151515',
+                    '&::placeholder': {
+                        color: '#8F8F8F',
+                    }
+                }
+            },
+
+            '& > *:last-child': {
+                padding: '0 10px',
+            }
+        }
+    }
 }))
 
 
@@ -25,6 +51,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 	const classes = useStyles()
 	const [value, setValue] = useState();
 	const [error, setError] = useState(false)
+    const media960 = useMediaQuery('(max-width: 960px)');
 
 	const inputRef = useRef()
 	const prevValue = useRef()
@@ -72,7 +99,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 
 	return (
 		userAddressName && userAddressGeo ? 
-		<div>
+		<div className={classes.mobile}>
 			 <Controller
                name="location"
                control={methods.control}
@@ -103,7 +130,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 						onBlur: () => {
 							onSubmit(controlChange)
 						},
-						placeholder: 'Введите город, улицу, дом'
+						placeholder: media960 ? 'Введите адрес ' : 'Введите город, улицу, дом'
 					}}
 					// selectOnBlur={true} 
 					/>
@@ -113,10 +140,16 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 				   pattern: {value: invalidСharacterLocation() , message: 'Недопустимые символы' },
 			   }}
             />
-			{error || methods.formState.errors?.location ? <div className={`${classes.mapDesc} ${classes.mapError}`}>Введите корректный адрес</div> : <div className={classes.mapDesc}>Введите название и Выберите из списка населенный пункт и улицу</div>}
-			<ProductYMAP 
-			  height={mobile ? 400 : 224} 
-			  width={490} 
+            {!media960 && (
+                <>
+                    {error || methods.formState.errors?.location ?
+                        <div className={`${classes.mapDesc} ${classes.mapError}`}>Введите корректный адрес</div> :
+                        <div className={classes.mapDesc}>Введите название и Выберите из списка населенный пункт и улицу</div>}
+                </>
+            )}
+			<ProductYMAP
+			  height={mobile ? 400 : 224}
+			  width={490}
 			  border={true}
 			 coordinates={value ? [value.data.geo_lat, value.data.geo_lon] : [+userAddressGeo[0], +userAddressGeo[1]]} />
 		</div> : null
