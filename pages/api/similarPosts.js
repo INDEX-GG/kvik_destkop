@@ -20,22 +20,26 @@ export default async function handler(req, res) {
                 }
             }
             if (filterValue !== undefined) {
+                let additional_fields
+                try {
+                    const subs = (await pool.query(`SELECT * FROM "subcategories"."${category}" WHERE post_id = $1`, [req.body.post_id])).rows
+                    additional_fields = subs[0]
+                }
+                catch (e) {
+                    additional_fields = {}
+                }
                 for (let variable of filterValue) {
-                    let bodyVariable  = req.body[variable]
+                    let bodyVariable  = additional_fields[variable]
                     if (bodyVariable !== undefined) {
                         constructQuery = constructQuery.concat(" AND LOWER (\"subcategories\".\"", category, "\".\"", variable, "\") = '", bodyVariable.toString().toLowerCase(), "'")
                     }
                 }
-                console.log(constructQuery);
-                console.log("Выдача с фильтрами")
                 const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id, "subcategories"."${category}" WHERE (posts.id = "subcategories".${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND LOWER (city) LIKE '${region}%' LIMIT 24`)
-                console.log(answer.rows.length);
 
                 //Добавить другие авто (Менее похожие)
 
                 return(answer.rows)
             } else {
-                console.log("Стандартная выдача")
                 const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE $1) AND posts.active = 0 AND posts.verify = 0 AND LOWER (city) LIKE $2 LIMIT $3`, [full_category + '%', region + '%', 24])
                 return(answer.rows)
             }

@@ -3,7 +3,7 @@
         {
             "name": "Автомобили",
             "alias": "auto",
-            "additional_fields": ["model", "brand"]
+            "additional_fields": ["generation", "model", "brand"]
         },
         {
             "name": "Смартфоны",
