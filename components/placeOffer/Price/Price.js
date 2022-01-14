@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import React, { useEffect } from 'react';
-import { Box, Checkbox, FormControlLabel, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Box, Checkbox, FormControlLabel, makeStyles, Typography } from '@material-ui/core';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import { cursorReplace, priceFormat } from '../../../lib/priceFormat';
