@@ -56,15 +56,13 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
     const [endPage, setEndPage] = useState(8)
     const [pageStash, setPageStash] = useState(8)
     const [showButton, setShowButton] = useState(true)
-    const [similarData, setSimilarData] = useState([])
+    // const [similarData, setSimilarData] = useState([])
 
     useEffect(()=>{
-        console.log(product, ' product')
+        // console.log(product, ' product')
         const data = {
             post_id: product.id,
             region: searchCity,
-            model: product?.additional_fields?.brand,
-            brand: product?.additional_fields?.model
         }   
         // console.log(data, 'data')
         getDataByPost('/api/similarPosts', data)
