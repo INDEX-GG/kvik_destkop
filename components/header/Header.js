@@ -122,7 +122,6 @@ const Header = () => {
 							<AddRoundedIcon />
 						Новое объявление
 						</Button>}
-
 						{!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
 							Войти
 						</Button>
@@ -142,7 +141,6 @@ const Header = () => {
 								</NextLink>	
 							)
 						}
-
 					</Container>
 					{openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}
 					{openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}

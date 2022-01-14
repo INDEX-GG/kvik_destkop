@@ -1,14 +1,18 @@
-// import { Controller, useFormContext } from 'react-hook-form';
-import {Box, makeStyles, Typography /** TextFiel */} from '@material-ui/core';
-// import { invalidСharacterLocation } from '../../lib/regulars'
-// import YandexMap from '../YandexMap';
+import {Box, makeStyles, Typography, useMediaQuery /** TextFiel */} from '@material-ui/core';
 import DadataSuggest from '../DadataSuggest'
+import AdditionalModalText from "#components/placeOffer/newPlaceOffer/AdditionalModalText";
 
 const useStyles = makeStyles((theme) => ({
     formElem: {
         display: 'flex',
         flexDirection: 'row',
         marginBottom: theme.spacing(3),
+        [theme.breakpoints.down(960)]: {
+            marginBottom: '15px',
+            '& > div': {
+                width: '100%'
+            }
+        }
     },
     formTitleField: {
         fontSize: '14px',
@@ -21,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     },
     formInputField: {
         width: '490px',
+        [theme.breakpoints.down(960)]: {
+            width: '100%'
+        }
     },
     map: {
         height: '224px',
@@ -31,17 +38,26 @@ const useStyles = makeStyles((theme) => ({
 const Location = ({address}) => {
 
     const classes = useStyles();
-//    const methods = useFormContext();
-
-    // console.log(address)
+    const media960 = useMediaQuery('(max-width: 960px)');
 
 
     return (
         <Box className={classes.formElem}>
-            <Typography className={classes.formTitleField}>Местоположение</Typography>
-            <Box className={classes.formInputField}>
-                <DadataSuggest address={address}/>
-            </Box>
+            {!media960 && (
+                <>
+                    <Typography className={classes.formTitleField}>Местоположение</Typography>
+                    <Box className={classes.formInputField}>
+                        <DadataSuggest address={address}/>
+                    </Box>
+                </>
+            )}
+            {media960 && (
+                <AdditionalModalText title='Местоположение' alias='location'>
+                    <Box className={classes.formInputField}>
+                        <DadataSuggest address={address}/>
+                    </Box>
+                </AdditionalModalText>
+            )}
         </Box>
     )
 }

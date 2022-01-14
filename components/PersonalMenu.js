@@ -57,7 +57,15 @@ function PersonalAccountMenu_component() {
             <div className="account_menu__block_links">
               {menuItems.map(item => {
                 return (
-                  <a key={item.id} onClick={() => setMenuItem({ i: item.id, itm: item.name, ttl: item.title })} className={item.name + ((item.title === menuItem.ttl) ? (` ${item.name} smooth__menu`) : (' smooth__menu'))}>{item.title}</a>
+                  <a 
+                    key={item.id} 
+                    onClick={() => setMenuItem({ i: item.id, itm: item.name, ttl: item.title })} 
+                    className={item.name + ((item.title === menuItem.ttl) 
+                      ? (` ${item.name} smooth__menu`) 
+                      : (' smooth__menu'))}
+                      >
+                        {item.title}
+                  </a>
                 )
               })}
             </div> : ''}

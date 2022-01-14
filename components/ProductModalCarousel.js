@@ -176,6 +176,8 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 									border: activeSlide[index] 
 										? "2px solid hsl(186, 50%, 55%)" 
 										: "2px solid transparent",
+									width: '100%',
+									height: '100%',
 									borderRadius: "2px"
 								}}
 							/>

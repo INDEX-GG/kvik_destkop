@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import AdditionalWrapper from "#components/placeOffer/newPlaceOffer/AdditionalWrapper";
 import {Controller, useFormContext} from "react-hook-form";
-import {makeStyles, MenuItem, TextField} from "@material-ui/core";
+import {makeStyles, MenuItem, TextField, useMediaQuery} from "@material-ui/core";
 import {searchItemInArray} from "#components/placeOffer/newPlaceOffer/AdditionalServices";
+import AdditionalFieldModal from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldModal";
 
 
 
@@ -15,8 +16,9 @@ const useStyles = makeStyles(() => ({
 // Пропс yearsData (это объект в котором есть children с нужными нам данными) - передаётся только в AdditionalView (React.cloneElement)
 const AdditionalFieldPeriod = ({fieldData, yearsData}) => {
 
-    const {control, getValues} = useFormContext();
+    const {control, getValues, setValue} = useFormContext();
     const classes = useStyles();
+    const media960 = useMediaQuery('(max-width: 960px');
 
 
     const [yearsArray, setYearsArr] = useState([]);
@@ -60,30 +62,43 @@ const AdditionalFieldPeriod = ({fieldData, yearsData}) => {
     }, [yearsData])
 
 
+
+    console.log(yearsData);
+
+
     return (
         <AdditionalWrapper title={title} type={type}>
-            <Controller
-                name={alias}
-                control={control}
-                defaultValue={default_value}
-                render={({field: {onChange, value}, fieldState: {error}}) => (
-                    <TextField
-                        select
-                        className={classes.input}
-                        variant='outlined'
-                        value={value}
-                        onChange={onChange}
-                        error={!!error}
-                        helperText={error ? error.message : ' '}>
-                        {yearsArray.map((itemList, i) => (
-                            <MenuItem key={itemList + i} value={itemList}>
-                                {itemList}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                )}
-                rules={{required: required.state ? required.value ? required.value : false : false}}
-            />
+            {media960 ? (
+                <AdditionalFieldModal
+                    jsonData={fieldData}
+                    dataItems={yearsArray}
+                    getValues={getValues}
+                    setValue={setValue}
+                />
+            ) : (
+                <Controller
+                    name={alias}
+                    control={control}
+                    defaultValue={default_value}
+                    render={({field: {onChange, value}, fieldState: {error}}) => (
+                        <TextField
+                            select
+                            className={classes.input}
+                            variant='outlined'
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : ' '}>
+                            {yearsArray.map((itemList, i) => (
+                                <MenuItem key={itemList + i} value={itemList}>
+                                    {itemList}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    )}
+                    rules={{required: required.state ? required.value ? required.value : false : false}}
+                />
+            )}
         </AdditionalWrapper>
     );
 };
