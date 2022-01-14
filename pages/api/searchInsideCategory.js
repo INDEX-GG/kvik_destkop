@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 			const text = req.body.text.toLowerCase();
 			const sort = req.body.sort.toLowerCase()
 			if (typeof req.body.page !== 'number' || typeof req.body.page_limit !== 'number') {
-				return("err")
+				throw "Er"
 			}
 			let sort_value
 			switch (sort) {

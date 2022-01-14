@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 			const page = (req.body.page - 1) * page_limit
 			const sort = req.body.sort.toLowerCase()
 			if (typeof req.body.page !== 'number' || typeof req.body.page_limit !== 'number') {
-				return("err")
+				throw "Er"
 			}
 			let sort_value
 			switch (sort) {
