@@ -109,7 +109,7 @@ const Index = () => {
 
     useEffect(() => {
         if (searchText) {
-            console.log(1)
+            // console.log(1)
             const data = {'category': aliasAll ? '' : aliasFullUrl, 'text': searchText}
             setScrollData({...scrollData, ...{sendObj: data, url: '/api/searchInsideCategory'}})
             // getDataByPost('/api/searchInsideCategory', data)
@@ -119,7 +119,7 @@ const Index = () => {
             //     });
 
         } else if (Object.keys(queryObj).length) {
-            console.log(2)
+            // console.log(2)
             generateCheckBoxObj(queryObj)
 
             const sendCheckObj = {
@@ -161,7 +161,7 @@ const Index = () => {
 
         } else {
             if (aliasFullUrl) {
-                console.log(3)
+                // console.log(3)
                 const postCategoryObj = {
                     data: aliasFullUrl,
                 }
