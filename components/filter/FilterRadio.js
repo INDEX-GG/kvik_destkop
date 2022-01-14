@@ -18,13 +18,13 @@ const useStyles = makeStyles(() => ({
     display: "flex",
   },
   formTitle: {
-    marginLeft: 8,
+    marginBottom: 3,
     fontWeight: 500,
     fontSize: 14,
     color: "#2C2C2C",
   },
   input: {
-    margin: "8px",
+    // margin: "8px",
     "&:last-child": {
       marginLeft: 0,
     },
@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   checkboxes: {
     display: "flex",
     flexDirection: "column",
-    padding: "0 8px"
+    // padding: "0 8px"
   },
   check: {
     marginLeft: 0,

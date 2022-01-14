@@ -1,21 +1,18 @@
-import React from 'react';
+import AdditionalView from "#components/placeOffer/newPlaceOffer/AdditionalView";
 import AdditionalFieldText from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldText";
+import AdditionalFieldColor from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldColor";
+import AdditionalFieldTextList from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldTextList";
 import AdditionalFieldNumber from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldNumber";
 import AdditionalFieldBoolean from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldBoolean";
 import AdditionalFieldCheckList from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldCheckList";
-import AdditionalFieldTextList from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldTextList";
-import AdditionalFieldColor from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldColor";
-import AdditionalView from "#components/placeOffer/newPlaceOffer/AdditionalView";
 import AdditionalFieldPeriod from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldPeriod";
 import AdditionalFieldTextListData from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldTextListData";
+import React from "react";
 
+export const generateFields = (fieldData, otherJsonObj) => {
 
-const generateFields = (fieldData, otherJsonObj, filters) => {
-
-    const {text_list_rendering_type, filter_render_type} = fieldData;
+    const {text_list_rendering_type} = fieldData;
     const {otherJson} = otherJsonObj
-
-    console.log(fieldData, filters)
 
     switch (fieldData.type) {
         case 'text':
@@ -74,13 +71,6 @@ const generateFields = (fieldData, otherJsonObj, filters) => {
                 </AdditionalView>
             )
         case 'period':
-
-            if (filters && filter_render_type) {
-                return (
-                    <h1>ok</h1>
-                )
-            }
-
             return (
                 <AdditionalView fieldData={fieldData} jsonData={otherJson}>
                     <AdditionalFieldPeriod
@@ -98,12 +88,3 @@ const generateFields = (fieldData, otherJsonObj, filters) => {
             )
     }
 }
-
-
-const AdditionalFields = ({fieldData, otherJsonObj, filters}) => {
-    return (
-        generateFields(fieldData, otherJsonObj, filters)
-    );
-};
-
-export default AdditionalFields;
