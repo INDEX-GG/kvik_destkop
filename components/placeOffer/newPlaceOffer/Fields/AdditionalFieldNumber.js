@@ -173,7 +173,7 @@ const AdditionalFieldNumber = ({fieldData}) => {
                 )}
                 rules={{required: required.state ? required.value : false}}
             />
-            {!!valueLength && (<Box className={classes.numberDesignation} style={{left: generateLeft(valueLength)}}>{number_unit_of_measure}</Box>)}
+            {!!valueLength && (<Box className={classes.numberDesignation} id='numberDesignation' style={{left: generateLeft(valueLength)}}>{number_unit_of_measure}</Box>)}
         </AdditionalWrapper>
     );
 };

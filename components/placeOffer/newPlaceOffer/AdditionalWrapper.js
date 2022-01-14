@@ -1,5 +1,7 @@
 import React from 'react';
 import {Box, makeStyles, Typography} from "@material-ui/core";
+import {useRouter} from "next/router";
+import NewFilterItem from "#components/newFilter/NewFilterItem";
 
 const useStyles = makeStyles((theme) => ({
     formElem: {
@@ -74,20 +76,29 @@ const AdditionalWrapper = ({title, type, children}) => {
     const classNameTitle = type !== 'check_list' ? `${classes.formTitleField} ${classes.paddingTitle}` : `${classes.formTitleField}`
     const mobileCheckboxWrapper = type === 'boolean' ? classes.mobileWrapper : ''
 
+    // Filters
+    const router = useRouter()?.pathname;
+
     return (
-        <Box className={`${classes.formElem} ${mobileCheckboxWrapper}`}>
-            <Typography className={`${classNameTitle} ${classes.mobile}`}>
-                {title}
-            </Typography>
-            <Box className={wrapper}>
+        router === '/search/[alias]' ? (
+            <NewFilterItem title={title} type={type}>
                 {children}
-            </Box>
-            {type === 'boolean' ? (
-                <Typography className={classes.checkboxMobile}>
+            </NewFilterItem>
+        ) : (
+            <Box className={`${classes.formElem} ${mobileCheckboxWrapper}`}>
+                <Typography className={`${classNameTitle} ${classes.mobile}`}>
                     {title}
                 </Typography>
-            ) : null}
-        </Box>
+                <Box className={wrapper}>
+                    {children}
+                </Box>
+                {type === 'boolean' ? (
+                    <Typography className={classes.checkboxMobile}>
+                        {title}
+                    </Typography>
+                ) : null}
+            </Box>
+        )
     );
 };
 

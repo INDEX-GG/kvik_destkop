@@ -2529,6 +2529,7 @@
                             "period_maximum": "yearto",
                             "period_step": 1,
                             "json": "/auto_brand/",
+                            "filter_render_type": 1,
                             "dependencies": ["brand", "model", "generation", "modification"]
                         },
                         {
