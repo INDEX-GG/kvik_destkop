@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const AdditionalFieldTextList = ({fieldData, otherJsonObj}) => {
+const AdditionalFieldTextList = ({fieldData, otherJsonObj, otherTitle}) => {
 
     const classes = useStyles();
     const {control, getValues, setValue} = useFormContext();
@@ -102,7 +102,7 @@ const AdditionalFieldTextList = ({fieldData, otherJsonObj}) => {
 
     return (
         view && (
-            <AdditionalWrapper title={title} type={type}>
+            <AdditionalWrapper title={otherTitle ? otherTitle : title} type={type}>
                 {media960 ? (
                     <AdditionalFieldModal
                         jsonData={fieldData}

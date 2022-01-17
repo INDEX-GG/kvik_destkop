@@ -17,10 +17,9 @@ const useStyles = makeStyles(() => ({
   },
   formInputField: {
     display: "flex",
-    padding: '4px 16px 0 16px'
+    padding: '4px 0px 0 0px'
   },
   formTitle: {
-    marginLeft: 8,
     fontWeight: 500,
     fontSize: 14,
     color: "#2C2C2C",
@@ -46,7 +45,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   checkbox: {
-    padding: "4px 4px 4px 0",
+    // padding: "4px 4px 4px 0",
     fontSize: 18,
   },
   formColorMain: {

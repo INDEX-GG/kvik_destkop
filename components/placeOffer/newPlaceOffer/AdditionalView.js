@@ -67,18 +67,19 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
             // Проверка на объект
             if (typeof values === 'object' && !Array.isArray(values)) {
                 // Изменение значения поля
-                if (getValues(alias) !== values.value) {
+                if (getValues(alias) !== values.value && values) {
                     setValue(alias, `${values.value}`)
                 }
-            } else {
-                // Исключительный алиас (единичный случай)
-                if (alias === 'year_of_issue') {
-                    setValueObj(values)
-                }
+            }
+
+            // Исключительный алиас (единичный случай)
+            if (alias === 'year_of_issue' && values) {
+                setValueObj(values)
             }
 
         }
     }, [view, dependenciesEffect])
+
 
 
     return (

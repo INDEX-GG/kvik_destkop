@@ -44,6 +44,8 @@ export const generateListArray = (fieldData, jsonValue, getValues, onlyData = fa
 
     const {text_list_values, alias, dependencies} = fieldData
 
+    // console.log(fieldData, jsonValue)
+
     //onlyData (true / false)  - Возвращает только дату, не jsx
 
     // Берём данные из другого json
@@ -60,7 +62,6 @@ export const generateListArray = (fieldData, jsonValue, getValues, onlyData = fa
             // Третья вложенность
             if (dependencies.length >= 3 || searchJsonTwo === undefined) {
                 const searchJsonThree = searchItemInArray(searchJsonTwo?.children, getValues(dependencies[2]), 'value')
-
 
                 // Четвёртая вложенность
                 if (dependencies.length >= 4) {

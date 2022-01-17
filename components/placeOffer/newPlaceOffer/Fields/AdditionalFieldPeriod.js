@@ -54,7 +54,7 @@ const AdditionalFieldPeriod = ({fieldData, yearsData}) => {
 
     useEffect(() => {
         if (Array.isArray(yearsData)) {
-            const arrayItem = searchItemInArray(yearsData, getValues(dependencies.reverse()[0]), 'value')
+            const arrayItem = searchItemInArray(yearsData, getValues(dependencies[dependencies.length - 1]), 'value')
             generateYears(arrayItem)
         } else if (typeof yearsData === 'object') {
             generateYears(yearsData)
