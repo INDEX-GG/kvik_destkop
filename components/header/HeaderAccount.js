@@ -10,7 +10,6 @@ import { useAuth } from '../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import { useMedia } from '../../hooks/useMedia';
 import AccountContent from './AccountContent';
-import MobileMenu from '../../UI/icons/MobileMenu';
 
 const useStyles = makeStyles((theme) => ({
 	accountBox: {
@@ -126,7 +125,7 @@ export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, t
 	const { name, userPhoto } = userInfo;
 
 	/**
-	 * @param {object} props 
+	 * @param {object} props
 	 * @param {string} [props.name]
 	 */
 	const AvatarWrapper = ({ name = undefined, children }) => {
@@ -158,7 +157,7 @@ export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, t
 					>
 						{initials(name)}
 					</Avatar>
-					
+
 				</AvatarWrapper>
 			)
 		} else {
@@ -179,10 +178,10 @@ export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, t
 				<AvatarWrapper name={name}>
 					<NextLink href={{
 						pathname: "/account/[id]",
-						query: { 
-							id: AccountID, 
+						query: {
+							id: AccountID,
 							account: "1",
-							content: "1" 
+							content: "1"
 						}
 					}}>
 						<Avatar
@@ -250,8 +249,8 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 	];
 
 	/**
-	 * @param {string} anchor 
-	 * @param {boolean} open 
+	 * @param {string} anchor
+	 * @param {boolean} open
 	 * @returns {(event: KeyboardEvent) => void}
 	 */
 	const toggleDrawer = (anchor, open) => (event) => {
@@ -272,7 +271,7 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 	};
 
 	/**
-	 * @param {string} anchor 
+	 * @param {string} anchor
 	 */
 	const list = (anchor) => (
 		<>
@@ -357,4 +356,3 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 		)
 	}
 }
-

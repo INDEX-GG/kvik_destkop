@@ -20,18 +20,18 @@ const initialState = {
 
 const useClass = makeStyles(() => ({
 	morePhoto: {
-		position: "absolute", 
-		background: "rgba(39, 39, 39, 0.4)", 
+		position: "absolute",
+		background: "rgba(39, 39, 39, 0.4)",
 		borderRadius: '8px 8px 0px 0px',
-		top: 0, 
+		top: 0,
 		left: 0,
-		width: "100%", 
+		width: "100%",
 		height: "100%",
 		display: "flex",
 		flexDirection: 'column',
 		justifyContent: "center",
 		alignItems: "center",
-		
+
 	},
 	morePhotoText: {
 		marginTop: '4px',
@@ -76,7 +76,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 
 	// пока что моковский массив посещения объявления
 	// в будущем будет добавляться к модели юзера
-	const mockVisitedArray = []
+	// const mockVisitedArray = []
 
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
@@ -108,7 +108,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 		return 'card__wrapper'
 	}
 
- 
+
 
 
 	// todo: перелистывание слайдера по движению мыши
@@ -150,7 +150,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 				e.removeEventListener('mouseleave', mouseLeave)
 			})
 		}
-	}, [currentSwiper])	
+	}, [currentSwiper])
 
 	const mouseEnter = useCallback((e) => {
 		const target = +e.target.dataset.for
@@ -167,11 +167,11 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	})
 
 	// изменяем модель юзера при свайпе фотографий
-	const handlerSlideChange = () => {
-		// TODO: добавить проверку на сессию 
-		mockVisitedArray.push(offer.id)
-		currentSwiper.current.swiper.off('slideChange')
-	}
+	// const handlerSlideChange = () => {
+	// 	// TODO: добавить проверку на сессию
+	// 	mockVisitedArray.push(offer.id)
+	// 	currentSwiper.current.swiper.off('slideChange')
+	// }
 
 	const call = true;
 
@@ -193,7 +193,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 			className={offer.commercial === 2 ? "card card__lg" : "card"}
 			onContextMenu={(e) => handleCM(e)}
 			onMouseDown={(e) => handleWheelClick(e, offer.id)}
-		>	
+		>
 			<Menu
 				open={openMenu.mouseY !== null}
 				onClose={() => setOpenMenu(initialState)}
@@ -214,7 +214,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 				<div className={"card__top " + archived}>
 					{offer?.viewing_bool ? <div className="card__top_seen">Просмотрено</div> : ""}
 					<Link href={`/product/${offer.id}`} prefetch={false}>
-						<div 
+						<div
 							className="card__top_slider"
 							style={{
 								// height: '263px'
@@ -230,37 +230,37 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 										objectPosition: 'center',
 										height: '100%',
 
-										
+
 									}}
 									alt="фото объявления"
 									ref={currentSwiper}
 									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 								/> */}
 								{/* после оптимизации приложения, див переписать на тег img */}
-									<div 
+									<div
 										style={{
-											backgroundImage: `url(${offer.photo[0]})`, 
+											backgroundImage: `url(${offer.photo[0]})`,
 											width: '100%',
 											height: '100%',
-											backgroundSize: 'cover', 
+											backgroundSize: 'cover',
 											backgroundPosition: 'center'
-										}} 
+										}}
 										ref={currentSwiper}
 										onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 									/>
-									<div 
+									<div
 										style={{
-											backgroundImage: `url(${offer.photo[0]})`, 
-											backgroundSize: 'cover', 
+											backgroundImage: `url(${offer.photo[0]})`,
+											backgroundSize: 'cover',
 											filter: 'blur(20px)'
-										}} 
+										}}
 										className="imageBlur">
 									</div>
 								</>
 								: (
 									<>
 									{/* рисуем области при которых листаем слайды - если не мобилка */}
-										{!screenIsMobile && 
+										{!screenIsMobile &&
 											<div
 												ref={currentSlide}
 												className={classes.mov_area}
@@ -268,13 +268,13 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 												{/* eslint-disable-next-line */}
 												{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((_, i) => {
 													return (
-														<div 
-															key={i} 
+														<div
+															key={i}
 															data-for={i}
-															className={classes.mov_area__item} 
+															className={classes.mov_area__item}
 															style={{
 																width: `${Math.round(100 / (offer.photo.length > 5 ? 5 : offer.photo.length))}%`
-															}} 
+															}}
 														></div>
 													)
 												})}
@@ -286,7 +286,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 											slidesPerView={1}
 											style={{width: '100%', height: '100%',}}
 											// onSlideChange={handlerSlideChange}
-										> 
+										>
 											{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
 												return (
 													<SwiperSlide key={i} style={{position: 'relative',}}>
@@ -300,8 +300,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 																// objectFit: 'cover',
 																width: '100%',
 																height: '100%',
-																backgroundImage: `url(${img})`,	
-																backgroundSize: 'cover', 
+																backgroundImage: `url(${img})`,
+																backgroundSize: 'cover',
 																backgroundPosition: 'center',
 																backgroundRepeat: 'no-repeat',
 																// border: '0'
@@ -316,18 +316,18 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 															style={{
 																width: '100%',
 																height: '100%',
-																backgroundImage: `url(${img})`, 
-																backgroundSize: 'cover', 
+																backgroundImage: `url(${img})`,
+																backgroundSize: 'cover',
 																backgroundPosition: 'center'
 															}}
 														/> */}
 
-														{/* <div 
+														{/* <div
 															style={{
-																backgroundImage: `url(${img})`, 
-																backgroundSize: 'cover', 
+																backgroundImage: `url(${img})`,
+																backgroundSize: 'cover',
 																filter: 'blur(20px)'
-															}} 
+															}}
 															className="imageBlur"
 														>
 														</div> */}
@@ -388,8 +388,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 								</div>
 							</div>
 							<div className="card__bottom_info_left">
-								<span className={(!props.isGrid && screenIsMobile) ? 
-									"new__priceV2" : 
+								<span className={(!props.isGrid && screenIsMobile) ?
+									"new__priceV2" :
 									'new__price'
 								}>
 									{ellipsis(ToRubles(offer.price), 15)}
@@ -397,23 +397,23 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 							</div>
 						</div>
 
-						<div className={(!props.isGrid && screenIsMobile) ? 
-							"card__bottom_info_middleV2" : 
+						<div className={(!props.isGrid && screenIsMobile) ?
+							"card__bottom_info_middleV2" :
 							'card__bottom_info_middle'
 						}>
 							{offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 24)}
 						</div>
 
 						<div className="card__bottom_info_footer">
-							<div className={(!props.isGrid && screenIsMobile) ? 
-							"card__bottom_info_footer_leftV2" : 
+							<div className={(!props.isGrid && screenIsMobile) ?
+							"card__bottom_info_footer_leftV2" :
 							'card__bottom_info_footer_left'
 							}>
 								{offer.address}
 							</div>
 
-							<div className={(!props.isGrid && screenIsMobile) ? 
-							"card__bottom_info_footer_rightV2" : 
+							<div className={(!props.isGrid && screenIsMobile) ?
+							"card__bottom_info_footer_rightV2" :
 							'card__bottom_info_footer_right'
 							}>
 								{ToRusDate(offer.created_at)}
