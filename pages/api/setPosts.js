@@ -29,6 +29,10 @@ export default async function handler(req, res) {
 				}
 				const alias = (req.body.alias).toString()
 				let now = new Date()
+				let day_in_ms = 1000*60*60*24
+				let active_time = new Date(Math.floor(now) + day_in_ms*30)
+
+
 				const obj = {
 					data: {
 						country_code: 7,
@@ -48,14 +52,17 @@ export default async function handler(req, res) {
 						lat: 1234.00,
 						visits: 0,
 						commercial: 0,
-						date_start_commercial: now,
-						date_stop_commercial: now,
 						add_fields: { "fields": "none" },
-						archived_time: now,
+
 						created_at: now,
-						updated_at: now,
-						deleted_at: now,
+						active_time: active_time,
 						date_verify: now,
+						updated_at: now,
+						// archived_time: now,
+						// deleted_at: now,
+						// date_start_commercial: now,
+						// date_stop_commercial: now,
+
 						verify: 0,
 						// verify: 1,
 						subcategory: req.body.subcategory,
@@ -64,34 +71,35 @@ export default async function handler(req, res) {
 						city: req.body.city
 											}
 				}
-
 				const createPost = await prisma.posts.create(obj);
 				if (req.body.additional_fields !== null && req.body.additional_fields !== undefined) {
-					try {
-						const additional_fields = req.body.additional_fields
-						let columns = ''
-						let values = ''
-						columns += '"' + 'post_id' + '", '
-						values += "'" + createPost.id + "', "
-						additional_fields.forEach((element) => {
-							if (element.value !== '') {
-								columns += '"' + element.alias + '", '
-								values += "'" + element.value + "', "
-							}
-						})
-						columns = columns.slice(0, -2)
-						values = values.slice(0 ,-2)
+					if (req.body.additional_fields.length !== 0) {
+						try {
+							const additional_fields = req.body.additional_fields
+							let columns = ''
+							let values = ''
+							columns += '"' + 'post_id' + '", '
+							values += "'" + createPost.id + "', "
+							additional_fields.forEach((element) => {
+								if (element.value !== '') {
+									columns += '"' + element.alias + '", '
+									values += "'" + element.value + "', "
+								}
+							})
+							columns = columns.slice(0, -2)
+							values = values.slice(0 ,-2)
 
-						await prisma.$queryRaw(`INSERT INTO "subcategories".${req.body.subcategory} (${columns}) VALUES (${values})`)
+							await prisma.$queryRaw(`INSERT INTO "subcategories".${req.body.subcategory} (${columns}) VALUES (${values})`)
 
-					}
-					catch (e) {
-						try{
-							const error = "'[" + e.toString().replace(/"/g, '""').replace(/'/g, "''") + "]'"
-							await prisma.$queryRaw(`UPDATE "posts" SET "additional_fields_error" = ${error} WHERE id = ${createPost.id}`)
 						}
-						catch (e) {`Внутренняя ошибка api setPosts ${e}`}
-						console.error(`Внутренняя ошибка api setPosts ${e}`)
+						catch (e) {
+							try{
+								const error = "'[" + e.toString().replace(/"/g, '""').replace(/'/g, "''") + "]'"
+								await prisma.$queryRaw(`UPDATE "posts" SET "additional_fields_error" = ${error} WHERE id = ${createPost.id}`)
+							}
+							catch (e) {`Внутренняя ошибка api setPosts ${e}`}
+							console.error(`Внутренняя ошибка api setPosts ${e}`)
+						}
 					}
 				}
 				return { id: createPost.id };
