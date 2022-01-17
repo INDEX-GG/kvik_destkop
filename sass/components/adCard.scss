@@ -268,6 +268,12 @@
     // height: auto !important;
 // }
 
+.card__top_slider .morePhotoImage {
+	width: 30px;
+	height: 24px;
+	background: url(../../icons/camera_white.svg) center no-repeat,
+}
+
 .card__top_slider .swiper-pagination {
     z-index: 100;
     position: absolute;
