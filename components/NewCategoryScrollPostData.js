@@ -398,6 +398,11 @@ const CategoryScrollPostData = ({url}) => {
             if(!response.length) {
                 return
             }
+
+            if(response.includes('ошибка')) {
+                return
+            }
+                
             setSimilarData(modifyGetPostsData(response))
         }
         return
