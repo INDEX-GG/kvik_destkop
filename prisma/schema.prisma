@@ -111,6 +111,7 @@ model posts{
   viewing               String?
   coordinates           String?
   city                  String?
+  active_time           DateTime? @db.Timestamp(0)
 
 
   @@index([address], name: "posts_address_index")
