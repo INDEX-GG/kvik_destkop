@@ -14,7 +14,6 @@ const NewFilterItem = ({title, type, children}) => {
 
     const classes = useStyles();
 
-    console.log(type);
 
     return (
         type === 'check_list'

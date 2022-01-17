@@ -8,93 +8,154 @@ import AdditionalFieldColor from "#components/placeOffer/newPlaceOffer/Fields/Ad
 import AdditionalView from "#components/placeOffer/newPlaceOffer/AdditionalView";
 import AdditionalFieldPeriod from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldPeriod";
 import AdditionalFieldTextListData from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldTextListData";
+import AdditionalFieldTextListJson from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldTextListJson";
+import FilterTwoFields from "#components/filter/FilterTwoFields";
+import AdditionalFieldMaxMin from "#components/placeOffer/newPlaceOffer/Fields/AdditionalFieldMaxMin";
+import FilterMultipleSelect from "#components/filter/FilterMultipleSelect";
+import FilterColor from "#components/filter/FilterColor";
 
 
 const generateFields = (fieldData, otherJsonObj, filters) => {
 
-    const {text_list_rendering_type, filter_render_type} = fieldData;
+    const {text_list_rendering_type, filter_render_type, filter_view, text_list_filter_type, alias} = fieldData;
     const {otherJson} = otherJsonObj
+    let View = AdditionalView;
 
-    console.log(fieldData, filters)
+    if (filters) {
+        fieldData.required = {...fieldData.required, state: false}
 
-    switch (fieldData.type) {
+        if (filter_view === false) {
+            return  null
+        } else {
+            View = ({children}) => <>{children}</>
+        }
+    }
+
+    //     Если в фильтрах  Если другой тип у фильтра
+    const type = filters ? fieldData?.filter_type ? fieldData?.filter_type : fieldData.type : fieldData.type
+    const title = filters ? fieldData?.filter_title ? fieldData?.filter_title : fieldData.title : fieldData.title
+
+
+    switch (type) {
         case 'text':
             return (
-                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                <View fieldData={fieldData} jsonData={otherJson}>
                     <AdditionalFieldText
                         fieldData={fieldData}
                         otherJsonObj={otherJsonObj}
                     />
-                </AdditionalView>
+                </View>
             )
         case 'text_list':
+
+            // Фильтры
+            if (filters) {
+                if (text_list_filter_type === 1) {
+                    return (
+                        <AdditionalFieldTextListJson
+                            fieldObj={fieldData}
+                        />
+                    )
+                }
+                if (text_list_filter_type === 2) {
+                    return (
+                        <AdditionalFieldMaxMin
+                            fieldObj={fieldData}
+                        />
+                    )
+                }
+                if (text_list_filter_type === 3) {
+                    return (
+                        Array.isArray(fieldData?.default_filter_arr) && (
+                            <FilterMultipleSelect data={{
+                                alias: alias,
+                                title: title,
+                                fields: fieldData?.default_filter_arr
+                            }}/>
+                        )
+                    )
+                }
+            }
+
+
             // Цвет
             if (text_list_rendering_type === 1) {
+
+                if (filters) {
+                    return (
+                        <FilterColor alias='color' title='Цвет'/>
+                    )
+                }
+
                 return (
-                    <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                    <View fieldData={fieldData} jsonData={otherJson}>
                         <AdditionalFieldColor
                             fieldData={fieldData}
                             otherJsonObj={otherJsonObj}
                         />
-                    </AdditionalView>
+                    </View>
                 )
             } else {
                 return (
                     <AdditionalFieldTextList
                         fieldData={fieldData}
                         otherJsonObj={otherJsonObj}
+                        otherTitle={title}
                     />
                 )
             }
         case 'number':
             return (
-                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                <View fieldData={fieldData} jsonData={otherJson}>
                     <AdditionalFieldNumber
                         fieldData={fieldData}
                         otherJsonObj={otherJsonObj}
                     />
-                </AdditionalView>
+                </View>
             )
         case 'boolean':
             return (
-                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                <View fieldData={fieldData} jsonData={otherJson}>
                     <AdditionalFieldBoolean
                         fieldData={fieldData}
                         otherJsonObj={otherJsonObj}
                     />
-                </AdditionalView>
+                </View>
             )
         case 'check_list':
             return (
-                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                <View fieldData={fieldData} jsonData={otherJson}>
                     <AdditionalFieldCheckList
                         fieldData={fieldData}
                         otherJsonObj={otherJsonObj}
                     />
-                </AdditionalView>
+                </View>
             )
         case 'period':
 
-            if (filters && filter_render_type) {
-                return (
-                    <h1>ok</h1>
+            if (filters && filter_render_type === 2) {
+                return  (
+                    <FilterTwoFields
+                        data={{firstAlias: `from$${alias}`, secondAlias: `to$${alias}`, title: title}}
+                    />
                 )
             }
 
             return (
-                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                <View fieldData={fieldData} jsonData={otherJson}>
                     <AdditionalFieldPeriod
                         jsonData={otherJson}
                         fieldData={fieldData}
                     />
-                </AdditionalView>
+                </View>
             )
+
         case 'text_list_time':
             return (
-                <AdditionalView fieldData={fieldData} jsonData={otherJson}>
+                <View fieldData={fieldData} jsonData={otherJson}>
                     <AdditionalFieldTextListData
                         fieldData={fieldData}/>
-                </AdditionalView>
+                </View>
             )
     }
 }

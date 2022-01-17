@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Button, makeStyles} from "@material-ui/core";
 import jsonData from '/public/placeOfferJson/new_catalog.json'
-import {getAdditionalFields} from "#components/newFilter/filterServices";
+import {generateFilterData, getAdditionalFields} from "#components/newFilter/filterServices";
 import {FormProvider, useForm} from 'react-hook-form'
 import AdditionalInformation from "#components/placeOffer/AdditionalInformation";
 import FilterTwoFields from "#components/filter/FilterTwoFields";
@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const NewFilterBlock = ({alias, searchText}) => {
+const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData}) => {
 
     const classes = useStyles();
     const methods = useForm({
@@ -61,21 +61,34 @@ const NewFilterBlock = ({alias, searchText}) => {
     });
 
     const {category} = jsonData
-    const filterData = getAdditionalFields(category, alias)
+    const filterData = getAdditionalFields(category, fullAlias)
     const additionalFields = filterData
 
     // Для ререндера
     methods?.watch()
 
+
     const onSubmit = (data) => {
-        console.log(data, searchText)
+
+        const filterDataObj = generateFilterData(data);
+
+        console.log(filterDataObj)
+
+        const submitDataObj = {
+            ...filterDataObj,
+            category: alias,
+            categoryFullName: fullAlias,
+            text: searchText ? searchText : ''
+        }
+
+        setScrollData({url: '/api/getPostsCheck', sendObj: submitDataObj})
     }
 
     return (
         <Box className={classes.wrapper}>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)} className={classes.form}>
-                    <FilterTwoFields data={{firstAlias: "fromPrice", secondAlias: 'toPrice', title: "Цена, ₽"}}/>
+                    <FilterTwoFields data={{firstAlias: "from$price", secondAlias: 'to$price', title: "Цена, ₽"}}/>
                     {additionalFields && (
                         <AdditionalInformation
                             currentCategory={additionalFields}
@@ -84,7 +97,7 @@ const NewFilterBlock = ({alias, searchText}) => {
                     )}
                     <FilterRadio data={{
                         title: "Срок размещения",
-                        alias: 'period',
+                        alias: 'time',
                         fields: ['За все время', 'За последнюю неделю', 'За последние сутки']
                     }}/>
                     <Box className={classes.buttonsField}>

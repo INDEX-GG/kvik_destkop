@@ -2,14 +2,10 @@ import {useState, useEffect} from "react";
 import Footer2 from "../../components/Footer2"
 import {useMedia} from "../../hooks/useMedia";
 import {Box, Container, makeStyles} from "@material-ui/core";
-// import SearchRender from "../../components/SearchRender"
 import {useRouter} from "next/router"
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import aliasName from "../../components/header/CategoriesAliaseName";
 import Image from "next/image"
-// import {getDataByPost} from "../../lib/fetch";
-// import {STATIC_URL} from "../../lib/constants";
-// import {categoryScroll} from "../../lib/scrollAds";
 import {generateAliasStr, /** generateDataArr */} from "../../lib/services";
 import {generateCheckBoxObj, generateCheckboxTime} from "../../lib/utils/checkBoxFunction";
 import ScrollPostData from "../../components/ScrollPostData";
@@ -56,10 +52,6 @@ const useStyles = makeStyles(() => ({
 const Index = () => {
 
     const classes = useStyles();
-
-    // const [page, setPage] = useState(1);
-    // const [limitRenderPage, setLimitRenderPage] = useState(0);
-    // const [/** lastIdAds */, setLastIdAds] = useState(0);
     const [checkboxDate, /***/] = useState({})
     const [, setQueryObjState] = useState({})
     const [scrollData, setScrollData] = useState({});
@@ -95,15 +87,6 @@ const Index = () => {
         queryObj = {}
         await generateRouteObj(router.query)
     }, [router, checkboxDate])
-
-
-
-    // useEffect(() => {
-    //     setPage(1)
-    //     setLimitRenderPage(0)
-    //     setLastIdAds(0)
-    //     setQueryObjState({})
-    // }, [router])
 
 
     useEffect(() => {
@@ -193,52 +176,13 @@ const Index = () => {
     }, [router, checkboxDate]);
 
 
-    // useEffect(() => {
-    //     const fetchDataObj = {
-    //         'data': aliasFullUrl,
-    //         'page_limit': limit,
-    //         'page': page
-    //     };
-    //
-    //     if (searchText) {
-    //         delete fetchDataObj.data
-    //         fetchDataObj.category = aliasFullUrl ? aliasFullUrl : ''
-    //         fetchDataObj.text = searchText
-    //     }
-    //
-    //     const setObj = {
-    //         setData,
-    //         setLimitRenderPage,
-    //         setPage,
-    //         setLastIdAds
-    //     }
-    //
-    //
-    //     if (page > 1) {
-    //         const api = searchText ? '/api/searchInsideCategory' : '/api/postCategorySearch';
-    //         if (Object.keys(queryObjState).length) {
-    //             categoryScroll('/api/getPostsCheck', {...queryObjState, page: page}, setObj)
-    //         } else {
-    //             categoryScroll(api, fetchDataObj, setObj)
-    //         }
-    //     }
-    // }, [page])
-
-
     return (
         <Container className={classes.root}>
             {aliasData?.aliasBread &&
             <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>}
             <Box className={classes.main}>
                 <Box className={classes.offers}>
-                    {/*<SearchRender */}
-                    {/*	title={generateTitle()}*/}
-                    {/*	data={Array.isArray(checkboxDate) ? checkboxDate : data}*/}
-                    {/*	page={page} */}
-                    {/*	limitRender={limitRenderPage} */}
-                    {/*	setLimitRenderPage={setLimitRenderPage} */}
-                    {/*	setPage={setPage} />*/}
-                    {scrollData.url && <ScrollPostData title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj} />}
+                    {scrollData?.url && <ScrollPostData title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj} />}
                 </Box>
                 {!matchesMobile && !matchesTablet &&
                 <Box className={classes.rightBlock}>
@@ -251,8 +195,10 @@ const Index = () => {
                     {/*    setCheckbox={setCheckboxData}*/}
                     {/*/>*/}
                     <NewFilterBlock
-                        alias={aliasFullUrl}
+                        alias={aliasQuery}
+                        fullAlias={aliasFullUrl}
                         searchText={searchText}
+                        setScrollData={setScrollData}
                     />
                     <div className={classes.ad}>
                         <Image src={"/img/joker1.png"} width={224} height={480}/>
