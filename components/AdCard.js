@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from "react";
+import React, {  useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from 'swiper';
@@ -21,20 +21,43 @@ const initialState = {
 const useClass = makeStyles(() => ({
 	morePhoto: {
 		position: "absolute", 
-		background: "rgba(0, 0, 0, 0.6)", 
+		background: "rgba(39, 39, 39, 0.4)", 
+		borderRadius: '8px 8px 0px 0px',
 		top: 0, 
 		left: 0,
 		width: "100%", 
 		height: "100%",
 		display: "flex",
+		flexDirection: 'column',
 		justifyContent: "center",
-		alignItems: "center"
+		alignItems: "center",
+		
 	},
 	morePhotoText: {
+		marginTop: '4px',
 		color: "#FFF",
-		fontSize: "16px",
+		fontSize: "18px",
 		textAlign: "center",
-		lineHeight: "1.3",
+		lineHeight: "21px",
+	},
+	blur: {
+		filter: 'blur(3px)',
+	},
+	mov_area: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		width: '100%',
+		height: '90%',
+		position: 'absolute',
+		top: '0',
+		left: '0',
+		zIndex: '2',
+	},
+	mov_area__item: {
+		height: 'inherit',
+		margin: '0',
+		padding: '0',
 	}
 }))
 
@@ -49,6 +72,12 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	const { userInfo, setLikeComment } = useStore();
 
 	const currentSwiper = useRef();
+	const currentSlide = useRef(); // для слайдов в swiper
+
+	// пока что моковский массив посещения объявления
+	// в будущем будет добавляться к модели юзера
+	const mockVisitedArray = []
+
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
 	// закоментил стейт, пока не разбереся с запросами.
@@ -79,7 +108,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 		return 'card__wrapper'
 	}
 
-	
+ 
 
 
 	// todo: перелистывание слайдера по движению мыши
@@ -106,6 +135,44 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	// 	}
 	// }
 
+	// перемещение слайдов по движению мыши
+	useEffect(() => {
+		// если фото более 2 и не мобилка
+		if (offer.photo.length >= 2 && !screenIsMobile && typeof currentSlide.current !== 'undefined' ) {
+			const sections = [...currentSlide.current.children]
+			sections.forEach(element => {
+				element.addEventListener('mouseenter', mouseEnter)
+				element.addEventListener('mouseleave', mouseLeave)
+			})
+
+			return () => sections.forEach(e => {
+				e.removeEventListener('mouseenter', mouseEnter)
+				e.removeEventListener('mouseleave', mouseLeave)
+			})
+		}
+	}, [currentSwiper])	
+
+	const mouseEnter = useCallback((e) => {
+		const target = +e.target.dataset.for
+		if (currentSwiper.current !== null && currentSwiper.current.swiper !== null && typeof currentSwiper.current.swiper !== 'undefined') {
+			currentSwiper.current.swiper.slideTo(target, 0)
+		}
+	})
+
+	// eslint-disable-next-line
+	const mouseLeave = useCallback((_) => {
+		if (currentSwiper.current !== null && currentSwiper.current.swiper !== null && typeof currentSwiper.current.swiper !== 'undefined') {
+			currentSwiper.current.swiper.slideTo(0, 0)
+		}
+	})
+
+	// изменяем модель юзера при свайпе фотографий
+	const handlerSlideChange = () => {
+		// TODO: добавить проверку на сессию 
+		mockVisitedArray.push(offer.id)
+		currentSwiper.current.swiper.off('slideChange')
+	}
+
 	const call = true;
 
 	let archived = null
@@ -120,7 +187,6 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 			return '<span class="' + className + '">' + "</span>"
 		}
 	}
-	// console.log(product, 'product')
 	return (
 		<div
 			ref={ref}
@@ -182,7 +248,6 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 										ref={currentSwiper}
 										onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 									/>
-									
 									<div 
 										style={{
 											backgroundImage: `url(${offer.photo[0]})`, 
@@ -192,69 +257,96 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 										className="imageBlur">
 									</div>
 								</>
-								: <Swiper
-									ref={currentSwiper}
-									pagination={pagination}
-									slidesPerView={1}
-									style={{width: '100%', height: '100%',}}
-								>	
-									{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
-										return (
-											<SwiperSlide key={i} style={{position: 'relative',}}>
-												{/* после оптимизации приложения, див переписать на тег img */}
-												<div
-													style={{
-														// display: 'block',
-														// width: '100%',
-														// height: '100%',
-														// minHeight: '100%',
-														// objectFit: 'cover',
-														width: '100%',
-														height: '100%',
-														backgroundImage: `url(${img})`, 
-														backgroundSize: 'cover', 
-														backgroundPosition: 'center',
-														backgroundRepeat: 'no-repeat',
-														// border: '0'
+								: (
+									<>
+									{/* рисуем области при которых листаем слайды - если не мобилка */}
+										{!screenIsMobile && 
+											<div
+												ref={currentSlide}
+												className={classes.mov_area}
+											>
+												{/* eslint-disable-next-line */}
+												{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((_, i) => {
+													return (
+														<div 
+															key={i} 
+															data-for={i}
+															className={classes.mov_area__item} 
+															style={{
+																width: `${Math.round(100 / (offer.photo.length > 5 ? 5 : offer.photo.length))}%`
+															}} 
+														></div>
+													)
+												})}
+											</div>
+										}
+										<Swiper
+											ref={currentSwiper}
+											pagination={pagination}
+											slidesPerView={1}
+											style={{width: '100%', height: '100%',}}
+											// onSlideChange={handlerSlideChange}
+										> 
+											{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
+												return (
+													<SwiperSlide key={i} style={{position: 'relative',}}>
+														{/* после оптимизации приложения, див переписать на тег img */}
+														<div
+															style={{
+																// display: 'block',
+																// width: '100%',
+																// height: '100%',
+																// minHeight: '100%',
+																// objectFit: 'cover',
+																width: '100%',
+																height: '100%',
+																backgroundImage: `url(${img})`,	
+																backgroundSize: 'cover', 
+																backgroundPosition: 'center',
+																backgroundRepeat: 'no-repeat',
+																// border: '0'
+															}}
+															// alt="фото объявления"
+															// src={`${img}`}
+															// srt={true}
+															className={(i === 4 && (offer.photo.length - 5 > 0) ? classes.blur : null)}
+															onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+														/>
+														{/* <img
+															style={{
+																width: '100%',
+																height: '100%',
+																backgroundImage: `url(${img})`, 
+																backgroundSize: 'cover', 
+																backgroundPosition: 'center'
+															}}
+														/> */}
 
-													}}
-													// alt="фото объявления"
-													// src={`${img}`}
-													// srt={true}
-													onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
-												/>
-												{/* <img
-													style={{
-														width: '100%',
-														height: '100%',
-														backgroundImage: `url(${img})`, 
-														backgroundSize: 'cover', 
-														backgroundPosition: 'center'
-													}}
-												/> */}
-
-												{/* <div 
-													style={{
-														backgroundImage: `url(${img})`, 
-														backgroundSize: 'cover', 
-														filter: 'blur(20px)'
-													}} 
-													className="imageBlur"
-												>
-												</div> */}
-												{
-													i === 4 && (offer.photo.length - 5 > 0) ?
-													<div className={classes.morePhoto}>
-														<span className={classes.morePhotoText}>
-															Еще<br />{offer.photo.length - 5} фото
-														</span>
-													</div>
-													: null
-												}
-											</SwiperSlide>
-										)
-									})}
-								</Swiper>}
+														{/* <div 
+															style={{
+																backgroundImage: `url(${img})`, 
+																backgroundSize: 'cover', 
+																filter: 'blur(20px)'
+															}} 
+															className="imageBlur"
+														>
+														</div> */}
+														{
+															i === 4 && (offer.photo.length - 5 > 0) ?
+															<div className={classes.morePhoto}>
+																<span className="morePhotoImage"></span>
+																<span className={classes.morePhotoText}>
+																	Еще {offer.photo.length - 5} фото
+																</span>
+															</div>
+															: null
+														}
+													</SwiperSlide>
+												)
+											})}
+										</Swiper>
+									</>
+								)}
 						</div>
 					</Link>
 					<div className="card__top_info">

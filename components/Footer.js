@@ -9,13 +9,13 @@ function Footer() {
           <a className='offerLinkFooter' href='/offer'>Оферта</a>
         </div>
         <div className="socialNetworksFooter">
-					<a href="https://www.instagram.com/kvik_baraholka/" className="instagramLinkFooter">
+					<a href="https://instagram.com" className="instagramLinkFooter" target="_blank" rel="noreferrer">
             <div className="instagramLinkIcon"></div>
           </a>
-					<a href="https://vk.com/1kvik_ru" className="vkLinkFooter">
+					<a href="https://vk.com" className="vkLinkFooter" target="_blank" rel="noreferrer">
             <div className="vkLinkIcon"></div>
           </a>
-					<a href="https://www.facebook.com/Kvik-Барахолкачелябинск-107509641798965" className="fbLinkFooter">
+					<a href="https:/facebook.com" className="fbLinkFooter" target="_blank" rel="noreferrer">
             <div className="fbLinkIcon" ></div>
           </a>
         </div>
