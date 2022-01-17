@@ -155,14 +155,14 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	const mouseEnter = useCallback((e) => {
 		const target = +e.target.dataset.for
 		if (currentSwiper.current !== null && currentSwiper.current.swiper !== null && typeof currentSwiper.current.swiper !== 'undefined') {
-			currentSwiper.current.swiper.slideTo(target, 400)
+			currentSwiper.current.swiper.slideTo(target, 0)
 		}
 	})
 
 	// eslint-disable-next-line
 	const mouseLeave = useCallback((_) => {
 		if (currentSwiper.current !== null && currentSwiper.current.swiper !== null && typeof currentSwiper.current.swiper !== 'undefined') {
-			currentSwiper.current.swiper.slideTo(0, 400)
+			currentSwiper.current.swiper.slideTo(0, 0)
 		}
 	})
 
@@ -285,7 +285,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 											pagination={pagination}
 											slidesPerView={1}
 											style={{width: '100%', height: '100%',}}
-											onSlideChange={handlerSlideChange}
+											// onSlideChange={handlerSlideChange}
 										> 
 											{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
 												return (
