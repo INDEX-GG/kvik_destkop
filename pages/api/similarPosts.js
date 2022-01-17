@@ -28,6 +28,10 @@ export default async function handler(req, res) {
                 catch (e) {
                     additional_fields = {}
                 }
+                if (additional_fields === undefined) {
+                    const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE $1) AND posts.active = 0 AND posts.verify = 0 AND "posts"."id" != ${post_id} AND LOWER (city) LIKE $2 LIMIT $3`, [full_category + '%', region + '%', 24])
+                    return(answer.rows)
+                }
                 for (let variable of filterValue) {
                     let bodyVariable  = additional_fields[variable]
                     if (bodyVariable !== undefined) {
