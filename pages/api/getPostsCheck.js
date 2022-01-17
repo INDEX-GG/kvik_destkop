@@ -140,14 +140,6 @@ export default async function handler(req, res) {
                 return(answer.rows)
             }
         }
-
-
-
-
-
-
-
-
         try {
             let response = await main();
             res.status(200);
