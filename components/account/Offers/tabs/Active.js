@@ -105,7 +105,7 @@ function Active({offers}) {
 					})}
 				</div>
 			</div>}
-			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
+			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">
 				<OfferModal
 					offerId={offerId}
 					offerData={offerData}

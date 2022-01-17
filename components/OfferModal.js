@@ -5,6 +5,7 @@ import { useOfferAccount } from '../lib/Context/OfferAccountCTX';
 import { BASE_URL } from '../lib/constants';
 import {useAuth} from "../lib/Context/AuthCTX";
 import {getTokenDataByPost} from "../lib/fetch";
+import {Grid} from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
 	offer_form: {
@@ -15,17 +16,24 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.grey[100],
 	},
 	offer_form__item: {
-		width: '100px',
-		height: '126px',
-		padding: '3px',
-		boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+		width: '120px',
+		height: '225px',
 		borderRadius: '1px',
 		textAlign: 'center',
-		marginBottom: '20px',
+		marginBottom: '15px',
+	},
+	offer_form__content: {
+		width: '100%',
+		paddingLeft: '6px',
+		textAlign: 'left',
+		background: '#FFFFFF',
+		boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+		borderRadius: '0px 0px 8px 8px',
 	},
 	offer_form__item__img: {
 		width: '100%',
-		height: '88px',
+		height: '136px',
+		borderRadius: '8px 8px 0px 8px',
 	},
 	offer_form__item__price: {
 		fontSize: '12px',
@@ -35,11 +43,15 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '12px',
 		fontWeight: '500',
 	},
+	offer_form__item__address: {
+		fontSize: '10px',
+		color: '#8F8F8F',
+	},
 	offer_form__desc: {
 		fontSize: '18px',
 		fontWeight: '500',
 		color: theme.palette.grey[100],
-		marginBottom: '24px',
+		marginBottom: '10px',
 
 	},
 	offer_form__sub_desc: {
@@ -59,6 +71,10 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '14px',
 		fontWeight: '500',
 		transition: 'all 250ms ease-in-out;',
+
+		'&:last-child': {
+			marginBottom: 0,
+		},
 
 		'&>*:last-child': {
 			marginBottom: 0,
@@ -131,8 +147,31 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 							return <CardMedia className={classes.offer_form__item__img} key={i} image={imgs} />
 						})
 					}
-					<Typography className={classes.offer_form__item__price}>{ToRubles(offerAction.price)}</Typography>
-					<Typography className={classes.offer_form__item__title}>{offerAction.title}</Typography>
+					<Grid
+						spacing={0}
+						container
+						direction="column"
+						alignItems="flex-start"
+						justifyContent="space-between"
+						className={classes.offer_form__content}
+					>
+						<Grid
+							mt={1}
+							xs={0}
+							item
+							direction="column"
+						>
+							<Typography className={classes.offer_form__item__price}>{ToRubles(offerAction.price)}</Typography>
+							<Typography className={classes.offer_form__item__title}>{offerAction.title}</Typography>
+						</Grid>
+						<Grid 
+							item
+							mt={1}
+							xs={0}
+						>
+							<Typography className={classes.offer_form__item__address}>{offerAction.address}</Typography>
+						</Grid>
+					</Grid>
 				</Box>
 				{showButtons(buttonId)}
 			</Box>

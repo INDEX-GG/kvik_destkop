@@ -77,7 +77,7 @@ const Header = () => {
   const {isAuth, id: accountID} = useAuth();
   const {userInfo} = useStore();
   const classes = useStyles();
-  const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD } = useMedia();
+	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1024 } = useMedia();
   const [openCat, setCategories] = useState();
   const [openRegForm, setOpenRegForm] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -96,64 +96,57 @@ const Header = () => {
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
 
-  
 
   return (
     <>
-      <UpPanel />
-      <AppBar className={headerScroll} position="sticky" color="secondary">
-        <Container className={classes.root}>
-          <Logo />
-          <Button 
-						className={classes.menu__categorys} 
-						variant="contained" 
-						color="primary" 
-						aria-controls="simple-menu" 
-						aria-haspopup="true" 
-						onClick={() => setCategories(!openCat)}
-					>
-            Категории
-            <ExpandMoreIcon />
-          </Button>
-          <Search />
+			{!matchesCustom1024 && <>
+				<UpPanel />
+				<AppBar className={headerScroll} position="sticky" color="secondary">
+					<Container className={classes.root}>
+						<Logo />
+						<Button 
+							className={classes.menu__categorys} 
+							variant="contained" 
+							color="primary" 
+							aria-controls="simple-menu" 
+							aria-haspopup="true" 
+							onClick={() => setCategories(!openCat)}
+						>
+							Категории
+							<ExpandMoreIcon />
+						</Button>
+						<Search />
 
-		  
-          {isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
-            <AddRoundedIcon />
-           Новое объявление
-          </Button>}
-
-          {!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
-            Войти
-          </Button>
-            || (userInfo === undefined) && (<Skeleton variant="circular" width={32} height={32} /> ) 
-						|| (userInfo !== undefined) && (
-							<NextLink href={{
-								pathname: "/account/[id]",
-								query: { id: accountID, 
-                         account: '1',
-                         content: '1' 
-                        }
-                // query: {
-                //   account: accountID,
-                //   content: "1"
-                // }
-							}}>
-								<Avatar
-									className={classes.avatar}
-									src={userInfo.userPhoto}
-									style={{ backgroundColor: `${stringToColor(userInfo.name)}`, cursor: "pointer" }}
-								>
-									{initials(userInfo.name)}
-								</Avatar>
-							</NextLink>	
-						)
-					}
-
-        </Container>
-        {openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}
-        {openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
-      </AppBar>
+				
+						{isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+							<AddRoundedIcon />
+						Новое объявление
+						</Button>}
+						{!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
+							Войти
+						</Button>
+							|| (userInfo === undefined) && (<Skeleton variant="circular" width={32} height={32} /> ) 
+							|| (userInfo !== undefined) && (
+								<NextLink href={{
+									pathname: "/account/[id]",
+									query: { id: accountID }
+								}}>
+									<Avatar
+										className={classes.avatar}
+										src={userInfo.userPhoto}
+										style={{ backgroundColor: `${stringToColor(userInfo.name)}`, cursor: "pointer" }}
+									>
+										{initials(userInfo.name)}
+									</Avatar>
+								</NextLink>	
+							)
+						}
+					</Container>
+					{openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}
+					{openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
+				</AppBar>
+			</>	
+			}
       <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
         <Login />
       </DialogCTX.Provider>
