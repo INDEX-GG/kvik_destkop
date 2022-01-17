@@ -75,7 +75,7 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
                         const lastId = response[response.length - 1]?.id
 
                         // Посты
-                        setPost(prevState => [...prevState, ...modifyGetPostsData(response)].slice(0, 17))
+                        setPost(prevState => [...prevState, ...modifyGetPostsData(response)])
 
 
                         if (lastId) {
