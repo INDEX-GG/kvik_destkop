@@ -18,13 +18,13 @@ function Footer2() {
 
       <div className="footer__bottom">
         <div className="socialNetworksFooter2">
-					<a href="https://instagram.com" className="instagramLinkFooter" target="_blank">
+					<a href="https://instagram.com" className="instagramLinkFooter" target="_blank" rel="noreferrer">
             <div className="instagramLinkIcon"></div>
           </a>
-					<a href="https://vk.com" className="vkLinkFooter" target="_blank">
+					<a href="https://vk.com" className="vkLinkFooter" target="_blank" rel="noreferrer">
             <div className="vkLinkIcon"></div>
           </a>
-					<a href="https:/facebook.com" className="fbLinkFooter" target="_blank">
+					<a href="https:/facebook.com" className="fbLinkFooter" target="_blank" rel="noreferrer">
             <div className="fbLinkIcon" ></div>
           </a>
         </div>

@@ -159,6 +159,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 		}
 	})
 
+	// eslint-disable-next-line
 	const mouseLeave = useCallback((_) => {
 		if (currentSwiper.current !== null && currentSwiper.current.swiper !== null && typeof currentSwiper.current.swiper !== 'undefined') {
 			currentSwiper.current.swiper.slideTo(0, 400)
@@ -264,6 +265,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 												ref={currentSlide}
 												className={classes.mov_area}
 											>
+												{/* eslint-disable-next-line */}
 												{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((_, i) => {
 													return (
 														<div 
