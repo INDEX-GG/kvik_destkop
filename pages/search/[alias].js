@@ -10,10 +10,10 @@ import Image from "next/image"
 // import {getDataByPost} from "../../lib/fetch";
 // import {STATIC_URL} from "../../lib/constants";
 // import {categoryScroll} from "../../lib/scrollAds";
-import FilterBlock from "../../components/FilterBlock";
 import {generateAliasStr, /** generateDataArr */} from "../../lib/services";
 import {generateCheckBoxObj, generateCheckboxTime} from "../../lib/utils/checkBoxFunction";
 import ScrollPostData from "../../components/ScrollPostData";
+import NewFilterBlock from "#components/newFilter/NewFilterBlock";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -57,11 +57,10 @@ const Index = () => {
 
     const classes = useStyles();
 
-    const [, setData] = useState(null);
     // const [page, setPage] = useState(1);
     // const [limitRenderPage, setLimitRenderPage] = useState(0);
     // const [/** lastIdAds */, setLastIdAds] = useState(0);
-    const [checkboxDate, setCheckboxData] = useState({})
+    const [checkboxDate, /***/] = useState({})
     const [, setQueryObjState] = useState({})
     const [scrollData, setScrollData] = useState({});
     let queryObj = {}
@@ -74,7 +73,7 @@ const Index = () => {
     const aliasFullUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
     const searchText = router?.query?.text
     const aliasAll = router?.query?.alias === 'all'
-    const limit = 10
+    // const limit = 10
 
 
     const generateTitle = () => {
@@ -243,13 +242,17 @@ const Index = () => {
                 </Box>
                 {!matchesMobile && !matchesTablet &&
                 <Box className={classes.rightBlock}>
-                    <FilterBlock
-                        aliasFullName={aliasFullUrl}
-                        categoryData={aliasData}
+                    {/*<FilterBlock*/}
+                    {/*    aliasFullName={aliasFullUrl}*/}
+                    {/*    categoryData={aliasData}*/}
+                    {/*    searchText={searchText}*/}
+                    {/*    pageLimit={limit}*/}
+                    {/*    setData={setData}*/}
+                    {/*    setCheckbox={setCheckboxData}*/}
+                    {/*/>*/}
+                    <NewFilterBlock
+                        alias={aliasFullUrl}
                         searchText={searchText}
-                        pageLimit={limit}
-                        setData={setData}
-                        setCheckbox={setCheckboxData}
                     />
                     <div className={classes.ad}>
                         <Image src={"/img/joker1.png"} width={224} height={480}/>
