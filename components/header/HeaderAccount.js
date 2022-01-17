@@ -57,8 +57,9 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	avatarName: {
-		fontSize: "18px",
+		fontSize: "22px",
 		fontWeight: "500",
+		lineHeight: '26px',
 	},
 	list: {
 		width: "176px",
@@ -275,15 +276,6 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 	 */
 	const list = (anchor) => (
 		<>
-			<div className={classes.accountBox}>
-				<button
-					className={classes.button}
-					onClick={() => { changeAccPage(false) }}
-				>
-					<MobileMenu />
-				</button>
-				<p className={classes.accountTitle}>Личный кабинет</p>
-			</div>
 			<AccountAvatar {...avatarProps} />
 			<div
 				className={clsx(classes.list, {
@@ -300,6 +292,7 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 							icon={item.name}
 							title={item.title}
 							setState={setState}
+							closeModal={changeAccPage}
 						/>
 					))}
 				</List>

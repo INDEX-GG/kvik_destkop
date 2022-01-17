@@ -44,6 +44,7 @@
 
 .burgerContainer{
     padding: 0 8px ! important;
+		margin-bottom: 6px !important;
     border-radius: 10px;
     & > div > div {
         border-radius: 2px;
@@ -52,6 +53,7 @@
 
 .burgerList {
     padding-left: 37px !important;
+		margin-top: 6px !important;
     height: 32px;
     & > .MuiListItemIcon-root{
         min-width: 32px;
