@@ -4,36 +4,17 @@ import {useAuth} from "../lib/Context/AuthCTX";
 import {useCity} from "../lib/Context/CityCTX";
 import {getDataByPost} from "../lib/fetch";
 import {generateCityArr, modifyGetPostsData} from "../lib/services";
-import { makeStyles } from '@material-ui/core';
-import { useProduct } from '#hooks/useProduct';
-import { useRouter } from 'next/router';
 // import addCardComponent from './AdCard'
 
 
-const useStyles = makeStyles(() => ({
-	button: {
-		display: 'block',
-		cursor: 'pointer',
-		marginRight: 'auto',
-		marginLeft: 'auto',
-		width: '336px',
-		height: '45px',
-		backgroundColor: 'transparent',
-		border: '1px solid #00A0AB',
-		borderRadius: '5px',
-		fontSize: '18px',
-		fontWeight: '500px',
-		color: '#00A0AB'
-	}
-}));
 
 
 const CategoryScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) => {
-    const classes = useStyles();
+    // const classes = useStyles();
     // all props {title = 'Рекомендуемое', url, sendObj, category}
     
-    const router = useRouter()
-    const product = useProduct(router.query.id)
+    // const router = useRouter()
+    // const product = useProduct(router.query.id)
     // console.log(product, 'product')
     const {id} = useAuth();
     const {searchCity} = useCity()
@@ -52,64 +33,6 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
     const [contentUpdate, setContentUpdate] = useState(false);
 
     const limit = 50
-
-    const [recommendData, setRecommendData] = useState([])
-    const [endPage, setEndPage] = useState(8)
-    const [pageStash, setPageStash] = useState(8)
-    const [showButton, setShowButton] = useState(true)
-    const [similarData, setSimilarData] = useState([])
-
-    useEffect(()=>{
-        // console.log(product, ' product')
-        const data = {
-            post_id: product.id,
-            region: searchCity,
-        }   
-        // console.log(data, 'data')
-        getDataByPost('/api/similarPosts', data)
-        .then(r => setSimilarData(modifyGetPostsData(r)))
-    }, [post]) 
-
-    // {"post_id": 2366, "region": "", "model": "A4", "brand": "Audi"}
-    // // POST        /api/similarPosts
-    const handlerLoader = () => {
-        setShowButton(false)
-        const dataLength = post.length
-
-        if((endPage + 16) >= dataLength) {
-            setPageStash(dataLength - (endPage+8))
-        }
-
-        setEndPage(endPage  + 8)  
-    }
-    
-
-    useEffect(() => {
-        if(post?.length){
-        setRecommendData([...post?.slice(0, 8)])
-    }
-    }, [post])
-
-    useEffect(() => {
-        if(post?.length){
-        setRecommendData([...post?.slice(0, endPage)])
-        setShowButton(true)
-        }
-    }, [endPage])
-
-    useEffect(()=>{
-        recommendData.length < 8 ? setShowButton(false) : setShowButton(true)
-        // post.length - 8 < 8 ? setPageStash(post.length - 8) : setPageStash(8)
-        // if(recommendData.length - endPage < 0) {
-        //     setPageStash(-10)
-        // }
-
-    },[recommendData])
-
-    
-    // console.log(recommendData, 'recdata')
-
-
     // Изменение сортировки
     const handlerSortChange = (value) => {
         setSort(value);
@@ -231,21 +154,11 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
     <>
         <OffersRender
             title={title}
-            data={recommendData}
+            data={post}
             pageObj={{page, setPage}}
             limitRenderObj={{limitRenderPage, setLimitRenderPage}}
             setSort={handlerSortChange}
         />
-        {pageStash > 0 
-        &&
-        showButton
-        &&
-        <button 
-            className={classes.button}
-            onClick={handlerLoader}
-        >
-            + загрузить еще {pageStash} объявлений
-        </button>}
     </>
         
     );
