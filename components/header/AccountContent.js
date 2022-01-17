@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
  * @param {string} props.title 
  * @param {() => void} props.setState 
  */
-export default function AccountContent({ id, icon, title, setState }) {
+export default function AccountContent({ id, icon, title, setState, closeModal }) {
 	const classes = useStyles();
 	const router = useRouter();
 	const [hover, setHover] = useState(false);
@@ -55,7 +55,7 @@ export default function AccountContent({ id, icon, title, setState }) {
 
 	//исключить 2 3 6
 
-	const handlerClick = () => {
+	const handlerClick = (e) => {
 		setState({ right: false })
 		console.log(1);
 		router.push({
@@ -66,6 +66,7 @@ export default function AccountContent({ id, icon, title, setState }) {
 				content: 1
 			},
 		})
+		closeModal(e) // закрываем Drawer
 	}
 
 	const handlerMouse = (boolean) => {
