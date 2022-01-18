@@ -26,13 +26,12 @@ const [show, setShow] = useState(false);
             <div style={{
                 background: 'rgba(208, 237, 239, 0.25)',
                 width: '45px',
-                width: '45px',
                 position: 'fixed',
                 top: '0',
                 left: '0',
                 height: '100vh',
             }}>
-                <button className="scrollTop" onClick={toTop}></button>
+                <button onClick={toTop}><span className="scrollTop"></span></button>
             </div>
         )
     )
