@@ -165,12 +165,12 @@ const useClass = makeStyles(() => ({
         },
 
         additionalFieldsWrap:{
-            maxHeight: '150px',
+            maxHeight: '146px',
         },
 
         productWrap: {
             padding: '0 12px',
-            maxHeight: '155px',
+            maxHeight: '128px',
             overflow: 'hidden'
         },
 
@@ -198,6 +198,10 @@ const useClass = makeStyles(() => ({
             // gridTemplateColumns: 'repeat(2, 1fr)'
             gridTemplateColumns: '1fr 1fr'
         },
+
+        checkListContent: {
+            textAlign: 'right'
+        }
     },
 
 
@@ -232,6 +236,7 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
          return placeOfferJson?.category.find(category => category?.alias === item)
          
     }, undefined)?.additional_fields
+    
         backJs.forEach((item) => {
             // поля с айдишниками нам не интересны
             // Гбо и цвет времено исключены
@@ -354,7 +359,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                     </div>
                 </div>
             }
-            {(mobile && !showMore) && (wrapHeight > 150) &&
+            {(mobile && !showMore) && (wrapHeight > 146) &&
                 <button onClick={clickHandler} 
                     className='productShowMore'>
                         Показать больше
@@ -388,7 +393,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                 </div>
             }
 
-            {(mobile && !showMoreCheckList) && (checkWrapHeight > 155) &&
+            {(mobile && !showMoreCheckList) && (checkWrapHeight > 128) &&
                 <button onClick={checkListClickHandler} 
                 className='productShowMore'>
                     Показать больше
