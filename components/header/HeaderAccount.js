@@ -225,6 +225,7 @@ export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, t
  * @param {string} props.name
  */
 export default function HeaderAccount({ changeAccPage, userInfo }) {
+	const { id: AccountID } = useAuth();
 	const router = useRouter()
 	const classes = useStyles();
 	const [state, setState] = useState({
@@ -292,6 +293,7 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 							title={item.title}
 							setState={setState}
 							closeModal={changeAccPage}
+							accountId={AccountID}
 						/>
 					))}
 				</List>

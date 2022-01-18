@@ -1,4 +1,4 @@
-function Footer() {
+const Footer = function() {
   return (
     <div className="footer">
       <div className='footerLeftVoid'></div>

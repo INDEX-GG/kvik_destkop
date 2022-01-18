@@ -129,7 +129,11 @@ const Header = () => {
 							|| (userInfo !== undefined) && (
 								<NextLink href={{
 									pathname: "/account/[id]",
-									query: { id: accountID }
+									query: { 
+                    id: accountID,
+                    account: "1",
+										content: "1"
+                   }
 								}}>
 									<Avatar
 										className={classes.avatar}
