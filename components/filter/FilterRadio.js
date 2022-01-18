@@ -55,6 +55,7 @@ const FilterRadio = ({ data }) => {
   const methods = useFormContext();
 
 
+
   return (
     <Box className={classes.formBox}>
       <Typography className={classes.formTitle}>{data.title}</Typography>
@@ -67,6 +68,7 @@ const FilterRadio = ({ data }) => {
             <RadioGroup
               className={classes.check}
               value={value}
+              defaultValue={value}
               onChange={(e) => onChange(e.target.value)}
             >
               {data.fields.map((el, i) => (

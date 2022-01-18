@@ -6,10 +6,12 @@ import {useRouter} from "next/router"
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import aliasName from "../../components/header/CategoriesAliaseName";
 import Image from "next/image"
-import {generateAliasStr, /** generateDataArr */} from "../../lib/services";
-import {generateCheckBoxObj, generateCheckboxTime} from "../../lib/utils/checkBoxFunction";
+import {copyObject, generateAliasStr, /** generateDataArr */} from "../../lib/services";
 import ScrollPostData from "../../components/ScrollPostData";
 import NewFilterBlock from "#components/newFilter/NewFilterBlock";
+import {generateFilterData, numberKeyTime} from "#components/newFilter/filterServices";
+
+
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -52,10 +54,8 @@ const useStyles = makeStyles(() => ({
 const Index = () => {
 
     const classes = useStyles();
-    const [checkboxDate, /***/] = useState({})
-    const [, setQueryObjState] = useState({})
     const [scrollData, setScrollData] = useState({});
-    let queryObj = {}
+    const [defaultFilters, setDefaultFilters] = useState({})
 
     const router = useRouter()
     const {matchesMobile, matchesTablet} = useMedia();
@@ -65,7 +65,6 @@ const Index = () => {
     const aliasFullUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
     const searchText = router?.query?.text
     const aliasAll = router?.query?.alias === 'all'
-    // const limit = 10
 
 
     const generateTitle = () => {
@@ -76,104 +75,53 @@ const Index = () => {
         return router.query.text
     }
 
-    const generateRouteObj = (data) => {
-        for (let key in data) {
-            if (key === 'alias' || key === 'text') return;
-            queryObj[key] = data[key]
-        }
+    const handleChangeScrollData = (obj) => {
+        setScrollData({...scrollData, ...obj})
     }
-
-    useEffect(async () => {
-        queryObj = {}
-        await generateRouteObj(router.query)
-    }, [router, checkboxDate])
 
 
     useEffect(() => {
-        if (searchText) {
-            console.log(1)
-            const data = {'category': aliasAll ? '' : aliasFullUrl, 'text': searchText}
-            setScrollData({...scrollData, ...{sendObj: data, url: '/api/searchInsideCategory'}})
-            // getDataByPost('/api/searchInsideCategory', data)
-            //     .then(r => {
-            //         setData(generateDataArr(r))
-            //         setPage(1);
-            //     });
+        if (router && router?.query) {
+            const checkboxObj = copyObject(router.query)
+            delete checkboxObj.alias
+            delete checkboxObj.search
 
-        } else if (Object.keys(queryObj).length) {
-            console.log(2)
-            generateCheckBoxObj(queryObj)
-
-            const sendCheckObj = {
-                price: queryObj?.price ? queryObj?.price : {min: null, max: null},
-                category: aliasQuery,
-                categoryFullName: aliasFullUrl ? aliasFullUrl : aliasQuery,
-                text: searchText ? searchText : "",
-                time: generateCheckboxTime(queryObj?.period),
-                // page: 1,
-                // page_limit: limit,
-                check: {}
-            }
-
-
-            delete queryObj.price
-            delete queryObj.period
-            delete queryObj?.alias
-            delete queryObj?.text
-
-            if (queryObj?.color?.length) {
-                if (Array.isArray(queryObj.color)) {
-                    queryObj.color = queryObj?.color?.map(item => +item + 1);
-                } else {
-                    queryObj.color = [+queryObj.color + 1]
+            // Поиск по тексту
+            if (searchText) {
+                const data = {
+                    'category': aliasAll ? '' : aliasFullUrl,
+                    'text': searchText
                 }
-            }
+                handleChangeScrollData({sendObj: data, url: '/api/searchInsideCategory'})
 
-            sendCheckObj.check = queryObj
-            setQueryObjState(sendCheckObj)
-            setScrollData({...scrollData, ...{sendObj: sendCheckObj, url: '/api/getPostsCheck'}})
-
-            // getDataByPost('/api/getPostsCheck', sendCheckObj)
-            //     .then(r => {
-            //         if (Array.isArray(r)) {
-            //             setData((generateDataArr(r)))
-            //             setPage(1)
-            //         }
-            //     })
-
-        } else {
-            if (aliasFullUrl) {
-                console.log(3)
-                const postCategoryObj = {
-                    data: aliasFullUrl,
+                // Поиск по чекбоксам
+            } else if (Object.keys(checkboxObj).length) {
+                const data = {
+                    price: {min: null, max: null},
+                    time: null,
+                    ...generateFilterData(checkboxObj),
+                    text: searchText ? searchText : '',
+                    category: aliasQuery,
+                    categoryFullName: aliasFullUrl,
                 }
 
-                setScrollData({...scrollData, ...{sendObj: postCategoryObj, url: '/api/postCategorySearch'}});
-                // getDataByPost('/api/postCategorySearch', {
-                //     data: aliasFullUrl,
-                //     'page_limit': limit,
-                //     'page': 1
-                // }).then(r => {
-                //     if (r !== undefined) {
-                //         const offersData = r.map(offer => {
-                //
-                //             if (Array.isArray(JSON.parse(offer.photo)?.photos)) {
-                //                 return {
-                //                     ...offer,
-                //                     photo: JSON.parse(offer.photo)?.photos.map(img => `${STATIC_URL}/${img}`)
-                //                 }
-                //             }
-                //
-                //             return offer;
-                //         })
-                //         setData(offersData);
-                //         setPage(1);
-                //         if (r.length > 1) setLastIdAds(r[r.length - 1].id)
-                //     }
-                // })
+                setDefaultFilters({...checkboxObj, time: numberKeyTime(checkboxObj.time)})
+                // setDefaultFilters({...checkboxObj})
+
+                handleChangeScrollData({sendObj: data, url: '/api/getPostsCheck'})
+
+                // Поиск по категориям
+            } else {
+                if (aliasFullUrl) {
+                    const postCategoryObj = {data: aliasFullUrl,}
+                    handleChangeScrollData(
+                        {sendObj: postCategoryObj,
+                            url: '/api/postCategorySearch'}
+                    )
+                }
             }
         }
-    }, [router, checkboxDate]);
+    }, [router]);
 
 
     return (
@@ -182,7 +130,8 @@ const Index = () => {
             <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>}
             <Box className={classes.main}>
                 <Box className={classes.offers}>
-                    {scrollData?.url && <ScrollPostData title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj} />}
+                    {scrollData?.url &&
+                    <ScrollPostData title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj}/>}
                 </Box>
                 {!matchesMobile && !matchesTablet &&
                 <Box className={classes.rightBlock}>
@@ -199,6 +148,7 @@ const Index = () => {
                         fullAlias={aliasFullUrl}
                         searchText={searchText}
                         setScrollData={setScrollData}
+                        defaultFilters={defaultFilters}
                     />
                     <div className={classes.ad}>
                         <Image src={"/img/joker1.png"} width={224} height={480}/>
