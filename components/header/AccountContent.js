@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
  * @param {string} props.title 
  * @param {() => void} props.setState 
  */
-export default function AccountContent({ id, icon, title, setState, closeModal }) {
+export default function AccountContent({ id, icon, title, setState, closeModal, accountId }) {
 	const classes = useStyles();
 	const router = useRouter();
 	const [hover, setHover] = useState(false);
@@ -57,9 +57,8 @@ export default function AccountContent({ id, icon, title, setState, closeModal }
 
 	const handlerClick = (e) => {
 		setState({ right: false })
-		console.log(1);
 		router.push({
-			pathname: `/account/${id}`,
+			pathname: `/account/${accountId}`,
 			query: {
 				// account: (id === 2 || id === 3 || id === 6 ? `/account/13` : `/account/${id}`)
 				account: id,
