@@ -4,10 +4,18 @@ import {useAuth} from "../lib/Context/AuthCTX";
 import {useCity} from "../lib/Context/CityCTX";
 import {getDataByPost} from "../lib/fetch";
 import {generateCityArr, modifyGetPostsData} from "../lib/services";
+// import addCardComponent from './AdCard'
+
+
+
 
 const CategoryScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) => {
+    // const classes = useStyles();
     // all props {title = 'Рекомендуемое', url, sendObj, category}
-
+    
+    // const router = useRouter()
+    // const product = useProduct(router.query.id)
+    // console.log(product, 'product')
     const {id} = useAuth();
     const {searchCity} = useCity()
 
@@ -25,8 +33,6 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
     const [contentUpdate, setContentUpdate] = useState(false);
 
     const limit = 50
-
-
     // Изменение сортировки
     const handlerSortChange = (value) => {
         setSort(value);
@@ -61,10 +67,8 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
             //     setPage('end');
             //     return;
             // }
-
             await getDataByPost(url, scrollDataObj)
                 .then(response => {
-
                     if (Array.isArray(response) && response?.length) {
 
                         // Id последнего объявления
@@ -146,8 +150,8 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
         }
     }, [page])
 
-
     return (
+    <>
         <OffersRender
             title={title}
             data={post}
@@ -155,6 +159,8 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
             limitRenderObj={{limitRenderPage, setLimitRenderPage}}
             setSort={handlerSortChange}
         />
+    </>
+        
     );
 };
 

@@ -147,17 +147,6 @@ export default function offerArchive({
                         </div>
 
                         <div className="offerDTRight">
-                            <div className="offerDTRight__item">
-                                <a href="#">
-                                    <button
-                                        id='001'
-                                        value={offer.id}
-                                        onClick={(e) => pushCheck(e)}
-                                        className="offerActivate thin superLight checkMarkIcon offerSocialAction">
-                                        Активировать
-                                    </button>
-                                </a>
-                            </div>
 
                             <a href="#" className="offerDTRight__item">
                                 <span className="offerIcon checkMarkIcon"></span>
@@ -191,28 +180,14 @@ export default function offerArchive({
                             </a>
                         </div>
 
-                        <div className="offerDTRight__item">
-                            <a href="#">
-                                <button
-                                    id='002'
-                                    value={offer.id}
-                                    onClick={(e) => pushCheck(e)}
-                                    className="offerEdit thin superLight offerSocialAction binIcon"
-                                >
-                                    Удалить
-                                </button>
-                            </a>
-                        </div>
-
                     </div>
-
-                </div>
-                <div className="offerDescriptionBottom">
-                    <div className="thin light small DatPub__mobile">
-                        <span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.date}</span>
-                        <div className="offerSocialCount offerSocialCountPos">
-                            <div className="offerShowes showesIcon">0 +0</div>
-                            <div className="offerAddFavores likeIcon">0 +0</div>
+                    <div className="offerDescriptionBottom">
+                        <div className="thin light small DatPub__mobile">
+                            <span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.date}</span>
+                            <div className="offerSocialCount offerSocialCountPos">
+                                <div className="offerShowes showesIcon">0 +0</div>
+                                <div className="offerAddFavores likeIcon">0 +0</div>
+                            </div>
                         </div>
                     </div>
                 </div>

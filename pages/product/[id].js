@@ -24,7 +24,8 @@ import ProductMobileButtons from "../../components/product/ProductMobile/Product
 import {useStore} from "../../lib/Context/Store";
 import {chatPush} from "../../components/account/Notifications/tabs/chatFunctions";
 import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder/ProductPlaceHolder";
-import CategoryScrollPostData from "#components/CategoryScrollPostData";
+// import CategoryScrollPostData from "#components/CategoryScrollPostData";
+import NewCategoryScrollPostData from "#components/NewCategoryScrollPostData";
 
 
 const Product = () => {
@@ -239,7 +240,9 @@ const Product = () => {
                                         {/*<OffersRender isProduct data={data} title={"Похожие объявления"} page={page}*/}
                                         {/*              limitRender={limitRenderPage} setLimitRenderPage={setLimitRanderPage}*/}
                                         {/*              setPage={setPage} /* endMessage={!collSO} */ }
-                                        {category_id && (<CategoryScrollPostData url='/api/getPostsPortion'  title={'Похожие объявления'} category={category_id} />)}
+                                        {/* ниже старый вариант отрисовки карточек на странице объявления, заменено на рекомендумые */}
+                                        {/* {category_id && (<CategoryScrollPostData url='/api/similarPosts'  title={'Похожие объявления'} category={category_id} />)} */}
+                                        {category_id && (<NewCategoryScrollPostData url='/api/similarPosts' />)}
                                         <div style={{marginTop: '60px'}}/>
                                         {/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}

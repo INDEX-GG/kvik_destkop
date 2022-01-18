@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 		'& svg': {
 			// display: 'inline-block'
 		}
-	}
+	},
 }));
 
 
@@ -55,6 +55,7 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 
 
 	useEffect(() => {
+		
 		observerGenerate(lastElement, observer, limitRenderObj.limitRenderPage, limitRenderObj.setLimitRenderPage, pageObj.setPage, pageObj.page)
 	})
 
@@ -91,8 +92,10 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 				</Box>
 				{/* <div className="scrollableOffersHome"> */}
 				<div className={classSwitcher()}>
-					{data?.map((obj, i) => isProduct ? 
-					<AdCard_component id={id} isGrid={gridView} key={i} offer={obj} /> :  
+					{data?.map((obj, i) => isProduct 
+					? 
+					<AdCard_component id={id} isGrid={gridView} key={i} offer={obj} /> 
+					:  
 					<AdCard_component isGrid={gridView} ref={lastElement} key={i} offer={obj} id={id} />)}
 				</div>
 				{pageObj.page !== 'end' && <div className='offer__placeholder_loader'><Loader /></div>}

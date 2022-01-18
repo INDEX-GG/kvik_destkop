@@ -165,12 +165,12 @@ const useClass = makeStyles(() => ({
         },
 
         additionalFieldsWrap:{
-            maxHeight: '150px',
+            maxHeight: '146px',
         },
 
         productWrap: {
             padding: '0 12px',
-            maxHeight: '155px',
+            maxHeight: '128px',
             overflow: 'hidden'
         },
 
@@ -198,6 +198,10 @@ const useClass = makeStyles(() => ({
             // gridTemplateColumns: 'repeat(2, 1fr)'
             gridTemplateColumns: '1fr 1fr'
         },
+
+        checkListContent: {
+            textAlign: 'right'
+        }
     },
 
 
@@ -232,16 +236,27 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
          return placeOfferJson?.category.find(category => category?.alias === item)
          
     }, undefined)?.additional_fields
-        backJs.forEach((item) => {
-            // поля с айдишниками нам не интересны
-            // Гбо и цвет времено исключены
-            if (item[0] === 'id' || item[0] === 'post_id' || item[0] === 'color' || item[0] === 'hbo') {
-                return 
-            }
 
-            // Находим образец объекта на фронте и пушим новый объект в финальный массив, если удалось найтия 
-            
-            const commonObj = frontJs.find(it => it?.alias === item[0])
+    backJs.forEach((item) => {
+        // поля с айдишниками нам не интересны
+        // Гбо для авто времено исключены
+        if (item[0] === 'id' || item[0] === 'post_id' || item[0] === 'hbo') {
+            return 
+        }
+
+        // Находим образец объекта на фронте и пушим новый объект в финальный массив, если удалось найтия 
+        
+        const commonObj = frontJs.find(it => it?.alias === item[0])
+
+        // вариант для заполнения поля цвета
+        if(commonObj?.text_list_rendering_type === 1) {
+            const index = item[1]
+            finalArr.push({
+            title: commonObj?.title,
+            value: commonObj?.text_list_values[index].name
+            })
+            return
+        }
 
         if (commonObj !== undefined) {
             finalArr.push({
@@ -250,8 +265,8 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
             })
             return 
         }
-        // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
-        // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
+    // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
+    // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
         const numberOfCheck = parseInt(item[0]?.match(/\d+/))
         const sliceNumber = -Math?.abs(numberOfCheck.toString()?.length)
         const aliasName = item[0]?.slice(0, sliceNumber)
@@ -272,7 +287,7 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
         })
         return 
         })
-    } catch (error) {
+    }   catch (error) {
             console.log(error)
         }
 }
@@ -354,7 +369,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                     </div>
                 </div>
             }
-            {(mobile && !showMore) && (wrapHeight > 150) &&
+            {(mobile && !showMore) && (wrapHeight > 146) &&
                 <button onClick={clickHandler} 
                     className='productShowMore'>
                         Показать больше
@@ -388,7 +403,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                 </div>
             }
 
-            {(mobile && !showMoreCheckList) && (checkWrapHeight > 155) &&
+            {(mobile && !showMoreCheckList) && (checkWrapHeight > 100) &&
                 <button onClick={checkListClickHandler} 
                 className='productShowMore'>
                     Показать больше
