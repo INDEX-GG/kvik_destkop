@@ -36,6 +36,47 @@ export const getAdditionalFields = (data, alias) => {
     }
 }
 
+export const numberKeyTime = (value) => {
+    switch (+value) {
+        case 1:
+            return 'За все время'
+        case 2:
+            return 'За последнюю неделю'
+        case 3:
+            return 'За последние сутки'
+        default:
+            return 'За все время'
+    }
+}
+
+
+export const onlyTrueDataObj = (obj, replaceTime = true) => {
+    const finalTrueObj = {}
+    for (const [key, value] of Object.entries(obj)) {
+
+        if (key === 'time' && replaceTime) {
+            switch (value) {
+                case 'За всё время':
+                    finalTrueObj[key] = 1
+                    break
+                case 'За последнюю неделю':
+                    finalTrueObj[key] = 2
+                    break
+                case 'За последние сутки':
+                    finalTrueObj[key] = 3
+                    break
+            }
+            continue
+        }
+
+        if (value) {
+            finalTrueObj[key] = value
+        }
+    }
+    return finalTrueObj
+}
+
+
 const generateFromTo = (obj, key, value) => {
     const minMaxObj = {}
     const [state, alias] = key.split('$')
@@ -44,20 +85,20 @@ const generateFromTo = (obj, key, value) => {
         const fromValue = obj[`from$${alias}`]
 
         if (fromValue) {
-            minMaxObj[alias] = {min: fromValue, max: value}
+            minMaxObj[alias] = {min: +fromValue, max: +value}
         } else {
-            minMaxObj[alias] = {min: null, max: value}
+            minMaxObj[alias] = {min: null, max: +value}
         }
     }
 
     if (state === 'from') {
-        minMaxObj[alias] = {min: value, max: null}
+        minMaxObj[alias] = {min: +value, max: null}
         const toValue = obj[`to$${alias}`]
 
         if (toValue) {
-            minMaxObj[alias] = {min: value, max: toValue}
+            minMaxObj[alias] = {min: +value, max: +toValue}
         } else {
-            minMaxObj[alias] = {min: value, max: null}
+            minMaxObj[alias] = {min: +value, max: null}
         }
     }
 
@@ -72,7 +113,8 @@ export const generateFilterData = (obj) => {
         if (value) {
             // Исплючение срок размещения
             if (key === 'time') {
-                dataObj[key] = generateCheckboxTime(value);
+                const timeValue = isNaN(+value) ? value : numberKeyTime(+value)
+                dataObj[key] = generateCheckboxTime(timeValue);
                 continue
             }
 
