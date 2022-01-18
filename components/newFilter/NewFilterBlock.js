@@ -9,7 +9,7 @@ import FilterRadio from "#components/filter/FilterRadio";
 import {useRouter} from "next/router";
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     wrapper: {
         display: 'flex',
         flexDirection: 'column',
@@ -17,6 +17,10 @@ const useStyles = makeStyles(() => ({
         borderRadius: '8px',
         minWidth: '224px',
         padding: '24px 8px',
+        [theme.breakpoints.down(960)]: {
+            padding: 0,
+            boxShadow: 'none'
+        }
     },
     fields: {
 

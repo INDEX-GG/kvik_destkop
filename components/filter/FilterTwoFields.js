@@ -4,9 +4,12 @@ import {OnlyNumbersMask} from "../../lib/onlyNumbersMask";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     formBox: {
         marginBottom: 24,
+        [theme.breakpoints.down(960)]: {
+            marginBottom: '15px'
+        }
     },
     formInputField: {
         display: "flex",
@@ -16,6 +19,13 @@ const useStyles = makeStyles(() => ({
         fontWeight: 500,
         fontSize: 14,
         color: "#2C2C2C",
+        [theme.breakpoints.down(960)]: {
+            fontSize: 16,
+            lineHeight: '18.75px',
+            color: '#2C2C2C',
+            fontWeight: 700,
+            marginBottom: '15px'
+        }
     },
     input: {
         "&:last-of-type": {
@@ -38,7 +48,10 @@ const useStyles = makeStyles(() => ({
     inputs: {
         position: "relative",
         maxWidth: "50%",
-        marginTop: '8px'
+        marginTop: '8px',
+        [theme.breakpoints.down(960)]: {
+            marginTop: '0'
+        }
     }
 }));
 
