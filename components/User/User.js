@@ -49,7 +49,7 @@ const UsersPage = () => {
           </div>
         </div>
       </div>
-      {navItems.map((item) => itemNav.i === item.id && (userInfo && userInfo.length > 0 ? item.content : <Placeholder key={item.id} user={item.id} />))}
+      {navItems.map((item) => itemNav.i === item.id && (Array.isArray(userInfo) && userInfo?.length > 0 ? item.content : <Placeholder key={item.id} user={item.id} />))}
     </>
   );
 };
