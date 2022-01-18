@@ -1,26 +1,63 @@
+.wrapperScrollTop {
+    width: 45px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1;
+
+    // чтобы дочерний элемент (наша стрелочка) не скрывалась
+    &:before {
+        opacity: 0;
+        content: '';
+    }
+
+    &:hover {
+        background: rgba(208, 237, 239, 0.5);
+        opacity: 1;
+    }
+    // TODO: (пока что не работает) - увеличить область наведения hover
+    // &:hover::before & {
+    //     background: rgba(208, 237, 239, 0.5);
+    //     opacity: 1;
+    //     width: 45px;
+    // }
+}
 .scrollTop {
+    width: inherit;
+    height: 45px;
+    cursor: pointer;
+    background: no-repeat url(../../icons/chevron_up_light_green_border.svg);
+    background-position: left 0px top 0px;
+    background-size: 100% 100%;
+    position: fixed;
+    left: 0;
+    bottom: 50px;
+    transition: all 350ms ease-in-out;
+    animation: showST 3500ms ease-in-out;
+    z-index: 1;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.scrollTopMobile {
     width: 64px;
     height: 64px;
     cursor: pointer;
-    background: no-repeat url(../../icons/chevron_ip_light_ttmp.svg);
-    // background: no-repeat url(../../icons/chevron_up_light.svg), $ts;
-    // border-radius: 50%;
-    // box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
-    // background-position: left 2px top 3px;
-    // background-size: contain;
-    // background-size: 100% 100%;
-    background-position: left -13px top 0px;
-    background-size: 150% 150%;
+    background: no-repeat url(../../icons/chevron_up_grey.svg), $ts;
+    border-radius: 50%;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
+    background-position: left 2px top 3px;
+    background-size: contain;
     position: fixed;
-    left: 0;
-    bottom: 150px;
-    transition: all 250ms ease-in-out;
-    animation: showST 250ms ease-in-out;
+    left: 5%;
+    bottom: 50px;
+    transition: all 350ms ease-in-out;
+    animation: showST 350ms ease-in-out;
     z-index: 1;
-    // &:hover {
-        // transition: all 350ms ease-in-out;
-        // box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.6);
-    // }
+    &:hover {
+        transition: all 350ms ease-in-out;
+        box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.6);
+    }
 }
 
 @keyframes showST {

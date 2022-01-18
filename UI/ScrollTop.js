@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react'
+import { useMedia } from '../hooks/useMedia';
 
 const scrollTop = () => {
-const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false);
+    const { matchesMobile, matchesTablet, matchesCustom1024 } = useMedia();
+
     const toTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       };
@@ -23,16 +26,14 @@ const [show, setShow] = useState(false);
 
     return (
         show && (
-            <div style={{
-                background: 'rgba(208, 237, 239, 0.25)',
-                width: '45px',
-                position: 'fixed',
-                top: '0',
-                left: '0',
-                height: '100vh',
-            }}>
-                <button onClick={toTop}><span className="scrollTop"></span></button>
-            </div>
+            matchesMobile || matchesTablet || matchesCustom1024
+                ? <button className="scrollTopMobile" onClick={toTop}></button>
+                : (
+                    <div className="wrapperScrollTop">
+                        <button className="scrollTop" onClick={toTop}></button>
+                    </div>
+                )
+
         )
     )
 }
