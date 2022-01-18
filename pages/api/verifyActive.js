@@ -3,28 +3,51 @@ import { PrismaClient } from '@prisma/client';
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
 
-		const jwt = require("jsonwebtoken");
-		const token = req.headers["x-access-token"];
-		if (!token) {
-			return res.status(403).send("A token is required for authentication");
-		}
-		try {
-			jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-		} catch (err) {
-			return res.status(401).send("Invalid Token");
-		}
-		const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-		if (parseInt(req.body.user_id, 10) !== tokenUser) {
-			return res.status(403).send("Invalid Token");
-		}
+		// const jwt = require("jsonwebtoken");
+		// const token = req.headers["x-access-token"];
+		// if (!token) {
+		// 	return res.status(403).send("A token is required for authentication");
+		// }
+		// try {
+		// 	jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
+		// } catch (err) {
+		// 	return res.status(401).send("Invalid Token");
+		// }
+		// const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
+		// if (parseInt(req.body.user_id, 10) !== tokenUser) {
+		// 	return res.status(403).send("Invalid Token");
+		// }
 
 		const prisma = new PrismaClient();
 
 		const main = async () => {
+			let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 			const id = req.body.id
-			const active = "'" + req.body.active + "'"
-			await prisma.$queryRaw(`UPDATE posts SET active = ${active} WHERE ID IN (${id}) AND user_id = ${req.body.user_id}`)
-			return { message: 'successfully update' }
+			const active = parseInt(req.body.active)
+			if (active === 0) {
+				if (id.length > 1) {
+					throw "Er"
+				}
+				let post_id = id[0]
+				console.log(post_id);
+				let post = await prisma.posts.findUnique({
+					where: {
+						id: post_id
+					},
+					select:
+						{
+							active_time: true
+						}
+				})
+				console.log(post);
+				return 'asfasf'
+
+				// await prisma.$queryRaw(`UPDATE posts SET active = ${active} WHERE ID IN (${id}) AND user_id = ${req.body.user_id}`)
+				// return { message: 'successfully update' }
+			} else {
+				await prisma.$queryRaw(`UPDATE posts SET active = ${active}, archived_time = '${now}' WHERE ID IN (${id}) AND user_id = ${req.body.user_id}`)
+				return { message: 'successfully update' }
+			}
 		}
 		try {
 			let response = await main();
