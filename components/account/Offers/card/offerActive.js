@@ -39,26 +39,26 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 	const buttonId = "003";
 	const offerData = offer;
 	const offerID = offer.id;
-	
+
 	const cleanAll = () => {
 		getChildCheck({id: offer.id, isChecked: false});
 		setCheck(false)
 	}
-	
+
 	useEffect(() => {
-		parentCheck ? check 
-			? null 
-			: ( getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck) ) 
-		: check===false 
-			? null 
-			: allDataCheck.length === 0 
-				? (getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck)) 
+		parentCheck ? check
+			? null
+			: ( getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck) )
+		: check===false
+			? null
+			: allDataCheck.length === 0
+				? (getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck))
 				: null;
 	}, [parentCheck])
 
 	useEffect(() => {
 		parentUnpublishForm === false && allDataCheck.length === 0 ? setCheck(false) : null
-	}, [parentUnpublishForm]) 
+	}, [parentUnpublishForm])
 
 	function pushCheck(e) {
 		if (e.target.value !== '') {
@@ -108,7 +108,7 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 							<div className="offerLastDays">Осталось 30 дней</div>
 						</div>
 						<div className="offerDTRight">
-							<button type="submit" className="offerEdit thin editIcon offerSocialAction" onClick={() => Router.push(`/editPage/${offerID}`)}>
+							<button type="submit" className="offerEdit offerEditActive thin editIcon offerSocialAction" onClick={() => Router.push(`/editPage/${offerID}`)}>
 								Редактировать
 							</button>
 
