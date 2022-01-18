@@ -33,7 +33,7 @@ function Active(data) {
 		// console.log(item)
         return (
             
-                <AdCard_component key={i} offer={item} />
+                <AdCard_component isGrid={true} key={i} offer={item} />
             
         );
       })}

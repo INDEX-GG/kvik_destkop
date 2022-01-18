@@ -67,6 +67,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	const {id} = props;
 	const {offer} = props;
 
+
 	const { matchesMobile, matchesTablet } = useMedia();
 	const screenIsMobile = matchesMobile || matchesTablet;
 	const { userInfo, setLikeComment } = useStore();
@@ -138,7 +139,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	// перемещение слайдов по движению мыши
 	useEffect(() => {
 		// если фото более 2 и не мобилка
-		if (offer.photo.length >= 2 && !screenIsMobile && typeof currentSlide.current !== 'undefined' ) {
+		if (offer.photo?.length >= 2 && !screenIsMobile && typeof currentSlide.current !== 'undefined' ) {
 			const sections = [...currentSlide.current.children]
 			sections.forEach(element => {
 				element.addEventListener('mouseenter', mouseEnter)

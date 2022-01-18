@@ -403,7 +403,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                 </div>
             }
 
-            {(mobile && !showMoreCheckList) && (checkWrapHeight > 128) &&
+            {(mobile && !showMoreCheckList) && (checkWrapHeight > 100) &&
                 <button onClick={checkListClickHandler} 
                 className='productShowMore'>
                     Показать больше
