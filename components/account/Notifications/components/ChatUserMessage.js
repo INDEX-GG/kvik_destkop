@@ -27,6 +27,18 @@ const ChatUserMessage = (
 
   const {id} = useAuth();
 
+  console.log({    index,
+    key,
+    item,
+    dialogData,
+    refMessage,
+    messageId,
+    myMessage,
+    morePartnerMessage,
+    userChatPhoto,
+    userChatName,
+    openImage,
+    userOnline,})
   // Генерирует статус сообщениям
   const generateMessage = (message) => {
     if (message.match('images/ch')) {
@@ -45,20 +57,31 @@ const ChatUserMessage = (
 
   // Генерирует задний фон сообзениям
   // пока закомментил потому что фон всегда одного цвета.
-  // 
+  //
   const generateBackgroundMessage = (senderId, read, offline) => {
     if (senderId === id) {
 
       if (offline) {
-        return '#f23022'
+        return 'rgba(208, 237, 239, .5)'
       }
 
       if (userOnline) {
-        return '#e9e9e9'
-      } else {
-        if (!read) return 'rgba(208, 237, 239, .5)'
         return 'rgba(208, 237, 239, .5)'
+      } else {
+        if (!read) return 'rgba(233, 233, 233, 0.4)'
+        return 'rgba(233, 233, 233, 0.4)'
       }
+
+      // исходный
+      // if (offline) {
+      //   return '#f23022'
+      // }
+      // if (userOnline) {
+      //   return '#e9e9e9'
+      // } else {
+      //   if (!read) return 'rgba(208, 237, 239, .5)'
+      //   return 'rgba(208, 237, 239, .5)'
+      // }
     }
   }
 
@@ -69,7 +92,7 @@ const ChatUserMessage = (
       if (offline) {
         return 'Ошибка при отправке'
       }
-// 
+//
       if (userOnline) {
         // return 'Прочитано'
         return <ChatMessageIsRead />
@@ -81,35 +104,73 @@ const ChatUserMessage = (
     }
   }
 
+  // возвращает сообщение (текст сообщения, время и статус)
+  const renderMessage = (item) => {
+    return (
+      <div style={{
+        backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read, item?.offline),
+        transition: '.1s all linear'
+      }}
+      className="chatMessage"
+      >
+        {generateMessage(item?.message)}
+        <div className="messageAdditInfo">
+          <div className='messageStatus'>
+            {generateMessageStatus(item.sender_id, item.messages_is_read, item?.offline)}
+            <div className="messageTime">
+              {generateTime(0, item?.time, true)}
+            </div>
+          </div>
+        </div>
+        {/* <div>
+          {generateTime(0, item?.time, true)}
+        </div> */}
+      </div>
+    )
+  }
+
+  console.log('myMessage - ', myMessage)
+  console.log('morePartnerMessage - ', morePartnerMessage)
+  console.log('index - 1: ', index - 1)
+  console.log('userChatName: ', userChatName)
+
   return (
     <>
       {dialogData && <div className='chatDataDialog'>{dialogData}</div>}
-      <div key={key}
-           ref={item.id == messageId ? refMessage : null}
-           className={myMessage ? "chatUser" : "chatCompanion"}>
-        {myMessage ? null :
-          morePartnerMessage && index - 1 >= 0 ? <div></div> :
-            // userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
-            userChatPhoto ? <></> :
-              <ChatDefaultAvatar name={userChatName}/>
-        }
-        <div style={{
-          backgroundColor: generateBackgroundMessage(item.sender_id, item.messages_is_read, item?.offline),
-          transition: '.1s all linear'
-        }}>
-            {generateMessage(item?.message)}
-            <div className='messageStatus'>
-              <div>
-                {generateTime(0, item?.time, true)}
-              </div>
-              {generateMessageStatus(item.sender_id, item.messages_is_read, item?.offline)}
+      {myMessage
+        ? (
+          <div
+              key={key}
+              ref={item.id == messageId ? refMessage : null}
+              className={myMessage ? "chatUser" : "chatCompanion"}
+            >
+            {renderMessage(item)}
+          </div>
+        ):(
+          <div className="chatWrapper">
+          {!myMessage ? <ChatDefaultAvatar name={userChatPhoto}/> : null}
+            <div
+                key={key}
+                ref={item.id == messageId ? refMessage : null}
+                className={myMessage ? "chatUser" : "chatCompanion"}
+              >
+              {/* {myMessage
+                ? null
+                : morePartnerMessage && index - 1 >= 0
+                  ? <div></div>
+                  : (
+                    // userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+                    userChatPhoto
+                      ? <></>
+                      : <ChatDefaultAvatar name={userChatName}/>
+                  )
+              } */}
+              {renderMessage(item)}
             </div>
-
-            {/* <div>
-              {generateTime(0, item?.time, true)}
-            </div> */}
         </div>
-      </div>
+        )
+      }
+
     </>
   )
 };

@@ -85,10 +85,15 @@
 .messageProductBlock {
   text-align: center;
 }
-
-.messageStatus {
-  position: absolute;
+.messageAdditInfo {
   display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+.messageStatus {
+  // position: absolute;
+  display: flex;
+  align-items: center;
   bottom: 0;
   right: 4px;
 
@@ -96,10 +101,22 @@
   color: #000000;
   // color: #8F8F8F;
   text-align: right;
+  gap: 3px;
 
   & svg {
     margin-left: 2px;
   }
+}
+
+.messageTime {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: right;
+
+  color: #8F8F8F;
 }
 
 .messageDiaCheck {
@@ -326,7 +343,8 @@
 
 .chatCompanion {
   padding: 12px;
-  background-color: $light;
+  // background-color: $light;
+  background-color: rgba(208, 237, 239, 0.3);
   border-radius: 8px 8px 8px 0;
   max-width: 300px;
   word-wrap: break-word;
@@ -351,7 +369,7 @@
 .chatItem {
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.17;
+  line-height: 16px;
   color: #2C2C2C;
 
 }
@@ -364,6 +382,8 @@
 .messageSmileIcon {
   margin:0 3px 0 5px;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 .messageSmileSvg {
@@ -412,6 +432,15 @@
     margin-bottom: 10px;
 }
 
+.chatWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.chatWrapper .chatDefaultAvatar {
+  margin-right: 14px;
+}
+
 .chatDefaultAvatar {
   width: 32px;
   height: 32px;
@@ -446,6 +475,14 @@
   padding: 10px 12px;
 }
 
+.messageChatGroupLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: inherit;
+}
+
 .messageFile {
   width: 24px;
   height: 24px;
@@ -455,13 +492,14 @@
 }
 
 .messageInput {
-  width: 500px;
+  width: inherit;
   padding: 5px;
   color: $tpll;
   font-size: 16px;
   border: none;
   outline: none;
   z-index: 10;
+  margin: 0 8px;
 }
 
 .messageInput::placeholder {

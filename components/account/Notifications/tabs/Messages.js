@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dialog} from "@material-ui/core";
+import {Dialog, Divider} from "@material-ui/core";
 import {ModalMessage} from "../../../Modals";
 import {useMedia} from "../../../../hooks/useMedia"
 import Chat from "./Chat";
@@ -41,7 +41,7 @@ function Messages() {
   console.log(userInfo, 'userInfo')
   // временный буль для проверки открытия окна переписки
   const chatIsOpen = router.asPath.includes('companion')
-  
+
 
   //! Дожидаемся загрузки страницы
   useEffect(() => setLoading(true), [])
@@ -242,18 +242,19 @@ function Messages() {
       (
         <div className="clientPage__container_bottom">
           <div className="clientPage__container_nav__radio">
-            <label className="checkbox">
+            {/* <label className="checkbox">
               <input type="checkbox"/>
               <div className="checkbox__text"></div>
-            </label>
+            </label> */}
             <a>Удалить</a>
             <a>Заблокировать</a>
           </div>
+          <Divider />
           <div className="clientPage__container_content">
             <div className="messageContainer">
               {/* накостылил временное решение для скрытия окна всех чатов
               в десктопной версии оно рендерилось поверх окна диалога с другим юзером */}
-            {!chatIsOpen && 
+            {!chatIsOpen &&
             <div className="messageDialogs">
                 {loadingAllRooms ?
                   <div className='offer__placeholder_loader messagePlaceholder'>

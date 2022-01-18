@@ -56,7 +56,7 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   &__input-profile {
     border: 0;
   }
@@ -152,7 +152,7 @@
       &__wrapper {
         overflow-x: auto;
         overflow-y: hidden;
-        margin: 0 0 28px 0;
+        margin: 0 0 21px 0;
         white-space: nowrap;
       }
 
@@ -162,8 +162,9 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: flex-start;
-        padding: 0 0 14px 4px;
+        justify-content: flex-end;
+        padding: 0 0 21px 4px;
+        
         &_end {
           position: absolute;
           right: -15px;
@@ -174,6 +175,8 @@
           line-height: 14px;
           color: $tpsl;
           margin-right: 6px;
+          text-decoration: underline;
+          text-decoration-color: #5A5A5A;
           &:hover {
             cursor: pointer;
             text-decoration: underline;
@@ -305,7 +308,7 @@
 
 	&--mobile {
 		font-size: 16px;
-		
+
 		& .user-info__section {
 			display: flex;
 			flex-flow: row nowrap;
@@ -327,7 +330,7 @@
 			}
 
 			// &--location {
-				
+
 			// }
 		}
 
@@ -398,8 +401,8 @@
 	&__heading {
 		font-weight: normal;
 		font-size: 20px;
-	} 
-	
+	}
+
 	&__location {
 		position: relative;
 
@@ -470,13 +473,13 @@
 
 	&--mobile {
 		gap: 12px;
-		
+
 		& .social__item {
 			flex-basis: 145px;
 			height: 19px;
 			font-size: 10px;
 			padding-left: 23px;
-		
+
 		}
 	}
 
@@ -489,7 +492,7 @@
 		justify-content: space-between;
 		align-items: center;
 		height: 24px;
-		
+
 		padding-left: 2em;
 		background-repeat: no-repeat;
 		background-position: left;
@@ -520,9 +523,9 @@
 	justify-content: flex-start;
 	gap: 10px;
 	// &__item {
-		
+
 	// }
-	
+
 	&__device {
 		color: hsl(0, 0%, 17%);
 	}
@@ -646,7 +649,7 @@
       grid-area: 2 / 1 / 2 / 3;
     }
   }
-  
+
   .clientPage__menu > * {
     margin: 0 0 21px 0 !important;
   }

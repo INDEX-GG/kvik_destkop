@@ -564,7 +564,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
   const handleHoverSmileIcon = (state) => {
     setSmileList(state)
   }
-  
+
   useEffect(() => {
     if (!innerSmileList) {
       setSmileList(false)
@@ -637,29 +637,31 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
       </div>
       {smileList && <NoSsrEmoji visible={setInnerSmileList} setInput={setMessage}/>}
       <div className="messageChatInput">
-        <div className='messageMoreOptions'>
-          <button onClick={handleInputClick} className="messageFile">
-            <input 
-              ref={refInput} 
-              onChange={(e) => handleChangeFile(e)} 
-              accept='image/jpeg,image/png,image/jpg'
-              type='file' hidden/>
-          </button>
-          <div
-            // onMouseLeave={() => handleHoverSmileIcon(false)} 
-            onMouseEnter={() => handleHoverSmileIcon(true)} 
-            className='messageSmileIcon'>
-            <ChatSmile/>
+        <div className="messageChatGroupLeft">
+          <div className='messageMoreOptions'>
+            <button onClick={handleInputClick} className="messageFile">
+              <input
+                ref={refInput}
+                onChange={(e) => handleChangeFile(e)}
+                accept='image/jpeg,image/png,image/jpg'
+                type='file' hidden/>
+            </button>
+            <div
+              // onMouseLeave={() => handleHoverSmileIcon(false)}
+              onMouseEnter={() => handleHoverSmileIcon(true)}
+              className='messageSmileIcon'>
+              <ChatSmile/>
+            </div>
           </div>
+          <input
+            className="messageInput"
+            type="text"
+            placeholder="Написать сообщение"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
         </div>
-        <input
-          className="messageInput"
-          type="text"
-          placeholder="Написать сообщение"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
         <button className="messageSend" onClick={() => handleSend()}></button>
       </div>
       <Dialog

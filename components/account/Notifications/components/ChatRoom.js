@@ -4,6 +4,7 @@ import {generateProductPhoto} from "../tabs/chatFunctions";
 import ChatDefaultAvatar from "./ChatDefaultAvatar";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
 import {useRouter} from "next/router";
+import { Divider } from '@material-ui/core';
 
 const ChatRoom = ({roomData, children, mobile = false}) => {
 
@@ -51,6 +52,7 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
                         <div onClick={handleProductClick} className='chatRoomTitle'>{roomData?.product_name}</div>
                     </div>
                 </div> : null}
+                <Divider />
             {children}
         </div>
     );
