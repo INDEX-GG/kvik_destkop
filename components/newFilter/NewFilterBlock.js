@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, Button, makeStyles} from "@material-ui/core";
 import jsonData from '/public/placeOfferJson/new_catalog.json'
-import {generateFilterData, getAdditionalFields} from "#components/newFilter/filterServices";
+import {generateFilterData, getAdditionalFields, onlyTrueDataObj} from "#components/newFilter/filterServices";
 import {FormProvider, useForm} from 'react-hook-form'
 import AdditionalInformation from "#components/placeOffer/AdditionalInformation";
 import FilterTwoFields from "#components/filter/FilterTwoFields";
 import FilterRadio from "#components/filter/FilterRadio";
+import {useRouter} from "next/router";
 
 
 const useStyles = makeStyles(() => ({
@@ -53,28 +54,57 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData}) => {
+const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, defaultFilters = {}}) => {
 
     const classes = useStyles();
+    const router = useRouter();
+
     const methods = useForm({
         mode: 'onSubmit',
+        defaultValues: defaultFilters
     });
 
     const {category} = jsonData
     const filterData = getAdditionalFields(category, fullAlias)
     const additionalFields = filterData
+    const isClear = methods.formState.isDirty || Object.keys(onlyTrueDataObj(methods.getValues())).length
+
+
+    const clearFields = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+
+        methods.reset({});
+        setScrollData({sendObj: {data: fullAlias}, url: '/api/postCategorySearch'})
+    };
+
 
     // Для ререндера
     methods?.watch()
 
+    useEffect(() => {
+        clearFields();
+    }, [alias]);
+
+    // Автозаполнение полей
+    useEffect(() => {
+        methods.reset(defaultFilters)
+    }, [defaultFilters])
+
 
     const onSubmit = (data) => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
 
         const filterDataObj = generateFilterData(data);
 
-        console.log(filterDataObj)
-
         const submitDataObj = {
+            price: {min: null, max: null},
+            time: null,
             ...filterDataObj,
             category: alias,
             categoryFullName: fullAlias,
@@ -82,7 +112,21 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData}) => {
         }
 
         setScrollData({url: '/api/getPostsCheck', sendObj: submitDataObj})
+
+        console.log('123')
+
+
+        // Запимываем чекбоксы в query
+        router.push({
+            pathname: `/search/${alias}`,
+            query: {
+                ...onlyTrueDataObj(data)
+            }
+        })
     }
+
+
+
 
     return (
         <Box className={classes.wrapper}>
@@ -111,10 +155,10 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData}) => {
                             Показать объявления
                         </Button>
                         {/* Посмотреть старые фильтры*/}
-                        {methods.formState.isDirty ? (
+                        {isClear ? (
                             <Button
                                 className={`${classes.button} ${classes.buttonClear}`}
-                                // onClick={clearFields}
+                                onClick={clearFields}
                                 color="default"
                                 variant="contained"
                             >

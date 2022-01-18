@@ -312,6 +312,15 @@
 
 }
 
+@media (max-width: 959px) {
+
+    .card__top_info_right {
+        right: 4px;
+        top: 4px;
+    }
+
+}
+
 @media screen and (max-width: 727px) {
     .card__top {
         overflow: hidden;

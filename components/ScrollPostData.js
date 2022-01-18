@@ -49,8 +49,6 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
                 ...sendObj
             }
 
-            // console.log(scrollDataObj);
-
             // Если город в котором ищем будет пустой
             // if (!scrollDataObj.region_includes) {
             //     setPage('end');

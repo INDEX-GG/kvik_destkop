@@ -1,4 +1,4 @@
-import { AppBar, Button, Container, makeStyles, useScrollTrigger, Slide} from "@material-ui/core";
+import {AppBar, Button, Container, makeStyles, useScrollTrigger, Slide} from "@material-ui/core";
 import Logo from "./Logo";
 import Search from "./Search";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
@@ -11,6 +11,8 @@ import { useMedia } from "../../hooks/useMedia"
 import Login from "../auth/Login";
 import { AuthHeader } from "./AuthHeader";
 import { useStore } from "../../lib/Context/Store";
+import MobileModal from "#components/MobileModal";
+import FilterMobile from "#components/newFilter/filterMobile/FilterMobile";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -71,7 +73,19 @@ const useStyles = makeStyles((theme) => ({
 		changeMenu: {
 			position: 'absolute',
 		},
-	}
+	},
+    tabletFilter: {
+        display: 'none',
+        [theme.breakpoints.down(960)]: {
+            display: 'block',
+            position: 'absolute',
+            right: '225px',
+            top: '0px',
+        },
+        [theme.breakpoints.down(600)]: {
+            display: 'none'
+        }
+    }
 }));
 
 function HeaderMobile({ chageMenu = false }) {
@@ -83,6 +97,8 @@ function HeaderMobile({ chageMenu = false }) {
 	const classes = useStyles();
 	const [openRegForm, setOpenRegForm] = useState(false);
 	const [openLoginForm, setOpenLoginForm] = useState(false);
+    const [dialogFilter, setDialogFilter] = useState(false);
+
 	const Router = useRouter()
 	const { matchesMobile, matchesCustom1024 } = useMedia()
 	
@@ -122,6 +138,9 @@ function HeaderMobile({ chageMenu = false }) {
 								userInfo={userInfo} 
 							/>
 							<Search text={matchesMobile ? "Поиск" : false} />
+                            <div className={classes.tabletFilter} onClick={() => setDialogFilter(true)}>
+                                <MobileFilter number={0} />
+                            </div>
 							{/* отрисовка фильтров для поска в мобильной версии. Тут не нужно будет рендерится внутри инпута поиса */}
 							{isAuth ?
 								(chageMenu ? (
@@ -130,7 +149,7 @@ function HeaderMobile({ chageMenu = false }) {
 										Подать объявление
 									</Button>
 								) : (
-									<div className={classes.changeMenu}>
+									<div className={classes.changeMenu} onClick={() => setDialogFilter(true)}>
 										<MobileFilter className={classes.filter} number={0} />
 									</div>
 								)) : null}
@@ -140,6 +159,13 @@ function HeaderMobile({ chageMenu = false }) {
 					<DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
 						<Login />
 					</DialogCTX.Provider>
+                    <MobileModal
+                        title='Фильтры'
+                        dialog={dialogFilter}
+                        close={() => setDialogFilter(false)}
+                    >
+                        <FilterMobile/>
+                    </MobileModal>
 				</AppBar>
 				<div style={{ marginBottom: matchesCustom1024 ? "25px" : "124px" }} className={classes.test}></div>
 			</>
