@@ -6,6 +6,8 @@ import {useAuth} from "../../../../lib/Context/AuthCTX";
 import {ellipsis} from "../../../../lib/services";
 import {useRouter} from "next/router";
 import {useMedia} from "../../../../hooks/useMedia";
+import ChatMessageIsSend from '../../../../UI/icons/ChatMessageIsSend';
+import ChatMessageIsRead from '../../../../UI/icons/ChatMessageIsRead';
 
 const ChatAllRoom = ({allRooms, setData}) => {
 
@@ -105,19 +107,24 @@ const ChatAllRoom = ({allRooms, setData}) => {
                         </span>
                         <div>
                           <div>{senderName}</div>
-                          <div className="messageUserBlockTime">{time}</div>
+                          <div className="messageUserBlockRight">
+                            <div className="messageUserBlockStatus">{item?.messages_is_read ? <ChatMessageIsRead /> : <ChatMessageIsSend /> }</div>
+                            <div className="messageUserBlockTime">{time}</div>
+                          </div>
                         </div>
                       </div>
-                      {senderMessage ? 
+                      {senderMessage ?
                       senderMessage?.img ?
                       <div className='light messageMiniatureBlock'>
                         <span>Фотография: </span>
                         <img src={senderMessage.src} alt='miniatureImg'  className="messageMiniatureImg"/>
                       </div>:
                           <>
-                          <div className='messageUserBlockPrice'>{item?.product_price && item.product_price?.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
-                          <div className='messageUserBlockName'>{ellipsis(item.product_name, 12)}</div>
-                          <div className="light">{ellipsis(senderMessage, 20)}</div> 
+                            <div className='messageUserBlockInfo'>
+                              <div className='messageUserBlockPrice'>{item?.product_price && item.product_price?.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
+                              <div className='messageUserBlockName'>{ellipsis(item.product_name, 25)}</div>
+                            </div>
+                          <div className="light">{ellipsis(senderMessage, 40)}</div>
                           </>
                           : null
                         }

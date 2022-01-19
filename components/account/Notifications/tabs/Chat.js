@@ -582,7 +582,10 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
         {msgList?.map((item, index) => {
           const myMessage = item?.sender_id == id
           const key = id?.id ? id?.id : index
-          const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
+          // исходный
+          // const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
+          // новый
+          const morePartnerMessage = Boolean(index ? index - 1 : index)
           item.messages_is_read = userOnline ? true : item.messages_is_read
 
           // const messageData = index == msgList.length - 1 ? true : generateMessageData(index)

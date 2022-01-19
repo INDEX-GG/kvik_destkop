@@ -27,18 +27,18 @@ const ChatUserMessage = (
 
   const {id} = useAuth();
 
-  console.log({    index,
-    key,
-    item,
-    dialogData,
-    refMessage,
-    messageId,
-    myMessage,
-    morePartnerMessage,
-    userChatPhoto,
-    userChatName,
-    openImage,
-    userOnline,})
+  // console.log({    index,
+  //   key,
+  //   item,
+  //   dialogData,
+  //   refMessage,
+  //   messageId,
+  //   myMessage,
+  //   morePartnerMessage,
+  //   userChatPhoto,
+  //   userChatName,
+  //   openImage,
+  //   userOnline,})
   // Генерирует статус сообщениям
   const generateMessage = (message) => {
     if (message.match('images/ch')) {
@@ -59,10 +59,12 @@ const ChatUserMessage = (
   // пока закомментил потому что фон всегда одного цвета.
   //
   const generateBackgroundMessage = (senderId, read, offline) => {
+    // только у своих сообщений
     if (senderId === id) {
 
       if (offline) {
         return 'rgba(208, 237, 239, .5)'
+        // return '#f23022'
       }
 
       if (userOnline) {
@@ -129,10 +131,13 @@ const ChatUserMessage = (
     )
   }
 
-  console.log('myMessage - ', myMessage)
-  console.log('morePartnerMessage - ', morePartnerMessage)
-  console.log('index - 1: ', index - 1)
-  console.log('userChatName: ', userChatName)
+  if(!myMessage) {
+    console.log('условия - ', 'myMessage: ', myMessage, 'morePartnerMessage: ', morePartnerMessage, 'userChatPhoto: ', userChatPhoto, index, (index - 1 >= 0))
+
+    // console.log('userChatPhoto:', userChatPhoto ? 'true' : 'false')
+    // console.log('item:', item)
+  }
+
 
   return (
     <>
@@ -148,12 +153,26 @@ const ChatUserMessage = (
           </div>
         ):(
           <div className="chatWrapper">
-          {!myMessage ? <ChatDefaultAvatar name={userChatPhoto}/> : null}
+          {/* {!myMessage ? <ChatDefaultAvatar name={userChatPhoto}/> : null} */}
+            {myMessage
+                ? null
+                : morePartnerMessage
+                // : morePartnerMessage
+                  ? <div></div>
+                  : (
+                    // userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+                    // ! userChatPhoto
+                    !userChatPhoto
+                      ? <></>
+                      : <ChatDefaultAvatar name={userChatName}/>
+                  )
+              }
             <div
                 key={key}
                 ref={item.id == messageId ? refMessage : null}
                 className={myMessage ? "chatUser" : "chatCompanion"}
               >
+                {/* исходный */}
               {/* {myMessage
                 ? null
                 : morePartnerMessage && index - 1 >= 0

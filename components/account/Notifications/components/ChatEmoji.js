@@ -35,7 +35,7 @@ const ChatEmoji = ({visible, setInput}) => {
           disableAutoFocus
           disableSearchBar
           skinTone={SKIN_TONE_NEUTRAL}
-          native
+          native={false}
         />
         </div>
         <div style={{userSelect: 'none', width: '20px'}}>&nbsp;</div>

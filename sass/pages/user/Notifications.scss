@@ -24,6 +24,7 @@
   flex-direction: column;
   padding-right: 10px;
   height: 600px;
+  background: $superlight;
 }
 
 .messageDialogs::-webkit-scrollbar {
@@ -45,11 +46,12 @@
   justify-content: flex-start;
   margin-bottom: 4px;
   border-bottom: 1px solid #E9E9E9;
+  padding: 18px 15px 12px;
 }
 
 .messageDialog:hover {
   transition: all 250ms ease-in-out;
-  background: $light;
+  background: #D0EDEF;
   cursor: pointer;
 }
 
@@ -121,8 +123,8 @@
 
 .messageDiaCheck {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 3px;
+  left: 3px;
 }
 
 .messageOffer img {
@@ -132,7 +134,7 @@
   width: 114px;
   height: 85px;
   // border-radius: 2px;
-  border-radius: 18px;
+  border-radius: 3px;
   object-fit: cover;
   object-position: center;
 //   background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
@@ -145,6 +147,8 @@
   width: 100%;
   // padding: 0 0 0 8px;
   padding-left: 10px;
+  justify-content: space-between;
+  height: 85px;
 }
 
 .messageUserBlock {
@@ -158,8 +162,8 @@
   display: block;
   // min-width: 32px;
   // max-width: 32px;
-  min-width: 24px;
-  max-width: 24px;
+  min-width: 30px;
+  max-width: 30px;
   // height: 32px;
   border-radius: 50%;
   object-fit: cover;
@@ -175,8 +179,17 @@
   width: 100%;
   // flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  line-height: 21px;
+}
 
-  line-height: 1.16;
+.messageUserBlockInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 25px;
 }
 
 .messageUserBlockPrice {
@@ -189,6 +202,25 @@
   margin-top: 4px;
   font-size: 12px;
   line-height: 1,17;
+}
+
+.messageUserBlockRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.messageUserBlockStatus svg {
+  width: 23px;
+  height: 21px;
+}
+
+.messageUserBlockTime {
+  margin-top: 4px;
+  color: $tpsl;
+
+  font-size: 18px;
+  line-height: 21px;
 }
 
 .messageMiniatureBlock {
@@ -435,6 +467,7 @@
 .chatWrapper {
   display: flex;
   flex-direction: row;
+  width: fit-content;
 }
 
 .chatWrapper .chatDefaultAvatar {
@@ -659,4 +692,30 @@
     // .chatUser > *:first-child {
     //   max-width: 220px;
     // }
+}
+
+@media (max-width: 450px) {
+  .messageUserBlockTime {
+    font-size: 10px;
+    line-height: 12px;
+    margin-top: 0;
+  }
+  .messageUserBlockStatus svg {
+    width: 12px;
+    height: 8px;
+  }
+  .messageUserBlock img {
+    width: 24px;
+    height: 24px;
+  }
+  // имя
+  .messageUserBlock > div {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  .messageUserBlockInfo {
+    flex-direction: column;
+    gap: 0;
+    grid-gap: 0;
+  }
 }
