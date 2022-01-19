@@ -35,7 +35,7 @@ export default async function handler(req, res) {
 			if (region_excludes === '') {
 				region_excludes = '!'
 			}
-			const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE LOWER (category_id) LIKE $1 AND active = 0 AND verify = 0 AND LOWER (city) LIKE $2 AND LOWER (city) NOT LIKE $3 ${sort_value} LIMIT $4 offset $5`, [data + '%', region_includes + '%', region_excludes + '%', page_limit, page])
+			const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE LOWER (category_id) LIKE $1 AND active = 0 AND verify = 0 AND LOWER (city) LIKE $2 AND LOWER (city) NOT LIKE $3 AND ((active_time >= $4) OR (active_time IS NULL)) ${sort_value} LIMIT $5 offset $6`, [data + '%', region_includes + '%', region_excludes + '%', new Date(), page_limit, page])
 			return(answer.rows)
 		}
 		try {

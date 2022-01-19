@@ -4,16 +4,6 @@
             "name": "Автомобили",
             "alias": "auto",
             "additional_fields": ["model"]
-        },
-        {
-            "name": "Смартфоны",
-            "alias": "smartphones",
-            "additional_fields": ["fs", "model"]
-        },
-        {
-            "name": "Тест",
-            "alias": "test",
-            "additional_fields": ["qwe", "asd", "zxc"]
         }
     ]
 }
