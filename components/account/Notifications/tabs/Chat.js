@@ -6,7 +6,7 @@ import axios from 'axios';
 import {BASE_URL, CHAT_URL_API, STATIC_URL} from '../../../../lib/constants';
 import {socket} from './socket';
 import {generateTime} from './chatFunctions';
-import {Dialog} from "@material-ui/core";
+import {Dialog, TextField, makeStyles} from "@material-ui/core";
 // import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 import {ellipsis} from "../../../../lib/services";
 import ChatUserMessage from "../components/ChatUserMessage";
@@ -18,7 +18,20 @@ import {getTokenDataByPost} from "../../../../lib/fetch";
 
 const NoSsrEmoji = dynamic(() => import('../components/ChatEmoji'), {ssr: false})
 
+const useStyles = makeStyles(() => ({
+  noBorder: {
+    border: "none",
+  },
+  inputMessage: {
+    height: 'auto',
+    margin: '0 8px',
+    minHeight: '31px',
 
+    '@media (max-width: 450px)': {
+      minHeight: '31px',
+    }
+  }
+}));
 
 const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLocalMessage}) => {
 
@@ -46,7 +59,10 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
   const {userInfo} = useStore()
   const {query, asPath} = useRouter()
   const {id, token} = useAuth()
+  const classes = useStyles()
   // const {matchesMobile, matchesTablet} = useMedia()
+
+  let isFirstParentMessage = false; // флаг для первого сообщения собеседника
 
   const socketLeave = () => {
     socket.emit('leave', {
@@ -583,25 +599,32 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
           const myMessage = item?.sender_id == id
           const key = id?.id ? id?.id : index
           // исходный
-          // const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
+          const morePartnerMessage = msgList[index ? index - 1 : index]?.sender_id == item.sender_id
           // новый
-          const morePartnerMessage = Boolean(index ? index - 1 : index)
+          // const morePartnerMessage = Boolean(index ? index - 1 : index)
           item.messages_is_read = userOnline ? true : item.messages_is_read
 
           // const messageData = index == msgList.length - 1 ? true : generateMessageData(index)
           const dialogData = generateDialogData(index);
+          let firstPartnerMessage = false;
 
+          if(!myMessage && !isFirstParentMessage) {
+            isFirstParentMessage = true
+            firstPartnerMessage = true
+          }
 
           return (
             <ChatUserMessage
               index={index}
               key={key}
+              keymsg={key}
               item={item}
               dialogData={dialogData}
               refMessage={refMessage}
               messageId={messageId}
               myMessage={myMessage}
-              morePartnerMessage={morePartnerMessage}
+              morePartnerMessage={!morePartnerMessage}
+              firstPartnerMessage={firstPartnerMessage}
               userChatPhoto={userChatPhoto}
               userChatName={userChatName}
               openImage={openImage}
@@ -656,13 +679,25 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
               <ChatSmile/>
             </div>
           </div>
-          <input
-            className="messageInput"
-            type="text"
-            placeholder="Написать сообщение"
+          <TextField
+            multiline
+            maxRows={9}
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            maxLength="1000"
+            variant="outlined"
+            // className="messageInput"
             onKeyDown={handleKeyDown}
+            // classes={classes.inputMessage}
+            className={`messageInput ${classes.inputMessage}`}
+            placeholder="Написать сообщение"
+            onChange={(e) => setMessage(e.target.value)}
+            inputProps={{
+              maxLength: 1000,
+            }}
+            InputProps={{
+              disableUnderline: true,
+              classes: {notchedOutline:classes.noBorder}
+            }}
           />
         </div>
         <button className="messageSend" onClick={() => handleSend()}></button>

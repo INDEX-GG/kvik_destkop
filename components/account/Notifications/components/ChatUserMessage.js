@@ -10,14 +10,13 @@ import ChatMessageIsRead from '../../../../UI/icons/ChatMessageIsRead';
 
 const ChatUserMessage = (
   {
-    index,
-    key,
+    keymsg,
     item,
     dialogData,
     refMessage,
     messageId,
     myMessage,
-    morePartnerMessage,
+    firstPartnerMessage,
     userChatPhoto,
     userChatName,
     openImage,
@@ -131,21 +130,13 @@ const ChatUserMessage = (
     )
   }
 
-  if(!myMessage) {
-    console.log('условия - ', 'myMessage: ', myMessage, 'morePartnerMessage: ', morePartnerMessage, 'userChatPhoto: ', userChatPhoto, index, (index - 1 >= 0))
-
-    // console.log('userChatPhoto:', userChatPhoto ? 'true' : 'false')
-    // console.log('item:', item)
-  }
-
-
   return (
     <>
       {dialogData && <div className='chatDataDialog'>{dialogData}</div>}
       {myMessage
         ? (
           <div
-              key={key}
+              key={keymsg}
               ref={item.id == messageId ? refMessage : null}
               className={myMessage ? "chatUser" : "chatCompanion"}
             >
@@ -153,37 +144,29 @@ const ChatUserMessage = (
           </div>
         ):(
           <div className="chatWrapper">
-          {/* {!myMessage ? <ChatDefaultAvatar name={userChatPhoto}/> : null} */}
+            {/* изначальные условия на отображение аватарки собеседника */}
+            {/* {myMessage ? null :
+                morePartnerMessage && index - 1 >= 0 ? <div></div> :
+            // userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
+              userChatPhoto ? <></> :
+              <ChatDefaultAvatar name={userChatName}/>
+             } */}
             {myMessage
                 ? null
-                : morePartnerMessage
-                // : morePartnerMessage
-                  ? <div></div>
-                  : (
-                    // userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
-                    // ! userChatPhoto
-                    !userChatPhoto
-                      ? <></>
-                      : <ChatDefaultAvatar name={userChatName}/>
-                  )
+                // : morePartnerMessage && Boolean(index >= 0)
+                // : morePartnerMessage && index - 1 >= 0
+                : firstPartnerMessage
+                  ? (
+                    userChatPhoto
+                      ? <ChatDefaultAvatar name={userChatName}/>
+                      : null
+                  ) : <div style={{marginRight: '46px'}}></div>
               }
             <div
-                key={key}
+                key={keymsg}
                 ref={item.id == messageId ? refMessage : null}
                 className={myMessage ? "chatUser" : "chatCompanion"}
               >
-                {/* исходный */}
-              {/* {myMessage
-                ? null
-                : morePartnerMessage && index - 1 >= 0
-                  ? <div></div>
-                  : (
-                    // userChatPhoto ? <img src={`${STATIC_URL}/${userChatPhoto}`}/> :
-                    userChatPhoto
-                      ? <></>
-                      : <ChatDefaultAvatar name={userChatName}/>
-                  )
-              } */}
               {renderMessage(item)}
             </div>
         </div>

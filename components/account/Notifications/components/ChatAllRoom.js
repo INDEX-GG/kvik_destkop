@@ -134,7 +134,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
                       <p className='previewDesc'>2-х комнатная квартира, 95 м</p>
                       <p className='previewMessage'>Здравствуйте подскажите пожал</p> */}
                       {/* стили для мобильной верстки, ждут пока подвяжем логику */}
-                      
+
                     </div>
                   </a>
               )

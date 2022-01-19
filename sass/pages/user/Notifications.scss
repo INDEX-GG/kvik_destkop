@@ -24,7 +24,7 @@
   flex-direction: column;
   padding-right: 10px;
   height: 600px;
-  background: $superlight;
+  // background: $superlight;
 }
 
 .messageDialogs::-webkit-scrollbar {
@@ -506,6 +506,7 @@
   align-items: center;
   border-top: 1px solid $light;
   padding: 10px 12px;
+  height: auto;
 }
 
 .messageChatGroupLeft {
@@ -533,6 +534,7 @@
   outline: none;
   z-index: 10;
   margin: 0 8px;
+  border: 1px solid black;
 }
 
 .messageInput::placeholder {
