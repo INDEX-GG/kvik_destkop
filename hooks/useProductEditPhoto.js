@@ -5,11 +5,12 @@ import { getDataByPost } from '../lib/fetch';
 
 export function useProductEditPhoto(id) {
     const [productInfo, setProductInfo] = useState({});
+    
     const [productInfoFields, setProductInfoFields] = useState({});
     const {id: userId} = useAuth();
     useEffect(() => {
         if (typeof id === 'string' || typeof id === 'number') {
-            getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })
+            getDataByPost('/api/getPost?123', { id: parseInt(id), 'user_id': userId })
                 .then((r) => {
                     if (r !== undefined) {
                         // console.log('rrrrrrrrrr',r)

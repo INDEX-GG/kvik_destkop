@@ -76,8 +76,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const NewPlaceOfferContent = ({photoesCtx, category, title, currentCategory, onSubmit}) => {
-
+const NewPlaceOfferContent = ({photoesCtx, category, title, currentCategory, onSubmit, photoesLinks}) => {
     const classes = useStyles();
 
     const methods = useFormContext();

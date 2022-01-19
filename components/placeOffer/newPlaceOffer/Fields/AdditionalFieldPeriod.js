@@ -63,7 +63,7 @@ const AdditionalFieldPeriod = ({fieldData, yearsData}) => {
 
 
 
-    console.log(yearsData);
+    // console.log(yearsData);
 
 
     return (

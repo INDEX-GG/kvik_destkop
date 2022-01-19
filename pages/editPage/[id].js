@@ -19,9 +19,12 @@ import Promotion from '../../components/placeOffer/Promotion';
 import axios from 'axios';
 import { BASE_URL, STATIC_URL } from '../../lib/constants';
 import PhotosForEditPage from "../../components/placeOffer/PhotosForEditPage";
-import {useProductEditPhoto} from "../../hooks/useProductEditPhoto";
+// import {useProductEditPhoto} from "../../hooks/useProductEditPhoto";
 import {getDataByPost} from "../../lib/fetch";
 // import { useStore } from '../../lib/Context/Store';
+import PlaceOffer from '#pages/placeOffer';
+import {generateTitle} from '../../lib/services';
+import useCategoryV2 from "../../hooks/useCategoryV2";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -64,9 +67,14 @@ const useStyles = makeStyles((theme) => ({
 
 function EditPage() {
 	const { query } = useRouter();
-	const { price, title, photo, description, address} = useProduct(query.id)
-	const { editPhotos } = useProductEditPhoto(query.id)
+	const productData = useProduct(query.id)
+	const { price, title, photo, description, address, category_id, additional_fields} = productData
+	// const commonField = {price, description, title, address}
 
+	const category = category_id?.split(',')
+	
+	const {getMoreCategory} = useCategoryV2();
+	// const { editPhotos } = useProductEditPhoto(query.id)
 
 	const { id, token } = useAuth();
 	const classes = useStyles();
@@ -114,14 +122,6 @@ function EditPage() {
 		setLoading(true);
 
 
-
-
-
-
-
-
-
-		console.log('',editPhotos.photos)
 
 
 		if(photoes.filter(item => item.lastModified !== undefined).length > 0) {
@@ -206,42 +206,52 @@ function EditPage() {
 	}
 
 	return (
+		<PlaceOffer 
+		editCategory={category} 
+		changePage 
+		defaultValue={additional_fields}
+		commonFields={productData}
+		/>
+		)
 
-		promotion ? <Promotion editProduct={editProduct} /> :
-			<MetaLayout title={'Редактирование объявления'}>
-				{!matchesMobile && !matchesTablet &&  <Container className={classes.root}>
-					 < Box className={classes.offersBox}>
-						<Typography data-testid={'main-heading'} className={classes.title} variant='h3'>Редактирование объявления</Typography>
-						<FormProvider {...methods} >
-							<Verify edit={edit}/>
-							{ price && title && photo && description && address !== undefined  ? <form onSubmit={methods.handleSubmit(onSubmit)}>
-								<Box className={classes.formPart}>
-									<Title title={title} />
-								</Box>
-								<Box className={classes.formPart}>
-									<Description description={description} />
-									<Price price={price} edit={edit}/>
-									<PhotosForEditPage ctx={photoesCtx} photo={photo} />
-								</Box>
-								<Box className={classes.formPart}>
-									<Location address={address}/>
-									<Contacts />
-									<Box className={classes.submit}>
-										<ErrorMessages edit={edit}/>
-										<Button type='submit' color='primary' variant='contained'>Продолжить</Button>
-									</Box>
-								</Box>
-							</form>  : <Box className={classes.loader}><Loader size={50} /></Box> }
-						</FormProvider>
-					</Box>
-				</Container>}
-				{/* в 239 строке рендерится не верный компонент, заменить после того как будут готовы стили */}
-				{matchesMobile || matchesTablet ? <PlaceOfferMobile /> : null}
-				<Backdrop className={classes.backdrop} open={loading}>
-					<Loader  size={64} />
-				</Backdrop>
-			</MetaLayout >
-	)
+	// return (
+
+	// 	promotion ? <Promotion editProduct={editProduct} /> :
+	// 		<MetaLayout title={'Редактирование объявления'}>
+	// 			{!matchesMobile && !matchesTablet &&  <Container className={classes.root}>
+	// 				 < Box className={classes.offersBox}>
+	// 					<Typography data-testid={'main-heading'} className={classes.title} variant='h3'>Редактирование объявления</Typography>
+	// 					<FormProvider {...methods} >
+							
+	// 						<Verify edit={edit}/>
+	// 						{ price && title && photo && description && address !== undefined  ? <form onSubmit={methods.handleSubmit(onSubmit)}>
+	// 							<Box className={classes.formPart}>
+	// 								<Title title={title} />
+	// 							</Box>
+	// 							<Box className={classes.formPart}>
+	// 								<Description description={description} />
+	// 								<Price price={price} edit={edit}/>
+	// 								<PhotosForEditPage ctx={photoesCtx} photo={photo} />
+	// 							</Box>
+	// 							<Box className={classes.formPart}>
+	// 								<Location address={address}/>
+	// 								<Contacts />
+	// 								<Box className={classes.submit}>
+	// 									<ErrorMessages edit={edit}/>
+	// 									<Button type='submit' color='primary' variant='contained'>Продолжить</Button>
+	// 								</Box>
+	// 							</Box>
+	// 						</form>  : <Box className={classes.loader}><Loader size={50} /></Box> }
+	// 					</FormProvider>
+	// 				</Box>
+	// 			</Container>}
+	// 			{/* в 239 строке рендерится не верный компонент, заменить после того как будут готовы стили */}
+	// 			{matchesMobile || matchesTablet ? <PlaceOfferMobile /> : null}
+	// 			<Backdrop className={classes.backdrop} open={loading}>
+	// 				<Loader  size={64} />
+	// 			</Backdrop>
+	// 		</MetaLayout >
+	// )
 }
 
 export default EditPage;

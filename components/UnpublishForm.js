@@ -83,8 +83,9 @@ export default function UnpublishForm() {
 	const { setQuery } = useOfferAccount()
 
 	function PushBDVerify(e) {
-
-		var arr = { 'id': dataCheck, 'active': `${e.target.parentElement.id}`, 'user_id': id }
+		const active = parseInt(e.target.parentElement.id)
+		// var arr = { 'id': dataCheck, 'active': `${e.target.parentElement.id}`, 'user_id': id }
+		var arr = { 'id': dataCheck, 'active': active, 'user_id': id }
 
 		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
 			.then(r => r)

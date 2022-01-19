@@ -49,11 +49,11 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function PlaceOffer() {
+function PlaceOffer({editCategory, changePage, commonFields, defaultValue = {price: ''}}) {
 
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
-    const methods = useForm({defaultValues: { price: ''} });
+    const methods = useForm({defaultValues: defaultValue });
 
     const { id, token } = useAuth();
     const {userInfo} = useStore()
@@ -68,7 +68,6 @@ function PlaceOffer() {
 
     let photoes = [];
 
-
     const photoesCtx = (obj) => {
         return photoes = obj;
     }
@@ -79,11 +78,34 @@ function PlaceOffer() {
         aliasTwo: methods.watch('alias2'),
         aliasThree: methods.watch('alias3'),
     }
-
     // текущий объект категории
     const currentCategory = getMoreCategory(aliasObj.aliasOne, aliasObj.aliasTwo, aliasObj.aliasThree);
     const title = currentCategory?.title
+    
+    // отрисовка полей при редактировании, значения получаем из edigPage/[id]
+    useEffect(() => {
+        if (changePage && editCategory) {
+            const innerAlias = 'alias'
+            for(let i = 1; i <= editCategory.length; i++) {
+                methods.setValue(innerAlias+i, editCategory[i-1])
+            }
+        }
+        
+        // const photoData = new FormData;
+        // if (editPhotos.length > 1) {
+        //     editPhotos.forEach(photo => photoData.append('files[]', photo));
+        // } else if (editPhotos.length === 1) {
+        //     photoData.append('files[]', editPhotos[0]);
+        // }
+    }, [editCategory, changePage])
 
+    useEffect(() => {
+        if(Object.keys(defaultValue).length > 1) {
+            methods.reset({...defaultValue, ...commonFields})
+            // photoes.push(...commonFields.photo)
+            // photoes.push()
+        }
+    }, [defaultValue])
 
     // Получаем выбранную категорию
     useEffect(() => {
@@ -109,7 +131,6 @@ function PlaceOffer() {
 
     // methods, category, currentCategory
     const onSubmit = (data) => {
-        console.log(data);
         data.price = data.price.replace(/\D+/g, '');
 
         const alias = [data?.alias1, data?.alias2];
