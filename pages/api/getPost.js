@@ -32,7 +32,6 @@ export default async function handler(req, res) {
 			let post = answer.rows[0]
 			let post_active = parseInt(post.active)
 			let post_active_time = post.active_time
-			let created_at = post.created_at
 			post.archive = !(post_active === 0 && post_active_time > new Date())
 			return(answer.rows[0])
 		}
