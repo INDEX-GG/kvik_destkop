@@ -90,20 +90,11 @@ function PlaceOffer({editCategory, changePage, commonFields, defaultValue = {pri
                 methods.setValue(innerAlias+i, editCategory[i-1])
             }
         }
-        
-        // const photoData = new FormData;
-        // if (editPhotos.length > 1) {
-        //     editPhotos.forEach(photo => photoData.append('files[]', photo));
-        // } else if (editPhotos.length === 1) {
-        //     photoData.append('files[]', editPhotos[0]);
-        // }
     }, [editCategory, changePage])
 
     useEffect(() => {
         if(Object.keys(defaultValue).length > 1) {
             methods.reset({...defaultValue, ...commonFields})
-            // photoes.push(...commonFields.photo)
-            // photoes.push()
         }
     }, [defaultValue])
 
@@ -233,6 +224,7 @@ function PlaceOffer({editCategory, changePage, commonFields, defaultValue = {pri
                                 title={title}
                                 category={category}
                                 currentCategory={currentCategory}
+                                photoesLink={commonFields.photo}
                             />
                         )}
                         {matchesMobile || matchesTablet ? (

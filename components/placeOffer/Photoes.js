@@ -3,6 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 
+
 const useStyles = makeStyles((theme) => ({
 	formElem: {
 		display: "flex",
@@ -186,7 +187,7 @@ const Photoes = ({ ctx }) => {
 	const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(
 		"Добавьте или перетащите фото"
-	);
+	);	
 
 
 	function arrayMoveMutable(array, fromIndex, toIndex) {
@@ -236,7 +237,7 @@ const Photoes = ({ ctx }) => {
 		// 	};
 		// });
 	}, [selectedFiles]);
-
+	
 	useEffect(() => {
 		if (validFiles && validFiles.length > 0) {
 			methods.setValue("photoes", "ok");
@@ -426,6 +427,7 @@ const Photoes = ({ ctx }) => {
 				{items.map((value, i) => (
 					<SortableItem key={i} index={i} data={value} i={i} />
 				))}
+				
 				<div
 					className={classes.card}
 					onDragOver={dragOver}
