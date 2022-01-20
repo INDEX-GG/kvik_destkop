@@ -4792,6 +4792,7 @@
               "alias": "tire_set",
               "title": "Комплект шин",
               "default_value": null,
+              "filter_view": false,
               "type": "check_list",
               "required": {
                 "state": true,
@@ -4813,6 +4814,7 @@
               "title": "Обогрев",
               "default_value": null,
               "type": "check_list",
+              "filter_view": false,
               "required": {
                 "state": true,
                 "value": "Введите корректное значение"
@@ -4836,6 +4838,7 @@
               "alias": "anti_theft_system",
               "title": "Противоугонная система",
               "default_value": null,
+              "filter_view": false,
               "type": "check_list",
               "required": {
                 "state": true,
@@ -4858,6 +4861,7 @@
             {
               "alias": "airbags",
               "title": "Подушки безопасности",
+              "filter_view": false,
               "default_value": null,
               "type": "check_list",
               "required": {
@@ -4882,6 +4886,7 @@
             {
               "alias": "multimedia_and_navigation",
               "title": "Мультимедиа и навигация",
+              "filter_view": false,
               "default_value": null,
               "type": "check_list",
               "required": {
@@ -4912,6 +4917,7 @@
             {
               "alias": "driving_assistance",
               "title": "Помощь при вождении",
+              "filter_view": false,
               "default_value": null,
               "type": "check_list",
               "required": {
@@ -4939,6 +4945,7 @@
             {
               "alias": "support_systems",
               "title": "Вспомогательные системы",
+              "filter_view": false,
               "default_value": null,
               "type": "check_list",
               "required": {

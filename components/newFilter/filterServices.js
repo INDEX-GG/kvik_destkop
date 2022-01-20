@@ -2,7 +2,7 @@ import {generateCheckboxTime} from "#lib/utils/checkBoxFunction";
 
 export const findJsonPlaceOfferItem = (arr, search) => {
     if (Array.isArray(arr)) {
-       return  arr.find(item => item.alias === search)
+        return arr.find(item => item.alias === search)
     }
 }
 
@@ -53,23 +53,28 @@ export const numberKeyTime = (value) => {
 export const onlyTrueDataObj = (obj, replaceTime = true) => {
     const finalTrueObj = {}
     for (const [key, value] of Object.entries(obj)) {
-
-        if (key === 'time' && replaceTime) {
-            switch (value) {
-                case 'За всё время':
-                    finalTrueObj[key] = 1
-                    break
-                case 'За последнюю неделю':
-                    finalTrueObj[key] = 2
-                    break
-                case 'За последние сутки':
-                    finalTrueObj[key] = 3
-                    break
-            }
-            continue
-        }
-
         if (value) {
+
+            if (key === 'time' && replaceTime) {
+                switch (value) {
+                    case 'За всё время':
+                        finalTrueObj[key] = 1
+                        break
+                    case 'За последнюю неделю':
+                        finalTrueObj[key] = 2
+                        break
+                    case 'За последние сутки':
+                        finalTrueObj[key] = 3
+                        break
+                }
+                continue
+            }
+
+            if (typeof value == 'object' && !Array.isArray(value)) {
+                finalTrueObj[key] = JSON.stringify(value)
+                continue
+            }
+
             finalTrueObj[key] = value
         }
     }
@@ -124,6 +129,15 @@ export const generateFilterData = (obj) => {
                 continue
             }
 
+            // Объект stringify из query
+            try {
+                const mockJsonData = JSON.parse(value)
+                dataObj.check[key] = mockJsonData?.data
+                continue
+            } catch (e) {
+                console.log('not stringify :C')
+            }
+
 
             if (typeof value === 'string') {
                 if (key.includes('$')) {
@@ -137,11 +151,38 @@ export const generateFilterData = (obj) => {
                 dataObj.check[key] = value.data
             }
 
-            if (Array.isArray(value) & value.length) {
+
+            if (Array.isArray(value) && value.length) {
                 dataObj.check[key] = value
             }
         }
     }
 
     return dataObj
+}
+
+
+export const handleChangeCategory = (categoryArr, methods) => {
+    if (Array.isArray(categoryArr)) {
+        const alias = 'alias'
+        for (let i = 0; i < categoryArr.length; i++) {
+            methods.setValue(alias + (i + 1), (categoryArr[i]))
+        }
+    }
+}
+
+export const deleteFilterAlias = (queryObj, filterObj) => {
+
+    if (typeof queryObj == 'object') {
+        const clearObj = {}
+
+        for (const [key, value] of Object.entries(queryObj)) {
+
+            if (!filterObj[key]) {
+                clearObj[key] = value
+            }
+        }
+
+        return clearObj
+    }
 }

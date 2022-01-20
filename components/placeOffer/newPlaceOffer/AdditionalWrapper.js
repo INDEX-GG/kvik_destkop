@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AdditionalWrapper = ({title, type, children}) => {
+const AdditionalWrapper = ({title, type, children, filters}) => {
 
     const classes = useStyles();
     const wrapper = type === 'check_list' ? classes.formInputFieldCheck : classes.formTitleField
@@ -79,8 +79,9 @@ const AdditionalWrapper = ({title, type, children}) => {
     // Filters
     const router = useRouter()?.pathname;
 
+
     return (
-        router === '/search/[alias]' ? (
+        router === '/search/[alias]' || filters ? (
             <NewFilterItem title={title} type={type}>
                 {children}
             </NewFilterItem>

@@ -45,11 +45,11 @@ const useStyles = makeStyles(() => ({
 
 const generateMadalContent = (data) => {
 
-    const {type, alias, text_list_rendering_type, dataItems, setValue, getValues} = data
+    const {type, alias, text_list_rendering_type, dataItems, setValue, getValues, propsType} = data
 
-    switch (type) {
+
+    switch (propsType ? propsType : type) {
         case 'text_list':
-
             if (text_list_rendering_type === 1) {
                 return (
                     <ColorListModal
@@ -63,21 +63,13 @@ const generateMadalContent = (data) => {
 
             return (
                 <TextListModal
-                    type={type}
-                    dataItems={dataItems}
-                    setValue={setValue}
-                    getValues={getValues}
-                    alias={alias}
+                    data={data}
                 />
             )
         case 'period':
             return (
                 <TextListModal
-                    type={type}
-                    dataItems={dataItems}
-                    setValue={setValue}
-                    getValues={getValues}
-                    alias={alias}
+                    data={data}
                 />
             )
         case 'check_list':
@@ -92,18 +84,14 @@ const generateMadalContent = (data) => {
         case 'text_list_time':
             return (
                 <TextListModal
-                    type={type}
-                    dataItems={dataItems}
-                    setValue={setValue}
-                    getValues={getValues}
-                    alias={alias}
+                    data={data}
                 />
             )
     }
 }
 
 
-const AdditionalFieldModal = ({jsonData, dataItems, getValues, setValue}) => {
+const AdditionalFieldModal = ({jsonData, dataItems, getValues, setValue, propsType= false}) => {
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -120,9 +108,9 @@ const AdditionalFieldModal = ({jsonData, dataItems, getValues, setValue}) => {
 
             if (Array.isArray(dataItem)) {
                 for (let i = 1; i <= dataItem.length; i++) {
-                    const value = getValues(alias + i)
-                    if (value) {
-                        finalString += `${value}, `
+                    const checkObj = getValues(alias + i)
+                    if (checkObj) {
+                        finalString += `${checkObj?.value}, `
                     }
                 }
             }
@@ -134,7 +122,7 @@ const AdditionalFieldModal = ({jsonData, dataItems, getValues, setValue}) => {
     }
 
 
-    const currentValue = generateCurrentValue(type, alias, dataItems);
+    const currentValue = generateCurrentValue(propsType ? propsType : type, alias, dataItems);
 
     const handleChangeDialog = () => {
         setOpen(prevState => !prevState)
@@ -154,6 +142,7 @@ const AdditionalFieldModal = ({jsonData, dataItems, getValues, setValue}) => {
         setDisabled(false)
     }, [dataItems])
 
+    console.log(getValues(alias), alias)
 
     return (
         jsonData && (
@@ -173,7 +162,7 @@ const AdditionalFieldModal = ({jsonData, dataItems, getValues, setValue}) => {
                     title={title}
                     dialog={open}
                     close={handleChangeDialog}>
-                    {generateMadalContent({...jsonData, dataItems, setValue, getValues})}
+                    {generateMadalContent({...jsonData, dataItems, setValue, getValues, propsType})}
                 </MobileModal>
             </>
             )

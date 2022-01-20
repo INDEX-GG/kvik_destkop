@@ -21,6 +21,7 @@ const generateFields = (fieldData, otherJsonObj, filters) => {
     const {otherJson} = otherJsonObj
     let View = AdditionalView;
 
+
     if (filters) {
         fieldData.required = {...fieldData.required, state: false}
 
@@ -54,6 +55,7 @@ const generateFields = (fieldData, otherJsonObj, filters) => {
                     return (
                         <AdditionalFieldTextListJson
                             fieldObj={fieldData}
+                            filters={filters}
                         />
                     )
                 }
@@ -67,11 +69,7 @@ const generateFields = (fieldData, otherJsonObj, filters) => {
                 if (text_list_filter_type === 3) {
                     return (
                         Array.isArray(fieldData?.default_filter_arr) && (
-                            <FilterMultipleSelect data={{
-                                alias: alias,
-                                title: title,
-                                fields: fieldData?.default_filter_arr
-                            }}/>
+                            <FilterMultipleSelect data={fieldData}/>
                         )
                     )
                 }

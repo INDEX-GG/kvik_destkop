@@ -204,6 +204,8 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             subcategory: obj.alias.split(',').reverse()[0]
         }
 
+        console.log(sendObj)
+
         getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
             .then(r => {
 
