@@ -6,7 +6,7 @@ import MobileFilter from "../../UI/icons/MobileFilter";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import { useRouter } from "next/router";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useMedia } from "../../hooks/useMedia"
 import Login from "../auth/Login";
 import { AuthHeader } from "./AuthHeader";
@@ -98,6 +98,7 @@ function HeaderMobile({ chageMenu = false }) {
 	const [openRegForm, setOpenRegForm] = useState(false);
 	const [openLoginForm, setOpenLoginForm] = useState(false);
     const [dialogFilter, setDialogFilter] = useState(false);
+    const router = useRouter();
 
 	const Router = useRouter()
 	const { matchesMobile, matchesCustom1024 } = useMedia()
@@ -113,6 +114,10 @@ function HeaderMobile({ chageMenu = false }) {
 		  </Slide>
 		);
 	}
+
+    useEffect(() => {
+        setDialogFilter(false)
+    }, [router])
 
 	return (
 			<>

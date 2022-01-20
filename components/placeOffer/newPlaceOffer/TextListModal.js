@@ -1,6 +1,8 @@
 import React from 'react';
-import {Box, makeStyles} from "@material-ui/core";
-import {generateActive} from "#lib/services";
+import {FormControl, FormControlLabel, makeStyles, Radio, RadioGroup} from "@material-ui/core";
+import {Controller, useFormContext} from "react-hook-form";
+import OutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
+import Filledicon from "@material-ui/icons/Brightness1";
 
 
 const useStyles = makeStyles(() => ({
@@ -34,71 +36,58 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const generateData = (type, item, currentValue) => {
-    switch (type) {
-        case 'text_list':
-            return  {
-                value: item?.props?.value,
-                key: item?.key,
-                activeButton: item?.props?.value === currentValue
-            };
-        case 'period':
-            return {
-                value: item,
-                key: item,
-                activeButton: item === currentValue
-            }
-        default:
-            return  {
-                value: item,
-                key: item,
-                activeButton: item === currentValue
-            }
-    }
-}
 
-
-const TextListModal = ({alias, type, dataItems, getValues, setValue}) => {
+const TextListModal = ({data}) => {
 
     const classes = useStyles();
-    const currentValue = getValues(alias)
+    const {control} = useFormContext()
 
-    const handleChangeValue = (item) => {
-        if (item !== currentValue) {
-            setValue(alias, item)
-        } else {
-            setValue(alias, null)
-        }
-    }
+    const {alias, dataItems, required} = data
+
 
     return (
-        <Box className={classes.wrapper}>
-            {Array.isArray(dataItems) && (
-                dataItems.map((item, index) => {
-
-                    const data = generateData(type, item, currentValue)
-                    const activeButton = generateActive(data.value, currentValue)
-
-
-                    return (
-                        <Box
-                            key={data.key + index}
-                            className={classes.item}
-                            onClick={() => handleChangeValue(data.value)}
+        <FormControl component='div' className={classes.wrapper}>
+            <Controller
+                name={alias}
+                control={control}
+                defaultValue=""
+                rules={{required: required?.state ? required.value : false}}
+                render={
+                    ({field: {onChange, value}}) => (
+                        <RadioGroup
+                            name={alias}
+                            value={value}
+                            defaultValue={value}
+                            onChange={(e) => onChange(e.target.value)}
                         >
-                            <button
-                                className={`${classes.button} ${activeButton ? classes.active : ''}`}
-                            />
-                            <Box>
-                                <Box className={classes.text}>
-                                    {data.value}
-                                </Box>
-                            </Box>
-                        </Box>
-                    )
-                })
-            )}
-        </Box>
+                            {dataItems.map((item, index) => {
+
+                                const fieldValue = item?.props?.value ? item?.props?.value : item
+
+                                return (
+                                    (
+                                        <FormControlLabel
+                                            key={index}
+                                            label={fieldValue}
+                                            value={fieldValue}
+                                            className={classes.item}
+                                            control={
+                                                <Radio
+                                                    checked={value == fieldValue}
+                                                    // className={classes.checkbox}
+                                                    color="primary"
+                                                    icon={<OutlinedIcon fontSize="inherit"/>}
+                                                    checkedIcon={<Filledicon fontSize="inherit"/>}
+                                                />
+                                            }
+                                        />
+                                    )
+                                )
+                            })}
+                        </RadioGroup>
+                    )}
+            />
+        </FormControl>
     );
 };
 

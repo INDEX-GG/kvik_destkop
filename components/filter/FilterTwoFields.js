@@ -1,8 +1,8 @@
 import {Box, makeStyles, TextField, Typography} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
 import {OnlyNumbersMask} from "../../lib/onlyNumbersMask";
-import {useEffect} from "react";
-import {useRouter} from "next/router";
+// import {useEffect} from "react";
+// import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme) => ({
     formBox: {
@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
             lineHeight: '18.75px',
             color: '#2C2C2C',
             fontWeight: 700,
-            marginBottom: '15px'
+            marginBottom: '15px',
+            marginLeft: 2
         }
     },
     input: {
@@ -34,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
         "& .MuiOutlinedInput-input": {
             paddingLeft: 8,
         },
+        [theme.breakpoints.down(960)]: {
+            "& .MuiOutlinedInput-input": {
+                paddingLeft: 15,
+            },
+        }
     },
     inputActuve: {
         "& .MuiOutlinedInput-input": {
@@ -52,35 +58,52 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down(960)]: {
             marginTop: '0'
         }
+    },
+
+    firstInputs: {
+        marginRight: '8px',
+        [theme.breakpoints.down(960)]: {
+            marginRight: '10px'
+        }
+    },
+    root: {
+        [theme.breakpoints.down(960)]: {
+            '& > div > fieldset': {
+                borderRadius: '5px',
+                border: '1px solid #C7C7C7'
+            }
+        }
     }
 }));
 
 const FilterTwoFields = ({data, unmount}) => {
     const classes = useStyles();
     const methods = useFormContext();
-    const router = useRouter();
+    // const router = useRouter();
 
-    useEffect(() => {
-        if (data.firstAlias === 'fromPrice' && data.secondAlias === 'toPrice') {
-            if (Object.keys(router.query).length) {
-                if (!router.query?.fromPrice) {
-                    methods.setValue(data.firstAlias, '')
-                }
+    // useEffect(() => {
+    //     if (data.firstAlias === 'fromPrice' && data.secondAlias === 'toPrice') {
+    //         // if (Object.keys(router.query).length) {
+    //         //     if (!router.query?.fromPrice) {
+    //         //         methods.setValue(data.firstAlias, '')
+    //         //     }
+    //         //
+    //         //     if (!router.query?.toPrice) {
+    //         //         methods.setValue(data.secondAlias, '')
+    //         //     }
+    //         // }
+    //
+    //     }
+    // }, [router])
 
-                if (!router.query?.toPrice) {
-                    methods.setValue(data.secondAlias, '')
-                }
-            }
 
-        }
-    }, [router])
 
 
     return (
         <Box className={classes.formBox}>
             <Typography className={classes.formTitle}>{data.title}</Typography>
             <Box className={classes.formInputField}>
-                <Box className={classes.inputs} style={{marginRight: 8}}>
+                <Box className={`${classes.inputs} ${classes.firstInputs}`}>
                     <Controller
                         name={data.firstAlias}
                         control={methods.control}
@@ -92,6 +115,7 @@ const FilterTwoFields = ({data, unmount}) => {
                                     className={`${classes.input} ${
                                         value?.length && value.length < 8 ? classes.inputActuve : ""
                                     }`}
+                                    classes={{root: classes.root}}
                                     variant="outlined"
                                     value={value ? value : ''}
                                     placeholder="от"
@@ -126,6 +150,7 @@ const FilterTwoFields = ({data, unmount}) => {
                                     className={`${classes.input} ${
                                         value?.length && value.length < 8 ? classes.inputActuve : ""
                                     }`}
+                                    classes={{root: classes.root}}
                                     variant="outlined"
                                     value={value ? value : ''}
                                     placeholder="до"

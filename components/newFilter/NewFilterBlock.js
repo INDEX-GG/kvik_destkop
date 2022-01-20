@@ -1,7 +1,11 @@
 import React, {useEffect} from 'react';
 import {Box, Button, makeStyles} from "@material-ui/core";
 import jsonData from '/public/placeOfferJson/new_catalog.json'
-import {generateFilterData, getAdditionalFields, onlyTrueDataObj} from "#components/newFilter/filterServices";
+import {
+    generateFilterData,
+    getAdditionalFields,
+    onlyTrueDataObj
+} from "#components/newFilter/filterServices";
 import {FormProvider, useForm} from 'react-hook-form'
 import AdditionalInformation from "#components/placeOffer/AdditionalInformation";
 import FilterTwoFields from "#components/filter/FilterTwoFields";
@@ -58,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, defaultFilters = {}}) => {
+const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, defaultFilters = {}}) => {
 
     const classes = useStyles();
     const router = useRouter();
@@ -74,7 +78,7 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, defaultFil
     const isClear = methods.formState.isDirty || Object.keys(onlyTrueDataObj(methods.getValues())).length
 
 
-    const clearFields = () => {
+    const clearFields = (clearQuery) => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -82,6 +86,10 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, defaultFil
 
         methods.reset({});
         setScrollData({sendObj: {data: fullAlias}, url: '/api/postCategorySearch'})
+
+        if (clearQuery) {
+            router.push({pathname: `/search/${alias}`})
+        }
     };
 
 
@@ -98,13 +106,20 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, defaultFil
     }, [defaultFilters])
 
 
-    const onSubmit = (data) => {
+
+    const onSubmit = (data,e) => {
+        e.preventDefault()
+
+        console.log(data);
+
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         })
 
         const filterDataObj = generateFilterData(data);
+
+        console.log(filterDataObj);
 
         const submitDataObj = {
             price: {min: null, max: null},
@@ -116,8 +131,6 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, defaultFil
         }
 
         setScrollData({url: '/api/getPostsCheck', sendObj: submitDataObj})
-
-        console.log('123')
 
 
         // Запимываем чекбоксы в query
@@ -135,7 +148,9 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, defaultFil
     return (
         <Box className={classes.wrapper}>
             <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(onSubmit)} className={classes.form}>
+                <form
+                    onSubmit={methods.handleSubmit((data, e) => onSubmit(data, e))}
+                    className={classes.form}>
                     <FilterTwoFields data={{firstAlias: "from$price", secondAlias: 'to$price', title: "Цена, ₽"}}/>
                     {additionalFields && (
                         <AdditionalInformation
@@ -151,18 +166,17 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, defaultFil
                     <Box className={classes.buttonsField}>
                         <Button
                             className={classes.button}
-                            disabled={!methods.formState.isDirty}
+                            disabled={!methods.formState.isDirty && !mobile?.category}
                             type="submit"
                             color="primary"
                             variant="contained"
                         >
                             Показать объявления
                         </Button>
-                        {/* Посмотреть старые фильтры*/}
                         {isClear ? (
                             <Button
                                 className={`${classes.button} ${classes.buttonClear}`}
-                                onClick={clearFields}
+                                onClick={() => clearFields(true)}
                                 color="default"
                                 variant="contained"
                             >

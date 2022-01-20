@@ -1,6 +1,9 @@
 import React from 'react';
-import {Box, makeStyles} from "@material-ui/core";
-import {generateActive} from "#lib/services";
+import {Box, Checkbox, makeStyles} from "@material-ui/core";
+import {Controller, useFormContext} from "react-hook-form";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import OutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
+import Filledicon from "@material-ui/icons/Brightness1";
 
 
 const useStyles = makeStyles(() => ({
@@ -20,68 +23,54 @@ const useStyles = makeStyles(() => ({
         alignItems: 'center',
         marginBottom: '15px',
     },
-    button: {
-        borderRadius: '50%',
-        width: '27px',
-        height: '27px',
-        cursor: 'pointer',
-        border: '1px solid black',
-        backgroundColor: '#fff',
-        transition: '.2s all linear'
-    },
-    active: {
-        backgroundColor: '#00A0AB',
-    }
+    // button: {
+    //     borderRadius: '50%',
+    //     width: '27px',
+    //     height: '27px',
+    //     cursor: 'pointer',
+    //     border: '1px solid black',
+    //     backgroundColor: '#fff',
+    //     transition: '.2s all linear'
+    // },
+    // active: {
+    //     backgroundColor: '#00A0AB',
+    // }
 }));
 
 
-const CheckListModal = ({alias, dataItems, getValues, setValue}) => {
+const CheckListModal = ({alias, dataItems}) => {
 
     const classes = useStyles();
-
-    const handleChangeValue = (item, alias, currentValue) => {
-        if (item !== currentValue) {
-            setValue(alias, !!item);
-        } else {
-            setValue(alias, null);
-        }
-    }
-
+    const {control} = useFormContext();
 
     return (
         <Box className={classes.wrapper}>
             {Array.isArray(dataItems) && (
-                dataItems.map((item, index) => {
-
-                    const currentAlias = alias + (index + 1)
-                    const currentValue = getValues(currentAlias)
-
-                    const data =  {
-                        value: item,
-                        key: item,
-                        activeButton: item === currentValue
-                    }
-
-                    const activeButton = generateActive(data.value, currentValue)
-
-
-                    return (
-                        <Box
-                            key={data.key + index}
-                            className={classes.item}
-                            onClick={() => handleChangeValue(data.value,currentAlias, currentValue)}
-                        >
-                            <button
-                                className={`${classes.button} ${activeButton ? classes.active : ''}`}
+                dataItems.map((checkItem, index) => (
+                    <Controller
+                        key={alias + index}
+                        name={alias + (index + 1)}
+                        control={control}
+                        defaultValue={false}
+                        render={({ field: { onChange, value } }) => (
+                            <FormControlLabel
+                                value={value?.state}
+                                className={classes.item}
+                                control={
+                                    <Checkbox
+                                        onChange={(e) => onChange({state: !!e.target.checked, value: checkItem})}
+                                        color="primary"
+                                        checked={value?.state}
+                                        icon={<OutlinedIcon />}
+                                        checkedIcon={<Filledicon />}
+                                        value={checkItem}
+                                    />
+                                }
+                                label={checkItem}
                             />
-                            <Box>
-                                <Box className={classes.text}>
-                                    {data.value}
-                                </Box>
-                            </Box>
-                        </Box>
-                    )
-                })
+                        )}
+                    />
+                ))
             )}
         </Box>
     );

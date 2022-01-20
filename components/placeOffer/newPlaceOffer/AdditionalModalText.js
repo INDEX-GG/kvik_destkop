@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
         fontSize: '16px',
         height: '19px',
         overflow: 'hidden',
-        color: '#151515'
+        color: '#151515',
     },
     iconWrapper: {
         padding: '10px 18px 10px 10px',
