@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dialog} from "@material-ui/core";
+import {Dialog, Divider} from "@material-ui/core";
 import {ModalMessage} from "../../../Modals";
 import {useMedia} from "../../../../hooks/useMedia"
 import Chat from "./Chat";
@@ -12,7 +12,7 @@ import {askForPermissioToReceiveNotifications, initializeFirebase} from '../../.
 import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
 // import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 import Loader from "../../../../UI/icons/Loader";
-import ChatPlaceholder from "../../../../UI/icons/ChatPlaceholder";
+// import ChatPlaceholder from "../../../../UI/icons/ChatPlaceholder";
 import ChatAllRoom from "../components/ChatAllRoom";
 import ChatRoom from "../components/ChatRoom";
 import {getTokenDataByPost} from "../../../../lib/fetch";
@@ -41,7 +41,7 @@ function Messages() {
   console.log(userInfo, 'userInfo')
   // временный буль для проверки открытия окна переписки
   const chatIsOpen = router.asPath.includes('companion')
-  
+
 
   //! Дожидаемся загрузки страницы
   useEffect(() => setLoading(true), [])
@@ -242,18 +242,19 @@ function Messages() {
       (
         <div className="clientPage__container_bottom">
           <div className="clientPage__container_nav__radio">
-            <label className="checkbox">
+            {/* <label className="checkbox">
               <input type="checkbox"/>
               <div className="checkbox__text"></div>
-            </label>
+            </label> */}
             <a>Удалить</a>
             <a>Заблокировать</a>
           </div>
+          <Divider />
           <div className="clientPage__container_content">
             <div className="messageContainer">
               {/* накостылил временное решение для скрытия окна всех чатов
               в десктопной версии оно рендерилось поверх окна диалога с другим юзером */}
-            {!chatIsOpen && 
+            {!chatIsOpen &&
             <div className="messageDialogs">
                 {loadingAllRooms ?
                   <div className='offer__placeholder_loader messagePlaceholder'>
@@ -263,14 +264,16 @@ function Messages() {
                     setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
             </div>}
               {!router.query?.companion_id && !router.query?.product_id ? (
-                  <div className='chatPlaceholder'>
-                    <h2>Для начала переписки выберете чат</h2>
-                    <div className='chatPlaceholderCircleBlock'>
-                      <ChatPlaceholder/>
-                      <ChatPlaceholder/>
-                      <ChatPlaceholder/>
-                    </div>
-                  </div>
+                  // плейсохолдер выбора чата
+                  // <div className='chatPlaceholder'>
+                  //   <h2>Для начала переписки выберете чат</h2>
+                  //   <div className='chatPlaceholderCircleBlock'>
+                  //     <ChatPlaceholder/>
+                  //     <ChatPlaceholder/>
+                  //     <ChatPlaceholder/>
+                  //   </div>
+                  // </div>
+                  null
                 ) :
                 loadingRoom ?
                   <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :

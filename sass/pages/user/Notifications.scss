@@ -24,6 +24,7 @@
   flex-direction: column;
   padding-right: 10px;
   height: 600px;
+  // background: $superlight;
 }
 
 .messageDialogs::-webkit-scrollbar {
@@ -44,32 +45,33 @@
   align-items: flex-start;
   justify-content: flex-start;
   margin-bottom: 4px;
-  border-bottom: 1px solid #E9E9E9;
+  border-bottom: 1px solid #e9e9e9;
+  padding: 18px 15px 12px;
 }
 
 .messageDialog:hover {
   transition: all 250ms ease-in-out;
-  background: $light;
+  background: #d0edef;
   cursor: pointer;
 }
 
 // тестовые стили для окна сообщения, раксскоментиь когда подвяжем логику
-  // .previewPrice {
-  //   font-size: 14px;
-  //   font-weight: 700;
-  //   line-height: 1.17;
-  // }
-  // .previewDesc {
-  //   font-size: 12px;
-  //   margin-top: 5px;
-  //   line-height: 1.16;
-  // }
+// .previewPrice {
+//   font-size: 14px;
+//   font-weight: 700;
+//   line-height: 1.17;
+// }
+// .previewDesc {
+//   font-size: 12px;
+//   margin-top: 5px;
+//   line-height: 1.16;
+// }
 
-  // .previewMessage {
-  //   font-size: 12px;
-  //   margin-top: 5px;
-  //   line-height: 1.16;
-  // }
+// .previewMessage {
+//   font-size: 12px;
+//   margin-top: 5px;
+//   line-height: 1.16;
+// }
 // тестовые стили для окна сообщения раксскоментиь когда подвяжем логику
 
 .messageOffer {
@@ -85,10 +87,15 @@
 .messageProductBlock {
   text-align: center;
 }
-
-.messageStatus {
-  position: absolute;
+.messageAdditInfo {
   display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+.messageStatus {
+  // position: absolute;
+  display: flex;
+  align-items: center;
   bottom: 0;
   right: 4px;
 
@@ -96,16 +103,28 @@
   color: #000000;
   // color: #8F8F8F;
   text-align: right;
+  gap: 3px;
 
   & svg {
     margin-left: 2px;
   }
 }
 
+.messageTime {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: right;
+
+  color: #8f8f8f;
+}
+
 .messageDiaCheck {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 3px;
+  left: 3px;
 }
 
 .messageOffer img {
@@ -115,10 +134,10 @@
   width: 114px;
   height: 85px;
   // border-radius: 2px;
-  border-radius: 18px;
+  border-radius: 3px;
   object-fit: cover;
   object-position: center;
-//   background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
+  //   background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
   background-size: cover;
 }
 
@@ -128,6 +147,8 @@
   width: 100%;
   // padding: 0 0 0 8px;
   padding-left: 10px;
+  justify-content: space-between;
+  height: 85px;
 }
 
 .messageUserBlock {
@@ -141,13 +162,14 @@
   display: block;
   // min-width: 32px;
   // max-width: 32px;
-  min-width: 24px;
-  max-width: 24px;
+  min-width: 30px;
+  max-width: 30px;
   // height: 32px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-  background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
+  background: no-repeat center center
+    url(../../../icons/userPhotoPlaceholder.svg);
   background-size: cover;
 }
 
@@ -158,8 +180,17 @@
   width: 100%;
   // flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  line-height: 21px;
+}
 
-  line-height: 1.16;
+.messageUserBlockInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 25px;
 }
 
 .messageUserBlockPrice {
@@ -171,7 +202,26 @@
 .messageUserBlockName {
   margin-top: 4px;
   font-size: 12px;
-  line-height: 1,17;
+  line-height: 1, 17;
+}
+
+.messageUserBlockRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.messageUserBlockStatus svg {
+  width: 23px;
+  height: 21px;
+}
+
+.messageUserBlockTime {
+  margin-top: 4px;
+  color: $tpsl;
+
+  font-size: 18px;
+  line-height: 21px;
 }
 
 .messageMiniatureBlock {
@@ -191,7 +241,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-//   justify-content: space-between;
+  //   justify-content: space-between;
   overflow-y: auto;
 }
 
@@ -211,7 +261,7 @@
   border-radius: 2px;
   object-fit: cover;
   object-position: center;
-//   background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
+  //   background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
   background-size: cover;
 }
 
@@ -245,7 +295,8 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-  background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
+  background: no-repeat center center
+    url(../../../icons/photocard_placeholder.svg);
   background-size: cover;
 }
 
@@ -257,14 +308,14 @@
   // padding: 16px 10px 16px 0;
   padding: 0 12px;
   max-height: 450px;
-  min-height: 450px;
+  min-height: 450px; // из-за минимальной длины на маленьких устройствах залазит поверх блока ввода
   flex-grow: 1;
   // overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .messageChats > *:last-child > *:last-child {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .messageChats::-webkit-scrollbar {
@@ -301,7 +352,6 @@
   // margin: 10px 0;
   margin-bottom: 10px;
   min-width: 70px;
-
 }
 
 .chatCompanion > img {
@@ -312,7 +362,8 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-  background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
+  background: no-repeat center center
+    url(../../../icons/userPhotoPlaceholder.svg);
   background-size: cover;
 }
 
@@ -326,7 +377,8 @@
 
 .chatCompanion {
   padding: 12px;
-  background-color: $light;
+  // background-color: $light;
+  background-color: rgba(208, 237, 239, 0.3);
   border-radius: 8px 8px 8px 0;
   max-width: 300px;
   word-wrap: break-word;
@@ -351,9 +403,8 @@
 .chatItem {
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.17;
-  color: #2C2C2C;
-
+  line-height: 16px;
+  color: #2c2c2c;
 }
 
 .messageMoreOptions {
@@ -362,13 +413,15 @@
 }
 
 .messageSmileIcon {
-  margin:0 3px 0 5px;
+  margin: 0 3px 0 5px;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 .messageSmileSvg {
-  fill: #C7C7C7;
-  transition: .2s all linear;
+  fill: #c7c7c7;
+  transition: 0.2s all linear;
   &:hover {
     fill: #8f8f8f;
   }
@@ -399,17 +452,27 @@
 }
 
 .chatImg {
-	width: 100%;
-	height: 100%;
-	max-width: 300px;
-	max-height: 300px;
+  width: 100%;
+  height: 100%;
+  max-width: 300px;
+  max-height: 300px;
 }
 
 .chatDataDialog {
-	text-align: center;
-	color: #8F8F8F;
-	font-size: 12px;
-    margin-bottom: 10px;
+  text-align: center;
+  color: #8f8f8f;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.chatWrapper {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+}
+
+.chatWrapper .chatDefaultAvatar {
+  margin-right: 14px;
 }
 
 .chatDefaultAvatar {
@@ -444,6 +507,15 @@
   align-items: center;
   border-top: 1px solid $light;
   padding: 10px 12px;
+  height: auto;
+}
+
+.messageChatGroupLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: inherit;
 }
 
 .messageFile {
@@ -455,13 +527,15 @@
 }
 
 .messageInput {
-  width: 500px;
+  width: inherit;
   padding: 5px;
   color: $tpll;
   font-size: 16px;
   border: none;
   outline: none;
   z-index: 10;
+  margin: 0 8px;
+  border: 1px solid black;
 }
 
 .messageInput::placeholder {
@@ -529,8 +603,8 @@
 .notifDate {
   margin-left: 10px;
 }
-.messageMobile{
-  display: none
+.messageMobile {
+  display: none;
 }
 
 .fullScreenImg {
@@ -549,7 +623,7 @@
 .chatPlaceholder {
   display: flex;
   margin-top: 80px;
-  color: #5A5A5A;
+  color: #5a5a5a;
   flex-direction: column;
   align-items: center;
   & > h2 {
@@ -562,13 +636,12 @@
   margin-top: 32px;
 
   & > *:nth-of-type(2) {
-    margin:0 16px;
+    margin: 0 16px;
   }
 }
 
-
 @media (max-width: 1080px) {
-  .notifContainer{
+  .notifContainer {
     padding: 0px 0px;
   }
   .notifWrapper {
@@ -577,13 +650,13 @@
 }
 
 @media (max-width: 960px) {
-  .messageContainer{
+  .messageContainer {
     display: block;
   }
-  .messageWindow{
+  .messageWindow {
     display: none;
   }
-  .messageMobile{
+  .messageMobile {
     grid-area: 1 / 2 / 2 / 3;
     //height: 700px;
     display: flex;
@@ -595,12 +668,12 @@
   }
 
   .messageChats {
-	 max-height: none;
+    max-height: none;
   }
   // .messageChatInput{
   //   padding: 10px 0;
   // }
-  .messageInput{
+  .messageInput {
     flex-grow: 1;
   }
 
@@ -615,10 +688,39 @@
 }
 
 @media (max-width: 600px) {
-    .messageInput {
-		width: auto;
-	}
-    // .chatUser > *:first-child {
-    //   max-width: 220px;
-    // }
+  .messageInput {
+    width: auto;
+  }
+  // .chatUser > *:first-child {
+  //   max-width: 220px;
+  // }
+}
+
+@media (max-width: 450px) {
+  .messageChats {
+    min-height: initial;
+  }
+  .messageUserBlockTime {
+    font-size: 10px;
+    line-height: 12px;
+    margin-top: 0;
+  }
+  .messageUserBlockStatus svg {
+    width: 12px;
+    height: 8px;
+  }
+  .messageUserBlock img {
+    width: 24px;
+    height: 24px;
+  }
+  // имя
+  .messageUserBlock > div {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  .messageUserBlockInfo {
+    flex-direction: column;
+    gap: 0;
+    grid-gap: 0;
+  }
 }

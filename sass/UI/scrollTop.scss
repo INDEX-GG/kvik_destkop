@@ -1,4 +1,45 @@
+.wrapperScrollTop {
+    width: 45px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1;
+
+    // чтобы дочерний элемент (наша стрелочка) не скрывалась
+    &:before {
+        opacity: 0;
+        content: '';
+    }
+
+    &:hover {
+        background: rgba(208, 237, 239, 0.5);
+        opacity: 1;
+    }
+    // TODO: (пока что не работает) - увеличить область наведения hover
+    // &:hover::before & {
+    //     background: rgba(208, 237, 239, 0.5);
+    //     opacity: 1;
+    //     width: 45px;
+    // }
+}
 .scrollTop {
+    width: inherit;
+    height: 45px;
+    cursor: pointer;
+    background: no-repeat url(../../icons/chevron_up_light_green_border.svg);
+    background-position: left 0px top 0px;
+    background-size: 100% 100%;
+    position: fixed;
+    left: 0;
+    bottom: 50px;
+    transition: all 350ms ease-in-out;
+    animation: showST 3500ms ease-in-out;
+    z-index: 1;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.scrollTopMobile {
     width: 64px;
     height: 64px;
     cursor: pointer;

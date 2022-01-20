@@ -36,7 +36,7 @@
     &::after{
       content: "";
       position: absolute;
-      top: 21px; 
+      top: 21px;
       left: 18px;
       background-color: #C7C7C7;
       width: 12px;
@@ -44,7 +44,7 @@
       transform: rotate(-45deg);
       border-radius: 5px;
     }
-    
+
     &::before{
       content: "";
       position: absolute;
@@ -68,6 +68,7 @@
   }
   .modal__wrapper_md{
     width: 100%;
+    height: 100%;
     padding: 0;
   }
   .modal__block__top{
@@ -92,7 +93,7 @@
       transform: rotate(-45deg);
       border-radius: 5px;
     }
-    
+
     &::before{
       content: "";
       position: absolute;
@@ -170,5 +171,8 @@
   }
   .comment__block_top_main{
     margin-bottom: 5px;
+  }
+  .accountTitle {
+    margin-bottom: 0;
   }
 }
