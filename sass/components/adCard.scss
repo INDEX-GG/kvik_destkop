@@ -338,9 +338,10 @@
     .card {
         height: auto;
 
-        & .swiper-pagination {
-            display: none;
-        }
+        // убирает точки пагинации на фотках в обьявлении на мобилке
+        // & .swiper-pagination {
+            // display: none;
+        // }
     }
     .card__bottom {
         padding: 2px 8px 8px;
@@ -386,4 +387,3 @@
         margin-left: 0px;
     }
 }
-
