@@ -93,19 +93,22 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                 categoriesField[innerAlias+i] = editCategory[i-1]
             }
             // формирование объекта для формы
+            // delete commonFields.description
             const editObject = {
                 ...categoriesField ,
                 ...currentAdditionalFields, 
                 ...commonFields, 
-                location: commonFields.address, 
-                byphone: true,
-                bymessages: true,
+                // location: commonFields.address, 
             }
 
             editObject.photoes = editObject.photo;
-            methods.reset(editObject)
+            for(const [key, value] of Object.entries(editObject)) {
+                methods.setValue(key, value)
+            }
+            // methods.reset(editObject)
         }
     }, [editCategory, changePage,])
+
 
     // useEffect(() => {
     //     console.log('useEffect 2 is work')

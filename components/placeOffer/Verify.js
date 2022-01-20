@@ -42,7 +42,11 @@ const Verify = ({edit, showTitle}) => {
     const [verifyContacts, setVerifyContacts] = useState(false);
     const [showCategory, setShowCategory] = useState(false);
 
-
+    // useEffect(() => {
+    //     if(methods.getValues('description')) {
+    //         setVerifyDescription(true)
+    //     }
+    // }, [methods.getValues('description') ])
     // проверка был переход из страницы редактирования или нет
     useEffect(() => {
         edit ? setShowCategory(true) : setShowCategory(false)
@@ -55,7 +59,7 @@ const Verify = ({edit, showTitle}) => {
 
 
         if (alias === "auto"){
-            if (!!methods.watch("description") === true){
+            if (!!methods.watch("description") == true){
                 if(!!methods.watch("color") === true){
                     setVerifyDescription(validateAuto())
                 }
@@ -85,7 +89,8 @@ const Verify = ({edit, showTitle}) => {
     const reqAutoFields = ["type_park_auto", "vine","modelsAuto","submodels","generation","modification", "mileage","owners_of_pts","documents","condition","exchange_is_possible","status","steering_wheel", "color"];
     const validateAuto = () => {
         for (let field of reqAutoFields){
-            if(!methods.watch(field)) return false
+            // временно изменено на !false (было false)
+            if(!methods.watch(field)) return !false
         }
         return true
     }
