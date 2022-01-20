@@ -29,6 +29,9 @@ const useStyles = makeStyles(() => ({
 
     '@media (max-width: 450px)': {
       minHeight: '31px',
+    },
+    '& .MuiOutlinedInput-multiline': {
+      padding: '6px 0 7px',
     }
   }
 }));
@@ -55,6 +58,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
   const refInput = useRef()
   const refMessage = useRef()
   const observer = useRef()
+  const refMessageChatInput = useRef()
 
   const {userInfo} = useStore()
   const {query, asPath} = useRouter()
@@ -100,6 +104,16 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
     })
   }, [])
 
+  // при возрастании поля ввода остальные кнопкиотображаем снизу
+  const handlerInputChange = (e) => {
+    const heightInput =+e.target.scrollHeight;
+    refMessageChatInput.current.style.alignItems = 'center'
+
+    if(heightInput > 17 && e.target.value !== '') {
+      refMessageChatInput.current.style.alignItems = 'flex-end'
+    }
+    setMessage(e.target.value)
+  }
 
   // Подгружаем конечную историю переписки (Последние 50 сообщений)
   const chatHistory = () => {
@@ -662,8 +676,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
         })}
       </div>
       {smileList && <NoSsrEmoji visible={setInnerSmileList} setInput={setMessage}/>}
-      <div className="messageChatInput">
-        <div className="messageChatGroupLeft">
+      <div className="messageChatInput" ref={refMessageChatInput}>
           <div className='messageMoreOptions'>
             <button onClick={handleInputClick} className="messageFile">
               <input
@@ -690,7 +703,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
             // classes={classes.inputMessage}
             className={`messageInput ${classes.inputMessage}`}
             placeholder="Написать сообщение"
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={handlerInputChange}
             inputProps={{
               maxLength: 1000,
             }}
@@ -699,7 +712,6 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
               classes: {notchedOutline:classes.noBorder}
             }}
           />
-        </div>
         <button className="messageSend" onClick={() => handleSend()}></button>
       </div>
       <Dialog

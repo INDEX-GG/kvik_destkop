@@ -264,14 +264,16 @@ function Messages() {
                     setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
             </div>}
               {!router.query?.companion_id && !router.query?.product_id ? (
-                  <div className='chatPlaceholder'>
-                    <h2>Для начала переписки выберете чат</h2>
-                    <div className='chatPlaceholderCircleBlock'>
-                      <ChatPlaceholder/>
-                      <ChatPlaceholder/>
-                      <ChatPlaceholder/>
-                    </div>
-                  </div>
+                  // плейсохолдер выбора чата
+                  // <div className='chatPlaceholder'>
+                  //   <h2>Для начала переписки выберете чат</h2>
+                  //   <div className='chatPlaceholderCircleBlock'>
+                  //     <ChatPlaceholder/>
+                  //     <ChatPlaceholder/>
+                  //     <ChatPlaceholder/>
+                  //   </div>
+                  // </div>
+                  null
                 ) :
                 loadingRoom ?
                   <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
