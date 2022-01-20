@@ -13,6 +13,7 @@ import Contacts from "#components/placeOffer/Contacts";
 import ErrorMessages from "#components/placeOffer/ErrorMessages";
 import useCategoryV2 from "#hooks/useCategoryV2";
 import {useCategoryPlaceOffer} from "#hooks/useCategoryPlaceOffer";
+import PhotoForEditPage from '../PhotosForEditPage';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -76,8 +77,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const NewPlaceOfferContent = ({photoesCtx, category, title, currentCategory, onSubmit}) => {
-
+const NewPlaceOfferContent = ({ photoesCtx, category, title, currentCategory, onSubmit, photoesLink=[], }) => {
     const classes = useStyles();
 
     const methods = useFormContext();
@@ -113,7 +113,10 @@ const NewPlaceOfferContent = ({photoesCtx, category, title, currentCategory, onS
                         :
                         null
                     }
-                    <Photoes ctx={photoesCtx}/>
+                    {/* рендерим обычный фото компонент если старых фоток нет */}
+                    {!(photoesLink?.length > 0) && <Photoes ctx={photoesCtx}/>}
+                    {/* рендерим компонент для редактирования фоток если старые фотки есть */}
+                    {(photoesLink?.length > 0) && <PhotoForEditPage photo={photoesLink} ctx={photoesCtx}/>}
                 </Box>
                 <Box className={classes.formPart}>
                     <Location/>

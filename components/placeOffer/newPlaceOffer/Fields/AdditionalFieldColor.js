@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {Box, makeStyles, Tooltip, useMediaQuery} from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
@@ -67,6 +67,15 @@ const AdditionalFieldColor = ({fieldData}) => {
     const {control, getValues, setValue} = useFormContext();
     const {text_list_values, required} = fieldData
     const media960 = useMediaQuery('(max-width: 960px)');
+    const currentTarget = getValues().color
+
+
+
+    useEffect(()=> {
+        if(currentTarget) {
+            setValue('color', parseInt(currentTarget))
+        }
+    }, [currentTarget])
 
     return (
         <AdditionalWrapper title={fieldData.title} type={fieldData.type}>

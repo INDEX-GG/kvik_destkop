@@ -49,15 +49,16 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function PlaceOffer() {
+function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditionalFields = {price: ''}}) {
 
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
-    const methods = useForm({defaultValues: { price: ''} });
+    const methods = useForm({defaultValues: currentAdditionalFields });
 
     const { id, token } = useAuth();
     const {userInfo} = useStore()
     const {getMoreCategory} = useCategoryV2();
+ 
 
 
     const [loading, setLoading] = useState(false);
@@ -67,7 +68,6 @@ function PlaceOffer() {
 
 
     let photoes = [];
-
 
     const photoesCtx = (obj) => {
         return photoes = obj;
@@ -79,11 +79,44 @@ function PlaceOffer() {
         aliasTwo: methods.watch('alias2'),
         aliasThree: methods.watch('alias3'),
     }
-
     // текущий объект категории
     const currentCategory = getMoreCategory(aliasObj.aliasOne, aliasObj.aliasTwo, aliasObj.aliasThree);
     const title = currentCategory?.title
+    
+    // отрисовка полей при редактировании, значения получаем из edigPage/[id]
+    useEffect(() => {
+        if (changePage && editCategory) {
+            const innerAlias = 'alias'
+            const categoriesField = {}
+            for(let i = 1; i <= editCategory.length; i++) {
+                // methods.setValue(innerAlias+i, editCategory[i-1])
+                categoriesField[innerAlias+i] = editCategory[i-1]
+            }
+            // формирование объекта для формы
+            // delete commonFields.description
+            const editObject = {
+                ...categoriesField ,
+                ...currentAdditionalFields, 
+                ...commonFields, 
+                // location: commonFields.address, 
+            }
 
+            editObject.photoes = editObject.photo;
+            for(const [key, value] of Object.entries(editObject)) {
+                methods.setValue(key, value)
+            }
+            // methods.reset(editObject)
+        }
+    }, [editCategory, changePage,])
+
+
+    // useEffect(() => {
+    //     console.log('useEffect 2 is work')
+    //     if(editCategory) {
+    //         console.log('useEffect 2.2 is work')
+    //         methods.reset({...defaultValue, ...commonFields})
+    //     }
+    // }, [defaultValue, commonFields, editCategory, changePage, productInfo.id])
 
     // Получаем выбранную категорию
     useEffect(() => {
@@ -109,7 +142,6 @@ function PlaceOffer() {
 
     // methods, category, currentCategory
     const onSubmit = (data) => {
-        console.log(data);
         data.price = data.price.replace(/\D+/g, '');
 
         const alias = [data?.alias1, data?.alias2];
@@ -212,6 +244,7 @@ function PlaceOffer() {
                                 title={title}
                                 category={category}
                                 currentCategory={currentCategory}
+                                photoesLink={commonFields?.photo}
                             />
                         )}
                         {matchesMobile || matchesTablet ? (
@@ -222,6 +255,7 @@ function PlaceOffer() {
                                     title={title}
                                     category={category}
                                     currentCategory={currentCategory}
+                                    photoesLink={commonFields?.photo}
                                 />
                             </PlaceOfferMobile>
                         ) : null}

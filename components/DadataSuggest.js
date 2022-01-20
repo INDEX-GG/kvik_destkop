@@ -1,4 +1,4 @@
-import React, {useState, useRef } from 'react'
+import React, {useState, useRef, useEffect } from 'react'
 import { AddressSuggestions } from 'react-dadata';
 // import 'react-dadata/dist/react-dadata.css';
 import ProductYMAP from './product/ProductYMAP';
@@ -60,9 +60,16 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 
 
 	const userAddressName = userInfo?.location?.name
-
-
 	const userAddressGeo = userInfo?.location?.geo
+
+
+    const defaultAddress = methods.watch('address')
+
+	useEffect(() => {
+		if (defaultAddress) {
+			methods.setValue('location', defaultAddress)
+		}
+	},[defaultAddress])
 
 	const onSubmit = (onChange) => {
 		const value = inputRef.current.state.query
@@ -113,6 +120,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 					minChars={3}
 					delay={5}
 					value={value}
+					defaultQuery={value}
 					filterFromBound='city-region'
 					filterToBound='house'
 					// defaultQuery={address || userInfo?.location?.name}
