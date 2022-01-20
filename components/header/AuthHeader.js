@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { makeStyles, Avatar, Drawer } from "@material-ui/core";
+import { makeStyles, Avatar, Drawer, SwipeableDrawer  } from "@material-ui/core";
 // import BurgerCategories from "./BurgerCategories";
 import HeaderAccount from "./HeaderAccount";
 import MobileMenu from '../../UI/icons/MobileMenu';
@@ -72,11 +72,11 @@ export const AuthHeader = ({
 	const [isAccPage, changeAccPage] = useState(true);
 
 	/**
-	 * @param {string} anchor 
-	 * @param {boolean} open 
+	 * @param {string} anchor
+	 * @param {boolean} open
 	 */
 	const toggleDrawer = (anchor, open) => (event) => {
-		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+		if (typeof event !== 'undefined' && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
 			return;
 		}
 
@@ -126,7 +126,7 @@ export const AuthHeader = ({
 	return (
 		<div className={classes.block}>
 			<button className={classes.button} onClick={toggleDrawer("left", true)}><MobileMenu /></button>
-			<Drawer
+			<SwipeableDrawer
 				anchor="left"
 				classes={{ paper: classes.modal }}
 				open={modalState.left}
@@ -148,7 +148,7 @@ export const AuthHeader = ({
 					}}
 				/>)
 				}
-			</Drawer>
+			</SwipeableDrawer>
 		</div>
 	)
 }
