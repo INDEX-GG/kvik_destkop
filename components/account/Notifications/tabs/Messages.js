@@ -12,7 +12,7 @@ import {askForPermissioToReceiveNotifications, initializeFirebase} from '../../.
 import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
 // import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
 import Loader from "../../../../UI/icons/Loader";
-import ChatPlaceholder from "../../../../UI/icons/ChatPlaceholder";
+// import ChatPlaceholder from "../../../../UI/icons/ChatPlaceholder";
 import ChatAllRoom from "../components/ChatAllRoom";
 import ChatRoom from "../components/ChatRoom";
 import {getTokenDataByPost} from "../../../../lib/fetch";
