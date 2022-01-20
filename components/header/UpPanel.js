@@ -4,12 +4,13 @@ import LikeDark from '../../UI/icons/LikeDark';
 import NotifDark from '../../UI/icons/NotifDark';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import { useMedia } from '../../hooks/useMedia';
-import { Box, Container, Button, makeStyles, Dialog, Tooltip  } from '@material-ui/core';
+import { Box, Container, Button, makeStyles, Dialog, Tooltip, Popper} from '@material-ui/core';
 import { useAuth } from '../../lib/Context/AuthCTX';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import City from './City';
 import { useCity } from '../../lib/Context/CityCTX';
 import { useRouter } from 'next/router';
+import CityConfirm from './CityConfirm';
 
 const useStyles = makeStyles((theme) => ({
 	up_panel: {
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "12px",
 		textAlign: 'center',
 		maxWidth: '190px',
-	}, 
+	},
 	arrow: {
 		color: '#FFFFFF',
         "&:before": {
@@ -57,22 +58,53 @@ const UpPanel = () => {
 	const classes = useStyles();
 	const router = useRouter();
 	const [cityDialog, setCityDialog] = useState(false);
+	const [cityConfirm, setCityConfirm] = useState(false); //окно подтверждения города
+	const anchorRef = useRef();
 	const { matchesMobile, matchesTablet } = useMedia();
 	const { isAuth, id } = useAuth();
 	const { city } = useCity();
 
 
-
 	const CustomTooltip = ({str, icon, onClick, account}) => {
 		return (
 			<Tooltip arrow={true} title={str} classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
-				<Button 
-				onClick={() => onClick ? router.push({ pathname: `/account/${id}`, query: {account: account}}) : null } 
+				<Button
+				onClick={() => onClick ? router.push({ pathname: `/account/${id}`, query: {account: account}}) : null }
 				className={classes.btn__uppanel}>{icon}</Button>
 			</Tooltip>
 		)
 	}
 
+	useEffect(() => {
+		const cities = localStorage.getItem('cities')
+
+		if(!isAuth && !cities) {
+			setTimeout(() => {
+				setCityConfirm(true)
+			}, 1000)
+		}
+
+		if(cities) {
+			setCityConfirm(false)
+		}
+	}, [])
+
+	const handlerButtonClick = () => {
+		const cities = localStorage.getItem('cities')
+
+		if(cities) {
+			setCityConfirm(false)
+			setCityDialog(true)
+		}else {
+			setCityConfirm(true)
+			setCityDialog(false)
+		}
+	}
+
+	const handlerSelectCity = () => {
+		setCityDialog(!cityDialog)
+		setCityConfirm(!cityConfirm)
+	}
 
 	return (
 		<>
@@ -80,7 +112,7 @@ const UpPanel = () => {
 				<>
 					<Box className={classes.up_panel}>
 						<Container className={classes.up_panel__wrapper}>
-							<Button className={classes.btn__add_location} variant='text' size='small' onClick={() => setCityDialog(!cityDialog)} >
+							<Button className={classes.btn__add_location} variant='text' size='small' onClick={handlerButtonClick} ref={anchorRef} >
 								<RoomOutlinedIcon fontSize='small' />{city}
 							</Button>
 							{isAuth && <Box className={classes.btns__uppanel}>
@@ -96,6 +128,9 @@ const UpPanel = () => {
 					<Dialog open={cityDialog || false} onClose={() => setCityDialog(!cityDialog)}>
 						<City dialog={cityDialog} setDialog={setCityDialog} />
 					</Dialog>
+					<Popper open={cityConfirm} anchorEl={anchorRef.current} placement='bottom-start' style={{zIndex: '1100'}}>
+							<CityConfirm city={city} onConfirmCity={() => setCityConfirm(!cityConfirm)} onSelectCity={handlerSelectCity} />
+					</Popper>
 				</>
 			}
 		</>
