@@ -67,9 +67,6 @@ const AdditionalFieldColor = ({fieldData}) => {
     const {control, getValues, setValue} = useFormContext();
     const {text_list_values, required} = fieldData
     const media960 = useMediaQuery('(max-width: 960px)');
-
-    // console.log(text_list_values)
-    // console.log(getValues().color)
     const currentTarget = getValues().color
 
 

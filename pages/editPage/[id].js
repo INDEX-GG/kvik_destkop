@@ -207,10 +207,10 @@ function EditPage() {
 
 	return (
 		<PlaceOffer 
-		editCategory={category} 
-		changePage 
-		defaultValue={additional_fields}
-		commonFields={productData}
+			editCategory={category} 
+			changePage 
+			currentAdditionalFields={additional_fields}
+			commonFields={productData}
 		/>
 		)
 

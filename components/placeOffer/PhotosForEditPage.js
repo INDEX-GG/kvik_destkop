@@ -164,7 +164,6 @@ const PhotoForEditPage = ({ctx, photo}) => {
     const classes = useStyles();
     const methods = useFormContext();
     const fileInputRef = useRef();
-
     const [oldPhotosAndNewObjectsPhotos, setOldPhotosAndNewObjectsPhotos] = useState([]);
     const stringPhotos = photo
     const [oldPhotos, setOldPhotos] = useState([])

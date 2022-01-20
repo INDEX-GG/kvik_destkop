@@ -49,15 +49,16 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function PlaceOffer({editCategory, changePage, commonFields, defaultValue = {price: ''}}) {
+function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditionalFields = {price: ''}}) {
 
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
-    const methods = useForm({defaultValues: defaultValue });
+    const methods = useForm({defaultValues: currentAdditionalFields });
 
     const { id, token } = useAuth();
     const {userInfo} = useStore()
     const {getMoreCategory} = useCategoryV2();
+ 
 
 
     const [loading, setLoading] = useState(false);
@@ -86,17 +87,33 @@ function PlaceOffer({editCategory, changePage, commonFields, defaultValue = {pri
     useEffect(() => {
         if (changePage && editCategory) {
             const innerAlias = 'alias'
+            const categoriesField = {}
             for(let i = 1; i <= editCategory.length; i++) {
-                methods.setValue(innerAlias+i, editCategory[i-1])
+                // methods.setValue(innerAlias+i, editCategory[i-1])
+                categoriesField[innerAlias+i] = editCategory[i-1]
             }
-        }
-    }, [editCategory, changePage])
+            // формирование объекта для формы
+            const editObject = {
+                ...categoriesField ,
+                ...currentAdditionalFields, 
+                ...commonFields, 
+                location: commonFields.address, 
+                byphone: true,
+                bymessages: true,
+            }
 
-    useEffect(() => {
-        if(Object.keys(defaultValue).length > 1) {
-            methods.reset({...defaultValue, ...commonFields})
+            editObject.photoes = editObject.photo;
+            methods.reset(editObject)
         }
-    }, [defaultValue])
+    }, [editCategory, changePage,])
+
+    // useEffect(() => {
+    //     console.log('useEffect 2 is work')
+    //     if(editCategory) {
+    //         console.log('useEffect 2.2 is work')
+    //         methods.reset({...defaultValue, ...commonFields})
+    //     }
+    // }, [defaultValue, commonFields, editCategory, changePage, productInfo.id])
 
     // Получаем выбранную категорию
     useEffect(() => {
@@ -224,7 +241,7 @@ function PlaceOffer({editCategory, changePage, commonFields, defaultValue = {pri
                                 title={title}
                                 category={category}
                                 currentCategory={currentCategory}
-                                photoesLink={commonFields.photo}
+                                photoesLink={commonFields?.photo}
                             />
                         )}
                         {matchesMobile || matchesTablet ? (
@@ -235,6 +252,7 @@ function PlaceOffer({editCategory, changePage, commonFields, defaultValue = {pri
                                     title={title}
                                     category={category}
                                     currentCategory={currentCategory}
+                                    photoesLink={commonFields?.photo}
                                 />
                             </PlaceOfferMobile>
                         ) : null}
