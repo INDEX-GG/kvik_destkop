@@ -152,8 +152,9 @@ const ProductMobilePlaceHolder = () => {
                 className={clsx(classes.skeletonCenter)}
                 sx={{width: '100%', margin: '6px 0px', gap: '25px'}}
               >
+                {/* // eslint-disable-next-line */}
                 {[1,2,3].map((_, i) => (
-                  <Skeleton variant="circular" animation="wave" width={24} height={24} className={classes.skeletonBase} />
+                  <Skeleton key={i} variant="circular" animation="wave" width={24} height={24} className={classes.skeletonBase} />
                 ))}
               </Grid>
             </Grid>
@@ -200,8 +201,9 @@ const ProductMobilePlaceHolder = () => {
                     alignItems="center"
                     sx={{width: '145px', gap: '2px'}}
                   >
+                    {/* // eslint-disable-next-line */}
                     {[1,2,3,4,5,6].map((_, i) => (
-                      <Skeleton variant="rectangular" animation="wave" width={20} height={24} className={clsx(classes.skeletonBase, classes.skeletonBorderR5)} />
+                      <Skeleton key={i} variant="rectangular" animation="wave" width={20} height={24} className={clsx(classes.skeletonBase, classes.skeletonBorderR5)} />
                     ))}
                   </Grid>
                 </Grid>
