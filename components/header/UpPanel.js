@@ -57,13 +57,16 @@ const useStyles = makeStyles((theme) => ({
 const UpPanel = () => {
 	const classes = useStyles();
 	const router = useRouter();
-	const [cityDialog, setCityDialog] = useState(false);
-	const [cityConfirm, setCityConfirm] = useState(false); //окно подтверждения города
+	const [cityDialog, setCityDialog] = useState({
+		cityDialogSelect: false,
+		cityConfirm: false
+	})
 	const anchorRef = useRef();
 	const { matchesMobile, matchesTablet } = useMedia();
 	const { isAuth, id } = useAuth();
 	const { city } = useCity();
 
+	const countRenderRef = useRef(0)
 
 	const CustomTooltip = ({str, icon, onClick, account}) => {
 		return (
@@ -75,35 +78,75 @@ const UpPanel = () => {
 		)
 	}
 
+	useEffect(() => { countRenderRef.current += 1 })
+
 	useEffect(() => {
-		const cities = localStorage.getItem('cities')
+		// первое нужно чтобы сбрасывать показ при переходе по ссылкам, отображаем на 2 рендере
+		if(countRenderRef.current === 5) {
+			const cities = localStorage.getItem('cities')
+			const cityConfirm = JSON.parse(localStorage.getItem('cityConfirm'))?.cityConfirm || false
 
-		if(!isAuth && !cities) {
-			setTimeout(() => {
-				setCityConfirm(true)
-			}, 1000)
-		}
+			if(typeof id === 'undefined' && !cityConfirm) {
+				setTimeout(() => {
+					setCityDialog(prevState => ({
+						...prevState,
+						cityConfirm: true
+					}))
+				}, 1000)
+			}
 
-		if(cities) {
-			setCityConfirm(false)
+			if(cities && cityConfirm) {
+				setCityDialog(prevState => ({
+					...prevState,
+					cityConfirm: false
+				}))
+			}
 		}
-	}, [])
+	}, [countRenderRef.current])
 
 	const handlerButtonClick = () => {
 		const cities = localStorage.getItem('cities')
 
 		if(cities) {
-			setCityConfirm(false)
-			setCityDialog(true)
+			setCityDialog(prevState => ({
+				...prevState,
+				cityDialogSelect: true,
+				cityConfirm: false
+			}))
 		}else {
-			setCityConfirm(true)
-			setCityDialog(false)
+			setCityDialog(prevState => ({
+				...prevState,
+				cityDialogSelect: false,
+				cityConfirm: true
+			}))
 		}
 	}
 
-	const handlerSelectCity = () => {
-		setCityDialog(!cityDialog)
-		setCityConfirm(!cityConfirm)
+	const handlerOpenModalSelectCity = () => {
+		setCityDialog(prevState => ({
+			...prevState,
+			cityDialogSelect: true,
+			cityConfirm: false
+		}))
+	}
+
+	const handlerConfirmCity = () => {
+		setCityDialog(prevState => ({
+			...prevState,
+			cityConfirm: !prevState.cityConfirm,
+		}))
+
+		localStorage.setItem('cityConfirm', JSON.stringify({cityConfirm: true}))
+	}
+
+	const handlerSelectCity = (isCloseModalSelectCity) => {
+		setCityDialog(prevState => ({
+			...prevState,
+			cityDialogSelect: isCloseModalSelectCity,
+			cityConfirm: false,
+		}))
+
+		localStorage.setItem('cityConfirm', JSON.stringify({cityConfirm: true}))
 	}
 
 	return (
@@ -125,11 +168,19 @@ const UpPanel = () => {
 							</Box>}
 						</Container>
 					</Box>
-					<Dialog open={cityDialog || false} onClose={() => setCityDialog(!cityDialog)}>
-						<City dialog={cityDialog} setDialog={setCityDialog} />
+					<Dialog
+						open={cityDialog.cityDialogSelect || false}
+						onClose={() => setCityDialog(prevState => ({
+						...prevState,
+						cityDialogSelect: !prevState.cityDialog,
+					}))}>
+						<City dialog={cityDialog.cityDialogSelect} setDialog={handlerSelectCity} />
 					</Dialog>
-					<Popper open={cityConfirm} anchorEl={anchorRef.current} placement='bottom-start' style={{zIndex: '1100'}}>
-							<CityConfirm city={city} onConfirmCity={() => setCityConfirm(!cityConfirm)} onSelectCity={handlerSelectCity} />
+					<Popper open={cityDialog.cityConfirm || false} anchorEl={anchorRef.current} placement='bottom-start' style={{zIndex: '1100'}}>
+							<CityConfirm
+								city={city}
+								onConfirmCity={handlerConfirmCity}
+								onSelectCity={handlerOpenModalSelectCity} />
 					</Popper>
 				</>
 			}
