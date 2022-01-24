@@ -30,7 +30,6 @@ export default async function handler(req, res) {
             }
 
             let posts_for_contacts = [...new Set(req.body.posts_cont)]
-            console.log(posts_for_contacts);
             if (posts_for_contacts.length >= 1) {
                 let constructQuery =  ""
                 posts_for_contacts.forEach(element => constructQuery =  constructQuery.concat("(" + element + ", now()), "));
