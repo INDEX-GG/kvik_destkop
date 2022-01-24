@@ -62,7 +62,7 @@ const Offers = () => {
     { id: 2, title: "Ждут действия", content: <Wait key={2} offers={waitOffersBox} />, count: waitOffersBox.length },
     { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: archiveOffersBox.length },
   ];
-
+  console.log('render')
   return (
       <>
         <div className="clientPage__container_top">

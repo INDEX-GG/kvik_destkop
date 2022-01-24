@@ -137,7 +137,7 @@ const Price = ({price, edit}) => {
 		methods.setValue('price', '')
 	}, []) : ''
 	//условие потому что c бэка приходит цена формата 5000.00, нам нужна 5000, 
-	if(isPriced.includes('.')) {
+	if(isPriced && isPriced.includes('.')) {
 		methods.setValue('price', `${isPriced.split('.')[0]} ₽`)
 	}
 	return (
