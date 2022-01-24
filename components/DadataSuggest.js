@@ -64,11 +64,10 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 
 
     const defaultAddress = methods.watch('address')
-
+	// эффект для записи в форму значения, если мы на странице редактирования и данные о местоположении у нас уже есть.
 	useEffect(() => {
 		if (defaultAddress) {
-			methods.setValue('location', defaultAddress)
-			// 
+
 		const value = inputRef.current.state.query
 		
 			const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
@@ -90,6 +89,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 				prevValue.current = value
 				if (result?.suggestions[0] !== undefined) {
 					setValue(result?.suggestions[0])
+					methods.setValue('location', result?.suggestions[0])
 					setError(false)
 				} else {
 					
@@ -104,8 +104,6 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 		}
 
 	},[defaultAddress])
-	console.log('value', value)
-	console.log(methods.formState.errors?.location, 'error')
 
 	const onSubmit = (onChange) => {
 		const value = inputRef.current.state.query
@@ -163,6 +161,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 					// containerClassName='productInputMap'
 					
 					onChange={(e) => {
+						console.log(e, 'onChange')
 						controlChange(e)
 						setValue(e)
 					}}

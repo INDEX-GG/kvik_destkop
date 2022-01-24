@@ -110,7 +110,6 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                 location:  commonFields.address,
                 coordinates: JSON.parse(commonFields.coordinates)
             }
-
             editObject.photoes = editObject.photo;
             for(const [key, value] of Object.entries(editObject)) {
                 methods.setValue(key, value)
@@ -150,30 +149,35 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
     }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
 
-    // функция отправляющая запросы
-    const sendObjectFunction = async (sendObj, photoData, data, additionalfields, isChangePage = false) => {
-        console.log('function is start')
+    // функция отправляющая запросы по двум сценариям (1. страница подачи. 2. страница редактирования)
+    const sendObjectFunction = async (sendObj, photoData, totalFilesArray, data, additionalfields, isChangePage = false) => {
+        // условие выполнится если мы на странице редактирования
         if(isChangePage) {
-            console.log('first if')
-            // достаем массив старых фоток
-            const oldPhotos = []
-            // const oldPhotosLinks = photoes?.filter(it => !it?.type?.includes("image/webp"))
-            photoes.forEach(it=> it?.old ? oldPhotos?.push(it.src) : null)
-            const responseFromPhotoes = await axios.post(
-                `${STATIC_URL}/post/${id}/${productId}`, 
-                photoData, 
-                {
-                    headers: {
-                                "Content-Type": "multipart/form-data",
-                                "x-access-token": token
+            // массив куда запишутся объекты обработанных файлов, после ответа с сервиса
+            let fileResponse = []
+            if(totalFilesArray.length) {
+                fileResponse = await axios.post(
+                    `${STATIC_URL}/post/${id}/${productId}`, 
+                    photoData, 
+                    {
+                        headers: {
+                                    "Content-Type": "multipart/form-data",
+                                    "x-access-token": token
+                        }
                     }
-                }
-            );
+                );
+            }
 
             // ниже цикл для правильного порядка фотографий.
+            const oldPhotos = []
+            // достаем массив старых фоток
+            photoes.forEach(it=> it?.old ? oldPhotos?.push(it.src) : null)
+            
             let oldPhotosIndex = 0
             let newPhotosIndex = 0
+            // тут будет финальый массив фоток, который запишется в объект для отправки на бэк
             const newPhotoArr = []
+
             for(const photo of photoes) {
                 if (photo.old) {
                     newPhotoArr.push(oldPhotos[oldPhotosIndex])
@@ -182,32 +186,45 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                 }
 
                 if (photo.type) {
-                    newPhotoArr.push(responseFromPhotoes.data.images.photos[newPhotosIndex])
+                    newPhotoArr.push(fileResponse.data.images.photos[newPhotosIndex])
                     newPhotosIndex += 1
                     continue
                 }
             }
-            console.log(newPhotoArr, 'neeew')
+            // удаление лишних полей
+            delete sendObj.additional_fields
+            delete sendObj.alias
+            delete sendObj.bymessages
+            delete sendObj.byphone
+            delete sendObj.city
+            delete sendObj.contact
+            delete sendObj.coordinates
+            delete sendObj.location
+            delete sendObj.subcategory
+            delete sendObj.trade
             
-            const updateResponse = await getTokenDataByPost(
+            await getTokenDataByPost(
                 `${BASE_URL}/api/postUpdate`, 
                 {
                     ...sendObj,
                     photo: [...newPhotoArr],
+                    post_id: productId
                 }, 
                 token
             )
-            console.log(updateResponse, 'UPDATE RESPONSE')
-
-            
-            
-
-            // setProduct(productObj)
-            // setPromotion(true)
+          
+            setProduct({
+                title: sendObj.title,
+                location: sendObj.location,
+                price: sendObj.price,
+                id: productId,
+                photo: `${STATIC_URL}/${newPhotoArr[0]}`
+            })
+            setPromotion(true)
             return
         }
     
-        console.log('function continue')
+        // запрос выполнится если мы находимся на странице подачи
         getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
             .then(r => {
     
@@ -270,6 +287,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
         delete data.photoes
 
         const photoData = new FormData;
+        // достаем из общего массива с фотками, только файловые объекты (новые фотографии которых ранее не было)
         const onlyFilesArray = photoes?.filter(it => it?.type?.includes("image/webp"))
         if (onlyFilesArray.length > 1) {
             onlyFilesArray.forEach(photo => photoData.append('files[]', photo));
@@ -305,9 +323,8 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             additional_fields: generateAdditionalFields(data),
             subcategory: obj.alias.split(',').reverse()[0]
         }
-        console.log(sendObj, 'sendObj')
 
-        sendObjectFunction(sendObj, photoData, data, additionalfields, changePage)
+        sendObjectFunction(sendObj, photoData, onlyFilesArray, data, additionalfields, changePage)
         // getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
         //     .then(r => {
 
@@ -337,7 +354,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
 
 
     return (
-        promotion ? <Promotion product={product} /> :
+        promotion ? <Promotion product={product} editProduct={changePage}  /> :
             <MetaLayout title={'Подать объявление'}>
                 <FormProvider {...methods} >
                     <form onSubmit={methods.handleSubmit(onSubmit)}>

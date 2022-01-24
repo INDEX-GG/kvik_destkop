@@ -136,7 +136,10 @@ const Price = ({price, edit}) => {
 	!edit ? useEffect(() => {
 		methods.setValue('price', '')
 	}, []) : ''
-
+	//условие потому что c бэка приходит цена формата 5000.00, нам нужна 5000, 
+	if(isPriced.includes('.')) {
+		methods.setValue('price', `${isPriced.split('.')[0]} ₽`)
+	}
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Цена </Typography>

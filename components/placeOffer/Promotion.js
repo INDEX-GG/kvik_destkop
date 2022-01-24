@@ -4,7 +4,7 @@ import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
 import  { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
-import {STATIC_URL} from "../../lib/constants";
+// import {STATIC_URL} from "../../lib/constants";
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -313,10 +313,10 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 				<div className={classes.productContainer}>
 					<div className={classes.productCard}>
 						{/* !!!!!!!!!! Change */}
-						<img src={!editProduct ? product.photo : `${STATIC_URL}/${editProduct.photo}`} className={classes.productImg} alt="product photo" />
-						<div className={classes.productPrice}>{!editProduct ? product.price : editProduct.price} ₽</div>
-						<div className={classes.productName}>{!editProduct ? product.title : editProduct.title}</div>
-						<div className={classes.productLocation}>{!editProduct ? product.location : editProduct.location}</div>
+						<img src={!editProduct ? product.photo : `${product.photo}`} className={classes.productImg} alt="product photo" />
+						<div className={classes.productPrice}>{!editProduct ? product.price : product.price} ₽</div>
+						<div className={classes.productName}>{!editProduct ? product.title : product.title}</div>
+						<div className={classes.productLocation}>{!editProduct ? product.location : product.location}</div>
 					</div>
 					{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
 					<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление успешно опубликовано!' : 'Ваше объявление успешно отредактировано!'}</div>

@@ -70,7 +70,6 @@ function EditPage() {
 	const productData = useProduct(query.id)
 	const { /*price, title, photo, description, address, */ category_id, additional_fields} = productData
 	// const commonField = {price, description, title, address}
-
 	const category = category_id?.split(',')
 	// console.log(productData, 'prdata')
 	// const {getMoreCategory} = useCategoryV2();
