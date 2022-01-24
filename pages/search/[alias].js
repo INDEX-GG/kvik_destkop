@@ -54,14 +54,18 @@ const useStyles = makeStyles(() => ({
 const Index = () => {
 
     const classes = useStyles();
+    // Объект отправляемы в scrollData (Выдача постов)
     const [scrollData, setScrollData] = useState({});
+    // Дефолтные фильтры, заполняются от query
     const [defaultFilters, setDefaultFilters] = useState({})
 
     const router = useRouter()
     const {matchesMobile, matchesTablet} = useMedia();
 
+    // Текущая категория
     const aliasQuery = router.asPath.split("/")[2].split('?')[0]
     const aliasData = aliasName(aliasQuery, true)
+    // Полная категория
     const aliasFullUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
     const searchText = router?.query?.text
     const aliasAll = router?.query?.alias === 'all'
@@ -106,7 +110,6 @@ const Index = () => {
                 }
 
                 setDefaultFilters({...checkboxObj, time: numberKeyTime(checkboxObj.time)})
-                // setDefaultFilters({...checkboxObj})
 
                 handleChangeScrollData({sendObj: data, url: '/api/getPostsCheck'})
 

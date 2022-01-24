@@ -265,7 +265,9 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             alias.push(data.alias4);
         }
 
+        // Автоматическая генерация заголовка, если указан в new_catalog.json
         data.title = generateTitle(data.title, currentCategory, methods.getValues)
+        // Генерирование поискового назвния для выдочи по городам
         data.city = generateSearchName(data.location)
 
         // ПРИННУДИТЕЛЬНЫЙ ВЫХОД
@@ -274,10 +276,15 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             methods.setError('location', 'Введите корректный адрес')
             return
         }
-
+        // Координаты для карты на странице объявления
 		data.coordinates = data.location?.data ? JSON.stringify([data.location.data.geo_lat, data.location.data.geo_lon]) : JSON.stringify([...userInfo?.location?.geo])
+
+        // Имя адресса
 		data.location = data.location?.value ? data.location.value : data.location
+        
+        // Целый алиас
         data.alias = alias.join(',');
+
         data.user_id = id
 
         delete data.alias1
@@ -317,10 +324,13 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
 
         setLoading(true);
 
-
+        // Объект который отправим на бэк
         const sendObj = {
+            //  Дефолтные параметры, 
             ...obj,
+            // Дополнительные поля
             additional_fields: generateAdditionalFields(data),
+            // Подкатегория
             subcategory: obj.alias.split(',').reverse()[0]
         }
 
