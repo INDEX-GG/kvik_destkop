@@ -69,7 +69,9 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
 
 
     const [loading, setLoading] = useState(false);
+    // promotion - boolean ? рендерить маленькую карточку после успешной подачи\редактирования
     const [promotion, setPromotion] = useState(false);
+    // данные для маленькой карточки, которая рендерится после публикации или редактирования объявления
     const [product, setProduct] = useState({});
     const [category, setCategory] = useState();
     const [photoes, setPhotoes] = useState([])
@@ -91,6 +93,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
     }
     // текущий объект категории
     const currentCategory = getMoreCategory(aliasObj.aliasOne, aliasObj.aliasTwo, aliasObj.aliasThree);
+    console.log(currentCategory, 'current')
     const title = currentCategory?.title
     // отрисовка полей при редактировании, значения получаем из edigPage/[id]
     useEffect(() => {
