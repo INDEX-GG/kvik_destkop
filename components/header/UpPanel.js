@@ -66,7 +66,7 @@ const UpPanel = () => {
 	const { isAuth, id } = useAuth();
 	const { city } = useCity();
 
-	const countRenderRef = useRef(0)
+	const countRenderRef = useRef(0) // считаем количество рендеров и выводим окно подтверждения города на 5
 
 	const CustomTooltip = ({str, icon, onClick, account}) => {
 		return (
