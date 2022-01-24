@@ -15,7 +15,6 @@ export default withSession(async (req, res) => {
                 return res.status(401).send("Invalid Token");
             }
             const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_REFRESH_SECRET).sub
-            console.log(tokenUser);
             const claims = {sub: tokenUser}
             const new_jwt = sign(claims, process.env.NEXT_PUBLIC_JWT_SECRET, { expiresIn: 120})
             return { authToken: new_jwt }
