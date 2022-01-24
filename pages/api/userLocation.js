@@ -19,8 +19,6 @@ export default async function handler(req, res) {
 
         const prisma = new PrismaClient();
         const main = async () => {
-			console.log(req.body.user_id)
-			console.log(req.body.data)
             const obj = {
                 where:
                     {

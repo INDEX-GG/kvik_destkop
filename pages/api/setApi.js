@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 			var now = new Date()
 			const obj = {
 				data: {
-					name: `${req.body.name} ${req.body.surname}`,
+					name: `${req.body.name}`,
 					password: hashedPassword,
 					phone: decrypt(req.body.phone),
 					createdAt: now
