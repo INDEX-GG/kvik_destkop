@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
 
 const IndexPlaceHolder = () => {
     const classes = useStyles();
-    const {matchesMobile, matchesTablet} = useMedia();
+    const {matchesMobile} = useMedia();
 
     return (
         <>

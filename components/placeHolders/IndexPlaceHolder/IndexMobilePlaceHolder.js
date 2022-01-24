@@ -3,8 +3,6 @@ import React from 'react'
 import {Grid, Skeleton} from "@mui/material";
 import { Box, makeStyles } from '@material-ui/core'
 
-import SkeletonFirstLine from "./SkeletonFirstLine";
-
 const useStyles = makeStyles(() => ({
   skeletonSearch: {
     display: "flex",
