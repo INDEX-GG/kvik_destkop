@@ -64,7 +64,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 
 
     const defaultAddress = methods.watch('address')
-	// эффект для записи в форму значения, если мы на странице редактирования и данные о местоположении у нас уже есть.
+	// эффект для записи в форму значения, если мы на странице редактирования и данные о местоположении в объявлении у нас уже есть.
 	useEffect(() => {
 		if (defaultAddress) {
 
@@ -98,12 +98,50 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 				}
 			})
 			.catch(error => console.log("error", error));
-			
-			
-
 		}
 
 	},[defaultAddress])
+	
+	// логика для подставки дефолтного адреса из юзерстора, выполнится только при подаче нового объявления. 
+	// то есть адрес по умолчанию всегда будет адресом, который юзер указал в настройках
+
+	useEffect(() => {
+		if (!defaultAddress && userInfo) {
+
+		// const value = inputRef.current.state.query
+		const value = userInfo.address
+		
+			const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+			const token = "3fa959dcd662d65fdc2ef38f43c2b699a3485222";
+			var options = {
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json",
+				"Authorization": "Token " + token
+			},
+			body: JSON.stringify({query: value})
+			}
+
+			fetch(url, options)
+			.then(response => response.json())
+			.then(result => {
+				prevValue.current = value
+				if (result?.suggestions[0] !== undefined) {
+					setValue(result?.suggestions[0])
+					methods.setValue('location', result?.suggestions[0])
+					setError(false)
+				} else {
+					
+					setValue('')
+					setError(true)
+				}
+			})
+			.catch(error => console.log("error", error));
+		}
+
+	},[defaultAddress, userInfo])
 
 	const onSubmit = (onChange) => {
 		const value = inputRef.current.state.query
