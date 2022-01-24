@@ -14,6 +14,8 @@ import {generateAdditionalFields, generateSearchName, generateTitle} from "../li
 import NewPlaceOfferContent from "#components/placeOffer/newPlaceOffer/NewPlaceOfferContent";
 import {useForm, FormProvider} from "react-hook-form";
 import useCategoryV2 from "#hooks/useCategoryV2";
+import {useRouter} from 'next/router';
+import { useProduct } from '#hooks/useProduct';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -49,29 +51,37 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+
+
+
 function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditionalFields = {price: ''}}) {
 
     const classes = useStyles();
     const { matchesMobile, matchesTablet } = useMedia();
     const methods = useForm({defaultValues: currentAdditionalFields });
+    const router = useRouter()
 
     const { id, token } = useAuth();
     const {userInfo} = useStore()
     const {getMoreCategory} = useCategoryV2();
- 
+    const {id: productId} = useProduct(router.query.id)
+
 
 
     const [loading, setLoading] = useState(false);
     const [promotion, setPromotion] = useState(false);
     const [product, setProduct] = useState({});
     const [category, setCategory] = useState();
+    const [photoes, setPhotoes] = useState([])
 
 
-    let photoes = [];
+    // let photoes = [];
 
     const photoesCtx = (obj) => {
-        return photoes = obj;
+        setPhotoes(obj)
+        return
     }
+
 
     /* получение дополнительных полей */
     const aliasObj = {
@@ -82,7 +92,6 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
     // текущий объект категории
     const currentCategory = getMoreCategory(aliasObj.aliasOne, aliasObj.aliasTwo, aliasObj.aliasThree);
     const title = currentCategory?.title
-    
     // отрисовка полей при редактировании, значения получаем из edigPage/[id]
     useEffect(() => {
         if (changePage && editCategory) {
@@ -97,8 +106,9 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             const editObject = {
                 ...categoriesField ,
                 ...currentAdditionalFields, 
-                ...commonFields, 
-                // location: commonFields.address, 
+                ...commonFields,
+                location:  commonFields.address,
+                coordinates: JSON.parse(commonFields.coordinates)
             }
 
             editObject.photoes = editObject.photo;
@@ -140,10 +150,96 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
     }, [methods?.watch('alias4'), methods?.watch('alias3'), methods?.watch('alias2')]);
 
 
+    // функция отправляющая запросы
+    const sendObjectFunction = async (sendObj, photoData, data, additionalfields, isChangePage = false) => {
+        console.log('function is start')
+        if(isChangePage) {
+            console.log('first if')
+            // достаем массив старых фоток
+            const oldPhotos = []
+            // const oldPhotosLinks = photoes?.filter(it => !it?.type?.includes("image/webp"))
+            photoes.forEach(it=> it?.old ? oldPhotos?.push(it.src) : null)
+            const responseFromPhotoes = await axios.post(
+                `${STATIC_URL}/post/${id}/${productId}`, 
+                photoData, 
+                {
+                    headers: {
+                                "Content-Type": "multipart/form-data",
+                                "x-access-token": token
+                    }
+                }
+            );
+
+            // ниже цикл для правильного порядка фотографий.
+            let oldPhotosIndex = 0
+            let newPhotosIndex = 0
+            const newPhotoArr = []
+            for(const photo of photoes) {
+                if (photo.old) {
+                    newPhotoArr.push(oldPhotos[oldPhotosIndex])
+                    oldPhotosIndex += 1
+                    continue
+                }
+
+                if (photo.type) {
+                    newPhotoArr.push(responseFromPhotoes.data.images.photos[newPhotosIndex])
+                    newPhotosIndex += 1
+                    continue
+                }
+            }
+            console.log(newPhotoArr, 'neeew')
+            
+            const updateResponse = await getTokenDataByPost(
+                `${BASE_URL}/api/postUpdate`, 
+                {
+                    ...sendObj,
+                    photo: [...newPhotoArr],
+                }, 
+                token
+            )
+            console.log(updateResponse, 'UPDATE RESPONSE')
+
+            
+            
+
+            // setProduct(productObj)
+            // setPromotion(true)
+            return
+        }
+    
+        console.log('function continue')
+        getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
+            .then(r => {
+    
+                const postId = r?.id;
+                additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
+    
+                axios.post(`${STATIC_URL}/post/${id}/${r?.id}`, photoData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "x-access-token": token
+                    }
+                }).then((r) => {
+    
+                    const productObj = {
+                        title: data.title,
+                        location: data.location,
+                        price: data.price,
+                        id: postId,
+                        photo: `${STATIC_URL}/${r?.data.images.photos[0]}`
+                    }
+    
+                    setProduct(productObj)
+                    setPromotion(true)
+                })
+            })
+    
+    }
+
     // methods, category, currentCategory
     const onSubmit = (data) => {
         data.price = data.price.replace(/\D+/g, '');
-
+        
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
             alias.push(data.alias3);
@@ -152,13 +248,12 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             alias.push(data.alias4);
         }
 
-
         data.title = generateTitle(data.title, currentCategory, methods.getValues)
         data.city = generateSearchName(data.location)
 
         // ПРИННУДИТЕЛЬНЫЙ ВЫХОД
         if (!data.city) {
-            console.log(methods)
+            // console.log(methods)
             methods.setError('location', 'Введите корректный адрес')
             return
         }
@@ -175,11 +270,18 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
         delete data.photoes
 
         const photoData = new FormData;
-        if (photoes.length > 1) {
-            photoes.forEach(photo => photoData.append('files[]', photo));
-        } else if (photoes.length === 1) {
-            photoData.append('files[]', photoes[0]);
+        const onlyFilesArray = photoes?.filter(it => it?.type?.includes("image/webp"))
+        if (onlyFilesArray.length > 1) {
+            onlyFilesArray.forEach(photo => photoData.append('files[]', photo));
+        } else if (onlyFilesArray.length === 1) {
+            photoData.append('files[]', onlyFilesArray[0]);
         }
+        // старый вариант формирования формы для файлов
+        // if (photoes.length > 1) {
+        //     photoes.forEach(photo => photoData.append('files[]', photo));
+        // } else if (photoes.length === 1) {
+        //     photoData.append('files[]', photoes[0]);
+        // }
 
         let obj = {}
         let additionalfields = { [category]: [] }
@@ -203,35 +305,34 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             additional_fields: generateAdditionalFields(data),
             subcategory: obj.alias.split(',').reverse()[0]
         }
+        console.log(sendObj, 'sendObj')
 
-        console.log(sendObj)
+        sendObjectFunction(sendObj, photoData, data, additionalfields, changePage)
+        // getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
+        //     .then(r => {
 
-        getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
-            .then(r => {
+        //         const postId = r?.id;
+        //         additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
 
-                const postId = r?.id;
-                additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
+        //         axios.post(`${STATIC_URL}/post/${id}/${r?.id}`, photoData, {
+        //             headers: {
+        //                 "Content-Type": "multipart/form-data",
+        //                 "x-access-token": token
+        //             }
+        //         }).then((r) => {
 
-                axios.post(`${STATIC_URL}/post/${id}/${r?.id}`, photoData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        "x-access-token": token
-                    }
-                }).then((r) => {
+        //             const productObj = {
+        //                 title: data.title,
+        //                 location: data.location,
+        //                 price: data.price,
+        //                 id: postId,
+        //                 photo: `${STATIC_URL}/${r?.data.images.photos[0]}`
+        //             }
 
-                    const productObj = {
-                        title: data.title,
-                        location: data.location,
-                        price: data.price,
-                        id: postId,
-                        photo: `${STATIC_URL}/${r?.data.images.photos[0]}`
-                    }
-
-                    setProduct(productObj)
-                    setPromotion(true)
-                })
-            })
-
+        //             setProduct(productObj)
+        //             setPromotion(true)
+        //         })
+        //     })
     }
 
 
@@ -246,7 +347,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                                 title={title}
                                 category={category}
                                 currentCategory={currentCategory}
-                                photoesLink={commonFields?.photo}
+                                photoesLink={commonFields?.editPhotos}
                             />
                         )}
                         {matchesMobile || matchesTablet ? (

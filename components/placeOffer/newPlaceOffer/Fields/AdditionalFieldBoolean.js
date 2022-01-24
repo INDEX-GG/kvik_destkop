@@ -24,6 +24,7 @@ const AdditionalFieldBoolean = ({fieldData}) => {
                 render={({field: {onChange, value}}) => (
                     <Checkbox
                         onChange={(e) => onChange(e.target.checked)}
+                        defaultChecked={value}
                         color="primary"
                         icon={<OutlinedIcon />}
                         checkedIcon={<Filledicon />}

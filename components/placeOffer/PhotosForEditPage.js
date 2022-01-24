@@ -2,6 +2,7 @@ import {useState, useRef, useEffect} from "react";
 import {useFormContext} from "react-hook-form";
 import {Box, makeStyles, Typography} from "@material-ui/core";
 import {SortableContainer, SortableElement} from "react-sortable-hoc";
+import { STATIC_URL } from "#lib/constants";
 // import {arrayMoveImmutable} from 'array-move';
 
 const useStyles = makeStyles((theme) => ({
@@ -435,7 +436,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
                 >
                     <img
                         alt="img"
-                        src={!data.old ? img?.src : data.src}
+                        src={!data.old ? `${img?.src}` : `${STATIC_URL}/${data.src}`}
                         id={!data.old ? `prev${img?.id}` : i}
                         style={{
                             transform: data.angle

@@ -72,7 +72,7 @@ function EditPage() {
 	// const commonField = {price, description, title, address}
 
 	const category = category_id?.split(',')
-	
+	// console.log(productData, 'prdata')
 	// const {getMoreCategory} = useCategoryV2();
 	// const { editPhotos } = useProductEditPhoto(query.id)
 

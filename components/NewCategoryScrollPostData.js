@@ -2246,7 +2246,7 @@ const CategoryScrollPostData = ({url}) => {
     const {id} = useAuth()
     const {matchesMobile, matchesTablet} = useMedia()
     const mobile = matchesMobile || matchesTablet
-
+    console.log(product, 'prod')
 
     // useEffect(async ()=>{
     //     if(!product.id || !searchCity) {

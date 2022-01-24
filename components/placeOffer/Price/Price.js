@@ -129,6 +129,8 @@ const Price = ({price, edit}) => {
 	const classes = useStyles();
 	const methods = useFormContext();
     const media960 = useMediaQuery('(max-width: 960px)')
+	const isTradable = methods.getValues('trade')
+	const isPriced = methods.getValues('price')
 
 
 	!edit ? useEffect(() => {
@@ -144,7 +146,7 @@ const Price = ({price, edit}) => {
 						name="price"
 						control={methods.control}
 						shouldUnregister
-						defaultValue={`${price} ₽`}
+						defaultValue={`${isPriced || price} ₽`}
 
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<>
@@ -179,6 +181,7 @@ const Price = ({price, edit}) => {
 										color='primary'
 										icon={<OutlinedIcon />}
 										checkedIcon={<Filledicon />}
+										defaultChecked={isTradable}
 										checked={value}
 										onChange={(e) => onChange(e.target.checked)}
 									/>}

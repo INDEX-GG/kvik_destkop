@@ -57,10 +57,10 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 	const prevValue = useRef()
 	const methods = useFormContext();
 	const {userInfo} = useStore()
+	// console.log(methods.getValues(), 'values')
 
-
-	const userAddressName = userInfo?.location?.name
-	const userAddressGeo = userInfo?.location?.geo
+	const userAddressName = methods.getValues('location') || userInfo?.location?.name
+	const userAddressGeo = methods.getValues('coordinates') || userInfo?.location?.geo
 
 
     const defaultAddress = methods.watch('address')
@@ -68,8 +68,44 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 	useEffect(() => {
 		if (defaultAddress) {
 			methods.setValue('location', defaultAddress)
+			// 
+		const value = inputRef.current.state.query
+		
+			const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+			const token = "3fa959dcd662d65fdc2ef38f43c2b699a3485222";
+			var options = {
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json",
+				"Authorization": "Token " + token
+			},
+			body: JSON.stringify({query: value})
+			}
+
+			fetch(url, options)
+			.then(response => response.json())
+			.then(result => {
+				prevValue.current = value
+				if (result?.suggestions[0] !== undefined) {
+					setValue(result?.suggestions[0])
+					setError(false)
+				} else {
+					
+					setValue('')
+					setError(true)
+				}
+			})
+			.catch(error => console.log("error", error));
+			
+			
+
 		}
+
 	},[defaultAddress])
+	console.log('value', value)
+	console.log(methods.formState.errors?.location, 'error')
 
 	const onSubmit = (onChange) => {
 		const value = inputRef.current.state.query
@@ -111,7 +147,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
                name="location"
                control={methods.control}
 			   // defaultValue={address || userInfo?.location?.name}
-			   defaultValue={''}
+			   defaultValue={defaultAddress || ''}
                render={({field: {value, onChange: controlChange}}) => (
                   	<AddressSuggestions 
 					token="3fa959dcd662d65fdc2ef38f43c2b699a3485222" 
@@ -125,6 +161,7 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 					filterToBound='house'
 					// defaultQuery={address || userInfo?.location?.name}
 					// containerClassName='productInputMap'
+					
 					onChange={(e) => {
 						controlChange(e)
 						setValue(e)
