@@ -38,7 +38,7 @@ const Product = () => {
     const {matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD} = useMedia();
 
     const productInfo = useProduct(query.id)
-
+    console.log(productInfo, 'productInfo')
     const {
         active,
         productInfoFields,
@@ -108,23 +108,49 @@ const Product = () => {
     }
 
 
+    // useEffect(() => {
+
+    //     if (user_id !== undefined) {
+    //         getDataByPost("/api/getProductOfUser", {user_id: user_id}).then((r) => {
+    //             if (r !== undefined && r.length > 0) {
+    //                 const userOffers = r?.map(offer => {
+    //                     return {
+    //                         ...offer,
+    //                         photo: JSON.parse(offer.photo)?.photos?.map(img => `${STATIC_URL}/${img}`)
+    //                     }
+    //                 })
+    //                 console.log(userOffers, 'oldFields')
+    //                 // setUserAd(userOffers);
+    //             }
+    //         });
+    //     }
+    // }, [user_id]);
     useEffect(() => {
 
-        if (user_id !== undefined) {
-            getDataByPost("/api/getProductOfUser", {user_id: user_id}).then((r) => {
-                if (r !== undefined && r.length > 0) {
-                    const userOffers = r?.map(offer => {
-                        return {
-                            ...offer,
-                            photo: JSON.parse(offer.photo)?.photos?.map(img => `${STATIC_URL}/${img}`)
-                        }
-                    })
+        if (productInfo.products_of_user && productInfo.products_of_user.length) {
+            const adFields = productInfo.products_of_user
+            const renderFields = adFields.map(offer => {
+                            return {
+                                ...offer,
+                                photo: JSON.parse(offer.photo)?.photos?.map(img => `${STATIC_URL}/${img}`)
+                            }
+                        })
+            // getDataByPost("/api/getProductOfUser", {user_id: user_id}).then((r) => {
+            //     if (r !== undefined && r.length > 0) {
+            //         const userOffers = r?.map(offer => {
+            //             return {
+            //                 ...offer,
+            //                 photo: JSON.parse(offer.photo)?.photos?.map(img => `${STATIC_URL}/${img}`)
+            //             }
+            //         })
 
-                    setUserAd(userOffers);
-                }
-            });
+            //         setUserAd(userOffers);
+            //     }
+            // });
+            console.log(renderFields, 'new fields')
+            setUserAd(renderFields);
         }
-    }, [user_id]);
+    }, [productInfo.id]);
 
 
     if (category_id !== undefined) {
