@@ -2,7 +2,6 @@
 //
 // export default withSession(async (req, res) => {
 //   const user = await req.body
-//   console.log(user);
 //   try {
 //     req.session.set('user', user)
 //     await req.session.save()

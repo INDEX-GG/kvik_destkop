@@ -94,7 +94,8 @@ export default async function handler(req, res) {
 						}
 						catch (e) {
 							try{
-								const error = "'[" + e.toString().replace(/"/g, '""').replace(/'/g, "''") + "]'"
+								let custom_e = "Error: " + e + ", Fields: " + JSON.stringify(req.body.additional_fields)
+								const error = "'[" + custom_e.toString().replace(/"/g, '""').replace(/'/g, "''") + "]'"
 								await prisma.$queryRaw(`UPDATE "posts" SET "additional_fields_error" = ${error} WHERE id = ${createPost.id}`)
 							}
 							catch (e) {`Внутренняя ошибка api setPosts ${e}`}

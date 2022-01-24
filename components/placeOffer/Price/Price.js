@@ -129,12 +129,17 @@ const Price = ({price, edit}) => {
 	const classes = useStyles();
 	const methods = useFormContext();
     const media960 = useMediaQuery('(max-width: 960px)')
+	const isTradable = methods.getValues('trade')
+	const isPriced = methods.getValues('price')
 
 
 	!edit ? useEffect(() => {
 		methods.setValue('price', '')
 	}, []) : ''
-
+	//условие потому что c бэка приходит цена формата 5000.00, нам нужна 5000, 
+	if(isPriced && isPriced.includes('.')) {
+		methods.setValue('price', `${isPriced.split('.')[0]} ₽`)
+	}
 	return (
 		<Box className={classes.formElem}>
 			<Typography className={classes.formTitleField}>Цена </Typography>
@@ -144,7 +149,7 @@ const Price = ({price, edit}) => {
 						name="price"
 						control={methods.control}
 						shouldUnregister
-						defaultValue={`${price} ₽`}
+						defaultValue={`${isPriced || price} ₽`}
 
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<>
@@ -179,6 +184,7 @@ const Price = ({price, edit}) => {
 										color='primary'
 										icon={<OutlinedIcon />}
 										checkedIcon={<Filledicon />}
+										defaultChecked={isTradable}
 										checked={value}
 										onChange={(e) => onChange(e.target.checked)}
 									/>}

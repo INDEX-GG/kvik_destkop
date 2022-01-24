@@ -54,8 +54,6 @@ export default async function handler(req, res) {
 
 				let new_active_time = new Date(Math.floor(now) + time_difference)
 				let new_active_time_iso = new_active_time.toISOString().slice(0, 19).replace('T', ' ');
-				console.log(new_active_time);
-				console.log(new_active_time_iso);
 				await prisma.$queryRaw(`UPDATE posts SET active = ${active}, active_time = '${new_active_time_iso}' WHERE ID IN (${id}) AND user_id = ${req.body.user_id}`)
 				return { message: 'successfully update' }
 

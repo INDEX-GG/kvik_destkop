@@ -40,8 +40,8 @@ const AdditionalFieldCheckList = ({fieldData}) => {
     /** required **/
     const {alias, default_value, check_list_values} = fieldData;
 
-
-
+    // console.log(alias, 'alias')
+    // console.log(getValues())
 
     return (
         <AdditionalWrapper title={fieldData.title} type={fieldData.type}>
@@ -53,7 +53,11 @@ const AdditionalFieldCheckList = ({fieldData}) => {
                     setValue={setValue}
                 />
             ) : (
-                check_list_values.map((checkItem, index) => (
+                check_list_values.map((checkItem, index) => {
+                    const autoCheck = getValues(alias+ (index + 1))
+                    const defaultChecked = autoCheck ? true : false
+
+                    return (
                     <Controller
                         key={alias + index}
                         name={alias + (index + 1)}
@@ -66,6 +70,8 @@ const AdditionalFieldCheckList = ({fieldData}) => {
                                 // onChange={(e) => onChange(e.target.value)}
                                 control={
                                     <Checkbox
+                                        // checked={defaultChecked}
+                                        defaultChecked={defaultChecked}
                                         onChange={(e) => onChange(e.target.checked)}
                                         color="primary"
                                         icon={<OutlinedIcon />}
@@ -78,7 +84,7 @@ const AdditionalFieldCheckList = ({fieldData}) => {
                         )}
                         // rules={{required: required.state ? required.value ? required.value : false : false}}
                     />
-                ))
+                )})
             )}
         </AdditionalWrapper>
     )

@@ -23,7 +23,8 @@ export function useProduct(id) {
 						let photoes = JSON.parse(r.photo);
 						r.chatProductPhoto = photoes.photos[0]
 						// console.log('$$$$$$$$$$$$$$$$',photoes)
-						r.editPhotos = photoes
+						r.editPhotos = photoes?.photos
+						// r.editPhotos = photoes
 						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 						r.photo = photoes
 						// console.log('r.photo',r.photo)

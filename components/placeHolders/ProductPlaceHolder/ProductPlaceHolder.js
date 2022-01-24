@@ -2,6 +2,9 @@ import React from 'react';
 import {Grid, Skeleton} from "@mui/material";
 import {Box, makeStyles} from "@material-ui/core";
 
+import {useMedia} from "../../../hooks/useMedia";
+import ProductMobilePlaceHolder from './ProductMobilePlaceHolder';
+
 const useStyles = makeStyles(() => ({
     skeletonMain: {
         display: "flex",
@@ -31,9 +34,14 @@ const useStyles = makeStyles(() => ({
 }))
 
 const ProductPlaceHolder = () => {
+
     const classes = useStyles()
+    const {matchesMobile, matchesTablet} = useMedia();
+
     return (
-        <Box sx={{ width: '100%' }}>
+        !matchesMobile&& !matchesTablet
+        ? (
+            <Box sx={{ width: '100%' }}>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6} md={8}>
                     <Box className={classes.skeletonTitle}>
@@ -117,6 +125,8 @@ const ProductPlaceHolder = () => {
                 </Grid>
             </Grid>
         </Box>
+        )
+        : <ProductMobilePlaceHolder />
     );
 };
 

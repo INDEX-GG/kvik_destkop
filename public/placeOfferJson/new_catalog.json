@@ -4782,7 +4782,7 @@
               },
               "placeholder": "0",
               "number_min_value": 0,
-              "number_max_value": 30,
+              "number_max_value": 100,
               "number_version": "int",
               "number_unit_of_measure": "”",
               "number_step": {},
