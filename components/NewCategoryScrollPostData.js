@@ -2247,7 +2247,6 @@ const CategoryScrollPostData = ({url}) => {
     const {matchesMobile, matchesTablet} = useMedia()
     const mobile = matchesMobile || matchesTablet
 
-
     // useEffect(async ()=>{
     //     if(!product.id || !searchCity) {
     //         return
