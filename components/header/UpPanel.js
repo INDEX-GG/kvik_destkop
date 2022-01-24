@@ -105,9 +105,10 @@ const UpPanel = () => {
 	}, [countRenderRef.current])
 
 	const handlerButtonClick = () => {
-		const cities = localStorage.getItem('cities')
+		const cityConfirm = JSON.parse(localStorage.getItem('cityConfirm'))?.cityConfirm || false
 
-		if(cities) {
+		// если уже подтверждали город, показываем стандартное окно выбора города
+		if(cityConfirm) {
 			setCityDialog(prevState => ({
 				...prevState,
 				cityDialogSelect: true,
