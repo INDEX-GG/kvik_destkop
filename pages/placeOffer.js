@@ -93,7 +93,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
     }
     // текущий объект категории
     const currentCategory = getMoreCategory(aliasObj.aliasOne, aliasObj.aliasTwo, aliasObj.aliasThree);
-    console.log(currentCategory, 'current')
+
     const title = currentCategory?.title
     // отрисовка полей при редактировании, значения получаем из edigPage/[id]
     useEffect(() => {
