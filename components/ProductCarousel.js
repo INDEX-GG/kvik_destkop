@@ -25,12 +25,12 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 	useEffect(() => {
 		setData(photo);
 	},[photo])
-	
+
 	useEffect(() => {
 		if (photo) {
 			if (photo.length > 6) {
 				// 6
-				setSliderProps({slidesPrevPhoto: 6, sliderDot: false, sliderNavigation: true})
+				setSliderProps({slidesPrevPhoto: 6, sliderDot: true, sliderNavigation: true})
 			} else if (photo.length >  1 && photo.length <= 6) {
 				setSliderProps({slidesPrevPhoto : 3, sliderDot: true, sliderNavigation: true})
 			} else {

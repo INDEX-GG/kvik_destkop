@@ -5,7 +5,9 @@ import {useState} from "react";
 const AdditionalInformation = ({currentCategory, filters = null}) => {
 
 
+    //! Получаем массив доп полей.
     const allAdditionalFields = currentCategory.additional_fields;
+    //! JSON, который измняется на внешний (пример - марки автомабилей)
     const [otherJson, setOtherJson] = useState([{name: '', data: []}]);
 
 

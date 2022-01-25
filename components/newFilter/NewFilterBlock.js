@@ -75,18 +75,23 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
     const {category} = jsonData
     const filterData = getAdditionalFields(category, fullAlias)
     const additionalFields = filterData
+    //? TRUE / FALSE -> Показывать кнопку очистки фильтров или нет
     const isClear = methods.formState.isDirty || Object.keys(onlyTrueDataObj(methods.getValues())).length
 
 
     const clearFields = (clearQuery) => {
+        // Плавный скролл вверх
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         })
 
+        // Очистка всех полей 
         methods.reset({});
+        // Делаем запрос на api с категориями
         setScrollData({sendObj: {data: fullAlias}, url: '/api/postCategorySearch'})
 
+        //? Перемещаемся на страницу без фильтров в query
         if (clearQuery) {
             router.push({pathname: `/search/${alias}`})
         }
@@ -96,10 +101,12 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
     // Для ререндера
     methods?.watch()
 
+    // Если меняется категория, то сбрасываем всё
     useEffect(() => {
         clearFields();
     }, [alias]);
 
+    
     // Автозаполнение полей
     useEffect(() => {
         methods.reset(defaultFilters)
@@ -121,6 +128,7 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
 
         console.log(filterDataObj);
 
+        //*  Объект фильтров
         const submitDataObj = {
             price: {min: null, max: null},
             time: null,
