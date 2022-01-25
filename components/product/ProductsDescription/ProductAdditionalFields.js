@@ -16,6 +16,7 @@ const useClass = makeStyles(() => ({
         fontSize: '14px',
         color: "rgba(143, 143, 143, 1)",
         marginRight: 4,
+        flexShrink: 0
         
     },
     content: {

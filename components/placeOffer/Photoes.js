@@ -189,9 +189,6 @@ const Photoes = ({ ctx }) => {
 		"Добавьте или перетащите фото"
 	);	
 
-	console.log(validFiles, 'validFiles')
-	console.log(imageData, 'imageData')
-	console.log(selectedFiles, 'selected Files')
 	function arrayMoveMutable(array, fromIndex, toIndex) {
 		const startIndex = fromIndex < 0 ? array.length + fromIndex : fromIndex;
 
@@ -328,13 +325,11 @@ const Photoes = ({ ctx }) => {
 	};
 
 	const handleFiles = (files) => {
-		console.log(files, 'files')
 		for (let i = 0; i < files.length; i++) {
 			if (validateFile(files[i])) {
 				const reader = new FileReader();
 				reader.readAsDataURL(files[i]);
 				reader.onload = (e) => {
-					console.log('work here')
 					const img = new Image();
 					img.src = e.target.result;
 					img.onload = () => {
