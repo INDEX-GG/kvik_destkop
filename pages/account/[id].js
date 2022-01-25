@@ -106,7 +106,6 @@ const Account = () => {
 						} 
 					: {i: "1", itm: "menuOffers", ttl: "Мои объявления"}
 		);
-
     useEffect(() => {
         setMenuItem({
             i: +router.query.account,

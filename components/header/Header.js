@@ -75,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const {isAuth, id: accountID} = useAuth();
+  
   const {userInfo} = useStore();
   const classes = useStyles();
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1024 } = useMedia();
@@ -135,13 +136,14 @@ const Header = () => {
 										content: "1"
                    }
 								}}>
-									<Avatar
+                  <Avatar
 										className={classes.avatar}
 										src={userInfo.userPhoto}
 										style={{ backgroundColor: `${stringToColor(userInfo.name)}`, cursor: "pointer" }}
 									>
 										{initials(userInfo.name)}
 									</Avatar>
+									
 								</NextLink>	
 							)
 						}

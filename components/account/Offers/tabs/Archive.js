@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
  */
 function Archive({offers}) {
 	const classes = useStyles();
-
+	console.log(offers)
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState([]);

@@ -1,5 +1,5 @@
 // import { useRouter } from 'next/router';
-import React from 'react'
+import React, {useState} from 'react'
 import IconCall from '../../../UI/icons/IconCall';
 import IconMess from '../../../UI/icons/IconMess';
 import ProductButtonChangeAds from '../ProductButtonsChangeAds';
@@ -8,17 +8,31 @@ import ProductDeal from '../ProductDeal';
 import ProductButton from '../ProductUI/ProductButton';
 import { Dialog } from '@material-ui/core';
 import OfferModal from "../../OfferModal";
-
+import Login from "../../../components/auth/Login";
+import { DialogCTX } from '../../../lib/Context/DialogCTX'
+import { useAuth } from '#lib/Context/AuthCTX';
 
 
 // const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo, /*update,*/ setUpdate, createChat}) => {
 	const ProductMobileButtons = ({id, sellerId, mobile, photo, setDialog, productInfo, status, /*update,*/ setUpdate, createChat}) => { 	
 	// const router = useRouter();
+	const {isAuth} = useAuth()
+	const [openRegForm, setOpenRegForm] = useState(false);
+	const [openLoginForm, setOpenLoginForm] = useState(false);
 	const [openOfferModal, setOpenOfferModal] = React.useState(false);
 	const [buttonId, setButtonId] = React.useState('');
 	// const [buttonId] = React.useState('');
 	const offerId = [productInfo?.id]
 	const offerData = productInfo;
+
+
+	function chatButtonHandler() {
+		if(!isAuth) {
+			setOpenLoginForm(!openLoginForm)
+			return
+		  }
+		  createChat()
+	}
 	
  	return (
 		<div>
@@ -38,7 +52,7 @@ import OfferModal from "../../OfferModal";
 								{/* {sellerId === id ? <span className="description_service">Применена услуга: выделение цветом, показ в других городах, VIP-объявление, проднятие в топе</span> : ""} */}
 								<div className="s__top">
 									<ProductDeal id={id} sellerID={sellerId}>
-										<ProductButton onClick={createChat} className="SellerInfoMess button contained" title='Написать продацву' icon={<IconMess/>} />
+										<ProductButton onClick={chatButtonHandler} className="SellerInfoMess button contained" title='Написать продацву' icon={<IconMess/>} />
 										<ProductButton className="SellerInfoCall button contained" onClick={() => setDialog(true)} title='Показать номер' icon={<IconCall/>} />
 									</ProductDeal>
 								</div>
@@ -70,6 +84,9 @@ import OfferModal from "../../OfferModal";
 								</div> */}
 							</div>
 						</div>
+						<DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
+							<Login/>
+						</DialogCTX.Provider>
 						<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!setOpenOfferModal) } fullWidth maxWidth="xs">
 							<OfferModal
 								offerId={offerId}

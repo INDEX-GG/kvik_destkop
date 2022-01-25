@@ -17,14 +17,19 @@ import ProductOption from "./ProductOption";
 import ProductAdsChange from "./ProductAdsChange";
 // import ProductStats from "./ProductSmallComponents/ProductStats";
 import ProductActionPlaceHolder from "../placeHolders/ProductActionPlaceHolder/ProductActionPlaceHolder";
+import Login from "#components/auth/Login";
+import { DialogCTX } from "#lib/Context/DialogCTX";
+
 
 
 
 export default function ProductAction(data) {
-  const { id } = useAuth();
+  const { id, isAuth } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
   const [phoneModuleState, setPhoneModuleState] = useState(false);
   const handleStatFormDialog = () => setOpenStatForm(!openStatForm);
+  const [openRegForm, setOpenRegForm] = useState(false);
+  const [openLoginForm, setOpenLoginForm] = useState(false);
 
   const { matchesMobile, matchesTablet } = useMedia();
 
@@ -39,6 +44,15 @@ export default function ProductAction(data) {
   const setUpdate = data.setUpdate;
 
   const {user_id} = data;
+
+  function chatClickHandler() {
+    if(!isAuth) {
+      setOpenLoginForm(!openLoginForm)
+      return
+    }
+    data?.createChat()
+
+  }
 
   return (
     <>
@@ -58,10 +72,12 @@ export default function ProductAction(data) {
                 {(!matchesMobile && !matchesTablet) &&<ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />}
                 <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
                 <ProductDeal id={id} sellerID={user_id}>
+                  <Login/>
                   <ProductButton 
                     className="SellerInfoMess button contained" 
                     title='Написать продавцу'
-                    onClick={() => data?.createChat()}
+                    // onClick={() => data?.createChat()}
+                    onClick={() => chatClickHandler()}
                     icon={<IconMess/>}
                     />
                   <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
@@ -69,6 +85,7 @@ export default function ProductAction(data) {
                   {objP.adstatus && data.delivery && <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction}
                                   reviewed={data.reviewed}/>}
               </div>
+              
             </>
         )
         }
@@ -82,7 +99,6 @@ export default function ProductAction(data) {
             setButtonId={setButtonId}
           />
         }
-         
         <Dialog open={openStatForm || false} onClose={() => setOpenStatForm(!openStatForm)} fullWidth maxWidth="sm">
           <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
@@ -99,6 +115,9 @@ export default function ProductAction(data) {
             buttonId={buttonId}
           />
         </Dialog>
+        <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
+          <Login/>
+        </DialogCTX.Provider>
     </>
   );
 }

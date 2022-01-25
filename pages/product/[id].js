@@ -111,6 +111,7 @@ const Product = () => {
     useEffect(() => {
 
         if (user_id !== undefined) {
+            // этот запрос больше не нужен. Все есть в useProduct, нужно заменить
             getDataByPost("/api/getProductOfUser", {user_id: user_id}).then((r) => {
                 if (r !== undefined && r.length > 0) {
                     const userOffers = r?.map(offer => {
