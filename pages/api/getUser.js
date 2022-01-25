@@ -14,12 +14,18 @@ export default async function handler(req, res) {
 
 			// let user = await pool.query(`SELECT users."name", users."userPhoto", users."about", users."createdAt", users."phone", users."email", users."raiting", users."location", users."address" FROM "public"."users" WHERE users."id" = $1`, [user_id])
 			// let user_obj = user.rows[0]
+			//
 			// let favorites = await pool.query(`SELECT array_agg(liked_post_id) as liked_post_id FROM "public"."favorites" WHERE user_id = $1`, [user_id])
-			// let subscriptions = await pool.query(`SELECT array_agg(subscription) as subscription FROM "public"."subscriptions" WHERE user_id = $1`, [user_id])
-			// let subscribers = await pool.query(`SELECT array_agg(user_id) as user_id FROM "public"."subscriptions" WHERE subscription = $1`, [user_id])
+			// let subscriptions = await pool.query(`SELECT COUNT(subscription) FROM "public"."subscriptions" WHERE user_id = $1`, [user_id])
+			// let subscribers = await pool.query(`SELECT COUNT(user_id) FROM "public"."subscriptions" WHERE subscription = $1`, [user_id])
+			//
 			// user_obj.favorites = favorites.rows[0].liked_post_id
-			// user_obj.subscriptions = subscriptions.rows[0].subscription
-			// user_obj.subscribers = subscribers.rows[0].user_id
+			// user_obj.subscriptions_count = parseInt(subscriptions.rows[0].count)
+			// user_obj.subscribers_count = parseInt(subscribers.rows[0].count)
+
+
+
+
 			let user = await pool.query(`SELECT users."favorites", users."subscriptions", users."subscribers", users."name", users."userPhoto", users."about", users."createdAt", users."phone", users."email", users."raiting", users."location", users."address" FROM "public"."users" WHERE users."id" = $1`, [user_id])
 			let user_obj = user.rows[0]
 
@@ -45,7 +51,6 @@ export default async function handler(req, res) {
 		finally {
 			await pool.end()
 		}
-
 	} else {
 		res.json({ message: 'method not allowed' })
 		res.status(405).end()
