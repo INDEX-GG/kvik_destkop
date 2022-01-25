@@ -305,13 +305,15 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  // padding: 16px 10px 16px 0;
-  padding: 0 12px;
+  padding: 12px;
   max-height: 450px;
   min-height: 450px; // из-за минимальной длины на маленьких устройствах залазит поверх блока ввода
   flex-grow: 1;
   // overflow-y: scroll;
   overflow-x: hidden;
+
+  // скроем стандартный ползунок у чата
+  scrollbar-width: none !important;
 }
 
 .messageChats > *:last-child > *:last-child {
@@ -319,7 +321,7 @@
 }
 
 .messageChats::-webkit-scrollbar {
-  width: 8px;
+  display: none;
 }
 
 .messageChats::-webkit-scrollbar-thumb {
@@ -354,7 +356,7 @@
   min-width: 70px;
 }
 
-.chatCompanion > img {
+.chatWrapper .chatCompanionAvatar {
   margin-right: 6px;
   min-width: 32px;
   max-width: 32px;
@@ -507,7 +509,6 @@
   align-items: center;
   border-top: 1px solid $light;
   padding: 10px 12px;
-  height: auto;
 }
 
 .messageChatGroupLeft {
@@ -710,8 +711,8 @@
     height: 8px;
   }
   .messageUserBlock img {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
   }
   // имя
   .messageUserBlock > div {

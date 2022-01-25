@@ -11,7 +11,9 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
 
     const {id} = useAuth();
     const router = useRouter();
-
+    //  показываться будут всегда имя и фотография собеседника в шапке чата
+    const chatRoom_photo = (id === roomData?.seller_id) ? roomData?.customer_photo : roomData?.seller_photo
+    const chatRoom_name = (id === roomData?.seller_id) ? roomData?.customer_name : roomData?.seller_name
 
     const handleUserClick = () => {
         if (id && roomData.seller_id) {
@@ -31,6 +33,7 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
         <div className={mobile ? 'messageMobile' : 'messageWindow'}>
             {roomData?.seller_id ?
                 <div className="messageHeader small">
+                    {/* фотка обьявления */}
                     <img
                       className='chatRoomImage'
                       src={`${STATIC_URL}/${generateProductPhoto(roomData?.product_photo)}`}
@@ -39,13 +42,14 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
                     <div>
                         <div>
                             <div>
-                                <div className='chatRoomTitle' onClick={handleUserClick}>{roomData?.seller_name}</div>
+                                <div className='chatRoomTitle' onClick={handleUserClick}>{chatRoom_name}</div>
                                 <div className="light">00.00.00 00:00</div>
                             </div>
-                            {roomData?.seller_photo ?
+                            {/* {roomData?.seller_photo ? */}
+                            {chatRoom_photo ?
                                 <img onClick={handleUserClick}
                                      className='chatRoomImage'
-                                     src={`${STATIC_URL}/${roomData?.seller_photo}`}/> :
+                                     src={`${STATIC_URL}/${chatRoom_photo}`}/> :
                                 <ChatDefaultAvatar name={roomData?.seller_name} clickAvatar={handleUserClick}/>}
                         </div>
                         <div>{roomData?.product_price} ₽</div>

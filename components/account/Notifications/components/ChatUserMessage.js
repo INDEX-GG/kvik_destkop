@@ -26,18 +26,7 @@ const ChatUserMessage = (
 
   const {id} = useAuth();
 
-  // console.log({    index,
-  //   key,
-  //   item,
-  //   dialogData,
-  //   refMessage,
-  //   messageId,
-  //   myMessage,
-  //   morePartnerMessage,
-  //   userChatPhoto,
-  //   userChatName,
-  //   openImage,
-  //   userOnline,})
+
   // Генерирует статус сообщениям
   const generateMessage = (message) => {
     if (message.match('images/ch')) {
@@ -130,6 +119,7 @@ const ChatUserMessage = (
     )
   }
 
+
   return (
     <>
       {dialogData && <div className='chatDataDialog'>{dialogData}</div>}
@@ -158,8 +148,8 @@ const ChatUserMessage = (
                 : firstPartnerMessage
                   ? (
                     userChatPhoto
-                      ? <ChatDefaultAvatar name={userChatName}/>
-                      : null
+                      ? <img className="chatCompanionAvatar" src={`${STATIC_URL}/${userChatPhoto}`}/>
+                      : <ChatDefaultAvatar name={userChatName}/>
                   ) : <div style={{marginRight: '46px'}}></div>
               }
             <div
