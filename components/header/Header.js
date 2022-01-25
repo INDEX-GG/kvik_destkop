@@ -136,13 +136,13 @@ const Header = () => {
 										content: "1"
                    }
 								}}>
-                  {accountID ?<Avatar
+                  <Avatar
 										className={classes.avatar}
 										src={userInfo.userPhoto}
 										style={{ backgroundColor: `${stringToColor(userInfo.name)}`, cursor: "pointer" }}
 									>
 										{initials(userInfo.name)}
-									</Avatar> : <Button>test</Button> }
+									</Avatar>
 									
 								</NextLink>	
 							)
