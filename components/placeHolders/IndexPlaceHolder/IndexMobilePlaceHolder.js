@@ -8,6 +8,9 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     gap: '10px',
     flexDirection: "column"
+  },
+  skeletonBase: {
+    backgroundColor: "#F2F3F4",
   }
 }))
 
@@ -24,7 +27,7 @@ const IndexMobilePlaceHolder = () => {
               className={classes.skeletonSearch}
             >
                 <Box>
-                    <Skeleton animation="wave" variant="rectangular" width="auto" height="71px" sx={{ bgcolor: '#F2F3F4', borderRadius: '8px', margin: 'auto' }}/>
+                    <Skeleton className={classes.skeletonBase} animation="wave" variant="rectangular" width="auto" height="71px" sx={{ borderRadius: '8px', margin: 'auto' }}/>
                 </Box>
                 <Grid
                   container
@@ -32,8 +35,8 @@ const IndexMobilePlaceHolder = () => {
                   justifyContent='space-between'
 
                 >
-                    <Skeleton animation="wave" variant="rectangular" width="101px" height="20px" sx={{ bgcolor: '#F2F3F4' , borderRadius: '5px'  }} />
-                    <Skeleton animation="wave" variant="rectangular" width="64px" height="20px" sx={{ bgcolor: '#F2F3F4' , borderRadius: '5px'  }} />
+                    <Skeleton animation="wave" variant="rectangular" width="101px" height="20px" sx={{ borderRadius: '5px'  }} />
+                    <Skeleton animation="wave" variant="rectangular" width="64px" height="20px" sx={{ borderRadius: '5px'  }} />
                 </Grid>
             </Box>
         </Grid>
@@ -47,7 +50,7 @@ const IndexMobilePlaceHolder = () => {
             justifyContent="space-between"
           >
             {[1,2,3,4].map((_, i) => (
-              <Skeleton key={i} animation="wave" variant="rectangular" width="164px" height="240px" sx={{ bgcolor: '#F2F3F4', borderRadius: '8px', marginBottom: '12px' }} />
+              <Skeleton key={i} animation="wave" variant="rectangular" width="48%" height="240px" sx={{ borderRadius: '8px', marginBottom: '12px' }} />
             ))}
           </Grid>
         </Grid>
