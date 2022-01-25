@@ -66,9 +66,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 function UserPage() {
+
   const classes = useStyles();
   const router = useRouter();
   const { id, token } = useAuth()
+
   const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
   const {userInfo} = useAd(router.query.id)
   const  userProfileInfo  = useUser();
@@ -97,6 +99,7 @@ function UserPage() {
   }, [userBlocked])
 
   useEffect(() => {
+    //? Если зашли на свой профиль.
 	  if (id && router.query.id && id == +router.query.id) {
 	  router.push({pathname: `/account/${id}`, query: {account: 1, content: 1}})
   	}

@@ -22,21 +22,25 @@ const generateFields = (fieldData, otherJsonObj, filters) => {
     let View = AdditionalView;
 
 
+    //? Если на странице с фильтрами
     if (filters) {
+        //? Делаем все поля не обязательными
         fieldData.required = {...fieldData.required, state: false}
+
 
         if (filter_view === false) {
             return  null
         } else {
+            //? Меняем wrapper чтобы сразу показать элемент (не учитывая поле dependencies)
             View = ({children}) => <>{children}</>
         }
     }
 
-    //     Если в фильтрах  Если другой тип у фильтра
+    // Если находимся в фильтрах и у фильтров есть свой тип
     const type = filters ? fieldData?.filter_type ? fieldData?.filter_type : fieldData.type : fieldData.type
     const title = filters ? fieldData?.filter_title ? fieldData?.filter_title : fieldData.title : fieldData.title
 
-
+    //* В зависимости от типа, формируем UI
     switch (type) {
         case 'text':
             return (
@@ -160,6 +164,7 @@ const generateFields = (fieldData, otherJsonObj, filters) => {
 
 
 const AdditionalFields = ({fieldData, otherJsonObj, filters}) => {
+    //? Функция, которая генерирует UI дополнильного поля от type и render_type
     return (
         generateFields(fieldData, otherJsonObj, filters)
     );

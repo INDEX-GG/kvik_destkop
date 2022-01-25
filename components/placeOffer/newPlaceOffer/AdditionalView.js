@@ -8,6 +8,7 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
 
     const {getValues, setValue} = useFormContext();
 
+    // Будет ли показываться элемент
     const [view, setView] = useState(false);
     const [valueObj, setValueObj] = useState({});
 
@@ -30,7 +31,7 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
 
         // Отфильтрованныей массив без null
         const dependenciesFilter = dependenciesEffect.filter(item => item);
-        // // Если динна отфильтрованного массива сходится с зависимостями
+        // Если динна отфильтрованного массива сходится с зависимостями
         const dependenciesView = dependenciesFilter.length === dependencies?.length
 
         if (dependenciesView) {
@@ -72,7 +73,7 @@ const AdditionalView = ({fieldData, jsonData, children}) => {
                 }
             }
 
-            // Исключительный алиас (единичный случай)
+            // Исключительный алиас (единичный случий)
             if (alias === 'year_of_issue' && values) {
                 setValueObj(values)
             }
