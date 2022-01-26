@@ -23,13 +23,13 @@ const useStyles = makeStyles(() => ({
     border: "none",
   },
   inputMessage: {
-    height: 'auto',
+    // height: 'auto',
     margin: '0 8px',
-    minHeight: '31px',
+    // minHeight: '31px',
 
-    '@media (max-width: 450px)': {
-      minHeight: '31px',
-    },
+    // '@media (max-width: 450px)': {
+    //   minHeight: '31px',
+    // },
     '& .MuiOutlinedInput-multiline': {
       padding: '6px 0 7px',
     }
@@ -122,17 +122,21 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
     if (historyObj.companion_id && historyObj.product_id) {
       try {
         getTokenDataByPost(`${CHAT_URL_API}/chat_history`, historyObj, token).then(r => {
-          if (userOnline) setUserOnline(false)
+          // проверка что пришел не undefined
+          // при простаивании часто вылазит ошибка
+          if(typeof r !== 'undefined') {
+            if (userOnline) setUserOnline(false)
 
-          console.log("SOCKET CONNECT")
+            console.log("SOCKET CONNECT")
 
-          setMsgList([...r.data.reverse()])
+            setMsgList([...r.data.reverse()])
 
-          if (r.data.length) setMessageId(r.data[0]?.id)
+            if (r.data.length) setMessageId(r.data[0]?.id)
 
-          setSocketConnect(true)
-          setLoading(false)
-          socket.connect()
+            setSocketConnect(true)
+            setLoading(false)
+            socket.connect()
+          }
         })
       } catch (e) {
         console.log(e);
