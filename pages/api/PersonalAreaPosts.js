@@ -3,6 +3,24 @@ import axios from "axios";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
+
+
+        // const jwt = require("jsonwebtoken");
+        // const token = req.headers["x-access-token"];
+        // if (!token) {
+        //     return res.status(403).send("A token is required for authentication");
+        // }
+        // try {
+        //     jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
+        // } catch (err) {
+        //     return res.status(401).send("Invalid Token");
+        // }
+        // const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
+        // if (parseInt(req.body.user_id, 10) !== tokenUser) {
+        //     return res.status(403).send("Invalid Token");
+        // }
+
+
         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 
         const main = async () => {
@@ -21,7 +39,7 @@ export default async function handler(req, res) {
             let archive_posts_ids = []
             let wait_posts_ids = []
 
-            let active_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $2) OR (active_time IS NULL)) LIMIT $3 offset $4`, [user_id, new Date(), page_limit, page])
+            let active_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $2) OR (active_time IS NULL)) ORDER BY "posts"."id" desc LIMIT $3 offset $4`, [user_id, new Date(), page_limit, page])
             active_posts.rows.forEach(
                 element => {
                     element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
@@ -29,7 +47,7 @@ export default async function handler(req, res) {
                     active_posts_ids.push(element.id)
                 });
 
-            let archive_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE active != 0 AND verify = 0 AND posts.user_id = $1 LIMIT $2 offset $3`, [user_id, page_limit, page])
+            let archive_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."archived_time" FROM "posts" WHERE active != 0 AND verify = 0 AND posts.user_id = $1 ORDER BY "posts"."archived_time" desc LIMIT $2 offset $3`, [user_id, page_limit, page])
             archive_posts.rows.forEach(
                 element => {
                     element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
@@ -37,7 +55,7 @@ export default async function handler(req, res) {
                     archive_posts_ids.push(element.id)
                 });
 
-            let wait_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE (posts.user_id = $1 AND verify != 0) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $2) AND (active_time IS NOT NULL))) LIMIT $3 offset $4`, [user_id, new Date(), page_limit, page])
+            let wait_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE (posts.user_id = $1 AND verify != 0) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $2) AND (active_time IS NOT NULL))) ORDER BY "posts"."active_time" desc LIMIT $3 offset $4`, [user_id, new Date(), page_limit, page])
             wait_posts.rows.forEach(
                 element => {
                     element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
