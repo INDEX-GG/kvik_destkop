@@ -18,12 +18,13 @@ export default async function handler(req, res) {
             return res.status(403).send("Invalid Token");
         }
 
+
+
         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
             if (typeof req.body.user_id !== 'number') {
                 throw "Er"
             }
-
 
             let like_posts = req.body.like_posts
             let unlike_posts = req.body.unlike_posts
