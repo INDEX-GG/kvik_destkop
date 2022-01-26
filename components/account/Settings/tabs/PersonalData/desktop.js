@@ -18,21 +18,24 @@ import { formatPhoneNumber } from "#lib/phoneMask";
  */
 const PersonalForm = ({ userInfo }) => {
 	const { id: userID, token } = useAuth();
-	const { handleSubmit, register } = useForm();
+	const { handleSubmit, register, } = useForm();
 	const [userAddress, changeUserAddress] = useState(userInfo.address || userInfo?.location?.name);
+	const {setUserInfo} = useStore()
 
 	/**
 	 * @param {{ name: string, address: string }} formData 
 	 */
 	const handlerUserDataChange = async (formData) => {
 		try {
-			const resData = await changePersonalData({
+			await changePersonalData({
 				userID,
 				userName: formData.name,
 				userAddress: userAddress,
 				token
 			});
-			console.log(resData);
+			userInfo.name = formData.name
+			
+			setUserInfo((prev)=> ({...prev, name: formData.name}))
 		} catch (error) {
 			console.error(error);
 		}

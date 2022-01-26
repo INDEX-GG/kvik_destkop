@@ -2238,7 +2238,7 @@ const CategoryScrollPostData = ({url}) => {
     const [endPage, setEndPage] = useState(8)
     const [stashNubmer, setStashNumber] = useState(null)
     const [gridView, setGridView] = useState(true)
-    const [oneMoreFetch, setOneMoreFetch] = useState(true)
+    // const [oneMoreFetch, setOneMoreFetch] = useState(true)
 
     const classes = useStyles();
     const router = useRouter()
@@ -2278,14 +2278,14 @@ const CategoryScrollPostData = ({url}) => {
         }
     }
     }, [mobile])
-    
-    useEffect(() => {
-        setSimilarData([])
-        setRenderCards([])
-        setEndPage(8)
-        setStashNumber(null)
-        setOneMoreFetch(true)
-    }, [product.id])
+    // эксперементальное решение, нуждается в тестах, когда будет создано больше объявлений
+    // useEffect(() => {
+    //     setSimilarData([])
+    //     setRenderCards([])
+    //     setEndPage(8)
+    //     setStashNumber(null)
+    //     setOneMoreFetch(true)
+    // }, [product.id])
 
     useEffect(() => {
         fetchSimilar()
@@ -2306,7 +2306,7 @@ const CategoryScrollPostData = ({url}) => {
 
     async function fetchSimilar() {
 
-        if(!product.id || !searchCity || !oneMoreFetch) {
+        if(!product.id || !searchCity /* || !oneMoreFetch*/ ) {
             return
         }
         if(similarData.length === 0) {
@@ -2317,7 +2317,7 @@ const CategoryScrollPostData = ({url}) => {
             const response = await getDataByPost(url, data)
 
             if(!response.length) {
-                setOneMoreFetch(false)
+                // setOneMoreFetch(false)
                 return
             }
 
