@@ -4,22 +4,21 @@ import Wait from "./tabs/Wait";
 import Archive from "./tabs/Archive";
 import { useRouter } from "next/router";
 import { brooklyn } from "../../../lib/services";
-import { useStore } from "#lib/Context/Store";
 
 import { useOfferAccount } from "../../../lib/Context/OfferAccountCTX";
 import safeAccountTab from "../../safeAccountTab";
 
 //const causes = "Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик";
 const Offers = () => {
-  const user = useStore()
+
   const { userAccountProvider } = useOfferAccount()
   const [activeOffersBox, setActiveOffersBox] = useState([]);
   const [waitOffersBox, setWaitOffersBox] = useState([]);
   const [archiveOffersBox, setArchiveOffersBox] = useState([]);
   const router = useRouter();
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
-  console.log(user)
-  // console.log(userAccountProvider)
+
+  
   useEffect(() => {
     if (userAccountProvider?.length > 0) {
       // Активные объявления

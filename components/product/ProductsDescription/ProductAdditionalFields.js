@@ -311,6 +311,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
     let finalArrCheck = []
     // буль для рендера плейсхолдера
     const additionalFieldsIsPending = allProductInfo.additional_fields === undefined
+    console.log(allProductInfo, 'bool')
     generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck)
 
     
