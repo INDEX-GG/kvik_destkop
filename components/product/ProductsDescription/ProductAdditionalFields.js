@@ -1,7 +1,7 @@
 import React, {useRef, useState, useEffect} from 'react';
 // import { json } from 'stream/consumers';
-import ProductInformationPlaceHolder
-    from "../../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
+// import ProductInformationPlaceHolder
+//     from "../../placeHolders/ProductInformationPlaceHolder/ProductInformationPlaceHolder";
 import ProductDescription from '../../product/./ProductDescription';
 import {useMedia} from '../../../hooks/useMedia';
 
@@ -310,8 +310,6 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
     // массив для чеклистов
     let finalArrCheck = []
     // буль для рендера плейсхолдера
-    const additionalFieldsIsPending = allProductInfo.additional_fields === undefined
-    console.log(allProductInfo, 'bool')
     generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck)
 
     
@@ -439,9 +437,6 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                     </div>
                 </div>
             } */}
-
-
-            {additionalFieldsIsPending && <ProductInformationPlaceHolder/>}
         </div>
         
 
