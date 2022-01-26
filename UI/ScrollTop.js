@@ -29,8 +29,8 @@ const scrollTop = () => {
             matchesMobile || matchesTablet || matchesCustom1024
                 ? <button className="scrollTopMobile" onClick={toTop}></button>
                 : (
-                    <div className="wrapperScrollTop">
-                        <button className="scrollTop" onClick={toTop}></button>
+                    <div className="wrapperScrollTop" onClick={toTop}>
+                        <button className="scrollTop" ></button>
                     </div>
                 )
 
