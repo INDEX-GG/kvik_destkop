@@ -29,7 +29,7 @@ export default async function handler(req, res) {
                     additional_fields = {}
                 }
                 if (additional_fields === undefined) {
-                    const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE $1) AND posts.active = 0 AND posts.verify = 0 AND "posts"."id" != ${post_id} AND LOWER (city) LIKE $2 AND ((active_time >= $3) OR (active_time IS NULL)) LIMIT $4`, [full_category + '%', region + '%', new Date(), 24])
+                    const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE (LOWER (posts.category_id) LIKE $1) AND posts.active = 0 AND posts.verify = 0 AND "posts"."id" != ${post_id} AND LOWER (city) LIKE $2 AND ((active_time >= $3) OR (active_time IS NULL)) LIMIT $4`, [full_category + '%', region + '%', new Date(), 24])
                     return(answer.rows)
                 }
                 for (let variable of filterValue) {
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
 
                 return(answer.rows)
             } else {
-                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE $1) AND posts.active = 0 AND posts.verify = 0 AND "posts"."id" != ${post_id} AND LOWER (city) LIKE $2 AND ((active_time >= $3) OR (active_time IS NULL)) LIMIT $4`, [full_category + '%', region + '%', new Date(), 24])
+                const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE (LOWER (posts.category_id) LIKE $1) AND posts.active = 0 AND posts.verify = 0 AND "posts"."id" != ${post_id} AND LOWER (city) LIKE $2 AND ((active_time >= $3) OR (active_time IS NULL)) LIMIT $4`, [full_category + '%', region + '%', new Date(), 24])
                 return(answer.rows)
             }
         }
