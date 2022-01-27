@@ -33,7 +33,7 @@ function Wait({offers}) {
 			return
 		}
 		// если находится нужная нам высота, обновляем страницу для повторого запроса.
-		if(pixelsFromBottom === 0){
+		if(pixelsFromBottom <= 200){
 			setPage(pageNumber + 1)
 			pageNumber += 1
 		}

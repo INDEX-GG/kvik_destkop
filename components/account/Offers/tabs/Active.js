@@ -9,6 +9,8 @@ import OfferModal from "../../../OfferModal";
 import OfferActivePlaceHolder
 	from "../../../placeHolders/OfferPlaceHolder/OfferActivePlaceHolder/OfferActivePlaceHolder";
 
+import throttle from "lodash.throttle";
+
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -45,6 +47,8 @@ function Active({offers}) {
 	const buttonId = "003";
 	const offersLength = offers.length
 
+	const throttledScrollHandler = throttle(scrollHandler, 500)
+
 	const cleanAll = () =>  {
 		setCheck(false);
 		setOfferId([]);
@@ -59,16 +63,17 @@ function Active({offers}) {
 	useEffect(() => {
 		offerId.length === offers.length ? check ? null : setCheck(false) : check===false ? null : setCheck(true);
 	}, [offerId])
-
+	
 // запрещаем вешать слушатель скрола, при первом рендере т.к. стейты еще не пришли.
 	useEffect(()=> {
 		if(isFirstRender) {
 			setIsFirstRender(false)
 			return
 		}
-        document.addEventListener('scroll', scrollHandler )
+		// _.debounce(calculateLayout, 150)
+        document.addEventListener('scroll', throttledScrollHandler )
         return ()=>{
-            document.removeEventListener('scroll', scrollHandler )
+            document.removeEventListener('scroll', throttledScrollHandler )
         }
     }, [totalPosts, isFirstRender] )
 
@@ -82,12 +87,12 @@ function Active({offers}) {
 			return
 		}
 		// если находится нужная нам высота, обновляем страницу для повторого запроса
-		if(pixelsFromBottom === 0){
+		if(pixelsFromBottom <= 200){
 			setPage(pageNumber + 1)
 			pageNumber += 1
 		}
 	}
-
+	
 	if (offers?.length === 0) {
 		return (
 			<>
