@@ -108,7 +108,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
                         <div>
                           <div>{senderName}</div>
                           <div className="messageUserBlockRight">
-                            <div className="messageUserBlockStatus">{item?.messages_is_read ? <ChatMessageIsRead /> : <ChatMessageIsSend /> }</div>
+                            <div className="messageUserBlockStatus">{id === item?.sender_id ? (item?.messages_is_read ? <ChatMessageIsRead /> : <ChatMessageIsSend />) : null }</div>
                             <div className="messageUserBlockTime">{time}</div>
                           </div>
                         </div>
