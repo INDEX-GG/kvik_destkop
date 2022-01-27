@@ -219,6 +219,8 @@ const Product = () => {
                                                 <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting}
                                                                  user_id={user_id} userAd={userAd}
                                                                  productTitle={title}/>
+
+
                                             </div>
                                             {matchesTablet || matchesMobile &&
                                                 <div className="ad__block_bottom__adaptive_right">

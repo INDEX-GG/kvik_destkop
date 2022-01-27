@@ -6,6 +6,8 @@ import ProductAdsLength from '../ProductSmallComponents/ProductAdsLength';
 
 
 const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
+	const isOwnerPage = id === sellerId
+	console.log(id, sellerId)
 	// проп status не используется
 	const router = useRouter();
 	let userSmallAd = ''
@@ -50,8 +52,7 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
 									</Link>
 								);
 							}
-							)
-							// ||
+							)							// ||
 							// data.userAd.map((userAd) => {
 							//   return (
 							//     <Link key={userAd.id} href={`/product/${userAd.id}`}>
@@ -68,13 +69,20 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
 							//   );
 							// })
 						}
+
+							
 					</div>
+
 				) : (
 					""
 				)
 			// ) : ("")
 		}
 		<ProductAdsLength id={id} sellerId={sellerId} smallAd={smallAd} mobile={mobile} />
+		{(!mobile && !isOwnerPage) &&
+		<div className="ad__block_bottom__adaptive_right">
+			<a className="SellerInfoComplain small light underline">Пожаловаться</a>
+		</div>}
 		</>
 	)
 }

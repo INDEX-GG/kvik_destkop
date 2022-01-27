@@ -2,19 +2,23 @@ import {Pool} from "pg";
 import axios from "axios";
 
 export default async function handler(req, res) {
-
 	if (req.method === 'POST') {
+
+
 		const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 		const main = async () => {
+			let date = new Date()
+			let day_in_ms = 1000*60*60*24
 			const post_id = req.body.id
 			if (typeof post_id !== 'number') {
 				throw "Er"
 			}
 
-			let now_iso = (new Date()).toISOString().slice(0, 19).replace('T', ' ');
-			const answer  = await pool.query(`SELECT users."userPhoto",users.name, posts.user_id ,users.raiting, users.id,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify_moderator,posts.title,posts.email,posts.active, posts.subcategory, posts.coordinates, posts.active_time FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $1`, [post_id])
-			const product_of_user = await pool.query(`SELECT posts.id, posts.price, posts.photo, posts.rating, posts.title FROM "posts" WHERE posts.user_id = $1 AND posts.active = 0 AND posts.verify = 0 AND posts.id != $2 AND ((active_time >= '${now_iso}') OR (active_time IS NULL)) ORDER BY id desc LIMIT 3`, [answer.rows[0]['user_id'] ,answer.rows[0]['id']])
-			const product_of_user_count = await pool.query(`SELECT COUNT(id) FROM "posts" WHERE posts.user_id = $1 AND posts.active = 0 AND posts.verify = 0 AND posts.id != $2 AND ((active_time >= '${now_iso}') OR (active_time IS NULL))`, [answer.rows[0]['user_id'], answer.rows[0]['id']])
+
+			const answer  = await pool.query(`SELECT users."userPhoto",users.name, users.phone AS "user_phone", posts.user_id ,users.raiting, users.id,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.verify,posts.created_at,posts.delivery,posts.address,posts.trade,posts.title,posts.active, posts.subcategory, posts.coordinates, posts.active_time, 
+				(SELECT COUNT("posts"."id") FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."id" != $2 AND "posts"."active" = 0 AND "posts"."verify" = 0 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL))) AS "user_products_count",
+   				array(SELECT row_to_json(t)FROM(SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."photo"  FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."active" = 0 AND "posts"."verify" = 0 AND "posts"."id" != $2 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL)) ORDER BY "posts"."id" desc LIMIT 3) t) AS user_products
+				FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $2`, [date ,post_id])
 			const subcategory = answer.rows[0]['subcategory']
 			answer.rows[0]['additional_fields'] = null
 			if (subcategory !== null) {
@@ -36,10 +40,8 @@ export default async function handler(req, res) {
 			}
 
 			let post = answer.rows[0]
-			post.products_of_user = product_of_user.rows
-			post.product_of_user_count = product_of_user_count.rows[0].count
-
 			// Получение значений счетчика
+
 			try {
 				const clickhouse_url = process.env.NEXT_PUBLIC_CLHS
 
@@ -88,12 +90,21 @@ export default async function handler(req, res) {
 				post.full_stat = false
 				console.error(`Внутренняя ошибка api getPost (clhs) ${e}`)
 			}
-			let post_active = parseInt(post.active)
-			let post_active_time = post.active_time
-			let day_in_ms = 1000*60*60*24
-			post.best_before = Math.ceil((post_active_time - new Date())/day_in_ms)
-			post.archive = !(post_active === 0 && post_active_time > new Date())
-			return(answer.rows[0])
+
+			post.best_before = Math.ceil((post.active_time - new Date())/day_in_ms)
+			if (parseInt(post.active) === 99) {
+				throw "Er"
+			} else if (parseInt(post.verify) !== 0) {
+				post.status = "banned"
+			} else if (parseInt(post.active) !== 0) {
+				post.status = "no_active"
+			} else if (Math.ceil((post.active_time - date)/day_in_ms) <= 0) {
+				post.status = "time_limit"
+			} else {post.status = "ok"}
+			delete post.active_time
+			delete post.active
+			delete post.verify
+			return(post)
 		}
 		try {
 			const response = await main();
