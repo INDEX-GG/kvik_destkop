@@ -296,7 +296,7 @@ export const PasswordFormMobile = () => {
 						{...register("old_password")}
 						type="password"
 						id="user-current-pass"
-						className="form__input"
+						className="form__input form__input--password"
 						autoComplete="current-password"
 						placeholder="Текущий пароль"
 					/>
@@ -310,7 +310,7 @@ export const PasswordFormMobile = () => {
 						{...register("password")}
 						type="password"
 						id="user-new-pass"
-						className="form__input"
+						className="form__input form__input--password"
 						autoComplete="new-password"
 						placeholder="Новый пароль"
 						onChange={handlerOnChangeValidator}

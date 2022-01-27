@@ -56,6 +56,10 @@
 		border: 1px solid hsl(0, 0%, 78%);
 		padding: 0.5em;
 		margin: 0;
+
+		&--password {
+			padding-right: 44px;
+		}
 	}
 
 	// TODO: перенести в `.button`
@@ -114,7 +118,7 @@
 	padding: 1em;
 	cursor: pointer;
 
-	&__text {}
+	// &__text {}
 
 	&__arrow {
 		justify-self: flex-end;
