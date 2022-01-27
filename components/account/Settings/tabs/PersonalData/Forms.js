@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef	 } from "react";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { validatePassword } from "#lib/account/validatePassword";
@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core";
  */
 
 /**
- * @param {object} props 
+ * @param {object} props
  * @param {string} props.className
  * @param {PasswordValidationResults} props.results
  */
@@ -81,18 +81,31 @@ export const PasswordForm = () => {
 		}
 	})();
 	const { token } = useAuth();
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, reset } = useForm();
 	const [isValidationVisible, changeValidationVisibility] = useState(false);
 	const valBoxClass = clsx(classes.validContainer, (validationResults || isValidationVisible) && classes.visible);
+	const submitRef = useRef()
 
+	const newPasswordRegister = register("password")
 
 	/**
 	 * @type { [import("./Forms").PasswordValidationResults, Dispatch < SetStateAction < import("./Forms").PasswordValidationResults>>] }
 	 */
 	const [validationResults, changeValidationResults] = useState(undefined);
 
+	const clearInputs = () => {
+		reset({})
+	}
+
+	const changeSubmitButtonText = (text) => {
+		const buttonSubmit = submitRef.current || false
+		if(buttonSubmit && buttonSubmit.innerText !== text) {
+			buttonSubmit.innerText = text
+		}
+	}
+
 	/**
-	 * @param {{ old_password: string, password: string }} formData 
+	 * @param {{ old_password: string, password: string }} formData
 	 */
 	const handlerPasswordChange = async (formData) => {
 		const [isValidPassword, results] = validatePassword(formData.old_password, formData.password);
@@ -103,22 +116,31 @@ export const PasswordForm = () => {
 		}
 
 		try {
-			await updatePassword(formData.password, token);
+			const resultUpdate = await updatePassword(formData.password, token);
+			console.log('успешное обновление ', resultUpdate)
+			
+			// в resultUpdate будет статус "ok"
+			if(resultUpdate.message === 'successfully update') {
+				// и очищать поля паролей
+				clearInputs()
+				changeSubmitButtonText('Пароль успешно изменён')
+			}
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
 	/**
-	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
+	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
 	 */
 	const handlerPasswordVisiblity = (event) => {
+		event.preventDefault();
 		/**
 		 * @type {HTMLButtonElement}
 		 */
 		const button = event.target;
 		const content = button.closest(".form__content");
-		/** 
+		/**
 		 * @type {HTMLInputElement}
 		 */
 		const input = button.previousElementSibling;
@@ -133,7 +155,7 @@ export const PasswordForm = () => {
 	}
 
 	/**
-	 * @param {import("react").ChangeEvent<HTMLInputElement>} event 
+	 * @param {import("react").ChangeEvent<HTMLInputElement>} event
 	 */
 	const handlerOnChangeValidator = (event) => {
 		// eslint-disable-next-line no-unused-vars
@@ -146,12 +168,17 @@ export const PasswordForm = () => {
 			id="user-password-change"
 			className="form"
 			onSubmit={handleSubmit(handlerPasswordChange)}
+			autoComplete="off"
 		>
 			<div className="form__section form__section--password">
 				<label className="form__label" htmlFor="user-current-pass">Текущий пароль</label>
 				<div className="form__content">
 					<input
-						{...register("old_password")}
+						{...register("old_password1", {
+							onChange: (e) => {
+								changeSubmitButtonText('Изменить')
+							}
+						})}
 						type="password"
 						id="user-current-pass"
 						className="form__input user-info__password"
@@ -165,12 +192,16 @@ export const PasswordForm = () => {
 				<label className="form__label" htmlFor="user-new-pass">Новый пароль</label>
 				<div className="form__content">
 					<input
-						{...register("password")}
+						{...newPasswordRegister}
 						type="password"
 						id="user-new-pass"
 						className="form__input user-info__password"
 						autoComplete="new-password"
-						onChange={handlerOnChangeValidator}
+						onChange={(e) => {
+							newPasswordRegister.onChange(e)
+							handlerOnChangeValidator(e)
+							changeSubmitButtonText('Изменить')
+						}}
 						onFocus={() => {
 							if (!isValidationVisible) {
 								changeValidationVisibility(true)
@@ -182,7 +213,7 @@ export const PasswordForm = () => {
 							}
 						}}
 					/>
-					<button className="form__button" onClick={handlerPasswordVisiblity}></button>
+					<button  className="form__button" onClick={handlerPasswordVisiblity}></button>
 					<PasswordValidationBox className={valBoxClass} results={validationResults} />
 				</div>
 			</div>
@@ -191,6 +222,7 @@ export const PasswordForm = () => {
 				<button
 					className="form__button form__submit"
 					type="submit"
+					ref={submitRef}
 				>
 					Изменить
 				</button>
@@ -233,7 +265,7 @@ export const PasswordFormMobile = () => {
 
 
 	/**
-	 * @param {{ old_password: string, password: string }} formData 
+	 * @param {{ old_password: string, password: string }} formData
 	 */
 	const handlerPasswordChange = async (formData) => {
 		const [isValidPassword, validResults] = validatePassword(formData.old_password, formData.password);
@@ -253,15 +285,16 @@ export const PasswordFormMobile = () => {
 	}
 
 	/**
-	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
+	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
 	 */
 	const handlerPasswordVisiblity = (event) => {
+		event.preventDefault()
 		/**
 		 * @type {HTMLButtonElement}
 		 */
 		const button = event.target;
 		const content = button.closest(".form__content");
-		/** 
+		/**
 		 * @type {HTMLInputElement}
 		 */
 		const input = button.previousElementSibling;
@@ -276,7 +309,7 @@ export const PasswordFormMobile = () => {
 	}
 
 	/**
-	 * @param {import("react").ChangeEvent<HTMLInputElement>} event 
+	 * @param {import("react").ChangeEvent<HTMLInputElement>} event
 	 */
 	const handlerOnChangeValidator = (event) => {
 		// eslint-disable-next-line no-unused-vars
