@@ -5,6 +5,7 @@
     left: 0;
     height: 100vh;
     z-index: 1;
+    cursor: pointer;
 
     // чтобы дочерний элемент (наша стрелочка) не скрывалась
     &:before {
