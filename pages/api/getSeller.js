@@ -15,7 +15,7 @@ export default async function handler(req, res) {
                     SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."address" FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $3 AND ((active_time >= $4) OR (active_time IS NULL)) ORDER BY "posts"."id" desc LIMIT $1 offset $2
                     ) t) AS active_posts,
                     array(SELECT row_to_json(t)FROM(
-                    SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."address" FROM "posts" WHERE active != 0 AND verify = 0 AND posts.user_id = $3 ORDER BY "posts"."archived_time" desc LIMIT $1 offset $2
+                    SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."address" FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $3 ORDER BY "posts"."archived_time" desc LIMIT $1 offset $2
                     ) t) AS archive_posts`, [page_limit, page, user_id, new Date()])
             let answer = posts.rows[0]
             if (req.body.page === 1) {
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
                     (SELECT COUNT(user_id) FROM "public"."subscriptions" WHERE subscription = $1) AS "subscribers_count"
                     FROM "public"."users" WHERE users."id" = $1) t) AS seller,
                     (SELECT COUNT(id) FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $2) OR (active_time IS NULL))) AS active_posts_count,
-                    (SELECT COUNT(id) FROM "posts" WHERE active != 0 AND verify = 0 AND posts.user_id = $1) AS archive_posts_count`, [user_id, new Date()])
+                    (SELECT COUNT(id) FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1) AS archive_posts_count`, [user_id, new Date()])
                 answer.seller = obj.rows[0].seller
                 answer.active_posts_count = obj.rows[0].active_posts_count
                 answer.archive_posts_count = obj.rows[0].archive_posts_count

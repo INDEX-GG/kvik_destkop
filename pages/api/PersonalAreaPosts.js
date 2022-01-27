@@ -46,7 +46,7 @@ export default async function handler(req, res) {
                     active_posts_ids.push(element.id)
                 });
 
-            let archive_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."archived_time" FROM "posts" WHERE active != 0 AND verify = 0 AND posts.user_id = $1 ORDER BY "posts"."archived_time" desc LIMIT $2 offset $3`, [user_id, page_limit, page])
+            let archive_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."archived_time" FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1 ORDER BY "posts"."archived_time" desc LIMIT $2 offset $3`, [user_id, page_limit, page])
             archive_posts.rows.forEach(
                 element => {
                     element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
@@ -91,7 +91,7 @@ export default async function handler(req, res) {
             if (req.body.page === 1) {
                 let active_posts_count = await pool.query(`SELECT COUNT(id) FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $2) OR (active_time IS NULL))`, [user_id, new Date()])
                 let wait_posts_count = await pool.query(`SELECT COUNT(id) FROM "posts" WHERE (posts.user_id = $1 AND verify != 0) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $2) AND (active_time IS NOT NULL)))`, [user_id, new Date()])
-                let archive_posts_count = await pool.query(`SELECT COUNT(id) FROM "posts" WHERE active != 0 AND verify = 0 AND posts.user_id = $1`, [user_id])
+                let archive_posts_count = await pool.query(`SELECT COUNT(id) FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1`, [user_id])
                 answer.active_posts_count = parseInt(active_posts_count.rows[0].count)
                 answer.wait_posts_count = parseInt(wait_posts_count.rows[0].count)
                 answer.archive_posts_count = parseInt(archive_posts_count.rows[0].count)

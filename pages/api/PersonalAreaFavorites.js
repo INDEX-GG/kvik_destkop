@@ -33,7 +33,7 @@ export default async function handler(req, res) {
             let day_in_ms = 1000*60*60*24
             let date = new Date()
 
-            let liked_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."address", "posts"."active", "posts"."verify" ,"posts"."user_id", "users"."name", "users"."userPhoto", "users"."raiting" FROM "public"."favorites" INNER JOIN "posts" ON favorites.liked_post_id = posts.id INNER JOIN "users" ON posts.user_id = users.id WHERE favorites.user_id = $1 AND posts.user_id != $1 ORDER BY "favorites"."id" desc LIMIT $2 offset $3`, [user_id, page_limit, page])
+            let liked_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."address", "posts"."active", "posts"."verify" ,"posts"."user_id", "users"."name", "users"."userPhoto", "users"."raiting" FROM "public"."favorites" INNER JOIN "posts" ON favorites.liked_post_id = posts.id INNER JOIN "users" ON posts.user_id = users.id WHERE posts.active != 99 AND favorites.user_id = $1 AND posts.user_id != $1 ORDER BY "favorites"."id" desc LIMIT $2 offset $3`, [user_id, page_limit, page])
             liked_posts.rows.forEach(
                 element => {
                     if (parseInt(element.verify) !== 0) {
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
 
             let answer = {"liked_posts": liked_posts.rows, "subscriptions": subscribtions.rows, "searchs": []}
             if (req.body.page === 1) {
-                let liked_posts_count = await pool.query(`SELECT COUNT("posts"."id") FROM "public"."favorites" INNER JOIN "posts" ON "favorites"."liked_post_id" = "posts"."id"  WHERE "favorites"."user_id" = $1 AND "posts"."user_id" != $1`, [user_id])
+                let liked_posts_count = await pool.query(`SELECT COUNT("posts"."id") FROM "public"."favorites" INNER JOIN "posts" ON "favorites"."liked_post_id" = "posts"."id"  WHERE posts.active != 99 AND "favorites"."user_id" = $1 AND "posts"."user_id" != $1`, [user_id])
                 let subscriptions_count = await pool.query(`SELECT COUNT("users"."id") FROM "public"."subscriptions" INNER JOIN "users" ON "subscriptions"."subscription" = "users"."id" WHERE "subscriptions"."user_id" = $1 AND "subscriptions"."subscription" != $1`, [user_id])
                 answer.liked_posts_count = parseInt(liked_posts_count.rows[0].count)
                 answer.subscriptions_count = parseInt(subscriptions_count.rows[0].count)
