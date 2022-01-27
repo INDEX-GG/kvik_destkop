@@ -10,7 +10,7 @@ import SortItem from "./SortItem";
 import OffersRenderGridIcon from '#UI/icons/OffersRenderGridIcon';
 import OffersRenderListIcon from '#UI/icons/OffersRenderListIcon';
 import { useAuth } from '#lib/Context/AuthCTX';
-
+// console.log(navigator)
 const useStyles = makeStyles((theme) => ({
 	top: {
 		marginBottom: '7px',
