@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { validatePassword } from "#lib/account/validatePassword";
 import { useAuth } from "#lib/Context/AuthCTX";
-import { updatePassword } from "#lib/fetch";
+import { updatePasswordOld } from "#lib/fetch";
 import { makeStyles } from "@material-ui/core";
 
 /**
@@ -116,14 +116,14 @@ export const PasswordForm = () => {
 		}
 
 		try {
-			const resultUpdate = await updatePassword(formData.password, token);
-			console.log('успешное обновление ', resultUpdate)
-			
-			// в resultUpdate будет статус "ok"
-			if(resultUpdate.message === 'successfully update') {
+			const resultUpdate = await updatePasswordOld(formData.old_password, formData.password, token);
+
+			if(resultUpdate.code === 'OK') {
 				// и очищать поля паролей
-				clearInputs()
 				changeSubmitButtonText('Пароль успешно изменён')
+				clearInputs()
+				changeValidationVisibility(false)
+				changeValidationResults(null)
 			}
 		} catch (error) {
 			console.error(error);
@@ -174,11 +174,11 @@ export const PasswordForm = () => {
 				<label className="form__label" htmlFor="user-current-pass">Текущий пароль</label>
 				<div className="form__content">
 					<input
-						{...register("old_password1", {
-							onChange: (e) => {
-								changeSubmitButtonText('Изменить')
-							}
-						})}
+						{...register("old_password")}
+						// eslint-disable-next-line no-unused-vars
+						onChange={(e) => {
+							changeSubmitButtonText('Изменить')
+						}}
 						type="password"
 						id="user-current-pass"
 						className="form__input user-info__password"
@@ -246,6 +246,7 @@ export const PasswordFormMobile = () => {
 			right: "1em"
 		},
 		validContainer: {
+			height: '0',
 			width: "100%",
 			opacity: "0",
 			visibility: "hidden",
@@ -253,16 +254,41 @@ export const PasswordFormMobile = () => {
 			transitionProperty: "visibility, opacity"
 		},
 		visible: {
+			height: 'auto',
 			visibility: "visible",
 			opacity: "1"
+		},
+		leftAlign: {
+			gridArea: 'content-end'
+		},
+		errorText: {
+			color: 'red'
 		}
 	})();
 	const { token } = useAuth();
-	const { register, handleSubmit } = useForm();
+	const {
+		register,
+		handleSubmit,
+		reset,
+		// setError, formState: { errors }
+	 } = useForm();
 	const [validationResults, changeValidationResults] = useState(undefined);
+	const submitRef = useRef()
 	const [isValidationVisible, changeValidationVisibility] = useState(false);
 	const valBoxClass = clsx("form__section", classes.validContainer, (validationResults || isValidationVisible) && classes.visible);
 
+	const newPasswordRegister = register("password")
+
+	const clearInputs = () => {
+		reset({})
+	}
+
+	const changeSubmitButtonText = (text) => {
+		const buttonSubmit = submitRef.current || false
+		if(buttonSubmit && buttonSubmit.innerText !== text) {
+			buttonSubmit.innerText = text
+		}
+	}
 
 	/**
 	 * @param {{ old_password: string, password: string }} formData
@@ -271,13 +297,25 @@ export const PasswordFormMobile = () => {
 		const [isValidPassword, validResults] = validatePassword(formData.old_password, formData.password);
 		changeValidationResults(() => validResults)
 
-
 		if (!isValidPassword) {
 			return;
 		}
 
 		try {
-			await updatePassword(formData.password, token);
+			const resultUpdate = await updatePasswordOld(formData.old_password, formData.password, token);
+			if(resultUpdate.code === 'OK') {
+				// и очищать поля паролей
+				changeSubmitButtonText('Пароль успешно изменён')
+				clearInputs()
+				changeValidationVisibility(false)
+				changeValidationResults(null)
+			}else {
+				changeValidationVisibility(false)
+				changeValidationResults(null)
+				// setError('password', {
+				// 	message: "Неправильный логин или пароль"
+				// })
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -326,7 +364,12 @@ export const PasswordFormMobile = () => {
 			<div className={`form__section form__section--password ${classes.section}`}>
 				<div className="form__content">
 					<input
-						{...register("old_password")}
+						{...register("old_password", {
+							// eslint-disable-next-line no-unused-vars
+							onChange: (e) => {
+								changeSubmitButtonText('Изменить')
+							}
+						})}
 						type="password"
 						id="user-current-pass"
 						className="form__input"
@@ -340,13 +383,17 @@ export const PasswordFormMobile = () => {
 			<div className={`form__section form__section--password ${classes.section}`}>
 				<div className="form__content">
 					<input
-						{...register("password")}
+						{...newPasswordRegister}
 						type="password"
 						id="user-new-pass"
 						className="form__input"
 						autoComplete="new-password"
 						placeholder="Новый пароль"
-						onChange={handlerOnChangeValidator}
+						onChange={(e) => {
+							newPasswordRegister.onChange(e)
+							handlerOnChangeValidator(e)
+							changeSubmitButtonText('Изменить')
+						}}
 						onFocus={() => {
 							if (!isValidationVisible) {
 								changeValidationVisibility(true)
@@ -373,6 +420,16 @@ export const PasswordFormMobile = () => {
 						padding: "0",
 					}}
 				/>
+			</div>
+			{/* {errors.password && <p className={classes.errorText}>{errors.password.message}</p>} */}
+			<div className="form__section">
+				<button
+					className={`form__button form__submit ${classes.leftAlign}`}
+					type="submit"
+					ref={submitRef}
+				>
+					Изменить
+				</button>
 			</div>
 		</form >
 	)
