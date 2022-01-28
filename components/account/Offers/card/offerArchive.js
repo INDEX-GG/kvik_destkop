@@ -136,7 +136,9 @@ export default function offerArchive({
                     })}
 
                     {<img src={offer.img} alt={"Изображение обьявления"}/>}
-                    {offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.active]}</div>}
+                    {/* старый вариант отображения статуса, после изменения API тут не хватает данных, нужно адекватно заполнить пропсы */}
+                    {/* {offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.active]}</div>} */}
+                    {offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">Продано</div>}
                 </div>
                 <div className="offerDescription">
                     <div className="offerDescriptionTop">
