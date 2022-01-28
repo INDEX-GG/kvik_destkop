@@ -93,7 +93,7 @@ const useStyles = makeStyles(() => ({
  */
 function Offers(data) {
     const classes = useStyles();
-		const [favPosts, changeFavPosts] = useState(data.itemsPost);
+    const [favPosts, changeFavPosts] = useState(data.itemsPost);
     const [deletionCheck, setDeletionCheck] = useState(false);
     const [deleteButton, setDeleteButton] = useState(false);
 		/**

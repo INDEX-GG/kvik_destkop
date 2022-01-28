@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
-import OfferModal from "../../../OfferModal";
+// import OfferModal from "../../../OfferModal";
 import OfferArchive from "../card/offerArchive";
-import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
+import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
+import { Checkbox, makeStyles, /*Dialog  */ } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
@@ -63,13 +64,51 @@ const useStyles = makeStyles((theme) => ({
  */
 function Archive({offers}) {
 	const classes = useStyles();
-	console.log(offers)
+	const { page, setPage, totalPosts, page_limit } = useOfferAccount()
+	const [isFirstRender, setIsFirstRender] = useState(true)
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
-	const [buttonId, setButtonId] = useState('');
+	const [/*buttonId,*/ setButtonId] = useState('');
 	const offersLength = offers.length
+
+
+	useEffect(()=> {
+		if(isFirstRender) {
+			setIsFirstRender(false)
+			return
+		}
+        document.addEventListener('scroll', scrollHandler )
+        return ()=>{
+            document.removeEventListener('scroll', scrollHandler )
+        }
+    }, [totalPosts, isFirstRender] )
+
+  // pageNumber - переменная для сохранения значения. (сделана из-за того, что для функции scrollHandler page всегда равна первому значению)
+	let pageNumber = page
+	function scrollHandler (e) {
+    // высчитываем высоту отступа между скролом и низом страницы
+		const pixelsFromBottom = (e.target.documentElement.scrollHeight - e.target.documentElement.scrollTop)-window.innerHeight;
+		const maxPossiblePage = Math.ceil(totalPosts.archive / page_limit);
+		if(maxPossiblePage <= pageNumber && !isFirstRender) {
+			return
+		}
+		// если находится нужная нам высота, обновляем страницу для повторого запроса.
+		if(pixelsFromBottom <= 200){
+			setPage(pageNumber + 1)
+			pageNumber += 1
+		}
+	}
+
+
+
+
+
+
+
+
+
 
 	const cleanAll = () => {
 		setCheck(false);
@@ -77,10 +116,12 @@ function Archive({offers}) {
 		setOfferData([]);
 	}
 
+
 	function getChildCheck ({id, isCheck}) {
 		setOfferId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
 		setOfferData( isCheck ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
+
 
 	useEffect( () => {
 		offerId.length === offers.length 
@@ -118,6 +159,7 @@ function Archive({offers}) {
 		);
 	}
 
+
 	/* Модальное окно */
 	function pushCheck(e) {
 		setButtonId(e.target.id)
@@ -126,8 +168,11 @@ function Archive({offers}) {
 
 	return (
 		<>
-			{!offers ? <OfferWaitPlaceHolder/>
-				:<div className="clientPage__container_bottom">
+			{!offers 
+			? 
+			<OfferWaitPlaceHolder/> 
+			:
+			<div className="clientPage__container_bottom">
 				{offers.length > 1 && <div className="clientPage__container_nav__radio">
 					<Checkbox
 						className={classes.check}
@@ -166,8 +211,20 @@ function Archive({offers}) {
 						);
 					})}
 				</div>
+					{/* <button 
+						style={{width: '100px', height: '30px', backgroundColor: 'cyan', margin: '0 auto', display: 'block'}}
+						onClick={()=> {
+							const maxPossiblePage = Math.ceil(totalPosts.archive / page_limit);
+							if(maxPossiblePage <= page) {
+								return
+							}
+							setPage(page + 1)
+						}}
+						>
+						test
+					</button> */}
 			</div>}
-			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
+			{/* <Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
 				<OfferModal
 					offerId={offerId}
 					offerData={offerData}
@@ -176,7 +233,7 @@ function Archive({offers}) {
 					buttonId={buttonId}
 					cleanAll={cleanAll}
 				/>
-			</Dialog>
+			</Dialog> */}
 		</>
 	);
 }

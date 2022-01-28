@@ -3,11 +3,41 @@ import React, { useEffect, useState } from "react";
 import OfferWait from "../card/offerWait";
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
 import Placeholder from "../../../User/tabs/Placeholder";
+import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
 
 function Wait({offers}) {
-
+  const { page, setPage, totalPosts, page_limit } = useOfferAccount()
+  const [isFirstRender, setIsFirstRender] = useState(true)
   const [check, setCheck] = useState(false);
   const [offerId, setOfferId] = useState([])
+
+  // запрещаем вешать слушатель скрола, при первом рендере т.к. стейты еще не пришли.
+  useEffect(()=> {
+		if(isFirstRender) {
+			setIsFirstRender(false)
+			return
+		}
+        document.addEventListener('scroll', scrollHandler )
+        return ()=>{
+            document.removeEventListener('scroll', scrollHandler )
+        }
+    }, [totalPosts, isFirstRender] )
+
+  // pageNumber - переменная для сохранения значения. (сделана из-за того, что для функции scrollHandler page всегда равна первому значению)
+	let pageNumber = page
+	function scrollHandler (e) {
+    // высчитываем высоту отступа между скролом и низом страницы
+		const pixelsFromBottom = (e.target.documentElement.scrollHeight - e.target.documentElement.scrollTop)-window.innerHeight;
+		const maxPossiblePage = Math.ceil(totalPosts.wait / page_limit);
+		if(maxPossiblePage <= pageNumber && !isFirstRender) {
+			return
+		}
+		// если находится нужная нам высота, обновляем страницу для повторого запроса.
+		if(pixelsFromBottom <= 200){
+			setPage(pageNumber + 1)
+			pageNumber += 1
+		}
+	}
 
   function getChildCheck({id, isCheck}) {
     setOfferId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id ) );

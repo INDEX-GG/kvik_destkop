@@ -7,7 +7,7 @@ import ProductAdsLength from '../ProductSmallComponents/ProductAdsLength';
 
 const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
 	const isOwnerPage = id === sellerId
-	console.log(id, sellerId)
+
 	// проп status не используется
 	const router = useRouter();
 	let userSmallAd = ''

@@ -11,36 +11,41 @@ import safeAccountTab from "../../safeAccountTab";
 //const causes = "Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик";
 const Offers = () => {
 
-  const { userAccountProvider } = useOfferAccount()
+  const { userAccountProvider, totalPosts } = useOfferAccount()
   const [activeOffersBox, setActiveOffersBox] = useState([]);
   const [waitOffersBox, setWaitOffersBox] = useState([]);
   const [archiveOffersBox, setArchiveOffersBox] = useState([]);
   const router = useRouter();
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
 
-  
   useEffect(() => {
-    if (userAccountProvider?.length > 0) {
+    if ([...userAccountProvider?.active, ...userAccountProvider?.archive, ...userAccountProvider?.wait].length > 0) {
+
       // Активные объявления
       //setActiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0));
-      const verifyOffers = userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0)
-      const sortedArray = [...verifyOffers].sort((prev, next) =>  {
-        const prevDate = Date.parse(prev.created_at)
-        const nextDate = Date.parse(next.created_at)
-        return nextDate - prevDate
-      })
-      setActiveOffersBox(sortedArray)
+
+      // const verifyOffers = userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0)
+      // const sortedArray = [...verifyOffers].sort((prev, next) =>  {
+      //   const prevDate = Date.parse(prev.created_at)
+      //   const nextDate = Date.parse(next.created_at)
+      //   return nextDate - prevDate
+      // })
+      
+      setActiveOffersBox(userAccountProvider.active)
+      setArchiveOffersBox(userAccountProvider.archive)
+      setWaitOffersBox(userAccountProvider.wait)
       // setActiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0));
       
       // Ждут действия
       //setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5));
-      setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 1 || offer.verify === 2));
+      // setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 1 || offer.verify === 2));
       // Архив
       //setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0 && offer.active !== 4));
-      setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active !== 0 && offer.active !== 4));
+      // setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active !== 0 && offer.active !== 4));
     }
   }, [userAccountProvider]);
 
+  // useEffect(()=>{  setActiveOffersBox(userAccountProvider.active)},[userAccountProvider.active])
 
   useEffect(() => {
     if (router) {
@@ -58,11 +63,10 @@ const Offers = () => {
 
   // Пагинация
   const navItems = [
-    { id: 1, title: "Активные", content: <Active key={1} offers={activeOffersBox} />, count: activeOffersBox.length },
-    { id: 2, title: "Ждут действия", content: <Wait key={2} offers={waitOffersBox} />, count: waitOffersBox.length },
-    { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: archiveOffersBox.length },
+    { id: 1, title: "Активные", content: <Active key={1} offers={activeOffersBox} />, count: totalPosts.active },
+    { id: 2, title: "Ждут действия", content: <Wait key={2} offers={waitOffersBox} />, count: totalPosts.wait },
+    { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: totalPosts.archive },
   ];
-  // console.log('render')
   return (
       <>
         <div className="clientPage__container_top">
@@ -85,6 +89,14 @@ const Offers = () => {
           </div>
         </div>
         {navItems.map(item => itemNav.i === item.id && item.content )}
+        {/* <button 
+        style={{width: '100px', height: '30px', backgroundColor: 'cyan', margin: '0 auto', display: 'block'}}
+        onClick={()=> {
+          setPage(page + 1)
+        }}
+        >
+          test
+          </button> */}
       </>
   );
 };

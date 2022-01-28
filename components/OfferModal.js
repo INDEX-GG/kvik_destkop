@@ -90,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function OfferModal({offerId, offerData, openOfferModal, setOpenOfferModal, buttonId, cleanAll, setUpdate}) {
+	console.log(offerId, 'idoffer')
 	const classes = useStyles();
 	const {id: user_id} = useAuth();
 	const { setQuery } = useOfferAccount();
@@ -120,7 +121,7 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 			return  <>
 				<Typography className={classes.offer_form__desc}>Удалить из архива</Typography>
 				<Typography className={classes.offer_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
-				<Button onClick={() => PushDb(4)} className={classes.offer_form__btn}>Да удалить</Button>
+				<Button onClick={() => PushDb(99)} className={classes.offer_form__btn}>Да удалить</Button>
 				<Button onClick={() => setOpenOfferModal(!openOfferModal)} className={classes.offer_form__btn}>Нет</Button>
 			</>
 		}
