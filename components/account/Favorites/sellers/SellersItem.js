@@ -5,6 +5,9 @@ import {useRouter} from "next/router";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
 import {getTokenDataByPost} from "../../../../lib/fetch";
 
+// swiper объявлений
+import { Swiper, SwiperSlide } from "swiper/react";
+
 const SellersItem = ({seller}) => {
   const {id, token} = useAuth();
   const [subscribe, setSubscribe] = useState(true)
@@ -50,16 +53,41 @@ const SellersItem = ({seller}) => {
         }} className="buttonGrey">{subscribe ? "Отписаться" : "Подписаться"}</button>
       </div>
       <div className="sellersOffers">
-        {seller.poducts.map((offer, i) => {
-          return (
-            <a href={`/product/${offer.id}`} key={i} className="sellersOffer">
+        {seller.poducts.length >= 7
+        ? (
+          <Swiper
+            navigation={true}
+            slidesPerView={8}
+            loop={true}
+            spaceBetween={24}
+            activeSlideKey={1}
+            
+          >
+            {seller.poducts.map((offer, i) => {
+              return (
+                <SwiperSlide key={i}>
+                  <a href={`/product/${offer.id}`} key={i} className="sellersOffer">
+                    <img src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}/>
+                    <div>{ellipsis(ToRubles(offer.price), 15)}</div>
+                    <div>{ellipsis(offer.title, 10)}</div>
+                  </a>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        )
+        : (
+          seller.poducts.map((offer, i) => {
+            return (
+                <a href={`/product/${offer.id}`} key={i} className="sellersOffer">
+                  <img src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}/>
+                  <div>{ellipsis(ToRubles(offer.price), 15)}</div>
+                  <div>{ellipsis(offer.title, 10)}</div>
+                </a>
+            );
+          })
+        )}
 
-              <img src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}/>
-              <div>{ellipsis(ToRubles(offer.price), 15)}</div>
-              <div>{ellipsis(offer.title, 10)}</div>
-            </a>
-          );
-        })}
       </div>
     </div>
   );

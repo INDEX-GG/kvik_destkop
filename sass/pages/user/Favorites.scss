@@ -194,6 +194,10 @@
     flex-wrap: wrap;
 }
 
+.sellersOffers .swiper-slide {
+    width: auto!important;
+}
+
 .sellersOffer {
     margin: 5px 9px;
     width: 94px;
@@ -202,7 +206,8 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    box-shadow: 0px 0px 20px #0000001a;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
     border-radius: 1px;
     color: $tp;
     transition: all 150ms ease-in-out;
@@ -316,7 +321,7 @@
         padding: 3px 8px;
     }
 
-  
+
 }
 
 @media (max-width: 620px) {
@@ -326,7 +331,7 @@
     .favoritesImage {
         min-width: 140px;
     }
-    
+
 }
 
 // @media (max-width: 540px) {
