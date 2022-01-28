@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Router from "next/router";
 import {ToRubles} from "../../../../lib/services";
-import Verify from "../../../json/verify.json";
+// import Verify from "../../../json/verify.json";
 import {useMedia} from "../../../../hooks/useMedia";
 import {Checkbox, makeStyles, Dialog} from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
