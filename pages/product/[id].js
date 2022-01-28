@@ -40,7 +40,7 @@ const Product = () => {
     const productInfo = useProduct(query.id)
 
     const {
-        active,
+        status,
         productInfoFields,
         address,
         subcategory,
@@ -68,7 +68,7 @@ const Product = () => {
 
     // const [data, setData] = useState();
     const [openStatForm, setopenStatForm] = useState(false);
-    const [defaultStatus, setDefaultStatus] = useState(active);
+    const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
     const [phoneModal, setPhoneModal] = useState();
 
@@ -133,8 +133,8 @@ const Product = () => {
     }
 
     useEffect(() => {
-        setDefaultStatus(active)
-    }, [active])
+        setDefaultStatus(status)
+    }, [status])
 
 
     return (
