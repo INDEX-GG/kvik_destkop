@@ -109,10 +109,12 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
     const heightInput =+e.target.scrollHeight;
     refMessageChatInput.current.style.alignItems = 'center'
 
-    if(heightInput > 17 && e.target.value !== '') {
+    if(heightInput > 17 && e.target.value.trim().length && (e.target.value !== '' || e.target.value !== '\n')) {
       refMessageChatInput.current.style.alignItems = 'flex-end'
     }
-    setMessage(e.target.value)
+    if(e.target.value !== '\n') {
+      setMessage(e.target.value)
+    }
   }
 
   // Подгружаем конечную историю переписки (Последние 50 сообщений)
@@ -277,7 +279,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
 
   // Отправка сообщений (Параметр img - говорит если в чат отправляется картинка).
   const handleSend = async (img = false) => {
-    if (message.length > 0 || img) {
+    if (message.trim().length > 0 || img) {
       let date = new Date()
       const messageDate = {
         "y": date.getFullYear(),
