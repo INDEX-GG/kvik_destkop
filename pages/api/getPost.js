@@ -1,5 +1,14 @@
 import {Pool} from "pg";
 import axios from "axios";
+import CryptoJS from "crypto-js";
+
+function encrypt(string) {
+	return CryptoJS.AES.encrypt(string, process.env.NEXT_PUBLIC_MY_SECRET).toString();
+}
+
+// function decrypt(string) {
+// 	return CryptoJS.AES.decrypt(string, process.env.NEXT_PUBLIC_MY_SECRET).toString(CryptoJS.enc.Utf8);
+// }
 
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
@@ -103,6 +112,7 @@ export default async function handler(req, res) {
 			} else {post.status = "ok"}
 			if (post.user_business_account && post.manager_name !== null) {post.user_name = post.manager_name}
 			if (post.user_business_account && post.manager_phone !== null) {post.user_phone = post.manager_phone}
+			post.user_phone = encrypt(post.user_phone)
 			delete post.user_business_account
 			delete post.manager_name
 			delete post.manager_phone
