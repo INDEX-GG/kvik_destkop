@@ -43,7 +43,7 @@ const Section = ({ className = undefined, children, ...sectionProps }) => {
 	)
 }
 
-const UserAddressTab = (setInputValue) => {
+const UserAddressTab = ({setInputValue}) => {
 	const classes = makeStyles({
 		block: {
 			position: "relative",
@@ -64,7 +64,6 @@ const UserAddressTab = (setInputValue) => {
 	})();
 	const { id: userID, token } = useAuth();
 	const { userInfo } = useStore();
-
 	/**
 	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion 
 	 */
@@ -147,7 +146,7 @@ export const PersonalDataMobile = () => {
 	// eslint-disable-next-line no-unused-vars
 	const { userInfo, setUserInfo } = useStore();
 	const [modal, setModal] = useState({});
-	const [addressValue, setAddressValue] = ('')
+	const [addressValue, setAddressValue] = useState('')
 
 	// eslint-disable-next-line no-unused-vars
 	function modalOlen(e, size, content, title) {
