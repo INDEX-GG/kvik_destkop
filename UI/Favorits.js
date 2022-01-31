@@ -3,9 +3,9 @@ import { useStore } from '../lib/Context/Store';
 import { checkArray } from '../lib/services';
 
 export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard, favId, idOffer }) {
+	console.log(123)
 	const { setLikeComment } = useStore()
 	const { userInfo } = useStore()
-	//console.log(isProduct, isAccountCard, favId, idOffer)
 	//console.log(userInfo)
 	let comment;
 /* 	if (isCard) {
@@ -52,7 +52,8 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 
 	if (isProduct) {
 		comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === idOffer)[0])?.comment !== undefined ? (userInfo.favorites.filter(item => item.post_id === idOffer)[0]).comment : ''
-		let like = checkArray(userInfo?.favorites) && userInfo.favorites?.filter(item => item.post_id === idOffer).map(item => item.condition).join() === 'true' ? false : true
+		let like = checkArray(userInfo?.favorites) && userInfo.favorites?.filter(item => item.post_id === idOffer).map(item => item.condition).join() === 'true' ? true : false
+
 		let note;
 		const openNote = e => {
 			e.target.parentElement.childNodes[0].childNodes[0].classList.toggle('note-active')
@@ -60,10 +61,15 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 
 		const getNote = e => {
 			note = e.target.value
-			e.target.parentElement.childNodes[0].classList.toggle('note-active')
+			// комментим чтобы не поле не скрывалось после ввода
+			// e.target.parentElement.childNodes[0].classList.toggle('note-active')
 			comment = comment === undefined ? comment : note
-			like = true
 			getFavoritsPost(e)
+		}
+
+		const setLike = () => {
+			like = !like
+			getFavoritsPost()
 		}
 
 		const getFavoritsPost = () => {
@@ -72,16 +78,20 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 			setLikeComment(idOffer, comment, like)
 		}
 
-
 		if (checkArray(userInfo?.favorites) && userInfo.favorites.some(item => item.post_id === idOffer && item.condition === true)) {
 			return (
 				<>
 					<div className='main__input_note'>
-						<input onBlur={e => getNote(e)} title={`${comment}` !== '' ? comment : 'Ваша заметка'} className="SellerInfoNoteInput" placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'} />
+						<input
+							onBlur={e => getNote(e)}
+							title={`${comment}` !== '' ? comment : 'Ваша заметка'}
+							className={comment !== '' ? "SellerInfoNoteInput note-active" : "SellerInfoNoteInput"}
+							placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'}
+						/>
 					</div>
 					<a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
 					<div>
-						<span onClick={(e) => getFavoritsPost(e) } className="SellerInfoFavorite like-active"></span>
+						<span onClick={(e) => setLike(e) } className="SellerInfoFavorite like-active"></span>
 					</div>
 				</>
 			)
@@ -89,11 +99,16 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 			return (
 				<>
 					<div className='main__input_note'>
-						<input onBlur={e =>  getNote(e)} title={`${comment}` !== '' ? comment : 'Ваша заметка'} className="SellerInfoNoteInput" placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'} />
+						<input
+							onBlur={e =>  getNote(e)}
+							title={`${comment}` !== '' ? comment : 'Ваша заметка'}
+							className={comment !== '' ? "SellerInfoNoteInput note-active" : "SellerInfoNoteInput"}
+							placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'}
+						/>
 					</div>
 					<a className="SellerInfoNote" onClick={(e) => userInfo ? openNote(e) : null}></a>
 					<div>
-						<span onClick={(e) => userInfo ? getFavoritsPost(e) : null } className="SellerInfoFavorite"></span>
+						<span onClick={(e) => userInfo ? setLike(e) : null } className="SellerInfoFavorite"></span>
 					</div>
 				</>
 			)

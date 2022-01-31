@@ -23,7 +23,7 @@ const PersonalForm = ({ userInfo }) => {
 	const {setUserInfo} = useStore()
 
 	/**
-	 * @param {{ name: string, address: string }} formData 
+	 * @param {{ name: string, address: string }} formData
 	 */
 	const handlerUserDataChange = async (formData) => {
 		try {
@@ -34,7 +34,7 @@ const PersonalForm = ({ userInfo }) => {
 				token
 			});
 			userInfo.name = formData.name
-			
+
 			setUserInfo((prev)=> ({...prev, name: formData.name}))
 		} catch (error) {
 			console.error(error);
@@ -49,7 +49,7 @@ const PersonalForm = ({ userInfo }) => {
 	}
 
 	/**
-	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion 
+	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion
 	 */
 	const handlerLocationSuggestion = (suggestion) => {
 		changeUserAddress(suggestion.value)
@@ -73,16 +73,16 @@ const PersonalForm = ({ userInfo }) => {
 			<div className="form__section user-info__section--location">
 				<label className="form__label user-info__label" htmlFor="user-address">Адрес</label>
 				<div className="form__content user-info__location">
-					<input 
-						className="form__input" 
+					<input
+						className="form__input"
 						type="hidden"
-						value={userAddress} 
+						value={userAddress}
 					/>
 					<AddressSuggestions
 						containerClassName="user-info__suggest"
 						token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
 						filterFromBound='city-region'
-						filterToBound='settlement'
+						filterToBound='house'
 						defaultQuery={userAddress}
 						count={5}
 						minChars={2}
@@ -152,34 +152,34 @@ const SocialForm = ({ className }) => {
 						</li>
 						<li className="social__item social__item--vk">
 							<a className="social__link">Вконтакте</a>
-							<CheckBoxSwitch 
-								checkID="social-vk"  
+							<CheckBoxSwitch
+								checkID="social-vk"
 								width="45px"
 								height="23px"
 								checkboxSize="19px"
-								borderRadius="4px" 
+								borderRadius="4px"
 								checkboxBorderRadius="6px"
 							/>
 						</li>
 						<li className="social__item social__item--ok">
 							<a className="social__link">Одноклассники</a>
-							<CheckBoxSwitch 
-								checkID="social-ok"  
+							<CheckBoxSwitch
+								checkID="social-ok"
 								width="45px"
 								height="23px"
 								checkboxSize="19px"
-								borderRadius="4px" 
+								borderRadius="4px"
 								checkboxBorderRadius="6px"
 							/>
 						</li>
 						<li className="social__item social__item--fb">
 							<a className="social__link">Facebook</a>
-							<CheckBoxSwitch 
-								checkID="social-fb"  
+							<CheckBoxSwitch
+								checkID="social-fb"
 								width="45px"
 								height="23px"
 								checkboxSize="19px"
-								borderRadius="4px" 
+								borderRadius="4px"
 								checkboxBorderRadius="6px"
 							/>
 						</li>
