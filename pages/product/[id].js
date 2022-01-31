@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useRouter} from "next/router";
 import {Dialog} from "@material-ui/core";
-import {getDataByPost, getTokenDataByPost} from '../../lib/fetch';
+import { getTokenDataByPost} from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
 import Statistics from "../../components/Statistics";
@@ -15,7 +15,7 @@ import BreadCrumbs from "../../components/header/BreadСrumbs";
 import {useAuth} from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
-import {CHAT_URL_API, STATIC_URL} from "../../lib/constants";
+import {CHAT_URL_API} from "../../lib/constants";
 import ProductPrice from "../../components/product/ProductPrice";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
@@ -112,20 +112,22 @@ const Product = () => {
 
         if (user_id !== undefined) {
             // этот запрос больше не нужен. Все есть в useProduct, нужно заменить
-            getDataByPost("/api/getProductOfUser", {user_id: user_id}).then((r) => {
-                if (r !== undefined && r.length > 0) {
-                    const userOffers = r?.map(offer => {
-                        return {
-                            ...offer,
-                            photo: JSON.parse(offer.photo)?.photos?.map(img => `${STATIC_URL}/${img}`)
-                        }
-                    })
-
-                    setUserAd(userOffers);
-                }
-            });
+            // getDataByPost("/api/getProductOfUser", {user_id: user_id}).then((r) => {
+            //     if (r !== undefined && r.length > 0) {
+            //         const userOffers = r?.map(offer => {
+            //             return {
+            //                 ...offer,
+            //                 photo: JSON.parse(offer.photo)?.photos?.map(img => `${STATIC_URL}/${img}`)
+            //             }
+            //         })
+            //         console.log(userOffers, 'offers')
+            //         setUserAd(userOffers);
+            //     }
+            // });
+            // console.log(productInfo)
+            setUserAd(productInfo.user_products)
         }
-    }, [user_id]);
+    }, [productInfo.id]);
 
 
     if (category_id !== undefined) {
