@@ -196,7 +196,7 @@ function UserPage() {
 
   return (
     <MetaLayout>
-    {1 ? <UserPlaceHolder /> : <>
+    {isLoading ? <UserPlaceHolder /> : <>
         <div className="clientPage text">
           <div className="clientPage__menu">
             <div key={userInfo.userId} className="clientPage__userinfo">
