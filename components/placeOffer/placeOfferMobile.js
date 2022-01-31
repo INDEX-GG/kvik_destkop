@@ -19,7 +19,7 @@ export default function PlaceOfferMobile({children}) {
         }
     }
 
-
+    
     const changeCategory = () => {
         methods.setValue('alias', null)
         generateAlias(categories, true)
