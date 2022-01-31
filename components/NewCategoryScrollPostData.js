@@ -12,6 +12,7 @@ import OffersRenderListIcon from '#UI/icons/OffersRenderListIcon';
 import {useAuth} from "../lib/Context/AuthCTX";
 import { useMedia } from '../hooks/useMedia';
 import { Typography } from '@material-ui/core';
+import throttle from 'lodash.throttle';
 
 
 
@@ -2238,7 +2239,7 @@ const CategoryScrollPostData = ({url}) => {
     const [endPage, setEndPage] = useState(8)
     const [stashNubmer, setStashNumber] = useState(null)
     const [gridView, setGridView] = useState(true)
-    // const [oneMoreFetch, setOneMoreFetch] = useState(true)
+    const [oneMoreFetch, setOneMoreFetch] = useState(true)
 
     const classes = useStyles();
     const router = useRouter()
@@ -2248,56 +2249,49 @@ const CategoryScrollPostData = ({url}) => {
     const {matchesMobile, matchesTablet} = useMedia()
     const mobile = matchesMobile || matchesTablet
 
-    // useEffect(async ()=>{
-    //     if(!product.id || !searchCity) {
-    //         return
-    //     }
-    //     const data = {
-    //         post_id: product.id,
-    //         region: searchCity,
-    //     }   
-    //     const responce = await getDataByPost('/api/similarPosts', data)
-    //     setSimilarData(modifyGetPostsData(responce))
+    const throttleScrollHandler = throttle(scrollHandler, 500)
 
-    // }, [similarData]) 
-    
+
+    // устанавливает лимит карточек для рендера. После запроса доступно всего 24 карты, рендерим только по 8
     useEffect(() => {
         setRenderCards([...similarData.slice(0, endPage)])
     }, [endPage, similarData])
-
+    // StashNum - номер кол-ва подгружаемых страниц. По умолчанию 8шт.
+    // Если кол-во не отрисованных карт останется от до 1-7, число кнопки сменится на корректное
     useEffect(() => {
         const stashNum = similarData.length - renderCards.length
         setStashNumber(stashNum > 8 ? 8 : stashNum)
     }, [renderCards, similarData.length])
-
+    // вешаем скролл слушатель при мобильном экране
     useEffect(()=> {
         if(mobile){
-        document.addEventListener('scroll', scrollHandler)
+        document.addEventListener('scroll', throttleScrollHandler)
         return ()=>{
-            document.removeEventListener('scroll', scrollHandler)
+            document.removeEventListener('scroll', throttleScrollHandler)
         }
     }
     }, [mobile])
-    // эксперементальное решение, нуждается в тестах, когда будет создано больше объявлений
-    // useEffect(() => {
-    //     setSimilarData([])
-    //     setRenderCards([])
-    //     setEndPage(8)
-    //     setStashNumber(null)
-    //     setOneMoreFetch(true)
-    // }, [product.id])
 
+    // эксперементальное решение, нуждается в тестах, когда будет создано больше объявлений
+    useEffect(() => {
+        setSimilarData([])
+        setRenderCards([])
+        setEndPage(8)
+        setStashNumber(null)
+        setOneMoreFetch(true)
+    }, [product.id])
+    // вызов запрроса, срабатывает при первом заходе и после перехода на другую страницу, выбранную из карточек "рекомендуемое"
     useEffect(() => {
         fetchSimilar()
-    }, [similarData.length])
-    
+    }, [product.id, searchCity, similarData.length])
+
     function scrollHandler (e) {
         const pixelsFromBottom = (e.target.documentElement.scrollHeight - e.target.documentElement.scrollTop)-window.innerHeight;
-        // const pixelsFromTop = e.target.documentElement.scrollTop
-        console.log('scroll')        
-            if(pixelsFromBottom < 200){
-                setEndPage((prevState)=>prevState + 8)
-            }
+    
+        if(pixelsFromBottom < 200){
+            console.log('подгрузил')
+            setEndPage((prevState)=>prevState + 8)
+        }
     }
     
     function loaderHandler() {
@@ -2306,7 +2300,7 @@ const CategoryScrollPostData = ({url}) => {
 
     async function fetchSimilar() {
 
-        if(!product.id || !searchCity /* || !oneMoreFetch*/ ) {
+        if(!product.id || !searchCity || !oneMoreFetch ) {
             return
         }
         if(similarData.length === 0) {
@@ -2317,7 +2311,7 @@ const CategoryScrollPostData = ({url}) => {
             const response = await getDataByPost(url, data)
 
             if(!response.length) {
-                // setOneMoreFetch(false)
+                setOneMoreFetch(false)
                 return
             }
 
@@ -2329,7 +2323,7 @@ const CategoryScrollPostData = ({url}) => {
         }
         return
     }
-    fetchSimilar()
+
     
 
     const classSwitcher = () => {
