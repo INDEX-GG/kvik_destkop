@@ -7,7 +7,7 @@ import ProductUser from "./ProductUser/ProductUser";
 
 export default function ProductUserInfo(data) {
 	const { id, token } = useAuth();
-
+	console.log(data)
 	const objP = { adstatus: 8 };
 
 	const { matchesMobile, matchesTablet } = useMedia();

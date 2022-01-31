@@ -319,6 +319,13 @@
         top: 4px;
     }
 
+    .card__bottom {
+        overflow: hidden;
+        // border-radius: 0 0 8px 8px;
+    }
+
+
+
 }
 
 @media screen and (max-width: 727px) {

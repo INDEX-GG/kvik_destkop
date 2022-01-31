@@ -2289,7 +2289,6 @@ const CategoryScrollPostData = ({url}) => {
         const pixelsFromBottom = (e.target.documentElement.scrollHeight - e.target.documentElement.scrollTop)-window.innerHeight;
     
         if(pixelsFromBottom < 200){
-            console.log('подгрузил')
             setEndPage((prevState)=>prevState + 8)
         }
     }
