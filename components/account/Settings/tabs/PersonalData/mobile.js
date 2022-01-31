@@ -43,7 +43,7 @@ const Section = ({ className = undefined, children, ...sectionProps }) => {
 	)
 }
 
-const UserAddressTab = () => {
+const UserAddressTab = ({setInputValue}) => {
 	const classes = makeStyles({
 		block: {
 			position: "relative",
@@ -64,7 +64,6 @@ const UserAddressTab = () => {
 	})();
 	const { id: userID, token } = useAuth();
 	const { userInfo } = useStore();
-
 	/**
 	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion 
 	 */
@@ -75,6 +74,7 @@ const UserAddressTab = () => {
 				userID,
 				token
 			})
+			setInputValue(suggestion.value)
 		} catch (error) {
 			console.error(error);
 		}
@@ -86,8 +86,10 @@ const UserAddressTab = () => {
 			<AddressSuggestions
 				containerClassName={classes.suggest}
 				token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
+				// filterFromBound='city-region'
+				// filterToBound='settlement'
 				filterFromBound='city-region'
-				filterToBound='settlement'
+				filterToBound='house'
 				defaultQuery={userInfo.address}
 				count={5}
 				minChars={2}
@@ -144,6 +146,7 @@ export const PersonalDataMobile = () => {
 	// eslint-disable-next-line no-unused-vars
 	const { userInfo, setUserInfo } = useStore();
 	const [modal, setModal] = useState({});
+	const [addressValue, setAddressValue] = useState('')
 
 	// eslint-disable-next-line no-unused-vars
 	function modalOlen(e, size, content, title) {
@@ -205,7 +208,7 @@ export const PersonalDataMobile = () => {
 							onClick={() => { switchAddressPage(true) }}
 						>
 							<span className="nav-button__text" style={{ textAlign: "left" }}>
-								{userInfo.address || userInfo?.location?.name}
+								{addressValue || userInfo.address || userInfo?.location?.name}
 							</span>
 							<span className="nav-button__arrow">
 								<svg
@@ -496,7 +499,7 @@ export const PersonalDataMobile = () => {
 				open={isAddressPageOpen}
 				onClose={switchAddressPage}
 			>
-				<UserAddressTab />
+				<UserAddressTab setInputValue={setAddressValue} />
 			</DialogUI>
 			<DialogUI
 				title="Смена пароля"

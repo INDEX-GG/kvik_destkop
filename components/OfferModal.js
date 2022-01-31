@@ -90,10 +90,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function OfferModal({offerId, offerData, openOfferModal, setOpenOfferModal, buttonId, cleanAll, setUpdate}) {
-	console.log(offerId, 'idoffer')
 	const classes = useStyles();
 	const {id: user_id} = useAuth();
-	const { setQuery } = useOfferAccount();
+	const {setReload } = useOfferAccount();
 	const {token} = useAuth();
 
 	function PushDb(id) {
@@ -101,7 +100,7 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
 			.then(r => r)
 			.finally(function () {
-				setQuery(p => !p)
+				setReload(p => !p)
 				setOpenOfferModal(!openOfferModal)
 			})
 		typeof cleanAll === "undefined" ? null : cleanAll();

@@ -104,7 +104,10 @@ export default function ProductAction(data) {
         </Dialog>
         {/*  */}
         <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
-        <Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">
+        <Dialog 
+        open={openOfferModal || false} 
+        onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">
+
           <OfferModal 
             isProductPages 
             offerId={offerId} 
@@ -114,6 +117,7 @@ export default function ProductAction(data) {
             setUpdate={setUpdate}
             buttonId={buttonId}
           />
+
         </Dialog>
         <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
           <Login/>
