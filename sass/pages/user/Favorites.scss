@@ -197,6 +197,9 @@
 .sellersOffers .swiper-slide {
     width: auto!important;
 }
+.sellersOffers .swiper-container {
+    margin-left: 0px;
+}
 
 .sellersOffer {
     margin: 5px 9px;
@@ -211,6 +214,18 @@
     border-radius: 1px;
     color: $tp;
     transition: all 150ms ease-in-out;
+}
+
+.sellersOffers .swiper-button-prev {
+    background: url(../../../icons/arrow_left_bold.svg) center no-repeat, #fff;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.sellersOffers .swiper-button-next {
+    background: url(../../../icons/arrow_right_bold.svg) center no-repeat, #fff;
+    border-radius: 50%;
+    margin-right: 5px;
 }
 
 .sellersOffer:hover {
@@ -349,9 +364,12 @@
         min-width: 194px;
     }
     .sellersOffers {
-        justify-content: center;
+        justify-content: flex-start;
     }
 
+    .swiper-container {
+        margin-left: 0px;
+    }
     .favoritesShowes,
     .favoritesAddFavores {
         margin: 20px 0px 0px 20px;
