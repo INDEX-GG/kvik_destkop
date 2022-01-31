@@ -5,6 +5,11 @@ import safeAccountTab from "../../safeAccountTab";
 import Messages from "./tabs/Messages";
 import Notifs from "./tabs/Notifs";
 
+// для получения длины сообщений
+import {useAuth} from '../../../lib/Context/AuthCTX'
+import { getTokenDataByPost } from "#lib/fetch";
+import {CHAT_URL_API} from 'lib/constants'
+
 //Сообщения
 const dialogsBox = [
   { id: 1, offerImg: "https://source.unsplash.com/random", offerPrice: 2000, offerTitle: "Монитор", userPic: "https://source.unsplash.com/random?portrait", userName: "Иван И.", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
@@ -57,6 +62,8 @@ const navItems = [
 
 const Notifications = () => {
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Сообщения" });
+  const {id, token} = useAuth()
+  const [lengthDialogs, setLengthDialogs] = useState(0)
 
   const router = useRouter()
 
@@ -71,6 +78,17 @@ const Notifications = () => {
     }
   }, [router])
 
+  useEffect(() => {
+    getTokenDataByPost(`${CHAT_URL_API}/chat_last_messages`, {"user_id" : id}, token)
+      .then(r => {
+        if(r.data?.length) {
+          getTokenDataByPost('/api/roomInfo', r.data, token)
+            .then(r => {
+              setLengthDialogs(r.list?.length)
+            })
+        }
+      })
+  }, [])
 
   return (
     <>
@@ -83,7 +101,9 @@ const Notifications = () => {
                   setItemNav({ i: item.id, ttl: item.title })
 				  safeAccountTab(item.id)
 				  }}>
-                  {item.title} {brooklyn(item.count)}
+                  {/* {item.title} {brooklyn(item.count)} */}
+                  {/* если сообщения -отображаем длину сообщений */}
+                  {item.title} {item.id === 1 ? brooklyn(lengthDialogs) : brooklyn(item.count)}
                 </a>
               );
             })}
