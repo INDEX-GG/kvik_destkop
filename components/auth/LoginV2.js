@@ -154,7 +154,7 @@ export const LoginV2 = ({
 				});
 			} else {
 				// getDataByPost("/api/login", { id: res?.idUser, RefreshAuthToken: res?.RefreshAuthToken }).then(() => signIn()); //session//authCtx
-				signIn()
+				signIn(res?.idUser)
 				storeUser(res?.idUser); //store
 				setOpenLoginForm(!openLoginForm);
 				setValueInp("");
