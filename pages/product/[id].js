@@ -44,9 +44,9 @@ const Product = () => {
         productInfoFields,
         address,
         subcategory,
-        name,
+        user_name: name,
         raiting,
-        userPhoto,
+        user_photo: userPhoto,
         category_id,
         user_id,
         created_at,
@@ -61,7 +61,7 @@ const Product = () => {
         oldprice,
         coordinates
     } = productInfo
-
+    // console.log(userPhoto)
     // const allProductInfo = useProduct(query.id)
 
 
