@@ -103,7 +103,7 @@ export default function ProductAction(data) {
           <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
-        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
+        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={offerData} />
         <Dialog 
         open={openOfferModal || false} 
         onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">

@@ -29,8 +29,10 @@ export function useProduct(id) {
 						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 						r.photo = photoes
 						// console.log('r.photo',r.photo)
-						r.chatPhoto = r.userPhoto;
-						r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
+						// r.chatPhoto = r.userPhoto;
+						// r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
+						r.chatPhoto = r.user_photo;
+						r.userPhoto = `${STATIC_URL}/${r.user_photo}`;
 						setProductInfo(r);
 					}
 				})
