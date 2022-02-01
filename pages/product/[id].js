@@ -59,7 +59,8 @@ const Product = () => {
         trade,
         price,
         oldprice,
-        coordinates
+        coordinates,
+        user_products_count
     } = productInfo
     // console.log(userPhoto)
     // const allProductInfo = useProduct(query.id)
@@ -218,9 +219,15 @@ const Product = () => {
                                                                 productInfo={productInfo} /*update={update}*/
                                                                 setUpdate={setDefaultStatus} createChat={createChat}/>}
                                                 {/* пользователь и его объявления */}
-                                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting}
-                                                                 user_id={user_id} userAd={userAd}
-                                                                 productTitle={title}/>
+                                                <ProductUserInfo 
+                                                    name={name} 
+                                                    userPhoto={userPhoto} 
+                                                    raiting={raiting}
+                                                    user_id={user_id} 
+                                                    userAd={userAd}
+                                                    productTitle={title}
+                                                    totalProducts={user_products_count}
+                                                />
 
 
                                             </div>

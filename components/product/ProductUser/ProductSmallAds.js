@@ -1,14 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { ToRubles } from '../../../lib/services';
-import { useRouter } from 'next/router';
-import { useProduct } from '#hooks/useProduct';
+
 import ProductAdsLength from '../ProductSmallComponents/ProductAdsLength';
 import { photos2arr } from '../../../lib/services';
 import { STATIC_URL } from '#lib/constants';
 
 
-const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
+const ProductSmallAd = ({id, sellerId, mobile, smallAd, totalProducts}) => {
 	const isOwnerPage = id === sellerId
 	// Заливаем корректные ссылки на фото
 	const modifySmallAd = smallAd
@@ -17,10 +16,6 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
 	
 
 	// проп status не используется
-	const router = useRouter();
-	const {user_products_count} = useProduct(router.query.id)
-	// console.log(product)
-	// let userSmallAd = ''
 	return (
 		<> 
 		{
@@ -84,7 +79,7 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
 				)
 			// ) : ("")
 		}
-		<ProductAdsLength id={id} sellerId={sellerId} smallAd={smallAd} mobile={mobile} productsCount={user_products_count} />
+		<ProductAdsLength id={id} sellerId={sellerId} smallAd={smallAd} mobile={mobile} productsCount={totalProducts} />
 		{(!mobile && !isOwnerPage) &&
 		<div className="ad__block_bottom__adaptive_right">
 			<a className="SellerInfoComplain small light underline">Пожаловаться</a>
