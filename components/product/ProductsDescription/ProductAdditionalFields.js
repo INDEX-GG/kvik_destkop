@@ -215,8 +215,10 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
         // console.log(finalArr, 'final Arr')
         // console.log(finalArrCheck, 'final arrCheck')
         const splitedCategory_id = category_id?.split(',');
-        const backJs = allProductInfo?.additional_fields ? 
-        Object.entries(allProductInfo?.additional_fields).filter(item => item[1] !== false) : 
+        const backJs = allProductInfo?.additional_fields 
+        ? 
+        Object.entries(allProductInfo?.additional_fields).filter(item => item[1] !== false && item[1] !== null) 
+        : 
         [];
         // console.log(splitedCategory_id, 'splited id')
         // console.log(backJs, 'back js')
@@ -225,7 +227,6 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
         //   .children.find(item => item.alias === splitedCategory_id[1])
         //   .additional_fields;
 
-    
     const frontJs = splitedCategory_id.reduce((acc, item, index) => {
         if(splitedCategory_id?.length - 1 === index) {
             return acc?.children.find(child=> child?.alias === item)
@@ -266,8 +267,9 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
             })
             return 
         }
-    // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
-    // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
+        // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
+        // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
+
         const numberOfCheck = parseInt(item[0]?.match(/\d+/))
         const sliceNumber = -Math?.abs(numberOfCheck.toString()?.length)
         const aliasName = item[0]?.slice(0, sliceNumber)
@@ -312,7 +314,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
     // буль для рендера плейсхолдера
     generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck)
 
-    
+
     useEffect(()=> {
         // закрывашка свойсв при отрисовке новой страницы
         setShowMore(false)
