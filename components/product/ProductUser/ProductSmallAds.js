@@ -2,17 +2,27 @@ import React from 'react';
 import Link from 'next/link';
 import { ToRubles } from '../../../lib/services';
 import { useRouter } from 'next/router';
+import { useProduct } from '#hooks/useProduct';
 import ProductAdsLength from '../ProductSmallComponents/ProductAdsLength';
+import { photos2arr } from '../../../lib/services';
+import { STATIC_URL } from '#lib/constants';
 
 
 const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
 	const isOwnerPage = id === sellerId
+	// Заливаем корректные ссылки на фото
+	const modifySmallAd = smallAd
+	?.map(it=>({...it, photo: photos2arr(it.photo)}))
+	.filter(it => it.photo !== undefined)
+	
 
 	// проп status не используется
 	const router = useRouter();
-	let userSmallAd = ''
+	const {user_products_count} = useProduct(router.query.id)
+	// console.log(product)
+	// let userSmallAd = ''
 	return (
-		<>
+		<> 
 		{
 			// status === 7 || sellerId !== id ? (
 			!mobile ? (
@@ -35,40 +45,36 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
 					</>
 					:
 					<div className="SellerInfoOffers">
-						{
+						{modifySmallAd && modifySmallAd?.map(item => {
+							return (
+								<Link key={item.id} href={`/product/${item.id}`}>
+									<div className="SellerInfoOfferCard small">
+										<img alt="Offer Photo" src={`${STATIC_URL}/${item.photo[0]}`}/>
+										<div>{ToRubles(item.price)}</div>
+										<div>{item.title.length > 15 ? item.title.slice(0, 12) + "..." : item.title}</div>
+									</div>
+								</Link>
+							)
+						})}
+						{/* {
 							(userSmallAd = smallAd?.filter((item) => {
 								return item.id !== router.query.id && item.active === 0 && item.verify === 0
 							})) &&
 							userSmallAd.slice(0, 3).map((userAd) => {
 								return (
-									<Link key={userAd.id} href={`/product/${userAd.id}`}>
-										<div className="SellerInfoOfferCard small">
-											{userAd.photo?.slice(0, 1).map((imgs, i) => {
-												return <img alt={"Offer photo"} key={i} src={imgs} />;
-											})}
-											<div>{ToRubles(userAd.price)}</div>
-											<div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
-										</div>
-									</Link>
-								);
-							}
-							)							// ||
-							// data.userAd.map((userAd) => {
-							//   return (
-							//     <Link key={userAd.id} href={`/product/${userAd.id}`}>
-							//       <div className="SellerInfoOfferCard small">
-							//         {JSON.parse(userAd.photo)
-							//           .photos.slice(0, 1)
-							//           .map((imgs, i) => {
-							//             return <img key={i} src={imgs} />;
-							//           })}
-							//         <div>{ToRubles(userAd.price)}</div>
-							//         <div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
-							//       </div>
-							//     </Link>
-							//   );
-							// })
-						}
+										<Link key={userAd.id} href={`/product/${userAd.id}`}>
+											<div className="SellerInfoOfferCard small">
+												{userAd.photo?.slice(0, 1).map((imgs, i) => {
+													return <img alt={"Offer photo"} key={i} src={imgs} />;
+												})}
+												<div>{ToRubles(userAd.price)}</div>
+												<div>{userAd.title.length > 15 ? userAd.title.slice(0, 12) + "..." : userAd.title}</div>
+											</div>
+										</Link>
+									);
+								}
+							)	
+						} */}
 
 							
 					</div>
@@ -78,7 +84,7 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd}) => {
 				)
 			// ) : ("")
 		}
-		<ProductAdsLength id={id} sellerId={sellerId} smallAd={smallAd} mobile={mobile} />
+		<ProductAdsLength id={id} sellerId={sellerId} smallAd={smallAd} mobile={mobile} productsCount={user_products_count} />
 		{(!mobile && !isOwnerPage) &&
 		<div className="ad__block_bottom__adaptive_right">
 			<a className="SellerInfoComplain small light underline">Пожаловаться</a>

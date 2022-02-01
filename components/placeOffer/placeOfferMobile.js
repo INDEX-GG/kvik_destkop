@@ -1,13 +1,20 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState, useMemo} from "react"
 import CategoriesPlaseOffer from "./CategoriesPlaseOffer"
 import MobileModal from "#components/MobileModal";
 import {useFormContext} from "react-hook-form";
+import { useRouter } from "next/router";
 
 export default function PlaceOfferMobile({children}) {
 
-
+    const isEditPage = useRouter().pathname.includes('editPage')
     const [categories, setCategories] = useState(null)
     const methods = useFormContext()
+    const alias1 = useMemo(() => methods.getValues('alias1'), [methods.getValues('alias1')])
+    const alias2 = useMemo(() => methods.getValues('alias2'), [methods.getValues('alias2')])
+    const alias3 = useMemo(() => methods.getValues('alias3'), [methods.getValues('alias3')])
+    // const alias1 = methods.getValues('alias1')
+    // const alias2 = methods.getValues('alias2')
+    // const alias3 = methods.getValues('alias3')
 
 
     const generateAlias = (categories, reset = false) => {
@@ -28,6 +35,12 @@ export default function PlaceOfferMobile({children}) {
 
 
     useEffect(() => {
+        if (alias1) {
+            methods.setValue('alias', categories)
+            generateAlias(categories)
+            return
+        }
+
         if (categories) {
             methods.setValue('alias', categories)
             methods.reset();
@@ -35,14 +48,23 @@ export default function PlaceOfferMobile({children}) {
         }
     }, [categories])
 
+    useEffect(() => {
+        if (alias1) {
+            const categoriesStr = `${alias1},${alias2},${alias3}`;
+            setCategories(categoriesStr)
+        }
+    }, [alias1])
+
 
     return (
         <>
+            {!isEditPage 
+            &&
             <CategoriesPlaseOffer
                 categories={categories}
                 dialog={!categories}
                 setCategories={setCategories}
-            />
+            />}
             <MobileModal
                 title='Новое объявление'
                 dialog={categories}

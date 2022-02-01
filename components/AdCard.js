@@ -188,6 +188,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 			return '<span class="' + className + '">' + "</span>"
 		}
 	}
+
 	return (
 		<div
 			ref={ref}
@@ -402,7 +403,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 							"card__bottom_info_middleV2" :
 							'card__bottom_info_middle'
 						}>
-							{offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 24)}
+							{offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 54)}
+							{/* {offer.commercial === 2 ? ellipsis(offer.title, 40) : ellipsis(offer.title, 40)} */}
 						</div>
 
 						<div className="card__bottom_info_footer">

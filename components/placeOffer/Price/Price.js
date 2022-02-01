@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Checkbox, FormControlLabel, makeStyles, Typography } from '@material-ui/core';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
@@ -125,17 +125,16 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Price = ({price, edit}) => {
+const Price = ({price}) => {
 	const classes = useStyles();
 	const methods = useFormContext();
     const media960 = useMediaQuery('(max-width: 960px)')
 	const isTradable = methods.getValues('trade')
 	const isPriced = methods.getValues('price')
 
-
-	!edit ? useEffect(() => {
-		methods.setValue('price', '')
-	}, []) : ''
+	// !edit ? useEffect(() => {
+	// 	methods.setValue('price', '')
+	// }, []) : ''
 	//условие потому что c бэка приходит цена формата 5000.00, нам нужна 5000, 
 	if(isPriced && isPriced.includes('.')) {
 		methods.setValue('price', `${isPriced.split('.')[0]} ₽`)
