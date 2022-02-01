@@ -86,7 +86,9 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 							onBlur={e => getNote(e)}
 							title={`${comment}` !== '' ? comment : 'Ваша заметка'}
 							className={comment !== '' ? "SellerInfoNoteInput note-active" : "SellerInfoNoteInput"}
-							placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'}
+							// placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'}
+							placeholder='Заметка к объявлению'
+							defaultValue={comment !== '' ? comment : ''}
 						/>
 					</div>
 					<a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
@@ -103,7 +105,9 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 							onBlur={e =>  getNote(e)}
 							title={`${comment}` !== '' ? comment : 'Ваша заметка'}
 							className={comment !== '' ? "SellerInfoNoteInput note-active" : "SellerInfoNoteInput"}
-							placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'}
+							// placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'}
+							placeholder='Заметка к объявлению'
+							defaultValue={comment !== '' ? comment : ''}
 						/>
 					</div>
 					<a className="SellerInfoNote" onClick={(e) => userInfo ? openNote(e) : null}></a>
