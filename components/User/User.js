@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Active from "./tabs/Active";
 import Sold from "./tabs/Sold";
 import Placeholder from "./tabs/Placeholder";
-import { useAd } from "../../hooks/useAd";
+// import { useAd } from "../../hooks/useAd";
 import { useRouter } from "next/router";
 // import { brooklyn } from "../../lib/services";
 import { getDataByPost } from "#lib/fetch";
@@ -17,7 +17,7 @@ const UsersPage = () => {
   const router = useRouter();
   const sellerId = parseInt(router.query.id)
  
-  const { userInfo, /*isLoading*/ } = useAd(router.query.id);
+  // const { userInfo, /*isLoading*/ } = useAd(router.query.id);
 
   useEffect(async () => {
     if(!sellerId) {
@@ -64,7 +64,7 @@ const UsersPage = () => {
           </div>
         </div>
       </div>
-      {navItems.map((item) => itemNav.i === item.id && (Array.isArray(userInfo) && userInfo?.length > 0 ? item.content : <Placeholder key={item.id} user={item.id} />))}
+      {navItems.map((item) => itemNav.i === item.id && (item.content ? item.content : <Placeholder key={item.id} user={item.id} />))}
     </>
   );
 };
