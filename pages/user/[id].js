@@ -192,7 +192,6 @@ function UserPage() {
   //   }
   // }
 
-  console.log('isLoading: ', isLoading)
 
   return (
     <MetaLayout>
