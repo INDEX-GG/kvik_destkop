@@ -238,7 +238,7 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
          return placeOfferJson?.category.find(category => category?.alias === item)
          
     }, undefined)?.additional_fields
-    console.log(backJs, 'frontJS')
+
     backJs.forEach((item) => {
         // поля с айдишниками нам не интересны
         // Гбо для авто времено исключены
@@ -314,8 +314,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
     // буль для рендера плейсхолдера
     generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck)
 
-    // console.log(finalArr, 'arr')
-    // console.log(finalArrCheck, 'check')
+
     useEffect(()=> {
         // закрывашка свойсв при отрисовке новой страницы
         setShowMore(false)
