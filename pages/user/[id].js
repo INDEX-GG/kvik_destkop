@@ -27,6 +27,7 @@ import { useBlockedBool } from "../../hooks/useBlocked";
 import { useUser } from "../../hooks/useUser";
 import {Tooltip} from "@mui/material";
 import {getTokenDataByPost} from "../../lib/fetch";
+import UserPlaceHolder from "#components/placeHolders/UserPlaceHolder/UserPlaceHolder";
 
 
 
@@ -93,7 +94,7 @@ function UserPage() {
   useEffect(() => {
     setUserBool(userSub)
   }, [userSub])
-  
+
   useEffect(() => {
     setUserBlockBool(userBlocked)
   }, [userBlocked])
@@ -114,7 +115,7 @@ function UserPage() {
     if (sellerId && subscribersList.length == 0) {
           changeSubscribers();
         }
-    
+
   }, [sellerId])
 
   function changeSubscribers() {
@@ -147,17 +148,17 @@ function UserPage() {
       }else{
         setSubscribersList(arr => [...arr, {id: id, name: userProfileInfo.name, raiting: userProfileInfo.raiting, userPhoto: userProfileInfo.userPhoto}])
       }
-  
+
       await getTokenDataByPost("/api/subscriptions", subscribe, token)
-  
+
       await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
-  
-  
+
+
       setLoading(false)
     }
 
-    
-    
+
+
 
   }
 
@@ -191,97 +192,103 @@ function UserPage() {
   //   }
   // }
 
-  
+
   return (
     <MetaLayout>
-      <div className="clientPage text">
-        <div className="clientPage__menu">
-          <div key={userInfo.userId} className="clientPage__userinfo">
-            <div className="clientPage__userpic">
-              {isLoading ? null : <Avatar src={`${STATIC_URL}/${sellerPhoto}`} style={{ backgroundColor: `${stringToColor(sellerName)}` }}>{initials(sellerName)}</Avatar>}
-            </div>
-            <div className="clientPage__username">{sellerName}</div>
-            <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
-            <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
-              <div className="clientPage__userrate">
-                <div className="clientPage__userrate__num">{raiting}</div>
-                <StarRating rating={raiting} />
+    {isLoading ? <UserPlaceHolder /> : <>
+        <div className="clientPage text">
+          <div className="clientPage__menu">
+            <div key={userInfo.userId} className="clientPage__userinfo">
+              <div className="clientPage__userpic">
+                {isLoading ? null : <Avatar src={`${STATIC_URL}/${sellerPhoto}`} style={{ backgroundColor: `${stringToColor(sellerName)}` }}>{initials(sellerName)}</Avatar>}
               </div>
-            </Tooltip>
-
-
-
-            <div className="clientPage__userstats highlight small">
-
-
+              <div className="clientPage__username">{sellerName}</div>
+              <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
               <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
-                <Box className={classes.userStats}>
-                  <span>{'0'}</span>
-                  <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
-                    <p>Отзывы</p>
-                  </Button>
-                </Box>
+                <div className="clientPage__userrate">
+                  <div className="clientPage__userrate__num">{raiting}</div>
+                  <StarRating rating={raiting} />
+                </div>
               </Tooltip>
 
-              {/*<a  className="offerUnpublish thin superLight userInfoReviews">*/}
-              {/*  */}
-              {/*  <div style={{ textAlign: "center" }}>*/}
-              {/*    <div>0</div>*/}
-              {/*    <p>Отзывов</p>*/}
-              {/*  </div>*/}
-              {/*</a>*/}
+
+
+              <div className="clientPage__userstats highlight small">
+
+
+                <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                  <Box className={classes.userStats}>
+                    <span>{'0'}</span>
+                    <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
+                      <p>Отзывы</p>
+                    </Button>
+                  </Box>
+                </Tooltip>
+
+                {/*<a  className="offerUnpublish thin superLight userInfoReviews">*/}
+                {/*  */}
+                {/*  <div style={{ textAlign: "center" }}>*/}
+                {/*    <div>0</div>*/}
+                {/*    <p>Отзывов</p>*/}
+                {/*  </div>*/}
+                {/*</a>*/}
 
 
 
-              <Box className={classes.userStats}>
-                <span>{subscribersList?.message ? 0 : subscribersList.length}</span>
-                <Button className={classes.buttonDesc} size="small" variant="text" onClick={() => setSubscribersModal(!subscriptionsModal)}>
-                  <p>Подписчиков</p>
-                </Button>
-              </Box>
+                <Box className={classes.userStats}>
+                  <span>{subscribersList?.message ? 0 : subscribersList.length}</span>
+                  <Button className={classes.buttonDesc} size="small" variant="text" onClick={() => setSubscribersModal(!subscriptionsModal)}>
+                    <p>Подписчиков</p>
+                  </Button>
+                </Box>
 
-              {/*<a  className="offerUnpublish thin superLight userInfoSubscribers">*/}
-              {/*  */}
-              {/*  <div style={{ textAlign: "center" }}>*/}
-              {/*    <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>*/}
-              {/*    <p>Подписчиков</p>*/}
-              {/*  </div>*/}
-              {/*</a>*/}
-
-
-              <Box className={classes.userStats}>
-                <span>{subList?.length > 0 ? subList?.length : 0}</span>
-                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
-                  <p>Подписки</p>
-                </Button>
-              </Box>
-
-              {/*<a  className="offerUnpublish thin superLight userInfoSubscribtions">*/}
-              {/*  {userInfo.userSubscriptions}*/}
-              {/*  <div style={{ textAlign: "center" }}>*/}
-              {/*    <div>{subList?.length > 0 ? subList?.length : 0}</div>*/}
-              {/*    <p>Подписки</p>*/}
-              {/*  </div>*/}
-              {/*</a>*/}
+                {/*<a  className="offerUnpublish thin superLight userInfoSubscribers">*/}
+                {/*  */}
+                {/*  <div style={{ textAlign: "center" }}>*/}
+                {/*    <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>*/}
+                {/*    <p>Подписчиков</p>*/}
+                {/*  </div>*/}
+                {/*</a>*/}
 
 
+                <Box className={classes.userStats}>
+                  <span>{subList?.length > 0 ? subList?.length : 0}</span>
+                  <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                    <p>Подписки</p>
+                  </Button>
+                </Box>
+
+                {/*<a  className="offerUnpublish thin superLight userInfoSubscribtions">*/}
+                {/*  {userInfo.userSubscriptions}*/}
+                {/*  <div style={{ textAlign: "center" }}>*/}
+                {/*    <div>{subList?.length > 0 ? subList?.length : 0}</div>*/}
+                {/*    <p>Подписки</p>*/}
+                {/*  </div>*/}
+                {/*</a>*/}
+
+
+              </div>
+
+
+
+              {+router.query.id === id  ? null : (
+                <>
+                  <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
+                  <div className="ad__block_bottom__adaptive_right">
+                    {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
+                    {/*  if (!blockLoading) setBlockOpen(true)*/}
+                    {/*}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>*/}
+                    <a className="SellerInfoComplain small light underline">Пожаловаться</a>
+                  </div>
+                </>
+              )}
             </div>
-
-
-
-            {+router.query.id === id  ? null : (
-              <>
-                <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
-                <div className="ad__block_bottom__adaptive_right">
-                  {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
-                  {/*  if (!blockLoading) setBlockOpen(true)*/}
-                  {/*}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>*/}
-                  <a className="SellerInfoComplain small light underline">Пожаловаться</a>
-                </div>
-              </>
-            )}
+          </div>
+          <div className="clientPage__container">
+            <User />
           </div>
         </div>
+
         <div className="clientPage__container">
           <User token={token} />
         </div>
@@ -306,6 +313,9 @@ function UserPage() {
             <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
         </DialogActions>
       </Dialog>
+      </>
+      }
+
     </MetaLayout>
   );
 }
