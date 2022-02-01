@@ -38,9 +38,9 @@ export function useProduct(id) {
 				.catch((e) => {
 					const resError = e.response
 					if(resError.data?.message === 404) {
-						// TODO: перербрасывать на страницу ошибка сервера
-						// router.push("/500")
-						console.log(1)
+						// TODO: перербрасывать на страницу не найденного товара
+						router.push("/notFound")
+						// console.log('resError: ', resError)
 					}
 				})
 		}
