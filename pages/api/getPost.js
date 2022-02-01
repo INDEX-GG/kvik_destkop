@@ -28,6 +28,10 @@ export default async function handler(req, res) {
 				(SELECT COUNT("posts"."id") FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."id" != $2 AND "posts"."active" = 0 AND "posts"."verify" = 0 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL))) AS "user_products_count",
    				array(SELECT row_to_json(t)FROM(SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."photo"  FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."active" = 0 AND "posts"."verify" = 0 AND "posts"."id" != $2 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL)) ORDER BY "posts"."id" desc LIMIT 3) t) AS user_products
 				FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $2`, [date ,post_id])
+			if (answer.rows.length === 0) {
+				throw 404
+			}
+
 			const subcategory = answer.rows[0]['subcategory']
 			answer.rows[0]['additional_fields'] = null
 			if (subcategory !== null) {
@@ -129,14 +133,13 @@ export default async function handler(req, res) {
 		}
 		catch (e) {
 			console.error(`ошибка api getPost ${e}`)
-			res.json('ошибка api getPost, ', e)
-			res.status(405).end();
+			if (parseInt(e) === 404) { res.status(404).json({ message: 404}) }
+			else { res.status(400).json({ message: 'ошибка api getPost'}) }
 		}
 		finally {
 			await pool.end();
 		}
 	} else {
-		res.json({ message: 'method not allowed' })
-		res.status(405).end()
+		res.status(405).json({ message: 'method not allowed' })
 	}
 }
