@@ -32,6 +32,12 @@ export default async function handler(req, res) {
 				let day_in_ms = 1000*60*60*24
 				let active_time = new Date(Math.floor(now) + day_in_ms*30)
 
+				let manager_name
+				let manager_phone
+				let crm_id
+				if (req.body.manager_name === undefined) {manager_name = null} else {manager_name = req.body.manager_name}
+				if (req.body.manager_phone === undefined) {manager_phone = null} else {manager_phone = req.body.manager_phone}
+				if (req.body.crm_id === undefined) {crm_id = null} else {crm_id = req.body.crm_id}
 
 				const obj = {
 					data: {
@@ -53,11 +59,10 @@ export default async function handler(req, res) {
 						visits: 0,
 						commercial: 0,
 						add_fields: { "fields": "none" },
-
 						created_at: now,
 						active_time: active_time,
 						date_verify: now,
-						updated_at: now,
+						// updated_at: now,
 						// archived_time: now,
 						// deleted_at: now,
 						// date_start_commercial: now,
@@ -68,20 +73,25 @@ export default async function handler(req, res) {
 						subcategory: req.body.subcategory,
 						verify_moderator: { "verify": [] },
 						coordinates: req.body.coordinates,
-						city: req.body.city
-											}
+						city: req.body.city,
+						manager_name: manager_name,
+						manager_phone: manager_phone,
+						crm_id: crm_id
+					}
 				}
 				const createPost = await prisma.posts.create(obj);
 				if (req.body.additional_fields !== null && req.body.additional_fields !== undefined) {
 					if (req.body.additional_fields.length !== 0) {
 						try {
+							let column_info = await prisma.$queryRaw(`SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'subcategories' AND TABLE_NAME = '${req.body.subcategory}' ORDER BY ORDINAL_POSITION`)
+							let exist_columns = (column_info.map(Object.values)).flat()
 							const additional_fields = req.body.additional_fields
 							let columns = ''
 							let values = ''
 							columns += '"' + 'post_id' + '", '
 							values += "'" + createPost.id + "', "
 							additional_fields.forEach((element) => {
-								if (element.value !== '') {
+								if (element.value !== '' && exist_columns.includes(element.alias)) {
 									columns += '"' + element.alias + '", '
 									values += "'" + element.value + "', "
 								}
