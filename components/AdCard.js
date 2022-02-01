@@ -1,7 +1,8 @@
 import React, {  useCallback, useEffect, useRef, useState } from "react";
+import clsx from 'clsx'
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination } from 'swiper';
+import SwiperCore, { Pagination, Lazy } from 'swiper';
 import { ellipsis, ToRubles, ToRusDate } from "../lib/services";
 import { useMedia } from '../hooks/useMedia';
 // import { useAuth } from "../lib/Context/AuthCTX";
@@ -12,7 +13,7 @@ import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
 // import PhoneModule from "./product/PhoneModule";
 
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, Lazy]);
 const initialState = {
 	mouseX: null,
 	mouseY: null,
@@ -282,6 +283,15 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 											</div>
 										}
 										<Swiper
+											// Enable lazy loading
+											lazy={{
+												//  tell swiper to load images before they appear
+												loadPrevNext: true,
+												// amount of images to load
+												loadPrevNextAmount: 1,
+											}}
+											// Disable preloading of all images
+											// preloadImages={false}
 											ref={currentSwiper}
 											pagination={pagination}
 											slidesPerView={1}
@@ -310,7 +320,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 															// alt="фото объявления"
 															// src={`${img}`}
 															// srt={true}
-															className={(i === 4 && (offer.photo.length - 5 > 0) ? classes.blur : null)}
+															// className={(i === 4 && (offer.photo.length - 5 > 0) ? classes.blur : null)}
+															className={clsx((i === 4 && (offer.photo.length - 5 > 0) ? classes.blur : null), 'swiper-lazy')}
 															onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 														/>
 														{/* <img
