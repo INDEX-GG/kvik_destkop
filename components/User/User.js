@@ -7,8 +7,7 @@ import { useRouter } from "next/router";
 // import { brooklyn } from "../../lib/services";
 import { getTokenDataByPost } from "#lib/fetch";
 
-const UsersPage = ({token, id}) => {
-  console.log(id)
+const UsersPage = ({token}) => {
 
   const [activeBox, setActiveBox] = useState([]);
   const [activeTotal, setActiveTotal] = useState(null)
@@ -42,7 +41,7 @@ const UsersPage = ({token, id}) => {
   // }, [router, isLoading])
 
 
-  console.log(typeof soldTotal)
+
   const navItems = [
     { id: 1, title: "Активные", content: <Active offers={activeBox} />, count: activeTotal },
     { id: 2, title: "Продано", content: <Sold offers={soldBox} />, count: soldTotal },

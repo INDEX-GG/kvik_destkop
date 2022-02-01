@@ -23,7 +23,6 @@ function Active(data) {
 		setDataArr(newArr)
 	  }
   }
-  console.log(data, ' data')
  
   return (
 	data?.offers ? 
