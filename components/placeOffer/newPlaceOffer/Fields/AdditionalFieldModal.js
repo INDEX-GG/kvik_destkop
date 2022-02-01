@@ -142,7 +142,7 @@ const AdditionalFieldModal = ({jsonData, dataItems, getValues, setValue, propsTy
         setDisabled(false)
     }, [dataItems])
 
-    console.log(getValues(alias), alias)
+    // console.log(getValues(alias), alias)
 
     return (
         jsonData && (

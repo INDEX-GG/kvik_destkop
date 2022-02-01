@@ -1,7 +1,7 @@
 import {Avatar, makeStyles, Tooltip} from '@material-ui/core';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
-import {useMedia} from '../../../hooks/useMedia';
+// import {useMedia} from '../../../hooks/useMedia';
 import {useSubBool} from '../../../hooks/useSubscriptions';
 import StarRating from '../../StarRating';
 import {getTokenDataByPost} from "../../../lib/fetch";
@@ -25,9 +25,9 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, status, userrate, token}) => {
+const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*/ status, userrate, token}) => {
   const router = useRouter();
-  const {matchesMobile, matchesTablet} = useMedia();
+  // const {matchesMobile, matchesTablet} = useMedia();
   const {userSub} = useSubBool(id, sellerId)
   const [userBool, setUserBool] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -117,7 +117,7 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
 
                 {/* {status === 7 && sellerId === id ? !matchesMobile && !matchesTablet ? <a className="SellerInfoUserAdd"></a> : "" : ""} */}
 
-                {mobile ? (
+                {/* {mobile ? (
                   matchesTablet | matchesMobile ? null : (
                     <>
                       <div className="SellerProductInfo">
@@ -129,7 +129,7 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, userAd, st
                   )
                 ) : (
                   ""
-                )}
+                )} */}
             </>
             }
             

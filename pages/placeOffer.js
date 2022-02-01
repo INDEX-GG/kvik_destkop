@@ -113,7 +113,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                 location:  commonFields.address,
                 coordinates: JSON.parse(commonFields.coordinates)
             }
-            editObject.photoes = editObject.photo;
+            editObject.photoes = 'ok'
             for(const [key, value] of Object.entries(editObject)) {
                 methods.setValue(key, value)
             }
@@ -388,7 +388,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                                     title={title}
                                     category={category}
                                     currentCategory={currentCategory}
-                                    photoesLink={commonFields?.photo}
+                                    photoesLink={commonFields?.editPhotos}
                                 />
                             </PlaceOfferMobile>
                         ) : null}
