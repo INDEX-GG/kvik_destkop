@@ -15,12 +15,13 @@ export function useProduct(id) {
 			// запрос для старой версии бека (id это число )
 			// getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })
 			getDataByPost('/api/getPost?123', { id: intId, 'user_id': userId })
+				// TODO: добавить обработчик статуса ответа и в useProduct
 				.then((r) => {
 
-					if (r !== undefined) {
+					if (r !== undefined && typeof r !== 'string' ) {
 						// console.log('rrrrrrrrrr',r)
 
-						let photoes = JSON.parse(r.photo);
+						let photoes = JSON?.parse(r.photo);
 						r.chatProductPhoto = photoes.photos[0]
 						// console.log('$$$$$$$$$$$$$$$$',photoes)
 						r.editPhotos = photoes?.photos
@@ -32,6 +33,9 @@ export function useProduct(id) {
 						r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 						setProductInfo(r);
 					}
+				})
+				.catch((e) => {
+					console.log('rrr-e: ', e)
 				})
 		}
 	}, [id])
