@@ -5,9 +5,9 @@ import Placeholder from "./tabs/Placeholder";
 import { useAd } from "../../hooks/useAd";
 import { useRouter } from "next/router";
 // import { brooklyn } from "../../lib/services";
-import { getTokenDataByPost } from "#lib/fetch";
+import { getDataByPost } from "#lib/fetch";
 
-const UsersPage = ({token}) => {
+const UsersPage = () => {
 
   const [activeBox, setActiveBox] = useState([]);
   const [activeTotal, setActiveTotal] = useState(null)
@@ -23,7 +23,7 @@ const UsersPage = ({token}) => {
     if(!sellerId) {
       return
     }
-    const data = await getTokenDataByPost(`/api/getSeller`, { id: sellerId, page: 1, page_limit: 50 }, token, )
+    const data = await getDataByPost(`/api/getSeller`, { id: sellerId, page: 1, page_limit: 50 } )
     console.log(data)
     setActiveBox(data.active_posts)
     setSoldBox(data.archive_posts)

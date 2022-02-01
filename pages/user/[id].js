@@ -283,7 +283,7 @@ function UserPage() {
           </div>
         </div>
         <div className="clientPage__container">
-          <User token={token} />
+          <User />
         </div>
       </div>
       <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
