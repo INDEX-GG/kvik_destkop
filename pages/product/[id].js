@@ -46,7 +46,7 @@ const Product = () => {
         subcategory,
         user_name: name,
         raiting,
-        user_photo: userPhoto,
+        userPhoto,
         category_id,
         user_id,
         created_at,
