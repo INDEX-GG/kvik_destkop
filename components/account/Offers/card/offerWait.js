@@ -37,7 +37,7 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                 {/* {console.log(offer)} */}
                 {offer.verify == 4  ? 
                 <div className="offerWaitCause megaLight offerWaitBigName">{Verify[offer.verify === 1 ? 5 : 4]}</div> :
-                <div className="offerWaitCause megaLight">Отклоенно/Заблокировано</div>}
+                <div className="offerWaitCause megaLight">Отклонено/Заблокировано</div>}
                 {/* старый вариант отображения статуса, после изменения API тут не хватает данных, нужно адекватно заполнить пропсы */}
                 {/* <div className="offerWaitCause megaLight">{Verify[offer.verify === 1 ? 5 : 4]}</div>} */}
               </div>
