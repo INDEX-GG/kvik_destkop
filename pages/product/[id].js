@@ -13,7 +13,7 @@ import {useProduct} from "../../hooks/useProduct";
 import BreadCrumbsProduct from "../../components/product/BreadCrumbsProduct";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import {useAuth} from "../../lib/Context/AuthCTX";
-import PhoneModule from "../../components/product/PhoneModule";
+// import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import {CHAT_URL_API} from "../../lib/constants";
 import ProductPrice from "../../components/product/ProductPrice";
@@ -62,7 +62,7 @@ const Product = () => {
         coordinates
     } = productInfo
 
-    const allProductInfo = useProduct(query.id)
+    // const allProductInfo = useProduct(query.id)
 
 
 
@@ -70,7 +70,7 @@ const Product = () => {
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
-    const [phoneModal, setPhoneModal] = useState();
+    const [/*phoneModal,*/ setPhoneModal] = useState();
 
 
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -202,7 +202,7 @@ const Product = () => {
                                                                     productionInfo={productInfoFields}
                                                                     caterory={subcategory}
                                                                     category_id={category_id}
-                                                                    allProductInfo={allProductInfo}
+                                                                    allProductInfo={productInfo}
                                                                     />
                                             </div>
                                             {/* Блок информации*/}
@@ -247,7 +247,7 @@ const Product = () => {
                                         {/*              setPage={setPage} /* endMessage={!collSO} */ }
                                         {/* ниже старый вариант отрисовки карточек на странице объявления, заменено на рекомендумые */}
                                         {/* {category_id && (<CategoryScrollPostData url='/api/similarPosts'  title={'Похожие объявления'} category={category_id} />)} */}
-                                        {category_id && (<NewCategoryScrollPostData url='/api/similarPosts' />)}
+                                        {category_id && (<NewCategoryScrollPostData url='/api/similarPosts' product={productInfo} />)}
                                         <div style={{marginTop: '60px'}}/>
                                         {/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
@@ -270,7 +270,8 @@ const Product = () => {
                         <Statistics /* views={viewing ? JSON.parse(viewing).length : 0}  */
                             Close={handleStatFormDialog}/>{" "}
                     </Dialog>
-                    <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/>
+                    {/* ничего не делало, закоментил */}
+                    {/* <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/> */}
                 </div>
             </OfferAccountProvider>
         </MetaLayout>
