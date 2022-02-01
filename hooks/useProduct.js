@@ -15,12 +15,11 @@ export function useProduct(id) {
 		if (typeof id === 'string' || typeof id === 'number') {
 			// запрос для старой версии бека (id это число )
 			// getDataByPost('/api/getPost?123', { id: id, 'user_id': userId })
-			console.log('отправляем запрос: ')
 			getDataByPost('/api/getPost?123', { id: intId, 'user_id': userId })
 				.then((r) => {
 
 					if (r !== undefined) {
-						console.log('rrrrrrrrrr',r)
+						// console.log('rrrrrrrrrr',r)
 
 						let photoes = JSON.parse(r.photo);
 						r.chatProductPhoto = photoes.photos[0]
