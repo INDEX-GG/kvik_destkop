@@ -174,8 +174,7 @@ export default function offerArchive({
                                     id='002'
                                     value={offer.id}
                                     onClick={(e) => pushCheck(e)}
-                                    className="offerEdit thin superLight offerSocialAction"
-                                >
+                                    className="offerEdit thin superLight offerSocialAction">
                                     Удалить
                                 </button>
                             </a>
@@ -186,8 +185,8 @@ export default function offerArchive({
                         <div className="thin light small DatPub__mobile">
                             <span> {matchesTablet || matchesMobile ? null : "Дата последнего редактирования: "}{offer.date}</span>
                             <div className="offerSocialCount offerSocialCountPos">
-                                <div className="offerShowes showesIcon">0 +0</div>
-                                <div className="offerAddFavores likeIcon">0 +0</div>
+                                <div className="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
+                                <div className="offerAddFavores likeIcon">{offer.likes_count} +0</div>
                             </div>
                         </div>
                     </div>

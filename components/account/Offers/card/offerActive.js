@@ -122,8 +122,8 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 								</button>
 							</a>
 							<div className="offerSocialCount offerSocialCountPos offerSocialCountPosActive">
-								<div className="offerShowes showesIcon">0 +0</div>
-								<div className="offerAddFavores likeIcon">0 +0</div>
+								<div className="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
+								<div className="offerAddFavores likeIcon">{offer.likes_count} +0</div>
 							</div>
 
 						</div>

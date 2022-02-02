@@ -3,10 +3,26 @@ import { ToRubles } from "../../../../lib/services";
 import VerifyModerator from "../../../json/verifyModerator.json";
 import Verify from "../../../json/verify.json";
 
+import {useMedia} from "../../../../hooks/useMedia";
+import {Checkbox, makeStyles, Dialog} from "@material-ui/core";
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
+import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+import OfferModal from "../../../OfferModal";
 
-function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
 
+function offerWait({ offer, parentCheck, getChildCheck}) {
+
+    const [openOfferModal, setOpenOfferModal] = useState(false);
+    const [offerId, setOfferId] = useState();
+    const [buttonId, setButtonId] = useState('');
     const [check, setCheck] = useState(false);
+    const offerData = offer;
+    const offerID = offer.id;
+
+    const cleanAll = () => {
+      getChildCheck({id: offer.id, isChecked: false});
+      setCheck(false)
+  }
     console.log(offer);
     useEffect( () => {
         parentCheck ? check ? null : handleCheck(parentCheck) : check === false ? null : offerId.length < 1 ? handleCheck(parentCheck) : null;
@@ -15,6 +31,14 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
     function handleCheck(event) {
         setCheck(event);
         getChildCheck({id: offer.id, isCheck: event});
+    }
+
+    function pushCheck(e) {
+      if (e.target.value !== '') {
+          setOfferId([+e.target.value])
+      }
+      setOpenOfferModal(!openOfferModal);
+      setButtonId(e.target.id)
     }
 
     return (
@@ -56,12 +80,23 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                   <div class="offerDTRight">
                     <a href="#" class="offerDTRight__item">
                       <span class="offerIcon checkMarkIcon"></span>
-                      <button id="001" value="2521" class="offerActivate thin superLight offerSocialAction">Активировать</button>
+                      <button
+                          id='001'
+                          onClick={(e) => pushCheck(e)}
+                          className="offerActivate thin superLight offerSocialAction">
+                          Активировать
+                      </button>
                       </a><button class="offerDTRight__item offerEdit thin offerSocialAction">
                       <span class="offerIcon editIcon"></span>Редактировать</button>
                       <a href="#" class="offerDTRight__item">
                         <span class="offerIcon binIcon"></span>
-                        <button id="002" value="2521" class="offerEdit thin superLight offerSocialAction">Удалить</button>
+                        <button 
+                          onClick={(e) => pushCheck(e)}
+                          id="002"
+                          value="2521"
+                          class="offerEdit thin superLight offerSocialAction">
+                          Удалить
+                        </button>
                       </a>
                   </div>
                 </div>
@@ -70,11 +105,24 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                     <span> Дата последнего редактирования: </span>
                     <div class="offerSocialCount offerSocialCountPos">
                       <div class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
-                      <div class="offerAddFavores likeIcon">0 +0</div>
+                      <div class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
                     </div>
                   </div>
                 </div>
                 <div className="offerDescriptionBottom">
+
+                <Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth
+                      maxWidth='md'>
+                  <OfferModal
+                    offerId={offerId}
+                    offerData={offerData}
+                    openOfferModal={openOfferModal}
+                    setOpenOfferModal={setOpenOfferModal}
+                    buttonId={buttonId}
+                    cleanAll={cleanAll}
+                  />
+                </Dialog>
+
                   {/* {offer.verify !== 2 ? (
                     ""
                   ) : (
