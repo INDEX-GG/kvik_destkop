@@ -3,8 +3,8 @@ import {useCity} from "../lib/Context/CityCTX";
 import {getDataByPost} from "../lib/fetch";
 import {modifyGetPostsData} from "../lib/services";
 import { makeStyles } from '@material-ui/core';
-import { useProduct } from '#hooks/useProduct';
-import { useRouter } from 'next/router';
+// import { useProduct } from '#hooks/useProduct';
+// import { useRouter } from 'next/router';
 import Union from '../UI/icons/Union';
 import AdCard_component from './AdCard';
 import OffersRenderGridIcon from '#UI/icons/OffersRenderGridIcon';
@@ -2233,7 +2233,7 @@ const useStyles = makeStyles(() => ({
 // {"post_id": 2366, "region": "", "model": "A4", "brand": "Audi"}
 // POST        /api/similarPosts
 
-const CategoryScrollPostData = ({url}) => {
+const CategoryScrollPostData = ({url, product}) => {
     const [similarData, setSimilarData] = useState([])
     const [renderCards, setRenderCards] = useState([]);
     const [endPage, setEndPage] = useState(8)
@@ -2242,8 +2242,8 @@ const CategoryScrollPostData = ({url}) => {
     const [oneMoreFetch, setOneMoreFetch] = useState(true)
 
     const classes = useStyles();
-    const router = useRouter()
-    const product = useProduct(router.query.id)
+    // const router = useRouter()
+    // const product = useProduct(router.query.id)
     const {searchCity} = useCity()
     const {id} = useAuth()
     const {matchesMobile, matchesTablet} = useMedia()

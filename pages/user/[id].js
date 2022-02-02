@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
-import { useAd } from "../../hooks/useAd";
+// import { useAd } from "../../hooks/useAd";
 import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
@@ -72,7 +72,7 @@ function UserPage() {
   const { id, token } = useAuth()
 
   const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
-  const {userInfo} = useAd(router.query.id)
+  // const {userInfo} = useAd(router.query.id)
   const  userProfileInfo  = useUser();
   const { userSub } = useSubBool(id, sellerId)
   const { userBlocked } = useBlockedBool(id, sellerId, token)
@@ -196,7 +196,7 @@ function UserPage() {
     <MetaLayout>
       <div className="clientPage text">
         <div className="clientPage__menu">
-          <div key={userInfo.userId} className="clientPage__userinfo">
+          <div className="clientPage__userinfo">
             <div className="clientPage__userpic">
               {isLoading ? null : <Avatar src={`${STATIC_URL}/${sellerPhoto}`} style={{ backgroundColor: `${stringToColor(sellerName)}` }}>{initials(sellerName)}</Avatar>}
             </div>

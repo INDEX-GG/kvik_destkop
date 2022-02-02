@@ -28,8 +28,8 @@ export default async function handler(req, res) {
                     (SELECT COUNT(id) FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $2) OR (active_time IS NULL))) AS active_posts_count,
                     (SELECT COUNT(id) FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1) AS archive_posts_count`, [user_id, new Date()])
                 answer.seller = obj.rows[0].seller
-                answer.active_posts_count = obj.rows[0].active_posts_count
-                answer.archive_posts_count = obj.rows[0].archive_posts_count
+                answer.active_posts_count = parseInt(obj.rows[0].active_posts_count)
+                answer.archive_posts_count = parseInt(obj.rows[0].archive_posts_count)
             }
             return answer
         }

@@ -3,7 +3,7 @@ import Active from "./tabs/Active";
 import Wait from "./tabs/Wait";
 import Archive from "./tabs/Archive";
 import { useRouter } from "next/router";
-import { brooklyn } from "../../../lib/services";
+// import { brooklyn } from "../../../lib/services";
 
 import { useOfferAccount } from "../../../lib/Context/OfferAccountCTX";
 import safeAccountTab from "../../safeAccountTab";
@@ -81,7 +81,9 @@ const Offers = () => {
                         setItemNav({i: item.id, ttl: item.title})
                         safeAccountTab(item.id)}}
                     >
-                      {item.title} {brooklyn(item.count)}{" "}
+                      {/* {item.title} {brooklyn(item.count)}{" "} */}
+                      {/* {item.count} */}
+                      {`${item.title} ${item.count || ''}`}
                     </a>
                 );
               })}

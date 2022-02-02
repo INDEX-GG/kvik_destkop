@@ -23,7 +23,6 @@ function Active(data) {
 		setDataArr(newArr)
 	  }
   }
-
  
   return (
 	data?.offers ? 
