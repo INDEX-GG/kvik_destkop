@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { STATIC_URL } from '../lib/constants';
 import { useAuth } from '../lib/Context/AuthCTX';
 import { getDataByPost } from '../lib/fetch';
+import router from 'next/router';
 
 
 export function useProduct(id) {
@@ -37,7 +38,13 @@ export function useProduct(id) {
 					}
 				})
 				.catch((e) => {
-					console.log('rrr-e: ', e)
+					const resError = e.response
+					if(resError.data?.message === 404) {
+						// TODO: перербрасывать на страницу не найденного товара
+						router.push("/notFound")
+						// console.log('resError: ', resError)
+					}
+
 				})
 		}
 	}, [id])
