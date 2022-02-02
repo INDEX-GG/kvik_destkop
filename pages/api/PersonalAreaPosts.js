@@ -38,32 +38,56 @@ export default async function handler(req, res) {
             let archive_posts_ids = []
             let wait_posts_ids = []
 
-            let active_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $2) OR (active_time IS NULL)) ORDER BY "posts"."id" desc LIMIT $3 offset $4`, [user_id, new Date(), page_limit, page])
-            active_posts.rows.forEach(
+
+            let all_posts = await pool.query(`SELECT
+                    array(SELECT row_to_json(t1)FROM(
+                    SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $4) OR (active_time IS NULL)) ORDER BY "posts"."id" desc LIMIT $2 offset $3
+                    ) t1) AS active_posts,
+                    array(SELECT row_to_json(t2)FROM(
+                    SELECT "posts"."id", "posts"."title", "posts"."verify", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE (posts.user_id = $1 AND verify != 0 AND active != 99) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $4) AND (active_time IS NOT NULL))) ORDER BY "posts"."active_time" desc LIMIT $2 offset $3
+                    ) t2) AS wait_posts,
+                    array(SELECT row_to_json(t3)FROM(
+                    SELECT "posts"."id", "posts"."title", "posts"."active", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."archived_time" FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1 ORDER BY "posts"."archived_time" desc LIMIT $2 offset $3
+                    ) t3) AS archive_posts
+                    `, [user_id, page_limit, page, date])
+
+            all_posts = all_posts.rows[0]
+            let active_posts = all_posts.active_posts
+            let wait_posts = all_posts.wait_posts
+            let archive_posts = all_posts.archive_posts
+
+            active_posts.forEach(
                 element => {
-                    element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
+                    element.best_before = Math.ceil((Date.parse(element.active_time) - date)/day_in_ms)
                     delete element.active_time
                     active_posts_ids.push(element.id)
                 });
-
-            let archive_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."archived_time" FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1 ORDER BY "posts"."archived_time" desc LIMIT $2 offset $3`, [user_id, page_limit, page])
-            archive_posts.rows.forEach(
+            archive_posts.forEach(
                 element => {
-                    element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
+                    // active time - archive_time (Время на которое можно обратно поднять)
+                    // element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
+                    element.status = "no_active"
+                    element.status_code = element.active
+                    delete element.active
                     delete element.active_time
                     archive_posts_ids.push(element.id)
                 });
-
-            let wait_posts = await pool.query(`SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE (posts.user_id = $1 AND verify != 0) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $2) AND (active_time IS NOT NULL))) ORDER BY "posts"."active_time" desc LIMIT $3 offset $4`, [user_id, new Date(), page_limit, page])
-            wait_posts.rows.forEach(
+            wait_posts.forEach(
                 element => {
-                    element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
+                    if (parseInt(element.verify) !== 0) {
+                        element.status = "banned"
+                    } else if (Math.ceil((Date.parse(element.active_time) - date)/day_in_ms) <= 0) {
+                        element.status = "time_limit"
+                    }
+                    // element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
+                    delete element.verify
                     delete element.active_time
                     wait_posts_ids.push(element.id)
                 });
 
             let all_posts_ids = active_posts_ids.concat(archive_posts_ids).concat(wait_posts_ids)
-            if (all_posts_ids.length === 0) { return  {"active_posts": [], "wait_posts": [], "archive_posts": []}}
+            if (all_posts_ids.length === 0 && req.body.page === 1) { return  {"active_posts": [], "wait_posts": [], "archive_posts": [], "active_posts_count": 0, "wait_posts_count": 0, "archive_posts_count": 0}}
+            if (all_posts_ids.length === 0 && req.body.page > 1) { return  {"active_posts": [], "wait_posts": [], "archive_posts": []}}
             const clickhouse_data = `SELECT 'last_day_viewing_count' as type, post_id, count(post_id) FROM clickstream WHERE timestamp = toStartOfDay(now()) AND post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'all_time_viewing_count' as type, post_id, count(post_id) FROM clickstream WHERE post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'last_day_contact_count' as type, post_id, count(post_id) FROM contactstream WHERE timestamp = toStartOfDay(now()) AND post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'all_time_contact_count' as type, post_id, count(post_id) FROM contactstream WHERE post_id IN [` + all_posts_ids + `] GROUP BY post_id FORMAT JSON`
             let clickhouse_answer = await axios.post(clickhouse_url, clickhouse_data).then(r => r.data)
             const likes_count = await pool.query(`SELECT  liked_post_id, COUNT(liked_post_id) FROM "public"."favorites" WHERE liked_post_id IN (${all_posts_ids}) GROUP BY liked_post_id`)
@@ -84,17 +108,23 @@ export default async function handler(req, res) {
                     });
             }
 
-            add_elements(active_posts.rows)
-            add_elements(wait_posts.rows)
-            add_elements(archive_posts.rows)
-            let answer = {"active_posts": active_posts.rows, "wait_posts": wait_posts.rows, "archive_posts": archive_posts.rows}
+            add_elements(active_posts)
+            add_elements(wait_posts)
+            add_elements(archive_posts)
+            let answer = {"active_posts": active_posts, "wait_posts": wait_posts, "archive_posts": archive_posts}
+
             if (req.body.page === 1) {
-                let active_posts_count = await pool.query(`SELECT COUNT(id) FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $2) OR (active_time IS NULL))`, [user_id, new Date()])
-                let wait_posts_count = await pool.query(`SELECT COUNT(id) FROM "posts" WHERE (posts.user_id = $1 AND verify != 0) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $2) AND (active_time IS NOT NULL)))`, [user_id, new Date()])
-                let archive_posts_count = await pool.query(`SELECT COUNT(id) FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1`, [user_id])
-                answer.active_posts_count = parseInt(active_posts_count.rows[0].count)
-                answer.wait_posts_count = parseInt(wait_posts_count.rows[0].count)
-                answer.archive_posts_count = parseInt(archive_posts_count.rows[0].count)
+                let obj = await pool.query(`SELECT
+                    (SELECT COUNT(id) FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $2) OR (active_time IS NULL))) AS active_posts_count,
+                    (SELECT COUNT(id) FROM "posts" WHERE (posts.user_id = $1 AND verify != 0 AND active != 99) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $2) AND (active_time IS NOT NULL)))) AS wait_posts_count,
+                    (SELECT COUNT(id) FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1) AS archive_posts_count
+                    `, [user_id, new Date()])
+                let active_posts_count = parseInt(obj.rows[0].active_posts_count)
+                let wait_posts_count = parseInt(obj.rows[0].wait_posts_count)
+                let archive_posts_count = parseInt(obj.rows[0].archive_posts_count)
+                answer.active_posts_count = active_posts_count
+                answer.wait_posts_count = wait_posts_count
+                answer.archive_posts_count = archive_posts_count
             }
 
             return answer
