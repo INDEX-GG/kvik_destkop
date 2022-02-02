@@ -7,7 +7,7 @@ import Verify from "../../../json/verify.json";
 function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
 
     const [check, setCheck] = useState(false);
-
+    console.log(offer);
     useEffect( () => {
         parentCheck ? check ? null : handleCheck(parentCheck) : check === false ? null : offerId.length < 1 ? handleCheck(parentCheck) : null;
     }, [parentCheck])
@@ -30,14 +30,17 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                     <div className="checkbox__text"></div>
                   </label>
                 </div>
-                
                     <img src={offer.photo[0]} key={12321}/>
+                    
                 {/* <img src={offer.photo} /> */}
 
                 {/* {console.log(offer)} */}
                 {offer.verify == 4  ? 
                 <div className="offerWaitCause megaLight offerWaitBigName">{Verify[offer.verify === 1 ? 5 : 4]}</div> :
-                <div className="offerWaitCause megaLight">Отклонено/Заблокировано</div>}
+                <div className="offerWaitCause megaLight" style={{
+                  fontSize: '14px',
+                  lineHeight: '16px'
+                }}><p style={{padding:'4px, 30px'}}>Отклонено/Заблокировано</p></div>}
                 {/* старый вариант отображения статуса, после изменения API тут не хватает данных, нужно адекватно заполнить пропсы */}
                 {/* <div className="offerWaitCause megaLight">{Verify[offer.verify === 1 ? 5 : 4]}</div>} */}
               </div>
@@ -50,9 +53,29 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                   <div className="offerDTRight">
                     {/*{offer.verify == 4 ? <a className="offerActivate thin superLight checkMarkIcon">Активировать</a> : null}*/}
                   </div>
+                  <div class="offerDTRight">
+                    <a href="#" class="offerDTRight__item">
+                      <span class="offerIcon checkMarkIcon"></span>
+                      <button id="001" value="2521" class="offerActivate thin superLight offerSocialAction">Активировать</button>
+                      </a><button class="offerDTRight__item offerEdit thin offerSocialAction">
+                      <span class="offerIcon editIcon"></span>Редактировать</button>
+                      <a href="#" class="offerDTRight__item">
+                        <span class="offerIcon binIcon"></span>
+                        <button id="002" value="2521" class="offerEdit thin superLight offerSocialAction">Удалить</button>
+                      </a>
+                  </div>
+                </div>
+                <div class="offerDescriptionBottom">
+                  <div class="thin light small DatPub__mobile">
+                    <span> Дата последнего редактирования: </span>
+                    <div class="offerSocialCount offerSocialCountPos">
+                      <div class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
+                      <div class="offerAddFavores likeIcon">0 +0</div>
+                    </div>
+                  </div>
                 </div>
                 <div className="offerDescriptionBottom">
-                  {offer.verify !== 2 ? (
+                  {/* {offer.verify !== 2 ? (
                     ""
                   ) : (
                     <div className="offerCauses small thin error">
@@ -64,7 +87,7 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                   )}
 
 
-                  {/* {console.log(offer.verify)} */}
+
 
                   {offer.delete ? <div className="thin">Будет удалено навсегда через 30 дней</div> : null}
 
@@ -75,7 +98,7 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                       <div className="offerShowes showesIcon">0 +0</div>
                       <div className="offerAddFavores likeIcon">0 +0</div>
                     </div>
-                  </div>) : null}
+                  </div>) : null} */}
                 </div>
               </div>
             </div>

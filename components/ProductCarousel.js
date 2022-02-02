@@ -82,8 +82,8 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 							return (
 								<SwiperSlide style={{
 									overflow: 'hidden', 
-									borderRadius: (matchesTablet || matchesMobile) && '8px 8px 0 0'
-									}} 
+									borderRadius: (matchesTablet || matchesMobile) && '8px 8px 0 0',
+									backgroundColor: 'rgba(217, 217, 217, 0.75)',									}} 
 									className='importantSlide' 
 									key={i} 
 									onClick={() => setModal(!modal)}
@@ -110,8 +110,9 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 										backgroundImage: `url(${img})`, 
 										backgroundSize: 'cover', 
 										filter: 'blur(20px)'
+										
 									}} 
-									className="imageBlur">
+									className="">
 									</div>
 									{/*ВОЗМОЖНОЕ РЕШЕНИЕ!*/}
 									{/*<ProductItemPhoto img={img} index={i}/>*/}
