@@ -58,14 +58,14 @@ const UserAddressTab = ({setInputValue}) => {
 			border: "none",
 			padding: "1em",
 			"&:focus": {
-				
+
 			}
 		}
 	})();
 	const { id: userID, token } = useAuth();
 	const { userInfo } = useStore();
 	/**
-	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion 
+	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion
 	 */
 	const handlerLocationSuggestion = async (suggestion) => {
 		try {
@@ -103,14 +103,14 @@ const UserAddressTab = ({setInputValue}) => {
 /**
  * @param {object} props
  * @param {import("#lib/fetch").UserInfo} props.userInfo
- * @param {string} props.name 
+ * @param {string} props.name
  */
 const UserNameForm = () => {
 	const { id: userID, token } = useAuth();
 	const { userInfo } = useStore();
 
 	/**
-	 * @param {React.FocusEvent<HTMLInputElement>} event 
+	 * @param {React.FocusEvent<HTMLInputElement>} event
 	 */
 	const handlerUserNameChange = async (event) => {
 		try {
@@ -208,7 +208,7 @@ export const PersonalDataMobile = () => {
 							onClick={() => { switchAddressPage(true) }}
 						>
 							<span className="nav-button__text" style={{ textAlign: "left" }}>
-								{addressValue || userInfo.address || userInfo?.location?.name}
+								{addressValue || userInfo?.address || userInfo?.location?.name}
 							</span>
 							<span className="nav-button__arrow">
 								<svg
@@ -230,12 +230,12 @@ export const PersonalDataMobile = () => {
 						</button>
 					</div>
 					<Section className="user-info__section--phone user-info__section--disabled">
-						<span>{formatPhoneNumber(userInfo.phone)}{}</span>
+						<span>{formatPhoneNumber(userInfo?.phone)}{}</span>
 						<InternalLink className="user-info__phone-link" href={location.toString()} >
 							Добавить телефон
 						</InternalLink>
 					</Section>
-					{userInfo.email &&
+					{userInfo?.email &&
 						(<Section>
 							<span>{userInfo.email}</span>
 						</Section>)
@@ -441,7 +441,7 @@ export const PersonalDataMobile = () => {
 								placeholder="Введите новый пароль"
 								type={inputFirstEye ? "password" : "text"}
 								value={passwordOne}
-							// onChange={(e) => changePasswordInput(e)} 
+							// onChange={(e) => changePasswordInput(e)}
 							/>
 							<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)} />
 						</div>
@@ -466,7 +466,7 @@ export const PersonalDataMobile = () => {
 								placeholder="Повторите пароль еще раз"
 								type={inputSecondEye ? "password" : "text"}
 								value={passwordTwo}
-							// onChange={(e) => confirmPassword(e)} 
+							// onChange={(e) => confirmPassword(e)}
 							/>
 							<a
 								className="pDPassInvis"
