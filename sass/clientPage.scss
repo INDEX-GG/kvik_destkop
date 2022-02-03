@@ -164,7 +164,7 @@
         align-items: center;
         justify-content: flex-start;
         padding: 0 0 21px 4px;
-        
+
         &_end {
           position: absolute;
           right: -15px;
@@ -589,7 +589,6 @@
       padding: 21px 10px 0 10px;
       position: relative;
       top: 0;
-      margin-bottom: 40px;
 
       &:hover {
         box-shadow: none;
@@ -652,7 +651,7 @@
   }
 
   .clientPage__menu > * {
-    margin: 0 0 21px 0 !important;
+    margin: 0 0 15px 0 !important;
   }
   .clientPage__menu {
     padding: 10px !important;

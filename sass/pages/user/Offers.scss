@@ -74,7 +74,7 @@
   align-items: flex-end;
 }
 .offerDTRight .offerDTRight__item {
-	margin-bottom: 14px;
+	margin-bottom: 8px;
 }
 
 .offerDTRight__item {
@@ -349,5 +349,16 @@
   }
   .offerWaitBigName{
     bottom: 30px
+  }
+
+  .offerPrice {
+    font-size: 18px;
+    line-height: 21px;
+  }
+
+  .offerTitle,
+  .offerDatPub {
+    font-size: 14px;
+    line-height: 16px;
   }
 }

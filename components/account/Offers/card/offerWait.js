@@ -22,7 +22,7 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
               <div className="offerImage">
                 <div className="offerPubCheck">
                   <label className="checkbox">
-                    <input 
+                    <input
                       type="checkbox"
                       onChange={(event) => handleCheck(event.target.checked)}
                       checked={check}
@@ -30,12 +30,12 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
                     <div className="checkbox__text"></div>
                   </label>
                 </div>
-                
+
                     <img src={offer.photo[0]} key={12321}/>
                 {/* <img src={offer.photo} /> */}
 
                 {/* {console.log(offer)} */}
-                {offer.verify == 4  ? 
+                {offer.verify == 4  ?
                 <div className="offerWaitCause megaLight offerWaitBigName">{Verify[offer.verify === 1 ? 5 : 4]}</div> :
                 <div className="offerWaitCause megaLight">Отклоенно/Заблокировано</div>}
                 {/* старый вариант отображения статуса, после изменения API тут не хватает данных, нужно адекватно заполнить пропсы */}
@@ -44,7 +44,7 @@ function offerWait({ offer, parentCheck, getChildCheck, offerId}) {
               <div className="offerDescription">
                 <div className="offerDescriptionTop">
                   <div className="offerDTLeft thin">
-                    <div>{ToRubles(offer.price)}</div>
+                    <div className="offerPrice">{ToRubles(offer.price)}</div>
                     <div className="offerTitle">{offer.title}</div>
                   </div>
                   <div className="offerDTRight">
