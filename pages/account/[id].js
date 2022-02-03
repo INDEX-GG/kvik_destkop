@@ -217,10 +217,11 @@ const Account = () => {
         )
     }
 
+    /* eslint-disable no-unused-vars */
     const accountContentDesktop = () => {
         return accountContent()
     }
-
+    /* eslint-disable no-unused-vars */
     const accountContentMobile = () => {
         return (
             <MobileModal
