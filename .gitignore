@@ -46,3 +46,7 @@ docker-compose.yml
 
 # ngrok
 ngrok.exe
+
+#IDE condif
+.idea
+.vscode
