@@ -19,11 +19,13 @@ import ProductAdsChange from "./ProductAdsChange";
 import ProductActionPlaceHolder from "../placeHolders/ProductActionPlaceHolder/ProductActionPlaceHolder";
 import Login from "#components/auth/Login";
 import { DialogCTX } from "#lib/Context/DialogCTX";
+import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 
 
 export default function ProductAction(data) {
+  const {addContactClick} = useStatistics()
   const { id, isAuth } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
   const [phoneModuleState, setPhoneModuleState] = useState(false);
@@ -42,6 +44,7 @@ export default function ProductAction(data) {
   const offerId = [data.productInfo.id];
   const offerData = data.productInfo;
   const setUpdate = data.setUpdate;
+
 
   const {user_id} = data;
 
@@ -80,7 +83,15 @@ export default function ProductAction(data) {
                     onClick={() => chatClickHandler()}
                     icon={<IconMess/>}
                     />
-                  <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
+                  <ProductButton 
+                    className="SellerInfoCall button contained" 
+                    title='Показать номер' 
+                    icon={<IconCall/>} 
+                    onClick={() => {
+                      setPhoneModuleState(true)
+                      addContactClick(offerId[0])()
+                      }} 
+                  />
                 </ProductDeal>
                   {objP.adstatus && data.delivery && <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction}
                                   reviewed={data.reviewed}/>}
