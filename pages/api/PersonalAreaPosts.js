@@ -85,21 +85,14 @@ export default async function handler(req, res) {
                     wait_posts_ids.push(element.id)
                 });
 
-            let all_posts_ids = active_posts_ids.concat(archive_posts_ids).concat(wait_posts_ids)
-            if (all_posts_ids.length === 0 && req.body.page === 1) { return  {"active_posts": [], "wait_posts": [], "archive_posts": [], "active_posts_count": 0, "wait_posts_count": 0, "archive_posts_count": 0}}
-            if (all_posts_ids.length === 0 && req.body.page > 1) { return  {"active_posts": [], "wait_posts": [], "archive_posts": []}}
-            const clickhouse_data = `SELECT 'last_day_viewing_count' as type, post_id, count(post_id) FROM clickstream WHERE timestamp = toStartOfDay(now()) AND post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'all_time_viewing_count' as type, post_id, count(post_id) FROM clickstream WHERE post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'last_day_contact_count' as type, post_id, count(post_id) FROM contactstream WHERE timestamp = toStartOfDay(now()) AND post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'all_time_contact_count' as type, post_id, count(post_id) FROM contactstream WHERE post_id IN [` + all_posts_ids + `] GROUP BY post_id FORMAT JSON`
-            let clickhouse_answer = await axios.post(clickhouse_url, clickhouse_data).then(r => r.data)
-            const likes_count = await pool.query(`SELECT  liked_post_id, COUNT(liked_post_id) FROM "public"."favorites" WHERE liked_post_id IN (${all_posts_ids}) GROUP BY liked_post_id`)
-
-            function add_elements(posts_rows) {
+            function add_elements(posts_rows, clickhouse, like_data) {
                 posts_rows.forEach(
                     element => {
-                        let element_last_day_viewing_count = clickhouse_answer.data.find(x => parseInt(x.post_id) === element.id && x.type === 'last_day_viewing_count');
-                        let element_all_time_viewing_count = clickhouse_answer.data.find(x => parseInt(x.post_id) === element.id && x.type === 'all_time_viewing_count');
-                        let element_last_day_contact_count = clickhouse_answer.data.find(x => parseInt(x.post_id) === element.id && x.type === 'last_day_contact_count');
-                        let element_all_time_contact_count = clickhouse_answer.data.find(x => parseInt(x.post_id) === element.id && x.type === 'all_time_contact_count');
-                        let element_likes = likes_count.rows.find(x => parseInt(x.liked_post_id) === parseInt(element.id));
+                        let element_last_day_viewing_count = clickhouse.data.find(x => parseInt(x.post_id) === element.id && x.type === 'last_day_viewing_count');
+                        let element_all_time_viewing_count = clickhouse.data.find(x => parseInt(x.post_id) === element.id && x.type === 'all_time_viewing_count');
+                        let element_last_day_contact_count = clickhouse.data.find(x => parseInt(x.post_id) === element.id && x.type === 'last_day_contact_count');
+                        let element_all_time_contact_count = clickhouse.data.find(x => parseInt(x.post_id) === element.id && x.type === 'all_time_contact_count');
+                        let element_likes = like_data.rows.find(x => parseInt(x.liked_post_id) === parseInt(element.id));
                         if (element_last_day_viewing_count !== undefined) {element.last_day_viewing_count = parseInt(element_last_day_viewing_count['count(post_id)'])} else {element.last_day_viewing_count = 0}
                         if (element_all_time_viewing_count !== undefined) {element.all_time_viewing_count = parseInt(element_all_time_viewing_count['count(post_id)'])} else {element.all_time_viewing_count = 0}
                         if (element_last_day_contact_count !== undefined) {element.last_day_contact_count = parseInt(element_last_day_contact_count['count(post_id)'])} else {element.last_day_contact_count = 0}
@@ -108,9 +101,29 @@ export default async function handler(req, res) {
                     });
             }
 
-            add_elements(active_posts)
-            add_elements(wait_posts)
-            add_elements(archive_posts)
+
+            let all_posts_ids = active_posts_ids.concat(archive_posts_ids).concat(wait_posts_ids)
+            if (all_posts_ids.length === 0 && req.body.page === 1) { return  {"active_posts": [], "wait_posts": [], "archive_posts": [], "active_posts_count": 0, "wait_posts_count": 0, "archive_posts_count": 0}}
+            if (all_posts_ids.length === 0 && req.body.page > 1) { return  {"active_posts": [], "wait_posts": [], "archive_posts": []}}
+
+
+            // Получение значений счетчика
+            try {
+                const clickhouse_data = `SELECT 'last_day_viewing_count' as type, post_id, count(post_id) FROM clickstream WHERE timestamp = toStartOfDay(now()) AND post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'all_time_viewing_count' as type, post_id, count(post_id) FROM clickstream WHERE post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'last_day_contact_count' as type, post_id, count(post_id) FROM contactstream WHERE timestamp = toStartOfDay(now()) AND post_id IN [` + all_posts_ids + `] GROUP BY post_id UNION ALL SELECT 'all_time_contact_count' as type, post_id, count(post_id) FROM contactstream WHERE post_id IN [` + all_posts_ids + `] GROUP BY post_id FORMAT JSON`
+                let clickhouse_answer = await axios.post(clickhouse_url, clickhouse_data).then(r => r.data)
+                const likes_count = await pool.query(`SELECT  liked_post_id, COUNT(liked_post_id) FROM "public"."favorites" WHERE liked_post_id IN (${all_posts_ids}) GROUP BY liked_post_id`)
+                add_elements(active_posts, clickhouse_answer, likes_count)
+                add_elements(wait_posts, clickhouse_answer, likes_count)
+                add_elements(archive_posts, clickhouse_answer, likes_count)
+            } catch (e) {
+                let clickhouse_answer = {"data": []}
+                const likes_count = await pool.query(`SELECT  liked_post_id, COUNT(liked_post_id) FROM "public"."favorites" WHERE liked_post_id IN (${all_posts_ids}) GROUP BY liked_post_id`)
+                add_elements(active_posts, clickhouse_answer, likes_count)
+                add_elements(wait_posts, clickhouse_answer, likes_count)
+                add_elements(archive_posts, clickhouse_answer, likes_count)
+                console.error(`Внутренняя ошибка api getPost (clhs) ${e}`)
+            }
+
             let answer = {"active_posts": active_posts, "wait_posts": wait_posts, "archive_posts": archive_posts}
 
             if (req.body.page === 1) {
