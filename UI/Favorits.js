@@ -2,6 +2,7 @@ import React from 'react';
 import { useStore } from '../lib/Context/Store';
 import { checkArray } from '../lib/services';
 
+
 export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard, favId, idOffer }) {
 	const { setLikeComment } = useStore()
 	const { userInfo } = useStore()
@@ -111,7 +112,12 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 					</div>
 					<a className="SellerInfoNote" onClick={(e) => userInfo ? openNote(e) : null}></a>
 					<div>
-						<span onClick={(e) => userInfo ? setLike(e) : null } className="SellerInfoFavorite"></span>
+						<span 
+						onClick={(e) => {
+							userInfo ? setLike(e) : null
+
+						}}
+						 className="SellerInfoFavorite"></span>
 					</div>
 				</>
 			)

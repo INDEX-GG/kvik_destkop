@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useRouter} from "next/router";
 import {Dialog} from "@material-ui/core";
-import { getTokenDataByPost} from '../../lib/fetch';
+import { getTokenDataByPost,/* getDataByPost*/} from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
 import Statistics from "../../components/Statistics";
@@ -15,7 +15,7 @@ import BreadCrumbs from "../../components/header/BreadСrumbs";
 import {useAuth} from "../../lib/Context/AuthCTX";
 // import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
-import {CHAT_URL_API} from "../../lib/constants";
+import {CHAT_URL_API, /*SIGN_SECRET*/} from "../../lib/constants";
 import ProductPrice from "../../components/product/ProductPrice";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
@@ -26,13 +26,17 @@ import {chatPush} from "../../components/account/Notifications/tabs/chatFunction
 import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder/ProductPlaceHolder";
 // import CategoryScrollPostData from "#components/CategoryScrollPostData";
 import NewCategoryScrollPostData from "#components/NewCategoryScrollPostData";
+import { useStatistics } from "#lib/Context/StatisticsCTX";
 import ScrollTop from '../../UI/ScrollTop'
 
 
-const Product = () => {
 
+
+const Product = () => {
+    const {addView} = useStatistics()
 
     const {userInfo} = useStore()
+
     const {id, token} = useAuth();
     const {query} = useRouter();
     const router = useRouter()
@@ -50,6 +54,7 @@ const Product = () => {
         userPhoto,
         category_id,
         user_id,
+        id: productId,
         created_at,
         delivery,
         description,
@@ -61,18 +66,22 @@ const Product = () => {
         price,
         oldprice,
         coordinates,
-        user_products_count
+        full_stat,
+        all_time_viewing_count,
+        last_day_viewing_count,
+        // likes_count,
+        all_time_contact_count,
+        last_day_contact_count,
+        user_products_count,
     } = productInfo
-    // console.log(userPhoto)
-    // const allProductInfo = useProduct(query.id)
 
+    const [stats, setStats] = useState({})
 
-
-    // const [data, setData] = useState();
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
     const [/*phoneModal,*/ setPhoneModal] = useState();
+
 
 
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -108,6 +117,23 @@ const Product = () => {
             }
         }
     }
+
+
+
+    useEffect(() => {
+        setStats({
+            full_stat,
+            all_time_viewing_count,
+            last_day_viewing_count,
+            all_time_contact_count,
+            last_day_contact_count,
+        })
+
+        if(productId){
+            addView(productId)()
+        }
+    }, [productId, id])
+    
 
 
     useEffect(() => {
@@ -155,8 +181,13 @@ const Product = () => {
                                     {!matchesMobile && !matchesTablet &&
                                     <div className="productHeader">
                                         <div className="productPageTitle xl">{title}</div>
-                                        <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
-                                                                 mobile/>
+                                        <ProductFavoriteNoteComp 
+                                            id={id} 
+                                            sellerId={user_id} 
+                                            isOffer={+query.id}
+                                            mobile
+                                            stats={stats}
+                                        />
                                     </div>}
                                     <div>
                                         <div className='product__main_block'>
@@ -212,13 +243,22 @@ const Product = () => {
                                                 {/* статус объявления, кнопки */}
                                                 {/* {!matchesMobile && !matchesTablet && <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
                         mobile/>} */}
-                                                {<ProductAction router={query.id} reviewed={reviewed} user_id={user_id}
-                                                                status={defaultStatus} oldprice={oldprice} price={price}
-                                                                created_at={created_at} delivery={delivery}
-                                                                trade={trade}
-                                                                secure_transaction={secure_transaction}
-                                                                productInfo={productInfo} /*update={update}*/
-                                                                setUpdate={setDefaultStatus} createChat={createChat}/>}
+                                                {<ProductAction 
+                                                    router={query.id} 
+                                                    reviewed={reviewed} 
+                                                    user_id={user_id}
+                                                    status={defaultStatus} 
+                                                    oldprice={oldprice} 
+                                                    price={price}
+                                                    created_at={created_at} 
+                                                    delivery={delivery}
+                                                    trade={trade}
+                                                    secure_transaction={secure_transaction}
+                                                    productInfo={productInfo} /*update={update}*/
+                                                    setUpdate={setDefaultStatus} 
+                                                    createChat={createChat}
+                                                />}
+                                                                
                                                 {/* пользователь и его объявления */}
                                                 <ProductUserInfo
                                                     name={name}
