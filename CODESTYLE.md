@@ -6,7 +6,7 @@
 ```
 ![image](https://user-images.githubusercontent.com/81239058/152281150-cadad01c-b83d-4f3f-b4d7-bfe80aa58bb0.png)
 ```diff
-+ Непарвильно
+- Непарвильно
 ```
 ![image](https://user-images.githubusercontent.com/81239058/152281431-c5d15bc2-9605-49c2-9b31-135dc58b7706.png)
 ```diff
