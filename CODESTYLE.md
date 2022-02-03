@@ -29,7 +29,7 @@
 ```
 ![image](https://user-images.githubusercontent.com/81239058/152283782-c160c452-b79e-4cb6-8d14-a75c144471c6.png)
 ```diff
-- Правильно
++ Правильно
 ```
 ![image](https://user-images.githubusercontent.com/81239058/152284049-8c166cdf-d124-46bf-8793-8b811d891b86.png)
 ### 5 - Kj
