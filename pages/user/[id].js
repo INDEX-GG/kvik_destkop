@@ -27,6 +27,7 @@ import { useBlockedBool } from "../../hooks/useBlocked";
 import { useUser } from "../../hooks/useUser";
 import {Tooltip} from "@mui/material";
 import {getTokenDataByPost} from "../../lib/fetch";
+import ScrollTop from '../../UI/ScrollTop'
 
 
 
@@ -93,7 +94,7 @@ function UserPage() {
   useEffect(() => {
     setUserBool(userSub)
   }, [userSub])
-  
+
   useEffect(() => {
     setUserBlockBool(userBlocked)
   }, [userBlocked])
@@ -114,7 +115,7 @@ function UserPage() {
     if (sellerId && subscribersList.length == 0) {
           changeSubscribers();
         }
-    
+
   }, [sellerId])
 
   function changeSubscribers() {
@@ -147,17 +148,17 @@ function UserPage() {
       }else{
         setSubscribersList(arr => [...arr, {id: id, name: userProfileInfo.name, raiting: userProfileInfo.raiting, userPhoto: userProfileInfo.userPhoto}])
       }
-  
+
       await getTokenDataByPost("/api/subscriptions", subscribe, token)
-  
+
       await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
-  
-  
+
+
       setLoading(false)
     }
 
-    
-    
+
+
 
   }
 
@@ -191,7 +192,7 @@ function UserPage() {
   //   }
   // }
 
-  
+
   return (
     <MetaLayout>
       <div className="clientPage text">
@@ -285,6 +286,7 @@ function UserPage() {
         <div className="clientPage__container">
           <User />
         </div>
+        <ScrollTop />
       </div>
       <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalRating rate={raiting} comments={2} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(reviewsModal, setReviewsModal)} />

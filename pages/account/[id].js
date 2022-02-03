@@ -24,6 +24,7 @@ import AccountPlaceHolder from "../../components/placeHolders/AccountPlaceHolder
 import {Grid, Skeleton, Tooltip} from "@mui/material";
 import {MenuItem} from "../../components/placeHolders/AccountCardPlaceHolder/AccountCardPlaceHolder";
 import {getTokenDataByPost} from "../../lib/fetch";
+import ScrollTop from '../../UI/ScrollTop';
 
 
 const menuItems = [
@@ -92,18 +93,18 @@ const Account = () => {
     const {signOut, id, token} = useAuth();
     const {matchesMobile, matchesTablet,} = useMedia()
     const [menuItem, setMenuItem] = useState(
-			router.query.favorite === '' 
+			router.query.favorite === ''
 				? {
 						i: 4,
 						itm: "menuFavorites",
 						ttl: "idИзбранное"
-					} 
-				: router.query?.account 
+					}
+				: router.query?.account
 					? {
 							i: +router.query.account,
 							itm: menuItemsIcon[+router.query.account - 1],
 							ttl: menuItemsTitle[+router.query.account - 1]
-						} 
+						}
 					: {i: "1", itm: "menuOffers", ttl: "Мои объявления"}
 		);
     useEffect(() => {
@@ -300,7 +301,7 @@ const Account = () => {
 
                             </div>}
                         </div>
-                        {!userInfo 
+                        {!userInfo
                             ?   <Grid item container xs={10} spacing={1}>
                                     <MenuItem/>
                                     <MenuItem/>
@@ -317,8 +318,8 @@ const Account = () => {
                                         <>
                                             {menuItems.map((item) => {
                                                 return (
-                                                    <a 
-                                                        key={item.id} 
+                                                    <a
+                                                        key={item.id}
                                                         onClick={() => {
                                                             setMenuItem({i: item.id, itm: item.name, ttl: item.title})
                                                             router.push({
@@ -329,8 +330,8 @@ const Account = () => {
                                                                 }
                                                             })
                                                         }}
-                                                        className={item.name + (item.title === menuItem.ttl 
-                                                            ? ` ${item.name}Active highlight smooth` 
+                                                        className={item.name + (item.title === menuItem.ttl
+                                                            ? ` ${item.name}Active highlight smooth`
                                                             : " smooth")}
                                                     >
                                                         {item.title}
@@ -348,7 +349,9 @@ const Account = () => {
                     <div className="clientPage__container">
                         {accountContent()}
                     </div>
-                </div>}
+                    <ScrollTop />
+                </div>
+                }
             <div className="userPageWhiteSpace"/>
             <Dialog open={openPicUpload || false} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
                 <UserPicUpload {...{imageType: "webp", optimiztionLevel: 0.7, maxScale: 5, Close: closePicUpload}} />
