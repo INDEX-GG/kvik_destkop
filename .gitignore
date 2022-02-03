@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-/.idea
-/.vscode
 /.next
 /.pnp
 .pnp.jsno
@@ -39,7 +37,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-package-lock.json
+
 
 docker-compose.yml
 /docker-compose.yml
