@@ -72,6 +72,7 @@ const SettingsPlaceHolderMobile = () => {
           alignItems="center"
           justifyContent="space-evenly"
         >
+          {/* /* eslint-disable no-unused-vars */ }
           {[1, 2, 3].map((_, i) => (
             <Skeleton
               key={i}
@@ -110,7 +111,7 @@ const SettingsPlaceHolderMobile = () => {
               className={classes.offerItemCardsWrapper}
             >
               {/* 1 строка */}
-              {[1, 2].map((_, i) => (
+              {[1, 2].map(() => (
                 <>
                   <Grid
                     container
@@ -195,6 +196,7 @@ const SettingsPlaceHolderMobile = () => {
                 style={{ marginTop: '15px' }}
               />
 
+              {/* // eslint-disable no-unused-vars  */}
               {[1, 2].map((_, i) => (
                 <Grid
                   key={i}
@@ -204,7 +206,7 @@ const SettingsPlaceHolderMobile = () => {
                   justifyContent="flex-start"
                   className={classes.offerItemRow}
                 >
-                  {[1, 2].map((_) => (
+                  {[1, 2].map(() => (
                     <>
                       <Skeleton
                         variant="circle"
@@ -245,8 +247,7 @@ const SettingsPlaceHolderMobile = () => {
                 className={classes.divider}
                 style={{ marginTop: '15px' }}
               />
-
-              {[1, 2, 3].map((_, i) => (
+              {[1, 2, 3].map(() => (
                 <>
                   <Grid
                     container

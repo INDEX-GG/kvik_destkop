@@ -25,7 +25,6 @@ const AccountPlaceHolder = () => {
                     <Grid item container xs={2} style={{height: "538px"}} spacing={1}>
                         <Grid item xs={12} >
                             <Box style={{display: "flex", justifyContent: "center"}}>
-                                123
                                 <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#F2F3F4', width: "80px", height: "80px"}}/>
                             </Box>
                         </Grid>

@@ -72,6 +72,7 @@ const SettingsPlaceHolderMobile = () => {
           alignItems="center"
           justifyContent="space-evenly"
         >
+          {/* /* eslint-disable no-unused-vars */}
           {[1, 2, 3].map((_, i) => (
             <Skeleton
               key={i}
@@ -110,7 +111,7 @@ const SettingsPlaceHolderMobile = () => {
               className={classes.offerItemCardsWrapper}
             >
               {/* 1 строка */}
-              {[1, 2, 3, 4, 5].map((_, i) => (
+              {[1, 2, 3, 4, 5].map(() => (
                 <>
                   <Grid
                     container
@@ -154,7 +155,7 @@ const SettingsPlaceHolderMobile = () => {
                         justifyContent="flex-end"
                         sx={{width: 'auto', gap: '7px'}}
                       >
-                        {[1, 2].map((_, i) => (
+                        {[1, 2].map(() => (
                           <>
                             <Skeleton
                               variant="circle"

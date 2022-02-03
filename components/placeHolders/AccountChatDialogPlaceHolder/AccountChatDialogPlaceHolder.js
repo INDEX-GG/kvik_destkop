@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 import { Grid, Skeleton } from '@mui/material'
-import { Box, makeStyles, Divider } from '@material-ui/core'
+import { Box, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   divider: {
