@@ -112,7 +112,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 										filter: 'blur(20px)'
 										
 									}} 
-									className="">
+									>
 									</div>
 									{/*ВОЗМОЖНОЕ РЕШЕНИЕ!*/}
 									{/*<ProductItemPhoto img={img} index={i}/>*/}

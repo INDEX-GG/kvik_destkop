@@ -283,12 +283,12 @@ const Account = () => {
                                     </Tooltip>
 
 
-                                    <Box className={classes.userStats}>
+                                    {/* <Box className={classes.userStats}>
                                         <span>{subscribersList?.message ? '0' : subscribersList?.length}</span>
                                         <Button className={classes.buttonDesc} size="small" variant="text" >
                                             <p>Подписчиков</p>
                                         </Button>
-                                    </Box>
+                                    </Box> */}
 
 
                                     <Box className={classes.userStats}>

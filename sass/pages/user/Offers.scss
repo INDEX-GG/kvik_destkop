@@ -1,3 +1,9 @@
+.offerBottomSpaceBetween{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  text-align: center;
+}
 .offerContainer {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -7,7 +13,13 @@
   position: relative;
   color: $tp;
 }
-
+.offerRightBottomNull{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 24px;
+  text-align: center;
+}
 .offerImage {
   background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
   background-size: cover;
@@ -115,11 +127,11 @@
 
 .offerDescriptionBottom {
   width: 100%;
-  padding-bottom: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  padding-bottom: 8px; 
   margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 .offerButtonViews {
@@ -142,7 +154,7 @@
 }
 
 .offerSocialCountPos {
-  position: absolute;
+  // position: absolute;
   right: 15px;
   bottom: 10px;
   font-weight: 400;
@@ -168,10 +180,10 @@
 
 .offerShowes,
 .offerAddFavores {
-  width: 55px;
   margin: 20px 0px 0px 20px;
   text-align: left;
   line-height: 24px;
+  padding-right: 30px;
 }
 
 .offerPubCheck {
@@ -256,11 +268,16 @@
 }
 
 @media (max-width: 1080px) {
+  
+  .offerRightBottomNull{
+    padding: 0;
+  }
   .offerDTLeft {
     align-self: flex-end;
+    padding-bottom: 20px;
   }
   .offerDescription {
-    padding: 0 8px;
+    padding: 0 12px;
   }
   .offerTitle,
   .offerDatPub {
@@ -272,7 +289,10 @@
     padding-bottom: 0;
     margin-top: 8px;
   }
-
+  
+  .offerSocialCountPos {
+    max-width: 104px;
+}
 
   .offerDatPub > div{
     position: absolute;
@@ -287,12 +307,14 @@
   }
 
   .offerSocialCountPos {
+    position: absolute;
     top: 10px;
     left: 0px;
     flex-direction: column;
     margin-top: 0;
     height: 48px;
-    width: 63px;
+    min-width: 82px;
+    max-width: 88px;
   }
   .offerShowes,
   .offerAddFavores {
@@ -305,20 +327,25 @@
     top: 80px;
   }
 }
-
-@media (max-width: 1024px) {
-  .offerDescription {
-    padding: 0 8px;
-  }
-
-  // .DatPub__mobile span {
-  //   display: none;
-  // }
+.offerDescriptionBottomEnd{
+  justify-content: end;
 }
+// @media (max-width: 1024px) {
+//   .offerDescription {
+//     padding: 0 8px;
+//   }
+
+//   // .DatPub__mobile span {
+//   //   display: none;
+//   // }
+// }
 
 @media (max-width: 750px) {
   .offerDTRight {
     padding-top: 8px;
+  }
+  .offerWaitCause{
+    padding: 0;
   }
 }
 

@@ -28,10 +28,7 @@ const useStyles = makeStyles((theme) => ({
 			transition: 'all 200ms ease-in-out',
 			textDecoration: 'underline',
 		},
-	},
-	// [theme.breakpoints.down(960)]: {
-	// 	''
-	// }
+	}
 }));
 
 export default function offerActive({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength}) {

@@ -42,6 +42,7 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
     }
 
     return (
+      <>
         <div key={offer.id} className="offerContainer boxWrapper">
               <div className="offerImage">
                 <div className="offerPubCheck">
@@ -74,9 +75,8 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                     <div>{ToRubles(offer.price)}</div>
                     <div className="offerTitle">{offer.title}</div>
                   </div>
-                  <div className="offerDTRight">
-                    {/*{offer.verify == 4 ? <a className="offerActivate thin superLight checkMarkIcon">Активировать</a> : null}*/}
-                  </div>
+                  
+                  
                   <div class="offerDTRight">
                     <a href="#" class="offerDTRight__item">
                       <span class="offerIcon checkMarkIcon"></span>
@@ -101,15 +101,14 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                   </div>
                 </div>
                 <div class="offerDescriptionBottom">
-                  <div class="thin light small DatPub__mobile">
-                    <span> Дата последнего редактирования: </span>
-                    <div class="offerSocialCount offerSocialCountPos">
-                      <div class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
-                      <div class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
+                    <span style={{textAlign:'center'}}> Дата последнего редактирования: </span>
+                    <div class="offerDescriptionBottomEnd" style={{justifyContent: 'end'}}>
+                      <div class="offerSocialCount offerSocialCountPos offerRightBottomNull" style={{justifyContent: 'end', paddingRight:'0'}}>
+                        <div style={{margin: '0 10px'}} class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div><div className="showesIcon"></div>
+                        <div style={{margin: '0 10px'}} class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
+                      </div>
                     </div>
-                  </div>
                 </div>
-                <div className="offerDescriptionBottom">
 
                 <Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth
                       maxWidth='md'>
@@ -123,7 +122,7 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                   />
                 </Dialog>
 
-                  {/* {offer.verify !== 2 ? (
+                  {offer.verify !== 2 ? (
                     ""
                   ) : (
                     <div className="offerCauses small thin error">
@@ -146,10 +145,10 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                       <div className="offerShowes showesIcon">0 +0</div>
                       <div className="offerAddFavores likeIcon">0 +0</div>
                     </div>
-                  </div>) : null} */}
+                  </div>) : null}
                 </div>
               </div>
-            </div>
+            </>
     )
 }
 
