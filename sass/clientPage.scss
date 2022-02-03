@@ -685,6 +685,10 @@
     grid-template-rows: repeat(2, 1fr);
     height: 368px;
   }
+  .clientPage__container_top,
+  .clientPage__container_bottom {
+    padding: 0 15px;
+  }
 }
 
 @media (max-width: 350px) {
