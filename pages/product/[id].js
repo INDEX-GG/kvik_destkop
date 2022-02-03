@@ -27,6 +27,8 @@ import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder
 // import CategoryScrollPostData from "#components/CategoryScrollPostData";
 import NewCategoryScrollPostData from "#components/NewCategoryScrollPostData";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
+import ScrollTop from '../../UI/ScrollTop'
+
 
 
 
@@ -258,11 +260,11 @@ const Product = () => {
                                                 />}
                                                                 
                                                 {/* пользователь и его объявления */}
-                                                <ProductUserInfo 
-                                                    name={name} 
-                                                    userPhoto={userPhoto} 
+                                                <ProductUserInfo
+                                                    name={name}
+                                                    userPhoto={userPhoto}
                                                     raiting={raiting}
-                                                    user_id={user_id} 
+                                                    user_id={user_id}
                                                     userAd={userAd}
                                                     productTitle={title}
                                                     totalProducts={user_products_count}
@@ -277,7 +279,7 @@ const Product = () => {
                                             }
                                         </div>
                                     </div>
-                                            
+
 
                                     {/*{!matchesMobile && !matchesTablet && !matchesLaptop && (*/}
                                     {/*  <div className="showsmthWrapper">*/}
@@ -318,6 +320,7 @@ const Product = () => {
                     </Dialog>
                     {/* ничего не делало, закоментил */}
                     {/* <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/> */}
+                    <ScrollTop />
                 </div>
             </OfferAccountProvider>
         </MetaLayout>
