@@ -9,6 +9,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
 import RegForm from "./RegForm";
+import SelectUserForm from "./SelectUserForm";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import PhoneMask from "../../lib/phoneMask";
 import { useMedia } from "../../hooks/useMedia";
@@ -442,6 +443,7 @@ const Login = () => {
         <ResetPassword/>
       </DialogUIAuth>}
       <RegForm />
+      <SelectUserForm />
     </>
   );
 };
