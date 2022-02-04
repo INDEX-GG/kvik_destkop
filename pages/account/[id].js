@@ -242,7 +242,7 @@ const Account = () => {
 
     return (
         <MetaLayout title={"Личный кабинет"}>
-            {!userInfo ?
+            {!userInfo && !matchesMobile ?
                 <AccountPlaceHolder/>
                 : <div className="clientPage text">
                     {/* <div className="clientPage__breadcrumbs thin">
@@ -389,9 +389,9 @@ const Account = () => {
                         )
                     }
                     <div className="clientPage__container">
-                        {/* {matchesMobile ? accountContentMobile() : accountContentDesktop()} */}
+                        {matchesMobile ? accountContentMobile() : accountContentDesktop()}
                         {/* {accountContentDesktop()} */}
-                        {accountContent()}
+                        {/* {accountContent()} */}
                     </div>
                 </div>}
             <div className="userPageWhiteSpace"/>

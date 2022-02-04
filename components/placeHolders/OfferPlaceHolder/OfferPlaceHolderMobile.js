@@ -207,6 +207,7 @@ const OfferItem = () => {
 const OfferPlaceHolderMobile = () => {
   const classes = useStyles()
 
+  console.log(1)
   return (
     <Box sx={{ width: '100%' }}>
       <Grid
