@@ -9,6 +9,7 @@ import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordShar
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
 import {Box, Grid} from "@mui/material";
 import ArchiveIco from "./ArchiveIco/ArchiveIco";
+import OfferCard from "../card/OfferCard";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -199,7 +200,7 @@ function Archive({offers}) {
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
-							<OfferArchive
+							<OfferCard
 								key={i}
 								offer={offer}
 								parentCheck={check}

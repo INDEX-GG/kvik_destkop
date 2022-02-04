@@ -8,8 +8,9 @@ import Placeholder from "./Placeholder";
 import OfferModal from "../../../OfferModal";
 import OfferActivePlaceHolder
 	from "../../../placeHolders/OfferPlaceHolder/OfferActivePlaceHolder/OfferActivePlaceHolder";
-
 import throttle from "lodash.throttle";
+import offerActive from "../card/offerActive";
+import OfferCard from "../card/OfferCard";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +45,7 @@ function Active({offers}) {
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
 	const [isFirstRender, setIsFirstRender] = useState(true)
+	const active = 'active'
 	const buttonId = "003";
 	const offersLength = offers.length
 
@@ -54,7 +56,7 @@ function Active({offers}) {
 		setOfferId([]);
 		setOfferData([]);
 	}
-
+	
 	function getChildCheck ({id, isChecked}) {
 		setOfferId( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
 		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
@@ -126,8 +128,11 @@ function Active({offers}) {
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
-							<OfferActive 
+							// <OfferActive 
+							<OfferCard 
+							// <offerActive
 								key={i} 
+								active={active}
 								offer={offer} 
 								i={i}
 								parentCheck={check} 
