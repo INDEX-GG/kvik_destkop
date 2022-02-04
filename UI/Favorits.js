@@ -14,7 +14,6 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 
 	useEffect(() => {
 		if(!userInfo) {return}
-		console.log('useeffect')
 		const isFavorite = userInfo?.favorites.find((item) => item.post_id === idOffer)
 		isFavorite ? setIsLiked(true) : setIsLiked(false)
 
