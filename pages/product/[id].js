@@ -129,8 +129,9 @@ const Product = () => {
         //     all_time_contact_count,
         //     last_day_contact_count,
         // })
-
-        if(productId){
+        console.log(user_id, id)
+        if(productId && (user_id !== id)){
+            console.log('if works')
             addView(productId)()
         }
     }, [productId, id])
