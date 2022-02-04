@@ -81,7 +81,7 @@ const Product = () => {
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
-    const [/*phoneModal,*/ setPhoneModal] = useState();
+    const [/*phoneModal,*/, setPhoneModal] = useState();
 
 
 
@@ -129,9 +129,7 @@ const Product = () => {
         //     all_time_contact_count,
         //     last_day_contact_count,
         // })
-        console.log(user_id, id)
         if(productId && (user_id !== id)){
-            console.log('if works')
             addView(productId)()
         }
     }, [productId, id])
@@ -167,7 +165,6 @@ const Product = () => {
     useEffect(() => {
         setDefaultStatus(status)
     }, [status])
-
 
     return (
         <MetaLayout>

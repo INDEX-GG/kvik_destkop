@@ -12,6 +12,7 @@ import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded'
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
 // import PhoneModule from "./product/PhoneModule";
+import {useStatistics} from '../lib/Context/StatisticsCTX'
 
 SwiperCore.use([Pagination, Lazy]);
 const initialState = {
@@ -65,6 +66,7 @@ const useClass = makeStyles(() => ({
 const AdCard_component = React.forwardRef((props, ref,) => {
 	const classes = useClass()
 	// const { id } = useAuth();
+	const {addSlideView} = useStatistics()
 	const {id} = props;
 	const {offer} = props;
 
@@ -213,7 +215,9 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 				<MenuItem>Не показывать</MenuItem>
 			</Menu>
 			{/* <div className={offer.commercial === 1 || offer.commercial === 2 ? 'card__wrapper-yellow' : "card__wrapper"}> */}
-			<div className={classSwitcher()}>
+			<div 
+				className={classSwitcher()}
+			>
 				<div className={"card__top " + archived}>
 					{offer?.viewing_bool ? <div className="card__top_seen">Просмотрено</div> : ""}
 					<Link href={`/product/${offer.id}`} prefetch={false}>
@@ -267,6 +271,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 											<div
 												ref={currentSlide}
 												className={classes.mov_area}
+												onMouseEnter={addSlideView(offer.id)} 
+												// onTouchCancel={addSlideView(offer.id)}
 											>
 												{/* eslint-disable-next-line */}
 												{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((_, i) => {

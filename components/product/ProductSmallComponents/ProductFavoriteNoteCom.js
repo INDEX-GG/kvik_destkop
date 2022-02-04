@@ -54,7 +54,7 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 				{/*</div>         Скрыто пока не работает функцианал                        */}
 			{/* </div> */}
 
-			{(!isMobile && stats?.all_time_contact_count) &&
+			{(!isMobile && stats?.all_time_viewing_count) &&
 			<div style={{display: 'flex',height: '30px', marginRight: '240px', fontWeight: '400', color:'#5A5A5A'}}>
 
 				<span style={{ display:'flex', alignItems: 'center', marginRight: '30px'}}>
