@@ -23,7 +23,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
     // Говорит когда нужно сдлеать глобальное обнавление (page = 1)
     const [contentUpdate, setContentUpdate] = useState(false);
 
-    const limit = 120
+    const limit = 24
 
 
     // Изменение сортировки

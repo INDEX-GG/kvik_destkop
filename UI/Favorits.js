@@ -1,12 +1,40 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useStore } from '../lib/Context/Store';
 import { checkArray } from '../lib/services';
+import { useStatistics } from "#lib/Context/StatisticsCTX";
+
 
 
 export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard, favId, idOffer }) {
+	const {addLike, addUnLike} = useStatistics()
 	const { setLikeComment } = useStore()
+
 	const { userInfo } = useStore()
+	const [isLiked, setIsLiked] = useState(false)
+
+	useEffect(() => {
+		if(!userInfo) {return}
+		const isFavorite = userInfo?.favorites.find((item) => item.post_id === idOffer)
+		isFavorite ? setIsLiked(true) : setIsLiked(false)
+
+	}, [idOffer])
+
+
+	const likeClickHandler = () => {
+		if(userInfo && isLiked) {
+			addUnLike(idOffer)()
+			setIsLiked(false)
+			return
+		}
+		if(userInfo && !isLiked) {
+			addLike(idOffer)()
+			setIsLiked(true)
+			return
+		}
+	}
+
 	//console.log(userInfo)
+
 	let comment;
 /* 	if (isCard) {
 		const getFavorits = (e) => {
@@ -93,7 +121,15 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 					</div>
 					<a className="SellerInfoNote" onClick={(e) => openNote(e)}></a>
 					<div>
-						<span onClick={(e) => setLike(e) } className="SellerInfoFavorite like-active"></span>
+						<span 
+							onClick={(e) => {
+								setLike(e)
+								likeClickHandler() 
+							}} 
+							className="SellerInfoFavorite like-active">
+								
+
+						</span>
 					</div>
 				</>
 			)
@@ -113,11 +149,16 @@ export default function Favorits({ /* offer, isCard, */ isProduct, isAccountCard
 					<a className="SellerInfoNote" onClick={(e) => userInfo ? openNote(e) : null}></a>
 					<div>
 						<span 
-						onClick={(e) => {
-							userInfo ? setLike(e) : null
+							onClick={(e) => {
+								userInfo ? setLike(e) : null
+								// userInfo && !isLiked ? addLike(idOffer)() : null
+								// userInfo && isLiked ? addUnLike(idOffer)() : null
+								// userInfo ? setIsLiked(!isLiked) : null
+								likeClickHandler()
+							}}
+							className="SellerInfoFavorite">
 
-						}}
-						 className="SellerInfoFavorite"></span>
+						 </span>
 					</div>
 				</>
 			)

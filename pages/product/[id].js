@@ -74,13 +74,14 @@ const Product = () => {
         last_day_contact_count,
         user_products_count,
     } = productInfo
+    
 
-    const [stats, setStats] = useState({})
+    // const [stats, setStats] = useState({})
 
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
-    const [/*phoneModal,*/ setPhoneModal] = useState();
+    const [/*phoneModal,*/, setPhoneModal] = useState();
 
 
 
@@ -121,15 +122,14 @@ const Product = () => {
 
 
     useEffect(() => {
-        setStats({
-            full_stat,
-            all_time_viewing_count,
-            last_day_viewing_count,
-            all_time_contact_count,
-            last_day_contact_count,
-        })
-
-        if(productId){
+        // setStats({
+        //     full_stat,
+        //     all_time_viewing_count,
+        //     last_day_viewing_count,
+        //     all_time_contact_count,
+        //     last_day_contact_count,
+        // })
+        if(productId && (user_id !== id)){
             addView(productId)()
         }
     }, [productId, id])
@@ -166,7 +166,6 @@ const Product = () => {
         setDefaultStatus(status)
     }, [status])
 
-
     return (
         <MetaLayout>
             <OfferAccountProvider>
@@ -186,7 +185,14 @@ const Product = () => {
                                             sellerId={user_id} 
                                             isOffer={+query.id}
                                             mobile
-                                            stats={stats}
+                                            // stats={stats}
+                                            stats={{
+                                                full_stat,
+                                                all_time_viewing_count,
+                                                last_day_viewing_count,
+                                                all_time_contact_count,
+                                                last_day_contact_count,
+                                            }}
                                         />
                                     </div>}
                                     <div>
