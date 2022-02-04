@@ -44,7 +44,7 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 	const isPageOwner = sellerId === id
 	const {matchesMobile, matchesTablet} = useMedia()
 	const isMobile = matchesMobile || matchesTablet
-
+	console.log(stats?.all_time_viewing_count)
 	return (
 		// sellerId === id ? null:
 		<div className="SellerInfoTopButtons">
@@ -54,7 +54,7 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 				{/*</div>         Скрыто пока не работает функцианал                        */}
 			{/* </div> */}
 
-			{(!isMobile && stats?.all_time_viewing_count) &&
+			{(!isMobile && stats?.all_time_viewing_count > 0) &&
 			<div style={{display: 'flex',height: '30px', marginRight: '240px', fontWeight: '400', color:'#5A5A5A'}}>
 
 				<span style={{ display:'flex', alignItems: 'center', marginRight: '30px'}}>
@@ -62,7 +62,7 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 					<EyeLogo/>
 				</span>
 				
-				{(isPageOwner && stats?.all_time_contact_count) &&
+				{(isPageOwner && stats?.all_time_contact_count > 0) &&
 				<span style={{display:'flex', alignItems: 'center', fontWeight: '400', color: '#5A5A5A'}}>
 					{`${stats?.all_time_contact_count + 1} +${stats?.last_day_contact_count + 1}`}
 					<PhoneLogo/>
