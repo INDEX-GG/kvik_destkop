@@ -70,7 +70,6 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	const {id} = props;
 	const {offer} = props;
 
-
 	const { matchesMobile, matchesTablet } = useMedia();
 	const screenIsMobile = matchesMobile || matchesTablet;
 	const { userInfo, setLikeComment } = useStore();
@@ -100,6 +99,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 			window.open(`/product/${id}`);
 		}
 	}
+
+
 
 	// вешает класс или классы на враппер карточки по условию
 	const classSwitcher = () => {
@@ -272,7 +273,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 												ref={currentSlide}
 												className={classes.mov_area}
 												onMouseEnter={addSlideView(offer.id)} 
-												// onTouchCancel={addSlideView(offer.id)}
+												// onTouchStart={addSlideView(offer.id)}
 											>
 												{/* eslint-disable-next-line */}
 												{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((_, i) => {

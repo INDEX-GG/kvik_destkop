@@ -18,24 +18,25 @@ import {useProduct} from '../../../hooks/useProduct'
 
 
 const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
+
+
 	const {
-        full_stat,
+        // full_stat,
         all_time_viewing_count,
         last_day_viewing_count,
         // likes_count,
         all_time_contact_count,
         last_day_contact_count,
-        user_products_count,
+        // user_products_count,
     } = useProduct(isOffer)
 	
-	const stats = {
-		full_stat,
-        all_time_viewing_count,
-        last_day_viewing_count,
-        all_time_contact_count,
-        last_day_contact_count,
-        user_products_count,
-	}
+
+	// useEffect(() => {
+	// 	if(all_time_viewing_count) {
+	// 		setIsRender(true)
+	// 	}
+	// }, [all_time_viewing_count])
+
 	// console.log(isOffer)
 	// console.log(auth)
 	// mobile, views, sellerId, id - неиспользуемые пропсы
@@ -44,7 +45,8 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 	const isPageOwner = sellerId === id
 	const {matchesMobile, matchesTablet} = useMedia()
 	const isMobile = matchesMobile || matchesTablet
-	console.log(stats?.all_time_viewing_count)
+	const countIsNaN = isNaN(all_time_viewing_count + 1)
+
 	return (
 		// sellerId === id ? null:
 		<div className="SellerInfoTopButtons">
@@ -54,22 +56,19 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 				{/*</div>         Скрыто пока не работает функцианал                        */}
 			{/* </div> */}
 
-			{(!isMobile && stats?.all_time_viewing_count > 0) &&
+			{(!isMobile && !countIsNaN) &&
 			<div style={{display: 'flex',height: '30px', marginRight: '240px', fontWeight: '400', color:'#5A5A5A'}}>
 
 				<span style={{ display:'flex', alignItems: 'center', marginRight: '30px'}}>
-					{`${stats?.all_time_viewing_count + 1} +${stats?.last_day_viewing_count + 1}`}
+					{`${all_time_viewing_count + 1} +${last_day_viewing_count + 1}`}
 					<EyeLogo/>
 				</span>
 				
-				{(isPageOwner && stats?.all_time_contact_count > 0) &&
+				{isPageOwner &&
 				<span style={{display:'flex', alignItems: 'center', fontWeight: '400', color: '#5A5A5A'}}>
-					{`${stats?.all_time_contact_count + 1} +${stats?.last_day_contact_count + 1}`}
+					{`${all_time_contact_count + 1} +${last_day_contact_count + 1}`}
 					<PhoneLogo/>
-				</span>				
-				}
-
-
+				</span>}
 			</div>}
 
 			<div className={'favoritsContainer'}>
