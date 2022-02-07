@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
-// import OfferModal from "../../../OfferModal";
+import OfferModal from "../../../OfferModal";
 import OfferArchive from "../card/offerArchive";
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
-import { Checkbox, makeStyles, /*Dialog  */ } from "@material-ui/core";
+import { Checkbox, makeStyles, Dialog  } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
@@ -70,7 +70,7 @@ function Archive({offers}) {
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
-	const [/*buttonId,*/ setButtonId] = useState('');
+	const [buttonId, setButtonId] = useState('');
 	const offersLength = offers.length
 
 
@@ -124,12 +124,13 @@ function Archive({offers}) {
 
 
 	useEffect( () => {
-		offerId.length === offers.length 
-			? check 
-				? null 
-				: setCheck(true) 
-			: check===false 
-				? null 
+		offerId.length === offers.length
+			? check
+				? null
+				// : setCheck(true)
+				: null
+			: check===false
+				? null
 				: setCheck(false)
 	}, [offerId]);
 
@@ -138,8 +139,8 @@ function Archive({offers}) {
 			<>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						{!offers 
-							? <OfferWaitPlaceHolder/> 
+						{!offers
+							? <OfferWaitPlaceHolder/>
 							: <EmptyPlaceholder
 								title='Здесь будет ваш архив объявлений'
 								subtitle=''
@@ -168,9 +169,9 @@ function Archive({offers}) {
 
 	return (
 		<>
-			{!offers 
-			? 
-			<OfferWaitPlaceHolder/> 
+			{!offers
+			?
+			<OfferWaitPlaceHolder/>
 			:
 			<div className="clientPage__container_bottom">
 				{offers.length > 1 && <div className="clientPage__container_nav__radio">
@@ -185,11 +186,12 @@ function Archive({offers}) {
 						}}
 						checked={check}
 					/>
-					<button id='001' className={classes.btn__publish} onClick={(e) => {
+					{/* пока что закоментировано так как активировать можно только по-одному объявлению */}
+					{/* <button id='001' className={classes.btn__publish} onClick={(e) => {
 						offerData.length > 0 ? pushCheck(e) : null
 					}}>
 						Активировать
-					</button>
+					</button> */}
 					<button id='002' className={classes.btn__delete} onClick={(e) => {
 						offerData.length > 0 ? pushCheck(e) : null
 					}}>
@@ -211,7 +213,7 @@ function Archive({offers}) {
 						);
 					})}
 				</div>
-					{/* <button 
+					{/* <button
 						style={{width: '100px', height: '30px', backgroundColor: 'cyan', margin: '0 auto', display: 'block'}}
 						onClick={()=> {
 							const maxPossiblePage = Math.ceil(totalPosts.archive / page_limit);
@@ -224,7 +226,7 @@ function Archive({offers}) {
 						test
 					</button> */}
 			</div>}
-			{/* <Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
+			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
 				<OfferModal
 					offerId={offerId}
 					offerData={offerData}
@@ -233,7 +235,7 @@ function Archive({offers}) {
 					buttonId={buttonId}
 					cleanAll={cleanAll}
 				/>
-			</Dialog> */}
+			</Dialog>
 		</>
 	);
 }
