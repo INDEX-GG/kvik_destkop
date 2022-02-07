@@ -40,6 +40,10 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 	const offerData = offer;
 	const offerID = offer.id;
 
+	console.log(offer)
+	console.log(check)
+	console.log(parentCheck)
+
 	const cleanAll = () => {
 		getChildCheck({id: offer.id, isChecked: false});
 		setCheck(false)
