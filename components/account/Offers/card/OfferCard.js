@@ -5,9 +5,10 @@ import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordShar
 import { ToRubles, ToFullDate } from "../../../../lib/services";
 import OfferModal from "../../../OfferModal";
 import Router from "next/router";
-import LikeDark from "#UI/icons/LikeDark";
-import Showes from "#UI/icons/Showes";
-import Edit from "#UI/icons/Edit";
+import BtnActive from "./OfferCardPart/btnActive";
+import BtnWite from "./OfferCardPart/btnWite";
+import Image from "./OfferCardPart/imgCard";
+import ImgStatistic from "./OfferCardPart/imgStatistic";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -20,23 +21,23 @@ const useStyles = makeStyles((theme) => ({
 			background: theme.palette.secondary.main,
 		},
 	},
-	description:{
+	description: {
 		padding: '8px 24px',
 		justifyContent: 'space-between',
 	},
-	column:{
+	column: {
 		display: 'flex',
 		flexDirection: 'column',
 	},
-	row:{
+	row: {
 		display: 'flex',
 		flexDirection: 'row',
 	},
-	end:{
+	end: {
 		justifyContent: 'end',
 		alignItems: 'end',
 	},
-	main__text:{
+	main__text: {
 		fontFamily: 'Roboto',
 		fontStyle: 'normal',
 		fontWeight: 'normal',
@@ -44,34 +45,34 @@ const useStyles = makeStyles((theme) => ({
 		lineHeight: '16px',
 		paddingBottom: '8px',
 	},
-	lignt__text:{
+	lignt__text: {
 		fontSize: '12px',
 		lineHeight: '14px',
 		color: '#8F8F8F',
 		padding: '12px 0',
 	},
-	height:{
+	height: {
 		height: '24px',
 	},
-	showes:{
+	showes: {
 		width: '30px',
 		marginRight: '15px',
 		textAlign: 'end',
 	},
-	likes:{
+	likes: {
 		width: '30px',
 		textAlign: 'end',
 	},
-	paddingIcon:{
+	paddingIcon: {
 		padding: '24px 34px',
 		paddingRight: '0',
 	},
-	paddingIconWait:{
+	paddingIconWait: {
 		padding: '24px 34px',
 		paddingRight: '0',
 	},
-	btn__upViews:{
-		display:'none',
+	btn__upViews: {
+		display: 'none',
 		position: 'absolute',
 		bottom: '8px',
 		alignSelf: 'center',
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: '#00a0ab',
 		color: '#f7f7f7',
 	},
-	top:{
+	top: {
 		position: 'relative',
 		flexGrow: '1',
 		display: 'flex',
@@ -96,15 +97,15 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'space-between',
 		alignItems: 'flex-start',
 	},
-	bottom:{
+	bottom: {
 		width: '100%',
-		paddingBottom: '8px', 
+		paddingBottom: '8px',
 		marginTop: '8px',
 		display: 'flex',
 		justifyContent: 'center',
 
 	},
-	btn__unpublish:{
+	btn__unpublish: {
 		background: 'none',
 		marginTop: '12px',
 		transition: 'all 200ms ease-in-out',
@@ -118,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
 			textDecoration: 'underline',
 		}
 	},
-	btn__edit:{
+	btn__edit: {
 		width: 'auto',
 		backgroundColor: '#fff',
 		fontWeight: '400',
@@ -129,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
 			textDecoration: 'underline',
 		}
 	},
-	info__text:{
+	info__text: {
 		paddingTop: '4px',
 		color: '#5A5A5A',
 		fontFamily: 'Roboto',
@@ -138,28 +139,28 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '14px',
 		lineHeight: '16px',
 	},
-	edit:{
+	edit: {
 		display: 'flex',
 		justifyContent: 'end'
 	},
-	btn__wait:{
+	btn__wait: {
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'flex-start',
 		alignItems: 'flex-end',
 		marginBottom: '14px',
 	},
-	text__wait:{
+	text__wait: {
 		display: 'flex',
 		alignItems: 'center',
 		flexDirection: 'row',
 		marginBottom: '8px',
 		width: 'auto',
- 		textAlign: 'right',
+		textAlign: 'right',
 		backgroundColor: '#fff',
 		color: '#52b9c5',
 	},
-	pos_abs:{
+	pos_abs: {
 		position: 'absolute',
 		width: '232px',
 		minWidth: '60px',
@@ -169,38 +170,38 @@ const useStyles = makeStyles((theme) => ({
 		color: 'white',
 		top: '150px',
 		alignItems: 'center',
-		textAlign:'center',
+		textAlign: 'center',
 		display: 'flex',
 		justifyContent: 'center',
 	},
 
 	[theme.breakpoints.down(1080)]: {
-		paddingIcon:{
+		paddingIcon: {
 			paddingTop: '91px',
 		},
-		paddingIconWait:{
+		paddingIconWait: {
 			position: 'absolute',
 			bottom: 0,
 			right: 0,
 			padding: '0px'
 		},
-		bottom:{
+		bottom: {
 			justifyContent: 'start',
 		},
-		left__date__wait:{
+		left__date__wait: {
 			paddingTop: '47px',
 		},
 	},
-	
+
 	[theme.breakpoints.down(960)]: {
-		paddingIcon:{
+		paddingIcon: {
 			position: 'absolute',
 			left: '0',
 			top: '0',
 			padding: '0'
 		},
-		paddingIconWait:{
-			left:0,
+		paddingIconWait: {
+			left: 0,
 			top: 0,
 		},
 		left__info: {
@@ -210,7 +211,7 @@ const useStyles = makeStyles((theme) => ({
 			flexDirection: 'column',
 			alignItems: 'start',
 		},
-		left__date:{
+		left__date: {
 			display: 'flex',
 			justifyContent: 'space-betweeen',
 		},
@@ -218,15 +219,15 @@ const useStyles = makeStyles((theme) => ({
 			padding: '0',
 			alignItems: 'end'
 		},
-		bottom:{
+		bottom: {
 			justifyContent: 'center',
 		},
-		position__absolute:{
+		position__absolute: {
 			position: 'absolute',
 			right: '0',
 			padding: '0',
 		},
-		pos_abs:{
+		pos_abs: {
 			width: '150px',
 		}
 	},
@@ -237,25 +238,25 @@ const useStyles = makeStyles((theme) => ({
 		lignt__text: {
 			paddingRight: '5px'
 		},
-		description:{
+		description: {
 			padding: '8px'
 		},
-		left__date__wait:{
+		left__date__wait: {
 			paddingTop: '40px',
 		},
-		pos_abs:{
+		pos_abs: {
 			width: '120px',
 		}
 	},
 	[theme.breakpoints.down(451)]: {
-		left__date__wait:{
+		left__date__wait: {
 			paddingTop: '20px',
 		},
-		mobile__font:{	
-		fontSize: '18px',
-		lineHeight: '21px',
+		mobile__font: {
+			fontSize: '18px',
+			lineHeight: '21px',
 		},
-		pos_abs:{
+		pos_abs: {
 			position: 'absolute',
 			width: '60%',
 			minWidth: '60px',
@@ -265,14 +266,14 @@ const useStyles = makeStyles((theme) => ({
 			color: 'white',
 			top: '150px',
 			alignItems: 'center',
-			textAlign:'center',
+			textAlign: 'center',
 			display: 'flex',
 			justifyContent: 'center',
 		},
 	}
 }));
 
-export default function OfferCard({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab}) {
+export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab }) {
 	const classes = useStyles();
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
@@ -284,22 +285,22 @@ export default function OfferCard({offer, parentCheck, getChildCheck, allDataChe
 	const isActive = typeTab === 'activeTab';
 	const isWaith = typeTab === 'waitTab';
 	// console.log(isArchive, isActive, isWaith);
-	
+
 
 	const cleanAll = () => {
-		getChildCheck({id: offer.id, isChecked: false});
+		getChildCheck({ id: offer.id, isChecked: false });
 		setCheck(false)
 	}
 
 	useEffect(() => {
 		parentCheck ? check
 			? null
-			: ( getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck) )
-		: check===false
-			? null
-			: allDataCheck?.length === 0
-				? (getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck))
-				: null;
+			: (getChildCheck({ id: offer.id, isChecked: parentCheck }), setCheck(parentCheck))
+			: check === false
+				? null
+				: allDataCheck?.length === 0
+					? (getChildCheck({ id: offer.id, isChecked: parentCheck }), setCheck(parentCheck))
+					: null;
 	}, [parentCheck])
 
 	useEffect(() => {
@@ -315,35 +316,37 @@ export default function OfferCard({offer, parentCheck, getChildCheck, allDataChe
 
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
-		<>	
+		<>
 			<h1>{offer.parentCheck}</h1>
 			<div key={offer.id} className="offerContainer boxWrapper"
-				 onClick={	(event) => {
-					 if(event.target.localName !== "button" && event.target.localName !== "input") {
-						 Router.push(`/product/${offer.id}`)
-					 }
-				 }}
+				onClick={(event) => {
+					if (event.target.localName !== "button" && event.target.localName !== "input") {
+						Router.push(`/product/${offer.id}`)
+					}
+				}}
 			>
 				<div className="offerImage">
 					{offersLength > 1 && <div className="offerPubCheck">
 						<Checkbox
 							className={classes.check}
 							color='primary'
-							icon={<FiberManualRecordOutlinedIcon/>}
-							checkedIcon={<FiberManualRecordSharpIcon/>}
+							icon={<FiberManualRecordOutlinedIcon />}
+							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.id}
 							onChange={(event) => {
 								setCheck(event.target.checked);
-								getChildCheck({id: offer.id, isChecked: event.target.checked}); /* handleCheck(event.target.checked) */
+								getChildCheck({ id: offer.id, isChecked: event.target.checked }); /* handleCheck(event.target.checked) */
 							}}
 							checked={check}
 						/>
 					</div>}
-					{offer.photo?.map((imgs, i) => {
-						return <img key={i} src={imgs} />;
-					})}{isWaith && (
-						<p className={classes.pos_abs}>Отклонено/Заблокировано</p>
-					)}
+					<Image
+						isWaith={isWaith}
+						classes={classes}
+						Router={Router}
+						offer={offer}
+						pushCheck={pushCheck}
+					/>
 				</div>
 				<div className={classes.description}>
 					<div className={classes.top}>
@@ -359,113 +362,38 @@ export default function OfferCard({offer, parentCheck, getChildCheck, allDataChe
 						</div>
 						<div className={classes.column}>
 							<div className={`${classes.column} ${classes.end}`}>
-								{isActive && (
-									<div>
-										<div className={classes.edit}>
-									<Edit></Edit>
-									<button type="submit" className={`${classes.btn__edit}`} onClick={() => Router.push(`/editPage/${offerID}`)}>
-									Редактировать
-									</button>
-									</div>
-									<button
-										value={offer.id}
-										onClick={(e) => pushCheck(e)}
-										className={classes.btn__unpublish}>
-										Снять с публикации
-									</button>
-									</div>		
-								)}
-								{/* taaaab */}
+								<BtnActive
+									isActive={isActive}
+									classes={classes}
+									Router={Router}
+									offer={offer}
+									pushCheck={pushCheck}
+									offerID={offerID}
+								/>
 								{(isArchive || isWaith) && (
-								<div>
-										<div  className={classes.btn__wait}>
-											<a href="#" className={classes.text__wait}>
-											<span className="offerIcon checkMarkIcon"></span>
-											<button
-												id='001'
-												value={offer.id}
-												onClick={(e) => pushCheck(e)}
-												className="offerActivate thin superLight offerSocialAction">
-												Активировать
-											</button>
-											</a>
-											<button className={classes.text__wait}
-													onClick={() => Router.push(`/editPage/${offerID}`)}>
-												<span className="offerIcon editIcon"></span>
-												Редактировать
-											</button>
-											<a href="#" className={classes.text__wait}>
-											<span className="offerIcon binIcon"></span>
-
-											<button
-												id='002'
-												value={offer.id}
-												onClick={(e) => pushCheck(e)}
-												className="offerEdit thin superLight offerSocialAction">
-												Удалить
-											</button>
-											</a>
-										</div>
-								</div>
+									<div>
+										<BtnWite
+											classes={classes}
+											offer={offer}
+											pushCheck={pushCheck}
+											Router={Router}
+											offerID={offerID}
+										/>
+									</div>
 								)}
-								
 							</div>
-							<div className={`${classes.column} ${isActive ? classes.paddingIcon : classes.paddingIconWait}`}>
-								<div className={`${classes.end} ${classes.row} ${classes.icon__column}`}>
-									<div className={classes.row}>
-										<div className={`${classes.height} ${classes.info__text} ${classes.padding__icon}`}><p>{offer.last_day_viewing_count} +{offer.all_time_contact_count}</p></div>
-										<div className={classes.showes}>
-											<Showes></Showes>
-										</div>
-									</div>
-									<div className={classes.row}>
-										<div className={`${classes.height} ${classes.info__text} ${classes.padding__icon}`}>{offer.likes_count} +0</div>
-										<div className={classes.likes}>
-											<LikeDark></LikeDark>
-										</div>
-									</div>
-								</div>
-							</div>
+							<ImgStatistic
+								classes={classes}
+								isActive={isActive}
+								offer={offer}
+							/>
 						</div>
 					</div>
 					<div className={classes.bottom}>
 						{isActive && (
-						<button  className={classes.btn__upViews}>Увеличить просмотры</button>
+							<button className={classes.btn__upViews}>Увеличить просмотры</button>
 						)}
 					</div>
-					
-
-					{/* <div className="offerDescriptionTop">
-						<div className="offerDTLeft thin">
-							<div>{ToRubles(offer.price)}</div>
-							<div className="offerTitle">{offer.title}</div>
-							<div className="offerDatPub small light DatPub__mobile">
-								<span className="offerDate"> Дата публикации </span>
-								{ToFullDate(offer.created_at)}
-							</div>
-							<div className="offerLastDays">Осталось 30 дней</div>
-						</div>
-						<div className="offerDTRight">
-							<button type="submit" className="offerEdit offerEditActive thin editIcon offerSocialAction" onClick={() => Router.push(`/editPage/${offerID}`)}>
-								Редактировать
-							</button>
-							<a>
-								<button
-									value={offer.id}
-									onClick={(e) => pushCheck(e)}
-									className="offerUnpublish thin superLight">
-									Снять с публикации
-								</button>
-							</a>
-							<div class="offerDescriptionBottomEnd" style={{justifyContent: 'end'}}>
-								<div class="offerSocialCount offerSocialCountPos" style={{justifyContent: 'end'}}>
-									<div style={{margin: '0'}} class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div><div className="showesIcon"></div>
-									<div style={{margin: '0'}} class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
-								</div>
-							</div>
-						</div>
-					</div> */}
-					
 				</div>
 			</div>
 
