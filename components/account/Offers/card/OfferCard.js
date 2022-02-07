@@ -174,7 +174,31 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'center',
 	},
-
+	image: {
+		userSelect: 'none',
+		minWidth: '100%',
+		maxHeight: '100%',
+		objectFit: 'cover',
+		objectPosition: 'center',
+		borderRadius: '10px',
+	},
+	offer__image: {
+		background: 'no-repeat center center url(../../../icons/photocard_placeholder.svg)',
+		backgroundSize: 'cover',
+		width: '100%',
+		height: '184px',
+		borderRadius: '10px',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		overflow: 'hidden',
+	},
+	offer__pub__check:{
+		alignSelf: 'start',
+		position: 'absolute',
+		top: '4px',
+		left: '4px',
+	},
 	[theme.breakpoints.down(1080)]: {
 		paddingIcon: {
 			paddingTop: '91px',
@@ -325,8 +349,8 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 					}
 				}}
 			>
-				<div className="offerImage">
-					{offersLength > 1 && <div className="offerPubCheck">
+				<div>
+					{offersLength > 1 && <div className={classes.offer__pub__check}>
 						<Checkbox
 							className={classes.check}
 							color='primary'
