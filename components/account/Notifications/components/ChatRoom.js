@@ -32,19 +32,31 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
     return (
         <div className={mobile ? 'messageMobile' : 'messageWindow'}>
             {roomData?.seller_id ?
-                <div className="messageHeader small" style={{height: '51px'}}>
+                <div className="messageHeader small">
                     {/* фотка обьявления */}
                     <img
                       className='chatRoomImage'
                       src={`${STATIC_URL}/${generateProductPhoto(roomData?.product_photo)}`}
                       onClick={handleProductClick}
-                      style={{width: '50px', height: '50px', minWidth: '50px'}}
                     />
                     <div>
-                        <div style={{alignSelf: 'flex-start'}}>{roomData?.product_price} ₽</div>
+                        {!mobile &&
+                            <div className="UserBlock">
+                                <div>
+                                    <div className='chatRoomTitle' onClick={handleUserClick}>{chatRoom_name}</div>
+                                    <div className="light">00.00.00 00:00</div>
+                                </div>
+                                {chatRoom_photo ?
+                                    <img onClick={handleUserClick}
+                                        className='chatRoomImage'
+                                        src={`${STATIC_URL}/${chatRoom_photo}`}/> :
+                                    <ChatDefaultAvatar name={roomData?.seller_name} clickAvatar={handleUserClick}/>}
+                            </div>
+                        }
+                        <div>{roomData?.product_price} ₽</div>
                         <div onClick={handleProductClick} className='chatRoomTitle'>{roomData?.product_name}</div>
                     </div>
-                    </div> : null}
+                </div> : null}
                 <Divider style={{margin: '2px 10px'}} />
             {children}
         </div>
