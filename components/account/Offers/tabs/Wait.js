@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 // import EmptyPlaceholder from "../../../EmptyPlaceholder";
-import OfferWait from "../card/offerWait";
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
 import Placeholder from "../../../User/tabs/Placeholder";
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";

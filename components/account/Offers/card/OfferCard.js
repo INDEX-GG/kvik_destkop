@@ -8,8 +8,6 @@ import Router from "next/router";
 import LikeDark from "#UI/icons/LikeDark";
 import Showes from "#UI/icons/Showes";
 import Edit from "#UI/icons/Edit";
-import safeAccountTab from "#components/safeAccountTab";
-import { width } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -84,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: '500',
 		transition: 'all 500ms ease',
 		border: '1px solid transparent',
-		display: 'flex',
+		// display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#00a0ab',
@@ -93,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
 	top:{
 		position: 'relative',
 		flexGrow: '1',
-		display: '-moz-box',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -145,8 +142,6 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'end'
 	},
-	padding__icon: {
-	},
 	btn__wait:{
 		display: 'flex',
 		flexDirection: 'column',
@@ -154,11 +149,7 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'flex-end',
 		marginBottom: '14px',
 	},
-	bottom__wait: {
-		
-	},
 	text__wait:{
-		marginBottom: '14px',
 		display: 'flex',
 		alignItems: 'center',
 		flexDirection: 'row',
@@ -170,7 +161,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	pos_abs:{
 		position: 'absolute',
-		width: '30%',
+		width: '232px',
 		minWidth: '60px',
 		height: '28px',
 		background: 'rgba(44, 44, 44, 0.74)',
@@ -212,9 +203,6 @@ const useStyles = makeStyles((theme) => ({
 			left:0,
 			top: 0,
 		},
-		bottom:{
-			justifyContent: 'start',
-		},
 		left__info: {
 			paddingTop: '60px',
 		},
@@ -237,6 +225,9 @@ const useStyles = makeStyles((theme) => ({
 			position: 'absolute',
 			right: '0',
 			padding: '0',
+		},
+		pos_abs:{
+			width: '150px',
 		}
 	},
 	[theme.breakpoints.down(580)]: {
@@ -252,6 +243,9 @@ const useStyles = makeStyles((theme) => ({
 		left__date__wait:{
 			paddingTop: '40px',
 		},
+		pos_abs:{
+			width: '120px',
+		}
 	},
 	[theme.breakpoints.down(451)]: {
 		left__date__wait:{

@@ -99,12 +99,9 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 											backgroundRepeat: 'no-repeat',
 											backgroundPosition: 'center'
 										}}
-										  
 										// src={img} 
 										// alt={`sliderPhoto${i + 1}`} 
 									/>
-									
-									
 									<div 
 									style={{
 										backgroundImage: `url(${img})`, 

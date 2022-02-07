@@ -3,11 +3,8 @@ import { ToRubles } from "../../../../lib/services";
 import VerifyModerator from "../../../json/verifyModerator.json";
 import Verify from "../../../json/verify.json";
 
-import {useMedia} from "../../../../hooks/useMedia";
-import {Checkbox, makeStyles, Dialog} from "@material-ui/core";
-import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
-import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import OfferModal from "../../../OfferModal";
+import { Dialog } from '@mui/material';
 
 
 const offerWait = ({ offer, parentCheck, getChildCheck}) => {
@@ -17,7 +14,6 @@ const offerWait = ({ offer, parentCheck, getChildCheck}) => {
     const [buttonId, setButtonId] = useState('');
     const [check, setCheck] = useState(false);
     const offerData = offer;
-    const offerID = offer.id;
 
     const cleanAll = () => {
       getChildCheck({id: offer.id, isChecked: false});
@@ -71,35 +67,35 @@ const offerWait = ({ offer, parentCheck, getChildCheck}) => {
                     <div>{ToRubles(offer.price)}</div>
                     <div className="offerTitle">{offer.title}</div>
                   </div>
-                  <div class="offerDTRight">
-                    <a href="#" class="offerDTRight__item">
-                      <span class="offerIcon checkMarkIcon"></span>
+                  <div className="offerDTRight">
+                    <a href="#" className="offerDTRight__item">
+                      <span className="offerIcon checkMarkIcon"></span>
                       <button
                           id='001'
                           onClick={(e) => pushCheck(e)}
                           className="offerActivate thin superLight offerSocialAction">
                           Активировать
                       </button>
-                      </a><button class="offerDTRight__item offerEdit thin offerSocialAction">
-                      <span class="offerIcon editIcon"></span>Редактировать</button>
-                      <a href="#" class="offerDTRight__item">
-                        <span class="offerIcon binIcon"></span>
+                      </a><button className="offerDTRight__item offerEdit thin offerSocialAction">
+                      <span className="offerIcon editIcon"></span>Редактировать</button>
+                      <a href="#" className="offerDTRight__item">
+                        <span className="offerIcon binIcon"></span>
                         <button 
                           onClick={(e) => pushCheck(e)}
                           id="002"
                           value="2521"
-                          class="offerEdit thin superLight offerSocialAction">
+                          className="offerEdit thin superLight offerSocialAction">
                           Удалить
                         </button>
                       </a>
                   </div>
                 </div>
-                <div class="offerDescriptionBottom">
+                <div className="offerDescriptionBottom">
                     <span style={{textAlign:'center'}}> Дата последнего редактирования: </span>
-                    <div class="offerDescriptionBottomEnd" style={{justifyContent: 'end'}}>
-                      <div class="offerSocialCount offerSocialCountPos offerRightBottomNull" style={{justifyContent: 'end', paddingRight:'0'}}>
-                        <div style={{margin: '0 10px'}} class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div><div className="showesIcon"></div>
-                        <div style={{margin: '0 10px'}} class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
+                    <div className="offerDescriptionBottomEnd" style={{justifyContent: 'end'}}>
+                      <div className="offerSocialCount offerSocialCountPos offerRightBottomNull" style={{justifyContent: 'end', paddingRight:'0'}}>
+                        <div style={{margin: '0 10px'}} className="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div><div className="showesIcon"></div>
+                        <div style={{margin: '0 10px'}} className="offerAddFavores likeIcon">{offer.likes_count} +0</div>
                       </div>
                     </div>
                 </div>

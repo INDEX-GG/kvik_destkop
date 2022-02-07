@@ -122,10 +122,10 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 									Снять с публикации
 								</button>
 							</a>
-							<div class="offerDescriptionBottomEnd" style={{justifyContent: 'end'}}>
-								<div class="offerSocialCount offerSocialCountPos" style={{justifyContent: 'end'}}>
-									<div style={{margin: '0'}} class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div><div className="showesIcon"></div>
-									<div style={{margin: '0'}} class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
+							<div className="offerDescriptionBottomEnd" style={{justifyContent: 'end'}}>
+								<div className="offerSocialCount offerSocialCountPos" style={{justifyContent: 'end'}}>
+									<div style={{margin: '0'}} className="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div><div className="showesIcon"></div>
+									<div style={{margin: '0'}} className="offerAddFavores likeIcon">{offer.likes_count} +0</div>
 								</div>
 							</div>
 						</div>

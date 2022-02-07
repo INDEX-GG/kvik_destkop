@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import Router from "next/router";
 import {ToRubles} from "../../../../lib/services";
 // import Verify from "../../../json/verify.json";
-import {useMedia} from "../../../../hooks/useMedia";
 import {Checkbox, makeStyles, Dialog} from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
@@ -67,7 +66,6 @@ export default function offerArchive({
                                          parentOpenDelActiveForm,
                                          offersLength
                                      }) {
-    const {matchesMobile, matchesTablet} = useMedia()
     const classes = useStyles();
 
     const [openOfferModal, setOpenOfferModal] = useState(false);
@@ -181,10 +179,10 @@ export default function offerArchive({
                         </div>
 
                     </div>
-                    <div class="offerDescriptionBottomEnd">
-                    <div class="offerSocialCount offerSocialCountPos offerRightBottomNull" style={{justifyContent: 'end', paddingRight:'0'}}>
-                      <div  class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
-                      <div  class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
+                    <div className="offerDescriptionBottomEnd">
+                    <div className="offerSocialCount offerSocialCountPos offerRightBottomNull" style={{justifyContent: 'end', paddingRight:'0'}}>
+                      <div  className="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
+                      <div  className="offerAddFavores likeIcon">{offer.likes_count} +0</div>
                     </div>
                 </div>
                 </div>

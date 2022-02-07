@@ -3,13 +3,11 @@ import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
-import OfferActive from "../card/offerActive";
 import Placeholder from "./Placeholder";
 import OfferModal from "../../../OfferModal";
 import OfferActivePlaceHolder
 	from "../../../placeHolders/OfferPlaceHolder/OfferActivePlaceHolder/OfferActivePlaceHolder";
 import throttle from "lodash.throttle";
-import offerActive from "../card/offerActive";
 import OfferCard from "../card/OfferCard";
 
 
@@ -45,7 +43,6 @@ function Active({offers}) {
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
 	const [isFirstRender, setIsFirstRender] = useState(true)
-	const active = 'active'
 	const buttonId = "003";
 	const offersLength = offers.length
 
@@ -128,9 +125,7 @@ function Active({offers}) {
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
-							// <OfferActive 
 							<OfferCard 
-							// <offerActive
 								key={i} 
 								offer={offer}
 								typeTab='activeTab'
