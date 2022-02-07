@@ -66,10 +66,9 @@ const useClass = makeStyles(() => ({
 const AdCard_component = React.forwardRef((props, ref,) => {
 	const classes = useClass()
 	// const { id } = useAuth();
-	const {addSlideView} = useStatistics()
+	const {addSlideView, addLike, addUnLike} = useStatistics()
 	const {id} = props;
 	const {offer} = props;
-
 	const { matchesMobile, matchesTablet } = useMedia();
 	const screenIsMobile = matchesMobile || matchesTablet;
 	const { userInfo, setLikeComment } = useStore();
@@ -83,6 +82,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
+	const [isLiked, setIsLiked] = useState(false)
 	// закоментил стейт, пока не разбереся с запросами.
 	// const [phoneModuleState, setPhoneModuleState] = useState(false);
 	const [, setPhoneModuleState] = useState(false);
@@ -97,6 +97,19 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	const handleWheelClick = (e, id) => {
 		if (e.button === 1) {
 			window.open(`/product/${id}`);
+		}
+	}
+
+	const likeClickHandler = () => {
+		if(userInfo && isLiked) {
+			addUnLike(offer.id)()
+			setIsLiked(false)
+			return
+		}
+		if(userInfo && !isLiked) {
+			addLike(offer.id)()
+			setIsLiked(true)
+			return
 		}
 	}
 
@@ -381,13 +394,33 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 							{offer.user_id !== id ? (
 								userInfo !== undefined && userInfo.favorites.length > 0 && userInfo.favorites && userInfo.favorites.filter(item => item.post_id === offer.id)?.[0]?.condition ?
 									<IconButton
-										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false) }
+										onClick={() => {
+											likeClickHandler();
+
+											setLikeComment(offer.id, userInfo?.favorites === undefined 
+											? 
+											'' 
+											: 
+											userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false) 
+										}}
 										color='primary'
 										className='card_like'>
 										<FavoriteRoundedIcon />
 									</IconButton> :
 									<IconButton
-										onClick={() => id ? setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true) : null }
+										onClick={() => {
+											likeClickHandler();
+
+											id 
+											? 
+											setLikeComment(offer.id, userInfo?.favorites === undefined
+												? 
+												'' 
+												: 
+												userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true)
+											: 
+											null 
+										}}
 										color='secondary'
 										className='card_like'>
 										<FavoriteBorderRoundedIcon />
