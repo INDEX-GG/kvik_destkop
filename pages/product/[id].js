@@ -13,7 +13,7 @@ import {useProduct} from "../../hooks/useProduct";
 import BreadCrumbsProduct from "../../components/product/BreadCrumbsProduct";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import {useAuth} from "../../lib/Context/AuthCTX";
-// import PhoneModule from "../../components/product/PhoneModule";
+import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import {CHAT_URL_API, /*SIGN_SECRET*/} from "../../lib/constants";
 import ProductPrice from "../../components/product/ProductPrice";
@@ -81,7 +81,7 @@ const Product = () => {
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
-    const [/*phoneModal,*/, setPhoneModal] = useState();
+    const [phoneModal, setPhoneModal] = useState();
 
 
 
@@ -325,7 +325,7 @@ const Product = () => {
                             Close={handleStatFormDialog}/>{" "}
                     </Dialog>
                     {/* ничего не делало, закоментил */}
-                    {/* <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/> */}
+                    {productInfo.id && <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/>}
                     <ScrollTop />
                 </div>
             </OfferAccountProvider>
