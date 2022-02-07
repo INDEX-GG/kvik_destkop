@@ -457,13 +457,13 @@
 							"name": "Моноблоки",
 							"alias": "mono_computer",
 							"children": []
-						},
-						{
-							"name": "Мониторы",
-							"alias": "monitors",
-							"children": []
 						}
 					]
+				},
+				{
+					"name": "Мониторы",
+					"alias": "monitors",
+					"children": []
 				},
 				{
 					"name": "Комплектующие для ПК",
@@ -578,6 +578,16 @@
 						{
 							"name": "Корпусы для серверов",
 							"alias": "server_enclosures",
+							"children": []
+						},
+						{
+							"name": "Шкафы и стойки",
+							"alias": "server_cabinets_and_racks",
+							"children": []
+						},
+						{
+							"name": "Расходные материалы и прочее",
+							"alias": "server_consumables_and_other",
 							"children": []
 						}
 					]
@@ -1866,6 +1876,27 @@
 							"children": []
 						}
 					]
+				},
+				{
+					"name": "Книги и журналы",
+					"alias": "books_and_magazines",
+					"children": [
+						{
+							"name": "Журналы, газеты, брошюры",
+							"alias": "magazines_newspapers_brochures",
+							"children": []
+						},
+						{
+							"name": "Книги",
+							"alias": "books",
+							"children": []
+						},
+						{
+							"name": "Учебная литература",
+							"alias": "educational_literature",
+							"children": []
+						}
+					]
 				}
 			]
 		},
@@ -2124,27 +2155,6 @@
 						{
 							"name": "Прочее",
 							"alias": "sports_and_recreation_other",
-							"children": []
-						}
-					]
-				},
-				{
-					"name": "Книги и журналы",
-					"alias": "books_and_magazines",
-					"children": [
-						{
-							"name": "Журналы, газеты, брошюры",
-							"alias": "magazines_newspapers_brochures",
-							"children": []
-						},
-						{
-							"name": "Книги",
-							"alias": "books",
-							"children": []
-						},
-						{
-							"name": "Учебная литература",
-							"alias": "educational_literature",
 							"children": []
 						}
 					]
