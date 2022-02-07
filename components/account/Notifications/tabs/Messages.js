@@ -16,6 +16,7 @@ import Loader from "../../../../UI/icons/Loader";
 import ChatAllRoom from "../components/ChatAllRoom";
 import ChatRoom from "../components/ChatRoom";
 import {getTokenDataByPost} from "../../../../lib/fetch";
+import AccountChatPlaceHolder from '../../../placeHolders/AccountChatPlaceHolder/AccountChatPlaceHolderMobile'
 
 
 function Messages() {
@@ -256,27 +257,26 @@ function Messages() {
               в десктопной версии оно рендерилось поверх окна диалога с другим юзером */}
             {!chatIsOpen &&
             <div className="messageDialogs">
-                {loadingAllRooms ?
-                  <div className='offer__placeholder_loader messagePlaceholder'>
-                    <Loader/>
-                  </div> :
+                {loadingAllRooms && matchesMobile && <AccountChatPlaceHolder /> }
+                {loadingAllRooms && !matchesMobile && <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div>}
                   <ChatAllRoom allRooms={allRooms}
-                    setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>}
+                    setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>
+
             </div>}
               {!router.query?.companion_id && !router.query?.product_id ? (
                   // плейсохолдер выбора чата
                   // <div className='chatPlaceholder'>
                   //   <h2>Для начала переписки выберете чат</h2>
                   //   <div className='chatPlaceholderCircleBlock'>
-                  //     <ChatPlaceholder/>
+                  //     <ChatPlaceholder/> 
                   //     <ChatPlaceholder/>
                   //     <ChatPlaceholder/>
                   //   </div>
                   // </div>
                   null
                 ) :
-                loadingRoom ?
-                  <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
+                loadingRoom && matchesMobile ? <AccountChatPlaceHolder /> :
+                loadingRoom && !matchesMobile ? <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
                   // <div className="messageWindow">
                   //   {room?.seller_id ?
                   //       <div className="messageHeader small">

@@ -45,7 +45,7 @@ const AccountChatDialogPlaceHolder = () => {
   const classes = useStyles()
 
   return (
-    <Box style={{ width: '100%', height: '100%', padding: '0px 15px' }}>
+    <Box style={{ width: '100%', height: '100%', padding: '10px 15px' }}>
       <Grid
         container
         flexDirection="column"
