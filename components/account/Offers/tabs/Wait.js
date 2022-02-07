@@ -79,6 +79,7 @@ function Wait({offers}) {
                 {offers.map((offer) => (
                     <OfferCard
                         key={offer.id}
+                        typeTab='waitTab'
                         offer={offer}
                         parentCheck={check}
                         getChildCheck={getChildCheck}

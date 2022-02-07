@@ -183,8 +183,8 @@ export default function offerArchive({
                     </div>
                     <div class="offerDescriptionBottomEnd">
                     <div class="offerSocialCount offerSocialCountPos offerRightBottomNull" style={{justifyContent: 'end', paddingRight:'0'}}>
-                      <div style={{margin: '0 10px'}} class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
-                      <div style={{margin: '0 10px'}} class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
+                      <div  class="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div>
+                      <div  class="offerAddFavores likeIcon">{offer.likes_count} +0</div>
                     </div>
                 </div>
                 </div>

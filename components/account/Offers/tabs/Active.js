@@ -132,8 +132,8 @@ function Active({offers}) {
 							<OfferCard 
 							// <offerActive
 								key={i} 
-								active={active}
-								offer={offer} 
+								offer={offer}
+								typeTab='activeTab'
 								i={i}
 								parentCheck={check} 
 								getChildCheck={getChildCheck} 

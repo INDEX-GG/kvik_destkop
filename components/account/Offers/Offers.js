@@ -64,8 +64,8 @@ const Offers = () => {
   // Пагинация
   const navItems = [
     { id: 1, title: "Активные", content: <Active key={1} offers={activeOffersBox} />, count: totalPosts.active },
-    { id: 2, title: "Ждут действия", content: <Active key={2} offers={waitOffersBox} />, count: totalPosts.wait },
-    { id: 3, title: "Архив", content: <Active key={3} offers={archiveOffersBox} />, count: totalPosts.archive },
+    { id: 2, title: "Ждут действия", content: <Wait key={2} offers={waitOffersBox} />, count: totalPosts.wait },
+    { id: 3, title: "Архив", content: <Archive key={3} offers={archiveOffersBox} />, count: totalPosts.archive },
   ];
   return (
       <>

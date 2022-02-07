@@ -9,6 +9,7 @@ import LikeDark from "#UI/icons/LikeDark";
 import Showes from "#UI/icons/Showes";
 import Edit from "#UI/icons/Edit";
 import safeAccountTab from "#components/safeAccountTab";
+import { width } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -67,7 +68,12 @@ const useStyles = makeStyles((theme) => ({
 		padding: '24px 34px',
 		paddingRight: '0',
 	},
+	paddingIconWait:{
+		padding: '24px 34px',
+		paddingRight: '0',
+	},
 	btn__upViews:{
+		display:'none',
 		position: 'absolute',
 		bottom: '8px',
 		alignSelf: 'center',
@@ -137,25 +143,74 @@ const useStyles = makeStyles((theme) => ({
 	},
 	edit:{
 		display: 'flex',
+		justifyContent: 'end'
+	},
+	padding__icon: {
+	},
+	btn__wait:{
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'flex-start',
+		alignItems: 'flex-end',
+		marginBottom: '14px',
+	},
+	bottom__wait: {
 		
 	},
-	padding__icon:{
+	text__wait:{
+		marginBottom: '14px',
+		display: 'flex',
+		alignItems: 'center',
+		flexDirection: 'row',
+		marginBottom: '8px',
+		width: 'auto',
+ 		textAlign: 'right',
+		backgroundColor: '#fff',
+		color: '#52b9c5',
+	},
+	pos_abs:{
+		position: 'absolute',
+		width: '30%',
+		minWidth: '60px',
+		height: '28px',
+		background: 'rgba(44, 44, 44, 0.74)',
+		borderRadius: '8px',
+		color: 'white',
+		top: '150px',
+		alignItems: 'center',
+		textAlign:'center',
+		display: 'flex',
+		justifyContent: 'center',
 	},
 
 	[theme.breakpoints.down(1080)]: {
 		paddingIcon:{
 			paddingTop: '91px',
 		},
+		paddingIconWait:{
+			position: 'absolute',
+			bottom: 0,
+			right: 0,
+			padding: '0px'
+		},
 		bottom:{
 			justifyContent: 'start',
-		}
+		},
+		left__date__wait:{
+			paddingTop: '47px',
+		},
 	},
+	
 	[theme.breakpoints.down(960)]: {
 		paddingIcon:{
 			position: 'absolute',
 			left: '0',
 			top: '0',
 			padding: '0'
+		},
+		paddingIconWait:{
+			left:0,
+			top: 0,
 		},
 		bottom:{
 			justifyContent: 'start',
@@ -193,11 +248,37 @@ const useStyles = makeStyles((theme) => ({
 		},
 		description:{
 			padding: '8px'
-		}
+		},
+		left__date__wait:{
+			paddingTop: '40px',
+		},
+	},
+	[theme.breakpoints.down(451)]: {
+		left__date__wait:{
+			paddingTop: '20px',
+		},
+		mobile__font:{	
+		fontSize: '18px',
+		lineHeight: '21px',
+		},
+		pos_abs:{
+			position: 'absolute',
+			width: '60%',
+			minWidth: '60px',
+			height: '28px',
+			background: 'rgba(44, 44, 44, 0.74)',
+			borderRadius: '8px',
+			color: 'white',
+			top: '150px',
+			alignItems: 'center',
+			textAlign:'center',
+			display: 'flex',
+			justifyContent: 'center',
+		},
 	}
 }));
 
-export default function OfferCard({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, active}) {
+export default function OfferCard({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab}) {
 	const classes = useStyles();
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
@@ -205,7 +286,10 @@ export default function OfferCard({offer, parentCheck, getChildCheck, allDataChe
 	const buttonId = "003";
 	const offerData = offer;
 	const offerID = offer.id;
-
+	const isArchive = typeTab === 'archiveTab';
+	const isActive = typeTab === 'activeTab';
+	const isWaith = typeTab === 'waitTab';
+	// console.log(isArchive, isActive, isWaith);
 	
 
 	const cleanAll = () => {
@@ -219,13 +303,13 @@ export default function OfferCard({offer, parentCheck, getChildCheck, allDataChe
 			: ( getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck) )
 		: check===false
 			? null
-			: allDataCheck.length === 0
+			: allDataCheck?.length === 0
 				? (getChildCheck({id: offer.id, isChecked: parentCheck}), setCheck(parentCheck))
 				: null;
 	}, [parentCheck])
 
 	useEffect(() => {
-		parentUnpublishForm === false && allDataCheck.length === 0 ? setCheck(false) : null
+		parentUnpublishForm === false && allDataCheck?.length === 0 ? setCheck(false) : null
 	}, [parentUnpublishForm])
 
 	function pushCheck(e) {
@@ -263,37 +347,76 @@ export default function OfferCard({offer, parentCheck, getChildCheck, allDataChe
 					</div>}
 					{offer.photo?.map((imgs, i) => {
 						return <img key={i} src={imgs} />;
-					})}
+					})}{isWaith && (
+						<p className={classes.pos_abs}>Отклонено/Заблокировано</p>
+					)}
 				</div>
 				<div className={classes.description}>
 					<div className={classes.top}>
 						<div className={classes.column}>
 							<div className={classes.left__info}>
-								<p className={classes.main__text}>{ToRubles(offer.price)}</p>
+								<p className={`${classes.main__text} ${classes.mobile__font}`}>{ToRubles(offer.price)}</p>
 								<p className={classes.main__text}>{offer.title}</p>
 							</div>
-							<div className={classes.left__date}>
-								<p className={`${classes.main__text} ${classes.lignt__text}`}>Дата публикации {ToFullDate(offer.created_at)}</p>
+							<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
+								<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>Дата публикации {ToFullDate(offer.created_at)}</p>
 								<p className={`${classes.main__text} ${classes.position__absolute}`}>Осталось 30 дней</p>
 							</div>
 						</div>
 						<div className={classes.column}>
 							<div className={`${classes.column} ${classes.end}`}>
-								<div className={classes.edit}>
+								{isActive && (
+									<div>
+										<div className={classes.edit}>
 									<Edit></Edit>
 									<button type="submit" className={`${classes.btn__edit}`} onClick={() => Router.push(`/editPage/${offerID}`)}>
 									Редактировать
 									</button>
+									</div>
+									<button
+										value={offer.id}
+										onClick={(e) => pushCheck(e)}
+										className={classes.btn__unpublish}>
+										Снять с публикации
+									</button>
+									</div>		
+								)}
+								{/* taaaab */}
+								{(isArchive || isWaith) && (
+								<div>
+										<div  className={classes.btn__wait}>
+											<a href="#" className={classes.text__wait}>
+											<span className="offerIcon checkMarkIcon"></span>
+											<button
+												id='001'
+												value={offer.id}
+												onClick={(e) => pushCheck(e)}
+												className="offerActivate thin superLight offerSocialAction">
+												Активировать
+											</button>
+											</a>
+											<button className={classes.text__wait}
+													onClick={() => Router.push(`/editPage/${offerID}`)}>
+												<span className="offerIcon editIcon"></span>
+												Редактировать
+											</button>
+											<a href="#" className={classes.text__wait}>
+											<span className="offerIcon binIcon"></span>
+
+											<button
+												id='002'
+												value={offer.id}
+												onClick={(e) => pushCheck(e)}
+												className="offerEdit thin superLight offerSocialAction">
+												Удалить
+											</button>
+											</a>
+										</div>
 								</div>
-								<like></like>
-								<button
-									value={offer.id}
-									onClick={(e) => pushCheck(e)}
-									className={classes.btn__unpublish}>
-									Снять с публикации
-								</button>
+								)}
+								
 							</div>
-							<div className={`${classes.column} ${classes.paddingIcon}`}>
+							<div className={`${classes.column} ${isActive ? classes.paddingIcon : classes.paddingIconWait}`}>
 								<div className={`${classes.end} ${classes.row} ${classes.icon__column}`}>
 									<div className={classes.row}>
 										<div className={`${classes.height} ${classes.info__text} ${classes.padding__icon}`}><p>{offer.last_day_viewing_count} +{offer.all_time_contact_count}</p></div>
@@ -312,7 +435,9 @@ export default function OfferCard({offer, parentCheck, getChildCheck, allDataChe
 						</div>
 					</div>
 					<div className={classes.bottom}>
-						<button className={classes.btn__upViews}>Увеличить просмотры</button>
+						{isActive && (
+						<button  className={classes.btn__upViews}>Увеличить просмотры</button>
+						)}
 					</div>
 					
 

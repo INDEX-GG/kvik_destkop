@@ -10,7 +10,7 @@ import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordShar
 import OfferModal from "../../../OfferModal";
 
 
-function offerWait({ offer, parentCheck, getChildCheck}) {
+const offerWait = ({ offer, parentCheck, getChildCheck}) => {
 
     const [openOfferModal, setOpenOfferModal] = useState(false);
     const [offerId, setOfferId] = useState();
@@ -23,7 +23,6 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
       getChildCheck({id: offer.id, isChecked: false});
       setCheck(false)
   }
-    console.log(offer);
     useEffect( () => {
         parentCheck ? check ? null : handleCheck(parentCheck) : check === false ? null : offerId.length < 1 ? handleCheck(parentCheck) : null;
     }, [parentCheck])
@@ -56,10 +55,7 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                   </label>
                 </div>
                     <img src={offer.photo[0]} key={12321}/>
-                    
                 {/* <img src={offer.photo} /> */}
-
-                {/* {console.log(offer)} */}
                 {offer.verify == 4  ? 
                 <div className="offerWaitCause megaLight offerWaitBigName">{Verify[offer.verify === 1 ? 5 : 4]}</div> :
                 <div className="offerWaitCause megaLight" style={{
@@ -75,8 +71,6 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                     <div>{ToRubles(offer.price)}</div>
                     <div className="offerTitle">{offer.title}</div>
                   </div>
-                  
-                  
                   <div class="offerDTRight">
                     <a href="#" class="offerDTRight__item">
                       <span class="offerIcon checkMarkIcon"></span>
@@ -109,7 +103,6 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                       </div>
                     </div>
                 </div>
-
                 <Dialog open={openOfferModal || false} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth
                       maxWidth='md'>
                   <OfferModal
@@ -121,7 +114,6 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                     cleanAll={cleanAll}
                   />
                 </Dialog>
-
                   {offer.verify !== 2 ? (
                     ""
                   ) : (
@@ -132,18 +124,13 @@ function offerWait({ offer, parentCheck, getChildCheck}) {
                       ))}
                     </div>
                   )}
-
-
-
-
                   {offer.delete ? <div className="thin">Будет удалено навсегда через 30 дней</div> : null}
-
                   {offer.verify == 1 || offer.verify == 4 || offer.verify == 6 ? (
                   <div className="thin light small DatPub__mobile offerStats">
                     <span>Дата последнего редактирования:</span> {offer.date}
                     <div className="offerSocialCount offerSocialCountPos offerSocialCountLeft">
                       <div className="offerShowes showesIcon">0 +0</div>
-                      <div className="offerAddFavores likeIcon">0 +0</div>
+                      <div className="offerAddFavores likeIcon">{offer.likes_count} +0</div>
                     </div>
                   </div>) : null}
                 </div>

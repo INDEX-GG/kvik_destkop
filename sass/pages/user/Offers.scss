@@ -267,78 +267,7 @@
   background-color: $light;
 }
 
-@media (max-width: 1080px) {
-  
-  .offerRightBottomNull{
-    padding: 0;
-  }
-  .offerDTLeft {
-    align-self: flex-end;
-    padding-bottom: 20px;
-  }
-  .offerDescription {
-    padding: 0 12px;
-  }
-  .offerTitle,
-  .offerDatPub {
-    padding: 0;
-  }
 
-  .offerTitle,
-  .offerDatPub {
-    padding-bottom: 0;
-    margin-top: 8px;
-  }
-  
-  .offerSocialCountPos {
-    max-width: 104px;
-}
-
-  .offerDatPub > div{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
-
-  .offerLastDays{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
-
-  .offerSocialCountPos {
-    position: absolute;
-    top: 10px;
-    left: 0px;
-    flex-direction: column;
-    margin-top: 0;
-    height: 48px;
-    min-width: 82px;
-    max-width: 88px;
-  }
-  .offerShowes,
-  .offerAddFavores {
-    margin-top: 0;
-    margin-left: 0;
-  }
-  .offerCauses {
-    padding-bottom: 8px;
-    position: absolute;
-    top: 80px;
-  }
-}
-.offerDescriptionBottomEnd{
-  justify-content: end;
-}
-// @media (max-width: 1024px) {
-//   .offerDescription {
-//     padding: 0 8px;
-//   }
-
-//   // .DatPub__mobile span {
-//   //   display: none;
-//   // }
-// }
 
 @media (max-width: 750px) {
   .offerDTRight {
