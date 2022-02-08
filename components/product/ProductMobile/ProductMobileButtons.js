@@ -11,11 +11,13 @@ import OfferModal from "../../OfferModal";
 import Login from "../../../components/auth/Login";
 import { DialogCTX } from '../../../lib/Context/DialogCTX'
 import { useAuth } from '#lib/Context/AuthCTX';
+import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 // const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo, /*update,*/ setUpdate, createChat}) => {
 	const ProductMobileButtons = ({id, sellerId, mobile, photo, setDialog, productInfo, status, /*update,*/ setUpdate, createChat}) => { 	
 	// const router = useRouter();
+	const {addContactClick} = useStatistics()
 	const {isAuth} = useAuth()
 	const [openRegForm, setOpenRegForm] = useState(false);
 	const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -53,7 +55,15 @@ import { useAuth } from '#lib/Context/AuthCTX';
 								<div className="s__top">
 									<ProductDeal id={id} sellerID={sellerId}>
 										<ProductButton onClick={chatButtonHandler} className="SellerInfoMess button contained" title='Написать продацву' icon={<IconMess/>} />
-										<ProductButton className="SellerInfoCall button contained" onClick={() => setDialog(true)} title='Показать номер' icon={<IconCall/>} />
+										<ProductButton 
+											className="SellerInfoCall button contained" 
+											onClick={() => {
+												setDialog(true)
+												addContactClick(offerId[0])()
+											}} 
+											title='Показать номер' 
+											icon={<IconCall/>} 
+										/>
 									</ProductDeal>
 								</div>
 								<ProductButtonChangeAds id={id} sellerId={sellerId} status={status} lastDate={0} mobile={mobile} setOpenOfferModal={setOpenOfferModal} setButtonId={setButtonId}/>

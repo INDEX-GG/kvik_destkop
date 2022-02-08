@@ -10,6 +10,7 @@ import { useAuth } from '../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import { useMedia } from '../../hooks/useMedia';
 import AccountContent from './AccountContent';
+import {useStatistics} from '../../lib/Context/StatisticsCTX'
 
 const useStyles = makeStyles((theme) => ({
 	accountBox: {
@@ -124,6 +125,7 @@ export const AccountAvatar = ({ userInfo, isMatchingAThreshold, isAccountPage, t
 	const { id: AccountID } = useAuth();
 	const { name, userPhoto } = userInfo;
 
+
 	/**
 	 * @param {object} props
 	 * @param {string} [props.name]
@@ -233,6 +235,8 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 	});
 	const [logout, setLogout] = useState(false);
 	const { signOut } = useAuth();
+	// буль который передается в юзэфект контекста сбора статистики
+	const {setIsLogout} = useStatistics()
 
 	const { matchesMobile, matchesTablet, matchesCustom1024, matchesCustom1080 } = useMedia();
 	const isMatchingAThreshold = matchesMobile || matchesTablet || matchesCustom1024 || matchesCustom1080;
@@ -264,6 +268,7 @@ export default function HeaderAccount({ changeAccPage, userInfo }) {
 	const avatarProps = { userInfo, isMatchingAThreshold, isAccountPage, toggleDrawer }
 
 	const logOut = () => {
+		setIsLogout(true)
 		axios.get("/api/logout").then(() => {
 			mutate("/api/user");
 			signOut();

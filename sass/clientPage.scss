@@ -570,7 +570,7 @@
     display: grid;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    grid-template-columns: 1fr;
+    grid-template-columns: -1;
     grid-template-rows: 1fr;
 
     .clientPage__container_top,
@@ -642,6 +642,8 @@
 
 @media (max-width: 1024px) {
   .clientPage {
+    grid-template-columns: 1fr;
+
     // grid-template-columns: 220px 775px;
     &__menu {
       grid-area: 1 / 1 / 1 / 1;
@@ -650,6 +652,7 @@
       grid-area: 2 / 1 / 2 / 3;
     }
   }
+
 
   .clientPage__menu > * {
     margin: 0 0 21px 0 !important;

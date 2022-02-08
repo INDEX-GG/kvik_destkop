@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 // import EmptyPlaceholder from "../../../EmptyPlaceholder";
-import OfferWait from "../card/offerWait";
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
 import Placeholder from "../../../User/tabs/Placeholder";
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
+import OfferCard from "../card/OfferCard";
 
 function Wait({offers}) {
   const { page, setPage, totalPosts, page_limit } = useOfferAccount()
@@ -76,8 +76,10 @@ function Wait({offers}) {
               {/*</div>*/}
               <div className="clientPage__container_content">
                 {offers.map((offer) => (
-                    <OfferWait
+                    <OfferCard
                         key={offer.id}
+                        typeTab='waitTab'
+                        typeButton={'002'}
                         offer={offer}
                         parentCheck={check}
                         getChildCheck={getChildCheck}

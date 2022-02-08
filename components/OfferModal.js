@@ -94,7 +94,6 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 	const {id: user_id} = useAuth();
 	const {setReload } = useOfferAccount();
 	const {token} = useAuth();
-
 	function PushDb(id) {
 		let arr = { 'id': offerId, 'active': `${id}`, 'user_id': user_id }
 		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
@@ -106,7 +105,7 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 		typeof cleanAll === "undefined" ? null : cleanAll();
 		typeof setUpdate === "undefined" ? null : setUpdate(id);
 	}
-
+	
 	function showButtons(id) {
 		if( id === "001" ) {
 			return  <>

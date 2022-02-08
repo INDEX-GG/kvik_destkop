@@ -25,6 +25,7 @@ import {Grid, Skeleton, Tooltip} from "@mui/material";
 import {MenuItem} from "../../components/placeHolders/AccountCardPlaceHolder/AccountCardPlaceHolder";
 import {getTokenDataByPost} from "../../lib/fetch";
 import ScrollTop from '../../UI/ScrollTop';
+import {useStatistics} from '../../lib/Context/StatisticsCTX'
 
 
 const menuItems = [
@@ -107,6 +108,9 @@ const Account = () => {
 						}
 					: {i: "1", itm: "menuOffers", ttl: "Мои объявления"}
 		);
+    	// буль который передается в юзэфект контекста сбора статистики
+    const {setIsLogout} = useStatistics()
+
     useEffect(() => {
         setMenuItem({
             i: +router.query.account,
@@ -159,7 +163,8 @@ const Account = () => {
     }
 
 
-    const logOut = () => {
+    const logOut = async () => {
+        setIsLogout(true)
         axios.get("/api/logout").then(() => {
             mutate("/api/user");
             signOut();
@@ -284,12 +289,12 @@ const Account = () => {
                                     </Tooltip>
 
 
-                                    <Box className={classes.userStats}>
+                                    {/* <Box className={classes.userStats}>
                                         <span>{subscribersList?.message ? '0' : subscribersList?.length}</span>
                                         <Button className={classes.buttonDesc} size="small" variant="text" >
                                             <p>Подписчиков</p>
                                         </Button>
-                                    </Box>
+                                    </Box> */}
 
 
                                     <Box className={classes.userStats}>
