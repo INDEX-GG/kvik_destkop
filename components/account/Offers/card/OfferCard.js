@@ -297,7 +297,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-
+// функция возвращает корректный день
 function getNoun(number, one, two, five) {
     let n = Math.abs(number);
     n %= 100;
@@ -326,8 +326,8 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 	const isActive = typeTab === 'activeTab';
 	const isWaith = typeTab === 'waitTab';
 	// console.log(isArchive, isActive, isWaith);
+	// корректное склоенение для слова
 	const correctDays = getNoun(offer.best_before, 'день', 'дня', 'дней')
-	console.log(correctDays)
 
 	const cleanAll = () => {
 		getChildCheck({ id: offer.id, isChecked: false });
@@ -355,7 +355,6 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 		}
 		setOpenOfferModal(!openOfferModal);
 	}
-	console.log(offer)
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
 		<>
