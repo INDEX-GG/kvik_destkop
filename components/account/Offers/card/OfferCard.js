@@ -228,7 +228,10 @@ const useStyles = makeStyles((theme) => ({
 			width: '350px',
 			maxWidth: '350px',
 			minWidth: '100px',
-		}
+		},
+		btn__unpublish: {
+			textAlign: 'end',
+		},
 	},
 	[theme.breakpoints.down(668)]: {
 		btn__unpublish:{
@@ -327,7 +330,7 @@ const useStyles = makeStyles((theme) => ({
 			paddingTop: '0p'
 		}
 	},
-	[theme.breakpoints.down(451)]: {
+	[theme.breakpoints.down(651)]: {
 		offer__image:{
 			minWidth: '100%'
 		},
