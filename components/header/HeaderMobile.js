@@ -107,6 +107,8 @@ function HeaderMobile({ chageMenu = false }) {
 		const { children, window } = props;
 		const trigger = useScrollTrigger({
 		  target: window ? window() : undefined,
+		  disableHysteresis: true,
+  		  threshold: 0,
 		});
 		return (
 		  <Slide appear={false} direction="down" in={!trigger}  style={trigger ? {display: "none"} : {display: "flex"}}>

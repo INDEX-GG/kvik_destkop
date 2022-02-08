@@ -7,7 +7,7 @@ const BtnActive = (props) => {
         <div>
             {props.isActive && (
                 <div>
-                    <div className={props.classes.edit}>
+                    <div className={`${props.classes.edit} ${props.classes.mobile__width}`}>
                         <Edit></Edit>
                         <button type="submit" className={`${props.classes.btn__edit}`} onClick={() => props.Router.push(`/editPage/${props.offerID}`)}>
                             Редактировать
@@ -24,4 +24,4 @@ const BtnActive = (props) => {
         </div>
     )
 }
-export default BtnActive
+export default React.memo(BtnActive)
