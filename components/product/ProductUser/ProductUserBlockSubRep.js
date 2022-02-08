@@ -20,7 +20,6 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
     // const [blockOpen, setBlockOpen] = useState(false)
     // const [userBlockBool, setUserBlockBool] = useState(false)
 
-
     useEffect(() => {
         setUserBool(userSub)
     }, [userSub])
@@ -52,13 +51,13 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
     }
 
     const newSubHandler = () => {
-        if(!isSubscribed) {
+        if(!isSubscribed && id) {
           addSubscribers(sellerId)()
           setIsSubscribed(true)
           return
         }
     
-        if(isSubscribed) {
+        if(isSubscribed && id) {
           addUnsubscribe(sellerId)()
           setIsSubscribed(false)
           return

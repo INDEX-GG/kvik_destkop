@@ -61,13 +61,13 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*
   }
 
   const newSubHandler = () => {
-    if(!isSubscribed) {
+    if(!isSubscribed && id) {
       addSubscribers(sellerId)()
       setIsSubscribed(true)
       return
     }
 
-    if(isSubscribed) {
+    if(isSubscribed && id) {
       addUnsubscribe(sellerId)()
       setIsSubscribed(false)
       return
