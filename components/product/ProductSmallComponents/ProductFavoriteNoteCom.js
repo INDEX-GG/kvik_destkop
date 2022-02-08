@@ -59,14 +59,21 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 			{(!isMobile && !countIsNaN) &&
 			<div style={{display: 'flex',height: '30px', marginRight: '240px', fontWeight: '400', color:'#5A5A5A'}}>
 
+				{isPageOwner &&
+				<span style={{ display:'flex', alignItems: 'center', marginRight: '30px'}}>
+					{`${all_time_viewing_count} +${last_day_viewing_count}`}
+					<EyeLogo/>
+				</span>}
+		
+				{!isPageOwner &&
 				<span style={{ display:'flex', alignItems: 'center', marginRight: '30px'}}>
 					{`${all_time_viewing_count + 1} +${last_day_viewing_count + 1}`}
 					<EyeLogo/>
-				</span>
+				</span>}
 				
 				{isPageOwner &&
 				<span style={{display:'flex', alignItems: 'center', fontWeight: '400', color: '#5A5A5A'}}>
-					{`${all_time_contact_count + 1} +${last_day_contact_count + 1}`}
+					{`${all_time_contact_count} +${last_day_contact_count}`}
 					<PhoneLogo/>
 				</span>}
 			</div>}
