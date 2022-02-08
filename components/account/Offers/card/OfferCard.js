@@ -297,19 +297,37 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab }) {
+
+function getNoun(number, one, two, five) {
+    let n = Math.abs(number);
+    n %= 100;
+    if (n >= 5 && n <= 20) {
+      return five;
+    }
+    n %= 10;
+    if (n === 1) {
+      return one;
+    }
+    if (n >= 2 && n <= 4) {
+      return two;
+    }
+    return five;
+  }
+
+export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab, typeButton }) {
 	const classes = useStyles();
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState([]);
-	const buttonId = "003";
+	const buttonId = typeButton;
 	const offerData = offer;
 	const offerID = offer.id;
 	const isArchive = typeTab === 'archiveTab';
 	const isActive = typeTab === 'activeTab';
 	const isWaith = typeTab === 'waitTab';
 	// console.log(isArchive, isActive, isWaith);
-
+	const correctDays = getNoun(offer.best_before, 'день', 'дня', 'дней')
+	console.log(correctDays)
 
 	const cleanAll = () => {
 		getChildCheck({ id: offer.id, isChecked: false });
@@ -337,7 +355,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 		}
 		setOpenOfferModal(!openOfferModal);
 	}
-
+	console.log(offer)
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
 	return (
 		<>
@@ -381,7 +399,10 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 							</div>
 							<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
 								<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>Дата публикации {ToFullDate(offer.created_at)}</p>
-								<p className={`${classes.main__text} ${classes.position__absolute}`}>Осталось 30 дней</p>
+								{isActive &&
+								<p className={`${classes.main__text} ${classes.position__absolute}`}>
+									Осталось {offer.best_before} {correctDays}
+								</p>}
 							</div>
 						</div>
 						<div className={classes.column}>

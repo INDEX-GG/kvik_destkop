@@ -129,6 +129,7 @@ function Active({offers}) {
 								key={i} 
 								offer={offer}
 								typeTab='activeTab'
+								typeButton={'003'}
 								i={i}
 								parentCheck={check} 
 								getChildCheck={getChildCheck} 

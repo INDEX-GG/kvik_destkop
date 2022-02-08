@@ -79,6 +79,7 @@ function Wait({offers}) {
                     <OfferCard
                         key={offer.id}
                         typeTab='waitTab'
+                        typeButton={'002'}
                         offer={offer}
                         parentCheck={check}
                         getChildCheck={getChildCheck}

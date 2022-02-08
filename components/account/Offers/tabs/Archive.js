@@ -202,6 +202,7 @@ function Archive({offers}) {
 							<OfferCard
 								key={i}
 								typeTab='archiveTab'
+								typeButton={'001'}
 								offer={offer}
 								parentCheck={check}
 								getChildCheck={getChildCheck}
