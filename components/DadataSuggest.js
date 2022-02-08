@@ -57,18 +57,20 @@ const DadataSuggest = ({mobile = false, /**  address */}) => {
 	const prevValue = useRef()
 	const methods = useFormContext();
 	const {userInfo} = useStore()
-	// console.log(methods.getValues(), 'values')
 
 	const userAddressName = methods.getValues('location') || userInfo?.location?.name
 	const userAddressGeo = methods.getValues('coordinates') || userInfo?.location?.geo
 
 
     const defaultAddress = methods.watch('address')
+
 	// эффект для записи в форму значения, если мы на странице редактирования и данные о местоположении в объявлении у нас уже есть.
 	useEffect(() => {
 		if (defaultAddress) {
 
-		const value = inputRef.current.state.query
+			let value = inputRef.current.state.query
+			// временный фикс для корректного заполнения поля, в мобильной версии
+			value = typeof value === 'object' ? defaultAddress : value
 		
 			const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
 			const token = "3fa959dcd662d65fdc2ef38f43c2b699a3485222";
