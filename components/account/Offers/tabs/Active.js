@@ -3,13 +3,12 @@ import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
-import OfferActive from "../card/offerActive";
 import Placeholder from "./Placeholder";
 import OfferModal from "../../../OfferModal";
 import OfferActivePlaceHolder
 	from "../../../placeHolders/OfferPlaceHolder/OfferActivePlaceHolder/OfferActivePlaceHolder";
-
 import throttle from "lodash.throttle";
+import OfferCard from "../card/OfferCard";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +53,7 @@ function Active({offers}) {
 		setOfferId([]);
 		setOfferData([]);
 	}
-
+	
 	function getChildCheck ({id, isChecked}) {
 		setOfferId( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
 		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
@@ -126,9 +125,10 @@ function Active({offers}) {
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
-							<OfferActive 
+							<OfferCard 
 								key={i} 
-								offer={offer} 
+								offer={offer}
+								typeTab='activeTab'
 								i={i}
 								parentCheck={check} 
 								getChildCheck={getChildCheck} 

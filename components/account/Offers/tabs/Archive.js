@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 // import OfferModal from "../../../OfferModal";
-import OfferArchive from "../card/offerArchive";
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
 import { Checkbox, makeStyles, /*Dialog  */ } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
@@ -9,6 +8,7 @@ import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordShar
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
 import {Box, Grid} from "@mui/material";
 import ArchiveIco from "./ArchiveIco/ArchiveIco";
+import OfferCard from "../card/OfferCard";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -199,8 +199,9 @@ function Archive({offers}) {
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
-							<OfferArchive
+							<OfferCard
 								key={i}
+								typeTab='archiveTab'
 								offer={offer}
 								parentCheck={check}
 								getChildCheck={getChildCheck}
