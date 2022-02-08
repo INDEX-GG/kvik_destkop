@@ -35,7 +35,7 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*
   const {userSub} = useSubBool(id, sellerId)
   const [userBool, setUserBool] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [isSubscribed, setIsSubscribed] = useState(false)
+  // const [isSubscribed, setIsSubscribed] = useState(false)
   const classes = useStyles()
 
   useEffect(() => {
@@ -61,15 +61,15 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*
   }
 
   const newSubHandler = () => {
-    if(!isSubscribed && id) {
+    if(!userBool && id) {
       addSubscribers(sellerId)()
-      setIsSubscribed(true)
+      // setIsSubscribed(true)
       return
     }
 
-    if(isSubscribed && id) {
+    if(userBool && id) {
       addUnsubscribe(sellerId)()
-      setIsSubscribed(false)
+      // setIsSubscribed(false)
       return
     }
   }

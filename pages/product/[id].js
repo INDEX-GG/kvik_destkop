@@ -47,6 +47,7 @@ const Product = () => {
     const {
         status,
         productInfoFields,
+        best_before,
         address,
         subcategory,
         user_name: name,
@@ -263,6 +264,7 @@ const Product = () => {
                                                     productInfo={productInfo} /*update={update}*/
                                                     setUpdate={setDefaultStatus} 
                                                     createChat={createChat}
+                                                    best_before={best_before}
                                                 />}
                                                                 
                                                 {/* пользователь и его объявления */}
