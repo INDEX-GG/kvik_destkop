@@ -126,6 +126,7 @@ const Index = () => {
         }
     }, [router]);
 
+    console.log('defaultFilters: ', defaultFilters)
 
     return (
         <Container className={classes.root}>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, makeStyles} from "@material-ui/core";
 import jsonData from '/public/placeOfferJson/new_catalog.json'
 import {
@@ -11,6 +11,13 @@ import AdditionalInformation from "#components/placeOffer/AdditionalInformation"
 import FilterTwoFields from "#components/filter/FilterTwoFields";
 import FilterRadio from "#components/filter/FilterRadio";
 import {useRouter} from "next/router";
+
+import useCategoryV2 from "#hooks/useCategoryV2";
+import FilterTextField from "#components/newFilter/fields/FilterTextField";
+import aliasName from "#components/header/CategoriesAliaseName";
+import FilterCategory from "#components/newFilter/fields/FilterCategory";
+import {handleChangeCategory} from "#components/newFilter/filterServices";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -64,12 +71,13 @@ const useStyles = makeStyles((theme) => ({
 
 const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, defaultFilters = {}}) => {
 
+
     const classes = useStyles();
     const router = useRouter();
 
     const methods = useForm({
         mode: 'onSubmit',
-        defaultValues: defaultFilters
+        defaultValues: {alias1: undefined, alias2: undefined, alias3: undefined}
     });
 
     const {category} = jsonData
@@ -77,7 +85,22 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
     const additionalFields = filterData
     //? TRUE / FALSE -> Показывать кнопку очистки фильтров или нет
     const isClear = methods.formState.isDirty || Object.keys(onlyTrueDataObj(methods.getValues())).length
+    // const {mainCategory, getMoreCategory} = useCategoryV2();
 
+    const [category1, setCategory] = useState('');
+    const aliasQuery = router.asPath?.split("/")[2]?.split('?')[0]
+    const aliasData = aliasName(aliasQuery, true)?.aliasBread?.map(item => item.alias)?.join(',')
+
+    console.log('category: ', category)
+    console.log('category1: ', category1)
+
+    useEffect(() => {
+        if (aliasData) {
+            console.log('aliasData: ', aliasData)
+            setCategory(aliasData)
+            handleChangeCategory(aliasData.split(','), methods)
+        }
+    }, [aliasQuery])
 
     const clearFields = (clearQuery) => {
         // Плавный скролл вверх
@@ -86,7 +109,7 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
             behavior: 'smooth'
         })
 
-        // Очистка всех полей 
+        // Очистка всех полей
         methods.reset({});
         // Делаем запрос на api с категориями
         setScrollData({sendObj: {data: fullAlias}, url: '/api/postCategorySearch'})
@@ -106,7 +129,6 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
         clearFields();
     }, [alias]);
 
-    
     // Автозаполнение полей
     useEffect(() => {
         methods.reset(defaultFilters)
@@ -126,7 +148,8 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
 
         const filterDataObj = generateFilterData(data);
 
-        console.log(filterDataObj);
+        console.log('filterDataObj: ',  filterDataObj);
+        console.log('filterDataObj data: ',  data);
 
         //*  Объект фильтров
         const submitDataObj = {
@@ -152,13 +175,19 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
 
 
 
-
     return (
         <Box className={classes.wrapper}>
             <FormProvider {...methods}>
                 <form
                     onSubmit={methods.handleSubmit((data, e) => onSubmit(data, e))}
-                    className={classes.form}>
+                    className={classes.form}
+                >
+                    {/* {!additionalFields && */}
+                        <FilterCategory
+                            category={category1}
+                            setCategory={setCategory}
+                        />
+                    {/* } */}
                     <FilterTwoFields data={{firstAlias: "from$price", secondAlias: 'to$price', title: "Цена, ₽"}}/>
                     {additionalFields && (
                         <AdditionalInformation
@@ -166,6 +195,7 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
                             filters={true}
                         />
                     )}
+
                     <FilterRadio data={{
                         title: "Срок размещения",
                         alias: 'time',
