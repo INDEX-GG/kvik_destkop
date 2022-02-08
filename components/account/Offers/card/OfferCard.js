@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	description: {
-		padding: '8px 24px',
+		padding: '8px 24px 8px 0',
 		justifyContent: 'space-between',
 	},
 	column: {
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 		color: '#8F8F8F',
 		padding: '12px 0',
 	},
+	
 	height: {
 		height: '24px',
 	},
@@ -106,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
 
 	},
 	btn__unpublish: {
+		textDecorationLine: 'underline',
 		background: 'none',
 		marginTop: '12px',
 		transition: 'all 200ms ease-in-out',
@@ -185,7 +187,8 @@ const useStyles = makeStyles((theme) => ({
 	offer__image: {
 		background: 'no-repeat center center url(../../../icons/photocard_placeholder.svg)',
 		backgroundSize: 'cover',
-		width: '100%',
+		maxWidth: '300px',
+		minWidth: '300px',
 		height: '184px',
 		borderRadius: '10px',
 		display: 'flex',
@@ -199,24 +202,39 @@ const useStyles = makeStyles((theme) => ({
 		top: '4px',
 		left: '4px',
 	},
+	[theme.breakpoints.down(1281)]: {
+		description: {
+			padding: '8px 24px',
+		},
+	},
 	[theme.breakpoints.down(1080)]: {
 		paddingIcon: {
 			paddingTop: '91px',
 		},
 		paddingIconWait: {
-			position: 'absolute',
-			bottom: 0,
-			right: 0,
-			padding: '0px'
+			paddingTop: '35px',
 		},
 		bottom: {
 			justifyContent: 'start',
 		},
-		left__date__wait: {
-			paddingTop: '47px',
+		left__date: {
+			paddingTop: '8px',
+			paddingRight: '10px'
 		},
 	},
-
+	
+	[theme.breakpoints.down(1025)]: {
+		offer__image:{
+			width: '350px',
+			maxWidth: '350px',
+			minWidth: '100px',
+		}
+	},
+	[theme.breakpoints.down(668)]: {
+		btn__unpublish:{
+			textAlign: 'end',
+		},
+	},
 	[theme.breakpoints.down(960)]: {
 		paddingIcon: {
 			position: 'absolute',
@@ -225,8 +243,10 @@ const useStyles = makeStyles((theme) => ({
 			padding: '0'
 		},
 		paddingIconWait: {
-			left: 0,
-			top: 0,
+			position: 'absolute',
+			left: '0',
+			top: '0',
+			padding: '0'
 		},
 		left__info: {
 			paddingTop: '60px',
@@ -238,6 +258,7 @@ const useStyles = makeStyles((theme) => ({
 		left__date: {
 			display: 'flex',
 			justifyContent: 'space-betweeen',
+			alignItems: 'center',
 		},
 		lignt__text: {
 			padding: '0',
@@ -251,8 +272,32 @@ const useStyles = makeStyles((theme) => ({
 			right: '0',
 			padding: '0',
 		},
-		pos_abs: {
-			width: '150px',
+	},
+	[theme.breakpoints.down(750)]: {
+		left__date__wait:{
+			paddingTop: '14px',
+		},
+		offer__image:{
+			width: '280px'
+		}
+	},
+	[theme.breakpoints.down(546)]: {
+		left__date__wait:{
+			paddingTop: '25px',
+		},
+		offer__image:{
+			width: '240px'
+		}
+	},
+	[theme.breakpoints.down(508)]: {
+		left__date__wait:{
+			paddingTop: '0',
+		},
+		left_date:{
+			paddingTop: '0',
+		},
+		offer__image:{
+			width: '200px'
 		}
 	},
 	[theme.breakpoints.down(580)]: {
@@ -265,20 +310,39 @@ const useStyles = makeStyles((theme) => ({
 		description: {
 			padding: '8px'
 		},
-		left__date__wait: {
-			paddingTop: '40px',
-		},
 		pos_abs: {
 			width: '120px',
 		}
 	},
+	[theme.breakpoints.down(350)]: {
+		offer__image:{
+			minWidth: '100%',
+			maxHeight: '100%',
+			objectFit: 'cover',
+			userSelect: 'none',
+			borderRadius: '10px',
+			objectPosition: 'center',
+		},
+		left__date:{
+			paddingTop: '0p'
+		}
+	},
 	[theme.breakpoints.down(451)]: {
-		left__date__wait: {
-			paddingTop: '20px',
+		offer__image:{
+			minWidth: '100%'
+		},
+		mobile__width:{
+			width: '132px',
+			textAlign: 'end',
+		},
+		left__date:{
+			paddingTop : '16px',
 		},
 		mobile__font: {
 			fontSize: '18px',
 			lineHeight: '21px',
+			padding: '12px',
+			paddingLeft: '0',
 		},
 		pos_abs: {
 			position: 'absolute',
@@ -385,7 +449,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 							</div>
 						</div>
 						<div className={classes.column}>
-							<div className={`${classes.column} ${classes.end}`}>
+							<div className={`${classes.column} ${classes.end} ${classes.mobile__width} `}>
 								<BtnActive
 									isActive={isActive}
 									classes={classes}

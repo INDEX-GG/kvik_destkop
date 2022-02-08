@@ -19,4 +19,4 @@ const ImgStatistic = (props) => {
         </div>
     )
 }
-export default ImgStatistic
+export default React.memo(ImgStatistic)
