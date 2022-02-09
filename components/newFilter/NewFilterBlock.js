@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Box, Button, makeStyles} from "@material-ui/core";
 import jsonData from '/public/placeOfferJson/new_catalog.json'
 import {

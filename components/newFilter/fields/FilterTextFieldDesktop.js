@@ -12,7 +12,11 @@ import { searchItemInArray } from "#components/placeOffer/newPlaceOffer/Addition
 
 const useStyles = makeStyles(() => ({
 	formBox: {
-		margin: "24px 0",
+		marginBottom: "24px",
+
+		'&:first-child': {
+			marginTop: '24px'
+		}
 	},
 	formInputField: {
 		display: "flex",
@@ -47,7 +51,7 @@ const FilterTextFieldDesktop = ({ title, data, alias, type }) => {
 
 	const currentValue = methods.watch(alias, true)
 	const item = searchItemInArray(data, currentValue, "alias")
-	// const name = item?.name
+	const name = item?.name
 
   const handleChangeCategories = (type) => {
     switch (type) {
@@ -71,7 +75,7 @@ const FilterTextFieldDesktop = ({ title, data, alias, type }) => {
 
 	return (
 		<Box className={classes.formBox}>
-			<Typography className={classes.formTitle}>{title}</Typography>
+			<Typography className={classes.formTitle}>{name ? name : title}</Typography>
 			<Box className={classes.formInputField}>
 				<Controller
 					name={alias}
