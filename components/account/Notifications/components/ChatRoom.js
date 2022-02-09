@@ -5,12 +5,12 @@ import ChatDefaultAvatar from "./ChatDefaultAvatar";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
 import {useRouter} from "next/router";
 import { Divider } from '@material-ui/core';
-import {useProduct} from '../../../../hooks/useProduct'
+// import {useProduct} from '../../../../hooks/useProduct'
 
 const ChatRoom = ({roomData, children, mobile = false}) => {
 
-    const productInfo = useProduct(roomData?.product_id)
     // TODO: добавить проверку на удаленный товар и аккаунт
+    // const productInfo = useProduct(roomData?.product_id)
     const isDeletedOffer = false//productInfo.status в будущем если объявление удалено, рисуем это объявление удалено и не даем перейти на него
     const isDeletedProfile = false // в будущем если профиль удален, рисуем этот аккаунт удален
 
