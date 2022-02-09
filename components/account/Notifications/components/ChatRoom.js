@@ -5,9 +5,14 @@ import ChatDefaultAvatar from "./ChatDefaultAvatar";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
 import {useRouter} from "next/router";
 import { Divider } from '@material-ui/core';
+import {useProduct} from '../../../../hooks/useProduct'
 
 const ChatRoom = ({roomData, children, mobile = false}) => {
 
+    const productInfo = useProduct(roomData?.product_id)
+    // TODO: добавить проверку на удаленный товар и аккаунт
+    const isDeletedOffer = false//productInfo.status в будущем если объявление удалено, рисуем это объявление удалено и не даем перейти на него
+    const isDeletedProfile = false // в будущем если профиль удален, рисуем этот аккаунт удален
 
     const {id} = useAuth();
     const router = useRouter();
@@ -26,7 +31,8 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
     }
 
     const handleProductClick = () => {
-        router.push(`/product/${roomData.product_id}`)
+        // на удаленные объявление нельзя будет кликнуть
+        if(!isDeletedOffer) router.push(`/product/${roomData.product_id}`)
     }
 
     return (
@@ -42,18 +48,28 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
                     <div>
                         <div>
                             <div>
-                                <div className='chatRoomTitle' onClick={handleUserClick}>{chatRoom_name}</div>
+                                <div className='chatRoomTitle' onClick={handleUserClick}>{isDeletedProfile ? 'Аккаунт удален' : chatRoom_name}</div>
                                 <div className="light">00.00.00 00:00</div>
                             </div>
                             {/* {roomData?.seller_photo ? */}
                             {chatRoom_photo ?
                                 <img onClick={handleUserClick}
-                                     className='chatRoomImage'
-                                     src={`${STATIC_URL}/${chatRoom_photo}`}/> :
+                                    className='chatRoomImage'
+                                    src={`${STATIC_URL}/${chatRoom_photo}`}/> :
                                 <ChatDefaultAvatar name={roomData?.seller_name} clickAvatar={handleUserClick}/>}
                         </div>
-                        <div>{roomData?.product_price} ₽</div>
-                        <div onClick={handleProductClick} className='chatRoomTitle'>{roomData?.product_name}</div>
+                        {isDeletedOffer && (
+                            <div className='deletedOffer'>
+                                Объявление удалено
+                            </div>
+                        )}
+                        {!isDeletedOffer && (
+                            <>
+                                <div>{roomData?.product_price} ₽</div>
+                                <div onClick={handleProductClick} className='chatRoomTitle'>{roomData?.product_name}</div>
+                             </>
+                        )}
+
                     </div>
                 </div> : null}
                 <Divider />
@@ -61,5 +77,4 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
         </div>
     );
 };
-
 export default ChatRoom;
