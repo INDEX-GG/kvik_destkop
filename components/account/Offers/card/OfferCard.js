@@ -65,11 +65,11 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'end',
 	},
 	paddingIcon: {
-		padding: '24px 34px',
+		padding: '24px 0 0 34px',
 		paddingRight: '0',
 	},
 	paddingIconWait: {
-		padding: '24px 34px',
+		padding: '24px 0 0 34px',
 		paddingRight: '0',
 	},
 	btn__upViews: {
@@ -156,11 +156,14 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		flexDirection: 'row',
-		marginBottom: '8px',
+		paddingBottom: '8px',
 		width: 'auto',
 		textAlign: 'right',
 		backgroundColor: '#fff',
 		color: '#52b9c5',
+		"&:hover":{
+			textDecorationLine: 'underline',
+		},
 	},
 	pos_abs: {
 		position: 'absolute',
@@ -208,9 +211,6 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	[theme.breakpoints.down(1080)]: {
-		paddingIcon: {
-			paddingTop: '91px',
-		},
 		paddingIconWait: {
 			paddingTop: '35px',
 		},
@@ -260,6 +260,8 @@ const useStyles = makeStyles((theme) => ({
 		},
 		left__date: {
 			display: 'flex',
+			paddingTop: '40px',
+
 			justifyContent: 'space-betweeen',
 			alignItems: 'center',
 		},
