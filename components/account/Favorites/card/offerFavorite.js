@@ -97,7 +97,7 @@ const OfferFavorite = ({ index, offer, parentCheck, getChildCheck, dataCheck, de
 					{/*<a className="favoritesCompare">*/}
 					{/*</a>*/}
 					<a href="javascript:void(0);">
-						<Favorits favId={offer.id} isAccountCard />
+						<Favorits idOffer={offer.id} isAccountCard />
 					</a>
 					<img 
 						key={index} 

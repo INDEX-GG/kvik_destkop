@@ -5,7 +5,7 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 
-export default function Favorits({ /* offer, isCard, */ /* isProduct ,*/ /*isAccountCard, favId,*/ idOffer }) {
+export default function Favorits({ /* offer, isCard, */ /* isProduct ,*/ isAccountCard, /* favId,*/ idOffer }) {
 	// кастомные хуки
 	const {addLike, addUnLike} = useStatistics()
 	// const { setLikeComment } = useStore()
@@ -52,39 +52,66 @@ export default function Favorits({ /* offer, isCard, */ /* isProduct ,*/ /*isAcc
 
 	// let comment;
 
+	const favoritesOnPersonalMenu = () => {
+		return (
+					<div>
+						<span /*onClick={(e) => getFavoritsUser(e)} id={favId}*/ 
+							// className="favoritesFavorite like-active"
+							className={isLiked ? 'favoritesFavorite like-active' : 'favoritesFavorite'}
+							onClick={e => {
+								e.stopPropagation()
+								likeClickHandler()
+							}}
+						>
+						</span>
+					</div>
+				)
+	}
+
+	const favoritesOnProductPage = () => {
+		return (
+			<>
+			<div className='main__input_note'>
+				<input
+					// onBlur={e => getNote(e)}
+					onChange={noteChangeHandler}
+					title={note ? note : 'Ваша заметка'}
+					className={note ? "SellerInfoNoteInput note-active" : "SellerInfoNoteInput"}
+					// placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'}
+					placeholder='Заметка к объявлению'
+					defaultValue={note ? note : ''}
+				/>
+			</div>
+	
+			<a 
+				className="SellerInfoNote" 
+				onClick={(e) => {
+					e.target.parentElement.childNodes[0].childNodes[0]
+					.classList.toggle('note-active')
+				}}
+			/>
+	
+			<div>
+				<span 
+					onClick={(/*e*/) => {
+						// setLike(e)
+						likeClickHandler() 
+					}} 
+					className={`${isLiked ? 'SellerInfoFavorite like-active' : 'SellerInfoFavorite'}`}>
+				</span>
+			</div>
+			</>
+		)
+	}
+
 	return (
 		<>
-		<div className='main__input_note'>
-			<input
-				// onBlur={e => getNote(e)}
-				onChange={noteChangeHandler}
-				title={note ? note : 'Ваша заметка'}
-				className={note ? "SellerInfoNoteInput note-active" : "SellerInfoNoteInput"}
-				// placeholder={`${comment}` !== '' ? comment : 'Заметка к объявлению'}
-				placeholder='Заметка к объявлению'
-				defaultValue={note ? note : ''}
-			/>
-		</div>
-
-		<a 
-			className="SellerInfoNote" 
-			onClick={(e) => {
-				e.target.parentElement.childNodes[0].childNodes[0]
-				.classList.toggle('note-active')
-			}}
-		/>
-
-		<div>
-			<span 
-				onClick={(/*e*/) => {
-					// setLike(e)
-					likeClickHandler() 
-				}} 
-				className={`${isLiked ? 'SellerInfoFavorite like-active' : 'SellerInfoFavorite'}`}>
-			</span>
-		</div>
+			{/* рендер по условию вызывает на свое место JSX разметку */}
+			{isAccountCard && favoritesOnPersonalMenu()}
+			{!isAccountCard && favoritesOnProductPage()}
 		</>
 	)
+	
 
 	// if (isAccountCard) {
 	// 	const getFavoritsUser = e => {

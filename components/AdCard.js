@@ -71,14 +71,10 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	const {offer} = props;
 	const { matchesMobile, matchesTablet } = useMedia();
 	const screenIsMobile = matchesMobile || matchesTablet;
-	const { userInfo, setLikeComment } = useStore();
+	const { userInfo, /*setLikeComment*/ } = useStore();
 
 	const currentSwiper = useRef();
 	const currentSlide = useRef(); // для слайдов в swiper
-
-	// пока что моковский массив посещения объявления
-	// в будущем будет добавляться к модели юзера
-	// const mockVisitedArray = []
 
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
@@ -394,44 +390,21 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 							</div>}
 						<div className="card__top_info_right">
 							{/* {!matchesMobile && !matchesTablet && offer.user_id != id ? <span className="card_compare"></span> : ''} */}
-							{offer.user_id !== id ? (
-								userInfo !== undefined && userInfo.favorites.length > 0 && userInfo.favorites && userInfo.favorites.filter(item => item.post_id === offer.id)?.[0]?.condition ?
-									<IconButton
-										onClick={() => {
-											likeClickHandler();
-
-											setLikeComment(offer.id, userInfo?.favorites === undefined 
-											? 
-											'' 
-											: 
-											userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false) 
-										}}
-										color='primary'
-										className='card_like'>
-										<FavoriteRoundedIcon />
-									</IconButton> :
-									<IconButton
-										onClick={() => {
-											likeClickHandler();
-
-											id 
-											? 
-											setLikeComment(offer.id, userInfo?.favorites === undefined
-												? 
-												'' 
-												: 
-												userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true)
-											: 
-											null 
-										}}
-										color='secondary'
-										className='card_like'>
-										<FavoriteBorderRoundedIcon />
-									</IconButton>
-							) : null}
+							{offer.user_id !== id &&
+								<IconButton
+									onClick={() => {
+										likeClickHandler()
+									}}
+									color={isLiked ? 'primary' : 'secondary'}
+									className='card_like'
+								>
+									{isLiked &&  <FavoriteRoundedIcon />}
+									{!isLiked && <FavoriteBorderRoundedIcon/>}	
+								</IconButton>}
 						</div>
 					</div>
 				</div>
+				
 				<Link href={`/product/${offer.id}`} prefetch={false}>
 					<div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
 						<div className="card__bottom_info">
@@ -443,6 +416,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 									{!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial === 0 ? "card_secure card_secure-green" : "card_secure"}/> : ''}
 								</div>
 							</div>
+							
 							<div className="card__bottom_info_left">
 								<span className={(!props.isGrid && screenIsMobile) ?
 									"new__priceV2" :
