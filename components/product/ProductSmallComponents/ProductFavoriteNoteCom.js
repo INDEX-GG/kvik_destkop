@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%', 
 		justifyContent: 'space-between',
 		color:'#5A5A5A',
-		padding: '8px',
 	},
 	infoSpan:{
 		display:'flex', 
