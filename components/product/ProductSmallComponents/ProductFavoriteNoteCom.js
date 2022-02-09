@@ -87,7 +87,11 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 			</div>}
 
 			<div className={'favoritsContainer'}>
-				{!isPageOwner && <Favorits isProduct idOffer={isOffer} />}
+				{!isPageOwner && 
+				<Favorits 
+					isProduct 
+					idOffer={isOffer} 
+				/>}
 				{/*{mobile ? null : <a className="SellerInfoCompare"></a>}     Скрыто пока не работает функцианал           */}
 			</div>
 		</div>

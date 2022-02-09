@@ -43,7 +43,7 @@ const Product = () => {
     const {matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD} = useMedia();
 
     const productInfo = useProduct(query.id)
-    console.log(id)
+
     const {
         status,
         productInfoFields,
