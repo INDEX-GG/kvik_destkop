@@ -12,7 +12,7 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
     const {userSub} = useSubBool(id, sellerId)
     const {token} = useAuth();
     const [userBool, setUserBool] = useState(false)
-    const [isSubscribed, setIsSubscribed] = useState(false)
+    // const [isSubscribed, setIsSubscribed] = useState(false)
     const [loading, setLoading] = useState(false)
     const {addSubscribers, addUnsubscribe} = useStatistics()
     // const {userBlocked} = useBlockedBool(id, sellerId)
@@ -51,15 +51,15 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
     }
 
     const newSubHandler = () => {
-        if(!isSubscribed && id) {
+        if(!userBool && id) {
           addSubscribers(sellerId)()
-          setIsSubscribed(true)
+        //   setIsSubscribed(true)
           return
         }
     
-        if(isSubscribed && id) {
+        if(userBool && id) {
           addUnsubscribe(sellerId)()
-          setIsSubscribed(false)
+        //   setIsSubscribed(false)
           return
         }
       }

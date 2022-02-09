@@ -43,10 +43,11 @@ const Product = () => {
     const {matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD} = useMedia();
 
     const productInfo = useProduct(query.id)
-
+    console.log(id)
     const {
         status,
         productInfoFields,
+        best_before,
         address,
         subcategory,
         user_name: name,
@@ -69,7 +70,7 @@ const Product = () => {
         full_stat,
         all_time_viewing_count,
         last_day_viewing_count,
-        // likes_count,
+        likes_count,
         all_time_contact_count,
         last_day_contact_count,
         user_products_count,
@@ -192,6 +193,7 @@ const Product = () => {
                                                 last_day_viewing_count,
                                                 all_time_contact_count,
                                                 last_day_contact_count,
+                                                likes_count
                                             }}
                                         />
                                     </div>}
@@ -263,6 +265,7 @@ const Product = () => {
                                                     productInfo={productInfo} /*update={update}*/
                                                     setUpdate={setDefaultStatus} 
                                                     createChat={createChat}
+                                                    best_before={best_before}
                                                 />}
                                                                 
                                                 {/* пользователь и его объявления */}

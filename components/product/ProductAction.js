@@ -44,6 +44,8 @@ export default function ProductAction(data) {
   const offerId = [data.productInfo.id];
   const offerData = data.productInfo;
   const setUpdate = data.setUpdate;
+  const best_before = data.best_before
+
 
 
   const {user_id} = data;
@@ -72,7 +74,7 @@ export default function ProductAction(data) {
                   isOffer={+data.router} 
                   views={data.viewing ? JSON.parse(data.viewing).length : 0}
                 />: null} */}
-                {(!matchesMobile && !matchesTablet) &&<ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />}
+                {(!matchesMobile && !matchesTablet) &&<ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={best_before} />}
                 <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
                 <ProductDeal id={id} sellerID={user_id}>
                   <Login/>
