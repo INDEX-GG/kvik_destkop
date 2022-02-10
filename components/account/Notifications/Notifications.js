@@ -67,12 +67,16 @@ const Notifications = () => {
 
   const router = useRouter()
 
+  const handlerSetItemNav = () => {
+    setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+  }
 
   useEffect(() => {
     if (router) {
       if (router.query.content !== undefined) {
         if (+router.query.content - 1 !== 2) {
-          setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+          // fix memory leek react warning
+          handlerSetItemNav()
         }
       }
     }
