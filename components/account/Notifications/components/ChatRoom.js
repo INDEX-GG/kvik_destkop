@@ -46,17 +46,20 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
                       onClick={handleProductClick}
                     />
                     <div>
-                        <div>
-                            <div>
-                                <div className='chatRoomTitle' onClick={handleUserClick}>{isDeletedProfile ? 'Аккаунт удален' : chatRoom_name}</div>
-                                <div className="light">00.00.00 00:00</div>
-                            </div>
-                            {/* {roomData?.seller_photo ? */}
-                            {chatRoom_photo ?
-                                <img onClick={handleUserClick}
-                                    className='chatRoomImage'
-                                    src={`${STATIC_URL}/${chatRoom_photo}`}/> :
-                                <ChatDefaultAvatar name={roomData?.seller_name} clickAvatar={handleUserClick}/>}
+                        <div className="chatRoomUserBlock">
+                            {!mobile && <>
+                                <div>
+                                    <div className='chatRoomTitle' onClick={handleUserClick}>{isDeletedProfile ? 'Аккаунт удален' : chatRoom_name}</div>
+                                    <div className="light">00.00.00 00:00</div>
+                                </div>
+                                {chatRoom_photo ?
+                                    <img onClick={handleUserClick}
+                                        className='chatRoomImage'
+                                        src={`${STATIC_URL}/${chatRoom_photo}`}/> :
+                                    <ChatDefaultAvatar name={roomData?.seller_name} clickAvatar={handleUserClick}/>
+                                }
+                                </>
+                            }
                         </div>
                         {isDeletedOffer && (
                             <div className='deletedOffer'>

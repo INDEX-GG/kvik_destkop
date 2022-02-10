@@ -128,8 +128,7 @@ function Archive({offers}) {
 		offerId.length === offers.length
 			? check
 				? null
-				// : setCheck(true)
-				: null
+				: setCheck(true)
 			: check===false
 				? null
 				: setCheck(false)

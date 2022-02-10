@@ -300,6 +300,14 @@
   background-size: cover;
 }
 
+.messageHeader .chatRoomUserBlock {
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+}
+
 .deletedOffer {
   font-weight: 500;
   font-size: 18px;
