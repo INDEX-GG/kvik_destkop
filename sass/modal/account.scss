@@ -27,11 +27,31 @@
 
 @media ( max-width: 960px) {
   .accountTop{
-    display: block;
-    flex-direction: column;
+    // display: block;
+    // flex-direction: column;
+    height: 50px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   }
-  .accountArrowLeft{
-	cursor: pointer;
+  .accountTopSub {
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 21px;
+
+    .accountTitle {
+      width: 100%;
+      box-shadow: none;
+    }
+  }
+  .accountArrowLeft {
+    top: 0px;
+  	cursor: pointer;
     position: absolute;
     &::after{
       content: "";
@@ -48,7 +68,7 @@
     &::before{
       content: "";
       position: absolute;
-      top: 28px; 
+      top: 28px;
       left: 18px;
       background-color: #C7C7C7;
       width: 12px;
@@ -57,11 +77,35 @@
       border-radius: 5px;
     }
   }
+  .accountDialogHeader {
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+  }
+  .accontDialogHeaderTitle {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    position: absolute;
+    left: 32%;
+    text-align: center;
+  }
   .accountTitle{
     padding: 16px 0px 27px;
     text-align: center;
-    // box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
     margin-bottom: 24px;
+  }
+  .chatRoomImageHeader {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    position: absolute;
+    left: 87%;
   }
   .accountRatingBox{
     justify-content: center;

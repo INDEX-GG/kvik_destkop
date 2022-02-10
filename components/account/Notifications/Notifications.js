@@ -67,12 +67,16 @@ const Notifications = () => {
 
   const router = useRouter()
 
+  const handlerSetItemNav = () => {
+    setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+  }
 
   useEffect(() => {
     if (router) {
       if (router.query.content !== undefined) {
         if (+router.query.content - 1 !== 2) {
-          setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
+          // fix memory leek react warning
+          handlerSetItemNav()
         }
       }
     }
@@ -81,7 +85,7 @@ const Notifications = () => {
   useEffect(() => {
     getTokenDataByPost(`${CHAT_URL_API}/chat_last_messages`, {"user_id" : id}, token)
       .then(r => {
-        if(r.data?.length) {
+        if(typeof r !== 'undefined' && r.data?.length) {
           getTokenDataByPost('/api/roomInfo', r.data, token)
             .then(r => {
               setLengthDialogs(r.list?.length)

@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 /**
- * @callback GetChildCheck 
+ * @callback GetChildCheck
  * @param {{ isChecked: boolean, id: string }} childCheck
  * @returns {void}
  */
@@ -89,7 +89,7 @@ const useStyles = makeStyles(() => ({
  */
 
 /**
- * @param {IOfferData} data 
+ * @param {IOfferData} data
  */
 function Offers(data) {
     const classes = useStyles();
@@ -107,14 +107,14 @@ function Offers(data) {
 		 */
     const getChildCheck = (childCheck) => {
 			setDeletedPostIDs(
-				childCheck.isChecked 
-					? prev => [...prev, childCheck.id] 
+				childCheck.isChecked
+					? prev => [...prev, childCheck.id]
 					: dataCheck => dataCheck.filter(item => item !== childCheck.id)
 			);
     }
 
 		/**
-		 * @param {[]} likeID 
+		 * @param {[]} likeID
 		 * @return {UserFavorite[]}
 		 */
     const getUserFavorites = (likeID) => {
@@ -131,10 +131,10 @@ function Offers(data) {
 			setLikeCommentArray(favoritesArray);
 			return favoritesArray;
     }
-	
+
 	/**
-	 * @param {React.ChangeEvent<HTMLInputElement>} event 
-	 */	
+	 * @param {React.ChangeEvent<HTMLInputElement>} event
+	 */
 	const handlerDeletionCheckbox = (event) => {
 		setDeletionCheck(!deletionCheck);
 		if (!event.target.checked) {
@@ -148,7 +148,7 @@ function Offers(data) {
 
 			const nonDeletedPosts = favPosts.filter((postItem) => {
 				const isDeleted = deletedPostIDs.includes(postItem.id) && favs.includes(String(postItem));
-				
+
 				return isDeleted
 			})
 			setDeletedPostIDs([]);
@@ -175,12 +175,14 @@ function Offers(data) {
     if (!favPosts?.length) {
         return (
             <>
-                {!userInfo ? <FavoritesOffersPlaceHolder/>
-                    : <EmptyPlaceholder
+                {!userInfo && !favPosts ? <FavoritesOffersPlaceHolder/> :
+                    <EmptyPlaceholder
                         title='Здесь будут ваши избранные объявления'
                         subtitle='Нажмите на  сердечко 💙️, чтобы добавить объявление в избранное'
                         img='/accountImage/OffersNone.png'
-                        imgAlt='offers_placholder'/>}
+                        imgAlt='offers_placholder'
+                    />
+                }
             </>
         );
     }
@@ -188,12 +190,12 @@ function Offers(data) {
     return (
 
         <>
-            {!userInfo ? <FavoritesOffersPlaceHolder/>
+            {!userInfo && !favPosts ? <FavoritesOffersPlaceHolder/>
                 : <div className="clientPage__container_bottom">
                     <div className="clientPage__container_nav__radio">
                         <Checkbox
                             color="primary"
-														onChange={handlerDeletionCheckbox}
+                            onChange={handlerDeletionCheckbox}
                             checked={deletionCheck}
                             icon={<FiberManualRecordOutlinedIcon/>}
                             checkedIcon={<FiberManualRecordSharpIcon/>}

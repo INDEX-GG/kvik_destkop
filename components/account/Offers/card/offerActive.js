@@ -43,6 +43,7 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 	const offerData = offer;
 	const offerID = offer.id;
 
+
 	const cleanAll = () => {
 		getChildCheck({id: offer.id, isChecked: false});
 		setCheck(false)
@@ -102,7 +103,7 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 				<div className="offerDescription">
 					<div className="offerDescriptionTop">
 						<div className="offerDTLeft thin">
-							<div>{ToRubles(offer.price)}</div>
+							<div className="offerPrice">{ToRubles(offer.price)}</div>
 							<div className="offerTitle">{offer.title}</div>
 							<div className="offerDatPub small light DatPub__mobile">
 								<span className="offerDate"> Дата публикации </span>

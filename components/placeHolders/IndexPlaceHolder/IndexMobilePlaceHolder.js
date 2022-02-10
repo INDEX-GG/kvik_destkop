@@ -33,10 +33,9 @@ const IndexMobilePlaceHolder = () => {
                   container
                   flexDirection='row'
                   justifyContent='space-between'
-
                 >
-                    <Skeleton animation="wave" variant="rectangular" width="101px" height="20px" sx={{ borderRadius: '5px'  }} />
-                    <Skeleton animation="wave" variant="rectangular" width="64px" height="20px" sx={{ borderRadius: '5px'  }} />
+                    <Skeleton className={classes.skeletonBase} animation="wave" variant="rectangular" width="101px" height="20px" sx={{ borderRadius: '5px'  }} />
+                    <Skeleton className={classes.skeletonBase} animation="wave" variant="rectangular" width="64px" height="20px" sx={{ borderRadius: '5px'  }} />
                 </Grid>
             </Box>
         </Grid>
@@ -50,7 +49,7 @@ const IndexMobilePlaceHolder = () => {
             justifyContent="space-between"
           >
             {[1,2,3,4].map((_, i) => (
-              <Skeleton key={i} animation="wave" variant="rectangular" width="48%" height="240px" sx={{ borderRadius: '8px', marginBottom: '12px' }} />
+              <Skeleton className={classes.skeletonBase} key={i} animation="wave" variant="rectangular" width="48%" height="240px" sx={{ borderRadius: '8px', marginBottom: '12px' }} />
             ))}
           </Grid>
         </Grid>
