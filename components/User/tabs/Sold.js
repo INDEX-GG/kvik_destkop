@@ -27,7 +27,7 @@ function Sold(data) {
 	<div className="userProduct">
       {dataArr && dataArr.map((item, i) => {
         return (
-          <AdCard_component isGrid={true} key={i} offer={item} />
+            <AdCard_component isGrid={true} key={i} offer={item} />
         );
       })}
     </div> : 
