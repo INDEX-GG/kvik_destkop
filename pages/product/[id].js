@@ -188,34 +188,15 @@ const Product = () => {
                                 <div className="productPageWrapper">
                                     {!matchesMobile && !matchesTablet &&
                                     <div className="productHeader">
-<<<<<<< HEAD
-                                        <div className={`${classes.productHeaderTitle}`}>{title}</div>
-                                        <div className={`${classes.productHeaderStat}`}>
-                                            <ProductFavoriteNoteComp 
+                                        <div className="productPageTitle xl">{title}</div>
+                                            <div className="productHeaderStat">
+                                                <ProductFavoriteNoteComp 
                                                 id={id} 
                                                 sellerId={user_id} 
                                                 isOffer={+query.id}
                                                 mobile
-                                                // stats={stats}
-                                                stats={{
-                                                    full_stat,
-                                                    all_time_viewing_count,
-                                                    last_day_viewing_count,
-                                                    all_time_contact_count,
-                                                    last_day_contact_count,
-                                                    likes_count
-                                                }}
                                             />
                                         </div>
-=======
-                                        <div className="productPageTitle xl">{title}</div>
-                                        <ProductFavoriteNoteComp 
-                                            id={id} 
-                                            sellerId={user_id} 
-                                            isOffer={+query.id}
-                                            mobile
-                                        />
->>>>>>> main
                                     </div>}
                                     <div>
                                         <div className='product__main_block'>

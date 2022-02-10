@@ -81,10 +81,16 @@
 
 .productPageTitle {
   // margin-bottom: 18px;
-  padding: 0 10px;
-  max-width: 600px;
+  max-width: 596px;
+  padding-left: 12px;
+  font-size: 25px;
+  width: 100%;
 }
-
+.productHeaderStat{
+  max-width :320px;
+  width: 100%;
+  justify-content: end,
+}
 .productPageCharacter {
   width: 100%;
   display: flex;
