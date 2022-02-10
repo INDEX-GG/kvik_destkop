@@ -202,7 +202,7 @@
 .messageUserBlockName {
   margin-top: 4px;
   font-size: 12px;
-  line-height: 1, 17;
+  line-height: 14px;
 }
 
 .messageUserBlockRight {
@@ -744,5 +744,12 @@
     flex-direction: column;
     gap: 0;
     grid-gap: 0;
+  }
+  .messageUserBlockPrice {
+    width: 100%;
+  }
+
+  .messageUserBlockName {
+    width: 100%;
   }
 }
