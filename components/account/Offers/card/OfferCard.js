@@ -330,9 +330,12 @@ const useStyles = makeStyles((theme) => ({
 			paddingTop: '0p'
 		}
 	},
-	[theme.breakpoints.down(651)]: {
+	[theme.breakpoints.down(600)]: {
 		offer__image:{
 			minWidth: '100%'
+		},
+		main__text:{
+			paddingBottom: '0',
 		},
 		mobile__width:{
 			width: '132px',
