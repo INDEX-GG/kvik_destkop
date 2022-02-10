@@ -122,7 +122,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
                           <>
                             <div className='messageUserBlockInfo'>
                               <div className='messageUserBlockPrice'>{item?.product_price && item.product_price?.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
-                              <div className='messageUserBlockName'>{ellipsis(item.product_name, 25)}</div>
+                              <div className='messageUserBlockName'>{ellipsis(item.product_name, matchesMobile ? 20 : 50)}</div>
                             </div>
                           <div className="light">{ellipsis(senderMessage, 40)}</div>
                           </>
