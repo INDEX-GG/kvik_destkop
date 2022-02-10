@@ -548,7 +548,7 @@ const Account = () => {
                               mobile={matchesTablet || matchesMobile}/>}
             </Dialog>
             <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)}
-                    fullScreen={true}>
+                    fullScreen={matchesMobile || matchesTablet}>
                 <ModalSubscription data={subList} subscription={subList?.length}
                                    modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)}
                                    mobile={matchesTablet || matchesMobile}/>
