@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useRouter} from "next/router";
-import {Dialog} from "@material-ui/core";
+import {Dialog, /*makeStyles*/} from "@material-ui/core";
 import { getTokenDataByPost,/* getDataByPost*/} from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
@@ -31,10 +31,24 @@ import ScrollTop from '../../UI/ScrollTop'
 
 
 
+// const useStyles = makeStyles(() => ({
+// 	productHeaderTitle:{
+//         paddingLeft: '12px',
+//         maxWidth: '596px',
+//         fontSize: '25px',
+//         width:'100%'
+
+//     },
+//     productHeaderStat:{
+//         maxWidth:'320px',
+//         width:'100%',
+//         justifyContent: 'end',
+//     }
+// }));
 
 const Product = () => {
     const {addView} = useStatistics()
-
+    // const classes = useStyles();
     const {userInfo} = useStore()
 
     const {id, token} = useAuth();
@@ -175,12 +189,14 @@ const Product = () => {
                                     {!matchesMobile && !matchesTablet &&
                                     <div className="productHeader">
                                         <div className="productPageTitle xl">{title}</div>
-                                        <ProductFavoriteNoteComp 
-                                            id={id} 
-                                            sellerId={user_id} 
-                                            isOffer={+query.id}
-                                            mobile
-                                        />
+                                            <div className="productHeaderStat">
+                                                <ProductFavoriteNoteComp 
+                                                id={id} 
+                                                sellerId={user_id} 
+                                                isOffer={+query.id}
+                                                mobile
+                                            />
+                                        </div>
                                     </div>}
                                     <div>
                                         <div className='product__main_block'>
@@ -209,7 +225,7 @@ const Product = () => {
                                                         </div>
                                                         {/* закоментил. для нового дизайна данные компоненты пока не нужны */}
                                                         {/* <ProductDate id={id} sellerId={user_id} mobile
-                            date={ToRusDate(created_at)} leftDay={30}/> */}
+                                                        date={ToRusDate(created_at)} leftDay={30}/> */}
                                                         {/* закоментил. для нового дизайна данные компоненты пока не нужны */}
                                                     </div>
                                                 </div>

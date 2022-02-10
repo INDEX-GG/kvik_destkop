@@ -6,10 +6,42 @@ import PhoneLogo from '../../../UI/icons/StatsPhone'
 import StatsLike from '../../../UI/icons/StatsLike'
 import { useMedia } from '#hooks/useMedia';
 import {useProduct} from '../../../hooks/useProduct'
+import {makeStyles} from "@material-ui/core";
 // import { useStatistics } from '#lib/Context/StatisticsCTX';
 // import { makeStyles } from "@material-ui/core";
 // import {useAuth} from '../../../lib/Context/AuthCTX'
 
+const useStyles = makeStyles(() => ({
+	sellerInfoTopBtn:{
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		minHeight: '14px',
+    },
+	blockInfo:{
+		display: 'flex',
+		height: '30px',
+		fontWeight: '400',
+		width: '100%', 
+		justifyContent: 'space-between',
+		color:'#5A5A5A',
+	},
+	infoSpan:{
+		display:'flex', 
+		alignItems: 'center', 
+		fontWeight: '400', 
+		color: '#5A5A5A',
+		textAlign: 'center'
+	},
+	infoSpanPadding:{
+		paddingLeft: '20px'
+	},
+	infoInput: {
+		display: 'flex',
+		textAlign: 'center',
+		height:'24px',
+	}
+}));
 
 // const useStyles = makeStyles(() => ({
 // 	statsContainer: {
@@ -19,7 +51,6 @@ import {useProduct} from '../../../hooks/useProduct'
 
 
 const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
-
 
 	const {
         full_stat,
@@ -47,10 +78,10 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 	const {matchesMobile, matchesTablet} = useMedia()
 	const isMobile = matchesMobile || matchesTablet
 	const countIsNaN = isNaN(all_time_viewing_count + 1)
-
+	const classes = useStyles();
 	return (
 		// sellerId === id ? null:
-		<div className="SellerInfoTopButtons">
+		<div className={`${classes.sellerInfoTopBtn} SellerInfoTopButtons`}>
 			{/* <div style={{display: "flex"}}> */}
 				{/*<div className="statistic__header__block_right">*/}
 				{/*	<span><Views /> {views ? `+ ${views}` : 0}</span>*/}
@@ -58,28 +89,27 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 			{/* </div> */}
 
 			{(!isMobile && !countIsNaN) &&
-			<div style={{display: 'flex',height: '30px', marginRight: '240px', fontWeight: '400', color:'#5A5A5A'}}>
-
+			<div className={classes.blockInfo}>
 				{full_stat &&
-				<span style={{ display:'flex', alignItems: 'center', fontWeight: '400', marginRight: '30px', color: '#5A5A5A'}}>
+				<span className={classes.infoSpan}>
 					{`${all_time_viewing_count} +${last_day_viewing_count}`}
 					<EyeLogo/>
 				</span>}
 		
 				{!full_stat &&
-				<span style={{ display:'flex', alignItems: 'center', fontWeight: '400', marginRight: '30px', color: '#5A5A5A'}}>
+				<span className={classes.infoSpan}>
 					{`${all_time_viewing_count + 1} +${last_day_viewing_count + 1}`}
 					<EyeLogo/>
 				</span>}
 				
 				{full_stat &&
-				<span style={{display:'flex', alignItems: 'center', marginRight: '30px', fontWeight: '400', color: '#5A5A5A'}}>
+				<span className={classes.infoSpan}>
 					{`${all_time_contact_count} +${last_day_contact_count}`}
 					<PhoneLogo/>
 				</span>}
 
 				{full_stat &&
-				<span style={{display:'flex', alignItems: 'center', fontWeight: '400', color: '#5A5A5A'}}>
+				<span className={classes.infoSpan}>
 					{/* {`${all_time_contact_count} +${last_day_contact_count}`} */}
 					{`${likes_count}`} <StatsLike/>
 					

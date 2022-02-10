@@ -81,10 +81,16 @@
 
 .productPageTitle {
   // margin-bottom: 18px;
-  padding: 0 10px;
-  max-width: 600px;
+  max-width: 596px;
+  padding-left: 12px;
+  font-size: 25px;
+  width: 100%;
 }
-
+.productHeaderStat{
+  max-width :320px;
+  width: 100%;
+  justify-content: end,
+}
 .productPageCharacter {
   width: 100%;
   display: flex;
@@ -155,7 +161,7 @@
 }
 
 .SellerInfoNoteInput {
-  margin-right: 5px;
+  margin: 0 10px;
   border: 1px solid $tpsl;
   border-radius: 8px;
   padding: 3px 0;
@@ -167,7 +173,7 @@
 
 .SellerInfoTopButtons .note-active {
   opacity: 1;
-  padding: 3px 16px;
+  padding: 3px 4px;
   transition: width 250ms ease-in-out;
   width: 154px;
 }
@@ -816,6 +822,7 @@
 
 .product__main_block {
   display: flex;
+  justify-content: space-between;
 }
 
 .block__my_active_ad {
