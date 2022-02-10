@@ -141,7 +141,7 @@ export default function offerArchive({
                 <div className="offerDescription">
                     <div className="offerDescriptionTop">
                         <div className="offerDTLeft thin">
-                            <>{ToRubles(offer.price)}</>
+                            <div className="offerPrice">{ToRubles(offer.price)}</div>
                             <div className="offerTitle">{offer.title}</div>
                         </div>
 
