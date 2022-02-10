@@ -78,13 +78,16 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
-	// находим карточки с лайками
-	const isFavorite = userInfo?.favorites.filter(item => item.post_id === offer.id)?.[0]?.condition
-	// если лайк есть, возращаем тру.
-	const [isLiked, setIsLiked] = useState(isFavorite ? true : false)
+	const [isLiked, setIsLiked] = useState(false)
 	// закоментил стейт, пока не разбереся с запросами.
 	// const [phoneModuleState, setPhoneModuleState] = useState(false);
 	const [, setPhoneModuleState] = useState(false);
+
+	useEffect(() => {	
+		const isFavorite = userInfo?.favorites.includes(offer.id)
+		setIsLiked(isFavorite)
+	}, [offer, userInfo])
+
 	const handleCM = (e) => {
 		e.preventDefault();
 		setOpenMenu({

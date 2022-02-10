@@ -10,7 +10,6 @@ export default function Favorits({ /* offer, isCard, */ /* isProduct ,*/ isAccou
 	const {addLike, addUnLike} = useStatistics()
 	// const { setLikeComment } = useStore()
 	const { userInfo } = useStore()
-
 // реакт хуки
 	const [isLiked, setIsLiked] = useState(false)
 	const [note, setNote] = useState('')
@@ -23,10 +22,7 @@ export default function Favorits({ /* offer, isCard, */ /* isProduct ,*/ isAccou
 	useEffect(() => {
 		if(!userInfo) return
 
-		const isFavorite = userInfo?.favorites
-		.filter((item) => item.post_id === idOffer)
-		.length > 0 ? true : false
-
+		const isFavorite = userInfo.favorites.includes(idOffer)
 		setIsLiked(isFavorite)
 		
 	}, [idOffer])
