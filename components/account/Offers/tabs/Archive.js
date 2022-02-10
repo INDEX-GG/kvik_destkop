@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import OfferModal from "../../../OfferModal";
-import OfferArchive from "../card/offerArchive";
+// import OfferArchive from "../card/offerArchive";
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
 import { Checkbox, makeStyles, Dialog  } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
@@ -128,8 +128,7 @@ function Archive({offers}) {
 		offerId.length === offers.length
 			? check
 				? null
-				// : setCheck(true)
-				: null
+				: setCheck(true)
 			: check===false
 				? null
 				: setCheck(false)

@@ -76,7 +76,7 @@ export function ModalSubscribers({ data, modal, mobile }) {
 export function ModalSubscription({ data, subscription = 0, modal, mobile }) {
 	return (
 		<div className="modal__wrapper_md acoountContainer">
-			<div className="modal__block__top accountTop">
+			<div className="modal__block__top accountTop accountTopSub">
 				<>
 					{mobile ? <div className="accountArrowLeft" onClick={() => modal()}></div> : null}
 					<h6 className="modal__block__top_title accountTitle">{subscription} Подписки</h6>
