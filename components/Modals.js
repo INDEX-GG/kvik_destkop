@@ -2,12 +2,12 @@ import Comments from "./Comments";
 import Subscribes from "./Subscribes";
 import StarRating from "./StarRating";
 import Chat from "./account/Notifications/tabs/Chat";
-// import { STATIC_URL } from "../lib/constants";
+import { STATIC_URL } from "../lib/constants";
 // import { generateProductPhoto } from "./account/Notifications/tabs/chatFunctions";
-// import ChatDefaultAvatar from "./account/Notifications/components/ChatDefaultAvatar";
-import Loader from "../UI/icons/Loader";
+import ChatDefaultAvatar from "./account/Notifications/components/ChatDefaultAvatar";
 import React from "react";
 import ChatRoom from "./account/Notifications/components/ChatRoom";
+import AccountChatDialogPlaceHolder from './placeHolders/AccountChatDialogPlaceHolder/AccountChatDialogPlaceHolder'
 
 /* Модальное окно "отзывы и рейтинг" */
 export function ModalRating({ rate = 0, comments = 0, modal, mobile }) {
@@ -102,14 +102,28 @@ export function ModalSubscription({ data, subscription = 0, modal, mobile }) {
 /* Модальное окно "Диалог" */
 export function ModalMessage({ modal, usersData, room, userChatPhoto, userChatName, loadingRoom}) {
 
-
 	return (
-		loadingRoom ? <div className='offer__placeholder_loader messagePlaceholder'><Loader /></div> :
+		loadingRoom ?
+		// <div className='offer__placeholder_loader messagePlaceholder'><Loader /></div>
+		<AccountChatDialogPlaceHolder />
+		:
 		<div className="modal__wrapper_md acoountContainer">
 			<div className="modal__block__top accountTop">
 				<>
 					<div className="accountArrowLeft" onClick={() => modal()}></div>
-					<h6 className="modal__block__top_title accountTitle">Диалоги</h6>
+						{/* <h6 className="modal__block__top_title accountTitle">Диалоги</h6> */}
+					<div className="accountDialogHeader">
+						<div className="accontDialogHeaderTitle" >
+								<div className='chatRoomTitle' >Имя пользователя</div>
+								<div className="light">00.00.00 00:00</div>
+							</div>
+					</div>
+					{userChatPhoto ?
+								<img
+									className='chatRoomImageHeader'
+									src={`${STATIC_URL}/${userChatPhoto}`}/> :
+									<ChatDefaultAvatar name={usersData?.seller_name}/>
+					}
 				</>
 			</div>
 			{/*<div className="messageMobile">*/}
@@ -198,4 +212,3 @@ export function modalDeletHistory() {
 }
 
 /* Модальное окно админа"Отклонение" */
-

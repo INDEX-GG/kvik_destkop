@@ -9,6 +9,7 @@ import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordShar
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
 import {Box, Grid} from "@mui/material";
 import ArchiveIco from "./ArchiveIco/ArchiveIco";
+import OfferCard from "../card/OfferCard";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -122,7 +123,7 @@ function Archive({offers}) {
 		setOfferData( isCheck ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
 
-
+// условие setCheck(true) ставит галочку при отрисовки страницы
 	useEffect( () => {
 		offerId.length === offers.length
 			? check
@@ -167,6 +168,7 @@ function Archive({offers}) {
 		setOpenOfferModal(!openOfferModal);
 	}
 
+
 	return (
 		<>
 			{!offers
@@ -201,8 +203,10 @@ function Archive({offers}) {
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
-							<OfferArchive
+							<OfferCard
 								key={i}
+								typeTab='archiveTab'
+								typeButton={'001'}
 								offer={offer}
 								parentCheck={check}
 								getChildCheck={getChildCheck}

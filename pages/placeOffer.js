@@ -195,17 +195,17 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                 }
             }
             // удаление лишних полей
+            sendObj.address = sendObj.location
             delete sendObj.additional_fields
             delete sendObj.alias
             delete sendObj.bymessages
             delete sendObj.byphone
-            delete sendObj.city
+            // delete sendObj.city
             delete sendObj.contact
-            delete sendObj.coordinates
+            // delete sendObj.coordinates
             delete sendObj.location
             delete sendObj.subcategory
             delete sendObj.trade
-            
             await getTokenDataByPost(
                 `${BASE_URL}/api/postUpdate`, 
                 {

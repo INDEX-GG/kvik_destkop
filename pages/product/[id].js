@@ -13,7 +13,7 @@ import {useProduct} from "../../hooks/useProduct";
 import BreadCrumbsProduct from "../../components/product/BreadCrumbsProduct";
 import BreadCrumbs from "../../components/header/BreadСrumbs";
 import {useAuth} from "../../lib/Context/AuthCTX";
-// import PhoneModule from "../../components/product/PhoneModule";
+import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
 import {CHAT_URL_API, /*SIGN_SECRET*/} from "../../lib/constants";
 import ProductPrice from "../../components/product/ProductPrice";
@@ -43,10 +43,11 @@ const Product = () => {
     const {matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD} = useMedia();
 
     const productInfo = useProduct(query.id)
-
+    console.log(id)
     const {
         status,
         productInfoFields,
+        best_before,
         address,
         subcategory,
         user_name: name,
@@ -69,7 +70,7 @@ const Product = () => {
         full_stat,
         all_time_viewing_count,
         last_day_viewing_count,
-        // likes_count,
+        likes_count,
         all_time_contact_count,
         last_day_contact_count,
         user_products_count,
@@ -81,7 +82,7 @@ const Product = () => {
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
-    const [/*phoneModal,*/, setPhoneModal] = useState();
+    const [phoneModal, setPhoneModal] = useState();
 
 
 
@@ -192,6 +193,7 @@ const Product = () => {
                                                 last_day_viewing_count,
                                                 all_time_contact_count,
                                                 last_day_contact_count,
+                                                likes_count
                                             }}
                                         />
                                     </div>}
@@ -263,6 +265,7 @@ const Product = () => {
                                                     productInfo={productInfo} /*update={update}*/
                                                     setUpdate={setDefaultStatus} 
                                                     createChat={createChat}
+                                                    best_before={best_before}
                                                 />}
                                                                 
                                                 {/* пользователь и его объявления */}
@@ -325,7 +328,7 @@ const Product = () => {
                             Close={handleStatFormDialog}/>{" "}
                     </Dialog>
                     {/* ничего не делало, закоментил */}
-                    {/* <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/> */}
+                    {productInfo.id && <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/>}
                     <ScrollTop />
                 </div>
             </OfferAccountProvider>

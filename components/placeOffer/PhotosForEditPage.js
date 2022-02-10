@@ -227,13 +227,15 @@ const PhotoForEditPage = ({ctx, photo}) => {
         setOldPhotosAndNewObjectsPhotos(commonArr)
     }, [validFiles])
 
-
     useEffect(() => {
-        if (validFiles && validFiles.length > 0) {
-            methods.setValue("photoes", "ok");
-        } else {
-            methods.setValue("photoes", "");
-        }
+        // Не понятный кусок логики. Что он проверяет на странице редактирования - не понятно.
+
+        // if (validFiles && validFiles.length > 0) {
+        //     methods.setValue("photoes", "ok");
+        // } else {
+        //     console.log('if photo errors')
+        //     methods.setValue("photoes", "");
+        // }
         methods.clearErrors('photoes')
         validFiles.forEach((el, i) => {
             const reader = new FileReader();
@@ -292,6 +294,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
     const fileInputClicked = () => {
         fileInputRef.current.click();
     };
+
     const handleFiles = (files) => {
         if(oldPhotosAndNewObjectsPhotos.length >= 20) {
             return
@@ -338,6 +341,7 @@ const PhotoForEditPage = ({ctx, photo}) => {
             }
         }
     };
+
     const validateFile = (file) => {
         const validTypes = ["image/jpeg", "image/jpg", "image/png"];
         // если в фаиле тип не соответствует ни одному типу из массива вернет фолс

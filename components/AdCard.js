@@ -66,11 +66,9 @@ const useClass = makeStyles(() => ({
 const AdCard_component = React.forwardRef((props, ref,) => {
 	const classes = useClass()
 	// const { id } = useAuth();
-	const {addSlideView} = useStatistics()
+	const {addSlideView, addLike, addUnLike} = useStatistics()
 	const {id} = props;
 	const {offer} = props;
-
-
 	const { matchesMobile, matchesTablet } = useMedia();
 	const screenIsMobile = matchesMobile || matchesTablet;
 	const { userInfo, setLikeComment } = useStore();
@@ -84,6 +82,10 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 
 	// let scheduled = false;
 	const [openMenu, setOpenMenu] = useState(initialState);
+	// находим карточки с лайками
+	const isFavorite = userInfo?.favorites.filter(item => item.post_id === offer.id)?.[0]?.condition
+	// если лайк есть, возращаем тру.
+	const [isLiked, setIsLiked] = useState(isFavorite ? true : false)
 	// закоментил стейт, пока не разбереся с запросами.
 	// const [phoneModuleState, setPhoneModuleState] = useState(false);
 	const [, setPhoneModuleState] = useState(false);
@@ -100,6 +102,21 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 			window.open(`/product/${id}`);
 		}
 	}
+
+	const likeClickHandler = () => {
+		if(userInfo && isLiked) {
+			addUnLike(offer.id)()
+			setIsLiked(false)
+			return
+		}
+		if(userInfo && !isLiked) {
+			addLike(offer.id)()
+			setIsLiked(true)
+			return
+		}
+	}
+
+
 
 	// вешает класс или классы на враппер карточки по условию
 	const classSwitcher = () => {
@@ -272,7 +289,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 												ref={currentSlide}
 												className={classes.mov_area}
 												onMouseEnter={addSlideView(offer.id)} 
-												// onTouchCancel={addSlideView(offer.id)}
+												// onTouchStart={addSlideView(offer.id)}
 											>
 												{/* eslint-disable-next-line */}
 												{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((_, i) => {
@@ -380,13 +397,33 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 							{offer.user_id !== id ? (
 								userInfo !== undefined && userInfo.favorites.length > 0 && userInfo.favorites && userInfo.favorites.filter(item => item.post_id === offer.id)?.[0]?.condition ?
 									<IconButton
-										onClick={() => setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false) }
+										onClick={() => {
+											likeClickHandler();
+
+											setLikeComment(offer.id, userInfo?.favorites === undefined 
+											? 
+											'' 
+											: 
+											userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], false) 
+										}}
 										color='primary'
 										className='card_like'>
 										<FavoriteRoundedIcon />
 									</IconButton> :
 									<IconButton
-										onClick={() => id ? setLikeComment(offer.id, userInfo?.favorites === undefined ? '' : userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true) : null }
+										onClick={() => {
+											likeClickHandler();
+
+											id 
+											? 
+											setLikeComment(offer.id, userInfo?.favorites === undefined
+												? 
+												'' 
+												: 
+												userInfo?.favorites.filter(item => item.post_id === offer.id).map(item => item.comment)[0], true)
+											: 
+											null 
+										}}
 										color='secondary'
 										className='card_like'>
 										<FavoriteBorderRoundedIcon />

@@ -5,18 +5,20 @@ import {useAuth} from "../../../lib/Context/AuthCTX";
 // import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
 // import {standartDate} from "../../../lib/services";
 // import {useBlockedBool} from '../../../hooks/useBlocked';
+import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
     const {userSub} = useSubBool(id, sellerId)
     const {token} = useAuth();
     const [userBool, setUserBool] = useState(false)
+    // const [isSubscribed, setIsSubscribed] = useState(false)
     const [loading, setLoading] = useState(false)
+    const {addSubscribers, addUnsubscribe} = useStatistics()
     // const {userBlocked} = useBlockedBool(id, sellerId)
     // const [blockLoading, setBlockLoading] = useState(false)
     // const [blockOpen, setBlockOpen] = useState(false)
     // const [userBlockBool, setUserBlockBool] = useState(false)
-
 
     useEffect(() => {
         setUserBool(userSub)
@@ -47,6 +49,20 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
 
 
     }
+
+    const newSubHandler = () => {
+        if(!userBool && id) {
+          addSubscribers(sellerId)()
+        //   setIsSubscribed(true)
+          return
+        }
+    
+        if(userBool && id) {
+          addUnsubscribe(sellerId)()
+        //   setIsSubscribed(false)
+          return
+        }
+      }
 
     // const blockUser = async (option) => {
     //     if (option) {
@@ -87,7 +103,12 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
                     {mobile && (
                         <button
                             className={`ad__block_bottom__adaptive_left ${userBool ? 'ad__block_bottom__adaptive_left__active' : ''}`}
-                            disabled={loading} onClick={() => subscribeUser()}>
+                            disabled={loading} 
+                            onClick={() => {
+                                subscribeUser()
+                                newSubHandler()
+                            }}
+                        >
                             {/* {userBool ? "Отписаться" : "Подписаться"} */}
                             <span
                                 className={`SellerInfoUserAdd ${userBool ? "SellerInfoUserAdd__active" : ''}`}/>
