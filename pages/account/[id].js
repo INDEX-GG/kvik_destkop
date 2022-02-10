@@ -11,7 +11,7 @@ import Reviews from "../../components/account/Reviews/Reviews";
 import Settings from "../../components/account/Settings/Settings";
 import UserPicUpload from "../../components/UserPicUpload";
 import {initials, stringToColor, ToRusAccountDate} from "../../lib/services";
-import {ModalRating, ModalSubscription} from "../../components/Modals";
+// import {ModalRating, ModalSubscription} from "../../components/Modals";
 import {Avatar, Box, Button, Dialog, DialogTitle, makeStyles} from "@material-ui/core";
 import axios from "axios";
 import {useRouter} from "next/router";
@@ -172,9 +172,9 @@ const Account = () => {
     }, [id])
 
 
-    function closeModal(modal, changeModal) {
-        changeModal(!modal)
-    }
+    // function closeModal(modal, changeModal) {
+    //     changeModal(!modal)
+    // }
 
     const closePicUpload = () => {
         setPicUpload(p => !p)
@@ -552,18 +552,18 @@ const Account = () => {
                             style={{color: "red", textTransform: "uppercase"}}>Выйти</Button>
                 </div>
             </Dialog>
-            <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)}
+            {/* <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)}
                     fullScreen={matchesMobile || matchesTablet}>
                 {<ModalRating rate={2} comments={2} modal={() => closeModal(reviewsModal, setReviewsModal)}
                               mobile={matchesTablet || matchesMobile}/>}
-            </Dialog>
-            <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)}
+            </Dialog> */}
+            {/* <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)}
                     fullScreen={matchesMobile || matchesTablet}>
                 <ModalSubscription 
                                     // data={subList} subscription={subList?.length}
                                    modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)}
                                    mobile={matchesTablet || matchesMobile}/>
-            </Dialog>
+            </Dialog> */}
         </MetaLayout>
     );
 }

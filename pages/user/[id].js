@@ -14,7 +14,7 @@ import {
   makeStyles
 } from "@material-ui/core";
 import { useRouter } from "next/router";
-import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
+import { ModalRating,/* ModalSubscribers, ModalSubscription */} from "../../components/Modals";
 // import { useAd } from "../../hooks/useAd";
 // import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
@@ -93,12 +93,12 @@ function UserPage() {
   const { matchesMobile, matchesTablet } = useMedia()
 
   const [reviewsModal, setReviewsModal] = useState(false);
-  const [subscribersModal, setSubscribersModal] = useState(false);
+  // const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
   const [userBool, setUserBool] = useState(false)
   const [userBlockBool, /*setUserBlockBool*/] = useState(false)
-  const [subList, /*setSubList*/] = useState([])
-  const [subscribersList, /*setSubscribersList */] = useState([])
+  // const [subList, /*setSubList*/] = useState([])
+  // const [subscribersList, /*setSubscribersList */] = useState([])
   const [loading,/* setLoading*/] = useState(false)
   // const [blockLoading, setBlockLoading] = useState(false)
   const [blockOpen, setBlockOpen] = useState(false)
@@ -282,7 +282,7 @@ function UserPage() {
 
               <Box className={classes.userStats}>
                 <span>{subscribers_count}</span>
-                <Button className={classes.buttonDesc} size="small" variant="text" onClick={() => setSubscribersModal(!subscriptionsModal)}>
+                <Button className={classes.buttonDesc} size="small" variant="text" /*onClick={() => setSubscribersModal(!subscriptionsModal)}*/>
                   <p>Подписчиков</p>
                 </Button>
               </Box>
@@ -348,12 +348,12 @@ function UserPage() {
       <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalRating rate={raiting} comments={2} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(reviewsModal, setReviewsModal)} />
       </Dialog>
-      <Dialog open={subscribersModal || false} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+      {/* <Dialog open={subscribersModal || false} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalSubscribers data={subscribersList} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(subscribersModal, setSubscribersModal)} />
-      </Dialog>
-      <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+      </Dialog> */}
+      {/* <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalSubscription data={subList} subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} />
-      </Dialog>
+      </Dialog> */}
       <Dialog open={blockOpen} onClose={() => setBlockOpen(false)}>
           <DialogContent>
             <DialogContentText>
