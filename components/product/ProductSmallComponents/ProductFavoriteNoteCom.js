@@ -116,9 +116,18 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 				</span>}
 			</div>}
 
+<<<<<<< HEAD
 			{/* <div className={'favoritsContainer'}> */}
 			<div className={classes.infoInput}>
 				{!isPageOwner && <Favorits isProduct idOffer={isOffer} />}
+=======
+			<div className={'favoritsContainer'}>
+				{!isPageOwner && 
+				<Favorits 
+					isProduct 
+					idOffer={isOffer} 
+				/>}
+>>>>>>> main
 				{/*{mobile ? null : <a className="SellerInfoCompare"></a>}     Скрыто пока не работает функцианал           */}
 			</div>
 		</div>

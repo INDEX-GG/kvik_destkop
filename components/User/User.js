@@ -24,7 +24,6 @@ const UsersPage = () => {
       return
     }
     const data = await getDataByPost(`/api/getSeller`, { id: sellerId, page: 1, page_limit: 50 } )
-    console.log(data)
     setActiveBox(data.active_posts)
     setSoldBox(data.archive_posts)
     setActiveTotal(data.active_posts_count)

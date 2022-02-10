@@ -23,10 +23,11 @@ import {useStore} from "../../lib/Context/Store";
 import AccountPlaceHolder from "../../components/placeHolders/AccountPlaceHolder/AccountPlaceHolder";
 import {Grid, Skeleton, Tooltip} from "@mui/material";
 import {MenuItem} from "../../components/placeHolders/AccountCardPlaceHolder/AccountCardPlaceHolder";
-import {getTokenDataByPost} from "../../lib/fetch";
+// import {getTokenDataByPost} from "../../lib/fetch";
 import ScrollTop from '../../UI/ScrollTop';
 import {useStatistics} from '../../lib/Context/StatisticsCTX'
-
+import clsx from 'clsx'
+import MobileModal from "../../components/MobileModal"
 
 const menuItems = [
     {id: 1, name: "menuOffers", title: "Мои объявления"},
@@ -67,11 +68,17 @@ const useStyles = makeStyles(() => ({
         color: "#5a5a5a",
         transition: "all 200ms ease-in-out",
         cursor: "pointer",
-
         '&:hover': {
             // transition: 'all 200ms ease-in-out',
             // color: '#52B9C5FF',
             textDecoration: "none",
+        },
+
+    },
+    highlight: {
+        color: "#00a0ab",
+        '& button': {
+            color: "#00a0ab",
         }
     },
     buttonDesc: {
@@ -83,16 +90,20 @@ const Account = () => {
     const classes = useStyles();
     const router = useRouter();
     const {userInfo} = useStore();
+    // const {subscriptions_count} = userInfo
     const countRender = useRef(0)
     const [content, setContent] = useState(0)
     const [openPicUpload, setPicUpload] = useState(false);
-    const [subList, setSubList] = useState([])
-    const [subscribersList, setSubscribersList] = useState([])
+    const [subscribersCount, setSubscibersCount] = useState(0)
+    const [subscriptionsCount, setSubscriptionsCount] = useState(0)
+    // const [subList, setSubList] = useState([])
+    // const [subscribersList, setSubscribersList] = useState([])
     const [logout, setLogout] = useState(false);
     const [reviewsModal, setReviewsModal] = useState(false);
     const [subscriptionsModal, setSubscriptionsModal] = useState(false);
     const {signOut, id, token} = useAuth();
-    const {matchesMobile, matchesTablet,} = useMedia()
+    const {matchesMobile, matchesTablet} = useMedia()
+    const [isShowModalMenu, setIsShowModalMenu] = useState(true)
     const [menuItem, setMenuItem] = useState(
 			router.query.favorite === ''
 				? {
@@ -124,21 +135,28 @@ const Account = () => {
         setContent(content + 1)
     }, [])
 
-    useEffect(() => {
-			if (token) {
-				(async () => {
-					if (id !== undefined && subList?.length === 0) {
-						getTokenDataByPost("/api/getSubscriptions", { user_id: `${id}` }, token)
-						.then((res) => setSubList(res))
-					}
 
-					if (id !== undefined && subscribersList?.length === 0) {
-						getTokenDataByPost("/api/getSubscribers", { user_id: `${id}` }, token)
-						.then((res) => setSubscribersList(res))
-					}
-				})();
-			}
+    useEffect(() => {
+        if(!userInfo) return
+        setSubscibersCount(userInfo.subscribers_count)
+        setSubscriptionsCount(userInfo.subscriptions_count)
     }, [userInfo])
+
+    // useEffect(() => {
+	// 		if (token) {
+	// 			(async () => {
+	// 				if (id !== undefined && subList?.length === 0) {
+	// 					getTokenDataByPost("/api/getSubscriptions", { user_id: `${id}` }, token)
+	// 					.then((res) => setSubList(res))
+	// 				}
+
+	// 				if (id !== undefined && subscribersList?.length === 0) {
+	// 					getTokenDataByPost("/api/getSubscribers", { user_id: `${id}` }, token)
+	// 					.then((res) => setSubscribersList(res))
+	// 				}
+	// 			})();
+	// 		}
+    // }, [userInfo])
 
     // переадресация на корретные квери, если юзер в ручную перешел по ссылке типа .../account/[id]
     useEffect(()=>{
@@ -172,48 +190,204 @@ const Account = () => {
         });
     };
 
-
     const accountContent = () => {
         return (
             <>
-                {countRender.current > 1 ? (
-                    <>
-                        {(menuItem.i === 1 &&
-                            <OfferAccountProvider>
-                                <Offers router={router}/>
-                            </OfferAccountProvider>)
-                        || (menuItem.i === 2 && <Deals/>)
-                        || (menuItem.i === 3 && <Wallet/>)
-                        || (menuItem.i === 4 && <Favorites router={router.query.id}/>)
-                        || (menuItem.i === 5 && <Notifications/>)
-                        || (menuItem.i === 6 && <Compare/>) || (menuItem.i === 7 && <Reviews/>) || (menuItem.i === 8 &&
-                            <Settings username/>)}
-                    </>
-                ) : router.query?.account ? (
-                    <>
-                        {(+router.query.account === 1 &&
-                            <OfferAccountProvider>
-                                <Offers router={router}/>
-                            </OfferAccountProvider>)
-                        || (+router.query.account === 2 && <Deals/>)
-                        || (+router.query.account === 3 && <Wallet/>)
-                        || (+router.query.account === 4 && <Favorites router={router.query.id}/>)
-                        || (+router.query.account === 5 && <Notifications/>)
-                        || (+router.query.account === 6 && <Compare/>) || (+router.query.account === 7 &&
-                            <Reviews/>) || (+router.query.account === 8 && <Settings username userId={id} token={token}/>)}
-                    </>) : (
-                    <OfferAccountProvider>
-                        <Offers router={router}/>
-                    </OfferAccountProvider>
-                )}
-            </>
+            {countRender.current > 1 ? (
+                <>
+                    {(
+                        menuItem.i === 1 &&
+                        <OfferAccountProvider>
+                            <Offers router={router}/>
+                        </OfferAccountProvider>
+                    )
+                    || (menuItem.i === 2 && <Deals/>)
+                    || (menuItem.i === 3 && <Wallet/>)
+                    || (menuItem.i === 4 && <Favorites router={router.query.id}/>)
+                    || (menuItem.i === 5 && <Notifications/>)
+                    || (menuItem.i === 6 && <Compare/>) || ( menuItem.i === 7 && <Reviews/>)
+                    || (menuItem.i === 8 && <Settings username/>)
+                    }
+                </>
+            ) : router.query?.account ? (
+                <>
+                    {(+router.query.account === 1 &&
+                        <OfferAccountProvider>
+                            <Offers router={router}/>
+                        </OfferAccountProvider>
+                    )
+                    || (+router.query.account === 2 && <Deals/>)
+                    || (+router.query.account === 3 && <Wallet/>)
+                    || (+router.query.account === 4 && <Favorites router={router.query.id}/>)
+                    || (+router.query.account === 5 && <Notifications/>)
+                    || (+router.query.account === 6 && <Compare/>)
+                    || (+router.query.account === 7 && <Reviews/>)
+                    || (+router.query.account === 8 && <Settings username userId={id} token={token}/>)}
+                </>) : (
+                <OfferAccountProvider>
+                    <Offers router={router}/>
+                </OfferAccountProvider>
+            )}
+        </>
         )
     }
 
+    /* eslint-disable no-unused-vars */
+    const accountContentDesktop = () => {
+        return accountContent()
+    }
+    /* eslint-disable no-unused-vars */
+    const accountContentMobile = () => {
+        return (
+            <MobileModal
+                title={menuItem?.ttl}
+                dialog={isShowModalMenu || false}
+                close={() => {
+                    // TODO: добавить роутинг на предыдущую страницу
+                    router.push('/')
+                        .then(() => {
+                            setIsShowModalMenu((prevState => !prevState))
+                        })
+                }}
+            >
+                {matchesMobile && +router.query.account === 8 &&
+                    <div className="clientPage__menu">
+                                <div className="clientPage__userinfo">
+
+                                    {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
+                                            <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#F2F3F4', width: "80px", height: "80px"}}/>
+                                        </Box>
+                                        :<div className="clientPage__userpic">
+
+                                        <Avatar src={userInfo.userPhoto}
+                                                style={{backgroundColor: `${stringToColor(userInfo.name)}`}}>
+                                            {initials(userInfo.name)}
+                                        </Avatar>
+
+                                        <button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"/>
+                                    </div>}
+
+
+                                    {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "6px"}}>
+                                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "134px", height: "16px"}} />
+                                            </Skeleton>
+                                        </Box>
+                                        :<div className="clientPage__username">{userInfo.name}</div>}
+
+
+                                    {!userInfo ? <Box style={{paddingBottom: "10px"}}>
+                                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "196px", height: "16px"}} />
+                                            </Skeleton>
+                                        </Box>
+                                        :<div className="clientPage__userRegDate light small">на Kvik
+                                        c {ToRusAccountDate(userInfo.createdAt)}</div>}
+
+
+                                    {!userInfo
+                                        ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
+                                                <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
+                                                </Skeleton>
+                                            </Box>
+                                        :
+                                        <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                                            <div className="clientPage__userrate">
+                                                <div className="clientPage__userrate__num">{userInfo.raiting}</div>
+                                                <StarRating {...{rating: userInfo.raiting}} />
+                                            </div>
+                                        </Tooltip>
+                                    }
+
+
+                                    {!userInfo ? <Box >
+                                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
+                                            </Skeleton>
+                                        </Box>
+                                        :
+                                        <div className="clientPage__userstats highlight small">
+
+                                            <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                                                {/* как будет не disabled, добавить класс classes.hightlight */}
+                                                <Box className={classes.userStats}>
+                                                    <span>{'0'}</span>
+                                                    <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
+                                                        <p>Отзывы</p>
+                                                    </Button>
+                                                </Box>
+                                            </Tooltip>
+
+
+                                            <Box className={clsx(classes.userStats, classes.highlight)}>
+                                                <span>{'subscribersCount'}</span>
+                                                <Button className={classes.buttonDesc} size="small" variant="text" >
+                                                    <p>Подписчиков</p>
+                                                </Button>
+                                            </Box>
+
+
+                                            <Box className={clsx(classes.userStats, classes.highlight)}>
+                                                <span>{subscriptionsCount}</span>
+                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                                                    <p>Подписки</p>
+                                                </Button>
+                                            </Box>
+
+                                </div>}
+                                </div>
+                                {!userInfo
+                                    ?   <Grid item container xs={10} spacing={1}>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        </Grid>
+                                    :   <div className="userMenuContainer">
+                                        {matchesMobile || matchesTablet ? null :
+                                            <>
+                                                {menuItems.map((item) => {
+                                                    return (
+                                                        <a
+                                                            key={item.id}
+                                                            onClick={() => {
+                                                                setMenuItem({i: item.id, itm: item.name, ttl: item.title})
+                                                                router.push({
+                                                                    pathname: `/account/${id}`,
+                                                                    query: {
+                                                                        account: item.id,
+                                                                        content: "1"
+                                                                    }
+                                                                })
+                                                            }}
+                                                            className={item.name + (item.title === menuItem.ttl
+                                                                ? ` ${item.name}Active highlight smooth`
+                                                                : " smooth")}
+                                                        >
+                                                            {item.title}
+                                                        </a>
+                                                    );
+                                                })}
+                                            </>}
+                                            {matchesMobile || matchesTablet  ? null :
+                                                <a onClick={() => setLogout(!logout)}
+                                                className="offerUnpublish thin superLight menuLogoff smooth">
+                                                    Выход
+                                                </a>}
+                                        </div>
+                                }
+                    </div>
+                }
+                {accountContent()}
+            </MobileModal>
+        )
+    }
 
     return (
         <MetaLayout title={"Личный кабинет"}>
-            {!userInfo ?
+            {!userInfo && !matchesMobile ?
                 <AccountPlaceHolder/>
                 : <div className="clientPage text">
                     {/* <div className="clientPage__breadcrumbs thin">
@@ -224,135 +398,141 @@ const Account = () => {
 						<a style={{ color: "#2C2C2C" }} className="line light">Личный кабинет</a>
 					</Link>
 				</div> */}
-                    <div className="clientPage__menu">
+                    {/* clientPage__userinfo на мобилке показываем только в настройках */}
+                    { !matchesMobile &&
+                            <div className="clientPage__menu">
+                                <div className="clientPage__userinfo">
 
-                        <div className="clientPage__userinfo">
-
-                            {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
-                                    <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#F2F3F4', width: "80px", height: "80px"}}/>
-                                </Box>
-                                :<div className="clientPage__userpic">
-
-                                <Avatar src={userInfo.userPhoto}
-                                        style={{backgroundColor: `${stringToColor(userInfo.name)}`}}>
-                                    {initials(userInfo.name)}
-                                </Avatar>
-
-                                <button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"/>
-                            </div>}
-
-
-                            {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "6px"}}>
-                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "134px", height: "16px"}} />
-                                    </Skeleton>
-                                </Box>
-                                :<div className="clientPage__username">{userInfo.name}</div>}
-
-
-                            {!userInfo ? <Box style={{paddingBottom: "10px"}}>
-                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "196px", height: "16px"}} />
-                                    </Skeleton>
-                                </Box>
-                                :<div className="clientPage__userRegDate light small">на Kvik
-                                c {ToRusAccountDate(userInfo.createdAt)}</div>}
-
-
-                            {!userInfo
-                                ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
-                                        <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
-                                        </Skeleton>
-                                    </Box>
-                                :
-                                <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
-                                    <div className="clientPage__userrate">
-                                        <div className="clientPage__userrate__num">{userInfo.raiting}</div>
-                                        <StarRating {...{rating: userInfo.raiting}} />
-                                    </div>
-                                </Tooltip>
-                            }
-
-
-                            {!userInfo ? <Box >
-                                    <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
-                                    </Skeleton>
-                                </Box>
-                                :
-                                <div className="clientPage__userstats highlight small">
-
-                                    <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
-                                        <Box className={classes.userStats}>
-                                            <span>{'0'}</span>
-                                            <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
-                                                <p>Отзывы</p>
-                                            </Button>
+                                    {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
+                                            <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#F2F3F4', width: "80px", height: "80px"}}/>
                                         </Box>
-                                    </Tooltip>
+                                        :<div className="clientPage__userpic">
+
+                                        <Avatar src={userInfo.userPhoto}
+                                                style={{backgroundColor: `${stringToColor(userInfo.name)}`}}>
+                                            {initials(userInfo.name)}
+                                        </Avatar>
+
+                                        <button onClick={() => setPicUpload(!openPicUpload)} className="addPhoto"/>
+                                    </div>}
 
 
-                                    <Box className={classes.userStats}>
-                                        <span>{subscribersList?.message ? '0' : subscribersList?.length}</span>
-                                        <Button className={classes.buttonDesc} size="small" variant="text" >
-                                            <p>Подписчиков</p>
-                                        </Button>
-                                    </Box>
+                                    {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "6px"}}>
+                                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "134px", height: "16px"}} />
+                                            </Skeleton>
+                                        </Box>
+                                        :<div className="clientPage__username">{userInfo.name}</div>}
 
 
-                                    <Box className={classes.userStats}>
-                                        <span>{userInfo && userInfo?.subscriptions !== undefined ? userInfo.subscriptions?.length : '0'}</span>
-                                        <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
-                                            <p>Подписки</p>
-                                        </Button>
-                                    </Box>
+                                    {!userInfo ? <Box style={{paddingBottom: "10px"}}>
+                                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "196px", height: "16px"}} />
+                                            </Skeleton>
+                                        </Box>
+                                        :<div className="clientPage__userRegDate light small">на Kvik
+                                        c {ToRusAccountDate(userInfo.createdAt)}</div>}
 
-                            </div>}
-                        </div>
-                        {!userInfo
-                            ?   <Grid item container xs={10} spacing={1}>
-                                    <MenuItem/>
-                                    <MenuItem/>
-                                    <MenuItem/>
-                                    <MenuItem/>
-                                    <MenuItem/>
-                                    <MenuItem/>
-                                    <MenuItem/>
-                                    <MenuItem/>
-                                    <MenuItem/>
-                                </Grid>
-                            :   <div className="userMenuContainer">
-                                    {matchesMobile || matchesTablet ? null :
-                                        <>
-                                            {menuItems.map((item) => {
-                                                return (
-                                                    <a
-                                                        key={item.id}
-                                                        onClick={() => {
-                                                            setMenuItem({i: item.id, itm: item.name, ttl: item.title})
-                                                            router.push({
-                                                                pathname: `/account/${id}`,
-                                                                query: {
-                                                                    account: item.id,
-                                                                    content: "1"
-                                                                }
-                                                            })
-                                                        }}
-                                                        className={item.name + (item.title === menuItem.ttl
-                                                            ? ` ${item.name}Active highlight smooth`
-                                                            : " smooth")}
-                                                    >
-                                                        {item.title}
-                                                    </a>
-                                                );
-                                            })}
-                                        </>}
-                                        {matchesMobile || matchesTablet  ? null :
-                                            <a onClick={() => setLogout(!logout)}
-                                            className="offerUnpublish thin superLight menuLogoff smooth">
-                                                Выход
-                                            </a>}
+
+                                    {!userInfo
+                                        ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
+                                                <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "144px", height: "16px"}} />
+                                                </Skeleton>
+                                            </Box>
+                                        :
+                                        <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                                            <div className="clientPage__userrate">
+                                                <div className="clientPage__userrate__num">{userInfo.raiting}</div>
+                                                <StarRating {...{rating: userInfo.raiting}} />
+                                            </div>
+                                        </Tooltip>
+                                    }
+
+
+                                    {!userInfo ? <Box >
+                                            <Skeleton  animation="wave" variant="rectangular"  sx={{ bgcolor: '#F2F3F4', borderRadius: '15px'  }}><div style={{ width: "200px", height: "18px"}} />
+                                            </Skeleton>
+                                        </Box>
+                                        :
+                                        <div className="clientPage__userstats highlight small">
+
+                                            <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                                                {/* как будет не disabled, добавить класс classes.hightlight */}
+                                                <Box className={classes.userStats}>
+                                                    <span>{'0'}</span>
+                                                    <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
+                                                        <p>Отзывы</p>
+                                                    </Button>
+                                                </Box>
+                                            </Tooltip>
+
+
+                                            <Box className={clsx(classes.userStats, classes.highlight)}>
+                                                <span>{subscribersCount}</span>
+                                                <Button className={classes.buttonDesc} size="small" variant="text" >
+                                                    <p>Подписчиков</p>
+                                                </Button>
+                                            </Box>
+
+
+                                            <Box className={clsx(classes.userStats, classes.highlight)}>
+                                                <span>{subscriptionsCount}</span>
+                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                                                    <p>Подписки</p>
+                                                </Button>
+                                            </Box>
+
                                 </div>}
-                    </div>
+                                </div>
+                                {!userInfo
+                                    ?   <Grid item container xs={10} spacing={1}>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        <MenuItem/>
+                                        </Grid>
+                                    :   <div className="userMenuContainer">
+                                        {matchesMobile || matchesTablet ? null :
+                                            <>
+                                                {menuItems.map((item) => {
+                                                    return (
+                                                        <a
+                                                            key={item.id}
+                                                            onClick={() => {
+                                                                setMenuItem({i: item.id, itm: item.name, ttl: item.title})
+                                                                router.push({
+                                                                    pathname: `/account/${id}`,
+                                                                    query: {
+                                                                        account: item.id,
+                                                                        content: "1"
+                                                                    }
+                                                                })
+                                                            }}
+                                                            className={item.name + (item.title === menuItem.ttl
+                                                                ? ` ${item.name}Active highlight smooth`
+                                                                : " smooth")}
+                                                        >
+                                                            {item.title}
+                                                        </a>
+                                                    );
+                                                })}
+                                            </>}
+                                            {matchesMobile || matchesTablet  ? null :
+                                                <a onClick={() => setLogout(!logout)}
+                                                className="offerUnpublish thin superLight menuLogoff smooth">
+                                                    Выход
+                                                </a>}
+                                        </div>
+                                }
+                            </div>
+                    }
                     <div className="clientPage__container">
-                        {accountContent()}
+                        {matchesMobile ? accountContentMobile() : accountContentDesktop()}
+                        {/* {accountContentDesktop()} */}
+                        {/* {accountContent()} */}
                     </div>
                     <ScrollTop />
                 </div>
@@ -379,7 +559,8 @@ const Account = () => {
             </Dialog>
             <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)}
                     fullScreen={matchesMobile || matchesTablet}>
-                <ModalSubscription data={subList} subscription={subList?.length}
+                <ModalSubscription 
+                                    // data={subList} subscription={subList?.length}
                                    modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)}
                                    mobile={matchesTablet || matchesMobile}/>
             </Dialog>

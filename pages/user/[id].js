@@ -16,18 +16,20 @@ import {
 import { useRouter } from "next/router";
 import { ModalRating, ModalSubscribers, ModalSubscription } from "../../components/Modals";
 // import { useAd } from "../../hooks/useAd";
-import axios from "axios"
+// import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
 import { useOutherUser } from "../../hooks/useOutherUser";
-import { useSubBool } from "../../hooks/useSubscriptions";
+// import { useSubBool } from "../../hooks/useSubscriptions";
 import MetaLayout from "../../layout/MetaLayout";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import { STATIC_URL } from "../../lib/constants";
-import { useBlockedBool } from "../../hooks/useBlocked";
-import { useUser } from "../../hooks/useUser";
+// import { useBlockedBool } from "../../hooks/useBlocked";
+// import { useUser } from "../../hooks/useUser";
 import {Tooltip} from "@mui/material";
-import {getTokenDataByPost} from "../../lib/fetch";
+// import {getTokenDataByPost} from "../../lib/fetch";
 import ScrollTop from '../../UI/ScrollTop'
+import { useStore } from "#lib/Context/Store";
+import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 
@@ -67,37 +69,52 @@ const useStyles = makeStyles(() => ({
 }));
 
 function UserPage() {
-
+  const {userInfo} = useStore()
+  const {addSubscribers, addUnsubscribe} = useStatistics()
   const classes = useStyles();
   const router = useRouter();
-  const { id, token } = useAuth()
+  const sellerId = parseInt(router.query.id)
+  const { id, /*token*/ } = useAuth()
+  const sellerInfo = useOutherUser(sellerId)
 
-  const { sellerName, sellerPhoto, raiting, createdAt, isLoading, sellerId } = useOutherUser(router.query.id)
+  const { 
+    name: sellerName, 
+    userPhoto: sellerPhoto, 
+    raiting, createdAt, 
+    isLoading = true, 
+    /*sellerId,*/ 
+    subscribers_count, 
+    subscriptions_count 
+  } = sellerInfo
   // const {userInfo} = useAd(router.query.id)
-  const  userProfileInfo  = useUser();
-  const { userSub } = useSubBool(id, sellerId)
-  const { userBlocked } = useBlockedBool(id, sellerId, token)
+  // const  userProfileInfo  = useUser();
+  // const { userSub } = useSubBool(id, sellerId)
+  // const { userBlocked } = useBlockedBool(id, sellerId, token)
   const { matchesMobile, matchesTablet } = useMedia()
 
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
   const [userBool, setUserBool] = useState(false)
-  const [userBlockBool, setUserBlockBool] = useState(false)
-  const [subList, setSubList] = useState([])
-  const [subscribersList, setSubscribersList] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [userBlockBool, /*setUserBlockBool*/] = useState(false)
+  const [subList, /*setSubList*/] = useState([])
+  const [subscribersList, /*setSubscribersList */] = useState([])
+  const [loading,/* setLoading*/] = useState(false)
   // const [blockLoading, setBlockLoading] = useState(false)
   const [blockOpen, setBlockOpen] = useState(false)
 
-
   useEffect(() => {
-    setUserBool(userSub)
-  }, [userSub])
+    if(!userInfo) return
+    setUserBool(userInfo.subscriptions.includes(sellerId))
+  }, [sellerId, userInfo])
 
-  useEffect(() => {
-    setUserBlockBool(userBlocked)
-  }, [userBlocked])
+  // useEffect(() => {
+  //   setUserBool(userSub)
+  // }, [userSub])
+
+  // useEffect(() => {
+  //   setUserBlockBool(userBlocked)
+  // }, [userBlocked])
 
   useEffect(() => {
     //? Если зашли на свой профиль.
@@ -107,60 +124,75 @@ function UserPage() {
   }, [id, router.query.id])
 
 
-  useEffect(() => {
-    if (sellerId && subList.length == 0) {
-      axios.post("/api/getSubscriptions", {user_id: sellerId}).then((res) => setSubList(res.data))
-    }
+  const subscribeClickHandler = () => {
+    if(!id) return
 
-    if (sellerId && subscribersList.length == 0) {
-          changeSubscribers();
-        }
-
-  }, [sellerId])
-
-  function changeSubscribers() {
-	  axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => {
-      if (res.data.message === 'nothing'){
-        setSubscribersList([])
-      }
-      else{
-        setSubscribersList(res.data)
-      }
-    })
+    if(userInfo && userBool) {
+			addUnsubscribe(sellerId)()
+			setUserBool(false)
+			return
+		}
+		if(userInfo && !userBool) {
+			addSubscribers(sellerId)()
+			setUserBool(true)
+			return
+		}
   }
+
+  // useEffect(() => {
+  //   if (sellerId && subList.length == 0) {
+  //     axios.post("/api/getSubscriptions", {user_id: sellerId}).then((res) => setSubList(res.data))
+  //   }
+
+  //   if (sellerId && subscribersList.length == 0) {
+  //         changeSubscribers();
+  //       }
+
+  // }, [sellerId])
+
+  // function changeSubscribers() {
+	//   axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => {
+  //     if (res.data.message === 'nothing'){
+  //       setSubscribersList([])
+  //     }
+  //     else{
+  //       setSubscribersList(res.data)
+  //     }
+  //   })
+  // }
 
   function modal(modal, changeModal) {
     changeModal(!modal)
   }
 
-  async function subscribeUser() {
-    if (id && sellerId){
-      setLoading(true)
+  // async function subscribeUser() {
+  //   if (id && sellerId){
+  //     setLoading(true)
 
-      const subscribe = {
-        user_id: id + "",
-        seller_id: sellerId + ""
-      }
+  //     const subscribe = {
+  //       user_id: id + "",
+  //       seller_id: sellerId + ""
+  //     }
 
-      setUserBool(prev => !prev)
-      if (subscribersList?.find(el => el.id === id)){
-        setSubscribersList(arr => arr.filter(el => el.id !== id))
-      }else{
-        setSubscribersList(arr => [...arr, {id: id, name: userProfileInfo.name, raiting: userProfileInfo.raiting, userPhoto: userProfileInfo.userPhoto}])
-      }
+  //     setUserBool(prev => !prev)
+  //     if (subscribersList?.find(el => el.id === id)){
+  //       setSubscribersList(arr => arr.filter(el => el.id !== id))
+  //     }else{
+  //       setSubscribersList(arr => [...arr, {id: id, name: userProfileInfo.name, raiting: userProfileInfo.raiting, userPhoto: userProfileInfo.userPhoto}])
+  //     }
 
-      await getTokenDataByPost("/api/subscriptions", subscribe, token)
+  //     await getTokenDataByPost("/api/subscriptions", subscribe, token)
 
-      await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
-
-
-      setLoading(false)
-    }
+  //     await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
 
 
+  //     setLoading(false)
+  //   }
 
 
-  }
+
+
+  // }
 
   // const blockUser = async (option) => {
   //   if (option) {
@@ -195,14 +227,28 @@ function UserPage() {
 
   return (
     <MetaLayout>
+      {!isLoading 
+      &&
       <div className="clientPage text">
+        
         <div className="clientPage__menu">
           <div className="clientPage__userinfo">
             <div className="clientPage__userpic">
-              {isLoading ? null : <Avatar src={`${STATIC_URL}/${sellerPhoto}`} style={{ backgroundColor: `${stringToColor(sellerName)}` }}>{initials(sellerName)}</Avatar>}
+              {isLoading
+              ? 
+              null 
+              : 
+              <Avatar 
+                src={`${STATIC_URL}/${sellerPhoto}`} 
+                style={{ backgroundColor: `${stringToColor(sellerName)}` }}
+              >
+                  {initials(sellerName)}
+              </Avatar>}
             </div>
+            
             <div className="clientPage__username">{sellerName}</div>
             <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
+            
             <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
               <div className="clientPage__userrate">
                 <div className="clientPage__userrate__num">{raiting}</div>
@@ -235,7 +281,7 @@ function UserPage() {
 
 
               <Box className={classes.userStats}>
-                <span>{subscribersList?.message ? 0 : subscribersList.length}</span>
+                <span>{subscribers_count}</span>
                 <Button className={classes.buttonDesc} size="small" variant="text" onClick={() => setSubscribersModal(!subscriptionsModal)}>
                   <p>Подписчиков</p>
                 </Button>
@@ -251,7 +297,7 @@ function UserPage() {
 
 
               <Box className={classes.userStats}>
-                <span>{subList?.length > 0 ? subList?.length : 0}</span>
+                <span>{subscriptions_count}</span>
                 <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
                   <p>Подписки</p>
                 </Button>
@@ -272,7 +318,17 @@ function UserPage() {
 
             {+router.query.id === id  ? null : (
               <>
-                <button disabled={loading} className="btnSubscribe" onClick={() => subscribeUser()}>{userBool ? "Отписаться" : "Подписаться"}</button>
+                <button 
+                  disabled={loading} 
+                  className="btnSubscribe" 
+                  // onClick={() => subscribeUser()}
+                  onClick={() => {
+                    setUserBool(!userBool)
+                    subscribeClickHandler()
+                  }}
+                >
+                    {userBool ? "Отписаться" : "Подписаться"}
+                  </button>
                 <div className="ad__block_bottom__adaptive_right">
                   {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
                   {/*  if (!blockLoading) setBlockOpen(true)*/}
@@ -283,11 +339,12 @@ function UserPage() {
             )}
           </div>
         </div>
+
         <div className="clientPage__container">
           <User />
         </div>
         <ScrollTop />
-      </div>
+      </div>}
       <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalRating rate={raiting} comments={2} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(reviewsModal, setReviewsModal)} />
       </Dialog>
