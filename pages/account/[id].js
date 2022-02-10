@@ -90,7 +90,6 @@ const Account = () => {
     const classes = useStyles();
     const router = useRouter();
     const {userInfo} = useStore();
-    console.log(userInfo)
     // const {subscriptions_count} = userInfo
     const countRender = useRef(0)
     const [content, setContent] = useState(0)
@@ -142,7 +141,7 @@ const Account = () => {
         setSubscibersCount(userInfo.subscribers_count)
         setSubscriptionsCount(userInfo.subscriptions_count)
     }, [userInfo])
-    console.log(subscribersCount)
+
     // useEffect(() => {
 	// 		if (token) {
 	// 			(async () => {
