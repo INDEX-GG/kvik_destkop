@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar, makeStyles } from "@material-ui/core";
 import StarRating from "../StarRating";
 import Active_icon from "../../UI/icons/ActiveIcon";
-import { useOutherUser } from "../../hooks/useOutherUser"
+// import { useOutherUser } from "../../hooks/useOutherUser"
 import { Dialog } from "@material-ui/core";
 import {useRouter} from "next/router";
 import ProductNumberPng from "./ProductNumberPng";
@@ -83,8 +83,9 @@ function decrypt(string) {
 export default function PhoneModule({dialog, setDialog, userPhotoInIndex, /*userPhone,*/ userName, userRating, productInfo}) {
   const classes = useStyles();
   const router = useRouter()
-  const { name, userPhoto, raiting, user_id, isLoading, user_phone } = productInfo
-  const {sellerPhone} = useOutherUser(user_id)
+  const { user_name: name, userPhoto, raiting, user_id, isLoading, user_phone } = productInfo
+  // const {sellerPhone} = useOutherUser(user_id)
+
   const decrpytedPhone = decrypt(user_phone)
 
 
@@ -106,7 +107,8 @@ export default function PhoneModule({dialog, setDialog, userPhotoInIndex, /*user
           </div>
         </div>
          {/*<h2 className={classes.userPhone}>{sellerPhone || userPhone || "Телефон не указан"}</h2>*/}
-        { sellerPhone ? <ProductNumberPng name={decrpytedPhone ? decrpytedPhone : sellerPhone} x={0} y={25}/> : null}
+        {/* { !sellerPhone ? <ProductNumberPng name={decrpytedPhone ? decrpytedPhone : sellerPhone} x={0} y={25}/> : null} */}
+         <ProductNumberPng name={decrpytedPhone} x={0} y={25}/>
         <p className={classes.userMessage}>Номер защищён: смс и сообщения в Viber, WhatsApp и других мессенджерах не будут доставлены</p>
         <div className={classes.warningMessage}>Советы о том как не попасться мошенникам</div>
         <ul className={classes.warningBlock}>

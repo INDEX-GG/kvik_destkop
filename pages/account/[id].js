@@ -23,7 +23,7 @@ import {useStore} from "../../lib/Context/Store";
 import AccountPlaceHolder from "../../components/placeHolders/AccountPlaceHolder/AccountPlaceHolder";
 import {Grid, Skeleton, Tooltip} from "@mui/material";
 import {MenuItem} from "../../components/placeHolders/AccountCardPlaceHolder/AccountCardPlaceHolder";
-import {getTokenDataByPost} from "../../lib/fetch";
+// import {getTokenDataByPost} from "../../lib/fetch";
 import ScrollTop from '../../UI/ScrollTop';
 import {useStatistics} from '../../lib/Context/StatisticsCTX'
 import clsx from 'clsx'
@@ -90,11 +90,15 @@ const Account = () => {
     const classes = useStyles();
     const router = useRouter();
     const {userInfo} = useStore();
+    console.log(userInfo)
+    // const {subscriptions_count} = userInfo
     const countRender = useRef(0)
     const [content, setContent] = useState(0)
     const [openPicUpload, setPicUpload] = useState(false);
-    const [subList, setSubList] = useState([])
-    const [subscribersList, setSubscribersList] = useState([])
+    const [subscribersCount, setSubscibersCount] = useState(0)
+    const [subscriptionsCount, setSubscriptionsCount] = useState(0)
+    // const [subList, setSubList] = useState([])
+    // const [subscribersList, setSubscribersList] = useState([])
     const [logout, setLogout] = useState(false);
     const [reviewsModal, setReviewsModal] = useState(false);
     const [subscriptionsModal, setSubscriptionsModal] = useState(false);
@@ -132,21 +136,28 @@ const Account = () => {
         setContent(content + 1)
     }, [])
 
-    useEffect(() => {
-			if (token) {
-				(async () => {
-					if (id !== undefined && subList?.length === 0) {
-						getTokenDataByPost("/api/getSubscriptions", { user_id: `${id}` }, token)
-						.then((res) => setSubList(res))
-					}
 
-					if (id !== undefined && subscribersList?.length === 0) {
-						getTokenDataByPost("/api/getSubscribers", { user_id: `${id}` }, token)
-						.then((res) => setSubscribersList(res))
-					}
-				})();
-			}
+    useEffect(() => {
+        if(!userInfo) return
+        setSubscibersCount(userInfo.subscribers_count)
+        setSubscriptionsCount(userInfo.subscriptions_count)
     }, [userInfo])
+    console.log(subscribersCount)
+    // useEffect(() => {
+	// 		if (token) {
+	// 			(async () => {
+	// 				if (id !== undefined && subList?.length === 0) {
+	// 					getTokenDataByPost("/api/getSubscriptions", { user_id: `${id}` }, token)
+	// 					.then((res) => setSubList(res))
+	// 				}
+
+	// 				if (id !== undefined && subscribersList?.length === 0) {
+	// 					getTokenDataByPost("/api/getSubscribers", { user_id: `${id}` }, token)
+	// 					.then((res) => setSubscribersList(res))
+	// 				}
+	// 			})();
+	// 		}
+    // }, [userInfo])
 
     // переадресация на корретные квери, если юзер в ручную перешел по ссылке типа .../account/[id]
     useEffect(()=>{
@@ -307,7 +318,7 @@ const Account = () => {
 
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
-                                                <span>{subscribersList?.message ? '0' : subscribersList?.length}</span>
+                                                <span>{'subscribersCount'}</span>
                                                 <Button className={classes.buttonDesc} size="small" variant="text" >
                                                     <p>Подписчиков</p>
                                                 </Button>
@@ -315,7 +326,7 @@ const Account = () => {
 
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
-                                                <span>{userInfo && userInfo?.subscriptions !== undefined ? userInfo.subscriptions?.length : '0'}</span>
+                                                <span>{subscriptionsCount}</span>
                                                 <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
                                                     <p>Подписки</p>
                                                 </Button>
@@ -456,7 +467,7 @@ const Account = () => {
 
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
-                                                <span>{subscribersList?.message ? '0' : subscribersList?.length}</span>
+                                                <span>{subscribersCount}</span>
                                                 <Button className={classes.buttonDesc} size="small" variant="text" >
                                                     <p>Подписчиков</p>
                                                 </Button>
@@ -464,7 +475,7 @@ const Account = () => {
 
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
-                                                <span>{userInfo && userInfo?.subscriptions !== undefined ? userInfo.subscriptions?.length : '0'}</span>
+                                                <span>{subscriptionsCount}</span>
                                                 <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
                                                     <p>Подписки</p>
                                                 </Button>
@@ -549,7 +560,8 @@ const Account = () => {
             </Dialog>
             <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)}
                     fullScreen={matchesMobile || matchesTablet}>
-                <ModalSubscription data={subList} subscription={subList?.length}
+                <ModalSubscription 
+                                    // data={subList} subscription={subList?.length}
                                    modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)}
                                    mobile={matchesTablet || matchesMobile}/>
             </Dialog>

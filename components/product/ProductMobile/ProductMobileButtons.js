@@ -27,7 +27,6 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 	const offerId = [productInfo?.id]
 	const offerData = productInfo;
 
-
 	function chatButtonHandler() {
 		if(!isAuth) {
 			setOpenLoginForm(!openLoginForm)
