@@ -167,7 +167,7 @@
 
 .SellerInfoTopButtons .note-active {
   opacity: 1;
-  padding: 3px 16px;
+  padding: 3px 4px;
   transition: width 250ms ease-in-out;
   width: 154px;
 }
@@ -816,6 +816,7 @@
 
 .product__main_block {
   display: flex;
+  justify-content: space-between;
 }
 
 .block__my_active_ad {
