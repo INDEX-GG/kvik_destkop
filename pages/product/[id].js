@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useRouter} from "next/router";
-import {Dialog, makeStyles} from "@material-ui/core";
+import {Dialog, /*makeStyles*/} from "@material-ui/core";
 import { getTokenDataByPost,/* getDataByPost*/} from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
@@ -31,24 +31,24 @@ import ScrollTop from '../../UI/ScrollTop'
 
 
 
-const useStyles = makeStyles(() => ({
-	productHeaderTitle:{
-        paddingLeft: '12px',
-        maxWidth: '596px',
-        fontSize: '25px',
-        width:'100%'
+// const useStyles = makeStyles(() => ({
+// 	productHeaderTitle:{
+//         paddingLeft: '12px',
+//         maxWidth: '596px',
+//         fontSize: '25px',
+//         width:'100%'
 
-    },
-    productHeaderStat:{
-        maxWidth:'320px',
-        width:'100%',
-        justifyContent: 'end',
-    }
-}));
+//     },
+//     productHeaderStat:{
+//         maxWidth:'320px',
+//         width:'100%',
+//         justifyContent: 'end',
+//     }
+// }));
 
 const Product = () => {
     const {addView} = useStatistics()
-    const classes = useStyles();
+    // const classes = useStyles();
     const {userInfo} = useStore()
 
     const {id, token} = useAuth();

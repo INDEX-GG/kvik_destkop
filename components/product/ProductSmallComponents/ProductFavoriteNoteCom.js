@@ -11,7 +11,7 @@ import {makeStyles} from "@material-ui/core";
 // import { makeStyles } from "@material-ui/core";
 // import {useAuth} from '../../../lib/Context/AuthCTX'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	sellerInfoTopBtn:{
 		display: 'flex',
 		flexDirection: 'row',

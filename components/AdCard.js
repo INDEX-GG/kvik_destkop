@@ -83,13 +83,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	// const [phoneModuleState, setPhoneModuleState] = useState(false);
 	const [, setPhoneModuleState] = useState(false);
 
-<<<<<<< HEAD
-	useEffect(() => {
-		if(!userInfo) return	
-=======
 	useEffect(() => {	
 		if(!userInfo) return
->>>>>>> main
 		const isFavorite = userInfo?.favorites.includes(offer.id)
 		setIsLiked(isFavorite)
 	}, [offer, userInfo])
