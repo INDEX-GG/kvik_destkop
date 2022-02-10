@@ -79,7 +79,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down(960)]: {
             display: 'block',
             position: 'absolute',
-            right: '225px',
+            // right: '225px',
+			right: '10px',
             top: '0px',
         },
         [theme.breakpoints.down(600)]: {
