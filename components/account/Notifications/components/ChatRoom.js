@@ -72,7 +72,7 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
 
                     </div>
                 </div> : null}
-                <Divider />
+                <Divider style={{margin: '2px 10px'}} />
             {children}
         </div>
     );

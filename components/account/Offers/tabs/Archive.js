@@ -124,12 +124,12 @@ function Archive({offers}) {
 
 
 	useEffect( () => {
-		offerId.length === offers.length 
-			? check 
-				? null 
-				: setCheck(true) 
-			: check===false 
-				? null 
+		offerId.length === offers.length
+			? check
+				? null
+				: setCheck(true)
+			: check===false
+				? null
 				: setCheck(false)
 	}, [offerId]);
 
@@ -138,8 +138,8 @@ function Archive({offers}) {
 			<>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						{!offers 
-							? <OfferWaitPlaceHolder/> 
+						{!offers
+							? <OfferWaitPlaceHolder/>
 							: <EmptyPlaceholder
 								title='Здесь будет ваш архив объявлений'
 								subtitle=''
@@ -166,11 +166,12 @@ function Archive({offers}) {
 		setOpenOfferModal(!openOfferModal);
 	}
 
+
 	return (
 		<>
-			{!offers 
-			? 
-			<OfferWaitPlaceHolder/> 
+			{!offers
+			?
+			<OfferWaitPlaceHolder/>
 			:
 			<div className="clientPage__container_bottom">
 				{offers.length > 1 && <div className="clientPage__container_nav__radio">
@@ -213,7 +214,7 @@ function Archive({offers}) {
 						);
 					})}
 				</div>
-					{/* <button 
+					{/* <button
 						style={{width: '100px', height: '30px', backgroundColor: 'cyan', margin: '0 auto', display: 'block'}}
 						onClick={()=> {
 							const maxPossiblePage = Math.ceil(totalPosts.archive / page_limit);
