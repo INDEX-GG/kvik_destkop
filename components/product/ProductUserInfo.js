@@ -28,7 +28,7 @@ export default function ProductUserInfo(data) {
 					name={data.name} 
 					raiting={data.raiting} 
 					userrate={objP.userrate} 
-					status={4} /*userAd={userAdWithArchiveOffers}*/  
+					status={4} 
 					mobile={matchesTablet || matchesMobile} />
 				</div>
 			</div>

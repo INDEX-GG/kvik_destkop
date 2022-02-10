@@ -1,4 +1,4 @@
-import React, {/*useEffect,*/ useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // import {useSubBool} from '../../../hooks/useSubscriptions';
 // import {getTokenDataByPost} from "../../../lib/fetch";
 // import {useAuth} from "../../../lib/Context/AuthCTX";
@@ -6,9 +6,11 @@ import React, {/*useEffect,*/ useState} from 'react';
 // import {standartDate} from "../../../lib/services";
 // import {useBlockedBool} from '../../../hooks/useBlocked';
 import { useStatistics } from "#lib/Context/StatisticsCTX";
-
+import { useStore } from '#lib/Context/Store';
 
 const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
+    const {userInfo} = useStore()
+
     // const {userSub} = useSubBool(id, sellerId)
     // const {token} = useAuth();
     const [userBool, setUserBool] = useState(false)
@@ -19,6 +21,12 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
     // const [blockLoading, setBlockLoading] = useState(false)
     // const [blockOpen, setBlockOpen] = useState(false)
     // const [userBlockBool, setUserBlockBool] = useState(false)
+
+    useEffect(() => {
+      if(!userInfo) return
+  
+      setUserBool(userInfo.subscriptions.includes(sellerId))
+    }, [sellerId])
 
     // useEffect(() => {
     //     setUserBool(userSub)

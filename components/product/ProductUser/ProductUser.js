@@ -1,11 +1,12 @@
 import {Avatar, makeStyles, Tooltip} from '@material-ui/core';
 import {useRouter} from 'next/router';
-import React, {/*useEffect,*/ useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // import {useMedia} from '../../../hooks/useMedia';
 // import {useSubBool} from '../../../hooks/useSubscriptions';
 import StarRating from '../../StarRating';
 // import {getTokenDataByPost} from "../../../lib/fetch";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
+import { useStore } from '#lib/Context/Store';
 
 const useStyles = makeStyles(() => ({
   tooltip: {
@@ -29,8 +30,10 @@ const useStyles = makeStyles(() => ({
 const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*/ status, userrate, /*token*/}) => {
   // "images/av/74/b2/33/bf/397858288f982c7dc53c6b54c0f5620220119204924330690.webp"
   // "images/av/74/b2/33/bf/397858288f982c7dc53c6b54c0f5620220119204924330690.webp"
+  const {userInfo} = useStore()
   const {addSubscribers, addUnsubscribe} = useStatistics()
   const router = useRouter();
+
   // const {matchesMobile, matchesTablet} = useMedia();
   // const {userSub} = useSubBool(id, sellerId)
   const [userBool, setUserBool] = useState(false)
@@ -38,6 +41,11 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*
   // const [isSubscribed, setIsSubscribed] = useState(false)
   const classes = useStyles()
 
+  useEffect(() => {
+    if(!userInfo) return
+
+    setUserBool(userInfo.subscriptions.includes(sellerId))
+  }, [sellerId])
   // useEffect(() => {
   //   setUserBool(userSub)
   // }, [userSub])

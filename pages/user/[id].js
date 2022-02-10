@@ -28,6 +28,8 @@ import { STATIC_URL } from "../../lib/constants";
 import {Tooltip} from "@mui/material";
 // import {getTokenDataByPost} from "../../lib/fetch";
 import ScrollTop from '../../UI/ScrollTop'
+import { useStore } from "#lib/Context/Store";
+import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 
@@ -67,12 +69,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 function UserPage() {
-
+  const {userInfo} = useStore()
+  const {addSubscribers, addUnsubscribe} = useStatistics()
   const classes = useStyles();
   const router = useRouter();
+  const sellerId = parseInt(router.query.id)
   const { id, /*token*/ } = useAuth()
-
-  const sellerInfo = useOutherUser(router.query.id)
+  const sellerInfo = useOutherUser(sellerId)
 
   const { 
     name: sellerName, 
@@ -100,6 +103,10 @@ function UserPage() {
   // const [blockLoading, setBlockLoading] = useState(false)
   const [blockOpen, setBlockOpen] = useState(false)
 
+  useEffect(() => {
+    if(!userInfo) return
+    setUserBool(userInfo.subscriptions.includes(sellerId))
+  }, [sellerId, userInfo])
 
   // useEffect(() => {
   //   setUserBool(userSub)
@@ -116,6 +123,21 @@ function UserPage() {
   	}
   }, [id, router.query.id])
 
+
+  const subscribeClickHandler = () => {
+    if(!id) return
+
+    if(userInfo && userBool) {
+			addUnsubscribe(sellerId)()
+			setUserBool(false)
+			return
+		}
+		if(userInfo && !userBool) {
+			addSubscribers(sellerId)()
+			setUserBool(true)
+			return
+		}
+  }
 
   // useEffect(() => {
   //   if (sellerId && subList.length == 0) {
@@ -300,7 +322,10 @@ function UserPage() {
                   disabled={loading} 
                   className="btnSubscribe" 
                   // onClick={() => subscribeUser()}
-                  onClick={() => setUserBool(!userBool)}
+                  onClick={() => {
+                    setUserBool(!userBool)
+                    subscribeClickHandler()
+                  }}
                 >
                     {userBool ? "Отписаться" : "Подписаться"}
                   </button>
