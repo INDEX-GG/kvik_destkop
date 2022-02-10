@@ -285,16 +285,16 @@
 }
 
 
-@media (max-width: 600px) {
-  .offerContainer {
-    grid-template-columns: 1fr 2fr;
-  }
-  .offerDate-sales{
-    display: none;
-  }
-}
+// @media (max-width: 600px) {
+//   .offerContainer {
+//     grid-template-columns: 1fr 2fr;
+//   }
+//   .offerDate-sales{
+//     display: none;
+//   }
+// }
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
   .offerContainer {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, 1fr);
