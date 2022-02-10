@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
-// import OfferModal from "../../../OfferModal";
+import OfferModal from "../../../OfferModal";
+import OfferArchive from "../card/offerArchive";
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
-import { Checkbox, makeStyles, /*Dialog  */ } from "@material-ui/core";
+import { Checkbox, makeStyles, Dialog  } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
 import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWaitPlaceHolder/OfferWaitPlaceHolder";
@@ -70,7 +71,7 @@ function Archive({offers}) {
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState([]);
 	const [offerData, setOfferData] = useState([]);
-	const [/*buttonId,*/ setButtonId] = useState('');
+	const [buttonId, setButtonId] = useState('');
 	const offersLength = offers.length
 
 
@@ -122,12 +123,13 @@ function Archive({offers}) {
 		setOfferData( isCheck ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
 
-
+// условие setCheck(true) ставит галочку при отрисовки страницы
 	useEffect( () => {
 		offerId.length === offers.length
 			? check
 				? null
-				: setCheck(true)
+				// : setCheck(true)
+				: null
 			: check===false
 				? null
 				: setCheck(false)
@@ -186,11 +188,12 @@ function Archive({offers}) {
 						}}
 						checked={check}
 					/>
-					<button id='001' className={classes.btn__publish} onClick={(e) => {
+					{/* пока что закоментировано так как активировать можно только по-одному объявлению */}
+					{/* <button id='001' className={classes.btn__publish} onClick={(e) => {
 						offerData.length > 0 ? pushCheck(e) : null
 					}}>
 						Активировать
-					</button>
+					</button> */}
 					<button id='002' className={classes.btn__delete} onClick={(e) => {
 						offerData.length > 0 ? pushCheck(e) : null
 					}}>
@@ -227,7 +230,7 @@ function Archive({offers}) {
 						test
 					</button> */}
 			</div>}
-			{/* <Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
+			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
 				<OfferModal
 					offerId={offerId}
 					offerData={offerData}
@@ -236,7 +239,7 @@ function Archive({offers}) {
 					buttonId={buttonId}
 					cleanAll={cleanAll}
 				/>
-			</Dialog> */}
+			</Dialog>
 		</>
 	);
 }
