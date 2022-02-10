@@ -453,8 +453,9 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 					</div>
 				</Link>
 			</div>
+			{/* <PhoneModule productInfo={offer} dialog={phoneModuleState} setDialog={setPhoneModuleState} /> */}
 			{/* телефонный модуль делает очень много запросов. Отключен пока не пофиксится баг */}
-			{/* <PhoneModule product={product} dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
+			{/* <PhoneModule product={offer} dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
 		</div>
 
 	);

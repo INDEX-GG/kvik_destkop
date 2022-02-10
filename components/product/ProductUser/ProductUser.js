@@ -1,10 +1,10 @@
 import {Avatar, makeStyles, Tooltip} from '@material-ui/core';
 import {useRouter} from 'next/router';
-import React, {useEffect, useState} from 'react';
+import React, {/*useEffect,*/ useState} from 'react';
 // import {useMedia} from '../../../hooks/useMedia';
-import {useSubBool} from '../../../hooks/useSubscriptions';
+// import {useSubBool} from '../../../hooks/useSubscriptions';
 import StarRating from '../../StarRating';
-import {getTokenDataByPost} from "../../../lib/fetch";
+// import {getTokenDataByPost} from "../../../lib/fetch";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 const useStyles = makeStyles(() => ({
@@ -25,40 +25,40 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-
-const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*/ status, userrate, token}) => {
+ 
+const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*/ status, userrate, /*token*/}) => {
   // "images/av/74/b2/33/bf/397858288f982c7dc53c6b54c0f5620220119204924330690.webp"
   // "images/av/74/b2/33/bf/397858288f982c7dc53c6b54c0f5620220119204924330690.webp"
   const {addSubscribers, addUnsubscribe} = useStatistics()
   const router = useRouter();
   // const {matchesMobile, matchesTablet} = useMedia();
-  const {userSub} = useSubBool(id, sellerId)
+  // const {userSub} = useSubBool(id, sellerId)
   const [userBool, setUserBool] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, /*setLoading*/] = useState(false)
   // const [isSubscribed, setIsSubscribed] = useState(false)
   const classes = useStyles()
 
-  useEffect(() => {
-    setUserBool(userSub)
-  }, [userSub])
+  // useEffect(() => {
+  //   setUserBool(userSub)
+  // }, [userSub])
 
-  async function subscribeUser() {
-    if (id && sellerId) {
-      setLoading(true)
-      const subscribe = {
-        user_id: id + "",
-        seller_id: sellerId + ""
-      }
+  // async function subscribeUser() {
+  //   if (id && sellerId) {
+  //     setLoading(true)
+  //     const subscribe = {
+  //       user_id: id + "",
+  //       seller_id: sellerId + ""
+  //     }
 
-      setUserBool(!userBool)
+  //     setUserBool(!userBool)
 
-      await getTokenDataByPost("/api/subscriptions", subscribe, token)
-      await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
+  //     await getTokenDataByPost("/api/subscriptions", subscribe, token)
+  //     await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
 
 
-      setLoading(false)
-    }
-  }
+  //     setLoading(false)
+  //   }
+  // }
 
   const newSubHandler = () => {
     if(!userBool && id) {
@@ -124,7 +124,8 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*
                         <Tooltip title='Подписаться' classes={{tooltip: classes.tooltip, arrow: classes.arrow}} arrow>
                           <button 
                             onClick={() => {
-                              subscribeUser()
+                              // subscribeUser()
+                              setUserBool(!userBool)
                               newSubHandler()
                             }} 
                             disabled={loading}

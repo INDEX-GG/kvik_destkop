@@ -67,15 +67,9 @@ const Product = () => {
         price,
         oldprice,
         coordinates,
-        full_stat,
-        all_time_viewing_count,
-        last_day_viewing_count,
-        likes_count,
-        all_time_contact_count,
-        last_day_contact_count,
         user_products_count,
     } = productInfo
-    
+
 
     // const [stats, setStats] = useState({})
 
@@ -186,15 +180,6 @@ const Product = () => {
                                             sellerId={user_id} 
                                             isOffer={+query.id}
                                             mobile
-                                            // stats={stats}
-                                            stats={{
-                                                full_stat,
-                                                all_time_viewing_count,
-                                                last_day_viewing_count,
-                                                all_time_contact_count,
-                                                last_day_contact_count,
-                                                likes_count
-                                            }}
                                         />
                                     </div>}
                                     <div>
@@ -229,22 +214,30 @@ const Product = () => {
                                                     </div>
                                                 </div>
                                                 }
-                                                {<ProductMobileButtons id={id} sellerId={user_id} delivery={delivery}
-                                                                       status={defaultStatus}
-                                                                       secure_transaction={secure_transaction}
-                                                                       setDialog={setPhoneModal} photo={photo}
-                                                                       mobile={matchesMobile || matchesTablet}
-                                                                       productInfo={productInfo} /*update={update}*/
-                                                                       setUpdate={setDefaultStatus}
-                                                                       createChat={createChat}/>}
+                                                {<ProductMobileButtons 
+                                                    id={id} 
+                                                    sellerId={user_id} 
+                                                    delivery={delivery}                     
+                                                    status={defaultStatus}             
+                                                    secure_transaction={secure_transaction}
+                                                    setDialog={setPhoneModal} 
+                                                    photo={photo}
+                                                    mobile={matchesMobile || matchesTablet}
+                                                    productInfo={productInfo} /*update={update}*/
+                                                    setUpdate={setDefaultStatus}
+                                                    createChat={createChat}
+                                                    
+                                                />}
                                                 {/* адрес, карта, свойства и значения */}
-                                                <ProductInformation address={address} coordinates={coordinates}
-                                                                    description={description}
-                                                                    productionInfo={productInfoFields}
-                                                                    caterory={subcategory}
-                                                                    category_id={category_id}
-                                                                    allProductInfo={productInfo}
-                                                                    />
+                                                <ProductInformation 
+                                                    address={address} 
+                                                    coordinates={coordinates}
+                                                    description={description}
+                                                    productionInfo={productInfoFields}
+                                                    caterory={subcategory}
+                                                    category_id={category_id}
+                                                    allProductInfo={productInfo}
+                                                />
                                             </div>
                                             {/* Блок информации*/}
                                             <div className="block__my_active_ad">

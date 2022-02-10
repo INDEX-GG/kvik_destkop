@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useSubBool} from '../../../hooks/useSubscriptions';
-import {getTokenDataByPost} from "../../../lib/fetch";
-import {useAuth} from "../../../lib/Context/AuthCTX";
+import React, {/*useEffect,*/ useState} from 'react';
+// import {useSubBool} from '../../../hooks/useSubscriptions';
+// import {getTokenDataByPost} from "../../../lib/fetch";
+// import {useAuth} from "../../../lib/Context/AuthCTX";
 // import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
 // import {standartDate} from "../../../lib/services";
 // import {useBlockedBool} from '../../../hooks/useBlocked';
@@ -9,46 +9,46 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
-    const {userSub} = useSubBool(id, sellerId)
-    const {token} = useAuth();
+    // const {userSub} = useSubBool(id, sellerId)
+    // const {token} = useAuth();
     const [userBool, setUserBool] = useState(false)
     // const [isSubscribed, setIsSubscribed] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [loading, /*setLoading*/] = useState(false)
     const {addSubscribers, addUnsubscribe} = useStatistics()
     // const {userBlocked} = useBlockedBool(id, sellerId)
     // const [blockLoading, setBlockLoading] = useState(false)
     // const [blockOpen, setBlockOpen] = useState(false)
     // const [userBlockBool, setUserBlockBool] = useState(false)
 
-    useEffect(() => {
-        setUserBool(userSub)
-    }, [userSub])
+    // useEffect(() => {
+    //     setUserBool(userSub)
+    // }, [userSub])
 
     // useEffect(() => {
     //     setUserBlockBool(userBlocked)
     // }, [userBlocked])
 
-    async function subscribeUser() {
-        if (id !== undefined && sellerId !== undefined) {
-            setLoading(true)
+    // async function subscribeUser() {
+    //     if (id !== undefined && sellerId !== undefined) {
+    //         setLoading(true)
 
-            const subscribe = {
-                user_id: id + "",
-                seller_id: sellerId + ""
-            }
+    //         const subscribe = {
+    //             user_id: id + "",
+    //             seller_id: sellerId + ""
+    //         }
 
-            setUserBool(!userBool)
+    //         setUserBool(!userBool)
 
-            await getTokenDataByPost("/api/subscriptions", subscribe, token)
+    //         await getTokenDataByPost("/api/subscriptions", subscribe, token)
 
-            await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
-
-
-            setLoading(false)
-        }
+    //         await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
 
 
-    }
+    //         setLoading(false)
+    //     }
+
+
+    // }
 
     const newSubHandler = () => {
         if(!userBool && id) {
@@ -105,7 +105,8 @@ const ProductUserBlockSubRep = ({id, sellerId, mobile}) => {
                             className={`ad__block_bottom__adaptive_left ${userBool ? 'ad__block_bottom__adaptive_left__active' : ''}`}
                             disabled={loading} 
                             onClick={() => {
-                                subscribeUser()
+                                // subscribeUser()
+                                setUserBool(!userBool)
                                 newSubHandler()
                             }}
                         >

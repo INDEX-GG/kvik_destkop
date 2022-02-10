@@ -11,6 +11,7 @@ export default function ProductUserInfo(data) {
 	const objP = { adstatus: 8 };
 
 	const { matchesMobile, matchesTablet } = useMedia();
+	const isMobile = matchesMobile || matchesTablet
 
 	// const userAdWithArchiveOffers = data.userAd?.filter(item => item.active === 0)
 	// console.log(data.userAd)
@@ -32,7 +33,7 @@ export default function ProductUserInfo(data) {
 				</div>
 			</div>
 			<div className="userSubScribeContainer">
-				<ProductUserBlockSubRep id={id} sellerId={data.user_id} mobile={matchesMobile || matchesTablet} />
+				{isMobile && <ProductUserBlockSubRep id={id} sellerId={data.user_id} mobile={matchesMobile || matchesTablet} />}
 				{/* <ProductSmallAds id={id} sellerId={data.user_id} smallAd={userAdWithArchiveOffers} mobile={matchesTablet || matchesMobile}/> */}
 				<ProductSmallAds id={id} totalProducts={data.totalProducts} sellerId={data.user_id} smallAd={data.userAd} mobile={matchesTablet || matchesMobile}/>
 			</div>

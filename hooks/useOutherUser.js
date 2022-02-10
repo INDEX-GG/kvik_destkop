@@ -2,22 +2,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export function useOutherUser(user_id) {
-    const user = {id: +user_id},
+    const user = {id: +user_id, page: 1, page_limit: 50},
     [userInfo, setUserInfo] = useState({}),
     [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const getOutherUser = async() => {
-          const data = await axios.post('/api/getUser', user)
+          await axios.post('/api/getSeller', user)
           .then((res) => {
-              setUserInfo({
-              sellerId: user.id,
-              sellerName: res.data?.name,
-              sellerPhoto: res.data?.userPhoto,
-              createdAt: res.data?.createdAt,
-              raiting: res.data?.raiting,
-              sellerPhone: res.data?.phone
-              })
+              setUserInfo({...res.data.seller, isLoading: false})
               setLoading(false);
           })
         }
