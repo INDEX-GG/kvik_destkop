@@ -16,6 +16,7 @@ import { defaultSEO } from "#lib/seo";
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import CityProvider from '../lib/Context/CityCTX';
 import StoreProvider from '../lib/Context/Store';
+import StatisticsProvider from '../lib/Context/StatisticsCTX';
 
 export default withYM("85786957", Router)(
 	function MyApp({ Component, pageProps }) {
@@ -35,14 +36,16 @@ export default withYM("85786957", Router)(
 					</Head>
 					<AuthProvider>
 						<ThemeProvider theme={theme}>
-							<StoreProvider>
-								<CityProvider>
-									<MainLayout>
-										<CssBaseline />
-										<Component {...pageProps} />
-									</MainLayout>
-								</CityProvider>
-							</StoreProvider>
+							<StatisticsProvider>
+								<StoreProvider>
+									<CityProvider>
+										<MainLayout>
+											<CssBaseline />
+											<Component {...pageProps} />
+										</MainLayout>
+									</CityProvider>
+								</StoreProvider>
+							</StatisticsProvider>
 						</ThemeProvider>
 					</AuthProvider>
 				</SWRConfig>

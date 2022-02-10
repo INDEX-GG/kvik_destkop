@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
             const signature = req.body.sign
             delete req.body.sign
-            const signature_check = Buffer.from(MD5(JSON.stringify(req.body) +  process.env.SIGN_SECRET).toString()).toString('base64')
+            const signature_check = Buffer.from(MD5(JSON.stringify(req.body) +  process.env.NEXT_PUBLIC_SIGN_SECRET).toString()).toString('base64')
 
             if (signature !== signature_check) {
                 throw "Sign Er"

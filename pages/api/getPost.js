@@ -25,8 +25,8 @@ export default async function handler(req, res) {
 
 
 			const answer  = await pool.query(`SELECT users."userPhoto" AS user_photo,users.name AS user_name, users.phone AS "user_phone", posts.user_id ,users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.manager_name, posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.verify,posts.created_at,posts.delivery,posts.address,posts.trade,posts.title,posts.active, posts.subcategory, posts.coordinates, posts.active_time, 
-				(SELECT COUNT("posts"."id") FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."id" != $2 AND "posts"."active" = 0 AND "posts"."verify" = 0 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL))) AS "user_products_count",
-   				array(SELECT row_to_json(t)FROM(SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."photo"  FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."active" = 0 AND "posts"."verify" = 0 AND "posts"."id" != $2 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL)) ORDER BY "posts"."id" desc LIMIT 3) t) AS user_products
+				(SELECT COUNT("posts"."id") FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."id" != $2 AND "posts"."photo" IS NOT NULL AND "posts"."active" = 0 AND "posts"."verify" = 0 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL))) AS "user_products_count",
+   				array(SELECT row_to_json(t)FROM(SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."photo"  FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."active" = 0 AND "posts"."verify" = 0 AND "posts"."photo" IS NOT NULL AND "posts"."id" != $2 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL)) ORDER BY "posts"."id" desc LIMIT 3) t) AS user_products
 				FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $2`, [date ,post_id])
 			if (answer.rows.length === 0) {
 				throw 404
@@ -63,8 +63,8 @@ export default async function handler(req, res) {
 				if (!token) {
 					const clickhouse_data = `SELECT 'last_day_viewing_count' as type, count(post_id) FROM clickstream WHERE timestamp = toStartOfDay(now()) AND post_id = ` + post_id + ` UNION ALL SELECT 'all_time_viewing_count' as type, count(post_id) FROM clickstream WHERE post_id = ` + post_id + ` FORMAT JSON`
 					let clickhouse_answer = await axios.post(clickhouse_url, clickhouse_data).then(r => r.data)
-					post.all_time_viewing_count = clickhouse_answer.data.find(e => e.type === "all_time_viewing_count")["count(post_id)"]
-					post.last_day_viewing_count = clickhouse_answer.data.find(e => e.type === "last_day_viewing_count")["count(post_id)"]
+					post.all_time_viewing_count = parseInt(clickhouse_answer.data.find(e => e.type === "all_time_viewing_count")["count(post_id)"])
+					post.last_day_viewing_count = parseInt(clickhouse_answer.data.find(e => e.type === "last_day_viewing_count")["count(post_id)"])
 					post.full_stat = false
 				} else {
 					try {
@@ -73,26 +73,26 @@ export default async function handler(req, res) {
 						if (parseInt(post.user_id) !== tokenUser) {
 							const clickhouse_data = `SELECT 'last_day_viewing_count' as type, count(post_id) FROM clickstream WHERE timestamp = toStartOfDay(now()) AND post_id = ` + post_id + ` UNION ALL SELECT 'all_time_viewing_count' as type, count(post_id) FROM clickstream WHERE post_id = ` + post_id + ` FORMAT JSON`
 							let clickhouse_answer = await axios.post(clickhouse_url, clickhouse_data).then(r => r.data)
-							post.all_time_viewing_count = clickhouse_answer.data.find(e => e.type === "all_time_viewing_count")["count(post_id)"]
-							post.last_day_viewing_count = clickhouse_answer.data.find(e => e.type === "last_day_viewing_count")["count(post_id)"]
+							post.all_time_viewing_count = parseInt(clickhouse_answer.data.find(e => e.type === "all_time_viewing_count")["count(post_id)"])
+							post.last_day_viewing_count = parseInt(clickhouse_answer.data.find(e => e.type === "last_day_viewing_count")["count(post_id)"])
 							post.full_stat = false
 						} else {
 							const clickhouse_data = `SELECT 'last_day_viewing_count' as type, count(post_id) FROM clickstream WHERE timestamp = toStartOfDay(now()) AND post_id = ` + post_id + ` UNION ALL SELECT 'all_time_viewing_count' as type, count(post_id) FROM clickstream WHERE post_id = ` + post_id + ` UNION ALL SELECT 'last_day_contact_count' as type, count(post_id) FROM contactstream WHERE timestamp = toStartOfDay(now()) AND post_id = ` + post_id + ` UNION ALL SELECT 'all_time_contact_count' as type, count(post_id) FROM contactstream WHERE post_id = ` + post_id + ` FORMAT JSON`
 							let clickhouse_answer = await axios.post(clickhouse_url, clickhouse_data).then(r => r.data)
 							const likes_count = await pool.query(`SELECT COUNT(liked_post_id) FROM "public"."favorites" WHERE liked_post_id = $1`, [post_id])
 
-							post.all_time_viewing_count = clickhouse_answer.data.find(e => e.type === "all_time_viewing_count")["count(post_id)"]
-							post.last_day_viewing_count = clickhouse_answer.data.find(e => e.type === "last_day_viewing_count")["count(post_id)"]
-							post.all_time_contact_count = clickhouse_answer.data.find(e => e.type === "all_time_contact_count")["count(post_id)"]
-							post.last_day_contact_count = clickhouse_answer.data.find(e => e.type === "last_day_contact_count")["count(post_id)"]
+							post.all_time_viewing_count = parseInt(clickhouse_answer.data.find(e => e.type === "all_time_viewing_count")["count(post_id)"])
+							post.last_day_viewing_count = parseInt(clickhouse_answer.data.find(e => e.type === "last_day_viewing_count")["count(post_id)"])
+							post.all_time_contact_count = parseInt(clickhouse_answer.data.find(e => e.type === "all_time_contact_count")["count(post_id)"])
+							post.last_day_contact_count = parseInt(clickhouse_answer.data.find(e => e.type === "last_day_contact_count")["count(post_id)"])
 							post.likes_count = (parseInt(likes_count.rows[0].count))
 							post.full_stat = true
 						}
 					} catch (err) {
 						const clickhouse_data = `SELECT 'last_day_viewing_count' as type, count(post_id) FROM clickstream WHERE timestamp = toStartOfDay(now()) AND post_id = ` + post_id + ` UNION ALL SELECT 'all_time_viewing_count' as type, count(post_id) FROM clickstream WHERE post_id = ` + post_id + ` FORMAT JSON`
 						let clickhouse_answer = await axios.post(clickhouse_url, clickhouse_data).then(r => r.data)
-						post.all_time_viewing_count = clickhouse_answer.data.find(e => e.type === "all_time_viewing_count")["count(post_id)"]
-						post.last_day_viewing_count = clickhouse_answer.data.find(e => e.type === "last_day_viewing_count")["count(post_id)"]
+						post.all_time_viewing_count = parseInt(clickhouse_answer.data.find(e => e.type === "all_time_viewing_count")["count(post_id)"])
+						post.last_day_viewing_count = parseInt(clickhouse_answer.data.find(e => e.type === "last_day_viewing_count")["count(post_id)"])
 						post.full_stat = false
 					}
 				}
@@ -106,7 +106,7 @@ export default async function handler(req, res) {
 
 			post.best_before = Math.ceil((post.active_time - new Date())/day_in_ms)
 			if (parseInt(post.active) === 99) {
-				throw "Er"
+				throw 404
 			} else if (parseInt(post.verify) !== 0) {
 				post.status = "banned"
 			} else if (parseInt(post.active) !== 0) {

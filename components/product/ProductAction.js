@@ -19,11 +19,13 @@ import ProductAdsChange from "./ProductAdsChange";
 import ProductActionPlaceHolder from "../placeHolders/ProductActionPlaceHolder/ProductActionPlaceHolder";
 import Login from "#components/auth/Login";
 import { DialogCTX } from "#lib/Context/DialogCTX";
+import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 
 
 export default function ProductAction(data) {
+  const {addContactClick} = useStatistics()
   const { id, isAuth } = useAuth();
   const [openStatForm, setOpenStatForm] = useState(false);
   const [phoneModuleState, setPhoneModuleState] = useState(false);
@@ -42,6 +44,9 @@ export default function ProductAction(data) {
   const offerId = [data.productInfo.id];
   const offerData = data.productInfo;
   const setUpdate = data.setUpdate;
+  const best_before = data.best_before
+
+
 
   const {user_id} = data;
 
@@ -69,7 +74,7 @@ export default function ProductAction(data) {
                   isOffer={+data.router} 
                   views={data.viewing ? JSON.parse(data.viewing).length : 0}
                 />: null} */}
-                {(!matchesMobile && !matchesTablet) &&<ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={30} />}
+                {(!matchesMobile && !matchesTablet) &&<ProductDate id={id} sellerId={user_id} date={ToRusDate(data.created_at)} leftDay={best_before} />}
                 <ProductPrice id={id} sellerId={user_id} status={objP.adstatus} oldPrice={data.oldprice} price={data.price} trade={data.trade} />
                 <ProductDeal id={id} sellerID={user_id}>
                   <Login/>
@@ -80,7 +85,15 @@ export default function ProductAction(data) {
                     onClick={() => chatClickHandler()}
                     icon={<IconMess/>}
                     />
-                  <ProductButton className="SellerInfoCall button contained" title='Показать номер' icon={<IconCall/>} onClick={() => setPhoneModuleState(true)} />
+                  <ProductButton 
+                    className="SellerInfoCall button contained" 
+                    title='Показать номер' 
+                    icon={<IconCall/>} 
+                    onClick={() => {
+                      setPhoneModuleState(true)
+                      addContactClick(offerId[0])()
+                      }} 
+                  />
                 </ProductDeal>
                   {objP.adstatus && data.delivery && <ProductOption status={objP.adstatus} delivery={data.delivery} safeDeal={data.secure_transaction}
                                   reviewed={data.reviewed}/>}
@@ -103,7 +116,7 @@ export default function ProductAction(data) {
           <Statistics views={data.viewing ? JSON.parse(data.viewing).length : 0} Close={handleStatFormDialog} />
         </Dialog>
         {/*  */}
-        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} />
+        <PhoneModule dialog={phoneModuleState} setDialog={setPhoneModuleState} productInfo={offerData} />
         <Dialog 
         open={openOfferModal || false} 
         onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="xs">

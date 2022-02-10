@@ -172,7 +172,7 @@ function HeaderMobile({ chageMenu = false }) {
                         <FilterMobile/>
                     </MobileModal>
 				</AppBar>
-				<div style={{ marginBottom: matchesCustom1024 ? "25px" : "124px" }} className={classes.test}></div>
+				<div style={{ marginBottom: matchesCustom1024 ? "124px" : "124px" }} className={classes.test}></div>
 			</>
 		
 	);

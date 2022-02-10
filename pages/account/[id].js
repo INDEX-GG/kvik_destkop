@@ -24,9 +24,10 @@ import AccountPlaceHolder from "../../components/placeHolders/AccountPlaceHolder
 import {Grid, Skeleton, Tooltip} from "@mui/material";
 import {MenuItem} from "../../components/placeHolders/AccountCardPlaceHolder/AccountCardPlaceHolder";
 import {getTokenDataByPost} from "../../lib/fetch";
+import ScrollTop from '../../UI/ScrollTop';
+import {useStatistics} from '../../lib/Context/StatisticsCTX'
 import clsx from 'clsx'
 import MobileModal from "../../components/MobileModal"
-
 
 const menuItems = [
     {id: 1, name: "menuOffers", title: "Мои объявления"},
@@ -115,6 +116,9 @@ const Account = () => {
 						}
 					: {i: "1", itm: "menuOffers", ttl: "Мои объявления"}
 		);
+    	// буль который передается в юзэфект контекста сбора статистики
+    const {setIsLogout} = useStatistics()
+
     useEffect(() => {
         setMenuItem({
             i: +router.query.account,
@@ -167,7 +171,8 @@ const Account = () => {
     }
 
 
-    const logOut = () => {
+    const logOut = async () => {
+        setIsLogout(true)
         axios.get("/api/logout").then(() => {
             mutate("/api/user");
             signOut();
@@ -338,9 +343,9 @@ const Account = () => {
                                             </Button>
                                         </Box>
 
-                                </div>}
-                            </div>
-                            {!userInfo
+                            </div>}
+                        </div>
+                        {!userInfo
                             ?   <Grid item container xs={10} spacing={1}>
                                 <MenuItem/>
                                 <MenuItem/>
@@ -393,7 +398,9 @@ const Account = () => {
                         {/* {accountContentDesktop()} */}
                         {/* {accountContent()} */}
                     </div>
-                </div>}
+                    <ScrollTop />
+                </div>
+                }
             <div className="userPageWhiteSpace"/>
             <Dialog open={openPicUpload || false} onClose={() => setPicUpload(p => !p)} fullWidth maxWidth="xs">
                 <UserPicUpload {...{imageType: "webp", optimiztionLevel: 0.7, maxScale: 5, Close: closePicUpload}} />

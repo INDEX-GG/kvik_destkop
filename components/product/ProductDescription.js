@@ -8,8 +8,8 @@ const useClass = makeStyles(() => ({
         // display: 'flex',
         // padding: '10px 16px'
         display: 'grid',
-        gridTemplateColumns: '.4fr 1fr',
-        gridColumnGap: '40px'
+        // gridTemplateColumns: '.4fr 1fr',
+        // gridColumnGap: '40px'
     },
     descriptionContainer: {
         gridColumn: '1/3',
@@ -43,7 +43,7 @@ const useClass = makeStyles(() => ({
             fontWeight: '500',
             color: 'black',
         },
-        
+
     }
 
 }))
@@ -81,7 +81,7 @@ const ProductDescription = ({description}) => {
                 {!mobile && <span className={classes.productDescriptionUnderLine}></span>}
                 <div className={classes.descriptionWrap}>
 
-                    <div className={classes.descriptionTitle}>Описание:</div>
+                    {/* <div className={classes.descriptionTitle}>Описание:</div> */}
                     {mobile && <span className={classes.productDescriptionUnderLine}></span>}
                     <pre ref={preRef} className={mobile ? classSwitcher() : 'productDescriptionActive'}>
                         <span ref={textRef}>{description}</span>

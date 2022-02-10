@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useRouter} from "next/router";
 import {Dialog} from "@material-ui/core";
-import { getTokenDataByPost} from '../../lib/fetch';
+import { getTokenDataByPost,/* getDataByPost*/} from '../../lib/fetch';
 import MetaLayout from "../../layout/MetaLayout";
 import ProductCarousel from "../../components/ProductCarousel";
 import Statistics from "../../components/Statistics";
@@ -15,7 +15,7 @@ import BreadCrumbs from "../../components/header/BreadСrumbs";
 import {useAuth} from "../../lib/Context/AuthCTX";
 import PhoneModule from "../../components/product/PhoneModule";
 import OfferAccountProvider from "../../lib/Context/OfferAccountCTX";
-import {CHAT_URL_API} from "../../lib/constants";
+import {CHAT_URL_API, /*SIGN_SECRET*/} from "../../lib/constants";
 import ProductPrice from "../../components/product/ProductPrice";
 import ProductReviewed from "../../components/product/ProductSmallComponents/ProductReviewed";
 import ProductStats from "../../components/product/ProductSmallComponents/ProductStats";
@@ -26,29 +26,36 @@ import {chatPush} from "../../components/account/Notifications/tabs/chatFunction
 import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder/ProductPlaceHolder";
 // import CategoryScrollPostData from "#components/CategoryScrollPostData";
 import NewCategoryScrollPostData from "#components/NewCategoryScrollPostData";
+import { useStatistics } from "#lib/Context/StatisticsCTX";
+import ScrollTop from '../../UI/ScrollTop'
+
+
 
 
 const Product = () => {
-
+    const {addView} = useStatistics()
 
     const {userInfo} = useStore()
+
     const {id, token} = useAuth();
     const {query} = useRouter();
     const router = useRouter()
     const {matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD} = useMedia();
 
     const productInfo = useProduct(query.id)
-
+    console.log(id)
     const {
         status,
         productInfoFields,
+        best_before,
         address,
         subcategory,
-        name,
+        user_name: name,
         raiting,
         userPhoto,
         category_id,
         user_id,
+        id: productId,
         created_at,
         delivery,
         description,
@@ -59,18 +66,24 @@ const Product = () => {
         trade,
         price,
         oldprice,
-        coordinates
+        coordinates,
+        full_stat,
+        all_time_viewing_count,
+        last_day_viewing_count,
+        likes_count,
+        all_time_contact_count,
+        last_day_contact_count,
+        user_products_count,
     } = productInfo
+    
 
-    const allProductInfo = useProduct(query.id)
+    // const [stats, setStats] = useState({})
 
-
-
-    // const [data, setData] = useState();
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
     const [phoneModal, setPhoneModal] = useState();
+
 
 
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -108,6 +121,22 @@ const Product = () => {
     }
 
 
+
+    useEffect(() => {
+        // setStats({
+        //     full_stat,
+        //     all_time_viewing_count,
+        //     last_day_viewing_count,
+        //     all_time_contact_count,
+        //     last_day_contact_count,
+        // })
+        if(productId && (user_id !== id)){
+            addView(productId)()
+        }
+    }, [productId, id])
+    
+
+
     useEffect(() => {
 
         if (user_id !== undefined) {
@@ -138,7 +167,6 @@ const Product = () => {
         setDefaultStatus(status)
     }, [status])
 
-
     return (
         <MetaLayout>
             <OfferAccountProvider>
@@ -153,8 +181,21 @@ const Product = () => {
                                     {!matchesMobile && !matchesTablet &&
                                     <div className="productHeader">
                                         <div className="productPageTitle xl">{title}</div>
-                                        <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
-                                                                 mobile/>
+                                        <ProductFavoriteNoteComp 
+                                            id={id} 
+                                            sellerId={user_id} 
+                                            isOffer={+query.id}
+                                            mobile
+                                            // stats={stats}
+                                            stats={{
+                                                full_stat,
+                                                all_time_viewing_count,
+                                                last_day_viewing_count,
+                                                all_time_contact_count,
+                                                last_day_contact_count,
+                                                likes_count
+                                            }}
+                                        />
                                     </div>}
                                     <div>
                                         <div className='product__main_block'>
@@ -202,7 +243,7 @@ const Product = () => {
                                                                     productionInfo={productInfoFields}
                                                                     caterory={subcategory}
                                                                     category_id={category_id}
-                                                                    allProductInfo={allProductInfo}
+                                                                    allProductInfo={productInfo}
                                                                     />
                                             </div>
                                             {/* Блок информации*/}
@@ -210,17 +251,33 @@ const Product = () => {
                                                 {/* статус объявления, кнопки */}
                                                 {/* {!matchesMobile && !matchesTablet && <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
                         mobile/>} */}
-                                                {<ProductAction router={query.id} reviewed={reviewed} user_id={user_id}
-                                                                status={defaultStatus} oldprice={oldprice} price={price}
-                                                                created_at={created_at} delivery={delivery}
-                                                                trade={trade}
-                                                                secure_transaction={secure_transaction}
-                                                                productInfo={productInfo} /*update={update}*/
-                                                                setUpdate={setDefaultStatus} createChat={createChat}/>}
+                                                {<ProductAction 
+                                                    router={query.id} 
+                                                    reviewed={reviewed} 
+                                                    user_id={user_id}
+                                                    status={defaultStatus} 
+                                                    oldprice={oldprice} 
+                                                    price={price}
+                                                    created_at={created_at} 
+                                                    delivery={delivery}
+                                                    trade={trade}
+                                                    secure_transaction={secure_transaction}
+                                                    productInfo={productInfo} /*update={update}*/
+                                                    setUpdate={setDefaultStatus} 
+                                                    createChat={createChat}
+                                                    best_before={best_before}
+                                                />}
+                                                                
                                                 {/* пользователь и его объявления */}
-                                                <ProductUserInfo name={name} userPhoto={userPhoto} raiting={raiting}
-                                                                 user_id={user_id} userAd={userAd}
-                                                                 productTitle={title}/>
+                                                <ProductUserInfo
+                                                    name={name}
+                                                    userPhoto={userPhoto}
+                                                    raiting={raiting}
+                                                    user_id={user_id}
+                                                    userAd={userAd}
+                                                    productTitle={title}
+                                                    totalProducts={user_products_count}
+                                                />
 
 
                                             </div>
@@ -231,7 +288,7 @@ const Product = () => {
                                             }
                                         </div>
                                     </div>
-                                            
+
 
                                     {/*{!matchesMobile && !matchesTablet && !matchesLaptop && (*/}
                                     {/*  <div className="showsmthWrapper">*/}
@@ -247,7 +304,7 @@ const Product = () => {
                                         {/*              setPage={setPage} /* endMessage={!collSO} */ }
                                         {/* ниже старый вариант отрисовки карточек на странице объявления, заменено на рекомендумые */}
                                         {/* {category_id && (<CategoryScrollPostData url='/api/similarPosts'  title={'Похожие объявления'} category={category_id} />)} */}
-                                        {category_id && (<NewCategoryScrollPostData url='/api/similarPosts' />)}
+                                        {category_id && (<NewCategoryScrollPostData url='/api/similarPosts' product={productInfo} />)}
                                         <div style={{marginTop: '60px'}}/>
                                         {/* <div className={`SimilarOffersColl highlight underline ${collSO && "SOCColl"}`} onClick={(e) => handleCollSO(e)}>
 										{(collSO && "Показать ещё") || "Скрыть"}
@@ -270,7 +327,9 @@ const Product = () => {
                         <Statistics /* views={viewing ? JSON.parse(viewing).length : 0}  */
                             Close={handleStatFormDialog}/>{" "}
                     </Dialog>
-                    <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/>
+                    {/* ничего не делало, закоментил */}
+                    {productInfo.id && <PhoneModule dialog={phoneModal} setDialog={setPhoneModal} productInfo={productInfo}/>}
+                    <ScrollTop />
                 </div>
             </OfferAccountProvider>
         </MetaLayout>

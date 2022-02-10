@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {useSubBool} from '../../../hooks/useSubscriptions';
 import StarRating from '../../StarRating';
 import {getTokenDataByPost} from "../../../lib/fetch";
+import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 const useStyles = makeStyles(() => ({
   tooltip: {
@@ -26,11 +27,15 @@ const useStyles = makeStyles(() => ({
 
 
 const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*/ status, userrate, token}) => {
+  // "images/av/74/b2/33/bf/397858288f982c7dc53c6b54c0f5620220119204924330690.webp"
+  // "images/av/74/b2/33/bf/397858288f982c7dc53c6b54c0f5620220119204924330690.webp"
+  const {addSubscribers, addUnsubscribe} = useStatistics()
   const router = useRouter();
   // const {matchesMobile, matchesTablet} = useMedia();
   const {userSub} = useSubBool(id, sellerId)
   const [userBool, setUserBool] = useState(false)
   const [loading, setLoading] = useState(false)
+  // const [isSubscribed, setIsSubscribed] = useState(false)
   const classes = useStyles()
 
   useEffect(() => {
@@ -40,7 +45,6 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*
   async function subscribeUser() {
     if (id && sellerId) {
       setLoading(true)
-
       const subscribe = {
         user_id: id + "",
         seller_id: sellerId + ""
@@ -53,6 +57,20 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*
 
 
       setLoading(false)
+    }
+  }
+
+  const newSubHandler = () => {
+    if(!userBool && id) {
+      addSubscribers(sellerId)()
+      // setIsSubscribed(true)
+      return
+    }
+
+    if(userBool && id) {
+      addUnsubscribe(sellerId)()
+      // setIsSubscribed(false)
+      return
     }
   }
 
@@ -104,8 +122,15 @@ const ProductUser = ({id, sellerId, userPhoto, name, raiting, mobile, /*userAd,*
                     mobile ? '' :
                       <div className="ad__block_bottom__adaptive_left">
                         <Tooltip title='Подписаться' classes={{tooltip: classes.tooltip, arrow: classes.arrow}} arrow>
-                          <button onClick={() => subscribeUser()} disabled={loading}
-                                  className={`SellerInfoUserAdd ${userBool ? 'SellerInfoUserAdd__active' : ''}`}></button>
+                          <button 
+                            onClick={() => {
+                              subscribeUser()
+                              newSubHandler()
+                            }} 
+                            disabled={loading}
+                            className={`SellerInfoUserAdd ${userBool ? 'SellerInfoUserAdd__active' : ''}`}>
+                              
+                          </button>
                         </Tooltip>
                       </div>
                     : ''

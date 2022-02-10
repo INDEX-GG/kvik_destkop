@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const {isAuth, id: accountID} = useAuth();
-  
+
   const {userInfo} = useStore();
   const classes = useStyles();
 	const { matchesMobile, matchesTablet, matchesLaptop, matchesDesktop, matchesHD, matchesCustom1024 } = useMedia();
@@ -83,6 +83,7 @@ const Header = () => {
   const [openRegForm, setOpenRegForm] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
   const [headerScroll, setHeaderScroll] = useState(classes.header);
+	const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
 
   const listenScroll = () => {
     if (scrollY > 0) {
@@ -105,12 +106,12 @@ const Header = () => {
 				<AppBar className={headerScroll} position="sticky" color="secondary">
 					<Container className={classes.root}>
 						<Logo />
-						<Button 
-							className={classes.menu__categorys} 
-							variant="contained" 
-							color="primary" 
-							aria-controls="simple-menu" 
-							aria-haspopup="true" 
+						<Button
+							className={classes.menu__categorys}
+							variant="contained"
+							color="primary"
+							aria-controls="simple-menu"
+							aria-haspopup="true"
 							onClick={() => setCategories(!openCat)}
 						>
 							Категории
@@ -118,7 +119,7 @@ const Header = () => {
 						</Button>
 						<Search />
 
-				
+
 						{isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
 							<AddRoundedIcon />
 						Новое объявление
@@ -126,11 +127,11 @@ const Header = () => {
 						{!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
 							Войти
 						</Button>
-							|| (userInfo === undefined) && (<Skeleton variant="circular" width={32} height={32} /> ) 
+							|| (userInfo === undefined) && (<Skeleton variant="circular" width={32} height={32} /> )
 							|| (userInfo !== undefined) && (
 								<NextLink href={{
 									pathname: "/account/[id]",
-									query: { 
+									query: {
                     id: accountID,
                     account: "1",
 										content: "1"
@@ -143,17 +144,17 @@ const Header = () => {
 									>
 										{initials(userInfo.name)}
 									</Avatar>
-									
-								</NextLink>	
+
+								</NextLink>
 							)
 						}
 					</Container>
 					{openCat && !matchesMobile && !matchesTablet && <Box onClick={() => setCategories(!openCat)} className={classes.categories__back} ><Categories /></Box>}
 					{openCat && !matchesLaptop && !matchesDesktop && !matchesHD && <CategoriesMobile />}
 				</AppBar>
-			</>	
+			</>
 			}
-      <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm }}>
+      <DialogCTX.Provider value={{ openRegForm, setOpenRegForm, openLoginForm, setOpenLoginForm, isAlreadyExistForm, setIsAlreadyExistForm }}>
         <Login />
       </DialogCTX.Provider>
     </>

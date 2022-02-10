@@ -9,7 +9,7 @@
 }
 
 .productSocialContainer {
-  // display: flex; 
+  // display: flex;
   // align-items: center;
   display: grid;
   grid-column-gap: 40px;
@@ -162,6 +162,7 @@
   transition: width 150ms ease-in-out, opacity 400ms ease-in-out;
   width: 0;
   opacity: 0;
+  color: $tp;
 }
 
 .SellerInfoTopButtons .note-active {
@@ -414,7 +415,7 @@
 }
 
 .SellerInfoUserAdd__active {
-  background: no-repeat center center url(../../icons/subscribe_green.svg);
+  background: no-repeat center center url(../../icons/subscribe_check_green.svg);
 }
 
 .productAbout {
@@ -1292,7 +1293,7 @@
   }
 
 .productSocialContainer {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   align-items: center;
   padding-left: 0;

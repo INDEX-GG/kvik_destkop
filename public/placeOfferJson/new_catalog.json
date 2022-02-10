@@ -9388,54 +9388,54 @@
               "alias": "mono_computer",
               "children": [],
               "additional_fields": []
-            },
-            {
-              "name": "Мониторы",
-              "alias": "monitors",
-              "children": [],
-              "additional_fields": [
-                {
-                  "alias": "diagonal",
-                  "title": "Диагональ",
-                  "default_value": null,
-                  "type": "text_list",
-                  "required": {
-                    "state": true,
-                    "value": "Введите корректное значение"
-                  },
-                  "text_list_values": [
-                    "До 19",
-                    "От 19 До 27",
-                    "От 27 и более"
-                  ],
-                  "text_list_search_type": 0,
-                  "text_list_filter_type": 0,
-                  "text_list_rendering_type": 0
-                },
-                {
-                  "alias": "connectors",
-                  "title": "Разъемы",
-                  "default_value": null,
-                  "type": "text_list",
-                  "required": {
-                    "state": true,
-                    "value": "Введите корректное значение"
-                  },
-                  "text_list_values": [
-                    "Разъем DSUB",
-                    "Разъем DVI",
-                    "Разъем HDMI",
-                    "Разъем Display Port",
-                    "Разъем USB"
-                  ],
-                  "text_list_search_type": 0,
-                  "text_list_filter_type": 0,
-                  "text_list_rendering_type": 0
-                }
-              ]
             }
           ],
           "additional_fields": []
+        },
+        {
+          "name": "Мониторы",
+          "alias": "monitors",
+          "children": [],
+          "additional_fields": [
+            {
+              "alias": "diagonal",
+              "title": "Диагональ",
+              "default_value": null,
+              "type": "text_list",
+              "required": {
+                "state": true,
+                "value": "Введите корректное значение"
+              },
+              "text_list_values": [
+                "До 19",
+                "От 19 До 27",
+                "От 27 и более"
+              ],
+              "text_list_search_type": 0,
+              "text_list_filter_type": 0,
+              "text_list_rendering_type": 0
+            },
+            {
+              "alias": "connectors",
+              "title": "Разъемы",
+              "default_value": null,
+              "type": "text_list",
+              "required": {
+                "state": true,
+                "value": "Введите корректное значение"
+              },
+              "text_list_values": [
+                "Разъем DSUB",
+                "Разъем DVI",
+                "Разъем HDMI",
+                "Разъем Display Port",
+                "Разъем USB"
+              ],
+              "text_list_search_type": 0,
+              "text_list_filter_type": 0,
+              "text_list_rendering_type": 0
+            }
+          ]
         },
         {
           "name": "Комплектующие для ПК",
@@ -10082,6 +10082,18 @@
             {
               "name": "Корпусы для серверов",
               "alias": "server_enclosures",
+              "children": [],
+              "additional_fields": []
+            },
+            {
+              "name": "Шкафы и стойки",
+              "alias": "server_cabinets_and_racks",
+              "children": [],
+              "additional_fields": []
+            },
+            {
+              "name": "Расходные материалы и прочее",
+              "alias": "server_consumables_and_other",
               "children": [],
               "additional_fields": []
             }
@@ -17373,6 +17385,31 @@
             }
           ],
           "additional_fields": []
+        },
+        {
+          "name": "Книги и журналы",
+          "alias": "books_and_magazines",
+          "children": [
+            {
+              "name": "Журналы, газеты, брошюры",
+              "alias": "magazines_newspapers_brochures",
+              "children": [],
+              "additional_fields": []
+            },
+            {
+              "name": "Книги",
+              "alias": "books",
+              "children": [],
+              "additional_fields": []
+            },
+            {
+              "name": "Учебная литература",
+              "alias": "educational_literature",
+              "children": [],
+              "additional_fields": []
+            }
+          ],
+          "additional_fields": []
         }
       ],
       "additional_fields": []
@@ -17708,31 +17745,6 @@
             {
               "name": "Прочее",
               "alias": "sports_and_recreation_other",
-              "children": [],
-              "additional_fields": []
-            }
-          ],
-          "additional_fields": []
-        },
-        {
-          "name": "Книги и журналы",
-          "alias": "books_and_magazines",
-          "children": [
-            {
-              "name": "Журналы, газеты, брошюры",
-              "alias": "magazines_newspapers_brochures",
-              "children": [],
-              "additional_fields": []
-            },
-            {
-              "name": "Книги",
-              "alias": "books",
-              "children": [],
-              "additional_fields": []
-            },
-            {
-              "name": "Учебная литература",
-              "alias": "educational_literature",
               "children": [],
               "additional_fields": []
             }

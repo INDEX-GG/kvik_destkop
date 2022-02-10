@@ -17,7 +17,7 @@ const useClass = makeStyles(() => ({
         color: "rgba(143, 143, 143, 1)",
         marginRight: 4,
         flexShrink: 0
-        
+
     },
     content: {
         fontSize: '14px',
@@ -210,13 +210,15 @@ const useClass = makeStyles(() => ({
 }))
 function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[], finalArrCheck=[]) {
     try {
-        
-    
+
+
         // console.log(finalArr, 'final Arr')
         // console.log(finalArrCheck, 'final arrCheck')
         const splitedCategory_id = category_id?.split(',');
-        const backJs = allProductInfo?.additional_fields ? 
-        Object.entries(allProductInfo?.additional_fields).filter(item => item[1] !== false) : 
+        const backJs = allProductInfo?.additional_fields
+        ?
+        Object.entries(allProductInfo?.additional_fields).filter(item => item[1] !== false && item[1] !== null)
+        :
         [];
         // console.log(splitedCategory_id, 'splited id')
         // console.log(backJs, 'back js')
@@ -225,7 +227,6 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
         //   .children.find(item => item.alias === splitedCategory_id[1])
         //   .additional_fields;
 
-    
     const frontJs = splitedCategory_id.reduce((acc, item, index) => {
         if(splitedCategory_id?.length - 1 === index) {
             return acc?.children.find(child=> child?.alias === item)
@@ -235,18 +236,18 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
             return acc?.children.find(child => child?.alias === item)
         }
          return placeOfferJson?.category.find(category => category?.alias === item)
-         
+
     }, undefined)?.additional_fields
 
     backJs.forEach((item) => {
         // поля с айдишниками нам не интересны
         // Гбо для авто времено исключены
         if (item[0] === 'id' || item[0] === 'post_id' || item[0] === 'hbo') {
-            return 
+            return
         }
 
-        // Находим образец объекта на фронте и пушим новый объект в финальный массив, если удалось найтия 
-        
+        // Находим образец объекта на фронте и пушим новый объект в финальный массив, если удалось найтия
+
         const commonObj = frontJs.find(it => it?.alias === item[0])
 
         // вариант для заполнения поля цвета
@@ -264,17 +265,18 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
             title: commonObj?.title,
             value: item[1]
             })
-            return 
+            return
         }
-    // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
-    // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
+        // Логика для (type: check_list) - если по алиасу найти не смогли (например пришел item[0] === airbag3).
+        // Ниже получаем числа из алиасов, затем узнаем длину символов и слайсим строку для получения алиаса.
+
         const numberOfCheck = parseInt(item[0]?.match(/\d+/))
         const sliceNumber = -Math?.abs(numberOfCheck.toString()?.length)
         const aliasName = item[0]?.slice(0, sliceNumber)
-    
+
         // Находим образец с чеклистами на фронте, по полученому выше алиасу.
         const checkObj = frontJs?.find(it => it?.alias === aliasName)
-    
+
         // проверяем был ли подобный объект запушен в финальный массив, если да то делаем спред, если нет то создаем новый объект.
         const findedCheckObj = finalArrCheck?.find(it => it?.title === checkObj?.title)
         if (findedCheckObj) {
@@ -286,7 +288,7 @@ function generateArrays(category_id, allProductInfo, placeOfferJson, finalArr=[]
             title: checkObj?.title,
             value: [checkObj?.check_list_values[numberOfCheck - 1]],
         })
-        return 
+        return
         })
     }   catch (error) {
             console.log(error)
@@ -301,7 +303,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
     const { matchesMobile, matchesTablet } = useMedia();
     const additional_fieldsRef = useRef()
     const checkListWrapper = useRef()
-    
+
     const wrapHeight = additional_fieldsRef?.current?.offsetHeight;
     const checkWrapHeight = checkListWrapper?.current?.offsetHeight;
     const mobile = matchesMobile || matchesTablet;
@@ -312,19 +314,19 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
     // буль для рендера плейсхолдера
     generateArrays(category_id, allProductInfo, placeOfferJson, finalArr, finalArrCheck)
 
-    
+
     useEffect(()=> {
         // закрывашка свойсв при отрисовке новой страницы
         setShowMore(false)
         SetShowMoreCheckList(false)
     }, [allProductInfo])
 
-    
+
 
     function clickHandler() {
         setShowMore(!showMore)
     }
-    
+
     function checkListClickHandler() {
         SetShowMoreCheckList(!showMoreCheckList)
     }
@@ -342,18 +344,18 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
         }
         return `${classes.productWrap}`
     }
-  
 
-    
-    
+
+
+
     return (
 
         <div>
             {mobile && <ProductDescription description={description}/>}
-            {finalArr.length >= 1 && 
+            {finalArr.length >= 1 &&
                 // <div className="productWrap descriptionIsClosed">
                 <div className={classSwitcher()}>
-                    {mobile && <p className={classes.additionalFieldsTitle}>О товаре</p>}
+                    {/* {mobile && <p className={classes.additionalFieldsTitle}>О товаре</p>} */}
                     <span className={classes.aboutUnderline}></span>
                     <div ref={additional_fieldsRef} className={classes.additionalFieldsContainer}>
                         {finalArr.map((item, index) => (
@@ -370,15 +372,15 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                 </div>
             }
             {(mobile && !showMore) && (wrapHeight > 146) &&
-                <button onClick={clickHandler} 
+                <button onClick={clickHandler}
                     className='productShowMore'>
                         Показать больше
                 </button>
             }
 
-            {(mobile && showMore) && 
-                <button 
-                    onClick={clickHandler} 
+            {(mobile && showMore) &&
+                <button
+                    onClick={clickHandler}
                     className='productShowMore'>
                         Скрыть
                 </button>
@@ -386,7 +388,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
 
             {!mobile && <ProductDescription description={description}/>}
 
-            {finalArrCheck.length >= 1 && 
+            {finalArrCheck.length >= 1 &&
                 <div className={checkListClassSwitcher()}>
                     {mobile && <p className={classes.additionalFieldsTitle}>Дополнительно</p>}
                     <span className={classes.checkListUnderLine}></span>
@@ -404,15 +406,15 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
             }
 
             {(mobile && !showMoreCheckList) && (checkWrapHeight > 100) &&
-                <button onClick={checkListClickHandler} 
+                <button onClick={checkListClickHandler}
                 className='productShowMore'>
                     Показать больше
                 </button>
             }
 
-            {(mobile && showMoreCheckList) && 
-                <button 
-                onClick={checkListClickHandler} 
+            {(mobile && showMoreCheckList) &&
+                <button
+                onClick={checkListClickHandler}
                 className='productShowMore'>
                     Скрыть
                 </button>
@@ -420,9 +422,9 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
 
 
 
-            
 
-            {/* {finalArrCheck.length >= 1 && 
+
+            {/* {finalArrCheck.length >= 1 &&
                 <div className="productWrap">
                     {!mobile && <span className={classes.checkListUnderLine}></span>}
                     <div className={classes.productCheckList}>
@@ -438,7 +440,7 @@ const ProductAdditionalFields = ({category_id, placeOfferJson, allProductInfo, d
                 </div>
             } */}
         </div>
-        
+
 
         // data === undefined ? (
         //     <ProductInformationPlaceHolder/>

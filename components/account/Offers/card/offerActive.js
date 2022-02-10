@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
 			transition: 'all 200ms ease-in-out',
 			textDecoration: 'underline',
 		},
-	}
+	},
+	// [theme.breakpoints.down(960)]: {
+	// 	''
+	// }
 }));
 
 export default function offerActive({offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength}) {
@@ -111,25 +114,24 @@ export default function offerActive({offer, parentCheck, getChildCheck, allDataC
 							<button type="submit" className="offerEdit offerEditActive thin editIcon offerSocialAction" onClick={() => Router.push(`/editPage/${offerID}`)}>
 								Редактировать
 							</button>
-
 							<a>
 								<button
 									value={offer.id}
 									onClick={(e) => pushCheck(e)}
-									className="offerUnpublish thin superLight"
-								>
+									className="offerUnpublish thin superLight">
 									Снять с публикации
 								</button>
 							</a>
-							<div className="offerSocialCount offerSocialCountPos offerSocialCountPosActive">
-								<div className="offerShowes showesIcon">0 +0</div>
-								<div className="offerAddFavores likeIcon">0 +0</div>
+							<div className="offerDescriptionBottomEnd" style={{justifyContent: 'end'}}>
+								<div className="offerSocialCount offerSocialCountPos" style={{justifyContent: 'end'}}>
+									<div style={{margin: '0'}} className="offerShowes showesIcon">{offer.last_day_viewing_count} +{offer.all_time_contact_count}</div><div className="showesIcon"></div>
+									<div style={{margin: '0'}} className="offerAddFavores likeIcon">{offer.likes_count} +0</div>
+								</div>
 							</div>
-
 						</div>
 					</div>
-					<div style={{visibility: 'hidden'}} className="offerDescriptionBottom">
-						<button className="offerButtonViews button contained">Увеличить просмотры</button>
+					<div style={{justifyContent:'center'}} className="offerDescriptionBottom">
+						<button style={{padding:'4px 37px'}} className="offerButtonViews button contained">Увеличить просмотры</button>
 					</div>
 				</div>
 			</div>

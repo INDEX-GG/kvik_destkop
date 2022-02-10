@@ -24,6 +24,9 @@ const FilterCategory = ({setCategory}) => {
         setCategory(aliasArr.filter(item => item).join(','))
     }, [...aliasArr])
 
+    console.log('mainCategory: ', mainCategory)
+    console.log('aliasArrTwo: ', aliasArrTwo)
+    console.log('aliasArrThree: ', aliasArrThree)
 
     return (
         <div>

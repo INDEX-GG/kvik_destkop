@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useRef, useState} from 'react'
 import {Box, Button, Dialog, FormGroup, makeStyles, TextField, Typography} from '@material-ui/core';
-import {RegistrationCTX} from '../../lib/Context/DialogCTX';
+import {RegistrationCTX, DialogCTX} from '../../lib/Context/DialogCTX';
 import {getDataByPost} from '../../lib/fetch';
 import {useAuth} from '../../lib/Context/AuthCTX';
 import {useStore} from '../../lib/Context/Store';
@@ -73,6 +73,7 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
   const [allSms, setAllSms] = useState('');
   const [error, setError] = useState(false);
   const {openConfirmNum, setOpenConfirmNum, phoneNum, sendData} = useContext(RegistrationCTX);
+  const {setIsAlreadyExistForm} = useContext(DialogCTX);
 
 
   // const [value1, setValue1] = useState('');
@@ -94,7 +95,8 @@ const ConfirmNumber = ({registrantion = false, resetPhone = '', changePassword, 
             ))
           )
         case 'user already exists':
-          return alert('Вы уже зарегестрированы')
+          // return alert('Вы уже зарегестрированы')
+          setIsAlreadyExistForm(prevState => !prevState)
       }
     });
     setOpenConfirmNum(!openConfirmNum);
