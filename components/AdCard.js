@@ -83,8 +83,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	// const [phoneModuleState, setPhoneModuleState] = useState(false);
 	const [, setPhoneModuleState] = useState(false);
 
-	useEffect(() => {	
-		if(!userInfo) return
+	useEffect(() => {
+		if(!userInfo || userInfo?.favorites === null) return
 		const isFavorite = userInfo?.favorites.includes(offer.id)
 		setIsLiked(isFavorite)
 	}, [offer, userInfo])
@@ -232,7 +232,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 				<MenuItem>Не показывать</MenuItem>
 			</Menu>
 			{/* <div className={offer.commercial === 1 || offer.commercial === 2 ? 'card__wrapper-yellow' : "card__wrapper"}> */}
-			<div 
+			<div
 				className={classSwitcher()}
 			>
 				<div className={"card__top " + archived}>
@@ -288,7 +288,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 											<div
 												ref={currentSlide}
 												className={classes.mov_area}
-												onMouseEnter={addSlideView(offer.id)} 
+												onMouseEnter={addSlideView(offer.id)}
 												// onTouchStart={addSlideView(offer.id)}
 											>
 												{/* eslint-disable-next-line */}
@@ -403,12 +403,12 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 									className='card_like'
 								>
 									{isLiked &&  <FavoriteRoundedIcon />}
-									{!isLiked && <FavoriteBorderRoundedIcon/>}	
+									{!isLiked && <FavoriteBorderRoundedIcon/>}
 								</IconButton>}
 						</div>
 					</div>
 				</div>
-				
+
 				<Link href={`/product/${offer.id}`} prefetch={false}>
 					<div className={offer.reviewed < 0 ? "card__bottom card__bottom-seen" : 'card__bottom'}>
 						<div className="card__bottom_info">
@@ -420,7 +420,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 									{!matchesMobile && offer.secure_transaction ? <span className={!offer.commercial === 0 ? "card_secure card_secure-green" : "card_secure"}/> : ''}
 								</div>
 							</div>
-							
+
 							<div className="card__bottom_info_left">
 								<span className={(!props.isGrid && screenIsMobile) ?
 									"new__priceV2" :
