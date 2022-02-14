@@ -77,7 +77,8 @@ const Index = () => {
     const searchText = router?.query?.text
     const aliasAll = router?.query?.alias === 'all'
 
-    const isFoundOffer = scrollData?.sendObj && scrollData?.sendObj.hasOwnProperty('data') ? true : false
+    // ключ data сигнализирует нас о том, что объявления нашлись или нет
+    const isFoundOffer = scrollData?.sendObj && Object.hasOwnProperty.call(scrollData?.sendObj, 'data') ? true : false
 
     // категории
     const methods = useForm({

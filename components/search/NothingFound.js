@@ -1,4 +1,3 @@
-import Router from 'next/router';
 import Image from "next/image"
 import {Box, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
