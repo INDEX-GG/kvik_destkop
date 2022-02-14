@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, makeStyles, TextField, Typography, FormControlLabel, Checkbox, useMediaQuery } from '@material-ui/core';
+import { Box, makeStyles, Typography, FormControlLabel, Checkbox } from '@material-ui/core';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import { useState, useEffect } from 'react';
