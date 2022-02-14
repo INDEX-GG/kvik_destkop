@@ -1,4 +1,9 @@
 import {Pool} from "pg";
+import CryptoJS from "crypto-js";
+
+function encrypt(string) {
+    return CryptoJS.AES.encrypt(string, process.env.NEXT_PUBLIC_MY_SECRET).toString();
+}
 
 
 // const text2Bool = (string) => {
@@ -92,7 +97,15 @@ export default async function handler(req, res) {
                 }
             }
             if (!(key_list.includes(category))) {
-                const answer  = await pool.query(`SELECT * FROM "posts" WHERE (LOWER (posts.category_id) LIKE $1) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE $2 OR LOWER (description) LIKE $2) AND LOWER (city) LIKE $3 AND LOWER (city) NOT LIKE $4 AND ((active_time >= $5) OR (active_time IS NULL)) ${sort_value} LIMIT $6 offset $7`, [full_category + '%', '%' + text + '%', region_includes + '%', region_excludes + '%', new Date(), page_limit, page])
+                const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.manager_name, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing, posts.city FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE (LOWER (posts.category_id) LIKE $1) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE $2 OR LOWER (description) LIKE $2) AND LOWER (city) LIKE $3 AND LOWER (city) NOT LIKE $4 AND ((active_time >= $5) OR (active_time IS NULL)) ${sort_value} LIMIT $6 offset $7`, [full_category + '%', '%' + text + '%', region_includes + '%', region_excludes + '%', new Date(), page_limit, page])
+
+                answer.rows.forEach(
+                    element => {
+                        if (element.user_business_account && element.manager_name !== null) {element.user_name = element.manager_name}
+                        if (element.user_business_account && element.manager_phone !== null) {element.user_phone = element.manager_phone}
+                        element.user_phone = encrypt(element.user_phone)
+                    });
+
                 return(answer.rows)
             } else {
                 for (const [key, value] of Object.entries(check)) {
@@ -135,7 +148,15 @@ export default async function handler(req, res) {
                     }
                 }
                 let now_iso = (new Date()).toISOString().slice(0, 19).replace('T', ' ');
-                const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id, "subcategories"."${category}" WHERE (posts.id = "subcategories".${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' AND ((active_time >= '${now_iso}') OR (active_time IS NULL)) ${sort_value} LIMIT ${page_limit} offset ${page}`)
+                const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.manager_name, posts.archived,posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.created_at,posts.delivery,posts.reviewed,posts.address,posts.phone,posts.trade,posts.verify, posts.verify_moderator, posts.active,posts.title,posts.email FROM "posts" INNER JOIN "users" ON posts.user_id = users.id, "subcategories"."${category}" WHERE (posts.id = "subcategories".${category}.post_id) AND posts.active = 0 AND posts.verify = 0 ${constructQuery} AND (LOWER (title) LIKE '%${text}%' OR LOWER (description) LIKE '%${text}%') AND LOWER (city) LIKE '${region_includes}%' AND LOWER (city) NOT LIKE '${region_excludes}%' AND ((active_time >= '${now_iso}') OR (active_time IS NULL)) ${sort_value} LIMIT ${page_limit} offset ${page}`)
+
+                answer.rows.forEach(
+                    element => {
+                        if (element.user_business_account && element.manager_name !== null) {element.user_name = element.manager_name}
+                        if (element.user_business_account && element.manager_phone !== null) {element.user_phone = element.manager_phone}
+                        element.user_phone = encrypt(element.user_phone)
+                    });
+
                 return(answer.rows)
             }
         }

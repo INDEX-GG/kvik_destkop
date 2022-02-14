@@ -1,4 +1,9 @@
 import {Pool} from "pg";
+import CryptoJS from "crypto-js";
+
+function encrypt(string) {
+	return CryptoJS.AES.encrypt(string, process.env.NEXT_PUBLIC_MY_SECRET).toString();
+}
 
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
@@ -35,7 +40,15 @@ export default async function handler(req, res) {
 			if (region_excludes === '') {
 				region_excludes = '!'
 			}
-			const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE LOWER (category_id) LIKE $1 AND active = 0 AND verify = 0 AND LOWER (city) LIKE $2 AND LOWER (city) NOT LIKE $3 AND ((active_time >= $4) OR (active_time IS NULL)) ${sort_value} LIMIT $5 offset $6`, [data + '%', region_includes + '%', region_excludes + '%', new Date(), page_limit, page])
+			const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.manager_name, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE LOWER (category_id) LIKE $1 AND active = 0 AND verify = 0 AND LOWER (city) LIKE $2 AND LOWER (city) NOT LIKE $3 AND ((active_time >= $4) OR (active_time IS NULL)) ${sort_value} LIMIT $5 offset $6`, [data + '%', region_includes + '%', region_excludes + '%', new Date(), page_limit, page])
+
+			answer.rows.forEach(
+				element => {
+					if (element.user_business_account && element.manager_name !== null) {element.user_name = element.manager_name}
+					if (element.user_business_account && element.manager_phone !== null) {element.user_phone = element.manager_phone}
+					element.user_phone = encrypt(element.user_phone)
+				});
+
 			return(answer.rows)
 		}
 		try {
