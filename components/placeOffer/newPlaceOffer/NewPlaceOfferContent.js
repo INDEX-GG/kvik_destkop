@@ -15,6 +15,7 @@ import useCategoryV2 from "#hooks/useCategoryV2";
 import {useCategoryPlaceOffer} from "#hooks/useCategoryPlaceOffer";
 import PhotoForEditPage from '../PhotosForEditPage';
 import { useRouter } from "next/router";
+import MobileContacts from "#components/placeOffer/MobileContacts";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -121,10 +122,11 @@ const NewPlaceOfferContent = ({ photoesCtx, category, title, currentCategory, on
                     {(photoesLink?.length > 0) && <PhotoForEditPage photo={photoesLink} ctx={photoesCtx}/>}
                 </Box>
                 <Box className={classes.formPart}>
-                    {currentPage === 'editPage' && methods.getValues('location') ? <Location/> : 
+                    {currentPage === 'editPage' && methods.getValues('location') ? <Location/> :
                     currentPage === 'placeOffer' ? <Location/> : null}
 
-                    <Contacts/>
+                    {/* если мобилка, то мобильный вид выбора способа свзяи */}
+                    {!media960 ? <Contacts/> : <MobileContacts />}
                     <Box className={classes.submit}>
                         {!media960 && <ErrorMessages validate={subcategoryData[category]} type={category}/>}
                         <Button
