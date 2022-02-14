@@ -4,30 +4,10 @@ import SwiperCore, { Navigation, Keyboard } from "swiper/core";
 
 SwiperCore.use([Navigation, Keyboard]);
 
-/**
- * @typedef ProductModalCarousel
- * @property {string[]} photos
- * @property {number} activeSlideIndex
- * @property {number} setActiveSlideIndex
- */
-
-/**
- * @param {ProductModalCarousel} props
- */
 export default function ProductModalCarousel({ photos, activeSlideIndex, setActiveSlideIndex }) {
-	 
-	/**
-	 * @type { [number, React.Dispatch < React.SetStateAction < number[] >>] }
-	 */
-	const [activeSlide, setActiveSlide] = useState([]);
 
-	/**
-	 * @type { [SwiperCore, Dispatch < SwiperCore>] }
-	 */
+	const [activeSlide, setActiveSlide] = useState([]);
 	const [firstSwiper, setFirstSwiper] = useState(null);
-	/**
-	 * @type {[SwiperCore, Dispatch < SwiperCore>]}
-	 */
 	const [secondSwiper, setSecondSwiper] = useState(null);
 	const [wrapperClassName, changeWrapperClassName] = useState("productSliderWrapper")
 	const hasPhotos = Boolean(photos?.length);
@@ -49,9 +29,6 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 		}
 	}, []);
 
-	/**
-	 * @param {number} sliderIndex 
-	 */
 	function changeSlide(sliderIndex) {
 		const newArr = activeSlide.map((item, index) => (sliderIndex == index ? true : false));
 		setActiveSlide(newArr);
@@ -69,17 +46,11 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 		}
 	}
 
-	/**
-	 * @param {SwiperCore} swiper 
-	 */
 	const firstSwiperInit = (swiper) => {
 		setFirstSwiper(swiper)
 		if (firstSwiper) firstSwiper.slideTo(activeSlideIndex, 0)
 	}
 
-	/**
-	 * @param {SwiperCore} swiper 
-	 */
 	const changeSwiperOne = (swiper) => {
 		if (firstSwiper && secondSwiper) {
 			secondSwiper.slideTo(swiper.activeIndex, 1000)
@@ -88,9 +59,6 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 		}
 	}
 
-	/**
-	 * @param {Event} event 
-	 */
 	const changeSwiperTwo = (event) => {
 		if (firstSwiper && secondSwiper) {
 			const slide = event.target.getAttribute('id')
@@ -101,9 +69,6 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 		}
 	}
 
-	/**
-	 * @param {React.MouseEvent<HTMLDivElement, MouseEvent>} event
-	 */
 	const handlerSwiperButtonVisibility = (event) => {
 		event.stopPropagation();
 		const wrapper = event.currentTarget;
@@ -127,34 +92,34 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 				navigation={CarouselNav}
 				keyboard={{ enabled: true }}
 				centeredSlides={true}
-				
+
 			>
 				{hasPhotos && photos.map((img, index) => (
-					<SwiperSlide 
-						key={index} 
+					<SwiperSlide
+						key={index}
 						className="productSliderItem"
 						onMouseMove={handlerSwiperButtonVisibility}
 					>
-						<div 
-							style={{ 
-								width: "100%", 
-								height: "100%" 
+						<div
+							style={{
+								width: "100%",
+								height: "100%"
 							}}
 						>
-							<img 
-								style={{ 
-									objectFit: "contain", 
-									width: "100%", 
-									height: "100%" 
-								}} 
-								src={img} 
+							<img
+								style={{
+									objectFit: "contain",
+									width: "100%",
+									height: "100%"
+								}}
+								src={img}
 							/>
 						</div>
 					</SwiperSlide>
 				))}
 			</Swiper>
 			{hasSecondCarousel && (
-				<Swiper 
+				<Swiper
 					className="mySwiper productSliderNav"
 					onSwiper={setSecondSwiper}
 					slidesPerView={"auto"}
@@ -172,9 +137,9 @@ export default function ProductModalCarousel({ photos, activeSlideIndex, setActi
 							<img
 								src={img}
 								// TODO: перенести в стили
-								style={{ 
-									border: activeSlide[index] 
-										? "2px solid hsl(186, 50%, 55%)" 
+								style={{
+									border: activeSlide[index]
+										? "2px solid hsl(186, 50%, 55%)"
 										: "2px solid transparent",
 									width: '100%',
 									height: '100%',

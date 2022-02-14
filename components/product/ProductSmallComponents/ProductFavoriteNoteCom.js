@@ -22,14 +22,14 @@ const useStyles = makeStyles(() => ({
 		display: 'flex',
 		height: '30px',
 		fontWeight: '400',
-		width: '100%', 
+		width: '100%',
 		justifyContent: 'space-between',
 		color:'#5A5A5A',
 	},
 	infoSpan:{
-		display:'flex', 
-		alignItems: 'center', 
-		fontWeight: '400', 
+		display:'flex',
+		alignItems: 'center',
+		fontWeight: '400',
 		color: '#5A5A5A',
 		textAlign: 'center'
 	},
@@ -61,7 +61,7 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
         last_day_contact_count,
         // user_products_count,
     } = useProduct(isOffer)
-	
+
 
 	// useEffect(() => {
 	// 	if(all_time_viewing_count) {
@@ -95,13 +95,13 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 					{`${all_time_viewing_count} +${last_day_viewing_count}`}
 					<EyeLogo/>
 				</span>}
-		
+
 				{!full_stat &&
 				<span className={classes.infoSpan}>
 					{`${all_time_viewing_count + 1} +${last_day_viewing_count + 1}`}
 					<EyeLogo/>
 				</span>}
-				
+
 				{full_stat &&
 				<span className={classes.infoSpan}>
 					{`${all_time_contact_count} +${last_day_contact_count}`}
@@ -112,15 +112,15 @@ const ProductFavoriteNoteCom = ({isOffer, id, sellerId, /*stats*/}) => {
 				<span className={classes.infoSpan}>
 					{/* {`${all_time_contact_count} +${last_day_contact_count}`} */}
 					{`${likes_count}`} <StatsLike/>
-					
+
 				</span>}
 			</div>}
 
 			<div className={'favoritsContainer'}>
-				{!isPageOwner && 
-				<Favorits 
-					isProduct 
-					idOffer={isOffer} 
+				{!isPageOwner &&
+				<Favorits
+					isProduct
+					idOffer={isOffer}
 				/>}
 				{/*{mobile ? null : <a className="SellerInfoCompare"></a>}     Скрыто пока не работает функцианал           */}
 			</div>
