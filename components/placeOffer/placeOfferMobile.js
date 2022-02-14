@@ -12,9 +12,7 @@ export default function PlaceOfferMobile({children}) {
     const alias1 = useMemo(() => methods.getValues('alias1'), [methods.getValues('alias1')])
     const alias2 = useMemo(() => methods.getValues('alias2'), [methods.getValues('alias2')])
     const alias3 = useMemo(() => methods.getValues('alias3'), [methods.getValues('alias3')])
-    // const alias1 = methods.getValues('alias1')
-    // const alias2 = methods.getValues('alias2')
-    // const alias3 = methods.getValues('alias3')
+
 
 
     const generateAlias = (categories, reset = false) => {
@@ -25,6 +23,8 @@ export default function PlaceOfferMobile({children}) {
             methods.setValue(alias, item)
         }
     }
+
+    console.log(categories);
 
     
     const changeCategory = () => {
@@ -50,7 +50,7 @@ export default function PlaceOfferMobile({children}) {
 
     useEffect(() => {
         if (alias1) {
-            const categoriesStr = `${alias1},${alias2},${alias3}`;
+            const categoriesStr = `${alias1}${alias2 ? `,${alias2}`: ''}${alias3 ? `,${alias3}` : ''}`;
             setCategories(categoriesStr)
         }
     }, [alias1])
