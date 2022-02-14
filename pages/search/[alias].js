@@ -11,6 +11,11 @@ import ScrollPostData from "../../components/ScrollPostData";
 import NewFilterBlock from "#components/newFilter/NewFilterBlock";
 import {generateFilterData, numberKeyTime} from "#components/newFilter/filterServices";
 
+// категории
+import {FormProvider, useForm} from 'react-hook-form'
+import {handleChangeCategory} from "#components/newFilter/filterServices";
+import {getLastElementArr} from "#lib/services";
+import FilterCategory from "#components/newFilter/fields/FilterCategory";
 
 
 const useStyles = makeStyles(() => ({
@@ -29,7 +34,8 @@ const useStyles = makeStyles(() => ({
         marginLeft: '56px',
         maxWidth: "224px",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        boxShadow: '0px 0px 20px rgb(0 0 0 / 10%)',
     },
     footer: {
         top: 'calc(100% - 205px)',
@@ -70,6 +76,21 @@ const Index = () => {
     const searchText = router?.query?.text
     const aliasAll = router?.query?.alias === 'all'
 
+    // категории
+    const methods = useForm({
+        mode: 'onSubmit',
+        defaultValues: {alias1: undefined, alias2: undefined, alias3: undefined}
+    });
+
+    const [category, setCategory] = useState('');
+    const categoryLast = getLastElementArr(category, ',')
+
+    useEffect(() => {
+        if (aliasFullUrl) {
+            setCategory(aliasFullUrl)
+            handleChangeCategory(aliasFullUrl.split(','), methods)
+        }
+    }, [aliasQuery])
 
     const generateTitle = () => {
         if (!router?.query?.text) {
@@ -146,13 +167,18 @@ const Index = () => {
                     {/*    setData={setData}*/}
                     {/*    setCheckbox={setCheckboxData}*/}
                     {/*/>*/}
-                    <NewFilterBlock
-                        alias={aliasQuery}
-                        fullAlias={aliasFullUrl}
-                        searchText={searchText}
-                        setScrollData={setScrollData}
-                        defaultFilters={defaultFilters}
-                    />
+                    <FormProvider {...methods}>
+                        <form>
+                            <FilterCategory setCategory={setCategory} />
+                        </form>
+                        <NewFilterBlock
+                            alias={categoryLast}
+                            fullAlias={category}
+                            searchText={searchText}
+                            setScrollData={setScrollData}
+                            defaultFilters={defaultFilters}
+                        />
+                    </FormProvider>
                     <div className={classes.ad}>
                         <Image src={"/img/joker1.png"} width={224} height={480}/>
                         <Image src={"/img/joker2.png"} width={224} height={480}/>

@@ -13,14 +13,16 @@ import FilterRadio from "#components/filter/FilterRadio";
 import {useRouter} from "next/router";
 
 
+
+
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         display: 'flex',
         flexDirection: 'column',
-        boxShadow: '0px 0px 20px rgb(0 0 0 / 10%)',
+        // boxShadow: '0px 0px 20px rgb(0 0 0 / 10%)',
         borderRadius: '8px',
         minWidth: '224px',
-        padding: '24px 8px',
+        padding: '0 8px',
         [theme.breakpoints.down(960)]: {
             padding: 0,
             boxShadow: 'none'
@@ -64,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, defaultFilters = {}}) => {
 
+
     const classes = useStyles();
     const router = useRouter();
 
@@ -79,6 +82,7 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
     const isClear = methods.formState.isDirty || Object.keys(onlyTrueDataObj(methods.getValues())).length
 
 
+
     const clearFields = (clearQuery) => {
         // Плавный скролл вверх
         window.scrollTo({
@@ -86,7 +90,7 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
             behavior: 'smooth'
         })
 
-        // Очистка всех полей 
+        // Очистка всех полей
         methods.reset({});
         // Делаем запрос на api с категориями
         setScrollData({sendObj: {data: fullAlias}, url: '/api/postCategorySearch'})
@@ -106,7 +110,6 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
         clearFields();
     }, [alias]);
 
-    
     // Автозаполнение полей
     useEffect(() => {
         methods.reset(defaultFilters)
@@ -117,8 +120,6 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
     const onSubmit = (data,e) => {
         e.preventDefault()
 
-        console.log(data);
-
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -126,7 +127,6 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
 
         const filterDataObj = generateFilterData(data);
 
-        console.log(filterDataObj);
 
         //*  Объект фильтров
         const submitDataObj = {
@@ -138,6 +138,7 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
             text: searchText ? searchText : ''
         }
 
+        console.log('submitDataObj: ', submitDataObj)
         setScrollData({url: '/api/getPostsCheck', sendObj: submitDataObj})
 
 
@@ -152,13 +153,13 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
 
 
 
-
     return (
         <Box className={classes.wrapper}>
             <FormProvider {...methods}>
                 <form
                     onSubmit={methods.handleSubmit((data, e) => onSubmit(data, e))}
-                    className={classes.form}>
+                    className={classes.form}
+                >
                     <FilterTwoFields data={{firstAlias: "from$price", secondAlias: 'to$price', title: "Цена, ₽"}}/>
                     {additionalFields && (
                         <AdditionalInformation
@@ -166,6 +167,7 @@ const NewFilterBlock = ({fullAlias, alias, searchText, setScrollData, mobile, de
                             filters={true}
                         />
                     )}
+
                     <FilterRadio data={{
                         title: "Срок размещения",
                         alias: 'time',

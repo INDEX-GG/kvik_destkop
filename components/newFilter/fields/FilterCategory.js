@@ -3,7 +3,12 @@ import FilterTextField from "#components/newFilter/fields/FilterTextField";
 import useCategoryV2 from "#hooks/useCategoryV2";
 import {useFormContext} from "react-hook-form";
 
+import FilterTextFieldDesktop from "#components/newFilter/fields/FilterTextFieldDesktop"
+import {useMedia} from "#hooks/useMedia";
+
 const FilterCategory = ({setCategory}) => {
+
+    const {matchesTablet} = useMedia();
 
     const methods = useFormContext();
     const alias1 = methods.watch('alias1')
@@ -24,34 +29,67 @@ const FilterCategory = ({setCategory}) => {
         setCategory(aliasArr.filter(item => item).join(','))
     }, [...aliasArr])
 
-    console.log('mainCategory: ', mainCategory)
-    console.log('aliasArrTwo: ', aliasArrTwo)
-    console.log('aliasArrThree: ', aliasArrThree)
+
 
     return (
         <div>
-            <FilterTextField
-                title='Категория'
-                data={mainCategory}
-                alias='alias1'
-                type={1}
-            />
-            {methods.watch('alias1') && aliasTwoLength ? (
-                <FilterTextField
-                    title='Подкатегория'
-                    data={aliasArrTwo}
-                    alias='alias2'
-                    type={2}
-                />
-            ) : null}
-            {methods.watch('alias2') && aliasThreeLength ? (
-                <FilterTextField
-                    title='Вид товара'
-                    data={aliasArrThree}
-                    alias='alias3'
-                    type={3}
-                />
-            ) : null}
+            {/* пока что захардкожено, чтобы проверить работоспособность */}
+            {matchesTablet
+            ? (
+                <>
+                    {/* мобилка с 960px и ниже */}
+                    <FilterTextField
+                        title='Категория'
+                        data={mainCategory}
+                        alias='alias1'
+                        type={1}
+                    />
+                    {methods.watch('alias1') && aliasTwoLength ? (
+                        <FilterTextField
+                            title='Подкатегория'
+                            data={aliasArrTwo}
+                            alias='alias2'
+                            type={2}
+                        />
+                    ) : null}
+                    {methods.watch('alias2') && aliasThreeLength ? (
+                        <FilterTextField
+                            title='Вид товара'
+                            data={aliasArrThree}
+                            alias='alias3'
+                            type={3}
+                        />
+                    ) : null}
+                </>
+            )
+            : (
+                <>
+                    {/* десктоп 960px и выше */}
+                    <FilterTextFieldDesktop
+                        title="Категория"
+                        data={mainCategory}
+                        alias="alias1"
+                        type={1}
+                    />
+                    {methods.watch('alias1') && aliasTwoLength ? (
+                        <FilterTextFieldDesktop
+                            title='Подкатегория'
+                            data={aliasArrTwo}
+                            alias='alias2'
+                            type={2}
+                        />
+                    ) : null}
+                    {methods.watch('alias2') && aliasThreeLength ? (
+                        <FilterTextFieldDesktop
+                            title='Вид товара'
+                            data={aliasArrThree}
+                            alias='alias3'
+                            type={3}
+                        />
+                    ) : null}
+                </>
+            )}
+
         </div>
     );
 };
