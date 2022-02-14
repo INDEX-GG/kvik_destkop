@@ -14,6 +14,15 @@
   padding-bottom: 12px;
 }
 
+.popular_categ_slider .swiper-button-prev {
+    background: url(../../icons/arrow_left_white.svg) center no-repeat, rgba(82, 185, 197, 0.7);
+    border-radius: 50%;
+}
+.popular_categ_slider .swiper-button-next {
+    background: url(../../icons/arrow_right_white.svg) center no-repeat, rgba(82, 185, 197, 0.7);
+    border-radius: 50%;
+}
+
 .offersTitleLine {
   display: flex;
   justify-content: space-between;
