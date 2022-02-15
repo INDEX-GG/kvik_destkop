@@ -29,6 +29,7 @@ const Cookie = ({anchorRef}) => {
     showCookieConfirm()
   }, [])
 
+  // eslint-disable-next-line no-unused-vars
   const handlerConfirm = (e) => {
     setIsShowConfirm(prevState => !prevState)
     // TODO: дальнейшая логика про куки
