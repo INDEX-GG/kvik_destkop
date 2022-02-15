@@ -317,7 +317,7 @@ const Account = () => {
 
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
-                                                <span>{'subscribersCount'}</span>
+                                                <span>{subscribersCount}</span>
                                                 <Button className={classes.buttonDesc} size="small" variant="text" >
                                                     <p>Подписчиков</p>
                                                 </Button>
@@ -559,7 +559,7 @@ const Account = () => {
             </Dialog> */}
             {/* <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)}
                     fullScreen={matchesMobile || matchesTablet}>
-                <ModalSubscription 
+                <ModalSubscription
                                     // data={subList} subscription={subList?.length}
                                    modal={() => closeModal(subscriptionsModal, setSubscriptionsModal)}
                                    mobile={matchesTablet || matchesMobile}/>
