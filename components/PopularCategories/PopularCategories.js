@@ -5,6 +5,10 @@ import PopularIcon from './PopularIcon';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from "next/router";
 import { useMedia } from '../../hooks/useMedia';
+import SwiperCore, { Navigation } from "swiper/core";
+import clsx from 'clsx'
+
+SwiperCore.use([Navigation]);
 
 const useStyles = makeStyles(() => ({
 	slider: {
@@ -55,10 +59,13 @@ const PopularCategories = () => {
 		<>
 			{!screenIsMobile && <Typography title="PopularCategories" className={classes.popular_categories} variant='h2'>Популярные категории</Typography>}
 			<Swiper
-				className={classes.slider}
+				modules={[Navigation]}
+				// класс лежит в home.scss и нужен для того, чтобы кастомизировать кнопки навигации слайдеры и прикрепить background: url(...)
+				className={clsx(classes.slider, 'popular_categ_slider')}
 				spaceBetween={0}
 				slidesPerView={'auto'}
 				loop={true}
+				navigation={true}
 			>
 				{Icons.map((icon, i) => {
 					return (

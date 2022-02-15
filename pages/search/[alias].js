@@ -16,6 +16,7 @@ import {FormProvider, useForm} from 'react-hook-form'
 import {handleChangeCategory} from "#components/newFilter/filterServices";
 import {getLastElementArr} from "#lib/services";
 import FilterCategory from "#components/newFilter/fields/FilterCategory";
+import NothingFound from "#components/search/NothingFound";
 
 
 const useStyles = makeStyles(() => ({
@@ -75,6 +76,9 @@ const Index = () => {
     const aliasFullUrl = aliasData?.aliasBread.map(item => item.alias).join(",")
     const searchText = router?.query?.text
     const aliasAll = router?.query?.alias === 'all'
+
+    // ключ data сигнализирует нас о том, что объявления нашлись или нет
+    const isFoundOffer = scrollData?.sendObj && Object.hasOwnProperty.call(scrollData?.sendObj, 'data') ? true : false
 
     // категории
     const methods = useForm({
@@ -147,47 +151,51 @@ const Index = () => {
         }
     }, [router]);
 
-
     return (
         <Container className={classes.root}>
             {aliasData?.aliasBread &&
-            <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>}
-            <Box className={classes.main}>
-                <Box className={classes.offers}>
-                    {scrollData?.url &&
-                    <ScrollPostData title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj}/>}
-                </Box>
-                {!matchesMobile && !matchesTablet &&
-                <Box className={classes.rightBlock}>
-                    {/*<FilterBlock*/}
-                    {/*    aliasFullName={aliasFullUrl}*/}
-                    {/*    categoryData={aliasData}*/}
-                    {/*    searchText={searchText}*/}
-                    {/*    pageLimit={limit}*/}
-                    {/*    setData={setData}*/}
-                    {/*    setCheckbox={setCheckboxData}*/}
-                    {/*/>*/}
-                    <FormProvider {...methods}>
-                        <form>
-                            <FilterCategory setCategory={setCategory} />
-                        </form>
-                        <NewFilterBlock
-                            alias={categoryLast}
-                            fullAlias={category}
-                            searchText={searchText}
-                            setScrollData={setScrollData}
-                            defaultFilters={defaultFilters}
-                        />
-                    </FormProvider>
-                    <div className={classes.ad}>
-                        <Image src={"/img/joker1.png"} width={224} height={480}/>
-                        <Image src={"/img/joker2.png"} width={224} height={480}/>
-                    </div>
-                    <Box className={classes.footer}>
-                        <Footer2/>
+                <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>
+            }
+            {isFoundOffer ?
+                <Box className={classes.main}>
+                    <Box className={classes.offers}>
+                        {scrollData?.url &&
+                        <ScrollPostData title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj}/>}
                     </Box>
-                </Box>}
-            </Box>
+
+                    {!matchesMobile && !matchesTablet &&
+                    <Box className={classes.rightBlock}>
+                        {/*<FilterBlock*/}
+                        {/*    aliasFullName={aliasFullUrl}*/}
+                        {/*    categoryData={aliasData}*/}
+                        {/*    searchText={searchText}*/}
+                        {/*    pageLimit={limit}*/}
+                        {/*    setData={setData}*/}
+                        {/*    setCheckbox={setCheckboxData}*/}
+                        {/*/>*/}
+                        <FormProvider {...methods}>
+                            <form>
+                                <FilterCategory setCategory={setCategory} />
+                            </form>
+                            <NewFilterBlock
+                                alias={categoryLast}
+                                fullAlias={category}
+                                searchText={searchText}
+                                setScrollData={setScrollData}
+                                defaultFilters={defaultFilters}
+                            />
+                        </FormProvider>
+                        <div className={classes.ad}>
+                            <Image src={"/img/joker1.png"} width={224} height={480}/>
+                            <Image src={"/img/joker2.png"} width={224} height={480}/>
+                        </div>
+                        <Box className={classes.footer}>
+                            <Footer2/>
+                        </Box>
+                    </Box>}
+                </Box>
+                : <NothingFound />
+            }
         </Container>
     )
 }

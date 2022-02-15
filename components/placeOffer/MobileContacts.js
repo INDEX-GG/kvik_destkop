@@ -1,190 +1,147 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { Box, Button, Collapse, makeStyles, TextField, Typography, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Box, makeStyles, Typography, FormControlLabel, Checkbox } from '@material-ui/core';
 import OutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import Filledicon from '@material-ui/icons/Brightness1';
 import { useState, useEffect } from 'react';
-import { MenuItem } from '@material-ui/core';
 import { phoneNumber } from '../../lib/services'
 import { useStore } from '../../lib/Context/Store';
+import AdditionalModalText from "#components/placeOffer/newPlaceOffer/AdditionalModalText";
 
-const useStyles = makeStyles(() => ({
-	plaseOfferBox: {
-		width: "100%",
-		padding: "0 8px",
-		backgroundColor: "#ffff",
-		boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
-	},
-	plaseOfferBoxItem: {
-		width: "100%",
-		height: "48px",
-		padding: "12px 0",
-		display: "flex",
-		alignItems: "center",
-		"&:nth-of-type(1)": {
-			justifyContent: "space-between",
-			borderBottom: "1px solid #E9E9E9"
-		},
-		"&:nth-of-type(2)": {
-			justifyContent: "flex-end"
+const useStyles = makeStyles((theme) => ({
+	formElem: {
+		display: 'flex',
+		flexDirection: 'row',
+		marginBottom: theme.spacing(3),
+		[theme.breakpoints.down(960)]: {
+				marginBottom: '17px',
+				width: '100%',
+				'& > div': {
+						width: '100%'
+				}
 		}
 	},
-	plaseOfferMore: {
-		color: "#00A0AB",
-		paddingRight: "20px",
-		position: "relative",
-		cursor: "pointer",
-		"&:before": {
-			content: "''",
-			backgroundColor: "#C7C7C7",
-			width: "10px",
-			height: "2px",
-			position: "absolute",
-			right: "0px",
-			top: "3px",
-			transform: "rotate(45deg)",
-			borderRadius: "10px"
-		},
-		"&:after": {
-			content: "''",
-			backgroundColor: "#C7C7C7",
-			width: "10px",
-			height: "2px",
-			position: "absolute",
-			right: "0px",
-			top: "9px",
-			transform: "rotate(-45deg)",
-			borderRadius: "10px"
-		}
+	formTitleField: {
+			fontSize: '14px',
+			flexGrow: 1,
+			padding: '4px 0',
+			[theme.breakpoints.down(960)]: {
+					display: 'none'
+			}
 	},
-	placeOfferMoreActive: {
-		"&:before": {
-			content: "' '",
-			transform: "rotate(50deg)",
-			top: "5px",
-			right: "5.9px"
-		},
-		"&:after": {
-			content: "' '",
-			top: "5px",
-			right: "0",
-			transform: "rotate(130deg)"
-		}
+	formInputField: {
+			width: '490px',
+			display: 'flex',
+			flexDirection: 'row',
+			[theme.breakpoints.down(960)]: {
+					flexDirection: 'column'
+			}
 	},
-	buttonSend: {
-		position: "absolut",
-		left: "50%",
-		width: "100%",
-		maxWidth: "460px",
-		margin: "32px 0px",
-		height: "32px",
-		transform: "translateX(-50%)",
-		marginTop: "104px"
+	formCheckBoxWrapper: {
+		display: 'flex',
+		flexDirection: 'column'
 	},
-	label:{
-		"& > span":{
-			fontSize: "14px"
-		}
+	input: {
+			width: '230px',
 	},
 	check: {
-		height: "22px",
-		width: "22px"
-	}
+			padding: '6px',
+	},
+	label: {
+			flexGrow: 1,
+			marginLeft: theme.spacing(1),
+			'& span': {
+				fontWeight: '500',
+				fontSize: '18px',
+				lineHeight: '21px',
+			}
+	},
+	error: {
+			color: theme.palette.error.main,
+			fontSize: '12px',
+			paddingTop: '2px',
+			marginLeft: '24px',
+	},
 }));
 
 export default function MobileContact() {
 	const classes = useStyles();
 	const methods = useFormContext();
-	const [collapsed, setCollapsed] = useState(false)
 	const { userInfo } = useStore();
 	const [phones, setPhones] = useState([]);
 
 	useEffect(() => {
 		if (userInfo !== undefined) {
 			setPhones([{ value: userInfo.phone, label: phoneNumber(userInfo.phone) }]);
+			methods.setValue('contact',  userInfo.phone)
 		}
 	}, [userInfo])
 
 
+	const handlerChangePhone = (contact, onChange) => (e) => {
+		e.preventDefault()
+		onChange(e.target.checked)
+		methods.setValue('contact', contact)
+	}
+
 	return (
-		<Box className={classes.plaseOfferBox}>
-			<Box className={classes.plaseOfferBoxItem}>
-				<Typography className={classes.plaseOfferTitle}>Контакты</Typography>
-				<div className={`${classes.plaseOfferMore} ${collapsed ? classes.placeOfferMoreActive : ""}`} onClick={() => setCollapsed(!collapsed)}>{phones[0]?.value}</div>
-			</Box>
-			
-			<Box className={classes.plaseOfferBoxItem}>
-				<Box style={{marginRight: "auto", fontSize: "14px"}}>Способ связи:</Box>
-				<Controller
-					name='bymessages'
-					control={methods.control}
-					defaultValue={true}
-					render={({ field: { onChange, value } }) => (
-						<FormControlLabel
-							className={classes.label}
-							control={
-								<Checkbox
-									className={classes.check}
-									color='primary'
-									icon={<OutlinedIcon />}
-									checkedIcon={<Filledicon />}
-									checked={value}
-									onChange={(e) => onChange(e.target.checked)}
-								/>}
-							label="Сообщения"
-						/>
-					)}
-					rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберите способ для обратной связи' : null }}
-				/>
-				<Controller
-					name='byphone'
-					control={methods.control}
-					defaultValue={true}
-					render={({ field: { onChange, value } }) => (
-						<FormControlLabel
-							className={classes.label}
-							control={
-								<Checkbox
-									className={classes.check}
-									color='primary'
-									icon={<OutlinedIcon />}
-									checkedIcon={<Filledicon />}
-									checked={value}
-									onChange={(e) => onChange(e.target.checked)}
-								/>}
-							label="Телефон"
-						/>
-					)}
-					rules={{ required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберите способ для обратной связи' : null }}
-				/>
-			</Box>
-			<Collapse in={collapsed}>
-				<Box className={classes.placeOfferMapBox}>
-					{ userInfo !== undefined && <Controller
-						name="contact"
-						defaultValue={userInfo.phone}
-						control={methods.control}
-						render={({ field: { onChange, value }, fieldState: { error } }) => (
-							<TextField
-								select
-								fullWidth
-								className={classes.input}
-								variant='outlined'
-								value={value}
-								onChange={onChange}
-								error={!!error}
-								helperText={error ? error.message : ' '}>
-								{phones.map((option, i) => (
-									<MenuItem key={i} value={option.value}>
-										{option.label}
-									</MenuItem>
-								))}
-							</TextField>
-						)}
-						rules={{ required: 'Выберите номер для связи' }}
-					/>}
+		<Box className={classes.formElem}>
+		<Typography className={classes.formTitleField}>Контакты</Typography>
+		<AdditionalModalText title='Способ связи' alias='contacts'>
+				<Box className={classes.formInputField}>
+						<Box className={classes.formCheckBoxWrapper}>
+								<Controller
+										name='bymessages'
+										control={methods.control}
+										defaultValue={true}
+										render={({field: {onChange, value}}) => (
+												<FormControlLabel
+														className={classes.label}
+														control={
+																<Checkbox
+																		className={classes.check}
+																		color='primary'
+																		icon={<OutlinedIcon/>}
+																		checkedIcon={<Filledicon/>}
+																		checked={value}
+																		onChange={(e) => onChange(e.target.checked)}
+																/>}
+														label="Сообщения на сайте"
+												/>
+										)}
+										rules={{required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберите способ для обратной связи' : null}}
+								/>
+
+								<Controller
+										name='byphone'
+										control={methods.control}
+										defaultValue={true}
+										render={({field: {onChange, value}}) => (
+											<>
+												{phones.map((item) => (
+													<FormControlLabel
+														key={item.value}
+														className={classes.label}
+														control={
+																<Checkbox
+																		className={classes.check}
+																		color='primary'
+																		icon={<OutlinedIcon/>}
+																		checkedIcon={<Filledicon/>}
+																		checked={userInfo?.phone === item.value ? value : false}
+																		onChange={handlerChangePhone(item.value, onChange)}
+																/>}
+														label={item.label}
+													/>
+												))}
+											</>
+										)}
+										rules={{required: 'Выберите номер для связи'}}
+								/>
+
+								<Typography className={classes.error}>{methods.formState.errors?.byphone?.message}</Typography>
+						</Box>
 				</Box>
-				<Button onClick={() => setCollapsed(!collapsed)} className={classes.buttonSend} color='primary' variant='contained'>Сохранить</Button>
-			</Collapse>
+			</AdditionalModalText>
 		</Box>
 	)
 }
