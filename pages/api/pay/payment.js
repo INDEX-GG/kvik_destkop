@@ -106,7 +106,8 @@ export default async function handler(req, res) {
             res.status(400).json({ message: 'ошибка api payment'})
         }
         finally {
-            // await pool.end()
+            await pool_payments.end()
+            await pool_posts.end()
         }
     } else {
         res.json({ message: 'method not allowed' })
