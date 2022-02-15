@@ -126,12 +126,12 @@ function Active({offers}) {
 					{offers?.map((offer, i) => {
 						return (
 							<OfferCard
-								key={i}
+								key={offer.id}
 								offer={offer}
 								typeTab='activeTab'
 								typeButton={'003'}
 								parentCheck={check}
-								getChildCheck={getChildCheck} 
+								getChildCheck={getChildCheck}
 								parentUnpublishForm={openOfferModal}
 								allDataCheck={offerId}
 								offersLength={offersLength}

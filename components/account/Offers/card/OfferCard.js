@@ -410,7 +410,7 @@ const moderatorMessages = [
 	'Указаны неверные параметры',
 ]
 
-export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab, typeButton }) {
+export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab }) {
 	const classes = useStyles();
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [check, setCheck] = useState(false);

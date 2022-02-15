@@ -112,6 +112,7 @@ function Archive({offers}) {
 
 
 	const cleanAll = () => {
+    console.log('cleanAll')
 		setCheck(false);
 		setOfferId([]);
 		setOfferData([]);
@@ -167,7 +168,6 @@ function Archive({offers}) {
 		setOpenOfferModal(!openOfferModal);
 	}
 
-
 	return (
 		<>
 			{!offers
@@ -183,6 +183,7 @@ function Archive({offers}) {
 						icon={<FiberManualRecordOutlinedIcon/>}
 						checkedIcon={<FiberManualRecordSharpIcon/>}
 						onChange={(e) => {
+							console.log('onChange: ', e.target.checked)
 							e.target.checked === false ? cleanAll() : setCheck(e.target.checked);
 						}}
 						checked={check}
@@ -203,14 +204,14 @@ function Archive({offers}) {
 					{offers?.map((offer, i) => {
 						return (
 							<OfferCard
-								key={i}
+								key={offer.id}
 								typeTab='archiveTab'
 								typeButton={'001'}
 								offer={offer}
 								parentCheck={check}
 								getChildCheck={getChildCheck}
-								parentOpenDelActiveForm={openOfferModal}
-								allOfferId={offerId}
+								parentUnpublishForm={openOfferModal}
+								allDataCheck={offerId}
 								offersLength={offersLength}
 							/>
 						);
