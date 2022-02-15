@@ -53,7 +53,7 @@ function Active({offers}) {
 		setOfferId([]);
 		setOfferData([]);
 	}
-	
+
 	function getChildCheck ({id, isChecked}) {
 		setOfferId( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
 		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
@@ -62,7 +62,7 @@ function Active({offers}) {
 	useEffect(() => {
 		offerId.length === offers.length ? check ? null : setCheck(false) : check===false ? null : setCheck(true);
 	}, [offerId])
-	
+
 // запрещаем вешать слушатель скрола, при первом рендере т.к. стейты еще не пришли.
 	useEffect(()=> {
 		if(isFirstRender) {
@@ -91,7 +91,7 @@ function Active({offers}) {
 			pageNumber += 1
 		}
 	}
-	
+
 	if (offers?.length === 0) {
 		return (
 			<>
@@ -99,7 +99,7 @@ function Active({offers}) {
 			</>
 		);
 	}
-	
+
 	return (
 		<>
 			{!offers ? <OfferActivePlaceHolder/>
@@ -125,13 +125,12 @@ function Active({offers}) {
 				<div className="clientPage__container_content">
 					{offers?.map((offer, i) => {
 						return (
-							<OfferCard 
-								key={i} 
+							<OfferCard
+								key={i}
 								offer={offer}
 								typeTab='activeTab'
 								typeButton={'003'}
-								i={i}
-								parentCheck={check} 
+								parentCheck={check}
 								getChildCheck={getChildCheck} 
 								parentUnpublishForm={openOfferModal}
 								allDataCheck={offerId}
