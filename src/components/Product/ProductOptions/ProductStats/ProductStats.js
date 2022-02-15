@@ -1,10 +1,11 @@
 import React from 'react';
+import LikeIcon from "../../../../UI/icon/LikeIcon";
 
 const ProductStats = () => {
     return (
-        <div>
-
-        </div>
+        <>
+            <LikeIcon/>
+        </>
     );
 };
 

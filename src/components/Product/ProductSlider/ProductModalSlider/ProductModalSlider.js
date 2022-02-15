@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Keyboard } from "swiper/core";
 
 SwiperCore.use([Navigation, Keyboard]);
 
-export default function ProductModalSlider({ photos, activeSlideIndex, setActiveSlideIndex }) {
-
+const ProductModalSlider = ({ photos, activeSlideIndex, setActiveSlideIndex }) => {
 
     const [activeSlide, setActiveSlide] = useState([]);
     const [firstSwiper, setFirstSwiper] = useState(null);
     const [secondSwiper, setSecondSwiper] = useState(null);
     const [wrapperClassName, changeWrapperClassName] = useState("productSliderWrapper")
-    const hasPhotos = Boolean(photos?.length);
+    const hasPhotos = !!photos?.length;
     let CarouselPagination = { type: "fraction" };
     let CarouselNav = true;
     let hasSecondCarousel = true;
@@ -31,7 +30,7 @@ export default function ProductModalSlider({ photos, activeSlideIndex, setActive
     }, []);
 
     function changeSlide(sliderIndex) {
-        const newArr = activeSlide.map((item, index) => (sliderIndex == index ? true : false));
+        const newArr = activeSlide.map((item, index) => (sliderIndex === index));
         setActiveSlide(newArr);
     }
 
@@ -54,7 +53,7 @@ export default function ProductModalSlider({ photos, activeSlideIndex, setActive
 
     const changeSwiperOne = (swiper) => {
         if (firstSwiper && secondSwiper) {
-            secondSwiper.slideTo(swiper.activeIndex, 1000)
+            secondSwiper.slideTo(swiper.activeIndex, 500)
             setActiveSlideIndex(swiper.activeIndex)
             changeSlide(swiper.activeIndex)
         }
@@ -63,8 +62,8 @@ export default function ProductModalSlider({ photos, activeSlideIndex, setActive
     const changeSwiperTwo = (event) => {
         if (firstSwiper && secondSwiper) {
             const slide = event.target.getAttribute('id')
-            firstSwiper.slideTo(slide, 1000)
-            secondSwiper.slideTo(slide, 1000)
+            firstSwiper.slideTo(slide, 500)
+            secondSwiper.slideTo(slide, 500)
             setActiveSlideIndex(slide)
             changeSlide(slide)
         }
@@ -139,9 +138,9 @@ export default function ProductModalSlider({ photos, activeSlideIndex, setActive
                                 src={img}
                                 // TODO: перенести в стили
                                 style={{
-                                    border: activeSlide[index]
-                                        ? "2px solid hsl(186, 50%, 55%)"
-                                        : "2px solid transparent",
+                                    // border: activeSlide[index]
+                                    //     ? "2px solid hsl(186, 50%, 55%)"
+                                    //     : "2px solid transparent",
                                     width: '100%',
                                     height: '100%',
                                     borderRadius: "2px"
@@ -154,3 +153,5 @@ export default function ProductModalSlider({ photos, activeSlideIndex, setActive
         </>
     );
 }
+
+export default React.memo(ProductModalSlider);

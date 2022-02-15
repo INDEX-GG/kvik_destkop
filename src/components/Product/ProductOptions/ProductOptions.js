@@ -4,10 +4,14 @@ import ProductCommentary from "./ProductCommentary/ProductCommentary";
 import ProductLike from "./ProductLike/ProductLike";
 import ProductStats from "./ProductStats/ProductStats";
 import ProductCall from "./ProductCall/ProductCall";
+import {makeStyles} from "@material-ui/core";
 
 const ProductOptions = () => {
+
+    const classes = useStyles();
+
     return (
-        <div className="productHeaderStat">
+        <div className={`productHeaderStat ${classes.iconWrapper}`}>
             <ProductView/>
             <ProductCall/>
             <ProductCommentary/>
@@ -17,4 +21,11 @@ const ProductOptions = () => {
     );
 };
 
-export default ProductOptions;
+
+const useStyles = makeStyles(() => ({
+    iconWrapper: {
+        display: 'flex'
+    }
+}))
+
+export default React.memo(ProductOptions);

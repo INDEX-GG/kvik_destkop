@@ -1,14 +1,17 @@
 import React, {useContext, useMemo} from 'react';
 import {useProduct} from "#hooks/useProduct";
 import {useMedia} from "#hooks/useMedia";
+import {useRouter} from "next/router";
 
 const ProductContext = React.createContext({});
 export const useProductContext = () => useContext(ProductContext);
 
 
 const ProductProvider = ({children}) => {
-  const product = useProduct(4473);
+  const router = useRouter();
+  const product = useProduct(router.query.id);
   const {matchesMobile, matchesTablet} = useMedia();
+
 
   const isMobile = useMemo(() => !!(matchesMobile || matchesTablet), [matchesMobile, matchesTablet])
 

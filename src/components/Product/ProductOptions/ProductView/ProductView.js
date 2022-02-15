@@ -1,10 +1,10 @@
 import React from 'react';
-import EyeLogo from '../../../../../UI/icons/StatsEye';
+import EyeIcon from "../../../../UI/icon/EyeIcon";
 
 const ProductView = () => {
     return (
         <div>
-            <EyeLogo/>
+            <EyeIcon/>
         </div>
     );
 };
