@@ -265,6 +265,8 @@ const Login = () => {
                       setValue('checkPhone', "");
                     }
                   }}
+                  autoFocus
+                  inputRef={input => input && input.focus()}
                   error={!!error}
                   helperText={error ? error.message : " "}
                 />
@@ -371,7 +373,7 @@ const Login = () => {
                 {/*<Box  className={classes.passwordActionBlock}>*/}
                 {/*  <Checkbox*/}
                 {/*      className={classes.rememberPasswordCheck}*/}
-                {/*      icon={<FiberManualRecordOutlinedIcon/>}*/}
+                {/*      UIicon={<FiberManualRecordOutlinedIcon/>}*/}
                 {/*      checkedIcon={<FiberManualRecordSharpIcon/>}*/}
                 {/*      label="Запомнить пароль"*/}
                 {/*  />*/}
@@ -386,7 +388,7 @@ const Login = () => {
                   {/*  className={classes.rememberPasswordCheck}*/}
                   {/*  color="primary"*/}
                   {/*  value=""*/}
-                  {/*  icon={<FiberManualRecordOutlinedIcon/>}*/}
+                  {/*  UIicon={<FiberManualRecordOutlinedIcon/>}*/}
                   {/*  checkedIcon={<FiberManualRecordSharpIcon/>}*/}
                   {/*/>*/}
                   {/*<button  className={classes.rememberPassword} >*/}

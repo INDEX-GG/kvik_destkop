@@ -56,6 +56,11 @@ const useStyles = makeStyles((theme) => ({
     color: '#F44545',
     fontSize: '12px',
     textAlign: 'center'
+  },
+  [theme.breakpoints.down(400)]: {
+    inputBlock: {
+      width: "auto",
+    },
   }
 
 }));
