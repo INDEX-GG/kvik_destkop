@@ -30,6 +30,8 @@ import {Tooltip} from "@mui/material";
 import ScrollTop from '../../UI/ScrollTop'
 import { useStore } from "#lib/Context/Store";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
+import MobileModal from '../../components/MobileModal'
+import UserPlaceHolder from '../../components/placeHolders/UserPlaceHolder/UserPlaceHolder'
 
 
 
@@ -55,12 +57,18 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
     background: "none",
-    color: "#5a5a5a",
+    color: "#00a0ab",
     transition: "all 200ms ease-in-out",
     cursor: "pointer",
 
     '&:hover': {
       textDecoration: "none",
+    },
+    '& button': {
+      color: "#00a0ab",
+    },
+    '& button p': {
+      color: "#00a0ab",
     }
   },
   buttonDesc: {
@@ -77,14 +85,14 @@ function UserPage() {
   const { id, /*token*/ } = useAuth()
   const sellerInfo = useOutherUser(sellerId)
 
-  const { 
-    name: sellerName, 
-    userPhoto: sellerPhoto, 
-    raiting, createdAt, 
-    isLoading = true, 
-    /*sellerId,*/ 
-    subscribers_count, 
-    subscriptions_count 
+  const {
+    name: sellerName,
+    userPhoto: sellerPhoto,
+    raiting, createdAt,
+    isLoading = true,
+    /*sellerId,*/
+    subscribers_count,
+    subscriptions_count
   } = sellerInfo
   // const {userInfo} = useAd(router.query.id)
   // const  userProfileInfo  = useUser();
@@ -102,6 +110,7 @@ function UserPage() {
   const [loading,/* setLoading*/] = useState(false)
   // const [blockLoading, setBlockLoading] = useState(false)
   const [blockOpen, setBlockOpen] = useState(false)
+  const [isShowProfileDialog, setIsShowProfileDialog] = useState(true)
 
   useEffect(() => {
     if(!userInfo) return
@@ -224,127 +233,154 @@ function UserPage() {
   //   }
   // }
 
+  const userContent = () => {
+    return (
+      <>
+        {isLoading ? <UserPlaceHolder /> :
+          <>
+            <div className="clientPage__menu">
+              <div className="clientPage__userinfo">
+                <div className="clientPage__userpic">
+                  {isLoading
+                  ?
+                  null
+                  :
+                  <Avatar
+                    src={`${STATIC_URL}/${sellerPhoto}`}
+                    style={{ backgroundColor: `${stringToColor(sellerName)}` }}
+                  >
+                      {initials(sellerName)}
+                  </Avatar>}
+                </div>
+
+                <div className="clientPage__username">{sellerName}</div>
+                <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
+
+                <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                  <div className="clientPage__userrate">
+                    <div className="clientPage__userrate__num">{raiting}</div>
+                    <StarRating rating={raiting} />
+                  </div>
+                </Tooltip>
+
+
+
+                <div className="clientPage__userstats highlight small">
+
+
+                  <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                    <Box className={classes.userStats}>
+                      <span>{'0'}</span>
+                      <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
+                        <p>Отзывы</p>
+                      </Button>
+                    </Box>
+                  </Tooltip>
+
+                  {/*<a  className="offerUnpublish thin superLight userInfoReviews">*/}
+                  {/*  */}
+                  {/*  <div style={{ textAlign: "center" }}>*/}
+                  {/*    <div>0</div>*/}
+                  {/*    <p>Отзывов</p>*/}
+                  {/*  </div>*/}
+                  {/*</a>*/}
+
+
+
+                  <Box className={classes.userStats}>
+                    <span>{subscribers_count}</span>
+                    <Button className={classes.buttonDesc} size="small" variant="text" /*onClick={() => setSubscribersModal(!subscriptionsModal)}*/>
+                      <p>Подписчиков</p>
+                    </Button>
+                  </Box>
+
+                  {/*<a  className="offerUnpublish thin superLight userInfoSubscribers">*/}
+                  {/*  */}
+                  {/*  <div style={{ textAlign: "center" }}>*/}
+                  {/*    <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>*/}
+                  {/*    <p>Подписчиков</p>*/}
+                  {/*  </div>*/}
+                  {/*</a>*/}
+
+
+                  <Box className={classes.userStats}>
+                    <span>{subscriptions_count}</span>
+                    <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                      <p>Подписки</p>
+                    </Button>
+                  </Box>
+
+                  {/*<a  className="offerUnpublish thin superLight userInfoSubscribtions">*/}
+                  {/*  {userInfo.userSubscriptions}*/}
+                  {/*  <div style={{ textAlign: "center" }}>*/}
+                  {/*    <div>{subList?.length > 0 ? subList?.length : 0}</div>*/}
+                  {/*    <p>Подписки</p>*/}
+                  {/*  </div>*/}
+                  {/*</a>*/}
+
+
+                </div>
+
+
+
+                {+router.query.id === id  ? null : (
+                  <>
+                    <button
+                      disabled={loading}
+                      className="btnSubscribe"
+                      // onClick={() => subscribeUser()}
+                      onClick={() => {
+                        setUserBool(!userBool)
+                        subscribeClickHandler()
+                      }}
+                    >
+                        {userBool ? "Отписаться" : "Подписаться"}
+                      </button>
+                    <div className="ad__block_bottom__adaptive_right">
+                      {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
+                      {/*  if (!blockLoading) setBlockOpen(true)*/}
+                      {/*}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>*/}
+                      <a className="SellerInfoComplain small light underline">Пожаловаться</a>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="clientPage__container">
+              <User />
+            </div>
+            <ScrollTop />
+          </>
+        }
+      </>
+    )
+  }
+
+  const userContentMobile = () => {
+    return (
+      <MobileModal
+        title="Профиль"
+        dialog={isShowProfileDialog || false}
+        close={() => {
+          // TODO: добавить роутинг на предыдущую страницу
+          // router.push('/')
+          // .then(() => {
+          //     setIsShowProfileDialog((prevState => !prevState))
+          // })
+          router.back()
+        }}
+      >
+        {userContent()}
+      </MobileModal>
+    )
+  }
 
   return (
     <MetaLayout>
-      {!isLoading 
-      &&
       <div className="clientPage text">
-        
-        <div className="clientPage__menu">
-          <div className="clientPage__userinfo">
-            <div className="clientPage__userpic">
-              {isLoading
-              ? 
-              null 
-              : 
-              <Avatar 
-                src={`${STATIC_URL}/${sellerPhoto}`} 
-                style={{ backgroundColor: `${stringToColor(sellerName)}` }}
-              >
-                  {initials(sellerName)}
-              </Avatar>}
-            </div>
-            
-            <div className="clientPage__username">{sellerName}</div>
-            <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
-            
-            <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
-              <div className="clientPage__userrate">
-                <div className="clientPage__userrate__num">{raiting}</div>
-                <StarRating rating={raiting} />
-              </div>
-            </Tooltip>
-
-
-
-            <div className="clientPage__userstats highlight small">
-
-
-              <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
-                <Box className={classes.userStats}>
-                  <span>{'0'}</span>
-                  <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
-                    <p>Отзывы</p>
-                  </Button>
-                </Box>
-              </Tooltip>
-
-              {/*<a  className="offerUnpublish thin superLight userInfoReviews">*/}
-              {/*  */}
-              {/*  <div style={{ textAlign: "center" }}>*/}
-              {/*    <div>0</div>*/}
-              {/*    <p>Отзывов</p>*/}
-              {/*  </div>*/}
-              {/*</a>*/}
-
-
-
-              <Box className={classes.userStats}>
-                <span>{subscribers_count}</span>
-                <Button className={classes.buttonDesc} size="small" variant="text" /*onClick={() => setSubscribersModal(!subscriptionsModal)}*/>
-                  <p>Подписчиков</p>
-                </Button>
-              </Box>
-
-              {/*<a  className="offerUnpublish thin superLight userInfoSubscribers">*/}
-              {/*  */}
-              {/*  <div style={{ textAlign: "center" }}>*/}
-              {/*    <div>{subscribersList?.message ? 0 : subscribersList?.length}</div>*/}
-              {/*    <p>Подписчиков</p>*/}
-              {/*  </div>*/}
-              {/*</a>*/}
-
-
-              <Box className={classes.userStats}>
-                <span>{subscriptions_count}</span>
-                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
-                  <p>Подписки</p>
-                </Button>
-              </Box>
-
-              {/*<a  className="offerUnpublish thin superLight userInfoSubscribtions">*/}
-              {/*  {userInfo.userSubscriptions}*/}
-              {/*  <div style={{ textAlign: "center" }}>*/}
-              {/*    <div>{subList?.length > 0 ? subList?.length : 0}</div>*/}
-              {/*    <p>Подписки</p>*/}
-              {/*  </div>*/}
-              {/*</a>*/}
-
-
-            </div>
-
-
-
-            {+router.query.id === id  ? null : (
-              <>
-                <button 
-                  disabled={loading} 
-                  className="btnSubscribe" 
-                  // onClick={() => subscribeUser()}
-                  onClick={() => {
-                    setUserBool(!userBool)
-                    subscribeClickHandler()
-                  }}
-                >
-                    {userBool ? "Отписаться" : "Подписаться"}
-                  </button>
-                <div className="ad__block_bottom__adaptive_right">
-                  {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
-                  {/*  if (!blockLoading) setBlockOpen(true)*/}
-                  {/*}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>*/}
-                  <a className="SellerInfoComplain small light underline">Пожаловаться</a>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="clientPage__container">
-          <User />
-        </div>
-        <ScrollTop />
-      </div>}
+        {matchesMobile ? userContentMobile() : userContent()}
+      </div>
       <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalRating rate={raiting} comments={2} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(reviewsModal, setReviewsModal)} />
       </Dialog>
