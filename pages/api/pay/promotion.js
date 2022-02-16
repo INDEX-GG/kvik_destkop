@@ -46,8 +46,8 @@ export default async function handler(req, res) {
             }
 
             let amount = 0
-            let return_url = "https://onekvik.ru/"
-            let fail_url = "https://onekvik.ru/"
+            let return_url = "https://onekvik.ru/success"
+            let fail_url = "https://onekvik.ru/fail"
             let description = "Оплата услуг по продвижению на сайте onekvik.ru"
             let user_id = req.body.user_id
             let post_id = req.body.post_id
