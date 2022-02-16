@@ -369,6 +369,7 @@ function UserPage() {
           //     setIsShowProfileDialog((prevState => !prevState))
           // })
           router.back()
+          setIsShowProfileDialog(prevState => !prevState)
         }}
       >
         {userContent()}
