@@ -30,40 +30,21 @@ export default async function handler(req, res) {
         const pool_posts = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
 
-            const relevant_actions = {
-                2: {
-                    "description": "Поднятие вверх объявления KVIK",
-                    "price": 1900},
-                3: {
-                    "description": "Выделение цветом объявления KVIK",
-                    "price": 3900},
-                4: {
-                    "description": "XL объявление KVIK",
-                    "price": 3900},
-                5: {
-                    "description": "Комбо продвижение KVIK",
-                    "price": 5900}
-            }
-
-            let amount = 0
+            let amount = req.body.amount
             let return_url = "https://onekvik.ru/"
             let fail_url = "https://onekvik.ru/"
-            let description = "Оплата услуг по продвижению на сайте onekvik.ru"
+            let description = "Пополнение баланса на сайте onekvik.ru"
             let user_id = req.body.user_id
-            let post_id = req.body.post_id
             let now = new Date()
             const randomString = crypto.randomBytes(2).toString("hex");
-            let actions = [...new Set(req.body.actions)]
+            let actions = [1]
 
             if (user_id === undefined || typeof user_id !== 'number' || user_id < 1) { throw "Er 1" }
-            if (post_id === undefined || typeof post_id !== 'number' || post_id < 1) { throw "Er 2" }
-            actions.forEach(element => {if (typeof element !== 'number' || element <= 0  || ! (Object.keys(relevant_actions).map(key => parseInt(key))).includes(element)) {throw "Er 3"}});
-            let check_post = await pool_posts.query(`SELECT users.name AS user_name, posts.id, posts,title FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $1 AND users.id = $2`, [post_id, user_id])
-            if (check_post.rows.length === 0) { throw "Er 4" }
+            if (amount === undefined || typeof amount !== 'number' || amount < 1) { throw "Er 2" }
+            let user_check = await pool_posts.query(`SELECT users.name AS user_name FROM "users" WHERE users.id = $1`, [user_id])
+            if (user_check.rows.length === 0) { throw "Er 3" }
             let order_number = user_id.toString() + randomString + now.getTime().toString()
-            if (order_number.length > 32) { throw "Er 5" }
-
-            actions.forEach(element => { amount += relevant_actions[element].price})
+            if (order_number.length > 32) { throw "Er 4" }
 
             let params = qs.stringify({
                 userName: payment_login,
@@ -79,9 +60,8 @@ export default async function handler(req, res) {
             let payment_reg_answer = await axios.post(payment_reg_url, params).then(r => r.data)
             let order_id = payment_reg_answer.orderId
             let form_url = payment_reg_answer.formUrl
-            if (form_url === undefined || order_id === undefined) { throw "Er 6" }
-
-            await pool_payments.query(`INSERT INTO "public"."transactions" ("order_id", "order_number", "user_id", "post_id", "amount", "description", "actions", "payment_url", "status_transaction", "source", "create_time") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`, [order_id, order_number, user_id, post_id, amount, description, actions, form_url, "created", payment_source, now])
+            if (form_url === undefined || order_id === undefined) { throw "Er 5" }
+            await pool_payments.query(`INSERT INTO "public"."transactions" ("order_id", "order_number", "user_id", "post_id", "amount", "description", "actions", "payment_url", "status_transaction", "source", "create_time") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`, [order_id, order_number, user_id, null, amount, description, actions, form_url, "created", payment_source, now])
 
             return {"form_url": form_url}
 
