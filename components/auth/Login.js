@@ -265,6 +265,8 @@ const Login = () => {
                       setValue('checkPhone', "");
                     }
                   }}
+                  autoFocus
+                  inputRef={input => input && input.focus()}
                   error={!!error}
                   helperText={error ? error.message : " "}
                 />
