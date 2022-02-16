@@ -108,7 +108,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             // delete commonFields.description
             const editObject = {
                 ...categoriesField ,
-                ...currentAdditionalFields, 
+                ...currentAdditionalFields,
                 ...commonFields,
                 location:  commonFields.address,
                 coordinates: JSON.parse(commonFields.coordinates)
@@ -160,8 +160,8 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             let fileResponse = []
             if(totalFilesArray.length) {
                 fileResponse = await axios.post(
-                    `${STATIC_URL}/post/${id}/${productId}`, 
-                    photoData, 
+                    `${STATIC_URL}/post/${id}/${productId}`,
+                    photoData,
                     {
                         headers: {
                                     "Content-Type": "multipart/form-data",
@@ -175,7 +175,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             const oldPhotos = []
             // достаем массив старых фоток
             photoes.forEach(it=> it?.old ? oldPhotos?.push(it.src) : null)
-            
+
             let oldPhotosIndex = 0
             let newPhotosIndex = 0
             // тут будет финальый массив фоток, который запишется в объект для отправки на бэк
@@ -207,15 +207,15 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             delete sendObj.subcategory
             delete sendObj.trade
             await getTokenDataByPost(
-                `${BASE_URL}/api/postUpdate`, 
+                `${BASE_URL}/api/postUpdate`,
                 {
                     ...sendObj,
                     photo: [...newPhotoArr],
                     post_id: productId
-                }, 
+                },
                 token
             )
-          
+
             setProduct({
                 title: sendObj.title,
                 location: sendObj.location,
@@ -226,21 +226,21 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
             setPromotion(true)
             return
         }
-    
+
         // запрос выполнится если мы находимся на странице подачи
         getTokenDataByPost(`${BASE_URL}/api/setPosts`, sendObj, token)
             .then(r => {
-    
+
                 const postId = r?.id;
                 additionalfields[category].unshift({ "alias": 'post_id', "fields": postId })
-    
+
                 axios.post(`${STATIC_URL}/post/${id}/${r?.id}`, photoData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "x-access-token": token
                     }
                 }).then((r) => {
-    
+
                     const productObj = {
                         title: data.title,
                         location: data.location,
@@ -248,18 +248,18 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                         id: postId,
                         photo: `${STATIC_URL}/${r?.data.images.photos[0]}`
                     }
-    
+
                     setProduct(productObj)
                     setPromotion(true)
                 })
             })
-    
+
     }
 
     // methods, category, currentCategory
     const onSubmit = (data) => {
         data.price = data.price.replace(/\D+/g, '');
-        
+
         const alias = [data?.alias1, data?.alias2];
         if (data?.alias3) {
             alias.push(data.alias3);
@@ -284,7 +284,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
 
         // Имя адресса
 		data.location = data.location?.value ? data.location.value : data.location
-        
+
         // Целый алиас
         data.alias = alias.join(',');
 
@@ -329,7 +329,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
 
         // Объект который отправим на бэк
         const sendObj = {
-            //  Дефолтные параметры, 
+            //  Дефолтные параметры,
             ...obj,
             // Дополнительные поля
             additional_fields: generateAdditionalFields(data),

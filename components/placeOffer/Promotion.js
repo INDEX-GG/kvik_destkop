@@ -5,6 +5,7 @@ import { useMedia } from "../../hooks/useMedia";
 import  { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
 // import {STATIC_URL} from "../../lib/constants";
+import {ellipsis} from '../../lib/services'
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -216,7 +217,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 
 
 	const redirectToIndex = () => {
-	  return rounter.push("/")
+	  // return rounter.push("/")
 	}
 
 	setTimeout(redirectToIndex, 3000)
@@ -262,7 +263,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 
 	const promotionAwait = (boolean) => {
 		if (boolean) return null;
-	
+
 		{matchesMobile || matchesTablet ?
 		<>
 			<div onClick={() => setDialog(!dialog)} className="accountArrowLeft"/>
@@ -315,7 +316,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 						{/* !!!!!!!!!! Change */}
 						<img src={!editProduct ? product.photo : `${product.photo}`} className={classes.productImg} alt="product photo" />
 						<div className={classes.productPrice}>{!editProduct ? product.price : product.price} ₽</div>
-						<div className={classes.productName}>{!editProduct ? product.title : product.title}</div>
+						<div className={classes.productName}>{ellipsis(!editProduct ? product.title : product.title, 16)}</div>
 						<div className={classes.productLocation}>{!editProduct ? product.location : product.location}</div>
 					</div>
 					{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
