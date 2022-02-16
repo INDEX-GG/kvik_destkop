@@ -120,7 +120,12 @@ const useStyles = makeStyles((theme) => ({
 	link: {
 		color: "#00A0AB",
 		textDecorationLine: "underline"
-	}
+	},
+	[theme.breakpoints.down(400)]: {
+    form: {
+      gap: "20px",
+    },
+  }
 }));
 
 /**
