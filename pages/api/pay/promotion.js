@@ -30,58 +30,49 @@ export default async function handler(req, res) {
         const pool_posts = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
 
-            const descriptions = {
-                1: {
-                    "description": "Пополнение кошелька KVIK",
-                    "return_url": "https://onekvik.ru/",
-                    "fail_url": "https://onekvik.ru/"},
+            const relevant_actions = {
                 2: {
                     "description": "Поднятие вверх объявления KVIK",
-                    "return_url": "https://onekvik.ru/",
-                    "fail_url": "https://onekvik.ru/"},
+                    "price": 1900},
                 3: {
                     "description": "Выделение цветом объявления KVIK",
-                    "return_url": "https://onekvik.ru/",
-                    "fail_url": "https://onekvik.ru/"},
+                    "price": 3900},
                 4: {
                     "description": "XL объявление KVIK",
-                    "return_url": "https://onekvik.ru/",
-                    "fail_url": "https://onekvik.ru/"},
+                    "price": 3900},
                 5: {
                     "description": "Комбо продвижение KVIK",
-                    "return_url": "https://onekvik.ru/",
-                    "fail_url": "https://onekvik.ru/"}
+                    "price": 5900}
             }
 
-            let amount = req.body.amount
+            let amount = 0
+            let return_url = "https://onekvik.ru/"
+            let fail_url = "https://onekvik.ru/"
+            let description = "Оплата услуг по продвижению на сайте onekvik.ru"
             let user_id = req.body.user_id
             let post_id = req.body.post_id
             let now = new Date()
             const randomString = crypto.randomBytes(2).toString("hex");
-            let action = req.body.action
+            let actions = [...new Set(req.body.actions)]
 
-            if (amount === undefined || typeof amount !== 'number' || amount < 1) { throw "Er 1" }
-            if (user_id === undefined || typeof user_id !== 'number' || user_id < 1) { throw "Er 2" }
-            if (! [1, 2, 3, 4, 5].includes(action)) { throw "Er 3" }
-            if (typeof post_id !== 'number' || post_id < 1) { post_id = null }
-            if ([2, 3, 4, 5].includes(action)) {
-                if (typeof post_id !== 'number' || post_id < 1) {throw "Er 4"}
-                let check_post = await pool_posts.query(`SELECT users.name AS user_name, posts.id, posts,title FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $1 AND users.id = $2`, [post_id, user_id])
-                if (check_post.rows.length === 0) { throw "Er 5" }
-            }
-            if ([1].includes(action)) { post_id = null }
-
+            if (user_id === undefined || typeof user_id !== 'number' || user_id < 1) { throw "Er 1" }
+            if (post_id === undefined || typeof post_id !== 'number' || post_id < 1) { throw "Er 2" }
+            actions.forEach(element => {if (typeof element !== 'number' || element <= 0  || ! (Object.keys(relevant_actions).map(key => parseInt(key))).includes(element)) {throw "Er 3"}});
+            let check_post = await pool_posts.query(`SELECT users.name AS user_name, posts.id, posts,title FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $1 AND users.id = $2`, [post_id, user_id])
+            if (check_post.rows.length === 0) { throw "Er 4" }
             let order_number = user_id.toString() + randomString + now.getTime().toString()
-            if (order_number.length > 32) { throw "Er 6" }
-            let description = descriptions[action].description
+            if (order_number.length > 32) { throw "Er 5" }
+
+            actions.forEach(element => { amount += relevant_actions[element].price})
+            console.log(amount);
 
             let params = qs.stringify({
                 userName: payment_login,
                 password: payment_pass,
                 orderNumber: order_number,
                 amount: amount,
-                returnUrl: descriptions[action].return_url,
-                failUrl: descriptions[action].fail_url,
+                returnUrl: return_url,
+                failUrl: fail_url,
                 description: description,
                 clientId: user_id
             })
@@ -89,9 +80,10 @@ export default async function handler(req, res) {
             let payment_reg_answer = await axios.post(payment_reg_url, params).then(r => r.data)
             let order_id = payment_reg_answer.orderId
             let form_url = payment_reg_answer.formUrl
-            if (form_url === undefined || order_id === undefined) { throw "Er 7" }
+            if (form_url === undefined || order_id === undefined) { throw "Er 6" }
 
-            await pool_payments.query(`INSERT INTO "public"."transactions" ("order_id", "order_number", "user_id", "post_id", "amount", "description", "action", "payment_url", "status_transaction", "source", "create_time") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`, [order_id, order_number, user_id, post_id, amount, description, action, form_url, "created", payment_source, now])
+            await pool_payments.query(`INSERT INTO "public"."transactions" ("order_id", "order_number", "user_id", "post_id", "amount", "description", "actions", "payment_url", "status_transaction", "source", "create_time") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`, [order_id, order_number, user_id, post_id, amount, description, actions, form_url, "created", payment_source, now])
+
             return {"form_url": form_url}
 
         }
