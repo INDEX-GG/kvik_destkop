@@ -12,6 +12,7 @@ import { useAuth } from "../lib/Context/AuthCTX";
 import theme from "../UI/theme"
 import IndexPlaceHolder from "../components/placeHolders/IndexPlaceHolder/IndexPlaceHolder";
 import ScrollPostData from "../components/ScrollPostData";
+import PayPromotionModal from "../src/components/PayPromotion/PayPromotionModal";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -89,6 +90,7 @@ const Index = () => {
 						</Box>
 					</Box>}
 				</Box>}
+			<PayPromotionModal/>
 		</Container>
 		{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
 	</>

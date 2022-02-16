@@ -160,9 +160,9 @@ const UpPanel = () => {
 								<RoomOutlinedIcon fontSize='small' />{city}
 							</Button>
 							{isAuth && <Box className={classes.btns__uppanel}>
-								{/*<CustomTooltip str={<div>Выберайте вашу любимую категорию товаров <br /> для быстрого перехода</div>} icon={<CategoryDark />} />*/}
+								{/*<CustomTooltip str={<div>Выберайте вашу любимую категорию товаров <br /> для быстрого перехода</div>} UIicon={<CategoryDark />} />*/}
 								{/*  скрыто пока не работает */}
-								{/*<CustomTooltip str={'Статистика'} icon={<CompareDark />}/>*/}
+								{/*<CustomTooltip str={'Статистика'} UIicon={<CompareDark />}/>*/}
 								{/*  скрыто пока не работает */}
 								<CustomTooltip str={'Избранное'} icon={<LikeDark/>} account='4' onClick />
 								<CustomTooltip str={'Сообщения'} icon={<NotifDark/>} account='5' onClick/>
