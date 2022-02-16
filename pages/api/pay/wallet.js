@@ -61,6 +61,9 @@ export default async function handler(req, res) {
             let order_id = payment_reg_answer.orderId
             let form_url = payment_reg_answer.formUrl
             if (form_url === undefined || order_id === undefined) { throw "Er 5" }
+            let transaction_check = await pool_payments.query(`SELECT * FROM "public"."transactions" WHERE "order_id" = $1 AND "source" = $2`, [order_id, payment_source])
+            if (transaction_check.rows.length > 0) { throw "Er 6" }
+
             await pool_payments.query(`INSERT INTO "public"."transactions" ("order_id", "order_number", "user_id", "post_id", "amount", "description", "actions", "payment_url", "status_transaction", "source", "create_time") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`, [order_id, order_number, user_id, null, amount, description, actions, form_url, "created", payment_source, now])
 
             return {"form_url": form_url}
