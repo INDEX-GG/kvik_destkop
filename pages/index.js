@@ -59,7 +59,7 @@ const seoProps = createSEOProps({
 })
 
 const Index = () => {
-	const { matchesMobile, matchesTablet } = useMedia();
+	const { matchesMobile, matchesTablet, matchesDesktop } = useMedia();
 	// modifyGetPostsData(offers)
 	const classes = useStyles();
 	const { isAuth } = useAuth();
@@ -87,10 +87,11 @@ const Index = () => {
 						<JokerBlock />
 						<Box className={classes.footer} ref={footerRef} >
 							{!isPending ? null : <Footer2 />}
-				      <Cookie anchorRef={footerRef} />
 						</Box>
-					</Box>}
+					</Box>
+					}
 				</Box>}
+				{isPending && matchesDesktop && <Cookie />}
 		</Container>
 		{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
 	</>

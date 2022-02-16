@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Popper } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 import CookieConfirm from './CookieConfirm/CookieConfirm'
 import {CookieStyles} from './styles'
@@ -21,7 +21,7 @@ const Cookie = ({anchorRef}) => {
     if(!cookieConfirm && typeof anchorRef.current !== 'undefined' && !isShowConfirm) {
       setTimeout(() => {
         setIsShowConfirm(prevState => !prevState)
-      }, 1000)
+      }, 1500)
     }
   }
 
@@ -39,9 +39,13 @@ const Cookie = ({anchorRef}) => {
 
   return (
     <>
-      <Popper className={styles.popper} disablePortal={true} open={isShowConfirm || false} placement="left-end" anchorEl={anchorRef.current}>
-        <CookieConfirm handlerConfirm={handlerConfirm} />
-      </Popper>
+      {!isShowConfirm &&
+        <Box
+          className={styles.popper}
+        >
+          <CookieConfirm handlerConfirm={handlerConfirm} />
+        </Box>
+      }
     </>
   )
 }

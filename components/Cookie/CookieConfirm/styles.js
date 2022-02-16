@@ -3,7 +3,6 @@ import {makeStyles} from '@material-ui/core'
 export const CookieConfirmStyles = () => {
   const useStyles = makeStyles(() => ({
     root: {
-      width: '1023px',
       height: '77px',
       left: '0px',
       top: '0px',
