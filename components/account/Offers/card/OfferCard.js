@@ -431,18 +431,18 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 	const correctDays = getNoun(offer.best_before, 'день', 'дня', 'дней')
 
 	const cleanAll = () => {
-		getChildCheck({ id: offer.id, isChecked: false });
+		getChildCheck({ id: offer.id, isCheck: false });
 		setCheck(false)
 	}
 
 	useEffect(() => {
 		parentCheck ? check
 			? null
-			: (getChildCheck({ id: offer.id, isChecked: parentCheck }), setCheck(parentCheck))
+			: (getChildCheck({ id: offer.id, isCheck: parentCheck }), setCheck(parentCheck))
 			: check === false
 				? null
 				: allDataCheck?.length === 0
-					? (getChildCheck({ id: offer.id, isChecked: parentCheck }), setCheck(parentCheck))
+					? (getChildCheck({ id: offer.id, isCheck: parentCheck }), setCheck(parentCheck))
 					: null;
 	}, [parentCheck])
 
@@ -477,8 +477,9 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.id}
 							onChange={(event) => {
+								console.log('onChange: ', { id: offer.id, isCheck: event.target.checked })
 								setCheck(event.target.checked);
-								getChildCheck({ id: offer.id, isChecked: event.target.checked }); /* handleCheck(event.target.checked) */
+								getChildCheck({ id: offer.id, isCheck: event.target.checked }); /* handleCheck(event.target.checked) */
 							}}
 							checked={check}
 						/>

@@ -64,6 +64,27 @@ function Wait({offers}) {
 	const [buttonId, setButtonId] = useState('');
 	const offersLength = offers.length
 
+	const cleanAll = () =>  {
+		setCheck(false);
+		setOfferId([]);
+		setOfferData([]);
+	}
+
+	function getChildCheck ({id, isCheck}) {
+		setOfferId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
+		setOfferData( isCheck ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
+	}
+
+	useEffect(() => {
+		offerId.length === offers.length
+      ? check
+        ? null
+        : setCheck(false)
+      : check===false
+        ? null
+        : setCheck(true);
+	}, [offerId])
+
   // запрещаем вешать слушатель скрола, при первом рендере т.к. стейты еще не пришли.
   useEffect(()=> {
 		if(isFirstRender) {
@@ -91,28 +112,6 @@ function Wait({offers}) {
 			pageNumber += 1
 		}
 	}
-
-  const cleanAll = () => {
-    console.log('cleanAll')
-		setCheck(false);
-		setOfferId([]);
-		setOfferData([]);
-	}
-
-  function getChildCheck({id, isCheck}) {
-    setOfferId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id ) );
-    setOfferData( isCheck ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
-  }
-
-  useEffect(() => {
-		offerId.length === offers.length
-      ? check
-        ? null
-        : setCheck(true)
-      : check===false
-        ? null
-        : setCheck(false);
-	}, [offerId])
 
   	/* Модальное окно */
 	function pushCheck(e) {
@@ -142,9 +141,8 @@ function Wait({offers}) {
                 icon={<FiberManualRecordOutlinedIcon/>}
                 checkedIcon={<FiberManualRecordSharpIcon/>}
                 onChange={(e) => {
-                  console.log('onChange: ', e.target.checked)
-                  e.target.checked === false ? cleanAll() : setCheck(e.target.checked);
-                }}
+									e.target.checked === false ? cleanAll() : setCheck(e.target.checked);
+								}}
                 checked={check}
               />
               <button id='002' className={classes.btn__delete} onClick={(e) => {
@@ -184,4 +182,4 @@ function Wait({offers}) {
       </>
   );
 }
-export default Wait;
+export default React.memo(Wait);
