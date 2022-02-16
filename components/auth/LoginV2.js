@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /**
- * @param {object} props 
+ * @param {object} props
  * @param {[boolean, () => void]} props.loginFormState
  * @param {(arg: boolean) => void} props.changeAuthForm
  */
@@ -380,7 +380,7 @@ export const LoginV2 = ({
 								{/*<Box  className={classes.passwordActionBlock}>*/}
 								{/*  <Checkbox*/}
 								{/*      className={classes.rememberPasswordCheck}*/}
-								{/*      icon={<FiberManualRecordOutlinedIcon/>}*/}
+								{/*      UIicon={<FiberManualRecordOutlinedIcon/>}*/}
 								{/*      checkedIcon={<FiberManualRecordSharpIcon/>}*/}
 								{/*      label="Запомнить пароль"*/}
 								{/*  />*/}
@@ -417,7 +417,7 @@ export const LoginV2 = ({
 									{/*  className={classes.rememberPasswordCheck}*/}
 									{/*  color="primary"*/}
 									{/*  value=""*/}
-									{/*  icon={<FiberManualRecordOutlinedIcon/>}*/}
+									{/*  UIicon={<FiberManualRecordOutlinedIcon/>}*/}
 									{/*  checkedIcon={<FiberManualRecordSharpIcon/>}*/}
 									{/*/>*/}
 									{/*<button  className={classes.rememberPassword} >*/}
