@@ -150,7 +150,6 @@ function Archive({offers}) {
 
 	/* Модальное окно */
 	function pushCheck(e) {
-		console.log('pushCheck общий архив удалить: ', e)
 		setButtonId(e.target.id)
 		setOpenOfferModal(!openOfferModal);
 	}
@@ -170,7 +169,6 @@ function Archive({offers}) {
 						icon={<FiberManualRecordOutlinedIcon/>}
 						checkedIcon={<FiberManualRecordSharpIcon/>}
 						onChange={(e) => {
-							console.log('onChange: ', e.target.checked)
 							e.target.checked === false ? cleanAll() : setCheck(e.target.checked);
 						}}
 						checked={check}
@@ -182,7 +180,6 @@ function Archive({offers}) {
 						Активировать
 					</button> */}
 					<button id='002' className={classes.btn__delete} onClick={(e) => {
-						console.log('offerData: ', offerData)
 						offerData.length > 0 ? pushCheck(e) : null
 					}}>
 						Удалить

@@ -96,7 +96,6 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 	const {token} = useAuth();
 	function PushDb(id) {
 		let arr = { 'id': offerId, 'active': `${id}`, 'user_id': user_id }
-		console.log('arr: ', arr)
 		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
 			.then(r => r)
 			.finally(function () {
