@@ -66,4 +66,4 @@ const CustomModalUI = (
     );
 };
 
-export default CustomModalUI;
+export default React.memo(CustomModalUI);

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Balance from './tabs/Balance';
+// import Balance from './tabs/Balance';
+import Balance from "../../../src/components/Account/Wallet/Balance/Balance";
 import Story from './tabs/Story';
-import Bonus from './tabs/Bonus';
+// import Bonus from './tabs/Bonus';
 import { useRouter } from 'next/router';
 import safeAccountTab from '../../safeAccountTab';
 // import EmptyPlaceholder from "../../EmptyPlaceholder";

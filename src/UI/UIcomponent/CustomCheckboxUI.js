@@ -16,4 +16,4 @@ const CustomCheckboxUI = ({checked, onChange = () => null}) => {
     );
 };
 
-export default CustomCheckboxUI;
+export default React.memo(CustomCheckboxUI);

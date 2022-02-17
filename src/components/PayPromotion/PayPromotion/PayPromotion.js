@@ -9,7 +9,6 @@ import {fetchPromotionAd} from "../../../fetch/fetch";
 import {BASE_URL} from "#lib/constants";
 import {usePayPromotionStyles} from "./style";
 import promotionArr from './PayPromotionData.json'
-import CustomSwitchUI from "../../../UI/UIcomponent/CustomSwitchUI";
 import {useMedia} from "#hooks/useMedia";
 
 

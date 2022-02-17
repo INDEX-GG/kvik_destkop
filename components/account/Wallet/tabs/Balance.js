@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToRubles } from '../../../../lib/services';
+// import { ToRubles } from '../../../../lib/services';
 // import EmptyPlaceholder from '../../../EmptyPlaceholder';
 
 function Balance() {

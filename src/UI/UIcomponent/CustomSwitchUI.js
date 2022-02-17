@@ -39,4 +39,4 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export default CustomSwitchUI;
+export default React.memo(CustomSwitchUI);

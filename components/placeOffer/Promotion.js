@@ -1,4 +1,4 @@
-import {Box, Button, makeStyles, Dialog, useMediaQuery} from "@material-ui/core";
+import {Box, Button, makeStyles, Dialog} from "@material-ui/core";
 import {useEffect, useState} from "react";
 import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
@@ -240,12 +240,6 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 			}, 3000)
 		}
 	}, [finalPreview])
-
-	const redirectToIndex = () => {
-	  return rounter.push("/")
-	}
-
-	// setTimeout(redirectToIndex, 3000)
 
 	const title = ["Выделение цветом", "Поднятие в поиске", "Отметка на карте", "Показ в схожих категориях", "Размещение в других городах", "Защита номера", "VIP-объявление", "Приветственное сообщение", "Без продвижения"]
 
