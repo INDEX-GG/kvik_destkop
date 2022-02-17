@@ -105,7 +105,7 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 		typeof cleanAll === "undefined" ? null : cleanAll();
 		typeof setUpdate === "undefined" ? null : setUpdate(id);
 	}
-	
+
 	function showButtons(id) {
 		if( id === "001" ) {
 			return  <>
@@ -117,7 +117,7 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 		}
 		if( id === "002" ) {
 			return  <>
-				<Typography className={classes.offer_form__desc}>Удалить из архива</Typography>
+				<Typography className={classes.offer_form__desc}>Удалить из своих объявлений</Typography>
 				<Typography className={classes.offer_form__sub_desc}>Вы действительно хотите удалить объявление ?</Typography>
 				<Button onClick={() => PushDb(99)} className={classes.offer_form__btn}>Да удалить</Button>
 				<Button onClick={() => setOpenOfferModal(!openOfferModal)} className={classes.offer_form__btn}>Нет</Button>
@@ -163,7 +163,7 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 							<Typography className={classes.offer_form__item__price}>{ToRubles(offerAction.price)}</Typography>
 							<Typography className={classes.offer_form__item__title}>{offerAction.title}</Typography>
 						</Grid>
-						<Grid 
+						<Grid
 							item
 							mt={1}
 							xs={0}

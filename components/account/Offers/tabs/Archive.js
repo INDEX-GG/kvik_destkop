@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import OfferModal from "../../../OfferModal";
-// import OfferArchive from "../card/offerArchive";
 import { useOfferAccount } from "../../../../lib/Context/OfferAccountCTX";
 import { Checkbox, makeStyles, Dialog  } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
@@ -74,6 +73,27 @@ function Archive({offers}) {
 	const [buttonId, setButtonId] = useState('');
 	const offersLength = offers.length
 
+	const cleanAll = () => {
+		setCheck(false);
+		setOfferId([]);
+		setOfferData([]);
+	}
+
+	function getChildCheck ({id, isCheck}) {
+		setOfferId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
+		setOfferData( isCheck ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
+	}
+
+	// условие setCheck(true) ставит галочку при отрисовки страницы
+	useEffect( () => {
+		offerId.length === offers.length
+			? check
+				? null
+				: setCheck(false)
+			: check===false
+				? null
+				: setCheck(true)
+	}, [offerId]);
 
 	useEffect(()=> {
 		if(isFirstRender) {
@@ -102,38 +122,6 @@ function Archive({offers}) {
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-	const cleanAll = () => {
-		setCheck(false);
-		setOfferId([]);
-		setOfferData([]);
-	}
-
-
-	function getChildCheck ({id, isCheck}) {
-		setOfferId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
-		setOfferData( isCheck ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
-	}
-
-// условие setCheck(true) ставит галочку при отрисовки страницы
-	useEffect( () => {
-		offerId.length === offers.length
-			? check
-				? null
-				: setCheck(true)
-			: check===false
-				? null
-				: setCheck(false)
-	}, [offerId]);
-
 	if (offers.length === 0) {
 		return (
 			<>
@@ -160,13 +148,11 @@ function Archive({offers}) {
 		);
 	}
 
-
 	/* Модальное окно */
 	function pushCheck(e) {
 		setButtonId(e.target.id)
 		setOpenOfferModal(!openOfferModal);
 	}
-
 
 	return (
 		<>
@@ -200,34 +186,22 @@ function Archive({offers}) {
 					</button>
 				</div>}
 				<div className="clientPage__container_content">
-					{offers?.map((offer, i) => {
+					{offers?.map((offer) => {
 						return (
 							<OfferCard
-								key={i}
+								key={offer.id}
+								offer={offer}
 								typeTab='archiveTab'
 								typeButton={'001'}
-								offer={offer}
 								parentCheck={check}
 								getChildCheck={getChildCheck}
-								parentOpenDelActiveForm={openOfferModal}
-								allOfferId={offerId}
+								parentUnpublishForm={openOfferModal}
+								allDataCheck={offerId}
 								offersLength={offersLength}
 							/>
 						);
 					})}
 				</div>
-					{/* <button
-						style={{width: '100px', height: '30px', backgroundColor: 'cyan', margin: '0 auto', display: 'block'}}
-						onClick={()=> {
-							const maxPossiblePage = Math.ceil(totalPosts.archive / page_limit);
-							if(maxPossiblePage <= page) {
-								return
-							}
-							setPage(page + 1)
-						}}
-						>
-						test
-					</button> */}
 			</div>}
 			<Dialog open={openOfferModal} onClose={() => setOpenOfferModal(!openOfferModal)} fullWidth maxWidth="md">
 				<OfferModal
