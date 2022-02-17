@@ -218,7 +218,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
 
             setProduct({
                 title: sendObj.title,
-                location: sendObj.location,
+                location: sendObj.address, // locaion удалили выше, ставим адрес
                 price: sendObj.price,
                 id: productId,
                 photo: `${STATIC_URL}/${newPhotoArr[0]}`

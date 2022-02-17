@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { phoneNumber } from '../../lib/services'
 import { useStore } from '../../lib/Context/Store';
 import AdditionalModalText from "#components/placeOffer/newPlaceOffer/AdditionalModalText";
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
 	formElem: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
 						width: '100%'
 				}
 		}
+	},
+	formElemError: {
+		border: '1px solid red',
 	},
 	formTitleField: {
 			fontSize: '14px',
@@ -68,6 +72,7 @@ export default function MobileContact() {
 	const methods = useFormContext();
 	const { userInfo } = useStore();
 	const [phones, setPhones] = useState([]);
+	const errorsContact = Object.hasOwnProperty.call(methods.formState.errors, 'bymessages')
 
 	useEffect(() => {
 		if (userInfo !== undefined) {
@@ -81,10 +86,25 @@ export default function MobileContact() {
 		e.preventDefault()
 		onChange(e.target.checked)
 		methods.setValue('contact', contact)
+		validateContact()
+	}
+
+	const validateContact = () => {
+		const bymessages = methods.getValues('bymessages')
+		const byphone = methods.getValues('byphone')
+
+		if(bymessages === false & byphone === false) {
+			methods.setError('bymessages', {
+				type: 'manual',
+				message: 'Выберите способ для обратной связи'
+			})
+		}else{
+			methods.clearErrors('bymessages')
+		}
 	}
 
 	return (
-		<Box className={classes.formElem}>
+		<Box className={clsx(classes.formElem, (errorsContact && classes.formElemError))}>
 		<Typography className={classes.formTitleField}>Контакты</Typography>
 		<AdditionalModalText title='Способ связи' alias='contacts'>
 				<Box className={classes.formInputField}>
@@ -93,6 +113,7 @@ export default function MobileContact() {
 										name='bymessages'
 										control={methods.control}
 										defaultValue={true}
+										rules={{required: (!methods.watch('byphone')) ? 'Выберите способ для обратной связи' : null}}
 										render={({field: {onChange, value}}) => (
 												<FormControlLabel
 														className={classes.label}
@@ -103,12 +124,11 @@ export default function MobileContact() {
 																		icon={<OutlinedIcon/>}
 																		checkedIcon={<Filledicon/>}
 																		checked={value}
-																		onChange={(e) => onChange(e.target.checked)}
+																		onChange={handlerChangePhone(userInfo?.phone, onChange)}
 																/>}
 														label="Сообщения на сайте"
 												/>
 										)}
-										rules={{required: !(methods.watch('bymessages') || methods.watch('byphone')) ? 'Выберите способ для обратной связи' : null}}
 								/>
 
 								<Controller
@@ -117,9 +137,9 @@ export default function MobileContact() {
 										defaultValue={true}
 										render={({field: {onChange, value}}) => (
 											<>
-												{phones.map((item) => (
+												{phones.map((item, i) => (
 													<FormControlLabel
-														key={item.value}
+														key={i}
 														className={classes.label}
 														control={
 																<Checkbox
@@ -127,7 +147,7 @@ export default function MobileContact() {
 																		color='primary'
 																		icon={<OutlinedIcon/>}
 																		checkedIcon={<Filledicon/>}
-																		checked={userInfo?.phone === item.value ? value : false}
+																		checked={value}
 																		onChange={handlerChangePhone(item.value, onChange)}
 																/>}
 														label={item.label}
@@ -135,10 +155,9 @@ export default function MobileContact() {
 												))}
 											</>
 										)}
-										rules={{required: 'Выберите номер для связи'}}
+										rules={{required: (!methods.watch('byphone')) ? 'Выберите способ для обратной связи' : null}}
 								/>
-
-								<Typography className={classes.error}>{methods.formState.errors?.byphone?.message}</Typography>
+								{errorsContact && <Typography className={classes.error}>{methods.formState.errors?.bymessages ? methods.formState.errors.bymessages.message : ''}</Typography>}
 						</Box>
 				</Box>
 			</AdditionalModalText>

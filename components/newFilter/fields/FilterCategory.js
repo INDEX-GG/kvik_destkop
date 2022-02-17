@@ -8,7 +8,8 @@ import {useMedia} from "#hooks/useMedia";
 
 const FilterCategory = ({setCategory}) => {
 
-    const {matchesTablet} = useMedia();
+    const {matchesTablet, matchesMobile} = useMedia();
+    const isScreenMobile = matchesTablet || matchesMobile
 
     const methods = useFormContext();
     const alias1 = methods.watch('alias1')
@@ -34,7 +35,7 @@ const FilterCategory = ({setCategory}) => {
     return (
         <div>
             {/* пока что захардкожено, чтобы проверить работоспособность */}
-            {matchesTablet
+            {isScreenMobile
             ? (
                 <>
                     {/* мобилка с 960px и ниже */}

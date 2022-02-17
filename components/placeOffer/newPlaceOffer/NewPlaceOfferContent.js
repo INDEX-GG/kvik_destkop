@@ -16,6 +16,7 @@ import {useCategoryPlaceOffer} from "#hooks/useCategoryPlaceOffer";
 import PhotoForEditPage from '../PhotosForEditPage';
 import { useRouter } from "next/router";
 import MobileContacts from "#components/placeOffer/MobileContacts";
+import {isObjectEmpty} from '../../../lib/services'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -86,6 +87,7 @@ const NewPlaceOfferContent = ({ photoesCtx, category, title, currentCategory, on
     const methods = useFormContext();
     const {mainCategory} = useCategoryV2();
 
+    const isFormHasError = !isObjectEmpty(methods.formState.errors)
 
     const media960 = useMediaQuery('(max-width: 960px');
 
@@ -122,9 +124,12 @@ const NewPlaceOfferContent = ({ photoesCtx, category, title, currentCategory, on
                     {(photoesLink?.length > 0) && <PhotoForEditPage photo={photoesLink} ctx={photoesCtx}/>}
                 </Box>
                 <Box className={classes.formPart}>
-                    {currentPage === 'editPage' && methods.getValues('location') ? <Location/> :
-                    currentPage === 'placeOffer' ? <Location/> : null}
-
+                    {currentPage === 'editPage'
+                    ? <Location/>
+                    : currentPage === 'placeOffer'
+                        ? <Location/>
+                        : null
+                    }
                     {/* если мобилка, то мобильный вид выбора способа свзяи */}
                     {!media960 ? <Contacts/> : <MobileContacts />}
                     <Box className={classes.submit}>
@@ -134,7 +139,9 @@ const NewPlaceOfferContent = ({ photoesCtx, category, title, currentCategory, on
                             type='submit'
                             color='primary'
                             className={classes.button}
-                            variant='contained'>
+                            variant='contained'
+                            disabled={isFormHasError}
+                        >
                             Продолжить
                         </Button>
                     </Box>
