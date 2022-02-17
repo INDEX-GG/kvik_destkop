@@ -1,12 +1,14 @@
 import React from 'react';
 import {Button, makeStyles} from "@material-ui/core";
 
-const KvikButton = (
+const KvikButtonUI = (
     {
         children,
         onClick = () => null,
         type = 'button',
-        disabled = false
+        disabled = false,
+        customRoot = {},
+        customDisabled = {}
     }
 ) => {
     const classes = useStyles();
@@ -16,7 +18,7 @@ const KvikButton = (
             disabled={disabled}
             type={type}
             onClick={onClick}
-            classes={{root: classes.root, disabled: classes.disabled,}}
+            classes={{root: `${classes.root} ${customRoot}`, disabled: `${classes.disabled} ${customDisabled}`}}
         >
             {children}
         </Button>
@@ -41,4 +43,4 @@ const useStyles = makeStyles(() => ({
     }
 }))
 
-export default React.memo(KvikButton);
+export default React.memo(KvikButtonUI);

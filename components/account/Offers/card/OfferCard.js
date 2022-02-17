@@ -9,7 +9,8 @@ import BtnActive from "./OfferCardPart/btnActive";
 import BtnWite from "./OfferCardPart/btnWite";
 import Image from "./OfferCardPart/imgCard";
 import ImgStatistic from "./OfferCardPart/imgStatistic";
-import PayPromotion from "../../../../src/components/PayPromotion/PayPromotion";
+import PayPromotion from "../../../../src/components/PayPromotion/PayPromotion/PayPromotion";
+import CustomModalUI from "../../../../src/UI/UIcomponent/CustomModal/CustomModalUI";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -529,9 +530,22 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 					cleanAll={cleanAll}
 				/>
 			</Dialog>
-			<Dialog open={promotionModal} maxWidth='md' classes={{paper: classes.promotionModal}} onClose={() => setPromotionModal(false)}>
-				<PayPromotion postId={offer?.id} handleContinue={() => setPromotionModal(false)}/>
-			</Dialog>
+			{/*<Dialog open={promotionModal} maxWidth='md' classes={{paper: classes.promotionModal}} onClose={() => setPromotionModal(false)}>*/}
+			{/*	<PayPromotion postId={offer?.id} handleContinue={() => setPromotionModal(false)}/>*/}
+			{/*</Dialog>*/}
+			<CustomModalUI
+				title='Новое объявление'
+				open={promotionModal}
+				maxWidth='md'
+				customMobile='960'
+				handleCloseModal={() => setPromotionModal(false)}
+				classes={{paper: classes.promotionModal}}
+			>
+				<PayPromotion
+					postId={offer?.id}
+					handleContinue={() => setPromotionModal(false)}
+				/>
+			</CustomModalUI>
 		</>
 	)
 }
