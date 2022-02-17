@@ -16,7 +16,7 @@ const Cookie = () => {
     // cookieConfirm временно лежит в localStorage, пока не накрутится логика и не показывать часто модалку
     const cookieConfirm = JSON.parse(localStorage.getItem('cookieConfirm'))?.cookieConfirm || false
 
-    // пустой cookieConfirm -> показываем модалку
+    // пустой cookieConfirm и не показывается -> показываем модалку
     if(!cookieConfirm && !isShowConfirm) {
       setTimeout(() => {
         setIsShowConfirm(prevState => !prevState)
@@ -38,7 +38,7 @@ const Cookie = () => {
 
   return (
     <>
-      {!isShowConfirm &&
+      {isShowConfirm &&
         <Box
           className={styles.popper}
         >

@@ -11,6 +11,8 @@ import Image from "./OfferCardPart/imgCard";
 import ImgStatistic from "./OfferCardPart/imgStatistic";
 import PayPromotion from "../../../../src/components/PayPromotion/PayPromotion/PayPromotion";
 import CustomModalUI from "../../../../src/UI/UIcomponent/CustomModal/CustomModalUI";
+import {ellipsis} from '../../../../lib/services'
+import { useMedia } from '../../../../hooks/useMedia';
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -71,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingRight: '0',
 	},
 	paddingIconWait: {
-		padding: '24px 0 0 34px',
+		padding: '24px 0 0 0px',
 		paddingRight: '0',
 	},
 	btn__upViews: {
@@ -167,6 +169,14 @@ const useStyles = makeStyles((theme) => ({
 			textDecorationLine: 'underline',
 		},
 	},
+	text__banned: {
+		fontSize: '12px',
+		fontWeight: '400',
+		textAlign: '14px',
+		'& span': {
+			color: 'red'
+		}
+	},
 	pos_abs: {
 		position: 'absolute',
 		width: '232px',
@@ -224,7 +234,6 @@ const useStyles = makeStyles((theme) => ({
 			paddingRight: '10px'
 		},
 	},
-
 	[theme.breakpoints.down(1025)]: {
 		offer__image:{
 			width: '350px',
@@ -391,24 +400,44 @@ function getNoun(number, one, two, five) {
     return five;
   }
 
-export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab, typeButton }) {
+	// в будущем будет приходить с api
+const moderatorMessages = [
+	'Указана контактная информация в названии, тексте или на изображении',
+	'В одном объявлении предложено несколько товаров или услуг',
+	'Размещение запрещённых товаров или услуг на территории РФ',
+	'Дискриминация других пользователей по каким - либо признакам',
+	'Объявление размещено в неверной категории',
+	'Указана не соответствующая цена',
+	'Несоответствие фото, описания, заголовка',
+	'Некорректное описание',
+	'Некорректное название объявления',
+	'Недопустимая информация в названии, тексте, на изображении',
+	'Указаны неверные параметры',
+]
+
+export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab }) {
 	const classes = useStyles();
 	const [openOfferModal, setOpenOfferModal] = useState(false);
 	const [promotionModal, setPromotionModal] = useState(false);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState([]);
-	const buttonId = typeButton;
+	const { matchesMobile, matchesTablet } = useMedia();
+	const screenIsMobile = matchesMobile || matchesTablet
+	const [buttonId, setButtonId] = useState();
 	const offerData = offer;
 	const offerID = offer.id;
 	const isArchive = typeTab === 'archiveTab';
 	const isActive = typeTab === 'activeTab';
 	const isWaith = typeTab === 'waitTab';
+	const isBanned = isWaith && offer.status === 'banned'
+	const isTimeLimit = offer.status === 'time_limit'
+	const mobileBanned = screenIsMobile && isBanned
 	// console.log(isArchive, isActive, isWaith);
 	// корректное склоенение для слова
 	const correctDays = getNoun(offer.best_before, 'день', 'дня', 'дней')
 
 	const cleanAll = () => {
-		getChildCheck({ id: offer.id, isChecked: false });
+		getChildCheck({ id: offer.id, isCheck: false });
 		setCheck(false)
 	}
 
@@ -416,11 +445,11 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 	useEffect(() => {
 		parentCheck ? check
 			? null
-			: (getChildCheck({ id: offer.id, isChecked: parentCheck }), setCheck(parentCheck))
+			: (getChildCheck({ id: offer.id, isCheck: parentCheck }), setCheck(parentCheck))
 			: check === false
 				? null
 				: allDataCheck?.length === 0
-					? (getChildCheck({ id: offer.id, isChecked: parentCheck }), setCheck(parentCheck))
+					? (getChildCheck({ id: offer.id, isCheck: parentCheck }), setCheck(parentCheck))
 					: null;
 	}, [parentCheck])
 
@@ -431,6 +460,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 	function pushCheck(e) {
 		if (e.target.value !== '') {
 			setOfferId([+e.target.value])
+			setButtonId(e.target.id)
 		}
 		setOpenOfferModal(!openOfferModal);
 	}
@@ -454,8 +484,9 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 							checkedIcon={<FiberManualRecordSharpIcon />}
 							value={offer.id}
 							onChange={(event) => {
+								console.log('onChange: ', { id: offer.id, isCheck: event.target.checked })
 								setCheck(event.target.checked);
-								getChildCheck({ id: offer.id, isChecked: event.target.checked }); /* handleCheck(event.target.checked) */
+								getChildCheck({ id: offer.id, isCheck: event.target.checked }); /* handleCheck(event.target.checked) */
 							}}
 							checked={check}
 						/>
@@ -471,17 +502,35 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 				<div className={classes.description}>
 					<div className={classes.top}>
 						<div className={classes.column}>
-							<div className={classes.left__info}>
+							<div className={!mobileBanned ? classes.left__info : ''}>
 								<p className={`${classes.main__text} ${classes.mobile__font}`}>{ToRubles(offer.price)}</p>
 								<p className={classes.main__text}>{offer.title}</p>
 							</div>
-							<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
-								<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>Дата публикации {ToFullDate(offer.created_at)}</p>
-								{isActive &&
-								<p className={`${classes.main__text} ${classes.position__absolute}`}>
-									Осталось {offer.best_before} {correctDays}
-								</p>}
-							</div>
+							{isActive &&
+								<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
+									<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>Дата публикации {ToFullDate(offer.created_at)}</p>
+									{isActive &&
+									<p className={`${classes.main__text} ${classes.position__absolute}`}>
+										Осталось {offer.best_before} {correctDays}
+									</p>}
+								</div>
+							}
+							{isBanned &&
+								<div>
+									<p className={classes.text__banned}>Причина отклонения: <span>
+										{ellipsis(moderatorMessages.join(' / '), screenIsMobile ? 50 : 250)}
+										</span></p>
+								</div>
+							}
+							{isWaith &&
+								<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
+									<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>Дата последнего редактирования 00.00.0000 00:00</p>
+									{isActive &&
+									<p className={`${classes.main__text} ${classes.position__absolute}`}>
+										Осталось {offer.best_before} {correctDays}
+									</p>}
+								</div>
+							}
 						</div>
 						<div className={classes.column}>
 							<div className={`${classes.column} ${classes.end} ${classes.mobile__width} `}>
@@ -501,15 +550,18 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 											pushCheck={pushCheck}
 											Router={Router}
 											offerID={offerID}
+											isWaithTimeLimit={isTimeLimit || isArchive}
 										/>
 									</div>
 								)}
 							</div>
-							<ImgStatistic
-								classes={classes}
-								isActive={isActive}
-								offer={offer}
-							/>
+							{!isBanned &&
+								<ImgStatistic
+									classes={classes}
+									isActive={isActive}
+									offer={offer}
+								/>
+							}
 						</div>
 					</div>
 					<div className={classes.bottom}>

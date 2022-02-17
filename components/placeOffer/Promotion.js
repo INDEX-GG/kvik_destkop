@@ -7,6 +7,7 @@ import PromotionContent from "./PromotionContent";
 import PayPromotion from "../../src/components/PayPromotion/PayPromotion/PayPromotion";
 import CustomModalUI from "../../src/UI/UIcomponent/CustomModal/CustomModalUI";
 // import {STATIC_URL} from "../../lib/constants";
+import {ellipsis, ToRubles} from '../../lib/services'
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -164,7 +165,7 @@ const useStyles = makeStyles(theme => ({
 		color: "#8F8F8F",
 		fontSize: "9px",
 		fontWeight: "400",
-		padding: "7px 0 0 7px",
+		padding: "7px 0 3px 7px",
 	},
 	productCard: {
 		width: "118px",
@@ -357,8 +358,8 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 						<div className={classes.productCard}>
 							{/* !!!!!!!!!! Change */}
 							<img src={!editProduct ? product.photo : `${product.photo}`} className={classes.productImg} alt="product photo" />
-							<div className={classes.productPrice}>{!editProduct ? product.price : product.price} ₽</div>
-							<div className={classes.productName}>{!editProduct ? product.title : product.title}</div>
+                <div className={classes.productPrice}>{ToRubles(!editProduct ? product.price : product.price)}</div>
+						   <div className={classes.productName}>{ellipsis(!editProduct ? product.title : product.title, 16)}</div>
 							<div className={classes.productLocation}>{!editProduct ? product.location : product.location}</div>
 						</div>
 						{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}

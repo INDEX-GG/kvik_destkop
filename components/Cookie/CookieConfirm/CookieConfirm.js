@@ -22,7 +22,9 @@ const CookieConfirm = ({handlerConfirm}) => {
           variant="contained"
           className={styles.button}
           onClick={handlerConfirm}
-        >Принять</Button>
+        >
+          Принять
+        </Button>
       </Box>
     </Box>
   )

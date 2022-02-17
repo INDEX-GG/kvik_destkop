@@ -14,6 +14,7 @@ const BtnActive = (props) => {
                         </button>
                     </div>
                     <button
+                        id="003"
                         value={props.offer.id}
                         onClick={(e) => props.pushCheck(e)}
                         className={props.classes.btn__unpublish}>
