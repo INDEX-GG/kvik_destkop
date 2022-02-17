@@ -62,6 +62,7 @@ export default async function handler(req, res) {
 						created_at: now,
 						active_time: active_time,
 						date_verify: now,
+						rotation_date: now,
 						// updated_at: now,
 						// archived_time: now,
 						// deleted_at: now,

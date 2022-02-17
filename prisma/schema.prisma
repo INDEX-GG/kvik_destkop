@@ -115,6 +115,7 @@ model posts{
   manager_name          String?
   manager_phone         String?
   crm_id                String?
+  rotation_date         DateTime? @db.Timestamp(0)
 
 
 

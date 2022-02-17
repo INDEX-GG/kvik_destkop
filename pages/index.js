@@ -13,6 +13,7 @@ import theme from "../UI/theme"
 import IndexPlaceHolder from "../components/placeHolders/IndexPlaceHolder/IndexPlaceHolder";
 import ScrollPostData from "../components/ScrollPostData";
 import Cookie from '../components/Cookie/Cookie.js';
+import PayPromotionModal from "../src/components/PayPromotion/PayPromotionModal";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -92,6 +93,7 @@ const Index = () => {
 					}
 				</Box>}
 				{isPending && matchesDesktop && <Cookie />}
+        <PayPromotionModal/>
 		</Container>
 		{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
 	</>
