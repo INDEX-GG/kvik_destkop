@@ -16,7 +16,7 @@ import {FormProvider, useForm} from 'react-hook-form'
 import {handleChangeCategory} from "#components/newFilter/filterServices";
 import {getLastElementArr} from "#lib/services";
 import FilterCategory from "#components/newFilter/fields/FilterCategory";
-import NothingFound from "#components/search/NothingFound";
+// import NothingFound from "#components/search/NothingFound";
 
 
 const useStyles = makeStyles(() => ({
@@ -77,8 +77,10 @@ const Index = () => {
     const searchText = router?.query?.text
     const aliasAll = router?.query?.alias === 'all'
 
-    // ключ data сигнализирует нас о том, что объявления нашлись или нет
-    const isFoundOffer = scrollData?.sendObj && Object.hasOwnProperty.call(scrollData?.sendObj, 'data') ? true : false
+    // // ключ data сигнализирует нас о том, что объявления нашлись или нет
+    // const isFoundOffer = scrollData?.sendObj && Object.hasOwnProperty.call(scrollData?.sendObj, 'data') ? true : false
+    //     : <NothingFound />
+
 
     // категории
     const methods = useForm({
@@ -156,7 +158,7 @@ const Index = () => {
             {aliasData?.aliasBread &&
                 <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>
             }
-            {isFoundOffer ?
+            {/* {scrollData?.sendObj?.category !== '' ? */}
                 <Box className={classes.main}>
                     <Box className={classes.offers}>
                         {scrollData?.url &&
@@ -194,8 +196,6 @@ const Index = () => {
                         </Box>
                     </Box>}
                 </Box>
-                : <NothingFound />
-            }
         </Container>
     )
 }
