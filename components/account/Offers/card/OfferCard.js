@@ -11,6 +11,7 @@ import Image from "./OfferCardPart/imgCard";
 import ImgStatistic from "./OfferCardPart/imgStatistic";
 import {ellipsis} from '../../../../lib/services'
 import { useMedia } from '../../../../hooks/useMedia';
+import PayPromotion from "../../../../src/components/PayPromotion/PayPromotion";
 
 const useStyles = makeStyles((theme) => ({
 	check: {
@@ -75,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingRight: '0',
 	},
 	btn__upViews: {
-		display: 'none',
+		// display: 'none',
 		position: 'absolute',
 		bottom: '8px',
 		alignSelf: 'center',
@@ -375,6 +376,9 @@ const useStyles = makeStyles((theme) => ({
 			display: 'flex',
 			justifyContent: 'center',
 		},
+	},
+	promotionModal: {
+		maxWidth: '865px'
 	}
 }));
 
@@ -413,6 +417,7 @@ const moderatorMessages = [
 export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCheck, parentUnpublishForm, offersLength, typeTab }) {
 	const classes = useStyles();
 	const [openOfferModal, setOpenOfferModal] = useState(false);
+	const [promotionModal, setPromotionModal] = useState(false);
 	const [check, setCheck] = useState(false);
 	const [offerId, setOfferId] = useState([]);
 	const { matchesMobile, matchesTablet } = useMedia();
@@ -434,6 +439,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 		getChildCheck({ id: offer.id, isCheck: false });
 		setCheck(false)
 	}
+
 
 	useEffect(() => {
 		parentCheck ? check
@@ -559,7 +565,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 					</div>
 					<div className={classes.bottom}>
 						{isActive && (
-							<button className={classes.btn__upViews}>Увеличить просмотры</button>
+							<button onClick={() => setPromotionModal(true)} className={classes.btn__upViews}>Увеличить просмотры</button>
 						)}
 					</div>
 				</div>
@@ -574,6 +580,9 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 					buttonId={buttonId}
 					cleanAll={cleanAll}
 				/>
+			</Dialog>
+			<Dialog open={promotionModal} maxWidth='md' classes={{paper: classes.promotionModal}} onClose={() => setPromotionModal(false)}>
+				<PayPromotion postId={offer?.id} handleContinue={() => setPromotionModal(false)}/>
 			</Dialog>
 		</>
 	)

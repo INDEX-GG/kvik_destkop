@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { NextSeo } from "next-seo";
 import { createSEOProps } from "#lib/seo";
 import Footer2 from '../components/Footer2';
@@ -12,6 +12,8 @@ import { useAuth } from "../lib/Context/AuthCTX";
 import theme from "../UI/theme"
 import IndexPlaceHolder from "../components/placeHolders/IndexPlaceHolder/IndexPlaceHolder";
 import ScrollPostData from "../components/ScrollPostData";
+import Cookie from '../components/Cookie/Cookie.js';
+import PayPromotionModal from "../src/components/PayPromotion/PayPromotionModal";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -58,13 +60,13 @@ const seoProps = createSEOProps({
 })
 
 const Index = () => {
-	const { matchesMobile, matchesTablet } = useMedia();
+	const { matchesMobile, matchesTablet, matchesDesktop } = useMedia();
 	// modifyGetPostsData(offers)
 	const classes = useStyles();
 	const { isAuth } = useAuth();
 
 	const [isPending, setIsPending] = useState(false);
-
+	const footerRef = useRef()
 	const pending = () => setIsPending(true)
 
 	setTimeout(pending, 1000)
@@ -84,11 +86,14 @@ const Index = () => {
 					</Box>
 					{!matchesMobile && !matchesTablet && <Box className={classes.rightBlock}>
 						<JokerBlock />
-						<Box className={classes.footer}>
+						<Box className={classes.footer} ref={footerRef} >
 							{!isPending ? null : <Footer2 />}
 						</Box>
-					</Box>}
+					</Box>
+					}
 				</Box>}
+				{isPending && matchesDesktop && <Cookie />}
+        <PayPromotionModal/>
 		</Container>
 		{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
 	</>

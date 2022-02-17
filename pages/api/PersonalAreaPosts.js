@@ -60,6 +60,7 @@ export default async function handler(req, res) {
                 element => {
                     element.best_before = Math.ceil((Date.parse(element.active_time) - date)/day_in_ms)
                     delete element.active_time
+                    element.status = "ok"
                     active_posts_ids.push(element.id)
                 });
             archive_posts.forEach(
