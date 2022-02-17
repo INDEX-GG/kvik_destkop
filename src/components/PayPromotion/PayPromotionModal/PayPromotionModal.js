@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Dialog} from "@material-ui/core";
-import PayPromotionResult from "./PayPromotionResult";
+import PayPromotionResult from "../PayPromotionResult/PayPromotionResult";
 import {useRouter} from "next/router";
-import KvikPayIcon from "../../UI/UIicon/KvikPayIcon";
-import KvikPayFalseIcon from "../../UI/UIicon/KvikPayFalseIcon";
+import KvikPayIcon from "../../../UI/UIicon/KvikPayIcon";
+import KvikPayFalseIcon from "../../../UI/UIicon/KvikPayFalseIcon";
 
 const PayPromotionModal = () => {
 

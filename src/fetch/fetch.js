@@ -14,6 +14,6 @@ export const fetchPromotionAd = async (data, token) => {
     const tokenHeader = await actualToken(token)
     const res = await axios.post('/api/pay/promotion', data, tokenHeader)
         .then(r => r.data)
-        .catch((e) => e);
+        .catch(() => fetchPromotionAd(data, undefined));
     return res;
 }

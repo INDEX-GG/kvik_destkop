@@ -1,13 +1,14 @@
 import React from 'react';
 import {Checkbox} from "@material-ui/core";
-import CustomCheckboxDefault from "./UIicon/CustomCheckboxDefault";
-import CustomCheckboxActive from "./UIicon/CustomCheckboxActive";
+import CustomCheckboxDefault from "../UIicon/CustomCheckboxDefault";
+import CustomCheckboxActive from "../UIicon/CustomCheckboxActive";
 
-const CustomCheckboxUI = ({checked}) => {
+const CustomCheckboxUI = ({checked, onChange = () => null}) => {
 
     return (
         <Checkbox
             checked={checked}
+            onChange={onChange}
             icon={<CustomCheckboxDefault/>}
             inputProps={{ 'aria-label': 'controlled' }}
             checkedIcon={<CustomCheckboxActive/>}
@@ -15,4 +16,4 @@ const CustomCheckboxUI = ({checked}) => {
     );
 };
 
-export default CustomCheckboxUI;
+export default React.memo(CustomCheckboxUI);
