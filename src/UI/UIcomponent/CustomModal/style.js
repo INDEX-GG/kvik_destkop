@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'visible'
     },
     modalContainer: {
+        overflowY: 'scroll',
+        overflowX: 'hidden',
         [theme.breakpoints.down(960)]: {
             padding: '0 10px 15px',
             height: '100%',
