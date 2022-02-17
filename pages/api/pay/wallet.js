@@ -26,8 +26,7 @@ export default async function handler(req, res) {
             return res.status(403).send("Invalid Token");
         }
 
-        const pool_payments = new Pool({ connectionString: process.env.DATABASE_URL_PAYMENTS })
-        const pool_posts = new Pool({ connectionString: process.env.DATABASE_URL })
+        const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
 
             let amount = req.body.amount
@@ -41,7 +40,7 @@ export default async function handler(req, res) {
 
             if (user_id === undefined || typeof user_id !== 'number' || user_id < 1) { throw "Er 1" }
             if (amount === undefined || typeof amount !== 'number' || amount < 1) { throw "Er 2" }
-            let user_check = await pool_posts.query(`SELECT users.name AS user_name FROM "users" WHERE users.id = $1`, [user_id])
+            let user_check = await pool.query(`SELECT users.name AS user_name FROM "users" WHERE users.id = $1`, [user_id])
             if (user_check.rows.length === 0) { throw "Er 3" }
             let order_number = user_id.toString() + randomString + now.getTime().toString()
             if (order_number.length > 32) { throw "Er 4" }
@@ -61,10 +60,10 @@ export default async function handler(req, res) {
             let order_id = payment_reg_answer.orderId
             let form_url = payment_reg_answer.formUrl
             if (form_url === undefined || order_id === undefined) { throw "Er 5" }
-            let transaction_check = await pool_payments.query(`SELECT * FROM "public"."transactions" WHERE "order_id" = $1 AND "source" = $2`, [order_id, payment_source])
+            let transaction_check = await pool.query(`SELECT * FROM "payments"."transactions" WHERE "order_id" = $1 AND "source" = $2`, [order_id, payment_source])
             if (transaction_check.rows.length > 0) { throw "Er 6" }
 
-            await pool_payments.query(`INSERT INTO "public"."transactions" ("order_id", "order_number", "user_id", "post_id", "amount", "description", "actions", "payment_url", "status_transaction", "source", "create_time") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`, [order_id, order_number, user_id, null, amount, description, actions, form_url, "created", payment_source, now])
+            await pool.query(`INSERT INTO "payments"."transactions" ("order_id", "order_number", "user_id", "post_id", "amount", "description", "actions", "payment_url", "status_transaction", "source", "create_time") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`, [order_id, order_number, user_id, null, amount, description, actions, form_url, "created", payment_source, now])
 
             return {"form_url": form_url}
 
@@ -80,8 +79,7 @@ export default async function handler(req, res) {
             res.status(400).json({ message: 'ошибка api payment'})
         }
         finally {
-            await pool_payments.end()
-            await pool_posts.end()
+            await pool.end()
         }
     } else {
         res.json({ message: 'method not allowed' })

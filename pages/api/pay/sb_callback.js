@@ -41,8 +41,7 @@ function check_sum(body) {
 export default async function handler(req, res) {
     if (req.method === 'GET') {
 
-        const pool_payments = new Pool({ connectionString: process.env.DATABASE_URL_PAYMENTS })
-        const pool_users = new Pool({ connectionString: process.env.DATABASE_URL })
+        const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
 
             let query = req.query
@@ -53,7 +52,7 @@ export default async function handler(req, res) {
             let operation = query.operation
             let status = query.status
             let md_order = query.mdOrder
-            let create_callback = await pool_payments.query(`INSERT INTO "public"."callbacks" ("query", "time", "source") VALUES ($1, $2, $3) RETURNING "id"`, [body, now, payment_source])
+            let create_callback = await pool.query(`INSERT INTO "payments"."callbacks" ("query", "time", "source") VALUES ($1, $2, $3) RETURNING "id"`, [body, now, payment_source])
             let callback_id = create_callback.rows[0].id
             let params = qs.stringify({
                 userName: payment_login,
@@ -62,7 +61,7 @@ export default async function handler(req, res) {
             })
 
             if ( ! check_sum(query) ) {
-                await pool_payments.query(`UPDATE "public"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Ошибка проверки подписи", callback_id])
+                await pool.query(`UPDATE "payments"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Ошибка проверки подписи", callback_id])
                 throw "err 1"
             }
 
@@ -74,13 +73,13 @@ export default async function handler(req, res) {
 
 
                 if ([2, "2"].includes(check_orderStatus) && [0, "0"].includes(check_actionCode)) {
-                    let transaction = await pool_payments.query(`SELECT * FROM "public"."transactions" WHERE "order_id" = $1 AND "source" = $2`, [md_order, payment_source])
+                    let transaction = await pool.query(`SELECT * FROM "payments"."transactions" WHERE "order_id" = $1 AND "source" = $2`, [md_order, payment_source])
 
                     if (transaction.rows.length !== 1) {
-                        await pool_payments.query(`UPDATE "public"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Транзакция не была найдена, или mdOrder не уникален", callback_id])
+                        await pool.query(`UPDATE "payments"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Транзакция не была найдена, или mdOrder не уникален", callback_id])
                         throw "err 2"
                     } else if (transaction.rows[0].status_transaction !== "created") {
-                        await pool_payments.query(`UPDATE "public"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Сообщение об оплате уже было записано", callback_id])
+                        await pool.query(`UPDATE "payments"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Сообщение об оплате уже было записано", callback_id])
                         throw "err 3"
                     } else {
                         let actions = [...new Set(transaction.rows[0].actions)]
@@ -90,26 +89,28 @@ export default async function handler(req, res) {
                         // / Здесь включается функция Транзакция + запись о оплате
                         if (actions.includes(0) && actions.length === 1) {
 
-                            await pool_payments.query(`BEGIN`)
-                            await pool_payments.query(`UPDATE "public"."transactions" SET "pay_time" = $1, "status_transaction" = $2, "check_payment_answer" = $3 WHERE "order_id" = $4 AND "source" = $5`, [now, "paid", check_payment_answer, md_order, payment_source])
-                            await pool_payments.query(`INSERT INTO "public"."transactions_virtual_rubles" ("amount", "description", "date") VALUES ($1, $2, $3)`, [amount, "Пополнение кошелька", now])
-                            await pool_users.query(`UPDATE "public"."users" SET "virtual_rubles_balance" = "virtual_rubles_balance" + $1 WHERE id =$2`, [amount, user_id])
-                            await pool_payments.query(`COMMIT`)
+                            await pool.query(`BEGIN`)
+                            await pool.query(`UPDATE "payments"."transactions" SET "pay_time" = $1, "status_transaction" = $2, "check_payment_answer" = $3 WHERE "order_id" = $4 AND "source" = $5`, [now, "paid", check_payment_answer, md_order, payment_source])
+                            await pool.query(`INSERT INTO "payments"."transactions_virtual_rubles" ("amount", "description", "date") VALUES ($1, $2, $3)`, [amount, "Пополнение кошелька", now])
+                            await pool.query(`UPDATE "public"."users" SET "virtual_rubles_balance" = "virtual_rubles_balance" + $1 WHERE id =$2`, [amount, user_id])
+                            await pool.query(`COMMIT`)
 
                         } else {
 
                             actions.forEach(element => {if (typeof element !== 'number' || element <= 0  || ! (Object.keys(relevant_actions).map(key => parseInt(key))).includes(element)) {throw "Er 4"}});
-                            await pool_users.query(`BEGIN`)
-                            if ( actions.includes(2) ) { await pool_users.query(`UPDATE "public"."posts" SET "rotation_date" = $1 WHERE "id" = $2`, [now, post_id]) }
-                            if ( actions.includes(3) ) { await pool_users.query(`UPDATE "public"."posts" SET "color_selection" = $1 WHERE "id" = $2`, [active_time, post_id]) }
-                            if ( actions.includes(4) ) { await pool_users.query(`UPDATE "public"."posts" SET "size_selection" = $1 WHERE "id" = $2`, [active_time, post_id]) }
-                            if ( actions.includes(5) ) { await pool_users.query(`UPDATE "public"."posts" SET "rotation_date" = $1, "color_selection" = $2, "size_selection" = $2 WHERE "id" = $3`, [now, active_time, post_id]) }
-                            await pool_users.query(`COMMIT`)
+
+                            await pool.query(`BEGIN`)
+                            if ( actions.includes(2) ) { await pool.query(`UPDATE "public"."posts" SET "rotation_date" = $1 WHERE "id" = $2`, [now, post_id]) }
+                            if ( actions.includes(3) ) { await pool.query(`UPDATE "public"."posts" SET "color_selection" = $1 WHERE "id" = $2`, [active_time, post_id]) }
+                            if ( actions.includes(4) ) { await pool.query(`UPDATE "public"."posts" SET "size_selection" = $1 WHERE "id" = $2`, [active_time, post_id]) }
+                            if ( actions.includes(5) ) { await pool.query(`UPDATE "public"."posts" SET "rotation_date" = $1, "color_selection" = $2, "size_selection" = $2 WHERE "id" = $3`, [now, active_time, post_id]) }
+                            await pool.query(`UPDATE "payments"."transactions" SET "pay_time" = $1, "status_transaction" = $2, "check_payment_answer" = $3 WHERE "order_id" = $4 AND "source" = $5`, [now, "paid", check_payment_answer, md_order, payment_source])
+                            await pool.query(`COMMIT`)
 
                         }
                     }
                 } else {
-                    await pool_payments.query(`UPDATE "public"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Не пройдена проверка getOrderStatusExtended", callback_id])
+                    await pool.query(`UPDATE "payments"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Не пройдена проверка getOrderStatusExtended", callback_id])
                     throw "err 5"
                 }
             }
@@ -128,8 +129,7 @@ export default async function handler(req, res) {
             res.status(400).json({ message: 'NOT OK'})
         }
         finally {
-            await pool_payments.end()
-            await pool_users.end()
+            await pool.end()
         }
 
     } else {
