@@ -13,7 +13,11 @@ const CookieConfirm = ({handlerConfirm}) => {
       <Box
         className={styles.content}
       >
-        <Typography className={styles.text}>Мы используем cookie. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie</Typography>
+        <Typography
+          className={styles.text}
+        >
+          Мы используем cookie. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie
+        </Typography>
         <Button
           variant="contained"
           className={styles.button}
