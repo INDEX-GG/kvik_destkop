@@ -280,10 +280,6 @@ const Photoes = ({ ctx }) => {
 		});
 	}, [validFiles]);
 
-	// trigger on component mount
-	useEffect(() => {
-		ctx(validFiles);
-	}, [])
 
 	const preventDefault = (e) => {
 		e.preventDefault();
@@ -421,6 +417,7 @@ const Photoes = ({ ctx }) => {
 		setValidFiles([...filteredValid]);
 	};
 
+	ctx(validFiles);
 
 	const SortableList = SortableContainer(({ items }) => {
 
