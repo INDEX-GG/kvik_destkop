@@ -1,5 +1,6 @@
 import React from 'react';
-import {FormControl, FormControlLabel, makeStyles, Radio, RadioGroup, Box, Button} from "@material-ui/core";
+import Box from '@mui/material/Box';
+import {FormControl, FormControlLabel, makeStyles, Radio, RadioGroup, Button} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
 import OutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
 import Filledicon from "@material-ui/icons/Brightness1";
