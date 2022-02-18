@@ -95,7 +95,7 @@ const Index = () => {
 				{isPending && matchesDesktop && <Cookie />}
         <PayPromotionModal/>
 		</Container>
-		{matchesMobile && isAuth ? <PlaceOfferButton /> : null}
+		{matchesMobile ? <PlaceOfferButton /> : null}
 	</>
 
 

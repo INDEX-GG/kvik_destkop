@@ -17,6 +17,7 @@ import { ErrorBoundary } from '../components/ErrorBoundary';
 import CityProvider from '../lib/Context/CityCTX';
 import StoreProvider from '../lib/Context/Store';
 import StatisticsProvider from '../lib/Context/StatisticsCTX';
+import LoginDrawerProvider from '../lib/Context/DialogCTX';
 
 export default withYM("85786957", Router)(
 	function MyApp({ Component, pageProps }) {
@@ -39,10 +40,12 @@ export default withYM("85786957", Router)(
 							<StatisticsProvider>
 								<StoreProvider>
 									<CityProvider>
-										<MainLayout>
-											<CssBaseline />
-											<Component {...pageProps} />
-										</MainLayout>
+										<LoginDrawerProvider>
+											<MainLayout>
+													<CssBaseline />
+													<Component {...pageProps} />
+											</MainLayout>
+										</LoginDrawerProvider>
 									</CityProvider>
 								</StoreProvider>
 							</StatisticsProvider>
@@ -53,5 +56,3 @@ export default withYM("85786957", Router)(
 		)
 	}
 );
-
-
