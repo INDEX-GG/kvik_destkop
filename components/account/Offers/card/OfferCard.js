@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingRight: '0',
 	},
 	btn__upViews: {
-		display: 'none',
+		display: 'flex',
 		position: 'absolute',
 		bottom: '8px',
 		alignSelf: 'center',
@@ -215,7 +215,7 @@ const useStyles = makeStyles((theme) => ({
 			paddingTop: '35px',
 		},
 		bottom: {
-			justifyContent: 'start',
+			justifyContent: 'center',
 		},
 		left__date: {
 			paddingTop: '8px',
@@ -237,6 +237,12 @@ const useStyles = makeStyles((theme) => ({
 		btn__unpublish:{
 			textAlign: 'end',
 		},
+		left__date:{
+			paddingTop: '0',
+		},
+		bottom__wait:{
+			paddingTop: '48px',
+		},
 	},
 	[theme.breakpoints.down(960)]: {
 		paddingIcon: {
@@ -244,6 +250,9 @@ const useStyles = makeStyles((theme) => ({
 			left: '0',
 			top: '0',
 			padding: '0'
+		},
+		bottom__wait:{
+			paddingTop: '40px',
 		},
 		paddingIconWait: {
 			position: 'absolute',
@@ -260,7 +269,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 		left__date: {
 			display: 'flex',
-			paddingTop: '40px',
+			
 
 			justifyContent: 'space-betweeen',
 			alignItems: 'center',
@@ -344,7 +353,10 @@ const useStyles = makeStyles((theme) => ({
 			textAlign: 'end',
 		},
 		left__date:{
-			paddingTop : '16px',
+			paddingTop : '4px',
+		},
+		bottom__wait:{
+			paddingTop: '12px',
 		},
 		mobile__font: {
 			fontSize: '18px',
@@ -366,7 +378,22 @@ const useStyles = makeStyles((theme) => ({
 			display: 'flex',
 			justifyContent: 'center',
 		},
-	}
+	},
+	[theme.breakpoints.down(401)]: {
+		bottom__wait:{
+			paddingTop: '40px',
+		},
+		left__date:{
+			padding: '3px',
+			paddingLeft: '0',
+		},
+		mobile__font: {
+			fontSize: '18px',
+			lineHeight: '21px',
+			padding: '5px',
+			paddingLeft: '0',
+		},
+	},
 }));
 
 // функция возвращает корректный день
@@ -468,8 +495,8 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 								<p className={`${classes.main__text} ${classes.mobile__font}`}>{ToRubles(offer.price)}</p>
 								<p className={classes.main__text}>{offer.title}</p>
 							</div>
-							<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
-								<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>Дата публикации {ToFullDate(offer.created_at)}</p>
+							<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>
+								<p className={`${classes.main__text} ${classes.lignt__text}`}>Дата публикации {ToFullDate(offer.created_at)}</p>
 								{isActive &&
 								<p className={`${classes.main__text} ${classes.position__absolute}`}>
 									Осталось {offer.best_before} {correctDays}
