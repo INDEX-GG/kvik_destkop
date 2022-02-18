@@ -8,7 +8,6 @@ import { Box, Container, makeStyles } from "@material-ui/core";
 import PopularCategories from "../components/PopularCategories/PopularCategories";
 import JokerBlock from "../components/JokerBlock";
 import PlaceOfferButton from "../components/PlaceOfferButton";
-import { useAuth } from "../lib/Context/AuthCTX";
 import theme from "../UI/theme"
 import IndexPlaceHolder from "../components/placeHolders/IndexPlaceHolder/IndexPlaceHolder";
 import ScrollPostData from "../components/ScrollPostData";
@@ -63,7 +62,6 @@ const Index = () => {
 	const { matchesMobile, matchesTablet, matchesDesktop } = useMedia();
 	// modifyGetPostsData(offers)
 	const classes = useStyles();
-	const { isAuth } = useAuth();
 
 	const [isPending, setIsPending] = useState(false);
 	const footerRef = useRef()
