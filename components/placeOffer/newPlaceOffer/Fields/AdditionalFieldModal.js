@@ -162,7 +162,7 @@ const AdditionalFieldModal = ({jsonData, dataItems, getValues, setValue, propsTy
                     title={title}
                     dialog={open}
                     close={handleChangeDialog}>
-                    {generateMadalContent({...jsonData, dataItems, setValue, getValues, propsType})}
+                    {generateMadalContent({...jsonData, dataItems, setValue, getValues, propsType, handleChangeDialog})}
                 </MobileModal>
             </>
             )

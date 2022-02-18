@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormControl, FormControlLabel, makeStyles, Radio, RadioGroup} from "@material-ui/core";
+import {FormControl, FormControlLabel, makeStyles, Radio, RadioGroup, Box, Button} from "@material-ui/core";
 import {Controller, useFormContext} from "react-hook-form";
 import OutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
 import Filledicon from "@material-ui/icons/Brightness1";
@@ -31,6 +31,18 @@ const useStyles = makeStyles(() => ({
         backgroundColor: '#fff',
         transition: '.2s all linear'
     },
+    buttonConfirm: {
+        fontSize: '18px',
+        fontWeight: '500',
+        fontFamily: 'Roboto',
+        fontStyle: 'normal',
+        lineHeight: '21px',
+        color: '#00A0AB',
+        backgroundColor: '#fff',
+        cursor: 'pointer',
+        alignSelf: 'flex-end',
+        margin: '0 25px 25px',
+    },
     active: {
         backgroundColor: '#00A0AB',
     }
@@ -42,52 +54,56 @@ const TextListModal = ({data}) => {
     const classes = useStyles();
     const {control} = useFormContext()
 
-    const {alias, dataItems, required} = data
-
+    const {alias, dataItems, required, handleChangeDialog} = data
 
     return (
-        <FormControl component='div' className={classes.wrapper}>
-            <Controller
-                name={alias}
-                control={control}
-                defaultValue=""
-                rules={{required: required?.state ? required.value : false}}
-                render={
-                    ({field: {onChange, value}}) => (
-                        <RadioGroup
-                            name={alias}
-                            value={value}
-                            defaultValue={value}
-                            onChange={(e) => onChange(e.target.value)}
-                        >
-                            {dataItems.map((item, index) => {
+        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <FormControl component='div' className={classes.wrapper}>
+                <Controller
+                    name={alias}
+                    control={control}
+                    defaultValue=""
+                    rules={{required: required?.state ? required.value : false}}
+                    render={
+                        ({field: {onChange, value}}) => (
+                            <RadioGroup
+                                name={alias}
+                                value={value}
+                                defaultValue={value}
+                                onChange={(e) => onChange(e.target.value)}
+                            >
+                                {dataItems.map((item, index) => {
 
-                                const fieldValue = item?.props?.value ? item?.props?.value : item
+                                    const fieldValue = item?.props?.value ? item?.props?.value : item
 
-                                return (
-                                    (
-                                        <FormControlLabel
-                                            key={index}
-                                            label={fieldValue}
-                                            value={fieldValue}
-                                            className={classes.item}
-                                            control={
-                                                <Radio
-                                                    checked={value == fieldValue}
-                                                    // className={classes.checkbox}
-                                                    color="primary"
-                                                    icon={<OutlinedIcon fontSize="inherit"/>}
-                                                    checkedIcon={<Filledicon fontSize="inherit"/>}
-                                                />
-                                            }
-                                        />
+                                    return (
+                                        (
+                                            <FormControlLabel
+                                                key={index}
+                                                label={fieldValue}
+                                                value={fieldValue}
+                                                className={classes.item}
+                                                control={
+                                                    <Radio
+                                                        checked={value == fieldValue}
+                                                        // className={classes.checkbox}
+                                                        color="primary"
+                                                        icon={<OutlinedIcon fontSize="inherit"/>}
+                                                        checkedIcon={<Filledicon fontSize="inherit"/>}
+                                                    />
+                                                }
+                                            />
+                                        )
                                     )
-                                )
-                            })}
-                        </RadioGroup>
-                    )}
-            />
-        </FormControl>
+                                })}
+                            </RadioGroup>
+                        )}
+                />
+            </FormControl>
+            <Button className={classes.buttonConfirm} onClick={handleChangeDialog} variant="text">
+                Выбрать
+            </Button>
+        </Box>
     );
 };
 
