@@ -181,13 +181,13 @@ const Photoes = ({ ctx }) => {
 	const fileInputRef = useRef();
 	const [selectedFiles, setSelectedFiles] = useState(null);
 	const [validFiles, setValidFiles] = useState([]);
-	
+
 	//
 	const [imageData, setImageData] = useState([]);
 	const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(
 		"Добавьте или перетащите фото"
-	);	
+	);
 
 	function arrayMoveMutable(array, fromIndex, toIndex) {
 		const startIndex = fromIndex < 0 ? array.length + fromIndex : fromIndex;
@@ -236,7 +236,7 @@ const Photoes = ({ ctx }) => {
 		// 	};
 		// });
 	}, [selectedFiles]);
-	
+
 	useEffect(() => {
 		if (validFiles && validFiles.length > 0) {
 			methods.setValue("photoes", "ok");
@@ -279,6 +279,11 @@ const Photoes = ({ ctx }) => {
 			};
 		});
 	}, [validFiles]);
+
+	// trigger on component mount
+	useEffect(() => {
+		ctx(validFiles);
+	}, [])
 
 	const preventDefault = (e) => {
 		e.preventDefault();
@@ -416,7 +421,6 @@ const Photoes = ({ ctx }) => {
 		setValidFiles([...filteredValid]);
 	};
 
-	ctx(validFiles);
 
 	const SortableList = SortableContainer(({ items }) => {
 
@@ -426,7 +430,7 @@ const Photoes = ({ ctx }) => {
 				{items.map((value, i) => (
 					<SortableItem key={i} index={i} data={value} i={i} />
 				))}
-				
+
 				<div
 					className={classes.card}
 					onDragOver={dragOver}

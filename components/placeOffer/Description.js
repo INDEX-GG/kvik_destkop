@@ -60,8 +60,8 @@ const Description = ({description}) => {
                         // </TextField>
                         <FieldInput
                             multiline={true}
-                            rows='4'
-                            rowsMax='6'
+                            minRows={4}
+                            maxRows={6}
                             value={value}
                             label={media960 ? 'Описание': ''}
                             inputProps={{maxLength: 4000}}
