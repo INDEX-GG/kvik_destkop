@@ -278,7 +278,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 											backgroundSize: 'cover',
 											filter: 'blur(20px)'
 										}}
-										className="imageBlur">
+										className="imageBlur"
+										>
 									</div>
 								</>
 								: (

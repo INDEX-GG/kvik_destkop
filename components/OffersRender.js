@@ -10,6 +10,9 @@ import SortItem from "./SortItem";
 import OffersRenderGridIcon from '#UI/icons/OffersRenderGridIcon';
 import OffersRenderListIcon from '#UI/icons/OffersRenderListIcon';
 import { useAuth } from '#lib/Context/AuthCTX';
+
+import AdCard from '../src/components/AdCard/AdCard/AdCard'
+
 // console.log(navigator)
 const useStyles = makeStyles((theme) => ({
 	top: {
@@ -50,12 +53,12 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 	const {id} = useAuth()
 	// буль для условия отображения списка объявления (либо сетка, либо список)
 	const [gridView, setGridView] = useState(true)
-	
+
 	const screenIsMobile = matchesMobile || matchesTablet;
 
 
 	useEffect(() => {
-		
+
 		observerGenerate(lastElement, observer, limitRenderObj.limitRenderPage, limitRenderObj.setLimitRenderPage, pageObj.setPage, pageObj.page)
 	})
 
@@ -83,7 +86,7 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 						// </TextField>
                         <SortItem setSort={setSort}/>
 					}
-					{screenIsMobile && 
+					{screenIsMobile &&
 					<div className={classes.offersGridSwitcher}>
 						<OffersRenderGridIcon clickHandler={()=>setGridView(true)} color={gridView ? '#5a5a5a' : '#8f8f8f'} />
 						<OffersRenderListIcon clickHandler={()=>setGridView(false)} color={gridView ? '#8f8f8f' : '#5a5a5a'}/>
@@ -92,11 +95,14 @@ const OffersRender = ({ data, title, isProduct, pageObj, limitRenderObj, setSort
 				</Box>
 				{/* <div className="scrollableOffersHome"> */}
 				<div className={classSwitcher()}>
-					{data?.map((obj, i) => isProduct 
-					? 
-					<AdCard_component id={id} isGrid={gridView} key={i} offer={obj} /> 
-					:  
-					<AdCard_component isGrid={gridView} ref={lastElement} key={i} offer={obj} id={id} />)}
+					{data?.map((obj, i) => isProduct
+					?
+					// <AdCard_component id={id} isGrid={gridView} key={i} offer={obj} />
+					<AdCard key={i} id={id} isGrid={gridView} offer={obj} />
+					:
+					// <AdCard_component isGrid={gridView} ref={lastElement} key={i} offer={obj} id={id} />)}
+					<AdCard isGrid={gridView} ref={lastElement} key={i} offer={obj} id={id} />
+					)}
 				</div>
 				{pageObj.page !== 'end' && <div className='offer__placeholder_loader'><Loader /></div>}
 				<ScrollTop />

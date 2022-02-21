@@ -71,12 +71,11 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 		observerGenerate(lastElement, observer, limitRender, setLimitRenderPage, setPage, page)
 	})
 
-	
 	return (
 		<>
 			<Box className={classes.top}>
 				<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
-				{data ? 
+				{data ?
 				<TextField
 					select
 					value={state.value}
