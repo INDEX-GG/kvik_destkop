@@ -103,7 +103,7 @@ function HeaderMobile({ chageMenu = false }) {
 
 	const Router = useRouter()
 	const { matchesMobile, matchesCustom1024 } = useMedia()
-	
+
 	function HideOnScroll(props) {
 		const { children, window } = props;
 		const trigger = useScrollTrigger({
@@ -128,30 +128,30 @@ function HeaderMobile({ chageMenu = false }) {
 					<Container className={classes.container}>
 						<HideOnScroll>
 							<div className={classes.info}>
-								{/* <AuthHeader 
-									isAuth={isAuth} 
+								{/* <AuthHeader
+									isAuth={isAuth}
 									logFormState={[openLoginForm, setOpenLoginForm]}
 									regFormState={[openRegForm, setOpenRegForm]}
-									userInfo={userInfo} 
+									userInfo={userInfo}
 								/> */}
 								<Logo className={classes.logo} />
 								{/* <div className={classes.filler}></div> */}
 							</div>
 						</HideOnScroll>
 						<div className={classes.block2}>
-							<AuthHeader 
-								isAuth={isAuth} 
+							<AuthHeader
+								isAuth={isAuth}
 								logFormState={[openLoginForm, setOpenLoginForm]}
 								regFormState={[openRegForm, setOpenRegForm]}
-								userInfo={userInfo} 
+								userInfo={userInfo}
 							/>
 							<Search text={matchesMobile ? "Поиск" : false} />
-                            <div className={classes.tabletFilter} onClick={() => setDialogFilter(true)}>
-                                <MobileFilter number={0} />
-                            </div>
+							<div className={classes.tabletFilter} onClick={() => setDialogFilter(true)}>
+									<MobileFilter number={0} />
+							</div>
 							{/* отрисовка фильтров для поска в мобильной версии. Тут не нужно будет рендерится внутри инпута поиса */}
-							{isAuth ?
-								(chageMenu ? (
+							{/* {isAuth ? */}
+								{chageMenu ? (
 									<Button className={classes.changeMenu} onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
 										<AddRoundedIcon />
 										Подать объявление
@@ -160,7 +160,8 @@ function HeaderMobile({ chageMenu = false }) {
 									<div className={classes.changeMenu} onClick={() => setDialogFilter(true)}>
 										<MobileFilter className={classes.filter} number={0} />
 									</div>
-								)) : null}
+								)}
+								{/* : null} */}
 							{/* отрисовка фильтров для поска в мобильной версии. Тут не нужно будет рендерится внутри инпута поиса */}
 						</div>
 					</Container>
@@ -177,7 +178,7 @@ function HeaderMobile({ chageMenu = false }) {
 				</AppBar>
 				<div style={{ marginBottom: matchesCustom1024 ? "124px" : "124px" }} className={classes.test}></div>
 			</>
-		
+
 	);
 }
 export default HeaderMobile;
