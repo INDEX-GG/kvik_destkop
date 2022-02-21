@@ -50,7 +50,7 @@ const useStyles = makeStyles(() => ({
 		}
 }));
 
-const Search = ({text = false}) => {
+const Search = ({text = false, children}) => {
 	const classes = useStyles();
 
 	const [showButtons, setShowButtons] = useState(false)
@@ -92,14 +92,14 @@ const Search = ({text = false}) => {
 		}
 	}, [suggestNumber])
 
-	
+
 
 	const handleChange = (e) => {
 		setSearchValue(e.target.value)
 		axios.post(`${PUBLIC_SEARCH}/search`, {'text': e.target.value})
 		  .then(r => setSuggestData(r.data.data));
 	}
-	
+
 
 	const handleBlur = (event) => {
 		if (!event.currentTarget.contains(event.relatedTarget)) {
@@ -185,9 +185,9 @@ const Search = ({text = false}) => {
 		setHovered(true)
 	}
 
-	
 
-	return (	
+
+	return (
 		<Box className={classes.input} onBlur={handleBlur} onFocus={() => setShowButtons(true)} >
 				<TextField
 					value={searchValue}
@@ -195,30 +195,30 @@ const Search = ({text = false}) => {
 					onKeyDown={handleKeyDown}
 					variant='outlined' size='small'
 					placeholder={text ? text : "Поиск по объявлениям"}
-					fullWidth className={classes.searchInput} 
+					fullWidth className={classes.searchInput}
 				/>
 				<SearchIcon className={mobile ? classes.iconMobile : classes.icon} />
-				{(showButtons && !mobile) && 
+				{(showButtons && !mobile) &&
 					<div className={classes.checkboxes}>
 						<div style={{display: 'flex'}}>
 							<SearchCheckbox checked={onlyPhoto} changeChecked={setOnlyPhoto} label='Только с фото' />
 							<SearchCheckbox checked={safetyOffer} changeChecked={setSafetyOffer} label='Безопасная сделка' />
 						</div>
-						<SearchCheckbox checked={saveResult} changeChecked={setSaveResult} label='Сохранить поиск' />					
+						<SearchCheckbox checked={saveResult} changeChecked={setSaveResult} label='Сохранить поиск' />
 					</div>
 				}
-				{(showButtons && searchValue) && 
+				{(showButtons && searchValue) &&
 					<div>
-						<SearchBlock 
+						<SearchBlock
 							value={searchValue}
-							setSearchValue={setSearchValue} 
+							setSearchValue={setSearchValue}
 							suggestData={suggestData}
-							activeSuggest={suggestNumber} 
+							activeSuggest={suggestNumber}
 							changeSuggestSelect={changeSuggestSelect}
 						/>
 					</div>
 				}
-				
+				{children}
 		</Box>
 	)
 }
