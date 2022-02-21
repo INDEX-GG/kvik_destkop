@@ -135,7 +135,7 @@ const Price = ({price}) => {
 	// !edit ? useEffect(() => {
 	// 	methods.setValue('price', '')
 	// }, []) : ''
-	//условие потому что c бэка приходит цена формата 5000.00, нам нужна 5000, 
+	//условие потому что c бэка приходит цена формата 5000.00, нам нужна 5000,
 	if(isPriced && isPriced.includes('.')) {
 		methods.setValue('price', `${isPriced.split('.')[0]} ₽`)
 	}
@@ -148,8 +148,7 @@ const Price = ({price}) => {
 						name="price"
 						control={methods.control}
 						shouldUnregister
-						defaultValue={`${isPriced || price} ₽`}
-
+						defaultValue={`${isPriced || price}`}
 						render={({ field: { onChange, value }, fieldState: { error } }) => (
 							<>
 							<FieldInput
@@ -157,8 +156,8 @@ const Price = ({price}) => {
 								type="text"
 								autoComplete="on"
 								value={value}
-                                label={media960 ? 'Цена, ₽' : ''}
-                                className={classes.input}
+								label={media960 ? 'Цена, ₽' : ''}
+								className={classes.input}
 								onKeyDown={e => cursorReplace(e)}
 								onChange={e => onChange(priceFormat(e))}
 								error={!!error} helperText={error ? error.message : ' '} >
@@ -166,7 +165,7 @@ const Price = ({price}) => {
 
 							</FieldInput>
 							</>
-							)}
+						)}
 						rules={{ required: `Введите цену ${methods.watch('title')}`, maxLength: {value: 12, message: 'Слишком длинное значение'} }}
 					/>
 					<Controller
