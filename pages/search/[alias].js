@@ -13,7 +13,7 @@ import {generateFilterData, numberKeyTime} from "#components/newFilter/filterSer
 
 // категории
 import {FormProvider, useForm} from 'react-hook-form'
-import {handleChangeCategory} from "#components/newFilter/filterServices";
+import {handleClearCategory} from "#components/newFilter/filterServices";
 import {getLastElementArr} from "#lib/services";
 import FilterCategory from "#components/newFilter/fields/FilterCategory";
 import NothingFound from "#components/search/NothingFound";
@@ -93,10 +93,7 @@ const Index = () => {
     const categoryLast = getLastElementArr(category, ',')
 
     useEffect(() => {
-        if (aliasFullUrl) {
-            setCategory(aliasFullUrl)
-            handleChangeCategory(aliasFullUrl.split(','), methods)
-        }
+        changeCategory()
     }, [aliasQuery])
 
     const generateTitle = () => {
@@ -113,6 +110,15 @@ const Index = () => {
 
     const handlerSetNothingFound = () => {
         setIsNothingFound(true)
+    }
+
+    const changeCategory = () => {
+        if (aliasFullUrl) {
+            setCategory(aliasFullUrl)
+            handleClearCategory(aliasFullUrl.split(','), methods)
+        } else {
+            handleClearCategory([], methods)
+        }
     }
 
     useEffect(() => {
