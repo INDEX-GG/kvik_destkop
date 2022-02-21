@@ -6,12 +6,13 @@ import MobileFilter from "../../UI/icons/MobileFilter";
 import { useAuth } from "../../lib/Context/AuthCTX";
 import { useRouter } from "next/router";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useContext} from "react";
 import { useMedia } from "../../hooks/useMedia"
 import Login from "../auth/Login";
 import { AuthHeader } from "./AuthHeader";
 import { useStore } from "../../lib/Context/Store";
 import MobileModal from "#components/MobileModal";
+import {LoginDrawerCTX} from '../../lib/Context/DialogCTX.js'
 import FilterMobile from "#components/newFilter/filterMobile/FilterMobile";
 
 const useStyles = makeStyles((theme) => ({
@@ -103,6 +104,10 @@ function HeaderMobile({ chageMenu = false }) {
 
 	const Router = useRouter()
 	const { matchesMobile, matchesCustom1024 } = useMedia()
+	const {
+		modalState,
+		setModalState
+	} = useContext(LoginDrawerCTX)
 
 	function HideOnScroll(props) {
 		const { children, window } = props;
@@ -121,6 +126,16 @@ function HeaderMobile({ chageMenu = false }) {
     useEffect(() => {
         setDialogFilter(false)
     }, [router])
+
+		const handlerAddOffer = () => {
+			if(isAuth) {
+				Router.push("/placeOffer")
+			} else {
+				setModalState({ left: true });
+			}
+		}
+
+		console.log('chageMenu: ', chageMenu)
 
 	return (
 			<>
@@ -145,23 +160,25 @@ function HeaderMobile({ chageMenu = false }) {
 								regFormState={[openRegForm, setOpenRegForm]}
 								userInfo={userInfo}
 							/>
-							<Search text={matchesMobile ? "Поиск" : false} />
+							<Search text={matchesMobile ? "Поиск" : false}>
+								<div className={classes.tabletFilter} onClick={() => setDialogFilter(true)}>
+										<MobileFilter number={0} />
+								</div>
+							</Search>
 							<div className={classes.tabletFilter} onClick={() => setDialogFilter(true)}>
 									<MobileFilter number={0} />
 							</div>
 							{/* отрисовка фильтров для поска в мобильной версии. Тут не нужно будет рендерится внутри инпута поиса */}
-							{/* {isAuth ? */}
-								{chageMenu ? (
-									<Button className={classes.changeMenu} onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
-										<AddRoundedIcon />
-										Подать объявление
-									</Button>
-								) : (
-									<div className={classes.changeMenu} onClick={() => setDialogFilter(true)}>
-										<MobileFilter className={classes.filter} number={0} />
-									</div>
-								)}
-								{/* : null} */}
+							{chageMenu ? (
+								<Button className={classes.changeMenu} onClick={handlerAddOffer} variant="contained" color="primary">
+									<AddRoundedIcon />
+									Подать объявление
+								</Button>
+							) : (
+								<div className={classes.changeMenu} onClick={() => setDialogFilter(true)}>
+									<MobileFilter className={classes.filter} number={0} />
+								</div>
+							)}
 							{/* отрисовка фильтров для поска в мобильной версии. Тут не нужно будет рендерится внутри инпута поиса */}
 						</div>
 					</Container>
