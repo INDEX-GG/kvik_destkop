@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { makeStyles, Avatar, Drawer, SwipeableDrawer  } from "@material-ui/core";
 // import BurgerCategories from "./BurgerCategories";
 import HeaderAccount from "./HeaderAccount";
 import MobileMenu from '../../UI/icons/MobileMenu';
 import { LoginV2 } from "../auth/LoginV2";
 import { RegFormV2 } from "../auth/RegFormV2";
+import {LoginDrawerCTX} from '../../lib/Context/DialogCTX.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,7 +67,13 @@ export const AuthHeader = ({
 		userInfo
 }) => {
 	const classes = useStyles();
-	const [modalState, setModalState] = useState({ left: false });
+	// const [modalState, setModalState] = useState({ left: false });
+
+	const {
+		modalState,
+		setModalState
+	} = useContext(LoginDrawerCTX)
+
 	const [isRegForm, changeAuthForm] = useState(false);
 	// eslint-disable-next-line no-unused-vars
 	const [isAccPage, changeAccPage] = useState(true);
@@ -89,7 +96,7 @@ export const AuthHeader = ({
 			<Drawer
 				anchor="left"
 				classes={{ paper: classes.modal }}
-				open={modalState.left}
+				open={modalState.left || false}
 				onClose={toggleDrawer("left", false)}
 			>
 				{
@@ -129,7 +136,7 @@ export const AuthHeader = ({
 			<SwipeableDrawer
 				anchor="left"
 				classes={{ paper: classes.modal }}
-				open={modalState.left}
+				open={modalState.left || false}
 				onOpen={() => {}}
 				onClose={toggleDrawer("left", false)}
 			>
