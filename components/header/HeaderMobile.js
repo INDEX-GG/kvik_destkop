@@ -105,7 +105,6 @@ function HeaderMobile({ chageMenu = false }) {
 	const Router = useRouter()
 	const { matchesMobile, matchesCustom1024 } = useMedia()
 	const {
-		modalState,
 		setModalState
 	} = useContext(LoginDrawerCTX)
 
