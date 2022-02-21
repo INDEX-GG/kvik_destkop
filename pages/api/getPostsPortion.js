@@ -17,6 +17,8 @@ export default async function handler(req, res) {
             if (typeof req.body.page !== 'number' || typeof req.body.page_limit !== 'number') {
                 throw "Er"
             }
+            let date = new Date()
+            let day_in_ms
             let sort_value
             switch (sort) {
                 case 'default':
@@ -36,7 +38,25 @@ export default async function handler(req, res) {
                     break;
             }
 
-            const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing, posts.city FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE active = 0 AND verify = 0  AND ((active_time >= $1) OR (active_time IS NULL))  AND LOWER (city) LIKE $2 AND LOWER (city) NOT LIKE $3 ${sort_value} LIMIT $4 offset $5;`, [new Date(), region_includes + '%', region_excludes + '%', page_limit, page])
+            const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing, posts.city, posts.color_selection, posts.size_selection FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE active = 0 AND verify = 0  AND ((active_time >= $1) OR (active_time IS NULL))  AND LOWER (city) LIKE $2 AND LOWER (city) NOT LIKE $3 ${sort_value} LIMIT $4 offset $5;`, [new Date(), region_includes + '%', region_excludes + '%', page_limit, page])
+
+            answer.rows.forEach(
+                element => {
+                    if (element.color_selection >= date) {
+                        element.highlighting = true
+                    } else {
+                        element.highlighting = false
+                    }
+
+                    if (element.size_selection >= date) {
+                        element.selection_size = true
+                    } else {
+                        element.selection_size = false
+                    }
+                    delete element.color_selection
+                    delete element.size_selection
+                });
+
             return(answer.rows)
 
         }
