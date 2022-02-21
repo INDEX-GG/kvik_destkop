@@ -43,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
             '& > div': {
                 height: '100%',
                 '&  > input': {
-                    padding: '0 0 0 10px',
+                    padding: '0 10px 0 10px',
                     height: '100%',
-                    fontSize: '16px',
+                    fontSize: '14px',
                     "&::placeholder": {
                         opacity: '1 !important',
                     },
