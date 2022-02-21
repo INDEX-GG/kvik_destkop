@@ -15,7 +15,7 @@ const relevant_actions = {
         "price": 3900},
     5: {
         "description": "Комбо продвижение KVIK",
-        "price": 5900}
+        "price": 8500}
 }
 
 let payment_login = process.env.STG_LOGIN
