@@ -18,7 +18,6 @@ export default async function handler(req, res) {
                 throw "Er"
             }
             let date = new Date()
-            let day_in_ms
             let sort_value
             switch (sort) {
                 case 'default':
@@ -42,17 +41,8 @@ export default async function handler(req, res) {
 
             answer.rows.forEach(
                 element => {
-                    if (element.color_selection >= date) {
-                        element.highlighting = true
-                    } else {
-                        element.highlighting = false
-                    }
-
-                    if (element.size_selection >= date) {
-                        element.selection_size = true
-                    } else {
-                        element.selection_size = false
-                    }
+                    element.highlighting = element.color_selection >= date;
+                    element.selection_size = element.size_selection >= date;
                     delete element.color_selection
                     delete element.size_selection
                 });
