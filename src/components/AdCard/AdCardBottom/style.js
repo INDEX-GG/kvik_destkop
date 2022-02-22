@@ -1,8 +1,17 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   card__bottom: {
     padding: '2px 12px 12px',
+    [theme.breakpoints.down(727)]: {
+      overflow: 'hidden',
+    },
+    [theme.breakpoints.down(430)]: {
+      padding: '2px 8px 8px',
+    },
+    [theme.breakpoints.down(350)]: {
+      height: '150px',
+    },
   },
   card__bottomSeen: {
 
@@ -48,12 +57,14 @@ const useStyles = makeStyles(() => ({
     color: '#2c2c2c',
     fontWeight: '500',
     marginBottom: '10px',
+    height: '22px',
   },
   info_middleV2: {
     marginTop: '14px',
     marginBottom: '33px',
     fontSize: '16px',
     fontWeight: '500',
+    height: '22px',
   },
   card__bottom_info_footer: {
     fontSize: '12px',

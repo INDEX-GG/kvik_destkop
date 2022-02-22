@@ -18,6 +18,8 @@ const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, pric
     isCardGridMobileWrapp,
   } = useAdCardClass({highlighting, reviewed, selection_size, isGrid, screenIsMobile})
 
+  console.log('title: ', screenIsMobile, selection_size)
+
   return (
     <Link href={`/product/${offer_id}`} prefetch={false}>
       <Box className={
@@ -34,8 +36,8 @@ const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, pric
           {/* info_right */}
           <Box className={classes.card__bottom_info_right}>
             <Box>
-              {!screenIsMobile && delivery ? <Box className={!commercial === 0 ? "card_delivery card_delivery-green" : "card_delivery"}/> : ''}
-              {!screenIsMobile && secure_transaction ? <Box className={!commercial === 0 ? "card_secure card_secure-green" : "card_secure"}/> : ''}
+              {!screenIsMobile && delivery ? <Box className={!selection_size ? "card_delivery card_delivery-green" : "card_delivery"}/> : ''}
+              {!screenIsMobile && secure_transaction ? <Box className={!selection_size ? "card_secure card_secure-green" : "card_secure"}/> : ''}
             </Box>
           </Box>
 
@@ -64,7 +66,8 @@ const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, pric
               {[classes.info_middle]: !isCardGridMobileWrapp},
           )}
         >
-          {commercial === 2 ? ellipsis(title, 40) : ellipsis(title, 54)}
+          {screenIsMobile && (selection_size ? ellipsis(title, 40) : ellipsis(title, 20))}
+          {!screenIsMobile && (selection_size ? ellipsis(title, 40) : ellipsis(title, 24))}
         </Box>
 
         {/* info_footer */}

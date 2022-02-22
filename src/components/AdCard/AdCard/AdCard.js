@@ -55,6 +55,7 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
     console.log('вызвался - highlighting', offer.highlighting)
   }
 
+  console.log('isGrid: ', isGrid)
   return (
     <Box
       ref={ref}
@@ -63,7 +64,7 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
       className={
         clsx(
           classes.card,
-          {[classes.card__lg]: isSelectionSizeCard}
+          {[classes.card__lg]: isSelectionSizeCard && isGrid}
         )
       }
     >

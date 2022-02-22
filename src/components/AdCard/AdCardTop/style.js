@@ -1,11 +1,22 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     card__top: {
       width: '100%',
       height: '260px',
       overflow: 'hidden',
       position: 'relative',
+
+      [theme.breakpoints.down(727)]: {
+        overflow: 'hidden',
+        maxHeight: '163px',
+      },
+      [theme.breakpoints.down(430)]: {
+        height: '200px',
+      },
+      [theme.breakpoints.down(350)]: {
+        height: '150px',
+      },
     },
     sold: {
 
