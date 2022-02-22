@@ -1,7 +1,7 @@
 import {Pool} from "pg"
 import qs from "qs";
 import axios from "axios";
-import CryptoJS from "crypto-js";
+// import CryptoJS from "crypto-js";
 
 
 let payment_login = process.env.STG_LOGIN
@@ -24,19 +24,19 @@ const relevant_actions = {
         "price": 5900}
 }
 
-function check_sum(body) {
-    let check_string = ""
-    const check_sum_value = body.checksum
-    delete body.checksum
-    delete body.sign_alias
-    let keys = Object.keys(body)
-    keys.sort()
-    keys.forEach(element =>
-    {check_string += element + ";"
-    check_string += body[element] + ";"})
-    let encrypt_string = CryptoJS.HmacSHA256(check_string, process.env.STG_SIGN).toString().toUpperCase()
-    return encrypt_string === check_sum_value;
-}
+// function check_sum(body) {
+//     let check_string = ""
+//     const check_sum_value = body.checksum
+//     delete body.checksum
+//     delete body.sign_alias
+//     let keys = Object.keys(body)
+//     keys.sort()
+//     keys.forEach(element =>
+//     {check_string += element + ";"
+//     check_string += body[element] + ";"})
+//     let encrypt_string = CryptoJS.HmacSHA256(check_string, process.env.STG_SIGN).toString().toUpperCase()
+//     return encrypt_string === check_sum_value;
+// }
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {
