@@ -60,10 +60,10 @@ export default async function handler(req, res) {
                 orderId: md_order,
             })
 
-            if ( ! check_sum(query) ) {
-                await pool.query(`UPDATE "payments"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Ошибка проверки подписи", callback_id])
-                throw "err 1"
-            }
+            // if ( ! check_sum(query) ) {
+            //     await pool.query(`UPDATE "payments"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Ошибка проверки подписи", callback_id])
+            //     throw "err 1"
+            // }
 
             if ( operation === "deposited" && [1, "1"].includes(status) ) {
                 let payment_reg_answer = await axios.post(payment_reg_url, params).then(r => r.data)
