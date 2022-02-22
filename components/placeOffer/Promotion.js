@@ -4,7 +4,10 @@ import SelectBuy from "../SelectBuy";
 import { useMedia } from "../../hooks/useMedia";
 import  { useRouter } from 'next/router';
 import PromotionContent from "./PromotionContent";
+import PayPromotion from "../../src/components/PayPromotion/PayPromotion/PayPromotion";
+import CustomModalUI from "../../src/UI/UIcomponent/CustomModal/CustomModalUI";
 // import {STATIC_URL} from "../../lib/constants";
+import {ellipsis, ToRubles} from '../../lib/services'
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -162,7 +165,7 @@ const useStyles = makeStyles(theme => ({
 		color: "#8F8F8F",
 		fontSize: "9px",
 		fontWeight: "400",
-		padding: "7px 0 0 7px",
+		padding: "7px 0 3px 7px",
 	},
 	productCard: {
 		width: "118px",
@@ -192,6 +195,22 @@ const useStyles = makeStyles(theme => ({
 		"&:hover": {
 			backgroundColor: "#00A0AB"
 		}
+	},
+	promotionContainerV2: {
+		maxWidth: '865px',
+		margin: '0 auto 25px',
+		padding: '0 12px'
+	},
+	promotionWrapperV2: {
+		boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+		padding: '30px',
+		borderRadius: '8px'
+	},
+	promotionTitleV2: {
+		fontSize: '18px',
+		fontWeight: 400,
+		lineHeight: '21px',
+		marginBottom: '10px'
 	}
 }))
 
@@ -203,23 +222,25 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 	const [promotion, setPromotion] = useState([false, false, false, false, false, false, false, false, false])
 	const [free, setFree] = useState(false)
 	const [productModal, setProductModal] = useState(true)
+	const [finalPreview, setFinalPreview] = useState(false);
 
 	const [value, setValue] = useState(0)
 	// const [autoCloseProductModal, setAutoCloseProductModal] = useState(initState);
 	const rounter = useRouter()
 	const { matchesTablet, matchesMobile } = useMedia()
+	const isMobile = matchesTablet || matchesMobile
 
 	useEffect(() => {
 		productModal ? '' : rounter.push("/")
 	}, [productModal]);
 
-
-
-	const redirectToIndex = () => {
-	  return rounter.push("/")
-	}
-
-	setTimeout(redirectToIndex, 3000)
+	useEffect(() => {
+		if (finalPreview) {
+			setTimeout(() => {
+				rounter.push("/")
+			}, 3000)
+		}
+	}, [finalPreview])
 
 	const title = ["Выделение цветом", "Поднятие в поиске", "Отметка на карте", "Показ в схожих категориях", "Размещение в других городах", "Защита номера", "VIP-объявление", "Приветственное сообщение", "Без продвижения"]
 
@@ -262,7 +283,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 
 	const promotionAwait = (boolean) => {
 		if (boolean) return null;
-	
+
 		{matchesMobile || matchesTablet ?
 		<>
 			<div onClick={() => setDialog(!dialog)} className="accountArrowLeft"/>
@@ -307,22 +328,51 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 
 
 	return (
-		<PromotionContent dialog={true} setDialog={setDialog}>
-			{promotionAwait(true)}
-			<Dialog open={/** productModal || false */ productModal}  backdropclick="true" onClose={() => setProductModal(!productModal)}>
-				<div className={classes.productContainer}>
-					<div className={classes.productCard}>
-						{/* !!!!!!!!!! Change */}
-						<img src={!editProduct ? product.photo : `${product.photo}`} className={classes.productImg} alt="product photo" />
-						<div className={classes.productPrice}>{!editProduct ? product.price : product.price} ₽</div>
-						<div className={classes.productName}>{!editProduct ? product.title : product.title}</div>
-						<div className={classes.productLocation}>{!editProduct ? product.location : product.location}</div>
+		<>
+			{isMobile ? (
+				<CustomModalUI
+					open={isMobile}
+					title='Новое объявление'
+					maxWidth='md'
+					customMobile='960'
+				>
+					<PayPromotion
+						postId={product.id}
+						handleContinue={() => setFinalPreview(true)}
+					/>
+				</CustomModalUI>
+			) : (
+				<Box className={classes.promotionContainerV2}>
+					<Box className={classes.promotionTitleV2}>
+						Новое объявление
+					</Box>
+					<Box className={classes.promotionWrapperV2}>
+						<PayPromotion postId={product.id} handleContinue={() => setFinalPreview(true)}/>
+					</Box>
+				</Box>
+			)}
+			<PromotionContent dialog={finalPreview} setDialog={setDialog}>
+				{promotionAwait(true)}
+				<Dialog open={/** productModal || false */ finalPreview}  backdropclick="true" onClose={() => setProductModal(!productModal)}>
+					<div className={classes.productContainer}>
+						<div className={classes.productCard}>
+							{/* !!!!!!!!!! Change */}
+							<img src={!editProduct ? product.photo : `${product.photo}`} className={classes.productImg} alt="product photo" />
+                <div className={classes.productPrice}>{ToRubles(!editProduct ? product.price : product.price)}</div>
+						   <div className={classes.productName}>{ellipsis(!editProduct ? product.title : product.title, 16)}</div>
+							<div className={classes.productLocation}>{!editProduct ? product.location : product.location}</div>
+						</div>
+						{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
+						<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление успешно опубликовано!' : 'Ваше объявление успешно отредактировано!'}</div>
+						<Button
+							className={classes.productButton}
+							onClick={() => rounter.push("/")}
+						>
+							Отлично
+						</Button>
 					</div>
-					{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
-					<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление успешно опубликовано!' : 'Ваше объявление успешно отредактировано!'}</div>
-					<Button className={classes.productButton} onClick={() => rounter.push("/")}>Отлично</Button>
-				</div>
-			</Dialog>
-		</PromotionContent>
+				</Dialog>
+			</PromotionContent>
+		</>
 	)
 }

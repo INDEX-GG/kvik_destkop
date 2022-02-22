@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-
 function Active({offers}) {
 	const classes = useStyles();
 	const { page, setPage, totalPosts, page_limit } = useOfferAccount()
@@ -53,16 +52,22 @@ function Active({offers}) {
 		setOfferId([]);
 		setOfferData([]);
 	}
-	
-	function getChildCheck ({id, isChecked}) {
-		setOfferId( isChecked ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
-		setOfferData( isChecked ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
+
+	function getChildCheck ({id, isCheck}) {
+		setOfferId( isCheck ? prev => [...prev, id] : prev => prev.filter( item => item !== id) );
+		setOfferData( isCheck ? prev => [...prev, offers.filter( item => item.id === id )[0]] : prev => prev.filter( item => item.id !== id) );
 	}
 
 	useEffect(() => {
-		offerId.length === offers.length ? check ? null : setCheck(false) : check===false ? null : setCheck(true);
+		offerId.length === offers.length
+			? check
+				? null
+				: setCheck(false)
+			: check===false
+				? null
+				: setCheck(true);
 	}, [offerId])
-	
+
 // запрещаем вешать слушатель скрола, при первом рендере т.к. стейты еще не пришли.
 	useEffect(()=> {
 		if(isFirstRender) {
@@ -91,7 +96,7 @@ function Active({offers}) {
 			pageNumber += 1
 		}
 	}
-	
+
 	if (offers?.length === 0) {
 		return (
 			<>
@@ -99,7 +104,7 @@ function Active({offers}) {
 			</>
 		);
 	}
-	
+
 	return (
 		<>
 			{!offers ? <OfferActivePlaceHolder/>
@@ -123,16 +128,15 @@ function Active({offers}) {
 					</button>
 				</div>}
 				<div className="clientPage__container_content">
-					{offers?.map((offer, i) => {
+					{offers?.map((offer) => {
 						return (
-							<OfferCard 
-								key={i} 
+							<OfferCard
+								key={offer.id}
 								offer={offer}
 								typeTab='activeTab'
 								typeButton={'003'}
-								i={i}
-								parentCheck={check} 
-								getChildCheck={getChildCheck} 
+								parentCheck={check}
+								getChildCheck={getChildCheck}
 								parentUnpublishForm={openOfferModal}
 								allDataCheck={offerId}
 								offersLength={offersLength}

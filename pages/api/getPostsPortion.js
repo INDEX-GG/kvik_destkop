@@ -25,7 +25,7 @@ export default async function handler(req, res) {
             let sort_value
             switch (sort) {
                 case 'default':
-                    sort_value = 'ORDER BY id DESC'
+                    sort_value = 'ORDER BY rotation_date DESC'
                     break;
                 case 'new':
                     sort_value = 'ORDER BY id DESC'

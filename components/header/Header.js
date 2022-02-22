@@ -68,8 +68,11 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '0',
   },
   menu__categorys: {
-    minWidth: "220px",
-    justifyContent: "space-between"
+    minWidth: "123px",
+    justifyContent: "space-between",
+    '& span': {
+      gap: '15px',
+    }
   }
 }));
 

@@ -9,4 +9,4 @@ const ProductBody = ({children}) => {
     );
 };
 
-export default ProductBody;
+export default React.memo(ProductBody);

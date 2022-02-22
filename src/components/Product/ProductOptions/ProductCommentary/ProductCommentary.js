@@ -1,5 +1,5 @@
 import React from 'react';
-import NoteIcon from "../../../../UI/icon/NoteIcon";
+import NoteIcon from "../../../../UI/UIicon/NoteIcon";
 
 const ProductCommentary = () => {
     return (

@@ -31,6 +31,8 @@ export default async function handler(req, res) {
 			let user = user_obj.rows[0]
 			user.subscriptions_count = parseInt(user.subscriptions_count)
 			user.subscribers_count = parseInt(user.subscribers_count)
+			if (user.subscriptions == null) {user.subscriptions = []}
+			if (user.favorites == null) {user.favorites = []}
 			return user
 		}
 		try {

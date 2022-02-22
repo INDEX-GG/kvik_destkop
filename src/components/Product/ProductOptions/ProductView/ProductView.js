@@ -1,5 +1,5 @@
 import React from 'react';
-import EyeIcon from "../../../../UI/icon/EyeIcon";
+import EyeIcon from "../../../../UI/UIicon/EyeIcon";
 
 const ProductView = () => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import LikeIcon from "../../../../UI/icon/LikeIcon";
+import LikeIcon from "../../../../UI/UIicon/LikeIcon";
 
 const ProductStats = () => {
     return (

@@ -8,4 +8,4 @@ const ProductHeader = ({children}) => {
     );
 };
 
-export default ProductHeader;
+export default React.memo(ProductHeader);

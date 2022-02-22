@@ -10,4 +10,4 @@ const ProductDate = ({date}) => {
     );
 };
 
-export default ProductDate;
+export default React.memo(ProductDate);

@@ -10,4 +10,4 @@ const ProductName = () => {
     );
 };
 
-export default ProductName;
+export default React.memo(ProductName);

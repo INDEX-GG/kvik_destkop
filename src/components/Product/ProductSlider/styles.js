@@ -29,6 +29,12 @@ export const useProductSliderStyles = (isMobile) => {
             height: '88px',
             display: !isMobile ? 'block' : 'none'
         },
+        swiperLittleSlide: {
+            marginBottom: '0px !important',
+            '& > .swiper-wrapper > *': {
+                height: '88px'
+            }
+        },
         swiperLittleSlideImg: {
             height: '88px !important',
             objectFit: 'cover !important',

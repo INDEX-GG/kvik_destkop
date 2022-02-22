@@ -1,6 +1,9 @@
+import {useContext} from 'react'
 import { Button, makeStyles } from "@material-ui/core"
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import { useRouter } from "next/router";
+import { LoginDrawerCTX } from "../lib/Context/DialogCTX"
+import { useAuth } from "../lib/Context/AuthCTX";
 
 const useStyles = makeStyles((theme) => ({
     buttonContainer: {
@@ -24,9 +27,28 @@ const useStyles = makeStyles((theme) => ({
 export default function PlaceOfferButton() {
     const router = useRouter()
     const classes = useStyles()
+	const { isAuth } = useAuth();
+
+    const {
+        setModalState
+    } = useContext(LoginDrawerCTX)
+
+    const handlerClick = () => {
+        if(isAuth) {
+            router.push("/placeOffer")
+        } else {
+            setModalState({left: true})
+        }
+    }
+
     return (
         <div className={classes.buttonContainer}>
-            <Button className={classes.buttonText} onClick={() => router.push("/placeOffer")} variant="contained" color="primary">
+            <Button
+                className={classes.buttonText}
+                onClick={handlerClick}
+                variant="contained"
+                color="primary"
+            >
                 <AddRoundedIcon />
                 Подать объявление
             </Button>

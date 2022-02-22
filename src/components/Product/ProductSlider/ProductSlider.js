@@ -30,7 +30,7 @@ const ProductSlider = ({ mobile = false }) => {
     const {slidesPrevPhoto, sliderDot, sliderNavigation} = sliderProps;
     const sliderClass = `mySwiper2 importantSlider 
     ${sliderDot || photo?.length > 1 && isMobile ? '' : 'dotNone'} ${sliderNavigation ? '' : 'navigationNone'}`
-    const littleSwiperClass = [`mySwiper2 ${slidesPrevPhoto > 1 ? '' : classes.swiperNone}`];
+    const littleSwiperClass = [`mySwiper2 ${classes.swiperLittleSlide} ${slidesPrevPhoto > 1 ? '' : classes.swiperNone}`];
 
     const handleChangeModal = (state) => {
         return () => {

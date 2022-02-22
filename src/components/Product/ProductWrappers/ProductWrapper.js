@@ -10,4 +10,4 @@ const ProductWrapper = ({children}) => {
     );
 };
 
-export default ProductWrapper;
+export default React.memo(ProductWrapper);

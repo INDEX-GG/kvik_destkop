@@ -1,6 +1,6 @@
 import React from 'react';
 import MetaLayout from '../../layout/MetaLayout'
-import ProductPage from '../../src/components/Product/ProductPage/ProductPage';
+import ProductPage from '../../src/components/Product/ProductPage';
 import ProductProvider from "../../src/context/ProductContext";
 
 const Product = () => {
