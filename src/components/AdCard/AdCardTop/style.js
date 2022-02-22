@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       bottom: '34px',
       right: '12px',
+
+      [theme.breakpoints.down(959)]: {
+        right: '4px',
+        top: '4px',
+      },
     },
     card__top_info_left: {
       position: 'absolute',

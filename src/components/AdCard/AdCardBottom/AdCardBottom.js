@@ -7,7 +7,7 @@ import { ellipsis, ToRusDate, ToRubles } from "#lib/services";
 import {useAdCardBottomStyles} from './style'
 import {useAdCardClass} from '../useAdCardClass'
 
-const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, price, commercial, secure_transaction, title, delivery, screenIsMobile, highlighting, selection_size, isGrid}) => {
+const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, price, secure_transaction, title, delivery, screenIsMobile, highlighting, selection_size, isGrid}) => {
   const classes = useAdCardBottomStyles()
   const {
     isHighlightCard,
