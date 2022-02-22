@@ -24,18 +24,35 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
 	const screenIsMobile = matchesMobile || matchesTablet;
 
   const {
-    isCommercialCard,
-    isCommercialCardWrapp,
+    isHighlightCard,
+    isSelectionSizeCard,
     isCardGridMobileWrapp,
-    isCommercialGridCardWrapp
-  } = useAdCardClass(offer.highlighning, isGrid, screenIsMobile)
+  } = useAdCardClass({
+    isGrid,
+    screenIsMobile,
+    selection_size: offer?.selection_size,
+    highlighting: offer.highlighting,
+  })
 
 	const [openMenu, setOpenMenu] = useState(initialState);
+
+  const handleCM = (e) => {
+		e.preventDefault();
+		setOpenMenu({
+			mouseX: e.clientX - 2,
+			mouseY: e.clientY - 4,
+		});
+	}
 
   const handleWheelClick = (id) => (e) => {
     if(e.button === 1) {
 			router.push(`/product/${id}`);
     }
+  }
+
+  if(offer.id == 8032) {
+    console.log('вызвался', offer)
+    console.log('вызвался - highlighting', offer.highlighting)
   }
 
   return (
@@ -46,7 +63,7 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
       className={
         clsx(
           classes.card,
-          {[classes.card__lg]: isCommercialCard}
+          {[classes.card__lg]: isSelectionSizeCard}
         )
       }
     >
@@ -56,32 +73,38 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
         initialState={initialState}
         offer_id={offer.id}
       />
-      <Box className={
-        clsx(
-          classes.card__wrapper,
-          {[classes.card__wrapperYellow]: isCommercialCardWrapp},
-          {[classes.card__wrapperV2]: isCardGridMobileWrapp},
-          {[classes.card__wrapperYellow]: isCommercialGridCardWrapp, [classes.card__wrapperV2]: isCommercialGridCardWrapp}
-        )
-      }>
+      <Box
+        className={
+          clsx(
+            classes.card__wrapper,
+            {[classes.card__wrapperYellow]: isHighlightCard && !isSelectionSizeCard},
+            {[classes.card__wrapper2Yellow]: isHighlightCard && isSelectionSizeCard},
+            {[classes.card__wrapperV2]: isCardGridMobileWrapp},
+        )}
+      >
         <AdCardTop
           id={id}
+          offer_id={offer.id}
           email={offer.email}
           user_id={offer.user_id}
-          offer_id={offer.id}
+          archived={offer.archived}
           offer_photo={offer.photo}
           screenIsMobile={screenIsMobile}
           viewing_bool={offer?.viewing_bool || false}
         />
         <AdCardBottom
+          isGrid={isGrid}
           price={offer.price}
           title={offer.title}
           offer_id={offer.id}
+          reviewed={offer.reviewed}
           delivery={offer.delivery}
           offer_address={offer.address}
           commercial={offer.commercial}
           screenIsMobile={screenIsMobile}
+          highlighting={offer.highlighting}
           offer_created_at={offer.created_at}
+          selection_size={offer.selection_size}
           secure_transaction={offer.secure_transaction}
         />
       </Box>

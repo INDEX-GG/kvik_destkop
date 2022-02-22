@@ -22,6 +22,11 @@ const useStyles = makeStyles(() => ({
 		textAlign: "center",
 		lineHeight: "21px",
 	},
+	morePhotoImage: {
+		width: '30px',
+		height: '24px',
+		background: 'url(/img/camera_white.svg) center no-repeat',
+	},
 	blur: {
 		filter: 'blur(3px)',
 	},

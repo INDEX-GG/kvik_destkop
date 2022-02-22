@@ -6,6 +6,8 @@ import { observerGenerate } from '../lib/scrollAds';
 import Loader from '../UI/icons/Loader';
 // import EndMessage from './EndMessage';
 
+import AdCard from '#src/components/AdCard/AdCard/AdCard'
+
 const useStyles = makeStyles(() => ({
 	top: {
 		marginBottom: '15px',
@@ -89,7 +91,8 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 				</TextField> : null}
 			</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
+					{/* {state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)} */}
+					{state.sorting(data)?.map((obj, i) => <AdCard key={i} offer={obj} />)}
 				</div>
 				{page == 'end' || data?.length == 0 ? null : <div ref={lastElement} className='offer__placeholder_loader'><Loader /></div>}
 				 {/*{data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null}*/}

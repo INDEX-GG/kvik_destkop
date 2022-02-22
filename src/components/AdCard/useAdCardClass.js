@@ -1,20 +1,25 @@
 import React from 'react'
 
-export const useAdCardClass = (commercial, isGrid, screenIsMobile) => {
+export const useAdCardClass = ({highlighting, archived, selection_size, isGrid, reviewed, screenIsMobile}) => {
 
-  const isCommercial = commercial === 1 || commercial === 2
+  const isHighlight = highlighting
+  const isSelectionSize = selection_size
 
-  const isCommercialCardWrapp = isCommercial ? true : false // 'card__wrapper-yellow'
+  const isCommercialCardWrapp = highlighting ? true : false // 'card__wrapper-yellow'
   const isCardGridMobileWrapp = !isGrid && screenIsMobile ? true : false // 'card__wrapperV2'
-  const isCommercialGridCardWrapp = !isGrid && isCommercial && screenIsMobile  ? true : false // 'card__wrapper-yellow card__wrapperV2'
+  const isCommercialGridCardWrapp = !isGrid && highlighting && screenIsMobile  ? true : false // 'card__wrapper-yellow card__wrapperV2'
 
-  const isCommercialCard = commercial === 2 ? 'card card__lg' : 'card'
+
+  const isArchivedCard = archived
+  const isReviewedCard = reviewed < 0
 
   const clasNameObject = {
-    isCommercialCard: isCommercialCard,
-    isCommercialCardWrapp: isCommercialCardWrapp,
+    isHighlightCard: isHighlight,
+    isSelectionSizeCard: isSelectionSize,
     isCardGridMobileWrapp: isCardGridMobileWrapp,
     isCommercialGridCardWrapp: isCommercialGridCardWrapp,
+    isArchivedCard: isArchivedCard,
+    isReviewedCard: isReviewedCard,
 
   }
 

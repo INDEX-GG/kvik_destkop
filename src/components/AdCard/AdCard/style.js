@@ -21,7 +21,20 @@ const useStyles = makeStyles((theme) => ({
         background: '#fff',
     },
     card__wrapperYellow: {
-        background: '#FFF6A5',
+        background: '#D0EDEF',
+
+        // borderRadius: '8px',
+        // border: '1px solid #00a0ab',
+        // borderImage: 'linear-gradient(to top ,#00A0ABFF, #00A0AB17)',
+        // borderImageSlice: '1',
+    },
+    card__wrapper2Yellow: {
+        background: '#D0EDEF',
+
+        // borderRadius: '8px',
+        // border: '2px solid #00a0ab',
+        // borderImage: 'linear-gradient(to top ,#00A0ABFF, #00A0AB17)',
+        // borderImageSlice: '1',
     },
     card__wrapperV2: {
         display: 'grid',

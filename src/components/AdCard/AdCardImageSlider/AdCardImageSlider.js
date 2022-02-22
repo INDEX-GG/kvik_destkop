@@ -17,8 +17,6 @@ const AdCardImageSlider = ({offer_id, offer_photo, screenIsMobile}) => {
   const currentSwiper = useRef();
 	const currentSlide = useRef(); // для слайдов в swiper
 
-  console.log('offer_photo: ', offer_photo)
-
   	// перемещение слайдов по движению мыши
 	useEffect(() => {
 		// если фото более 2 и не мобилка
@@ -54,20 +52,23 @@ const AdCardImageSlider = ({offer_id, offer_photo, screenIsMobile}) => {
     <>
       {!screenIsMobile &&
         <Box
-          ref={currentSlide}
+          component="div"
+          {...{ref: currentSlide}}
           className={classes.mov_area}
           onMouseEnter={addSlideView(offer_id)}
         >
           {/* eslint-disable-next-line */}
           {Array.isArray(offer_photo) && offer_photo && (offer_photo?.slice(0, 5))?.map((_, i) => {
-            <Box
-              key={i}
-              data-for={i}
-              className={classes.mov_area__item}
-              style={{
-                width: `${Math.round(100 / (offer_photo.length > 5 ? 5 : offer_photo.length))}%`
-              }}
-            ></Box>
+            return (
+              <div
+                key={i}
+                data-for={i}
+                className={classes.mov_area__item}
+                style={{
+                  width: `${Math.round(100 / (offer_photo.length > 5 ? 5 : offer_photo.length))}%`
+                }}
+              ></div>
+            )
           })}
         </Box>
       }
@@ -140,12 +141,12 @@ const AdCardImageSlider = ({offer_id, offer_photo, screenIsMobile}) => {
               </div> */}
               {
                 i === 4 && (offer_photo.length - 5 > 0) ?
-                <div className={classes.morePhoto}>
-                  <span className="morePhotoImage"></span>
-                  <span className={classes.morePhotoText}>
+                <Box component='div' className={classes.morePhoto}>
+                  <Box component='span' className={classes.morePhotoImage}></Box>
+                  <Box component='span' className={classes.morePhotoText}>
                     Еще {offer_photo.length - 5} фото
-                  </span>
-                </div>
+                  </Box>
+                </Box>
                 : null
               }
             </SwiperSlide>
