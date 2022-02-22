@@ -92,7 +92,7 @@ const AdCardImageSlider = ({offer_id, offer_photo, screenIsMobile}) => {
           }
         }}
         slidesPerView={1}
-        style={{width: '100%', height: '100%',}}
+        className={classes.swiper}
         // onSlideChange={handlerSlideChange}
       >
         {Array.isArray(offer_photo) && offer_photo && (offer_photo?.slice(0, 5))?.map((img, i) => {

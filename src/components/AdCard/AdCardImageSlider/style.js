@@ -45,6 +45,43 @@ const useStyles = makeStyles(() => ({
 		height: 'inherit',
 		margin: '0',
 		padding: '0',
+	},
+	swiper: {
+		width: '100%',
+		height: '100%',
+
+		'& .swiper-pagination': {
+			zIndex: '100',
+			position: 'absolute',
+			display: 'flex',
+			bottom: '4px',
+			width: '100%',
+			justifyContent: 'center',
+		},
+		'& .swiper-pagination-bullet': {
+			width: '8px',
+			height: '8px',
+			display: 'block',
+			background: '#c4c4c4',
+			border: '1px solid #2a2a2a',
+			borderRadius: '50%',
+			margin: '0 4px',
+		},
+		'& .swiper-pagination-bullet-active': {
+			background: '#00a0ab',
+		}
+	},
+	swiperPaginationBullet: {
+    width: '8px',
+    height: '8px',
+    display: 'block',
+    background: '#c4c4c4',
+    border: '1px solid #2a2a2a',
+    borderRadius: '50%',
+    margin: '0 4px',
+	},
+	swiperPaginationBulletActive: {
+    background: '#00a0ab',
 	}
 }))
 
