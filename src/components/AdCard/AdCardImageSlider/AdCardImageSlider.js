@@ -5,6 +5,7 @@ import SwiperCore, { Pagination, Lazy } from 'swiper';
 import clsx from 'clsx'
 
 import {useStatistics} from '../../../../lib/Context/StatisticsCTX'
+import { BASE_URL } from "../../../../lib/constants";
 
 import {AdCardImageSliderStyles} from "./style";
 

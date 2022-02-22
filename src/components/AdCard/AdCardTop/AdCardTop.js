@@ -3,7 +3,6 @@ import {IconButton, Box} from "@material-ui/core";
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import clsx from 'clsx'
-import Link from "next/link";
 
 import { useStore } from "../../../../lib/Context/Store";
 import { useStatistics } from '../../../../lib/Context/StatisticsCTX'

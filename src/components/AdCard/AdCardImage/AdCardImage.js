@@ -1,15 +1,13 @@
 import React from 'react'
 import Link from "next/link";
 import {Box} from "@material-ui/core";
-import { useRouter } from 'next/router'
 
 import AdCardImageSlider from '../AdCardImageSlider/AdCardImageSlider'
 import {useAdCardImageStyles} from './style'
+import { BASE_URL } from "../../../../lib/constants";
 
 const AdCardImage = ({offer_id, offer_photo, screenIsMobile}) => {
   const classes = useAdCardImageStyles()
-
-  // console.log('offer_photo: ', offer_photo)
 
   return (
     <Link href={`/product/${offer_id}`} prefetch={false}>

@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   card__bottom: {
     padding: '2px 12px 12px',
   },

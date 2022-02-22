@@ -12,9 +12,9 @@ const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, pric
   const {
     isHighlightCard,
     isSelectionSizeCard,
-    isCommercialCard,
+    // isCommercialCard,
     isReviewedCard,
-    isCommercialCardWrapp ,
+    // isCommercialCardWrapp,
     isCardGridMobileWrapp,
   } = useAdCardClass({highlighting, reviewed, selection_size, isGrid, screenIsMobile})
 

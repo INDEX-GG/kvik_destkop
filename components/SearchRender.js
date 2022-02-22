@@ -1,12 +1,12 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import AdCard_component from './AdCard';
+// import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
 import { observerGenerate } from '../lib/scrollAds';
 import Loader from '../UI/icons/Loader';
 // import EndMessage from './EndMessage';
 
-import AdCard from '#src/components/AdCard/AdCard/AdCard'
+import AdCard from '../src/components/AdCard/AdCard/AdCard'
 
 const useStyles = makeStyles(() => ({
 	top: {

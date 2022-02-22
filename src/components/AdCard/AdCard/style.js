@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     card: {
         minWidth: '100%',
         width: '100%',
