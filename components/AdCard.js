@@ -14,6 +14,9 @@ import { useStore } from "../lib/Context/Store";
 // import PhoneModule from "./product/PhoneModule";
 import {useStatistics} from '../lib/Context/StatisticsCTX'
 
+import { usePlugImages } from '../hooks/usePlugImages';
+import AdCardPng from './AdCardPng'
+
 SwiperCore.use([Pagination, Lazy]);
 const initialState = {
 	mouseX: null,
@@ -83,6 +86,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 	// const [phoneModuleState, setPhoneModuleState] = useState(false);
 	const [, setPhoneModuleState] = useState(false);
 
+	const {arr} = usePlugImages(offer.photo, offer.category_id)
+	
 	useEffect(() => {
 		if(!userInfo || userInfo?.favorites === null) return
 		const isFavorite = userInfo?.favorites.includes(offer.id)
@@ -244,145 +249,148 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 								// height: '263px'
 							}}
 						>
-							{offer?.photo?.length === 1 ?
-							<>
-								{/* <img
-									src={`${offer.photo[0]}`}
-									style={{
-										objectFit: 'cover',
-										width: '100%',
-										objectPosition: 'center',
-										height: '100%',
-
-
-									}}
-									alt="фото объявления"
-									ref={currentSwiper}
-									onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
-								/> */}
-								{/* после оптимизации приложения, див переписать на тег img */}
-									<div
+							{(offer.photo === null || !offer.photo.length) && arr.length === 1 ? <AdCardPng title={arr[0].title} /> :
+							// {1 ? <AdCardPng title={arr[0].title} /> :
+								offer?.photo?.length === 1 ?
+								<>
+									{/* <img
+										src={`${offer.photo[0]}`}
 										style={{
-											backgroundImage: `url(${offer.photo[0]})`,
+											objectFit: 'cover',
 											width: '100%',
+											objectPosition: 'center',
 											height: '100%',
-											backgroundSize: 'cover',
-											backgroundPosition: 'center'
+
+
 										}}
+										alt="фото объявления"
 										ref={currentSwiper}
 										onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
-									/>
-									<div
-										style={{
-											backgroundImage: `url(${offer.photo[0]})`,
-											backgroundSize: 'cover',
-											filter: 'blur(20px)'
-										}}
-										className="imageBlur">
-									</div>
-								</>
-								: (
-									<>
-									{/* рисуем области при которых листаем слайды - если не мобилка */}
-										{!screenIsMobile &&
-											<div
-												ref={currentSlide}
-												className={classes.mov_area}
-												onMouseEnter={addSlideView(offer.id)}
-												// onTouchStart={addSlideView(offer.id)}
+									/> */}
+									{/* после оптимизации приложения, див переписать на тег img */}
+										<div
+											style={{
+												backgroundImage: `url(${offer.photo[0]})`,
+												width: '100%',
+												height: '100%',
+												backgroundSize: 'cover',
+												backgroundPosition: 'center'
+											}}
+											ref={currentSwiper}
+											onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+										/>
+										<div
+											style={{
+												backgroundImage: `url(${offer.photo[0]})`,
+												backgroundSize: 'cover',
+												filter: 'blur(20px)'
+											}}
+											className="imageBlur">
+										</div>
+									</>
+									: (
+										<>
+										{/* рисуем области при которых листаем слайды - если не мобилка */}
+											{!screenIsMobile &&
+												<div
+													ref={currentSlide}
+													className={classes.mov_area}
+													onMouseEnter={addSlideView(offer.id)}
+													// onTouchStart={addSlideView(offer.id)}
+												>
+													{/* eslint-disable-next-line */}
+													{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((_, i) => {
+														return (
+															<div
+																key={i}
+																data-for={i}
+																className={classes.mov_area__item}
+																style={{
+																	width: `${Math.round(100 / (offer.photo.length > 5 ? 5 : offer.photo.length))}%`
+																}}
+															></div>
+														)
+													})}
+												</div>
+											}
+											<Swiper
+												// Enable lazy loading
+												lazy={{
+													//  tell swiper to load images before they appear
+													loadPrevNext: true,
+													// amount of images to load
+													loadPrevNextAmount: 1,
+												}}
+												// Disable preloading of all images
+												// preloadImages={false}
+												ref={currentSwiper}
+												pagination={pagination}
+												slidesPerView={1}
+												style={{width: '100%', height: '100%',}}
+												// onSlideChange={handlerSlideChange}
 											>
-												{/* eslint-disable-next-line */}
-												{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((_, i) => {
+												{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
 													return (
-														<div
-															key={i}
-															data-for={i}
-															className={classes.mov_area__item}
-															style={{
-																width: `${Math.round(100 / (offer.photo.length > 5 ? 5 : offer.photo.length))}%`
-															}}
-														></div>
+														<SwiperSlide key={i} style={{position: 'relative',}}>
+															{/* после оптимизации приложения, див переписать на тег img */}
+															<div
+																style={{
+																	// display: 'block',
+																	// width: '100%',
+																	// height: '100%',
+																	// minHeight: '100%',
+																	// objectFit: 'cover',
+																	width: '100%',
+																	height: '100%',
+																	backgroundImage: `url(${img})`,
+																	backgroundSize: 'cover',
+																	backgroundPosition: 'center',
+																	backgroundRepeat: 'no-repeat',
+																	// border: '0'
+																}}
+																// alt="фото объявления"
+																// src={`${img}`}
+																// srt={true}
+																// className={(i === 4 && (offer.photo.length - 5 > 0) ? classes.blur : null)}
+																className={clsx((i === 4 && (offer.photo.length - 5 > 0) ? classes.blur : null), 'swiper-lazy')}
+																onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
+															/>
+															{/* <img
+																style={{
+																	width: '100%',
+																	height: '100%',
+																	backgroundImage: `url(${img})`,
+																	backgroundSize: 'cover',
+																	backgroundPosition: 'center'
+																}}
+															/> */}
+
+															{/* <div
+																style={{
+																	backgroundImage: `url(${img})`,
+																	backgroundSize: 'cover',
+																	filter: 'blur(20px)'
+																}}
+																className="imageBlur"
+															>
+															</div> */}
+															{
+																i === 4 && (offer.photo.length - 5 > 0) ?
+																<div className={classes.morePhoto}>
+																	<span className="morePhotoImage"></span>
+																	<span className={classes.morePhotoText}>
+																		Еще {offer.photo.length - 5} фото
+																	</span>
+																</div>
+																: null
+															}
+														</SwiperSlide>
 													)
 												})}
-											</div>
-										}
-										<Swiper
-											// Enable lazy loading
-											lazy={{
-												//  tell swiper to load images before they appear
-												loadPrevNext: true,
-												// amount of images to load
-												loadPrevNextAmount: 1,
-											}}
-											// Disable preloading of all images
-											// preloadImages={false}
-											ref={currentSwiper}
-											pagination={pagination}
-											slidesPerView={1}
-											style={{width: '100%', height: '100%',}}
-											// onSlideChange={handlerSlideChange}
-										>
-											{Array.isArray(offer.photo) && offer?.photo && (offer.photo?.slice(0, 5))?.map((img, i) => {
-												return (
-													<SwiperSlide key={i} style={{position: 'relative',}}>
-														{/* после оптимизации приложения, див переписать на тег img */}
-														<div
-															style={{
-																// display: 'block',
-																// width: '100%',
-																// height: '100%',
-																// minHeight: '100%',
-																// objectFit: 'cover',
-																width: '100%',
-																height: '100%',
-																backgroundImage: `url(${img})`,
-																backgroundSize: 'cover',
-																backgroundPosition: 'center',
-																backgroundRepeat: 'no-repeat',
-																// border: '0'
-															}}
-															// alt="фото объявления"
-															// src={`${img}`}
-															// srt={true}
-															// className={(i === 4 && (offer.photo.length - 5 > 0) ? classes.blur : null)}
-															className={clsx((i === 4 && (offer.photo.length - 5 > 0) ? classes.blur : null), 'swiper-lazy')}
-															onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
-														/>
-														{/* <img
-															style={{
-																width: '100%',
-																height: '100%',
-																backgroundImage: `url(${img})`,
-																backgroundSize: 'cover',
-																backgroundPosition: 'center'
-															}}
-														/> */}
-
-														{/* <div
-															style={{
-																backgroundImage: `url(${img})`,
-																backgroundSize: 'cover',
-																filter: 'blur(20px)'
-															}}
-															className="imageBlur"
-														>
-														</div> */}
-														{
-															i === 4 && (offer.photo.length - 5 > 0) ?
-															<div className={classes.morePhoto}>
-																<span className="morePhotoImage"></span>
-																<span className={classes.morePhotoText}>
-																	Еще {offer.photo.length - 5} фото
-																</span>
-															</div>
-															: null
-														}
-													</SwiperSlide>
-												)
-											})}
-										</Swiper>
-									</>
-								)}
+											</Swiper>
+										</>
+								)
+							}
 						</div>
 					</Link>
 					<div className="card__top_info">
