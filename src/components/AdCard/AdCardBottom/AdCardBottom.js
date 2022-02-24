@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef, useEffect, useMemo} from 'react'
 import {Box} from "@material-ui/core";
 import Link from "next/link";
 import clsx from 'clsx'
@@ -6,19 +6,39 @@ import clsx from 'clsx'
 import { ellipsis, ToRusDate, ToRubles } from "#lib/services";
 import {useAdCardBottomStyles} from './style'
 import {useAdCardClass} from '../useAdCardClass'
+import { useMedia } from '#hooks/useMedia';
 
-const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, price, secure_transaction, title, delivery, screenIsMobile, highlighting, selection_size, isGrid}) => {
+const calculateWidth = (matchesMobile, matchesDesktop, parentWidth) => {
+  const titleWidthPercent = matchesMobile ? 9 : matchesDesktop ? 10 : 8
+  return parentWidth / titleWidthPercent
+}
+
+const AdCardBottom = ({
+  price,
+  title,
+  isGrid,
+  reviewed,
+  offer_id,
+  delivery,
+  highlighting,
+  offer_address,
+  screenIsMobile,
+  selection_size,
+  offer_created_at,
+  secure_transaction,
+  }) => {
   const classes = useAdCardBottomStyles()
   const {
     isHighlightCard,
     isSelectionSizeCard,
-    // isCommercialCard,
     isReviewedCard,
-    // isCommercialCardWrapp,
     isCardGridMobileWrapp,
   } = useAdCardClass({highlighting, reviewed, selection_size, isGrid, screenIsMobile})
 
-  console.log('title: ', screenIsMobile, selection_size)
+  const refTitleWidth = useRef()
+	const { matchesMobile, matchesDesktop } = useMedia();
+
+  const titleWidth = useMemo(() => calculateWidth(matchesMobile, matchesDesktop, refTitleWidth?.current?.scrollWidth), [refTitleWidth?.current?.scrollWidth])
 
   return (
     <Link href={`/product/${offer_id}`} prefetch={false}>
@@ -59,6 +79,7 @@ const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, pric
 
         {/* info_middle */}
         <Box
+          ref={refTitleWidth}
           component="div"
           className={
             clsx(
@@ -66,7 +87,7 @@ const AdCardBottom = ({offer_id, offer_address, offer_created_at, reviewed, pric
               {[classes.info_middle]: !isCardGridMobileWrapp},
           )}
         >
-          {screenIsMobile && (selection_size ? ellipsis(title, 40) : ellipsis(title, 20))}
+          {screenIsMobile && (selection_size ? ellipsis(title, 40) : ellipsis(title, (titleWidth) || 18))}
           {!screenIsMobile && (selection_size ? ellipsis(title, 40) : ellipsis(title, 24))}
         </Box>
 

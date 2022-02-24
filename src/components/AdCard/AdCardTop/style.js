@@ -43,10 +43,19 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       bottom: '34px',
       right: '12px',
+      transform: 'translateY(100px)',
+      // transition: '100ms ease-in-out',
 
+      [theme.breakpoints.down(1024)]: {
+        right: '8px',
+        transform: 'none',
+      },
       [theme.breakpoints.down(959)]: {
         right: '4px',
         top: '4px',
+      },
+      [theme.breakpoints.down(350)]: {
+        bottom: '8px',
       },
     },
     card__top_info_left: {
@@ -56,9 +65,30 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       transform: 'translateY(100px)',
       transition: '100ms ease-in-out',
+
+      [theme.breakpoints.down(1024)]: {
+        bottom: '8px',
+      },
     },
     card_like: {
+
+      // из UI-Kit
+      display: 'block',
+      width: '24px',
+      height: '24px',
+      cursor: 'pointer',
+      padding: '0',
+
+      // из AdCard.scss
       filter: 'drop-shadow(0px 0px 1px rgba(0, 0, 0, 10))',
+
+      '& .card_like button': {
+        padding: '0',
+      },
+
+      [theme.breakpoints.down(1024)]: {
+        transform: 'translateX(0)',
+      },
     },
     card_comment: {
       display: 'block',
@@ -82,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
       '&:hover': {
           background: 'url(/img/phone_green.svg) center no-repeat',
       }
-    }
+    },
 }))
 
 export const useAdCardTopStyles = () => useStyles();

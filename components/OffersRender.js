@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import AdCard_component from './AdCard';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
 import { observerGenerate } from '../lib/scrollAds';
@@ -11,7 +10,8 @@ import OffersRenderGridIcon from '#UI/icons/OffersRenderGridIcon';
 import OffersRenderListIcon from '#UI/icons/OffersRenderListIcon';
 import { useAuth } from '#lib/Context/AuthCTX';
 
-import AdCard from '../src/components/AdCard/AdCard/AdCard'
+// import AdCard_component from './AdCard'; // old
+import AdCard from '../src/components/AdCard/AdCard' // new
 
 // console.log(navigator)
 const useStyles = makeStyles((theme) => ({

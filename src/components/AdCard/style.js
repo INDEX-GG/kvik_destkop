@@ -5,13 +5,24 @@ const useStyles = makeStyles(() => ({
         minWidth: '100%',
         width: '100%',
         borderRadius: '8px',
-        // filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.1)),
         position: 'relative',
         cursor: 'pointer',
-        // box-shadow: 0px 4px 4px rgb(0 0 0 / 25%),
         boxShadow: '1px 1px 6px 1px rgb(0 0 0 / 20%)',
         overflow: 'hidden',
         background: '#fff',
+
+        '&:hover .card__top_info_left_hover': {
+            transform: 'translateY(0)',
+            transitionDelay: '200ms',
+        },
+        '&:hover .card__top_info_right_hover': {
+            transform: 'translateY(0)',
+            transitionDelay: '200ms',
+        },
+        // '&:hover .card__top_info_left_hover .card_like_hover': {
+        //     transform: 'translateY(0)',
+        //     transitionDelay: '280ms',
+        // }
     },
     card__lg: {
         gridColumnStart: 'span 2',
@@ -23,6 +34,7 @@ const useStyles = makeStyles(() => ({
     card__wrapperYellow: {
         background: '#D0EDEF',
 
+        // для отрисовки border как в макете
         // borderRadius: '8px',
         // border: '1px solid #00a0ab',
         // borderImage: 'linear-gradient(to top ,#00A0ABFF, #00A0AB17)',
@@ -30,11 +42,6 @@ const useStyles = makeStyles(() => ({
     },
     card__wrapper2Yellow: {
         background: '#D0EDEF',
-
-        // borderRadius: '8px',
-        // border: '2px solid #00a0ab',
-        // borderImage: 'linear-gradient(to top ,#00A0ABFF, #00A0AB17)',
-        // borderImageSlice: '1',
     },
     card__wrapperV2: {
         display: 'grid',

@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core';
 // import { useProduct } from '#hooks/useProduct';
 // import { useRouter } from 'next/router';
 import Union from '../UI/icons/Union';
-// import AdCard_component from './AdCard';
 import OffersRenderGridIcon from '#UI/icons/OffersRenderGridIcon';
 import OffersRenderListIcon from '#UI/icons/OffersRenderListIcon';
 import {useAuth} from "../lib/Context/AuthCTX";
@@ -14,7 +13,10 @@ import { useMedia } from '../hooks/useMedia';
 import { Typography } from '@material-ui/core';
 import throttle from 'lodash.throttle';
 
-import AdCard from '../src/components/AdCard/AdCard/AdCard'
+// old card component
+// import AdCard_component from './AdCard';
+// new card component
+import AdCard from '../src/components/AdCard/AdCard'
 
 
 const useStyles = makeStyles(() => ({

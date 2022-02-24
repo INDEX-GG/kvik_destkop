@@ -9,9 +9,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(430)]: {
       padding: '2px 8px 8px',
     },
-    [theme.breakpoints.down(350)]: {
-      height: '150px',
-    },
   },
   card__bottomSeen: {
 
@@ -29,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
     // borderRadius: '0px 0px 8px 8px',
     // borderTop: 'none',
   },
+  card__bottom_info: {
+    marginBottom: '6px',
+
+    [theme.breakpoints.down(350)]: {
+      marginBottom: '2px'
+    },
+  },
   card__bottom_info_right: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -36,9 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
   card__bottom_info_left: {
 
-  },
-  card__bottom_info: {
-    marginBottom: '6px',
   },
   new__price: {
     fontSize: '22px',
@@ -58,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '500',
     marginBottom: '10px',
     height: '22px',
+
+    [theme.breakpoints.down(350)]: {
+      marginBottom: '2px'
+    },
   },
   info_middleV2: {
     marginTop: '14px',

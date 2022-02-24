@@ -4,11 +4,11 @@ import { useRouter } from 'next/router'
 import clsx from 'clsx'
 
 import { useMedia } from '#hooks/useMedia';
-import {useAdCardClass} from '../useAdCardClass'
+import {useAdCardClass} from './useAdCardClass'
 
-import AdCardMenu from '../AdCardMenu/AdCardMenu';
-import AdCardTop from '../AdCardTop/AdCardTop'
-import AdCardBottom from '../AdCardBottom/AdCardBottom'
+import AdCardMenu from './AdCardMenu/AdCardMenu';
+import AdCardTop from './AdCardTop/AdCardTop'
+import AdCardBottom from './AdCardBottom/AdCardBottom'
 
 import {useAdCardStyles} from './style'
 
@@ -50,12 +50,6 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
     }
   }
 
-  if(offer.id == 8032) {
-    console.log('вызвался', offer)
-    console.log('вызвался - highlighting', offer.highlighting)
-  }
-
-  console.log('isGrid: ', isGrid)
   return (
     <Box
       ref={ref}
@@ -69,10 +63,10 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
       }
     >
       <AdCardMenu
+        offer_id={offer.id}
         openMenu={openMenu}
         setOpenMenu={setOpenMenu}
         initialState={initialState}
-        offer_id={offer.id}
       />
       <Box
         className={
