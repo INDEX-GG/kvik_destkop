@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useMemo} from 'react'
+import React, {useRef, useMemo} from 'react'
 import {Box} from "@material-ui/core";
 import Link from "next/link";
 import clsx from 'clsx'
