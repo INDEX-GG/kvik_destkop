@@ -1,11 +1,7 @@
-import Image from "next/image"
 import {Box, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import {useMedia} from "../../hooks/useMedia";
-import Footer2 from "../../components/Footer2"
 import SearchNotFound from '#UI/icons/SearchNotFound'
-import ScrollPostData from '../ScrollPostData'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '61px',
   },
   LeftBlock: {
-    width: '80%',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
     }
@@ -90,7 +86,6 @@ const useStyles = makeStyles((theme) => ({
 
 const NothingFound = () => {
   const classes = useStyles();
-  const {matchesMobile} = useMedia();
 
   return (
     <Box className={classes.root}>
@@ -107,27 +102,6 @@ const NothingFound = () => {
               <SearchNotFound />
             </Box>
           </Box>
-        </Box>
-
-        <Box className={classes.BottomBlock}>
-          <Box className={classes.LeftBlock}>
-						<ScrollPostData title='Рекомендуемое' url='/api/getPostsPortion' />
-          </Box>
-          {!matchesMobile &&
-            <Box className={classes.rightBlock}>
-              <Box className={classes.rightBlockBackground}>
-                <Box className={classes.ad}>
-                  <Box className={classes.ad_background}>
-                    <Image src={"/img/joker1.png"} width={224} height={480}/>
-                    <Image src={"/img/joker2.png"} width={224} height={480}/>
-                  </Box>
-                </Box>
-              </Box>
-              <Box className={classes.footer}>
-                    <Footer2/>
-              </Box>
-            </Box>
-          }
         </Box>
 
       </Box>
