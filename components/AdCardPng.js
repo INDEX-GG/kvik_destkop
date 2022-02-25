@@ -4,7 +4,7 @@ import {LogoPlug} from '../UI/icons/Logo.js'
 import { makeStyles } from "@material-ui/core";
 
 
-const useClass = makeStyles(() => ({
+const useClass = makeStyles((theme) => ({
   logo: {
     width: '100%',
     height: '100%',
@@ -15,6 +15,9 @@ const useClass = makeStyles(() => ({
     alignItems: 'center',
 
     '& svg': {
+      [theme.breakpoints.down(350)]: {
+        transform: 'scale(0.8)'
+      }
     }
   },
   canvas: {
@@ -31,16 +34,28 @@ const AdCardPng = ({title = 'Товар Kvik'}) => {
   const [img, setImg] = useState('')
 	const canvasRef = useRef()
 
-  useEffect(() => {
+  const JoinTitleInArray = (stringArr, start, end) => {
+    return stringArr.slice(start, end).join(' ')
+  }
 
+  useEffect(() => {
     let canvasTxt = canvasRef.current.getContext('2d')
     // canvasTxt.canvas.width = 150;
-		canvasTxt.canvas.height = 40;
+		canvasTxt.canvas.height = 60;
 		canvasTxt.font = '22px sans-serif'
     canvasTxt.textAlign = 'center'
     canvasTxt.textBaseline = 'middle'
-		canvasTxt.fillText(title, 150, 25);
 
+    // если слишком длинное название, делим на 2 строчки
+    if(title.length >= 25) {
+      const dividedTitle = title.split(' ')
+      const indexDividedTitle = Math.ceil(dividedTitle.length / 2)
+
+      canvasTxt.fillText(JoinTitleInArray(dividedTitle, 0, indexDividedTitle), 150, 25);
+      canvasTxt.fillText(JoinTitleInArray(dividedTitle, indexDividedTitle, dividedTitle.length), 150, 45);
+    }else {
+      canvasTxt.fillText(title, 150, 25);
+    }
 		setImg(canvasTxt.canvas.toDataURL())
   }, [])
 
