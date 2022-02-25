@@ -1,10 +1,12 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import AdCard_component from './AdCard';
 import { Box, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import ScrollTop from '../UI/ScrollTop';
 import { observerGenerate } from '../lib/scrollAds';
 import Loader from '../UI/icons/Loader';
 // import EndMessage from './EndMessage';
+
+// import AdCard_component from './AdCard'; // old
+import AdCard from '../src/components/AdCard/AdCard' // new
 
 const useStyles = makeStyles(() => ({
 	top: {
@@ -71,12 +73,11 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 		observerGenerate(lastElement, observer, limitRender, setLimitRenderPage, setPage, page)
 	})
 
-	
 	return (
 		<>
 			<Box className={classes.top}>
 				<Typography className={classes.title} variant='h2' >{title || 'Рекомендуемое'}</Typography>
-				{data ? 
+				{data ?
 				<TextField
 					select
 					value={state.value}
@@ -90,7 +91,8 @@ const SearchRender = ({ data, title, limitRender, setLimitRenderPage, setPage, p
 				</TextField> : null}
 			</Box>
 				<div className="scrollableOffersHome">
-					{state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)}
+					{/* {state.sorting(data)?.map((obj, i) => <AdCard_component key={i} offer={obj} />)} */}
+					{state.sorting(data)?.map((obj, i) => <AdCard key={i} offer={obj} />)}
 				</div>
 				{page == 'end' || data?.length == 0 ? null : <div ref={lastElement} className='offer__placeholder_loader'><Loader /></div>}
 				 {/*{data?.length == 0 ? <h1 style={{textAlign: 'center'}}>Ничего не найдено</h1> : null}*/}
