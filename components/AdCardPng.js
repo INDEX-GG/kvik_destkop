@@ -31,6 +31,8 @@ const useClass = makeStyles((theme) => ({
 const AdCardPng = ({title = 'Товар Kvik'}) => {
 	const classes = useClass()
 
+  console.log('вызвался: ', title)
+
   const [img, setImg] = useState('')
 	const canvasRef = useRef()
 
