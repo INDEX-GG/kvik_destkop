@@ -137,7 +137,7 @@ export const AuthHeader = ({
 				anchor="left"
 				classes={{ paper: classes.modal }}
 				open={modalState.left || false}
-				onOpen={() => {}}
+				onOpen={toggleDrawer("left", true)}
 				onClose={toggleDrawer("left", false)}
 			>
 				{/* <BurgerCategories /> */}

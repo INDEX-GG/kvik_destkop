@@ -134,8 +134,6 @@ function HeaderMobile({ chageMenu = false }) {
 			}
 		}
 
-		console.log('chageMenu: ', chageMenu)
-
 	return (
 			<>
 				<AppBar position="fixed" color="secondary">
