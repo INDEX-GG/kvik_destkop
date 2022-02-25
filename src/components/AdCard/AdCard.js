@@ -84,6 +84,7 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
           user_id={offer.user_id}
           archived={offer.archived}
           offer_photo={offer.photo}
+          category={offer.category_id}
           screenIsMobile={screenIsMobile}
           viewing_bool={offer?.viewing_bool || false}
         />

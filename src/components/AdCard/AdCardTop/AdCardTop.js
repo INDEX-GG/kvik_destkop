@@ -12,7 +12,7 @@ import AdCardImage from '../AdCardImage/AdCardImage'
 import {useAdCardClass} from '../useAdCardClass'
 // import PhoneModule from "#src/component/product/PhoneModule";
 
-const AdCardTop = ({archived, offer_id, offer_photo, viewing_bool, email, user_id, id, screenIsMobile}) => {
+const AdCardTop = ({archived, offer_id, offer_photo, viewing_bool, email, user_id, id, category, screenIsMobile}) => {
   const classes = useAdCardTopStyles()
 	const { userInfo } = useStore();
 	const {addLike, addUnLike} = useStatistics()
@@ -56,6 +56,7 @@ const AdCardTop = ({archived, offer_id, offer_photo, viewing_bool, email, user_i
       <AdCardImage
         offer_id={offer_id}
         offer_photo={offer_photo}
+        category={category}
         screenIsMobile={screenIsMobile}
       />
 
