@@ -2,30 +2,49 @@ import React from 'react';
 import ProductView from "./ProductView/ProductView";
 import ProductCommentary from "./ProductCommentary/ProductCommentary";
 import ProductLike from "./ProductLike/ProductLike";
-import ProductStats from "./ProductStats/ProductStats";
+// import ProductStats from "./ProductStats/ProductStats";
 import ProductCall from "./ProductCall/ProductCall";
-import {makeStyles} from "@material-ui/core";
+import {useProductOptionsStyles} from "./style";
+import {Box} from "@material-ui/core";
 
-const ProductOptions = () => {
+const ProductOptions = (
+    {
+        productID,
+        isMyAd,
+        allContactCount,
+        lastDayContactCount,
+        allViewingCount,
+        lastDayViewingCount
+    }
+) => {
 
-    const classes = useStyles();
+    const classes = useProductOptionsStyles();
+    const classWrapper = `${classes.iconWrapper} ${!isMyAd ? classes.myIconWrapper : ''}`
 
     return (
-        <div className={`productHeaderStat ${classes.iconWrapper}`}>
-            <ProductView/>
-            <ProductCall/>
-            <ProductCommentary/>
-            <ProductStats/>
-            <ProductLike/>
-        </div>
+        productID ? (
+            <Box className={classWrapper}>
+                <ProductView
+                    allViewingCount={allViewingCount}
+                    lastDayViewingCount={lastDayViewingCount}
+                />
+                <ProductCall
+                    allContactCount={allContactCount}
+                    lastDayContactCount={lastDayContactCount}
+                    isMyAd={isMyAd}
+                />
+                <ProductCommentary
+                    isMyAd={isMyAd}
+                />
+                <ProductLike
+                    productID={productID}
+                    isMyAd={isMyAd}
+                />
+                {/*<ProductStats/>*/}
+            </Box>
+        ) : <></>
     );
 };
 
-
-const useStyles = makeStyles(() => ({
-    iconWrapper: {
-        display: 'flex'
-    }
-}))
 
 export default React.memo(ProductOptions);

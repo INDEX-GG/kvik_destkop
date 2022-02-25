@@ -4038,6 +4038,7 @@
             {
               "alias": "vin",
               "title": "VIN",
+              "view_product": false,
               "default_value": null,
               "type": "text",
               "filter_view": false,
@@ -5162,6 +5163,7 @@
                 {
                   "alias": "vin",
                   "title": "VIN",
+                  "view_product": false,
                   "default_value": null,
                   "type": "text",
                   "required": {
@@ -5511,6 +5513,7 @@
                 {
                   "alias": "vin",
                   "title": "VIN",
+                  "view_product": false,
                   "default_value": null,
                   "type": "text",
                   "required": {
@@ -5960,6 +5963,7 @@
                 {
                   "alias": "vin",
                   "title": "VIN",
+                  "view_product": false,
                   "default_value": null,
                   "type": "text",
                   "required": {
@@ -6260,6 +6264,7 @@
                 {
                   "alias": "vin",
                   "title": "VIN",
+                  "view_product": false,
                   "default_value": null,
                   "type": "text",
                   "required": {
@@ -6530,6 +6535,7 @@
                 {
                   "alias": "vin",
                   "title": "VIN",
+                  "view_product": false,
                   "default_value": null,
                   "type": "text",
                   "required": {
@@ -6824,6 +6830,7 @@
                 {
                   "alias": "vin",
                   "title": "VIN",
+                  "view_product": false,
                   "default_value": null,
                   "type": "text",
                   "required": {
@@ -7043,6 +7050,7 @@
                 {
                   "alias": "vin",
                   "title": "VIN",
+                  "view_product": false,
                   "default_value": null,
                   "type": "text",
                   "required": {

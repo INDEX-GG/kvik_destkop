@@ -1,0 +1,74 @@
+import {useCustomRouter} from "../../../hook/globalHooks/useCustomRouter";
+import {useState} from "react";
+import {useAuth} from "#lib/Context/AuthCTX";
+import {CHAT_URL_API} from "#lib/constants";
+import {getTokenDataByPost} from "#lib/fetch";
+
+export const useProductConnection = () => {
+    const {id: userId, token} = useAuth();
+    const {pushTo} = useCustomRouter();
+
+    const [callModal, setCallModal] = useState(false)
+    const [removeModal, setRemoveModal] = useState(false)
+
+    const handleChangeAd = (id) => {
+        return () => {
+            pushTo(`/editPage/${id}`)
+        }
+    }
+
+    const handleChangRemoveModal = () => {
+        setRemoveModal(!removeModal)
+    }
+
+    const handleChangeCallModal = () => {
+        setCallModal(!callModal)
+    }
+
+
+    const handleSendMessage = async (sellerId, productId, isMobile) => {
+        const isRoomCreate = sellerId && userId && productId
+        if (isRoomCreate) {
+            try {
+                const roomCreateObj = {
+                    'seller_id': sellerId,
+                    'customer_id': userId,
+                    'product_id': productId,
+                }
+
+                // Создание комнаты
+                await getTokenDataByPost(
+                    `${CHAT_URL_API}/make_room`,
+                    roomCreateObj,
+                    token
+                )
+                    .then(data => {
+                        const {message} = data
+                        if (message === 'room created' || message === 'room already exist') {
+                            const routerObj = {
+                                account: 5,
+                                content: 1,
+                                userId,
+                                companion_id: sellerId,
+                                product_id: productId,
+                                isMobile,
+                            }
+                            if (isMobile) routerObj.mobile = 'on'
+                            pushTo(`/account/${userId}`, routerObj)
+                        }
+                    })
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    }
+
+    return {
+        callModal,
+        removeModal,
+        handleChangeAd,
+        handleSendMessage,
+        handleChangRemoveModal,
+        handleChangeCallModal,
+    }
+}

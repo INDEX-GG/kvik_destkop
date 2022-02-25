@@ -1,10 +1,10 @@
 import React from 'react';
-import LikeIcon from "../../../../UI/UIicon/LikeIcon";
+import StatisticsSIcon from "../../../../UI/UIicon/StatistiсsIcon";
 
 const ProductStats = () => {
     return (
         <>
-            <LikeIcon/>
+            <StatisticsSIcon/>
         </>
     );
 };

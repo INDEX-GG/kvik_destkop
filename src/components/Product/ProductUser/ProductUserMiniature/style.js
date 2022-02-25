@@ -11,6 +11,7 @@ const useStyles = makeStyles(() => ({
         height: '56px'
     },
     name: {
+        cursor: 'pointer',
         textAlign: 'left',
         fontSize: '14px',
         lineHeight: '14px',
@@ -20,6 +21,7 @@ const useStyles = makeStyles(() => ({
         flexGrow: 1
     },
     userSubscribe: {
+        marginLeft: '10px',
         width: '24px',
         height: '24px',
         cursor: 'pointer'

@@ -57,7 +57,10 @@ export const useProductAdditionalFields = () => {
 const checkArrayInData = (data, arrayInData) => {
     return (
         data.filter(item => {
-            if (arrayInData) return Array.isArray(item.value)
+            if (arrayInData) {
+                const length = item.value?.length
+                return Array.isArray(item.value) && length
+            }
             return !Array.isArray(item.value)
         })
     )

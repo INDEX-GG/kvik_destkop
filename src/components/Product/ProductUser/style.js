@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
         marginBottom: '36px'
     },
     adMiniature: {
-        marginBottom: '21px'
+        marginBottom: '10px'
     }
 }));
 

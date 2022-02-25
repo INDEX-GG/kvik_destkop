@@ -1,19 +1,31 @@
 import React from "react";
-// import {useProductUserMiniatureSubscribeStyles} from './style';
+import {Box} from "@mui/material";
+import {useProductUserMiniatureSubscribeStyles} from './style';
 import SubscriptionUserFalseIcon from "../../../../../UI/UIicon/SubscriptionUserFalseIcon";
 import SubscriptionUserTrueIcon from "../../../../../UI/UIicon/SubscriptionUserTrueIcon";
+import {useProductUserMiniatureSubscribe} from "./useProductUserMiniatureSubscribe";
+import CustomTooltipUI from "../../../../../UI/UIcomponent/CustomTooltip/CustomTooltipUI";
 
-const ProductUserMiniatureSubscribe = () => {
-    // const classes = useProductUserMiniatureSubscribeStyles()
-    const subscribe = false
+const ProductUserMiniatureSubscribe = ({userId}) => {
+    const classes = useProductUserMiniatureSubscribeStyles()
+    const {
+        handleChangeSubscribe,
+        isSubscribe,
+        tooltipTitle
+    } = useProductUserMiniatureSubscribe(userId);
 
     return (
-        subscribe ? (
-            <SubscriptionUserTrueIcon/>
-        ) : (
-            <SubscriptionUserFalseIcon/>
-        )
-
+        <CustomTooltipUI
+            title={tooltipTitle}
+            arrow={true}>
+            <Box
+                className={classes.icon}
+                onClick={handleChangeSubscribe}
+            >
+                {isSubscribe && <SubscriptionUserTrueIcon/>}
+                {!isSubscribe && <SubscriptionUserFalseIcon/>}
+            </Box>
+        </CustomTooltipUI>
     )
 }
 

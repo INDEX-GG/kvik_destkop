@@ -17,30 +17,38 @@ const ProductUser = () => {
                 user_raiting,
                 user_products,
                 user_products_count,
-                user_id
-            }
+                user_id,
+                isMyAd
+            },
     } = useProductContext();
 
     return (
-        <Box className={classes.userContainer}>
-            <Box className={classes.userInfo}>
-                <ProductUserMiniature
-                    userPhoto={userPhoto}
-                    userName={user_name}
-                    userRating={user_raiting}
-                />
+        user_id ? (
+            <Box className={classes.userContainer}>
+                <Box className={classes.userInfo}>
+                    <ProductUserMiniature
+                        userId={user_id}
+                        userPhoto={userPhoto}
+                        userName={user_name}
+                        userRating={user_raiting}
+                        isMyAd={isMyAd}
+                    />
+                </Box>
+                <Box className={classes.adMiniature}>
+                    <ProductAdMiniature
+                        isMyAd={isMyAd}
+                        userId={user_id}
+                        miniatureData={user_products}
+                        user_products_count={user_products_count}
+                    />
+                </Box>
+                {!isMyAd && (
+                    <Box className={classes.userBlock}>
+                        <ProductUserBlock/>
+                    </Box>
+                )}
             </Box>
-            <Box className={classes.adMiniature}>
-                <ProductAdMiniature
-                    userId={user_id}
-                    miniatureData={user_products}
-                    user_products_count={user_products_count}
-                />
-            </Box>
-            <Box className={classes.userBlock}>
-                <ProductUserBlock/>
-            </Box>
-        </Box>
+        ) : <></>
     )
 }
 

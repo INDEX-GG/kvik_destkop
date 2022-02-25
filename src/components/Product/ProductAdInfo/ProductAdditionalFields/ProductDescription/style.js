@@ -7,8 +7,9 @@ const useStyles = makeStyles(() => ({
         fontSize: '14px',
         lineHeight: '18px',
         marginTop: '18.5px',
-        paddingBottom: '41.5px',
-        borderBottom: '1px solid #E9E9E9'
+        paddingBottom: '18.5px',
+        borderBottom: '1px solid #E9E9E9',
+        wordWrap: 'break-word',
     },
 }));
 

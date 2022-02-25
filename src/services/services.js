@@ -39,7 +39,7 @@ export const parsePhoto = (photo, returnOne) => {
 }
 
 export const stringSlice = (string, maxLength) => {
-    if (typeof  string === 'string') {
+    if (typeof string === 'string') {
         const isMax = string.length > maxLength
         if (isMax) return string.slice(0, maxLength - 3) + '...'
         return string
@@ -71,4 +71,17 @@ export const spliceArrayToTwoColum = (array) => {
             {column: copyObject(array).splice(partOneLength,)}
         ]
     }
+}
+
+export const formatDescription = (description) => {
+    const format = description
+        .replace('<br/>', '\n')
+        .replace('<br />', '\n')
+    // .replace(/<em.*?>(.*?)<\/em>/, `EM`) // <br/>
+    // .replace(/<p.*?>(.*?)<\/p>/, `p`) // <br/>
+    // .replace(/<strong.*?>(.*?)<\/strong>/, `s`) // <br/>
+    // .replace(/<ol.*?>(.*?)<\/ol>/, `ol`) // <br/>
+    // .replace(/<ul.*?>(.*?)<\/ul>/, `ul`) // <br/>
+    // .replace(/<li.*?>(.*?)<\/li>/, `li`) // <br/>
+    return format
 }

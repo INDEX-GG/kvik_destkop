@@ -3,7 +3,7 @@ import {Box} from "@material-ui/core";
 import KvikButtonUI from "../../../../UI/UIcomponent/KvikButtonUI";
 import {useProductConnectionButtonStyles} from "./style";
 
-const ProductConnectionButton = ({title, icon, isMyAd = false}) => {
+const ProductConnectionButton = ({title, icon, isMyAd = false, onClick}) => {
 
     const classes = useProductConnectionButtonStyles();
     const Icon = icon;
@@ -12,7 +12,11 @@ const ProductConnectionButton = ({title, icon, isMyAd = false}) => {
     return (
         title ? (
             <Box className={classes.button}>
-                <KvikButtonUI fullWidth={true} customRoot={bottomRoot}>
+                <KvikButtonUI
+                    onClick={onClick}
+                    fullWidth={true}
+                    customRoot={bottomRoot}
+                >
                     <Box className={classes.buttonContainer}>
                         {Icon && (
                             <Box className={classes.buttonIcon}>
@@ -23,7 +27,7 @@ const ProductConnectionButton = ({title, icon, isMyAd = false}) => {
                     </Box>
                 </KvikButtonUI>
             </Box>
-        ) : null
+        ) : <></>
     );
 };
 

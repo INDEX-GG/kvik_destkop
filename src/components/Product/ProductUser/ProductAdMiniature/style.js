@@ -15,7 +15,6 @@ const useStyles = makeStyles(() => ({
         lineHeight: '16px',
         textAlign: 'right',
         textDecoration: 'underline',
-        cursor: 'pointer'
     }
 }));
 

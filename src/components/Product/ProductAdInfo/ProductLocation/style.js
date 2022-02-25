@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
         fontWeight: 400,
         lineHeight: '16px',
         color: '#2C2C2C',
-        maxWidth: '350px',
+        maxWidth: '380px',
         wordWrap: 'break-word'
     },
     locationMap: {

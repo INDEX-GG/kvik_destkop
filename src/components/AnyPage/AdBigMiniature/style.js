@@ -6,4 +6,4 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export const useProductAdditionalFieldsArrStyles = () => useStyles();
+export const useAdBigMiniatureStyles = () => useStyles();

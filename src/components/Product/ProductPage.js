@@ -19,13 +19,20 @@ const ProductPage = () => {
     const {
         productData: {
             id,
+            user_id,
             title,
             category_id,
             created_at,
             price,
             trade,
             isMyAd,
-            additional_fields
+            isPhone,
+            isMessage,
+            dayBefore,
+            all_time_contact_count,
+            last_day_contact_count,
+            all_time_viewing_count,
+            last_day_viewing_count
         },
         isMobile
     } = useProductContext();
@@ -41,18 +48,42 @@ const ProductPage = () => {
             <ProductWrapper>
                 <ProductHeader>
                     <ProductName/>
-                    <ProductOption/>
+                    <ProductOption
+                        isMyAd={isMyAd}
+                        productID={id}
+                        allContactCount={all_time_contact_count}
+                        lastDayContactCount={last_day_contact_count}
+                        allViewingCount={all_time_viewing_count}
+                        lastDayViewingCount={last_day_viewing_count}
+                    />
                 </ProductHeader>
                 <ProductBody>
                     <Box className='productPageDescription'>
                         <ProductSlider/>
-                        <ProductAdInfo/>
+                        <ProductAdInfo
+                            productId={id}
+                        />
                     </Box>
                     <Box className='block__my_active_ad'>
                         <Box className='ad__block_top'>
-                            <ProductDate date={created_at}/>
-                            <ProductPrice price={price} isMobile={isMobile} trade={trade}/>
-                            <ProductConnection id={id} isMyAd={isMyAd}/>
+                            <ProductDate
+                                date={created_at}
+                                dayBefore={dayBefore}
+                                isMyAd={isMyAd}
+                            />
+                            <ProductPrice
+                                price={price}
+                                isMobile={isMobile}
+                                trade={trade}
+                            />
+                            <ProductConnection
+                                sellerId={user_id}
+                                productId={id}
+                                isMobile={isMobile}
+                                isMyAd={isMyAd}
+                                isPhone={isPhone}
+                                isMessage={isMessage}
+                            />
                             <ProductUser/>
                         </Box>
                     </Box>

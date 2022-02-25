@@ -6,14 +6,15 @@ const useStyles = makeStyles(() => ({
         boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
         borderRadius: '1px',
         marginRight: '19px',
-        padding: '3px 3px 5px 3px',
+        padding: '3px 0px 5px 0px',
         width: '94px',
         height: '126px',
         cursor: 'pointer'
     },
     miniatureImage: {
         borderRadius: '2px',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        padding: '0 3px'
     },
     miniaturePrice: {
         fontSize: '12px',
@@ -29,4 +30,4 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export const useProductAdMiniatureItemStyles = () => useStyles();
+export const useAdMiniatureItemStyles = () => useStyles();

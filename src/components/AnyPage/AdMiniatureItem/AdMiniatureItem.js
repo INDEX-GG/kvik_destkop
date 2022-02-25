@@ -1,16 +1,16 @@
 import React from "react";
 import {Box} from "@material-ui/core";
-import {useProductAdMiniatureItemStyles} from './style';
-import {parsePhoto, stringSlice} from '../../../../../services/services'
+import {useAdMiniatureItemStyles} from './style';
+import {parsePhoto, stringSlice} from '../../../services/services'
 import Image from 'next/image';
 import {STATIC_URL} from "#lib/constants";
-import {useCustomRouter} from "../../../../../hook/globalHooks/useCustomRouter";
+import {useCustomRouter} from "../../../hook/globalHooks/useCustomRouter";
 import {ToRubles} from "#lib/services";
 
 
-const ProductAdMiniatureItem = ({photo, id, price, title}) => {
+const AdMiniatureItem = ({photo, id, price, title}) => {
 
-    const classes = useProductAdMiniatureItemStyles()
+    const classes = useAdMiniatureItemStyles()
     const {pushTo} = useCustomRouter();
 
     const photos = parsePhoto(photo, true);
@@ -44,4 +44,4 @@ const ProductAdMiniatureItem = ({photo, id, price, title}) => {
     )
 }
 
-export default React.memo(ProductAdMiniatureItem);
+export default React.memo(AdMiniatureItem);
