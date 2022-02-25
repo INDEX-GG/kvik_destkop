@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
 
 const generateMadalContent = (data) => {
 
-    const {type, alias, text_list_rendering_type, dataItems, setValue, getValues, propsType} = data
+    const {type, alias, text_list_rendering_type, dataItems, setValue, getValues, propsType, handleChangeDialog} = data
 
 
     switch (propsType ? propsType : type) {
@@ -79,6 +79,7 @@ const generateMadalContent = (data) => {
                     setValue={setValue}
                     getValues={getValues}
                     alias={alias}
+                    handleChangeDialog={handleChangeDialog}
                 />
             )
         case 'text_list_time':
