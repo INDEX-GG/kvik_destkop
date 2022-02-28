@@ -1,13 +1,13 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 
 import {LogoPlug} from '../UI/icons/Logo.js'
 import { makeStyles } from "@material-ui/core";
 
 
 const useClass = makeStyles((theme) => ({
-  logo: {
+  logo: props => ({
     width: '100%',
-    height: '100%',
+    height: props.height_logo || '100%',
 
     display: 'flex',
     flexDirection: 'column',
@@ -18,20 +18,27 @@ const useClass = makeStyles((theme) => ({
       [theme.breakpoints.down(350)]: {
         transform: 'scale(0.8)'
       }
+    },
+
+    [theme.breakpoints.down(350)]: {
+      // height: '300px',
     }
-  },
-  canvas: {
+  }),
+  canvas: props => ({
     width: '100%',
-  },
+    [theme.breakpoints.down(350)]: {
+      width: props.bigImage ? '300px' : '120px',
+    }
+  }),
   img: {
     width: '100%',
   }
 }))
 
-const AdCardPng = ({title = 'Товар Kvik'}) => {
-	const classes = useClass()
+const AdCardPng = ({title = 'Товар Kvik', height = '100%', bigImage = false}) => {
+	const classes = useClass({height_logo: height, bigImage: bigImage})
 
-  const [img, setImg] = useState('')
+  // const [img, setImg] = useState('')
 	const canvasRef = useRef()
 
   const JoinTitleInArray = (stringArr, start, end) => {
@@ -40,9 +47,9 @@ const AdCardPng = ({title = 'Товар Kvik'}) => {
 
   useEffect(() => {
     let canvasTxt = canvasRef.current.getContext('2d')
-    // canvasTxt.canvas.width = 150;
+    canvasTxt.canvas.width = bigImage ? 600 : 200;
 		canvasTxt.canvas.height = 60;
-		canvasTxt.font = '22px sans-serif'
+		canvasTxt.font = bigImage ? '42px sans-serif' : '16px sans-serif'
     canvasTxt.textAlign = 'center'
     canvasTxt.textBaseline = 'middle'
 
@@ -54,9 +61,9 @@ const AdCardPng = ({title = 'Товар Kvik'}) => {
       canvasTxt.fillText(JoinTitleInArray(dividedTitle, 0, indexDividedTitle), 150, 25);
       canvasTxt.fillText(JoinTitleInArray(dividedTitle, indexDividedTitle, dividedTitle.length), 150, 45);
     }else {
-      canvasTxt.fillText(title, 150, 25);
+      canvasTxt.fillText(title, bigImage ? 300 : 100, 25);
     }
-		setImg(canvasTxt.canvas.toDataURL())
+		// setImg(canvasTxt.canvas.toDataURL())
   }, [])
 
   return (
@@ -68,11 +75,11 @@ const AdCardPng = ({title = 'Товар Kvik'}) => {
         ref={canvasRef}
         className={classes.canvas}
       >
-        <img
+        {/* <img
           src={img}
           alt={title}
           className={classes.img}
-        />
+        /> */}
       </canvas>
     </div>
   )

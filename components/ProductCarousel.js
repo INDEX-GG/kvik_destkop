@@ -6,9 +6,12 @@ import ProductModalCarousel from "./ProductModalCarousel";
 import { useMedia } from "../hooks/useMedia";
 import { useRouter } from "next/dist/client/router"
 
+import {usePlugImages} from '#hooks/usePlugImages'
+import AdCardPng from '#components/AdCardPng'
+
 SwiperCore.use([Navigation, Thumbs, Pagination,]);
 
-export default function ProductCarousel({ title, photo, mobile = false }) {
+export default function ProductCarousel({ title, photo, category, mobile = false }) {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -56,15 +59,18 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 
 	const sliderClass = `mySwiper2 importantSlider ${sliderDot || photo?.length > 1 && (matchesTablet || matchesMobile) ? '' : 'dotNone'} ${sliderNavigation ? '' : 'navigationNone'}`
 
+  const isOfferPhotoNull = photo === null || photo.length === 0
+  const {arr} = usePlugImages(photo, category)
+
 	return (
 		<div style={{padding: '0 12px', display: 'flex', flexDirection: mobile ? 'column-reverse' : 'column'}}>
-			{title == undefined ? 
+			{title == undefined ?
 			<div className="placeholder_animation product__placeholder_title"></div>
 			// раньше тут был заголовок, в новом дизайне уже не нужно, вместо заголовка рендерим цену
 			// : <div className="productPageTitle xl">{title}</div>}
 			// раньше тут был заголовок, в новом дизайне уже не нужно, вместо заголовка рендерим цену
 			:null}
-			{photo ? 
+			{isOfferPhotoNull ?
 				<div>
 					<Swiper
 						onSwiper={setFirstSwiper}
@@ -81,11 +87,11 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						{data?.map((img, i) => {
 							return (
 								<SwiperSlide style={{
-									overflow: 'hidden', 
+									overflow: 'hidden',
 									borderRadius: (matchesTablet || matchesMobile) && '8px 8px 0 0',
-									backgroundColor: 'rgba(217, 217, 217, 0.75)',									}} 
-									className='importantSlide' 
-									key={i} 
+									backgroundColor: 'rgba(217, 217, 217, 0.75)',									}}
+									className='importantSlide'
+									key={i}
 									onClick={() => setModal(!modal)}
 								>
 									{/* после оптимизации проекта, переделать на тег img для семантики */}
@@ -99,16 +105,16 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 											backgroundRepeat: 'no-repeat',
 											backgroundPosition: 'center'
 										}}
-										// src={img} 
-										// alt={`sliderPhoto${i + 1}`} 
+										// src={img}
+										// alt={`sliderPhoto${i + 1}`}
 									/>
-									<div 
+									<div
 									style={{
-										backgroundImage: `url(${img})`, 
-										backgroundSize: 'cover', 
+										backgroundImage: `url(${img})`,
+										backgroundSize: 'cover',
 										filter: 'blur(20px)'
-										
-									}} 
+
+									}}
 									>
 									</div>
 									{/*ВОЗМОЖНОЕ РЕШЕНИЕ!*/}
@@ -127,7 +133,7 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 						className={`mySwiper2 ${slidesPrevPhoto > 1 ? '' : 'swiperNone'}`}
 					>
 						{/* <div className="seen__ad">Просмотрено</div> */}
-						{!matchesTablet && !matchesMobile ? 
+						{!matchesTablet && !matchesMobile ?
 						data.map((img, i) => (
 							<SwiperSlide key={i}>
 								<div>
@@ -146,8 +152,10 @@ export default function ProductCarousel({ title, photo, mobile = false }) {
 							<ProductModalCarousel activeSlideIndex={activeIndex} setActiveSlideIndex={setActiveIndex} photos={data} />
 						</>
 					</Modal>
-				</div> 
-				: <div className="placeholder_animation product__placeholder_swipers"></div>}
+				</div>
+				// : <div className="placeholder_animation product__placeholder_swipers"></div>
+				:  <AdCardPng title={arr[0].title} height='400px' bigImage={true} />
+			}
 		</div>
 	);
 }

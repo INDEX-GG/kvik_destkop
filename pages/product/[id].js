@@ -28,7 +28,8 @@ import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder
 import NewCategoryScrollPostData from "#components/NewCategoryScrollPostData";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
 import ScrollTop from '../../UI/ScrollTop'
-import {usePlugImages} from '#hooks/usePlugImages'
+
+
 
 
 
@@ -91,15 +92,6 @@ const Product = () => {
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
     const [phoneModal, setPhoneModal] = useState();
-
-    console.log('category_id: ', category_id)
-    if(category_id !== null || typeof category_id !== 'undefined') {
-        const {arr} = usePlugImages(photo, category_id)
-        console.log(arr)
-
-    }
-
-
 
 
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -217,7 +209,7 @@ const Product = () => {
                                                     mobile
                                                 />}
                                                 {/* {!matchesMobile && !matchesTablet ? <div className="productPageTitle xl">{title}</div> : null} */}
-                                                <ProductCarousel title={title} photo={photo}
+                                                <ProductCarousel title={title} photo={photo} category={category_id}
                                                                  mobile={matchesMobile || matchesTablet}/>
                                                 {!matchesLaptop && !matchesDesktop && !matchesHD &&
                                                 <div className="productPageAdaptive">
