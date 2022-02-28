@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Typography, Button, Box, CardMedia, makeStyles } from "@material-ui/core";
-import { ToRubles, ellipsis } from "../lib/services";
+import { ToRubles } from "../lib/services";
 import { useOfferAccount } from '../lib/Context/OfferAccountCTX';
 import { BASE_URL } from '../lib/constants';
 import {useAuth} from "../lib/Context/AuthCTX";
@@ -108,9 +108,9 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
 			.then(r => r)
 			.finally(function () {
+				setLoadingPushDB(false)
 				setReload(p => !p)
 				setOpenOfferModal(!openOfferModal)
-				setLoadingPushDB(false)
 			})
 		typeof cleanAll === "undefined" ? null : cleanAll();
 		typeof setUpdate === "undefined" ? null : setUpdate(id);
