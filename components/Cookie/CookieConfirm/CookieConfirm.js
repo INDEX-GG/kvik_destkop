@@ -15,8 +15,9 @@ const CookieConfirm = ({handlerConfirm}) => {
       >
         <Typography
           className={styles.text}
+          noWrap={true}
         >
-          Мы используем cookie. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie
+          Мы используем cookie. Продолжая пользоваться сайтом, вы <Box component='span' className={styles.text__addiitional}>соглашаетесь с использованием файлов cookie</Box>
         </Typography>
         <Button
           variant="contained"

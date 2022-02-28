@@ -36,6 +36,8 @@ const useStyles = makeStyles(() => ({
         maxWidth: "224px",
         display: "flex",
         flexDirection: "column",
+    },
+    rightBlockBackground: {
         boxShadow: '0px 0px 20px rgb(0 0 0 / 10%)',
     },
     footer: {
@@ -166,13 +168,12 @@ const Index = () => {
 
     return (
         <>
-            {!isNothingFound
-            ?(
-                <Container className={classes.root}>
+            <Container className={classes.root}>
                 {aliasData?.aliasBread &&
                     <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>
                 }
-                {/* {scrollData?.sendObj?.category !== '' ? */}
+                {!isNothingFound
+                ?(
                     <Box className={classes.main}>
                         <Box className={classes.offers}>
                             {scrollData?.url &&
@@ -189,32 +190,33 @@ const Index = () => {
                             {/*    setData={setData}*/}
                             {/*    setCheckbox={setCheckboxData}*/}
                             {/*/>*/}
-                            <FormProvider {...methods}>
-                                <form>
-                                    <FilterCategory setCategory={setCategory} />
-                                </form>
-                                <NewFilterBlock
-                                    alias={categoryLast}
-                                    fullAlias={category}
-                                    searchText={searchText}
-                                    setScrollData={setScrollData}
-                                    defaultFilters={defaultFilters}
-                                />
-                            </FormProvider>
-                            <div className={classes.ad}>
-                                <Image src={"/img/joker1.png"} width={224} height={480}/>
-                                <Image src={"/img/joker2.png"} width={224} height={480}/>
-                            </div>
+                            <Box className={classes.rightBlockBackground}>
+                                <FormProvider {...methods}>
+                                    <form>
+                                        <FilterCategory setCategory={setCategory} />
+                                    </form>
+                                    <NewFilterBlock
+                                        alias={categoryLast}
+                                        fullAlias={category}
+                                        searchText={searchText}
+                                        setScrollData={setScrollData}
+                                        defaultFilters={defaultFilters}
+                                    />
+                                </FormProvider>
+                                <div className={classes.ad}>
+                                    <Image src={"/img/joker1.png"} width={224} height={480}/>
+                                    <Image src={"/img/joker2.png"} width={224} height={480}/>
+                                </div>
+                            </Box>
                             <Box className={classes.footer}>
                                 <Footer2/>
                             </Box>
                         </Box>}
                     </Box>
+                )
+                : <NothingFound />
+                }
             </Container>
-            )
-            : <NothingFound />
-            }
-
         </>
     )
 }

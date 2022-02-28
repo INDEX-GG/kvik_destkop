@@ -7,6 +7,10 @@ import Filledicon from "@material-ui/icons/Brightness1";
 
 
 const useStyles = makeStyles(() => ({
+    content: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     wrapper: {
         marginTop: '1px',
         paddingLeft: '17px'
@@ -32,17 +36,21 @@ const useStyles = makeStyles(() => ({
         backgroundColor: '#fff',
         transition: '.2s all linear'
     },
+    buttons: {
+        marginTop: '20px',
+        textAlign: 'right',
+        padding: '25px 15px 23px',
+    },
+    buttonCancel: {
+        color: '#52B9C5',
+        fontWeight: 400,
+    },
     buttonConfirm: {
-        fontSize: '18px',
-        fontWeight: '500',
-        fontFamily: 'Roboto',
-        fontStyle: 'normal',
-        lineHeight: '21px',
-        color: '#00A0AB',
-        backgroundColor: '#fff',
-        cursor: 'pointer',
-        alignSelf: 'flex-end',
-        margin: '0 25px 25px',
+        color: '#00A0AB;',
+        fontWeight: 500,
+        lineHeight: '16.41px',
+        width: '50px',
+        marginLeft: '10px',
     },
     active: {
         backgroundColor: '#00A0AB',
@@ -58,7 +66,7 @@ const TextListModal = ({data}) => {
     const {alias, dataItems, required, handleChangeDialog} = data
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+        <Box className={classes.content}>
             <FormControl component='div' className={classes.wrapper}>
                 <Controller
                     name={alias}
@@ -101,9 +109,22 @@ const TextListModal = ({data}) => {
                         )}
                 />
             </FormControl>
-            <Button className={classes.buttonConfirm} onClick={handleChangeDialog} variant="text">
-                Выбрать
-            </Button>
+            <Box className={classes.buttons}>
+                <Button
+                    variant="text"
+                    onClick={handleChangeDialog}
+                    className={classes.buttonCancel}
+                >
+                    Отмена
+                </Button>
+                <Button
+                    variant="text"
+                    onClick={handleChangeDialog}
+                    className={classes.buttonConfirm}
+                >
+                    Выбрать
+                </Button>
+            </Box>
         </Box>
     );
 };
