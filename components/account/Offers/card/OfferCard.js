@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Checkbox, Dialog, makeStyles } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
-import { ToRubles, ToFullDate } from "../../../../lib/services";
+import { ToRubles, ToFullDate, ellipsis } from "../../../../lib/services";
 import OfferModal from "../../../OfferModal";
 import Router from "next/router";
 import BtnActive from "./OfferCardPart/btnActive";
@@ -11,7 +11,6 @@ import Image from "./OfferCardPart/imgCard";
 import ImgStatistic from "./OfferCardPart/imgStatistic";
 import PayPromotion from "../../../../src/components/PayPromotion/PayPromotion/PayPromotion";
 import CustomModalUI from "../../../../src/UI/UIcomponent/CustomModal/CustomModalUI";
-import {ellipsis} from '../../../../lib/services'
 import { useMedia } from '../../../../hooks/useMedia';
 
 const useStyles = makeStyles((theme) => ({
@@ -435,6 +434,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 	// console.log(isArchive, isActive, isWaith);
 	// корректное склоенение для слова
 	const correctDays = getNoun(offer.best_before, 'день', 'дня', 'дней')
+	const titleWidth = matchesMobile ? 15 : matchesTablet ? 30 : 60
 
 	const cleanAll = () => {
 		getChildCheck({ id: offer.id, isCheck: false });
@@ -505,7 +505,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 						<div className={classes.column}>
 							<div className={!mobileBanned ? classes.left__info : ''}>
 								<p className={`${classes.main__text} ${classes.mobile__font}`}>{ToRubles(offer.price)}</p>
-								<p className={classes.main__text}>{offer.title}</p>
+								<p className={classes.main__text}>{ellipsis(offer.title, titleWidth)}</p>
 							</div>
 							{isActive &&
 								<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
