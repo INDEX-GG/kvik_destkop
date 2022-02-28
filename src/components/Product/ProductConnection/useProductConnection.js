@@ -3,13 +3,17 @@ import {useState} from "react";
 import {useAuth} from "#lib/Context/AuthCTX";
 import {CHAT_URL_API} from "#lib/constants";
 import {getTokenDataByPost} from "#lib/fetch";
+import {useProductContext} from "../../../context/ProductContext";
 
 export const useProductConnection = () => {
     const {id: userId, token} = useAuth();
     const {pushTo} = useCustomRouter();
+    const {setProductInfo, productData} = useProductContext()
 
-    const [callModal, setCallModal] = useState(false)
-    const [removeModal, setRemoveModal] = useState(false)
+    const [activeModal, setActiveModal] = useState(false);
+    const [callModal, setCallModal] = useState(false);
+    const [removeModal, setRemoveModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
 
     const handleChangeAd = (id) => {
         return () => {
@@ -17,12 +21,21 @@ export const useProductConnection = () => {
         }
     }
 
-    const handleChangRemoveModal = () => {
-        setRemoveModal(!removeModal)
+    const handleChangeModal = (state, setState) => {
+        return () => {
+            setState(!state)
+        }
     }
 
-    const handleChangeCallModal = () => {
-        setCallModal(!callModal)
+    const successCallback = (status) => {
+        if (setProductInfo) {
+            setProductInfo((prevState) => (
+                {
+                    ...prevState,
+                    status
+                }
+            ))
+        }
     }
 
 
@@ -66,9 +79,14 @@ export const useProductConnection = () => {
     return {
         callModal,
         removeModal,
+        activeModal,
+        deleteModal,
         handleChangeAd,
         handleSendMessage,
-        handleChangRemoveModal,
-        handleChangeCallModal,
+        successCallback,
+        handleChangeActiveModal: handleChangeModal(activeModal, setActiveModal),
+        handleChangRemoveModal : handleChangeModal(removeModal, setRemoveModal),
+        handleChangeCallModal: handleChangeModal(callModal, setCallModal),
+        handleChangeDeleteModal: handleChangeModal(deleteModal, setDeleteModal),
     }
 }

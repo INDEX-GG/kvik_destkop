@@ -14,20 +14,22 @@ import ProductPrice from "./ProductPrice/ProductPrice";
 import ProductConnection from "./ProductConnection/ProductConnection";
 import ProductUser from "./ProductUser/ProductUser";
 import ProductAdInfo from "./ProductAdInfo/ProductAdInfo";
+import {useProductPageStyles} from "./styles";
 
 const ProductPage = () => {
+
+    const contextData = useProductContext()
+    const classes = useProductPageStyles()
+
     const {
         productData: {
             id,
-            user_id,
             title,
             category_id,
             created_at,
             price,
             trade,
             isMyAd,
-            isPhone,
-            isMessage,
             dayBefore,
             all_time_contact_count,
             last_day_contact_count,
@@ -35,10 +37,10 @@ const ProductPage = () => {
             last_day_viewing_count
         },
         isMobile
-    } = useProductContext();
+    } = contextData;
     const breadData = useMemo(() => BreadCrumbsProduct(category_id), [category_id])
+    console.log(contextData);
 
-    console.log(useProductContext());
 
     return (
         <Box style={{padding: '0 12px'}}>
@@ -46,26 +48,30 @@ const ProductPage = () => {
                 data={breadData}
                 product={title}/>
             <ProductWrapper>
-                <ProductHeader>
-                    <ProductName/>
-                    <ProductOption
-                        isMyAd={isMyAd}
-                        productID={id}
-                        allContactCount={all_time_contact_count}
-                        lastDayContactCount={last_day_contact_count}
-                        allViewingCount={all_time_viewing_count}
-                        lastDayViewingCount={last_day_viewing_count}
-                    />
-                </ProductHeader>
                 <ProductBody>
                     <Box className='productPageDescription'>
+                        <Box className={classes.productTitle}>
+                            <ProductName
+                                title={title}
+                            />
+                        </Box>
                         <ProductSlider/>
                         <ProductAdInfo
                             productId={id}
                         />
                     </Box>
                     <Box className='block__my_active_ad'>
-                        <Box className='ad__block_top'>
+                        <Box className={classes.productUser}>
+                            <Box className={classes.productCounts}>
+                                <ProductOption
+                                    isMyAd={isMyAd}
+                                    productID={id}
+                                    allContactCount={all_time_contact_count}
+                                    lastDayContactCount={last_day_contact_count}
+                                    allViewingCount={all_time_viewing_count}
+                                    lastDayViewingCount={last_day_viewing_count}
+                                />
+                            </Box>
                             <ProductDate
                                 date={created_at}
                                 dayBefore={dayBefore}
@@ -77,12 +83,7 @@ const ProductPage = () => {
                                 trade={trade}
                             />
                             <ProductConnection
-                                sellerId={user_id}
-                                productId={id}
-                                isMobile={isMobile}
-                                isMyAd={isMyAd}
-                                isPhone={isPhone}
-                                isMessage={isMessage}
+                                productData={contextData.productData}
                             />
                             <ProductUser/>
                         </Box>

@@ -90,9 +90,9 @@ export function useProduct(id) {
 		}
 	}, [id])
 
-	console.log(productInfo);
 
 	return {
 		...productInfo,
+		setProductInfo
 	}
 }

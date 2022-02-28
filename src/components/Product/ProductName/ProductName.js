@@ -1,12 +1,16 @@
 import React from 'react';
-import {useProductContext} from "../../../context/ProductContext";
+import {useProductNameStyles} from "./style";
+import {Box} from '@material-ui/core'
 
-const ProductName = () => {
+const ProductName = ({title}) => {
 
-    const {productData: {title}} = useProductContext();
+    const classes = useProductNameStyles()
 
     return (
-        <div className="productPageTitle xl">{title}</div>
+        <Box
+            className={classes.name}>
+            {title}
+        </Box>
     );
 };
 

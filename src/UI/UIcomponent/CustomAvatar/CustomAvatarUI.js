@@ -6,7 +6,6 @@ import {initials, stringToColor} from "#lib/services";
 const CustomAvatarUI = ({src, alt, userName}) => {
 
     const classes = useCustomAvatarUIStyles()
-    console.log(src);
 
     return (
         <Avatar

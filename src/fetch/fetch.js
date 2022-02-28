@@ -17,3 +17,11 @@ export const fetchPromotionAd = async (data, token) => {
         .catch(() => fetchPromotionAd(data, undefined));
     return res;
 }
+
+export const verifyActive = async (data, token) => {
+    const tokenHeader = await actualToken(token)
+    const res = await axios.post('/api/verifyActive', data, tokenHeader)
+        .then(r => r.data)
+        .catch(e => e)
+    return res
+}

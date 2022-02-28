@@ -13,7 +13,6 @@ const ProductAdditionalFields = () => {
     const onlyArray = useMemo(() => russAdditionalFields?.onlyArrValue, [russAdditionalFields?.onlyArrValue])
     const isLoading = russAdditionalFields && description
 
-    console.log(isLoading)
 
     return (
         isLoading ? (

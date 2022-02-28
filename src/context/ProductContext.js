@@ -1,4 +1,4 @@
-import React, {useContext, useMemo} from 'react';
+import React, {useContext, useMemo, useState} from 'react';
 import {useProduct} from "#hooks/useProduct";
 import {useMedia} from "#hooks/useMedia";
 import {useRouter} from "next/router";
@@ -11,13 +11,24 @@ export const useProductContext = () => useContext(ProductContext);
 const ProductProvider = ({children}) => {
   const {id} = useAuth();
   const router = useRouter();
-  const product = useProduct(router.query.id);
   const {matchesMobile, matchesTablet} = useMedia();
-  const isMyAd = useMemo(() => id ? product?.user_id === id : false, [product?.user_id])
-  const isMobile = useMemo(() => !!(matchesMobile || matchesTablet), [matchesMobile, matchesTablet])
+
+  const product = useProduct(router.query.id);
+
+  const setProductInfo = useMemo(() => (
+      product?.setProductInfo ? product?.setProductInfo : () => null
+  ), [product])
+
+  const isMyAd = useMemo(() => (
+      id ? product?.user_id === id : false
+  ), [product?.user_id])
+
+  const isMobile = useMemo(() => (
+      !!(matchesMobile || matchesTablet)
+  ), [matchesMobile, matchesTablet])
 
   return (
-    <ProductContext.Provider value={{productData: {...product, isMyAd}, isMobile}}>
+    <ProductContext.Provider value={{productData: {...product, isMyAd}, isMobile, setProductInfo}}>
       {children}
     </ProductContext.Provider>
   );

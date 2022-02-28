@@ -1,49 +1,43 @@
 import React from 'react';
 import {useProductConnectionStyles} from "./style";
 import {Box} from "@material-ui/core";
-import ProductConnectionButton from "./ProductConnectionButtons/ProductConnectionButton";
+import ProductConnectionButton from "../../AnyPage/ProductConnectionButtons/ProductConnectionButton";
 import MessageIcon from "../../../UI/UIicon/MessageIcon";
 import PhoneIcon from "../../../UI/UIicon/PhoneIcon";
 import {useProductConnection} from "./useProductConnection";
 import ProductPhoneDialog from "./ProductPhoneDialog/ProductPhoneDialog";
-import ProductAdStatusChangeDialog from "./ProductAdStatusChangeDialog/ProductAdStatusChangeDialog";
+import ProductMyAdButtons from "./ProductMyAdButtons/ProductMyAdButtons";
 
-const ProductConnection = (
-    {
-        productId,
+const ProductConnection = ({productData}) => {
+    const classes = useProductConnectionStyles();
+
+    const {
+        id : productId,
         sellerId,
+        status,
         isMyAd,
         isMessage,
         isMobile,
         isPhone
-    }
-) => {
-    const classes = useProductConnectionStyles();
+    } = productData;
+
     const {
         callModal,
-        removeModal,
-        handleChangeAd,
         handleSendMessage,
-        handleChangRemoveModal,
         handleChangeCallModal
     } = useProductConnection();
 
     const handleCreateChat = () => handleSendMessage(sellerId, productId, isMobile)
+
 
     return (
         productId ? (
             <Box className={classes.buttonsContainer}>
                 {isMyAd ? (
                     <>
-                        <ProductConnectionButton
-                            onClick={handleChangeAd(productId)}
-                            title='Редактировать'
-                            isMyAd={true}
-                        />
-                        <ProductConnectionButton
-                            onClick={handleChangRemoveModal}
-                            title='Снять с публикации'
-                            isMyAd={true}
+                        <ProductMyAdButtons
+                            productId={productId}
+                            status={status}
                         />
                     </>
                 ) : (
@@ -67,10 +61,6 @@ const ProductConnection = (
                 <ProductPhoneDialog
                     open={callModal}
                     onClose={handleChangeCallModal}
-                />
-                <ProductAdStatusChangeDialog
-                    open={removeModal}
-                    onClose={handleChangRemoveModal}
                 />
             </Box>
         ) : <></>

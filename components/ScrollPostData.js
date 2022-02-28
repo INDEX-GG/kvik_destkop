@@ -63,6 +63,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
                         // Id последнего объявления
                         const lastId = response[response.length - 1]?.id
 
+                        console.log(modifyGetPostsData(response));
                         // Посты
                         setPost(prevState => [...prevState, ...modifyGetPostsData(response)])
 

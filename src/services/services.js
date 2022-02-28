@@ -41,7 +41,7 @@ export const parsePhoto = (photo, returnOne) => {
 export const stringSlice = (string, maxLength) => {
     if (typeof string === 'string') {
         const isMax = string.length > maxLength
-        if (isMax) return string.slice(0, maxLength - 3) + '...'
+        if (isMax) return `${string.slice(0, maxLength - 3).trim()}...`
         return string
     }
 }
