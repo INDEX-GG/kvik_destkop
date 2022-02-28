@@ -148,6 +148,14 @@ const CategoryScrollPostData = ({url, product}) => {
             console.log('url: ', url)
             const response = await getDataByPost(url, data)
 
+
+            const filtered_array = response.filter(item => item.photo === null)
+            console.log('filtered_array: ', filtered_array)
+
+
+
+            response[2].photo = null
+
             if(!response.length) {
                 setOneMoreFetch(false)
                 return

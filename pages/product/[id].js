@@ -28,6 +28,7 @@ import ProductPlaceHolder from "../../components/placeHolders/ProductPlaceHolder
 import NewCategoryScrollPostData from "#components/NewCategoryScrollPostData";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
 import ScrollTop from '../../UI/ScrollTop'
+import {usePlugImages} from '#hooks/usePlugImages'
 
 
 
@@ -84,13 +85,20 @@ const Product = () => {
         user_products_count,
     } = productInfo
 
-
     // const [stats, setStats] = useState({})
 
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
     const [phoneModal, setPhoneModal] = useState();
+
+    console.log('category_id: ', category_id)
+    if(category_id !== null || typeof category_id !== 'undefined') {
+        const {arr} = usePlugImages(photo, category_id)
+        console.log(arr)
+
+    }
+
 
 
 
@@ -142,7 +150,7 @@ const Product = () => {
             addView(productId)()
         }
     }, [productId, id])
-    
+
 
 
     useEffect(() => {
@@ -190,9 +198,9 @@ const Product = () => {
                                     <div className="productHeader">
                                         <div className="productPageTitle xl">{title}</div>
                                             <div className="productHeaderStat">
-                                                <ProductFavoriteNoteComp 
-                                                id={id} 
-                                                sellerId={user_id} 
+                                                <ProductFavoriteNoteComp
+                                                id={id}
+                                                sellerId={user_id}
                                                 isOffer={+query.id}
                                                 mobile
                                             />
@@ -230,23 +238,23 @@ const Product = () => {
                                                     </div>
                                                 </div>
                                                 }
-                                                {<ProductMobileButtons 
-                                                    id={id} 
-                                                    sellerId={user_id} 
-                                                    delivery={delivery}                     
-                                                    status={defaultStatus}             
+                                                {<ProductMobileButtons
+                                                    id={id}
+                                                    sellerId={user_id}
+                                                    delivery={delivery}
+                                                    status={defaultStatus}
                                                     secure_transaction={secure_transaction}
-                                                    setDialog={setPhoneModal} 
+                                                    setDialog={setPhoneModal}
                                                     photo={photo}
                                                     mobile={matchesMobile || matchesTablet}
                                                     productInfo={productInfo} /*update={update}*/
                                                     setUpdate={setDefaultStatus}
                                                     createChat={createChat}
-                                                    
+
                                                 />}
                                                 {/* адрес, карта, свойства и значения */}
-                                                <ProductInformation 
-                                                    address={address} 
+                                                <ProductInformation
+                                                    address={address}
                                                     coordinates={coordinates}
                                                     description={description}
                                                     productionInfo={productInfoFields}
@@ -260,23 +268,23 @@ const Product = () => {
                                                 {/* статус объявления, кнопки */}
                                                 {/* {!matchesMobile && !matchesTablet && <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
                         mobile/>} */}
-                                                {<ProductAction 
-                                                    router={query.id} 
-                                                    reviewed={reviewed} 
+                                                {<ProductAction
+                                                    router={query.id}
+                                                    reviewed={reviewed}
                                                     user_id={user_id}
-                                                    status={defaultStatus} 
-                                                    oldprice={oldprice} 
+                                                    status={defaultStatus}
+                                                    oldprice={oldprice}
                                                     price={price}
-                                                    created_at={created_at} 
+                                                    created_at={created_at}
                                                     delivery={delivery}
                                                     trade={trade}
                                                     secure_transaction={secure_transaction}
                                                     productInfo={productInfo} /*update={update}*/
-                                                    setUpdate={setDefaultStatus} 
+                                                    setUpdate={setDefaultStatus}
                                                     createChat={createChat}
                                                     best_before={best_before}
                                                 />}
-                                                                
+
                                                 {/* пользователь и его объявления */}
                                                 <ProductUserInfo
                                                     name={name}

@@ -137,10 +137,12 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
         }
     }, [contentUpdate, page, excludesLength]);
 
+    // console.log(page, post.length, contentUpdate)
 
     // Прогрузка объявлений при скролле
     useEffect(() => {
         if (page !== 'end' && post.length && !contentUpdate) {
+            // if (page !== 'end' && !contentUpdate) {
             generateDataScroll()
         }
     }, [page])
