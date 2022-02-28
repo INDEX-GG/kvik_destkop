@@ -142,6 +142,19 @@
   width: auto;
   text-align: right;
 	background-color: #fff;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-bottom: 8px;
+  width: auto;
+  text-align: right;
+  background-color: #fff;
+  color: #52b9c5;
+
+  &:hover {
+    text-decoration-line: underline;
+  }
 }
 
 .offerEditActive {
@@ -208,6 +221,21 @@
   width: auto;
   text-align: right;
 	background-color: #fff;
+  // padding-bottom: 8px;
+
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-bottom: 8px;
+  width: auto;
+  text-align: right;
+  background-color: #fff;
+  color: #52b9c5;
+
+  &:hover {
+    text-decoration-line: underline;
+  }
 }
 
 .offerDelete {
