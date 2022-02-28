@@ -282,8 +282,8 @@ const DadataSuggest = ({ mobile = false /**  address */ }) => {
 								city,
 								region_with_type,
 								country,
-								street_with_type,
-								house,
+								// street_with_type,
+								// house,
 							} = suggest.data
 
 							// const string = (street_with_type === null && house === null) ? `${street_with_type ? street_with_type : ""}${house ? ", " + house: ""}` : value
