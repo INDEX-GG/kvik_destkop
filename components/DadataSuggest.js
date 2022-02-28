@@ -7,6 +7,7 @@ import { Controller, useFormContext } from "react-hook-form"
 import { makeStyles, useMediaQuery } from "@material-ui/core"
 import { invalidСharacterLocation } from "../lib/regulars"
 import { useStore } from "../lib/Context/Store"
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
 	mapDesc: {
@@ -41,6 +42,61 @@ const useStyles = makeStyles((theme) => ({
 				// padding: "0 10px",
 			},
 		},
+	},
+	myContainer: {
+		background: "inherit",
+		border: "none",
+		display: "flex",
+		flexDirection: "column",
+		position: "relative",
+
+		'& .react-dadata__suggestion': {
+			background: 'inherit',
+			border:' none !important',
+			boxShadow: 'none !important',
+
+			fontFamily: 'Roboto',
+			fontStyle: 'normal',
+			fontWeight: 'normal',
+		}
+	},
+	my_suggestion: {
+		fontFamily: 'Roboto',
+		fontStyle: 'normal',
+		fontWeight: 'normal',
+		fontSize: '15px',
+		lineHeight: '18px',
+
+		/* Наш почти черный */
+
+		color: '#2c2c2c',
+
+		display: 'flex',
+		flexDirection: 'column',
+		marginBottom: '15px',
+		/* background: grey, */
+
+		width: '100%',
+		height: '100%',
+		margin: '0',
+		padding: '0',
+		position: 'absolute',
+		top: '60px',
+	},
+	suggestion_wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '3px',
+	},
+	suggestion_title: {
+    fontSize: '15px',
+    lineHeight: '18px',
+	},
+	suggestion_SubTitle: {
+    color: 'gray',
+    fontSize: '12px',
+    lineHeight: '14px',
 	},
 }))
 
@@ -214,9 +270,14 @@ const DadataSuggest = ({ mobile = false /**  address */ }) => {
 								: "Введите город, улицу, дом",
 						}}
 						// selectOnBlur={true}
-						containerClassName="my_container"
-						suggestionsClassName="my_suggestion"
-						renderOption={(suggest) => {
+						containerClassName={clsx({
+							[classes.myContainer]: media960
+						})}
+						suggestionsClassName={clsx({
+							[classes.my_suggestion]: media960
+						})}
+						renderOption={media960 ? (suggest) => {
+							const {value} = suggest
 							const {
 								city,
 								region_with_type,
@@ -225,35 +286,29 @@ const DadataSuggest = ({ mobile = false /**  address */ }) => {
 								house,
 							} = suggest.data
 
-							const string = `${street_with_type ? street_with_type : ""}${house ? ", " + house: ""}`
+							// const string = (street_with_type === null && house === null) ? `${street_with_type ? street_with_type : ""}${house ? ", " + house: ""}` : value
+							const string = value
 							const stringSub = `${
 								city ? city + ", " : ""
 							} ${region_with_type}, ${country}`
 
 							return (
 								<div
-									style={{
-										display: "flex",
-										flexDirection: "column",
-										alignItems: "flex-start",
-										gap: "3px",
-									}}
+									className={classes.suggestion_wrapper}
 								>
-									<div style={{ fontSize: "15px", lineHeight: "18px" }}>
+									<div
+										className={classes.suggestion_title}
+									>
 										{string}
 									</div>
 									<div
-										style={{
-											color: "gray",
-											fontSize: "12px",
-											lineHeight: "14px",
-										}}
+										className={classes.suggestion_SubTitle}
 									>
 										{stringSub}
 									</div>
 								</div>
 							)
-						}}
+						} : null}
 					/>
 				)}
 				rules={{
@@ -275,18 +330,18 @@ const DadataSuggest = ({ mobile = false /**  address */ }) => {
 							Введите название и Выберите из списка населенный пункт и улицу
 						</div>
 					)}
+					<ProductYMAP
+						height={mobile ? 400 : 224}
+						width={490}
+						border={true}
+						coordinates={
+							value
+								? [value.data.geo_lat, value.data.geo_lon]
+								: [+userAddressGeo[0], +userAddressGeo[1]]
+						}
+					/>
 				</>
 			)}
-			{/* <ProductYMAP
-				height={mobile ? 400 : 224}
-				width={490}
-				border={true}
-				coordinates={
-					value
-						? [value.data.geo_lat, value.data.geo_lon]
-						: [+userAddressGeo[0], +userAddressGeo[1]]
-				}
-			/> */}
 		</div>
 	) : null
 }
