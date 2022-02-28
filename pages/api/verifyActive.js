@@ -58,7 +58,17 @@ export default async function handler(req, res) {
 					throw "Время отрицательное"
 				}
 				if (post_active === 0) {
-					throw "Обяъвление уже активно"
+					let time_left = post_active_time - Math.floor(now)
+					if (time_left <= 0) {
+
+						let new_active_time = new Date(Math.floor(now) + time_difference)
+						let new_active_time_iso = new_active_time.toISOString().slice(0, 19).replace('T', ' ');
+						await prisma.$queryRaw(`UPDATE posts SET active = ${active}, active_time = '${new_active_time_iso}' WHERE ID IN (${id}) AND user_id = ${req.body.user_id}`)
+						return { message: 'successfully update' }
+
+					} else {
+						throw "Обяъвление уже активно"
+					}
 				}
 
 				let new_active_time = new Date(Math.floor(now) + time_difference)
