@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Typography, Button, Box, CardMedia, makeStyles } from "@material-ui/core";
-import { ToRubles } from "../lib/services";
+import { ToRubles, ellipsis } from "../lib/services";
 import { useOfferAccount } from '../lib/Context/OfferAccountCTX';
 import { BASE_URL } from '../lib/constants';
 import {useAuth} from "../lib/Context/AuthCTX";
 import {getTokenDataByPost} from "../lib/fetch";
 import {Grid} from "@mui/material";
+import Loader from '../UI/icons/Loader'
+
 
 const useStyles = makeStyles((theme) => ({
 	offer_form: {
@@ -52,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: '500',
 		color: theme.palette.grey[100],
 		marginBottom: '10px',
-
+		marginTop: '12px',
 	},
 	offer_form__sub_desc: {
 		fontSize: '14px',
@@ -85,6 +87,9 @@ const useStyles = makeStyles((theme) => ({
 			background: theme.palette.grey[300],
 			transition: 'all 150ms ease-in-out;',
 		},
+	},
+	loader: {
+		marginTop: '25px',
 	}
 }));
 
@@ -94,13 +99,18 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 	const {id: user_id} = useAuth();
 	const {setReload } = useOfferAccount();
 	const {token} = useAuth();
+
+	const [loadingPushDB, setLoadingPushDB] = useState(false)
+
 	function PushDb(id) {
+		setLoadingPushDB(true)
 		let arr = { 'id': offerId, 'active': `${id}`, 'user_id': user_id }
 		getTokenDataByPost(`${BASE_URL}/api/verifyActive`, arr, token)
 			.then(r => r)
 			.finally(function () {
 				setReload(p => !p)
 				setOpenOfferModal(!openOfferModal)
+				setLoadingPushDB(false)
 			})
 		typeof cleanAll === "undefined" ? null : cleanAll();
 		typeof setUpdate === "undefined" ? null : setUpdate(id);
@@ -172,13 +182,13 @@ export default function OfferModal({offerId, offerData, openOfferModal, setOpenO
 						</Grid>
 					</Grid>
 				</Box>
-				{showButtons(buttonId)}
+				{!loadingPushDB ? showButtons(buttonId) : <Box className={classes.loader}><Loader /></Box>}
 			</Box>
 		)
 	} else {
 		return (
 			<Box className={classes.offer_form}>
-				{showButtons(buttonId)}
+				{!loadingPushDB ? showButtons(buttonId) : <Box className={classes.loader}><Loader /></Box>}
 			</Box>
 		)
 	}

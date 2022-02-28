@@ -457,10 +457,11 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 		parentUnpublishForm === false && allDataCheck?.length === 0 ? setCheck(false) : null
 	}, [parentUnpublishForm])
 
-	function pushCheck(e) {
-		if (e.target.value !== '') {
-			setOfferId([+e.target.value])
-			setButtonId(e.target.id)
+	function pushCheck(e, id, value) {
+		e.stopPropagation()
+		if (value !== '') {
+			setOfferId([+value])
+			setButtonId(id)
 		}
 		setOpenOfferModal(!openOfferModal);
 	}
