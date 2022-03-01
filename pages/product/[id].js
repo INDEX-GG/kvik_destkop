@@ -31,6 +31,8 @@ import ScrollTop from '../../UI/ScrollTop'
 
 
 
+
+
 // const useStyles = makeStyles(() => ({
 // 	productHeaderTitle:{
 //         paddingLeft: '12px',
@@ -84,14 +86,12 @@ const Product = () => {
         user_products_count,
     } = productInfo
 
-
     // const [stats, setStats] = useState({})
 
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
     const [phoneModal, setPhoneModal] = useState();
-
 
 
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -142,6 +142,7 @@ const Product = () => {
             addView(productId)()
         }
     }, [productId, id])
+
 
 
 
@@ -208,7 +209,7 @@ const Product = () => {
                                                     mobile
                                                 />}
                                                 {/* {!matchesMobile && !matchesTablet ? <div className="productPageTitle xl">{title}</div> : null} */}
-                                                <ProductCarousel title={title} photo={photo}
+                                                <ProductCarousel title={title} photo={photo} category={category_id}
                                                                  mobile={matchesMobile || matchesTablet}/>
                                                 {!matchesLaptop && !matchesDesktop && !matchesHD &&
                                                 <div className="productPageAdaptive">

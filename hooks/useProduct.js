@@ -23,13 +23,15 @@ export function useProduct(id) {
 							const communicationParse = JSON?.parse(r.communication)
 							// console.log('rrrrrrrrrr',r)
 
-							let photoes = JSON?.parse(r.photo);
-							r.chatProductPhoto = photoes.photos[0]
-							// console.log('$$$$$$$$$$$$$$$$',photoes)
-							r.editPhotos = photoes?.photos
-							// r.editPhotos = photoes
-							photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
-							r.photo = photoes
+							if(r.photo !== null) {
+								let photoes = JSON?.parse(r.photo);
+								r.chatProductPhoto = photoes.photos[0]
+								// console.log('$$$$$$$$$$$$$$$$',photoes)
+								r.editPhotos = photoes?.photos
+								// r.editPhotos = photoes
+								photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
+								r.photo = photoes
+							}
 							// console.log('r.photo',r.photo)
 							// r.chatPhoto = r.userPhoto;
 							// r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
@@ -43,11 +45,12 @@ export function useProduct(id) {
 					})
 					.catch((e) => {
 						const resError = e.response
-						if(resError.data?.message === 404) {
-							// TODO: перербрасывать на страницу не найденного товара
-							router.push("/notFound")
-							// console.log('resError: ', resError)
-						}
+						console.log('resError: ', e)
+						// if(resError.data?.message === 404) {
+						// 	// TODO: перербрасывать на страницу не найденного товара
+						// 	router.push("/notFound")
+						// 	// console.log('resError: ', resError)
+						// }
 					})
 				return
 			}
@@ -60,14 +63,18 @@ export function useProduct(id) {
 
 					if (r !== undefined && typeof r !== 'string' ) {
 						// console.log('rrrrrrrrrr',r)
-						const communicationParse = JSON?.parse(r.communication)
-						let photoes = JSON?.parse(r.photo);
-						r.chatProductPhoto = photoes.photos[0]
-						// console.log('$$$$$$$$$$$$$$$$',photoes)
-						r.editPhotos = photoes?.photos
-						// r.editPhotos = photoes
-						photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
-						r.photo = photoes
+
+            const communicationParse = JSON?.parse(r.communication)
+						if(r.photo !== null) {
+							let photoes = JSON?.parse(r.photo);
+							r.chatProductPhoto = photoes.photos[0]
+							// console.log('$$$$$$$$$$$$$$$$',photoes)
+							r.editPhotos = photoes?.photos
+							// r.editPhotos = photoes
+							photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
+							r.photo = photoes
+						}
+
 						// console.log('r.photo',r.photo)
 						// r.chatPhoto = r.userPhoto;
 						// r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
@@ -81,11 +88,13 @@ export function useProduct(id) {
 				})
 				.catch((e) => {
 					const resError = e.response
-					if(resError.data?.message === 404) {
-						// TODO: перербрасывать на страницу не найденного товара
-						router.push("/notFound")
-						// console.log('resError: ', resError)
-					}
+					console.log('resError: ', e)
+
+					// if(resError.data?.message === 404) {
+					// 	// TODO: перербрасывать на страницу не найденного товара
+					// 	router.push("/notFound")
+					// 	// console.log('resError: ', resError)
+					// }
 				})
 		}
 	}, [id])

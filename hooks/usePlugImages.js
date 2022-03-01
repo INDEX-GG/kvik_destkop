@@ -13,13 +13,13 @@ export function usePlugImages (arr = null, alias_category) {
 
   const checkArray = (_arr) => {
     // если null, === 0
-    if(_arr === null || !_arr.length) {
+    if(_arr === null || !_arr.length && (alias_category !== null || typeof alias_category !== 'undefined')) {
       const aliasNameArray = alias_category.split(',')
       const {category} = jsonData
 
       const findCategoryStep1 = category.find(item => item.alias === aliasNameArray[0])
       const findCategoryStep2 = findCategoryStep1.children.find(item => item.alias === aliasNameArray[1])
-      
+
       const titleCanvas = findCategoryStep2?.name || findCategoryStep1?.name
       modifiedArrImages = [{ title: titleCanvas }]
     }else {
