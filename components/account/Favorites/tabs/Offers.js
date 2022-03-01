@@ -128,7 +128,9 @@ function Offers(data) {
 							condition: `${like}`,
 					})
 			})
-			setLikeCommentArray(favoritesArray);
+            // берем только id постов из массива
+            const favoritesArrayLikeId = favoritesArray.map(item => +item.post_id)
+			setLikeCommentArray(favoritesArrayLikeId);
 			return favoritesArray;
     }
 
@@ -144,15 +146,15 @@ function Offers(data) {
 
 	const handlerPostDelete = () => {
 		if (deletedPostIDs.length) {
-			const favs = getUserFavorites(deletedPostIDs);
+			getUserFavorites(deletedPostIDs);
 
 			const nonDeletedPosts = favPosts.filter((postItem) => {
-				const isDeleted = deletedPostIDs.includes(postItem.id) && favs.includes(String(postItem));
-
-				return isDeleted
+				const isDeleted = deletedPostIDs.includes(postItem.id);
+				return !isDeleted
 			})
+
 			setDeletedPostIDs([]);
-			changeFavPosts(() => nonDeletedPosts);
+			changeFavPosts(nonDeletedPosts);
 			setDeletionCheck(false);
 			setDeleteButton(!deleteButton)
 		}

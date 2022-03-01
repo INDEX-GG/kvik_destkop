@@ -3,54 +3,10 @@ import Offers from './tabs/Offers';
 import Searches from './tabs/Searches';
 import Sellers from './tabs/Sellers';
 import { brooklyn } from '../../../lib/services';
-import { useSubList } from '../../../hooks/useSubscriptions';
 import { useAuth } from '../../../lib/Context/AuthCTX';
 import { useRouter } from 'next/router';
 import safeAccountTab from '../../safeAccountTab';
 import {getTokenDataByPost} from "../../../lib/fetch";
-// Поиски
-const SearchesBox = [
-	// {
-	// 	id: 1, title: 'Категория 1 уровня / Категория 2 уровня / Категория 3 уровня / Подкатегория',
-	// 	data: 'Снять, На длительный срок, > 2 комнаты, 1 комната, Студия, Деревянный, Монолитный, 20 000 - 25 000 ₽.',
-	// 	locality: 'Челябинск'
-	// },
-	// {
-	// 	id: 2, title: 'Категория 1 уровня / Категория 2 уровня',
-	// 	data: 'Снять, На длительный срок, > 2 комнаты, 1 комната, Студия, Деревянный, Монолитный, 20 000 - 25 000 ₽.',
-	// 	locality: 'Владивосток'
-	// },
-	// {
-	// 	id: 3, title: 'Категория 1 уровня / Категория 2 уровня / Категория 3 уровня / Подкатегория',
-	// 	data: 'Снять, На длительный срок, > 2 комнаты, 1 комната, Студия, Деревянный, Монолитный, 20 000 - 25 000 ₽.',
-	// 	locality: 'Миасс'
-	// },
-	// {
-	// 	id: 4, title: 'Категория 1 уровня / Категория 2 уровня / Категория 3 уровня',
-	// 	data: 'Снять, На длительный срок, > 2 комнаты, 1 комната, Студия, Деревянный, Монолитный, 20 000 - 25 000 ₽.',
-	// 	locality: 'Старокамышинск'
-	// },
-	// {
-	// 	id: 5, title: 'Категория 1 уровня / Категория 2 уровня / Категория 3 уровня / Подкатегория / Подкатегория 2 уровня / Подкатегория 3 уровня',
-	// 	data: 'Снять, На длительный срок, > 9 комнат, 9 комнат, 8 комнат, 7 комнат, 6 комнат, 5 комнат, 4 комнаты, 3 комнаты, 2 комнаты, 1 комната, Студия, Деревянный, Монолитный, Блочный, Панельный, Кирпичный, Частные, Арендная плата 56 655 — 67 778 ₽.',
-	// 	locality: 'Челябинск'
-	// },
-	// {
-	// 	id: 6, title: 'Категория 1 уровня / Категория 2 уровня / Категория 3 уровня / Подкатегория',
-	// 	data: 'Снять, На длительный срок, > 9 комнат, 9 комнат, 8 комнат, 7 комнат, 6 комнат, 5 комнат, 4 комнаты, 3 комнаты, 2 комнаты, 1 комната, Студия, Деревянный, Монолитный, Блочный.',
-	// 	locality: 'Москва'
-	// },
-	// {
-	// 	id: 7, title: 'Категория 1 уровня / Категория 2 уровня / Категория 3 уровня / Подкатегория',
-	// 	data: 'Снять, На длительный срок, > 9 комнат, 9 комнат, 8 комнат, 7 комнат, 6 комнат, 5 комнат, 4 комнаты, 3 комнаты, 2 комнаты, 1 комната, Студия, Деревянный, Монолитный, Блочный.',
-	// 	locality: 'Москва'
-	// },
-	// {
-	// 	id: 8, title: 'Категория 1 уровня / Категория 2 уровня / Категория 3 уровня / Подкатегория',
-	// 	data: 'Снять, На длительный срок, > 9 комнат, 9 комнат, 8 комнат, 7 комнат, 6 комнат, 5 комнат, 4 комнаты, 3 комнаты, 2 комнаты, 1 комната, Студия, Деревянный, Монолитный, Блочный.',
-	// 	locality: 'Москва'
-	// },
-];
 
 // Пагинация
 const Favorites = () => {
@@ -60,19 +16,24 @@ const Favorites = () => {
 	const router = useRouter()
 
 	const [offetFav, setOfferFav] = useState()
+	const [seller, setSeller] = useState(0)
+	const [search, setSearch] = useState(0)
 
 
 	useEffect(() => {
-		getTokenDataByPost('/api/getFavorites', { user_id: id }, token)
-			.then(data => setOfferFav(data))
-			.catch(error => console.log(error))
 
-		// if (offetFav) {
-		// 	favAciveOffer = offetFav?.posts.filter((item) => item.condition === 'true')
-		// }
+		getTokenDataByPost('/api/PersonalAreaFavorites', { user_id: id, page: 1, page_limit: 50}, token)
+			.then(data => {
+				setOfferFav(data.liked_posts)
+				setSeller(data.subscriptions)
+				setSearch(data.searchs)
+			})
+			.catch(error => {
+				console.log('PersonalAreaFavorites: ', error)
+			})
+
 	}, [id])
 
-	let favAciveOffer = offetFav?.posts?.filter((item) => item.condition === 'true')
 
 	useEffect(() => {
 		if (router) {
@@ -84,20 +45,14 @@ const Favorites = () => {
 
 
 
-	const [seller, setSeller] = useState(0)
 
 
-	const { subList } = useSubList(id)
 
-	useEffect(() => {
-		setSeller(subList)
-	})
 
-	// console.log(seller)
 	const navItems = [
-		{ id: 1, title: 'Объявления', content: <Offers key={1} itemsPost={favAciveOffer} />, count: favAciveOffer !== undefined ? favAciveOffer?.length : 0 },
+		{ id: 1, title: 'Объявления', content: <Offers key={1} itemsPost={offetFav} />, count: offetFav !== undefined ? offetFav?.length : 0 },
 		{ id: 2, title: 'Продавцы', content: <Sellers key={2} sellers={seller} />, count: seller !== undefined ? seller.length : 0 },
-		{ id: 3, title: 'Поиски', content: <Searches key={3} searches={SearchesBox} />, count: SearchesBox.length }
+		{ id: 3, title: 'Поиски', content: <Searches key={3} searches={search} />, count: search.length || 0 }
 	];
 
 	return (
