@@ -66,6 +66,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     marginTop: '40px',
+  },
+  rightBlockBackground: {
     boxShadow: '0px 0px 20px rgb(0 0 0 / 10%)',
   },
   ad: {
@@ -113,10 +115,12 @@ const NothingFound = () => {
           </Box>
           {!matchesMobile &&
             <Box className={classes.rightBlock}>
-              <Box className={classes.ad}>
-                <Box className={classes.ad_background}>
-                  <Image src={"/img/joker1.png"} width={224} height={480}/>
-                  <Image src={"/img/joker2.png"} width={224} height={480}/>
+              <Box className={classes.rightBlockBackground}>
+                <Box className={classes.ad}>
+                  <Box className={classes.ad_background}>
+                    <Image src={"/img/joker1.png"} width={224} height={480}/>
+                    <Image src={"/img/joker2.png"} width={224} height={480}/>
+                  </Box>
                 </Box>
               </Box>
               <Box className={classes.footer}>

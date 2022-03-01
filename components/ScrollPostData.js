@@ -5,7 +5,12 @@ import {useCity} from "../lib/Context/CityCTX";
 import {getDataByPost} from "../lib/fetch";
 import {generateCityArr, modifyGetPostsData} from "../lib/services";
 
-const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) => {
+/**
+ *
+ * @param {setNotFound} (Function) - принимается из pages/search/[alias].js - (Ставит setState(true) на ничего не найдено)
+ * @returns
+ */
+const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, setNotFound = null}) => {
 
     const {id} = useAuth();
     const {searchCity} = useCity()
@@ -140,6 +145,26 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) =>
             generateDataScroll()
         }
     }, [page])
+
+    /** показываем компонент ничего не найдено, если
+     * запрос закончился (page === end)
+     * и длина нашедших постов = 0 (post.length === 0)
+     * и это поиск по тексту (sendObj.category === '').
+     * Если не найдено в категориях, то не отрисовываем компонент NothingFound (setNotFound не вызывается)
+     */
+    useEffect(() => {
+        const isFinishRequest = (page === 'end')
+        const isRequestNotFound = (post.length === 0)
+
+        if(isFinishRequest && isRequestNotFound) {
+            const isSetNotFoundNotNull = (typeof setNotFound !== 'undefined' && setNotFound !== null)
+            const isSendObjNotNull = (typeof sendObj !== 'undefined' && sendObj !== null && sendObj?.category === '')
+
+            if(isSetNotFoundNotNull && isSendObjNotNull) {
+                setNotFound()
+            }
+        }
+    }, [page, post, sendObj])
 
     return (
         <OffersRender

@@ -171,6 +171,18 @@ export const handleChangeCategory = (categoryArr, methods) => {
     }
 }
 
+export const handleClearCategory = (categoryArr, methods) => {
+    if (Array.isArray(categoryArr)) {
+        const alias = 'alias'
+        for (let i = 0; i < 3; i++) {
+            (typeof categoryArr[i] === 'undefined')
+                ? methods.setValue(alias + (i + 1), undefined)
+                : methods.setValue(alias + (i + 1), (categoryArr[i]))
+
+        }
+    }
+}
+
 export const deleteFilterAlias = (queryObj, filterObj) => {
 
     if (typeof queryObj == 'object') {

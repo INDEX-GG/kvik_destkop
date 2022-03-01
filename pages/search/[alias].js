@@ -13,10 +13,10 @@ import {generateFilterData, numberKeyTime} from "#components/newFilter/filterSer
 
 // категории
 import {FormProvider, useForm} from 'react-hook-form'
-import {handleChangeCategory} from "#components/newFilter/filterServices";
+import {handleClearCategory} from "#components/newFilter/filterServices";
 import {getLastElementArr} from "#lib/services";
 import FilterCategory from "#components/newFilter/fields/FilterCategory";
-// import NothingFound from "#components/search/NothingFound";
+import NothingFound from "#components/search/NothingFound";
 
 
 const useStyles = makeStyles(() => ({
@@ -36,6 +36,8 @@ const useStyles = makeStyles(() => ({
         maxWidth: "224px",
         display: "flex",
         flexDirection: "column",
+    },
+    rightBlockBackground: {
         boxShadow: '0px 0px 20px rgb(0 0 0 / 10%)',
     },
     footer: {
@@ -65,6 +67,7 @@ const Index = () => {
     const [scrollData, setScrollData] = useState({});
     // Дефолтные фильтры, заполняются от query
     const [defaultFilters, setDefaultFilters] = useState({})
+    const [isNothingFound, setIsNothingFound] = useState(false)  // если что-то нашли -> true
 
     const router = useRouter()
     const {matchesMobile, matchesTablet} = useMedia();
@@ -92,10 +95,7 @@ const Index = () => {
     const categoryLast = getLastElementArr(category, ',')
 
     useEffect(() => {
-        if (aliasFullUrl) {
-            setCategory(aliasFullUrl)
-            handleChangeCategory(aliasFullUrl.split(','), methods)
-        }
+        changeCategory()
     }, [aliasQuery])
 
     const generateTitle = () => {
@@ -110,8 +110,21 @@ const Index = () => {
         setScrollData({...scrollData, ...obj})
     }
 
+    const handlerSetNothingFound = () => {
+        setIsNothingFound(true)
+    }
+
+    const changeCategory = () => {
+        if (aliasFullUrl) {
+            setCategory(aliasFullUrl)
+            handleClearCategory(aliasFullUrl.split(','), methods)
+        } else {
+            handleClearCategory([], methods)
+        }
+    }
 
     useEffect(() => {
+        setIsNothingFound(false)
         if (router && router?.query) {
             const checkboxObj = copyObject(router.query)
             delete checkboxObj.alias
@@ -154,49 +167,57 @@ const Index = () => {
     }, [router]);
 
     return (
-        <Container className={classes.root}>
-            {aliasData?.aliasBread &&
-                <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>
-            }
-            {/* {scrollData?.sendObj?.category !== '' ? */}
-                <Box className={classes.main}>
-                    <Box className={classes.offers}>
-                        {scrollData?.url &&
-                        <ScrollPostData title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj}/>}
-                    </Box>
-
-                    {!matchesMobile && !matchesTablet &&
-                    <Box className={classes.rightBlock}>
-                        {/*<FilterBlock*/}
-                        {/*    aliasFullName={aliasFullUrl}*/}
-                        {/*    categoryData={aliasData}*/}
-                        {/*    searchText={searchText}*/}
-                        {/*    pageLimit={limit}*/}
-                        {/*    setData={setData}*/}
-                        {/*    setCheckbox={setCheckboxData}*/}
-                        {/*/>*/}
-                        <FormProvider {...methods}>
-                            <form>
-                                <FilterCategory setCategory={setCategory} />
-                            </form>
-                            <NewFilterBlock
-                                alias={categoryLast}
-                                fullAlias={category}
-                                searchText={searchText}
-                                setScrollData={setScrollData}
-                                defaultFilters={defaultFilters}
-                            />
-                        </FormProvider>
-                        <div className={classes.ad}>
-                            <Image src={"/img/joker1.png"} width={224} height={480}/>
-                            <Image src={"/img/joker2.png"} width={224} height={480}/>
-                        </div>
-                        <Box className={classes.footer}>
-                            <Footer2/>
+        <>
+            <Container className={classes.root}>
+                {aliasData?.aliasBread &&
+                    <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>
+                }
+                {!isNothingFound
+                ?(
+                    <Box className={classes.main}>
+                        <Box className={classes.offers}>
+                            {scrollData?.url &&
+                            <ScrollPostData setNotFound={handlerSetNothingFound} title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj}/>}
                         </Box>
-                    </Box>}
-                </Box>
-        </Container>
+
+                        {!matchesMobile && !matchesTablet &&
+                        <Box className={classes.rightBlock}>
+                            {/*<FilterBlock*/}
+                            {/*    aliasFullName={aliasFullUrl}*/}
+                            {/*    categoryData={aliasData}*/}
+                            {/*    searchText={searchText}*/}
+                            {/*    pageLimit={limit}*/}
+                            {/*    setData={setData}*/}
+                            {/*    setCheckbox={setCheckboxData}*/}
+                            {/*/>*/}
+                            <Box className={classes.rightBlockBackground}>
+                                <FormProvider {...methods}>
+                                    <form>
+                                        <FilterCategory setCategory={setCategory} />
+                                    </form>
+                                    <NewFilterBlock
+                                        alias={categoryLast}
+                                        fullAlias={category}
+                                        searchText={searchText}
+                                        setScrollData={setScrollData}
+                                        defaultFilters={defaultFilters}
+                                    />
+                                </FormProvider>
+                                <div className={classes.ad}>
+                                    <Image src={"/img/joker1.png"} width={224} height={480}/>
+                                    <Image src={"/img/joker2.png"} width={224} height={480}/>
+                                </div>
+                            </Box>
+                            <Box className={classes.footer}>
+                                <Footer2/>
+                            </Box>
+                        </Box>}
+                    </Box>
+                )
+                : <NothingFound />
+                }
+            </Container>
+        </>
     )
 }
 

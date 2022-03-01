@@ -244,6 +244,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 								// height: '263px'
 							}}
 						>
+
 							{offer?.photo?.length === 1 ?
 							<>
 								{/* <img
@@ -278,7 +279,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 											backgroundSize: 'cover',
 											filter: 'blur(20px)'
 										}}
-										className="imageBlur">
+										className="imageBlur"
+										>
 									</div>
 								</>
 								: (
@@ -382,7 +384,8 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 											})}
 										</Swiper>
 									</>
-								)}
+							)}
+
 						</div>
 					</Link>
 					<div className="card__top_info">
