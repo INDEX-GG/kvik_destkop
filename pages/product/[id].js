@@ -145,8 +145,8 @@ const Product = () => {
 
 
 
-    useEffect(() => {
 
+    useEffect(() => {
         if (user_id !== undefined) {
             // этот запрос больше не нужен. Все есть в useProduct, нужно заменить
             // getDataByPost("/api/getProductOfUser", {user_id: user_id}).then((r) => {
@@ -196,7 +196,7 @@ const Product = () => {
                                                 isOffer={+query.id}
                                                 mobile
                                             />
-                                        </div>
+                                            </div>
                                     </div>}
                                     <div>
                                         <div className='product__main_block'>

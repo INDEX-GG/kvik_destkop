@@ -19,8 +19,8 @@ export function useProduct(id) {
 				getTokenDataByPost('/api/getPost', { id: intId, 'user_id': userId }, token)
 					// TODO: добавить обработчик статуса ответа и в useProduct
 					.then((r) => {
-
 						if (r !== undefined && typeof r !== 'string' ) {
+							const communicationParse = JSON?.parse(r.communication)
 							// console.log('rrrrrrrrrr',r)
 
 							if(r.photo !== null) {
@@ -37,6 +37,9 @@ export function useProduct(id) {
 							// r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 							r.chatPhoto = r.user_photo;
 							r.userPhoto = `${STATIC_URL}/${r.user_photo}`;
+							r.isPhone = communicationParse?.phone || false;
+							r.isMessage = communicationParse?.message || false;
+							r.dayBefore = r.best_before
 							setProductInfo(r);
 						}
 					})
@@ -61,8 +64,8 @@ export function useProduct(id) {
 					if (r !== undefined && typeof r !== 'string' ) {
 						// console.log('rrrrrrrrrr',r)
 
+            const communicationParse = JSON?.parse(r.communication)
 						if(r.photo !== null) {
-
 							let photoes = JSON?.parse(r.photo);
 							r.chatProductPhoto = photoes.photos[0]
 							// console.log('$$$$$$$$$$$$$$$$',photoes)
@@ -71,11 +74,15 @@ export function useProduct(id) {
 							photoes = photoes.photos.map(image => `${STATIC_URL}/${image}`)
 							r.photo = photoes
 						}
+
 						// console.log('r.photo',r.photo)
 						// r.chatPhoto = r.userPhoto;
 						// r.userPhoto = `${STATIC_URL}/${r.userPhoto}`;
 						r.chatPhoto = r.user_photo;
 						r.userPhoto = `${STATIC_URL}/${r.user_photo}`;
+						r.isPhone = communicationParse?.phone || false;
+						r.isMessage = communicationParse?.message || false;
+						r.dayBefore = r.best_before
 						setProductInfo(r);
 					}
 				})
@@ -92,7 +99,9 @@ export function useProduct(id) {
 		}
 	}, [id])
 
+
 	return {
 		...productInfo,
+		setProductInfo
 	}
 }

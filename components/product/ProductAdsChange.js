@@ -8,11 +8,11 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, setOpenOffe
 	const router = useRouter();
 
 	return (
-		
+
           sellerId == undefined ?
             <div className='product__placeholder_ProductAction_main'>
               <div className="placeholder_animation product__placeholder_ProductAction_two "></div>
-              <div className="placeholder_animation product__placeholder_ProductAction_two_tow "></div> 
+              <div className="placeholder_animation product__placeholder_ProductAction_two_tow "></div>
             </div> :
             <>
               {/* {sellerId !== id && <div className="SellerInfoBuy" onClick={() => router.push("/checkout/buy")} >Купить</div>} */}
@@ -67,7 +67,7 @@ const ProductAdsChange = ({mobile, status, id, sellerId = undefined, setOpenOffe
                 : ''
               }
             </>
-        
+
 	)
 }
 

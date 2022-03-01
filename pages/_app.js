@@ -18,6 +18,7 @@ import CityProvider from '../lib/Context/CityCTX';
 import StoreProvider from '../lib/Context/Store';
 import StatisticsProvider from '../lib/Context/StatisticsCTX';
 import LoginDrawerProvider from '../lib/Context/DialogCTX';
+import YandexMetrika from "../src/components/AnyPage/YandexMetrika/YandexMetrika";
 
 export default withYM("85786957", Router)(
 	function MyApp({ Component, pageProps }) {
@@ -35,22 +36,24 @@ export default withYM("85786957", Router)(
 					<Head>
 						<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
 					</Head>
-					<AuthProvider>
-						<ThemeProvider theme={theme}>
-							<StatisticsProvider>
-								<StoreProvider>
-									<CityProvider>
-										<LoginDrawerProvider>
-											<MainLayout>
+					<YandexMetrika>
+						<AuthProvider>
+							<ThemeProvider theme={theme}>
+								<StatisticsProvider>
+									<StoreProvider>
+										<CityProvider>
+											<LoginDrawerProvider>
+												<MainLayout>
 													<CssBaseline />
 													<Component {...pageProps} />
-											</MainLayout>
-										</LoginDrawerProvider>
-									</CityProvider>
-								</StoreProvider>
-							</StatisticsProvider>
-						</ThemeProvider>
-					</AuthProvider>
+												</MainLayout>
+											</LoginDrawerProvider>
+										</CityProvider>
+									</StoreProvider>
+								</StatisticsProvider>
+							</ThemeProvider>
+						</AuthProvider>
+					</YandexMetrika>
 				</SWRConfig>
 			</ErrorBoundary>
 		)

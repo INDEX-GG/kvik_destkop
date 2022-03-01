@@ -24,24 +24,24 @@ export default function BreadCrumbs({ data, /**product = false,**/ searchData })
 	return (
 		<div className={classes.bread}>
 			<div className="clientPage__breadcrumbs thin">
-				{data ? 
+				{data ?
 				<Link href="/">
 					<a className="breadCrumb light">{city}</a>
 				</Link> : null
 				}
-				{data ? 
+				{data ?
 				data.map((item, index) => {
 					const title = item.label[0].toUpperCase() + item.label.substring(1,)
 					return (
 						<Link key={item.alias + index} href={`/search/${item.alias}`}>
 							<a className={`breadCrumb light line 
-							${index == data.length - 1 && !searchData ? classes.breadActiveItem : ''}`}>
+							${index === data?.length - 1 && !searchData ? classes.breadActiveItem : ''}`}>
 								{title}
 							</a>
 						</Link>
 					)
 				}) : null}
-				{searchData && 
+				{searchData &&
 				<a className={`breadCrumb light line ${classes.breadActiveItem}`}>{searchData}</a>}
 				{/* {product ?
 					<Link href="#">

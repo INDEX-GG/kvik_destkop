@@ -16,7 +16,7 @@ const BtnActive = (props) => {
                     <button
                         id="003"
                         value={props.offer.id}
-                        onClick={(e) => props.pushCheck(e)}
+                        onClick={(e) => props.pushCheck(e, '003', props.offer.id)}
                         className={props.classes.btn__unpublish}>
                         Снять с публикации
                     </button>
