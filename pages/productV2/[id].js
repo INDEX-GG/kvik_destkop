@@ -2,16 +2,17 @@ import React from 'react';
 import MetaLayout from '../../layout/MetaLayout'
 import ProductPage from '../../src/components/Product/ProductPage';
 import ProductProvider from "../../src/context/ProductContext";
+import {Box} from "@material-ui/core";
 
 const Product = () => {
     return (
         <MetaLayout>
             <ProductProvider>
-              <div className="productPage" id="productPage">
-                <div className="productPageContainer text">
+              <Box className="productPage" id="productPage">
+                <Box className="productPageContainer text">
                   <ProductPage/>
-                </div>
-              </div>
+                </Box>
+              </Box>
             </ProductProvider>
         </MetaLayout>
     );

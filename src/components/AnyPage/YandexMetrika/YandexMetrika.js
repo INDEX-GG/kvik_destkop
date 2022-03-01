@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Router from 'next/router'
 import ym, { YMInitializer } from 'react-yandex-metrika'
 import {YANDEX_METRIK} from "#lib/constants";

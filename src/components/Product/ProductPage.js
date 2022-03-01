@@ -4,7 +4,6 @@ import {Box} from "@material-ui/core";
 import BreadCrumbs from "#components/header/BreadСrumbs";
 import BreadCrumbsProduct from "#components/product/BreadCrumbsProduct";
 import ProductWrapper from "./ProductWrappers/ProductWrapper";
-import ProductHeader from "./ProductWrappers/ProductHeader/ProductHeader";
 import ProductName from "./ProductName/ProductName";
 import ProductOption from './ProductOptions/ProductOptions';
 import ProductSlider from "./ProductSlider/ProductSlider";

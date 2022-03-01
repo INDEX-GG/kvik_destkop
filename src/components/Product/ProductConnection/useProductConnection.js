@@ -4,11 +4,13 @@ import {useAuth} from "#lib/Context/AuthCTX";
 import {CHAT_URL_API} from "#lib/constants";
 import {getTokenDataByPost} from "#lib/fetch";
 import {useProductContext} from "../../../context/ProductContext";
+import {useStatistics} from "#lib/Context/StatisticsCTX";
 
 export const useProductConnection = () => {
     const {id: userId, token} = useAuth();
     const {pushTo} = useCustomRouter();
-    const {setProductInfo, productData} = useProductContext()
+    const {setProductInfo, productData: {id: productId}} = useProductContext()
+    const {addContactClick} = useStatistics()
 
     const [activeModal, setActiveModal] = useState(false);
     const [callModal, setCallModal] = useState(false);
@@ -21,9 +23,12 @@ export const useProductConnection = () => {
         }
     }
 
-    const handleChangeModal = (state, setState) => {
+    const handleChangeModal = (state, setState, callback = null) => {
         return () => {
             setState(!state)
+            if (state && callback) {
+                callback()
+            }
         }
     }
 
@@ -86,7 +91,7 @@ export const useProductConnection = () => {
         successCallback,
         handleChangeActiveModal: handleChangeModal(activeModal, setActiveModal),
         handleChangRemoveModal : handleChangeModal(removeModal, setRemoveModal),
-        handleChangeCallModal: handleChangeModal(callModal, setCallModal),
+        handleChangeCallModal: handleChangeModal(callModal, setCallModal, addContactClick(productId)),
         handleChangeDeleteModal: handleChangeModal(deleteModal, setDeleteModal),
     }
 }

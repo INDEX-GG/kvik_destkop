@@ -60,6 +60,7 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 											className="SellerInfoCall button contained"
 											onClick={() => {
 												setDialog(true)
+												console.log(123);
 												addContactClick(offerId[0])()
 											}}
 											title='Показать номер'
