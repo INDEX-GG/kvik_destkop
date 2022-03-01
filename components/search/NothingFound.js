@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     marginTop: '84px',
+
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '34px',
+    }
   },
   wrapper: {
     display: 'flex',
@@ -25,8 +29,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
     fontWeight: '500',
     lineHeight: '21px',
+    paddingBottom: '50px',
     [theme.breakpoints.down('sm')]: {
-      padding: '0 10%'
+      padding: '0 10%',
+      paddingBottom: '30px',
+
     }
   },
   lists: {
