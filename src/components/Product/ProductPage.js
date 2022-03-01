@@ -39,6 +39,7 @@ const ProductPage = () => {
     } = contextData;
     const breadData = useMemo(() => BreadCrumbsProduct(category_id), [category_id])
     console.log(contextData);
+    console.log(title);
 
 
     return (

@@ -27,18 +27,18 @@ const ProductLocation = () => {
         isLoading ? (
             <Box className={classes.locationContainer}>
                 <Box className={classes.locationInfoContainer}>
-                    <Box className={classes.locationTitle}>
+                    {/* <Box className={classes.locationTitle}>
                         Местоположение
-                    </Box>
+                    </Box> */}
                     <Box className={classes.locationAddress}>
                         {address}
                     </Box>
                     <Box className={classes.locationMap}>
                         <Box className={classes.locationMapText}
                              onClick={handleOpenMap}>
-                            На карте
+                            Показать на карте
                         </Box>
-                        <Box component='span' className={locationMapArrow}/>
+                        {/* <Box component='span' className={locationMapArrow}/> */}
                     </Box>
                 </Box>
                 <ProductMap

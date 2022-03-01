@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     additionalFieldList: {
         marginTop: '18px',
         // paddingBottom: '18px',
@@ -15,6 +15,10 @@ const useStyles = makeStyles(() => ({
         justifyContent: 'space-between',
         width: '297px',
         marginBottom: '18px',
+
+        [theme.breakpoints.down(450)]: {
+            width: '100%',
+        }
     },
     additionalFieldItemSolo: {
         width: 'auto'

@@ -10,7 +10,12 @@ const useStyles = makeStyles(() => ({
         paddingBottom: '18.5px',
         borderBottom: '1px solid #E9E9E9',
         wordWrap: 'break-word',
+        // maxHeight: '54px',
+        // overflow: 'hidden',
     },
+    descriptionActive: {
+        // maxHeight: '100%',
+    }
 }));
 
 export const useProductDescriptionStyles = () => useStyles();
