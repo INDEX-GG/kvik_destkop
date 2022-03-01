@@ -12,6 +12,7 @@ import {generateCityArr, modifyGetPostsData} from "../lib/services";
  */
 const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, setNotFound = null}) => {
 
+
     const {id} = useAuth();
     const {searchCity} = useCity()
 
@@ -160,8 +161,8 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
 
         if(isFinishRequest && isRequestNotFound) {
             const isSetNotFoundNotNull = (typeof setNotFound !== 'undefined' && setNotFound !== null)
-            const isSendObjNotNull = (typeof sendObj !== 'undefined' && sendObj !== null && sendObj?.category === '')
-
+            const isSendObjNotNull = (typeof sendObj !== 'undefined' && sendObj !== null)
+            
             if(isSetNotFoundNotNull && isSendObjNotNull) {
                 setNotFound()
             }
