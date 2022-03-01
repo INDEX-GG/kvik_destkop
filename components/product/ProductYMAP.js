@@ -5,9 +5,6 @@ import { useMedia } from '../../hooks/useMedia'
 //!!!! ЕСЛИ БУДЕМ ИСПОЛЬЗОВАТЬ В МОБИЛЬНОМ ПРИЛОЖЕНИИ, ТО НУЖНО БУДЕТ СОБЛЮСТИ ПУНКТ 2.3.8
 //!!! Пользователь обязуется разместить в своем мобильном приложении в разделе «О программе» или ином подобном разделе мобильного приложения, гиперссылку на Условия использования сервиса Яндекс.Карты, размещенные по адресу: https://yandex.ru/legal/maps_termsofuse, следующего вида - «Условия использования сервиса Яндекс.Карты».
 const ProductYMAP = ({coordinates, width, height}) => {
-	const ymapsLoad = () => {
-		// console.log(ymaps)
-	}
 
 	const {matchesMobile, matchesTablet} = useMedia()
 	const map = useRef()
@@ -25,10 +22,9 @@ const ProductYMAP = ({coordinates, width, height}) => {
 	return (
 		<YMaps query={{apikey: '5170655d-fb30-4cc1-b1aa-3782984b9fb8'}}>
 			<div style={{borderRadius: '8px'}}>
-				<Map 
+				<Map
 				height={height}
-				onLoad={ymapsLoad} 
-				width={matchesMobile || matchesTablet ? '100%' : width} 
+				width={matchesMobile || matchesTablet ? '100%' : width}
 				instanceRef={map}
 				defaultState={{ center: coordinates || [1, 1], zoom: 17 }} >
 					<div>
@@ -44,4 +40,4 @@ const ProductYMAP = ({coordinates, width, height}) => {
 	)
 }
 
-export default ProductYMAP
+export default React.memo(ProductYMAP)

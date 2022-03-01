@@ -15,7 +15,7 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 
 
 // const ProductMobileButtons = ({id, sellerId, mobile, photo, status, secure_transaction, delivery, setDialog, productInfo, /*update,*/ setUpdate, createChat}) => {
-	const ProductMobileButtons = ({id, sellerId, mobile, photo, setDialog, productInfo, status, /*update,*/ setUpdate, createChat}) => { 	
+	const ProductMobileButtons = ({id, sellerId, mobile, photo, setDialog, productInfo, status, /*update,*/ setUpdate, createChat}) => {
 	// const router = useRouter();
 	const {addContactClick} = useStatistics()
 	const {isAuth} = useAuth()
@@ -27,6 +27,8 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 	const offerId = [productInfo?.id]
 	const offerData = productInfo;
 
+	console.log(offerData, 'color: red')
+
 	function chatButtonHandler() {
 		if(!isAuth) {
 			setOpenLoginForm(!openLoginForm)
@@ -34,7 +36,7 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 		  }
 		  createChat()
 	}
-	
+
  	return (
 		<div>
 			{mobile && (
@@ -42,7 +44,7 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 				photo == undefined ?
 					''
 					:
-					sellerId ? 
+					sellerId ?
 					<>
 						<div className="SellerInfo__adaptive_button">
 							{/* {status === 2 || status === 3 || status === 5 ? <a className="ad_btn ad_btn_edit buttonGrey button">Активировать</a> : ""}
@@ -54,14 +56,15 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 								<div className="s__top">
 									<ProductDeal id={id} sellerID={sellerId}>
 										<ProductButton onClick={chatButtonHandler} className="SellerInfoMess button contained" title='Написать продацву' icon={<IconMess/>} />
-										<ProductButton 
-											className="SellerInfoCall button contained" 
+										<ProductButton
+											className="SellerInfoCall button contained"
 											onClick={() => {
 												setDialog(true)
+												console.log(123);
 												addContactClick(offerId[0])()
-											}} 
-											title='Показать номер' 
-											icon={<IconCall/>} 
+											}}
+											title='Показать номер'
+											icon={<IconCall/>}
 										/>
 									</ProductDeal>
 								</div>
