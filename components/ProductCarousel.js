@@ -70,7 +70,7 @@ export default function ProductCarousel({ title, photo, category, mobile = false
 			// : <div className="productPageTitle xl">{title}</div>}
 			// раньше тут был заголовок, в новом дизайне уже не нужно, вместо заголовка рендерим цену
 			:null}
-			{isOfferPhotoNull ?
+			{!isOfferPhotoNull ?
 				<div>
 					<Swiper
 						onSwiper={setFirstSwiper}

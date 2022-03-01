@@ -21,13 +21,16 @@ const useClass = makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down(350)]: {
-      // height: '300px',
+      height: props.bigImage && '300px',
     }
   }),
   canvas: props => ({
-    width: '100%',
+    width: props.bigImage ? '55%' : '100%',
+    [theme.breakpoints.down(960)]: {
+      width: props.bigImage ? '55%' : '200px',
+    },
     [theme.breakpoints.down(350)]: {
-      width: props.bigImage ? '300px' : '120px',
+      width: props.bigImage ? '300px' : '150px',
     }
   }),
   img: {
@@ -49,7 +52,7 @@ const AdCardPng = ({title = 'Товар Kvik', height = '100%', bigImage = false
     let canvasTxt = canvasRef.current.getContext('2d')
     canvasTxt.canvas.width = bigImage ? 600 : 200;
 		canvasTxt.canvas.height = 60;
-		canvasTxt.font = bigImage ? '42px sans-serif' : '16px sans-serif'
+		canvasTxt.font = bigImage ? '500 42px sans-serif' : '16px sans-serif'
     canvasTxt.textAlign = 'center'
     canvasTxt.textBaseline = 'middle'
 
