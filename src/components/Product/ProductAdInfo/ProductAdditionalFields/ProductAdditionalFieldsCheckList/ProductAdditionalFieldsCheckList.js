@@ -1,15 +1,17 @@
 import React from "react";
 import {Box} from "@material-ui/core";
+
 import {useProductAdditionalFieldsCheckListStyles} from './style';
+import ProductShowMoreWrapper from '../../../ProductWrappers/ProductShowMoreWrapper/ProductShowMoreWrapper'
 
 const ProductAdditionalFieldsCheckList = ({columnData}) => {
 
-
     const classes = useProductAdditionalFieldsCheckListStyles()
+
 
     return (
         columnData ? (
-            <>
+            <ProductShowMoreWrapper>
                 {columnData.map(additionalFieldItem => (
                     <Box
                         key={additionalFieldItem.title}
@@ -30,7 +32,7 @@ const ProductAdditionalFieldsCheckList = ({columnData}) => {
                         </Box>
                     </Box>
                 ))}
-            </>
+            </ProductShowMoreWrapper>
         ) : <></>
     )
 }

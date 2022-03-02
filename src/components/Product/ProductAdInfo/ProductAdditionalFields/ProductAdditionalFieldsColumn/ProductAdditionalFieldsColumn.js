@@ -19,8 +19,6 @@ const ProductAdditionalFieldsColumn = ({columnData}) => {
         return value
     }
 
-    console.log('columnData: ', columnData)
-
     return (
         Array.isArray(columnData) ? (
             <ProductShowMoreWrapper>

@@ -1,17 +1,26 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     locationContainer: {
         marginTop: '32px',
         paddingBottom: '18px',
-        borderBottom: '1px solid #E9E9E9'
+        borderBottom: '1px solid #E9E9E9',
+        order: '3',
+
+        [theme.breakpoints.down(960)]: {
+            marginTop: '15px'
+        },
     },
     locationInfoContainer: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         marginBottom: '5px',
+
+        [theme.breakpoints.down(960)]: {
+            flexDirection: 'column',
+        },
     },
     locationTitle: {
         fontSize: '14px',

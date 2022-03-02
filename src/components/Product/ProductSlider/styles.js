@@ -6,6 +6,7 @@ export const useProductSliderStyles = (isMobile) => {
         swiperContainer: {
             display: 'flex',
             flexDirection: isMobile ? 'column-reverse' : 'column',
+            order: '2',
         },
         swiperNormalSlide: {
             height: '400px',

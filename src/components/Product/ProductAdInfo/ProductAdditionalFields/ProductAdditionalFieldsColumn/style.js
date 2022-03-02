@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        order: '4',
     },
     additionalFieldItem: {
         display: 'flex',

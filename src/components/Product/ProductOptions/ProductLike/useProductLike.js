@@ -15,7 +15,6 @@ export const useProductLike = (productID) => {
 
             if (Array.isArray(favorites)) {
                 const findLike = favorites.find(adLike => adLike === productID);
-                console.log(findLike, userInfo);
 
                 if (findLike) {
                     setIsLike(true)

@@ -1,8 +1,12 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     button: {
-      marginBottom: '24px'
+        marginBottom: '24px',
+
+        [theme.breakpoints.down(960)]: {
+            marginBottom: '10px',
+        },
     },
     buttonRoot: {
         paddingTop: '4px',

@@ -28,9 +28,9 @@ const ProductSlider = ({ mobile = false }) => {
     });
 
     const {slidesPrevPhoto, sliderDot, sliderNavigation} = sliderProps;
-    const sliderClass = `mySwiper2 importantSlider 
+    const sliderClass = `mySwiper2 importantSlider
     ${sliderDot || photo?.length > 1 && isMobile ? '' : 'dotNone'} ${sliderNavigation ? '' : 'navigationNone'}`
-    const littleSwiperClass = [`mySwiper2 ${classes.swiperLittleSlide} ${slidesPrevPhoto > 1 ? '' : classes.swiperNone}`];
+    const littleSwiperClass = [`mySwiper2 ${classes.swiperLittleSlide} ${isMobile && classes.swiperNone} ${slidesPrevPhoto > 1 ? '' : classes.swiperNone}`];
 
     const handleChangeModal = (state) => {
         return () => {
@@ -65,7 +65,7 @@ const ProductSlider = ({ mobile = false }) => {
 
     return (
         <Box className={classes.swiperContainer} >
-            {photo ?
+            {/* {photo ? */}
                 <Box>
                     <ProductMainSlider
                         photos={photo}
@@ -107,7 +107,7 @@ const ProductSlider = ({ mobile = false }) => {
                         </>
                     </Modal>
                 </Box>
-                : <Box className="placeholder_animation product__placeholder_swipers"/>}
+                {/* : <Box className="placeholder_animation product__placeholder_swipers"/> } */}
         </Box>
     );
 }

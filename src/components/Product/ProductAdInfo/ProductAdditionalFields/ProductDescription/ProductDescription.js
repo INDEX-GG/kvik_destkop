@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Box} from "@material-ui/core";
 import {useProductDescriptionStyles} from './style';
 import {formatDescription} from "../../../../../services/services";
