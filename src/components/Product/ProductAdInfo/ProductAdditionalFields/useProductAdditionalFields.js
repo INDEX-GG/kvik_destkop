@@ -8,10 +8,8 @@ export const useProductAdditionalFields = () => {
     const {getMoreCategory} = useCategoryV2();
     const {productData: {additional_fields, category_id, description}} = useProductContext();
 
-    console.log('category_id')
     // Получаем массив алиасов
     const categoryAliasArr = useMemo(() => {
-        console.log('categoryAliasArr: ', category_id)
         if (checkTypeOf(category_id, 'string')) {
             return category_id.split(',')
         }
@@ -21,14 +19,13 @@ export const useProductAdditionalFields = () => {
     // Получаем обный объект этой категории из json
     const jsonData = useMemo(() => {
         if (checkTypeOf(categoryAliasArr, 'object')) {
-            // TODO: поправить getMoreCategory
             return getMoreCategory(
                 categoryAliasArr[0],
                 categoryAliasArr[1],
                 categoryAliasArr[2]
             )?.additional_fields
         }
-    }, [categoryAliasArr]);
+    }, [categoryAliasArr, getMoreCategory]);
 
     // Создание правильного объекта для доп.полей (airbags1, airbags2 и т.д) ({title: string, value: any})
     const russDataObj = useMemo(() => {

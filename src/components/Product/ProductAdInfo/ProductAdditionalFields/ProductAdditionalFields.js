@@ -13,32 +13,34 @@ const ProductAdditionalFields = () => {
     const {russAdditionalFields, description} = useProductAdditionalFields()
     const noArrayValue = useMemo(() => russAdditionalFields?.noArrayValue, [russAdditionalFields?.noArrayValue])
     const onlyArray = useMemo(() => russAdditionalFields?.onlyArrValue, [russAdditionalFields?.onlyArrValue])
-    // const isLoading = russAdditionalFields && description
+    const isLoading = russAdditionalFields && description
 
     return (
-        <Box className={classes.addFields}>
-            {checkValidArray(noArrayValue) && (
-                <Box className={classes.addFieldsColumn}>
-                    <ProductAdditionalFieldsColumn
-                        columnData={noArrayValue}
-                    />
-                </Box>
-            )}
-            {description && (
-                <Box className={classes.addFieldsDescription}>
-                    <ProductDescription
-                        description={description}
-                    />
-                </Box>
-            )}
-            {checkValidArray(onlyArray) && (
-                <Box className={classes.addFieldsArr}>
-                    <ProductAdditionalFieldsArr
-                        columnData={onlyArray}
-                    />
-                </Box>
-            )}
-        </Box>
+        isLoading ? (
+            <Box className={classes.addFields}>
+                {checkValidArray(noArrayValue) && (
+                    <Box className={classes.addFieldsColumn}>
+                        <ProductAdditionalFieldsColumn
+                            columnData={noArrayValue}
+                        />
+                    </Box>
+                )}
+                {description && (
+                    <Box className={classes.addFieldsDescription}>
+                        <ProductDescription
+                            description={description}
+                        />
+                    </Box>
+                )}
+                {checkValidArray(onlyArray) && (
+                    <Box className={classes.addFieldsArr}>
+                        <ProductAdditionalFieldsArr
+                            columnData={onlyArray}
+                        />
+                    </Box>
+                )}
+            </Box>
+        ) : <></>
     )
 }
 

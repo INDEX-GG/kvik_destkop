@@ -19,7 +19,7 @@ const useCategoryV2 = () => {
 
 
     const getMoreCategory = (category, category2, category3) => {
-        if(categoryArray.length === 0) {
+        if (category && categoryArray) {
 
             if (category && categoryArray) {
 
