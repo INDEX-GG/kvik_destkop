@@ -51,6 +51,11 @@ export const checkActiveClass = (state = false, defaultStyles, activeStyles) => 
     if (!state) return `${defaultStyles}`
 }
 
+export const checkActiveString = (state = false, defaultString, activeString) => {
+    if (state) return activeString
+    if (!state) return defaultString
+}
+
 export const stringArrayToNumberArray = (array) => {
     if (checkTypeOf(array, 'string')) {
         try {
