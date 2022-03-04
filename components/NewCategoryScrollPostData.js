@@ -100,6 +100,7 @@ const CategoryScrollPostData = ({url, product}) => {
         const stashNum = similarData.length - renderCards.length
         setStashNumber(stashNum > 8 ? 8 : stashNum)
     }, [renderCards, similarData.length])
+    
     // вешаем скролл слушатель при мобильном экране
     useEffect(()=> {
         if(mobile){
@@ -118,6 +119,7 @@ const CategoryScrollPostData = ({url, product}) => {
         setStashNumber(null)
         setOneMoreFetch(true)
     }, [product.id])
+
     // вызов запрроса, срабатывает при первом заходе и после перехода на другую страницу, выбранную из карточек "рекомендуемое"
     useEffect(() => {
         fetchSimilar()

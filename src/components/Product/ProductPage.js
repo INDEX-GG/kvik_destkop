@@ -14,7 +14,8 @@ import ProductConnection from "./ProductConnection/ProductConnection";
 import ProductUser from "./ProductUser/ProductUser";
 import ProductAdInfo from "./ProductAdInfo/ProductAdInfo";
 import {useProductPageStyles} from "./styles";
-import NewCategoryScrollPostData from '#components/NewCategoryScrollPostData'
+// import NewCategoryScrollPostData from '#components/NewCategoryScrollPostData'
+import CategoryScrollPostData from '../NewCategoryScrollPostData/CategoryScrollPostData'
 import ProductPlaceHolder from '#components/placeHolders/ProductPlaceHolder/ProductPlaceHolder'
 
 const ProductPage = () => {
