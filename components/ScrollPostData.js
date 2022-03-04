@@ -12,6 +12,7 @@ import {generateCityArr, modifyGetPostsData} from "../lib/services";
  */
 const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, setNotFound = null}) => {
 
+
     const {id} = useAuth();
     const {searchCity} = useCity()
 
@@ -68,6 +69,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
                         // Id последнего объявления
                         const lastId = response[response.length - 1]?.id
 
+                        console.log(modifyGetPostsData(response));
                         // Посты
                         setPost(prevState => [...prevState, ...modifyGetPostsData(response)])
 
@@ -137,10 +139,12 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
         }
     }, [contentUpdate, page, excludesLength]);
 
+    // console.log(page, post.length, contentUpdate)
 
     // Прогрузка объявлений при скролле
     useEffect(() => {
         if (page !== 'end' && post.length && !contentUpdate) {
+            // if (page !== 'end' && !contentUpdate) {
             generateDataScroll()
         }
     }, [page])
@@ -157,8 +161,8 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
 
         if(isFinishRequest && isRequestNotFound) {
             const isSetNotFoundNotNull = (typeof setNotFound !== 'undefined' && setNotFound !== null)
-            const isSendObjNotNull = (typeof sendObj !== 'undefined' && sendObj !== null && sendObj?.category === '')
-
+            const isSendObjNotNull = (typeof sendObj !== 'undefined' && sendObj !== null)
+            
             if(isSetNotFoundNotNull && isSendObjNotNull) {
                 setNotFound()
             }

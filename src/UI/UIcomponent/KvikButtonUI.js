@@ -8,13 +8,15 @@ const KvikButtonUI = (
         type = 'button',
         disabled = false,
         customRoot = {},
-        customDisabled = {}
+        customDisabled = {},
+        fullWidth = false
     }
 ) => {
     const classes = useStyles();
 
     return (
         <Button
+            fullWidth={fullWidth}
             disabled={disabled}
             type={type}
             onClick={onClick}

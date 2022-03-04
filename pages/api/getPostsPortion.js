@@ -1,4 +1,9 @@
 import {Pool} from "pg";
+import CryptoJS from "crypto-js";
+
+function encrypt(string) {
+    return CryptoJS.AES.encrypt(string, process.env.NEXT_PUBLIC_MY_SECRET).toString();
+}
 
 export default async function handler(req, res) {
 
@@ -17,7 +22,6 @@ export default async function handler(req, res) {
             if (typeof req.body.page !== 'number' || typeof req.body.page_limit !== 'number') {
                 throw "Er"
             }
-            let date = new Date()
             let sort_value
             switch (sort) {
                 case 'default':
@@ -37,14 +41,13 @@ export default async function handler(req, res) {
                     break;
             }
 
-            const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing, posts.city, posts.color_selection, posts.size_selection FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE "posts"."photo" IS NOT NULL AND active = 0 AND verify = 0  AND ((active_time >= $1) OR (active_time IS NULL))  AND LOWER (city) LIKE $2 AND LOWER (city) NOT LIKE $3 ${sort_value} LIMIT $4 offset $5;`, [new Date(), region_includes + '%', region_excludes + '%', page_limit, page])
+            const answer  = await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.manager_name, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing, posts.city FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE active = 0 AND verify = 0  AND ((active_time >= $1) OR (active_time IS NULL))  AND LOWER (city) LIKE $2 AND LOWER (city) NOT LIKE $3 ${sort_value} LIMIT $4 offset $5;`, [new Date(), region_includes + '%', region_excludes + '%', page_limit, page])
 
             answer.rows.forEach(
                 element => {
-                    element.highlighting = element.color_selection >= date;
-                    element.selection_size = element.size_selection >= date;
-                    delete element.color_selection
-                    delete element.size_selection
+                    if (element.user_business_account && element.manager_name !== null) {element.user_name = element.manager_name}
+                    if (element.user_business_account && element.manager_phone !== null) {element.user_phone = element.manager_phone}
+                    element.user_phone = encrypt(element.user_phone)
                 });
 
             return(answer.rows)

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Checkbox} from "@material-ui/core";
-import CustomCheckboxDefault from "../UIicon/CustomCheckboxDefault";
-import CustomCheckboxActive from "../UIicon/CustomCheckboxActive";
+import CustomCheckboxDefaultIcon from "../UIicon/CustomCheckboxDefaultIcon";
+import CustomCheckboxActiveIcon from "../UIicon/CustomCheckboxActiveIcon";
 
 const CustomCheckboxUI = ({checked, onChange = () => null}) => {
 
@@ -9,9 +9,9 @@ const CustomCheckboxUI = ({checked, onChange = () => null}) => {
         <Checkbox
             checked={checked}
             onChange={onChange}
-            icon={<CustomCheckboxDefault/>}
+            icon={<CustomCheckboxDefaultIcon/>}
             inputProps={{ 'aria-label': 'controlled' }}
-            checkedIcon={<CustomCheckboxActive/>}
+            checkedIcon={<CustomCheckboxActiveIcon/>}
         />
     );
 };

@@ -77,8 +77,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	btn__upViews: {
 		// display: 'none',
-		position: 'absolute',
-		bottom: '8px',
+		//position: 'relative',
+		//top: '8px',
 		alignSelf: 'center',
 		cursor: 'pointer',
 		padding: '4px 35px',
@@ -104,10 +104,17 @@ const useStyles = makeStyles((theme) => ({
 	bottom: {
 		width: '100%',
 		paddingBottom: '8px',
-		marginTop: '8px',
 		display: 'flex',
 		justifyContent: 'center',
-
+		marginTop: '30px',
+	},
+	offerContainer: {
+		height: '368px',
+		color: '#2c2c2c',
+		position: 'relative',
+		cursor: 'pointer',
+		margin: '0 0 32px 0',
+		display: 'grid',
 	},
 	btn__unpublish: {
 		textDecorationLine: 'underline',
@@ -226,7 +233,8 @@ const useStyles = makeStyles((theme) => ({
 			paddingTop: '35px',
 		},
 		bottom: {
-			justifyContent: 'start',
+			marginTop: "20px",
+			justifyContent: 'center',
 		},
 		left__date: {
 			paddingTop: '8px',
@@ -243,9 +251,12 @@ const useStyles = makeStyles((theme) => ({
 			textAlign: 'end',
 		},
 	},
-	[theme.breakpoints.down(668)]: {
+	[theme.breakpoints.down(680)]: {
 		btn__unpublish:{
 			textAlign: 'end',
+		},
+		likes: {
+			height: '24px',
 		},
 	},
 	[theme.breakpoints.down(960)]: {
@@ -270,10 +281,13 @@ const useStyles = makeStyles((theme) => ({
 		},
 		left__date: {
 			display: 'flex',
-			paddingTop: '40px',
+			paddingTop: '10px',
 
 			justifyContent: 'space-betweeen',
 			alignItems: 'center',
+		},
+		top: {
+			marginBottom: '0px'
 		},
 		lignt__text: {
 			padding: '0',
@@ -281,6 +295,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 		bottom: {
 			justifyContent: 'center',
+			marginTop: '10px',
 		},
 		position__absolute: {
 			position: 'absolute',
@@ -288,12 +303,60 @@ const useStyles = makeStyles((theme) => ({
 			padding: '0',
 		},
 	},
-	[theme.breakpoints.down(750)]: {
-		left__date__wait:{
-			paddingTop: '14px',
+	[theme.breakpoints.down(700)]: {
+		bottom: {
+			marginTop: '0px',
 		},
-		offer__image:{
-			width: '280px'
+	},
+	[theme.breakpoints.down(770)]: {
+		main__text: {
+			marginBottom: '8px',
+			paddingBottom: '0',
+		},
+		bottom: { 
+			paddingBottom: '0',
+		},
+		mobile__font: {
+			marginBottom: '8px',
+			paddingBottom: '0',
+		},
+		left__date: {
+			paddingTop: '0',
+		},
+		description_archive: {
+			height: '100% !important',
+		},
+		top_archive: {
+			height: '100%',
+		},
+		left_archive: {
+			height: "100%",
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'flex-end',
+		},
+		top: {
+			marginBottom: '0px'
+		},
+
+		description_waith: {
+			height: "100%",
+		},
+		top_waith: {
+			height: '100%',
+		},
+		left_waith: {
+			height: '100%',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'flex-start'
+		},
+		left__date__wait: {
+			paddingTop: '40px',
+		},
+		offer__image: {
+			//width: '280px',
+			width: '350px',
 		}
 	},
 	[theme.breakpoints.down(546)]: {
@@ -319,17 +382,43 @@ const useStyles = makeStyles((theme) => ({
 		btn__unpublish: {
 			textAlign: 'end',
 		},
-		lignt__text: {
-			paddingRight: '5px'
+		left__date: {
+			paddingTop: '0px',
+			marginTop: '8px',
+		},
+		top: {
+			marginBottom: '8px',
+		},
+		mobile__font: {
+
 		},
 		description: {
+			display: 'flex',
+			flexDirection: 'column',
+			height: '168px',
 			padding: '8px'
+		},
+		bottom: {
+			height: '40px',
+			marginTop: "5px",
 		},
 		pos_abs: {
 			width: '120px',
 		}
 	},
-	[theme.breakpoints.down(350)]: {
+	[theme.breakpoints.down(426)]: {
+		bottom: {
+			height: '40px',
+			marginTop: '0px',
+		},
+		left_waith: {
+			paddingTop: '10px'
+		},
+		main_text__waint: {
+			marginBottom: '0',
+		}
+	},
+	[theme.breakpoints.down(400)]: {
 		offer__image:{
 			minWidth: '100%',
 			maxHeight: '100%',
@@ -340,26 +429,45 @@ const useStyles = makeStyles((theme) => ({
 		},
 		left__date:{
 			paddingTop: '0p'
+		},
+		main__text: {
+			marginBottom: '2px',
+			width: "134px",
+		},
+		bottom: {
+			height: '40px',
+			marginTop: '5px',
+		},
+		main_text__waint: {
+			marginTop: '12px'
 		}
 	},
-	[theme.breakpoints.down(600)]: {
+	[theme.breakpoints.down(321)]: {
+		bottom: {
+			marginTop: '4px',
+		},
+		btn__wait: {
+			marginRight: '8px',
+		}
+	},
+	[theme.breakpoints.down(715)]: {
 		offer__image:{
 			minWidth: '100%'
-		},
-		main__text:{
-			paddingBottom: '0',
 		},
 		mobile__width:{
 			width: '132px',
 			textAlign: 'end',
 		},
-		left__date:{
-			paddingTop : '16px',
+		main__text: {
+			//marginBottom: '8px',
+		},
+		top: {
+			marginBottom: "0px"
 		},
 		mobile__font: {
 			fontSize: '18px',
 			lineHeight: '21px',
-			padding: '12px',
+			padding: '0',
 			paddingLeft: '0',
 		},
 		pos_abs: {
@@ -380,6 +488,7 @@ const useStyles = makeStyles((theme) => ({
 	promotionModal: {
 		maxWidth: '865px'
 	}
+	
 }));
 
 // функция возвращает корректный день
@@ -441,7 +550,6 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 		setCheck(false)
 	}
 
-
 	useEffect(() => {
 		parentCheck ? check
 			? null
@@ -466,6 +574,9 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 		setOpenOfferModal(!openOfferModal);
 	}
 	//  '[{"name": "Личный кабинет", "url": `/account/${router.query.id}?account=1&content=1`}, {"name": "Мои объявления", "url": `/account/${router.query.id}/?account=1`}, {"name": "Активные объявления", "url": `/account/${router.query.id}/?account=1&content=1`}]'
+
+	//<div key={offer.id} className="offerContainer boxWrapper"
+	//<div key={offer.id} className={`${classes.offerContainer} boxWrapper`}
 	return (
 		<>
 			<h1>{offer.parentCheck}</h1>
@@ -500,12 +611,17 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 						pushCheck={pushCheck}
 					/>
 				</div>
-				<div className={classes.description}>
-					<div className={classes.top}>
-						<div className={classes.column}>
+				<div className={`${classes.description} ${isArchive ? classes.description_archive: ''} ${isWaith ? classes.description_waith: ''}`}>
+					<div className={`${classes.top} ${isArchive ? classes.top_archive: ''} ${isWaith ? classes.top_waith: ''}`}>
+						<div className={`${classes.column} ${isArchive ? classes.left_archive: ''} ${isWaith ? classes.left_waith: ''}`}>
 							<div className={!mobileBanned ? classes.left__info : ''}>
 								<p className={`${classes.main__text} ${classes.mobile__font}`}>{ToRubles(offer.price)}</p>
-								<p className={classes.main__text}>{ellipsis(offer.title, titleWidth)}</p>
+								<p className={`${classes.main__text} ${isWaith ? classes.main_text__waint: ''}`}>{ellipsis(offer.title, titleWidth)}</p>
+								{isArchive &&
+									<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
+										<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>00.00.0000 00:00</p>
+									</div>
+								}
 							</div>
 							{isActive &&
 								<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
@@ -535,7 +651,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 						</div>
 						<div className={classes.column}>
 							<div className={`${classes.column} ${classes.end} ${classes.mobile__width} `}>
-								<BtnActive
+							<BtnActive
 									isActive={isActive}
 									classes={classes}
 									Router={Router}
@@ -565,11 +681,11 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 							}
 						</div>
 					</div>
-					<div className={classes.bottom}>
-						{isActive && (
+					{isActive && (
+						<div className={classes.bottom}>
 							<button onClick={() => setPromotionModal(true)} className={classes.btn__upViews}>Увеличить просмотры</button>
-						)}
-					</div>
+						</div>
+					)}
 				</div>
 			</div>
 

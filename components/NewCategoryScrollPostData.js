@@ -145,7 +145,6 @@ const CategoryScrollPostData = ({url, product}) => {
                 post_id: product.id,
                 region: searchCity,
             }
-            console.log('url: ', url)
             const response = await getDataByPost(url, data)
 
             if(!response.length) {

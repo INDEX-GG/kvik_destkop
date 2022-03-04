@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Dialog, makeStyles, useMediaQuery} from "@material-ui/core";
+import {Box, Dialog, useMediaQuery} from "@material-ui/core";
 import {useCustomModalUIStyles} from "./style";
 
 const CustomModalUI = (

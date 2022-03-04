@@ -98,6 +98,10 @@ const Index = () => {
         changeCategory()
     }, [aliasQuery])
 
+    useEffect(() => {
+        setIsNothingFound(false)
+    }, [category])
+
     const generateTitle = () => {
         if (!router?.query?.text) {
             return aliasData?.aliasName ? generateAliasStr(aliasData.aliasName[0].label) : ''
@@ -121,6 +125,7 @@ const Index = () => {
         } else {
             handleClearCategory([], methods)
         }
+        setIsNothingFound(false)
     }
 
     useEffect(() => {
@@ -172,12 +177,17 @@ const Index = () => {
                 {aliasData?.aliasBread &&
                     <BreadCrumbs data={aliasData?.aliasBread} searchData={searchText ? searchText : ''}/>
                 }
-                {!isNothingFound
-                ?(
                     <Box className={classes.main}>
+
                         <Box className={classes.offers}>
-                            {scrollData?.url &&
-                            <ScrollPostData setNotFound={handlerSetNothingFound} title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj}/>}
+                            {isNothingFound ? (
+                                <>
+                                    <NothingFound renderRequire={true} />
+                                    <ScrollPostData title='Рекомендуемое' url='/api/getPostsPortion' />
+                                </>
+                            ): (
+                                scrollData?.url && <ScrollPostData setNotFound={handlerSetNothingFound} title={generateTitle()} url={scrollData.url} sendObj={scrollData.sendObj}/>
+                            )}
                         </Box>
 
                         {!matchesMobile && !matchesTablet &&
@@ -213,9 +223,6 @@ const Index = () => {
                             </Box>
                         </Box>}
                     </Box>
-                )
-                : <NothingFound />
-                }
             </Container>
         </>
     )

@@ -31,6 +31,8 @@ import ScrollTop from '../../UI/ScrollTop'
 
 
 
+
+
 // const useStyles = makeStyles(() => ({
 // 	productHeaderTitle:{
 //         paddingLeft: '12px',
@@ -84,14 +86,12 @@ const Product = () => {
         user_products_count,
     } = productInfo
 
-
     // const [stats, setStats] = useState({})
 
     const [openStatForm, setopenStatForm] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState(status);
     const [userAd, setUserAd] = useState();
     const [phoneModal, setPhoneModal] = useState();
-
 
 
     const handleStatFormDialog = () => setopenStatForm(!openStatForm);
@@ -142,11 +142,11 @@ const Product = () => {
             addView(productId)()
         }
     }, [productId, id])
-    
+
+
 
 
     useEffect(() => {
-
         if (user_id !== undefined) {
             // этот запрос больше не нужен. Все есть в useProduct, нужно заменить
             // getDataByPost("/api/getProductOfUser", {user_id: user_id}).then((r) => {
@@ -190,13 +190,13 @@ const Product = () => {
                                     <div className="productHeader">
                                         <div className="productPageTitle xl">{title}</div>
                                             <div className="productHeaderStat">
-                                                <ProductFavoriteNoteComp 
-                                                id={id} 
-                                                sellerId={user_id} 
+                                                <ProductFavoriteNoteComp
+                                                id={id}
+                                                sellerId={user_id}
                                                 isOffer={+query.id}
                                                 mobile
                                             />
-                                        </div>
+                                            </div>
                                     </div>}
                                     <div>
                                         <div className='product__main_block'>
@@ -209,7 +209,7 @@ const Product = () => {
                                                     mobile
                                                 />}
                                                 {/* {!matchesMobile && !matchesTablet ? <div className="productPageTitle xl">{title}</div> : null} */}
-                                                <ProductCarousel title={title} photo={photo}
+                                                <ProductCarousel title={title} photo={photo} category={category_id}
                                                                  mobile={matchesMobile || matchesTablet}/>
                                                 {!matchesLaptop && !matchesDesktop && !matchesHD &&
                                                 <div className="productPageAdaptive">
@@ -230,23 +230,23 @@ const Product = () => {
                                                     </div>
                                                 </div>
                                                 }
-                                                {<ProductMobileButtons 
-                                                    id={id} 
-                                                    sellerId={user_id} 
-                                                    delivery={delivery}                     
-                                                    status={defaultStatus}             
+                                                {<ProductMobileButtons
+                                                    id={id}
+                                                    sellerId={user_id}
+                                                    delivery={delivery}
+                                                    status={defaultStatus}
                                                     secure_transaction={secure_transaction}
-                                                    setDialog={setPhoneModal} 
+                                                    setDialog={setPhoneModal}
                                                     photo={photo}
                                                     mobile={matchesMobile || matchesTablet}
                                                     productInfo={productInfo} /*update={update}*/
                                                     setUpdate={setDefaultStatus}
                                                     createChat={createChat}
-                                                    
+
                                                 />}
                                                 {/* адрес, карта, свойства и значения */}
-                                                <ProductInformation 
-                                                    address={address} 
+                                                <ProductInformation
+                                                    address={address}
                                                     coordinates={coordinates}
                                                     description={description}
                                                     productionInfo={productInfoFields}
@@ -260,23 +260,23 @@ const Product = () => {
                                                 {/* статус объявления, кнопки */}
                                                 {/* {!matchesMobile && !matchesTablet && <ProductFavoriteNoteComp id={id} sellerId={user_id} isOffer={+query.id}
                         mobile/>} */}
-                                                {<ProductAction 
-                                                    router={query.id} 
-                                                    reviewed={reviewed} 
+                                                {<ProductAction
+                                                    router={query.id}
+                                                    reviewed={reviewed}
                                                     user_id={user_id}
-                                                    status={defaultStatus} 
-                                                    oldprice={oldprice} 
+                                                    status={defaultStatus}
+                                                    oldprice={oldprice}
                                                     price={price}
-                                                    created_at={created_at} 
+                                                    created_at={created_at}
                                                     delivery={delivery}
                                                     trade={trade}
                                                     secure_transaction={secure_transaction}
                                                     productInfo={productInfo} /*update={update}*/
-                                                    setUpdate={setDefaultStatus} 
+                                                    setUpdate={setDefaultStatus}
                                                     createChat={createChat}
                                                     best_before={best_before}
                                                 />}
-                                                                
+
                                                 {/* пользователь и его объявления */}
                                                 <ProductUserInfo
                                                     name={name}

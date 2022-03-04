@@ -13,7 +13,7 @@ const AdCardImage = ({offer_id, offer_photo, category, screenIsMobile}) => {
   const {arr} = usePlugImages(offer_photo, category)
 
   const isOfferPhotoNull = offer_photo === null || offer_photo.length === 0
-  
+
   return (
     <Link href={`/product/${offer_id}`} prefetch={false}>
       {/* card__top_slider */}
