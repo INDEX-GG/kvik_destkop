@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     additionalFieldItem: {
         display: 'flex',
         justifyContent: 'space-between',
-        width: '297px',
+        width: '286px',
         marginBottom: '18px',
 
         [theme.breakpoints.down(450)]: {

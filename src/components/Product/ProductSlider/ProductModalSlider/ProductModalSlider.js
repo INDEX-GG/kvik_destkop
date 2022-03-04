@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Keyboard } from "swiper/core";
+import clsx from 'clsx'
+import {useProductModalStyles} from './style'
 
 SwiperCore.use([Navigation, Keyboard]);
 
 const ProductModalSlider = ({ photos, activeSlideIndex, setActiveSlideIndex }) => {
 
+    const classes = useProductModalStyles()
+
     const [activeSlide, setActiveSlide] = useState([]);
     const [firstSwiper, setFirstSwiper] = useState(null);
     const [secondSwiper, setSecondSwiper] = useState(null);
-    const [wrapperClassName, changeWrapperClassName] = useState("productSliderWrapper")
+    const [wrapperClassName, changeWrapperClassName] = useState(`${classes.productSliderWrapper}`)
     const hasPhotos = !!photos?.length;
     let CarouselPagination = { type: "fraction" };
     let CarouselNav = true;
@@ -74,11 +78,13 @@ const ProductModalSlider = ({ photos, activeSlideIndex, setActiveSlideIndex }) =
         const wrapper = event.currentTarget;
 
         if (event.clientX <= wrapper.clientWidth / 2) {
-            changeWrapperClassName("productSliderWrapper productSliderWrapper--prev")
+            // changeWrapperClassName("productSliderWrapper productSliderWrapper--prev")
+            changeWrapperClassName(`${classes.productSliderWrapper} ${classes.productSlideWrapperPrev}`)
         } else if (event.clientX > wrapper.clientWidth / 2) {
-            changeWrapperClassName("productSliderWrapper productSliderWrapper--next")
+            // changeWrapperClassName("productSliderWrapper productSliderWrapper--next")
+            changeWrapperClassName(`${classes.productSliderWrapper} ${classes.productSlideWrapperNext}`)
         } else {
-            changeWrapperClassName("productSliderWrapper")
+            changeWrapperClassName(`${classes.productSliderWrapper}`)
         }
     }
 
@@ -92,26 +98,19 @@ const ProductModalSlider = ({ photos, activeSlideIndex, setActiveSlideIndex }) =
                 navigation={CarouselNav}
                 keyboard={{ enabled: true }}
                 centeredSlides={true}
-
+                hideOnClick={false}
             >
                 {hasPhotos && photos.map((img, index) => (
                     <SwiperSlide
                         key={index}
-                        className="productSliderItem"
+                        className={classes.productSliderItem}
                         onMouseMove={handlerSwiperButtonVisibility}
                     >
                         <div
-                            style={{
-                                width: "100%",
-                                height: "100%"
-                            }}
+                            className={classes.fullWidthHeight}
                         >
                             <img
-                                style={{
-                                    objectFit: "contain",
-                                    width: "100%",
-                                    height: "100%"
-                                }}
+                                className={clsx(classes.fullWidthHeight, classes.objectFitContain)}
                                 src={img}
                             />
                         </div>
@@ -120,10 +119,11 @@ const ProductModalSlider = ({ photos, activeSlideIndex, setActiveSlideIndex }) =
             </Swiper>
             {hasSecondCarousel && (
                 <Swiper
-                    className="mySwiper productSliderNav"
+                    className={clsx(classes.mySwiper, classes.productSliderNav)}
                     onSwiper={setSecondSwiper}
-                    slidesPerView={"auto"}
                     slideToClickedSlide={true}
+                    slidesPerView='9'
+                    centerInsufficientSlides={true}
                     // watchSlidesVisibility={true}
                 >
                     {hasPhotos && photos.map((img, index) => (
@@ -131,20 +131,12 @@ const ProductModalSlider = ({ photos, activeSlideIndex, setActiveSlideIndex }) =
                         <SwiperSlide
                             key={index}
                             id={index}
-                            className="productSliderNavItem"
+                            className={classes.productSliderNavItem}
                             onClick={changeSwiperTwo}
                         >
                             <img
+                                className={classes.productSliderNavItemImg}
                                 src={img}
-                                // TODO: перенести в стили
-                                style={{
-                                    // border: activeSlide[index]
-                                    //     ? "2px solid hsl(186, 50%, 55%)"
-                                    //     : "2px solid transparent",
-                                    width: '100%',
-                                    height: '100%',
-                                    borderRadius: "2px"
-                                }}
                             />
                         </SwiperSlide>
                     ))}
