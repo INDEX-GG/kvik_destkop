@@ -1,80 +1,44 @@
-import React, { useEffect, useCallback, useMemo } from "react"
+import React, { useEffect } from "react"
 import throttle from "lodash.throttle"
 
-import { useMedia } from '#hooks/useMedia';
 /**
- *
- * @param {onlyMobile} Boolean
- * @returns
+ * * Вешаем скролл до середины страницы и увеличиваем показ объявлений (limitShow) на maxCountShow
+ * ? Вызывается в src/components/NewCategoryScrollPostData/CategoryScrollPostData
+ * @param {Component} React.Component
+ * @returns ScrollToEnd
  */
-const ScrollEnd = ({onlyMobile}) => Component => {
+const ScrollEnd = Component => {
   /**
    *
-   * @param {props} Initial props component
+   * @param {componentProps} Initial props component
    * @returns Component
    */
 	const ScrollToEnd = (componentProps) => {
 
-    const {limitShow, setLimitShow} = componentProps
+    const {isMobile, limitShow, setLimitShow, maxCountShow} = componentProps
+		const lengthCards = componentProps.renderCards.length
 
-    const {matchesMobile, matchesTablet} = useMedia()
-
-    const isMobile = useMemo(
-      () => (!!(matchesMobile || matchesTablet)),
-      [matchesMobile, matchesTablet]
-    )
-
-    const isSkip = useMemo(
-      () => !(onlyMobile && !isMobile),
-      [onlyMobile, isMobile]
-    )
-
-    console.log(isSkip, onlyMobile, isMobile)
-
-    // console.log('isSkip: ', onlyMobile, isMobile, onlyMobile && isMobile)
-
-		const limitSeeCard = useMemo(
-      () => (componentProps.renderCards.length || 24),
-      [componentProps.renderCards.length]
-    )
-
-    // TODO: добавить проверку на число (должно быть двузначное)
-		const currentLimitRate = useMemo(
-      () => (limitSeeCard / 3),
-      [limitSeeCard]
-    )
-
-		// const [limit, setLimit] = useState(isSkip ? componentProps.currentLimit : currentLimitRate)
-
-		const throttleScrollHandler = useCallback(throttle(scrollHandler, 500), [])
+		const throttleScrollHandler = throttle(scrollHandler, 500)
 
 		function scrollHandler(e) {
-			const pixelsFromBottom =
-				e.target.documentElement.scrollHeight -
-				e.target.documentElement.scrollTop -
-				window.innerHeight
+      const _scrollHeight = e.target.documentElement.scrollHeight;
+      const _scrollTop = e.target.documentElement.scrollTop;
+      // дошли до середины и есть что показывать
+      const hasShowMore = (_scrollTop > _scrollHeight / 2) && (limitShow <= lengthCards)
 
-			if (pixelsFromBottom < 200) {
-
-				if (limitShow <= limitSeeCard) {
-          // setLimit(limit + currentLimitRate)
-          setLimitShow(limitShow + currentLimitRate)
-				}
-			}
+      if(hasShowMore) setLimitShow(limitShow + maxCountShow)
 		}
 
 		useEffect(() => {
-      console.log('useEffect-isSkip: ', isSkip)
-      if(isSkip) return
-
-      console.log('вешаем скролл')
-			document.addEventListener("scroll", throttleScrollHandler)
-			return () => {
-				document.removeEventListener("scroll", throttleScrollHandler)
-			}
+      if(isMobile) {
+        document.addEventListener("scroll", throttleScrollHandler)
+        return () => {
+          document.removeEventListener("scroll", throttleScrollHandler)
+        }
+      }
 		}, [limitShow])
 
-		return <Component {...componentProps} currentLimit={limitShow} />
+		return <Component {...componentProps} />
 	}
 
 	return ScrollToEnd

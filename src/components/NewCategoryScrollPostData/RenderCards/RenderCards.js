@@ -8,7 +8,18 @@ import {checkActiveClass} from '../../../services/services'
 
 import {useRenderCardsStyle} from './style'
 
-const RenderCards = ({renderCards, isGrid, isMobile, limitShow, currentLimit}) => {
+/**
+ * * Отрисовывает карточки объявлений
+ * @param {renderCards} Array
+ * @param {isGrid} Boolean
+ * @param {isMobile} Boolean
+ * @param {limitShow} Number
+ * ! NOTICE Пропсы ниже используются в HOC ScrollEnd, здесь не используются
+ * @param {setLimitShow} setState
+ * @param {maxCountShow} Number
+ * @returns
+ */
+const RenderCards = ({renderCards, isGrid, isMobile, limitShow}) => {
 
   const classes = useRenderCardsStyle()
 
@@ -21,15 +32,12 @@ const RenderCards = ({renderCards, isGrid, isMobile, limitShow, currentLimit}) =
     [isGrid, isMobile]
   )
 
-  console.log('limitShow: ', limitShow)
-  console.log('currentLimit: ', currentLimit)
-
   return (
     <Box className={renderCardsClasses} >
-      {renderCards.slice(0, currentLimit || renderCards.length).map(offer => (
+      {renderCards.slice(0, limitShow).map(offer => (
         <AdCard
-          key={offer.id}
           offer={offer}
+          key={offer.id}
           isGrid={isGrid}
         />
       ))}
@@ -37,6 +45,4 @@ const RenderCards = ({renderCards, isGrid, isMobile, limitShow, currentLimit}) =
   )
 }
 
-export default React.memo(ScrollEnd({
-  onlyMobile: true
-})(RenderCards))
+export default React.memo(ScrollEnd(RenderCards))

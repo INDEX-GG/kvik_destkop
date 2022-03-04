@@ -7,13 +7,13 @@ import CustomButtonUI from 'src/UI/UIcomponent/CustomButtonUI/CustomButtonUI'
 
 import {useCategoryScrollPostData} from './useCategoryScrollPostData'
 
-import {checkActiveClass} from '../../services/services'
+import { checkActiveClass } from '../../services/services'
 import { checkValidArray } from 'src/services/services';
 
 import {useCategoryScrollPostDataStyle} from './style'
 
 /**
- *
+ * * Выводит блок похожие объявления
  * @param {url} String
  * @param {product} Object
  * @returns
@@ -45,41 +45,44 @@ const CategoryScrollPostData = ({url, product}) => {
   )
 
   const handlerClickShowMore = () => {
-    console.log('хотим посмотреть еще')
-    setLimitShow(prevState => prevState + maxCountShow)
+    if(limitShow <= renderCards.length) setLimitShow(prevState => prevState + maxCountShow)
   }
 
   return (
-    <>
-      <Box>
-        <ScrollPostDataHeader
-          isGrid={isGrid}
-          isMobile={isMobile}
-          setGridView={setGridView}
-        />
-      </Box>
+    checkValidArray(renderCards) ? (
+      <>
+        <Box>
+          <ScrollPostDataHeader
+            isGrid={isGrid}
+            isMobile={isMobile}
+            setGridView={setGridView}
+          />
+        </Box>
 
-      {checkValidArray(renderCards) && (
         <RenderCards
           isGrid={isGrid}
           isMobile={isMobile}
-          renderCards={renderCards}
           limitShow={limitShow}
+          maxCountShow={maxCountShow}
+          renderCards={renderCards}
           setLimitShow={setLimitShow}
         />
-      )}
 
-      <Box
-        className={classes.showMore}
-      >
-        <CustomButtonUI
-          onClick={handlerClickShowMore}
+        <Box
+          className={classes.showMore}
         >
-          Показать еще
-          <Box component='span' className={similarLoadPostClass}/>
-        </CustomButtonUI>
-      </Box>
-    </>
+          <CustomButtonUI
+            onClick={handlerClickShowMore}
+          >
+            Показать еще
+            <Box
+              component='span'
+              className={similarLoadPostClass}
+            />
+          </CustomButtonUI>
+        </Box>
+      </>
+    ) : null
   )
 }
 
