@@ -28,8 +28,8 @@ const ProductSlider = ({ mobile = false }) => {
     });
 
     const {slidesPrevPhoto, sliderDot, sliderNavigation} = sliderProps;
-    const sliderClass = `mySwiper2 importantSlider
-    ${sliderDot || photo?.length > 1 && isMobile ? '' : 'dotNone'} ${sliderNavigation ? '' : 'navigationNone'}`
+    const sliderClass = `${classes.mySwiper2}
+    ${sliderDot || photo?.length > 1 && isMobile ? '' : classes.dotNone} ${sliderNavigation ? '' : classes.navigationNone}`
     const littleSwiperClass = [`mySwiper2 ${classes.swiperLittleSlide} ${isMobile && classes.swiperNone} ${slidesPrevPhoto > 1 ? '' : classes.swiperNone}`];
 
     const handleChangeModal = (state) => {

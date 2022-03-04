@@ -92,7 +92,66 @@ export const useProductSliderStyles = (isMobile) => {
                     right: '15px',
                 }
             }
-        }
+        },
+        mySwiper2: {
+            '& .swiper-wrapper': {
+                position: 'relative',
+                alignItems: 'center',
+            },
+            '& .swiper-slide img': {
+                objectFit: 'contain',
+                width: '100%',
+                height: '400px',
+                maxHeight: '400px',
+            },
+            '& .swiper-button-prev': {
+                left: '4px !important'
+            },
+            '& .swiper-button-next': {
+                right: '4px !important'
+            },
+            '& .swiper-pagination ': {
+                display: 'flex',
+                justifyContent: 'space-between',
+                position: 'absolute',
+                zIndex: '2',
+                bottom: '2px',
+                background: 'rgba(44, 44, 44, 0.74)',
+                borderRadius: '2px',
+                color: '#fff',
+                fontSize: '14px',
+                padding: '2px 4px',
+                fontWeight: '500',
+            },
+            '& .swiper-pagination-bullet': {
+                cursor: 'pointer',
+                backgroundColor: 'white',
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                margin: '0 5px',
+                display: 'block',
+            },
+            '& .swiper-pagination-bullet-active': {
+                backgroundColor: '#00a0ab',
+            },
+
+            [theme.breakpoints.down(350)]: {
+                '& .swiper-wrapper': {
+                    height: '300px !important',
+                }
+            },
+        },
+        dotNone: {
+            '& > .swiper-pagination': {
+                display: 'none',
+            }
+        },
+        navigationNone: {
+            '& > .swiper-button-next, .swiper-button-prev': {
+                display: 'none',
+            }
+        },
     }));
 
     return useStyles();
