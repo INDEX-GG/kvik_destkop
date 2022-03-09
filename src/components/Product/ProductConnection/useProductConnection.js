@@ -5,6 +5,7 @@ import {CHAT_URL_API} from "#lib/constants";
 import {getTokenDataByPost} from "#lib/fetch";
 import {useProductContext} from "../../../context/ProductContext";
 import {useStatistics} from "#lib/Context/StatisticsCTX";
+import Router from 'next/router'
 
 export const useProductConnection = () => {
     const {id: userId, token} = useAuth();
@@ -40,6 +41,9 @@ export const useProductConnection = () => {
                     status
                 }
             ))
+            if(status === 'delete') {
+                Router.push('/')
+            }
         }
     }
 

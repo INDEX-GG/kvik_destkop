@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { STATIC_URL } from '../lib/constants';
 import { useAuth } from '../lib/Context/AuthCTX';
 import { getDataByPost, getTokenDataByPost } from '../lib/fetch';
-import router from 'next/router';
-
 
 export function useProduct(id) {
 	const [productInfo, setProductInfo] = useState({});

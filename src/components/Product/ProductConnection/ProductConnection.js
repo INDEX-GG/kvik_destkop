@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {Box} from "@material-ui/core";
 
 import PhoneIcon from "../../../UI/UIicon/PhoneIcon";
@@ -30,14 +30,14 @@ const ProductConnection = ({isMobile, productData}) => {
 
 
     const handleCreateChat = () => handleSendMessage(user_id, productId, isMobile)
-    const isStatusOk = useMemo(() => status === 'ok', [status])
+    // const isStatusOk = useMemo(() => status === 'ok', [status])
     // const isStatusNoActive = useMemo(() => status === 'no_active', [status])
     // const isStatusBanned = useMemo(() => status === 'banned', [status])
 
     return (
         <>
-            {/* чтобы кнопки показывались даже на снятом объявлении убрать isStatusOk */}
-            {productId && isStatusOk ? (
+            {/* чтобы кнопки показывались даже на снятом объявлении убрать/добавить isStatusOk */}
+            {productId ? (
                 <Box className={classes.buttonsContainer}>
                     {isMyAd ? (
                         <ProductMyAdButtons

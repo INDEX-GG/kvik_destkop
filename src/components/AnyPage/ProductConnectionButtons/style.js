@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '4px'
     },
     myButtonRoot: {
-        // backgroundColor: '#E9E9E9',
-        backgroundColor: '#C7C7C7',
-        // color: '#2C2C2C',
-        color: '#FFF',
+        backgroundColor: '#E9E9E9',
+        // backgroundColor: '#C7C7C7',
+        color: '#2C2C2C',
+        // color: '#FFF',
         '&:hover': {
             backgroundColor: '#d9d9d9'
         }
