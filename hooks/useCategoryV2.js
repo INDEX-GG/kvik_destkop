@@ -21,27 +21,24 @@ const useCategoryV2 = () => {
     const getMoreCategory = (category, category2, category3) => {
         if (category && categoryArray) {
 
-            if (category && categoryArray) {
+            // Категории первой вложенности
+            const categoryArrOne = categoryArray.find(item => item.alias === category)
 
-                // Категории первой вложенности
-                const categoryArrOne = categoryArray.find(item => item.alias === category)
+            // Категории второй вложенности
+            if (category2) {
 
-                // Категории второй вложенности
-                if (category2) {
+                const categoryArrTwo = categoryArrOne?.children.find(item => item.alias === category2);
 
-                    const categoryArrTwo = categoryArrOne?.children.find(item => item.alias === category2);
+                // Категории третьей вложенности
+                if (category3) {
+                    return categoryArrTwo?.children.find(item => item.alias === category3);
 
-                    // Категории третьей вложенности
-                    if (category3) {
-                        return categoryArrTwo?.children.find(item => item.alias === category3);
-
-                    }
-
-                    return categoryArrTwo
                 }
 
-                return categoryArrOne
+                return categoryArrTwo
             }
+
+            return categoryArrOne
         }
 
     };
