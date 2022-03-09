@@ -1,6 +1,11 @@
 import {useEffect, useState} from "react"
 import axios from "axios"
 
+/**
+ * !NOTICE - не используется (старая api)
+ * @param {*} user_id
+ * @returns
+ */
 export function useSubList(user_id) {
     const user = {user_id: String(user_id)},
     [userInfo, setUserInfo] = useState({}),
@@ -25,7 +30,11 @@ export function useSubList(user_id) {
 }
 
 
-
+/**
+ * !NOTICE - не используется (старая api)
+ * @param {*} user_id, seller_id
+ * @returns
+ */
 export function useSubBool(user_id, seller_id) {
     const user = {user_id: String(user_id)},
     [userInfo, setUserInfo] = useState({}),
