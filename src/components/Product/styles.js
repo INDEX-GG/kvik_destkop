@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
         // padding: 0 '12px',
         margin: 'auto',
 
+        fontWeight: '500',
+        fontSize: '14px',
+        color: '#2c2c2c',
+
         [theme.breakpoints.down(1365)]: {
             gridTemplateColumns: '788px 224px',
             margin: 'auto',
@@ -28,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down(1060)]: {
             gridTemplateColumns: '100%',
         }
+    },
+    productBreadCrumbs: {
+        padding: '0 12px',
     },
     productPageDescription: {
         margin: '0',
@@ -82,12 +89,13 @@ const useStyles = makeStyles((theme) => ({
     },
     productTitle: {
         marginBottom: '18px',
-        marginTop: '6px',
         order: '1',
 
         [theme.breakpoints.down(960)]: {
+            marginTop: '6px',
             width: '100%',
-            order: '3'
+            order: '3',
+            marginBottom: '0',
         },
     },
     productAdButtons: {
@@ -96,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
 
         [theme.breakpoints.down(960)]: {
             display: 'block',
+            marginTop: '12px',
             padding: '0px !important',
             '& button': {
                 borderRadius: '0 !important',
@@ -115,8 +124,10 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     productPrice: {
+        margin: '43px 0px',
         [theme.breakpoints.down(960)]: {
             display: 'none',
+            margin: '0',
         },
     },
     productPageContent: {
@@ -131,6 +142,19 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: '968px',
         width: '100%',
     },
+    productNoActive: {
+        [theme.breakpoints.down(960)]: {
+            padding: '0 !important',
+            order: '3',
+        },
+    },
+    productAdInfo: {
+        order: '2',
+
+        [theme.breakpoints.down(960)]: {
+          order: '3',
+        }
+    }
 }));
 
 export const useProductPageStyles = () => useStyles();

@@ -1,26 +1,35 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Box} from "@material-ui/core";
 import {useAdBigMiniatureStyles} from './style';
 import Image from 'next/image'
 import {ToRubles} from "#lib/services";
 import {stringSlice} from "../../../services/services";
 
+import AdCardPng from '#components/AdCardPng'
+
 const AdBigMiniature = ({adPhoto, adPrice, adAddress, adTitle}) => {
 
     const classes = useAdBigMiniatureStyles()
-
-    console.log(stringSlice(adAddress, 45).length)
+    const hasPhoto = useMemo(
+        () => Object.hasOwnProperty.call(adPhoto, 'title'),
+        [adPhoto]
+    )
 
     return (
         <Box className={classes.container}>
             <Box className={classes.image}>
-                <Image
+                {hasPhoto ? (
+                    <AdCardPng title={adPhoto.title} />
+                ): (
+                    <Image
                     objectFit='cover'
                     width={125}
                     height={136}
                     loader={() => adPhoto}
                     src={adPhoto}
-                />
+                    />
+                )}
+
             </Box>
             <Box className={classes.text}>
                 <Box className={classes.price}>

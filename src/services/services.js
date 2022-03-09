@@ -56,6 +56,24 @@ export const checkActiveString = (state = false, defaultString, activeString) =>
     if (!state) return defaultString
 }
 
+export const checkAlign = (align = 'center') => {
+    switch(align){
+        case 'left':
+            return 'flex-start'
+        case 'center':
+            return 'center'
+        case 'right':
+            return 'flex-end'
+        default:
+            return 'center'
+    }
+}
+
+export const checkEmptyNumber = (value) => {
+    if(value === null || typeof value === 'undefined') return 0
+    return value
+}
+
 export const stringArrayToNumberArray = (array) => {
     if (checkTypeOf(array, 'string')) {
         try {
@@ -113,4 +131,23 @@ export const formatDescription = (description) => {
     // .replace(/<ul.*?>(.*?)<\/ul>/, `ul`) // <br/>
     // .replace(/<li.*?>(.*?)<\/li>/, `li`) // <br/>
     return format
+}
+
+/**
+ * * Функция возвращает слово с необходимым окончанием из массива, по брейкоинту
+ * Например, необходимо получить просклоняемое слово в зависимости от числа: '1 объявление', '2 объявления', '10 объявлений'
+ *
+ * !NOTICE -  длина declination и длина breakpoints должна быть равна
+ * Для этого отправляем параметры ниже
+ * {word} String наше слово без окончания
+ * {number} Number число, по которому задаем окончание
+ * {declination} Array окончаний
+ * {breakpoints} Array точек, при которых меняется окончание
+ *
+ * returns {finalWord} String - наше просклоняемое слово
+ */
+export const wordAutoEnding = (word, number, declination, breakpoints) => {
+    const requiredIndexBreakPoints = breakpoints.findIndex((bp, i, a) => number >= bp && number < a[i + 1])
+
+    return number + ' ' + word + declination[requiredIndexBreakPoints]
 }

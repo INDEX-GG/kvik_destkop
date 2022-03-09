@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
         order: '5',
 
         [theme.breakpoints.down(960)]: {
+            margin: '0 0 15px',
             justifyContent: 'center',
             maxWidth: '100%',
         },

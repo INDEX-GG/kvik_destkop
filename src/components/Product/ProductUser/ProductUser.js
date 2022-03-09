@@ -20,6 +20,7 @@ const ProductUser = () => {
                 user_id,
                 isMyAd
             },
+            isMobile
     } = useProductContext();
 
     return (
@@ -32,6 +33,8 @@ const ProductUser = () => {
                         userName={user_name}
                         userRating={user_raiting}
                         isMyAd={isMyAd}
+                        isMobile={isMobile}
+                        user_products_count={user_products_count}
                     />
                 </Box>
                 <Box className={classes.adMiniature}>

@@ -1,22 +1,27 @@
 import React, {useMemo} from 'react';
 import {useProductContext} from "../../context/ProductContext";
 import {Box} from "@material-ui/core";
-import BreadCrumbs from "#components/header/BreadСrumbs";
-import BreadCrumbsProduct from "#components/product/BreadCrumbsProduct";
-import ProductWrapper from "./ProductWrappers/ProductWrapper";
-import ProductName from "./ProductName/ProductName";
-import ProductOption from './ProductOptions/ProductOptions';
-import ProductSlider from "./ProductSlider/ProductSlider";
-import ProductBody from "./ProductWrappers/ProductBody/ProductBody";
-import ProductDate from "./ProductDate/ProductDate";
-import ProductPrice from "./ProductPrice/ProductPrice";
-import ProductConnection from "./ProductConnection/ProductConnection";
-import ProductUser from "./ProductUser/ProductUser";
-import ProductAdInfo from "./ProductAdInfo/ProductAdInfo";
-import {useProductPageStyles} from "./styles";
+
+import ScrollTop from "#UI/ScrollTop"
+import ProductName from "./ProductName/ProductName"
+import ProductDate from "./ProductDate/ProductDate"
+import ProductUser from "./ProductUser/ProductUser"
+import ProductPrice from "./ProductPrice/ProductPrice"
+import BreadCrumbs from "#components/header/BreadСrumbs"
+import ProductSlider from "./ProductSlider/ProductSlider"
+import ProductAdInfo from "./ProductAdInfo/ProductAdInfo"
+import ProductOption from "./ProductOptions/ProductOptions"
+import ProductWrapper from "./ProductWrappers/ProductWrapper"
+import ProductBody from "./ProductWrappers/ProductBody/ProductBody"
+import ProductConnection from "./ProductConnection/ProductConnection"
+import BreadCrumbsProduct from "#components/product/BreadCrumbsProduct"
+import ProductNoActive from "./ProductAdInfo/ProductNoActive/ProductNoActive"
 // import NewCategoryScrollPostData from '#components/NewCategoryScrollPostData'
-import CategoryScrollPostData from '../NewCategoryScrollPostData/CategoryScrollPostData'
-import ProductPlaceHolder from '#components/placeHolders/ProductPlaceHolder/ProductPlaceHolder'
+import CategoryScrollPostData from "../NewCategoryScrollPostData/CategoryScrollPostData"
+import ProductMobileWrapper from './ProductWrappers/ProductMobileWrapper/ProductMobileWrapper'
+import ProductPlaceHolder from "#components/placeHolders/ProductPlaceHolder/ProductPlaceHolder"
+
+import {useProductPageStyles} from "./styles";
 
 const ProductPage = () => {
 
@@ -30,6 +35,7 @@ const ProductPage = () => {
             price,
             trade,
             isMyAd,
+            status,
             dayBefore,
             all_time_contact_count,
             last_day_contact_count,
@@ -45,88 +51,106 @@ const ProductPage = () => {
     const isLoading = typeof id === 'undefined' && id !== null
 
     return (
-        <Box className={classes.productPage} id="productPage">
-            <Box className="productPageContainer text">
-                {!isLoading ? (
-                    <Box>
-                        <BreadCrumbs
-                            data={breadData}
-                            product={title}/>
-                        <ProductWrapper>
-                            <ProductBody>
-                                <Box className={classes.productPageDescription}>
-                                    <Box className={classes.productTitle}>
-                                        {isMobile &&
-                                            <ProductPrice
-                                                price={price}
-                                                isMobile={isMobile}
-                                                trade={trade}
-                                            />
-                                        }
-                                        <ProductName
-                                            title={title}
-                                        />
-                                    </Box>
-                                    <Box className={classes.productAdButtons}>
-                                        {isMobile &&
-                                            <ProductConnection
-                                                productData={contextData.productData}
-                                            />
-                                        }
-                                    </Box>
-                                    <ProductSlider/>
-                                    <ProductAdInfo
-                                        productId={id}
-                                    />
-                                </Box>
-                                <Box className={classes.productAd}>
-                                    <Box className={classes.productUser}>
-                                        <Box className={classes.productCounts}>
-                                            <ProductOption
-                                                isMyAd={isMyAd}
-                                                productID={id}
-                                                allContactCount={all_time_contact_count}
-                                                lastDayContactCount={last_day_contact_count}
-                                                allViewingCount={all_time_viewing_count}
-                                                lastDayViewingCount={last_day_viewing_count}
-                                            />
-                                        </Box>
-                                        <Box className={classes.productDate}>
-                                            <ProductDate
-                                                date={created_at}
-                                                dayBefore={dayBefore}
-                                                isMyAd={isMyAd}
-                                            />
-                                        </Box>
-
-                                        <Box className={classes.productPrice}>
-                                            <ProductPrice
-                                                price={price}
-                                                isMobile={isMobile}
-                                                trade={trade}
-                                            />
-                                        </Box>
-
-                                        {!isMobile &&
-                                            <ProductConnection
-                                                productData={contextData.productData}
-                                            />
-                                        }
-                                        <ProductUser/>
-                                    </Box>
-                                </Box>
-                            </ProductBody>
-                            {/* TODO: временно повесил, похожие перепишутся */}
-                            <Box className={classes.productPageContent}>
-                                <Box className={classes.productPageCard}>
-                                    <NewCategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
-                                </Box>
+        <ProductMobileWrapper isMobile={isMobile}>
+            <Box className={classes.productPage} id="productPage">
+                <Box className={classes.productPageContainer}>
+                    {!isLoading ? (
+                        <Box>
+                            <Box className={classes.productBreadCrumbs}>
+                                <BreadCrumbs
+                                    data={breadData}
+                                    product={title}
+                                />
                             </Box>
-                        </ProductWrapper>
-                    </Box>
-                ) : <ProductPlaceHolder />}
+                            <ProductWrapper>
+                                <ProductBody>
+                                    <Box className={classes.productPageDescription}>
+                                        <Box className={classes.productTitle}>
+                                            {isMobile && (
+                                                <ProductPrice
+                                                    price={price}
+                                                    isMobile={isMobile}
+                                                    trade={trade}
+                                                    status={status}
+                                                />
+                                            )}
+                                            <ProductName
+                                                title={title}
+                                                status={status}
+                                            />
+                                        </Box>
+                                        {isMobile && status === 'no_active' && <Box className={classes.productNoActive}><ProductNoActive /></Box>}
+                                        <Box className={classes.productAdButtons}>
+                                            {isMobile &&
+                                                <ProductConnection
+                                                    productData={contextData.productData}
+                                                    isMobile={isMobile}
+                                                />
+                                            }
+                                        </Box>
+                                        <ProductSlider status={status} />
+                                        <Box className={classes.productAdInfo}>
+                                            <ProductAdInfo
+                                                productId={id}
+                                                status={status}
+                                                isMobile={isMobile}
+                                            />
+                                        </Box>
+                                    </Box>
+                                    <Box className={classes.productAd}>
+                                        <Box className={classes.productUser}>
+                                            <Box className={classes.productCounts}>
+                                                <ProductOption
+                                                    isMyAd={isMyAd}
+                                                    productID={id}
+                                                    allContactCount={all_time_contact_count}
+                                                    lastDayContactCount={last_day_contact_count}
+                                                    allViewingCount={all_time_viewing_count}
+                                                    lastDayViewingCount={last_day_viewing_count}
+                                                />
+                                            </Box>
+                                            <Box className={classes.productDate}>
+                                                <ProductDate
+                                                    date={created_at}
+                                                    dayBefore={dayBefore}
+                                                    isMyAd={isMyAd}
+                                                    status={status}
+                                                />
+                                            </Box>
+
+                                            <Box className={classes.productPrice}>
+                                                <ProductPrice
+                                                    price={price}
+                                                    isMobile={isMobile}
+                                                    trade={trade}
+                                                    status={status}
+                                                />
+                                            </Box>
+
+                                            {!isMobile &&
+                                                <ProductConnection
+                                                    productData={contextData.productData}
+                                                    isMobile={isMobile}
+                                                />
+                                            }
+                                            <ProductUser/>
+                                        </Box>
+                                    </Box>
+                                </ProductBody>
+                                {/* TODO: временно повесил, похожие перепишутся */}
+                                <Box className={classes.productPageContent}>
+                                    <Box className={classes.productPageCard}>
+                                        {!isMobile && status === 'no_active' && <ProductNoActive />}
+                                        <CategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
+                                    </Box>
+                                </Box>
+                            </ProductWrapper>
+                        </Box>
+                    ) : <ProductPlaceHolder />}
+                </Box>
+                <ScrollTop />
             </Box>
-        </Box>
+        </ProductMobileWrapper>
     );
 };
 
