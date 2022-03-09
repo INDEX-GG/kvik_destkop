@@ -38,7 +38,9 @@ const ProductLocation = () => {
                         <Box className={classes.locationMapText}
                              onClick={handleOpenMap}
                         >
-                            {isMobile ? 'Показать на карте' : 'На карте'}
+                            {/* если понадобится, чтобы на мобилке был другой текст */}
+                            {/* {isMobile ? 'Показать на карте' : 'На карте'} */}
+                            На карте
                         </Box>
                         {!isMobile && <Box component='span' className={locationMapArrow}/>}
                     </Box>

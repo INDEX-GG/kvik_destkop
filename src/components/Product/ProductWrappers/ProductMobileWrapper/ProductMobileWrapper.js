@@ -9,7 +9,6 @@ const ProductMobileWrapper = ({isMobile, children}) => {
   // const classes = useProductMobileWrapperStyles()
 
   const handleCloseModal = () => {
-    console.log('handleCloseModal')
     Router.push(`/`)
   }
 

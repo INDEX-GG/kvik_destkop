@@ -49,8 +49,12 @@ const ProductPage = () => {
 
     const breadData = useMemo(() => BreadCrumbsProduct(category_id), [category_id])
     const isNoActiveMobile = useMemo(() => isMobile && status === 'no_active', [isMobile, status])
+    const isNoActiveDesktop = useMemo(() => !isMobile && status === 'no_active', [isMobile, status])
     const isLoading = typeof id === 'undefined' && id !== null
 
+    {/* у дочерних блоков productPageDescription заданы order
+        в соответсвтвующих ./style для изменения расположения на мобилке/десктопе, смотри useProductPageStyles
+    */}
     return (
         <ProductMobileWrapper isMobile={isMobile}>
             <Box className={classes.productPage} id="productPage">
@@ -141,7 +145,8 @@ const ProductPage = () => {
                                 </ProductBody>
                                 <Box className={classes.productPageContent}>
                                     <Box className={classes.productPageCard}>
-                                        {!isNoActiveMobile && <ProductNoActive />}
+                                        {/* плашка объявление снято с публикации на десктопе */}
+                                        {isNoActiveDesktop && <ProductNoActive />}
                                         <CategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
                                     </Box>
                                 </Box>

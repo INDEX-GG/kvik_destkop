@@ -29,7 +29,6 @@ export const useProductLike = (productID) => {
     const handleChangeLike = () => {
         if (userInfo) {
             if (isLike) {
-                console.log(123);
                 addUnLike(productID)()
                 setIsLike(false)
             }
