@@ -1,4 +1,3 @@
-import withSession from '../../lib/session'
 import { PrismaClient } from '@prisma/client';
 import { sign } from 'jsonwebtoken'
 const globalSalt = process.env.GLOBAL_SALT
