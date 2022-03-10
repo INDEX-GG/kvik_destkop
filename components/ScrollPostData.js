@@ -21,7 +21,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
 
     const [page, setPage] = useState(1);
     // Id последнего объявления
-    const [/** lastIdAds */, setLastIdAds] = useState(0);
+    const [lastIdAds , setLastIdAds] = useState(0);
     // Лимит рендера для обсервера
     const [limitRenderPage, setLimitRenderPage] = useState(0);
     // Длинна исключаемой строки
@@ -30,6 +30,8 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
     const [contentUpdate, setContentUpdate] = useState(false);
 
     const limit = 24
+
+    console.log(post);
 
 
     // Изменение сортировки
@@ -52,6 +54,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
                 'page_limit': limit,
                 'region_includes': regionIncludes,
                 'region_excludes': regionExcludes,
+                'lastId': lastIdAds ? lastIdAds : 0,
                 ...sendObj
             }
 
@@ -68,8 +71,7 @@ const ScrollPostData = ({title = 'Рекомендуемое', url, sendObj, set
 
                         // Id последнего объявления
                         const lastId = response[response.length - 1]?.id
-
-                        console.log(modifyGetPostsData(response));
+        
                         // Посты
                         setPost(prevState => [...prevState, ...modifyGetPostsData(response)])
 
