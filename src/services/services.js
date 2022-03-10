@@ -73,10 +73,34 @@ export const spliceArrayToTwoColum = (array) => {
     }
 }
 
+/**
+ *
+ * • - Точка маркер списка
+ *
+ */
 export const formatDescription = (description) => {
     const format = description
-        .replace('<br/>', '\n')
-        .replace('<br />', '\n')
+        // .replace('/<br/>/g', '\n')
+        // .replace('/<br />/g', '\n')
+        .replace(/<br>/g,"\n")
+        .replace(/<br \/>/g,"\n")
+        .replace(/<br\/>/g,"\n")
+
+        .replace(/<ul\/>/g,"\n\r")
+        .replace(/<ul \/>/g,"\n\r")
+
+        .replace(/<\/ul>/g,"\n\r")
+        .replace(/<\/ ul>/g,"\n\r")
+        .replace(/<ul>/g,"\n\r")
+
+        .replace(/<li\/>/g,"\n\r")
+        .replace(/<li \/>/g,"\n\r")
+        .replace(/<li>/g,"• ")
+
+        .replace(/<\/li>/g,"")
+        .replace(/<\/ li>/g,"")
+        // .replace(/(?:\r\n|\r|\n)/g, '<br/>')
+        // .replace(/(?:\r\n|\r|\n)/g, '<br />')
     // .replace(/<em.*?>(.*?)<\/em>/, `EM`) // <br/>
     // .replace(/<p.*?>(.*?)<\/p>/, `p`) // <br/>
     // .replace(/<strong.*?>(.*?)<\/strong>/, `s`) // <br/>

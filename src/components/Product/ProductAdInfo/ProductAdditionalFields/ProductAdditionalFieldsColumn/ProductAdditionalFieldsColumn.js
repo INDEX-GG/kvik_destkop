@@ -1,5 +1,7 @@
 import React from "react";
 import {Box} from "@material-ui/core";
+
+import ProductShowMoreWrapper from '../../../ProductWrappers/ProductShowMoreWrapper/ProductShowMoreWrapper'
 import {useProductAdditionalFieldsColumnStyles} from './style';
 
 const ProductAdditionalFieldsColumn = ({columnData}) => {
@@ -17,21 +19,22 @@ const ProductAdditionalFieldsColumn = ({columnData}) => {
         return value
     }
 
-
     return (
         Array.isArray(columnData) ? (
-            <Box className={classes.additionalFieldList}>
-                {columnData.map(item => (
-                    <Box className={itemClass} key={item.title}>
-                        <Box className={classes.additionalFieldTitle}>
-                            {item.title}:
+            <ProductShowMoreWrapper>
+                <Box className={classes.additionalFieldList}>
+                    {columnData.map(item => (
+                        <Box className={itemClass} key={item.title}>
+                            <Box className={classes.additionalFieldTitle}>
+                                {item.title}:
+                            </Box>
+                            <Box className={classes.additionalFieldValue}>
+                                {checkBooleanValue(item.value)}
+                            </Box>
                         </Box>
-                        <Box className={classes.additionalFieldValue}>
-                            {checkBooleanValue(item.value)}
-                        </Box>
-                    </Box>
-                ))}
-            </Box>
+                    ))}
+                </Box>
+            </ProductShowMoreWrapper>
         ) : <></>
     )
 }

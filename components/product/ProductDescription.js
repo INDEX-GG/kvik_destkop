@@ -96,10 +96,14 @@ const ProductDescription = ({description}) => {
                         isOpenDescription && (<button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>)
                     ) : null} */}
                 </div>
-                {(mobile && !isOpenDescription && textRef.current.offsetHeight > 60) && <button onClick={showMoreClickHandler} className='productShowMore'>Показать больше</button>}
+                {(mobile && !isOpenDescription && textRef.current.offsetHeight > 60) &&
+                    <button onClick={showMoreClickHandler} className='productShowMore'>
+                        Показать больше
+                    </button>
+                }
                 {mobile ? (
                         isOpenDescription && (<button onClick={showMoreClickHandler} className='productHide'>Скрыть</button>)
-                    ) : null}
+                ) : null}
             </div>
 
     )

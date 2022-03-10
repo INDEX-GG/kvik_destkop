@@ -2,7 +2,6 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     item: {
-        borderBottom: '1px solid #E9E9E9',
         padding: '18px 0',
         display: 'flex',
     },

@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {Box} from "@material-ui/core";
+
 import { useProductLocationStyles} from './style';
-import {checkActiveClass} from "../../../../services/services";
 import ProductMap from "../ProductMap/ProductMap";
+import {checkActiveClass} from "../../../../services/services";
 import {useProductContext} from "../../../../context/ProductContext";
 
 const ProductLocation = () => {

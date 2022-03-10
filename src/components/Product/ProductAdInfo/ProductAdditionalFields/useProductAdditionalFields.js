@@ -25,7 +25,7 @@ export const useProductAdditionalFields = () => {
                 categoryAliasArr[2]
             )?.additional_fields
         }
-    }, [categoryAliasArr]);
+    }, [categoryAliasArr, getMoreCategory]);
 
     // Создание правильного объекта для доп.полей (airbags1, airbags2 и т.д) ({title: string, value: any})
     const russDataObj = useMemo(() => {

@@ -5,32 +5,39 @@ import ProductAdditionalFieldsArr from "./ProductAdditionalFieldsCheckList/Produ
 import ProductAdditionalFieldsColumn from "./ProductAdditionalFieldsColumn/ProductAdditionalFieldsColumn";
 import ProductDescription from "./ProductDescription/ProductDescription";
 import {checkValidArray} from "../../../../services/services";
+import {useProductAddFieldsStyles} from './style'
 
 const ProductAdditionalFields = () => {
 
+    const classes = useProductAddFieldsStyles()
     const {russAdditionalFields, description} = useProductAdditionalFields()
     const noArrayValue = useMemo(() => russAdditionalFields?.noArrayValue, [russAdditionalFields?.noArrayValue])
     const onlyArray = useMemo(() => russAdditionalFields?.onlyArrValue, [russAdditionalFields?.onlyArrValue])
     const isLoading = russAdditionalFields && description
 
-
     return (
         isLoading ? (
-            <Box>
+            <Box className={classes.addFields}>
                 {checkValidArray(noArrayValue) && (
-                    <ProductAdditionalFieldsColumn
-                        columnData={noArrayValue}
-                    />
+                    <Box className={classes.addFieldsColumn}>
+                        <ProductAdditionalFieldsColumn
+                            columnData={noArrayValue}
+                        />
+                    </Box>
                 )}
                 {description && (
-                    <ProductDescription
-                        description={description}
-                    />
+                    <Box className={classes.addFieldsDescription}>
+                        <ProductDescription
+                            description={description}
+                        />
+                    </Box>
                 )}
                 {checkValidArray(onlyArray) && (
-                    <ProductAdditionalFieldsArr
-                        columnData={onlyArray}
-                    />
+                    <Box className={classes.addFieldsArr}>
+                        <ProductAdditionalFieldsArr
+                            columnData={onlyArray}
+                        />
+                    </Box>
                 )}
             </Box>
         ) : <></>
