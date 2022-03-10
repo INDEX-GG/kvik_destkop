@@ -8,8 +8,12 @@ import { useRouter } from 'next/router';
 import safeAccountTab from '../../safeAccountTab';
 import {getTokenDataByPost} from "../../../lib/fetch";
 
+import ScrollGetMore from 'src/components/ScrollGetMore/ScrollGetMore';
+
 // Пагинация
-const Favorites = () => {
+const Favorites = ({data}) => {
+
+    console.log('Favorites-offers: ', data)
 
 	const { id, token } = useAuth();
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
@@ -80,4 +84,8 @@ const Favorites = () => {
 		</>
 	)
 }
-export default Favorites;
+
+export default React.memo(ScrollGetMore({
+    url: "/api/PersonalAreaFavorites",
+    tabs: ['liked_posts', 'subscriptions', 'searchs']
+})(Favorites))

@@ -295,7 +295,7 @@ const ScrollGetMore = (props) => Component => {
             }
         }, [data, initialParamRequest, routerContent])
 
-        return <Component {...componentProps} offers={data} />
+        return <Component {...componentProps} data={data} />
     }
 
     return ScrollToEnd

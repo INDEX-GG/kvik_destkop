@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import Active from "./tabs/Active"
 import Wait from "./tabs/Wait"
 import Archive from "./tabs/Archive"
-import { useRouter } from "next/router"
+// import { useRouter } from "next/router"
 // import { brooklyn } from "../../../lib/services";
 
-import { useOfferAccount } from "../../../lib/Context/OfferAccountCTX"
+// import { useOfferAccount } from "../../../lib/Context/OfferAccountCTX"
 import safeAccountTab from "../../safeAccountTab"
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore"
 
 //const causes = "Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик";
-const Offers = ({offers}) => {
+const Offers = ({data}) => {
 	// const { userAccountProvider, totalPosts } = useOfferAccount()
 	// const [activeOffersBox, setActiveOffersBox] = useState([])
 	// const [waitOffersBox, setWaitOffersBox] = useState([])
 	// const [archiveOffersBox, setArchiveOffersBox] = useState([])
 
-    console.log('Offers-offers: ', offers)
+    console.log('Offers-offers: ', data)
 
 	// const router = useRouter()
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" })
@@ -80,22 +80,22 @@ const Offers = ({offers}) => {
 		{
 			id: 1,
 			title: "Активные",
-			content: <Active key={1} offers={offers?.active_posts?.data || []} />,
-			count: offers?.active_posts_count || 0,
+			content: <Active key={1} offers={data?.active_posts?.data || []} />,
+			count: data?.active_posts_count || 0,
 			// count: offers?.active_posts?.length || 0,
 		},
 		{
 			id: 2,
 			title: "Ждут действия",
-			content: <Wait key={2} offers={offers?.wait_posts?.data || []} />,
-			count: offers?.wait_posts_count || 0,
+			content: <Wait key={2} offers={data?.wait_posts?.data || []} />,
+			count: data?.wait_posts_count || 0,
 			// count: offers?.wait_posts?.length || 0,
 		},
 		{
 			id: 3,
 			title: "Архив",
-			content: <Archive key={3} offers={offers?.archive_posts?.data || []} />,
-			count: offers?.archive_posts_count || 0,
+			content: <Archive key={3} offers={data?.archive_posts?.data || []} />,
+			count: data?.archive_posts_count || 0,
 			// count: offers?.archive_posts?.length || 0,
 		},
 	]
