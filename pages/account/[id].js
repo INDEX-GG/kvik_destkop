@@ -159,17 +159,17 @@ const Account = () => {
     // }, [userInfo])
 
     // переадресация на корретные квери, если юзер в ручную перешел по ссылке типа .../account/[id]
-    useEffect(()=>{
-        if(!router.query.account && id) {
-            router.push({
-                pathname: `/account/${id}`,
-                query: {
-                    account: "1",
-                    content: "1"
-                }
-            })
-        }
-    }, [id])
+    // useEffect(()=>{
+    //     if(!router.query.account && id) {
+    //         router.push({
+    //             pathname: `/account/${id}`,
+    //             query: {
+    //                 account: "1",
+    //                 content: "1"
+    //             }
+    //         })
+    //     }
+    // }, [id])
 
 
     // function closeModal(modal, changeModal) {

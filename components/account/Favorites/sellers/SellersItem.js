@@ -19,14 +19,14 @@ const SellersItem = ({seller}) => {
 	const { matchesMobile } = useMedia();
 
   function subscribeUser(id, sellerID) {
-    const subscribe = {
-      user_id: id + "",
-      seller_id: sellerID + ""
-    }
 
-    getTokenDataByPost("/api/subscriptions", subscribe, token)
-      .then(res => console.log(res))
-      .catch(error => console.log(error))
+    getTokenDataByPost("/api/subscribe", {
+      user_id: id,
+      subscribe: !subscribe ? [sellerID] : [],
+      unsubscribe: subscribe ? [sellerID] : [],
+    }, token)
+    .then(res => console.log(res))
+    .catch(error => console.log(error))
 
   }
 
@@ -65,37 +65,37 @@ const SellersItem = ({seller}) => {
     return (
       matchesMobile
       ? (
-        seller?.poducts.length >= 3
+        seller?.user_products_count >= 3
         ? (
           <Swiper
             navigation={true}
             slidesPerView='auto'
           >
-          {seller?.poducts.map((offerProduct, i) => {
+          {seller?.user_products.map((offerProduct) => {
             return (
-              <SwiperSlide key={i}>
+              <SwiperSlide key={offerProduct.id}>
                 <SellerProductItem  offer={offerProduct} />
               </SwiperSlide>
             );
           })}
         </Swiper>
-        ): seller?.poducts.map((offerProduct, i) => <SellerProductItem key={i} offer={offerProduct} />)
+        ): seller?.user_products.map((offerProduct) => <SellerProductItem key={offerProduct.id} offer={offerProduct} />)
       ) : (
-        seller?.poducts.length >= 7
+        seller?.user_products_count >= 7
         ? (
           <Swiper
             navigation={true}
             slidesPerView='auto'
           >
-          {seller?.poducts.map((offerProduct, i) => {
+          {seller?.user_products.map((offerProduct) => {
             return (
-              <SwiperSlide key={i}>
+              <SwiperSlide key={offerProduct.id}>
                 <SellerProductItem  offer={offerProduct} />
               </SwiperSlide>
             );
           })}
         </Swiper>
-        ) : seller?.poducts.map((offerProduct, i) => <SellerProductItem key={i} offer={offerProduct} />)
+        ) : seller?.user_products.map((offerProduct) => <SellerProductItem key={offerProduct.id} offer={offerProduct} />)
       )
     )
   }, [seller, matchesMobile])
@@ -109,7 +109,7 @@ const SellersItem = ({seller}) => {
           <img src={`${STATIC_URL}/${seller.userPhoto}`}/>
           <div className="sellersUserInfo">
             <div className="sellersUserName">{seller.name}</div>
-            <div className="sellersOffersCount light">{seller.poducts.length} объявлений</div>
+            <div className="sellersOffersCount light">{seller?.user_products_count} объявлений</div>
           </div>
         </div>
         <button onClick={() => {

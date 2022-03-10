@@ -73,6 +73,46 @@ function About() {
 					средства!{" "}
 				</div>
 				<br />
+				<div className="text1">
+					{" "}
+					Реквизиты Администрации:
+				</div>
+				<br/>
+				<div className="text2">
+					{" "}
+					ООО «Гуру Групп»
+				</div>
+				<br/>
+				<div className="text2">
+					{" "}
+					Адрес: 454136, г. Челябинск, ул. Молодогвардейцев, д.60 стр.В, пом 505, этаж 5
+
+				</div>
+				<br/>
+				<div className="text2">
+					{" "}
+					ОГРН 1207400017505
+				</div>
+				<br/>
+				<div className="text2">
+					{" "}
+					ИНН 7447294868
+				</div>
+				<br/>
+				<div className="text2">
+					{" "}
+					КПП 744701001
+				</div>
+				<br/>
+				<div className="text2">
+					{" "}
+					Телефон: +79191232395
+				</div>
+				<br/>
+				<div className="text2">
+					{" "}
+					E-mail: support@onekvik.ru
+				</div>
 			</div>
 		</div>
 	</>

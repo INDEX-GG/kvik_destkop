@@ -10784,7 +10784,7 @@
                 "value": "Введите корректное значение"
               },
               "text_list_values": [
-                "Разъем DSUB",
+                "Разъем DSUB -VGA",
                 "Разъем DVI",
                 "Разъем HDMI",
                 "Разъем Display Port",

@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 /**
- * @param {object} props 
+ * @param {object} props
  * @param {number} props.index
  * @param {import('../tabs/Offers').ItemPost} props.offer
  * @param {boolean} props.parentCheck
@@ -47,7 +47,7 @@ const OfferFavorite = ({ index, offer, parentCheck, getChildCheck, dataCheck, de
 	const { setLikeComment } = useStore();
 
 	/**
-	 * @param {Event} event 
+	 * @param {Event} event
 	 */
 	function deleteNote(event) {
 		event.target.innerHTML = '';
@@ -87,7 +87,7 @@ const OfferFavorite = ({ index, offer, parentCheck, getChildCheck, dataCheck, de
 						checkedIcon={<FiberManualRecordSharpIcon />}
 					/>
 				</div>
-				<InternalLink 
+				<InternalLink
 					href={{
 						pathname: "/product/[id]",
 						query: { id: offer.id}
@@ -99,11 +99,11 @@ const OfferFavorite = ({ index, offer, parentCheck, getChildCheck, dataCheck, de
 					<a href="javascript:void(0);">
 						<Favorits idOffer={offer.id} isAccountCard />
 					</a>
-					<img 
-						key={index} 
+					<img
+						key={index}
 						className={classes.cardImage}
-						src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`} 
-						onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`} 
+						src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}
+						onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`}
 					/>
 					{offer.user_blocked && <div className="favoritesCause megaLight">Пользователь заблокирован</div>}
 				</InternalLink>
@@ -117,7 +117,7 @@ const OfferFavorite = ({ index, offer, parentCheck, getChildCheck, dataCheck, de
 							{ToRusDate(offer.created_at)}
 						</div>
 					</div>
-					<img className="favoritesUserpic" src={`${STATIC_URL}/${offer.user_photo}`} onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`} />
+					<img className="favoritesUserpic" src={`${STATIC_URL}/${offer.userPhoto}`} onError={e => e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`} />
 				</a>
 				<div className="favoritesMiddle">
 					<div>{ToRubles(offer.price)}</div>

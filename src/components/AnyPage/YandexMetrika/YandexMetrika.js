@@ -3,9 +3,7 @@ import Router from 'next/router'
 import ym, { YMInitializer } from 'react-yandex-metrika'
 import {YANDEX_METRIK} from "#lib/constants";
 
-const enabled =
-    process.env.NODE_ENV === 'production' &&
-    YANDEX_METRIK
+const enabled = process.env.NODE_ENV === 'production' && YANDEX_METRIK
 
 const YandexMetrika = (props) => {
     const { children } = props
