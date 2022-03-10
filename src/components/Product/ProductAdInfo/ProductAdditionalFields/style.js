@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   addFieldsDescription: {
     [theme.breakpoints.down(960)]: {
       order: '1',
-      borderBottom: '1px solid #E9E9E9',
+    //   borderBottom: '1px solid #E9E9E9',
     },
   },
   addFieldsArr: {
