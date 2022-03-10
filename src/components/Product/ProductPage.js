@@ -14,7 +14,8 @@ import ProductConnection from "./ProductConnection/ProductConnection";
 import ProductUser from "./ProductUser/ProductUser";
 import ProductAdInfo from "./ProductAdInfo/ProductAdInfo";
 import {useProductPageStyles} from "./styles";
-import NewCategoryScrollPostData from '#components/NewCategoryScrollPostData'
+// import NewCategoryScrollPostData from '#components/NewCategoryScrollPostData'
+import CategoryScrollPostData from '../NewCategoryScrollPostData/CategoryScrollPostData'
 import ProductPlaceHolder from '#components/placeHolders/ProductPlaceHolder/ProductPlaceHolder'
 
 const ProductPage = () => {
@@ -121,7 +122,14 @@ const ProductPage = () => {
                                     <NewCategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
                                 </Box>
                             </Box>
-                        </ProductWrapper>
+                        </Box>
+                    </ProductBody>
+                    {/* TODO: временно повесил, похожие перепишутся */}
+                    <Box className={classes.productPageContent}>
+                        <Box className={classes.productPageCard}>
+                            {/* <NewCategoryScrollPostData url='/api/similarPosts' product={contextData.productData} /> */}
+                            <CategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
+                        </Box>
                     </Box>
                 ) : <ProductPlaceHolder />}
             </Box>

@@ -132,9 +132,7 @@ const ProductMobilePlaceHolder = () => {
                 sx={{width: 'auto'}}
               >
                   {[1,2,3].map((_, i) => (
-                    <>
-                      <Skeleton key={i} sx={{marginTop: 2}} animation="wave" variant="rectangular" width="153px" height="24px" className={clsx(classes.skeletonBase, classes.skeletonBorderR5)}/>
-                    </>
+                    <Skeleton key={i} sx={{marginTop: 2}} animation="wave" variant="rectangular" width="153px" height="24px" className={clsx(classes.skeletonBase, classes.skeletonBorderR5)}/>
                   ))}
               </Grid>
               ))}
