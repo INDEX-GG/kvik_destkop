@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
+import {Box} from '@material-ui/core'
 import Router from 'next/router'
 import ym, { YMInitializer } from 'react-yandex-metrika'
 import {YANDEX_METRIK} from "#lib/constants";
 
-const enabled = process.env.NODE_ENV === 'production' && YANDEX_METRIK
+// const enabled = process.env.NODE_ENV === 'production' && YANDEX_METRIK
+const enabled = YANDEX_METRIK
 
 const YandexMetrika = (props) => {
     const { children } = props
@@ -22,11 +24,13 @@ const YandexMetrika = (props) => {
     return (
         <>
             {enabled && (
-                <YMInitializer
-                    accounts={[Number(YANDEX_METRIK)]}
-                    options={{ webvisor: true, defer: true }}
-                    version="2"
-                />
+                <Box style={{height: '0px', visibility: 'hidden'}}>
+                    <YMInitializer
+                        accounts={[Number(YANDEX_METRIK)]}
+                        options={{ webvisor: true, defer: true }}
+                        version="2"
+                    />
+                </Box>
             )}
             {children}
         </>
