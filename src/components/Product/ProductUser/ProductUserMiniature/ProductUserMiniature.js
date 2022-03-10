@@ -33,6 +33,8 @@ const ProductUserMiniature = (
         [user_products_count]
     )
 
+    console.log('userProductsCountLabel: ', userProductsCountLabel)
+
     const handleClickUser = () => {
         pushTo(`/user/${userId}`)
     }
