@@ -1,5 +1,6 @@
 import React from 'react';
 import {Box, Dialog, useMediaQuery} from "@material-ui/core";
+import clsx from 'clsx'
 import {useCustomModalUIStyles} from "./style";
 
 const CustomModalUI = (
@@ -13,6 +14,7 @@ const CustomModalUI = (
         customHeader = null,
         maxWidth = 'sm',
         customStyle = {},
+        customClassesContainer = {},
         children,
     }
 ) => {
@@ -58,7 +60,7 @@ const CustomModalUI = (
                     </Box>
                 )
             )}
-            <Box className={classes.modalContainer}>
+            <Box className={clsx(classes.modalContainer, customClassesContainer)}>
                 <Box className={classes.closeIcon} onClick={handleCloseModal}/>
                 {children}
             </Box>

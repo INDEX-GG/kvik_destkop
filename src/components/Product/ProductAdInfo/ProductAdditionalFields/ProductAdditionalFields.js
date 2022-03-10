@@ -7,7 +7,7 @@ import ProductDescription from "./ProductDescription/ProductDescription";
 import {checkValidArray} from "../../../../services/services";
 import {useProductAddFieldsStyles} from './style'
 
-const ProductAdditionalFields = () => {
+const ProductAdditionalFields = ({isMobile}) => {
 
     const classes = useProductAddFieldsStyles()
     const {russAdditionalFields, description} = useProductAdditionalFields()
@@ -21,6 +21,7 @@ const ProductAdditionalFields = () => {
                 {checkValidArray(noArrayValue) && (
                     <Box className={classes.addFieldsColumn}>
                         <ProductAdditionalFieldsColumn
+                            isMobile={isMobile}
                             columnData={noArrayValue}
                         />
                     </Box>
@@ -28,6 +29,7 @@ const ProductAdditionalFields = () => {
                 {description && (
                     <Box className={classes.addFieldsDescription}>
                         <ProductDescription
+                            isMobile={isMobile}
                             description={description}
                         />
                     </Box>

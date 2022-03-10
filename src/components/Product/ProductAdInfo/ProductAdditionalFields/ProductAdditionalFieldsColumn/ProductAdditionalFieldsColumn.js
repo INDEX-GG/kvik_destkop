@@ -4,7 +4,7 @@ import {Box} from "@material-ui/core";
 import ProductShowMoreWrapper from '../../../ProductWrappers/ProductShowMoreWrapper/ProductShowMoreWrapper'
 import {useProductAdditionalFieldsColumnStyles} from './style';
 
-const ProductAdditionalFieldsColumn = ({columnData}) => {
+const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
 
     const classes = useProductAdditionalFieldsColumnStyles()
     const itemClass = columnData.length === 1 ?
@@ -21,7 +21,15 @@ const ProductAdditionalFieldsColumn = ({columnData}) => {
 
     return (
         Array.isArray(columnData) ? (
-            <ProductShowMoreWrapper>
+            <ProductShowMoreWrapper
+                align={'center'}
+                isMobile={isMobile}
+                showArrow={false}
+                collapsedSize={'74px'}
+                textExpand={'Показать полностью'}
+                textCollaps={'Скрыть'}
+                navMovesWithContent={true}
+            >
                 <Box className={classes.additionalFieldList}>
                     {columnData.map(item => (
                         <Box className={itemClass} key={item.title}>

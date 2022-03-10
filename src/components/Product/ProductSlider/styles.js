@@ -152,6 +152,9 @@ export const useProductSliderStyles = (isMobile) => {
                 display: 'none',
             }
         },
+        opacityImage: {
+            opacity: '0.5',
+        }
     }));
 
     return useStyles();

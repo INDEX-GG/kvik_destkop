@@ -1,21 +1,39 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {Collapse, Box} from "@material-ui/core";
 
 import CustomButtonUI from 'src/UI/UIcomponent/CustomButtonUI/CustomButtonUI'
 import {useProductShowMoreWrapperStyles} from './style'
-import {useProductContext} from '../../../../context/ProductContext'
+import {checkAlign, checkActiveClass} from "../../../../services/services";
 
 /**
  * TODO: Переписать проверку на мобилку
  * @param {*} param0
  * @returns
  */
-const ProductShowMoreWrapper = ({children}) => {
+const ProductShowMoreWrapper = ({
+  isMobile,
+  align = 'center',
+  showArrow = false,
+  collapsedSize = '54px',
+  textCollaps = 'Скрыть',
+  textExpand = 'Показать больше',
+  navMovesWithContent = true,
+  children
+}) => {
 
-  const classes = useProductShowMoreWrapperStyles()
-  const {isMobile} = useProductContext();
-
+  const classes = useProductShowMoreWrapperStyles(align)
   const [openDesc, setOpenDesc] = useState(false)
+
+  const locationMapArrow = useMemo(
+    () => checkActiveClass(
+      openDesc,
+      classes.Arrow,
+      [classes.ArrowActive]
+    ),
+    [openDesc]
+  )
+
+  const alignContentRoot = checkAlign(align)
 
   const handlerOpenDesc = () => {
     setOpenDesc(!openDesc)
@@ -24,24 +42,27 @@ const ProductShowMoreWrapper = ({children}) => {
   return (
     <>
       {isMobile ?
-        <Box className={classes.root}>
+        <Box className={classes.root} style={{alignItems: alignContentRoot}}>
+            <Box className={classes.navigationBlock} style={{order: navMovesWithContent ? 2 : 1}}>
+              <CustomButtonUI
+                    onClick={handlerOpenDesc}
+                    color='primary'
+                    customRoot={classes.expandButton}
+                >
+                    {!openDesc ? textExpand : textCollaps}
+              </CustomButtonUI>
+              {showArrow && <Box component='span' className={locationMapArrow}/>}
+            </Box>
             <Collapse
               in={openDesc}
-              collapsedSize='54px'
-              // className={clsx(
-              //   classes.showSmall, {
-              //       [classes.showAll]: openDesc,
-              //   }
-              // )}
+              style={{
+                order: navMovesWithContent ? 1 : 2,
+                width: '100%',
+              }}
+              collapsedSize={collapsedSize}
             >
               {children}
             </Collapse>
-            <CustomButtonUI
-                  onClick={handlerOpenDesc}
-                  color='primary'
-              >
-                  {!openDesc ? 'Показать больше' : 'Скрыть'}
-            </CustomButtonUI>
         </Box>
       : <>{children}</>
       }

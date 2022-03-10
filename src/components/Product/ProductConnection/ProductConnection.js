@@ -1,23 +1,24 @@
 import React from 'react';
-import {useProductConnectionStyles} from "./style";
 import {Box} from "@material-ui/core";
-import ProductConnectionButton from "../../AnyPage/ProductConnectionButtons/ProductConnectionButton";
-import MessageIcon from "../../../UI/UIicon/MessageIcon";
+
 import PhoneIcon from "../../../UI/UIicon/PhoneIcon";
+import MessageIcon from "../../../UI/UIicon/MessageIcon";
 import {useProductConnection} from "./useProductConnection";
 import ProductPhoneDialog from "./ProductPhoneDialog/ProductPhoneDialog";
 import ProductMyAdButtons from "./ProductMyAdButtons/ProductMyAdButtons";
+import ProductConnectionButton from "../../AnyPage/ProductConnectionButtons/ProductConnectionButton";
 
-const ProductConnection = ({productData}) => {
+import {useProductConnectionStyles} from "./style";
+
+const ProductConnection = ({isMobile, productData}) => {
     const classes = useProductConnectionStyles();
 
     const {
         id : productId,
-        sellerId,
+        user_id,
         status,
         isMyAd,
         isMessage,
-        isMobile,
         isPhone
     } = productData;
 
@@ -27,43 +28,47 @@ const ProductConnection = ({productData}) => {
         handleChangeCallModal
     } = useProductConnection();
 
-    const handleCreateChat = () => handleSendMessage(sellerId, productId, isMobile)
 
+    const handleCreateChat = () => handleSendMessage(user_id, productId, isMobile)
+    // const isStatusOk = useMemo(() => status === 'ok', [status])
+    // const isStatusNoActive = useMemo(() => status === 'no_active', [status])
+    // const isStatusBanned = useMemo(() => status === 'banned', [status])
 
     return (
-        productId ? (
-            <Box className={classes.buttonsContainer}>
-                {isMyAd ? (
-                    <>
+        <>
+            {/* чтобы кнопки показывались даже на снятом объявлении убрать/добавить isStatusOk */}
+            {productId ? (
+                <Box className={classes.buttonsContainer}>
+                    {isMyAd ? (
                         <ProductMyAdButtons
                             productId={productId}
                             status={status}
                         />
-                    </>
-                ) : (
-                    <>
-                        {isMessage && (
-                            <ProductConnectionButton
-                                onClick={handleCreateChat}
-                                title='Написать сообщение'
-                                icon={MessageIcon}
-                            />
-                        )}
-                        {isPhone && (
-                            <ProductConnectionButton
-                                onClick={handleChangeCallModal}
-                                title='Показать номер'
-                                icon={PhoneIcon}
-                            />
-                        )}
-                    </>
-                )}
-                <ProductPhoneDialog
-                    open={callModal}
-                    onClose={handleChangeCallModal}
-                />
-            </Box>
-        ) : <></>
+                    ) : (
+                        <>
+                            {isMessage && (
+                                <ProductConnectionButton
+                                    onClick={handleCreateChat}
+                                    title='Написать сообщение'
+                                    icon={MessageIcon}
+                                />
+                            )}
+                            {isPhone && (
+                                <ProductConnectionButton
+                                    onClick={handleChangeCallModal}
+                                    title='Показать номер'
+                                    icon={PhoneIcon}
+                                />
+                            )}
+                        </>
+                    )}
+                    <ProductPhoneDialog
+                        open={callModal}
+                        onClose={handleChangeCallModal}
+                    />
+                </Box>
+            ) : <></> }
+        </>
     );
 };
 

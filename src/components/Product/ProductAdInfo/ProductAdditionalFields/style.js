@@ -17,10 +17,14 @@ const useStyles = makeStyles((theme) => ({
   addFieldsDescription: {
     [theme.breakpoints.down(960)]: {
       order: '1',
+      borderBottom: '1px solid #E9E9E9',
     },
   },
   addFieldsArr: {
+    borderTop: '1px solid #E9E9E9',
+
     [theme.breakpoints.down(960)]: {
+      borderTop: 'none',
       order: '3',
     },
   },

@@ -6,7 +6,8 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 400,
         fontSize: '14px',
         lineHeight: '18px',
-        marginTop: '18.5px',
+        // marginTop: '18.5px',
+        margin: '18.5px 0px',
         // paddingBottom: '18.5px',
         // borderTop: '1px solid #E9E9E9',
         wordWrap: 'break-word',
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
         [theme.breakpoints.down(960)]: {
             borderTop: 'none',
+            fontSize: '16px',
         },
     },
     descriptionActive: {

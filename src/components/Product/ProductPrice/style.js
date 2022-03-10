@@ -10,9 +10,34 @@ const useStyles = makeStyles((theme) => ({
         color: 'rgba(44, 44, 44, 1)',
 
         [theme.breakpoints.down(960)]: {
-            fontSize: '22px',
+            // fontSize: '22px',
         },
     },
+    priceTrade: {
+        fontSize: '14px',
+        fontWeight: '400',
+        lineHeight: '16px',
+        textAlign: 'center',
+        color: '#2a2a2a',
+
+        height: '16px',
+        marginBottom: '6px',
+
+        [theme.breakpoints.down(960)]: {
+            display: 'none',
+            marginBottom: '0',
+        },
+
+        [theme.breakpoints.down(400)]: {
+            fontSize: '12px',
+        },
+    },
+    opacityWeight: {
+        fontWeight: '300',
+    },
+    opacityPrice: {
+        opacity: '0.5',
+    }
 }));
 
 export const useProductPriceStyles = () => useStyles();

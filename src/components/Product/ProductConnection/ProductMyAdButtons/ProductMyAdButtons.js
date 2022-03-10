@@ -1,8 +1,11 @@
 import React, {useMemo} from "react";
-import ProductConnectionButton from "../../../AnyPage/ProductConnectionButtons/ProductConnectionButton";
+
 import {useProductConnection} from "../useProductConnection";
-import ProductAdStatusChangeDialog from "../../../AnyPage/ProductAdStatusChangeDialog/ProductAdStatusChangeDialog";
 import {useProductContext} from "../../../../context/ProductContext";
+import ProductConnectionButton from "../../../AnyPage/ProductConnectionButtons/ProductConnectionButton";
+import ProductAdStatusChangeDialog from "../../../AnyPage/ProductAdStatusChangeDialog/ProductAdStatusChangeDialog";
+
+import {usePlugImages} from '#hooks/usePlugImages'
 
 const ProductMyAdButtons = () => {
 
@@ -25,13 +28,16 @@ const ProductMyAdButtons = () => {
             price,
             title,
             status,
+            category_id,
         }
     } = useProductContext()
+
+
+    const {arr} = usePlugImages(photo, category_id)
 
     const isStatusOk = useMemo(() => status === 'ok', [status])
     const isStatusNoActive = useMemo(() => status === 'no_active', [status])
     const isStatusBanned = useMemo(() => status === 'banned', [status])
-
 
     return (
         <>
@@ -52,7 +58,8 @@ const ProductMyAdButtons = () => {
                         open={removeModal}
                         onClose={handleChangRemoveModal}
                         adAddress={address}
-                        adPhoto={photo[0]}
+                        // adPhoto={photo[0]}
+                        adPhoto={arr[0]}
                         adPrice={price}
                         adTitle={title}
                         adId={id}

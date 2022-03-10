@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: '16px',
         textAlign: 'right',
         textDecoration: 'underline',
+
+        [theme.breakpoints.down(960)]: {
+            display: 'none',
+        },
     }
 }));
 

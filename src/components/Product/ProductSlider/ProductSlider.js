@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
 import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
 // import { useRouter } from "next/dist/client/router"
+import clsx from "clsx";
+
 import {useProductContext} from "../../../context/ProductContext";
 import {Box, Modal} from "@material-ui/core";
 import ProductModalSlider from "./ProductModalSlider/ProductModalSlider";
 import {useProductSliderStyles} from "./styles";
 import ProductMainSlider from "./ProductMainSlider/ProductMainSlider";
 import ProductLittleSlider from './ProductLittleSlider/ProductLittleSlider'
+import {usePlugImages} from '#hooks/usePlugImages'
+import AdCardPng from '#components/AdCardPng'
 
 SwiperCore.use([Navigation, Thumbs, Pagination,]);
 
 const ProductSlider = ({ mobile = false }) => {
 
     // const router = useRouter()
-    const {productData: {photo}, isMobile} = useProductContext();
+    const {productData: {photo, status, category_id}, isMobile} = useProductContext();
     const classes = useProductSliderStyles(mobile);
+
+    const {arr} = usePlugImages(photo, category_id)
 
     const [modalOpen, setModalOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -62,10 +68,13 @@ const ProductSlider = ({ mobile = false }) => {
         firstSwiper?.slideTo(activeIndex, 0)
     }, [activeIndex])
 
-
     return (
-        <Box className={classes.swiperContainer} >
-            {/* {photo ? */}
+        <Box className={clsx(
+            classes.swiperContainer, {
+                [classes.opacityImage]: status === 'no_active',
+            }
+        )} >
+            {photo ?
                 <Box>
                     <ProductMainSlider
                         photos={photo}
@@ -107,7 +116,9 @@ const ProductSlider = ({ mobile = false }) => {
                         </>
                     </Modal>
                 </Box>
-                {/* : <Box className="placeholder_animation product__placeholder_swipers"/> } */}
+                // :<Box className="placeholder_animation product__placeholder_swipers"/>
+                : <AdCardPng title={arr[0].title} height='400px' bigImage={true} />
+            }
         </Box>
     );
 }

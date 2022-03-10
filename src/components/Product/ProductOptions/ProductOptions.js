@@ -1,11 +1,15 @@
 import React from 'react';
+import {Box} from "@material-ui/core";
+
 import ProductView from "./ProductView/ProductView";
 import ProductCommentary from "./ProductCommentary/ProductCommentary";
 import ProductLike from "./ProductLike/ProductLike";
 // import ProductStats from "./ProductStats/ProductStats";
 import ProductCall from "./ProductCall/ProductCall";
+
+import {checkEmptyNumber} from '../../../services/services'
+
 import {useProductOptionsStyles} from "./style";
-import {Box} from "@material-ui/core";
 
 const ProductOptions = (
     {
@@ -25,12 +29,12 @@ const ProductOptions = (
         productID ? (
             <Box className={classWrapper}>
                 <ProductView
-                    allViewingCount={allViewingCount}
-                    lastDayViewingCount={lastDayViewingCount}
+                    allViewingCount={checkEmptyNumber(allViewingCount)}
+                    lastDayViewingCount={checkEmptyNumber(lastDayViewingCount)}
                 />
                 <ProductCall
-                    allContactCount={allContactCount}
-                    lastDayContactCount={lastDayContactCount}
+                    allContactCount={checkEmptyNumber(allContactCount)}
+                    lastDayContactCount={checkEmptyNumber(lastDayContactCount)}
                     isMyAd={isMyAd}
                 />
                 <ProductCommentary

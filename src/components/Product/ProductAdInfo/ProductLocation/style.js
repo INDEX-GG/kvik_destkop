@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: '16px',
         color: '#8F8F8F',
         marginBottom: '5px',
+
+        [theme.breakpoints.down(960)]: {
+            display: 'none',
+        },
     },
     locationAddress: {
         fontSize: '14px',
@@ -37,6 +41,11 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: '380px',
         wordWrap: 'break-word',
         marginBottom: '5px',
+
+
+        [theme.breakpoints.down(960)]: {
+            color: '#8F8F8F',
+        },
     },
     locationMap: {
         cursor: 'pointer',
@@ -51,7 +60,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '14px',
         lineHeight: '16px',
         fontWeight: 400,
-        marginRight: '5px'
+        marginRight: '5px',
+
+        [theme.breakpoints.down(960)]: {
+            fontSize: '16px',
+            lineHeight: '19px',
+        },
     },
     locationMapArrow: {
         width: '24px',

@@ -9,7 +9,7 @@ import {useProductContext} from "../../../../context/ProductContext";
 const ProductLocation = () => {
 
     const classes = useProductLocationStyles()
-    const {productData: {address, coordinates}} = useProductContext();
+    const {productData: {address, coordinates}, isMobile} = useProductContext();
 
     const [openMap, setOpenMap] = useState(false);
     const isLoading = address && coordinates
@@ -36,10 +36,13 @@ const ProductLocation = () => {
                     </Box>
                     <Box className={classes.locationMap}>
                         <Box className={classes.locationMapText}
-                             onClick={handleOpenMap}>
+                             onClick={handleOpenMap}
+                        >
+                            {/* если понадобится, чтобы на мобилке был другой текст */}
+                            {/* {isMobile ? 'Показать на карте' : 'На карте'} */}
                             На карте
                         </Box>
-                        <Box component='span' className={locationMapArrow}/>
+                        {!isMobile && <Box component='span' className={locationMapArrow}/>}
                     </Box>
                 </Box>
                 <ProductMap

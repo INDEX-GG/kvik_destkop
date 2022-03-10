@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         flexWrap: 'wrap',
         order: '4',
+
+
+        [theme.breakpoints.down(960)]: {
+            borderBottom: 'none',
+        }
     },
     additionalFieldItem: {
         display: 'flex',
