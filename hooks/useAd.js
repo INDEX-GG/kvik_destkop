@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { getDataByPost } from '../lib/fetch';
 
+/**
+ * !NOTICE - не используется (старая api)
+ * @param {*} id
+ * @returns
+ */
 export function useAd(id) {
 
     const [userInfo, setUserInfo] = useState({}),
@@ -20,4 +25,3 @@ export function useAd(id) {
         isLoading
     }
 }
-

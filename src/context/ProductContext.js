@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from 'react';
+import React, {useContext, useMemo} from 'react';
 import {useProduct} from "#hooks/useProduct";
 import {useMedia} from "#hooks/useMedia";
 import {useRouter} from "next/router";

@@ -9,6 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "react": "^17.0.2",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^4.12.3",
@@ -67,7 +68,6 @@
     "react-yandex-maps": "^4.6.0",
     "react-yandex-metrika": "^2.6.0",
     "request": "^2.79.0",
-    "sass": "^1.34.1",
     "serve-static": "^1.14.1",
     "socket.io-client": "^4.2.0",
     "stream": "0.0.2",
@@ -93,7 +93,6 @@
     "jest": "^27.3.1",
     "jest-scss-transform": "^1.0.1",
     "prisma": "^2.30.3",
-    "react": "^17.0.2",
     "react-test-renderer": "^17.0.2",
     "sass-jest": "^0.1.7"
   }

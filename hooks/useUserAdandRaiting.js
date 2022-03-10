@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { getDataByPost } from '../lib/fetch';
 
+/**
+ * !NOTICE - не используется (старая api)
+ * @param {*} router
+ * @returns
+ */
 export function useProduct({ router }) {
     const [productInfo, setProductInfo] = useState({});
     const [isLoading, setLoading] = useState(true);
@@ -58,4 +63,3 @@ export function useProduct({ router }) {
         isLoading,
     }
 }
-

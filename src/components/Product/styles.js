@@ -1,6 +1,34 @@
 import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+    productPage: {
+        minHeight: '100vh',
+        '& .swiper-container': {
+            marginBottom: '4px',
+            // padding: 0 10px,
+            justifyContent: 'center',
+            zIndex: '0 !important',
+            borderRadius: '2px',
+        },
+
+        [theme.breakpoints.down(1060)]: {
+            display: 'block',
+        }
+    },
+    productPageContainer: {
+        maxWidth: '1280px',
+        // padding: 0 '12px',
+        margin: 'auto',
+
+        [theme.breakpoints.down(1365)]: {
+            gridTemplateColumns: '788px 224px',
+            margin: 'auto',
+            gridColumnGap: '12px',
+        },
+        [theme.breakpoints.down(1060)]: {
+            gridTemplateColumns: '100%',
+        }
+    },
     productPageDescription: {
         margin: '0',
         position: 'relative',

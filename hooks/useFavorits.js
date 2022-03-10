@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import {getTokenDataByPost} from "../lib/fetch";
 import {useAuth} from "../lib/Context/AuthCTX";
 
+/**
+ * !NOTICE - не используется (старая api)
+ * @param {*} id
+ * @returns
+ */
 export function useFavorits(id) {
 
     const [userFavorite, setUserFavorite] = useState({})
@@ -14,7 +19,7 @@ export function useFavorits(id) {
                 setUserFavorite(res
                 )
 
-                // res.data.map((item, i) => { 
+                // res.data.map((item, i) => {
                 //     setUserFavorite({
                 //         // productId: item[0].id,
                 //         // address: item[0].address,
@@ -38,4 +43,3 @@ export function useFavorits(id) {
 
     }
 }
-

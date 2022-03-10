@@ -45,72 +45,82 @@ const ProductPage = () => {
     const isLoading = typeof id === 'undefined' && id !== null
 
     return (
-        !isLoading ? (
-            <Box>
-                <BreadCrumbs
-                    data={breadData}
-                    product={title}/>
-                <ProductWrapper>
-                    <ProductBody>
-                        <Box className={classes.productPageDescription}>
-                            <Box className={classes.productTitle}>
-                                {isMobile &&
-                                    <ProductPrice
-                                        price={price}
-                                        isMobile={isMobile}
-                                        trade={trade}
-                                    />
-                                }
-                                <ProductName
-                                    title={title}
-                                />
-                            </Box>
-                            <Box className={classes.productAdButtons}>
-                                {isMobile &&
-                                    <ProductConnection
-                                        productData={contextData.productData}
-                                    />
-                                }
-                            </Box>
-                            <ProductSlider/>
-                            <ProductAdInfo
-                                productId={id}
-                            />
-                        </Box>
-                        <Box className={classes.productAd}>
-                            <Box className={classes.productUser}>
-                                <Box className={classes.productCounts}>
-                                    <ProductOption
-                                        isMyAd={isMyAd}
-                                        productID={id}
-                                        allContactCount={all_time_contact_count}
-                                        lastDayContactCount={last_day_contact_count}
-                                        allViewingCount={all_time_viewing_count}
-                                        lastDayViewingCount={last_day_viewing_count}
+        <Box className={classes.productPage} id="productPage">
+            <Box className="productPageContainer text">
+                {!isLoading ? (
+                    <Box>
+                        <BreadCrumbs
+                            data={breadData}
+                            product={title}/>
+                        <ProductWrapper>
+                            <ProductBody>
+                                <Box className={classes.productPageDescription}>
+                                    <Box className={classes.productTitle}>
+                                        {isMobile &&
+                                            <ProductPrice
+                                                price={price}
+                                                isMobile={isMobile}
+                                                trade={trade}
+                                            />
+                                        }
+                                        <ProductName
+                                            title={title}
+                                        />
+                                    </Box>
+                                    <Box className={classes.productAdButtons}>
+                                        {isMobile &&
+                                            <ProductConnection
+                                                productData={contextData.productData}
+                                            />
+                                        }
+                                    </Box>
+                                    <ProductSlider/>
+                                    <ProductAdInfo
+                                        productId={id}
                                     />
                                 </Box>
-                                <Box className={classes.productDate}>
-                                    <ProductDate
-                                        date={created_at}
-                                        dayBefore={dayBefore}
-                                        isMyAd={isMyAd}
-                                    />
-                                </Box>
+                                <Box className={classes.productAd}>
+                                    <Box className={classes.productUser}>
+                                        <Box className={classes.productCounts}>
+                                            <ProductOption
+                                                isMyAd={isMyAd}
+                                                productID={id}
+                                                allContactCount={all_time_contact_count}
+                                                lastDayContactCount={last_day_contact_count}
+                                                allViewingCount={all_time_viewing_count}
+                                                lastDayViewingCount={last_day_viewing_count}
+                                            />
+                                        </Box>
+                                        <Box className={classes.productDate}>
+                                            <ProductDate
+                                                date={created_at}
+                                                dayBefore={dayBefore}
+                                                isMyAd={isMyAd}
+                                            />
+                                        </Box>
 
-                                <Box className={classes.productPrice}>
-                                    <ProductPrice
-                                        price={price}
-                                        isMobile={isMobile}
-                                        trade={trade}
-                                    />
-                                </Box>
+                                        <Box className={classes.productPrice}>
+                                            <ProductPrice
+                                                price={price}
+                                                isMobile={isMobile}
+                                                trade={trade}
+                                            />
+                                        </Box>
 
-                                {!isMobile &&
-                                    <ProductConnection
-                                        productData={contextData.productData}
-                                    />
-                                }
-                                <ProductUser/>
+                                        {!isMobile &&
+                                            <ProductConnection
+                                                productData={contextData.productData}
+                                            />
+                                        }
+                                        <ProductUser/>
+                                    </Box>
+                                </Box>
+                            </ProductBody>
+                            {/* TODO: временно повесил, похожие перепишутся */}
+                            <Box className={classes.productPageContent}>
+                                <Box className={classes.productPageCard}>
+                                    <NewCategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
+                                </Box>
                             </Box>
                         </Box>
                     </ProductBody>
@@ -121,9 +131,9 @@ const ProductPage = () => {
                             <CategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
                         </Box>
                     </Box>
-                </ProductWrapper>
+                ) : <ProductPlaceHolder />}
             </Box>
-        ) : <ProductPlaceHolder />
+        </Box>
     );
 };
 
