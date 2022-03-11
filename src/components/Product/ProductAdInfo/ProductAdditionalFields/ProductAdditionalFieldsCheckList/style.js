@@ -33,13 +33,37 @@ const useStyles = makeStyles((theme) => ({
         },
 
         [theme.breakpoints.down(960)]: {
-            textAlign: 'end',
-            width: 'auto'
+            textAlign: 'left',
+            width: 'auto',
 
+            '& > *:nth-child(n)': {
+                marginRight: '10px',
+            },
+            '& > *:nth-child(3n + 3)': {
+                marginRight: '0px',
+            }
+        },
+
+        [theme.breakpoints.down(605)]: {
+            '& > *:nth-child(n)': {
+                marginRight: '10px',
+            },
+            '& > *:nth-child(2n)': {
+                marginRight: '0px',
+            }
+        },
+
+        [theme.breakpoints.down(450)]: {
+            textAlign: 'end',
+            width: 'auto',
+
+            '& > *:nth-child(n)': {
+                marginRight: '0px',
+            },
         },
 
         [theme.breakpoints.down(400)]: {
-            width: '49%',
+            width: '51%',
         },
 
     },
@@ -48,19 +72,28 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: '16px',
         fontWeight: 400,
         color: '#2C2C2C',
-        width: '202px',
+        width: '201px',
         minWidth: '157px',
         marginBottom: '15px',
         // marginRight: '24px',
 
         [theme.breakpoints.down(960)]: {
-            width: '100%',
-            minWidth: '120px',
+            width: '25%',
+            minWidth: '115px',
         },
 
-        [theme.breakpoints.down(420)]: {
-            width: '202px   ',
-            marginRight: '9px !important',
+        [theme.breakpoints.down(790)]: {
+            width: '30%',
+            minWidth: '115px',
+        },
+
+        [theme.breakpoints.down(605)]: {
+            width: '40%',
+        },
+
+        [theme.breakpoints.down(450)]: {
+            width: '100%',
+            // marginRight: '9px !important',
         },
 
         [theme.breakpoints.down(350)]: {

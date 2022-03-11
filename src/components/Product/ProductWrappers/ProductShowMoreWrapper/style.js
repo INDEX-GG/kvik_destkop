@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: '400',
       lineHeight: '19px',
       color: '#00A0AB',
+
+      paddingLeft: '0',
     },
   },
   showSmall: {
