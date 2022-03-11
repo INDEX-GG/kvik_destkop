@@ -268,7 +268,7 @@ function Messages() {
                   // <div className='chatPlaceholder'>
                   //   <h2>Для начала переписки выберете чат</h2>
                   //   <div className='chatPlaceholderCircleBlock'>
-                  //     <ChatPlaceholder/> 
+                  //     <ChatPlaceholder/>
                   //     <ChatPlaceholder/>
                   //     <ChatPlaceholder/>
                   //   </div>
@@ -294,7 +294,7 @@ function Messages() {
                   //           <div>{room?.product_name}</div>
                   //         </div>
                   //       </div> : null}
-                  //   {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender &&
+                  //   {chatUsers?.productV2 && chatUsers?.recipient && chatUsers?.sender &&
                   //   <Chat
                   //       usersData={chatUsers}
                   //       userChatPhoto={room?.customer_id == id ? room?.seller_photo : room?.customer_photo}

@@ -18,7 +18,7 @@ const AdMiniatureItem = ({photo, id, price, title}) => {
 
 
     const handlePushMiniature = () => {
-        pushTo(`/productV2/${id}`)
+        pushTo(`/product/${id}`)
     }
 
 

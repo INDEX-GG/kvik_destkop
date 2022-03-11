@@ -12,10 +12,10 @@ import {generateCityArr, modifyGetPostsData} from "../lib/services";
 const CategoryScrollPostData = ({title = 'Рекомендуемое', url, sendObj}) => {
     // const classes = useStyles();
     // all props {title = 'Рекомендуемое', url, sendObj, category}
-    
+
     // const router = useRouter()
-    // const product = useProduct(router.query.id)
-    // console.log(product, 'product')
+    // const productV2 = useProduct(router.query.id)
+    // console.log(productV2, 'productV2')
     const {id} = useAuth();
     const {searchCity} = useCity()
 
@@ -160,7 +160,7 @@ const CategoryScrollPostData = ({title = 'Рекомендуемое', url, send
             setSort={handlerSortChange}
         />
     </>
-        
+
     );
 };
 

@@ -13,11 +13,11 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd, totalProducts}) => {
 	const modifySmallAd = smallAd
 	?.map(it=>({...it, photo: photos2arr(it.photo)}))
 	.filter(it => it.photo !== undefined)
-	
+
 
 	// проп status не используется
 	return (
-		<> 
+		<>
 		{
 			// status === 7 || sellerId !== id ? (
 			!mobile ? (
@@ -57,7 +57,7 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd, totalProducts}) => {
 							})) &&
 							userSmallAd.slice(0, 3).map((userAd) => {
 								return (
-										<Link key={userAd.id} href={`/product/${userAd.id}`}>
+										<Link key={userAd.id} href={`/productV2/${userAd.id}`}>
 											<div className="SellerInfoOfferCard small">
 												{userAd.photo?.slice(0, 1).map((imgs, i) => {
 													return <img alt={"Offer photo"} key={i} src={imgs} />;
@@ -68,10 +68,10 @@ const ProductSmallAd = ({id, sellerId, mobile, smallAd, totalProducts}) => {
 										</Link>
 									);
 								}
-							)	
+							)
 						} */}
 
-							
+
 					</div>
 
 				) : (
