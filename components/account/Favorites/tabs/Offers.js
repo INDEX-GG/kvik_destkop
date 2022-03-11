@@ -91,9 +91,9 @@ const useStyles = makeStyles(() => ({
 /**
  * @param {IOfferData} data
  */
-function Offers(data) {
+function Offers({itemsPost}) {
     const classes = useStyles();
-    const [favPosts, changeFavPosts] = useState(data.itemsPost);
+    const [favPosts, changeFavPosts] = useState([]);
     const [deletionCheck, setDeletionCheck] = useState(false);
     const [deleteButton, setDeleteButton] = useState(false);
 		/**
@@ -172,7 +172,11 @@ function Offers(data) {
 				}
 			},
 			[deletedPostIDs]
-		)
+    )
+
+    useEffect(() => {
+        changeFavPosts(itemsPost)
+    }, [itemsPost])
 
     if (!favPosts?.length) {
         return (
@@ -190,10 +194,9 @@ function Offers(data) {
     }
 
     return (
-
         <>
-            {!userInfo && !favPosts ? <FavoritesOffersPlaceHolder/>
-                : <div className="clientPage__container_bottom">
+            {/* {!userInfo && !favPosts.length ? <FavoritesOffersPlaceHolder/> : */}
+                <div className="clientPage__container_bottom">
                     <div className="clientPage__container_nav__radio">
                         <Checkbox
                             color="primary"
@@ -225,7 +228,8 @@ function Offers(data) {
                             )}
                         </div>
                     </div>
-                </div>}
+                </div>
+                {/* } */}
         </>
 
     );

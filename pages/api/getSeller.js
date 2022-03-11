@@ -5,8 +5,8 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         const pool = new Pool({ connectionString: process.env.DATABASE_URL });
         const main = async () => {
-            if (typeof req.body.id !== 'number') {throw "Er"}
-            const user_id = req.body.id
+            if (typeof req.body.user_id !== 'number') {throw "Er"}
+            const user_id = req.body.user_id
             const page_limit = req.body.page_limit
             const page = (req.body.page - 1) * page_limit
 
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
             if (req.body.page === 1) {
                 let obj = await pool.query(`SELECT
                     (SELECT row_to_json(t)FROM(
-                    SELECT users."name", users."userPhoto", users."createdAt", users."raiting", 
+                    SELECT users."name", users."userPhoto", users."createdAt", users."raiting",
                     (SELECT COUNT(subscription) FROM "public"."subscriptions" WHERE user_id = $1) AS "subscriptions_count",
                     (SELECT COUNT(user_id) FROM "public"."subscriptions" WHERE subscription = $1) AS "subscribers_count"
                     FROM "public"."users" WHERE users."id" = $1) t) AS seller,
@@ -40,6 +40,7 @@ export default async function handler(req, res) {
             res.end(JSON.stringify(response))
         }
         catch (e) {
+            console.error(e)
             console.error(`ошибка api getSeller ${e}`)
             res.json('ошибка api getSeller, ', e)
             res.status(405).end();

@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import throttle from "lodash.throttle"
+import { useRouter } from "next/router";
 
 import { useAuth } from '#lib/Context/AuthCTX'
-import { getTokenDataByPost } from '#lib/fetch'
-import { STATIC_URL } from '#lib/constants'
-import { photos2arr } from '#lib/services'
-
-
+import {getTokenDataByPost} from '#lib/fetch'
 /**
  *
  * @param {*} Component
@@ -19,19 +16,33 @@ const ScrollGetMore = (props) => Component => {
      */
     const ScrollToEnd = (componentProps) => {
 
+        const routerHook = useRouter();
+
         const { id, token } = useAuth()
-        const routerContent = (+componentProps.router.query.content - 1)
+
+        const [data, setData] = useState({})
+
         const {url, tabs} = props;
+        // const {router, itemNav} = componentProps
+
+        const isGetSeller = useMemo(
+            () => url.includes('getSeller'),
+            [url]
+        )
+        const isFirstLoad = useMemo(
+            () => typeof id !== 'undefined' && id !== null && url,
+            [id, url]
+        )
+        const routerContent = useMemo(
+            () => componentProps.router ? (+componentProps.router.query.content - 1) : (+componentProps.itemNav.i - 1),
+            [componentProps]
+        )
 
         const [initialParamRequest, setInitialParamRequest] = useState({
-            user_id: id,
+            user_id: isGetSeller ? (+routerHook.query.id) : id,
             page: 1,
             page_limit: 10
         })
-
-        console.log('initialParamRequest: ', initialParamRequest)
-
-        const [data, setData] = useState({})
 
         // ? Логика контента =======================================
 
@@ -39,29 +50,16 @@ const ScrollGetMore = (props) => Component => {
             return await getTokenDataByPost(props.url, {...initialParamRequest}, token)
         }
 
-        const initializeData = (postData, allTabPosts) => {
-            // setData(prevState => ({
-            //     ...prevState,
-            //     ...postData,
-            //     active_posts: active,
-            //     archive_posts: archive,
-            //     wait_posts: wait,
-            // }))
-            setData(prevState => ({
-                ...prevState,
-                ...postData,
-                ...allTabPosts,
-            }))
-            setInitialParamRequest(prevState => ({
-                ...prevState,
-                page: prevState.page + 1
-            }))
+        const getKeysForObject = (postData) => {
+            const keyResponse = Object.keys(postData)
+            const arrayKeyResponsePost = keyResponse.filter(k => Array.isArray(postData[k]))
+
+            return arrayKeyResponsePost
         }
 
         const processingData = (postData) => {
 
-            const keyResponse = Object.keys(postData)
-            const arrayKeyResponsePost = keyResponse.filter(k => Array.isArray(postData[k]))
+            const arrayKeyResponsePost = getKeysForObject(postData)
 
             const returnObj = {}
 
@@ -69,10 +67,7 @@ const ScrollGetMore = (props) => Component => {
                 const nestedReturnObj = {}
                 const arrayPost = postData[keyPost]
 
-                nestedReturnObj['data'] = arrayPost.map(item => ({
-                        ...item,
-                        photo: photos2arr(item.photo)?.map(img => `${STATIC_URL}/${img}`)
-                    }))
+                nestedReturnObj['data'] = arrayPost
                 nestedReturnObj['limit'] = arrayPost.length ? false : true
                 nestedReturnObj['id_content'] = i + 1
                 nestedReturnObj['name_content'] = keyPost
@@ -86,35 +81,38 @@ const ScrollGetMore = (props) => Component => {
 
         const processingExistData = (postData) => {
 
-            const keyResponse = Object.keys(postData)
-            const arrayKeyResponsePost = keyResponse.filter(k => Array.isArray(postData[k]))
+            const arrayKeyResponsePost = getKeysForObject(postData)
 
             const returnObj = {}
 
             arrayKeyResponsePost.forEach((keyPost) => {
+                const nestedReturnObj = {}
                 const arrayPost = postData[keyPost]
 
-                const nestedReturnObj = {}
-
-                const nestedReturnObjPhotos = arrayPost.map(item => ({
-                    ...item,
-                    photo: photos2arr(item.photo)?.map(img => `${STATIC_URL}/${img}`)
-                }))
+                const nestedReturnObjData = arrayPost
 
                 nestedReturnObj['limit'] = data[keyPost].limit
 
                 if(postData[keyPost].length < initialParamRequest.page_limit) {
                     nestedReturnObj['limit'] = true
                 }
+                nestedReturnObj['data'] = [...data[keyPost].data, ...nestedReturnObjData]
                 nestedReturnObj['id_content'] = data[keyPost].id_content
                 nestedReturnObj['name_content'] = data[keyPost].name_content
-                nestedReturnObj['data'] = [...data[keyPost].data, ...nestedReturnObjPhotos]
 
                 returnObj[keyPost] = nestedReturnObj
 
             })
 
             return returnObj
+        }
+
+        const initializeData = (postData, allTabPosts) => {
+            setData(prevState => ({
+                ...prevState,
+                ...postData,
+                ...allTabPosts,
+            }))
         }
 
         const concatData = (allTabPosts) => {
@@ -126,37 +124,30 @@ const ScrollGetMore = (props) => Component => {
             }
         }
 
+        const handlerSetParamRequest = () => {
+            setInitialParamRequest(prevState => ({
+                ...prevState,
+                page: prevState.page + 1
+            }))
+        }
+
         const getMoreData = async () => {
             if(!data[tabs[routerContent]].limit) {
-                console.log('подгружаем еще')
-                console.log('initialParamRequest: ', initialParamRequest)
-
                 const _data = await fetchData()
-                console.log('_data: ', _data)
                 const allTabPosts = processingExistData(_data)
-
-                concatData(_data, allTabPosts)
-                setInitialParamRequest(prevState => ({
-                    ...prevState,
-                    page: prevState.page + 1
-                }))
-
+                concatData(allTabPosts)
+                handlerSetParamRequest()
             }
         }
 
         useEffect(() => {
             async function fetchOffers() {
                 const resp = await fetchData()
-                // console.log('resp: ', resp)
-                setData(resp)
-                setInitialParamRequest(prevState => ({
-                    ...prevState,
-                    page: prevState.page + 1
-                }))
-                // const allTabPosts = processingData(resp)
-                // initializeData(resp, allTabPosts)
+                const allTabPosts = processingData(resp)
+                initializeData(resp, allTabPosts)
+                handlerSetParamRequest()
             }
-            if(url) {
+            if(isFirstLoad) {
                 fetchOffers()
             }
         }, [])
@@ -165,33 +156,37 @@ const ScrollGetMore = (props) => Component => {
 
 		const throttleScrollHandler = throttle(scrollHandler, 500)
 
-        function scrollHandler (e) {
-            const _scrollHeight = e.target.documentElement.scrollHeight;
-            const _scrollTop = e.target.documentElement.scrollTop;
+        const getScrollPercentage = () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            let windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+            let documentHeight = Math.max(
+                document.body.scrollHeight, document.body.offsetHeight, document.body.clientHeight,
+                document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight
+            );
 
-            console.log('_scrollHeight: ', _scrollHeight / 4)
-            console.log('_scrollTop: ', _scrollTop)
+            return ((scrollTop / (documentHeight - windowHeight)) * 100);
+        }
 
+        function scrollHandler () {
+            const scrollPercentage = getScrollPercentage()
             // дошли до середины и есть что показывать
-            const hasShowMore = (_scrollTop > _scrollHeight / 4)
+            const hasShowMore = (scrollPercentage >= 50)
 
-            if(hasShowMore) {
-                getMoreData()
-            }
+            console.log('scrollPercentage: ', scrollPercentage)
+            if(hasShowMore) getMoreData()
         }
 
         useEffect(() => {
             document.addEventListener("scroll", throttleScrollHandler)
             return () => {
-              document.removeEventListener("scroll", throttleScrollHandler)
+                document.removeEventListener("scroll", throttleScrollHandler)
             }
         }, [data, initialParamRequest, routerContent])
 
         return (
             <Component
-                {...componentProps}
                 data={data}
-                setData={setData}
+                {...componentProps}
             />
         )
     }

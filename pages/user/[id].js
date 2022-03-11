@@ -1,4 +1,4 @@
-
+``
 import React, { useEffect, useState } from "react";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
@@ -108,6 +108,8 @@ function UserPage() {
   // const [blockLoading, setBlockLoading] = useState(false)
   const [blockOpen, setBlockOpen] = useState(false)
   const [isShowProfileDialog, setIsShowProfileDialog] = useState(true)
+
+  const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
 
   useEffect(() => {
     if(!userInfo) return
@@ -345,7 +347,7 @@ function UserPage() {
             </div>
 
             <div className="clientPage__container">
-              <User />
+              <User itemNav={itemNav} setItemNav={setItemNav} />
             </div>
             <ScrollTop />
           </>

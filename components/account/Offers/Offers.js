@@ -6,42 +6,33 @@ import Archive from "./tabs/Archive"
 import safeAccountTab from "../../safeAccountTab"
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore"
 
-import {useOffersLoading} from './useOffersLoading'
-
 /**
  *
  * @param {*} param0
  * @returns
  */
-const Offers = ({data, setData}) => {
+const Offers = ({data}) => {
 
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" })
-
-    const {dataOffers} = useOffersLoading(data, setData)
-
-    console.log('dataOffers: ', dataOffers)
 
     const navItems = [
 		{
 			id: 1,
 			title: "Активные",
-			content: <Active key={1} offers={dataOffers?.active_posts?.data || []} />,
-			count: dataOffers?.active_posts_count || 0,
-			// count: offers?.active_posts?.length || 0,
+			content: <Active key={1} offers={data?.active_posts?.data || []} />,
+			count: data?.active_posts_count || 0,
 		},
 		{
 			id: 2,
 			title: "Ждут действия",
-			content: <Wait key={2} offers={dataOffers?.wait_posts?.data || []} />,
-			count: dataOffers?.wait_posts_count || 0,
-			// count: offers?.wait_posts?.length || 0,
+			content: <Wait key={2} offers={data?.wait_posts?.data || []} />,
+			count: data?.wait_posts_count || 0,
 		},
 		{
 			id: 3,
 			title: "Архив",
-			content: <Archive key={3} offers={dataOffers?.archive_posts?.data || []} />,
-			count: dataOffers?.archive_posts_count || 0,
-			// count: offers?.archive_posts?.length || 0,
+			content: <Archive key={3} offers={data?.archive_posts?.data || []} />,
+			count: data?.archive_posts_count || 0,
 		},
 	]
 
