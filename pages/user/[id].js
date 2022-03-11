@@ -33,9 +33,6 @@ import { useStatistics } from "#lib/Context/StatisticsCTX";
 import MobileModal from '../../components/MobileModal'
 import UserPlaceHolder from '../../components/placeHolders/UserPlaceHolder/UserPlaceHolder'
 
-
-
-
 const useStyles = makeStyles(() => ({
   tooltip: {
     border: "#8F8F8F solid 1px",

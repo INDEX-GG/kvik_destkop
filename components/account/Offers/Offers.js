@@ -1,101 +1,46 @@
 import React, { useState } from "react"
-import Active from "./tabs/Active"
-import Wait from "./tabs/Wait"
-import Archive from "./tabs/Archive"
-// import { useRouter } from "next/router"
-// import { brooklyn } from "../../../lib/services";
 
-// import { useOfferAccount } from "../../../lib/Context/OfferAccountCTX"
+import Wait from "./tabs/Wait"
+import Active from "./tabs/Active"
+import Archive from "./tabs/Archive"
 import safeAccountTab from "../../safeAccountTab"
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore"
 
-//const causes = "Неверная цена / Неверная категория / Невозможно дозвониться / Признаки дискриминации / Товар или услуга запрещенные у продаже в РФ / В одном объявлении несколько предложений товаров и услуг / Использование одинаковых изображений в разных объявлениях / Контактная информация в названии, тексте объявления или на фото / Нарушение других правил Квик";
-const Offers = ({data}) => {
-	// const { userAccountProvider, totalPosts } = useOfferAccount()
-	// const [activeOffersBox, setActiveOffersBox] = useState([])
-	// const [waitOffersBox, setWaitOffersBox] = useState([])
-	// const [archiveOffersBox, setArchiveOffersBox] = useState([])
+import {useOffersLoading} from './useOffersLoading'
 
-    console.log('Offers-offers: ', data)
+/**
+ *
+ * @param {*} param0
+ * @returns
+ */
+const Offers = ({data, setData}) => {
 
-	// const router = useRouter()
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" })
 
-	// useEffect(() => {
-	// 	if (
-	// 		[
-	// 			...userAccountProvider?.active,
-	// 			...userAccountProvider?.archive,
-	// 			...userAccountProvider?.wait,
-	// 		].length > 0
-	// 	) {
-	// 		// Активные объявления
-	// 		//setActiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active === 0));
+    const {dataOffers} = useOffersLoading(data, setData)
 
-	// 		// const verifyOffers = userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0)
-	// 		// const sortedArray = [...verifyOffers].sort((prev, next) =>  {
-	// 		//   const prevDate = Date.parse(prev.created_at)
-	// 		//   const nextDate = Date.parse(next.created_at)
-	// 		//   return nextDate - prevDate
-	// 		// })
+    console.log('dataOffers: ', dataOffers)
 
-    //         // !
-	// 		// setActiveOffersBox(userAccountProvider.active)
-	// 		// setArchiveOffersBox(userAccountProvider.archive)
-	// 		// setWaitOffersBox(userAccountProvider.wait)
-    //         // !
-
-	// 		// setActiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active === 0));
-
-	// 		// Ждут действия
-	// 		//setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 2 || offer.verify === 3 || offer.verify === 4 || offer.verify === 5));
-	// 		// setWaitOffersBox(userAccountProvider?.filter((offer) => offer.verify === 1 || offer.verify === 2));
-	// 		// Архив
-	// 		//setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify_moderator.verify[0] === "1" && offer.active !== 0 && offer.active !== 4));
-	// 		// setArchiveOffersBox(userAccountProvider?.filter((offer) => offer.verify === 0 && offer.active !== 0 && offer.active !== 4));
-	// 	}
-	// }, [userAccountProvider])
-
-	// useEffect(()=>{  setActiveOffersBox(userAccountProvider.active)},[userAccountProvider.active])
-
-	// useEffect(() => {
-	// 	if (router) {
-	// 		if (router.query.content !== undefined) {
-	// 			setItemNav({
-	// 				i: +router.query.content,
-	// 				ttl: navItems[router.query.content - 1].title,
-	// 			})
-	// 		}
-	// 	}
-	// }, [router])
-
-	// const dataWait = [
-	//   { id: 1, img: "https://source.unsplash.com/random?interior", title: "2-комн. кваритра, 95 м", price: 3000000, date: "00.00.00 00.00", status: 1, cause: causes, verify: 4, delete: false },
-	//   { id: 2, img: "https://source.unsplash.com/random?cars", title: "Mitsubishi Delica", price: 199999, date: "00.00.00 00.00", status: 0, verify: 5, verify_moderator: 5, delete: false },
-	//   { id: 3, img: "https://source.unsplash.com/random?phone", title: "Samsung Galaxy S21 Ultra", price: 99999, date: "00.00.00 00.00", status: 2, verify: 2, delete: true },
-	// ];
-
-	// Пагинация
-	const navItems = [
+    const navItems = [
 		{
 			id: 1,
 			title: "Активные",
-			content: <Active key={1} offers={data?.active_posts?.data || []} />,
-			count: data?.active_posts_count || 0,
+			content: <Active key={1} offers={dataOffers?.active_posts?.data || []} />,
+			count: dataOffers?.active_posts_count || 0,
 			// count: offers?.active_posts?.length || 0,
 		},
 		{
 			id: 2,
 			title: "Ждут действия",
-			content: <Wait key={2} offers={data?.wait_posts?.data || []} />,
-			count: data?.wait_posts_count || 0,
+			content: <Wait key={2} offers={dataOffers?.wait_posts?.data || []} />,
+			count: dataOffers?.wait_posts_count || 0,
 			// count: offers?.wait_posts?.length || 0,
 		},
 		{
 			id: 3,
 			title: "Архив",
-			content: <Archive key={3} offers={data?.archive_posts?.data || []} />,
-			count: data?.archive_posts_count || 0,
+			content: <Archive key={3} offers={dataOffers?.archive_posts?.data || []} />,
+			count: dataOffers?.archive_posts_count || 0,
 			// count: offers?.archive_posts?.length || 0,
 		},
 	]
