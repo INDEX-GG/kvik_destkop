@@ -1,6 +1,6 @@
 import { sign } from 'jsonwebtoken'
 export default async function handler(req, res) {
-    if (req.method === 'GET') {
+    if (req.method === 'POST') {
         const main = async () => {
             const jwt = require("jsonwebtoken");
             const token = req.body.RefreshAuthToken
