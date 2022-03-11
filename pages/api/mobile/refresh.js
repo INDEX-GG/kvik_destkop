@@ -1,6 +1,5 @@
-import withSession from '../../lib/session'
 import { sign } from 'jsonwebtoken'
-export default withSession(async (req, res) => {
+export default async function handler(req, res) {
     if (req.method === 'GET') {
         const main = async () => {
             const jwt = require("jsonwebtoken");
@@ -34,4 +33,4 @@ export default withSession(async (req, res) => {
         res.json({ message: 'method not allowed' })
         res.status(405).end()
     }
-})
+}
