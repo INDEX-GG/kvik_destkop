@@ -25,7 +25,7 @@ const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
                 align={'center'}
                 isMobile={isMobile}
                 showArrow={false}
-                collapsedSize={'74px'}
+                collapsedSize={'70px'}
                 textExpand={'Показать полностью'}
                 textCollaps={'Скрыть'}
                 navMovesWithContent={true}

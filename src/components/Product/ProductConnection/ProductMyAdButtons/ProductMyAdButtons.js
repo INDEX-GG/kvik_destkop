@@ -1,4 +1,5 @@
 import React, {useMemo} from "react";
+import {Box} from '@material-ui/core'
 
 import {useProductConnection} from "../useProductConnection";
 import {useProductContext} from "../../../../context/ProductContext";
@@ -112,7 +113,7 @@ const ProductMyAdButtons = () => {
             )}
             {/* Заблокированное */}
             {isStatusBanned && (
-                <>block</>
+                <Box style={{padding: '0px 12px'}}>Заблокировано</Box>
             )}
         </>
     )

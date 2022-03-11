@@ -1280,6 +1280,12 @@
   }
 }
 
+@media (max-width: 1024px) {
+    .product__main_block {
+        padding-top: 10px;
+    }
+}
+
 @media (max-width: 959px) {
   // .ad__block_bottom__adaptive_right {
   //     margin-top: 10px;

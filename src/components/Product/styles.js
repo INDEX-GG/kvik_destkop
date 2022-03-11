@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
         minWidth: '320px',
         padding: '0px 12px',
 
-        [theme.breakpoints.down(959)]: {
+        [theme.breakpoints.down(960)]: {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',

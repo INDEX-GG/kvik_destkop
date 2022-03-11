@@ -22,8 +22,24 @@ const useStyles = makeStyles((theme) => ({
         width: '286px',
         marginBottom: '18px',
 
-        [theme.breakpoints.down(450)]: {
+        [theme.breakpoints.down(960)]: {
+            width: '30%',
+            maxWidth: '30%',
+        },
+
+        [theme.breakpoints.down(890)]: {
+            width: '48%',
+            maxWidth: '48%',
+        },
+
+        // [theme.breakpoints.down(790)]: {
+        //     width: '48%',
+        //     maxWidth: '48%',
+        // },
+
+        [theme.breakpoints.down(605)]: {
             width: '100%',
+            maxWidth: '100%',
         }
     },
     additionalFieldItemSolo: {

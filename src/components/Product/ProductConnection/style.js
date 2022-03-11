@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
             marginTop: '0px',
         },
     },
+    buttonsContainerMB0: {
+        marginBottom: '0'
+    }
 }));
 
 export const useProductConnectionStyles = () => useStyles();
