@@ -3,8 +3,9 @@ import throttle from "lodash.throttle"
 import { useRouter } from "next/router";
 
 import { useAuth } from '#lib/Context/AuthCTX'
-import {getTokenDataByPost} from '#lib/fetch'
+import {getTokenDataByPost, getDataByPost} from '#lib/fetch'
 import { getKeyArrayFilteredForObject } from '../../services/services'
+import { useMedia } from '#hooks/useMedia';
 
 /**
  *
@@ -19,8 +20,9 @@ const ScrollGetMore = (props) => Component => {
     */
     const ScrollToEnd = (componentProps) => {
 
-        const routerHook = useRouter();
         const { id, token } = useAuth()
+        const routerHook = useRouter();
+	    const {matchesMobile} = useMedia();
 
         const {url, tabs} = props;
 
@@ -28,10 +30,19 @@ const ScrollGetMore = (props) => Component => {
             () => url.includes('getSeller'),
             [url]
         )
+
         const isFirstLoad = useMemo(
-            () => typeof id !== 'undefined' && id !== null && url,
+            // () => (!isGetSeller
+            //     ? typeof id !== 'undefined' && id !== null && url
+            //     : typeof url !== 'undefined' && url !== null ),
+            // () => typeof id !== 'undefined' && id !== null && url,
+            () =>   typeof url !== 'undefined' && url !== null,
             [id, url]
         )
+        // const isAuth = useMemo(
+        //     () => token !== null || typeof token !== 'undefined',
+        //     [token]
+        // )
         const routerContent = useMemo(
             () => componentProps.router ? (+componentProps.router.query.content - 1) : (+componentProps.itemNav.i - 1),
             [componentProps]
@@ -48,7 +59,11 @@ const ScrollGetMore = (props) => Component => {
         // ? Логика контента =======================================
 
         const fetchData = async () => {
-            return await getTokenDataByPost(props.url, {...initialParamRequest}, token)
+            if(!isGetSeller && typeof token !== 'undefined' && token !== null) {
+                return await getTokenDataByPost(props.url, {...initialParamRequest}, token)
+            }else {
+                return await getDataByPost(props.url, {...initialParamRequest})
+            }
         }
 
         const processingData = (postData) => {
@@ -134,11 +149,11 @@ const ScrollGetMore = (props) => Component => {
             if(isFirstLoad) {
                 fetchOffers()
             }
-        }, [])
+        }, [isFirstLoad])
 
         // ? Логика скролла =======================================
 
-		const throttleScrollHandler = throttle(scrollHandler, 800)
+		const throttleScrollHandler = throttle(scrollHandler, 500)
 
         const getScrollPercentage = () => {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -151,18 +166,29 @@ const ScrollGetMore = (props) => Component => {
             return Math.round(((scrollTop / (documentHeight - windowHeight)) * 100));
         }
 
-        function scrollHandler () {
+        function scrollHandler (e) {
+            const _scrollHeight = e.target.scrollHeight;
+            const _scrollTop = e.target.scrollTop;
             const scrollPercentage = getScrollPercentage()
+
+            let hasShowMore = null
             // дошли до середины и есть что показывать
-            const hasShowMore = (scrollPercentage >= 50 && !isNaN(scrollPercentage))
+            if(!isNaN(scrollPercentage)) {
+                hasShowMore = (scrollPercentage >= 50 && !isNaN(scrollPercentage))
+            } else {
+                hasShowMore = (_scrollTop > _scrollHeight / 2)
+            }
 
             if(hasShowMore) getMoreData()
         }
 
         useEffect(() => {
-            document.addEventListener("scroll", throttleScrollHandler)
+            let containerScroll = document
+            if(matchesMobile) containerScroll = document.documentElement.getElementsByClassName('MuiDialog-paper')[0]
+
+            containerScroll.addEventListener("scroll", throttleScrollHandler)
             return () => {
-                document.removeEventListener("scroll", throttleScrollHandler)
+                containerScroll.removeEventListener("scroll", throttleScrollHandler)
             }
         }, [data, initialParamRequest, routerContent])
 

@@ -6,7 +6,7 @@ const MobileModal = ({title, subtitle = false, dialog = false, close, children})
 	const {matchesMobile, matchesTablet} = useMedia();
 	const MobileDevice = matchesMobile || matchesTablet;
 	return (
-		MobileDevice ? 
+		MobileDevice ?
 		<Dialog open={dialog || false} fullScreen={true}>
 			<div className="modal__wrapper_md">
 			<div className="modal__block__top mobileModalTop">

@@ -123,6 +123,11 @@
     display: block;
     flex-direction: column;
   }
+
+  .mobileModalTopScroll{
+    overflow: auto;
+  }
+
   .mobileModalBack{
 	cursor: pointer;
     position: absolute;
