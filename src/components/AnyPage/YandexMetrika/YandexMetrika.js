@@ -4,8 +4,7 @@ import Router from 'next/router'
 import ym, { YMInitializer } from 'react-yandex-metrika'
 import {YANDEX_METRIK} from "#lib/constants";
 
-// const enabled = process.env.NODE_ENV === 'production' && YANDEX_METRIK
-const enabled = YANDEX_METRIK
+const enabled = process.env.NODE_ENV === 'production' && YANDEX_METRIK
 
 const YandexMetrika = (props) => {
     const { children } = props
@@ -24,7 +23,7 @@ const YandexMetrika = (props) => {
     return (
         <>
             {enabled && (
-                <Box style={{height: '0px', visibility: 'hidden'}}>
+                <Box style={{position: 'absolute', left: 0, top: 0, width: 0, height: 0, visibility: 'hidden'}}>
                     <YMInitializer
                         accounts={[Number(YANDEX_METRIK)]}
                         options={{ webvisor: true, defer: true }}
