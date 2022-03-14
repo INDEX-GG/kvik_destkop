@@ -100,7 +100,7 @@ const Account = () => {
     // const [subscribersList, setSubscribersList] = useState([])
     const [logout, setLogout] = useState(false);
     const [reviewsModal, setReviewsModal] = useState(false);
-    const [subscriptionsModal, setSubscriptionsModal] = useState(false);
+    // const [subscriptionsModal, setSubscriptionsModal] = useState(false);
     const {signOut, id, token} = useAuth();
     const {matchesMobile, matchesTablet} = useMedia()
     const [isShowModalMenu, setIsShowModalMenu] = useState(true)
@@ -176,6 +176,7 @@ const Account = () => {
     //     changeModal(!modal)
     // }
 
+    const handleClickSubscribe = () => router.push(`/account/${id}?account=4&content=2`)
     const closePicUpload = () => {
         setPicUpload(p => !p)
     }
@@ -326,7 +327,7 @@ const Account = () => {
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
                                                 <span>{subscriptionsCount}</span>
-                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={handleClickSubscribe} >
                                                     <p>Подписки</p>
                                                 </Button>
                                             </Box>
@@ -475,7 +476,7 @@ const Account = () => {
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
                                                 <span>{subscriptionsCount}</span>
-                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={handleClickSubscribe} >
                                                     <p>Подписки</p>
                                                 </Button>
                                             </Box>
