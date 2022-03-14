@@ -154,3 +154,10 @@ export const wordAutoEnding = (word, number, declination, breakpoints) => {
 
     return returnValue + declination[requiredIndexBreakPoints]
 }
+
+export const getKeyArrayFilteredForObject = (obj) => {
+    const keyResponse = Object.keys(obj)
+    const arrayKeyResponsePost = keyResponse.filter(k => Array.isArray(obj[k]))
+
+    return arrayKeyResponsePost
+}

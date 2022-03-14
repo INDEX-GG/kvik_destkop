@@ -14,8 +14,6 @@ import ScrollGetMore from 'src/components/ScrollGetMore/ScrollGetMore';
 const Favorites = ({data}) => {
     // const Favorites = () => {
 
-    console.log('Favorites-offers: ', data)
-
 	// const { id, token } = useAuth();
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: 'Объявления' });
 	// const router = useRouter()
