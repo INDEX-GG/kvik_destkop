@@ -31,7 +31,7 @@ const ProductConnection = ({isMobile, productData}) => {
 
 
     const handleCreateChat = () => handleSendMessage(user_id, productId, isMobile)
-    // const isStatusOk = useMemo(() => status === 'ok', [status])
+    const isStatusOk = useMemo(() => status === 'ok', [status])
     // const isStatusNoActive = useMemo(() => status === 'no_active', [status])
     const isStatusBanned = useMemo(() => status === 'banned', [status])
 
@@ -52,22 +52,23 @@ const ProductConnection = ({isMobile, productData}) => {
                             status={status}
                         />
                     ) : (
-                        <>
-                            {isMessage && (
-                                <ProductConnectionButton
-                                    onClick={handleCreateChat}
-                                    title='Написать сообщение'
-                                    icon={MessageIcon}
-                                />
-                            )}
-                            {isPhone && (
-                                <ProductConnectionButton
-                                    onClick={handleChangeCallModal}
-                                    title='Показать номер'
-                                    icon={PhoneIcon}
-                                />
-                            )}
-                        </>
+                        isStatusOk &&
+                            <>
+                                {isMessage && (
+                                    <ProductConnectionButton
+                                        onClick={handleCreateChat}
+                                        title='Написать сообщение'
+                                        icon={MessageIcon}
+                                    />
+                                )}
+                                {isPhone && (
+                                    <ProductConnectionButton
+                                        onClick={handleChangeCallModal}
+                                        title='Показать номер'
+                                        icon={PhoneIcon}
+                                    />
+                                )}
+                            </>
                     )}
                     <ProductPhoneDialog
                         open={callModal}

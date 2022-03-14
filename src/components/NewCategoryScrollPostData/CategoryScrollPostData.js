@@ -38,8 +38,15 @@ const CategoryScrollPostData = ({ url, product }) => {
 		[]
 	)
 
+    // если лимит на показ меньше кол-ва похожих объявлений -> показываем кнопку показать еще
+    // если массив похожих пустой -> не показываем кнопку
+    const showButtonShowMore = useMemo(
+        () => limitShow < renderCards?.length,
+        [limitShow, renderCards?.length]
+    )
+
 	const handlerClickShowMore = () => {
-		if (limitShow <= renderCards.length)
+		if (limitShow <= renderCards?.length)
 			setLimitShow((prevState) => prevState + maxCountShow)
 	}
 
@@ -62,12 +69,15 @@ const CategoryScrollPostData = ({ url, product }) => {
 				setLimitShow={setLimitShow}
 			/>
 
-			<Box className={classes.showMore}>
-				<CustomButtonUI onClick={handlerClickShowMore}>
-					Показать еще
-					<Box component="span" className={similarLoadPostClass} />
-				</CustomButtonUI>
-			</Box>
+            <Box className={classes.showMore}>
+                {/* скрываем здесь, чтобы сохранились отсупы */}
+                {showButtonShowMore &&
+                    <CustomButtonUI onClick={handlerClickShowMore} customRoot={classes.showMoreButton}>
+                        Показать еще
+                        <Box component="span" className={similarLoadPostClass} />
+                    </CustomButtonUI>
+                }
+            </Box>
 		</>
 	) : null
 }
