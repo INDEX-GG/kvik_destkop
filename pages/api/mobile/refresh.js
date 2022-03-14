@@ -5,12 +5,12 @@ export default async function handler(req, res) {
             const jwt = require("jsonwebtoken");
             const token = req.body.RefreshAuthToken
             if (!token) {
-                return res.status(403).send("A token is required for authentication");
+                throw 403;
             }
             try {
                 jwt.verify(token, process.env.NEXT_PUBLIC_JWT_REFRESH_SECRET);
             } catch (err) {
-                return res.status(401).send("Invalid Token");
+                throw 403;
             }
             const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_REFRESH_SECRET).sub
             const claims = {sub: tokenUser}
@@ -25,8 +25,8 @@ export default async function handler(req, res) {
         }
         catch (e) {
             console.error(`ошибка api refresh ${e}`)
-            res.json('ошибка api refresh, ', e)
-            res.status(405).end();
+            if (parseInt(e) === 403) { res.status(403) }
+            else { res.status(400).json({ message: 'ошибка api getPost'}) }
         }
 
     } else {
