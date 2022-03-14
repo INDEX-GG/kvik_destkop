@@ -69,7 +69,7 @@ const ProductSlider = ({ mobile = false }) => {
     }, [activeIndex])
 
     return (
-        <Box className={clsx(
+        <Box component='section' className={clsx(
             classes.swiperContainer, {
                 [classes.opacityImage]: status === 'no_active',
             }

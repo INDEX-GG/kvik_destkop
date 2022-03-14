@@ -5,6 +5,7 @@ import { useProductLocationStyles} from './style';
 import ProductMap from "../ProductMap/ProductMap";
 import {checkActiveClass} from "../../../../services/services";
 import {useProductContext} from "../../../../context/ProductContext";
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 const ProductLocation = () => {
 
@@ -31,19 +32,19 @@ const ProductLocation = () => {
                     <Box className={classes.locationTitle}>
                         Местоположение
                     </Box>
-                    <Box className={classes.locationAddress}>
+                    <Box component='p' className={classes.locationAddress}>
                         {address}
                     </Box>
-                    <Box className={classes.locationMap}>
-                        <Box className={classes.locationMapText}
-                             onClick={handleOpenMap}
-                        >
+                    <CustomButtonUI>
+                    <Box className={classes.locationMap} onClick={handleOpenMap}>
+                        <Box className={classes.locationMapText}>
                             {/* если понадобится, чтобы на мобилке был другой текст */}
                             {/* {isMobile ? 'Показать на карте' : 'На карте'} */}
                             На карте
                         </Box>
                         {!isMobile && <Box component='span' className={locationMapArrow}/>}
                     </Box>
+                    </CustomButtonUI>
                 </Box>
                 <ProductMap
                     openMap={openMap}

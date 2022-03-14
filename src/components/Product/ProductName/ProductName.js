@@ -9,6 +9,7 @@ const ProductName = ({title, status}) => {
 
     return (
         <Box
+            component='h1'
             className={clsx(
                 classes.name, {
                     [classes.opacityName]: status === 'no_active',
