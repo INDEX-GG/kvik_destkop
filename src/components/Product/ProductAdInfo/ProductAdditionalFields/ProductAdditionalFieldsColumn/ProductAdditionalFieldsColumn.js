@@ -30,9 +30,9 @@ const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
                 textCollaps={'Скрыть'}
                 navMovesWithContent={true}
             >
-                <Box className={classes.additionalFieldList}>
+                <Box component='ul' className={classes.additionalFieldList}>
                     {columnData.map(item => (
-                        <Box className={itemClass} key={item.title}>
+                        <Box component='li' className={itemClass} key={item.title}>
                             <Box className={classes.additionalFieldTitle}>
                                 {item.title}:
                             </Box>
@@ -41,6 +41,7 @@ const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
                             </Box>
                         </Box>
                     ))}
+                   
                 </Box>
             </ProductShowMoreWrapper>
         ) : <></>

@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
 
-        '& > div': {
+        '& > div, section, article': {
             padding: '0px 12px',
         },
 

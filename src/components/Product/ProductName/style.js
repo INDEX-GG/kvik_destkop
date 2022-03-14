@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: '596px',
         fontSize: '25px',
         width: '100%',
+        fontWeight: '618',    
         wordWrap: 'break-word',
 
         [theme.breakpoints.down(960)]: {

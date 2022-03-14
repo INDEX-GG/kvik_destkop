@@ -61,7 +61,7 @@ const ProductPage = () => {
                 <Box className={classes.productPageContainer}>
                     {!isLoading ? (
                         <Box>
-                            <Box className={classes.productBreadCrumbs}>
+                            <Box component='nav' className={classes.productBreadCrumbs}>
                                 <BreadCrumbs
                                     data={breadData}
                                     product={title}
@@ -95,7 +95,7 @@ const ProductPage = () => {
                                             }
                                         </Box>
                                         <ProductSlider status={status} />
-                                        <Box className={classes.productAdInfo}>
+                                        <Box component='article'className={classes.productAdInfo}>
                                             <ProductAdInfo
                                                 productId={id}
                                                 status={status}
@@ -104,7 +104,7 @@ const ProductPage = () => {
                                         </Box>
                                     </Box>
                                     <Box className={classes.productAd}>
-                                        <Box className={classes.productUser}>
+                                        <Box component='aside' className={classes.productUser}>
                                             <Box className={classes.productCounts}>
                                                 <ProductOption
                                                     isMyAd={isMyAd}
@@ -115,7 +115,7 @@ const ProductPage = () => {
                                                     lastDayViewingCount={last_day_viewing_count}
                                                 />
                                             </Box>
-                                            <Box className={classes.productDate}>
+                                            <Box component='time' className={classes.productDate}>
                                                 <ProductDate
                                                     date={created_at}
                                                     dayBefore={dayBefore}

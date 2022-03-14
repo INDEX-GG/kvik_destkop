@@ -24,7 +24,7 @@ const ProductDescription = ({description, isMobile}) => {
             textCollaps={'Скрыть'}
             navMovesWithContent={true}
         >
-            <Box
+            <Box 
                 ref={descriptionRef}
                 component='pre'
                 className={classes.description}
