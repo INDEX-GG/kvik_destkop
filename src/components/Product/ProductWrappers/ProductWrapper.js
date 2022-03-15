@@ -1,12 +1,13 @@
 import React from 'react';
+import { Box } from '@material-ui/core'
 
 const ProductWrapper = ({children}) => {
     return (
-        <div className="product__wrapper">
-            <div className="productPageWrapper">
+        <Box className="product__wrapper">
+            <Box className="productPageWrapper">
                 {children}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };
 

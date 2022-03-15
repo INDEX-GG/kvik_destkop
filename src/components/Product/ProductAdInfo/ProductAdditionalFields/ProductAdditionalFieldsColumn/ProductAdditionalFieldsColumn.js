@@ -35,11 +35,12 @@ const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
                 navMovesWithContent={true}
             >
                 <Box
+                    component='ul'
                     className={classes.additionalFieldList}
                     ref={aditionalFieldsColumnRef}
                 >
                     {columnData.map(item => (
-                        <Box className={itemClass} key={item.title}>
+                        <Box component='li' className={itemClass} key={item.title}>
                             <Box className={classes.additionalFieldTitle}>
                                 {item.title}:
                             </Box>
@@ -48,6 +49,7 @@ const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
                             </Box>
                         </Box>
                     ))}
+                   
                 </Box>
             </ProductShowMoreWrapper>
         ) : <></>

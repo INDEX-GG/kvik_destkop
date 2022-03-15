@@ -76,7 +76,7 @@ const ProductSlider = ({ mobile = false, isOpacity }) => {
     }, [activeIndex])
 
     return (
-        <Box className={clsx(
+        <Box component='section' className={clsx(
             classes.swiperContainer, {
                 [classes.opacityImage]: isOpacity,
             }

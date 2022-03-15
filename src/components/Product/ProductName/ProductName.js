@@ -9,6 +9,7 @@ const ProductName = ({title, isOpacity}) => {
 
     return (
         <Box
+            component='h1'
             className={clsx(
                 classes.name, {
                     [classes.opacityName]: isOpacity,

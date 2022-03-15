@@ -123,10 +123,11 @@ const Header = () => {
 						<Search />
 
 
-						{isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+						<Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
 							<AddRoundedIcon />
 						Новое объявление
-						</Button>}
+						</Button>
+
 						{!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
 							Войти
 						</Button>

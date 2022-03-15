@@ -1,5 +1,6 @@
 import {useState} from "react";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
+import Footer from '../src/components/AnyPage/Footer/Footer'
 import Header from "../components/header/Header";
 import HeaderMobile from "../components/header/HeaderMobile";
 import {useMedia} from "../hooks/useMedia";

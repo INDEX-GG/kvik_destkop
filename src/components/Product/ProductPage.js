@@ -22,6 +22,7 @@ import ProductMobileWrapper from './ProductWrappers/ProductMobileWrapper/Product
 import ProductPlaceHolder from "#components/placeHolders/ProductPlaceHolder/ProductPlaceHolder"
 
 import {useProductPageStyles} from "./styles";
+import MetaLayout from "#layout/MetaLayout";
 
 const ProductPage = () => {
 
@@ -54,35 +55,36 @@ const ProductPage = () => {
         в соответсвтвующих ./style для изменения расположения на мобилке/десктопе, смотри useProductPageStyles
     */}
     return (
-        <ProductMobileWrapper isMobile={isMobile}>
-            <Box className={classes.productPage} id="productPage">
-                <Box className={classes.productPageContainer}>
-                    {!isLoading ? (
-                        <Box>
-                            <Box className={classes.productBreadCrumbs}>
-                                <BreadCrumbs
-                                    data={breadData}
-                                    product={title}
-                                />
-                            </Box>
-                            <ProductWrapper>
-                                <ProductBody>
-                                    <Box className={classes.productPageDescription}>
-                                        <Box className={classes.productTitle}>
-                                            {isMobile && (
-                                                <ProductPrice
-                                                    price={price}
-                                                    isMobile={isMobile}
-                                                    trade={trade}
+        <MetaLayout title={title ? title : ''}>
+            <ProductMobileWrapper isMobile={isMobile}>
+                <Box className={classes.productPage} id="productPage">
+                    <Box className={classes.productPageContainer}>
+                        {!isLoading ? (
+                            <Box>
+                                <Box component='nav' className={classes.productBreadCrumbs}>
+                                    <BreadCrumbs
+                                        data={breadData}
+                                        product={title}
+                                    />
+                                </Box>
+                                <ProductWrapper>
+                                    <ProductBody>
+                                        <Box className={classes.productPageDescription}>
+                                            <Box className={classes.productTitle}>
+                                                {isMobile && (
+                                                    <ProductPrice
+                                                        price={price}
+                                                        isMobile={isMobile}
+                                                        trade={trade}
+                                                        status={status}
+                                                    />
+                                                )}
+                                                <ProductName
+                                                    title={title}
                                                     status={status}
                                                     isOpacity={isOpacity}
                                                 />
                                             )}
-                                            <ProductName
-                                                title={title}
-                                                status={status}
-                                                isOpacity={isOpacity}
-                                            />
                                         </Box>
                                         {/* плашка объявление снято с публикации на мобилке */}
                                         { isMobile && (
@@ -138,24 +140,61 @@ const ProductPage = () => {
                                                     isOpacity={isOpacity}
                                                 />
                                             </Box>
-
-                                            <Box className={classes.productPrice}>
-                                                <ProductPrice
-                                                    price={price}
-                                                    isMobile={isMobile}
-                                                    trade={trade}
+                                            <ProductSlider status={status} />
+                                            <Box component='article'className={classes.productAdInfo}>
+                                                <ProductAdInfo
+                                                    productId={id}
                                                     status={status}
                                                     isOpacity={isOpacity}
-                                                />
-                                            </Box>
-
-                                            {!isMobile &&
-                                                <ProductConnection
-                                                    productData={contextData.productData}
                                                     isMobile={isMobile}
                                                 />
-                                            }
-                                            <ProductUser/>
+                                            </Box>
+                                        </Box>
+                                        <Box className={classes.productAd}>
+                                            <Box component='aside' className={classes.productUser}>
+                                                <Box className={classes.productCounts}>
+                                                    <ProductOption
+                                                        isMyAd={isMyAd}
+                                                        productID={id}
+                                                        allContactCount={all_time_contact_count}
+                                                        lastDayContactCount={last_day_contact_count}
+                                                        allViewingCount={all_time_viewing_count}
+                                                        lastDayViewingCount={last_day_viewing_count}
+                                                    />
+                                                </Box>
+                                                <Box component='time' className={classes.productDate}>
+                                                    <ProductDate
+                                                        date={created_at}
+                                                        dayBefore={dayBefore}
+                                                        isMyAd={isMyAd}
+                                                        status={status}
+                                                    />
+                                                </Box>
+
+                                                <Box className={classes.productPrice}>
+                                                    <ProductPrice
+                                                        price={price}
+                                                        isMobile={isMobile}
+                                                        trade={trade}
+                                                        status={status}
+                                                    />
+                                                </Box>
+
+                                                {!isMobile &&
+                                                    <ProductConnection
+                                                        productData={contextData.productData}
+                                                        isMobile={isMobile}
+                                                    />
+                                                }
+                                                <ProductUser/>
+                                            </Box>
+                                        </Box>
+                                    </ProductBody>
+                                    <Box className={classes.productPageContent}>
+                                        <Box className={classes.productPageCard}>
+                                            {/* плашка объявление снято с публикации на десктопе */}
+                                            {isNoActiveDesktop && <ProductNoActive />}
+                                            <CategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
                                         </Box>
                                     </Box>
                                 </ProductBody>
@@ -179,9 +218,8 @@ const ProductPage = () => {
                         </Box>
                     ) : <ProductPlaceHolder />}
                 </Box>
-                <ScrollTop />
-            </Box>
-        </ProductMobileWrapper>
+            </ProductMobileWrapper>
+        </MetaLayout>
     );
 };
 
