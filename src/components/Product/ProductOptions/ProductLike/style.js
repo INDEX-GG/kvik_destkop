@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
     activeLike: {
         '& > svg': {
             fill: '#00A0AB',
+        },
+        '& > svg path': {
+            stroke: '#5A5A5A !important',
         }
     }
 }));

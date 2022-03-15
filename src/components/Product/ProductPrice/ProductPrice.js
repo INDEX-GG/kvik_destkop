@@ -6,7 +6,7 @@ import {ToRubles} from "#lib/services";
 
 import {useProductPriceStyles} from "./style";
 
-const ProductPrice = ({price, isMobile, status, trade}) => {
+const ProductPrice = ({price, isMobile, status, trade, isOpacity}) => {
 
     const classes = useProductPriceStyles();
 
@@ -24,8 +24,8 @@ const ProductPrice = ({price, isMobile, status, trade}) => {
                 <Box
                     className={clsx(
                         classes.price, {
-                            [classes.opacityPrice]: status === 'no_active',
-                            [classes.opacityWeight]: status === 'no_active' && !isMobile,
+                            [classes.opacityPrice]: isOpacity,
+                            [classes.opacityWeight]: isOpacity && !isMobile,
                         }
                     )}
                 >

@@ -35,7 +35,7 @@ const ProductPage = () => {
             price,
             trade,
             isMyAd,
-            status,
+            status, isNoActive, isBanned, isTimeLimit, isOpacity,
             dayBefore,
             all_time_contact_count,
             last_day_contact_count,
@@ -75,15 +75,26 @@ const ProductPage = () => {
                                                     isMobile={isMobile}
                                                     trade={trade}
                                                     status={status}
+                                                    isOpacity={isOpacity}
                                                 />
                                             )}
                                             <ProductName
                                                 title={title}
                                                 status={status}
+                                                isOpacity={isOpacity}
                                             />
                                         </Box>
                                         {/* плашка объявление снято с публикации на мобилке */}
-                                        { isMobile && <Box className={classes.productNoActive}><ProductNoActive isMyAd={isMyAd} status={status} /></Box>}
+                                        { isMobile && <Box className={classes.productNoActive}>
+                                            <ProductNoActive
+                                                isMyAd={isMyAd}
+                                                status={status}
+                                                isBanned={isBanned}
+                                                isOpacity={isOpacity}
+                                                isNoActive={isNoActive}
+                                                isTimeLimit={isTimeLimit}
+                                            />
+                                        </Box>}
                                         <Box className={classes.productAdButtons}>
                                             {isMobile &&
                                                 <ProductConnection
@@ -92,7 +103,10 @@ const ProductPage = () => {
                                                 />
                                             }
                                         </Box>
-                                        <ProductSlider status={status} />
+                                        <ProductSlider
+                                            status={status}
+                                            isOpacity={isOpacity}
+                                        />
                                         <Box className={classes.productAdInfo}>
                                             <ProductAdInfo
                                                 productId={id}
@@ -119,6 +133,7 @@ const ProductPage = () => {
                                                     dayBefore={dayBefore}
                                                     isMyAd={isMyAd}
                                                     status={status}
+                                                    isOpacity={isOpacity}
                                                 />
                                             </Box>
 
@@ -128,6 +143,7 @@ const ProductPage = () => {
                                                     isMobile={isMobile}
                                                     trade={trade}
                                                     status={status}
+                                                    isOpacity={isOpacity}
                                                 />
                                             </Box>
 
@@ -144,7 +160,16 @@ const ProductPage = () => {
                                 <Box className={classes.productPageContent}>
                                     <Box className={classes.productPageCard}>
                                         {/* плашка объявление снято с публикации на десктопе */}
-                                        {!isMobile && <ProductNoActive isMyAd={isMyAd} status={status} />}
+                                        {!isMobile && (
+                                            <ProductNoActive
+                                                isMyAd={isMyAd}
+                                                status={status}
+                                                isBanned={isBanned}
+                                                isOpacity={isOpacity}
+                                                isNoActive={isNoActive}
+                                                isTimeLimit={isTimeLimit}
+                                            />
+                                        )}
                                         <CategoryScrollPostData url='/api/similarPosts' product={contextData.productData} />
                                     </Box>
                                 </Box>

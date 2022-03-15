@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {Box} from "@material-ui/core";
 import clsx from 'clsx'
 
@@ -17,10 +17,10 @@ const ProductConnection = ({isMobile, productData}) => {
     const {
         id : productId,
         user_id,
-        status,
+        status, isActive, isNoActive, isBanned, isTimeLimit, isOpacity,
         isMyAd,
         isMessage,
-        isPhone
+        isPhone,
     } = productData;
 
     const {
@@ -29,11 +29,7 @@ const ProductConnection = ({isMobile, productData}) => {
         handleChangeCallModal
     } = useProductConnection();
 
-
     const handleCreateChat = () => handleSendMessage(user_id, productId, isMobile)
-    const isStatusOk = useMemo(() => status === 'ok', [status])
-    // const isStatusNoActive = useMemo(() => status === 'no_active', [status])
-    const isStatusBanned = useMemo(() => status === 'banned', [status])
 
     return (
         <>
@@ -42,7 +38,7 @@ const ProductConnection = ({isMobile, productData}) => {
                 <Box
                     className={clsx(
                         classes.buttonsContainer, {
-                            [classes.buttonsContainerMB0] : isMobile && isStatusBanned
+                            [classes.buttonsContainerMB0] : isMobile && isBanned
                         })
                     }
                 >
@@ -50,9 +46,14 @@ const ProductConnection = ({isMobile, productData}) => {
                         <ProductMyAdButtons
                             productId={productId}
                             status={status}
+                            isActive={isActive}
+                            isNoActive={isNoActive}
+                            isBanned={isBanned}
+                            isTimeLimit={isTimeLimit}
+                            isOpacity={isOpacity}
                         />
                     ) : (
-                        isStatusOk &&
+                        isActive &&
                             <>
                                 {isMessage && (
                                     <ProductConnectionButton
@@ -72,6 +73,7 @@ const ProductConnection = ({isMobile, productData}) => {
                     )}
                     <ProductPhoneDialog
                         open={callModal}
+                        isMobile={isMobile}
                         onClose={handleChangeCallModal}
                     />
                 </Box>

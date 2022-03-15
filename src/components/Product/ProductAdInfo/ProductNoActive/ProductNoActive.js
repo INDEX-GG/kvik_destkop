@@ -1,26 +1,22 @@
-import React, { useMemo } from "react"
+import React from "react"
 import { Box, Typography } from "@material-ui/core"
 
 import { useProductNoActiveStyles } from "./style"
 
-const ProductNoActive = ({ status }) => {
+const ProductNoActive = ({ isMyAd, isOpacity, status }) => {
 	const classes = useProductNoActiveStyles()
 
 	const ProductNoActiveByType = {
 		no_active: "Объявление снято с публикации",
 		time_limit: "Истек срок размещения",
+        banned: "Объявление заблокировано",
 	}
 
-	const showBlock = useMemo(
-		() => status === "no_active" || status === "time_limit",
-		[status]
-	)
-
-	const labelBlock = Object.prototype.hasOwnProperty.call(ProductNoActiveByType,status) ? ProductNoActiveByType[status] : ""
+	const labelBlock = Object.prototype.hasOwnProperty.call(ProductNoActiveByType, status) ? (isMyAd ? ProductNoActiveByType[status] : ProductNoActiveByType.no_active) : ""
 
 	return (
 		<>
-			{showBlock && (
+			{isOpacity && (
 				<Box className={classes.noActiveBlock}>
 					<Typography className={classes.labelBlock}>{labelBlock}</Typography>
 				</Box>

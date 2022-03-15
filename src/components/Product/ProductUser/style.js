@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down(960)]: {
             marginBottom: '11px',
             borderBottom: '1px solid #e9e9e9',
-            padding: '10px 0px',
+            padding: '10px 0px 0px',
         },
     },
     adMiniature: {

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     opacityWeight: {
-        fontWeight: '300',
+        fontWeight: '400',
     },
     opacityPrice: {
         opacity: '0.5',
