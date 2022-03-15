@@ -4,75 +4,75 @@
     max-width: 1248px;
     width: 100%;
   }
-  
+
   .footerMainContainer {
     background-color: $tpl;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    height: 40px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
     position: relative;
   }
-  
+
   .indexTitleFooter{
     margin-right: 6px;
   }
-  
+
   .vkLinkFooter{
     padding: 0 24px;
   }
-  
+
   .linkContainerFooter{
     width: 300px;
   }
-  
+
   .rightContainer {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 300px;
   }
-  
+
   .rightContainer a{
     margin-left: 22px;
   }
-  
+
   .links__download{
     display: flex;
   }
-  
+
   .indexTitleFooter{
     margin-right: 0;
     position: absolute;
     right: 106px;
     bottom: 12px;
   }
-  
+
   .indexTitleFooter a{
     font-size: 12px;
     font-weight: 500;
     color: $inactive;
     margin-left: 0;
   }
-  
+
   .indexTitleFooter a:hover{
     color: $prime;
   }
-  
+
   .socialNetworksFooter{
     display: flex;
   }
-  
+
   .instagramLinkIcon{
     background: url(../../icons/ig_r_light.svg) no-repeat center;
     width: 24px;
     height: 24px;
     transition: 300ms ease-in-out;
   }
-  
+
   .vkLinkIcon{
     background: url(../../icons/vk_r_light.svg) no-repeat center;
     width: 24px;
@@ -111,38 +111,38 @@
     height: 24px;
     transition: 300ms ease-in-out;
   }
-  
+
   .fbLinkIcon{
     background: url(../../icons/fb_r_light.svg) no-repeat center;
     width: 24px;
     height: 24px;
     transition: 300ms ease-in-out;
   }
-  
+
   .androidDownloadLinkIconFooter{
     background: url(../../icons/android_light.svg) no-repeat center;
     width: 24px;
     height: 24px;
     transition: 300ms ease-in-out;
   }
-  
+
   .iosDownloadLinkIconFooter{
     background: url(../../icons/apple_light.svg) no-repeat center;
     width: 24px;
     height: 24px;
     transition: 300ms ease-in-out;
   }
-  
+
   .instagramLinkIcon:hover{
     background: url(../../icons/ig_r_grey.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
   .vkLinkIcon:hover{
     background: url(../../icons/vk_r_grey.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
   .fbLinkIcon:hover{
     background: url(../../icons/fb_r_grey.svg) no-repeat center;
     transition: 300ms ease-in-out;
@@ -178,21 +178,21 @@
     background: url(../../icons/android_grey.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
   .iosDownloadLinkIconFooter:hover{
     background: url(../../icons/apple_grey.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
   .instagramLinkIcon:active{
     background: url(../../icons/ig_r_green.svg) no-repeat center;
   }
-  
+
   .vkLinkIcon:active{
     background: url(../../icons/vk_r_green.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
   .fbLinkIcon:active{
     background: url(../../icons/fb_r_green.svg) no-repeat center;
     transition: 300ms ease-in-out;
@@ -226,12 +226,12 @@
     background: url(../../icons/android_green.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
   .iosDownloadLinkIconFooter:active{
     background: url(../../icons/apple_green.svg) no-repeat center;
     transition: 300ms ease-in-out;
   }
-  
+
   .aboutLinkFooter, .contactsLinkFooter, .offerLinkFooter {
     font-size: 14px;
     color: $ts;
@@ -240,59 +240,59 @@
     margin-right: 16px;
     transition: 300ms ease-in-out;
   }
-  
+
   .linkContainerFooter a:hover{
     color: $tpml;
     transition: 300ms ease-in-out;
   }
-  
+
   .linkContainerFooter a:active{
     color: $prime;
     transition: 300ms ease-in-out;
   }
-  
+
   .footer2 {
     width: 225px;
     z-index: 0;
     position: fixed;
     bottom: 0
   }
-  
+
   .main__block__footer p{
     font-weight: 500;
     font-size: 12px;
     color: $tp;
     margin-bottom: 5px;
   }
-  
+
   .block__links__download{
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
   }
-  
+
   .block__links__download a{
     padding: 0 15px;
   }
-  
+
   .block__links__download a:hover{
     transform: scale(1.2);
   }
-  
+
   .ios_links__download{
     background: url(../../icons/android_green.svg) no-repeat center;
     width: 24px;
     height: 24px;
     transition: 300ms ease-in-out;
   }
-  
+
   .android_links__download{
     background: url(../../icons/apple_green.svg) no-repeat center;
     width: 24px;
     height: 24px;
     transition: 300ms ease-in-out;
   }
-  
+
   .footer__bottom{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -300,47 +300,47 @@
     padding-top: 12px;
     background-color: $tpl;
   }
-  
+
   .socialNetworksFooter2{
     display: flex;
     justify-content: center;
     margin-bottom: 12px;
   }
-  
+
   .linkContainerFooter2{
     display: flex;
     flex-direction: column;
     margin-bottom: 12px;
   }
-  
+
   .contactsLinkFooter2{
     padding: 6px 0;
   }
-  
+
   .aboutLinkFooter2, .contactsLinkFooter2, .offerLinkFooter2{
     font-size: 14px;
     font-weight: 500;
     color: $ts;
     transition: 300ms ease-in-out;
   }
-  
+
   .aboutLinkFooter2:hover, .contactsLinkFooter2:hover, .offerLinkFooter2:hover{
     color: $tpml;
     transition: 300ms ease-in-out;
   }
-  
+
   .aboutLinkFooter2:active, .contactsLinkFooter2:active, .offerLinkFooter2:active{
     color: $prime;
     transition: 300ms ease-in-out;
   }
-  
+
   .indexTitleFooter2 a{
     font-size: 12px;
     font-weight: 500;
     color: $inactive;
     text-decoration: revert;
   }
-  
+
   .indexTitleFooter2 a:hover{
     color: $prime;
   }
@@ -351,14 +351,14 @@
       padding: 0 12px;
     }
   }
-  
+
   @media (max-width: 1024px)  {
     .footer {
       max-width: 1048px;
       padding: 0 12px;
     }
   }
-  
+
   @media (max-width: 800px) {
     .footerMainContainer{
       height: auto;
@@ -366,37 +366,37 @@
       align-items: flex-start;
       padding: 12px;
     }
-  
+
     .linkContainerFooter{
       display: flex;
       flex-direction: column;
       width: 156px;
     }
-  
+
     .aboutLinkFooter, .contactsLinkFooter, .offerLinkFooter{
       padding: 2px 0;
       margin-right: 0;
     }
-    
+
     .rightContainer{
       display: flex;
       flex-direction: column-reverse;
       width: 159px;
     }
-  
+
     .rightContainer div{
       align-self: flex-end;
     }
-  
+
     .indexTitleFooter {
       right: 16px;
     }
-    
+
     .vkLinkFooter{
       padding: 0 16px;
     }
   }
-  
+
   @media (max-width: 335px) {
     .aboutLinkFooter, .contactsLinkFooter, .offerLinkFooter {
       font-size: 11px;
