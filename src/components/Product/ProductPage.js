@@ -85,16 +85,18 @@ const ProductPage = () => {
                                             />
                                         </Box>
                                         {/* плашка объявление снято с публикации на мобилке */}
-                                        { isMobile && <Box className={classes.productNoActive}>
-                                            <ProductNoActive
-                                                isMyAd={isMyAd}
-                                                status={status}
-                                                isBanned={isBanned}
-                                                isOpacity={isOpacity}
-                                                isNoActive={isNoActive}
-                                                isTimeLimit={isTimeLimit}
-                                            />
-                                        </Box>}
+                                        { isMobile && (
+                                            <Box className={classes.productNoActive}>
+                                                <ProductNoActive
+                                                    isMyAd={isMyAd}
+                                                    status={status}
+                                                    isBanned={isBanned}
+                                                    isOpacity={isOpacity}
+                                                    isNoActive={isNoActive}
+                                                    isTimeLimit={isTimeLimit}
+                                                />
+                                            </Box>
+                                        )}
                                         <Box className={classes.productAdButtons}>
                                             {isMobile &&
                                                 <ProductConnection

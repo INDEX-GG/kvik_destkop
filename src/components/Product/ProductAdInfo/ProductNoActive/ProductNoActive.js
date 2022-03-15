@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useMemo} from "react"
 import { Box, Typography } from "@material-ui/core"
 
 import { useProductNoActiveStyles } from "./style"
@@ -12,7 +12,14 @@ const ProductNoActive = ({ isMyAd, isOpacity, status }) => {
         banned: "Объявление заблокировано",
 	}
 
-	const labelBlock = Object.prototype.hasOwnProperty.call(ProductNoActiveByType, status) ? (isMyAd ? ProductNoActiveByType[status] : ProductNoActiveByType.no_active) : ""
+	const labelBlock = useMemo(
+        () => Object.prototype.hasOwnProperty.call(ProductNoActiveByType, status)
+            ? (isMyAd
+                ? ProductNoActiveByType[status]
+                : ProductNoActiveByType.no_active)
+            : "",
+        [isMyAd, status]
+    )
 
 	return (
 		<>
