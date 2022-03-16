@@ -39,7 +39,7 @@ const SellersItem = ({seller}) => {
   }
 
   /**
-   * Render Seller product item of array
+   * Render Seller productOld item of array
    * @param {offer} (Object)
    * @returns JSX
    */

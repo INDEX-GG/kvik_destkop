@@ -89,7 +89,7 @@ const OfferFavorite = ({ index, offer, parentCheck, getChildCheck, dataCheck, de
 				</div>
 				<InternalLink
 					href={{
-						pathname: "/product/[id]",
+						pathname: "/productOld/[id]",
 						query: { id: offer.id}
 					}}
 					className={classes.cardLink}

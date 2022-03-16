@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }))
 
-export default function BreadCrumbs({ data, /**product = false,**/ searchData }) {
+export default function BreadCrumbs({ data, /**productOld = false,**/ searchData }) {
 	const classes = useStyles()
 
 	const {city} = useCity();
@@ -47,9 +47,9 @@ export default function BreadCrumbs({ data, /**product = false,**/ searchData })
 				}) : null}
 				{searchData &&
 				<a className={`breadCrumb light line ${classes.breadActiveItem}`}>{searchData}</a>}
-				{/* {product ?
+				{/* {productOld ?
 					<Link href="#">
-						<a className={`breadCrumb light line ${classes.breadActiveItem}`}>{product}</a>
+						<a className={`breadCrumb light line ${classes.breadActiveItem}`}>{productOld}</a>
 					</Link> : null} */}
 			</Box>
 		</Box>

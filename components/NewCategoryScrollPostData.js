@@ -81,7 +81,7 @@ const CategoryScrollPostData = ({url, product}) => {
 
     const classes = useStyles();
     // const router = useRouter()
-    // const product = useProduct(router.query.id)
+    // const productOld = useProduct(router.query.id)
     const {searchCity} = useCity()
     const {id} = useAuth()
     const {matchesMobile, matchesTablet} = useMedia()
@@ -100,7 +100,7 @@ const CategoryScrollPostData = ({url, product}) => {
         const stashNum = similarData.length - renderCards.length
         setStashNumber(stashNum > 8 ? 8 : stashNum)
     }, [renderCards, similarData.length])
-    
+
     // вешаем скролл слушатель при мобильном экране
     useEffect(()=> {
         if(mobile){
