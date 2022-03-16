@@ -18,17 +18,18 @@ const ProductMobileWrapper = ({isMobile, children}) => {
   return (
     <>
       {isMobile ? (
-        <MobileModal
-          title='На главную'
-          dialog={true}
-          close={handleCloseModal}
-        //   customClassesContainer={classes.productPageModal}
-        >
-            <Box className={classes.productPageModal}>
-                {children}
-            </Box>
-            <Footer />
-        </MobileModal>
+        <Box className={classes.productPageModal}>
+            <MobileModal
+            title='На главную'
+            dialog={true}
+            close={handleCloseModal}
+            customClassesContainer={classes.productPageModal}
+            >
+                    {children}
+                <Footer />
+            </MobileModal>
+        </Box>
+
       ) : (
         <>{children}</>
       )}

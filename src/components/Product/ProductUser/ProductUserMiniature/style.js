@@ -7,7 +7,11 @@ const useStyles = makeStyles((theme) => ({
 
         [theme.breakpoints.down(960)]: {
             alignItems: 'flex-start',
-
+        }
+    },
+    alignItemsCenter: {
+        [theme.breakpoints.down(960)]: {
+            alignItems: 'center',
         }
     },
     avatar: {
