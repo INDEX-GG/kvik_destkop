@@ -280,4 +280,5 @@ return (
 //     </>
 //   );
 };
-export default Compare;
+
+export default React.memo(Compare)

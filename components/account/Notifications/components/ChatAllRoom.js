@@ -53,6 +53,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
       product_id: data?.product_id,
       mobile: matchesMobile || matchesTablet
     }
+    console.log('changeChat-routerObj: ', routerObj)
     chatPush(router, routerObj)
   }
 
@@ -145,4 +146,4 @@ const ChatAllRoom = ({allRooms, setData}) => {
   );
 };
 
-export default ChatAllRoom;
+export default React.memo(ChatAllRoom);

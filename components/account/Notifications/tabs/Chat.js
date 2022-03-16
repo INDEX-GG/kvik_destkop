@@ -126,7 +126,7 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
         getTokenDataByPost(`${CHAT_URL_API}/chat_history`, historyObj, token).then(r => {
           // проверка что пришел не undefined
           // при простаивании часто вылазит ошибка
-          if(typeof r !== 'undefined') {
+          if(typeof r !== 'undefined' && r.data !== 'undefined') {
             if (userOnline) setUserOnline(false)
 
             console.log("SOCKET CONNECT")
@@ -733,4 +733,4 @@ const Chat = ({usersData, userChatPhoto, userChatName, /** localRoom, */ setLoca
   )
 }
 
-export default Chat;
+export default React.memo(Chat);

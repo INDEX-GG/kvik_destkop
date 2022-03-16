@@ -111,4 +111,4 @@ const Deals = () => {
   //     </>
   //  )
 }
-export default Deals;
+export default React.memo(Deals)

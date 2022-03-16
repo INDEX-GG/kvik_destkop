@@ -9,6 +9,8 @@ import { Divider } from '@material-ui/core';
 
 const ChatRoom = ({roomData, children, mobile = false}) => {
 
+    console.log('roomData: ', roomData)
+
     // TODO: добавить проверку на удаленный товар и аккаунт
     // const productInfo = useProduct(roomData?.product_id)
     const isDeletedOffer = false//productInfo.status в будущем если объявление удалено, рисуем это объявление удалено и не даем перейти на него
@@ -80,4 +82,4 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
         </div>
     );
 };
-export default ChatRoom;
+export default React.memo(ChatRoom);

@@ -1,0 +1,93 @@
+{
+	"tabs": [
+		{
+			"title": "Мои объявления",
+			"href": "/accountV2/offers?content=active",
+			"hrefShort": "offers",
+			"icons": {
+				"default": "offers_dark.svg",
+				"hover": "offers_grey.svg",
+				"active": "offers_green.svg"
+			}
+		},
+		{
+			"title": "Сделки",
+			"href": "/accountV2/deals",
+			"hrefShort": "deals",
+			"icons": {
+				"default": "deal_dark.svg",
+				"hover": "deal_grey.svg",
+				"active": "deal_green.svg"
+			}
+		},
+		{
+			"title": "Кошелёк",
+			"href": "/accountV2/wallet?content=balance",
+			"hrefShort": "wallet",
+			"icons": {
+				"default": "wallet_dark.svg",
+				"hover": "wallet_grey.svg",
+				"active": "wallet_green.svg"
+			}
+		},
+		{
+			"title": "Избранное",
+			"href": "/accountV2/favorite?content=ads",
+			"hrefShort": "favorite",
+			"icons": {
+				"default": "like_dark.svg",
+				"hover": "like_grey.svg",
+				"active": "like_green.svg"
+			}
+		},
+		{
+			"title": "Сообщения",
+			"href": "/accountV2/message?content=rooms",
+			"hrefShort": "message",
+			"icons": {
+				"default": "notif_dark.svg",
+				"hover": "notif_grey.svg",
+				"active": "notif_green.svg"
+			}
+		},
+		{
+			"title": "Сравнить",
+			"href": "/accountV2/compare",
+			"hrefShort": "compare",
+			"icons": {
+				"default": "compare_dark.svg",
+				"hover": "compare_grey.svg",
+				"active": "compare_green.svg"
+			}
+		},
+		{
+			"title": "Отзывы",
+			"href": "/accountV2/reviews",
+			"hrefShort": "reviews",
+			"icons": {
+				"default": "review_dark.svg",
+				"hover": "review_grey.svg",
+				"active": "review_green.svg"
+			}
+		},
+		{
+			"title": "Настройки",
+			"href": "/accountV2/settings?content=user",
+			"hrefShort": "settings",
+			"icons": {
+				"default": "settings_dark.svg",
+				"hover": "settings_grey.svg",
+				"active": "settings_green.svg"
+			}
+		}
+	],
+	"exit": {
+		"title": "Выход",
+		"hrefShort": "",
+		"icons": {
+			"default": "quit_dark.svg",
+			"hover": "quit_grey.svg",
+			"active": "quit_green.svg"
+		}
+	}
+}

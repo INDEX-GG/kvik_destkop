@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from 'react';
+import React from 'react';
 // import WaitReviews from './tabs/WaitReviews';
 // import LeftReviews from './tabs/LeftReviews';
 // import { brooklyn } from '../../../lib/services';
@@ -106,4 +106,4 @@ const Reviews = () => {
    //    </>
    // )
 }
-export default Reviews;
+export default React.memo(Reviews)

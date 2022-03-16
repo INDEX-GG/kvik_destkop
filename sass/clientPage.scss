@@ -191,31 +191,31 @@
         }
       }
 
-			&__title {
-				font-weight: 500;
-				font-size: 14px;
-				padding: 0;
-				// грязный хак, чтобы подчёркивание по центру было
-				transform: translateY(12.5%);
-			}
+    &__title {
+        font-weight: 500;
+        font-size: 14px;
+        padding: 0;
+        // грязный хак, чтобы подчёркивание по центру было
+        transform: translateY(12.5%);
+    }
 
-      & > * {
-        margin: 0 40px 0 0;
-        padding: 0px 0 16px 0;
-        font-size: 18px;
-        color: $tpsl;
+    & > * {
+    margin: 0 40px 0 0;
+    padding: 0px 0 16px 0;
+    font-size: 18px;
+    color: $tpsl;
+    transition: all 200ms ease-in-out;
+    /* border-bottom: 2px solid $light; */
+
+    &:last-child {
+        margin: 0;
+    }
+
+    &:hover {
         transition: all 200ms ease-in-out;
-        /* border-bottom: 2px solid $light; */
-
-        &:last-child {
-          margin: 0;
-        }
-
-        &:hover {
-          transition: all 200ms ease-in-out;
-          color: $tpl;
-        }
-      }
+        color: $tpl;
+    }
+    }
     }
 
     &_content {

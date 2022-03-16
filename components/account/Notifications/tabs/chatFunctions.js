@@ -34,23 +34,23 @@ export const generateDataToken = (id, token, userToken) => {
 
 // Переадресация на определённую страницу в зависимости от разрешения экрана
 export const chatPush = (router, dataObj) => {
-	dataObj.mobile ? 
+	dataObj.mobile ?
 	router.push({
-		pathname: `/account/${dataObj?.id}`,
+		pathname: `/accountV2/message`,
 		query: {
-			account: 5,
-			content: 1,
+			content: 'rooms',
+			// account: 5,
 			companion_id: dataObj?.companion_id,
 			product_id: dataObj?.product_id,
 			// mobile - говорит, что нужно открыть модальное окно с чатом (срабатывает на телефоне)
 			mobile: 'on',
 		},
-	}) : 
+	}) :
 	router.push({
-		pathname: `/account/${dataObj?.id}`,
+		pathname: `/accountV2/message`,
 		query: {
-			account: 5,
-			content: 1,
+			content: 'rooms',
+			// account: 5,
 			companion_id: dataObj?.companion_id,
 			product_id: dataObj?.product_id,
 		},

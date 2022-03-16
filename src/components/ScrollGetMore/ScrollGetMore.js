@@ -27,7 +27,7 @@ const ScrollGetMore = (props) => Component => {
         const routerHook = useRouter();
 	    const {matchesMobile} = useMedia();
 
-        const {url, tabs} = props;
+        const {url, tabs, routers} = props;
 
         // находимся ли мы на страничке другого пользователя
         // чтобы передавать в user_id не свой id
@@ -42,15 +42,47 @@ const ScrollGetMore = (props) => Component => {
             //     : typeof url !== 'undefined' && url !== null ),
             // () => typeof id !== 'undefined' && id !== null && url,
             () =>   typeof url !== 'undefined' && url !== null,
-            [id, url]
+            [url]
         )
         // const isAuth = useMemo(
         //     () => token !== null || typeof token !== 'undefined',
         //     [token]
         // )
+        // const routerContent = useMemo(
+        //     () => componentProps.router ? (+componentProps.router.query.content - 1) : (+componentProps.itemNav.i - 1),
+        //     [componentProps]
+        // )
+
+        // console.log('routerHook: ', routerHook)
+        // console.log('routers: ', routers)
+
+        // const routerContent = useMemo(
+        //     () => routers.map(item => item.route).findIndex((elem => {
+        //         console.log('elem: ', elem)
+        //         console.log('routerHook.route: ', routerHook.route)
+        //         routerHook.route.includes(elem)
+        //     })),
+        //     [componentProps]
+        // )
+
+        // const routerContent = useMemo(
+        //     () => {
+        //         return routers.find(r => {
+        //             console.log('r: ', r.route)
+        //             routerHook.asPath.includes(r.route)
+        //         }).content
+        //     },
+        //     [routers]
+        // )
+
+        const routContent = useMemo(
+            () => routers.find(r => routerHook.asPath.includes(r.route)),
+            [routers]
+        )
+
         const routerContent = useMemo(
-            () => componentProps.router ? (+componentProps.router.query.content - 1) : (+componentProps.itemNav.i - 1),
-            [componentProps]
+            () => routContent?.content,
+            [routContent]
         )
 
         const [data, setData] = useState({})
@@ -181,11 +213,12 @@ const ScrollGetMore = (props) => Component => {
         useEffect(() => {
             setInitialParamRequest(prevState => ({
                 ...prevState,
-                user_id: (+routerHook.query.id),
+                // user_id: (+routerHook.query.id),
+                user_id: id,
                 page: 1,
                 page_limit: 20
             }))
-        }, [routerHook.query.id])
+        }, [id])
         // ? Логика скролла =======================================
 
 		const throttleScrollHandler = throttle(scrollHandler, 500)
@@ -227,6 +260,8 @@ const ScrollGetMore = (props) => Component => {
                 containerScroll.removeEventListener("scroll", throttleScrollHandler)
             }
         }, [data, initialParamRequest, routerContent])
+
+        console.log('initialParamRequest: ', initialParamRequest)
 
         return (
             <Component

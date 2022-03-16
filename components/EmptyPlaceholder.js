@@ -11,7 +11,7 @@ import React from 'react';
  */
 
 /**
- * @param {EmptyPlaceholderProps} props 
+ * @param {EmptyPlaceholderProps} props
  */
 const EmptyPlaceholder = ({title, subtitle, img, imgAlt, className = undefined, customClass = ''}) => {
 	const titleClass = ["notInf__title", className && className].join(" ");
@@ -29,4 +29,4 @@ const EmptyPlaceholder = ({title, subtitle, img, imgAlt, className = undefined, 
 	)
 }
 
-export default EmptyPlaceholder;
+export default React.memo(EmptyPlaceholder);

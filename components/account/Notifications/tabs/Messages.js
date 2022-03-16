@@ -11,23 +11,25 @@ import {/** generateProductPhoto, */ generateDataToken} from "./chatFunctions";
 import {askForPermissioToReceiveNotifications, initializeFirebase} from '../../../../firebase/clientApp';
 import registerServiceWorkerNoSSR from '../../../../firebase/InitServiceWorker'
 // import ChatDefaultAvatar from "../components/ChatDefaultAvatar";
-import Loader from "../../../../UI/icons/Loader";
+// import Loader from "../../../../UI/icons/Loader";
 // import ChatPlaceholder from "../../../../UI/icons/ChatPlaceholder";
 import ChatAllRoom from "../components/ChatAllRoom";
 import ChatRoom from "../components/ChatRoom";
 import {getTokenDataByPost} from "../../../../lib/fetch";
-import AccountChatPlaceHolder from '../../../placeHolders/AccountChatPlaceHolder/AccountChatPlaceHolderMobile'
+// import AccountChatPlaceHolder from '../../../placeHolders/AccountChatPlaceHolder/AccountChatPlaceHolderMobile'
 
 
-function Messages() {
+function Messages({data}) {
+
+    // console.log('Messages-data: ', data)
 
   const [messageModal, setMessageModal] = useState(false)
   const [room, setRoom] = useState({})
-  const [allRooms, setAllRooms] = useState([])
+//   const [allRooms, setAllRooms] = useState([]) //
   const [chatUsers, setChatUsers] = useState()
   const [loading, setLoading] = useState(false)
   const [loadingRoom, setLoadingRoom] = useState(true);
-  const [loadingAllRooms, setLoadingAllRooms] = useState(true)
+//   const [loadingAllRooms, setLoadingAllRooms] = useState(true)
 
   //! Сценарий для комнаты, которой ещё нет в база и на сокете
   const [localRoom, setLocalRoom] = useState(false);
@@ -39,7 +41,7 @@ function Messages() {
   const {id, token} = useAuth()
   const {userInfo} = useStore()
   const {matchesTablet, matchesMobile} = useMedia()
-  console.log(userInfo, 'userInfo')
+//   console.log(userInfo, 'userInfo')
   // временный буль для проверки открытия окна переписки
   const chatIsOpen = router.asPath.includes('companion')
 
@@ -91,12 +93,13 @@ function Messages() {
           getTokenDataByPost(`${CHAT_URL_API}/chat_history`, obj, token).then(r => {
           getTokenDataByPost(`/api/roomInfo`, [r.room], token)
             .then(r => {
-              console.log(allRooms);
+              console.log('r: ', r);
               setRoom(r.list[0])
               setLoadingRoom(false)
             })})
         } catch(e) {
           console.log(1)
+          console.log('e: ', e)
         }
       }
     }
@@ -107,15 +110,17 @@ function Messages() {
     if (router?.query) {
       const productId = router.query.product_id;
 
-      if (room?.product_id && !loadingAllRooms) {
-        const findItem = allRooms?.find(item => item.product_id == productId);
-        console.log(findItem, productId)
+    //   if (room?.product_id && !loadingAllRooms) {
+    if (room?.product_id) {
+        // const findItem = allRooms?.find(item => item.product_id == productId);
+        const findItem = data?.find(item => item.product_id == productId);
+        // console.log(findItem, productId)
         if (!findItem) {
           setLocalRoom(true)
         }
       }
     }
-  }, [room, loadingAllRooms, router])
+  }, [room, router])
 
 
   // Продолжение верхнего useEffect;
@@ -135,13 +140,16 @@ function Messages() {
         'message': localHistoryMessage?.message,
       }
 
+      console.log('sendObj2: ', sendObj2)
+
 
       if (localHistoryMessage?.message) {
         const productId = router.query.product_id;
-        const findItem = allRooms?.find(item => item.product_id === productId);
+        // const findItem = allRooms?.find(item => item.product_id === productId);
+        const findItem = data?.find(item => item.product_id === productId);
 
         console.log(findItem);
-        setAllRooms([sendObj2])
+        // setAllRooms([sendObj2])
 
         //   if (!findItem) {
         //     console.log(1)
@@ -169,7 +177,7 @@ function Messages() {
     }
   }, [localHistoryMessage])
 
-  console.log(localRoom)
+//   console.log(localRoom)
 
   //! Создаём модель пользователей в чате + продукт
   useEffect(() => {
@@ -185,22 +193,22 @@ function Messages() {
 
 
   //! Получаем все комнаты которые есть у пользователя (диалоги)
-  useEffect(() => {
-    if (id) {
-      getTokenDataByPost(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id}, token)
-        .then(r => {
-          if (r.data?.length) {
-            getTokenDataByPost(`/api/roomInfo`, r.data, token)
-              .then(r => {
-                setAllRooms(r.list)
-                setLoadingAllRooms(false)
-              })
-          } else {
-            setLoadingAllRooms(false)
-          }
-        })
-    }
-  }, [id])
+//   useEffect(() => {
+//     if (id) {
+//       getTokenDataByPost(`${CHAT_URL_API}/chat_last_messages`, {"user_id": id}, token)
+//         .then(r => {
+//           if (r.data?.length) {
+//             getTokenDataByPost(`/api/roomInfo`, r.data, token)
+//               .then(r => {
+//                 // setAllRooms(r.list)
+//                 // setLoadingAllRooms(false)
+//               })
+//           } else {
+//             // setLoadingAllRooms(false)
+//           }
+//         })
+//     }
+//   }, [id])
 
   // Если произошёл ресайз на больших сенсорных устройствах. После чего мы выходим из модального окна и сразу оказываемся в комнате (пк версия)
   useEffect(() => {
@@ -228,7 +236,7 @@ function Messages() {
   }, [room])
 
   return (
-    !loadingAllRooms && !allRooms?.length && !room.product_id ?
+    !data?.length && !room.product_id ?
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
           <div className="notInfContainer">
@@ -257,9 +265,9 @@ function Messages() {
               в десктопной версии оно рендерилось поверх окна диалога с другим юзером */}
             {!chatIsOpen &&
             <div className="messageDialogs">
-                {loadingAllRooms && matchesMobile && <AccountChatPlaceHolder /> }
-                {loadingAllRooms && !matchesMobile && <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div>}
-                  <ChatAllRoom allRooms={allRooms}
+                {/* {loadingAllRooms && matchesMobile && <AccountChatPlaceHolder /> } */}
+                {/* {loadingAllRooms && !matchesMobile && <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div>} */}
+                  <ChatAllRoom allRooms={data}
                     setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>
 
             </div>}
@@ -275,8 +283,8 @@ function Messages() {
                   // </div>
                   null
                 ) :
-                loadingRoom && matchesMobile ? <AccountChatPlaceHolder /> :
-                loadingRoom && !matchesMobile ? <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
+                // loadingRoom && matchesMobile ? <AccountChatPlaceHolder /> :
+                // loadingRoom && !matchesMobile ? <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div> :
                   // <div className="messageWindow">
                   //   {room?.seller_id ?
                   //       <div className="messageHeader small">

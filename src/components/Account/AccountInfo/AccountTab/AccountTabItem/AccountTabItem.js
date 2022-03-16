@@ -1,31 +1,39 @@
-import React from "react";
-import {Box} from "@material-ui/core";
-import {useAccountTabItemStyles} from './style';
-import Link from 'next/link'
+import React, {useMemo} from "react"
+import { Box } from "@material-ui/core"
+import clsx from "clsx"
 
-const AccountTabItem = ({title, href, icon}) => {
+import {useCustomRouter} from '../../../../../hook/globalHooks/useCustomRouter'
 
-    const classes = useAccountTabItemStyles()
-    const IconComponent = icon
+import { useAccountTabItemStyles } from "./style"
 
-    return (
-        <Box component='li'>
-            <Link href={href}>
-                <a>
-                    <Box className={classes.tabItem}>
-                        {icon && (
-                            <Box component='span' className={classes.tabIcon}>
-                                <IconComponent/>
-                            </Box>
-                        )}
-                        <Box component='span' className={classes.tabTitle}>
-                            {title}
-                        </Box>
-                    </Box>
-                </a>
-            </Link>
-        </Box>
+const AccountTabItem = ({ title, onClick = null, hrefShort, icons }) => {
+	const classes = useAccountTabItemStyles(icons)
+    const {compare} = useCustomRouter()
+
+    const isActive = useMemo(
+        () => compare(hrefShort),
+        [hrefShort]
     )
+
+	return (
+		<Box component="li" onClick={onClick}>
+			<Box
+				className={clsx(classes.tabItem, {
+					[classes.tabItemActive]: isActive,
+				})}
+			>
+				<Box
+					component="span"
+					className={clsx(classes.tabIcon, {
+						[classes.tabIconActive]: isActive,
+					})}
+				/>
+				<Box component="span" className={classes.tabTitle}>
+					{title}
+				</Box>
+			</Box>
+		</Box>
+	)
 }
 
-export default React.memo(AccountTabItem);
+export default React.memo(AccountTabItem)
