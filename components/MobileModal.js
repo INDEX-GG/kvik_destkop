@@ -2,12 +2,12 @@ import { Dialog } from '@material-ui/core';
 import React from 'react';
 import { useMedia } from '../hooks/useMedia';
 
-const MobileModal = ({title, subtitle = false, dialog = false, close, children}) => {
+const MobileModal = ({title, subtitle = false, dialog = false, close, children, customClassesContainer = ''}) => {
 	const {matchesMobile, matchesTablet} = useMedia();
 	const MobileDevice = matchesMobile || matchesTablet;
 	return (
-		MobileDevice ? 
-		<Dialog open={dialog || false} fullScreen={true}>
+		MobileDevice ?
+		<Dialog open={dialog || false} fullScreen={true} className={customClassesContainer}>
 			<div className="modal__wrapper_md">
 			<div className="modal__block__top mobileModalTop">
 				<>

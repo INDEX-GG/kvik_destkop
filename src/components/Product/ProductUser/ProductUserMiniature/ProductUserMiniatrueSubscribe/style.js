@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
             alignItems: 'center',
         }
     },
+    subscribeTitle: {
+        fontWeight: '400',
+        fontSize: '12px',
+        lineHeight: '14px',
+        textAlign: 'right',
+    },
     subscribed: {
         color: '#00A0AB',
     },

@@ -39,7 +39,12 @@ const ProductUserMiniature = (
     )
 
     return (
-        <Box className={classes.userMiniature}>
+        <Box className={clsx(
+            classes.userMiniature, {
+                [classes.alignItemsCenter]: !showRaiting
+            }
+        )}
+        >
             <CustomLinkUI
                 href={urlToAdOwner}
                 customRoot={classes.avatar}

@@ -3,14 +3,42 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     productPageModal: {
-        // overflow: 'hidden',
-        // msOverflowStyle: 'none',
-        // overflow: '-moz-scrollbars-none',
-        // 'scrollbar-width': 'none !important',
-        // '&::-webkit-scrollbar': {
-        //     width: '0',
-        // }
-    },
+        scrollbarWidth: 'none !important',
+
+        '& .MuiDialog-paper::-webkit-scrollbar': {
+            display: 'none',
+            width: '0',
+        },
+
+        '& .MuiDialog-paper::-moz-scrollbar': {
+            display: 'none',
+            width: '0px',
+        },
+
+        '& .MuiDialog-root::-webkit-scrollbar': {
+            display: 'none',
+            width: '0',
+        },
+
+        '& .MuiDialog-root::-moz-scrollbar': {
+            display: 'none',
+            width: '0px',
+        },
+
+        '& .MuiDialog-root, .MuiBackdrop-root, .MuiPaper-root, .MuiDialog-container': {
+            scrollbarWidth: 'none !important',
+        },
+
+        '&::-webkit-scrollbar': {
+            display: 'none',
+            width: '0',
+        },
+
+        '&::-moz-scrollbar': {
+            display: 'none',
+            width: '0px',
+        },
+    }
 }));
 
 export const useProductMobileWrapperStyles = () => useStyles();
