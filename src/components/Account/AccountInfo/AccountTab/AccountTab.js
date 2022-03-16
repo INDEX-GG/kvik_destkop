@@ -8,29 +8,32 @@ import AccountWalletIcon from "../../../../UI/UIicon/AccountWalletIcon";
 import AccountLikeIcon from "../../../../UI/UIicon/AccountLikeIcon";
 import AccountMessageIcon from "../../../../UI/UIicon/AccountMessageIcon";
 import AccountStatsIcon from "../../../../UI/UIicon/AccountStatsIcon";
-import RatingStartIcon from "../../../../UI/UIicon/RatingStartIcon";
 import AccountSettingIcon from "../../../../UI/UIicon/AccountSettingIcon";
 import AccountLeaveIcon from "../../../../UI/UIicon/AccountLeaveIcon";
+import AccountStarIcon from "../../../../UI/UIicon/AccountStarIcon";
 
 const tabData = [
     {
         title: 'Мои объявления',
-        href: '/account/offer',
-        icon: AccountOffersIcon
+        href: '/accountV2/offers/active',
+        icon: AccountOffersIcon,
+        style: 'offerIcon'
     },
     {
         title: 'Сделки',
-        href: '/account/deal',
-        icon: AccountDealIcon
+        href: '/accountV2/deal',
+        icon: AccountDealIcon,
+        style: 'dealIcon'
     },
     {
         title: 'Кошелёк',
-        href: '/account/wallet',
-        icon: AccountWalletIcon
+        href: '/accountV2/wallet/balance',
+        icon: AccountWalletIcon,
+        style: 'likeIcon'
     },
     {
         title: 'Избранное',
-        href: '/account/favorite',
+        href: '/accountV2/favorite/',
         icon: AccountLikeIcon
     },
     {
@@ -46,7 +49,7 @@ const tabData = [
     {
         title: 'Отзывы',
         href: '/account/reviews',
-        icon: RatingStartIcon
+        icon: AccountStarIcon
     },
     {
         title: 'Настройки',
