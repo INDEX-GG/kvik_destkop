@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react"
+import React, { useContext, useMemo, useState } from "react"
 import { useProduct } from "#hooks/useProduct"
 import { useMedia } from "#hooks/useMedia"
 import { useRouter } from "next/router"
@@ -51,6 +51,7 @@ const ProductProvider = ({ children }) => {
 			value={{ productData: { ...product, isMyAd, isActive, isNoActive, isBanned, isTimeLimit, isOpacity }, isMobile, isAuth, setProductInfo }}
 		>
 			{children}
+
 		</ProductContext.Provider>
 	)
 }

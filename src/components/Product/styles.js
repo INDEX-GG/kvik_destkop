@@ -111,6 +111,11 @@ const useStyles = makeStyles((theme) => ({
             }
         }
     },
+    productAdButtonsHidden: {
+        [theme.breakpoints.down(960)]: {
+            marginTop: '0px !important',
+        }
+    },
     productCounts: {
         marginBottom: '18px',
 

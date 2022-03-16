@@ -18,9 +18,8 @@ const AdMiniatureItem = ({photo, id, price, title}) => {
 
 
     const handlePushMiniature = () => {
-        pushTo(`/productV2/${id}`)
+        pushTo(`/product/${id}`)
     }
-
 
     return (
         <Box className={classes.miniatureContainer} onClick={handlePushMiniature}>
