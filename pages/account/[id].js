@@ -386,11 +386,6 @@ const Account = () => {
         )
     }
 
-    // console.log('matchesTablet: ', matchesTablet)
-    // console.log('matchesDesktop: ', matchesDesktop)
-    // console.log('account: ', +router.query.account === 8)
-    console.log((matchesTablet && +router.query.account === 8) || matchesDesktop)
-
     return (
         <MetaLayout title={"Личный кабинет"}>
             {!userInfo && !matchesMobile ?
