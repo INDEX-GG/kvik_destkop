@@ -9,13 +9,16 @@ import { useMedia } from '#hooks/useMedia';
 
 /**
  *
- * @param {*} props
- * @returns
+ * ! HOC вешает событие скролл на переданный компонент и отправляет новый запрос как только долистали до середины, тем самым увеличивая лимит загрузки
+ * ! все данные запроса находятся в data[tabsKey].data
+ * @param {props} Пропсы, которые прокидываются непосредственно в HOC - обязательные параметры {url и массив названий вкладок tabs - [active_posts, wait_posts...]}
+ * @Component => {React.FC} - компонент, которые мы передали в HOC
+ * @returns ScrollToEnd
  */
 const ScrollGetMore = (props) => Component => {
     /**
      *
-     * @param {*} props
+     * @param {props} Стаднатрные пропс, которые шли переданному компоненту
      * @returns
     */
     const ScrollToEnd = (componentProps) => {
@@ -26,6 +29,8 @@ const ScrollGetMore = (props) => Component => {
 
         const {url, tabs} = props;
 
+        // находимся ли мы на страничке другого пользователя
+        // чтобы передавать в user_id не свой id
         const isGetSeller = useMemo(
             () => url.includes('getSeller'),
             [url]
@@ -66,6 +71,15 @@ const ScrollGetMore = (props) => Component => {
             }
         }
 
+        /**
+         * ! Функция оборачивает пришедший объект, добавляя ключи limit, data, id_content, name_content
+         * ! limit {Boolean} - подгружать ли еще данные на текущей вкладке
+         * ! data {Object} - исходные данные из запроса
+         * ! id_content {Number} - ключ текущей вкладки по массиву вкладок tabs
+         * ! name_content {String} - название текущей вкладки - и соответсвенно лдин из элементов из массива tabs
+         * @param {Object} postData - исходный response от переданного url
+         * @returns
+         */
         const processingData = (postData) => {
 
             const arrayKeyResponsePost = getKeyArrayFilteredForObject(postData)
@@ -88,6 +102,11 @@ const ScrollGetMore = (props) => Component => {
             return returnObj
         }
 
+        /**
+         * ! Делает тоже самое что и верхняя функция, но конкатенируя data с прошлыми данными
+         * @param {Object} postData
+         * @returns
+         */
         const processingExistData = (postData) => {
 
             const arrayKeyResponsePost = getKeyArrayFilteredForObject(postData)
@@ -131,6 +150,7 @@ const ScrollGetMore = (props) => Component => {
         }
 
         const getMoreData = async () => {
+            // проверка на limit, подгружать ли еще данные
             if(!data[tabs[routerContent]].limit) {
                 const _data = await fetchData()
                 const allTabPosts = processingExistData(_data)
@@ -184,6 +204,7 @@ const ScrollGetMore = (props) => Component => {
 
         useEffect(() => {
             let containerScroll = document
+            // на мобилке вешаем на модалку
             if(matchesMobile) containerScroll = document.documentElement.getElementsByClassName('MuiDialog-paper')[0]
 
             containerScroll.addEventListener("scroll", throttleScrollHandler)
