@@ -45,7 +45,7 @@ const ProductUser = () => {
                         user_products_count={user_products_count}
                     />
                 </Box>
-                {!isMyAd && (
+                {!isMyAd && !isMobile && (
                     <Box className={classes.userBlock}>
                         <ProductUserBlock/>
                     </Box>

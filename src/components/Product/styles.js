@@ -2,7 +2,7 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     productPage: {
-        minHeight: '100vh',
+        // minHeight: '100vh',
         '& .swiper-container': {
             marginBottom: '4px',
             // padding: 0 10px,
@@ -138,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     productPageCard: {
-        padding: '10px 0px',
+        padding: '10px 0px 0px',
         maxWidth: '968px',
         width: '100%',
     },

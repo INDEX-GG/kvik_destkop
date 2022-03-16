@@ -101,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down(960)]: {
             width: '100%',
             borderRadius: 0,
+            marginBottom: '15px',
         }
     }
 }));

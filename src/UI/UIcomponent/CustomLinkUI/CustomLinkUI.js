@@ -1,17 +1,27 @@
-import React from 'react';
+import React from "react";
 import Link from 'next/link'
-import {Box} from "@mui/material";
+import {useCustomLinkUIStyles} from './style';
 
-const CustomLinkUI = ({children, href = '/', className, component}) => {
+const CustomLinkUI = (
+    {
+        href = '#',
+        customRoot = null,
+        children,
+    }
+) => {
+
+    const classes = useCustomLinkUIStyles()
+    const classesLink = customRoot ? `${customRoot} ${classes.link}` : classes.link
+
     return (
-        <Link href={href}>
-            <a>
-                <Box component={component} className={className}>
-                    {children}
-                </Box>
+        <Link
+            href={href}
+        >
+            <a className={classesLink}>
+                {children}
             </a>
         </Link>
-    );
-};
+    )
+}
 
-export default CustomLinkUI;
+export default React.memo(CustomLinkUI);

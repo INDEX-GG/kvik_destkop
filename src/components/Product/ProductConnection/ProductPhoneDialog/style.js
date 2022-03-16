@@ -8,6 +8,20 @@ const useStyles = makeStyles(() => ({
     },
     paper: {
         width: '100%'
+    },
+    mobileContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+    },
+    callButton: {
+        fontWeight: '600',
+        fontSize: '14px',
+        lineHeight: '16px',
+        textAlign: 'center',
+        color: '#00A0AB',
+
+        alignSelf: 'flex-end',
     }
 }));
 

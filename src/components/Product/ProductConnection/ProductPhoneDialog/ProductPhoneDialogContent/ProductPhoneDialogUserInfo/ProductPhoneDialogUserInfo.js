@@ -7,7 +7,7 @@ import {STATIC_URL} from "#lib/constants";
 import ProductPhoneDialogNumber from "../ProductPhoneDialogNumber/ProductPhoneDialogNumber";
 import {useCryptoData} from "../../../../../../hook/globalHooks/useCryptoData";
 
-const ProductPhoneDialogUserInfo = () => {
+const ProductPhoneDialogUserInfo = ({showRaiting = true, smallPhone = false}) => {
 
     const {
         productData: {
@@ -35,11 +35,13 @@ const ProductPhoneDialogUserInfo = () => {
                     userRating={user_raiting}
                     userPhoto={userPhoto}
                     viewSubscribe={false}
+                    showRaiting={showRaiting}
                 />
             </Box>
             <ProductPhoneDialogNumber
                 phone={normalPhone}
                 x={0} y={25}
+                smallPhone={smallPhone}
             />
         </Box>
     )
