@@ -8,6 +8,7 @@ import PayPromotion from "../../src/components/PayPromotion/PayPromotion/PayProm
 import CustomModalUI from "../../src/UI/UIcomponent/CustomModal/CustomModalUI";
 // import {STATIC_URL} from "../../lib/constants";
 import {ellipsis, ToRubles} from '../../lib/services'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -165,8 +166,11 @@ const useStyles = makeStyles(theme => ({
 		color: "#8F8F8F",
 		fontSize: "9px",
 		fontWeight: "400",
-		padding: "7px 0 3px 7px",
+		padding: "0px 0 3px 7px",
 	},
+    productBottomBlock: {
+        marginTop: 'auto'
+    },
 	productCard: {
 		width: "118px",
 		height: "205.51px",
@@ -237,7 +241,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 	useEffect(() => {
 		if (finalPreview) {
 			setTimeout(() => {
-				rounter.push("/")
+				// rounter.push("/")
 			}, 3000)
 		}
 	}, [finalPreview])
@@ -326,6 +330,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 		</Box>
 	}
 
+    console.log('product: ', product)
 
 	return (
 		<>
@@ -360,7 +365,8 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 							<img src={!editProduct ? product.photo : `${product.photo}`} className={classes.productImg} alt="product photo" />
                 <div className={classes.productPrice}>{ToRubles(!editProduct ? product.price : product.price)}</div>
 						   <div className={classes.productName}>{ellipsis(!editProduct ? product.title : product.title, 16)}</div>
-							<div className={classes.productLocation}>{!editProduct ? product.location : product.location}</div>
+							<div classes={classes.productLocation}>{ellipsis(!editProduct ? product.location : product.location, 22)}</div>
+							<div className={classes.productLocation}>{!editProduct ? product.date : product.date}</div>
 						</div>
 						{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
 						<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление успешно опубликовано!' : 'Ваше объявление успешно отредактировано!'}</div>
