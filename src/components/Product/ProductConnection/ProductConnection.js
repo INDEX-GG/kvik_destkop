@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Box} from "@material-ui/core";
 import clsx from 'clsx'
 
+import LoginModal from "../../AnyPage/LoginModal/LoginModal"
+import { LoginDrawerCTX } from "#lib/Context/DialogCTX"
 import PhoneIcon from "../../../UI/UIicon/PhoneIcon";
 import MessageIcon from "../../../UI/UIicon/MessageIcon";
 import {useProductConnection} from "./useProductConnection";
@@ -11,7 +13,7 @@ import ProductConnectionButton from "../../AnyPage/ProductConnectionButtons/Prod
 
 import {useProductConnectionStyles} from "./style";
 
-const ProductConnection = ({isMobile, productData}) => {
+const ProductConnection = ({isMobile, isAuth, productData}) => {
     const classes = useProductConnectionStyles();
 
     const {
@@ -29,7 +31,20 @@ const ProductConnection = ({isMobile, productData}) => {
         handleChangeCallModal
     } = useProductConnection();
 
-    const handleCreateChat = () => handleSendMessage(user_id, productId, isMobile)
+    const {
+        setModalState,
+        openRegForm, setOpenRegForm,
+        openLoginForm, setOpenLoginForm,
+        isAlreadyExistForm, setIsAlreadyExistForm
+    } = useContext(LoginDrawerCTX)
+
+    const handleCreateChat = () => {
+        if(!isAuth) {
+            isMobile ? setModalState({left: true}) : setOpenLoginForm(true)
+        }else{
+            handleSendMessage(user_id, productId, isMobile)
+        }
+    }
 
     return (
         <>
@@ -38,7 +53,7 @@ const ProductConnection = ({isMobile, productData}) => {
                 <Box
                     className={clsx(
                         classes.buttonsContainer, {
-                            [classes.buttonsContainerMB0] : isMobile && isBanned
+                            [classes.buttonsContainerMB0] : isMobile && isBanned || isOpacity
                         })
                     }
                 >
@@ -75,6 +90,14 @@ const ProductConnection = ({isMobile, productData}) => {
                         open={callModal}
                         isMobile={isMobile}
                         onClose={handleChangeCallModal}
+                    />
+                    <LoginModal
+                        openRegForm={openRegForm}
+                        setOpenRegForm={setOpenRegForm}
+                        openLoginForm={openLoginForm}
+                        setOpenLoginForm={setOpenLoginForm}
+                        isAlreadyExistForm={isAlreadyExistForm}
+                        setIsAlreadyExistForm={setIsAlreadyExistForm}
                     />
                 </Box>
             ) : <></> }
