@@ -10,7 +10,7 @@ jest.mock('next/router', () => ({
         },
     }),
     // useProduct: () => ({
-    //     product: {
+    //     productOld: {
     //         price: '35000',
     //         title: 'фывап',
     //         photo: ["http://192.168.145.195:6001/images/po/fd/53/94/83/24853d141f5823763e870efc226d420211115153152863471.webp",

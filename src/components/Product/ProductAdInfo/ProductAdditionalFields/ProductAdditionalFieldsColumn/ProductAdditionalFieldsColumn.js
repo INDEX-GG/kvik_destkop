@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useRef} from "react";
 import {Box} from "@material-ui/core";
 
 import ProductShowMoreWrapper from '../../../ProductWrappers/ProductShowMoreWrapper/ProductShowMoreWrapper'
+import {useGetHeightRef} from '../../../ProductWrappers/ProductShowMoreWrapper/useHeightShowMoreWrapper'
 import {useProductAdditionalFieldsColumnStyles} from './style';
 
 const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
@@ -10,6 +11,9 @@ const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
     const itemClass = columnData.length === 1 ?
         [classes.additionalFieldItem, classes.additionalFieldItemSolo] :
         classes.additionalFieldItem
+
+    const aditionalFieldsColumnRef = useRef()
+    const {childrenHeight} = useGetHeightRef(aditionalFieldsColumnRef)
 
     const checkBooleanValue = (value) => {
         if (typeof  value === 'boolean') {
@@ -23,16 +27,20 @@ const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
         Array.isArray(columnData) ? (
             <ProductShowMoreWrapper
                 align={'center'}
-                isMobile={isMobile}
+                isMobile={(childrenHeight <= 70) ? false : isMobile}
                 showArrow={false}
-                collapsedSize={'74px'}
+                collapsedSize={'70px'}
                 textExpand={'Показать полностью'}
                 textCollaps={'Скрыть'}
                 navMovesWithContent={true}
             >
-                <Box className={classes.additionalFieldList}>
+                <Box
+                    component='ul'
+                    className={classes.additionalFieldList}
+                    ref={aditionalFieldsColumnRef}
+                >
                     {columnData.map(item => (
-                        <Box className={itemClass} key={item.title}>
+                        <Box component='li' className={itemClass} key={item.title}>
                             <Box className={classes.additionalFieldTitle}>
                                 {item.title}:
                             </Box>
@@ -41,6 +49,7 @@ const ProductAdditionalFieldsColumn = ({columnData, isMobile}) => {
                             </Box>
                         </Box>
                     ))}
+                   
                 </Box>
             </ProductShowMoreWrapper>
         ) : <></>

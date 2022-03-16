@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React from "react";
 
 import {useProductConnection} from "../useProductConnection";
 import {useProductContext} from "../../../../context/ProductContext";
@@ -7,7 +7,7 @@ import ProductAdStatusChangeDialog from "../../../AnyPage/ProductAdStatusChangeD
 
 import {usePlugImages} from '#hooks/usePlugImages'
 
-const ProductMyAdButtons = () => {
+const ProductMyAdButtons = ({isActive, isNoActive, isBanned, isTimeLimit}) => {
 
     const {
         deleteModal,
@@ -32,17 +32,13 @@ const ProductMyAdButtons = () => {
         }
     } = useProductContext()
 
-
     const {arr} = usePlugImages(photo, category_id)
 
-    const isStatusOk = useMemo(() => status === 'ok', [status])
-    const isStatusNoActive = useMemo(() => status === 'no_active', [status])
-    const isStatusBanned = useMemo(() => status === 'banned', [status])
 
     return (
         <>
             {/*Активное */}
-            {isStatusOk && (
+            {isActive && (
                 <>
                     <ProductConnectionButton
                         onClick={handleChangeAd(id)}
@@ -69,7 +65,7 @@ const ProductMyAdButtons = () => {
                 </>
             )}
             {/* Архив */}
-            {isStatusNoActive && (
+            {isNoActive && (
                 <>
                     <ProductConnectionButton
                         onClick={handleChangeActiveModal}
@@ -111,8 +107,39 @@ const ProductMyAdButtons = () => {
                 </>
             )}
             {/* Заблокированное */}
-            {isStatusBanned && (
-                <>block</>
+            {isBanned && (
+                <>
+                    <ProductConnectionButton
+                        onClick={handleChangeAd(id)}
+                        title='Редактировать'
+                        isMyAd={true}
+                    />
+                    <ProductConnectionButton
+                        onClick={handleChangeDeleteModal}
+                        title='Удалить'
+                        isMyAd={true}
+                    />
+                </>
+            )}
+            {/* истек срок размещения */}
+            {isTimeLimit && (
+                <>
+                    <ProductConnectionButton
+                        onClick={handleChangeActiveModal}
+                        title='Активировать'
+                        isMyAd={true}
+                    />
+                    <ProductConnectionButton
+                        onClick={handleChangeAd(id)}
+                        title='Редактировать'
+                        isMyAd={true}
+                    />
+                    <ProductConnectionButton
+                        onClick={handleChangeDeleteModal}
+                        title='Удалить'
+                        isMyAd={true}
+                    />
+                </>
             )}
         </>
     )

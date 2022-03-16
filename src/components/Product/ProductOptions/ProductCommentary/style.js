@@ -5,7 +5,10 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center',
         marginRight: '15px',
-        height: '24px'
+        height: '24px',
+
+        position: 'relative',
+
     },
     inputContainer: {
         transition: '.0s all linear',
@@ -17,6 +20,11 @@ const useStyles = makeStyles(() => ({
         display: 'none'
     },
     input: {
+        position: 'absolute',
+        top: '0',
+        left: '-155px',
+        zIndex: '2',
+
         transition: '.15s all linear',
         // transform: 'translateX(154px)',
         '& > *:first-child': {
@@ -27,6 +35,7 @@ const useStyles = makeStyles(() => ({
                 borderRadius: '8px',
                 border: '1px solid #8f8f8f',
                 fontSize: '12px',
+                background: '#fff',
             },
             '& > fieldset': {
                 display: 'none'

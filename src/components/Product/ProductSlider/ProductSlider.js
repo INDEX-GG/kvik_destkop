@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import SwiperCore, { Navigation, Thumbs, Pagination } from "swiper/core";
-// import { useRouter } from "next/dist/client/router"
 import clsx from "clsx";
 
 import {useProductContext} from "../../../context/ProductContext";
@@ -14,10 +13,18 @@ import AdCardPng from '#components/AdCardPng'
 
 SwiperCore.use([Navigation, Thumbs, Pagination,]);
 
-const ProductSlider = ({ mobile = false }) => {
+const ProductSlider = ({ mobile = false, isOpacity }) => {
 
-    // const router = useRouter()
-    const {productData: {photo, status, category_id}, isMobile} = useProductContext();
+    const {
+        productData: {
+            photo,
+            category_id,
+            full_stat,
+            id,
+            isMyAd,
+        },
+        isMobile
+    } = useProductContext();
     const classes = useProductSliderStyles(mobile);
 
     const {arr} = usePlugImages(photo, category_id)
@@ -69,15 +76,18 @@ const ProductSlider = ({ mobile = false }) => {
     }, [activeIndex])
 
     return (
-        <Box className={clsx(
+        <Box component='section' className={clsx(
             classes.swiperContainer, {
-                [classes.opacityImage]: status === 'no_active',
+                [classes.opacityImage]: isOpacity,
             }
         )} >
             {photo ?
                 <Box>
                     <ProductMainSlider
                         photos={photo}
+                        full_stat={full_stat}
+                        isMyAd={isMyAd}
+                        productID={id}
                         handleChangeModal={handleChangeModal}
                         swiperAction={{
                             setFirstSwiper,

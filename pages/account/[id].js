@@ -100,9 +100,9 @@ const Account = () => {
     // const [subscribersList, setSubscribersList] = useState([])
     const [logout, setLogout] = useState(false);
     const [reviewsModal, setReviewsModal] = useState(false);
-    const [subscriptionsModal, setSubscriptionsModal] = useState(false);
+    // const [subscriptionsModal, setSubscriptionsModal] = useState(false);
     const {signOut, id, token} = useAuth();
-    const {matchesMobile, matchesTablet} = useMedia()
+    const {matchesMobile, matchesTablet, matchesDesktop} = useMedia()
     const [isShowModalMenu, setIsShowModalMenu] = useState(true)
     const [menuItem, setMenuItem] = useState(
 			router.query.favorite === ''
@@ -176,6 +176,7 @@ const Account = () => {
     //     changeModal(!modal)
     // }
 
+    const handleClickSubscribe = () => router.push(`/account/${id}?account=4&content=2`)
     const closePicUpload = () => {
         setPicUpload(p => !p)
     }
@@ -326,7 +327,7 @@ const Account = () => {
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
                                                 <span>{subscriptionsCount}</span>
-                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={handleClickSubscribe} >
                                                     <p>Подписки</p>
                                                 </Button>
                                             </Box>
@@ -399,10 +400,10 @@ const Account = () => {
 					</Link>
 				</div> */}
                     {/* clientPage__userinfo на мобилке показываем только в настройках */}
-                    { !matchesMobile &&
+                    {(matchesTablet && +router.query.account === 8) || matchesDesktop ? (
                             <div className="clientPage__menu">
                                 <div className="clientPage__userinfo">
-
+                                    {console.log('зашли сюда')}
                                     {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
                                             <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#F2F3F4', width: "80px", height: "80px"}}/>
                                         </Box>
@@ -475,7 +476,7 @@ const Account = () => {
 
                                             <Box className={clsx(classes.userStats, classes.highlight)}>
                                                 <span>{subscriptionsCount}</span>
-                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                                                <Button className={classes.buttonDesc} size="small" variant="text"  onClick={handleClickSubscribe} >
                                                     <p>Подписки</p>
                                                 </Button>
                                             </Box>
@@ -528,7 +529,7 @@ const Account = () => {
                                         </div>
                                 }
                             </div>
-                    }
+                     ): null}
                     <div className="clientPage__container">
                         {matchesMobile ? accountContentMobile() : accountContentDesktop()}
                         {/* {accountContentDesktop()} */}

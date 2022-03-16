@@ -362,7 +362,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 						   <div className={classes.productName}>{ellipsis(!editProduct ? product.title : product.title, 16)}</div>
 							<div className={classes.productLocation}>{!editProduct ? product.location : product.location}</div>
 						</div>
-						{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
+						{/*<div onClick={() => router.push(`/productOld/${!editProduct ? productOld.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
 						<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление успешно опубликовано!' : 'Ваше объявление успешно отредактировано!'}</div>
 						<Button
 							className={classes.productButton}

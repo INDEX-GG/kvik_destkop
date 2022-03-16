@@ -22,6 +22,7 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center',
         marginRight: '15px',
+        zIndex: '1',
     },
     count: {
         marginRight: '4px',

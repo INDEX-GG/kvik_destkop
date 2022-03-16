@@ -10,6 +10,7 @@ import {copyObject, generateAliasStr, /** generateDataArr */} from "../../lib/se
 import ScrollPostData from "../../components/ScrollPostData";
 import NewFilterBlock from "#components/newFilter/NewFilterBlock";
 import {generateFilterData, numberKeyTime} from "#components/newFilter/filterServices";
+import PlaceOfferButton from '../../components/PlaceOfferButton'
 
 // категории
 import {FormProvider, useForm} from 'react-hook-form'
@@ -224,6 +225,7 @@ const Index = () => {
                         </Box>}
                     </Box>
             </Container>
+    		{matchesMobile ? <PlaceOfferButton /> : null}
         </>
     )
 }

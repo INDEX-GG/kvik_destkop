@@ -2,8 +2,9 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     container: {
-        marginTop: '10px',
+        marginTop: '14px',
         textAlign: 'center',
+        width: '100%',
     },
     title: {
         color: '#2c2c2c',

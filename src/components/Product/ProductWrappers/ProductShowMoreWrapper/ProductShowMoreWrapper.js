@@ -16,7 +16,7 @@ const ProductShowMoreWrapper = ({
   showArrow = false,
   collapsedSize = '54px',
   textCollaps = 'Скрыть',
-  textExpand = 'Показать больше',
+  textExpand = 'Показать полностью',
   navMovesWithContent = true,
   children
 }) => {

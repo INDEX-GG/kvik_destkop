@@ -11,7 +11,7 @@ import { IconButton, Menu, MenuItem, makeStyles } from "@material-ui/core";
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { useStore } from "../lib/Context/Store";
-// import PhoneModule from "./product/PhoneModule";
+// import PhoneModule from "./productOld/PhoneModule";
 import {useStatistics} from '../lib/Context/StatisticsCTX'
 
 SwiperCore.use([Pagination, Lazy]);
@@ -462,7 +462,7 @@ const AdCard_component = React.forwardRef((props, ref,) => {
 			</div>
 			{/* <PhoneModule productInfo={offer} dialog={phoneModuleState} setDialog={setPhoneModuleState} /> */}
 			{/* телефонный модуль делает очень много запросов. Отключен пока не пофиксится баг */}
-			{/* <PhoneModule product={offer} dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
+			{/* <PhoneModule productOld={offer} dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
 		</div>
 
 	);

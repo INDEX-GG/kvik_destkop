@@ -146,9 +146,9 @@ export const formatDescription = (description) => {
  *
  * returns {finalWord} String - наше просклоняемое слово
  */
-export const wordAutoEnding = (word, number, declination, breakpoints) => {
+export const wordAutoEnding = (word, number, declination, breakpoints, onlyWord) => {
     const requiredIndexBreakPoints = breakpoints.findIndex((bp, i, a) => number >= bp && number < (a[i + 1] || a[i]))
-    const returnValue = number + ' ' + word
+    const returnValue = onlyWord ? word : number + ' ' + word
 
     if(requiredIndexBreakPoints === -1) return returnValue + declination[declination.length - 1]
 

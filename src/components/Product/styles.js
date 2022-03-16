@@ -2,7 +2,7 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     productPage: {
-        minHeight: '100vh',
+        // minHeight: '100vh',
         '& .swiper-container': {
             marginBottom: '4px',
             // padding: 0 10px,
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
 
-        '& > div': {
+        '& > div, section, article': {
             padding: '0px 12px',
         },
 
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
         minWidth: '320px',
         padding: '0px 12px',
 
-        [theme.breakpoints.down(959)]: {
+        [theme.breakpoints.down(960)]: {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -111,6 +111,11 @@ const useStyles = makeStyles((theme) => ({
             }
         }
     },
+    productAdButtonsHidden: {
+        [theme.breakpoints.down(960)]: {
+            marginTop: '0px !important',
+        }
+    },
     productCounts: {
         marginBottom: '18px',
 
@@ -138,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     productPageCard: {
-        padding: '10px 0px',
+        padding: '10px 0px 0px',
         maxWidth: '968px',
         width: '100%',
     },

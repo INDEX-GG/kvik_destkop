@@ -86,7 +86,7 @@ const Header = () => {
   const [openRegForm, setOpenRegForm] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
   const [headerScroll, setHeaderScroll] = useState(classes.header);
-	const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
+const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
 
   const listenScroll = () => {
     if (scrollY > 0) {
@@ -123,10 +123,11 @@ const Header = () => {
 						<Search />
 
 
-						{isAuth && <Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+						<Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
 							<AddRoundedIcon />
 						Новое объявление
-						</Button>}
+						</Button>
+
 						{!isAuth && <Button onClick={() => setOpenLoginForm(!openLoginForm)} variant="contained">
 							Войти
 						</Button>

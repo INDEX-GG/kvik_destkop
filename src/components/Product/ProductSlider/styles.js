@@ -154,6 +154,22 @@ export const useProductSliderStyles = (isMobile) => {
         },
         opacityImage: {
             opacity: '0.5',
+        },
+        options: {
+            display: 'none',
+
+            [theme.breakpoints.down(960)]: {
+                position: 'absolute',
+                top: '8px',
+                right: '8px',
+
+                zIndex: '5',
+                display: 'flex',
+
+                '& svg path': {
+                    stroke: '#fff'
+                },
+            }
         }
     }));
 

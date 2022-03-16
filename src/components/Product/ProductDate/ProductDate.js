@@ -5,15 +5,16 @@ import clsx from 'clsx'
 import {ToRusDate} from "#lib/services";
 import {useProductDateStyles} from "./style";
 
-const ProductDate = ({date, dayBefore, isMyAd, status}) => {
+const ProductDate = ({date, dayBefore, isMyAd, isOpacity}) => {
     const classes = useProductDateStyles()
-    const isDayBefore = dayBefore && isMyAd
+    const isDayBefore = dayBefore && isMyAd && !isOpacity
+
     return (
         date ? (
             <>
                 <Box className={clsx(
                     classes.date, {
-                        [classes.dateOpacity]: status === 'no_active',
+                        [classes.dateOpacity]: isOpacity,
                     }
                 )}>
                     Размещено {ToRusDate(date)}

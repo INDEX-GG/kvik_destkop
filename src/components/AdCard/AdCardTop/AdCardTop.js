@@ -10,7 +10,7 @@ import { useStatistics } from '../../../../lib/Context/StatisticsCTX'
 import {useAdCardTopStyles} from './style'
 import AdCardImage from '../AdCardImage/AdCardImage'
 import {useAdCardClass} from '../useAdCardClass'
-// import PhoneModule from "#src/component/product/PhoneModule";
+// import PhoneModule from "#src/component/productOld/PhoneModule";
 
 const AdCardTop = ({archived, offer_id, offer_photo, viewing_bool, email, user_id, id, category, screenIsMobile}) => {
   const classes = useAdCardTopStyles()
@@ -90,7 +90,7 @@ const AdCardTop = ({archived, offer_id, offer_photo, viewing_bool, email, user_i
       </Box>
       {/* <PhoneModule productInfo={offer} dialog={phoneModuleState} setDialog={setPhoneModuleState} /> */}
 			{/* телефонный модуль делает очень много запросов. Отключен пока не пофиксится баг */}
-			{/* <PhoneModule product={offer} dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
+			{/* <PhoneModule productOld={offer} dialog={phoneModuleState} setDialog={setPhoneModuleState} userName={offer.user_name} userPhotoInIndex={offer.user_photo} userPhone={offer.user_phone} userRating={offer.rating}/> */}
     </Box>
   )
 }

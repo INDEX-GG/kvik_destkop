@@ -37,6 +37,7 @@ const ProductAdditionalFields = ({isMobile}) => {
                 {checkValidArray(onlyArray) && (
                     <Box className={classes.addFieldsArr}>
                         <ProductAdditionalFieldsArr
+                            isMobile={isMobile}
                             columnData={onlyArray}
                         />
                     </Box>

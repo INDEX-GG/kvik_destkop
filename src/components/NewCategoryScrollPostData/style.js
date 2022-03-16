@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   offersHome: {
 
   },
@@ -20,7 +20,11 @@ const useStyles = makeStyles(() => ({
 
     }
   },
-
+  showMoreButton: {
+      [theme.breakpoints.down(960)]: {
+        // paddingBottom: '31px',
+      }
+  },
   locationMapArrow: {
     width: '24px',
     height: '10px',

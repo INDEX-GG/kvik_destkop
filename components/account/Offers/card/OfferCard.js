@@ -313,7 +313,7 @@ const useStyles = makeStyles((theme) => ({
 			marginBottom: '8px',
 			paddingBottom: '0',
 		},
-		bottom: { 
+		bottom: {
 			paddingBottom: '0',
 		},
 		mobile__font: {
@@ -488,7 +488,7 @@ const useStyles = makeStyles((theme) => ({
 	promotionModal: {
 		maxWidth: '865px'
 	}
-	
+
 }));
 
 // функция возвращает корректный день
@@ -619,7 +619,7 @@ export default function OfferCard({ offer, parentCheck, getChildCheck, allDataCh
 								<p className={`${classes.main__text} ${isWaith ? classes.main_text__waint: ''}`}>{ellipsis(offer.title, titleWidth)}</p>
 								{isArchive &&
 									<div className={`${classes.left__date} ${(isWaith || isArchive) ? classes.left__date__wait : ''}`}>
-										<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>00.00.0000 00:00</p>
+										<p className={`${classes.main__text} ${classes.lignt__text} ${(isWaith || isArchive) ? classes.bottom__wait : ''}`}>{!screenIsMobile ? 'Дата последнего редактирования ' : ''}{ToFullDate(offer.archived_time)}</p>
 									</div>
 								}
 							</div>

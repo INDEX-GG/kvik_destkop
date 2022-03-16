@@ -17,7 +17,7 @@ const ProductAdInfo = ({productId, status, isMobile}) => {
             <ProductShowMoreWrapper
                 align={'left'}
                 // isMobile={true}
-                isMobile={status === 'no_active'}
+                isMobile={status === 'no_active' || status === 'time_limit'}
                 showArrow={true}
                 collapsedSize={'0px'}
                 textExpand={'Описание'}

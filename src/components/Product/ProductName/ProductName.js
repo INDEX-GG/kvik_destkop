@@ -3,15 +3,16 @@ import {useProductNameStyles} from "./style";
 import {Box} from '@material-ui/core'
 import clsx from 'clsx'
 
-const ProductName = ({title, status}) => {
+const ProductName = ({title, isOpacity}) => {
 
     const classes = useProductNameStyles()
 
     return (
         <Box
+            component='h1'
             className={clsx(
                 classes.name, {
-                    [classes.opacityName]: status === 'no_active',
+                    [classes.opacityName]: isOpacity,
                 }
             )}>
             {title}

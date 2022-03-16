@@ -30,7 +30,7 @@ export default async function handler(req, res) {
                 const jwt_refresh = sign(claims, process.env.NEXT_PUBLIC_JWT_REFRESH_SECRET, { expiresIn: '380d'})
                 return { idUser: user.id, "jwt_refresh": jwt_refresh}
             } else {
-                return ({ isset: false })
+                throw 403
             }
         }
 
@@ -41,9 +41,9 @@ export default async function handler(req, res) {
             res.end(JSON.stringify(response))
         }
         catch (e) {
-            console.error(`ошибка api checkUser ${e}`)
-            res.json('ошибка api checkUser, ', e)
-            res.status(405).end();
+            console.error(`ошибка api getPost ${e}`)
+            if (parseInt(e) === 403) { res.status(403).json({ isset: false }) }
+            else { res.status(400).json({ message: 'ошибка api getPost'}) }
         }
         finally {
             await prisma.$disconnect();

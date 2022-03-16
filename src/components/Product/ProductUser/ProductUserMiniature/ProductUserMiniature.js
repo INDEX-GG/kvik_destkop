@@ -2,11 +2,11 @@ import React, {useMemo} from 'react';
 import {Box} from "@material-ui/core";
 import clsx from 'clsx'
 
-import {useCustomRouter} from "../../../../hook/globalHooks/useCustomRouter";
-import CustomAvatarUI from "../../../../UI/UIcomponent/CustomAvatar/CustomAvatarUI";
-import CustomRatingUI from "../../../../UI/UIcomponent/CustomRating/CustomRatingUI";
-import CustomButtonUI from "../../../../UI/UIcomponent/CustomButtonUI/CustomButtonUI";
-import ProductUserMiniatureSubscribe from "./ProductUserMiniatrueSubscribe/ProductUserMiniatureSubscribe";
+import ProductUserBlock from "../ProductUserBlock/ProductUserBlock"
+import CustomLinkUI from "../../../../UI/UIcomponent/CustomLinkUI/CustomLinkUI"
+import CustomAvatarUI from "../../../../UI/UIcomponent/CustomAvatar/CustomAvatarUI"
+import CustomRatingUI from "../../../../UI/UIcomponent/CustomRating/CustomRatingUI"
+import ProductUserMiniatureSubscribe from "./ProductUserMiniatrueSubscribe/ProductUserMiniatureSubscribe"
 
 import {wordAutoEnding, checkEmptyNumber} from '../../../../services/services'
 
@@ -21,51 +21,48 @@ const ProductUserMiniature = (
         isMyAd,
         isMobile,
         user_products_count,
-        viewSubscribe = true
+        viewSubscribe = true,
+        showRaiting = true,
     }
 ) => {
 
     const classes = useProductUserMiniatureStyles();
-    const {pushTo} = useCustomRouter();
 
     const userProductsCountLabel = useMemo(
         () => wordAutoEnding('объявлен', checkEmptyNumber(user_products_count), ['ий', 'ие', 'ия', 'ий'], [0, 1, 2, 5]),
         [user_products_count]
     )
 
-    console.log('userProductsCountLabel: ', userProductsCountLabel)
-
-    const handleClickUser = () => {
-        pushTo(`/user/${userId}`)
-    }
-
-    const handlePushSeller = () => {
-        if (isMyAd) {
-            pushTo(`/account/${userId}?account=1&content=1`)
-            return
-        }
-        handleClickUser()
-    }
+    const urlToAdOwner = useMemo(
+        () => isMyAd ? `/account/${userId}?account=1&content=1` : `/user/${userId}`,
+        [isMyAd]
+    )
 
     return (
-        <Box className={classes.userMiniature}>
-            <Box
-                className={classes.avatar}
-                onClick={handleClickUser}>
+        <Box className={clsx(
+            classes.userMiniature, {
+                [classes.alignItemsCenter]: !showRaiting
+            }
+        )}
+        >
+            <CustomLinkUI
+                href={urlToAdOwner}
+                customRoot={classes.avatar}
+            >
                 <CustomAvatarUI
                     src={userPhoto}
                     userName={userName}
                     alt='SellerAvatar'
                 />
-            </Box>
+            </CustomLinkUI>
             <Box className={classes.userInfo}>
-                <Box
-                    className={classes.name}
-                    onClick={handleClickUser}
+                <CustomLinkUI
+                    href={urlToAdOwner}
+                    customRoot={classes.name}
                 >
                     {userName}
-                </Box>
-                <CustomRatingUI rating={userRating}/>
+                </CustomLinkUI>
+               {showRaiting && <Box className={classes.raiting}><CustomRatingUI rating={userRating}/></Box> }
             </Box>
             {viewSubscribe && (
                 <Box
@@ -75,21 +72,37 @@ const ProductUserMiniature = (
                         }
                     )}
                 >
+                    <Box className={classes.userReviews}>
+                        <CustomLinkUI
+                            href='#'
+                            customRoot={classes.userReviewsLink}
+                        >
+                            12 отзывов
+                        </CustomLinkUI>
+                    </Box>
                     {!isMyAd && (
-                        <ProductUserMiniatureSubscribe
-                            userId={userId}
-                        />
+                        <Box className={classes.userMiniatureSubscribe}>
+                            <ProductUserMiniatureSubscribe
+                                userId={userId}
+                                isMobile={isMobile}
+                            />
+                        </Box>
                     )}
                     {isMobile && (
-                        <Box className={classes.allAd}>
-                            <CustomButtonUI
-                                color='primary'
-                                onClick={handlePushSeller}
-                                customRoot={classes.buttonAllOffers}
-                            >
-                                {userProductsCountLabel}
-                            </CustomButtonUI>
-                        </Box>
+                        <>
+                            <Box className={classes.allAd}>
+                                <CustomLinkUI
+                                    href={urlToAdOwner}
+                                    customRoot={classes.buttonAllOffers}
+                                >
+                                    {userProductsCountLabel}
+                                </CustomLinkUI>
+                            </Box>
+                            <Box className={classes.userComplainBlock}>
+                                <ProductUserBlock />
+                            </Box>
+                        </>
+
                     )}
                 </Box>
             )}
