@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export function useOutherUser(user_id) {
-    const user = {id: +user_id, page: 1, page_limit: 50},
+    const user = {user_id: +user_id, page: 1, page_limit: 50},
     [userInfo, setUserInfo] = useState({}),
     [isLoading, setLoading] = useState(true);
 
@@ -15,10 +15,10 @@ export function useOutherUser(user_id) {
           })
         }
 
-        if (user_id != undefined) {
+        if (typeof user_id !== undefined && user_id !== null && !isNaN(user_id)) {
           getOutherUser()
         }
-        
+
     }, [user_id])
 
   return {

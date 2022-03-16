@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Active({offers}) {
+
+    // console.log('Active - offers: ', offers)
+
 	const classes = useStyles();
 	const { page, setPage, totalPosts, page_limit } = useOfferAccount()
 	const [openOfferModal, setOpenOfferModal] = useState(false);
