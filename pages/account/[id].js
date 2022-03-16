@@ -102,7 +102,7 @@ const Account = () => {
     const [reviewsModal, setReviewsModal] = useState(false);
     // const [subscriptionsModal, setSubscriptionsModal] = useState(false);
     const {signOut, id, token} = useAuth();
-    const {matchesMobile, matchesTablet} = useMedia()
+    const {matchesMobile, matchesTablet, matchesDesktop} = useMedia()
     const [isShowModalMenu, setIsShowModalMenu] = useState(true)
     const [menuItem, setMenuItem] = useState(
 			router.query.favorite === ''
@@ -386,6 +386,11 @@ const Account = () => {
         )
     }
 
+    // console.log('matchesTablet: ', matchesTablet)
+    // console.log('matchesDesktop: ', matchesDesktop)
+    // console.log('account: ', +router.query.account === 8)
+    console.log((matchesTablet && +router.query.account === 8) || matchesDesktop)
+
     return (
         <MetaLayout title={"Личный кабинет"}>
             {!userInfo && !matchesMobile ?
@@ -400,10 +405,10 @@ const Account = () => {
 					</Link>
 				</div> */}
                     {/* clientPage__userinfo на мобилке показываем только в настройках */}
-                    { !matchesMobile &&
+                    {(matchesTablet && +router.query.account === 8) || matchesDesktop ? (
                             <div className="clientPage__menu">
                                 <div className="clientPage__userinfo">
-
+                                    {console.log('зашли сюда')}
                                     {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
                                             <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#F2F3F4', width: "80px", height: "80px"}}/>
                                         </Box>
@@ -529,7 +534,7 @@ const Account = () => {
                                         </div>
                                 }
                             </div>
-                    }
+                     ): null}
                     <div className="clientPage__container">
                         {matchesMobile ? accountContentMobile() : accountContentDesktop()}
                         {/* {accountContentDesktop()} */}
