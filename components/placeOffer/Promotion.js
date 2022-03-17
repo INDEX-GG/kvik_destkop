@@ -8,6 +8,7 @@ import PayPromotion from "../../src/components/PayPromotion/PayPromotion/PayProm
 import CustomModalUI from "../../src/UI/UIcomponent/CustomModal/CustomModalUI";
 // import {STATIC_URL} from "../../lib/constants";
 import {ellipsis, ToRubles} from '../../lib/services'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
 	promotionContainer: {
@@ -165,12 +166,15 @@ const useStyles = makeStyles(theme => ({
 		color: "#8F8F8F",
 		fontSize: "9px",
 		fontWeight: "400",
-		padding: "7px 0 3px 7px",
+		padding: "0px 0 3px 7px",
 	},
+    productLocationMarginTop: {
+        marginTop: 'auto',
+    },
 	productCard: {
 		width: "118px",
 		height: "205.51px",
-		boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+		boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 		borderRadius: "8px",
 		margin: "15px 0 26px",
 		display: 'flex',
@@ -326,7 +330,6 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 		</Box>
 	}
 
-
 	return (
 		<>
 			{isMobile ? (
@@ -360,7 +363,8 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 							<img src={!editProduct ? product.photo : `${product.photo}`} className={classes.productImg} alt="product photo" />
                 <div className={classes.productPrice}>{ToRubles(!editProduct ? product.price : product.price)}</div>
 						   <div className={classes.productName}>{ellipsis(!editProduct ? product.title : product.title, 16)}</div>
-							<div className={classes.productLocation}>{!editProduct ? product.location : product.location}</div>
+							<div className={clsx(classes.productLocation, classes.productLocationMarginTop)}>{ellipsis(!editProduct ? product.location : product.location, 22)}</div>
+							<div className={classes.productLocation}>{!editProduct ? product.date : product.date}</div>
 						</div>
 						{/*<div onClick={() => router.push(`/productOld/${!editProduct ? productOld.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
 						<div className={classes.productPublished}>{!editProduct ? 'Ваше объявление успешно опубликовано!' : 'Ваше объявление успешно отредактировано!'}</div>

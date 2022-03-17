@@ -10,7 +10,7 @@ import axios from 'axios';
 import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 import {useStore} from "../lib/Context/Store";
 import {getTokenDataByPost} from "../lib/fetch";
-import {generateAdditionalFields, generateSearchName, generateTitle} from "../lib/services";
+import {generateAdditionalFields, generateSearchName, generateTitle, ToRusDate} from "../lib/services";
 import NewPlaceOfferContent from "#components/placeOffer/newPlaceOffer/NewPlaceOfferContent";
 import {useForm, FormProvider} from "react-hook-form";
 import useCategoryV2 from "#hooks/useCategoryV2";
@@ -194,6 +194,9 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                     continue
                 }
             }
+
+
+            const newDate = new Date()
             // удаление лишних полей
             sendObj.address = sendObj.location
             delete sendObj.additional_fields
@@ -216,12 +219,14 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                 token
             )
 
+
             setProduct({
                 title: sendObj.title,
                 location: sendObj.address, // locaion удалили выше, ставим адрес
                 price: sendObj.price,
                 id: productId,
-                photo: `${STATIC_URL}/${newPhotoArr[0]}`
+                photo: `${STATIC_URL}/${newPhotoArr[0]}`,
+                date: ToRusDate(newDate)
             })
             setPromotion(true)
             return
