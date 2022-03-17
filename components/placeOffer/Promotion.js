@@ -168,13 +168,13 @@ const useStyles = makeStyles(theme => ({
 		fontWeight: "400",
 		padding: "0px 0 3px 7px",
 	},
-    productBottomBlock: {
-        marginTop: 'auto'
+    productLocationMarginTop: {
+        marginTop: 'auto',
     },
 	productCard: {
 		width: "118px",
 		height: "205.51px",
-		boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+		boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 		borderRadius: "8px",
 		margin: "15px 0 26px",
 		display: 'flex',
@@ -241,7 +241,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 	useEffect(() => {
 		if (finalPreview) {
 			setTimeout(() => {
-				// rounter.push("/")
+				rounter.push("/")
 			}, 3000)
 		}
 	}, [finalPreview])
@@ -330,8 +330,6 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 		</Box>
 	}
 
-    console.log('product: ', product)
-
 	return (
 		<>
 			{isMobile ? (
@@ -365,7 +363,7 @@ export default function Promotion({ dialog = false, setDialog = false, product, 
 							<img src={!editProduct ? product.photo : `${product.photo}`} className={classes.productImg} alt="product photo" />
                 <div className={classes.productPrice}>{ToRubles(!editProduct ? product.price : product.price)}</div>
 						   <div className={classes.productName}>{ellipsis(!editProduct ? product.title : product.title, 16)}</div>
-							<div classes={classes.productLocation}>{ellipsis(!editProduct ? product.location : product.location, 22)}</div>
+							<div className={clsx(classes.productLocation, classes.productLocationMarginTop)}>{ellipsis(!editProduct ? product.location : product.location, 22)}</div>
 							<div className={classes.productLocation}>{!editProduct ? product.date : product.date}</div>
 						</div>
 						{/*<div onClick={() => router.push(`/product/${!editProduct ? product.id : editProduct.id}`)} className={classes.productUrl}>Перейти на страницу объявления</div>*/}
