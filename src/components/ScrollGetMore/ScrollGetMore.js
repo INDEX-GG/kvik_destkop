@@ -54,20 +54,22 @@ const ScrollGetMore = (props) => Component => {
         )
 
         const [data, setData] = useState({})
-
-        const [initialParamRequest, setInitialParamRequest] = useState({
-            user_id: isGetSeller ? (+routerHook.query.id) : id,
-            page: 1,
-            page_limit: 20
-        })
+        const [initialParamRequest, setInitialParamRequest] = useState({})
 
         // ? Логика контента =======================================
 
         const fetchData = async () => {
-            if(!isGetSeller && typeof token !== 'undefined' && token !== null) {
-                return await getTokenDataByPost(props.url, {...initialParamRequest}, token)
-            }else {
-                return await getDataByPost(props.url, {...initialParamRequest})
+            try{
+                if(!isGetSeller) {
+                    if(typeof token !== 'undefined' && token !== null && typeof initialParamRequest.user_id !== 'undefined') {
+                        return await getTokenDataByPost(props.url, {...initialParamRequest}, token)
+                    }
+                    return null
+                }else {
+                    return await getDataByPost(props.url, {...initialParamRequest})
+                }
+            } catch (e) {
+                console.log(e, token, props.url)
             }
         }
 
@@ -153,24 +155,37 @@ const ScrollGetMore = (props) => Component => {
             // проверка на limit, подгружать ли еще данные
             if(!data[tabs[routerContent]].limit) {
                 const _data = await fetchData()
-                const allTabPosts = processingExistData(_data)
-                handlerSetData(allTabPosts)
-                handlerSetParamRequest()
+                if(typeof _data !== 'undefined' && _data !== null && typeof resp !== 'string') {
+                    const allTabPosts = processingExistData(_data)
+                    handlerSetData(allTabPosts)
+                    handlerSetParamRequest()
+                }
+
             }
         }
 
         useEffect(() => {
             async function fetchOffers() {
                 const resp = await fetchData()
-                const allTabPosts = processingData(resp)
-                handlerSetData(resp, allTabPosts)
-                handlerSetParamRequest()
+                if(typeof resp !== 'undefined' && resp !== null && typeof resp !== 'string') {
+                    const allTabPosts = processingData(resp)
+                    handlerSetData(resp, allTabPosts)
+                    handlerSetParamRequest()
+                }
             }
-            if(isFirstLoad) {
+            if(isFirstLoad && typeof initialParamRequest.user_id !== 'undefined') {
                 fetchOffers()
             }
-        }, [isFirstLoad])
+        }, [isFirstLoad, initialParamRequest.user_id])
 
+        useEffect(() => {
+            setInitialParamRequest(prevState => ({
+                ...prevState,
+                user_id: (+routerHook.query.id),
+                page: 1,
+                page_limit: 20
+            }))
+        }, [routerHook.query.id])
         // ? Логика скролла =======================================
 
 		const throttleScrollHandler = throttle(scrollHandler, 500)
@@ -194,9 +209,9 @@ const ScrollGetMore = (props) => Component => {
             let hasShowMore = null
             // дошли до середины и есть что показывать
             if(!isNaN(scrollPercentage)) {
-                hasShowMore = (scrollPercentage >= 50 && !isNaN(scrollPercentage))
+                hasShowMore = (scrollPercentage >= 85 && !isNaN(scrollPercentage))
             } else {
-                hasShowMore = (_scrollTop > _scrollHeight / 2)
+                hasShowMore = (_scrollTop > _scrollHeight - (_scrollHeight / 3  ))
             }
 
             if(hasShowMore) getMoreData()
