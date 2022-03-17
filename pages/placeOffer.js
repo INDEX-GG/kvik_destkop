@@ -10,7 +10,7 @@ import axios from 'axios';
 import { BASE_URL, STATIC_URL, /** CACHE_URL */ } from '../lib/constants';
 import {useStore} from "../lib/Context/Store";
 import {getTokenDataByPost} from "../lib/fetch";
-import {generateAdditionalFields, generateSearchName, generateTitle, standartDate, ToFullDate, ToRusDate, ToRusAccountDate} from "../lib/services";
+import {generateAdditionalFields, generateSearchName, generateTitle, ToRusDate} from "../lib/services";
 import NewPlaceOfferContent from "#components/placeOffer/newPlaceOffer/NewPlaceOfferContent";
 import {useForm, FormProvider} from "react-hook-form";
 import useCategoryV2 from "#hooks/useCategoryV2";
@@ -195,35 +195,29 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                 }
             }
 
-            console.log('sendObj: ', sendObj)
 
             const newDate = new Date()
-            console.log('standartDate: ', standartDate(newDate))
-            console.log('ToFullDate: ', ToFullDate(newDate))
-            console.log('ToRusDate: ', ToRusDate(newDate))
-            console.log('ToRusAccountDate: ', ToRusAccountDate(newDate))
-
             // удаление лишних полей
             sendObj.address = sendObj.location
-            // delete sendObj.additional_fields
-            // delete sendObj.alias
-            // delete sendObj.bymessages
-            // delete sendObj.byphone
-            // // delete sendObj.city
-            // delete sendObj.contact
-            // // delete sendObj.coordinates
-            // delete sendObj.location
-            // delete sendObj.subcategory
-            // delete sendObj.trade
-            // await getTokenDataByPost(
-            //     `${BASE_URL}/api/postUpdate`,
-            //     {
-            //         ...sendObj,
-            //         photo: [...newPhotoArr],
-            //         post_id: productId
-            //     },
-            //     token
-            // )
+            delete sendObj.additional_fields
+            delete sendObj.alias
+            delete sendObj.bymessages
+            delete sendObj.byphone
+            // delete sendObj.city
+            delete sendObj.contact
+            // delete sendObj.coordinates
+            delete sendObj.location
+            delete sendObj.subcategory
+            delete sendObj.trade
+            await getTokenDataByPost(
+                `${BASE_URL}/api/postUpdate`,
+                {
+                    ...sendObj,
+                    photo: [...newPhotoArr],
+                    post_id: productId
+                },
+                token
+            )
 
 
             setProduct({
