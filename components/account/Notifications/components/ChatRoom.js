@@ -1,13 +1,17 @@
 import React from 'react';
 import {STATIC_URL} from "../../../../lib/constants";
 import {generateProductPhoto} from "../tabs/chatFunctions";
+
 import ChatDefaultAvatar from "./ChatDefaultAvatar";
 import {useAuth} from "../../../../lib/Context/AuthCTX";
 import {useRouter} from "next/router";
 import { Divider } from '@material-ui/core';
+import { useMedia } from '#hooks/useMedia';
 // import {useProduct} from '../../../../hooks/useProduct'
 
 const ChatRoom = ({roomData, children, mobile = false}) => {
+   
+    const {matchesTablet, matchesMobile} = useMedia()
 
     // TODO: добавить проверку на удаленный товар и аккаунт
     // const productInfo = useProduct(roomData?.product_id)
@@ -37,7 +41,19 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
 
     return (
         <div className={mobile ? 'messageMobile' : 'messageWindow'}>
+           {/* Скрывает <a> на мобилке */}
+            { matchesMobile || matchesTablet
+            ? (null)
+            :<div> 
+                <div className="clientPage__container_nav__radioEnd">
+                    <a>Удалить</a>
+                    <a>Заблокировать</a>
+                </div>
+                <Divider style={{margin: "0px 0px 4px 0px" }}/>
+            </div>
+            }
             {roomData?.seller_id ?
+                
                 <div className="messageHeader small">
                     {/* фотка обьявления */}
                     <img
@@ -50,7 +66,7 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
                             {!mobile && <>
                                 <div>
                                     <div className='chatRoomTitle' onClick={handleUserClick}>{isDeletedProfile ? 'Аккаунт удален' : chatRoom_name}</div>
-                                    <div className="light">00.00.00 00:00</div>
+                                    {/* <div className="light">00.00.00 00:00</div> */}
                                 </div>
                                 {chatRoom_photo ?
                                     <img onClick={handleUserClick}
@@ -75,7 +91,10 @@ const ChatRoom = ({roomData, children, mobile = false}) => {
 
                     </div>
                 </div> : null}
-                <Divider style={{margin: '2px 10px'}} />
+                { matchesMobile || matchesTablet
+                    ?<div style={{padding: '0px 12px 0px 15px'}}><Divider style={{margin: '-1px 0px 0px 0px'}}/> </div>
+                    :<Divider style={{margin: "4px 0px 0px 0px" }}/>
+                }
             {children}
         </div>
     );

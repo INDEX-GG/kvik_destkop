@@ -115,7 +115,7 @@ export function ModalMessage({ modal, usersData, room, userChatPhoto, userChatNa
 					<div className="accountDialogHeader">
 						<div className="accontDialogHeaderTitle" >
 								<div className='chatRoomTitle' >Имя пользователя</div>
-								<div className="light">00.00.00 00:00</div>
+								{/* <div className="light">00.00.00 00:00</div> */}
 							</div>
 					</div>
 					{userChatPhoto ?

@@ -8,12 +8,16 @@ import {useRouter} from "next/router";
 import {useMedia} from "../../../../hooks/useMedia";
 import ChatMessageIsSend from '../../../../UI/icons/ChatMessageIsSend';
 import ChatMessageIsRead from '../../../../UI/icons/ChatMessageIsRead';
+import { Divider } from '@material-ui/core';
 
 const ChatAllRoom = ({allRooms, setData}) => {
+
 
   const {id} = useAuth();
   const router = useRouter()
   const {matchesMobile, matchesTablet} = useMedia()
+
+  console.log(router);
 
   //! Клик на пользлвателя
   const handleClickUser = (e, senderId) => {
@@ -24,9 +28,14 @@ const ChatAllRoom = ({allRooms, setData}) => {
   }
 
   // Клик на объявление
-  const handleClickProduct = (e, productId) => {
-    e.stopPropagation();
+  const handleClickProduct = ( productId) => {
+    // e.stopPropagation();
     router.push(`/product/${productId}`)
+  }
+
+  // Клик на Чекбокс
+  const handleClickСheckbox = (e) => {
+    e.stopPropagation()
   }
 
   // Миниатюра фоток, если пользователь отправиль картинку
@@ -55,14 +64,27 @@ const ChatAllRoom = ({allRooms, setData}) => {
     }
     chatPush(router, routerObj)
   }
-
+  
   return (
       <>
+      {/* Чекбокс и удалить над списком сообщений */}
+        { matchesMobile || matchesTablet
+        ? <Divider/>
+        : <div className="clientPage__container_nav__radio">
+            <label className="checkbox">
+              <input type="checkbox"/>
+              <div className="checkbox__text"></div>
+              <div style={{margin: '0px 0px 0px 25px'}}>Удалить</div>
+            </label>
+          </div>
+        }
+    
+        <div className='messageDialogsStyles'>
         {allRooms?.length ?
             allRooms.map((item, i) => {
 
               const productPhoto = generateProductPhoto(item.product_photo)
-              const time = item.time && generateTime(0, item.time)
+              const time = item.time && generateTime(0, item.time, true)
 
               const senderPhoto =
                   (item.seller_id === id ?
@@ -84,11 +106,13 @@ const ChatAllRoom = ({allRooms, setData}) => {
                        setData?.setLoadingRoom(true)
                        setData?.setLocalRoom(false)
                      }
-                     }>
+                     }
+                     >
+                       <form>
                     <div className="messageOffer small">
-                      <div className="messageDiaCheck">
+                      <div className="messageDiaCheck"  onClick={(e) => handleClickСheckbox(e)}>
                         <label className="checkbox">
-                          <input type="checkbox" />
+                          <input type="checkbox"/>
                           <div className="checkbox__text"></div>
                         </label>
                       </div>
@@ -98,13 +122,14 @@ const ChatAllRoom = ({allRooms, setData}) => {
                         <div>{ellipsis(item.product_name, 12)}</div> */}
                       </div>
                     </div>
+                    </form>
                     <div className="messageUser small">
                       <div onClick={(e) => handleClickUser(e, item?.sender_id)} className="messageUserBlock">
-                        <span>
+                        <span >
                             {senderPhoto ? <img src={`${STATIC_URL}/${senderPhoto}`} /> :
                                 senderName && <ChatDefaultAvatar name={senderName}/>
                               }
-                        </span>
+                        </span >
                         <div>
                           <div>{senderName}</div>
                           <div className="messageUserBlockRight">
@@ -121,8 +146,8 @@ const ChatAllRoom = ({allRooms, setData}) => {
                       </div>:
                           <>
                             <div className='messageUserBlockInfo'>
-                              <div className='messageUserBlockPrice'>{item?.product_price && item.product_price?.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
                               <div className='messageUserBlockName'>{ellipsis(item.product_name, matchesMobile ? 20 : 50)}</div>
+                              <div className='messageUserBlockPrice'>{item?.product_price && item.product_price?.toLocaleString("ru-RU", { style: "currency", currency: "RUB" })}</div>
                             </div>
                           <div className="light">{ellipsis(senderMessage, 40)}</div>
                           </>
@@ -141,6 +166,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
             })
             : null
         }
+        </div>
       </>
   );
 };

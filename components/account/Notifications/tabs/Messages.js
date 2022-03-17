@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dialog, Divider} from "@material-ui/core";
+import {Dialog} from "@material-ui/core";
 import {ModalMessage} from "../../../Modals";
 import {useMedia} from "../../../../hooks/useMedia"
 import Chat from "./Chat";
@@ -232,7 +232,7 @@ function Messages() {
       <div className="clientPage__container_bottom">
         <div className="clientPage__container_content">
           <div className="notInfContainer">
-            <div className="notInf__title">Здесь буду ваши диалоги</div>
+            <div className="notInf__title">Здесь будут ваши диалоги</div>
             <p className="notInf__subtitle">
               Нажмите на иконку чата, чтобы договориться
               <br/> о покупке или продаже товаров и услуг
@@ -240,17 +240,8 @@ function Messages() {
           </div>
         </div>
       </div> :
-      (
+      ( 
         <div className="clientPage__container_bottom">
-          <div className="clientPage__container_nav__radio">
-            {/* <label className="checkbox">
-              <input type="checkbox"/>
-              <div className="checkbox__text"></div>
-            </label> */}
-            <a>Удалить</a>
-            <a>Заблокировать</a>
-          </div>
-          <Divider />
           <div className="clientPage__container_content">
             <div className="messageContainer">
               {/* накостылил временное решение для скрытия окна всех чатов
@@ -261,7 +252,6 @@ function Messages() {
                 {loadingAllRooms && !matchesMobile && <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div>}
                   <ChatAllRoom allRooms={allRooms}
                     setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>
-
             </div>}
               {!router.query?.companion_id && !router.query?.product_id ? (
                   // плейсохолдер выбора чата
@@ -303,7 +293,9 @@ function Messages() {
                   //       setLocalMessage={setLocalHistoryMessage}
                   //   />}
                   // </div>}
+
                   <ChatRoom roomData={room}>
+
                     {chatUsers?.product && chatUsers?.recipient && chatUsers?.sender &&
                     <Chat
                       usersData={chatUsers}
@@ -316,6 +308,7 @@ function Messages() {
               }
             </div>
           </div>
+
           <Dialog open={messageModal || false}
                   onClose={() => setMessageModal(!messageModal)}
                   fullScreen={true}>
