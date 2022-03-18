@@ -2,7 +2,7 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     tabContainer: {
-        marginTop: '42px',
+        marginTop: '21px',
         width: '100%'
     },
 }));

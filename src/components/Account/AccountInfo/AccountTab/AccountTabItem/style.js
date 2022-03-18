@@ -31,6 +31,9 @@ const useStyles = makeStyles(() => ({
         lineHeight: '16px',
         fontWeight: 500,
         color: 'inherit'
+    },
+    likeIcon: {
+        stroke: '#2c2c2c'
     }
 }));
 
