@@ -33,16 +33,16 @@ const Footer = () => {
                             </Box>
                         </Box>
                         <Box component='ul' className={classes.social}>
-                            <Box component='li' className={classes.socialItem}>
-                                <Box
-                                    component='a'
-                                    target='_blank'
-                                    rel="noreferrer"
-                                    href='https://www.instagram.com/kvik_baraholka/'
-                                >
-                                    <Box className="instagramLinkIcon"/>
-                                </Box>
-                            </Box>
+                            {/*<Box component='li' className={classes.socialItem}>*/}
+                                {/*<Box*/}
+                                {/*    component='a'*/}
+                                {/*    target='_blank'*/}
+                                {/*    rel="noreferrer"*/}
+                                {/*    href='https://www.instagram.com/kvik_baraholka/'*/}
+                                {/*>*/}
+                                {/*    <Box className="instagramLinkIcon"/>*/}
+                                {/*</Box>*/}
+                            {/*</Box>*/}
                             <Box component='li' className={classes.socialItem}>
                                 <Box
                                     component='a'
@@ -53,16 +53,16 @@ const Footer = () => {
                                     <Box className="vkLinkIcon"/>
                                 </Box>
                             </Box>
-                            <Box component='li' className={classes.socialItem}>
-                                <Box
-                                    component='a'
-                                    target='_blank'
-                                    rel="noreferrer"
-                                    href='https://www.facebook.com/Kvik-Барахолкачелябинск-107509641798965'
-                                >
-                                    <Box className="fbLinkIcon"/>
-                                </Box>
-                            </Box>
+                            {/*<Box component='li' className={classes.socialItem}>*/}
+                            {/*    <Box*/}
+                            {/*        component='a'*/}
+                            {/*        target='_blank'*/}
+                            {/*        rel="noreferrer"*/}
+                            {/*        href='https://www.facebook.com/Kvik-Барахолкачелябинск-107509641798965'*/}
+                            {/*    >*/}
+                            {/*        <Box className="fbLinkIcon"/>*/}
+                            {/*    </Box>*/}
+                            {/*</Box>*/}
                         </Box>
                         <Box className={classes.product} component='ul'>
                             <Box component='li' className={classes.website}>

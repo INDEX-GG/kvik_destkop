@@ -254,14 +254,14 @@ export const PersonalDataMobile = () => {
 										<a className="social__link">Одноклассники</a>
 										<CheckBoxSwitch checkID="social-ok" isMobile />
 									</li>
-									<li className="social__item social__item--inst">
-										<a className="social__link">Instagram</a>
-										<CheckBoxSwitch checkID="social-inst" isMobile />
-									</li>
-									<li className="social__item social__item--fb">
-										<a className="social__link">Facebook</a>
-										<CheckBoxSwitch checkID="social-fb" isMobile />
-									</li>
+									{/*<li className="social__item social__item--inst">*/}
+									{/*	<a className="social__link">Instagram</a>*/}
+									{/*	<CheckBoxSwitch checkID="social-inst" isMobile />*/}
+									{/*</li>*/}
+									{/*<li className="social__item social__item--fb">*/}
+									{/*	<a className="social__link">Facebook</a>*/}
+									{/*	<CheckBoxSwitch checkID="social-fb" isMobile />*/}
+									{/*</li>*/}
 								</ul>
 							</div>
 						</div>

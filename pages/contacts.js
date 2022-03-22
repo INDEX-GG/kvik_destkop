@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo';
 import { createSEOProps } from '#lib/seo';
 import GrAndroid from '../UI/icons/GrAndroid';
 import GrApple from '../UI/icons/GrApple';
-import Instagram from '../UI/icons/Instagram';
+// import Instagram from '../UI/icons/Instagram';
 import Vk from '../UI/icons/Vk';
 import Fb from '../UI/icons/Fb';
 import WhatsUp from '../UI/icons/WhatsUp';
@@ -28,7 +28,7 @@ export default function Contacts() {
 						<p>E-mail: <span className="contacts__blocks__block_wrapper_email">support@onekvik.ru</span></p>
 						<h6 className="social__title">Мы в социальных сетях</h6>
 						<div className="social__block">
-							<a href="https://www.instagram.com/kvik.ru/"><Instagram /></a>
+							{/*<a href="https://www.instagram.com/kvik.ru/"><Instagram /></a>*/}
 							<a href="https://vk.com/1kvik_ru"><Vk /></a>
 							<a href="https://ok.ru/kvik1"><Odnoklas /></a>
 							<a href="https://www.facebook.com/1kvik/"><Fb /></a>
