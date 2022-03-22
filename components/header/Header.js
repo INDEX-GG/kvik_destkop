@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = () => {
-  const {isAuth} = useAuth();
+  const {isAuth, id: accountID} = useAuth();
 
   const {userInfo} = useStore();
   const classes = useStyles();
@@ -134,11 +134,12 @@ const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
 							|| (userInfo === undefined) && (<Skeleton variant="circular" width={32} height={32} /> )
 							|| (userInfo !== undefined) && (
 								<NextLink href={{
-									pathname: "/accountV2/offers",
+									pathname: "/account/[id]",
 									query: {
-                    // id: accountID,
-                    // account: "1",
-										content: "active"
+                    id: accountID,
+                    account: "1",
+                    content: "1"
+										// content: "active"
                    }
 								}}>
                   <Avatar
