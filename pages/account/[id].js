@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useMemo} from "react";
 import MetaLayout from "../../layout/MetaLayout";
 import StarRating from "../../components/StarRating";
 import Offers from "../../components/account/Offers/Offers";
@@ -102,7 +102,7 @@ const Account = () => {
     const [reviewsModal, setReviewsModal] = useState(false);
     // const [subscriptionsModal, setSubscriptionsModal] = useState(false);
     const {signOut, id, token} = useAuth();
-    const {matchesMobile, matchesTablet, matchesDesktop} = useMedia()
+    const {matchesMobile, matchesTablet, matchesCustom1024, matchesLowHD} = useMedia()
     const [isShowModalMenu, setIsShowModalMenu] = useState(true)
     const [menuItem, setMenuItem] = useState(
 			router.query.favorite === ''
@@ -386,6 +386,22 @@ const Account = () => {
         )
     }
 
+    const isShowMenu = useMemo(() => {
+        if(matchesLowHD) {
+            return true
+        } else {
+            if(matchesCustom1024 && +router.query.account === 8) {
+                return true
+            }else{
+                if(matchesMobile || +router.query.account === 8) {
+                    return true
+                }else {
+                    return false
+                }
+            }
+        }
+    }, [matchesLowHD, matchesCustom1024, matchesMobile, router.query.account])
+
     return (
         <MetaLayout title={"Личный кабинет"}>
             {!userInfo && !matchesMobile ?
@@ -400,7 +416,7 @@ const Account = () => {
 					</Link>
 				</div> */}
                     {/* clientPage__userinfo на мобилке показываем только в настройках */}
-                    {(matchesTablet && +router.query.account === 8) || matchesDesktop ? (
+                    {isShowMenu ? (
                             <div className="clientPage__menu">
                                 <div className="clientPage__userinfo">
                                     {console.log('зашли сюда')}
