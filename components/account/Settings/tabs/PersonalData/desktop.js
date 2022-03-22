@@ -139,17 +139,17 @@ const SocialForm = ({ className }) => {
 			<div className="form__section form__section--social">
 				<div className="form__content">
 					<ul className="social social--desktop">
-						<li className="social__item social__item--inst">
-							<a className="social__link">Instagram</a>
-							<CheckBoxSwitch
-								checkID="social-inst"
-								width="45px"
-								height="23px"
-								checkboxSize="19px"
-								borderRadius="4px"
-								checkboxBorderRadius="6px"
-							/>
-						</li>
+						{/*<li className="social__item social__item--inst">*/}
+							{/*<a className="social__link">Instagram</a>*/}
+							{/*<CheckBoxSwitch*/}
+							{/*	checkID="social-inst"*/}
+							{/*	width="45px"*/}
+							{/*	height="23px"*/}
+							{/*	checkboxSize="19px"*/}
+							{/*	borderRadius="4px"*/}
+							{/*	checkboxBorderRadius="6px"*/}
+							{/*/>*/}
+						{/*</li>*/}
 						<li className="social__item social__item--vk">
 							<a className="social__link">Вконтакте</a>
 							<CheckBoxSwitch
@@ -172,17 +172,17 @@ const SocialForm = ({ className }) => {
 								checkboxBorderRadius="6px"
 							/>
 						</li>
-						<li className="social__item social__item--fb">
-							<a className="social__link">Facebook</a>
-							<CheckBoxSwitch
-								checkID="social-fb"
-								width="45px"
-								height="23px"
-								checkboxSize="19px"
-								borderRadius="4px"
-								checkboxBorderRadius="6px"
-							/>
-						</li>
+						{/*<li className="social__item social__item--fb">*/}
+						{/*	<a className="social__link">Facebook</a>*/}
+						{/*	<CheckBoxSwitch*/}
+						{/*		checkID="social-fb"*/}
+						{/*		width="45px"*/}
+						{/*		height="23px"*/}
+						{/*		checkboxSize="19px"*/}
+						{/*		borderRadius="4px"*/}
+						{/*		checkboxBorderRadius="6px"*/}
+						{/*	/>*/}
+						{/*</li>*/}
 					</ul>
 				</div>
 			</div>
