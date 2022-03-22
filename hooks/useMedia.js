@@ -7,8 +7,7 @@ export const useMedia = () => {
    const theme = useTheme();
    const [isChanged, setChanged] = useState(false);
    const changeHandler = () => setChanged((o) => !o);
-   
-   
+
    const matchesMobile = useMediaQuery(theme.breakpoints.down(KvikTheme.breakpoints.values.sm));
    const matchesTablet = useMediaQuery(theme.breakpoints.between(KvikTheme.breakpoints.values.sm, KvikTheme.breakpoints.values.md));
    const matchesCustom350 = useMediaQuery(theme.breakpoints.down(KvikTheme.breakpoints.values.custom350));
@@ -19,6 +18,8 @@ export const useMedia = () => {
    const matchesLaptop = useMediaQuery(theme.breakpoints.between(KvikTheme.breakpoints.values.md, KvikTheme.breakpoints.values.lg));
    const matchesDesktop = useMediaQuery(theme.breakpoints.up(KvikTheme.breakpoints.values.lg));
    const matchesHD = useMediaQuery(theme.breakpoints.up(KvikTheme.breakpoints.values.xl));
+   const matchesLowHD = useMediaQuery(theme.breakpoints.up(KvikTheme.breakpoints.values.custom1024));
+
    return {
       matchesTablet,
       matchesMobile,
@@ -26,6 +27,7 @@ export const useMedia = () => {
       matchesLaptop,
       matchesCustom350,
       matchesCustom1024,
+      matchesLowHD,
       matchesCustom1080,
       matchesCustom1100,
       matchesCustom1365,
