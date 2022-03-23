@@ -173,7 +173,7 @@ const UpPanel = () => {
 						open={cityDialog.cityDialogSelect || false}
 						onClose={() => setCityDialog(prevState => ({
 						...prevState,
-						cityDialogSelect: !prevState.cityDialog,
+						cityDialogSelect: false,
 					}))}>
 						<City dialog={cityDialog.cityDialogSelect} setDialog={handlerSelectCity} />
 					</Dialog>
