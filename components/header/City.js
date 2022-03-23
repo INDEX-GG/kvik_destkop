@@ -143,22 +143,22 @@ export default function City({dialog, setDialog}) {
         const cityObj = generateCityObj(suggestion);
         const {name, searchName} = cityObj;
 
+        if (!id) {
+            changeCity(name, searchName)
+            localStorage.setItem('cities', JSON.stringify(cityObj) + '')
+            setDialog(false);
+            return;
+        }
+
         getTokenDataByPost('/api/userLocation', {
             user_id: id,
             data: cityObj
         }, token)
             .then(() => {
                 changeCity(name, searchName)
-
-                if (id) {
-                    setUserInfo({...userInfo, location: cityObj})
-                } else {
-                    localStorage.setItem('cities', JSON.stringify(cityObj) + '')
-                }
-
+                setUserInfo({...userInfo, location: cityObj})
                 setDialog(false);
             })
-
     }
 
 
