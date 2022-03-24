@@ -72,6 +72,8 @@ const SelectUserForm = () => {
     setOpenLoginForm(prevState => !prevState)
   }
 
+  const isTesting = true
+
   return (
     <DialogUIAuth
       open={isAlreadyExistForm || false}
@@ -81,39 +83,45 @@ const SelectUserForm = () => {
       title="Войти как"
       extraClasses={{ root: classes.block}}
     >
-      <Box className={classes.root}>
-        <Typography variant="h6" className={classes.title}>Войти как</Typography>
+      {isTesting ? (
+          <Box className={classes.root}>
+            <Typography variant="h6" className={classes.title}>Пользователь уже зарегистрирован</Typography>
+          </Box>
+      ) : (
+          <Box className={classes.root}>
+            <Typography variant="h6" className={classes.title}>Войти как</Typography>
 
-        <Box className={classes.reg}>
-          <Grid
-            container
-            className={classes.containerRow}
-          >
-            <Avatar className={classes.avatarBase}>A</Avatar>
-            <Button
-              variant="text"
-              onClick={handleOpenLogForm}
-            >
-              <Typography className={classes.text}>Анастасия смоленская</Typography>
-            </Button>
-          </Grid>
+            <Box className={classes.reg}>
+              <Grid
+                  container
+                  className={classes.containerRow}
+              >
+                <Avatar className={classes.avatarBase}>A</Avatar>
+                <Button
+                    variant="text"
+                    onClick={handleOpenLogForm}
+                >
+                  <Typography className={classes.text}>Анастасия смоленская</Typography>
+                </Button>
+              </Grid>
 
-          <Grid
-            container
-            className={classes.containerRow}
-          >
+              <Grid
+                  container
+                  className={classes.containerRow}
+              >
             <span className={classes.avatarBase}>
               <PersonalAccount />
             </span>
-            <Button
-              variant="text"
-              onClick={handleOpenRegForm}
-            >
-              <Typography className={classes.text}>Регистрация нового профиля</Typography>
-              </Button>
-          </Grid>
-        </Box>
-      </Box>
+                <Button
+                    variant="text"
+                    onClick={handleOpenRegForm}
+                >
+                  <Typography className={classes.text}>Регистрация нового профиля</Typography>
+                </Button>
+              </Grid>
+            </Box>
+          </Box>
+      )}
     </DialogUIAuth>
   )
 }

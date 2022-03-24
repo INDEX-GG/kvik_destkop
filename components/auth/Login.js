@@ -145,6 +145,7 @@ const Login = () => {
   const onClose = () => {
     // setResetPassword(false)
     setCheckSms(false)
+    setResetPassword(false);
     setChangePassword(false)
     setOpenLoginForm(false)
     setValue('checkPhone', '')
@@ -154,15 +155,21 @@ const Login = () => {
 
     if (changePassword) {
       getTokenDataByPost('/api/settings/upPassword', SecretPassword({password: data.newPassword}), changePassword)
-        .then(() => onSubmit({phone: data.checkPhone, password: data.newPassword}))
+        .then((r) => {
+          if (r?.message === 'successfully update') {
+            onSubmit({phone: data.checkPhone, password: data.newPassword})
+          }
+        })
       return;
     }
 
     data.checkPhone = `+${data.checkPhone.replace(/\D+/g, "")}`
 
     getDataByPost('/api/callPhone', {'phone': data.checkPhone})
-      .then(() => {
-        setCheckSms(true)
+      .then((r) => {
+        if (r?.message === 'success') {
+          setCheckSms(true)
+        }
       });
 
   }
@@ -414,7 +421,7 @@ const Login = () => {
                   <a href="https://vk.com" className="vkLoginIcon"/>
                   <a href="https://ok.ru/" className="odLoginIcon"/>
                   <a href="https://www.apple.com/" className="appleLoginIcon"/>
-                  <a href="https://facebook.com" className="facebookLoginIcon"/>
+                  {/*<a href="https://facebook.com" className="facebookLoginIcon"/>*/}
                   <a href="https://google.com" className="googleLoginIcon"/>
                 </div>
                 <Button

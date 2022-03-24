@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {useEffect, useMemo, useRef, useState} from 'react'
 import { Box, Button, FormGroup, makeStyles, TextField, Typography } from '@material-ui/core';
 import { getDataByPost } from '../../lib/fetch';
 import { useAuth } from '../../lib/Context/AuthCTX';
 import { useStore } from '../../lib/Context/Store';
 import { SecretData } from "../../lib/SecretData";
 import { Controller, useForm } from "react-hook-form";
+import TimeLimitCounter from "#components/TimeLimitCounter";
 
 const useStyles = makeStyles((theme) => ({
 	submitNumber: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 	formGroup: {
 		marginTop: '16px',
 		display: 'flex',
+		flexWrap: 'nowrap',
 		flexDirection: 'row',
 		justifyContent: 'center',
 		'& > *:last-child': {
@@ -64,13 +66,13 @@ const useStyles = makeStyles((theme) => ({
  * @param {string} [props.resetPhone]
  * @param {(token: string) => void} props.changePassword
  */
-export const ConfirmNumberV2 = ({ 
-	setOpenConfirmNum, 
-	phoneNum, 
-	sendData, 
-	registrantion = false, 
-	resetPhone = '', 
-	changePassword, 
+export const ConfirmNumberV2 = ({
+	setOpenConfirmNum,
+	phoneNum,
+	sendData,
+	registrantion = false,
+	resetPhone = '',
+	changePassword,
 }) => {
 
 	const classes = useStyles();
@@ -83,6 +85,21 @@ export const ConfirmNumberV2 = ({
 	const smsRef4 = useRef()
 	const [allSms, setAllSms] = useState('');
 	const [error, setError] = useState(false);
+	const [isNewCall, setIsNewCall] = useState(false);
+
+	const isTimeError = useMemo(() => (
+		error?.message === 'Превышено количество попыток, повторите позже'
+	), [error]);
+
+
+	const handleResetInputs = () => {
+		methods.reset({
+			smsValue1: '',
+			smsValue2: '',
+			smsValue3: '',
+			smsValue4: ''
+		});
+	}
 
 	const regUser = () => {
 		getDataByPost('/api/setApi', { ...sendData, ...SecretData(sendData) }).then((r) => {
@@ -107,15 +124,29 @@ export const ConfirmNumberV2 = ({
 			setAllSms(`${methods.watch('smsValue1')}${methods.watch('smsValue2')}${methods.watch('smsValue3')}${methods.watch('smsValue4')}`);
 		} else {
 			if (allSms) setAllSms('');
-			if (error) setError(false);
+			if (error) {
+				if (!isNewCall) {
+					setError(false)
+				}
+			}
 		}
 	}, [methods.watch('smsValue1'), methods.watch('smsValue2'), methods.watch('smsValue3'), methods.watch('smsValue4')]);
 
 
+	const handleCallPhone = () => {
+		getDataByPost('/api/callPhone', {'phone': resetPhone ? resetPhone : phoneNum})
+			.then((r) => {
+				if (r?.message === 'success') {
+					setIsNewCall(false);
+				}
+			});
+	}
+
+
 	/**
-	 * @param {string} value 
-	 * @param {number} field 
-	 * @param {(...event: any[]) => void} onChange 
+	 * @param {string} value
+	 * @param {number} field
+	 * @param {(...event: any[]) => void} onChange
 	 */
 	const changeSmsInput = (value, field, onChange) => {
 
@@ -217,7 +248,9 @@ export const ConfirmNumberV2 = ({
 			getDataByPost('/api/checkphone', { "phone": resetPhone ? resetPhone : phoneNum, "code": allSms })
 				.then(r => {
 					if (r?.message === 'time error') {
+						handleResetInputs();
 						setError({ error: true, message: 'Превышено количество попыток, повторите позже' })
+						return;
 					}
 
 
@@ -228,6 +261,7 @@ export const ConfirmNumberV2 = ({
 							changePassword(r.authToken)
 						}
 					} else {
+						handleResetInputs();
 						setError({ error: true, message: 'Неверный код подтверждения' })
 					}
 				})
@@ -244,7 +278,7 @@ export const ConfirmNumberV2 = ({
 					</Typography>
 				)
 			}
-			
+
 			<Typography align='center' variant='subtitle1'>На указанный телефон будет совершен звонок.<br /> Пожалуйста
 				введите последние 4 цифры <br /> звонящего номера в поле ниже.</Typography>
 			<Box className={classes.inputBlock}>
@@ -320,18 +354,55 @@ export const ConfirmNumberV2 = ({
 						)} />
 				</FormGroup>
 			</Box>
-			{error && <Typography className={classes.error} variant='h6'>Неверный код подтвержения</Typography>}
-			<Button
-				onClick={() => verifyNumber(allSms)}
-				variant="text"
-				size="large"
-				color="primary"
-				className={allSms.length ? 'active' : 'disabled'}
-				// onClick={handleCheckCallPhone}
-				disabled={Boolean(!allSms)}
-			>
-				{registrantion ? 'Продолжить' : 'Зарегистрироваться'}
-			</Button>
+			{/*{error && <Typography className={classes.error} variant='h6'>Неверный код подтвержения</Typography>}*/}
+			{/*<Button*/}
+			{/*	onClick={() => verifyNumber(allSms)}*/}
+			{/*	variant="text"*/}
+			{/*	size="large"*/}
+			{/*	color="primary"*/}
+			{/*	className={allSms.length ? 'active' : 'disabled'}*/}
+			{/*	// onClick={handleCheckCallPhone}*/}
+			{/*	disabled={Boolean(!allSms)}*/}
+			{/*>*/}
+			{/*	{registrantion ? 'Продолжить' : 'Зарегистрироваться'}*/}
+			{/*</Button>*/}
+			{error && (
+				<>
+					<Typography className={classes.error} variant='h6'>{error?.message}</Typography>
+					{isTimeError && (
+						<TimeLimitCounter
+							time={90}
+							handleWaitStart={() => setIsNewCall(true)}
+							handleWaitEnd={() => setError(false)}
+						/>
+					)}
+				</>
+			)}
+			{isNewCall ? (
+				<Button
+					onClick={handleCallPhone}
+					variant="text"
+					size="large"
+					color="primary"
+					className={allSms.length ? 'active' : 'disabled'}
+					// onClick={handleCheckCallPhone}
+					disabled={isTimeError}
+				>
+					Повторный звонок
+				</Button>
+			) : (
+				<Button
+					onClick={() => verifyNumber(allSms)}
+					variant="text"
+					size="large"
+					color="primary"
+					className={allSms.length ? 'active' : 'disabled'}
+					// onClick={handleCheckCallPhone}
+					disabled={Boolean(!allSms) && !isTimeError}
+				>
+					{registrantion ? 'Продолжить' : 'Зарегистрироваться'}
+				</Button>
+			)}
 		</Box>
 	)
 }
