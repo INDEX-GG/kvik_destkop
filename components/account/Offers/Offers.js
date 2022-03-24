@@ -1,10 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import Wait from "./tabs/Wait"
 import Active from "./tabs/Active"
 import Archive from "./tabs/Archive"
 import safeAccountTab from "../../safeAccountTab"
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore"
+
+import { STATIC_URL } from '#lib/constants'
+import { photos2arr } from '#lib/services'
 
 /**
  *
@@ -14,24 +17,40 @@ import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore"
 const Offers = ({data}) => {
 
 	const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" })
+	const [posts, setPosts] = useState()
+
+	useEffect(() => {
+		const posts = [data?.active_posts?.data || [], data?.wait_posts?.data || [], data?.archive_posts?.data || []];
+
+		posts?.map(item => {
+			if(item?.length && typeof item !== 'undefined') {
+				item.map(obj => {
+					const photos = photos2arr(obj?.photo)?.map(img => `${STATIC_URL}/${img}`)
+					return obj.photo = photos
+				})
+			}
+		})
+		setPosts(posts)
+
+	}, [data])
 
     const navItems = [
 		{
 			id: 1,
 			title: "Активные",
-			content: <Active key={1} offers={data?.active_posts?.data || []} />,
+			content: <Active key={1} offers={typeof posts !== 'undefined' ? posts[0] : []} />,
 			count: data?.active_posts_count || 0,
 		},
 		{
 			id: 2,
 			title: "Ждут действия",
-			content: <Wait key={2} offers={data?.wait_posts?.data || []} />,
+			content: <Wait key={2} offers={typeof posts !== 'undefined' ? posts[1] : []} />,
 			count: data?.wait_posts_count || 0,
 		},
 		{
 			id: 3,
 			title: "Архив",
-			content: <Archive key={3} offers={data?.archive_posts?.data || []} />,
+			content: <Archive key={3} offers={typeof posts !== 'undefined' ? posts[2] : []} />,
 			count: data?.archive_posts_count || 0,
 		},
 	]
