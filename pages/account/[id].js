@@ -419,7 +419,6 @@ const Account = () => {
                     {isShowMenu ? (
                             <div className="clientPage__menu">
                                 <div className="clientPage__userinfo">
-                                    {console.log('зашли сюда')}
                                     {!userInfo ? <Box style={{display: "flex", justifyContent: "center", paddingBottom: "10px"}}>
                                             <Skeleton  animation="wave" variant="circular"    sx={{ bgcolor: '#F2F3F4', width: "80px", height: "80px"}}/>
                                         </Box>
