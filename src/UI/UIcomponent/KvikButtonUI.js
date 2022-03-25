@@ -9,7 +9,7 @@ const KvikButtonUI = (
         disabled = false,
         customRoot = {},
         customDisabled = {},
-        fullWidth = false
+        fullWidth = false,
     }
 ) => {
     const classes = useStyles();
