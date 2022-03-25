@@ -6,23 +6,23 @@ import qs from 'qs';
 const relevant_actions = {
     2: {
         "description": "Поднятие вверх объявления KVIK",
-        "price": 1900},
+        "price": 19.00},
     3: {
         "description": "Выделение цветом объявления KVIK",
-        "price": 3900},
+        "price": 39.00},
     4: {
         "description": "XL объявление KVIK",
-        "price": 3900},
+        "price": 39.00},
     5: {
         "description": "Комбо продвижение KVIK",
-        "price": 8500}
+        "price": 85.00}
 }
 
 let payment_login = process.env.STG_LOGIN
 let payment_pass = process.env.STG_PASS
+let payment_token_url = process.env.STG_PAYMENT_TOKEN
 let payment_reg_url = process.env.STG_PAYMENT_REG
 let payment_source = process.env.STG_PAYMENT_STATUS
-let cb_address = process.env.STG_CB
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
@@ -46,15 +46,12 @@ export default async function handler(req, res) {
         const main = async () => {
 
             let amount = 0
-            let return_url = req.body.return_url
-            let fail_url = req.body.fail_url
             let description = "Оплата услуг по продвижению на сайте onekvik.ru"
             let user_id = req.body.user_id
             let post_id = req.body.post_id
             let now = new Date()
             const randomString = crypto.randomBytes(2).toString("hex");
             let actions = [...new Set(req.body.actions)]
-
             if (user_id === undefined || typeof user_id !== 'number' || user_id < 1) { throw "Er 1" }
             if (post_id === undefined || typeof post_id !== 'number' || post_id < 1) { throw "Er 2" }
             actions.forEach(element => {if (typeof element !== 'number' || element <= 0  || ! (Object.keys(relevant_actions).map(key => parseInt(key))).includes(element)) {throw "Er 3"}});
@@ -65,21 +62,31 @@ export default async function handler(req, res) {
 
             actions.forEach(element => { amount += relevant_actions[element].price})
 
+            let token_request = await axios.get(payment_token_url,
+                {
+                    auth: {username: payment_login, password: payment_pass},
+                    headers: {"Content-Type": "application/x-www-form-urlencoded"}
+                }).then(r => r.data)
+            let payment_token = token_request.token
+
             let params = qs.stringify({
-                userName: payment_login,
-                password: payment_pass,
-                orderNumber: order_number,
-                amount: amount,
-                returnUrl: return_url,
-                failUrl: fail_url,
-                description: description,
-                clientId: user_id,
-                dynamicCallbackUrl: cb_address
+                pay_amount: amount,
+                clientid: user_id,
+                orderid: order_number,
+                service_name: description,
+                token: payment_token
             })
 
-            let payment_reg_answer = await axios.post(payment_reg_url, params).then(r => r.data)
-            let order_id = payment_reg_answer.orderId
-            let form_url = payment_reg_answer.formUrl
+            let payment_reg_answer = await axios.post(
+                payment_reg_url,
+                params,
+                {headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                    auth: {username: payment_login, password: payment_pass}
+                }).then(r => r.data)
+
+            let order_id = payment_reg_answer.invoice_id
+            let form_url = payment_reg_answer.invoice_url
+
             if (form_url === undefined || order_id === undefined) { throw "Er 6" }
             let transaction_check = await pool.query(`SELECT * FROM "payments"."transactions" WHERE "order_id" = $1 AND "source" = $2`, [order_id, payment_source])
             if (transaction_check.rows.length > 0) { throw "Er 7" }
