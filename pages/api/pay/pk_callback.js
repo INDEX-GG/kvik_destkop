@@ -39,7 +39,7 @@ const relevant_actions = {
 // }
 
 export default async function handler(req, res) {
-    if (req.method === 'GET') {
+    if (req.method === 'POST') {
 
         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
