@@ -93,6 +93,8 @@ export default async function handler(req, res) {
                             await pool.query(`UPDATE "payments"."transactions" SET "pay_time" = $1, "status_transaction" = $2, "check_payment_answer" = $3 WHERE "order_id" = $4 AND "source" = $5`, [now, "paid", check_payment_answer, md_order, payment_source])
                             await pool.query(`INSERT INTO "payments"."transactions_virtual_rubles" ("amount", "description", "date") VALUES ($1, $2, $3)`, [amount, "Пополнение кошелька", now])
                             await pool.query(`UPDATE "public"."users" SET "virtual_rubles_balance" = "virtual_rubles_balance" + $1 WHERE id =$2`, [amount, user_id])
+                            // Bonus Transaction
+                            // Bonus Update
                             await pool.query(`COMMIT`)
 
                         } else {
