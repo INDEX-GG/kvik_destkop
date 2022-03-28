@@ -252,7 +252,7 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                         location: data.location,
                         price: data.price,
                         id: postId,
-                        photo: `${STATIC_URL}${dynamicPhotosArr(r?.data?.images[0], postId, 's')[0]}`
+                        photo: `${STATIC_URL}${dynamicPhotosArr(r?.data?.images, postId, 's')[0]}`
                     }
 
                     console.log(productObj);
