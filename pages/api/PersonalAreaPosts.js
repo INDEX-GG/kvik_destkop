@@ -41,13 +41,13 @@ export default async function handler(req, res) {
 
             let all_posts = await pool.query(`SELECT
                     array(SELECT row_to_json(t1)FROM(
-                    SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $4) OR (active_time IS NULL)) ORDER BY "posts"."id" desc LIMIT $2 offset $3
+                    SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."color_selection", "posts"."size_selection", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE active = 0 AND verify = 0  AND posts.user_id = $1 AND ((active_time >= $4) OR (active_time IS NULL)) ORDER BY "posts"."id" desc LIMIT $2 offset $3
                     ) t1) AS active_posts,
                     array(SELECT row_to_json(t2)FROM(
-                    SELECT "posts"."id", "posts"."title", "posts"."verify", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE (posts.user_id = $1 AND verify != 0 AND active != 99) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $4) AND (active_time IS NOT NULL))) ORDER BY "posts"."active_time" desc LIMIT $2 offset $3
+                    SELECT "posts"."id", "posts"."title", "posts"."verify", "posts"."color_selection", "posts"."size_selection", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time" FROM "posts" WHERE (posts.user_id = $1 AND verify != 0 AND active != 99) OR (posts.user_id = $1 AND active = 0 AND ((active_time < $4) AND (active_time IS NOT NULL))) ORDER BY "posts"."active_time" desc LIMIT $2 offset $3
                     ) t2) AS wait_posts,
                     array(SELECT row_to_json(t3)FROM(
-                    SELECT "posts"."id", "posts"."title", "posts"."active", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."archived_time" FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1 ORDER BY "posts"."archived_time" desc LIMIT $2 offset $3
+                    SELECT "posts"."id", "posts"."title", "posts"."active", "posts"."color_selection", "posts"."size_selection", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."archived_time" FROM "posts" WHERE active != 0 AND active != 99 AND verify = 0 AND posts.user_id = $1 ORDER BY "posts"."archived_time" desc LIMIT $2 offset $3
                     ) t3) AS archive_posts
                     `, [user_id, page_limit, page, date])
 
@@ -58,6 +58,10 @@ export default async function handler(req, res) {
 
             active_posts.forEach(
                 element => {
+                    element.highlighting = element.color_selection >= date;
+                    element.selection_size = element.size_selection >= date;
+                    delete element.color_selection
+                    delete element.size_selection
                     element.best_before = Math.ceil((Date.parse(element.active_time) - date)/day_in_ms)
                     delete element.active_time
                     element.status = "ok"
@@ -67,6 +71,10 @@ export default async function handler(req, res) {
                 element => {
                     // active time - archive_time (Время на которое можно обратно поднять)
                     // element.best_before = Math.ceil((element.active_time - date)/day_in_ms)
+                    element.highlighting = element.color_selection >= date;
+                    element.selection_size = element.size_selection >= date;
+                    delete element.color_selection
+                    delete element.size_selection
                     element.status = "no_active"
                     element.status_code = element.active
                     delete element.active
@@ -75,6 +83,10 @@ export default async function handler(req, res) {
                 });
             wait_posts.forEach(
                 element => {
+                    element.highlighting = element.color_selection >= date;
+                    element.selection_size = element.size_selection >= date;
+                    delete element.color_selection
+                    delete element.size_selection
                     if (parseInt(element.verify) !== 0) {
                         element.status = "banned"
                     } else if (Math.ceil((Date.parse(element.active_time) - date)/day_in_ms) <= 0) {
