@@ -161,3 +161,33 @@ export const getKeyArrayFilteredForObject = (obj) => {
 
     return arrayKeyResponsePost
 }
+
+
+export const dynamicPhotosArr = (
+    photos,
+    id,
+    size = 'n',
+    maxLengthArray = 'none',
+    server = 1,
+    path = 'po'
+) => {
+    try {
+        if (Array.isArray(photos)) {
+            if (photos.length > 1) {
+                const newPhotos = photos.map((photo, index) => {
+                    if (typeof maxLengthArray === 'number') {
+                        if (index + 1 > maxLengthArray) {
+                            return '';
+                        }
+                    }
+                    return `/${server}/${path}/${id}/${size}/${photo}`;
+                });
+                return newPhotos.filter((photo) => photo);
+            }
+            return [`/${server}/${path}/${id}/${size}/${photos[0]}`];
+        }
+        return [];
+    } catch (e) {
+        return [];
+    }
+};
