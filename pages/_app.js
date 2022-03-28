@@ -33,7 +33,7 @@ export default function MyApp({ Component, pageProps }) {
 			>
 				<Head>
 					<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+					<meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
 				</Head>
 				<YandexMetrika>
 				<AuthProvider>

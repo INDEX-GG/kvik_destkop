@@ -31,11 +31,15 @@ const MainLayout = ({children}) => {
             </div>
             {router.pathname == "/" || router.pathname == "/search/[alias]"
                 ? matchesTablet || matchesMobile && <Footer/>
-                : <Footer/>}
-            Verification: 031fa8de208fc9ad
+                : <Footer/>
+            }
+            <div style={{
+                overflow: 'hidden',
+                height: '0',
+                width: '0'
+            }}>Verification: 031fa8de208fc9ad</div>
         </>
     );
-    //.makeStyles-root-114
 };
 
 export default MainLayout;
