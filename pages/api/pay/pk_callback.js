@@ -12,16 +12,16 @@ let payment_source = process.env.STG_PAYMENT_STATUS
 const relevant_actions = {
     2: {
         "description": "Поднятие вверх объявления KVIK",
-        "price": 1900},
+        "price": 19.00},
     3: {
         "description": "Выделение цветом объявления KVIK",
-        "price": 3900},
+        "price": 39.00},
     4: {
         "description": "XL объявление KVIK",
-        "price": 3900},
+        "price": 39.00},
     5: {
         "description": "Комбо продвижение KVIK",
-        "price": 5900}
+        "price": 59.00}
 }
 
 // function check_sum(body) {
@@ -44,14 +44,18 @@ export default async function handler(req, res) {
         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
 
+
             let query = req.query
             let now = new Date()
             let day_in_ms = 1000*60*60*24
             let active_time = new Date(Math.floor(now) + day_in_ms*7)
-            let body = JSON.stringify(query)
+            // let body = JSON.stringify(query)
+            let body = JSON.stringify(req)
             let operation = query.operation
             let status = query.status
             let md_order = query.mdOrder
+
+
             let create_callback = await pool.query(`INSERT INTO "payments"."callbacks" ("query", "time", "source") VALUES ($1, $2, $3) RETURNING "id"`, [body, now, payment_source])
             let callback_id = create_callback.rows[0].id
             let params = qs.stringify({
