@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
             let all_posts = await pool.query(`SELECT
                     array(SELECT row_to_json(t1)FROM(
-                        SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."address", "posts"."active", "posts"."verify" ,"posts"."user_id", "users"."name", "users"."userPhoto", "users"."raiting" FROM "public"."favorites" INNER JOIN "posts" ON favorites.liked_post_id = posts.id INNER JOIN "users" ON posts.user_id = users.id WHERE posts.active != 99 AND favorites.user_id = $2 AND posts.user_id != $2 ORDER BY "favorites"."id" desc LIMIT $3 offset $4
+                        SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."color_selection", "posts"."size_selection", "posts"."created_at", "posts"."photo", "posts"."active_time", "posts"."address", "posts"."active", "posts"."verify" ,"posts"."user_id", "users"."name", "users"."userPhoto", "users"."raiting" FROM "public"."favorites" INNER JOIN "posts" ON favorites.liked_post_id = posts.id INNER JOIN "users" ON posts.user_id = users.id WHERE posts.active != 99 AND favorites.user_id = $2 AND posts.user_id != $2 ORDER BY "favorites"."id" desc LIMIT $3 offset $4
                     ) t1) AS liked_posts,
                     array(SELECT row_to_json(t2)FROM(
                         SELECT "users"."id", "users"."name", "users"."userPhoto", "users"."raiting",
@@ -55,6 +55,10 @@ export default async function handler(req, res) {
 
             liked_posts.forEach(
                 element => {
+                    element.highlighting = element.color_selection >= date;
+                    element.selection_size = element.size_selection >= date;
+                    delete element.color_selection
+                    delete element.size_selection
                     if (parseInt(element.verify) !== 0) {
                         element.status = "banned"
                     } else if (parseInt(element.active) !== 0) {

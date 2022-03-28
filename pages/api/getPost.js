@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 			}
 
 
-			const answer  = await pool.query(`SELECT users."userPhoto" AS user_photo,users.name AS user_name, users.phone AS "user_phone", posts.user_id ,users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.manager_name, posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.verify,posts.created_at,posts.delivery,posts.address,posts.trade,posts.title,posts.active, posts.subcategory, posts.coordinates, posts.active_time, posts.communication,
+			const answer  = await pool.query(`SELECT users."userPhoto" AS user_photo,users.name AS user_name, users.phone AS "user_phone", posts.user_id ,users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.manager_name, posts.secure_transaction,posts.description,posts.id,posts.category_id,posts.price,posts.photo,posts.rating,posts.verify,posts.created_at,posts.delivery,posts.address,posts.trade,posts.title,posts.active, posts.subcategory, posts.coordinates, posts.active_time, posts.communication, posts.color_selection, posts.size_selection,
 				(SELECT COUNT("posts"."id") FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."id" != $2 AND "posts"."photo" IS NOT NULL AND "posts"."active" = 0 AND "posts"."verify" = 0 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL))) AS "user_products_count",
    				array(SELECT row_to_json(t)FROM(SELECT "posts"."id", "posts"."title", "posts"."price", "posts"."photo"  FROM "public"."posts" WHERE "posts"."user_id" = "users"."id" AND "posts"."active" = 0 AND "posts"."verify" = 0 AND "posts"."photo" IS NOT NULL AND "posts"."id" != $2 AND (("posts"."active_time" >= $1) OR ("posts"."active_time" IS NULL)) ORDER BY "posts"."id" desc LIMIT 3) t) AS user_products
 				FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $2`, [date ,post_id])
@@ -114,6 +114,10 @@ export default async function handler(req, res) {
 			} else if (Math.ceil((post.active_time - date)/day_in_ms) <= 0) {
 				post.status = "time_limit"
 			} else {post.status = "ok"}
+
+			post.highlighting = post.color_selection >= date;
+			post.selection_size = post.size_selection >= date;
+
 			if (post.user_business_account && post.manager_name !== null) {post.user_name = post.manager_name}
 			if (post.user_business_account && post.manager_phone !== null) {post.user_phone = post.manager_phone}
 			post.user_phone = encrypt(post.user_phone)
@@ -123,6 +127,8 @@ export default async function handler(req, res) {
 			delete post.active_time
 			delete post.active
 			delete post.verify
+			delete post.color_selection
+			delete post.size_selection
 			return(post)
 		}
 		try {

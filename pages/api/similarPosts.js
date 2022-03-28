@@ -10,8 +10,9 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         const pool = new Pool({ connectionString: process.env.DATABASE_URL });
         const main = async () => {
+            let date = new Date()
             let post_id = req.body.post_id
-            const post  = await pool.query(`SELECT "posts".subcategory, "posts".category_id, "posts".city FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $1`, [post_id])
+            const post  = await pool.query(`SELECT "posts".subcategory, "posts".category_id, "posts".color_selection, "posts".size_selection, "posts".city FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE posts.id = $1`, [post_id])
             if (typeof req.body.post_id !== 'number') {
                 throw "Er"
             }
@@ -52,6 +53,10 @@ export default async function handler(req, res) {
 
                 answer.rows.forEach(
                     element => {
+                        element.highlighting = element.color_selection >= date;
+                        element.selection_size = element.size_selection >= date;
+                        delete element.color_selection
+                        delete element.size_selection
                         if (element.user_business_account && element.manager_name !== null) {element.user_name = element.manager_name}
                         if (element.user_business_account && element.manager_phone !== null) {element.user_phone = element.manager_phone}
                         element.user_phone = encrypt(element.user_phone)
@@ -63,6 +68,10 @@ export default async function handler(req, res) {
 
                 answer.rows.forEach(
                     element => {
+                        element.highlighting = element.color_selection >= date;
+                        element.selection_size = element.size_selection >= date;
+                        delete element.color_selection
+                        delete element.size_selection
                         if (element.user_business_account && element.manager_name !== null) {element.user_name = element.manager_name}
                         if (element.user_business_account && element.manager_phone !== null) {element.user_phone = element.manager_phone}
                         element.user_phone = encrypt(element.user_phone)

@@ -10,6 +10,7 @@ export default async function handler(req, res) {
 		const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 		const main = async () => {
+			let date = new Date()
 			const category = req.body.category.toLowerCase();
 			const page_limit = req.body.page_limit
 			const page = (req.body.page - 1) * page_limit
@@ -41,10 +42,14 @@ export default async function handler(req, res) {
 			if (region_excludes === '') {
 				region_excludes = '!'
 			}
-			const answer =  await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.manager_name, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE ((active_time >= $1) OR (active_time IS NULL)) AND LOWER (category_id) LIKE $2 AND active = 0 AND verify = 0 AND (LOWER (title) LIKE $3 OR LOWER (description) LIKE $3) AND LOWER (city) LIKE $4 AND LOWER (city) NOT LIKE $5 ${sort_value} LIMIT $6 offset $7`, [new Date() ,category + '%', '%' + text + '%', region_includes + '%', region_excludes + '%', page_limit, page])
+			const answer =  await pool.query(`SELECT users.name AS user_name, users."userPhoto" AS user_photo, users.phone AS user_phone, users.raiting AS user_raiting, users.business_account AS user_business_account, posts.manager_phone, posts.color_selection, posts.size_selection, posts.manager_name, posts.id, posts.user_id, posts.category_id, posts.price, posts.old_price, posts.photo, posts.rating, posts.created_at, posts.delivery, posts.reviewed, posts.address, posts.phone, posts.trade, posts.verify_moderator, posts.commercial, posts.secure_transaction, posts.title, posts.email, posts.viewing FROM "posts" INNER JOIN "users" ON posts.user_id = users.id WHERE ((active_time >= $1) OR (active_time IS NULL)) AND LOWER (category_id) LIKE $2 AND active = 0 AND verify = 0 AND (LOWER (title) LIKE $3 OR LOWER (description) LIKE $3) AND LOWER (city) LIKE $4 AND LOWER (city) NOT LIKE $5 ${sort_value} LIMIT $6 offset $7`, [new Date() ,category + '%', '%' + text + '%', region_includes + '%', region_excludes + '%', page_limit, page])
 
 			answer.rows.forEach(
 				element => {
+					element.highlighting = element.color_selection >= date;
+					element.selection_size = element.size_selection >= date;
+					delete element.color_selection
+					delete element.size_selection
 					if (element.user_business_account && element.manager_name !== null) {element.user_name = element.manager_name}
 					if (element.user_business_account && element.manager_phone !== null) {element.user_phone = element.manager_phone}
 					element.user_phone = encrypt(element.user_phone)
