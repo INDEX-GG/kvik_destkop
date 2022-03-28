@@ -23,6 +23,10 @@ const AdCard = React.forwardRef(({ id, offer, isGrid}, ref) => {
 	const { matchesMobile, matchesTablet } = useMedia();
 	const screenIsMobile = matchesMobile || matchesTablet;
 
+  console.log(offer);
+  console.log(offer.highlighting);
+  console.log(offer?.selection_size);
+
   const {
     isHighlightCard,
     isSelectionSizeCard,
