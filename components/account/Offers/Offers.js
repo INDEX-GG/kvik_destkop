@@ -21,12 +21,12 @@ const Offers = ({data}) => {
 
 	useEffect(() => {
 		const posts = [data?.active_posts?.data || [], data?.wait_posts?.data || [], data?.archive_posts?.data || []];
-
 		posts?.map(item => {
 			if(item?.length && typeof item !== 'undefined') {
 				item.map(obj => {
-					const photos = photos2arr(obj?.photo)?.map(img => `${STATIC_URL}/${img}`)
-					return obj.photo = photos
+					const isObject = typeof obj?.photo !== 'object';
+					const photos =isObject && photos2arr(obj?.photo)?.map(img => `${STATIC_URL}/${img}`)
+					return obj.photo = isObject ? photos : obj.photo
 				})
 			}
 		})
@@ -54,6 +54,7 @@ const Offers = ({data}) => {
 			count: data?.archive_posts_count || 0,
 		},
 	]
+	console.log('posts: ', posts);
 
 	return (
 		<>
@@ -92,7 +93,7 @@ const Offers = ({data}) => {
 	)
 }
 
-export default React.memo(ScrollGetMore({
+export default ScrollGetMore({
 	url: "/api/PersonalAreaPosts",
     tabs: ['active_posts', 'wait_posts', 'archive_posts']
-})(Offers))
+})(Offers)
