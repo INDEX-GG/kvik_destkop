@@ -16,6 +16,7 @@ import {useForm, FormProvider} from "react-hook-form";
 import useCategoryV2 from "#hooks/useCategoryV2";
 import {useRouter} from 'next/router';
 import { useProduct } from '#hooks/useProduct';
+import {dynamicPhotosArr} from "../src/services/services";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -251,8 +252,10 @@ function PlaceOffer({editCategory, changePage=false, commonFields, currentAdditi
                         location: data.location,
                         price: data.price,
                         id: postId,
-                        photo: `${STATIC_URL}/${r?.data.images.photos[0]}`
+                        photo: `${STATIC_URL}${dynamicPhotosArr(r?.data?.images[0], postId, 's')[0]}`
                     }
+
+                    console.log(productObj);
 
                     setProduct(productObj)
                     setPromotion(true)
