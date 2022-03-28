@@ -32,6 +32,7 @@ const MainLayout = ({children}) => {
             {router.pathname == "/" || router.pathname == "/search/[alias]"
                 ? matchesTablet || matchesMobile && <Footer/>
                 : <Footer/>}
+            Verification: 031fa8de208fc9ad
         </>
     );
     //.makeStyles-root-114
