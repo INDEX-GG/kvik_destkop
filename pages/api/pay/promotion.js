@@ -6,16 +6,16 @@ import qs from 'qs';
 const relevant_actions = {
     2: {
         "description": "Поднятие вверх объявления KVIK",
-        "price": 19.00},
+        "price": 1.00},
     3: {
         "description": "Выделение цветом объявления KVIK",
-        "price": 39.00},
+        "price": 1.00},
     4: {
         "description": "XL объявление KVIK",
-        "price": 39.00},
+        "price": 1.00},
     5: {
         "description": "Комбо продвижение KVIK",
-        "price": 85.00}
+        "price": 1.00}
 }
 
 let payment_login = process.env.STG_LOGIN
