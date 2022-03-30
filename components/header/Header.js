@@ -102,11 +102,10 @@ const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
   }, []);
 
   const handleCreate = () => {
-    if(!isAuth) {
-        setOpenLoginForm(true)
-    }else{
-       Router.push("/placeOffer")
-    }
+    (!isAuth
+      ?setOpenLoginForm(true)
+      :Router.push("/placeOffer")
+    )
   }
   
  

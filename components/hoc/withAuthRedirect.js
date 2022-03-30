@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { useAuth } from "#lib/Context/AuthCTX";
 import { LoginDrawerCTX } from "#lib/Context/DialogCTX";
 import { useRouter } from "next/router";
@@ -12,27 +12,25 @@ const withAuth = Component => {
         const {isAuth} = useAuth();
         const router = useRouter();
 
-        const {
-            openRegForm, setOpenRegForm,
-            openLoginForm, setOpenLoginForm,
-            isAlreadyExistForm, setIsAlreadyExistForm
-        } = useContext(LoginDrawerCTX)
+        const {openRegForm, setOpenRegForm,openLoginForm, setOpenLoginForm,isAlreadyExistForm, setIsAlreadyExistForm} = useContext(LoginDrawerCTX)
         // Если текущий url = privateRoutes
-        const privateRoutesResult = !!privateRoutes.find(route => route === router.pathname)
-        if (privateRoutesResult === true) {
+        const isPrivateRoutesResult = useMemo(() => !!privateRoutes.find(route => route === router.pathname),[privateRoutes])
+        if (isPrivateRoutesResult === true) {
             {!isAuth
-                ? setOpenLoginForm(true)
-                : setOpenLoginForm(false)
+                ?setOpenLoginForm(true)
+                :setOpenLoginForm(false)
             }
             if(!isAuth){
-                return <LoginModal
-                openRegForm={openRegForm}
-                setOpenRegForm={setOpenRegForm}
-                openLoginForm={openLoginForm}
-                setOpenLoginForm={setOpenLoginForm}
-                isAlreadyExistForm={isAlreadyExistForm}
-                setIsAlreadyExistForm={setIsAlreadyExistForm}
-                />           
+                return ( 
+                    <LoginModal
+                        openRegForm={openRegForm}
+                        setOpenRegForm={setOpenRegForm}
+                        openLoginForm={openLoginForm}
+                        setOpenLoginForm={setOpenLoginForm}
+                        isAlreadyExistForm={isAlreadyExistForm}
+                        setIsAlreadyExistForm={setIsAlreadyExistForm}
+                    />
+                )           
             }
         }
         return (
