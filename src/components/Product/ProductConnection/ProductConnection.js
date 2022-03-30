@@ -71,6 +71,7 @@ const ProductConnection = ({isMobile, isAuth, productData}) => {
                         isActive &&
                             <>
                                 {isMessage && (
+                                    // РАБОТАЕМ
                                     <ProductConnectionButton
                                         onClick={handleCreateChat}
                                         title='Написать сообщение'

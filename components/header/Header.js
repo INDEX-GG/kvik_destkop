@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import NextLink from "next/link";
-import Router from "next/router";
 import { AppBar, Button, Container, Box, makeStyles, Avatar } from "@material-ui/core";
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
@@ -16,6 +15,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { useStore } from "../../lib/Context/Store";
 import {Skeleton} from "@mui/material";
 import { initials, stringToColor } from "../../lib/services";
+import { useCustomRouter } from "src/hook/globalHooks/useCustomRouter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,6 +101,17 @@ const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
 
+  const {pushTo} = useCustomRouter();
+
+  const handleCreate = () => {
+    if (!isAuth) {
+      setOpenLoginForm(true)
+      return;
+    }
+    pushTo("/placeOffer")
+  }
+  
+ 
 
   return (
     <>
@@ -123,7 +134,7 @@ const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
 						<Search />
 
 
-						<Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+						<Button onClick={handleCreate} variant="contained" color="primary">
 							<AddRoundedIcon />
 						Новое объявление
 						</Button>

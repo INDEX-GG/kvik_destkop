@@ -9,9 +9,14 @@ export const useCustomRouter = () => {
 
     const handleBackLocation = () => router.back()
 
+    const getCurrnePathname = () => {
+        return router.pathname
+    }
+
     return {
         router,
         pushTo: handlePushLocation,
-        goBack: handleBackLocation
+        goBack: handleBackLocation,
+        getCurrnePathname,
     }
 }

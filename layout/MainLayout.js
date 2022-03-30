@@ -1,10 +1,10 @@
 import {useState} from "react";
-// import Footer from "../components/Footer";
 import Footer from '../src/components/AnyPage/Footer/Footer'
 import Header from "../components/header/Header";
 import HeaderMobile from "../components/header/HeaderMobile";
 import {useMedia} from "../hooks/useMedia";
 import {useRouter} from "next/router";
+import withAuth from "#components/hoc/withAuthRedirect";
 
 const MainLayout = ({children}) => {
 
@@ -12,8 +12,7 @@ const MainLayout = ({children}) => {
     const router = useRouter();
     const aliasQuery = router.query.alias
     const [alias, setAlias] = useState("test")
-
-
+    
     if (router.pathname == "/search/[alias]") {
         if (alias != aliasQuery) {
             setAlias(aliasQuery)
@@ -28,7 +27,8 @@ const MainLayout = ({children}) => {
                     <HeaderMobile chageMenu={true}/> : null}
                 {matchesMobile && router.pathname != "/404" && router.pathname != "/500" && <HeaderMobile/>}
                 <>{children}</>
-            </div>
+            </div>     
+     
             {router.pathname == "/" || router.pathname == "/search/[alias]"
                 ? matchesTablet || matchesMobile && <Footer/>
                 : <Footer/>
@@ -42,4 +42,7 @@ const MainLayout = ({children}) => {
     );
 };
 
-export default MainLayout;
+export default withAuth(MainLayout);
+
+
+
