@@ -101,6 +101,15 @@ const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
 
+  const handleCreate = () => {
+    if(!isAuth) {
+        setOpenLoginForm(true)
+    }else{
+       Router.push("/placeOffer")
+    }
+  }
+  
+ 
 
   return (
     <>
@@ -123,7 +132,7 @@ const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
 						<Search />
 
 
-						<Button onClick={() => Router.push("/placeOffer")} variant="contained" color="primary">
+						<Button onClick={handleCreate} variant="contained" color="primary">
 							<AddRoundedIcon />
 						Новое объявление
 						</Button>
