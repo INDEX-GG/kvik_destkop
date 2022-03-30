@@ -34,6 +34,7 @@ export default function MyApp({ Component, pageProps }) {
 				<Head>
 					<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
 					<meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
+					<meta name="yandex-verification" content="031fa8de208fc9ad" />
 				</Head>
 				<YandexMetrika>
 				<AuthProvider>
