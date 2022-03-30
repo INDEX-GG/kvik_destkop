@@ -7,7 +7,6 @@ import Logo from "./Logo";
 import Categories from "./Categories";
 import CategoriesMobile from "./CategoriesMobile";
 import { useMedia } from "../../hooks/useMedia";
-// import {handlePushLocation} from "../../src/hook/globalHooks/useCustomRouter"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
