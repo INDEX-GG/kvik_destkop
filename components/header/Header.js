@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import NextLink from "next/link";
-import Router from "next/router";
 import { AppBar, Button, Container, Box, makeStyles, Avatar } from "@material-ui/core";
 import UpPanel from "./UpPanel";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
@@ -8,6 +7,7 @@ import Logo from "./Logo";
 import Categories from "./Categories";
 import CategoriesMobile from "./CategoriesMobile";
 import { useMedia } from "../../hooks/useMedia";
+// import {handlePushLocation} from "../../src/hook/globalHooks/useCustomRouter"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
 import Search from "./Search";
@@ -16,6 +16,7 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { useStore } from "../../lib/Context/Store";
 import {Skeleton} from "@mui/material";
 import { initials, stringToColor } from "../../lib/services";
+import { useCustomRouter } from "src/hook/globalHooks/useCustomRouter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,11 +102,14 @@ const [isAlreadyExistForm, setIsAlreadyExistForm] = useState(false)
     return () => document.removeEventListener("scroll", listenScroll);
   }, []);
 
+  const {pushTo} = useCustomRouter();
+
   const handleCreate = () => {
-    (!isAuth
-      ?setOpenLoginForm(true)
-      :Router.push("/placeOffer")
-    )
+    if (!isAuth) {
+      setOpenLoginForm(true)
+      return;
+    }
+    pushTo("/placeOffer")
   }
   
  
