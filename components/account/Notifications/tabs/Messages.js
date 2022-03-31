@@ -249,8 +249,7 @@ function Messages() {
             {!chatIsOpen &&
             <div className="messageDialogs">
                 {loadingAllRooms && matchesMobile && <AccountChatPlaceHolder /> }
-                {loadingAllRooms && !matchesMobile && <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div>}
-                  <ChatAllRoom allRooms={allRooms}
+                  <ChatAllRoom allRooms={allRooms} loadingAllRooms={loadingAllRooms}
                     setData={{setLoadingRoom, setMessageModal, setLocalRoom}}/>
             </div>}
               {!router.query?.companion_id && !router.query?.product_id ? (

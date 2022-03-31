@@ -9,9 +9,9 @@ import {useMedia} from "../../../../hooks/useMedia";
 import ChatMessageIsSend from '../../../../UI/icons/ChatMessageIsSend';
 import ChatMessageIsRead from '../../../../UI/icons/ChatMessageIsRead';
 import { Divider } from '@material-ui/core';
+import Loader from '#UI/icons/Loader';
 
-const ChatAllRoom = ({allRooms, setData}) => {
-
+const ChatAllRoom = ({allRooms, setData,loadingAllRooms}) => {
 
   const {id} = useAuth();
   const router = useRouter()
@@ -80,6 +80,7 @@ const ChatAllRoom = ({allRooms, setData}) => {
         }
     
         <div className='messageDialogsStyles'>
+        {loadingAllRooms && !matchesMobile && <div className='offer__placeholder_loader messagePlaceholder'><Loader/></div>}
         {allRooms?.length ?
             allRooms.map((item, i) => {
 
