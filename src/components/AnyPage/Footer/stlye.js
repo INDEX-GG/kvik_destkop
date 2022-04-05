@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   about: {
     flexGrow: 1,
-    width: 100,
+    width: 408,
   },
   aboutLinks: {
     display: "flex",
@@ -61,8 +61,9 @@ const useStyles = makeStyles((theme) => ({
   social: {
     display: "flex",
     flexGrow: 1,
+    width: 408,
     justifyContent: "center",
-    width: 100,
+
     "& > *:last-child": {
       marginRight: "0px",
     },
@@ -82,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   product: {
     display: "flex",
     flexGrow: 1,
-    width: 100,
+    width: 408,
     alignItems: "center",
     flexWrap: "wrap",
     justifyContent: "flex-end",

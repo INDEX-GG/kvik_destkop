@@ -1,10 +1,9 @@
 import React from "react";
 import { Box, FormControl, InputBase, InputAdornment } from "@material-ui/core";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
-import SvgIcon from "@material-ui/core/SvgIcon";
 import { useNav } from "./style";
 
-export default function Nav() {
+function Nav() {
   const classes = useNav();
   return (
     <Box component="nav" className={classes.nav}>
@@ -48,7 +47,7 @@ export default function Nav() {
         </svg>
       </Box>
       <Box className={classes.nav__findwraper}>
-        <FormControl className={classes.nav__searchField}>
+        <FormControl className={classes.navSearchField}>
           <InputBase
             className={classes.nav__search}
             id="search"
@@ -81,3 +80,4 @@ export default function Nav() {
     </Box>
   );
 }
+export default React.memo(Nav);

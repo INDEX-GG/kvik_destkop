@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     width: "100%",
   },
-  nav__searchField: {
+  navSearchField: {
     width: "100%",
   },
   nav__search: {

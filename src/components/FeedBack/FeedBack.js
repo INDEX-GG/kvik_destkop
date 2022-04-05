@@ -1,52 +1,115 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import Nav from "./components/nav/Nav";
-import Item from "./components/Item/Item";
+import { useRouter } from "next/router";
+import Item from "./Item/Item";
+
+import TextPage from "./textPage/TextPage";
+
 import Footer from "../AnyPage/Footer/Footer";
 
-import Support from "./components/support/Support";
+import Support from "./support/Support";
 
 import { useFeedBack } from "./style";
 
 const links = [
-  { text: "Опубликовать и продать" },
-  { text: "Редактировать объявление" },
+  {
+    text: "Подать объявление",
+    link: {
+      pathname: "/",
+      query: { text: "pay" },
+    },
+  },
+  {
+    text: "Опубликовать и продлить",
+    link: {
+      pathname: "/",
+      query: { text: "true" },
+    },
+  },
+  {
+    text: "Редактировать объявление",
+    link: {
+      pathname: "/",
+      query: { text: "true" },
+    },
+  },
+  {
+    text: "Удалить, восстановить, поднять из архива",
+    link: {
+      pathname: "/",
+      query: { text: "true" },
+    },
+  },
+  {
+    text: "Статистика",
+    link: {
+      pathname: "/",
+      query: { text: "true" },
+    },
+  },
 ];
 const links2 = [
-  { text: "Поднятие вверх" },
-  { text: "XL объявление" },
-  { text: "Выделить объявление" },
-];
-const links3 = [
   { text: "Отклонили" },
   { text: "Заблокировали" },
   { text: "Объявления сняты с публикации" },
 ];
+const links3 = [{ text: "Как пополнить кошелек" }, { text: "Способы оплаты" }];
+const links4 = [{ text: "Регистрация" }, { text: "Забыли пароль" }];
+const links5 = [
+  { text: "Поднятие вверх" },
+  { text: "XL объявление" },
+  { text: "Выделить объявление" },
+];
+const links6 = [
+  { text: "Сделка" },
+  { text: "Кошелек" },
+  { text: "Избранное" },
+  { text: "Сообщения" },
+  { text: "Сравнить" },
+  { text: "Отзывы" },
+  { text: "Настройки" },
+  { text: "Как сменить пароль" },
+  { text: "Как сменить номер телефона" },
+  { text: "Уведомления" },
+];
+const links7 = [
+  { text: "Как получить бонусы" },
+  { text: "Как использовать бонусы" },
+];
 function FeedBack() {
+  const router = useRouter();
+  console.log(router.query);
   const classes = useFeedBack();
   return (
     <Box className={classes.wrapper}>
       <Box className={classes.wrapper790}>
-        {/* <Nav /> */}
-        <Box component="main" className={classes.ads}>
-          <Box className={classes.ads__wrapper}>
-            <Box className={classes.ads__left}>
-              <Item links={links} name="Объявление" />
-              <Item links={links3} name="Проблемы с объявлением" />
-              <Item links={links} name="Оплата услуг" />
-              <Item links={links} name="Войти в профиль" />
+        <Box component="main" className={classes.links}>
+          {router.query.text ? (
+            <TextPage />
+          ) : (
+            <Box className={classes.linksWrapper}>
+              <Box className={`${classes.linksCenter}`}>
+                <Item links={links} name="Объявления" />
+                {/* <Item
+                links={links2}
+                name="Проблемы с объявлением"
+                
+              />
+              <Item links={links3} name="Оплата услуг"  />
+              <Item links={links4} name="Войти в профиль"  /> */}
+              </Box>
+              <Box className={classes.linksCenter}>
+                {/* <Item links={links5} name="Услуги продвижения"  />
+              <Item links={links6} name="Личный кабинет"  />
+              <Item links={links7} name="Бонусы"  /> */}
+              </Box>
             </Box>
-            <Box className={classes.ads__right}>
-              <Item links={links2} name="Услуги продвижения" />
-              <Item links={links2} name="Личный кабинет" />
-              <Item links={links2} name="Бонусы" />
-            </Box>
-          </Box>
+          )}
+
           <Support />
         </Box>
       </Box>
-
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 }
