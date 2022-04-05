@@ -2,7 +2,8 @@ import React from "react";
 import { Box } from "@material-ui/core";
 import Nav from "./components/nav/Nav";
 import Item from "./components/Item/Item";
-import Footer from "./components/footer/Footer";
+import Footer from "../AnyPage/Footer/Footer";
+
 import Support from "./components/support/Support";
 
 import { useFeedBack } from "./style";
@@ -44,6 +45,7 @@ function FeedBack() {
           <Support />
         </Box>
       </Box>
+
       <Footer />
     </Box>
   );
