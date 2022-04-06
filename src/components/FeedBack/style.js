@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     flexDirection: "column",
   },
-  wrapper790: {
+  wrapper922: {
     maxWidth: 922,
     width: "100%",
     [theme.breakpoints.down(922)]: {
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   links: {
     padding: "0 23px",
     display: "flex",
+    position: "relative",
     flexDirection: "column",
     [theme.breakpoints.down(922)]: {
       padding: "0px",
@@ -34,12 +35,40 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
     [theme.breakpoints.down(640)]: {
       flexDirection: "column",
-
       alignItems: "center",
     },
   },
+  linksWrapperDR: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    // width: "304px",
+    [theme.breakpoints.down(640)]: {
+      display: "none",
+    },
+  },
+  contentWrapper: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  contentWrapperDR: {
+    display: "flex",
+    flexDirection: "row-reverse",
+    position: "relative",
+  },
+
   linksCenter: {
     width: "304px",
+  },
+  st: {
+    position: "sticky",
+    top: 80,
+  },
+  linksCenterDR: {
+    width: "220px",
+  },
+  linksCenterSize: {
+    maxWidth: "692px",
   },
 }));
 

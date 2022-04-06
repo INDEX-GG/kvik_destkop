@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@material-ui/core";
 import { useRouter } from "next/router";
 import Item from "./Item/Item";
@@ -16,35 +16,35 @@ const links = [
     text: "Подать объявление",
     link: {
       pathname: "/",
-      query: { text: "pay" },
+      query: { text: "o1" },
     },
   },
   {
     text: "Опубликовать и продлить",
     link: {
       pathname: "/",
-      query: { text: "true" },
+      query: { text: "o2" },
     },
   },
   {
     text: "Редактировать объявление",
     link: {
       pathname: "/",
-      query: { text: "true" },
+      query: { text: "o3" },
     },
   },
   {
     text: "Удалить, восстановить, поднять из архива",
     link: {
       pathname: "/",
-      query: { text: "true" },
+      query: { text: "o4" },
     },
   },
   {
     text: "Статистика",
     link: {
       pathname: "/",
-      query: { text: "true" },
+      query: { text: "o5" },
     },
   },
 ];
@@ -78,33 +78,55 @@ const links7 = [
 ];
 function FeedBack() {
   const router = useRouter();
-  console.log(router.query);
+  const [textOpen, setTextOpen] = useState(false);
+
   const classes = useFeedBack();
+
+  const styleContentWrapper = textOpen
+    ? classes.contentWrapperDR
+    : classes.contentWrapper;
+
+  const styleLinksWrapper = textOpen
+    ? classes.linksWrapperDR
+    : classes.linksWrapper;
+
+  const stylelinksCenter = textOpen
+    ? classes.linksCenterDR
+    : classes.linksCenter;
+
+  useEffect(() => {
+    if (router.query.text) {
+      console.log(router.query);
+      console.log(router.query.text);
+      setTextOpen(true);
+    } else {
+      setTextOpen(false);
+    }
+  }, [router]);
   return (
     <Box className={classes.wrapper}>
-      <Box className={classes.wrapper790}>
+      <Box className={classes.wrapper922}>
         <Box component="main" className={classes.links}>
-          {router.query.text ? (
-            <TextPage />
-          ) : (
-            <Box className={classes.linksWrapper}>
-              <Box className={`${classes.linksCenter}`}>
-                <Item links={links} name="Объявления" />
-                {/* <Item
-                links={links2}
-                name="Проблемы с объявлением"
-                
-              />
-              <Item links={links3} name="Оплата услуг"  />
-              <Item links={links4} name="Войти в профиль"  /> */}
-              </Box>
-              <Box className={classes.linksCenter}>
-                {/* <Item links={links5} name="Услуги продвижения"  />
-              <Item links={links6} name="Личный кабинет"  />
-              <Item links={links7} name="Бонусы"  /> */}
+          <Box className={styleContentWrapper}>
+            <Box className={classes.st}>
+              <Box className={`${classes.st} ${styleLinksWrapper}`}>
+                <Box className={stylelinksCenter}>
+                  <Item links={links} name="Объявления" styleRule={textOpen} />
+                  <Item links={links} name="Объявления" styleRule={textOpen} />
+                  <Item links={links} name="Объявления" styleRule={textOpen} />
+                  <Item links={links} name="Объявления" styleRule={textOpen} />
+                </Box>
+                <Box className={stylelinksCenter}>
+                  <Item
+                    links={links}
+                    name="Услуги продвижения"
+                    styleRule={textOpen}
+                  />
+                </Box>
               </Box>
             </Box>
-          )}
+            <TextPage open={textOpen} />
+          </Box>
 
           <Support />
         </Box>
