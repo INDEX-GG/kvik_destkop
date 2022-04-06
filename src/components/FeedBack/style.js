@@ -61,8 +61,8 @@ const useStyles = makeStyles((theme) => ({
     width: "304px",
   },
   st: {
-    position: "sticky",
-    top: 80,
+    // position: "sticky",
+    // top: 80,
   },
   linksCenterDR: {
     width: "220px",

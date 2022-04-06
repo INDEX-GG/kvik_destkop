@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Box } from "@material-ui/core";
 import { useRouter } from "next/router";
 import Item from "./Item/Item";
+import NavMenu from "./navMenu/NavMenu";
 
 import TextPage from "./textPage/TextPage";
 
@@ -80,8 +81,11 @@ function FeedBack() {
   const router = useRouter();
   const [textOpen, setTextOpen] = useState(false);
 
+  const myRef = useRef(null);
+
   const classes = useFeedBack();
 
+  // проверка если текст должен быть виден, меняем стили для отображения
   const styleContentWrapper = textOpen
     ? classes.contentWrapperDR
     : classes.contentWrapper;
@@ -96,36 +100,33 @@ function FeedBack() {
 
   useEffect(() => {
     if (router.query.text) {
-      console.log(router.query);
-      console.log(router.query.text);
       setTextOpen(true);
     } else {
       setTextOpen(false);
     }
   }, [router]);
   return (
-    <Box className={classes.wrapper}>
+    <Box className={classes.wrapper} ref={myRef}>
       <Box className={classes.wrapper922}>
         <Box component="main" className={classes.links}>
           <Box className={styleContentWrapper}>
-            <Box className={classes.st}>
-              <Box className={`${classes.st} ${styleLinksWrapper}`}>
+            {textOpen ? (
+              <NavMenu />
+            ) : (
+              <Box className={` ${styleLinksWrapper}`}>
                 <Box className={stylelinksCenter}>
-                  <Item links={links} name="Объявления" styleRule={textOpen} />
-                  <Item links={links} name="Объявления" styleRule={textOpen} />
-                  <Item links={links} name="Объявления" styleRule={textOpen} />
-                  <Item links={links} name="Объявления" styleRule={textOpen} />
+                  <Item links={links} name="Объявления" />
+                  <Item links={links} name="Объявления" />
+                  <Item links={links} name="Объявления" />
+                  <Item links={links} name="Объявления" />
                 </Box>
                 <Box className={stylelinksCenter}>
-                  <Item
-                    links={links}
-                    name="Услуги продвижения"
-                    styleRule={textOpen}
-                  />
+                  <Item links={links} name="Услуги продвижения" />
                 </Box>
               </Box>
-            </Box>
-            <TextPage open={textOpen} />
+            )}
+
+            {textOpen ? <TextPage open={textOpen} /> : ""}
           </Box>
 
           <Support />

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 
 import Link from "next/link";
 
@@ -11,9 +11,11 @@ import List from "@mui/material/List";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { useItem } from "./style";
+import { useMedia } from "#hooks/useMedia";
 
-const Item = ({ links, name, styleRule }) => {
-  const [open, setOpen] = React.useState(false);
+const Item = ({ links, name }) => {
+  const [open, setOpen] = useState(false);
+
   const router = useRouter();
 
   const handleClick = () => {
@@ -21,41 +23,19 @@ const Item = ({ links, name, styleRule }) => {
   };
 
   const classes = useItem();
-  // const openStyle = styleRule
-  //   ? classes.dropDR
-  //   : `${classes.drop} ${classes.dropLine}`;
-
-  // const openStyle = open ? classes.drop : `${classes.drop} ${classes.dropLine}`;
-  // const bottomLineStyleUl = open && styleRule ? "" : classes.dropLine;
-
   let openStyle = null;
   if (open) {
-    if (styleRule) {
-      openStyle = classes.dropDR;
-    } else {
-      openStyle = classes.drop;
-    }
+    openStyle = classes.drop;
   } else {
-    if (styleRule) {
-      openStyle = `${classes.dropDR}`;
-    } else {
-      openStyle = `${classes.drop} ${classes.dropLine}`;
-    }
+    openStyle = `${classes.drop} ${classes.dropLine}`;
   }
 
   let bottomLineStyleUl = null;
   if (open) {
-    if (styleRule) {
-      bottomLineStyleUl = "";
-    } else {
-      bottomLineStyleUl = classes.dropLine;
-    }
+    bottomLineStyleUl = classes.dropLine;
   } else {
     bottomLineStyleUl = "";
   }
-
-  const collapseStyle = styleRule ? classes.collapse : "";
-  const nameStyle = styleRule ? classes.nameDR : classes.name;
 
   const Icon = ({ open }) => {
     return <Box>{open ? <ExpandLess /> : <ExpandMore />}</Box>;
@@ -75,22 +55,35 @@ const Item = ({ links, name, styleRule }) => {
     );
   });
 
+  const { matchesMobile, matchesTablet } = useMedia();
+
+  const isMobile = useMemo(() => matchesMobile || matchesTablet, [
+    matchesMobile,
+    matchesTablet,
+  ]);
+
   return (
     <Box className={classes.item}>
-      <ListItemButton onClick={handleClick} className={openStyle}>
-        {styleRule ? <Icon open={open} /> : ""}
-        <ListItemText primary={name} className={nameStyle} />
-      </ListItemButton>
-      <Collapse
-        in={open}
-        timeout="auto"
-        unmountOnExit
-        className={collapseStyle}
-      >
-        <List component="ul" disablePadding className={bottomLineStyleUl}>
-          {listLinks}
-        </List>
-      </Collapse>
+      {isMobile ? (
+        <>
+          <ListItemButton onClick={handleClick} className={openStyle}>
+            {/* {styleRule ? <Icon open={open} /> : ""} */}
+            <ListItemText primary={name} className={classes.name} />
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="ul" disablePadding className={bottomLineStyleUl}>
+              {listLinks}
+            </List>
+          </Collapse>
+        </>
+      ) : (
+        <Box className={classes.itemDt}>
+          <Typography variant="h1" className={classes.h2}>
+            {name}
+          </Typography>
+          <Box component="ul">{listLinks}</Box>
+        </Box>
+      )}
     </Box>
   );
 };
