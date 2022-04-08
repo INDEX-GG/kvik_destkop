@@ -7,7 +7,8 @@ import TextPage from "./textPage/TextPage";
 import Footer from "../AnyPage/Footer/Footer";
 import Support from "./support/Support";
 import { useFeedBack } from "./style";
-import { links } from "./data";
+
+import links from "./data";
 
 import CustomModalUI from "src/UI/UIcomponent/CustomModal/CustomModalUI";
 import { useTheme } from "@material-ui/core/styles";
@@ -16,6 +17,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { ContextApp, initialState, linkReducer } from "./reducer";
 
 function FeedBack() {
+  console.log(links);
   const router = useRouter();
   const [textOpen, setTextOpen] = useState(false);
 
