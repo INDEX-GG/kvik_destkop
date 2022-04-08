@@ -15,8 +15,6 @@ const Item = ({ links, isMobile }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  console.log("dfd");
-
   const handleClick = () => {
     setOpen(!open);
   };
@@ -50,7 +48,6 @@ const Item = ({ links, isMobile }) => {
       {isMobile ? (
         <Box className={classes.itemWrap}>
           <ListItemButton onClick={handleClick} className={openStyle}>
-            {/* {styleRule ? <Icon open={open} /> : ""} */}
             <ListItemText primary={links.header} className={classes.name} />
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>

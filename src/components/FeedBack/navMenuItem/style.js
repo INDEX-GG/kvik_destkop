@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   navLinks: {
-    transform: "translate(50px)",
+    transform: "translate(65px)",
   },
   navLink: {
     marginBottom: 15,

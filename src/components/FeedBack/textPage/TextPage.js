@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Box, Typography } from "@material-ui/core";
 import { useText } from "./style";
 import { useRouter } from "next/router";
@@ -7,12 +7,54 @@ import NavMenu from "../navMenu/NavMenu";
 
 const TextPage = ({ links, isMobile }) => {
   const [pageData, setPageData] = useState({ links: [], header: "" });
+
+  // const [activePage, setActivePage] = useState("/ff");
+
   const [link, setlink] = useState({});
   const classes = useText();
   const router = useRouter();
 
+  const myRef = useRef();
+
+  const scroll = () => {
+    let arr = myRef.current.getElementsByTagName("h1");
+
+    for (let i = 0; i < arr.length; i++) {
+      let elem = arr[i];
+      let elemTop = elem.getBoundingClientRect();
+
+      if (elemTop.top > 0 && elemTop.top < 400) {
+        let a = Object.keys(router.query)[0];
+        // console.log("aaaaaaaaaaaaaa", a);
+        console.log("queryqueryquery", router.query);
+
+        let adress = window.location.search.split("=")[1];
+        console.log("adressadressadress", window.location.search.split("=")[0]);
+        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
+        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
+        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
+        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!/// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
+        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
+
+        let nowpath = Object.values(router.query)[0];
+
+        if (adress === elem.id) {
+          // console.log("совпадают ничего не делать");
+        } else {
+          // console.log("обновляем на", elem.id);
+          router.push({ query: { [a]: elem.id } }, undefined, {
+            shallow: true,
+          });
+        }
+      }
+    }
+  };
+
+  //фильтрую доступные страницы по ключу из  router.query
   useEffect(() => {
     const a = Object.keys(router.query)[0];
+    console.log("слежка за router", a);
+
     const filtered = links.filter((arr) => {
       const b = Object.keys(arr.links[0].link.query)[0];
       if (a === b) {
@@ -20,12 +62,19 @@ const TextPage = ({ links, isMobile }) => {
         return arr;
       }
     });
+    // console.log("слежка за router", router.query);
 
     setPageData(filtered[0]);
   }, [router]);
 
+  useEffect(() => {
+    window.addEventListener("scroll", scroll);
+    return () => {
+      window.removeEventListener("scroll", scroll);
+    };
+  }, []);
   return (
-    <Box className={classes.textPage}>
+    <Box className={classes.textPage} ref={myRef}>
       <Box>
         {isMobile ? (
           ""
@@ -52,18 +101,12 @@ const TextPage = ({ links, isMobile }) => {
 
         {pageData ? (
           <Box className={classes.textContentWrapper}>
-            {pageData.links.map((textItem) => {
+            {pageData.links.map((textItem, idx) => {
+              const id = Object.values(textItem.link.query)[0];
+
               return (
-                <Box
-                  key={textItem.id}
-                  className={classes.textContent}
-                  id={textItem.id}
-                >
-                  <Typography
-                    variant="h1"
-                    id={textItem.id}
-                    className={classes.h1}
-                  >
+                <Box key={idx} className={classes.textContent}>
+                  <Typography variant="h1" className={classes.h1} id={id}>
                     {textItem.text}
                   </Typography>
 

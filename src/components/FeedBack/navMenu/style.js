@@ -1,12 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   navMenu: {
     color: "#2C2C2C",
     marginLeft: "20px",
-    // [theme.breakpoints.down(640)]: {
-    //   display: "none",
-    // },
   },
 
   navMenuClose: {

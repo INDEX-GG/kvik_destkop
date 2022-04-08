@@ -78,10 +78,6 @@ const useStyles = makeStyles((theme) => ({
   linksCenterSize: {
     maxWidth: "692px",
   },
-  ggg: {
-    display: "flex",
-    flexDirection: "column",
-  },
 }));
 
 export const useFeedBack = () => useStyles();
