@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 25,
     marginLeft: 100,
     color: "#C7C7C7",
-    [theme.breakpoints.down(922)]: {
+    [theme.breakpoints.down(960)]: {
       marginLeft: 0,
     },
   },
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: 15,
     },
     marginBottom: 10,
-    [theme.breakpoints.down(922)]: {
+    [theme.breakpoints.down(960)]: {
       fontSize: "16px",
     },
   },

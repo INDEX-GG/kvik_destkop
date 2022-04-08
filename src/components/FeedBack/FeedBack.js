@@ -1,139 +1,105 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useMemo, useReducer } from "react";
 import { Box } from "@material-ui/core";
 import { useRouter } from "next/router";
 import Item from "./Item/Item";
 import NavMenu from "./navMenu/NavMenu";
-
 import TextPage from "./textPage/TextPage";
-
 import Footer from "../AnyPage/Footer/Footer";
-
 import Support from "./support/Support";
-
 import { useFeedBack } from "./style";
+import { links } from "./data";
 
-const links = [
-  {
-    text: "Подать объявление",
-    link: {
-      pathname: "/",
-      query: { text: "o1" },
-    },
-  },
-  {
-    text: "Опубликовать и продлить",
-    link: {
-      pathname: "/",
-      query: { text: "o2" },
-    },
-  },
-  {
-    text: "Редактировать объявление",
-    link: {
-      pathname: "/",
-      query: { text: "o3" },
-    },
-  },
-  {
-    text: "Удалить, восстановить, поднять из архива",
-    link: {
-      pathname: "/",
-      query: { text: "o4" },
-    },
-  },
-  {
-    text: "Статистика",
-    link: {
-      pathname: "/",
-      query: { text: "o5" },
-    },
-  },
-];
-const links2 = [
-  { text: "Отклонили" },
-  { text: "Заблокировали" },
-  { text: "Объявления сняты с публикации" },
-];
-const links3 = [{ text: "Как пополнить кошелек" }, { text: "Способы оплаты" }];
-const links4 = [{ text: "Регистрация" }, { text: "Забыли пароль" }];
-const links5 = [
-  { text: "Поднятие вверх" },
-  { text: "XL объявление" },
-  { text: "Выделить объявление" },
-];
-const links6 = [
-  { text: "Сделка" },
-  { text: "Кошелек" },
-  { text: "Избранное" },
-  { text: "Сообщения" },
-  { text: "Сравнить" },
-  { text: "Отзывы" },
-  { text: "Настройки" },
-  { text: "Как сменить пароль" },
-  { text: "Как сменить номер телефона" },
-  { text: "Уведомления" },
-];
-const links7 = [
-  { text: "Как получить бонусы" },
-  { text: "Как использовать бонусы" },
-];
+import CustomModalUI from "src/UI/UIcomponent/CustomModal/CustomModalUI";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+
+import { ContextApp, initialState, linkReducer } from "./reducer";
+
 function FeedBack() {
   const router = useRouter();
   const [textOpen, setTextOpen] = useState(false);
 
-  const myRef = useRef(null);
-
   const classes = useFeedBack();
 
-  // проверка если текст должен быть виден, меняем стили для отображения
-  const styleContentWrapper = textOpen
-    ? classes.contentWrapperDR
-    : classes.contentWrapper;
+  const [state, dispatch] = useReducer(linkReducer, initialState);
 
-  const styleLinksWrapper = textOpen
-    ? classes.linksWrapperDR
-    : classes.linksWrapper;
-
-  const stylelinksCenter = textOpen
-    ? classes.linksCenterDR
-    : classes.linksCenter;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down(659));
 
   useEffect(() => {
-    if (router.query.text) {
-      setTextOpen(true);
-    } else {
+    if (Object.keys(router.query).length == 0) {
+      dispatch({
+        type: "reset",
+        payload: {
+          title: "reset",
+        },
+      });
       setTextOpen(false);
+    } else {
+      setTextOpen(true);
     }
   }, [router]);
+
   return (
-    <Box className={classes.wrapper} ref={myRef}>
-      <Box className={classes.wrapper922}>
-        <Box component="main" className={classes.links}>
-          <Box className={styleContentWrapper}>
-            {textOpen ? (
-              <NavMenu />
-            ) : (
-              <Box className={` ${styleLinksWrapper}`}>
-                <Box className={stylelinksCenter}>
-                  <Item links={links} name="Объявления" />
-                  <Item links={links} name="Объявления" />
-                  <Item links={links} name="Объявления" />
-                  <Item links={links} name="Объявления" />
+    <ContextApp.Provider value={{ dispatch, state }}>
+      {isMobile ? (
+        <CustomModalUI
+          open={true}
+          customMobile={940}
+          title={state.title}
+          handleCloseModal={() => router.push(state.link)}
+        >
+          <Box className={classes.wrapper}>
+            <Box className={classes.wrapper922}>
+              <Box component="main" className={classes.links}>
+                <Box className={classes.contentWrapper}>
+                  {textOpen ? (
+                    <TextPage links={links} isMobile={isMobile} />
+                  ) : (
+                    <Box className={classes.linksWrapper}>
+                      <Box className={classes.linksCenter}>
+                        {links.map((item, idx) => {
+                          return (
+                            <Item key={idx} links={item} isMobile={isMobile} />
+                          );
+                        })}
+                      </Box>
+                    </Box>
+                  )}
                 </Box>
-                <Box className={stylelinksCenter}>
-                  <Item links={links} name="Услуги продвижения" />
-                </Box>
+
+                <Support />
               </Box>
-            )}
-
-            {textOpen ? <TextPage open={textOpen} /> : ""}
+            </Box>
           </Box>
-
-          <Support />
+        </CustomModalUI>
+      ) : (
+        <Box className={classes.wrapper}>
+          <Box component="main" className={classes.links}>
+            <Box className={classes.contentWrapper}>
+              {textOpen ? (
+                <TextPage links={links} isMobile={isMobile} />
+              ) : (
+                <Box className={classes.wrapper922}>
+                  <Box className={classes.linksWrapper}>
+                    <Box className={classes.linksCenter}>
+                      {links.map((item, idx) => {
+                        return (
+                          <Item key={idx} links={item} isMobile={isMobile} />
+                        );
+                      })}
+                    </Box>
+                  </Box>
+                </Box>
+              )}
+            </Box>
+            <Box className={classes.wrapper922}>
+              <Support />
+            </Box>
+          </Box>
         </Box>
-      </Box>
-      {/* <Footer /> */}
-    </Box>
+      )}
+    </ContextApp.Provider>
   );
 }
 

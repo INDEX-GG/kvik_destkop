@@ -1,9 +1,28 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  nav: {
-    marginBottom: 41,
+  textPage: {
+    display: "flex",
+    // width: "100%",
+    minHeight: "300px",
+    width: 914,
+    // padding: "0 10px",
+    justifyContent: "space-between",
 
+    [theme.breakpoints.down(914)]: {
+      padding: "0 30px",
+      width: "100%",
+    },
+    [theme.breakpoints.down(642)]: {
+      flexDirection: "column",
+      padding: "0 0",
+    },
+  },
+  nav: {
+    fontSize: 14,
+    marginBottom: 41,
+    display: "flex",
+    color: "#2C2C2C",
     "&>a": {
       color: "#8F8F8F",
       marginRight: 18,
@@ -29,14 +48,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
+  textContentWrapper: { marginRight: 0 },
   h1: {
     fontSize: 36,
     fontWeight: 500,
     marginBottom: 25,
   },
+  errortext: {
+    margin: "20px 0",
+    width: "100%",
+  },
   textBox: {
     maxWidth: 691,
-
     marginRight: 20,
     [theme.breakpoints.down(640)]: {
       marginRight: 0,

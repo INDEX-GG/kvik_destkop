@@ -10,63 +10,60 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+    [theme.breakpoints.down(866)]: {
+      boxShadow: "none",
+    },
   },
   wrapper922: {
-    maxWidth: 922,
+    maxWidth: 866,
     width: "100%",
-    [theme.breakpoints.down(922)]: {
+    padding: "0 10px 0 16px",
+    [theme.breakpoints.down(866)]: {
       padding: "0 10px 0 16px",
     },
   },
 
   links: {
-    padding: "0 23px",
     display: "flex",
     position: "relative",
     flexDirection: "column",
-    [theme.breakpoints.down(922)]: {
-      padding: "0px",
-    },
   },
 
   linksWrapper: {
     display: "flex",
-    justifyContent: "space-between",
+
+    // justifyContent: "space-between",
+    // width: "100%",
     marginBottom: 20,
-    [theme.breakpoints.down(640)]: {
-      flexDirection: "column",
-      alignItems: "center",
+    [theme.breakpoints.down(642)]: {
+      // flexDirection: "column",
+      // alignItems: "center",
     },
-  },
-  linksWrapperDR: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    // width: "304px",
-    [theme.breakpoints.down(640)]: {
-      display: "none",
-    },
-  },
-  contentWrapper: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  contentWrapperDR: {
-    display: "flex",
-    flexDirection: "row-reverse",
-    position: "relative",
   },
 
+  contentWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    // flexDirection: "column",
+  },
+  // contentWrapperDR: {
+  //   display: "flex",
+  //   flexDirection: "row-reverse",
+  //   position: "relative",
+  // },
+
   linksCenter: {
-    width: "304px",
+    // width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    [theme.breakpoints.down(660)]: {
+      // flexDirection: "column",
+      // alignItems: "center",
+      justifyContent: "center",
+    },
   },
-  st: {
-    // position: "sticky",
-    // top: 80,
-  },
-  linksCenterDR: {
-    width: "220px",
-  },
+
   linksCenterSize: {
     maxWidth: "692px",
   },

@@ -1,8 +1,12 @@
 import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   item: {
     position: "relative",
+    width: 304,
+    [theme.breakpoints.down(400)]: {
+      // width: "100%",
+    },
   },
   itemDt: {
     marginBottom: 50,

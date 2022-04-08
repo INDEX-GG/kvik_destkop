@@ -8,16 +8,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import List from "@mui/material/List";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
+
 import { useItem } from "./style";
 import { useMedia } from "#hooks/useMedia";
 
-const Item = ({ links, name }) => {
+const Item = ({ links, isMobile }) => {
   const [open, setOpen] = useState(false);
-
   const router = useRouter();
-
   const handleClick = () => {
     setOpen(!open);
   };
@@ -37,11 +34,7 @@ const Item = ({ links, name }) => {
     bottomLineStyleUl = "";
   }
 
-  const Icon = ({ open }) => {
-    return <Box>{open ? <ExpandLess /> : <ExpandMore />}</Box>;
-  };
-
-  const listLinks = links.map((link, idx) => {
+  const listLinks = links.links.map((link, idx) => {
     const linkStyle =
       router.query.text === link.link.query.text
         ? `${classes.itemLink} ${classes.linkActive}`
@@ -57,18 +50,18 @@ const Item = ({ links, name }) => {
 
   const { matchesMobile, matchesTablet } = useMedia();
 
-  const isMobile = useMemo(() => matchesMobile || matchesTablet, [
-    matchesMobile,
-    matchesTablet,
-  ]);
-
+  // const isMobile = useMemo(() => matchesMobile || matchesTablet, [
+  //   matchesMobile,
+  //   matchesTablet,
+  // ]);
+  // const isMobile = useMemo(() => matchesMobile, [matchesMobile]);
   return (
     <Box className={classes.item}>
       {isMobile ? (
         <>
           <ListItemButton onClick={handleClick} className={openStyle}>
             {/* {styleRule ? <Icon open={open} /> : ""} */}
-            <ListItemText primary={name} className={classes.name} />
+            <ListItemText primary={links.header} className={classes.name} />
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="ul" disablePadding className={bottomLineStyleUl}>
@@ -79,7 +72,7 @@ const Item = ({ links, name }) => {
       ) : (
         <Box className={classes.itemDt}>
           <Typography variant="h1" className={classes.h2}>
-            {name}
+            {links.header}
           </Typography>
           <Box component="ul">{listLinks}</Box>
         </Box>

@@ -73,7 +73,6 @@ const Index = () => {
 
   return (
     <>
-      <Feedback />
       <NextSeo {...seoProps} />
       <Container className={classes.root}>
         {/* {!isPending ? null : !matchesMobile && !matchesTablet && <PopularCategories className={classes.popularCategories}/>} */}
