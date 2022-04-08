@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "#A1DCE0",
     },
+    marginBottom: 40,
   },
   linksCenterSize: {
     maxWidth: "692px",

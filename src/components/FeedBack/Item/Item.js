@@ -29,12 +29,7 @@ const Item = ({ links, isMobile }) => {
 
   const openStyle = open ? classes.drop : `${classes.drop} ${classes.dropLine}`;
 
-  let bottomLineStyleUl = null;
-  if (open) {
-    bottomLineStyleUl = classes.dropLine;
-  } else {
-    bottomLineStyleUl = "";
-  }
+  const bottomLineStyleUl = open ? classes.dropLine : "";
 
   const listLinks = links.links.map((link, idx) => {
     const linkStyle =
