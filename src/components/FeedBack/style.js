@@ -63,9 +63,23 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center",
     },
   },
-
+  btn: {
+    padding: "12px 24px",
+    color: "#fff",
+    border: "none",
+    backgroundColor: "#A1DCE0",
+    fontSize: 14,
+    alignSelf: "center",
+    "&:hover": {
+      backgroundColor: "#A1DCE0",
+    },
+  },
   linksCenterSize: {
     maxWidth: "692px",
+  },
+  ggg: {
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 

@@ -67,7 +67,7 @@ const NavMenuItem = ({ menuItem }) => {
   return (
     <Box className={classes.sticky}>
       <ListItemButton onClick={handleClick} className={btnStyle}>
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {open ? <ExpandMore /> : <ExpandLess />}
         <ListItemText primary={menuItem.header} className={nameStyle} />
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>

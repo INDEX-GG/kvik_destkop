@@ -10,22 +10,24 @@ import Collapse from "@mui/material/Collapse";
 import List from "@mui/material/List";
 
 import { useItem } from "./style";
-import { useMedia } from "#hooks/useMedia";
 
 const Item = ({ links, isMobile }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  console.log("dfd");
+
   const handleClick = () => {
     setOpen(!open);
   };
 
   const classes = useItem();
-  let openStyle = null;
-  if (open) {
-    openStyle = classes.drop;
-  } else {
-    openStyle = `${classes.drop} ${classes.dropLine}`;
-  }
+
+  const itemStyle = open
+    ? `${classes.item} `
+    : `${classes.item} ${classes.bottomLine}`;
+
+  const openStyle = open ? classes.drop : `${classes.drop} ${classes.dropLine}`;
 
   let bottomLineStyleUl = null;
   if (open) {
@@ -48,17 +50,10 @@ const Item = ({ links, isMobile }) => {
     );
   });
 
-  const { matchesMobile, matchesTablet } = useMedia();
-
-  // const isMobile = useMemo(() => matchesMobile || matchesTablet, [
-  //   matchesMobile,
-  //   matchesTablet,
-  // ]);
-  // const isMobile = useMemo(() => matchesMobile, [matchesMobile]);
   return (
-    <Box className={classes.item}>
+    <Box className={isMobile ? itemStyle : classes.item}>
       {isMobile ? (
-        <>
+        <Box className={classes.itemWrap}>
           <ListItemButton onClick={handleClick} className={openStyle}>
             {/* {styleRule ? <Icon open={open} /> : ""} */}
             <ListItemText primary={links.header} className={classes.name} />
@@ -68,7 +63,7 @@ const Item = ({ links, isMobile }) => {
               {listLinks}
             </List>
           </Collapse>
-        </>
+        </Box>
       ) : (
         <Box className={classes.itemDt}>
           <Typography variant="h1" className={classes.h2}>

@@ -4,8 +4,20 @@ const useStyles = makeStyles((theme) => ({
   item: {
     position: "relative",
     width: 304,
+    padding: 0,
+    color: "#00A0AB",
+    // borderBottom: "1px solid #00A0AB",
     [theme.breakpoints.down(400)]: {
       // width: "100%",
+    },
+  },
+  // name: {
+  //   padding: 0,
+  // },
+
+  itemWrap: {
+    "&>div": {
+      padding: 0,
     },
   },
   itemDt: {
@@ -77,9 +89,13 @@ const useStyles = makeStyles((theme) => ({
     height: 56,
     color: "#00A0AB",
     borderRadius: "0px",
-    marginBottom: 15,
+    // marginBottom: 15,
     "&:last-child": {
       borderRadius: "0px",
+    },
+    [theme.breakpoints.down(400)]: {
+      marginBottom: 0,
+      height: 61,
     },
   },
   // dropDR: {

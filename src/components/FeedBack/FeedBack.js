@@ -1,32 +1,31 @@
-import React, { useEffect, useState, useMemo, useReducer } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Box } from "@material-ui/core";
 import { useRouter } from "next/router";
 import Item from "./Item/Item";
-import NavMenu from "./navMenu/NavMenu";
 import TextPage from "./textPage/TextPage";
-import Footer from "../AnyPage/Footer/Footer";
-import Support from "./support/Support";
-import { useFeedBack } from "./style";
 
 import links from "./data";
-
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 import CustomModalUI from "src/UI/UIcomponent/CustomModal/CustomModalUI";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import { ContextApp, initialState, linkReducer } from "./reducer";
-
+import CallbackForm from "./callbackForm/CallbackForm";
+import { useFeedBack } from "./style";
+import SupportText from "./supportText/SupportText";
 function FeedBack() {
-  console.log(links);
   const router = useRouter();
   const [textOpen, setTextOpen] = useState(false);
-
+  const [openSupport, setOpenSupport] = useState(false);
   const classes = useFeedBack();
-
   const [state, dispatch] = useReducer(linkReducer, initialState);
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down(659));
+
+  const handleChangeOpenForm = () => {
+    setOpenSupport(!openSupport);
+  };
 
   useEffect(() => {
     if (Object.keys(router.query).length == 0) {
@@ -69,8 +68,14 @@ function FeedBack() {
                     </Box>
                   )}
                 </Box>
+                {openSupport ? <CallbackForm /> : <SupportText />}
 
-                <Support />
+                <CustomButtonUI
+                  customRoot={classes.btn}
+                  onClick={handleChangeOpenForm}
+                >
+                  Перейти в диалог техподдержке
+                </CustomButtonUI>
               </Box>
             </Box>
           </Box>
@@ -96,8 +101,14 @@ function FeedBack() {
               )}
             </Box>
             <Box className={classes.wrapper922}>
-              <Support />
+              {openSupport ? <CallbackForm /> : <SupportText />}
             </Box>
+            <CustomButtonUI
+              customRoot={classes.btn}
+              onClick={handleChangeOpenForm}
+            >
+              Перейти в диалог техподдержке
+            </CustomButtonUI>
           </Box>
         </Box>
       )}
