@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formText: {
     width: "100%",
-    minHeight: "67px",
+    minHeight: "110px",
     border: "1px solid #C7C7C7",
     borderRadius: "5px",
     padding: "15px",
