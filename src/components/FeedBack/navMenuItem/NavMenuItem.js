@@ -71,7 +71,7 @@ const NavMenuItem = ({ menuItem }) => {
         <ListItemText primary={menuItem.header} className={nameStyle} />
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="ul" disablePadding className={classes.navLinks}>
+        <List component="ul" className={classes.navLinks}>
           {listLinks}
         </List>
       </Collapse>

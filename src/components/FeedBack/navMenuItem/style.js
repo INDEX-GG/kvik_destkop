@@ -30,7 +30,8 @@ const useStyles = makeStyles(() => ({
     transform: "translate(50px)",
   },
   navLink: {
-    marginBottom: 10,
+    marginTop: 10,
+
     width: 200,
     "&>a": {
       fontSize: 18,
