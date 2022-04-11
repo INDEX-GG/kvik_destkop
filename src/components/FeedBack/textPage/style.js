@@ -2,15 +2,12 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   textPage: {
-    // display: "flex",
-    // width: "100%",
-    minHeight: "300px",
-    width: 914,
-    padding: "0 0px",
-    // justifyContent: "space-between",
     display: "grid",
     gridTemplateColumns: "1fr 200px",
     gap: 35,
+    minHeight: "300px",
+    width: 914,
+    padding: "0 0px",
 
     [theme.breakpoints.down(1000)]: {
       padding: "0 30px",
@@ -19,10 +16,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(914)]: {
       padding: "0 30px",
     },
-    [theme.breakpoints.down(768)]: {},
     [theme.breakpoints.down(655)]: {
       gridTemplateColumns: "1fr",
-      // flexDirection: "column",
       padding: "0 0",
       marginBottom: 25,
     },
