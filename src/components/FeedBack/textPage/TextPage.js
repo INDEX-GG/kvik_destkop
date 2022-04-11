@@ -24,25 +24,15 @@ const TextPage = ({ links, isMobile }) => {
       let elemTop = elem.getBoundingClientRect();
 
       if (elemTop.top > 0 && elemTop.top < 400) {
-        let a = Object.keys(router.query)[0];
-        // console.log("aaaaaaaaaaaaaa", a);
-        console.log("queryqueryquery", router.query);
+        let adressAnch = window.location.search.split("=")[1];
 
-        let adress = window.location.search.split("=")[1];
-        console.log("adressadressadress", window.location.search.split("=")[0]);
-        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
-        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
-        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
-        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!/// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
-        /// ДОДЕЛАТЬ СКРОЛ ЧЕРЕЗ АДРЕСНОЮ СТРОКУ!!!!!!!!
+        let adressPage = window.location.search.split("=")[0].slice(1);
 
-        let nowpath = Object.values(router.query)[0];
-
-        if (adress === elem.id) {
+        if (adressAnch === elem.id) {
           // console.log("совпадают ничего не делать");
         } else {
           // console.log("обновляем на", elem.id);
-          router.push({ query: { [a]: elem.id } }, undefined, {
+          router.push({ query: { [adressPage]: elem.id } }, undefined, {
             shallow: true,
           });
         }

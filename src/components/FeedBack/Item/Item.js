@@ -30,10 +30,11 @@ const Item = ({ links, isMobile }) => {
   const bottomLineStyleUl = open ? classes.dropLine : "";
 
   const listLinks = links.links.map((link, idx) => {
-    const linkStyle =
-      router.query.text === link.link.query.text
-        ? `${classes.itemLink} ${classes.linkActive}`
-        : classes.itemLink;
+    console.log(link);
+    const linkStyle = classes.itemLink;
+    // router.query.text === link.link.query.text
+    //   ? `${classes.itemLink} ${classes.linkActive}`
+    //   : classes.itemLink;
     return (
       <Box component="li" key={idx} className={linkStyle}>
         <Link href={link.link} replace>
