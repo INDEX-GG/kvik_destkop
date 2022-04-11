@@ -1,18 +1,20 @@
+//импорты библиотек
 import React, { useEffect, useState, useReducer } from "react";
 import { Box } from "@material-ui/core";
 import { useRouter } from "next/router";
-import Item from "./Item/Item";
-import TextPage from "./textPage/TextPage";
-
-import links from "./data";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 import CustomModalUI from "src/UI/UIcomponent/CustomModal/CustomModalUI";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-
-import { ContextApp, initialState, linkReducer } from "./reducer";
+// свои компоненты
+import Item from "./Item/Item";
+import TextPage from "./textPage/TextPage";
 import CallbackForm from "./callbackForm/CallbackForm";
 import SupportText from "./supportText/SupportText";
+import { ContextApp, initialState, linkReducer } from "./reducer";
+// data
+import links from "./data";
+// css стили
 import { useFeedBack } from "./style";
 
 function FeedBack() {

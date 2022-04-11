@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-
-import { useNavMenu } from "./style";
-
+//свои компоненты
 import NavMenuItem from "../navMenuItem/NavMenuItem";
+// стили
+import { useNavMenu } from "./style";
 
 const NavMenu = ({ links, isMobile }) => {
   const classes = useNavMenu();

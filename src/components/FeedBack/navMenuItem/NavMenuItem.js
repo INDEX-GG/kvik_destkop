@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { ContextApp } from "../reducer";
 import { Box } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -6,11 +9,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import List from "@mui/material/List";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useNavMenuItem } from "./style";
 
-import { ContextApp } from "../reducer";
+import { useNavMenuItem } from "./style";
 
 const NavMenuItem = ({ menuItem }) => {
   const [open, setOpen] = useState(false);
