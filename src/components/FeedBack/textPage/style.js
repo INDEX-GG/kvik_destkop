@@ -2,20 +2,29 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   textPage: {
-    display: "flex",
+    // display: "flex",
     // width: "100%",
     minHeight: "300px",
     width: 914,
-    // padding: "0 10px",
-    justifyContent: "space-between",
+    padding: "0 0px",
+    // justifyContent: "space-between",
+    display: "grid",
+    gridTemplateColumns: "1fr 200px",
+    gap: 35,
 
-    [theme.breakpoints.down(914)]: {
+    [theme.breakpoints.down(1000)]: {
       padding: "0 30px",
       width: "100%",
     },
-    [theme.breakpoints.down(642)]: {
-      flexDirection: "column",
+    [theme.breakpoints.down(914)]: {
+      padding: "0 30px",
+    },
+    [theme.breakpoints.down(768)]: {},
+    [theme.breakpoints.down(655)]: {
+      gridTemplateColumns: "1fr",
+      // flexDirection: "column",
       padding: "0 0",
+      marginBottom: 25,
     },
   },
   nav: {
@@ -53,6 +62,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 36,
     fontWeight: 500,
     marginBottom: 25,
+    [theme.breakpoints.down(748)]: {
+      fontSize: 18,
+      marginBottom: 15,
+      marginTop: 15,
+    },
   },
   errortext: {
     margin: "20px 0",
@@ -74,9 +88,15 @@ const useStyles = makeStyles((theme) => ({
     "&:last-child": {
       marginBottom: 0,
     },
+    [theme.breakpoints.down(748)]: {
+      fontSize: 14,
+    },
   },
   textContent: {
     marginBottom: 40,
+    [theme.breakpoints.down(748)]: {
+      marginBottom: 10,
+    },
   },
 }));
 

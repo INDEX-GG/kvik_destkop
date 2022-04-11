@@ -5,17 +5,16 @@ const useStyles = makeStyles(() => ({
     width: 220,
     marginBottom: 15,
   },
-  //склеивает вместе
-  // sticky: {
-  //   position: "sticky",
-  //   top: 40,
-  // },
+
   navMenuClose: {
     display: "none",
   },
   navMenuBtnOpen: {
-    color: "#00A0AB",
+    "&>svg": {
+      color: "#00A0AB",
+    },
   },
+
   name: {
     "&>span": {
       fontSize: 18,
@@ -28,12 +27,11 @@ const useStyles = makeStyles(() => ({
     },
   },
   navLinks: {
-    transform: "translate(65px)",
+    transform: "translate(50px)",
   },
   navLink: {
-    marginBottom: 15,
-    width: 220,
-
+    marginBottom: 10,
+    width: 200,
     "&>a": {
       fontSize: 18,
       fontWeight: 500,

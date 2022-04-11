@@ -16,10 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapper922: {
     maxWidth: 866,
-    width: "100%",
-    padding: "0 10px 0 16px",
+    padding: "0 10px 0 10px",
     [theme.breakpoints.down(866)]: {
-      padding: "0 10px 0 16px",
+      // padding: "0 0px 0 0px",
     },
   },
 
@@ -27,18 +26,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     position: "relative",
     flexDirection: "column",
+    // marginTop: 50,
+    [theme.breakpoints.down(866)]: {
+      // padding: "0 0px 0 0px",
+    },
   },
 
   linksWrapper: {
     display: "flex",
-
-    // justifyContent: "space-between",
-    // width: "100%",
     marginBottom: 20,
-    [theme.breakpoints.down(642)]: {
-      // flexDirection: "column",
-      // alignItems: "center",
-    },
+    [theme.breakpoints.down(642)]: {},
   },
 
   contentWrapper: {
@@ -46,20 +43,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     // flexDirection: "column",
   },
-  // contentWrapperDR: {
-  //   display: "flex",
-  //   flexDirection: "row-reverse",
-  //   position: "relative",
-  // },
 
   linksCenter: {
-    // width: "100%",
     display: "flex",
     justifyContent: "space-between",
     flexWrap: "wrap",
     [theme.breakpoints.down(660)]: {
-      // flexDirection: "column",
-      // alignItems: "center",
+      flexDirection: "column",
+      alignItems: "center",
       justifyContent: "center",
     },
   },

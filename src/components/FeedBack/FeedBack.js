@@ -1,5 +1,5 @@
 //импорты библиотек
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer, useRef } from "react";
 import { Box } from "@material-ui/core";
 import { useRouter } from "next/router";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
@@ -21,11 +21,12 @@ function FeedBack() {
   const router = useRouter();
   const [textOpen, setTextOpen] = useState(false);
   const [openSupport, setOpenSupport] = useState(false);
-  const classes = useFeedBack();
   const [state, dispatch] = useReducer(linkReducer, initialState);
+  const classes = useFeedBack();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(659));
-
+  const myRef = useRef("");
+  const mobileWidth = 655;
+  const isMobile = useMediaQuery(theme.breakpoints.down(mobileWidth));
   const handleChangeOpenForm = () => {
     setOpenSupport(!openSupport);
   };
@@ -49,11 +50,12 @@ function FeedBack() {
       {isMobile ? (
         <CustomModalUI
           open={true}
-          customMobile={940}
+          // customMobile={940}
+          customMobile={mobileWidth}
           title={state.title}
           handleCloseModal={() => router.push(state.link)}
         >
-          <Box className={classes.wrapper}>
+          <Box className={classes.wrapper} ref={myRef}>
             <Box className={classes.wrapper922}>
               <Box component="main" className={classes.links}>
                 <Box className={classes.contentWrapper}>

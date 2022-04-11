@@ -6,14 +6,7 @@ const useStyles = makeStyles((theme) => ({
     width: 304,
     padding: 0,
     color: "#00A0AB",
-    // borderBottom: "1px solid #00A0AB",
-    [theme.breakpoints.down(400)]: {
-      // width: "100%",
-    },
   },
-  // name: {
-  //   padding: 0,
-  // },
 
   itemWrap: {
     "&>div": {
@@ -24,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 50,
   },
   itemLink: {
-    marginBottom: 10,
+    marginBottom: 15,
 
     "&>a": {
       color: "#000",
@@ -52,17 +45,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  link: {
-    // borderBottom: "1px solid #00A0AB",
-  },
-  // linkActive: {
-  //   color: "#00A0AB",
-  //   "&>a": {
-  //     color: "#00A0AB",
-  //     fontSize: 18,
-  //     fontWeight: 500,
-  //   },
-  // },
   name: {
     fontSize: 18,
     fontWeight: 800,
@@ -71,15 +53,6 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 800,
     },
   },
-  // nameDR: {
-  //   "&>span": {
-  //     fontSize: 18,
-  //     fontWeight: 500,
-  //   },
-  // },
-  // collapse: {
-  //   transform: "translateX(50px)",
-  // },
 
   bottomLine: {
     borderBottom: "1px solid #00A0AB",
@@ -89,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     height: 56,
     color: "#00A0AB",
     borderRadius: "0px",
-    // marginBottom: 15,
+
     "&:last-child": {
       borderRadius: "0px",
     },
@@ -98,16 +71,6 @@ const useStyles = makeStyles((theme) => ({
       height: 61,
     },
   },
-  // dropDR: {
-  //   width: "100%",
-  //   height: 30,
-  //   color: "#00A0AB",
-  //   borderRadius: "0px",
-  //   marginBottom: 15,
-  //   "&:last-child": {
-  //     borderRadius: "0px",
-  //   },
-  // },
 
   dropLine: {
     borderBottom: "1px solid #00A0AB",
