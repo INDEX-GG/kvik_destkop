@@ -10,6 +10,7 @@ import { useText } from "./style";
 
 const TextPage = ({ links, isMobile }) => {
   const [pageData, setPageData] = useState({ links: [], header: "" });
+
   const [link, setlink] = useState({});
 
   const classes = useText();
@@ -17,25 +18,12 @@ const TextPage = ({ links, isMobile }) => {
 
   const myRef = useRef();
 
-  function ready() {
-    const idElem = Object.values(router.query)[0];
-    const elem = document.getElementById(idElem);
-    console.log("readyreadyreadyready", elem);
-    alert("ready");
-    if (elem) {
-      window.scrollTo({ top: elem.offsetTop + 20 });
-    } else {
-      console.log("нет элема");
-    }
-  }
-
   const scroll = () => {
     let arr = myRef.current.getElementsByTagName("h1");
 
     for (let i = 0; i < arr.length; i++) {
       let elem = arr[i];
       let elemTop = elem.getBoundingClientRect();
-
       if (elemTop.top > 0 && elemTop.top < 200) {
         let adressAnch = window.location.search.split("=")[1];
         let adressPage = window.location.search.split("=")[0].slice(1);
@@ -47,9 +35,16 @@ const TextPage = ({ links, isMobile }) => {
         }
       }
     }
-    // }
   };
 
+  const scrollToElem = () => {
+    const idElem = Object.values(router.query)[0];
+    const elem = document.getElementById(idElem);
+
+    if (elem) {
+      window.scrollTo({ top: elem.offsetTop + 20 });
+    }
+  };
   //фильтрую доступные страницы по ключу из  router.query
   useEffect(() => {
     const routerPage = Object.keys(router.query)[0];
@@ -64,31 +59,22 @@ const TextPage = ({ links, isMobile }) => {
     setPageData(filtered[0]);
 
     //скролл при изменении роута до ID значения роута
-
-    const idElem = Object.values(router.query)[0];
-    const elem = document.getElementById(idElem);
-
-    if (elem) {
-      window.scrollTo({ top: elem.offsetTop + 20 });
-    }
+    scrollToElem();
   }, [router]);
 
   useEffect(() => {
     window.addEventListener("scroll", scroll);
-
     setTimeout(() => {
-      const idElem = Object.values(router.query)[0];
-      const elem = document.getElementById(idElem);
-
-      if (elem) {
-        window.scrollTo({ top: elem.offsetTop + 20 });
-      }
+      scrollToElem();
     });
 
     return () => {
       window.removeEventListener("scroll", scroll);
     };
   }, []);
+  useEffect(() => {
+    scrollToElem();
+  }, [pageData]);
   return (
     <Box className={classes.textPage} ref={myRef}>
       <Box>
