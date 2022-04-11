@@ -12,8 +12,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import { ContextApp, initialState, linkReducer } from "./reducer";
 import CallbackForm from "./callbackForm/CallbackForm";
-import { useFeedBack } from "./style";
 import SupportText from "./supportText/SupportText";
+import { useFeedBack } from "./style";
+
 function FeedBack() {
   const router = useRouter();
   const [textOpen, setTextOpen] = useState(false);

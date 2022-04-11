@@ -8,8 +8,6 @@ import NavMenu from "../navMenu/NavMenu";
 const TextPage = ({ links, isMobile }) => {
   const [pageData, setPageData] = useState({ links: [], header: "" });
 
-  // const [activePage, setActivePage] = useState("/ff");
-
   const [link, setlink] = useState({});
   const classes = useText();
   const router = useRouter();
@@ -23,9 +21,8 @@ const TextPage = ({ links, isMobile }) => {
       let elem = arr[i];
       let elemTop = elem.getBoundingClientRect();
 
-      if (elemTop.top > 0 && elemTop.top < 400) {
+      if (elemTop.top > 0 && elemTop.top < 200) {
         let adressAnch = window.location.search.split("=")[1];
-
         let adressPage = window.location.search.split("=")[0].slice(1);
 
         if (adressAnch === elem.id) {
@@ -38,23 +35,30 @@ const TextPage = ({ links, isMobile }) => {
         }
       }
     }
+    // }
   };
 
   //фильтрую доступные страницы по ключу из  router.query
   useEffect(() => {
-    const a = Object.keys(router.query)[0];
-    console.log("слежка за router", a);
+    const routerPage = Object.keys(router.query)[0];
 
+    //фильтрация массива по ключу из роутера с элементом из массива для определения активной страницы
     const filtered = links.filter((arr) => {
-      const b = Object.keys(arr.links[0].link.query)[0];
-      if (a === b) {
+      const arrPage = Object.keys(arr.links[0].link.query)[0];
+      if (routerPage === arrPage) {
         setlink(arr.links[0].link);
+
         return arr;
       }
     });
-    // console.log("слежка за router", router.query);
-
     setPageData(filtered[0]);
+
+    //скролл при изменении роута до ID значения роута
+    const idElem = Object.values(router.query)[0];
+    const elem = document.getElementById(idElem);
+    if (elem) {
+      window.scrollTo({ top: elem.offsetTop + 20 });
+    }
   }, [router]);
 
   useEffect(() => {
