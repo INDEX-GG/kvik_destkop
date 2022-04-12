@@ -1,16 +1,18 @@
 //импорты библиотек
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useReducer } from "react";
 import { Box, Typography } from "@material-ui/core";
 import { useRouter } from "next/router";
 // свои компоненты
 import Link from "next/link";
 import NavMenu from "../navMenu/NavMenu";
+import { initialState, linkReducer } from "../reducer";
 // css стили
 import { useText } from "./style";
+import TextContext from "../textContext/TextContext";
 
 const TextPage = ({ links, isMobile }) => {
   const [pageData, setPageData] = useState({ links: [], header: "" });
-  const [link, setlink] = useState({});
+  const [state, dispatch] = useReducer(linkReducer, initialState);
   const myRef = useRef();
   const router = useRouter();
   const classes = useText();
@@ -53,7 +55,6 @@ const TextPage = ({ links, isMobile }) => {
     const filtered = links.filter((arr) => {
       const arrPage = Object.keys(arr.links[0].link.query)[0];
       if (routerPage === arrPage) {
-        setlink(arr.links[0].link);
         return arr;
       }
     });
@@ -82,42 +83,17 @@ const TextPage = ({ links, isMobile }) => {
           ""
         ) : (
           <Box component="nav" className={classes.nav}>
-            <Link
-              href={{
-                query: {},
-              }}
-              replace
-              className={classes.navLink}
-            >
+            <Link href={state.link} replace className={classes.navLink}>
               Помощь
             </Link>
-            {pageData ? (
-              <Link href={link} replace className={classes.navLink}>
-                {pageData.header}
-              </Link>
-            ) : (
-              ""
-            )}
+            <Box className={classes.navLink}>{pageData.header}</Box>
           </Box>
         )}
         {pageData ? (
           <Box className={classes.textContentWrapper}>
             {pageData.links.map((textItem, idx) => {
               const id = Object.values(textItem.link.query)[0];
-              return (
-                <Box key={idx} className={classes.textContent}>
-                  <Typography variant="h1" className={classes.h1} id={id}>
-                    {textItem.text}
-                  </Typography>
-                  {textItem.texts.map((text, idx) => {
-                    return (
-                      <Box key={idx} component="p" className={classes.text}>
-                        {text}
-                      </Box>
-                    );
-                  })}
-                </Box>
-              );
+              return <TextContext key={idx} id={id} textItem={textItem} />;
             })}
           </Box>
         ) : (
