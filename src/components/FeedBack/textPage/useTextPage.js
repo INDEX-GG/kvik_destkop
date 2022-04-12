@@ -3,11 +3,12 @@ import { useCustomRouter } from "src/hook/globalHooks/useCustomRouter";
 import { initialState, linkReducer } from "../reducer";
 export const useTextPage = (links, isMobile, myRef) => {
   const [pageData, setPageData] = useState({ links: [], header: "" });
-  const [state, dispatch] = useReducer(linkReducer, initialState);
+  const [state] = useReducer(linkReducer, initialState);
   const { router } = useCustomRouter();
 
   const scroll = () => {
     let arr = myRef.current.getElementsByTagName("h1");
+
     for (let i = 0; i < arr.length; i++) {
       const elem = arr[i];
       const { top } = elem.getBoundingClientRect();
