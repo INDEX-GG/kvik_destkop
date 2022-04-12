@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { Box, Typography } from "@material-ui/core";
 import Link from "next/link";
@@ -19,19 +19,23 @@ const Item = ({ links, isMobile }) => {
 
   const classes = useItem();
 
-  const itemStyle = open
-    ? `${classes.item} `
-    : `${classes.item} ${classes.bottomLine}`;
+  const itemStyle = useMemo(() => {
+    return open ? `${classes.item} ` : `${classes.item} ${classes.bottomLine}`;
+  });
+  const openStyle = useMemo(() => {
+    return open ? classes.drop : `${classes.drop} ${classes.dropLine}`;
+  });
 
-  const openStyle = open ? classes.drop : `${classes.drop} ${classes.dropLine}`;
-
-  const bottomLineStyleUl = open ? classes.dropLine : "";
+  const bottomLineStyleUl = useMemo(() => {
+    return open ? classes.dropLine : "";
+  });
 
   const listLinks = links.links.map((link, idx) => {
-    const linkStyle =
-      router.query.text === link.link.query.text
+    const linkStyle = useMemo(() => {
+      return router.query.text === link.link.query.text
         ? `${classes.itemLink} ${classes.linkActive}`
         : classes.itemLink;
+    });
     return (
       <Box component="li" key={idx} className={linkStyle}>
         <Link href={link.link} replace>

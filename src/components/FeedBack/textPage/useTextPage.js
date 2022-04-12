@@ -12,7 +12,6 @@ export const useTextPage = (links, isMobile, myRef) => {
       const elem = arr[i];
       const { top } = elem.getBoundingClientRect();
 
-      console.log(top, "elemTopelemTopelemTopelemTop");
       if (top >= 0 && top < 200) {
         let adressId = window.location.search.split("=")[1];
         let adressPage = window.location.search.split("=")[0].slice(1);
