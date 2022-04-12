@@ -50,7 +50,6 @@ function FeedBack() {
       {isMobile ? (
         <CustomModalUI
           open={true}
-          // customMobile={940}
           customMobile={mobileWidth}
           title={state.title}
           handleCloseModal={() => router.push(state.link)}

@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles(() => ({
   navMenu: {
     color: "#2C2C2C",
-    // marginLeft: "20px",
     margin: "0 40px 0 0",
   },
 

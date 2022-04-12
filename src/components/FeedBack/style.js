@@ -17,19 +17,12 @@ const useStyles = makeStyles((theme) => ({
   wrapper922: {
     maxWidth: 866,
     padding: "0 10px 0 10px",
-    [theme.breakpoints.down(866)]: {
-      // padding: "0 0px 0 0px",
-    },
   },
 
   links: {
     display: "flex",
     position: "relative",
     flexDirection: "column",
-    // marginTop: 50,
-    [theme.breakpoints.down(866)]: {
-      // padding: "0 0px 0 0px",
-    },
   },
 
   linksWrapper: {
@@ -41,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
   contentWrapper: {
     display: "flex",
     justifyContent: "center",
-    // flexDirection: "column",
   },
 
   linksCenter: {
