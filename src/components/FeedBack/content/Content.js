@@ -13,6 +13,18 @@ const Content = ({ textOpen, links, isMobile }) => {
   const [openSupport, setOpenSupport] = useState(false);
 
   const classes = useContent();
+
+  const middleArr = Math.ceil(links.length / 2);
+  const leftMenu = links.slice(0, middleArr);
+  const RightMenu = links.slice(middleArr);
+
+  const leftMenuItems = leftMenu.map((item, idx) => {
+    return <Item key={idx} links={item} isMobile={isMobile} />;
+  });
+  const rightMenuItems = RightMenu.map((item, idx) => {
+    return <Item key={idx} links={item} isMobile={isMobile} />;
+  });
+
   const handleChangeOpenForm = () => {
     setOpenSupport(!openSupport);
   };
@@ -26,9 +38,8 @@ const Content = ({ textOpen, links, isMobile }) => {
             <Box className={classes.wrapper922}>
               <Box className={classes.linksWrapper}>
                 <Box className={classes.linksCenter}>
-                  {links.map((item, idx) => {
-                    return <Item key={idx} links={item} isMobile={isMobile} />;
-                  })}
+                  <Box>{leftMenuItems}</Box>
+                  <Box>{rightMenuItems}</Box>
                 </Box>
               </Box>
             </Box>

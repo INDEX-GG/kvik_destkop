@@ -15,8 +15,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   wrapper922: {
-    maxWidth: 866,
+    // maxWidth: 866,
     padding: "0 10px 0 10px",
+    [theme.breakpoints.down(653)]: {
+      // maxWidth: 866,
+      // width: "100%",
+      // display: "flex",
+      // justifyContent: "center",
+    },
   },
 
   links: {
@@ -27,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
   linksWrapper: {
     display: "flex",
+    justifyContent: "space-between",
+
     marginBottom: 20,
     [theme.breakpoints.down(642)]: {},
   },
@@ -39,11 +47,20 @@ const useStyles = makeStyles((theme) => ({
   linksCenter: {
     display: "flex",
     justifyContent: "space-between",
-    flexWrap: "wrap",
-    [theme.breakpoints.down(660)]: {
+    width: 866,
+    [theme.breakpoints.down(866)]: {
+      width: 750,
+    },
+    [theme.breakpoints.down(780)]: {
+      gap: 30,
+      maxWidth: 630,
+      width: "100%",
+    },
+    [theme.breakpoints.down(654)]: {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      gap: 0,
     },
   },
   btn: {
