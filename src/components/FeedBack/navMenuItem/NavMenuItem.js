@@ -26,15 +26,10 @@ const NavMenuItem = ({ menuItem }) => {
       ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
       : classes.navMenuBtn;
   });
-  // const btnStyle = open
-  //   ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
-  //   : classes.navMenuBtn;
+
   const nameStyle = useMemo(() => {
     return open ? `${classes.name} ${classes.nameActive}` : classes.name;
   });
-  // const nameStyle = open
-  //   ? `${classes.name} ${classes.nameActive}`
-  //   : classes.name;
 
   const handleClick = () => {
     setOpen(!open);
@@ -47,10 +42,6 @@ const NavMenuItem = ({ menuItem }) => {
         ? `${classes.navLink} ${classes.linkActive}`
         : classes.navLink;
     });
-    // const linkStyle =
-    //   pathName === idNavlink
-    //     ? `${classes.navLink} ${classes.linkActive}`
-    //     : classes.navLink;
 
     return (
       <Box component="li" key={idx} className={linkStyle}>

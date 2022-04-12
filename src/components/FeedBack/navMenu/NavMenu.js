@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Box } from "@material-ui/core";
 //свои компоненты
 import NavMenuItem from "../navMenuItem/NavMenuItem";
@@ -7,10 +7,9 @@ import { useNavMenu } from "./style";
 
 const NavMenu = ({ links, isMobile }) => {
   const classes = useNavMenu();
-
-  const navMenuStyle = isMobile
-    ? classes.navMenuClose
-    : `${classes.navMenu} ${classes.st}`;
+  const navMenuStyle = useMemo(() => {
+    return isMobile ? classes.navMenuClose : `${classes.navMenu} ${classes.st}`;
+  });
 
   return (
     <Box className={navMenuStyle}>
