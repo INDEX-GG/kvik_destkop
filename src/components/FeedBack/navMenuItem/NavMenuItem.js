@@ -40,15 +40,13 @@ const NavMenuItem = ({ menuItem }) => {
     }
   }, [router]);
 
-  const btnStyle = useMemo(() => {
-    open
-      ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
-      : classes.navMenuBtn;
-  });
+  const btnStyle = open
+    ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
+    : classes.navMenuBtn;
 
-  const nameStyle = useMemo(() => {
-    open ? `${classes.name} ${classes.nameActive}` : classes.name;
-  });
+  const nameStyle = open
+    ? `${classes.name} ${classes.nameActive}`
+    : classes.name;
 
   const listLinks = menuItem.links.map((link, idx) => {
     const value1 = Object.values(router.query)[0];
