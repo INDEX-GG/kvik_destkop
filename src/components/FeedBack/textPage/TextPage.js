@@ -17,6 +17,13 @@ const TextPage = ({ links, isMobile }) => {
   const router = useRouter();
   const classes = useText();
 
+  const textContents = () => {
+    return pageData.links.map((textItem, idx) => {
+      const id = Object.values(textItem.link.query)[0];
+      return <TextContext key={idx} id={id} textItem={textItem} />;
+    });
+  };
+
   const scroll = () => {
     let arr = myRef.current.getElementsByTagName("h1");
     for (let i = 0; i < arr.length; i++) {
@@ -90,12 +97,7 @@ const TextPage = ({ links, isMobile }) => {
           </Box>
         )}
         {pageData ? (
-          <Box className={classes.textContentWrapper}>
-            {pageData.links.map((textItem, idx) => {
-              const id = Object.values(textItem.link.query)[0];
-              return <TextContext key={idx} id={id} textItem={textItem} />;
-            })}
-          </Box>
+          <Box className={classes.textContentWrapper}>{textContents}</Box>
         ) : (
           <Typography variant="h2" className={classes.errortext}>
             ошибка! нет текста
