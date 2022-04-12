@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px",
     fontSize: "15px",
     marginBottom: 15,
+    resize: "vertical",
+    "&::placeholder": {
+      color: "#8F8F8F",
+    },
   },
   h1: {
     color: "#2C2C2C",

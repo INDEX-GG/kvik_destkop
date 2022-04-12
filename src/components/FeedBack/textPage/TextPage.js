@@ -11,9 +11,9 @@ import { useText } from "./style";
 const TextPage = ({ links, isMobile }) => {
   const [pageData, setPageData] = useState({ links: [], header: "" });
   const [link, setlink] = useState({});
-  const classes = useText();
-  const router = useRouter();
   const myRef = useRef();
+  const router = useRouter();
+  const classes = useText();
 
   const scroll = () => {
     let arr = myRef.current.getElementsByTagName("h1");

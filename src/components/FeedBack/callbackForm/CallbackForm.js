@@ -30,7 +30,11 @@ const CallbackForm = () => {
         placeholder="+7 ( ___ ) ___ - __ -__"
       />
 
-      <Box component="textarea" className={classes.formText} />
+      <Box
+        component="textarea"
+        className={classes.formText}
+        placeholder="Введите текст"
+      />
       <Box component="p" className={classes.confirm}>
         Отправляя обращение, вы соглашаетесь на{" "}
         <Link className={classes.confirm__link}>обработку ваших данных</Link>
