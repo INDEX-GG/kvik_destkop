@@ -1,12 +1,9 @@
 //импорты библиотек
-import React, { useEffect, useState, useReducer } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 import CustomModalUI from "src/UI/UIcomponent/CustomModal/CustomModalUI";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 // свои компоненты
-import { useCustomRouter } from "src/hook/globalHooks/useCustomRouter";
-import { ContextApp, initialState, linkReducer } from "./reducer";
+import { ContextApp } from "./reducer";
 import Content from "./content/Content";
 import { useFeedBack } from "./useFeedBack";
 // data
