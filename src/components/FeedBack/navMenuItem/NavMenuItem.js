@@ -12,33 +12,14 @@ import List from "@mui/material/List";
 import { ContextApp } from "../reducer";
 
 import { useNavMenuItem } from "./style";
+import { useCustomRouter } from "src/hook/globalHooks/useCustomRouter";
 
 const NavMenuItem = ({ menuItem }) => {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
+  const { router } = useCustomRouter();
   const classes = useNavMenuItem();
 
   const { state, dispatch } = useContext(ContextApp);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  useEffect(() => {
-    const param = Object.keys(menuItem.links[0].link.query)[0];
-    if (param === Object.keys(router.query)[0]) {
-      dispatch({
-        type: "setTitle",
-        payload: {
-          title: menuItem.header,
-        },
-      });
-
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  }, [router]);
 
   const btnStyle = open
     ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
@@ -48,6 +29,9 @@ const NavMenuItem = ({ menuItem }) => {
     ? `${classes.name} ${classes.nameActive}`
     : classes.name;
 
+  const handleClick = () => {
+    setOpen(!open);
+  };
   const listLinks = menuItem.links.map((link, idx) => {
     const value1 = Object.values(router.query)[0];
     const value2 = Object.values(link.link.query)[0];
@@ -65,6 +49,21 @@ const NavMenuItem = ({ menuItem }) => {
       </Box>
     );
   });
+  useEffect(() => {
+    const param = Object.keys(menuItem.links[0].link.query)[0];
+    if (param === Object.keys(router.query)[0]) {
+      dispatch({
+        type: "setTitle",
+        payload: {
+          title: menuItem.header,
+        },
+      });
+
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [router]);
 
   return (
     <Box className={classes.sticky}>
