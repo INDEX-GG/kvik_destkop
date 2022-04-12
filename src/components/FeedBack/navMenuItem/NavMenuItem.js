@@ -42,11 +42,15 @@ const NavMenuItem = ({ menuItem }) => {
   const listLinks = menuItem.links.map((link, idx) => {
     const pathName = Object.values(router.query)[0];
     const idNavlink = Object.values(link.link.query)[0];
-
-    const linkStyle =
-      pathName === idNavlink
+    const linkStyle = useMemo(() => {
+      return pathName === idNavlink
         ? `${classes.navLink} ${classes.linkActive}`
         : classes.navLink;
+    });
+    // const linkStyle =
+    //   pathName === idNavlink
+    //     ? `${classes.navLink} ${classes.linkActive}`
+    //     : classes.navLink;
 
     return (
       <Box component="li" key={idx} className={linkStyle}>
