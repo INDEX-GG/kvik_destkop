@@ -9,9 +9,11 @@ export const useTextPage = (links, isMobile, myRef) => {
   const scroll = () => {
     let arr = myRef.current.getElementsByTagName("h1");
     for (let i = 0; i < arr.length; i++) {
-      let elem = arr[i];
-      let elemTop = elem.getBoundingClientRect();
-      if (elemTop.top >= 0 && elemTop.top < 200) {
+      const elem = arr[i];
+      const { top } = elem.getBoundingClientRect();
+
+      console.log(top, "elemTopelemTopelemTopelemTop");
+      if (top >= 0 && top < 200) {
         let adressId = window.location.search.split("=")[1];
         let adressPage = window.location.search.split("=")[0].slice(1);
         // если не равно значит Новый элемент защел в зону активации активной ссылки
