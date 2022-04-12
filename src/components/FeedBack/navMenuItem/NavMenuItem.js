@@ -21,13 +21,20 @@ const NavMenuItem = ({ menuItem }) => {
 
   const { state, dispatch } = useContext(ContextApp);
 
-  const btnStyle = open
-    ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
-    : classes.navMenuBtn;
-
-  const nameStyle = open
-    ? `${classes.name} ${classes.nameActive}`
-    : classes.name;
+  const btnStyle = useMemo(() => {
+    return open
+      ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
+      : classes.navMenuBtn;
+  });
+  // const btnStyle = open
+  //   ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
+  //   : classes.navMenuBtn;
+  const nameStyle = useMemo(() => {
+    return open ? `${classes.name} ${classes.nameActive}` : classes.name;
+  });
+  // const nameStyle = open
+  //   ? `${classes.name} ${classes.nameActive}`
+  //   : classes.name;
 
   const handleClick = () => {
     setOpen(!open);
