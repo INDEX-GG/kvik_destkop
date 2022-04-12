@@ -9,12 +9,13 @@ import { initialState, linkReducer } from "../reducer";
 // css стили
 import { useText } from "./style";
 import TextContext from "../textContext/TextContext";
+import { useCustomRouter } from "src/hook/globalHooks/useCustomRouter";
 
 const TextPage = ({ links, isMobile }) => {
   const [pageData, setPageData] = useState({ links: [], header: "" });
   const [state, dispatch] = useReducer(linkReducer, initialState);
   const myRef = useRef();
-  const router = useRouter();
+  const { router } = useCustomRouter();
   const classes = useText();
 
   const textContents = () => {

@@ -33,11 +33,11 @@ const NavMenuItem = ({ menuItem }) => {
     setOpen(!open);
   };
   const listLinks = menuItem.links.map((link, idx) => {
-    const value1 = Object.values(router.query)[0];
-    const value2 = Object.values(link.link.query)[0];
+    const pathName = Object.values(router.query)[0];
+    const idNavlink = Object.values(link.link.query)[0];
 
     const linkStyle =
-      value1 === value2
+      pathName === idNavlink
         ? `${classes.navLink} ${classes.linkActive}`
         : classes.navLink;
 
