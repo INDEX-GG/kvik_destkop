@@ -11,7 +11,6 @@ import UserContentMobile from "./userContentMobile/UserContentMobile";
 
 function UserPageNew() {
   const classes = useUserPageStyles();
-
   const { matchesMobile, matchesTablet } = useMedia();
 
   return (

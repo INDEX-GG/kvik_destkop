@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Avatar, Box, Button } from "@material-ui/core";
-
 import { Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
 import ScrollTop from "../../../../UI/ScrollTop";
@@ -13,37 +12,23 @@ import {
 } from "../../../../lib/services";
 import StarRating from "../../../../components/StarRating";
 import { STATIC_URL } from "../../../../lib/constants";
-import { useStatistics } from "#lib/Context/StatisticsCTX";
-import { useStore } from "#lib/Context/Store";
+
 import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useClientPageMenu } from "./styles";
+import ClientPageSubMenu from "../clientPageSubMenu/ClientPageSubMenu";
+
 const ClientPageMenu = () => {
   const classes = useClientPageMenu();
   const router = useRouter();
   const sellerId = parseInt(router.query.id);
   const sellerInfo = useOutherUser(sellerId);
-  const { userInfo } = useStore();
-  const { addSubscribers, addUnsubscribe } = useStatistics();
+
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-  const [userBool, setUserBool] = useState(false);
+
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
   const { id /*token*/ } = useAuth();
-  const [loading /* setLoading*/] = useState(false);
-  const subscribeClickHandler = () => {
-    if (!id) return;
 
-    if (userInfo && userBool) {
-      addUnsubscribe(sellerId)();
-      setUserBool(false);
-      return;
-    }
-    if (userInfo && !userBool) {
-      addSubscribers(sellerId)();
-      setUserBool(true);
-      return;
-    }
-  };
   const {
     name: sellerName,
     userPhoto: sellerPhoto,
@@ -131,26 +116,7 @@ const ClientPageMenu = () => {
             </Box>
           </Box>
 
-          {+router.query.id === id ? null : (
-            <>
-              <button
-                disabled={loading}
-                className="btnSubscribe"
-                // onClick={() => subscribeUser()}
-                onClick={() => {
-                  setUserBool(!userBool);
-                  subscribeClickHandler();
-                }}
-              >
-                {userBool ? "Отписаться" : "Подписаться"}
-              </button>
-              <Box className="ad__block_bottom__adaptive_right">
-                <a className="SellerInfoComplain small light underline">
-                  Пожаловаться
-                </a>
-              </Box>
-            </>
-          )}
+          {+router.query.id === id ? null : <ClientPageSubMenu />}
         </Box>
       </Box>
 
