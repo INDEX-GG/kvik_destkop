@@ -80,9 +80,9 @@ function UserPageNew() {
           <UserPlaceHolder />
         ) : (
           <>
-            <div className="clientPage__menu">
-              <div className="clientPage__userinfo">
-                <div className="clientPage__userpic">
+            <Box className="clientPage__menu">
+              <Box className="clientPage__userinfo">
+                <Box className="clientPage__userpic">
                   {isLoading ? null : (
                     <Avatar
                       src={`${STATIC_URL}/${sellerPhoto}`}
@@ -93,25 +93,25 @@ function UserPageNew() {
                       {initials(sellerName)}
                     </Avatar>
                   )}
-                </div>
+                </Box>
 
-                <div className="clientPage__username">{sellerName}</div>
-                <div className="clientPage__userRegDate light small">
+                <Box className="clientPage__username">{sellerName}</Box>
+                <Box className="clientPage__userRegDate light small">
                   на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}
-                </div>
+                </Box>
 
                 <Tooltip
                   title="В разработке"
                   arrow
                   classes={{ tooltip: classes.tooltip, arrow: classes.arrow }}
                 >
-                  <div className="clientPage__userrate">
-                    <div className="clientPage__userrate__num">{raiting}</div>
+                  <Box className="clientPage__userrate">
+                    <Box className="clientPage__userrate__num">{raiting}</Box>
                     <StarRating rating={raiting} />
-                  </div>
+                  </Box>
                 </Tooltip>
 
-                <div className="clientPage__userstats highlight small">
+                <Box className="clientPage__userstats highlight small">
                   <Tooltip
                     title="В разработке"
                     arrow
@@ -153,7 +153,7 @@ function UserPageNew() {
                       <p>Подписки</p>
                     </Button>
                   </Box>
-                </div>
+                </Box>
 
                 {+router.query.id === id ? null : (
                   <>
@@ -168,22 +168,22 @@ function UserPageNew() {
                     >
                       {userBool ? "Отписаться" : "Подписаться"}
                     </button>
-                    <div className="ad__block_bottom__adaptive_right">
+                    <Box className="ad__block_bottom__adaptive_right">
                       {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
                       {/*  if (!blockLoading) setBlockOpen(true)*/}
                       {/*}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>*/}
                       <a className="SellerInfoComplain small light underline">
                         Пожаловаться
                       </a>
-                    </div>
+                    </Box>
                   </>
                 )}
-              </div>
-            </div>
+              </Box>
+            </Box>
 
-            <div className="clientPage__container">
+            <Box className="clientPage__container">
               <User itemNav={itemNav} setItemNav={setItemNav} />
-            </div>
+            </Box>
             <ScrollTop />
           </>
         )}
@@ -193,10 +193,10 @@ function UserPageNew() {
 
   return (
     <MetaLayout>
-      <div className="clientPage text">
+      <Box className="clientPage text">
         hhhh
         {matchesMobile ? "userContentMobile()" : userContent()}
-      </div>
+      </Box>
     </MetaLayout>
   );
 }
