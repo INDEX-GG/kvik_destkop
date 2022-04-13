@@ -1,8 +1,8 @@
-``
+``;
 import React, { useEffect, useState } from "react";
 import StarRating from "../../components/StarRating";
 import User from "../../components/User/User";
-import { ToRusAccountDate, stringToColor, initials} from "../../lib/services";
+import { ToRusAccountDate, stringToColor, initials } from "../../lib/services";
 import {
   Avatar,
   Box,
@@ -11,10 +11,12 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import { useRouter } from "next/router";
-import { ModalRating,/* ModalSubscribers, ModalSubscription */} from "../../components/Modals";
+import {
+  ModalRating /* ModalSubscribers, ModalSubscription */,
+} from "../../components/Modals";
 // import { useAd } from "../../hooks/useAd";
 // import axios from "axios"
 import { useMedia } from "../../hooks/useMedia";
@@ -25,13 +27,14 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import { STATIC_URL } from "../../lib/constants";
 // import { useBlockedBool } from "../../hooks/useBlocked";
 // import { useUser } from "../../hooks/useUser";
-import {Tooltip} from "@mui/material";
+import { Tooltip } from "@mui/material";
 // import {getTokenDataByPost} from "../../lib/fetch";
-import ScrollTop from '../../UI/ScrollTop'
+import ScrollTop from "../../UI/ScrollTop";
 import { useStore } from "#lib/Context/Store";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
-import MobileModal from '../../components/MobileModal'
-import UserPlaceHolder from '../../components/placeHolders/UserPlaceHolder/UserPlaceHolder'
+import MobileModal from "../../components/MobileModal";
+import UserPlaceHolder from "../../components/placeHolders/UserPlaceHolder/UserPlaceHolder";
+import UserPageNew from "src/components/User/UserPageNew";
 
 const useStyles = makeStyles(() => ({
   tooltip: {
@@ -39,15 +42,15 @@ const useStyles = makeStyles(() => ({
     background: "#FFFFFF",
     color: "#5A5A5A",
     fontSize: "12px",
-    textAlign: 'center',
-    maxWidth: '190px',
+    textAlign: "center",
+    maxWidth: "190px",
   },
   arrow: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     "&:before": {
       content: '""',
       border: "#8F8F8F solid 1px",
-    }
+    },
   },
   userStats: {
     display: "flex",
@@ -58,63 +61,64 @@ const useStyles = makeStyles(() => ({
     transition: "all 200ms ease-in-out",
     cursor: "pointer",
 
-    '&:hover': {
+    "&:hover": {
       textDecoration: "none",
     },
-    '& button': {
+    "& button": {
       color: "#00a0ab",
     },
-    '& button p': {
+    "& button p": {
       color: "#00a0ab",
-    }
+    },
   },
   buttonDesc: {
     fontSize: "11px",
-  }
+  },
 }));
 
 function UserPage() {
-  const {userInfo} = useStore()
-  const {addSubscribers, addUnsubscribe} = useStatistics()
+  const { userInfo } = useStore();
+  const { addSubscribers, addUnsubscribe } = useStatistics();
   const classes = useStyles();
   const router = useRouter();
-  const sellerId = parseInt(router.query.id)
-  const { id, /*token*/ } = useAuth()
-  const sellerInfo = useOutherUser(sellerId)
+  const sellerId = parseInt(router.query.id);
+  const { id /*token*/ } = useAuth();
+  const sellerInfo = useOutherUser(sellerId);
 
   const {
     name: sellerName,
     userPhoto: sellerPhoto,
-    raiting, createdAt,
+    raiting,
+    createdAt,
     isLoading = true,
     /*sellerId,*/
     subscribers_count,
-    subscriptions_count
-  } = sellerInfo
+    subscriptions_count,
+  } = sellerInfo;
   // const {userInfo} = useAd(router.query.id)
   // const  userProfileInfo  = useUser();
   // const { userSub } = useSubBool(id, sellerId)
   // const { userBlocked } = useBlockedBool(id, sellerId, token)
-  const { matchesMobile, matchesTablet } = useMedia()
+  const { matchesMobile, matchesTablet } = useMedia();
 
   const [reviewsModal, setReviewsModal] = useState(false);
   // const [subscribersModal, setSubscribersModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-  const [userBool, setUserBool] = useState(false)
-  const [userBlockBool, /*setUserBlockBool*/] = useState(false)
+  const [userBool, setUserBool] = useState(false);
+  const [userBlockBool /*setUserBlockBool*/] = useState(false);
   // const [subList, /*setSubList*/] = useState([])
   // const [subscribersList, /*setSubscribersList */] = useState([])
-  const [loading,/* setLoading*/] = useState(false)
+  const [loading /* setLoading*/] = useState(false);
   // const [blockLoading, setBlockLoading] = useState(false)
-  const [blockOpen, setBlockOpen] = useState(false)
-  const [isShowProfileDialog, setIsShowProfileDialog] = useState(true)
+  const [blockOpen, setBlockOpen] = useState(false);
+  const [isShowProfileDialog, setIsShowProfileDialog] = useState(true);
 
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Активные" });
 
   useEffect(() => {
-    if(!userInfo) return
-    setUserBool(userInfo.subscriptions.includes(sellerId))
-  }, [sellerId, userInfo])
+    if (!userInfo) return;
+    setUserBool(userInfo.subscriptions.includes(sellerId));
+  }, [sellerId, userInfo]);
 
   // useEffect(() => {
   //   setUserBool(userSub)
@@ -126,26 +130,28 @@ function UserPage() {
 
   useEffect(() => {
     //? Если зашли на свой профиль.
-	  if (id && router.query.id && id == +router.query.id) {
-	  router.push({pathname: `/account/${id}`, query: {account: 1, content: 1}})
-  	}
-  }, [id, router.query.id])
-
+    if (id && router.query.id && id == +router.query.id) {
+      router.push({
+        pathname: `/account/${id}`,
+        query: { account: 1, content: 1 },
+      });
+    }
+  }, [id, router.query.id]);
 
   const subscribeClickHandler = () => {
-    if(!id) return
+    if (!id) return;
 
-    if(userInfo && userBool) {
-			addUnsubscribe(sellerId)()
-			setUserBool(false)
-			return
-		}
-		if(userInfo && !userBool) {
-			addSubscribers(sellerId)()
-			setUserBool(true)
-			return
-		}
-  }
+    if (userInfo && userBool) {
+      addUnsubscribe(sellerId)();
+      setUserBool(false);
+      return;
+    }
+    if (userInfo && !userBool) {
+      addSubscribers(sellerId)();
+      setUserBool(true);
+      return;
+    }
+  };
 
   // useEffect(() => {
   //   if (sellerId && subList.length == 0) {
@@ -159,7 +165,7 @@ function UserPage() {
   // }, [sellerId])
 
   // function changeSubscribers() {
-	//   axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => {
+  //   axios.post("/api/getSubscribers", {user_id: "" + sellerId}).then((res) => {
   //     if (res.data.message === 'nothing'){
   //       setSubscribersList([])
   //     }
@@ -170,7 +176,7 @@ function UserPage() {
   // }
 
   function modal(modal, changeModal) {
-    changeModal(!modal)
+    changeModal(!modal);
   }
 
   // async function subscribeUser() {
@@ -193,12 +199,8 @@ function UserPage() {
 
   //     await getTokenDataByPost('/api/subscribers', {user_id: '' + sellerId, subscriber_id: '' + id}, token);
 
-
   //     setLoading(false)
   //   }
-
-
-
 
   // }
 
@@ -235,42 +237,56 @@ function UserPage() {
   const userContent = () => {
     return (
       <>
-        {isLoading ? <UserPlaceHolder /> :
+        {isLoading ? (
+          <UserPlaceHolder />
+        ) : (
           <>
             <div className="clientPage__menu">
               <div className="clientPage__userinfo">
                 <div className="clientPage__userpic">
-                  {isLoading
-                  ?
-                  null
-                  :
-                  <Avatar
-                    src={`${STATIC_URL}/${sellerPhoto}`}
-                    style={{ backgroundColor: `${stringToColor(sellerName)}` }}
-                  >
+                  {isLoading ? null : (
+                    <Avatar
+                      src={`${STATIC_URL}/${sellerPhoto}`}
+                      style={{
+                        backgroundColor: `${stringToColor(sellerName)}`,
+                      }}
+                    >
                       {initials(sellerName)}
-                  </Avatar>}
+                    </Avatar>
+                  )}
                 </div>
 
                 <div className="clientPage__username">{sellerName}</div>
-                <div className="clientPage__userRegDate light small">на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}</div>
+                <div className="clientPage__userRegDate light small">
+                  на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}
+                </div>
 
-                <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                <Tooltip
+                  title="В разработке"
+                  arrow
+                  classes={{ tooltip: classes.tooltip, arrow: classes.arrow }}
+                >
                   <div className="clientPage__userrate">
                     <div className="clientPage__userrate__num">{raiting}</div>
                     <StarRating rating={raiting} />
                   </div>
                 </Tooltip>
 
-
-
                 <div className="clientPage__userstats highlight small">
-
-
-                  <Tooltip title="В разработке" arrow  classes={{tooltip: classes.tooltip, arrow: classes.arrow}}>
+                  <Tooltip
+                    title="В разработке"
+                    arrow
+                    classes={{ tooltip: classes.tooltip, arrow: classes.arrow }}
+                  >
                     <Box className={classes.userStats}>
-                      <span>{'0'}</span>
-                      <Button className={classes.buttonDesc} size="small" variant="text" disabled onClick={() => setReviewsModal(!reviewsModal)} >
+                      <span>{"0"}</span>
+                      <Button
+                        className={classes.buttonDesc}
+                        size="small"
+                        variant="text"
+                        disabled
+                        onClick={() => setReviewsModal(!reviewsModal)}
+                      >
                         <p>Отзывы</p>
                       </Button>
                     </Box>
@@ -284,11 +300,13 @@ function UserPage() {
                   {/*  </div>*/}
                   {/*</a>*/}
 
-
-
                   <Box className={classes.userStats}>
                     <span>{subscribers_count}</span>
-                    <Button className={classes.buttonDesc} size="small" variant="text" /*onClick={() => setSubscribersModal(!subscriptionsModal)}*/>
+                    <Button
+                      className={classes.buttonDesc}
+                      size="small"
+                      variant="text" /*onClick={() => setSubscribersModal(!subscriptionsModal)}*/
+                    >
                       <p>Подписчиков</p>
                     </Button>
                   </Box>
@@ -301,10 +319,14 @@ function UserPage() {
                   {/*  </div>*/}
                   {/*</a>*/}
 
-
                   <Box className={classes.userStats}>
                     <span>{subscriptions_count}</span>
-                    <Button className={classes.buttonDesc} size="small" variant="text"  onClick={() => setSubscriptionsModal(!subscriptionsModal)} >
+                    <Button
+                      className={classes.buttonDesc}
+                      size="small"
+                      variant="text"
+                      onClick={() => setSubscriptionsModal(!subscriptionsModal)}
+                    >
                       <p>Подписки</p>
                     </Button>
                   </Box>
@@ -316,30 +338,28 @@ function UserPage() {
                   {/*    <p>Подписки</p>*/}
                   {/*  </div>*/}
                   {/*</a>*/}
-
-
                 </div>
 
-
-
-                {+router.query.id === id  ? null : (
+                {+router.query.id === id ? null : (
                   <>
                     <button
                       disabled={loading}
                       className="btnSubscribe"
                       // onClick={() => subscribeUser()}
                       onClick={() => {
-                        setUserBool(!userBool)
-                        subscribeClickHandler()
+                        setUserBool(!userBool);
+                        subscribeClickHandler();
                       }}
                     >
-                        {userBool ? "Отписаться" : "Подписаться"}
-                      </button>
+                      {userBool ? "Отписаться" : "Подписаться"}
+                    </button>
                     <div className="ad__block_bottom__adaptive_right">
                       {/*<a className="SellerInfoShutUp small light underline" onClick={() => {*/}
                       {/*  if (!blockLoading) setBlockOpen(true)*/}
                       {/*}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'} пользователя</a>*/}
-                      <a className="SellerInfoComplain small light underline">Пожаловаться</a>
+                      <a className="SellerInfoComplain small light underline">
+                        Пожаловаться
+                      </a>
                     </div>
                   </>
                 )}
@@ -351,10 +371,10 @@ function UserPage() {
             </div>
             <ScrollTop />
           </>
-        }
+        )}
       </>
-    )
-  }
+    );
+  };
 
   const userContentMobile = () => {
     return (
@@ -367,22 +387,31 @@ function UserPage() {
           // .then(() => {
           //     setIsShowProfileDialog((prevState => !prevState))
           // })
-          router.back()
-          setIsShowProfileDialog(prevState => !prevState)
+          router.back();
+          setIsShowProfileDialog((prevState) => !prevState);
         }}
       >
         {userContent()}
       </MobileModal>
-    )
-  }
+    );
+  };
 
   return (
     <MetaLayout>
       <div className="clientPage text">
         {matchesMobile ? userContentMobile() : userContent()}
       </div>
-      <Dialog open={reviewsModal || false} onClose={() => setReviewsModal(!reviewsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalRating rate={raiting} comments={2} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(reviewsModal, setReviewsModal)} />
+      <Dialog
+        open={reviewsModal || false}
+        onClose={() => setReviewsModal(!reviewsModal)}
+        fullScreen={matchesMobile || matchesTablet ? true : false}
+      >
+        <ModalRating
+          rate={raiting}
+          comments={2}
+          mobile={matchesMobile || matchesTablet ? true : false}
+          modal={() => modal(reviewsModal, setReviewsModal)}
+        />
       </Dialog>
       {/* <Dialog open={subscribersModal || false} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
         <ModalSubscribers data={subscribersList} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(subscribersModal, setSubscribersModal)} />
@@ -391,17 +420,21 @@ function UserPage() {
         <ModalSubscription data={subList} subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} />
       </Dialog> */}
       <Dialog open={blockOpen} onClose={() => setBlockOpen(false)}>
-          <DialogContent>
-            <DialogContentText>
-                Вы уверены, что хотите {userBlockBool ? 'разбокировать' :'заблокировать'} пользователя?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            {/*<Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>*/}
-            <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
+        <DialogContent>
+          <DialogContentText>
+            Вы уверены, что хотите{" "}
+            {userBlockBool ? "разбокировать" : "заблокировать"} пользователя?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          {/*<Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>*/}
+          <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
         </DialogActions>
       </Dialog>
+      <p>-------------------------------------</p>
+      <UserPageNew />
     </MetaLayout>
   );
 }
+
 export default UserPage;

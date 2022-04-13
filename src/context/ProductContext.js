@@ -7,13 +7,11 @@ import { useAuth } from "#lib/Context/AuthCTX";
 const ProductContext = React.createContext({});
 export const useProductContext = () => useContext(ProductContext);
 
-const ProductProvider = ({ children, data }) => {
+const ProductProvider = ({ children }) => {
   const { id, isAuth } = useAuth();
   const router = useRouter();
   const { matchesMobile, matchesTablet } = useMedia();
   // !!!!!!!!!!!!!!! product= product из пропсов
-
-  console.log("data data=====>>>>>", data);
 
   const product = useProduct(router.query.id);
 
