@@ -1,59 +1,72 @@
-import React, { useContext, useMemo, useState } from "react"
-import { useProduct } from "#hooks/useProduct"
-import { useMedia } from "#hooks/useMedia"
-import { useRouter } from "next/router"
-import { useAuth } from "#lib/Context/AuthCTX"
+import React, { useContext, useMemo, useState } from "react";
+import { useProduct } from "#hooks/useProduct";
+import { useMedia } from "#hooks/useMedia";
+import { useRouter } from "next/router";
+import { useAuth } from "#lib/Context/AuthCTX";
 
-const ProductContext = React.createContext({})
-export const useProductContext = () => useContext(ProductContext)
+const ProductContext = React.createContext({});
+export const useProductContext = () => useContext(ProductContext);
 
-const ProductProvider = ({ children }) => {
-	const { id, isAuth } = useAuth()
-	const router = useRouter()
-	const { matchesMobile, matchesTablet } = useMedia()
+const ProductProvider = ({ children, data }) => {
+  const { id, isAuth } = useAuth();
+  const router = useRouter();
+  const { matchesMobile, matchesTablet } = useMedia();
+  // !!!!!!!!!!!!!!! product= product из пропсов
 
-	const product = useProduct(router.query.id)
+  console.log("data data=====>>>>>", data);
 
-	const setProductInfo = useMemo(
-		() => (product?.setProductInfo ? product?.setProductInfo : () => null),
-		[product]
-	)
+  const product = useProduct(router.query.id);
 
-	const isMyAd = useMemo(() => (id ? product?.user_id === id : false), [
-		product?.user_id,
-	])
+  const setProductInfo = useMemo(
+    () => (product?.setProductInfo ? product?.setProductInfo : () => null),
+    [product]
+  );
 
-	const isMobile = useMemo(() => !!(matchesMobile || matchesTablet), [
-		matchesMobile,
-		matchesTablet,
-	])
+  const isMyAd = useMemo(() => (id ? product?.user_id === id : false), [
+    product?.user_id,
+  ]);
 
-    const isActive = useMemo(() => product?.status === "ok",
-        [product?.status]
-    )
+  const isMobile = useMemo(() => !!(matchesMobile || matchesTablet), [
+    matchesMobile,
+    matchesTablet,
+  ]);
 
-	const isNoActive = useMemo(() => product?.status === "no_active",
-		[product?.status]
-	)
+  const isActive = useMemo(() => product?.status === "ok", [product?.status]);
 
-    const isBanned = useMemo(() =>  product?.status === "banned",
-		[product?.status]
-	)
+  const isNoActive = useMemo(() => product?.status === "no_active", [
+    product?.status,
+  ]);
 
-	const isTimeLimit = useMemo(() =>  product?.status === "time_limit",
-		[product?.status]
-	)
+  const isBanned = useMemo(() => product?.status === "banned", [
+    product?.status,
+  ]);
 
-    const isOpacity = useMemo(() => isNoActive || isTimeLimit || isBanned)
+  const isTimeLimit = useMemo(() => product?.status === "time_limit", [
+    product?.status,
+  ]);
 
-	return (
-		<ProductContext.Provider
-			value={{ productData: { ...product, isMyAd, isActive, isNoActive, isBanned, isTimeLimit, isOpacity }, isMobile, isAuth, setProductInfo }}
-		>
-			{children}
+  const isOpacity = useMemo(() => isNoActive || isTimeLimit || isBanned);
 
-		</ProductContext.Provider>
-	)
-}
+  return (
+    <ProductContext.Provider
+      value={{
+        productData: {
+          ...product,
+          isMyAd,
+          isActive,
+          isNoActive,
+          isBanned,
+          isTimeLimit,
+          isOpacity,
+        },
+        isMobile,
+        isAuth,
+        setProductInfo,
+      }}
+    >
+      {children}
+    </ProductContext.Provider>
+  );
+};
 
-export default React.memo(ProductProvider)
+export default React.memo(ProductProvider);
