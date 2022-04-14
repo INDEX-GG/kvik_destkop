@@ -48,9 +48,9 @@ const useStyles = makeStyles((theme) => ({
 
   clientPage__userpic: {
     position: "relative",
-    width: "80px",
-    height: "80px",
-    minHeight: "80px",
+    // width: "80px",      //для старого формата
+    // height: "80px",     //для старого формата
+    // minHeight: "80px", //для старого формата
     borderRadius: "50%",
     "&>img": {
       width: "100%",

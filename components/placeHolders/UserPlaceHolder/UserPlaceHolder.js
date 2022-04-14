@@ -1,18 +1,16 @@
-import React from 'react'
+import React from "react";
 
-import UserPlaceHolderMobile from './UserPlaceHolderMobile'
-import {useMedia} from "../../../hooks/useMedia";
+import UserPlaceHolderMobile from "./UserPlaceHolderMobile";
+import { useMedia } from "../../../hooks/useMedia";
 
 const UserPlaceHolder = () => {
-  const {matchesMobile} = useMedia();
+  const { matchesMobile } = useMedia();
 
-  return (
-    matchesMobile
+  return matchesMobile ? (
     // мобильный плейсхолдер
-    ? <UserPlaceHolderMobile />
-    // десктопный плейсхолдер
-    : null
-  )
-}
+    <UserPlaceHolderMobile />
+  ) : // десктопный плейсхолдер
+  null;
+};
 
-export default UserPlaceHolder
+export default React.memo(UserPlaceHolder);

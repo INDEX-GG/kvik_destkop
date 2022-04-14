@@ -3,7 +3,7 @@ import Active from "./tabs/Active";
 import Sold from "./tabs/Sold";
 import Placeholder from "./tabs/Placeholder";
 
-import { Box, Link } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { useUserStyle } from "./style";
 
 // import { useAd } from "../../hooks/useAd";

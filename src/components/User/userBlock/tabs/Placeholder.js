@@ -6,8 +6,8 @@ const Placeholder = ({ user }) => {
   const classes = usePlayceholderStyle();
   return (
     <Box
-      // className="clientPage__container_bottom"
-      className={classes.clientPage__container_bottom}
+      className="clientPage__container_bottom"
+      // className={classes.clientPage__container_bottom}
     >
       <Box
         className="clientPage__container_content"
@@ -20,7 +20,7 @@ const Placeholder = ({ user }) => {
           {user ? (
             user == 1 ? (
               <Box
-                className="phTitle dark"
+                className="phTitle dark" //phTitle --> не нашел
                 //  className={`${classes.phTitle} ${classes.dark}`}
               >
                 У этого пользователя ещё нет объявлений

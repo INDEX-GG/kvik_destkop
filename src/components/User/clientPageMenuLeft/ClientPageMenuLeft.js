@@ -13,6 +13,7 @@ import StarRating from "../../../../components/StarRating";
 import ClientPageSubMenu from "../clientPageSubMenu/ClientPageSubMenu";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useClientPageMenuLeft } from "./style";
+import CustomAvatarUI from "src/UI/UIcomponent/CustomAvatar/CustomAvatarUI";
 const ClientPageMenuLeft = () => {
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
@@ -45,14 +46,19 @@ const ClientPageMenuLeft = () => {
           className={classes.clientPage__userpic} //добавил
         >
           {isLoading ? null : (
-            <Avatar
+            <CustomAvatarUI
+              alt={"avatar"}
               src={`${STATIC_URL}/${sellerPhoto}`}
-              style={{
-                backgroundColor: `${stringToColor(sellerName)}`,
-              }}
-            >
-              {initials(sellerName)}
-            </Avatar>
+              userName={initials(sellerName)}
+            />
+            // <Avatar
+            //   src={`${STATIC_URL}/${sellerPhoto}`}
+            //   style={{
+            //     backgroundColor: `${stringToColor(sellerName)}`,
+            //   }}
+            // >
+            //   {initials(sellerName)}
+            // </Avatar>
           )}
         </Box>
 

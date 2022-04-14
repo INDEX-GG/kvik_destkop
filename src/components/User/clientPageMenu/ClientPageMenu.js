@@ -27,4 +27,4 @@ const ClientPageMenu = () => {
   );
 };
 
-export default ClientPageMenu;
+export default React.memo(ClientPageMenu);

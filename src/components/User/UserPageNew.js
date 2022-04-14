@@ -9,9 +9,9 @@ import { useUserPageStyles } from "./styles";
 import UserContent from "./userContent/UserContent";
 import UserContentMobile from "./userContentMobile/UserContentMobile";
 
-function UserPageNew() {
+const UserPageNew = () => {
   const classes = useUserPageStyles();
-  const { matchesMobile, matchesTablet } = useMedia();
+  const { matchesMobile } = useMedia();
 
   return (
     <MetaLayout>
@@ -23,5 +23,5 @@ function UserPageNew() {
       </Box>
     </MetaLayout>
   );
-}
+};
 export default React.memo(UserPageNew);
