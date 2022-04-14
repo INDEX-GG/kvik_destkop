@@ -34,15 +34,15 @@ const ClientPageMenuLeft = () => {
   return (
     <Box
       // className="clientPage__menu"
-      className={classes.clientPage__menu}
+      className={classes.clientPage__menu} //добавил
     >
       <Box
         // className="clientPage__userinfo"
-        className={classes.clientPage__userinfo}
+        className={classes.clientPage__userinfo} //добавил
       >
         <Box
           // className="clientPage__userpic"
-          className={classes.clientPage__userpic}
+          className={classes.clientPage__userpic} //добавил
         >
           {isLoading ? null : (
             <Avatar

@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   clientPage__placeholderContainer: {
     width: "100%",
     marginTop: "148px",
@@ -8,6 +8,9 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    [theme.breakpoints.down(1080)]: {
+      marginTop: 50,
+    },
   },
   userProduct: {
     display: "grid",

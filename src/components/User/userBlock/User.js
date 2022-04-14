@@ -78,7 +78,7 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
             {navItems.length
               ? navItems.map((item) => {
                   return (
-                    <Link
+                    <a
                       key={item.id}
                       // className={itemNav.i === item.id ? "navActive" : ""}
                       className={itemNav.i === item.id ? classes.navActive : ""} // добавил
@@ -88,7 +88,7 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
                     >
                       {/* {item.title} {brooklyn(item.count)} */}
                       {`${item.title} ${item.count || ""}`}
-                    </Link>
+                    </a>
                   );
                 })
               : null}

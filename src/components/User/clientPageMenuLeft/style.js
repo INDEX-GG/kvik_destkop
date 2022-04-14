@@ -1,6 +1,44 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  clientPage__menu: {
+    position: "sticky",
+    height: "min-content",
+    top: "100px",
+    gridArea: "2 / 2 / 3 / 3",
+    padding: "21px 10px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    userSelect: "none",
+    borderRadius: "10px",
+    boxShadow: "0 0 20px #0000001a",
+    transition: "all 350ms ease-in-out",
+    background: "#ffffff",
+
+    [theme.breakpoints.down(1080)]: {
+      gridArea: 0,
+      borderRadius: 0,
+      boxShadow: "none",
+      padding: "21px 10px 0 10px",
+      position: "relative",
+      top: 0,
+      "&:hover": {
+        boxShadow: "none",
+      },
+    },
+    [theme.breakpoints.down(1024)]: {
+      padding: "10px !important",
+      gridArea: "1 / 1 / 1 / 1",
+    },
+    "&>*": {
+      margin: "21px 0",
+      [theme.breakpoints.down(1024)]: {
+        margin: "0 0 15px 0 !important",
+      },
+    },
+  },
   clientPage__userinfo: {
     width: "100%",
     display: "flex",
@@ -23,33 +61,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  clientPage__menu: {
-    position: "sticky",
-    height: "min-content",
-    top: "100px",
-    gridArea: "2 / 2 / 3 / 3",
-    padding: "21px 10px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    userSelect: "none",
-    borderRadius: "10px",
-    boxShadow: "0 0 20px #0000001a",
-    transition: "all 350ms ease-in-out",
-    background: "#ffffff",
-
-    "&>*": {
-      margin: "21px 0",
-    },
-
-    [theme.breakpoints.down(1080)]: {
-      padding: "10px", //!important
-      "&>*": {
-        margin: "0 0 15px 0", // !important
-      },
-    },
-  },
   clientPage__username: {
     margin: "8px 0",
   },
@@ -83,6 +94,9 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
+    },
+    [theme.breakpoints.down(1080)]: {
+      maxWidth: 204,
     },
   },
 

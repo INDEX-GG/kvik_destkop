@@ -15,7 +15,10 @@ function UserPageNew() {
 
   return (
     <MetaLayout>
-      <Box className="clientPage text">
+      <Box
+        // className="clientPage text"
+        className={`${classes.clientPage} ${classes.text}`}
+      >
         {matchesMobile ? <UserContentMobile /> : <UserContent />}
       </Box>
     </MetaLayout>

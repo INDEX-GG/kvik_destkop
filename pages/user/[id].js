@@ -398,6 +398,8 @@ function UserPage() {
 
   return (
     <MetaLayout>
+      <UserPageNew />
+      <p>-------------------------------------</p>
       <div className="clientPage text">
         {matchesMobile ? userContentMobile() : userContent()}
       </div>
@@ -431,8 +433,6 @@ function UserPage() {
           <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
         </DialogActions>
       </Dialog>
-      <p>-------------------------------------</p>
-      <UserPageNew />
     </MetaLayout>
   );
 }
