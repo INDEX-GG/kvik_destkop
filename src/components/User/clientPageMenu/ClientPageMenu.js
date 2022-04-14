@@ -116,7 +116,7 @@ const ClientPageMenu = () => {
             </Box>
           </Box>
 
-          {+router.query.id === id ? null : "<ClientPageSubMenu />"}
+          {+router.query.id === id ? null : <ClientPageSubMenu />}
         </Box>
       </Box>
 
