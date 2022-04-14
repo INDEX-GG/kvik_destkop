@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { STATIC_URL } from "../../../../../lib/constants";
 import AdCard_component from "../../../../../components/AdCard";
-
+import { Box } from "@material-ui/core";
 function Sold(data) {
   const [dataArr, setDataArr] = useState(false);
 
@@ -25,35 +25,35 @@ function Sold(data) {
   };
 
   return data?.offers.length ? (
-    <div className="userProduct">
+    <Box className="userProduct">
       {dataArr &&
         dataArr.map((item, i) => {
           return <AdCard_component isGrid={true} key={i} offer={item} />;
         })}
-    </div>
+    </Box>
   ) : (
-    <div className="clientPage__placeholder-container">
-      <div className="clientPage__placeholder-title">
+    <Box className="clientPage__placeholder-container">
+      <Box className="clientPage__placeholder-title">
         У этого пользователя нет завершенных объявлений
-      </div>
-      <div className="clientPage__placeholder-ads">
-        <div className="clientPage__placeholder-item">
-          <div className="clientPage__placeholder-item-1" />
-          <div className="clientPage__placeholder-item-2" />
-          <div className="clientPage__placeholder-item-3" />
-        </div>
-        <div className="clientPage__placeholder-item">
-          <div className="clientPage__placeholder-item-1" />
-          <div className="clientPage__placeholder-item-2" />
-          <div className="clientPage__placeholder-item-3" />
-        </div>
-        <div className="clientPage__placeholder-item">
-          <div className="clientPage__placeholder-item-1" />
-          <div className="clientPage__placeholder-item-2" />
-          <div className="clientPage__placeholder-item-3" />
-        </div>
-      </div>
-    </div>
+      </Box>
+      <Box className="clientPage__placeholder-ads">
+        <Box className="clientPage__placeholder-item">
+          <Box className="clientPage__placeholder-item-1" />
+          <Box className="clientPage__placeholder-item-2" />
+          <Box className="clientPage__placeholder-item-3" />
+        </Box>
+        <Box className="clientPage__placeholder-item">
+          <Box className="clientPage__placeholder-item-1" />
+          <Box className="clientPage__placeholder-item-2" />
+          <Box className="clientPage__placeholder-item-3" />
+        </Box>
+        <Box className="clientPage__placeholder-item">
+          <Box className="clientPage__placeholder-item-1" />
+          <Box className="clientPage__placeholder-item-2" />
+          <Box className="clientPage__placeholder-item-3" />
+        </Box>
+      </Box>
+    </Box>
   );
 }
 export default Sold;
