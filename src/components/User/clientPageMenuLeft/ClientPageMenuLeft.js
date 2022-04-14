@@ -50,6 +50,7 @@ const ClientPageMenuLeft = () => {
               alt={"avatar"}
               src={`${STATIC_URL}/${sellerPhoto}`}
               userName={initials(sellerName)}
+              customStyle={classes.avararSize}
             />
             // <Avatar
             //   src={`${STATIC_URL}/${sellerPhoto}`}
