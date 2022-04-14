@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core";
-import { makeStyles1 } from "../../../../icons/danger.svg";
+import danger from "../../../../icons/danger.svg";
 
-console.log("makeStyles1", makeStyles1);
 const useStyles = makeStyles(() => ({
   btnSubscribe: {
     width: "203px",
@@ -18,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
   SellerInfoComplain: {
     padding: "4px 24px 4px 0",
-    background: "no-repeat center right url(../../../../icons/danger.svg)", // не работает!!!
+    background: `no-repeat center right url(${danger.src})`,
     backgroundSize: "contain",
   },
   small: {
