@@ -3,10 +3,13 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { STATIC_URL } from "../../../../../lib/constants";
 import AdCard_component from "../../../../../components/AdCard";
+import { Box } from "@material-ui/core";
+
+import { useSoldStyle } from "./soldStyle";
 
 function Active(data) {
   const [dataArr, setDataArr] = useState(false);
-
+  const classes = useSoldStyle();
   useEffect(() => {
     createData(data);
   }, [data]);
@@ -28,36 +31,84 @@ function Active(data) {
 
   return data?.offers ? (
     data.offers.length ? (
-      <div className="userProduct">
+      <Box
+        // className="userProduct"
+        className={classes.userProduct}
+      >
         {dataArr &&
           dataArr.map((item, i) => {
             // console.log(item)
             return <AdCard_component isGrid={true} key={i} offer={item} />;
           })}
-      </div>
+      </Box>
     ) : (
-      <div className="clientPage__placeholder-container">
-        <div className="clientPage__placeholder-title">
+      <Box
+        // className="clientPage__placeholder-container"
+        className={classes.clientPage__placeholderContainer}
+      >
+        <Box
+          // className="clientPage__placeholder-title"
+          className={classes.clientPage__placeholderTitle}
+        >
           У пользователя еще нет объявлений
-        </div>
-        <div className="clientPage__placeholder-ads">
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1" />
-            <div className="clientPage__placeholder-item-2" />
-            <div className="clientPage__placeholder-item-3" />
-          </div>
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1" />
-            <div className="clientPage__placeholder-item-2" />
-            <div className="clientPage__placeholder-item-3" />
-          </div>
-          <div className="clientPage__placeholder-item">
-            <div className="clientPage__placeholder-item-1" />
-            <div className="clientPage__placeholder-item-2" />
-            <div className="clientPage__placeholder-item-3" />
-          </div>
-        </div>
-      </div>
+        </Box>
+        <Box
+          // className="clientPage__placeholder-ads"
+          className={classes.clientPage__placeholderAds}
+        >
+          <Box
+            // className="clientPage__placeholder-item"
+            className={classes.clientPage__placeholderItem}
+          >
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem1}
+            />
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem2}
+            />
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem3}
+            />
+          </Box>
+          <Box
+            // className="clientPage__placeholder-item"
+            className={classes.clientPage__placeholderItem}
+          >
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem1}
+            />
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem2}
+            />
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem3}
+            />
+          </Box>
+          <Box
+            // className="clientPage__placeholder-item"
+            className={classes.clientPage__placeholderItem}
+          >
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem1}
+            />
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem2}
+            />
+            <Box
+              //  className="clientPage__placeholder-item-1"
+              className={classes.clientPage__placeholderItem3}
+            />
+          </Box>
+        </Box>
+      </Box>
     )
   ) : null;
 }
