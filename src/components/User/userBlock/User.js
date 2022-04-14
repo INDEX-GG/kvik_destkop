@@ -3,7 +3,8 @@ import Active from "./tabs/Active";
 import Sold from "./tabs/Sold";
 import Placeholder from "./tabs/Placeholder";
 
-import { Box } from "@material-ui/core";
+import { Box, Link } from "@material-ui/core";
+import { useUserStyle } from "./style";
 
 // import { useAd } from "../../hooks/useAd";
 // import { useRouter } from "next/router";
@@ -13,6 +14,8 @@ import { Box } from "@material-ui/core";
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore";
 
 const UsersPage = ({ data, itemNav, setItemNav }) => {
+  const classes = useUserStyle();
+
   //   const [activeBox, setActiveBox] = useState([]);
   //   const [activeTotal, setActiveTotal] = useState(null)
   //   const [soldBox, setSoldBox] = useState([]);
@@ -60,22 +63,32 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
 
   return (
     <>
-      <Box className="clientPage__container_top">
-        <Box className="clientPage__container_nav__wrapper">
-          <Box className="clientPage__container_nav">
+      <Box
+        // className="clientPage__container_top"
+        className={classes.clientPage__container_top} // добавил
+      >
+        <Box
+          // className="clientPage__container_nav__wrapper"
+          className={classes.clientPage__container_nav__wrapper} // добавил
+        >
+          <Box
+            // className="clientPage__container_nav"
+            className={classes.clientPage__container_nav} // добавил
+          >
             {navItems.length
               ? navItems.map((item) => {
                   return (
-                    <a
+                    <Link
                       key={item.id}
-                      className={itemNav.i === item.id ? "navActive" : ""}
+                      // className={itemNav.i === item.id ? "navActive" : ""}
+                      className={itemNav.i === item.id ? classes.navActive : ""} // добавил
                       onClick={() =>
                         setItemNav({ i: item.id, ttl: item.title })
                       }
                     >
                       {/* {item.title} {brooklyn(item.count)} */}
                       {`${item.title} ${item.count || ""}`}
-                    </a>
+                    </Link>
                   );
                 })
               : null}
