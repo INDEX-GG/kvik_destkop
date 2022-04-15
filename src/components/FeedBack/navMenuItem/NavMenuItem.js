@@ -41,10 +41,22 @@ const NavMenuItem = ({ menuItem, isMobile }) => {
   const stopScrool = (e, newLink) => {
     e.preventDefault();
     const id = newLink.split("#")[1];
-    router.push(newLink);
-    setTimeout(() => {
-      scrollToElem(id);
-    }, 160);
+    // router.push(newLink, undefined, { scroll: false });
+    console.log(router.pathname, newLink.split("/")[2].split("#")[0]);
+    let page = newLink.split("/")[2].split("#")[0];
+
+    router.push({ pathname: `/feedback/${page}` });
+    // setTimeout(() => {
+    scrollToElem(id);
+    // }, 160);
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ПОПРОБЫВАТЬ
+    // async function navigate(newCurrency) {
+    //   router.push({
+    //     pathname: router.pathname,
+    //     query: { ...router.query, currency: newCurrency.value },
+    //   }, undefined, { scroll: false });
+    // }
   };
 
   const scrollToElem = (id) => {
@@ -106,9 +118,9 @@ const NavMenuItem = ({ menuItem, isMobile }) => {
 
     // скроллим к элементы в случае нажатия кнопки назад
     // без таймаута не работает
-    setTimeout(() => {
-      scrollToElem(elemId);
-    });
+    // setTimeout(() => {
+    scrollToElem(elemId);
+    // });
   }, [router]);
 
   useEffect(() => {
