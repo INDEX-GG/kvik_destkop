@@ -36,10 +36,10 @@ const Item = ({ links, isMobile, idPage }) => {
         ? `${classes.itemLink} ${classes.linkActive}`
         : classes.itemLink;
     });
-    // console.log(idPage, "idPageidPageidPageidPage");
+    // console.log(link.idonPage, "linklinklinklink-----ITEM");
     return (
       <Box component="li" key={idx} className={linkStyle}>
-        <Link href={`/feedback/${idPage}`} replace>
+        <Link href={`/feedback/${idPage}#${link.idonPage}`} replace>
           {link.text}
         </Link>
       </Box>

@@ -13,7 +13,8 @@
         ],
         "link": {
           "query": { "obyvlenie": "PodatObyvlenie" }
-        }
+        },
+        "idonPage": "PodatObyvlenie"
       },
       {
         "text": "Подать объявление 2222",
@@ -25,7 +26,8 @@
         ],
         "link": {
           "query": { "obyvlenie": "PodatObyvlenie22" }
-        }
+        },
+        "idonPage": "PodatObyvlenie22"
       },
       {
         "text": "Подать объявление 33333 Пода бъя вле 33333",
@@ -37,7 +39,8 @@
         ],
         "link": {
           "query": { "obyvlenie": "PodatObyvlenie33" }
-        }
+        },
+        "idonPage": "PodatObyvlenie33"
       }
     ]
   },
@@ -55,7 +58,8 @@
         ],
         "link": {
           "query": { "uslugi": "p1" }
-        }
+        },
+        "idonPage": "p1"
       },
       {
         "text": "22222Подать объявление 222",
@@ -67,7 +71,8 @@
         ],
         "link": {
           "query": { "uslugi": "p2" }
-        }
+        },
+        "idonPage": "p2"
       },
       {
         "text": "22222Подать объявление 333",
@@ -79,7 +84,8 @@
         ],
         "link": {
           "query": { "uslugi": "p3" }
-        }
+        },
+        "idonPage": "p3"
       }
     ]
   },
@@ -97,7 +103,8 @@
         ],
         "link": {
           "query": { "uslugi33": "g1" }
-        }
+        },
+        "idonPage": "g1"
       }
     ]
   },
@@ -115,7 +122,8 @@
         ],
         "link": {
           "query": { "uslugi4": "v4" }
-        }
+        },
+        "idonPage": "v4"
       }
     ]
   },
@@ -134,7 +142,8 @@
         ],
         "link": {
           "query": { "lk": "lk1" }
-        }
+        },
+        "idonPage": "lk1"
       },
       {
         "text": "Кошеле",
@@ -146,7 +155,8 @@
         ],
         "link": {
           "query": { "lk": "lk2" }
-        }
+        },
+        "idonPage": "lk2"
       },
       {
         "text": "Избранное",
@@ -158,7 +168,8 @@
         ],
         "link": {
           "query": { "lk": "lk3" }
-        }
+        },
+        "idonPage": "lk3"
       },
       {
         "text": "Избранное 4444",
@@ -170,7 +181,8 @@
         ],
         "link": {
           "query": { "lk": "lk4" }
-        }
+        },
+        "idonPage": "lk4"
       },
       {
         "text": "Избранное 5555",
@@ -182,7 +194,8 @@
         ],
         "link": {
           "query": { "lk": "lk5" }
-        }
+        },
+        "idonPage": "lk5"
       },
       {
         "text": "Избранное 5555",
@@ -194,7 +207,8 @@
         ],
         "link": {
           "query": { "lk": "lk6" }
-        }
+        },
+        "idonPage": "lk6"
       },
       {
         "text": "Избранное 77777",
@@ -206,7 +220,8 @@
         ],
         "link": {
           "query": { "lk": "lk7" }
-        }
+        },
+        "idonPage": "lk7"
       },
       {
         "text": "Избранное 8888",
@@ -218,7 +233,8 @@
         ],
         "link": {
           "query": { "lk": "lk8" }
-        }
+        },
+        "idonPage": "lk8"
       },
       {
         "text": "Избранное 9",
@@ -230,7 +246,8 @@
         ],
         "link": {
           "query": { "lk": "lk9" }
-        }
+        },
+        "idonPage": "lk9"
       },
       {
         "text": "Избранное 10",
@@ -242,7 +259,8 @@
         ],
         "link": {
           "query": { "lk": "lk10" }
-        }
+        },
+        "idonPage": "lk10"
       }
     ]
   }

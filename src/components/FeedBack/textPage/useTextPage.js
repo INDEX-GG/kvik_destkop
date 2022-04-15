@@ -42,30 +42,30 @@ export const useTextPage = (links, isMobile, myRef) => {
 
   //  фильтрую доступные страницы по ключу из  router.query
   useEffect(() => {
-    const routerPage = Object.keys(router.query)[0];
+    const routerId = Object.values(router.query)[0];
+
     //фильтрация массива по ключу из роутера с элементом из массива для определения активной страницы
     const filtered = links.filter((arr) => {
-      const arrPage = Object.keys(arr.links[0].link.query)[0];
-      if (routerPage === arrPage) {
+      if (routerId === arr.idPage) {
         return arr;
       }
     });
     setPageData(filtered[0]);
     //скролл при изменении роута до ID значения роута
-    scrollToElem();
+    // scrollToElem();
   }, [router]);
   useEffect(() => {
-    window.addEventListener("scroll", scroll);
+    // window.addEventListener("scroll", scroll);
 
     setTimeout(() => {
-      scrollToElem();
+      // scrollToElem();
     });
     return () => {
-      window.removeEventListener("scroll", scroll);
+      // window.removeEventListener("scroll", scroll);
     };
   }, []);
   useEffect(() => {
-    scrollToElem();
+    // scrollToElem();
   }, [pageData]);
   return {
     pageData,

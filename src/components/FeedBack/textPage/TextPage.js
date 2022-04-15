@@ -31,7 +31,7 @@ const TextPage = ({ links, isMobile }) => {
             <Link href={state.link} replace className={classes.navLink}>
               Помощь
             </Link>
-            {/* <Box className={classes.navLink}>{pageData.header}</Box> */}
+            <Box className={classes.navLink}>{pageData.header}</Box>
           </Box>
         )}
         {pageData ? (
