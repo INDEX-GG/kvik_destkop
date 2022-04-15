@@ -37,15 +37,14 @@ const NavMenuItem = ({ menuItem, isMobile }) => {
   const handleClick = () => {
     setOpen(!open);
   };
-
+  const elemId = router.asPath.split("#")[1];
   const stopScrool = (e, newLink) => {
     e.preventDefault();
-
     const id = newLink.split("#")[1];
     router.push(newLink);
-    // setTimeout(() => {
-    scrollToElem(id);
-    // }, 60);
+    setTimeout(() => {
+      scrollToElem(id);
+    }, 160);
   };
 
   const scrollToElem = (id) => {
@@ -60,9 +59,9 @@ const NavMenuItem = ({ menuItem, isMobile }) => {
       }
     }
   };
+
   const scroll = () => {
     let arrh1 = document.getElementsByTagName("h1");
-
     for (let i = 0; i < arrh1.length; i++) {
       const elem = arrh1[i];
       const { top } = elem.getBoundingClientRect();
@@ -104,9 +103,21 @@ const NavMenuItem = ({ menuItem, isMobile }) => {
     } else {
       setOpen(false);
     }
+
+    // скроллим к элементы в случае нажатия кнопки назад
+    // без таймаута не работает
+    setTimeout(() => {
+      scrollToElem(elemId);
+    });
   }, [router]);
 
   useEffect(() => {
+    //первый скролл к элементу
+
+    setTimeout(() => {
+      scrollToElem(elemId);
+    });
+
     window.addEventListener("scroll", scroll);
     return () => {
       window.removeEventListener("scroll", scroll);
