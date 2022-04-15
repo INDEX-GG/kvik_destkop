@@ -9,7 +9,7 @@ import List from "@mui/material/List";
 
 import { useItem } from "./style";
 
-const Item = ({ links, isMobile }) => {
+const Item = ({ links, isMobile, idPage }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -36,9 +36,10 @@ const Item = ({ links, isMobile }) => {
         ? `${classes.itemLink} ${classes.linkActive}`
         : classes.itemLink;
     });
+    // console.log(idPage, "idPageidPageidPageidPage");
     return (
       <Box component="li" key={idx} className={linkStyle}>
-        <Link href={link.link} replace>
+        <Link href={`/feedback/${idPage}`} replace>
           {link.text}
         </Link>
       </Box>

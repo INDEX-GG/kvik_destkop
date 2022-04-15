@@ -42,10 +42,10 @@ const NavMenuItem = ({ menuItem }) => {
         ? `${classes.navLink} ${classes.linkActive}`
         : classes.navLink;
     });
-
+    console.log("navMenuItem", menuItem);
     return (
       <Box component="li" key={idx} className={linkStyle}>
-        <Link href={link.link} replace>
+        <Link href={`/feedback/${menuItem.idPage}`} replace>
           {link.text}
         </Link>
       </Box>

@@ -19,10 +19,14 @@ const Content = ({ textOpen, links, isMobile }) => {
   const RightMenu = links.slice(middleArr);
 
   const leftMenuItems = leftMenu.map((item, idx) => {
-    return <Item key={idx} links={item} isMobile={isMobile} />;
+    return (
+      <Item key={idx} links={item} isMobile={isMobile} idPage={item.idPage} />
+    );
   });
   const rightMenuItems = RightMenu.map((item, idx) => {
-    return <Item key={idx} links={item} isMobile={isMobile} />;
+    return (
+      <Item key={idx} links={item} isMobile={isMobile} idPage={item.idPage} />
+    );
   });
 
   const handleChangeOpenForm = () => {
