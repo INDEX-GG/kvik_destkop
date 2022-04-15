@@ -14,7 +14,9 @@ const NavMenu = ({ links, isMobile }) => {
   return (
     <Box className={navMenuStyle}>
       {links.map((menuItem, idx) => {
-        return <NavMenuItem key={idx} menuItem={menuItem} />;
+        return (
+          <NavMenuItem key={idx} menuItem={menuItem} isMobile={isMobile} />
+        );
       })}
     </Box>
   );

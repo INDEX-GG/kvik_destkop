@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useMemo } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+
 import { Box } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -14,9 +14,11 @@ import { ContextApp } from "../reducer";
 import { useNavMenuItem } from "./style";
 import { useCustomRouter } from "src/hook/globalHooks/useCustomRouter";
 
-const NavMenuItem = ({ menuItem }) => {
+const NavMenuItem = ({ menuItem, isMobile }) => {
   const [open, setOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState("");
+
+  const [pName, setpName] = useState(false);
+
   const { router } = useCustomRouter();
   const classes = useNavMenuItem();
 
@@ -35,61 +37,60 @@ const NavMenuItem = ({ menuItem }) => {
   const handleClick = () => {
     setOpen(!open);
   };
-  const scrollToElem = () => {
-    console.log("СКРОЛЛ К ЭЛЕМЕНТУ");
-    const idElem = window.location.hash.split("#")[1];
-    console.log("elemelemelem", idElem);
-    const elem = document.getElementById(idElem);
-    console.log("elemelemelem", elem);
-    // if (elem) {
-    //   if (isMobile) {
-    //     // этот режим работает с модальным окном
-    //     elem.scrollIntoView();
-    //   } else {
-    //     window.scrollTo({ top: elem.offsetTop });
-    //   }
-    // }
+
+  const stopScrool = (e, newLink) => {
+    e.preventDefault();
+
+    const id = newLink.split("#")[1];
+    router.push(newLink);
+    // setTimeout(() => {
+    scrollToElem(id);
+    // }, 60);
+  };
+
+  const scrollToElem = (id) => {
+    const elem = document.getElementById(id);
+
     if (elem) {
-      window.scrollTo({ top: elem.offsetTop });
+      if (isMobile) {
+        // этот режим работает с модальным окном
+        elem.scrollIntoView();
+      } else {
+        window.scrollTo({ top: elem.offsetTop });
+      }
     }
   };
   const scroll = () => {
-    let currentPage = window.location.pathname.split("/")[2];
     let arrh1 = document.getElementsByTagName("h1");
 
-    // for (let i = 0; i < arrh1.length; i++) {
-    //   const elem = arrh1[i];
-    //   const { top } = elem.getBoundingClientRect();
-    //   if (top >= 0 && top < 200) {
-    //     const locationId = window.location.hash.split("#")[1];
-    //     // если не равно значит Новый элемент защел в зону активации активной ссылки
-    //     if (locationId !== elem.id) {
-    //       router.push(`/feedback/${currentPage}/#${elem.id}`, undefined, {
-    //         shallow: true,
-    //       });
-    //     }
-    //   }
-    // }
+    for (let i = 0; i < arrh1.length; i++) {
+      const elem = arrh1[i];
+      const { top } = elem.getBoundingClientRect();
+
+      if (top >= 0 && top < 200) {
+        setpName(elem.id);
+      }
+    }
   };
 
   const listLinks = menuItem.links.map((link, idx) => {
-    const pathName = window.location.hash.split("#")[1];
     const idNavlink = Object.values(link.link.query)[0];
 
     const linkStyle = useMemo(() => {
-      return pathName === idNavlink
+      return pName === idNavlink
         ? `${classes.navLink} ${classes.linkActive}`
         : classes.navLink;
     });
-
+    const newLink = `/feedback/${menuItem.idPage}#${link.idonPage}`;
     return (
       <Box component="li" key={idx} className={linkStyle}>
-        <Link href={`/feedback/${menuItem.idPage}#${link.idonPage}`}>
-          {link.text}
+        <Link href={newLink}>
+          <a onClick={(e) => stopScrool(e, newLink)}>{link.text}</a>
         </Link>
       </Box>
     );
   });
+
   useEffect(() => {
     const idPage = menuItem.idPage;
     if (idPage === Object.values(router.query)[0]) {
@@ -103,17 +104,10 @@ const NavMenuItem = ({ menuItem }) => {
     } else {
       setOpen(false);
     }
-    // setTimeout(() => {
-    //   scrollToElem();
-    // });
   }, [router]);
 
   useEffect(() => {
     window.addEventListener("scroll", scroll);
-
-    // setTimeout(() => {
-    //   scrollToElem();
-    // });
     return () => {
       window.removeEventListener("scroll", scroll);
     };
