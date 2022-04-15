@@ -14,6 +14,7 @@ import ClientPageSubMenu from "../clientPageSubMenu/ClientPageSubMenu";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useClientPageMenuLeft } from "./style";
 import CustomAvatarUI from "src/UI/UIcomponent/CustomAvatar/CustomAvatarUI";
+import CustomRatingUI from "src/UI/UIcomponent/CustomRating/CustomRatingUI";
 const ClientPageMenuLeft = () => {
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
@@ -62,7 +63,6 @@ const ClientPageMenuLeft = () => {
             // </Avatar>
           )}
         </Box>
-
         <Box
           // className="clientPage__username"
           className={classes.clientPage__username}
@@ -77,15 +77,14 @@ const ClientPageMenuLeft = () => {
         >
           на Kvik c {createdAt ? ToRusAccountDate(createdAt) : ""}
         </Box>
-
-        <Tooltip
+        {/* <Tooltip
           title="В разработке"
           arrow
           classes={{ tooltip: classes.tooltip, arrow: classes.arrow }} //  добавил
         >
           <Box
-            // className="clientPage__userrate"
-            className={classes.clientPage__userrate} //  добавил
+          // className="clientPage__userrate"
+          // className={classes.clientPage__userrate} //  добавил
           >
             <Box
               // className="clientPage__userrate__num"
@@ -93,9 +92,15 @@ const ClientPageMenuLeft = () => {
             >
               {raiting}
             </Box>
-            <StarRating rating={raiting} />
+            <StarRating rating={raiting} /> 
           </Box>
-        </Tooltip>
+        </Tooltip> */}
+        <Box
+          className={classes.clientPage__userrate} //  добавил класс для отступа
+        >
+          {/* ширина звезд не совпадает со старым дизайном */}
+          <CustomRatingUI rating={raiting} />
+        </Box>
 
         <Box
           // className="clientPage__userstats highlight small"
@@ -146,7 +151,6 @@ const ClientPageMenuLeft = () => {
             </Button>
           </Box>
         </Box>
-
         {+router.query.id === id ? null : <ClientPageSubMenu />}
       </Box>
     </Box>
