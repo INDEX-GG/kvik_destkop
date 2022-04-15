@@ -397,42 +397,45 @@ function UserPage() {
   };
 
   return (
+    // <MetaLayout>
+    //   <UserPageNew />
+
+    //   <div className="clientPage text">
+    //     {matchesMobile ? userContentMobile() : userContent()}
+    //   </div>
+    //   <Dialog
+    //     open={reviewsModal || false}
+    //     onClose={() => setReviewsModal(!reviewsModal)}
+    //     fullScreen={matchesMobile || matchesTablet ? true : false}
+    //   >
+    //     <ModalRating
+    //       rate={raiting}
+    //       comments={2}
+    //       mobile={matchesMobile || matchesTablet ? true : false}
+    //       modal={() => modal(reviewsModal, setReviewsModal)}
+    //     />
+    //   </Dialog>
+    //   {/* <Dialog open={subscribersModal || false} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+    //     <ModalSubscribers data={subscribersList} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(subscribersModal, setSubscribersModal)} />
+    //   </Dialog> */}
+    //   {/* <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
+    //     <ModalSubscription data={subList} subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} />
+    //   </Dialog> */}
+    //   <Dialog open={blockOpen} onClose={() => setBlockOpen(false)}>
+    //     <DialogContent>
+    //       <DialogContentText>
+    //         Вы уверены, что хотите{" "}
+    //         {userBlockBool ? "разбокировать" : "заблокировать"} пользователя?
+    //       </DialogContentText>
+    //     </DialogContent>
+    //     <DialogActions>
+    //       {/*<Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>*/}
+    //       <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
+    //     </DialogActions>
+    //   </Dialog>
+    // </MetaLayout>
     <MetaLayout>
       <UserPageNew />
-      <p>-------------------------------------</p>
-      <div className="clientPage text">
-        {matchesMobile ? userContentMobile() : userContent()}
-      </div>
-      <Dialog
-        open={reviewsModal || false}
-        onClose={() => setReviewsModal(!reviewsModal)}
-        fullScreen={matchesMobile || matchesTablet ? true : false}
-      >
-        <ModalRating
-          rate={raiting}
-          comments={2}
-          mobile={matchesMobile || matchesTablet ? true : false}
-          modal={() => modal(reviewsModal, setReviewsModal)}
-        />
-      </Dialog>
-      {/* <Dialog open={subscribersModal || false} onClose={() => setSubscribersModal(!subscribersModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscribers data={subscribersList} mobile={matchesMobile || matchesTablet ? true : false} modal={() => modal(subscribersModal, setSubscribersModal)} />
-      </Dialog> */}
-      {/* <Dialog open={subscriptionsModal || false} onClose={() => setSubscriptionsModal(!subscriptionsModal)} fullScreen={matchesMobile || matchesTablet ? true : false}>
-        <ModalSubscription data={subList} subscription={subList.length} modal={() => modal(subscriptionsModal, setSubscriptionsModal)} mobile={matchesMobile || matchesTablet ? true : false} />
-      </Dialog> */}
-      <Dialog open={blockOpen} onClose={() => setBlockOpen(false)}>
-        <DialogContent>
-          <DialogContentText>
-            Вы уверены, что хотите{" "}
-            {userBlockBool ? "разбокировать" : "заблокировать"} пользователя?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          {/*<Button onClick={() => {blockUser(!userBlockBool); setBlockOpen(false)}}>{userBlockBool ? 'Разбокировать' :'Заблокировать'}</Button>*/}
-          <Button onClick={() => setBlockOpen(false)}>Отмена</Button>
-        </DialogActions>
-      </Dialog>
     </MetaLayout>
   );
 }
