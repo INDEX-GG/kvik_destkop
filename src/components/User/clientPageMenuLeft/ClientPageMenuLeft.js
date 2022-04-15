@@ -15,6 +15,8 @@ import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useClientPageMenuLeft } from "./style";
 import CustomAvatarUI from "src/UI/UIcomponent/CustomAvatar/CustomAvatarUI";
 import CustomRatingUI from "src/UI/UIcomponent/CustomRating/CustomRatingUI";
+import CustomTooltipUI from "src/UI/UIcomponent/CustomTooltip/CustomTooltipUI";
+
 const ClientPageMenuLeft = () => {
   const [reviewsModal, setReviewsModal] = useState(false);
   const [subscriptionsModal, setSubscriptionsModal] = useState(false);
@@ -95,24 +97,22 @@ const ClientPageMenuLeft = () => {
             <StarRating rating={raiting} /> 
           </Box>
         </Tooltip> */}
-        <Box
-          className={classes.clientPage__userrate} //  добавил класс для отступа
-        >
-          {/* ширина звезд не совпадает со старым дизайном */}
-          <CustomRatingUI rating={raiting} />
-        </Box>
 
+        <CustomTooltipUI title="В разработке">
+          <Box
+            className={classes.clientPage__userrate} //  добавил класс для отступа
+          >
+            {/* ширина звезд не совпадает со старым дизайном */}
+            <CustomRatingUI rating={raiting} />
+          </Box>
+        </CustomTooltipUI>
         <Box
           // className="clientPage__userstats highlight small"
           className={`${classes.clientPage__userstats} ${classes.highlight} ${
             classes.small
           }`} //  добавил
         >
-          <Tooltip
-            title="В разработке"
-            arrow
-            classes={{ tooltip: classes.tooltip, arrow: classes.arrow }}
-          >
+          <CustomTooltipUI title="В разработке">
             <Box className={classes.userStats}>
               <span>{"0"}</span>
               <Button
@@ -126,7 +126,7 @@ const ClientPageMenuLeft = () => {
                 <p>Отзывы</p>
               </Button>
             </Box>
-          </Tooltip>
+          </CustomTooltipUI>
 
           <Box className={classes.userStats}>
             <span>{subscribers_count}</span>
