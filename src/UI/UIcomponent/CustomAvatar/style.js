@@ -1,11 +1,11 @@
-import {makeStyles} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-    avatar: {
-        width: '56px',
-        height: '56px',
-        cursor: 'pointer',
-    },
+  avatar: {
+    minWidth: "56px",
+    minHeight: "56px",
+    cursor: "pointer",
+  },
 }));
 
 export const useCustomAvatarUIStyles = () => useStyles();
