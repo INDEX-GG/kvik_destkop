@@ -66,7 +66,21 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
   const clickLink = (item) => {
     setItemNav({ i: item.id, ttl: item.title });
   };
-
+  const userBnts = navItems.length
+    ? navItems.map((item) => {
+        return (
+          <CustomButtonUI
+            key={item.id}
+            onClick={() => clickLink(item)}
+            customRoot={
+              itemNav.i === item.id
+                ? `${classes.tabBtn} ${classes.navActive}`
+                : classes.tabBtn
+            }
+          >{`${item.title} ${item.count || ""}`}</CustomButtonUI>
+        );
+      })
+    : null;
   const items = navItems.map(
     (item) =>
       itemNav.i === item.id &&
@@ -91,21 +105,7 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
             // className="clientPage__container_nav"
             className={classes.clientPage__container_nav} // добавил
           >
-            {navItems.length
-              ? navItems.map((item) => {
-                  return (
-                    <CustomButtonUI
-                      key={item.id}
-                      onClick={() => clickLink(item)}
-                      customRoot={
-                        itemNav.i === item.id
-                          ? `${classes.tabBtn} ${classes.navActive}`
-                          : classes.tabBtn
-                      }
-                    >{`${item.title} ${item.count || ""}`}</CustomButtonUI>
-                  );
-                })
-              : null}
+            {userBnts}
           </Box>
         </Box>
       </Box>

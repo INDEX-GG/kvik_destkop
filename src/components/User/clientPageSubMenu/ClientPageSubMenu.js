@@ -58,23 +58,6 @@ const ClientPageSubMenu = () => {
           Пожаловаться{" "}
           <Typography className={`${classes.SellerInfoComplain}`} />
         </CustomButtonUI>
-
-        {/* <CustomLinkUI
-          customRoot={`${classes.SellerInfoComplain} ${classes.small} ${
-            classes.light
-          } ${classes.underline}`}
-        >
-          Пожаловаться
-        </CustomLinkUI> */}
-
-        {/* <a
-          // className="SellerInfoComplain small light underline"
-          className={`${classes.SellerInfoComplain} ${classes.small} ${
-            classes.light
-          } ${classes.underline}`}
-        >
-          Пожаловаться
-        </a> */}
       </Box>
     </>
   );
