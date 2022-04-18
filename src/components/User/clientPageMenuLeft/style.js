@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: "none",
       padding: "21px 10px 0 10px",
       position: "relative",
-      top: 0,
+      top: 24, // без этого нет тени от модалки
       "&:hover": {
         boxShadow: "none",
       },

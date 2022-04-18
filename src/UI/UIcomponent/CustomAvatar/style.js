@@ -2,8 +2,8 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   avatar: {
-    minWidth: "56px",
-    minHeight: "56px",
+    minWidth: "80px",
+    minHeight: "80px",
     cursor: "pointer",
   },
 }));
