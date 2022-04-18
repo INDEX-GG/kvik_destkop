@@ -34,6 +34,10 @@ const ClientPageSubMenu = () => {
     }
   };
 
+  const handleSubscribebtn = () => {
+    setUserBool(!userBool);
+    subscribeClickHandler();
+  };
   return (
     <>
       <button
@@ -42,8 +46,7 @@ const ClientPageSubMenu = () => {
         className={classes.btnSubscribe}
         // onClick={() => subscribeUser()}
         onClick={() => {
-          setUserBool(!userBool);
-          subscribeClickHandler();
+          handleSubscribebtn;
         }}
       >
         {userBool ? "Отписаться" : "Подписаться"}
