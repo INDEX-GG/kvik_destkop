@@ -19,12 +19,12 @@ import { useClientPageMenuLeft } from "./style";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 const ClientPageMenuLeft = () => {
-  const [reviewsModal, setReviewsModal] = useState(false);
-  const [subscriptionsModal, setSubscriptionsModal] = useState(false);
-  const { id /*token*/ } = useAuth();
   const router = useRouter();
+  const { id /*token*/ } = useAuth();
   const sellerId = parseInt(router.query.id);
   const sellerInfo = useOutherUser(sellerId);
+  const [reviewsModal, setReviewsModal] = useState(false);
+  const [subscriptionsModal, setSubscriptionsModal] = useState(false);
   const {
     name: sellerName,
     userPhoto: sellerPhoto,
