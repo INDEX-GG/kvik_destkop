@@ -1,9 +1,9 @@
 import React from "react";
+import { Box } from "@material-ui/core";
 import Active from "./tabs/Active";
 import Sold from "./tabs/Sold";
 import Placeholder from "./tabs/Placeholder";
 
-import { Box } from "@material-ui/core";
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore";
 
 // import { useAd } from "../../hooks/useAd";
