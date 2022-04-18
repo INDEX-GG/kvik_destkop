@@ -27,7 +27,9 @@ function FeedBack() {
           open={true}
           customMobile={mobileWidth}
           title={state.title}
-          handleCloseModal={() => router.push(state.link)}
+          handleCloseModal={() => {
+            router.back();
+          }}
         >
           <Content textOpen={textOpen} links={links} isMobile={isMobile} />
         </CustomModalUI>
