@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
   },
   SellerInfoComplain: {
-    padding: "4px 24px 4px 0",
+    padding: "15px 22px 6px 0px",
     background: `no-repeat center right url(${danger.src})`,
     backgroundSize: "contain",
   },
