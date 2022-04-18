@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import MobileModal from "../../../../components/MobileModal";
 import { useRouter } from "next/router";
-
 import UserContent from "../userContent/UserContent";
+
+import MobileModal from "../../../../components/MobileModal";
 
 const UserContentMobile = () => {
   const router = useRouter();

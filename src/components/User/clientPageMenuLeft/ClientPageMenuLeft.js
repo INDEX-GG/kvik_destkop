@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useOutherUser } from "../../../../hooks/useOutherUser";
 import { useRouter } from "next/router";
 import { Avatar, Box, Button } from "@material-ui/core";
 import {
@@ -8,14 +7,15 @@ import {
   initials,
 } from "../../../../lib/services";
 import { Tooltip } from "@mui/material";
-import { STATIC_URL } from "../../../../lib/constants";
-import StarRating from "../../../../components/StarRating";
 import ClientPageSubMenu from "../clientPageSubMenu/ClientPageSubMenu";
-import { useAuth } from "../../../../lib/Context/AuthCTX";
-import { useClientPageMenuLeft } from "./style";
 import CustomAvatarUI from "src/UI/UIcomponent/CustomAvatar/CustomAvatarUI";
 import CustomRatingUI from "src/UI/UIcomponent/CustomRating/CustomRatingUI";
 import CustomTooltipUI from "src/UI/UIcomponent/CustomTooltip/CustomTooltipUI";
+import { STATIC_URL } from "../../../../lib/constants";
+import StarRating from "../../../../components/StarRating";
+import { useAuth } from "../../../../lib/Context/AuthCTX";
+import { useOutherUser } from "../../../../hooks/useOutherUser";
+import { useClientPageMenuLeft } from "./style";
 
 const ClientPageMenuLeft = () => {
   const [reviewsModal, setReviewsModal] = useState(false);

@@ -4,14 +4,14 @@ import Sold from "./tabs/Sold";
 import Placeholder from "./tabs/Placeholder";
 
 import { Box } from "@material-ui/core";
-import { useUserStyle } from "./style";
+import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore";
 
 // import { useAd } from "../../hooks/useAd";
 // import { useRouter } from "next/router";
 // import { brooklyn } from "../../lib/services";
 // import { getDataByPost } from "#lib/fetch";
 
-import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore";
+import { useUserStyle } from "./style";
 
 const UsersPage = ({ data, itemNav, setItemNav }) => {
   const classes = useUserStyle();

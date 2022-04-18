@@ -1,8 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useOutherUser } from "../../../../hooks/useOutherUser";
-import ClientPageMenu from "../clientPageMenu/ClientPageMenu";
 import UserPlaceHolder from "#components/placeHolders/UserPlaceHolder/UserPlaceHolder";
+import ClientPageMenu from "../clientPageMenu/ClientPageMenu";
+import { useOutherUser } from "../../../../hooks/useOutherUser";
 
 const UserContent = () => {
   const router = useRouter();

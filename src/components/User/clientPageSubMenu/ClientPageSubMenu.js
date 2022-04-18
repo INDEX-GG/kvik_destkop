@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { useAuth } from "../../../../lib/Context/AuthCTX";
-import { useStore } from "#lib/Context/Store";
-import { useStatistics } from "#lib/Context/StatisticsCTX";
 import { useRouter } from "next/router";
 import { Box } from "@material-ui/core";
+import { useStore } from "#lib/Context/Store";
+import { useStatistics } from "#lib/Context/StatisticsCTX";
+import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useClientSubMenu } from "./style";
 
 const ClientPageSubMenu = () => {
   const [loading /* setLoading*/] = useState(false);
-  const { id /*token*/ } = useAuth();
-  const { userInfo } = useStore();
   const [userBool, setUserBool] = useState(false);
-  const { addSubscribers, addUnsubscribe } = useStatistics();
   const router = useRouter();
+  const { id /*token*/ } = useAuth();
   const sellerId = parseInt(router.query.id);
+  const { userInfo } = useStore();
+  const { addSubscribers, addUnsubscribe } = useStatistics();
 
   const classes = useClientSubMenu();
 

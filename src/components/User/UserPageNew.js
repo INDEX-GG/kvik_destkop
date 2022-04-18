@@ -1,13 +1,12 @@
 import React from "react";
-import MetaLayout from "#layout/MetaLayout";
-import { useMedia } from "../../../hooks/useMedia";
-
 import { Box } from "@material-ui/core";
-
-import { useUserPageStyles } from "./styles";
+import { useMedia } from "../../../hooks/useMedia";
+import UserContentMobile from "./userContentMobile/UserContentMobile";
+import MetaLayout from "#layout/MetaLayout";
 
 import UserContent from "./userContent/UserContent";
-import UserContentMobile from "./userContentMobile/UserContentMobile";
+
+import { useUserPageStyles } from "./styles";
 
 const UserPageNew = () => {
   const classes = useUserPageStyles();
