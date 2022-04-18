@@ -36,16 +36,9 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: "2px solid #e9e9e9",
 
     "& > *": {
-      // margin: "0 40px 0 0",
-      // padding: "0px 0 16px 0",
       fontSize: "18px",
       color: "#8f8f8f",
-      // transition: "all 200ms ease-in-out",
-      /* border-bottom: 2px solid $light; */
 
-      // "&:last-child": {
-      //   margin: 0,
-      // },
       "&:hover": {
         transition: "all 200ms ease-in-out",
         color: "#5a5a5a",
@@ -73,42 +66,25 @@ const useStyles = makeStyles((theme) => ({
   },
 
   tabBtn: {
-    paddingBottom: "10px",
     color: "#8f8f8f",
     borderRadius: 0,
-    marginRight: 40,
+    minWidth: "100px",
     marginBottom: "0px",
+    marginRight: "40px",
+    paddingBottom: "4px",
     "&:hover": {
       backgroundColor: "#fff",
     },
-    [theme.breakpoints.down(960)]: {
+    [theme.breakpoints.down(1080)]: {
       marginRight: 0,
     },
   },
   navActive: {
-    marginBottom: "0px",
+    marginBottom: "-4px",
     color: "#2c2c2c",
     position: "relative",
-
-    "&:after": {
-      content: "''",
-      width: "100%",
-      height: "4px",
-      position: "absolute",
-      bottom: -3,
-      left: 0,
-      backgroundColor: "#fff6a5",
-
-      [theme.breakpoints.down(1080)]: {
-        bottom: -3,
-      },
-      [theme.breakpoints.down(960)]: {
-        bottom: 0,
-      },
-      [theme.breakpoints.down(600)]: {
-        bottom: 0,
-      },
-    },
+    borderBottom: "4px solid #fff6a5",
+    paddingBottom: "4px",
   },
 }));
 
