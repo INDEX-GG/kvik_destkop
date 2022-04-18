@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import UserContent from "../userContent/UserContent";
-import MobileModal from "../mobileModal/MobileModal";
+import MobileModal from "../../MobileModal/MobileModal";
 
 // import MobileModal from "../../../../components/MobileModal";
 

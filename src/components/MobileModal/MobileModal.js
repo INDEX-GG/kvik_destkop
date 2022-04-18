@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import { useMedia } from "../../../../hooks/useMedia";
+import { useMedia } from "../../../hooks/useMedia";
 import { Dialog } from "@material-ui/core";
 import { useModalMobile } from "./style";
 
