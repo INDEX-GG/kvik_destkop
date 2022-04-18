@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Avatar, Box, Button } from "@material-ui/core";
+import { Avatar, Box, Button, Typography } from "@material-ui/core";
 import {
   ToRusAccountDate,
   stringToColor,
@@ -16,6 +16,7 @@ import StarRating from "../../../../components/StarRating";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useOutherUser } from "../../../../hooks/useOutherUser";
 import { useClientPageMenuLeft } from "./style";
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 const ClientPageMenuLeft = () => {
   const [reviewsModal, setReviewsModal] = useState(false);
@@ -114,41 +115,34 @@ const ClientPageMenuLeft = () => {
         >
           <CustomTooltipUI title="В разработке">
             <Box className={classes.userStats}>
-              <span>{"0"}</span>
-              <Button
-                className={classes.buttonDesc}
-                добавить
-                size="small"
-                variant="text"
-                disabled
+              <Typography>{"0"}</Typography>
+              <CustomButtonUI
+                customRoot={classes.buttonDesc}
                 onClick={() => setReviewsModal(!reviewsModal)}
               >
-                <p>Отзывы</p>
-              </Button>
+                <Typography variant="text">Отзывы</Typography>
+              </CustomButtonUI>
             </Box>
           </CustomTooltipUI>
 
           <Box className={classes.userStats}>
-            <span>{subscribers_count}</span>
-            <Button
-              className={classes.buttonDesc} /*добавил*/
-              size="small"
-              variant="text" /*onClick={() => setSubscribersModal(!subscriptionsModal)}*/
+            <Typography>{subscribers_count}</Typography>
+            <CustomButtonUI
+              customRoot={classes.buttonDesc}
+              /*onClick={() => setSubscribersModal(!subscriptionsModal)}*/
             >
-              <p>Подписчиков</p>
-            </Button>
+              <Typography variant="text">Подписчиков</Typography>
+            </CustomButtonUI>
           </Box>
 
           <Box className={classes.userStats} /* добавил */>
-            <span>{subscriptions_count}</span>
-            <Button
-              className={classes.buttonDesc} /* добавил */
-              size="small"
-              variant="text"
+            <Typography>{subscriptions_count}</Typography>
+            <CustomButtonUI
+              customRoot={classes.buttonDesc}
               onClick={() => setSubscriptionsModal(!subscriptionsModal)}
             >
-              <p>Подписки</p>
-            </Button>
+              <Typography variant="text">Подписки</Typography>
+            </CustomButtonUI>
           </Box>
         </Box>
         {+router.query.id === id ? null : <ClientPageSubMenu />}
