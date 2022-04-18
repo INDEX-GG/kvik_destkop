@@ -25,7 +25,8 @@ const useStyles = makeStyles(() => ({
   },
   light: {
     marginTop: "4px",
-    color: "#8f8f8f",
+    color: "#8f8f8f !important",
+
     lineheight: "1,17",
   },
   underline: {

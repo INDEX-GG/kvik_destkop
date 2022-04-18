@@ -5,6 +5,7 @@ import { useStore } from "#lib/Context/Store";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useClientSubMenu } from "./style";
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
 
 const ClientPageSubMenu = () => {
   const [loading /* setLoading*/] = useState(false);
@@ -50,14 +51,21 @@ const ClientPageSubMenu = () => {
         // className="ad__block_bottom__adaptive_right"
         className={classes.ad__block_bottom__adaptive_right}
       >
-        <a
+        <CustomLinkUI
+          customRoot={`${classes.SellerInfoComplain} ${classes.small} ${
+            classes.light
+          } ${classes.underline}`}
+        >
+          Пожаловаться
+        </CustomLinkUI>
+        {/* <a
           // className="SellerInfoComplain small light underline"
           className={`${classes.SellerInfoComplain} ${classes.small} ${
             classes.light
           } ${classes.underline}`}
         >
           Пожаловаться
-        </a>
+        </a> */}
       </Box>
     </>
   );
