@@ -4,7 +4,6 @@ import { Box, Typography } from "@material-ui/core";
 // свои компоненты
 import Link from "next/link";
 import NavMenu from "../navMenu/NavMenu";
-import TextContext from "../textContext/TextContext";
 import { useTextPage } from "./useTextPage";
 // css стили
 import { useText } from "./style";
@@ -12,14 +11,7 @@ import { useText } from "./style";
 const TextPage = ({ links, isMobile }) => {
   const myRef = useRef();
   const classes = useText();
-  const { pageData, state } = useTextPage(links, isMobile, myRef);
-
-  const textContents = () => {
-    return pageData.links.map((textItem, idx) => {
-      const id = Object.values(textItem.link.query)[0];
-      return <TextContext key={idx} id={id} textItem={textItem} />;
-    });
-  };
+  const { pageData, state, textContents } = useTextPage(links, isMobile, myRef);
 
   return (
     <Box className={classes.textPage} ref={myRef}>
