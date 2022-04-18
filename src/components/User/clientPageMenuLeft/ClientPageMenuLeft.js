@@ -36,6 +36,11 @@ const ClientPageMenuLeft = () => {
     subscriptions_count,
   } = sellerInfo;
   const classes = useClientPageMenuLeft();
+
+  const handleSetReviewsModal = () => {
+    setReviewsModal(!reviewsModal);
+  };
+
   return (
     <Box
       // className="clientPage__menu"
@@ -118,7 +123,7 @@ const ClientPageMenuLeft = () => {
               <Typography className={classes.countSize}>{"0"}</Typography>
               <CustomButtonUI
                 customRoot={classes.buttonDesc}
-                onClick={() => setReviewsModal(!reviewsModal)}
+                onClick={() => handleSetReviewsModal}
               >
                 <Typography variant="text">Отзывы</Typography>
               </CustomButtonUI>
