@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down(1024)]: {
       gridArea: "2 / 1 / 2 / 3",
+      marginTop: "15px",
     },
   },
 }));

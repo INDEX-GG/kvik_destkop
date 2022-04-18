@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import danger from "../../../../icons/danger.svg";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   btnSubscribe: {
     width: "203px",
     height: "24px",
@@ -10,6 +10,9 @@ const useStyles = makeStyles(() => ({
     margin: "42px 0px",
     borderRadius: "8px",
     cursor: "pointer",
+    [theme.breakpoints.down(1080)]: {
+      margin: "16px 0px",
+    },
   },
   ad__block_bottom__adaptive_right: {
     display: "flex",
