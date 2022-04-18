@@ -115,7 +115,7 @@ const ClientPageMenuLeft = () => {
         >
           <CustomTooltipUI title="В разработке">
             <Box className={classes.userStats}>
-              <Typography>{"0"}</Typography>
+              <Typography className={classes.countSize}>{"0"}</Typography>
               <CustomButtonUI
                 customRoot={classes.buttonDesc}
                 onClick={() => setReviewsModal(!reviewsModal)}
@@ -126,7 +126,9 @@ const ClientPageMenuLeft = () => {
           </CustomTooltipUI>
 
           <Box className={classes.userStats}>
-            <Typography>{subscribers_count}</Typography>
+            <Typography className={classes.countSize}>
+              {subscribers_count}
+            </Typography>
             <CustomButtonUI
               customRoot={classes.buttonDesc}
               /*onClick={() => setSubscribersModal(!subscriptionsModal)}*/
@@ -136,7 +138,9 @@ const ClientPageMenuLeft = () => {
           </Box>
 
           <Box className={classes.userStats} /* добавил */>
-            <Typography>{subscriptions_count}</Typography>
+            <Typography className={classes.countSize}>
+              {subscriptions_count}
+            </Typography>
             <CustomButtonUI
               customRoot={classes.buttonDesc}
               onClick={() => setSubscriptionsModal(!subscriptionsModal)}

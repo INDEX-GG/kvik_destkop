@@ -24,8 +24,8 @@ const useStyles = makeStyles(() => ({
     fontSize: "12px",
   },
   light: {
-    marginTop: "4px",
-    color: "#8f8f8f !important",
+    // marginTop: "4px",
+    color: "#8f8f8f",
 
     lineheight: "1,17",
   },

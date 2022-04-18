@@ -145,6 +145,9 @@ const useStyles = makeStyles((theme) => ({
   highlight: {
     color: "#00a0ab",
   },
+  countSize: {
+    fontSize: "12px",
+  },
 }));
 
 export const useClientPageMenuLeft = () => useStyles();
