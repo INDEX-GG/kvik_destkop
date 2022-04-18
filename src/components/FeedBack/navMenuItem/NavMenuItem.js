@@ -1,6 +1,4 @@
-import React, { useEffect, useState, useContext, useMemo } from "react";
-import Link from "next/link";
-
+import React from "react";
 import { Box } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -9,132 +7,17 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import List from "@mui/material/List";
 
-import { ContextApp } from "../reducer";
+import { useMenuItem } from "./useMenuItem";
 
 import { useNavMenuItem } from "./style";
-import { useCustomRouter } from "src/hook/globalHooks/useCustomRouter";
 
 const NavMenuItem = ({ menuItem, isMobile }) => {
-  const [open, setOpen] = useState(false);
-
-  const [pName, setpName] = useState(false);
-
-  const { router } = useCustomRouter();
   const classes = useNavMenuItem();
 
-  const { state, dispatch } = useContext(ContextApp);
-
-  const btnStyle = useMemo(() => {
-    return open
-      ? `${classes.navMenuBtn} ${classes.navMenuBtnOpen}`
-      : classes.navMenuBtn;
-  });
-
-  const nameStyle = useMemo(() => {
-    return open ? `${classes.name} ${classes.nameActive}` : classes.name;
-  });
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-  const elemId = router.asPath.split("#")[1];
-  const stopScrool = (e, newLink) => {
-    e.preventDefault();
-    const id = newLink.split("#")[1];
-    // router.push(newLink, undefined, { scroll: false });
-    console.log(router.pathname, newLink.split("/")[2].split("#")[0]);
-    let page = newLink.split("/")[2].split("#")[0];
-
-    router.push({ pathname: `/feedback/${page}` });
-    // setTimeout(() => {
-    scrollToElem(id);
-    // }, 160);
-
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ПОПРОБЫВАТЬ
-    // async function navigate(newCurrency) {
-    //   router.push({
-    //     pathname: router.pathname,
-    //     query: { ...router.query, currency: newCurrency.value },
-    //   }, undefined, { scroll: false });
-    // }
-  };
-
-  const scrollToElem = (id) => {
-    const elem = document.getElementById(id);
-
-    if (elem) {
-      if (isMobile) {
-        // этот режим работает с модальным окном
-        elem.scrollIntoView();
-      } else {
-        window.scrollTo({ top: elem.offsetTop });
-      }
-    }
-  };
-
-  const scroll = () => {
-    let arrh1 = document.getElementsByTagName("h1");
-    for (let i = 0; i < arrh1.length; i++) {
-      const elem = arrh1[i];
-      const { top } = elem.getBoundingClientRect();
-
-      if (top >= 0 && top < 200) {
-        setpName(elem.id);
-      }
-    }
-  };
-
-  const listLinks = menuItem.links.map((link, idx) => {
-    const idNavlink = Object.values(link.link.query)[0];
-
-    const linkStyle = useMemo(() => {
-      return pName === idNavlink
-        ? `${classes.navLink} ${classes.linkActive}`
-        : classes.navLink;
-    });
-    const newLink = `/feedback/${menuItem.idPage}#${link.idonPage}`;
-    return (
-      <Box component="li" key={idx} className={linkStyle}>
-        <Link href={newLink}>
-          <a onClick={(e) => stopScrool(e, newLink)}>{link.text}</a>
-        </Link>
-      </Box>
-    );
-  });
-
-  useEffect(() => {
-    const idPage = menuItem.idPage;
-    if (idPage === Object.values(router.query)[0]) {
-      dispatch({
-        type: "setTitle",
-        payload: {
-          title: menuItem.header,
-        },
-      });
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-
-    // скроллим к элементы в случае нажатия кнопки назад
-    // без таймаута не работает
-    // setTimeout(() => {
-    scrollToElem(elemId);
-    // });
-  }, [router]);
-
-  useEffect(() => {
-    //первый скролл к элементу
-
-    setTimeout(() => {
-      scrollToElem(elemId);
-    });
-
-    window.addEventListener("scroll", scroll);
-    return () => {
-      window.removeEventListener("scroll", scroll);
-    };
-  }, []);
+  const { btnStyle, nameStyle, open, handleClick, listLinks } = useMenuItem(
+    menuItem,
+    isMobile
+  );
 
   return (
     <Box className={classes.sticky}>
