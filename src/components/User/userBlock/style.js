@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
   clientPage__container_nav: {
     width: "100%",
-    padding: "24px 0 15px 0",
+    padding: "15px 0 6px 0",
     margin: "0 0 5px 0",
     borderBottom: "2px solid #e9e9e9",
 
     "& > *": {
       margin: "0 40px 0 0",
-      padding: "0px 0 16px 0",
+      // padding: "0px 0 16px 0",
       fontSize: "18px",
       color: "#8f8f8f",
       transition: "all 200ms ease-in-out",
@@ -72,9 +72,24 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   navActive: {
-    borderBottom: "4px solid #fff6a5",
-    paddingBottom: "15px",
     color: "#2c2c2c",
+    position: "relative",
+    "&:after": {
+      content: "''",
+      width: "100%",
+      height: "4px",
+      position: "absolute",
+      bottom: -8,
+      left: 0,
+      backgroundColor: "#fff6a5",
+    },
+  },
+  tabBtn: {
+    borderRadius: 0,
+    transition: "all 2000ms ease-in-out",
+    "&:hover": {
+      backgroundColor: "#fff",
+    },
   },
 }));
 

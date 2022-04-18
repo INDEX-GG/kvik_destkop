@@ -1,7 +1,10 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  avararSize: {},
+  avararSize: {
+    width: "80px",
+    height: "80px",
+  },
 
   clientPage__menu: {
     position: "sticky",

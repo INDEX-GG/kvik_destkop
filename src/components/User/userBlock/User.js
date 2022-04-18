@@ -1,16 +1,17 @@
 import React from "react";
-import { Box } from "@material-ui/core";
 import Active from "./tabs/Active";
 import Sold from "./tabs/Sold";
 import Placeholder from "./tabs/Placeholder";
 
+import { Box } from "@material-ui/core";
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore";
 
 // import { useAd } from "../../hooks/useAd";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 // import { brooklyn } from "../../lib/services";
 // import { getDataByPost } from "#lib/fetch";
 
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 import { useUserStyle } from "./style";
 
 const UsersPage = ({ data, itemNav, setItemNav }) => {
@@ -21,7 +22,8 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
   //   const [soldBox, setSoldBox] = useState([]);
   //   const [soldTotal, setSoldTotal] = useState(null)
 
-  //   const router = useRouter();
+  const router = useRouter();
+
   //   const sellerId = parseInt(router.query.id)
 
   // const { userInfo, /*isLoading*/ } = useAd(router.query.id);
@@ -61,6 +63,20 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
     },
   ];
 
+  const clickLink = (item) => {
+    setItemNav({ i: item.id, ttl: item.title });
+  };
+
+  const items = navItems.map(
+    (item) =>
+      itemNav.i === item.id &&
+      (item.content ? (
+        item.content
+      ) : (
+        <Placeholder key={item.id} user={item.id} />
+      ))
+  );
+
   return (
     <>
       <Box
@@ -78,32 +94,22 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
             {navItems.length
               ? navItems.map((item) => {
                   return (
-                    <a
+                    <CustomButtonUI
                       key={item.id}
-                      // className={itemNav.i === item.id ? "navActive" : ""}
-                      className={itemNav.i === item.id ? classes.navActive : ""} // добавил
-                      onClick={() =>
-                        setItemNav({ i: item.id, ttl: item.title })
+                      onClick={() => clickLink(item)}
+                      customRoot={
+                        itemNav.i === item.id
+                          ? `${classes.tabBtn} ${classes.navActive}`
+                          : classes.tabBtn
                       }
-                    >
-                      {/* {item.title} {brooklyn(item.count)} */}
-                      {`${item.title} ${item.count || ""}`}
-                    </a>
+                    >{`${item.title} ${item.count || ""}`}</CustomButtonUI>
                   );
                 })
               : null}
           </Box>
         </Box>
       </Box>
-      {navItems.map(
-        (item) =>
-          itemNav.i === item.id &&
-          (item.content ? (
-            item.content
-          ) : (
-            <Placeholder key={item.id} user={item.id} />
-          ))
-      )}
+      {items}
     </>
   );
 };
