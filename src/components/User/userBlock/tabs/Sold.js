@@ -107,4 +107,4 @@ const Sold = (data) => {
     </Box>
   );
 };
-export default Sold;
+export default React.memo(Sold);

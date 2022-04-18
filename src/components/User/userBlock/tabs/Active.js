@@ -7,7 +7,7 @@ import { Box } from "@material-ui/core";
 
 import { useSoldStyle } from "./soldStyle";
 
-function Active(data) {
+const Active = (data) => {
   const [dataArr, setDataArr] = useState(false);
   const classes = useSoldStyle();
   useEffect(() => {
@@ -111,6 +111,6 @@ function Active(data) {
       </Box>
     )
   ) : null;
-}
+};
 
-export default Active;
+export default React.memo(Active);
