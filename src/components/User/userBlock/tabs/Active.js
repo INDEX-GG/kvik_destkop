@@ -31,81 +31,32 @@ const Active = (data) => {
 
   return data?.offers ? (
     data.offers.length ? (
-      <Box
-        // className="userProduct"
-        className={classes.userProduct}
-      >
+      <Box className={classes.userProduct}>
         {dataArr &&
           dataArr.map((item, i) => {
-            // console.log(item)
             return <AdCard_component isGrid={true} key={i} offer={item} />;
           })}
       </Box>
     ) : (
-      <Box
-        // className="clientPage__placeholder-container"
-        className={classes.clientPage__placeholderContainer}
-      >
-        <Box
-          // className="clientPage__placeholder-title"
-          className={classes.clientPage__placeholderTitle}
-        >
+      <Box className={classes.clientPage__placeholderContainer}>
+        <Box className={classes.clientPage__placeholderTitle}>
           У пользователя еще нет объявлений
         </Box>
-        <Box
-          // className="clientPage__placeholder-ads"
-          className={classes.clientPage__placeholderAds}
-        >
-          <Box
-            // className="clientPage__placeholder-item"
-            className={classes.clientPage__placeholderItem}
-          >
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem1}
-            />
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem2}
-            />
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem3}
-            />
+        <Box className={classes.clientPage__placeholderAds}>
+          <Box className={classes.clientPage__placeholderItem}>
+            <Box className={classes.clientPage__placeholderItem1} />
+            <Box className={classes.clientPage__placeholderItem2} />
+            <Box className={classes.clientPage__placeholderItem3} />
           </Box>
-          <Box
-            // className="clientPage__placeholder-item"
-            className={classes.clientPage__placeholderItem}
-          >
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem1}
-            />
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem2}
-            />
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem3}
-            />
+          <Box className={classes.clientPage__placeholderItem}>
+            <Box className={classes.clientPage__placeholderItem1} />
+            <Box className={classes.clientPage__placeholderItem2} />
+            <Box className={classes.clientPage__placeholderItem3} />
           </Box>
-          <Box
-            // className="clientPage__placeholder-item"
-            className={classes.clientPage__placeholderItem}
-          >
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem1}
-            />
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem2}
-            />
-            <Box
-              //  className="clientPage__placeholder-item-1"
-              className={classes.clientPage__placeholderItem3}
-            />
+          <Box className={classes.clientPage__placeholderItem}>
+            <Box className={classes.clientPage__placeholderItem1} />
+            <Box className={classes.clientPage__placeholderItem2} />
+            <Box className={classes.clientPage__placeholderItem3} />
           </Box>
         </Box>
       </Box>

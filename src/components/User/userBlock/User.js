@@ -2,51 +2,14 @@ import React from "react";
 import Active from "./tabs/Active";
 import Sold from "./tabs/Sold";
 import Placeholder from "./tabs/Placeholder";
-
 import { Box } from "@material-ui/core";
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore";
-
-// import { useAd } from "../../hooks/useAd";
-import { useRouter } from "next/router";
-// import { brooklyn } from "../../lib/services";
-// import { getDataByPost } from "#lib/fetch";
 
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 import { useUserStyle } from "./style";
 
 const UsersPage = ({ data, itemNav, setItemNav }) => {
   const classes = useUserStyle();
-
-  //   const [activeBox, setActiveBox] = useState([]);
-  //   const [activeTotal, setActiveTotal] = useState(null)
-  //   const [soldBox, setSoldBox] = useState([]);
-  //   const [soldTotal, setSoldTotal] = useState(null)
-
-  const router = useRouter();
-
-  //   const sellerId = parseInt(router.query.id)
-
-  // const { userInfo, /*isLoading*/ } = useAd(router.query.id);
-
-  //   useEffect(async () => {
-  //     if(!sellerId) {
-  //       return
-  //     }
-  //     const data = await getDataByPost(`/api/getSeller`, { id: sellerId, page: 1, page_limit: 50 } )
-  //     setActiveBox(data.active_posts)
-  //     setSoldBox(data.archive_posts)
-  //     setActiveTotal(data.active_posts_count)
-  //     setSoldTotal(data.archive_posts_count)
-  //   }, [sellerId])
-
-  // useEffect(() => {
-
-  //   if (userInfo && userInfo.length > 0) {
-
-  //     setActiveBox(userInfo.filter(item => item.active === 0 && item.archived === false))
-  //     setSoldBox(userInfo.filter(item => item.active !== 0 && item.archived))
-  //   }
-  // }, [router, isLoading])
 
   const navItems = [
     {
@@ -93,28 +56,15 @@ const UsersPage = ({ data, itemNav, setItemNav }) => {
 
   return (
     <>
-      <Box
-        // className="clientPage__container_top"
-        className={classes.clientPage__container_top} // добавил
-      >
-        <Box
-          // className="clientPage__container_nav__wrapper"
-          className={classes.clientPage__container_nav__wrapper} // добавил
-        >
-          <Box
-            // className="clientPage__container_nav"
-            className={classes.clientPage__container_nav} // добавил
-          >
-            {userBnts}
-          </Box>
+      <Box className={classes.clientPage__container_top}>
+        <Box className={classes.clientPage__container_nav__wrapper}>
+          <Box className={classes.clientPage__container_nav}>{userBnts}</Box>
         </Box>
       </Box>
       {items}
     </>
   );
 };
-
-// export default UsersPage;
 
 export default React.memo(
   ScrollGetMore({

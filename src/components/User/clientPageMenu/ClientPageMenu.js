@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Box } from "@material-ui/core";
 import ScrollTop from "../../../../UI/ScrollTop";
-// import User from "../../../../components/User/User";
 import ClientPageMenuLeft from "../clientPageMenuLeft/ClientPageMenuLeft";
 import User from "../userBlock/User";
-
 import { useClientPageMenu } from "./styles";
 
 const ClientPageMenu = () => {
@@ -15,11 +13,7 @@ const ClientPageMenu = () => {
   return (
     <>
       <ClientPageMenuLeft />
-
-      <Box
-        // className="clientPage__container"
-        className={classes.clientPage__container} //добавил
-      >
+      <Box className={classes.clientPage__container}>
         <User itemNav={itemNav} setItemNav={setItemNav} />
       </Box>
       <ScrollTop />

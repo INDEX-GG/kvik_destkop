@@ -5,7 +5,6 @@ import { useStore } from "#lib/Context/Store";
 import { useStatistics } from "#lib/Context/StatisticsCTX";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useClientSubMenu } from "./style";
-import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 const ClientPageSubMenu = () => {
@@ -42,19 +41,14 @@ const ClientPageSubMenu = () => {
     <>
       <button
         disabled={loading}
-        // className="btnSubscribe"
         className={classes.btnSubscribe}
-        // onClick={() => subscribeUser()}
         onClick={() => {
           handleSubscribebtn;
         }}
       >
         {userBool ? "Отписаться" : "Подписаться"}
       </button>
-      <Box
-        // className="ad__block_bottom__adaptive_right"
-        className={classes.ad__block_bottom__adaptive_right}
-      >
+      <Box className={classes.ad__block_bottom__adaptive_right}>
         <CustomButtonUI
           customRoot={` ${classes.small} ${classes.light} ${classes.underline}`}
         >
