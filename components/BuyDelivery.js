@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles /* Collapse, */ } from "@material-ui/core";
 import SelectBuy from "./SelectBuy";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import DeliveryBuyerForm from "./DeliveryBuyerForm";
 import BuyDeliveryItem from "./BuyDeliveryItem";
 import BuyDeliveryMap from "./BuyDeliveryMap";
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
 
 const useStyles = makeStyles(() => ({
   buyDileverySend: {
@@ -118,11 +119,11 @@ function BuyDelivery() {
     },
   ];
 
-  const { handleSubmit, control} = useForm();
+  const { handleSubmit, control } = useForm();
 
-	const onSubmit = (data) => {
-		console.log(data);
-	}
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -130,14 +131,14 @@ function BuyDelivery() {
         <BuyDeliveryItem
           title="Доставка номер один"
           open={openedItem === 1 ? true : false}
-          setOpen={() => setOpenedItem(prev => prev === 1 ? null : 1)}
+          setOpen={() => setOpenedItem((prev) => (prev === 1 ? null : 1))}
           subtitle={
             <>
               От двух до 7 рабочих дней. Примерное время доставки, и цена
               рассчитаны{" "}
-              <a href="/" className={classes.buyDeliverLink}>
+              <CustomLinkUI href="/" customRoot={classes.buyDeliverLink}>
                 для вашего города
-              </a>
+              </CustomLinkUI>
             </>
           }
           price="500"
@@ -172,13 +173,13 @@ function BuyDelivery() {
         <BuyDeliveryItem
           title="Доставка номер два (курьером например)"
           open={openedItem === 2 ? true : false}
-          setOpen={() => setOpenedItem(prev => prev === 2 ? null : 2)}
+          setOpen={() => setOpenedItem((prev) => (prev === 2 ? null : 2))}
           subtitle={
             <>
               Доставка будет осуществляться в течении 00 дней из расчета{" "}
-              <a href="/" className={classes.buyDeliverLink}>
+              <CustomLinkUI href="/" customRoot={classes.buyDeliverLink}>
                 по вашему городу
-              </a>
+              </CustomLinkUI>
             </>
           }
           price="1000"
@@ -191,7 +192,7 @@ function BuyDelivery() {
           title="Заберу сам у продавца"
           subtitle="Договоритесь об условиях самовызова с продавцом по телефону или в чате самостоятельно"
           open={openedItem === 3 ? true : false}
-          setOpen={() => setOpenedItem(prev => prev === 3 ? null : 3)}
+          setOpen={() => setOpenedItem((prev) => (prev === 3 ? null : 3))}
         >
           <p className={classes.buyDileveryPickupDesc}>
             Договаривайтесь с продавцом о месте и времени передачи товара
