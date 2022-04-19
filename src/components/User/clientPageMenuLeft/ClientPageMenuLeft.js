@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { Box, Typography } from "@material-ui/core";
 import { ToRusAccountDate, initials } from "../../../../lib/services";
-import ClientPageSubMenu from "../clientPageSubMenu/ClientPageSubMenu";
 import CustomAvatarUI from "src/UI/UIcomponent/CustomAvatar/CustomAvatarUI";
 import CustomRatingUI from "src/UI/UIcomponent/CustomRating/CustomRatingUI";
 import CustomTooltipUI from "src/UI/UIcomponent/CustomTooltip/CustomTooltipUI";
 import { STATIC_URL } from "../../../../lib/constants";
 import { useAuth } from "../../../../lib/Context/AuthCTX";
 import { useOutherUser } from "../../../../hooks/useOutherUser";
-import { useClientPageMenuLeft } from "./style";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
+import ClientPageSubMenu from "../clientPageSubMenu/ClientPageSubMenu";
+import { useClientPageMenuLeft } from "./style";
 
 const ClientPageMenuLeft = () => {
   const router = useRouter();

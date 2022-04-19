@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down(1080)]: {
       gridTemplateColumns: "repeat(4, 1fr)",
-      //   padding: "0 0px",
+
       padding: "0px 12px 12px",
     },
     [theme.breakpoints.down(850)]: {
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     width: "38px",
     height: "14px",
     backgroundColor: "#e9e9e9",
-    // margin-bottom: 2px,
+
     margin: "0 auto 2px",
   },
   clientPage__placeholderItem3: {
