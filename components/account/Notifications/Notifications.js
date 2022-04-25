@@ -10,6 +10,8 @@ import { useAuth } from "../../../lib/Context/AuthCTX";
 import { getTokenDataByPost } from "#lib/fetch";
 import { CHAT_URL_API } from "lib/constants";
 
+import ClientPageNav from "src/components/AnyPage/ClientPageNav/ClientPageNav";
+
 //Сообщения
 const dialogsBox = [
   {
@@ -209,36 +211,11 @@ const Notifications = () => {
   }, []);
 
   return (
-    <>
-      <div className="clientPage__container_top">
-        <div className="clientPage__container_nav__wrapper">
-          <div className="clientPage__container_nav">
-            {navItems.map((item) => {
-              return (
-                <a
-                  className={itemNav.i === item.id ? "navActive" : ""}
-                  key={item.id}
-                  onClick={() => {
-                    setItemNav({ i: item.id, ttl: item.title });
-                    safeAccountTab(item.id);
-                  }}
-                >
-                  {/* {item.title} {brooklyn(item.count)} */}
-                  {/* если сообщения -отображаем длину сообщений */}
-                  {item.title}{" "}
-                  {item.id === 1
-                    ? brooklyn(lengthDialogs)
-                    : brooklyn(item.count)}
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      {navItems.map((item) => {
-        return itemNav.i === item.id && item.content;
-      })}
-    </>
+    <ClientPageNav
+      navItems={navItems}
+      itemNav={itemNav}
+      setItemNav={setItemNav}
+    />
   );
 };
 export default Notifications;
