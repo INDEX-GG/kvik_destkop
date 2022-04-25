@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 /**
  * @typedef EmptyPlaceholderProps
  * @property {string} title
@@ -30,11 +30,12 @@ const EmptyPlaceholder = ({
           {title && <div className={titleClass}>{title}</div>}
           {subtitle && <p className="notInf__subtitle">{subtitle}</p>}
           {img && (
-            <img
-              className={`notInf__img-${customClass}`}
-              style={{ maxWidth: "650px" }}
-              src={img}
+            <Image
               alt={imgAlt}
+              src={img}
+              width={335}
+              height={328}
+              objectFit="cover"
             />
           )}
         </div>
