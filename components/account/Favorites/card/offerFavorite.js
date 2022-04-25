@@ -108,6 +108,7 @@ const OfferFavorite = ({
           </CustomLinkUI>
           <div className={classes.cardImage}>
             <Image
+              objectFit="cover"
               layout="fill"
               key={index}
               src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}
@@ -135,6 +136,7 @@ const OfferFavorite = ({
             </div>
           </div>
           <Image
+            objectFit="cover"
             layout="fill"
             key={index}
             src={`${STATIC_URL}/${offer.userPhoto}`}
