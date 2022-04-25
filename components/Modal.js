@@ -1,46 +1,38 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 
 const Modal = ({ title, content, size, isOpen }) => {
-	const [opened, setOpened] = useState('');
+  const [opened, setOpened] = useState("");
 
+  useEffect(() => {
+    if (isOpen) {
+      setOpened(" openModal");
+    }
+  }, [isOpen]);
 
-	useEffect(() => {
-		if (isOpen) {
-			setOpened(' openModal');
-		}
-	}, [isOpen])
+  function handleClose(e) {
+    e.preventDefault();
+    setOpened("");
+  }
 
+  useEffect(() => {
+    let blackout = document.querySelector(".blackout");
+    window.onclick = function(e) {
+      if (e.target === blackout) {
+        setOpened("");
+      }
+    };
+  });
 
-	function handleClose(e) {
-		e.preventDefault();
-		setOpened('');
-	}
-
-	useEffect(() => {
-		let blackout = document.querySelector(".blackout");
-		window.onclick = function (e) {
-			if (e.target === blackout) {
-				setOpened('');
-			}
-		};
-	})
-
-
-	return (
-		<div className={`blackout${opened}`}>
-			<div className={`modalWindow${opened} modal${size}`}>
-				<div className={(!title) ? ('mtD') : ('modalTitle')}>
-					{title}
-				</div>
-				<div className="modalContent">
-					{content}
-				</div>
-				<button onClick={handleClose} className="modalClose">
-				</button>
-			</div>
-		</div>
-	)
-}
+  return (
+    <div className={`blackout${opened}`}>
+      <div className={`modalWindow${opened} modal${size}`}>
+        <div className={!title ? "mtD" : "modalTitle"}>{title}</div>
+        <div className="modalContent">{content}</div>
+        <button onClick={handleClose} className="modalClose" />
+      </div>
+    </div>
+  );
+};
 
 export default Modal;
 
@@ -58,7 +50,9 @@ export default Modal;
 // }
 
 // Рендер
-{/* <Modal {...modal} /> */ }
+{
+  /* <Modal {...modal} /> */
+}
 
 // Событие
 // onClick={e => { modalOlen(e, 'sm/md/lg/xl', 'content', 'title если нужен') }}
