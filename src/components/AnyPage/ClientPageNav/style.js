@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
       position: "relative",
       boxShadow: "none",
       top: 0,
-      padding: "0",
+      padding: "0 30px",
     },
     [theme.breakpoints.down(450)]: {
       padding: "0 10px",
@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "hidden",
     margin: "0 0 21px 0",
     whiteSpace: "nowrap",
+    [theme.breakpoints.down(1180)]: {
+      margin: "-6px 0 21px 0",
+    },
     [theme.breakpoints.down(960)]: {
       margin: 0,
       borderBottom: "none",
@@ -59,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "space-between",
     },
     [theme.breakpoints.down(960)]: {
-      margin: "0 0 10px 0",
+      margin: "-6px 0 4px 0",
       borderBottom: "none",
     },
   },
@@ -85,8 +88,14 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       height: "0px",
     },
+    [theme.breakpoints.down(1180)]: {
+      top: 34,
+    },
     [theme.breakpoints.down(1080)]: {
       marginRight: 0,
+    },
+    [theme.breakpoints.down(520)]: {
+      top: 20,
     },
   },
   navActive: {
@@ -101,6 +110,12 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       height: "4px",
       backgroundColor: "#fff6a5 ",
+      [theme.breakpoints.down(1180)]: {
+        top: 34,
+      },
+      [theme.breakpoints.down(520)]: {
+        top: 20,
+      },
     },
   },
 }));
