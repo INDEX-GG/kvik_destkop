@@ -199,11 +199,19 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     userSelect: "none",
-    minWidth: "100%",
-    maxHeight: "100%",
+    // minWidth: "100%",
+    // maxHeight: "100%",
     objectFit: "cover",
     objectPosition: "center",
     borderRadius: "10px",
+    width: "100%",
+    height: "100%",
+    position: "relative",
+    "&>div": {
+      "&>img": {
+        objectFit: "cover",
+      },
+    },
   },
   offer__image: {
     background:
@@ -219,6 +227,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
   },
   offer__pub__check: {
+    zIndex: 5,
     alignSelf: "start",
     position: "absolute",
     top: "4px",
