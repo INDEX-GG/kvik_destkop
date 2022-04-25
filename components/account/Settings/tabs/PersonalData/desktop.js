@@ -17,287 +17,279 @@ import { formatPhoneNumber } from "#lib/phoneMask";
  * @param {import("#lib/fetch").UserInfo} props.userInfo
  */
 const PersonalForm = ({ userInfo }) => {
-	const { id: userID, token } = useAuth();
-	const { handleSubmit, register, } = useForm();
-	const [userAddress, changeUserAddress] = useState(userInfo.address || userInfo?.location?.name);
-	const {setUserInfo} = useStore()
+  const { id: userID, token } = useAuth();
+  const { handleSubmit, register } = useForm();
+  const [userAddress, changeUserAddress] = useState(
+    userInfo.address || userInfo?.location?.name
+  );
+  const { setUserInfo } = useStore();
 
-	/**
-	 * @param {{ name: string, address: string }} formData
-	 */
-	const handlerUserDataChange = async (formData) => {
-		try {
-			await changePersonalData({
-				userID,
-				userName: formData.name,
-				userAddress: userAddress,
-				token
-			});
-			userInfo.name = formData.name
+  /**
+   * @param {{ name: string, address: string }} formData
+   */
+  const handlerUserDataChange = async (formData) => {
+    try {
+      await changePersonalData({
+        userID,
+        userName: formData.name,
+        userAddress: userAddress,
+        token,
+      });
+      userInfo.name = formData.name;
 
-			setUserInfo((prev)=> ({...prev, name: formData.name}))
-		} catch (error) {
-			console.error(error);
-		}
-	}
+      setUserInfo((prev) => ({ ...prev, name: formData.name }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-	/**
-	 * @type {import("#components/buttons/Button").ClickCallback}
-	 */
-	const handlerPhoneNumberAddition = async () => {
-		return;
-	}
+  /**
+   * @type {import("#components/buttons/Button").ClickCallback}
+   */
+  const handlerPhoneNumberAddition = async () => {
+    return;
+  };
 
-	/**
-	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion
-	 */
-	const handlerLocationSuggestion = (suggestion) => {
-		changeUserAddress(suggestion.value)
-	}
+  /**
+   * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion
+   */
+  const handlerLocationSuggestion = (suggestion) => {
+    changeUserAddress(suggestion.value);
+  };
 
-	return (
-		<form className="form " onSubmit={handleSubmit(handlerUserDataChange)}>
-			<div className="form__section">
-				<label className="form__label user-info__label" htmlFor="user-name">Имя</label>
-				<div className="form__content">
-					<input
-						className="form__input"
-						id="user-name"
-						type="text"
-						defaultValue={userInfo.name}
-						{...register("name")}
-					/>
-				</div>
-			</div>
+  return (
+    <form className="form " onSubmit={handleSubmit(handlerUserDataChange)}>
+      <div className="form__section">
+        <label className="form__label user-info__label" htmlFor="user-name">
+          Имя
+        </label>
+        <div className="form__content">
+          <input
+            className="form__input"
+            id="user-name"
+            type="text"
+            defaultValue={userInfo.name}
+            {...register("name")}
+          />
+        </div>
+      </div>
 
-			<div className="form__section user-info__section--location">
-				<label className="form__label user-info__label" htmlFor="user-address">Адрес</label>
-				<div className="form__content user-info__location">
-					<input
-						className="form__input"
-						type="hidden"
-						value={userAddress}
-					/>
-					<AddressSuggestions
-						containerClassName="user-info__suggest"
-						token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
-						filterFromBound='city-region'
-						filterToBound='house'
-						defaultQuery={userAddress}
-						count={5}
-						minChars={2}
-						delay={5}
-						onChange={handlerLocationSuggestion}
-					/>
-				</div>
-			</div>
+      <div className="form__section user-info__section--location">
+        <label className="form__label user-info__label" htmlFor="user-address">
+          Адрес
+        </label>
+        <div className="form__content user-info__location">
+          <input className="form__input" type="hidden" value={userAddress} />
+          <AddressSuggestions
+            containerClassName="user-info__suggest"
+            token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
+            filterFromBound="city-region"
+            filterToBound="house"
+            defaultQuery={userAddress}
+            count={5}
+            minChars={2}
+            delay={5}
+            onChange={handlerLocationSuggestion}
+          />
+        </div>
+      </div>
 
-			<div className="form__section form__section--phone">
-				<label className="form__label user-info__label" htmlFor="user-phone">Телефон</label>
-				<div className="form__content">
-					<span
-						id="user-phone"
-						className="user-info__phone-number"
-					>
-						{formatPhoneNumber(userInfo.phone)}
-					</span>
-					<button
-						className={clsx(
-							"form__button",
-							"form__button--button",
-						)}
-						type="button"
-						disabled
-						onClick={handlerPhoneNumberAddition}
-					>
-						Добавить номер
-					</button>
-
-				</div>
-			</div>
-			<div className="form__section">
-				<button
-					className="form__button form__submit"
-					type="submit"
-				>
-					Сохранить
-				</button>
-			</div>
-		</form>
-	)
-}
+      <div className="form__section form__section--phone">
+        <label className="form__label user-info__label" htmlFor="user-phone">
+          Телефон
+        </label>
+        <div className="form__content">
+          <span id="user-phone" className="user-info__phone-number">
+            {formatPhoneNumber(userInfo.phone)}
+          </span>
+          <button
+            className={clsx("form__button", "form__button--button")}
+            type="button"
+            disabled
+            onClick={handlerPhoneNumberAddition}
+          >
+            Добавить номер
+          </button>
+        </div>
+      </div>
+      <div className="form__section">
+        <button className="form__button form__submit" type="submit">
+          Сохранить
+        </button>
+      </div>
+    </form>
+  );
+};
 
 /**
  * @param {object} props
  * @param {string} props.className
  */
 const SocialForm = ({ className }) => {
-	const blockClass = clsx("form", className);
+  const blockClass = clsx("form", className);
 
-	return (
-		<form className={blockClass}>
-			<div className="form__section form__section--social">
-				<div className="form__content">
-					<ul className="social social--desktop">
-						{/*<li className="social__item social__item--inst">*/}
-							{/*<a className="social__link">Instagram</a>*/}
-							{/*<CheckBoxSwitch*/}
-							{/*	checkID="social-inst"*/}
-							{/*	width="45px"*/}
-							{/*	height="23px"*/}
-							{/*	checkboxSize="19px"*/}
-							{/*	borderRadius="4px"*/}
-							{/*	checkboxBorderRadius="6px"*/}
-							{/*/>*/}
-						{/*</li>*/}
-						<li className="social__item social__item--vk">
-							<a className="social__link">Вконтакте</a>
-							<CheckBoxSwitch
-								checkID="social-vk"
-								width="45px"
-								height="23px"
-								checkboxSize="19px"
-								borderRadius="4px"
-								checkboxBorderRadius="6px"
-							/>
-						</li>
-						<li className="social__item social__item--ok">
-							<a className="social__link">Одноклассники</a>
-							<CheckBoxSwitch
-								checkID="social-ok"
-								width="45px"
-								height="23px"
-								checkboxSize="19px"
-								borderRadius="4px"
-								checkboxBorderRadius="6px"
-							/>
-						</li>
-						{/*<li className="social__item social__item--fb">*/}
-						{/*	<a className="social__link">Facebook</a>*/}
-						{/*	<CheckBoxSwitch*/}
-						{/*		checkID="social-fb"*/}
-						{/*		width="45px"*/}
-						{/*		height="23px"*/}
-						{/*		checkboxSize="19px"*/}
-						{/*		borderRadius="4px"*/}
-						{/*		checkboxBorderRadius="6px"*/}
-						{/*	/>*/}
-						{/*</li>*/}
-					</ul>
-				</div>
-			</div>
+  return (
+    <form className={blockClass}>
+      <div className="form__section form__section--social">
+        <div className="form__content">
+          <ul className="social social--desktop">
+            {/*<li className="social__item social__item--inst">*/}
+            {/*<a className="social__link">Instagram</a>*/}
+            {/*<CheckBoxSwitch*/}
+            {/*	checkID="social-inst"*/}
+            {/*	width="45px"*/}
+            {/*	height="23px"*/}
+            {/*	checkboxSize="19px"*/}
+            {/*	borderRadius="4px"*/}
+            {/*	checkboxBorderRadius="6px"*/}
+            {/*/>*/}
+            {/*</li>*/}
+            <li className="social__item social__item--vk">
+              <a className="social__link">Вконтакте</a>
+              <CheckBoxSwitch
+                checkID="social-vk"
+                width="45px"
+                height="23px"
+                checkboxSize="19px"
+                borderRadius="4px"
+                checkboxBorderRadius="6px"
+              />
+            </li>
+            <li className="social__item social__item--ok">
+              <a className="social__link">Одноклассники</a>
+              <CheckBoxSwitch
+                checkID="social-ok"
+                width="45px"
+                height="23px"
+                checkboxSize="19px"
+                borderRadius="4px"
+                checkboxBorderRadius="6px"
+              />
+            </li>
+            {/*<li className="social__item social__item--fb">*/}
+            {/*	<a className="social__link">Facebook</a>*/}
+            {/*	<CheckBoxSwitch*/}
+            {/*		checkID="social-fb"*/}
+            {/*		width="45px"*/}
+            {/*		height="23px"*/}
+            {/*		checkboxSize="19px"*/}
+            {/*		borderRadius="4px"*/}
+            {/*		checkboxBorderRadius="6px"*/}
+            {/*	/>*/}
+            {/*</li>*/}
+          </ul>
+        </div>
+      </div>
 
-			<div className="form__section">
-				<div className="user-info__label"></div>
-				<button
-					className="form__button form__button--button user-info__button"
-					type="button"
-					style={{ fontSize: "18px" }}
-				>
-					Добавить почту
-				</button>
-			</div>
-		</form>
-	)
-}
+      <div className="form__section">
+        <div className="user-info__label" />
+        <button
+          className="form__button form__button--button user-info__button"
+          type="button"
+          style={{ fontSize: "18px" }}
+        >
+          Добавить почту
+        </button>
+      </div>
+    </form>
+  );
+};
 
 // eslint-disable-next-line no-unused-vars
 const DeviceForm = () => {
-	const { handleSubmit } = useForm();
-	const handlerClearDevices = async () => {
-		return
-	}
+  const { handleSubmit } = useForm();
+  const handlerClearDevices = async () => {
+    return;
+  };
 
-	return (
-		<form className="form" onSubmit={handleSubmit(handlerClearDevices)} >
-			<div className="form__section">
-				<div className="form__label"></div>
-				<dl className="devices">
-					<div className="devices__item">
-						<dt className="devices__device">Windows, браузер Chrome</dt>
-						<dd className="devices__visit">Сегодня в 12:52, Челябинск, Россия</dd>
-					</div>
-					<div className="devices__item">
-						<dt className="devices__device">Windows, браузер Yandex</dt>
-						<dd className="devices__visit">Вчера в 12:52, Тюмень, Россия</dd>
-					</div>
-				</dl>
-			</div>
+  return (
+    <form className="form" onSubmit={handleSubmit(handlerClearDevices)}>
+      <div className="form__section">
+        <div className="form__label" />
+        <dl className="devices">
+          <div className="devices__item">
+            <dt className="devices__device">Windows, браузер Chrome</dt>
+            <dd className="devices__visit">
+              Сегодня в 12:52, Челябинск, Россия
+            </dd>
+          </div>
+          <div className="devices__item">
+            <dt className="devices__device">Windows, браузер Yandex</dt>
+            <dd className="devices__visit">Вчера в 12:52, Тюмень, Россия</dd>
+          </div>
+        </dl>
+      </div>
 
-			<div className="form__section">
-				<div className="form__label"></div>
-				<button
-					className="form__button form__submit"
-					type="submit"
-				>
-					Очистить
-				</button>
-			</div>
-		</form>
-	)
-}
+      <div className="form__section">
+        <div className="form__label" />
+        <button className="form__button form__submit" type="submit">
+          Очистить
+        </button>
+      </div>
+    </form>
+  );
+};
 
 const AccountDeletionForm = () => {
-	const { handleSubmit } = useForm()
-	const handlerDeleteAccount = async () => {
-		return;
-	}
+  const { handleSubmit } = useForm();
+  const handlerDeleteAccount = async () => {
+    return;
+  };
 
-	return (
-		<form className="form" onSubmit={handleSubmit(handlerDeleteAccount)}>
-			<div className="form__section">
-				<div className="form__label"></div>
-				<span className="user-info__notice">Все данные, включая объявления, будут стерты</span>
-			</div>
+  return (
+    <form className="form" onSubmit={handleSubmit(handlerDeleteAccount)}>
+      <div className="form__section">
+        <div className="form__label" />
+        <span className="user-info__notice">
+          Все данные, включая объявления, будут стерты
+        </span>
+      </div>
 
-			<div className="form__section">
-				<button
-					className="form__button form__submit"
-					type="submit"
-				>
-					Удалить
-				</button>
-			</div>
-		</form>
-	)
-}
+      <div className="form__section">
+        <button className="form__button form__submit" type="submit">
+          Удалить
+        </button>
+      </div>
+    </form>
+  );
+};
 
 export const PersonalDataDesktop = () => {
-	const { userInfo } = useStore();
+  const { userInfo } = useStore();
 
-	return (
-		<div className="clientPage__container_bottom">
-			<div className="clientPage__container_content">
-				<div className="privateDataWrapper thin user-info">
-					<section className="user-info__section">
-						<h2 className="user-info__heading">Личная информация</h2>
-						<PersonalForm userInfo={userInfo} />
-					</section>
+  return (
+    <div className="clientPage__container_bottom">
+      <div className="clientPage__container_content">
+        <div className="privateDataWrapper thin user-info">
+          <section className="user-info__section">
+            <h2 className="user-info__heading">Личная информация</h2>
+            <PersonalForm userInfo={userInfo} />
+          </section>
 
-					<section className="user-info__section user-info__section--disabled">
-						<h2 className="user-info__heading">Соцсети и сервисы</h2>
-						<SocialForm className="user-info--social" />
-					</section>
+          <section className="user-info__section user-info__section--disabled">
+            <h2 className="user-info__heading">Соцсети и сервисы</h2>
+            <SocialForm className="user-info--social" />
+          </section>
 
-					<section className="user-info__section user-info__section--disabled">
-						<h2 className="user-info__heading">Устройства</h2>
-						{/* <DeviceForm /> */}
-					</section>
+          <section className="user-info__section user-info__section--disabled">
+            <h2 className="user-info__heading">Устройства</h2>
+            {/* <DeviceForm /> */}
+          </section>
 
-					<section className="user-info__section">
-						<h2 className="user-info__heading">Смена пароля</h2>
-						<PasswordForm />
-					</section>
+          <section className="user-info__section">
+            <h2 className="user-info__heading">Смена пароля</h2>
+            <PasswordForm />
+          </section>
 
-					<section className="user-info__section user-info__section--disabled">
-						<h2 className="user-info__heading">Удаление профиля</h2>
-						<AccountDeletionForm />
-					</section>
-				</div>
-			</div>
-		</div>
-	);
-}
+          <section className="user-info__section user-info__section--disabled">
+            <h2 className="user-info__heading">Удаление профиля</h2>
+            <AccountDeletionForm />
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 /*
 	<p className="pDPassWarning">Минимум 8 символов</p>
