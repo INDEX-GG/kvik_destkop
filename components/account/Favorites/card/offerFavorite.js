@@ -8,6 +8,8 @@ import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordO
 import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 import { InternalLink } from "../../../links/InternalLink";
 
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
+
 InternalLink;
 const useStyles = makeStyles(() => ({
   check: {
@@ -77,7 +79,7 @@ const OfferFavorite = ({
   }, [parentCheck, deleteButton]);
 
   return (
-    <a key={index} className="favoritesContainer boxWrapper">
+    <CustomLinkUI key={index} customRoot="favoritesContainer boxWrapper">
       <div className="favoritesImage">
         <div className="favoritesPubCheck">
           <Checkbox
@@ -101,9 +103,9 @@ const OfferFavorite = ({
         >
           {/*<a className="favoritesCompare">*/}
           {/*</a>*/}
-          <a href="javascript:void(0);">
+          <CustomLinkUI href="javascript:void(0);">
             <Favorits idOffer={offer.id} isAccountCard />
-          </a>
+          </CustomLinkUI>
           <img
             key={index}
             className={classes.cardImage}
@@ -120,7 +122,10 @@ const OfferFavorite = ({
         </InternalLink>
       </div>
       <div className="favoritesDescription">
-        <a href={`/user/${offer.user_id}`} className="favoritesUserBlock small">
+        <CustomLinkUI
+          href={`/user/${offer.user_id}`}
+          customRoot="favoritesUserBlock small"
+        >
           <div>
             <div className="favoritesDescriptionUserName">
               {offer.user_name}
@@ -137,7 +142,7 @@ const OfferFavorite = ({
               (e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`)
             }
           />
-        </a>
+        </CustomLinkUI>
         <div className="favoritesMiddle">
           <div>{ToRubles(offer.price)}</div>
           <div>{offer.title}</div>
@@ -151,11 +156,11 @@ const OfferFavorite = ({
         >
           {offer.comment}
         </div>
-        <a className="favoritesButton buttonGrey small">
+        <CustomLinkUI customRoot={"favoritesButton buttonGrey small"}>
           Сообщить об изменении цены
-        </a>
+        </CustomLinkUI>
       </div>
-    </a>
+    </CustomLinkUI>
   );
 };
 
