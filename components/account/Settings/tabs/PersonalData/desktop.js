@@ -10,7 +10,33 @@ import { changePersonalData } from "#lib/account/changePersonalData";
 import { useState } from "react";
 import { PasswordForm } from "./Forms";
 import { formatPhoneNumber } from "#lib/phoneMask";
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+  formButton: {
+    fontSize: 18,
+    width: "160px",
+    border: "1px solid #c7c7c7",
+    borderRadius: "4px",
+    fontWeight: 400,
+  },
+  formButtonString: {
+    gridArea: "content",
+    justifySelf: "baseline",
+    width: "auto",
+    minHeight: 0,
+    color: "#00a2ad",
+    backgroundColor: "transparent",
+    borderRadius: 0,
+    border: "none",
+    fontSize: "1rem",
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  },
+}));
 /**
  * TODO: переписать на бесконтрольный вариант.
  * @param {object} props
@@ -22,6 +48,7 @@ const PersonalForm = ({ userInfo }) => {
   const [userAddress, changeUserAddress] = useState(
     userInfo.address || userInfo?.location?.name
   );
+
   const { setUserInfo } = useStore();
 
   /**
@@ -102,20 +129,30 @@ const PersonalForm = ({ userInfo }) => {
           <span id="user-phone" className="user-info__phone-number">
             {formatPhoneNumber(userInfo.phone)}
           </span>
-          <button
-            className={clsx("form__button", "form__button--button")}
+          <CustomButtonUI
+            // customRoot={clsx(
+            //   "form__button",
+            //   "form__button--button",
+            //   "form__button--border"
+            // )}
+            customRoot={classes.formButton}
             type="button"
-            disabled
+            disabled={true}
             onClick={handlerPhoneNumberAddition}
           >
             Добавить номер
-          </button>
+          </CustomButtonUI>
         </div>
       </div>
       <div className="form__section">
-        <button className="form__button form__submit" type="submit">
+        <CustomButtonUI
+          disableRipple={true}
+          //   customRoot="form__button form__submit"
+          customRoot={classes.formButtonString}
+          type="submit"
+        >
           Сохранить
-        </button>
+        </CustomButtonUI>
       </div>
     </form>
   );
@@ -127,7 +164,7 @@ const PersonalForm = ({ userInfo }) => {
  */
 const SocialForm = ({ className }) => {
   const blockClass = clsx("form", className);
-
+  const classes = useStyles();
   return (
     <form className={blockClass}>
       <div className="form__section form__section--social">
@@ -183,13 +220,9 @@ const SocialForm = ({ className }) => {
 
       <div className="form__section">
         <div className="user-info__label" />
-        <button
-          className="form__button form__button--button user-info__button"
-          type="button"
-          style={{ fontSize: "18px" }}
-        >
+        <CustomButtonUI customRoot={classes.formButton} type="button">
           Добавить почту
-        </button>
+        </CustomButtonUI>
       </div>
     </form>
   );
@@ -232,6 +265,7 @@ const DeviceForm = () => {
 
 const AccountDeletionForm = () => {
   const { handleSubmit } = useForm();
+  const classes = useStyles();
   const handlerDeleteAccount = async () => {
     return;
   };
@@ -246,9 +280,13 @@ const AccountDeletionForm = () => {
       </div>
 
       <div className="form__section">
-        <button className="form__button form__submit" type="submit">
+        <CustomButtonUI
+          //  customRoot="form__button form__submit"
+          customRoot={classes.formButtonString}
+          type="submit"
+        >
           Удалить
-        </button>
+        </CustomButtonUI>
       </div>
     </form>
   );
