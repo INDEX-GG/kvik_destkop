@@ -26,6 +26,7 @@ import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 import visibleSvg from "../../icons/visible.svg";
 import invisibleSvg from "../../icons/invisible.svg";
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -396,6 +397,7 @@ const Login = () => {
                         endAdornment: (
                           <InputAdornment position="end">
                             <CustomButtonUI
+                              disableRipple={true}
                               customRoot={
                                 !showPassword
                                   ? classes.pDPassInputWrapperInv
@@ -458,11 +460,29 @@ const Login = () => {
                   или
                 </Typography>
                 <div className={classes.socialNetworks}>
-                  <a href="https://vk.com" className="vkLoginIcon" />
+                  <CustomLinkUI
+                    href="https://vk.com"
+                    customRoot={"vkLoginIcon"}
+                  />
+                  <CustomLinkUI
+                    href="https://ok.ru/"
+                    customRoot="odLoginIcon"
+                  />
+                  <CustomLinkUI
+                    href="https://www.apple.com/"
+                    customRoot="appleLoginIcon"
+                  />
+                  {/*<CustomLinkUI href="https://facebook.com" customRoot="facebookLoginIcon"/>*/}
+                  <CustomLinkUI
+                    href="https://google.com"
+                    customRoot="googleLoginIcon"
+                  />
+                  {/* <a href="https://vk.com" className="vkLoginIcon" />
                   <a href="https://ok.ru/" className="odLoginIcon" />
                   <a href="https://www.apple.com/" className="appleLoginIcon" />
                   {/*<a href="https://facebook.com" className="facebookLoginIcon"/>*/}
-                  <a href="https://google.com" className="googleLoginIcon" />
+                  <a href="https://google.com" className="googleLoginIcon" />{" "}
+                  */}
                 </div>
                 <Button
                   onClick={() => {
