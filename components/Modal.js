@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 const Modal = ({ title, content, size, isOpen }) => {
   const [opened, setOpened] = useState("");
 
@@ -28,7 +28,7 @@ const Modal = ({ title, content, size, isOpen }) => {
       <div className={`modalWindow${opened} modal${size}`}>
         <div className={!title ? "mtD" : "modalTitle"}>{title}</div>
         <div className="modalContent">{content}</div>
-        <button onClick={handleClose} className="modalClose" />
+        <CustomButtonUI onClick={handleClose} customRoot="modalClose" />
       </div>
     </div>
   );
