@@ -71,27 +71,37 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "-10px",
     marginRight: "30px",
     paddingBottom: "10px",
-    borderBottom: "4px solid transparent",
-
+    // borderBottom: "4px solid transparent",
+    position: "relative",
     "&:hover": {
       backgroundColor: "transparent",
     },
-    "&:active": {
-      backgroundColor: "transparent ",
-    },
-    "&>child": {
-      backgroundColor: "blue",
+    "&:after": {
+      transition: "all 200ms ease-in-out",
+      position: "absolute",
+      content: "''",
+      top: 44,
+      left: 0,
+      width: "100%",
+      height: "0px",
     },
     [theme.breakpoints.down(1080)]: {
       marginRight: 0,
     },
   },
   navActive: {
-    // marginBottom: "-4px",
     color: "#2c2c2c",
     position: "relative",
-    borderBottom: "4px solid #fff6a5",
-    // paddingBottom: "4px",
+
+    "&:after": {
+      position: "absolute",
+      content: "''",
+      top: 41,
+      left: 0,
+      width: "100%",
+      height: "4px",
+      backgroundColor: "#fff6a5 ",
+    },
   },
 }));
 export const useClientPageNav = () => useStyles();
