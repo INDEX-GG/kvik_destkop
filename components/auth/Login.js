@@ -22,6 +22,7 @@ import DialogUIAuth from "../UI/DialogUIAuth";
 // import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 import { SecretData, SecretPassword } from "../../lib/SecretData";
 import ConfirmNumber from "./ConfirmNumber";
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,9 +96,10 @@ const useStyles = makeStyles((theme) => ({
     background: "none",
     cursor: "pointer",
     transition: "all 200ms ease-in-out",
-
+    fontSize: "0.8rem",
     "&:hover": {
       transition: "all 200ms ease-in-out",
+      backgroundColor: "transparent",
     },
   },
 }));
@@ -405,13 +407,14 @@ const Login = () => {
                   {/*<button  className={classes.rememberPassword} >*/}
                   {/*  Запомнить пароль*/}
                   {/*</button>*/}
-                  <button
+                  <CustomButtonUI
                     type="button"
                     onClick={handleClickResetPassword}
-                    className={classes.forgotPassword}
+                    customRoot={classes.forgotPassword}
+                    disableRipple={true}
                   >
                     Забыли пароль?
-                  </button>
+                  </CustomButtonUI>
                 </div>
 
                 <Button
