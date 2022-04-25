@@ -9,12 +9,23 @@ import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordO
 import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 import FavoritesOffersPlaceHolder from "../../../placeHolders/FavoritesPlaceHolder/FavoritesActiveOfffer/FavoritesOffersPlaceHolder";
 
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
+
 const useStyles = makeStyles(() => ({
   delete: {
     fontSize: "16px !important",
   },
   deleteActiv: {
     color: "black",
+  },
+  deleteBtn: {
+    lineHeight: "14px",
+    color: "#8f8f8f",
+    marginRight: "6px",
+    textDecoration: "underline",
+    textDecorationColor: "#5a5a5a",
+    fontSize: "16px !important",
+    marginLeft: 10,
   },
 }));
 
@@ -215,13 +226,17 @@ function Offers({ itemsPost }) {
             icon={<FiberManualRecordOutlinedIcon />}
             checkedIcon={<FiberManualRecordSharpIcon />}
           />
-          <a
+          <CustomButtonUI
+            disableRipple={true}
             onClick={handlerPostDelete}
-            style={deletedPostIDs.length > 0 ? { color: "black" } : null}
-            className={classes.delete}
+            customRoot={
+              deletedPostIDs.length > 0
+                ? `${classes.deleteBtn} ${classes.deleteActiv}`
+                : classes.deleteBtn
+            }
           >
             Удалить выбранные
-          </a>
+          </CustomButtonUI>
         </div>
         <div className="clientPage__container_content">
           <div className="favoritesContainerWrapper">
