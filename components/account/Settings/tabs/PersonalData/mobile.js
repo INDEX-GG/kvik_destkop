@@ -26,7 +26,8 @@ import { PasswordFormMobile } from "./Forms";
 import { formatPhoneNumber } from "#lib/phoneMask";
 // import { NavigationButton } from "#components/buttons/NavigationButton";
 import SettingsPlaceHolder from "#components/placeHolders/SettingsPlaceHolder/SettingsPlaceHolder/SettingsPlaceHolder";
-
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 /**
  * Секция в списке.
  * @param {object} props
@@ -207,9 +208,10 @@ export const PersonalDataMobile = () => {
             <div className="privateDataWrapper thin user-info user-info--mobile">
               <UserNameForm />
               <div className="user-info__section">
-                <button
+                <CustomButtonUI
+                  disableRipple={true}
                   type="button"
-                  className="nav-button"
+                  customRoot={"nav-button"}
                   style={{ flexFlow: "row nowrap" }}
                   onClick={() => {
                     switchAddressPage(true);
@@ -240,7 +242,7 @@ export const PersonalDataMobile = () => {
                       />
                     </svg>
                   </span>
-                </button>
+                </CustomButtonUI>
               </div>
               <Section className="user-info__section--phone user-info__section--disabled">
                 <span>
@@ -266,11 +268,21 @@ export const PersonalDataMobile = () => {
                 <div className="form__content">
                   <ul className="social social--mobile">
                     <li className="social__item social__item--vk">
-                      <a className="social__link">Вконтакте</a>
+                      <CustomLinkUI
+                        defaultColor={false}
+                        customRoot={"social__link"}
+                      >
+                        Вконтакте
+                      </CustomLinkUI>
                       <CheckBoxSwitch checkID="social-vk" isMobile />
                     </li>
                     <li className="social__item social__item--ok">
-                      <a className="social__link">Одноклассники</a>
+                      <CustomLinkUI
+                        defaultColor={false}
+                        customRoot="social__link"
+                      >
+                        Одноклассники
+                      </CustomLinkUI>
                       <CheckBoxSwitch checkID="social-ok" isMobile />
                     </li>
                     {/*<li className="social__item social__item--inst">*/}
@@ -288,9 +300,10 @@ export const PersonalDataMobile = () => {
                 Устройства
               </div>
               <div className="user-info__section">
-                <button
+                <CustomButtonUI
+                  disableRipple={true}
                   type="button"
-                  className="nav-button"
+                  customRoot={"nav-button"}
                   style={{ flexFlow: "row nowrap" }}
                   onClick={() => {
                     switchPasswordPage(true);
@@ -314,7 +327,7 @@ export const PersonalDataMobile = () => {
                       />
                     </svg>
                   </span>
-                </button>
+                </CustomButtonUI>
               </div>
               <div className="user-info__section user-info__section--disabled">
                 Удалить аккаунт
