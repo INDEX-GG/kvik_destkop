@@ -22,14 +22,12 @@ function Footer2() {
           {/*<a href="https://www.instagram.com/kvik_baraholka/" className="instagramLinkFooter" target="_blank" rel="noreferrer">*/}
           {/*<div className="instagramLinkIcon"></div>*/}
           {/*</a>*/}
-          <a
+          <CustomLinkUI
             href="https://vk.com/1kvik_ru"
-            className="vkLinkFooter"
-            target="_blank"
-            rel="noreferrer"
+            customRoot={"vkLinkFooter"}
           >
             <div className="vkLinkIcon" />
-          </a>
+          </CustomLinkUI>
           {/*<a href="https://www.facebook.com/Kvik-Барахолкачелябинск-107509641798965" className="fbLinkFooter" target="_blank" rel="noreferrer">*/}
           {/*<div className="fbLinkIcon" ></div>*/}
           {/*</a>*/}
