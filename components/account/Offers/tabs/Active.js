@@ -8,6 +8,7 @@ import OfferModal from "../../../OfferModal";
 import OfferActivePlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferActivePlaceHolder/OfferActivePlaceHolder";
 import throttle from "lodash.throttle";
 import OfferCard from "../card/OfferCard";
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 const useStyles = makeStyles((theme) => ({
   check: {
@@ -134,8 +135,10 @@ function Active({ offers }) {
                 }}
                 checked={check}
               />
-              <button
-                className={classes.btn__unpublish}
+
+              <CustomButtonUI
+                disableRipple={true}
+                customRoot={classes.btn__unpublish}
                 onClick={() => {
                   offerData.length > 0
                     ? setOpenOfferModal(!openOfferModal)
@@ -143,7 +146,7 @@ function Active({ offers }) {
                 }}
               >
                 Снять с публикации
-              </button>
+              </CustomButtonUI>
             </div>
           )}
           <div className="clientPage__container_content">
