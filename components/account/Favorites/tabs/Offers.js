@@ -1,22 +1,21 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
-import {Checkbox} from "@material-ui/core";
+import { Checkbox } from "@material-ui/core";
 import OfferFavorite from "../card/offerFavorite";
-import {useStore} from "../../../../lib/Context/Store";
-import {checkArray} from '../../../../lib/services'
-import {makeStyles} from "@material-ui/styles";
-import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
-import FiberManualRecordSharpIcon from '@material-ui/icons/FiberManualRecordSharp';
+import { useStore } from "../../../../lib/Context/Store";
+import { checkArray } from "../../../../lib/services";
+import { makeStyles } from "@material-ui/styles";
+import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
+import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 import FavoritesOffersPlaceHolder from "../../../placeHolders/FavoritesPlaceHolder/FavoritesActiveOfffer/FavoritesOffersPlaceHolder";
 
-
 const useStyles = makeStyles(() => ({
-    delete: {
-        fontSize: "16px !important",
-    },
-    deleteActiv: {
-        color: "black",
-    }
+  delete: {
+    fontSize: "16px !important",
+  },
+  deleteActiv: {
+    color: "black",
+  },
 }));
 
 /**
@@ -91,148 +90,158 @@ const useStyles = makeStyles(() => ({
 /**
  * @param {IOfferData} data
  */
-function Offers({itemsPost}) {
-    const classes = useStyles();
-    const [favPosts, changeFavPosts] = useState([]);
-    const [deletionCheck, setDeletionCheck] = useState(false);
-    const [deleteButton, setDeleteButton] = useState(false);
-		/**
-		 * @type[number[], React.Dispatch < React.SetStateAction < number[] >>]
-		 */
-    const [deletedPostIDs, setDeletedPostIDs] = useState([]);
-    const {userInfo, setLikeCommentArray} = useStore();
+function Offers({ itemsPost }) {
+  const classes = useStyles();
+  const [favPosts, changeFavPosts] = useState([]);
+  const [deletionCheck, setDeletionCheck] = useState(false);
+  const [deleteButton, setDeleteButton] = useState(false);
+  /**
+   * @type[number[], React.Dispatch < React.SetStateAction < number[] >>]
+   */
+  const [deletedPostIDs, setDeletedPostIDs] = useState([]);
+  const { userInfo, setLikeCommentArray } = useStore();
 
-		/**
-		 * @type {GetChildCheck }
-		 */
-    const getChildCheck = (childCheck) => {
-			setDeletedPostIDs(
-				childCheck.isChecked
-					? prev => [...prev, childCheck.id]
-					: dataCheck => dataCheck.filter(item => item !== childCheck.id)
-			);
-    }
-
-		/**
-		 * @param {[]} likeID
-		 * @return {UserFavorite[]}
-		 */
-    const getUserFavorites = (likeID) => {
-			const favoritesArray = [];
-			likeID.map((items) => {
-					let comment = checkArray(userInfo?.favorites) && (userInfo.favorites.filter(item => item.post_id === +items)[0])?.comment !== undefined ? (userInfo?.favorites.filter(item => item.post_id === +items)[0])?.comment : ''
-					let like = checkArray(userInfo?.favorites) && userInfo.favorites.filter(item => item.post_id === +items).map(item => item.condition).join() === 'false'
-					favoritesArray.push({
-							post_id: `${items}`,
-							comment: `${comment}`,
-							condition: `${like}`,
-					})
-			})
-            // берем только id постов из массива
-            const favoritesArrayLikeId = favoritesArray.map(item => +item.post_id)
-			setLikeCommentArray(favoritesArrayLikeId);
-			return favoritesArray;
-    }
-
-	/**
-	 * @param {React.ChangeEvent<HTMLInputElement>} event
-	 */
-	const handlerDeletionCheckbox = (event) => {
-		setDeletionCheck(!deletionCheck);
-		if (!event.target.checked) {
-			setDeletedPostIDs(() => [])
-		}
-	}
-
-	const handlerPostDelete = () => {
-		if (deletedPostIDs.length) {
-			getUserFavorites(deletedPostIDs);
-
-			const nonDeletedPosts = favPosts.filter((postItem) => {
-				const isDeleted = deletedPostIDs.includes(postItem.id);
-				return !isDeleted
-			})
-
-			setDeletedPostIDs([]);
-			changeFavPosts(nonDeletedPosts);
-			setDeletionCheck(false);
-			setDeleteButton(!deleteButton)
-		}
-	}
-
-    useEffect(() => {
-				if (!deletedPostIDs.length) {
-					return;
-				}
-
-				if (favPosts.length === deletedPostIDs.length) {
-					setDeletionCheck(true)
-				} else {
-					setDeletionCheck(false)
-				}
-			},
-			[deletedPostIDs]
-    )
-
-    useEffect(() => {
-        changeFavPosts(itemsPost)
-    }, [itemsPost])
-
-    if (!favPosts?.length) {
-        return (
-            <>
-                {!userInfo && !favPosts ? <FavoritesOffersPlaceHolder/> :
-                    <EmptyPlaceholder
-                        title='Здесь будут ваши избранные объявления'
-                        subtitle='Нажмите на  сердечко 💙️, чтобы добавить объявление в избранное'
-                        img='/accountImage/OffersNone.png'
-                        imgAlt='offers_placholder'
-                    />
-                }
-            </>
-        );
-    }
-
-    return (
-        <>
-            {/* {!userInfo && !favPosts.length ? <FavoritesOffersPlaceHolder/> : */}
-                <div className="clientPage__container_bottom">
-                    <div className="clientPage__container_nav__radio">
-                        <Checkbox
-                            color="primary"
-                            onChange={handlerDeletionCheckbox}
-                            checked={deletionCheck}
-                            icon={<FiberManualRecordOutlinedIcon/>}
-                            checkedIcon={<FiberManualRecordSharpIcon/>}
-                        />
-                        <a
-                            onClick={handlerPostDelete}
-                            style={deletedPostIDs.length > 0 ? {color: "black"} : null}
-                            className={classes.delete}
-                        >
-                            Удалить выбранные
-                        </a>
-                    </div>
-                    <div className="clientPage__container_content">
-                        <div className="favoritesContainerWrapper">
-                            {favPosts.map((offer, index) =>
-                                <OfferFavorite
-                                    offer={offer}
-                                    key={index}
-                                    index={index}
-                                    parentCheck={deletionCheck}
-                                    getChildCheck={getChildCheck}
-                                    dataCheck={deletedPostIDs}
-                                    deleteButton={deleteButton}
-                                />
-                            )}
-                        </div>
-                    </div>
-                </div>
-                {/* } */}
-        </>
-
+  /**
+   * @type {GetChildCheck }
+   */
+  const getChildCheck = (childCheck) => {
+    setDeletedPostIDs(
+      childCheck.isChecked
+        ? (prev) => [...prev, childCheck.id]
+        : (dataCheck) => dataCheck.filter((item) => item !== childCheck.id)
     );
+  };
+
+  /**
+   * @param {[]} likeID
+   * @return {UserFavorite[]}
+   */
+  const getUserFavorites = (likeID) => {
+    const favoritesArray = [];
+    likeID.map((items) => {
+      let comment =
+        checkArray(userInfo?.favorites) &&
+        userInfo.favorites.filter((item) => item.post_id === +items)[0]
+          ?.comment !== undefined
+          ? userInfo?.favorites.filter((item) => item.post_id === +items)[0]
+              ?.comment
+          : "";
+      let like =
+        checkArray(userInfo?.favorites) &&
+        userInfo.favorites
+          .filter((item) => item.post_id === +items)
+          .map((item) => item.condition)
+          .join() === "false";
+      favoritesArray.push({
+        post_id: `${items}`,
+        comment: `${comment}`,
+        condition: `${like}`,
+      });
+    });
+    // берем только id постов из массива
+    const favoritesArrayLikeId = favoritesArray.map((item) => +item.post_id);
+    setLikeCommentArray(favoritesArrayLikeId);
+    return favoritesArray;
+  };
+
+  /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   */
+  const handlerDeletionCheckbox = (event) => {
+    setDeletionCheck(!deletionCheck);
+    if (!event.target.checked) {
+      setDeletedPostIDs(() => []);
+    }
+  };
+
+  const handlerPostDelete = () => {
+    if (deletedPostIDs.length) {
+      getUserFavorites(deletedPostIDs);
+
+      const nonDeletedPosts = favPosts.filter((postItem) => {
+        const isDeleted = deletedPostIDs.includes(postItem.id);
+        return !isDeleted;
+      });
+
+      setDeletedPostIDs([]);
+      changeFavPosts(nonDeletedPosts);
+      setDeletionCheck(false);
+      setDeleteButton(!deleteButton);
+    }
+  };
+
+  useEffect(() => {
+    if (!deletedPostIDs.length) {
+      return;
+    }
+
+    if (favPosts.length === deletedPostIDs.length) {
+      setDeletionCheck(true);
+    } else {
+      setDeletionCheck(false);
+    }
+  }, [deletedPostIDs]);
+
+  useEffect(() => {
+    changeFavPosts(itemsPost);
+  }, [itemsPost]);
+
+  if (!favPosts?.length) {
+    return (
+      <>
+        {!userInfo && !favPosts ? (
+          <FavoritesOffersPlaceHolder />
+        ) : (
+          <EmptyPlaceholder
+            title="Здесь будут ваши избранные объявления"
+            subtitle="Нажмите на  сердечко 💙️, чтобы добавить объявление в избранное"
+            img="/accountImage/OffersNone.png"
+            imgAlt="offers_placholder"
+          />
+        )}
+      </>
+    );
+  }
+
+  return (
+    <>
+      {/* {!userInfo && !favPosts.length ? <FavoritesOffersPlaceHolder/> : */}
+      <div className="clientPage__container_bottom">
+        <div className="clientPage__container_nav__radio">
+          <Checkbox
+            color="primary"
+            onChange={handlerDeletionCheckbox}
+            checked={deletionCheck}
+            icon={<FiberManualRecordOutlinedIcon />}
+            checkedIcon={<FiberManualRecordSharpIcon />}
+          />
+          <a
+            onClick={handlerPostDelete}
+            style={deletedPostIDs.length > 0 ? { color: "black" } : null}
+            className={classes.delete}
+          >
+            Удалить выбранные
+          </a>
+        </div>
+        <div className="clientPage__container_content">
+          <div className="favoritesContainerWrapper">
+            {favPosts.map((offer, index) => (
+              <OfferFavorite
+                offer={offer}
+                key={index}
+                index={index}
+                parentCheck={deletionCheck}
+                getChildCheck={getChildCheck}
+                dataCheck={deletedPostIDs}
+                deleteButton={deleteButton}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* } */}
+    </>
+  );
 }
 
 export default Offers;
