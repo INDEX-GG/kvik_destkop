@@ -18,6 +18,11 @@ import { getDataByPost } from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
 import PasswordStrengthBar from "react-password-strength-bar";
 
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
+
+import visibleSvg from "../../icons/visible.svg";
+import invisibleSvg from "../../icons/invisible.svg";
+
 const useStyles = makeStyles((theme) => ({
   block: {
     height: "100%",
@@ -64,6 +69,32 @@ const useStyles = makeStyles((theme) => ({
     padding: "16px 0px 27px",
     boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
     marginBottom: "24px",
+  },
+  pDPassInputWrapperVis: {
+    minWidth: "24px",
+    height: "24px",
+    background: `no-repeat center center url(${visibleSvg.src})`,
+
+    transition: "all 250ms ease-in-out",
+    "&:hover": {
+      transition: "all 250ms ease-in-out",
+      transform: "scale(1.2)",
+      cursor: "pointer",
+      backgroundColor: "transparent",
+    },
+  },
+  pDPassInputWrapperInv: {
+    minWidth: "24px",
+    height: "24px",
+
+    background: `no-repeat center center url(${invisibleSvg.src})`,
+    transition: "all 250ms ease-in-out",
+    "&:hover": {
+      transition: "all 250ms ease-in-out",
+      transform: "scale(1.2)",
+      cursor: "pointer",
+      backgroundColor: "transparent",
+    },
   },
 }));
 
@@ -200,7 +231,18 @@ export default function RegForm() {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <a
+                            <CustomButtonUI
+                              disableRipple={true}
+                              customRoot={
+                                !showPassword
+                                  ? classes.pDPassInputWrapperInv
+                                  : classes.pDPassInputWrapperVis
+                              }
+                              onClick={() => {
+                                setShowPassword(!showPassword);
+                              }}
+                            />
+                            {/* <a
                               className={
                                 !showPassword
                                   ? "pDPassInputWrapperInv"
@@ -209,7 +251,7 @@ export default function RegForm() {
                               onClick={() => {
                                 setShowPassword(!showPassword);
                               }}
-                            />
+                            /> */}
                           </InputAdornment>
                         ),
                       }}
