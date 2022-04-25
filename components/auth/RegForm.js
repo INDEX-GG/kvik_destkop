@@ -1,26 +1,27 @@
-import React, {useContext, useRef} from "react";
+import React, { useContext, useRef } from "react";
 import {
   Box,
-  Button, InputAdornment,
+  Button,
+  InputAdornment,
   makeStyles,
   TextField,
   Typography,
 } from "@material-ui/core";
 import Link from "next/link";
-import {useState} from "react";
-import {useForm, Controller} from "react-hook-form";
-import {DialogCTX, RegistrationCTX} from "../../lib/Context/DialogCTX";
+import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { DialogCTX, RegistrationCTX } from "../../lib/Context/DialogCTX";
 import ConfirmNumber from "./ConfirmNumber";
 import PhoneMask from "../../lib/phoneMask";
-import {useMedia} from "../../hooks/useMedia";
-import {getDataByPost} from "../../lib/fetch";
+import { useMedia } from "../../hooks/useMedia";
+import { getDataByPost } from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
-import PasswordStrengthBar from 'react-password-strength-bar';
+import PasswordStrengthBar from "react-password-strength-bar";
 
 const useStyles = makeStyles((theme) => ({
-	block: {
-		height: "100%"
-	},
+  block: {
+    height: "100%",
+  },
   root: {
     display: "flex",
     paddingTop: theme.spacing(4),
@@ -63,13 +64,13 @@ const useStyles = makeStyles((theme) => ({
     padding: "16px 0px 27px",
     boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
     marginBottom: "24px",
-  }
+  },
 }));
 
 export default function RegForm() {
   const [sendData, setSendData] = useState({}),
     [openConfirmNum, setOpenConfirmNum] = useState(false),
-    [phoneNum, setPhoneNum] = useState(''),
+    [phoneNum, setPhoneNum] = useState(""),
     {
       openRegForm,
       setOpenRegForm,
@@ -77,10 +78,9 @@ export default function RegForm() {
       setOpenLoginForm,
     } = useContext(DialogCTX);
 
-
   const classes = useStyles();
-  const {handleSubmit, control, setValue} = useForm();
-  const {matchesMobile} = useMedia();
+  const { handleSubmit, control, setValue } = useForm();
+  const { matchesMobile } = useMedia();
   const [showPassword, setShowPassword] = useState(false);
 
   const [valueInp, setValueInp] = useState("");
@@ -92,7 +92,6 @@ export default function RegForm() {
     setOpenRegForm((p) => !p);
   };
 
-
   const onSubmit = (data) => {
     data.phone = `+${valueInp.replace(/\D+/g, "")}`;
     setSendData(data);
@@ -101,15 +100,14 @@ export default function RegForm() {
     //   closeRegForm();
     //   setOpenConfirmNum(true);
     // });
-    getDataByPost('/api/callPhone', {"phone": data.phone}).then(() => {
+    getDataByPost("/api/callPhone", { phone: data.phone }).then(() => {
       closeRegForm();
       setOpenConfirmNum(true);
-      setPhoneNum(data.phone)
-    })
+      setPhoneNum(data.phone);
+    });
   };
 
-  const passLengthRef = useRef()
-
+  const passLengthRef = useRef();
 
   return (
     <>
@@ -119,7 +117,7 @@ export default function RegForm() {
         fullWidth
         maxWidth="sm"
         title="Регистрация"
-				extraClasses={{ root: classes.block}}
+        extraClasses={{ root: classes.block }}
       >
         <Box className={classes.root}>
           <Box className={classes.reg}>
@@ -134,9 +132,9 @@ export default function RegForm() {
                 control={control}
                 defaultValue=""
                 render={({
-                           field: {onChange, value},
-                           fieldState: {error},
-                         }) => (
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
                   <TextField
                     label="Имя"
                     variant="outlined"
@@ -149,13 +147,13 @@ export default function RegForm() {
                     helperText={error ? error.message : " "}
                   />
                 )}
-                rules={{required: "Введите имя"}}
+                rules={{ required: "Введите имя" }}
               />
               <Controller
                 name="phone"
                 control={control}
                 defaultValue=""
-                render={({field: {onChange}, fieldState: {error}}) => (
+                render={({ field: { onChange }, fieldState: { error } }) => (
                   <TextField
                     label="Номер телефона"
                     variant="outlined"
@@ -167,7 +165,10 @@ export default function RegForm() {
                       onChange(PhoneMask(e, valueInp, setValueInp))
                     }
                     onKeyDown={(e) => {
-                      if (e.key === "Backspace" && e.target.value.length === 3) {
+                      if (
+                        e.key === "Backspace" &&
+                        e.target.value.length === 3
+                      ) {
                         setValueInp("");
                       }
                     }}
@@ -175,22 +176,22 @@ export default function RegForm() {
                     helperText={error ? error.message : " "}
                   />
                 )}
-                rules={{required: "Введите номер телефона"}}
+                rules={{ required: "Введите номер телефона" }}
               />
               <Controller
                 name="password"
                 control={control}
                 defaultValue=""
                 render={({
-                           field: {onChange, value},
-                           fieldState: {error},
-                         }) => (
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
                   <>
                     <TextField
                       label="Введите пароль "
                       variant="outlined"
                       size="small"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       autoComplete="new-password"
                       value={value}
                       onChange={onChange}
@@ -200,28 +201,44 @@ export default function RegForm() {
                         endAdornment: (
                           <InputAdornment position="end">
                             <a
-                              className={!showPassword ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"}
+                              className={
+                                !showPassword
+                                  ? "pDPassInputWrapperInv"
+                                  : "pDPassInputWrapperVis"
+                              }
                               onClick={() => {
                                 setShowPassword(!showPassword);
                               }}
                             />
                           </InputAdornment>
-                        )
+                        ),
                       }}
                     />
-                    {value.length > 0 && <PasswordStrengthBar
-                      ref={passLengthRef}
-                      minLength={1}
-                      shortScoreWord={''}
-                      barColors={['#C7C7C7', '#F44545', '#F44545', '#00A0AB', '#00A0AB']}
-                      scoreWords={['Короткий', 'Короткий', 'Очень простой', 'Хороший', 'Надёжный']}
-                      password={value}
-                    />}
+                    {value.length > 0 && (
+                      <PasswordStrengthBar
+                        ref={passLengthRef}
+                        minLength={1}
+                        shortScoreWord={""}
+                        barColors={[
+                          "#C7C7C7",
+                          "#F44545",
+                          "#F44545",
+                          "#00A0AB",
+                          "#00A0AB",
+                        ]}
+                        scoreWords={[
+                          "Короткий",
+                          "Короткий",
+                          "Очень простой",
+                          "Хороший",
+                          "Надёжный",
+                        ]}
+                        password={value}
+                      />
+                    )}
                   </>
-
-
                 )}
-                rules={{required: "Введите пароль"}}
+                rules={{ required: "Введите пароль" }}
               />
 
               <Button
@@ -254,12 +271,10 @@ export default function RegForm() {
         </Box>
       </DialogUIAuth>
       <RegistrationCTX.Provider
-        value={{openConfirmNum, setOpenConfirmNum, phoneNum, sendData}}
+        value={{ openConfirmNum, setOpenConfirmNum, phoneNum, sendData }}
       >
-        <ConfirmNumber/>
+        <ConfirmNumber />
       </RegistrationCTX.Provider>
     </>
   );
 }
-
-
