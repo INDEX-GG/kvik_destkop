@@ -18,11 +18,8 @@ const ProductLittleSlider = ({ swiperAction, isMobile, photos }) => {
         {!isMobile &&
           photos.map((img) => (
             <SwiperSlide key={img}>
-              <div
-                className={classes.swiperLittleSlideImg}
-                style={{ width: "100%", height: "100%", position: "relative" }}
-              >
-                <Image src={img} alt="" layout="fill" />
+              <div className={classes.swiperLittleSlideImg}>
+                <Image src={img} alt="" layout="fill" objectFit="cover" />
               </div>
             </SwiperSlide>
           ))}
