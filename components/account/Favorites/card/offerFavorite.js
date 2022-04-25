@@ -9,7 +9,7 @@ import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordShar
 import { InternalLink } from "../../../links/InternalLink";
 
 import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
-
+import Image from "next/image";
 InternalLink;
 const useStyles = makeStyles(() => ({
   check: {
@@ -106,14 +106,13 @@ const OfferFavorite = ({
           <CustomLinkUI href="javascript:void(0);">
             <Favorits idOffer={offer.id} isAccountCard />
           </CustomLinkUI>
-          <img
-            key={index}
-            className={classes.cardImage}
-            src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}
-            onError={(e) =>
-              (e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`)
-            }
-          />
+          <div className={classes.cardImage}>
+            <Image
+              layout="fill"
+              key={index}
+              src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`}
+            />
+          </div>
           {offer.user_blocked && (
             <div className="favoritesCause megaLight">
               Пользователь заблокирован
