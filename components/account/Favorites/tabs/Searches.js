@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import EmptyPlaceholder from "../../../EmptyPlaceholder";
 import SearchListCard from "../card/SearchListCard";
 import FavoritesSearchesPlaceHolder from "../../../placeHolders/FavoritesPlaceHolder/FavoritesSearchesPlaceHolder/FavoritesSearchesPlaceHolder";
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
 
 function Searches(data) {
   if (data.searches.length === 0) {
@@ -62,9 +63,9 @@ function Searches(data) {
               >
                 Удалить
               </a>
-              <a className="clientPage__container_nav__radio_end">
+              <CustomLinkUI customRoot={"clientPage__container_nav__radio_end"}>
                 Получать на почту:
-              </a>
+              </CustomLinkUI>
             </div>
           )}
           <div className="clientPage__container_content">
