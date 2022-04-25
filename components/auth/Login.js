@@ -24,6 +24,9 @@ import { SecretData, SecretPassword } from "../../lib/SecretData";
 import ConfirmNumber from "./ConfirmNumber";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
+import visibleSvg from "../../icons/visible.svg";
+import invisibleSvg from "../../icons/invisible.svg";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -99,6 +102,32 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.8rem",
     "&:hover": {
       transition: "all 200ms ease-in-out",
+      backgroundColor: "transparent",
+    },
+  },
+  pDPassInputWrapperVis: {
+    minWidth: "24px",
+    height: "24px",
+    background: `no-repeat center center url(${visibleSvg.src})`,
+
+    transition: "all 250ms ease-in-out",
+    "&:hover": {
+      transition: "all 250ms ease-in-out",
+      transform: "scale(1.2)",
+      cursor: "pointer",
+      backgroundColor: "transparent",
+    },
+  },
+  pDPassInputWrapperInv: {
+    minWidth: "24px",
+    height: "24px",
+
+    background: `no-repeat center center url(${invisibleSvg.src})`,
+    transition: "all 250ms ease-in-out",
+    "&:hover": {
+      transition: "all 250ms ease-in-out",
+      transform: "scale(1.2)",
+      cursor: "pointer",
       backgroundColor: "transparent",
     },
   },
@@ -366,11 +395,11 @@ const Login = () => {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <a
-                              className={
+                            <CustomButtonUI
+                              customRoot={
                                 !showPassword
-                                  ? "pDPassInputWrapperInv"
-                                  : "pDPassInputWrapperVis"
+                                  ? classes.pDPassInputWrapperInv
+                                  : classes.pDPassInputWrapperVis
                               }
                               onClick={() => {
                                 setShowPassword(!showPassword);
