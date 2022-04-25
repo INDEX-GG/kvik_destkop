@@ -1,6 +1,6 @@
 import React from "react";
 import Edit from "#UI/icons/Edit";
-
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 const BtnActive = (props) => {
   return (
     <div>
@@ -10,22 +10,22 @@ const BtnActive = (props) => {
             className={`${props.classes.edit} ${props.classes.mobile__width}`}
           >
             <Edit />
-            <button
+            <CustomButtonUI
               type="submit"
-              className={`${props.classes.btn__edit}`}
+              customRoot={`${props.classes.btn__edit}`}
               onClick={() => props.Router.push(`/editPage/${props.offerID}`)}
             >
               Редактировать
-            </button>
+            </CustomButtonUI>
           </div>
-          <button
+          <CustomButtonUI
             id="003"
             value={props.offer.id}
             onClick={(e) => props.pushCheck(e, "003", props.offer.id)}
-            className={props.classes.btn__unpublish}
+            customRoot={props.classes.btn__unpublish}
           >
             Снять с публикации
-          </button>
+          </CustomButtonUI>
         </div>
       )}
     </div>
