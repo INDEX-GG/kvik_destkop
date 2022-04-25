@@ -8,7 +8,7 @@ import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore";
 
 import { STATIC_URL } from "#lib/constants";
 import { photos2arr } from "#lib/services";
-
+import ClientPageNav from "src/components/AnyPage/ClientPageNav/ClientPageNav";
 /**
  *
  * @param {*} param0
@@ -75,39 +75,11 @@ const Offers = ({ data }) => {
   ];
 
   return (
-    <>
-      <div className="clientPage__container_top">
-        <div className="clientPage__container_nav__wrapper">
-          <div className="clientPage__container_nav">
-            {navItems.map((item) => {
-              return (
-                <a
-                  key={item.id}
-                  className={itemNav.i === item.id ? "navActive" : ""}
-                  onClick={() => {
-                    setItemNav({ i: item.id, ttl: item.title });
-                    safeAccountTab(item.id);
-                  }}
-                >
-                  {/* {item.title} {brooklyn(item.count)}{" "} */}
-                  {/* {item.count} */}
-                  {`${item.title} ${item.count || ""}`}
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      {navItems.map((item) => itemNav.i === item.id && item.content)}
-      {/* <button
-        style={{width: '100px', height: '30px', backgroundColor: 'cyan', margin: '0 auto', display: 'block'}}
-        onClick={()=> {
-          setPage(page + 1)
-        }}
-        >
-          test
-          </button> */}
-    </>
+    <ClientPageNav
+      navItems={navItems}
+      itemNav={itemNav}
+      setItemNav={setItemNav}
+    />
   );
 };
 
