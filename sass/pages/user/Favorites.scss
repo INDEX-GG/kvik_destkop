@@ -1,352 +1,353 @@
 .favoritesContainerWrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .favoritesContainer {
-    display: grid;
-    grid-template-columns: 1.5fr 2fr;
-    width: 48%;
-    margin: 0 0 32px 0;
-    height: 184px;
-    color: $tp;
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  width: 48%;
+  margin: 0 0 32px 0;
+  height: 184px;
+  color: $tp;
 }
 
 .favorite__userPageContent {
-    height: calc(515px + (815 - 515) * ((100vh - 920px) / (1200 - 920)));
+  height: calc(515px + (815 - 515) * ((100vh - 920px) / (1200 - 920)));
 }
 
 .favoritesImage {
-    position: relative;
-    background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
-    background-size: cover;
-    height: 100%;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
+  position: relative;
+  background: no-repeat center center
+    url(../../../icons/photocard_placeholder.svg);
+  background-size: cover;
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
 }
 
 .favoritesDescription {
-    height: 100%;
-    max-width: 260.56px;
-    padding: 0 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  height: 100%;
+  max-width: 260.56px;
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .favoritesDescription > * {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 .favoritesMiddle > div {
-    overflow: hidden;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .favoritesPubCheck {
-    align-self: start;
-    position: relative;
-    top: 4px;
-    left: 4px;
+  align-self: start;
+  position: relative;
+  top: 4px;
+  left: 4px;
 }
 
 .favoritesCheckMain a {
-    margin-left: 27px;
-    line-height: 16px;
+  margin-left: 27px;
+  line-height: 16px;
 }
 
 .favoritesCause {
-    width: 98%;
-    padding: 4px 0;
-    text-align: center;
-    border-radius: 8px;
-    position: absolute;
-    bottom: 4px;
-    background-color: #2c2c2cb6;
-    display: inline;
+  width: 98%;
+  padding: 4px 0;
+  text-align: center;
+  border-radius: 8px;
+  position: absolute;
+  bottom: 4px;
+  background-color: #2c2c2cb6;
+  display: inline;
 }
 
 .favoritesUserpic {
-    margin-left: 8px;
-    min-width: 32px;
-    max-width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-    background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
-    background-size: cover;
+  margin-left: 8px;
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  background: no-repeat center center
+    url(../../../icons/userPhotoPlaceholder.svg);
+  background-size: cover;
 }
 
 .favoritesUserBlock {
-    width: 100%;
-    padding-top: 4px;
-    text-align: right;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-end;
-    color: $tp;
+  width: 100%;
+  padding-top: 4px;
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  color: $tp;
 }
 .favoritesUserBlock:hover .favoritesDescriptionUserName {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 .favoritesNote {
-    padding-right: 24px;
-    text-align: right;
-    background: no-repeat right center url(../../../icons/close_grey.svg);
-    transition: all 350ms ease-in-out;
-    color: $tp;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  padding-right: 24px;
+  text-align: right;
+  background: no-repeat right center url(../../../icons/close_grey.svg);
+  transition: all 350ms ease-in-out;
+  color: $tp;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .favoritesNote:hover {
-    cursor: pointer;
-    transition: all 350ms ease-in-out;
-    background-image: url(../../../icons/cross_bright.svg);
+  cursor: pointer;
+  transition: all 350ms ease-in-out;
+  background-image: url(../../../icons/cross_bright.svg);
 }
 
 .favoritesCompare {
-    position: absolute;
-    top: 4px;
-    right: 8px;
-    min-width: 24px;
-    min-height: 24px;
-    background: no-repeat url(../../../icons/compare_dark.svg);
-    transition: all 350ms ease-in-out;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  min-width: 24px;
+  min-height: 24px;
+  background: no-repeat url(../../../icons/compare_dark.svg);
+  transition: all 350ms ease-in-out;
 }
 
 .favoritesCompare:hover {
-    cursor: pointer;
-    transition: all 350ms ease-in-out;
-    background: no-repeat url(../../../icons/compare_o_green.svg);
+  cursor: pointer;
+  transition: all 350ms ease-in-out;
+  background: no-repeat url(../../../icons/compare_o_green.svg);
 }
 
 .sellersWrapper {
-    width: 97%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  width: 97%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .sellersContainer {
-    padding: 0 0 32px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  padding: 0 0 32px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .sellersUser {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .sellersUserBlock {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .sellersUserInfo {
-    margin: 0 12px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+  margin: 0 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .sellersUserName {
-    color: $tp;
+  color: $tp;
 }
 .sellersUserBlock:hover .sellersUserName {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .sellersUserBlock img {
-    min-width: 32px;
-    max-width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-    background: no-repeat center center url(../../../icons/userPhotoPlaceholder.svg);
-    background-size: cover;
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  background: no-repeat center center
+    url(../../../icons/userPhotoPlaceholder.svg);
+  background-size: cover;
 }
 
 .sellersOffers {
-    margin-top: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .sellersOffers .swiper-slide {
-    width: auto!important;
+  width: auto !important;
 }
 .sellersOffers .swiper-container {
-    margin-left: 0px;
+  margin-left: 0px;
 }
 
 .sellersOffer {
-    margin: 5px 9px;
-    width: 94px;
-    padding: 3px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 1px;
-    color: $tp;
-    transition: all 150ms ease-in-out;
+  margin: 5px 9px;
+  width: 94px;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 1px;
+  color: $tp;
+  transition: all 150ms ease-in-out;
 }
 
 .sellersOffers .swiper-button-prev {
-    background: url(../../../icons/arrow_left_bold.svg) center no-repeat, #fff;
-    border-radius: 50%;
-    margin-left: 5px;
+  background: url(../../../icons/arrow_left_bold.svg) center no-repeat, #fff;
+  border-radius: 50%;
+  margin-left: 5px;
 }
 
 .sellersOffers .swiper-button-next {
-    background: url(../../../icons/arrow_right_bold.svg) center no-repeat, #fff;
-    border-radius: 50%;
-    margin-right: 5px;
+  background: url(../../../icons/arrow_right_bold.svg) center no-repeat, #fff;
+  border-radius: 50%;
+  margin-right: 5px;
 }
 
 .sellersOffer:hover {
-    transition: all 200ms ease-in-out;
-    box-shadow: 0px 0px 30px #00000026;
+  transition: all 200ms ease-in-out;
+  box-shadow: 0px 0px 30px #00000026;
 }
 
 .sellersOffer img {
-    width: 88px;
-    height: 88px;
-    border-radius: 1px;
-    object-fit: cover;
-    object-position: center;
-    background: no-repeat center center url(../../../icons/photocard_placeholder.svg);
-    background-size: cover;
+  width: 88px;
+  height: 88px;
+  border-radius: 1px;
+  object-fit: cover;
+  object-position: center;
+  background: no-repeat center center
+    url(../../../icons/photocard_placeholder.svg);
+  background-size: cover;
 }
 
 .selersOffer > div {
-    margin: 2px 0;
+  margin: 2px 0;
 }
 
 .searshesCheckMain {
-    width: 100%;
-    display: flex;
+  width: 100%;
+  display: flex;
 }
 
 .searshesCheckMain *:nth-child(2) {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .searchesWrapper {
-    width: 100%;
-    height: 100%;
-    padding: 0 0 0 3px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 0 0 0 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .searchesWrapper > div:last-child {
-    border: none;
+  border: none;
 }
 
 .searchersContainer {
-    position: relative;
-    margin: 0 0px 16px 30px;
-    padding: 0 16px 16px 0px;
-    width: 95%;
-    border-bottom: 1px solid $light;
+  position: relative;
+  margin: 0 0px 16px 30px;
+  padding: 0 16px 16px 0px;
+  width: 95%;
+  border-bottom: 1px solid $light;
 }
 
 .searchersContainer > * {
-    padding: 4px 0;
+  padding: 4px 0;
 }
 .searchLeftCheck {
-    position: absolute;
-    top: 0;
-    left: -29px;
+  position: absolute;
+  top: 0;
+  left: -29px;
 }
 .searchRightCheck {
-    position: absolute;
-    top: 0;
-    right: 0px;
-    padding-right: 30px;
+  position: absolute;
+  top: 0;
+  right: 0px;
+  padding-right: 30px;
 }
 @media (max-width: 1366px) {
-    .favoritesContainer {
-        height: 230px;
-    }
+  .favoritesContainer {
+    height: 230px;
+  }
 }
 @media (max-width: 1280px) {
-    .favoritesDescription{
-        max-width: 195px;
-    }
+  .favoritesDescription {
+    max-width: 195px;
+  }
 }
 @media (max-width: 1080px) {
-    .favoritesDescription{
-        max-width: 284.46px;
-        min-width: 265px;
-    }
-    .favoritesImage {
-        min-width: 204px;
-    }
+  .favoritesDescription {
+    max-width: 284.46px;
+    min-width: 265px;
+  }
+  .favoritesImage {
+    min-width: 204px;
+  }
 }
 @media (max-width: 1024px) {
-    .favoritesContainer {
-        grid-template-columns: 1fr 2fr;
-        width: 100%;
-    }
+  .favoritesContainer {
+    grid-template-columns: 1fr 2fr;
+    width: 100%;
+  }
 
-    .favoritesDescription{
-        max-width: 661.04px;
-    }
+  .favoritesDescription {
+    max-width: 661.04px;
+  }
 
-    .favoritesCompare {
-        display: none;
-    }
+  .favoritesCompare {
+    display: none;
+  }
 
-    .favoritesFavorite {
-        top: 8px;
-        right: 8px;
-    }
+  .favoritesFavorite {
+    top: 8px;
+    right: 8px;
+  }
 
-    .favoritesButton {
-        max-width: 204px;
-        align-self: center;
-        padding: 3px 8px;
-    }
-
-
+  .favoritesButton {
+    max-width: 204px;
+    align-self: center;
+    padding: 3px 8px;
+  }
 }
 
 @media (max-width: 620px) {
-    .favoritesContainer {
-        height: 184px;
-    }
-    .favoritesImage {
-        min-width: 140px;
-    }
-
+  .favoritesContainer {
+    height: 184px;
+  }
+  .favoritesImage {
+    min-width: 140px;
+  }
 }
 
 // @media (max-width: 540px) {
@@ -356,36 +357,36 @@
 // }
 
 @media (max-width: 450px) {
-    .favoritesContainer {
-        grid-template-columns: 1.5fr 2fr;
-    }
-    .favoritesDescription{
-        max-width: 239px;
-        min-width: 194px;
-    }
-    .sellersOffers {
-        justify-content: flex-start;
-    }
+  .favoritesContainer {
+    grid-template-columns: 1.5fr 2fr;
+  }
+  .favoritesDescription {
+    max-width: 239px;
+    min-width: 194px;
+  }
+  .sellersOffers {
+    justify-content: flex-start;
+  }
 
-    .swiper-container {
-        margin-left: 0px;
-    }
-    .favoritesShowes,
-    .favoritesAddFavores {
-        margin: 20px 0px 0px 20px;
-    }
-    .favoritesButton {
-        font-size: 11px;
-    }
+  .swiper-container {
+    margin-left: 0px;
+  }
+  .favoritesShowes,
+  .favoritesAddFavores {
+    margin: 20px 0px 0px 20px;
+  }
+  .favoritesButton {
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 370px) {
-    .favoritesContainer {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1.5fr 1fr;
-        height: 368px;
-    }
-    .favoritesDescription{
-        max-width: 338px;
-    }
+  .favoritesContainer {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.5fr 1fr;
+    height: 368px;
+  }
+  .favoritesDescription {
+    max-width: 338px;
+  }
 }
