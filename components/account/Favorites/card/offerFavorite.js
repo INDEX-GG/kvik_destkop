@@ -24,6 +24,8 @@ const useStyles = makeStyles(() => ({
     height: "100%",
   },
   cardImage: {
+    position: "relative",
+    height: "100%",
     userSelect: "none",
     maxHeight: "100%",
     minWidth: "100%",
