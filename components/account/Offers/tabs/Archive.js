@@ -9,7 +9,7 @@ import OfferWaitPlaceHolder from "../../../placeHolders/OfferPlaceHolder/OfferWa
 import { Box, Grid } from "@mui/material";
 import ArchiveIco from "./ArchiveIco/ArchiveIco";
 import OfferCard from "../card/OfferCard";
-
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 const useStyles = makeStyles((theme) => ({
   check: {
     padding: "0px",
@@ -191,15 +191,15 @@ function Archive({ offers }) {
 					}}>
 						Активировать
 					</button> */}
-              <button
+              <CustomButtonUI
                 id="002"
-                className={classes.btn__delete}
+                customRoot={classes.btn__delete}
                 onClick={(e) => {
                   offerData.length > 0 ? pushCheck(e) : null;
                 }}
               >
                 Удалить
-              </button>
+              </CustomButtonUI>
             </div>
           )}
           <div className="clientPage__container_content">
