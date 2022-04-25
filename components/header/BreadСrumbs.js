@@ -2,7 +2,7 @@ import Link from "next/link";
 import { makeStyles } from "@material-ui/core";
 import { useCity } from "../../lib/Context/CityCTX";
 import { Box } from "@material-ui/core";
-
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
 const useStyles = makeStyles((theme) => ({
   bread: {
     marginBottom: "32px",
@@ -30,9 +30,13 @@ export default function BreadCrumbs({
       <Box component="ul" className="clientPage__breadcrumbs thin">
         {data ? (
           <Box component="li">
-            <Link href="/">
-              <a className="breadCrumb light">{city}</a>
-            </Link>
+            <CustomLinkUI
+              href="/"
+              defaultColor={false}
+              customRoot={"breadCrumb light"}
+            >
+              {city}
+            </CustomLinkUI>
           </Box>
         ) : null}
         {data
@@ -41,22 +45,25 @@ export default function BreadCrumbs({
                 item.label[0].toUpperCase() + item.label.substring(1);
               return (
                 <Box component="li" key={item.alias + index}>
-                  <Link href={`/search/${item.alias}`}>
-                    <a
-                      className={`breadCrumb light line 
+                  <CustomLinkUI
+                    href={`/search/${item.alias}`}
+                    defaultColor={false}
+                    customRoot={`breadCrumb light line 
 									${index === data?.length - 1 && !searchData ? classes.breadActiveItem : ""}`}
-                    >
-                      {title}
-                    </a>
-                  </Link>
+                  >
+                    {title}
+                  </CustomLinkUI>
                 </Box>
               );
             })
           : null}
         {searchData && (
-          <a className={`breadCrumb light line ${classes.breadActiveItem}`}>
+          <CustomLinkUI
+            defaultColor={false}
+            customRoot={`breadCrumb light line ${classes.breadActiveItem}`}
+          >
             {searchData}
-          </a>
+          </CustomLinkUI>
         )}
         {/* {productOld ?
 					<Link href="#">
