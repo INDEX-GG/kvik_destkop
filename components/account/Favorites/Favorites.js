@@ -11,6 +11,8 @@ import safeAccountTab from "../../safeAccountTab";
 import ScrollGetMore from "src/components/ScrollGetMore/ScrollGetMore";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
+import ClientPageNav from "src/components/AnyPage/ClientPageNav/ClientPageNav";
+
 import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   clientPage__container_top: {
@@ -166,34 +168,11 @@ const Favorites = ({ data }) => {
 
   return (
     <>
-      <div className={classes.clientPage__container_top}>
-        <div className={classes.clientPage__container_nav__wrapper}>
-          <div className={classes.clientPage__container_nav}>
-            {navItems.map((item) => {
-              return (
-                <CustomButtonUI
-                  disableRipple={true}
-                  key={item.id}
-                  customRoot={
-                    itemNav.i === item.id
-                      ? `${classes.navActive} ${classes.tabBtn}`
-                      : classes.tabBtn
-                  }
-                  onClick={() => {
-                    setItemNav({ i: item.id, ttl: item.title });
-                    safeAccountTab(item.id);
-                  }}
-                >
-                  {item.title} {brooklyn(item.count)}
-                </CustomButtonUI>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      {navItems.map((item) => {
-        return itemNav.i === item.id && item.content;
-      })}
+      <ClientPageNav
+        navItems={navItems}
+        itemNav={itemNav}
+        setItemNav={setItemNav}
+      />
     </>
   );
 };

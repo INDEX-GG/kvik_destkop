@@ -1,7 +1,7 @@
 import { Box } from "@material-ui/core";
 import React from "react";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
-import safeAccountTab from "../../../components/safeAccountTab";
+import safeAccountTab from "../../../../components/safeAccountTab";
 import { useClientPageNav } from "./style";
 
 const ClientPageNav = ({ navItems, itemNav, setItemNav }) => {
@@ -14,6 +14,7 @@ const ClientPageNav = ({ navItems, itemNav, setItemNav }) => {
             {navItems.map((item) => {
               return (
                 <CustomButtonUI
+                  disableRipple={true}
                   key={item.id}
                   customRoot={
                     itemNav.i === item.id
