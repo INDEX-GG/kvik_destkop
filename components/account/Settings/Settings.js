@@ -6,7 +6,7 @@ import safeAccountTab from "#components/safeAccountTab";
 import { PersonalData } from "./tabs/PersonalData/component";
 import Pushes from "./tabs/Pushes";
 import BlackList from "./tabs/BlackList";
-
+import ClientPageNav from "src/components/AnyPage/ClientPageNav/ClientPageNav";
 // Чёрный список
 // const blackListBox = [
 // 	{ id: 1, userPic: 'https://source.unsplash.com/random?portrait', username: 'Жора', date: '00.00.00' },
@@ -115,36 +115,11 @@ const Settings = ({ userID, token }) => {
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Личные данные" });
 
   return (
-    <>
-      <div className="clientPage__container_top">
-        <div className="clientPage__container_nav__wrapper">
-          <nav className="clientPage__container_nav">
-            {navItems.map((item) => {
-              const titleClass = [
-                "clientPage__container_nav__title",
-                itemNav.i === item.id ? "navActive" : "",
-              ].join(" ");
-
-              return (
-                <a
-                  className={titleClass}
-                  key={item.id}
-                  onClick={() => {
-                    setItemNav({ i: item.id, ttl: item.title });
-                    safeAccountTab(item.id);
-                  }}
-                >
-                  {item.title} {brooklyn(item.count)}
-                </a>
-              );
-            })}
-          </nav>
-        </div>
-      </div>
-      {navItems.map((item) => {
-        return itemNav.i === item.id && item.content;
-      })}
-    </>
+    <ClientPageNav
+      navItems={navItems}
+      itemNav={itemNav}
+      setItemNav={setItemNav}
+    />
   );
 };
 export default Settings;
