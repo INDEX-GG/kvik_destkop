@@ -9,6 +9,9 @@ import { useMedia } from "../../../../hooks/useMedia";
 // swiper объявлений
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper/core";
+
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
+
 SwiperCore.use([Navigation]);
 
 const SellersItem = ({ seller }) => {
@@ -45,11 +48,11 @@ const SellersItem = ({ seller }) => {
    */
   const SellerProductItem = ({ offer }) => {
     return (
-      <a href={`/product/${offer.id}`} className="sellersOffer">
+      <CustomLinkUI href={`/product/${offer.id}`} customRoot={"sellersOffer"}>
         <img src={`${STATIC_URL}/${JSON.parse(offer.photo)?.photos[0]}`} />
         <div>{ellipsis(ToRubles(offer.price), 15)}</div>
         <div>{ellipsis(offer.title, 10)}</div>
-      </a>
+      </CustomLinkUI>
     );
   };
 
