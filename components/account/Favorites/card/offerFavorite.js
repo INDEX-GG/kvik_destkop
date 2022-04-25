@@ -134,12 +134,10 @@ const OfferFavorite = ({
               {ToRusDate(offer.created_at)}
             </div>
           </div>
-          <img
-            className="favoritesUserpic"
+          <Image
+            layout="fill"
+            key={index}
             src={`${STATIC_URL}/${offer.userPhoto}`}
-            onError={(e) =>
-              (e.target.src = `${BASE_URL}/icons/photocard_placeholder.svg`)
-            }
           />
         </CustomLinkUI>
         <div className="favoritesMiddle">

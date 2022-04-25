@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { brooklyn } from "../../../lib/services";
-import safeAccountTab from "../../safeAccountTab";
+
 import Messages from "./tabs/Messages";
 import Notifs from "./tabs/Notifs";
 
