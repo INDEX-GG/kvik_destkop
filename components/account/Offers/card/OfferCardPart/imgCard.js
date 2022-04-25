@@ -2,8 +2,8 @@ import React, { useMemo } from "react";
 
 // import { STATIC_URL } from '#lib/constants'
 // import { photos2arr } from '#lib/services'
-
-const Image = (props) => {
+import Image from "next/image";
+const ImageC = (props) => {
   const offerLabelByType = {
     banned: "Отклонено",
     time_limit: "Истек срок размещения",
@@ -25,11 +25,15 @@ const Image = (props) => {
     <div className={props.classes.offer__image}>
       {photos &&
         photos?.slice(0, 1)?.map((imgs, i) => {
-          return <img className={props.classes.image} key={i} src={imgs} />;
+          return (
+            <div key={i} className={props.classes.image}>
+              <Image src={imgs} layout="fill" />
+            </div>
+          );
         })}
       {props.isWaith && <p className={props.classes.pos_abs}>{labelImage}</p>}
     </div>
   );
 };
 
-export default React.memo(Image);
+export default React.memo(ImageC);
