@@ -8,7 +8,7 @@ import OfferModal from "../../../OfferModal";
 import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
 import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
-
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 const useStyles = makeStyles((theme) => ({
   check: {
     padding: "0px",
@@ -155,15 +155,15 @@ function Wait({ offers }) {
                 }}
                 checked={check}
               />
-              <button
+              <CustomButtonUI
                 id="002"
-                className={classes.btn__delete}
+                customRoot={classes.btn__delete}
                 onClick={(e) => {
                   offerData.length > 0 ? pushCheck(e) : null;
                 }}
               >
                 Удалить
-              </button>
+              </CustomButtonUI>
             </div>
           )}
           <div className="clientPage__container_content">
