@@ -6,7 +6,7 @@ import { Checkbox, makeStyles, Dialog } from "@material-ui/core";
 import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
 import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 import OfferModal from "../../../OfferModal";
-
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 const useStyles = makeStyles((theme) => ({
   check: {
     padding: "0px",
@@ -48,10 +48,12 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[200],
     cursor: "pointer",
     transition: "all 200ms ease-in-out",
-
+    fontWeight: 400,
+    fontSize: "13px",
     "&:hover": {
       transition: "all 200ms ease-in-out",
       textDecoration: "underline",
+      background: "transparent",
     },
   },
 }));
@@ -187,14 +189,16 @@ export default function offerArchive({
               <a href="#" className="offerDTRight__item">
                 <span className="offerIcon binIcon" />
 
-                <button
+                <CustomButtonUI
+                  disableRipple={true}
                   id="002"
-                  value={offer.id}
-                  onClick={(e) => pushCheck(e)}
-                  className="offerEdit thin superLight offerSocialAction"
+                  customRoot={classes.btn__delete}
+                  onClick={(e) => {
+                    offerData.length > 0 ? pushCheck(e) : null;
+                  }}
                 >
                   Удалить
-                </button>
+                </CustomButtonUI>
               </a>
             </div>
           </div>
