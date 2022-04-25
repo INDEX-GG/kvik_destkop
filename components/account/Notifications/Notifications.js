@@ -6,23 +6,122 @@ import Messages from "./tabs/Messages";
 import Notifs from "./tabs/Notifs";
 
 // для получения длины сообщений
-import {useAuth} from '../../../lib/Context/AuthCTX'
+import { useAuth } from "../../../lib/Context/AuthCTX";
 import { getTokenDataByPost } from "#lib/fetch";
-import {CHAT_URL_API} from 'lib/constants'
+import { CHAT_URL_API } from "lib/constants";
 
 //Сообщения
 const dialogsBox = [
-  { id: 1, offerImg: "https://source.unsplash.com/random", offerPrice: 2000, offerTitle: "Монитор", userPic: "https://source.unsplash.com/random?portrait", userName: "Иван И.", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 2, offerImg: "https://source.unsplash.com/random", offerPrice: 20000, offerTitle: "Автомобиль", userPic: "https://source.unsplash.com/random?portrait", userName: "Гомер С.", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 3, offerImg: "https://source.unsplash.com/random", offerPrice: 200560, offerTitle: "Светофор", userPic: "https://source.unsplash.com/random?portrait", userName: "Дядя Стёпа", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 4, offerImg: "https://source.unsplash.com/random", offerPrice: 452000, offerTitle: "Велосипед", userPic: "https://source.unsplash.com/random?portrait", userName: "Светлана", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 5, offerImg: "https://source.unsplash.com/random", offerPrice: 52000, offerTitle: "Трактор", userPic: "https://source.unsplash.com/random?portrait", userName: "Татьяна П.", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 6, offerImg: "https://source.unsplash.com/random", offerPrice: 62000, offerTitle: "Молоко", userPic: "https://source.unsplash.com/random?portrait", userName: "Длинное имя прямо очень длинное", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 7, offerImg: "https://source.unsplash.com/random", offerPrice: 72000, offerTitle: "Ключ", userPic: "https://source.unsplash.com/random?portrait", userName: "Буратино", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 8, offerImg: "https://source.unsplash.com/random", offerPrice: 82000, offerTitle: "Сокол Тысячелетия", userPic: "https://source.unsplash.com/random?portrait", userName: "Хан Соло", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 9, offerImg: "https://source.unsplash.com/random", offerPrice: 5000, offerTitle: "Услуги", userPic: "https://source.unsplash.com/random?portrait", userName: "Ван Х.", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 10, offerImg: "https://source.unsplash.com/random", offerPrice: 200, offerTitle: "Парадная", userPic: "https://source.unsplash.com/random?portrait", userName: "Пётр", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
-  { id: 11, offerImg: "https://source.unsplash.com/random", offerPrice: 20.66, offerTitle: "Квартира", userPic: "https://source.unsplash.com/random?portrait", userName: "Тролебузина", date: "00.00.00 00:00", message: "Последнее осталенное сообщение в диалоге" },
+  {
+    id: 1,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 2000,
+    offerTitle: "Монитор",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Иван И.",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 2,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 20000,
+    offerTitle: "Автомобиль",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Гомер С.",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 3,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 200560,
+    offerTitle: "Светофор",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Дядя Стёпа",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 4,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 452000,
+    offerTitle: "Велосипед",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Светлана",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 5,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 52000,
+    offerTitle: "Трактор",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Татьяна П.",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 6,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 62000,
+    offerTitle: "Молоко",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Длинное имя прямо очень длинное",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 7,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 72000,
+    offerTitle: "Ключ",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Буратино",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 8,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 82000,
+    offerTitle: "Сокол Тысячелетия",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Хан Соло",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 9,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 5000,
+    offerTitle: "Услуги",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Ван Х.",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 10,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 200,
+    offerTitle: "Парадная",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Пётр",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
+  {
+    id: 11,
+    offerImg: "https://source.unsplash.com/random",
+    offerPrice: 20.66,
+    offerTitle: "Квартира",
+    userPic: "https://source.unsplash.com/random?portrait",
+    userName: "Тролебузина",
+    date: "00.00.00 00:00",
+    message: "Последнее осталенное сообщение в диалоге",
+  },
 ];
 
 // Уведомления
@@ -56,43 +155,58 @@ const notifBox = [
 
 //Пагинация
 const navItems = [
-  { id: 1, title: "Сообщения", content: <Messages key={1} data={dialogsBox} />, count: dialogsBox.length },
-  { id: 2, title: "Уведомления", content: <Notifs key={2} data={notifBox} />, count: notifBox.length },
+  {
+    id: 1,
+    title: "Сообщения",
+    content: <Messages key={1} data={dialogsBox} />,
+    count: dialogsBox.length,
+  },
+  {
+    id: 2,
+    title: "Уведомления",
+    content: <Notifs key={2} data={notifBox} />,
+    count: notifBox.length,
+  },
 ];
 
 const Notifications = () => {
   const [itemNav, setItemNav] = useState({ i: 1, ttl: "Сообщения" });
-  const {id, token} = useAuth()
-  const [lengthDialogs, setLengthDialogs] = useState(0)
+  const { id, token } = useAuth();
+  const [lengthDialogs, setLengthDialogs] = useState(0);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handlerSetItemNav = () => {
-    setItemNav({i: +router.query.content, ttl: navItems[router.query.content - 1].title})
-  }
+    setItemNav({
+      i: +router.query.content,
+      ttl: navItems[router.query.content - 1].title,
+    });
+  };
 
   useEffect(() => {
     if (router) {
       if (router.query.content !== undefined) {
         if (+router.query.content - 1 !== 2) {
           // fix memory leek react warning
-          handlerSetItemNav()
+          handlerSetItemNav();
         }
       }
     }
-  }, [router])
+  }, [router]);
 
   useEffect(() => {
-    getTokenDataByPost(`${CHAT_URL_API}/chat_last_messages`, {"user_id" : id}, token)
-      .then(r => {
-        if(typeof r !== 'undefined' && r.data?.length) {
-          getTokenDataByPost('/api/roomInfo', r.data, token)
-            .then(r => {
-              setLengthDialogs(r.list?.length)
-            })
-        }
-      })
-  }, [])
+    getTokenDataByPost(
+      `${CHAT_URL_API}/chat_last_messages`,
+      { user_id: id },
+      token
+    ).then((r) => {
+      if (typeof r !== "undefined" && r.data?.length) {
+        getTokenDataByPost("/api/roomInfo", r.data, token).then((r) => {
+          setLengthDialogs(r.list?.length);
+        });
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -101,13 +215,20 @@ const Notifications = () => {
           <div className="clientPage__container_nav">
             {navItems.map((item) => {
               return (
-                <a className={itemNav.i === item.id ? "navActive" : ""} key={item.id} onClick={() => {
-                  setItemNav({ i: item.id, ttl: item.title })
-				  safeAccountTab(item.id)
-				  }}>
+                <a
+                  className={itemNav.i === item.id ? "navActive" : ""}
+                  key={item.id}
+                  onClick={() => {
+                    setItemNav({ i: item.id, ttl: item.title });
+                    safeAccountTab(item.id);
+                  }}
+                >
                   {/* {item.title} {brooklyn(item.count)} */}
                   {/* если сообщения -отображаем длину сообщений */}
-                  {item.title} {item.id === 1 ? brooklyn(lengthDialogs) : brooklyn(item.count)}
+                  {item.title}{" "}
+                  {item.id === 1
+                    ? brooklyn(lengthDialogs)
+                    : brooklyn(item.count)}
                 </a>
               );
             })}
