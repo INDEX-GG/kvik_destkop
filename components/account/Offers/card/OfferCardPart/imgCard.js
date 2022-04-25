@@ -27,7 +27,7 @@ const ImageC = (props) => {
         photos?.slice(0, 1)?.map((imgs, i) => {
           return (
             <div key={i} className={props.classes.image}>
-              <Image src={imgs} layout="fill" />
+              <Image src={imgs} layout="fill" objectFit="cover" />
             </div>
           );
         })}
