@@ -8,7 +8,7 @@ import safeAccountTab from "../../safeAccountTab";
 // import EmptyPlaceholder from "../../EmptyPlaceholder";
 // import {Box, Grid} from "@mui/material";
 // import GearsPlaceholder from "../../../icons/gearsPlaceholder/GearsPlaceholder";
-
+import ClientPageNav from "src/components/AnyPage/ClientPageNav/ClientPageNav";
 // Баланс кошелька
 const balance = 3454322;
 
@@ -195,37 +195,11 @@ const Wallet = () => {
   }, [router]);
 
   return (
-    <>
-      <div className="clientPage__container_top">
-        <div className="clientPage__container_nav__wrapper">
-          <div className="clientPage__container_nav">
-            {navItems.map((item) => {
-              return (
-                <a
-                  key={item.id}
-                  className={itemNav.i === item.id ? "navActive" : ""}
-                  onClick={() => {
-                    setItemNav({ i: item.id, ttl: item.title });
-                    safeAccountTab(item.id);
-                  }}
-                >
-                  {item.title}
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      {navItems.map((item) => {
-        return (
-          itemNav.i === item.id && (
-            <div key={item.id} className="clientPage__container_content">
-              {item.content}
-            </div>
-          )
-        );
-      })}
-    </>
+    <ClientPageNav
+      navItems={navItems}
+      itemNav={itemNav}
+      setItemNav={setItemNav}
+    />
   );
 };
 export default Wallet;
