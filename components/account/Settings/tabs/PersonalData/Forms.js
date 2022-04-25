@@ -5,7 +5,7 @@ import { validatePassword } from "#lib/account/validatePassword";
 import { useAuth } from "#lib/Context/AuthCTX";
 import { updatePasswordOld } from "#lib/fetch";
 import { makeStyles } from "@material-ui/core";
-
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 /**
  * @typedef PasswordValidationResults
  * @property {boolean} [length]
@@ -87,6 +87,20 @@ const PasswordValidationBox = ({
 
 export const PasswordForm = () => {
   const classes = makeStyles({
+    formButtonString: {
+      gridArea: "content",
+      justifySelf: "baseline",
+      width: "auto",
+      minHeight: 0,
+      color: "#00a2ad",
+      backgroundColor: "transparent",
+      borderRadius: 0,
+      border: "none",
+      fontSize: "1rem",
+      "&:hover": {
+        backgroundColor: "transparent",
+      },
+    },
     validContainer: {
       opacity: "0",
       visibility: "hidden",
@@ -254,13 +268,13 @@ export const PasswordForm = () => {
       </div>
 
       <div className="form__section">
-        <button
-          className="form__button form__submit"
+        <CustomButtonUI
+          customRoot={classes.formButtonString}
           type="submit"
           ref={submitRef}
         >
           Изменить
-        </button>
+        </CustomButtonUI>
       </div>
     </form>
   );
