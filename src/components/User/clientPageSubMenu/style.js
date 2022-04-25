@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "42px 0px",
     borderRadius: "8px",
     cursor: "pointer",
+    fontWeight: 400,
+    fontSize: "0.8rem",
+    "&:hover": {
+      backgroundColor: "#e9e9e9",
+    },
     [theme.breakpoints.down(1080)]: {
       margin: "16px 0px",
     },

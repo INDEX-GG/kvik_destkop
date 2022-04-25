@@ -39,15 +39,16 @@ const ClientPageSubMenu = () => {
   };
   return (
     <>
-      <button
+      <CustomButtonUI
+        disableRipple={true}
         disabled={loading}
-        className={classes.btnSubscribe}
+        customRoot={classes.btnSubscribe}
         onClick={() => {
           handleSubscribebtn;
         }}
       >
         {userBool ? "Отписаться" : "Подписаться"}
-      </button>
+      </CustomButtonUI>
       <Box className={classes.ad__block_bottom__adaptive_right}>
         <CustomButtonUI
           customRoot={` ${classes.small} ${classes.light} ${classes.underline}`}
