@@ -21,13 +21,14 @@ const useStyles = makeStyles((theme) => ({
   },
   btn__unpublish: {
     marginLeft: "12px",
-    background: "none",
+    background: "transparent",
     color: theme.palette.grey[200],
     cursor: "pointer",
     transition: "all 200ms ease-in-out",
     "&:hover": {
       transition: "all 200ms ease-in-out",
       textDecoration: "underline",
+      background: "transparent",
     },
   },
 }));
