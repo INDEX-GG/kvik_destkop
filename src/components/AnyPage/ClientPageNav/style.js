@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       height: "0px",
     },
-    [theme.breakpoints.down(1180)]: {
+    [theme.breakpoints.down(1080)]: {
       top: 34,
     },
     [theme.breakpoints.down(1080)]: {
@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       height: "4px",
       backgroundColor: "#fff6a5 ",
-      [theme.breakpoints.down(1180)]: {
+      [theme.breakpoints.down(1080)]: {
         top: 34,
       },
       [theme.breakpoints.down(520)]: {
