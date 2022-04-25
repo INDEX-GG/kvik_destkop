@@ -4,6 +4,7 @@ import { useCustomButtonUIStyles } from "./style";
 
 const CustomButtonUI = ({
   disableRipple = false,
+  disabled = false,
   children,
   color = "default",
   type = "button",
@@ -23,6 +24,7 @@ const CustomButtonUI = ({
 
   return (
     <Button
+      disabled={disabled}
       disableRipple={disableRipple}
       color={color}
       onClick={onClick}
