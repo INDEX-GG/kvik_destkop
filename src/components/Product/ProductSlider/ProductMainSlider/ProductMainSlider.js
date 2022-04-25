@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // import ProductCommentary from '../../ProductOptions/ProductCommentary/ProductCommentary'
 import ProductLike from "../../ProductOptions/ProductLike/ProductLike";
 import { useProductSliderStyles } from "../styles";
-
+import Image from "next/image";
 const ProductMainSlider = ({
   swiperAction,
   photos,
@@ -48,7 +48,9 @@ const ProductMainSlider = ({
             className={classes.swiperNormalSlide}
             onClick={handleChangeModal(true)}
           >
-            <img className={classes.swiperNormalSlideImg} src={img} alt="img" />
+            <div>
+              <Image src={img} alt="img" layout="fill" />
+            </div>
           </SwiperSlide>
         );
       })}
