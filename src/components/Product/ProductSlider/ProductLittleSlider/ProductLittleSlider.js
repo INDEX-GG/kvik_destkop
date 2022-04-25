@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useProductSliderStyles } from "../styles";
@@ -18,9 +19,9 @@ const ProductLittleSlider = ({ swiperAction, isMobile, photos }) => {
         {!isMobile &&
           photos.map((img) => (
             <SwiperSlide key={img}>
-              <div className={classes.swiperLittleSlideImg}>
+              <Box className={classes.swiperLittleSlideImg}>
                 <Image src={img} alt="" layout="fill" objectFit="cover" />
-              </div>
+              </Box>
             </SwiperSlide>
           ))}
       </Swiper>
