@@ -3,6 +3,7 @@ import { Button } from "@material-ui/core";
 import { useCustomButtonUIStyles } from "./style";
 
 const CustomButtonUI = ({
+  disableRipple = false,
   children,
   color = "default",
   type = "button",
@@ -22,6 +23,7 @@ const CustomButtonUI = ({
 
   return (
     <Button
+      disableRipple={disableRipple}
       color={color}
       onClick={onClick}
       classes={{
