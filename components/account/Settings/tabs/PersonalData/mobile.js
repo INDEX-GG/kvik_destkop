@@ -25,8 +25,7 @@ import { AddressSuggestions } from "react-dadata";
 import { PasswordFormMobile } from "./Forms";
 import { formatPhoneNumber } from "#lib/phoneMask";
 // import { NavigationButton } from "#components/buttons/NavigationButton";
-import SettingsPlaceHolder from '#components/placeHolders/SettingsPlaceHolder/SettingsPlaceHolder/SettingsPlaceHolder'
-
+import SettingsPlaceHolder from "#components/placeHolders/SettingsPlaceHolder/SettingsPlaceHolder/SettingsPlaceHolder";
 
 /**
  * Секция в списке.
@@ -36,70 +35,68 @@ import SettingsPlaceHolder from '#components/placeHolders/SettingsPlaceHolder/Se
  * @param {any} props.sectionProps `props` `<section>` тэга
  */
 const Section = ({ className = undefined, children, ...sectionProps }) => {
-	const sectionClass = ["user-info__section", className && className].join(" ");
-	return (
-		<section className={sectionClass} {...sectionProps} >
-			{children}
-		</section>
-	)
-}
+  const sectionClass = ["user-info__section", className && className].join(" ");
+  return (
+    <section className={sectionClass} {...sectionProps}>
+      {children}
+    </section>
+  );
+};
 
-const UserAddressTab = ({setInputValue}) => {
-	const classes = makeStyles({
-		block: {
-			position: "relative",
-			background: "#FFFFFF",
-			boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
-		},
-		input: {
-			width: "100%",
-			fontSize: "100%",
-			fontFamily: "inherit",
-			height: "48px",
-			border: "none",
-			padding: "1em",
-			"&:focus": {
+const UserAddressTab = ({ setInputValue }) => {
+  const classes = makeStyles({
+    block: {
+      position: "relative",
+      background: "#FFFFFF",
+      boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+    },
+    input: {
+      width: "100%",
+      fontSize: "100%",
+      fontFamily: "inherit",
+      height: "48px",
+      border: "none",
+      padding: "1em",
+      "&:focus": {},
+    },
+  })();
+  const { id: userID, token } = useAuth();
+  const { userInfo } = useStore();
+  /**
+   * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion
+   */
+  const handlerLocationSuggestion = async (suggestion) => {
+    try {
+      await updateUserAddress({
+        userAddress: suggestion.value,
+        userID,
+        token,
+      });
+      setInputValue(suggestion.value);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-			}
-		}
-	})();
-	const { id: userID, token } = useAuth();
-	const { userInfo } = useStore();
-	/**
-	 * @param {import("react-dadata").DaDataSuggestion<import("react-dadata").DaDataAddress>} suggestion
-	 */
-	const handlerLocationSuggestion = async (suggestion) => {
-		try {
-			await updateUserAddress({
-				userAddress: suggestion.value,
-				userID,
-				token
-			})
-			setInputValue(suggestion.value)
-		} catch (error) {
-			console.error(error);
-		}
-
-	}
-
-	return (
-		<div className={classes.block}>
-			<AddressSuggestions
-				containerClassName={classes.suggest}
-				token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
-				// filterFromBound='city-region'
-				// filterToBound='settlement'
-				filterFromBound='city-region'
-				filterToBound='house'
-				defaultQuery={userInfo.address}
-				count={5}
-				minChars={2}
-				delay={5}
-				onChange={handlerLocationSuggestion}
-				inputProps={{ className: classes.input}}
-			/>
-		</div>)
-}
+  return (
+    <div className={classes.block}>
+      <AddressSuggestions
+        containerClassName={classes.suggest}
+        token="3fa959dcd662d65fdc2ef38f43c2b699a3485222"
+        // filterFromBound='city-region'
+        // filterToBound='settlement'
+        filterFromBound="city-region"
+        filterToBound="house"
+        defaultQuery={userInfo.address}
+        count={5}
+        minChars={2}
+        delay={5}
+        onChange={handlerLocationSuggestion}
+        inputProps={{ className: classes.input }}
+      />
+    </div>
+  );
+};
 
 /**
  * @param {object} props
@@ -107,200 +104,222 @@ const UserAddressTab = ({setInputValue}) => {
  * @param {string} props.name
  */
 const UserNameForm = () => {
-	const { id: userID, token } = useAuth();
-	const { userInfo } = useStore();
+  const { id: userID, token } = useAuth();
+  const { userInfo } = useStore();
 
-	/**
-	 * @param {React.FocusEvent<HTMLInputElement>} event
-	 */
-	const handlerUserNameChange = async (event) => {
-		try {
-			await updateUserName({
-				userName: event.target.value,
-				userID,
-				token
-			});
-		} catch (error) {
-			console.error(error)
-		}
-	}
+  /**
+   * @param {React.FocusEvent<HTMLInputElement>} event
+   */
+  const handlerUserNameChange = async (event) => {
+    try {
+      await updateUserName({
+        userName: event.target.value,
+        userID,
+        token,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-	return (
-		<div className="form user-info__section">
-			<div className="form__section">
-				<input
-					id="user-name"
-					className="form__input"
-					type="text"
-					name="user-name"
-					defaultValue={userInfo?.name}
-					onBlur={handlerUserNameChange}
-				/>
-			</div>
-		</div>
-	)
-}
+  return (
+    <div className="form user-info__section">
+      <div className="form__section">
+        <input
+          id="user-name"
+          className="form__input"
+          type="text"
+          name="user-name"
+          defaultValue={userInfo?.name}
+          onBlur={handlerUserNameChange}
+        />
+      </div>
+    </div>
+  );
+};
 
 export const PersonalDataMobile = () => {
-	// eslint-disable-next-line no-unused-vars
-	const { isAuth, id: userID, token } = useAuth();
-	// eslint-disable-next-line no-unused-vars
-	const { userInfo, setUserInfo } = useStore();
-	const [modal, setModal] = useState({});
-	const [addressValue, setAddressValue] = useState('')
+  // eslint-disable-next-line no-unused-vars
+  const { isAuth, id: userID, token } = useAuth();
+  // eslint-disable-next-line no-unused-vars
+  const { userInfo, setUserInfo } = useStore();
+  const [modal, setModal] = useState({});
+  const [addressValue, setAddressValue] = useState("");
 
-	// eslint-disable-next-line no-unused-vars
-	function modalOlen(e, size, content, title) {
-		function smf() {
-			setModal({ title: title, content: content, size: size, isOpen: false });
-		}
-		e.preventDefault();
-		setModal({ title: title, content: content, size: size, isOpen: true });
-		setTimeout(smf, 500);
-	}
+  // eslint-disable-next-line no-unused-vars
+  function modalOlen(e, size, content, title) {
+    function smf() {
+      setModal({ title: title, content: content, size: size, isOpen: false });
+    }
+    e.preventDefault();
+    setModal({ title: title, content: content, size: size, isOpen: true });
+    setTimeout(smf, 500);
+  }
 
-	let userSettings = {};
-	if (typeof isAuth !== "undefined") {
-		userSettings = {
-			phone: phoneNumber(userInfo?.phone),
-		};
-	} else {
+  let userSettings = {};
+  if (typeof isAuth !== "undefined") {
+    userSettings = {
+      phone: phoneNumber(userInfo?.phone),
+    };
+  } else {
+    // eslint-disable-next-line no-unused-vars
+    userSettings = {
+      phone: phoneNumber(userInfo?.phone),
+    };
+  }
 
-		// eslint-disable-next-line no-unused-vars
-		userSettings = {
-			phone: phoneNumber(userInfo?.phone),
-		};
-	}
+  // const { matchesTablet, matchesMobile } = useMedia();
 
-	// const { matchesTablet, matchesMobile } = useMedia();
+  // const [inputProfile, setInputProfile] = useState(true);
 
-	// const [inputProfile, setInputProfile] = useState(true);
+  // const [valueName, setValueName] = useState("");
+  // const limit = useRef(0);
+  // eslint-disable-next-line no-unused-vars
+  const [validateCheck, setValidateCheck] = useState([
+    "#F44545",
+    "#F44545",
+    "#F44545",
+    "#F44545",
+  ]);
+  // const [passwordValid, setPasswordValid] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [passwordOne, setPasswordOne] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [passwordTwo, setPasswordTwo] = useState("");
+  // const [passwordSend, setPasswordSend] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [passwordCoincidence, setPasswordCoincidence] = useState(null);
+  const [inputFirstEye, setInputFirstEye] = useState(true);
+  const [inputSecondEye, setInputSecondEye] = useState(true);
+  const [passwordDialog, setPasswordDialog] = useState(false);
+  const [isAddressPageOpen, switchAddressPage] = useState(false);
+  const [isPasswordPageOpen, switchPasswordPage] = useState(false);
 
-	// const [valueName, setValueName] = useState("");
-	// const limit = useRef(0);
-	// eslint-disable-next-line no-unused-vars
-	const [validateCheck, setValidateCheck] = useState(["#F44545", "#F44545", "#F44545", "#F44545"]);
-	// const [passwordValid, setPasswordValid] = useState(false);
-	// eslint-disable-next-line no-unused-vars
-	const [passwordOne, setPasswordOne] = useState("");
-	// eslint-disable-next-line no-unused-vars
-	const [passwordTwo, setPasswordTwo] = useState("");
-	// const [passwordSend, setPasswordSend] = useState("");
-	// eslint-disable-next-line no-unused-vars
-	const [passwordCoincidence, setPasswordCoincidence] = useState(null);
-	const [inputFirstEye, setInputFirstEye] = useState(true);
-	const [inputSecondEye, setInputSecondEye] = useState(true);
-	const [passwordDialog, setPasswordDialog] = useState(false);
-	const [isAddressPageOpen, switchAddressPage] = useState(false);
-	const [isPasswordPageOpen, switchPasswordPage] = useState(false);
+  // const [open, setOpen] = useState(false);
 
-	// const [open, setOpen] = useState(false);
-
-	return (
-		<>
-			{!userInfo ? <SettingsPlaceHolder /> : (
-				<div className="clientPage__container_bottom">
-				<div className="clientPage__container_content">
-					<div className="privateDataWrapper thin user-info user-info--mobile">
-						<UserNameForm />
-						<div className="user-info__section">
-							<button
-								type="button"
-								className="nav-button"
-								style={{ flexFlow: "row nowrap" }}
-								onClick={() => { switchAddressPage(true) }}
-							>
-								<span className="nav-button__text" style={{ textAlign: "left" }}>
-									{addressValue || userInfo?.address || userInfo?.location?.name}
-								</span>
-								<span className="nav-button__arrow">
-									<svg
-										width="11"
-										height="17"
-										viewBox="0 0 11 17"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M1.954 15.883L9.14214 8.92896L1.954 1.97495"
-											stroke="#C7C7C7"
-											strokeWidth="2"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-										/>
-									</svg>
-								</span>
-							</button>
-						</div>
-						<Section className="user-info__section--phone user-info__section--disabled">
-							<span>{formatPhoneNumber(userInfo?.phone)}{}</span>
-							<InternalLink className="user-info__phone-link" href={location.toString()} >
-								Добавить телефон
-							</InternalLink>
-						</Section>
-						{userInfo?.email &&
-							(<Section>
-								<span>{userInfo.email}</span>
-							</Section>)
-						}
-						<div className="form__section user-info__section--disabled" style={{ padding: 0 }} >
-							<div className="form__content">
-								<ul className="social social--mobile">
-									<li className="social__item social__item--vk">
-										<a className="social__link">Вконтакте</a>
-										<CheckBoxSwitch checkID="social-vk" isMobile />
-									</li>
-									<li className="social__item social__item--ok">
-										<a className="social__link">Одноклассники</a>
-										<CheckBoxSwitch checkID="social-ok" isMobile />
-									</li>
-									{/*<li className="social__item social__item--inst">*/}
-									{/*	<a className="social__link">Instagram</a>*/}
-									{/*	<CheckBoxSwitch checkID="social-inst" isMobile />*/}
-									{/*</li>*/}
-									{/*<li className="social__item social__item--fb">*/}
-									{/*	<a className="social__link">Facebook</a>*/}
-									{/*	<CheckBoxSwitch checkID="social-fb" isMobile />*/}
-									{/*</li>*/}
-								</ul>
-							</div>
-						</div>
-						<div className="user-info__section user-info__section--disabled">
-							Устройства
-						</div >
-						<div className="user-info__section">
-							<button
-								type="button"
-								className="nav-button"
-								style={{ flexFlow: "row nowrap" }}
-								onClick={() => { switchPasswordPage(true) }}
-							>
-								<span className="nav-button__text">
-									Смена пароля
-								</span>
-								<span className="nav-button__arrow">
-									<svg
-										width="11"
-										height="17"
-										viewBox="0 0 11 17"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M1.954 15.883L9.14214 8.92896L1.954 1.97495"
-											stroke="#C7C7C7"
-											strokeWidth="2"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-										/>
-									</svg>
-								</span>
-							</button>
-						</div>
-						<div className="user-info__section user-info__section--disabled">
-							Удалить аккаунт
-						</div>
-						{/* <div>
+  return (
+    <>
+      {!userInfo ? (
+        <SettingsPlaceHolder />
+      ) : (
+        <div className="clientPage__container_bottom">
+          <div className="clientPage__container_content">
+            <div className="privateDataWrapper thin user-info user-info--mobile">
+              <UserNameForm />
+              <div className="user-info__section">
+                <button
+                  type="button"
+                  className="nav-button"
+                  style={{ flexFlow: "row nowrap" }}
+                  onClick={() => {
+                    switchAddressPage(true);
+                  }}
+                >
+                  <span
+                    className="nav-button__text"
+                    style={{ textAlign: "left" }}
+                  >
+                    {addressValue ||
+                      userInfo?.address ||
+                      userInfo?.location?.name}
+                  </span>
+                  <span className="nav-button__arrow">
+                    <svg
+                      width="11"
+                      height="17"
+                      viewBox="0 0 11 17"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.954 15.883L9.14214 8.92896L1.954 1.97495"
+                        stroke="#C7C7C7"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <Section className="user-info__section--phone user-info__section--disabled">
+                <span>
+                  {formatPhoneNumber(userInfo?.phone)}
+                  {}
+                </span>
+                <InternalLink
+                  className="user-info__phone-link"
+                  href={location.toString()}
+                >
+                  Добавить телефон
+                </InternalLink>
+              </Section>
+              {userInfo?.email && (
+                <Section>
+                  <span>{userInfo.email}</span>
+                </Section>
+              )}
+              <div
+                className="form__section user-info__section--disabled"
+                style={{ padding: 0 }}
+              >
+                <div className="form__content">
+                  <ul className="social social--mobile">
+                    <li className="social__item social__item--vk">
+                      <a className="social__link">Вконтакте</a>
+                      <CheckBoxSwitch checkID="social-vk" isMobile />
+                    </li>
+                    <li className="social__item social__item--ok">
+                      <a className="social__link">Одноклассники</a>
+                      <CheckBoxSwitch checkID="social-ok" isMobile />
+                    </li>
+                    {/*<li className="social__item social__item--inst">*/}
+                    {/*	<a className="social__link">Instagram</a>*/}
+                    {/*	<CheckBoxSwitch checkID="social-inst" isMobile />*/}
+                    {/*</li>*/}
+                    {/*<li className="social__item social__item--fb">*/}
+                    {/*	<a className="social__link">Facebook</a>*/}
+                    {/*	<CheckBoxSwitch checkID="social-fb" isMobile />*/}
+                    {/*</li>*/}
+                  </ul>
+                </div>
+              </div>
+              <div className="user-info__section user-info__section--disabled">
+                Устройства
+              </div>
+              <div className="user-info__section">
+                <button
+                  type="button"
+                  className="nav-button"
+                  style={{ flexFlow: "row nowrap" }}
+                  onClick={() => {
+                    switchPasswordPage(true);
+                  }}
+                >
+                  <span className="nav-button__text">Смена пароля</span>
+                  <span className="nav-button__arrow">
+                    <svg
+                      width="11"
+                      height="17"
+                      viewBox="0 0 11 17"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.954 15.883L9.14214 8.92896L1.954 1.97495"
+                        stroke="#C7C7C7"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <div className="user-info__section user-info__section--disabled">
+                Удалить аккаунт
+              </div>
+              {/* <div>
 							<div>Телефон</div>
 							<div>
 								<p>{userSettings.phone}</p>
@@ -387,7 +406,7 @@ export const PersonalDataMobile = () => {
 								<DeleteAccountModal setOpen={setOpen} />
 							</Dialog>
 						</div> */}
-						{/* <div>
+              {/* <div>
 							<div>Сменить пароль</div>
 							<div>
 								<div className="privateDataPass">
@@ -433,89 +452,97 @@ export const PersonalDataMobile = () => {
 								</a>
 							) : null}
 						</div> */}
-					</div>
-				</div>
-				<Modal {...modal} />
-				<MobileModal dialog={passwordDialog || false} title='Cмена пароля' close={() => setPasswordDialog(false)}>
-					<div className="mobilePasswordContainer">
-						<div className="privateDataPass">
-							<div className="pDPassInputWrapper">
-								<input
-									placeholder="Введите новый пароль"
-									type={inputFirstEye ? "password" : "text"}
-									value={passwordOne}
-								// onChange={(e) => changePasswordInput(e)}
-								/>
-								<a className="pDPassInvis" onClick={() => setInputFirstEye(!inputFirstEye)} />
-							</div>
-							<p className="">
-								<Active_icon Size={14} Color={validateCheck[0]} />
-								&nbsp;Минимум 8 символов
-							</p>
-							<p className="">
-								<Active_icon Size={14} Color={validateCheck[1]} />
-								&nbsp;Только латинские символы
-							</p>
-							<p className="">
-								<Active_icon Size={14} Color={validateCheck[2]} />
-								&nbsp;Как минимум одна цифра
-							</p>
-							<p className="">
-								<Active_icon Size={14} Color={validateCheck[3]} />
-								&nbsp;Строчные и заглавные буквы
-							</p>
-							<div className="pDPassInputWrapper">
-								<input
-									placeholder="Повторите пароль еще раз"
-									type={inputSecondEye ? "password" : "text"}
-									value={passwordTwo}
-								// onChange={(e) => confirmPassword(e)}
-								/>
-								<a
-									className="pDPassInvis"
-									onClick={() => {
-										setInputSecondEye(!inputSecondEye);
-									}}
-								/>
-							</div>
-							{passwordCoincidence == null
-								? null
-								: passwordCoincidence == "noValid"
-									? (<p className="error small">Условия не выполнены</p>)
-									: passwordCoincidence == "send"
-										? (<p className="success small">Пароли совпадают</p>)
-										: <p className="error small">Пароли не совпадают</p>}
-							{passwordCoincidence == "send" ? (
-								<Button
-									className="sendButton"
-									type="button"
-								// onClick={(e) => passwordSubmit(e)}
-								>
-									Изменить пароль
-								</Button>
-							) : null}
-						</div>
-					</div>
-				</MobileModal>
-				<DialogUI
-					title="Местоположение"
-					open={isAddressPageOpen}
-					onClose={switchAddressPage}
-				>
-					<UserAddressTab setInputValue={setAddressValue} />
-				</DialogUI>
-				<DialogUI
-					title="Смена пароля"
-					open={isPasswordPageOpen}
-					onClose={switchPasswordPage}
-				>
-					<PasswordFormMobile />
-				</DialogUI>
-			</div>
-			)}
-		</>
-	);
-}
+            </div>
+          </div>
+          <Modal {...modal} />
+          <MobileModal
+            dialog={passwordDialog || false}
+            title="Cмена пароля"
+            close={() => setPasswordDialog(false)}
+          >
+            <div className="mobilePasswordContainer">
+              <div className="privateDataPass">
+                <div className="pDPassInputWrapper">
+                  <input
+                    placeholder="Введите новый пароль"
+                    type={inputFirstEye ? "password" : "text"}
+                    value={passwordOne}
+                    // onChange={(e) => changePasswordInput(e)}
+                  />
+                  <a
+                    className="pDPassInvis"
+                    onClick={() => setInputFirstEye(!inputFirstEye)}
+                  />
+                </div>
+                <p className="">
+                  <Active_icon Size={14} Color={validateCheck[0]} />
+                  &nbsp;Минимум 8 символов
+                </p>
+                <p className="">
+                  <Active_icon Size={14} Color={validateCheck[1]} />
+                  &nbsp;Только латинские символы
+                </p>
+                <p className="">
+                  <Active_icon Size={14} Color={validateCheck[2]} />
+                  &nbsp;Как минимум одна цифра
+                </p>
+                <p className="">
+                  <Active_icon Size={14} Color={validateCheck[3]} />
+                  &nbsp;Строчные и заглавные буквы
+                </p>
+                <div className="pDPassInputWrapper">
+                  <input
+                    placeholder="Повторите пароль еще раз"
+                    type={inputSecondEye ? "password" : "text"}
+                    value={passwordTwo}
+                    // onChange={(e) => confirmPassword(e)}
+                  />
+                  <a
+                    className="pDPassInvis"
+                    onClick={() => {
+                      setInputSecondEye(!inputSecondEye);
+                    }}
+                  />
+                </div>
+                {passwordCoincidence == null ? null : passwordCoincidence ==
+                  "noValid" ? (
+                  <p className="error small">Условия не выполнены</p>
+                ) : passwordCoincidence == "send" ? (
+                  <p className="success small">Пароли совпадают</p>
+                ) : (
+                  <p className="error small">Пароли не совпадают</p>
+                )}
+                {passwordCoincidence == "send" ? (
+                  <Button
+                    className="sendButton"
+                    type="button"
+                    // onClick={(e) => passwordSubmit(e)}
+                  >
+                    Изменить пароль
+                  </Button>
+                ) : null}
+              </div>
+            </div>
+          </MobileModal>
+          <DialogUI
+            title="Местоположение"
+            open={isAddressPageOpen}
+            onClose={switchAddressPage}
+          >
+            <UserAddressTab setInputValue={setAddressValue} />
+          </DialogUI>
+          <DialogUI
+            title="Смена пароля"
+            open={isPasswordPageOpen}
+            onClose={switchPasswordPage}
+          >
+            <PasswordFormMobile />
+          </DialogUI>
+        </div>
+      )}
+    </>
+  );
+};
 
 /*
 	<p className="pDPassWarning">Минимум 8 символов</p>
