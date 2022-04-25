@@ -172,6 +172,7 @@ const Favorites = ({ data }) => {
             {navItems.map((item) => {
               return (
                 <CustomButtonUI
+                  disableRipple={true}
                   key={item.id}
                   customRoot={
                     itemNav.i === item.id
