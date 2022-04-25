@@ -13,6 +13,7 @@ import { formatPhoneNumber } from "#lib/phoneMask";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 import { makeStyles } from "@material-ui/core";
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
 
 const useStyles = makeStyles(() => ({
   formButton: {
@@ -182,7 +183,9 @@ const SocialForm = ({ className }) => {
             {/*/>*/}
             {/*</li>*/}
             <li className="social__item social__item--vk">
-              <a className="social__link">Вконтакте</a>
+              <CustomLinkUI defaultColor={false} customRoot={"social__link"}>
+                Вконтакте
+              </CustomLinkUI>
               <CheckBoxSwitch
                 checkID="social-vk"
                 width="45px"
@@ -193,7 +196,9 @@ const SocialForm = ({ className }) => {
               />
             </li>
             <li className="social__item social__item--ok">
-              <a className="social__link">Одноклассники</a>
+              <CustomLinkUI defaultColor={false} customRoot="social__link">
+                Одноклассники
+              </CustomLinkUI>
               <CheckBoxSwitch
                 checkID="social-ok"
                 width="45px"
