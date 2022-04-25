@@ -4,7 +4,8 @@ import {
   Button,
   makeStyles,
   Typography,
-  TextField, InputAdornment,
+  TextField,
+  InputAdornment,
 } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { DialogCTX } from "../../lib/Context/DialogCTX";
@@ -14,12 +15,12 @@ import { useAuth } from "../../lib/Context/AuthCTX";
 import PhoneMask from "../../lib/phoneMask";
 import { useMedia } from "../../hooks/useMedia";
 import { useStore } from "../../lib/Context/Store";
-import {getDataByPost, getTokenDataByPost} from "../../lib/fetch";
+import { getDataByPost, getTokenDataByPost } from "../../lib/fetch";
 import DialogUIAuth from "../UI/DialogUIAuth";
 // import {Checkbox} from "@material-ui/core";
 // import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
 // import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
-import {SecretData, SecretPassword} from "../../lib/SecretData";
+import { SecretData, SecretPassword } from "../../lib/SecretData";
 import ConfirmNumber from "./ConfirmNumber";
 
 const useStyles = makeStyles((theme) => ({
@@ -68,12 +69,12 @@ const useStyles = makeStyles((theme) => ({
     width: "auto",
   },
   rememberPasswordCheck: {
-    padding: '0px',
+    padding: "0px",
     background: theme.palette.secondary.main,
-    width: '14px',
-    height: '14px',
+    width: "14px",
+    height: "14px",
 
-    '&:hover': {
+    "&:hover": {
       background: theme.palette.secondary.main,
     },
   },
@@ -96,10 +97,9 @@ const useStyles = makeStyles((theme) => ({
     transition: "all 200ms ease-in-out",
 
     "&:hover": {
-      transition: "all 200ms ease-in-out"
+      transition: "all 200ms ease-in-out",
     },
   },
-
 }));
 
 const Login = () => {
@@ -107,7 +107,7 @@ const Login = () => {
   const { storeUser } = useStore();
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
-  const [resetPassword , setResetPassword] = useState(false)
+  const [resetPassword, setResetPassword] = useState(false);
   const [checkSms, setCheckSms] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const { handleSubmit, control, setError, setValue, watch } = useForm();
@@ -122,7 +122,6 @@ const Login = () => {
   const onSubmit = (data) => {
     data.phone = `+${data.phone.replace(/\D+/g, "")}`;
 
-
     getDataByPost("/api/checkUser", SecretData(data)).then((res) => {
       if (res?.isset === false) {
         setError("phone", { type: "validate", message: " " });
@@ -132,59 +131,56 @@ const Login = () => {
         });
       } else {
         // getDataByPost("/api/login", { id: res?.idUser, RefreshAuthToken: res?.RefreshAuthToken }).then(() => signIn()); //session//authCtx
-        signIn(res?.idUser)
+        signIn(res?.idUser);
         storeUser(res?.idUser); //store
         setOpenLoginForm(!openLoginForm);
         setValueInp("");
         setValue("password", "");
-        onClose()
+        onClose();
       }
     });
   };
 
   const onClose = () => {
     // setResetPassword(false)
-    setCheckSms(false)
+    setCheckSms(false);
     setResetPassword(false);
-    setChangePassword(false)
-    setOpenLoginForm(false)
-    setValue('checkPhone', '')
-  }
+    setChangePassword(false);
+    setOpenLoginForm(false);
+    setValue("checkPhone", "");
+  };
 
   const onReset = (data) => {
-
     if (changePassword) {
-      getTokenDataByPost('/api/settings/upPassword', SecretPassword({password: data.newPassword}), changePassword)
-        .then((r) => {
-          if (r?.message === 'successfully update') {
-            onSubmit({phone: data.checkPhone, password: data.newPassword})
-          }
-        })
+      getTokenDataByPost(
+        "/api/settings/upPassword",
+        SecretPassword({ password: data.newPassword }),
+        changePassword
+      ).then((r) => {
+        if (r?.message === "successfully update") {
+          onSubmit({ phone: data.checkPhone, password: data.newPassword });
+        }
+      });
       return;
     }
 
-    data.checkPhone = `+${data.checkPhone.replace(/\D+/g, "")}`
+    data.checkPhone = `+${data.checkPhone.replace(/\D+/g, "")}`;
 
-    getDataByPost('/api/callPhone', {'phone': data.checkPhone})
-      .then((r) => {
-        if (r?.message === 'success') {
-          setCheckSms(true)
-        }
-      });
-
-  }
-
+    getDataByPost("/api/callPhone", { phone: data.checkPhone }).then((r) => {
+      if (r?.message === "success") {
+        setCheckSms(true);
+      }
+    });
+  };
 
   const handleClickResetPassword = () => {
-    setResetPassword(true)
-    setOpenLoginForm(false)
-  }
+    setResetPassword(true);
+    setOpenLoginForm(false);
+  };
 
   const [valueInp, setValueInp] = useState("");
 
-
   const ResetPassword = () => {
-
     if (changePassword) {
       return (
         <Box className={classes.root}>
@@ -199,23 +195,24 @@ const Login = () => {
                 name="newPassword"
                 control={control}
                 defaultValue=""
-                render={({field: {value, onChange}, fieldState: {error}}) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error },
+                }) => (
                   <TextField
                     label="Новый пароль"
                     variant="outlined"
-                    placeholder=''
+                    placeholder=""
                     size="small"
                     type="password"
                     autoComplete="password"
                     value={value}
-                    onChange={(e) =>
-                      onChange(e.target.value)
-                    }
+                    onChange={(e) => onChange(e.target.value)}
                     error={!!error}
                   />
                 )}
               />
-              <ConfirmNumber/>
+              <ConfirmNumber />
               <Button
                 type="submit"
                 disabled={false}
@@ -227,20 +224,19 @@ const Login = () => {
             </form>
           </Box>
         </Box>
-      )
+      );
     }
 
     if (checkSms) {
       return (
         <ConfirmNumber
           registrantion
-          resetPhone={`+${watch('checkPhone').replace(/\D+/g, "")}`}
+          resetPhone={`+${watch("checkPhone").replace(/\D+/g, "")}`}
           changePassword={setChangePassword}
           onClose={onClose}
         />
-      )
+      );
     }
-
 
     return (
       <Box className={classes.root}>
@@ -255,32 +251,33 @@ const Login = () => {
               name="checkPhone"
               control={control}
               defaultValue=""
-              render={({field: {value, onChange}, fieldState: {error}}) => (
+              render={({
+                field: { value, onChange },
+                fieldState: { error },
+              }) => (
                 <TextField
                   label="Номер телефона"
                   variant="outlined"
-                  placeholder='+7 (_ _ _) _ _ _ - _ _ - _ _ '
+                  placeholder="+7 (_ _ _) _ _ _ - _ _ - _ _ "
                   size="small"
                   type="tel"
                   autoComplete="tel"
                   value={value}
-                  onChange={(e) =>
-                    PhoneMask(e, value, onChange)
-                  }
+                  onChange={(e) => PhoneMask(e, value, onChange)}
                   onKeyDown={(e) => {
                     if (e.key === "Backspace" && e.target.value.length === 3) {
-                      setValue('checkPhone', "");
+                      setValue("checkPhone", "");
                     }
                   }}
                   autoFocus
-                  inputRef={input => input && input.focus()}
+                  inputRef={(input) => input && input.focus()}
                   error={!!error}
                   helperText={error ? error.message : " "}
                 />
               )}
-              rules={{required: "Введите номер телефона"}}
+              rules={{ required: "Введите номер телефона" }}
             />
-            <ConfirmNumber/>
+            <ConfirmNumber />
             <Button
               type="submit"
               disabled={false}
@@ -292,12 +289,12 @@ const Login = () => {
           </form>
         </Box>
       </Box>
-    )
-  }
+    );
+  };
 
-	return (
+  return (
     <>
-      {!resetPassword ?
+      {!resetPassword ? (
         <DialogUIAuth
           open={openLoginForm || false}
           onClose={() => {
@@ -333,7 +330,10 @@ const Login = () => {
                         onChange(PhoneMask(e, valueInp, setValueInp))
                       }
                       onKeyDown={(e) => {
-                        if (e.key === "Backspace" && e.target.value.length === 3) {
+                        if (
+                          e.key === "Backspace" &&
+                          e.target.value.length === 3
+                        ) {
                           setValueInp("");
                         }
                       }}
@@ -348,14 +348,14 @@ const Login = () => {
                   control={control}
                   defaultValue=""
                   render={({
-                             field: { onChange, value },
-                             fieldState: { error },
-                           }) => (
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
                     <TextField
                       label="Введите пароль"
                       variant="outlined"
                       size="small"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       autoComplete="current-password"
                       value={value}
                       onChange={onChange}
@@ -365,13 +365,17 @@ const Login = () => {
                         endAdornment: (
                           <InputAdornment position="end">
                             <a
-                              className={!showPassword ? "pDPassInputWrapperInv" : "pDPassInputWrapperVis"}
+                              className={
+                                !showPassword
+                                  ? "pDPassInputWrapperInv"
+                                  : "pDPassInputWrapperVis"
+                              }
                               onClick={() => {
                                 setShowPassword(!showPassword);
                               }}
                             />
                           </InputAdornment>
-                        )
+                        ),
                       }}
                     />
                   )}
@@ -401,7 +405,11 @@ const Login = () => {
                   {/*<button  className={classes.rememberPassword} >*/}
                   {/*  Запомнить пароль*/}
                   {/*</button>*/}
-                  <button type="button" onClick={handleClickResetPassword}  className={classes.forgotPassword} >
+                  <button
+                    type="button"
+                    onClick={handleClickResetPassword}
+                    className={classes.forgotPassword}
+                  >
                     Забыли пароль?
                   </button>
                 </div>
@@ -414,15 +422,15 @@ const Login = () => {
                 >
                   Войти
                 </Button>
-                <Typography className={classes.else} variant="body2" >
+                <Typography className={classes.else} variant="body2">
                   или
                 </Typography>
                 <div className={classes.socialNetworks}>
-                  <a href="https://vk.com" className="vkLoginIcon"/>
-                  <a href="https://ok.ru/" className="odLoginIcon"/>
-                  <a href="https://www.apple.com/" className="appleLoginIcon"/>
+                  <a href="https://vk.com" className="vkLoginIcon" />
+                  <a href="https://ok.ru/" className="odLoginIcon" />
+                  <a href="https://www.apple.com/" className="appleLoginIcon" />
                   {/*<a href="https://facebook.com" className="facebookLoginIcon"/>*/}
-                  <a href="https://google.com" className="googleLoginIcon"/>
+                  <a href="https://google.com" className="googleLoginIcon" />
                 </div>
                 <Button
                   onClick={() => {
@@ -438,19 +446,22 @@ const Login = () => {
               </form>
             </Box>
           </Box>
-        </DialogUIAuth> :
-      <DialogUIAuth
-        open={resetPassword || false}
-        onClose={() => {
-          setOpenLoginForm(false)
-          setResetPassword(false);
-        }}
-        title="Восстановление пароля"
-        fullWidth
-        maxWidth="sm"
-				extraClasses={{ root: classes.block }}>
-        <ResetPassword/>
-      </DialogUIAuth>}
+        </DialogUIAuth>
+      ) : (
+        <DialogUIAuth
+          open={resetPassword || false}
+          onClose={() => {
+            setOpenLoginForm(false);
+            setResetPassword(false);
+          }}
+          title="Восстановление пароля"
+          fullWidth
+          maxWidth="sm"
+          extraClasses={{ root: classes.block }}
+        >
+          <ResetPassword />
+        </DialogUIAuth>
+      )}
       <RegForm />
       <SelectUserForm />
     </>
