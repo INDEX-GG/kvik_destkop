@@ -49,7 +49,7 @@ const ProductMainSlider = ({
             onClick={handleChangeModal(true)}
           >
             <div>
-              <Image src={img} alt="img" layout="fill" />
+              <Image src={img} alt="img" layout="fill" objectFit="cover" />
             </div>
           </SwiperSlide>
         );
