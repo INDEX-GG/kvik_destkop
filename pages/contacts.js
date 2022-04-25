@@ -7,7 +7,7 @@ import Vk from "../UI/icons/Vk";
 import Fb from "../UI/icons/Fb";
 import WhatsUp from "../UI/icons/WhatsUp";
 import Odnoklas from "../UI/icons/Odnoklas";
-
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
 const seoProps = createSEOProps({
   title: "Контакты",
   link: "/contacts",
@@ -30,7 +30,10 @@ export default function Contacts() {
           <div className="contacts__blocks__block contacts__block">
             <div className="contacts__blocks__block_wrapper_top">
               <p>
-                Связь с нами: <a href="tel:+79191232395">8 (919) 123-23-95</a>
+                Связь с нами:{" "}
+                <CustomLinkUI href="tel:+79191232395">
+                  8 (919) 123-23-95
+                </CustomLinkUI>
               </p>
               <p>
                 Адрес:{" "}
@@ -47,15 +50,15 @@ export default function Contacts() {
               <h6 className="social__title">Мы в социальных сетях</h6>
               <div className="social__block">
                 {/*<a href="https://www.instagram.com/kvik.ru/"><Instagram /></a>*/}
-                <a href="https://vk.com/1kvik_ru">
+                <CustomLinkUI href="https://vk.com/1kvik_ru">
                   <Vk />
-                </a>
-                <a href="https://ok.ru/kvik1">
+                </CustomLinkUI>
+                <CustomLinkUI href="https://ok.ru/kvik1">
                   <Odnoklas />
-                </a>
-                <a href="https://www.facebook.com/1kvik/">
+                </CustomLinkUI>
+                <CustomLinkUI href="https://www.facebook.com/1kvik/">
                   <Fb />
-                </a>
+                </CustomLinkUI>
               </div>
             </div>
             <div className="contacts__blocks__block_wrapper_middle">
@@ -63,14 +66,14 @@ export default function Contacts() {
                 Скачать приложение
               </h6>
               <span>
-                <a href="#">
+                <CustomLinkUI href="#">
                   <GrAndroid />
-                </a>
+                </CustomLinkUI>
               </span>
               <span>
-                <a href="#">
+                <CustomLinkUI href="#">
                   <GrApple />
-                </a>
+                </CustomLinkUI>
               </span>
             </div>
             <div className="contacts__blocks__block_wrapper_bottom">
@@ -78,22 +81,25 @@ export default function Contacts() {
                 Служба поддержки
               </h6>
               <div className="support__block">
-                <a href="https://vk.com/1kvik_ru">
+                <CustomLinkUI href="https://vk.com/1kvik_ru">
                   <Vk />
-                </a>
-                <a href="https://ok.ru/kvik1">
+                </CustomLinkUI>
+                <CustomLinkUI href="https://ok.ru/kvik1">
                   <Odnoklas />
-                </a>
-                <a href="https://www.facebook.com/1kvik/">
+                </CustomLinkUI>
+                <CustomLinkUI href="https://www.facebook.com/1kvik/">
                   <Fb />
-                </a>
-                <a href="tel:+79191232395">
+                </CustomLinkUI>
+                <CustomLinkUI href="tel:+79191232395">
                   <WhatsUp />
-                </a>
+                </CustomLinkUI>
               </div>
-              <a className="contacts__index" href="https://lndex.ru">
+              <CustomLinkUI
+                customRoot={"contacts__index"}
+                href="https://lndex.ru"
+              >
                 Разработано студией INDEX
-              </a>
+              </CustomLinkUI>
             </div>
           </div>
         </div>
