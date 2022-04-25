@@ -12,6 +12,7 @@ import ImgStatistic from "./OfferCardPart/imgStatistic";
 import PayPromotion from "../../../../src/components/PayPromotion/PayPromotion/PayPromotion";
 import CustomModalUI from "../../../../src/UI/UIcomponent/CustomModal/CustomModalUI";
 import { useMedia } from "../../../../hooks/useMedia";
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 const useStyles = makeStyles((theme) => ({
   check: {
@@ -81,10 +82,10 @@ const useStyles = makeStyles((theme) => ({
     //top: '8px',
     alignSelf: "center",
     cursor: "pointer",
-    padding: "4px 35px",
+    padding: "0px 28px",
     borderRadius: "8px",
     fontSize: "14px",
-    fontWeight: "500",
+    fontWeight: "400",
     transition: "all 500ms ease",
     border: "1px solid transparent",
     // display: 'flex',
@@ -119,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
   btn__unpublish: {
     textDecorationLine: "underline",
     background: "none",
-    marginTop: "12px",
+    marginTop: "10px",
     transition: "all 200ms ease-in-out",
     cursor: "pointer",
     fontWeight: "400",
@@ -782,12 +783,13 @@ export default function OfferCard({
           </div>
           {isActive && (
             <div className={classes.bottom}>
-              <button
+              <CustomButtonUI
+                disableRipple={true}
+                customRoot={classes.btn__upViews}
                 onClick={() => setPromotionModal(true)}
-                className={classes.btn__upViews}
               >
                 Увеличить просмотры
-              </button>
+              </CustomButtonUI>
             </div>
           )}
         </div>
