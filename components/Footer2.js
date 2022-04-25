@@ -9,8 +9,8 @@ function Footer2() {
         <>
           <p>Скачать приложение</p>
           <div className="block__links__download">
-            <a className="ios_links__download" href="" />
-            <a className="android_links__download" href="" />
+            <CustomLinkUI customRoot="ios_links__download" href="" />
+            <CustomLinkUI customRoot="android_links__download" href="" />
           </div>
         </>
       ) : (
@@ -58,10 +58,15 @@ function Footer2() {
           </CustomLinkUI>
         </div>
         <div className="indexTitleFooter2">
-          {" "}
-          <a target="_blank" href="https://lndex.ru" rel="noopener noreferrer">
+          <CustomLinkUI
+            defaultColor={false}
+            customRoot={"indexTitleFooter2__link"}
+            target="_blank"
+            href="https://lndex.ru"
+            rel="noopener noreferrer"
+          >
             Разработано студией INDEX
-          </a>
+          </CustomLinkUI>
         </div>
       </div>
     </div>
