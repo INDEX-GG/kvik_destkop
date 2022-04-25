@@ -50,7 +50,7 @@ const PersonalForm = ({ userInfo }) => {
   );
 
   const { setUserInfo } = useStore();
-
+  const classes = useStyles();
   /**
    * @param {{ name: string, address: string }} formData
    */
