@@ -7,6 +7,8 @@ import OfferModal from "../../../OfferModal";
 import Router from "next/router";
 
 import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
+import Image from "next/image";
+import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
 
 const useStyles = makeStyles((theme) => ({
   check: {
@@ -120,7 +122,7 @@ export default function offerActive({
             </div>
           )}
           {offer.photo?.map((imgs, i) => {
-            return <img key={i} src={imgs} />;
+            return <Image key={i} src={imgs} />;
           })}
         </div>
         <div className="offerDescription">
@@ -135,22 +137,23 @@ export default function offerActive({
               <div className="offerLastDays">Осталось 30 дней</div>
             </div>
             <div className="offerDTRight">
-              <button
+              <CustomButtonUI
                 type="submit"
-                className="offerEdit offerEditActive thin editIcon offerSocialAction"
+                customRoot="offerEdit offerEditActive thin editIcon offerSocialAction"
                 onClick={() => Router.push(`/editPage/${offerID}`)}
               >
                 Редактировать
-              </button>
-              <a>
-                <button
+              </CustomButtonUI>
+
+              <CustomLinkUI>
+                <CustomButtonUI
                   value={offer.id}
                   onClick={(e) => pushCheck(e)}
-                  className="offerUnpublish thin superLight"
+                  customRoot="offerUnpublish thin superLight"
                 >
                   Снять с публикации
-                </button>
-              </a>
+                </CustomButtonUI>
+              </CustomLinkUI>
               <div
                 className="offerDescriptionBottomEnd"
                 style={{ justifyContent: "end" }}
@@ -181,12 +184,12 @@ export default function offerActive({
             style={{ justifyContent: "center" }}
             className="offerDescriptionBottom"
           >
-            <button
+            <CustomButtonUI
               style={{ padding: "4px 37px" }}
-              className="offerButtonViews button contained"
+              customRoot="offerButtonViews button contained"
             >
               Увеличить просмотры
-            </button>
+            </CustomButtonUI>
           </div>
         </div>
       </div>
