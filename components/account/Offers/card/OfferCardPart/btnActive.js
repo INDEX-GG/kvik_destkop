@@ -11,6 +11,7 @@ const BtnActive = (props) => {
           >
             <Edit />
             <CustomButtonUI
+              disableRipple={true}
               type="submit"
               customRoot={`${props.classes.btn__edit}`}
               onClick={() => props.Router.push(`/editPage/${props.offerID}`)}
@@ -19,6 +20,7 @@ const BtnActive = (props) => {
             </CustomButtonUI>
           </div>
           <CustomButtonUI
+            disableRipple={true}
             id="003"
             value={props.offer.id}
             onClick={(e) => props.pushCheck(e, "003", props.offer.id)}

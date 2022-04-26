@@ -93,6 +93,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: "#00a0ab",
     color: "#f7f7f7",
+    "&:hover": {
+      backgroundColor: "#00a0ab",
+    },
   },
   top: {
     position: "relative",
@@ -130,6 +133,7 @@ const useStyles = makeStyles((theme) => ({
       transition: "all 200ms ease-in-out",
       color: "#52b9c5",
       textDecoration: "underline",
+      backgroundColor: "transparent",
     },
   },
   btn__edit: {
@@ -141,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
 
     "&:hover": {
       textDecoration: "underline",
+      backgroundColor: "transparent",
     },
   },
   info__text: {
