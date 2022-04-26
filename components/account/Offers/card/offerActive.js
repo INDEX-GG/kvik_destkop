@@ -6,6 +6,8 @@ import { ToRubles, ToFullDate } from "../../../../lib/services";
 import OfferModal from "../../../OfferModal";
 import Router from "next/router";
 
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
+
 const useStyles = makeStyles((theme) => ({
   check: {
     padding: "0px",

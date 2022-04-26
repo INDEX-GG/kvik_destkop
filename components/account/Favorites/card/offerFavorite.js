@@ -24,14 +24,19 @@ const useStyles = makeStyles(() => ({
     height: "100%",
   },
   cardImage: {
-    position: "relative",
-    height: "100%",
+    // position: "relative",
+    // height: "100%",
     userSelect: "none",
     maxHeight: "100%",
     minWidth: "100%",
     objectFit: "cover",
     objectPosition: "center",
     borderRadius: "10px",
+  },
+  imgWrapper: {
+    position: "relative",
+    height: "100%",
+    width: "100%",
   },
 }));
 
@@ -105,7 +110,7 @@ const OfferFavorite = ({
         >
           {/*<a className="favoritesCompare">*/}
           {/*</a>*/}
-          <CustomLinkUI href="javascript:void(0);">
+          <CustomLinkUI href="#">
             <Favorits idOffer={offer.id} isAccountCard />
           </CustomLinkUI>
           <div className={classes.cardImage}>
@@ -137,9 +142,12 @@ const OfferFavorite = ({
               {ToRusDate(offer.created_at)}
             </div>
           </div>
+
           <Image
             objectFit="cover"
-            layout="fill"
+            // layout="fill"
+            width={32}
+            height={32}
             key={index}
             src={`${STATIC_URL}/${offer.userPhoto}`}
           />
