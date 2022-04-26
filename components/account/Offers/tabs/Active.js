@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[200],
     cursor: "pointer",
     transition: "all 200ms ease-in-out",
+    fontSize: "13px",
+    fontWeight: 400,
     "&:hover": {
       transition: "all 200ms ease-in-out",
       textDecoration: "underline",

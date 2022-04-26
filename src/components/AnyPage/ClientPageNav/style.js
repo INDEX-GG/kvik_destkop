@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   clientPage__container_nav__wrapper: {
     overflowX: "auto",
     overflowY: "hidden",
-    margin: "0 0 21px 0",
+    margin: "0 0 14px 0",
     whiteSpace: "nowrap",
     [theme.breakpoints.down(1180)]: {
       margin: "-6px 0 21px 0",
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   clientPage__container_nav: {
     width: "100%",
-    padding: "15px 0 8px 0",
+    padding: "15px 0 12px 0",
     margin: "0 0 5px 0",
     borderBottom: "2px solid #e9e9e9",
 
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
     "&:after": {
       position: "absolute",
       content: "''",
-      top: 41,
+      top: 45,
       left: 0,
       width: "100%",
       height: "4px",
