@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "end",
   },
   paddingIcon: {
-    padding: "24px 0 0 34px",
+    padding: "18px 0 0 34px",
     paddingRight: "0",
   },
   paddingIconWait: {
@@ -123,12 +123,13 @@ const useStyles = makeStyles((theme) => ({
   btn__unpublish: {
     textDecorationLine: "underline",
     background: "none",
-    marginTop: "10px",
+    marginTop: "2px",
     transition: "all 200ms ease-in-out",
     cursor: "pointer",
     fontWeight: "400",
     color: "#c7c7c7",
-
+    fontSize: "12px",
+    textAlign: "end",
     "&:hover": {
       transition: "all 200ms ease-in-out",
       color: "#52b9c5",
@@ -142,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "400",
     color: "#52b9c5",
     cursor: "pointer",
-
+    fontSize: "12px",
     "&:hover": {
       textDecoration: "underline",
       backgroundColor: "transparent",
@@ -260,6 +261,7 @@ const useStyles = makeStyles((theme) => ({
     },
     btn__unpublish: {
       textAlign: "end",
+      lineHeight: 1,
     },
   },
   [theme.breakpoints.down(680)]: {

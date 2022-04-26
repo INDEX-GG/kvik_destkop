@@ -65,6 +65,10 @@ const useStyles = makeStyles((theme) => ({
       margin: "-6px 0 4px 0",
       borderBottom: "none",
     },
+    [theme.breakpoints.down(520)]: {
+      margin: "-25px 0 20px 0",
+      borderBottom: "none",
+    },
   },
 
   tabBtn: {
