@@ -7,6 +7,8 @@ import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordO
 import FiberManualRecordSharpIcon from "@material-ui/icons/FiberManualRecordSharp";
 import OfferModal from "../../../OfferModal";
 import CustomButtonUI from "src/UI/UIcomponent/CustomButtonUI/CustomButtonUI";
+import CustomLinkUI from "src/UI/UIcomponent/CustomLinkUI/CustomLinkUI";
+import Image from "next/image";
 const useStyles = makeStyles((theme) => ({
   check: {
     padding: "0px",
@@ -146,10 +148,10 @@ export default function offerArchive({
           )}
 
           {offer.photo?.slice(0, 1).map((imgs, i) => {
-            return <img key={i} src={imgs} alt={"Изображение обьявления"} />;
+            return <Image key={i} src={imgs} alt={"Изображение обьявления"} />;
           })}
 
-          {<img src={offer.img} alt={"Изображение обьявления"} />}
+          {<Image src={offer.img} alt={"Изображение обьявления"} />}
           {/* старый вариант отображения статуса, после изменения API тут не хватает данных, нужно адекватно заполнить пропсы */}
           {/* {offer.verify === 7 ? "" : <div className="offerWaitCause megaLight">{Verify[offer.active]}</div>} */}
           {offer.verify === 7 ? (
@@ -166,27 +168,28 @@ export default function offerArchive({
             </div>
 
             <div className="offerDTRight">
-              <a href="#" className="offerDTRight__item">
+              <CustomLinkUI href="#" customRoot="offerDTRight__item">
                 <span className="offerIcon checkMarkIcon" />
-                <button
+
+                <CustomButtonUI
                   id="001"
                   value={offer.id}
                   onClick={(e) => pushCheck(e)}
-                  className="offerActivate thin superLight offerSocialAction"
+                  customRoot="offerActivate thin superLight offerSocialAction"
                 >
                   Активировать
-                </button>
-              </a>
+                </CustomButtonUI>
+              </CustomLinkUI>
 
-              <button
-                className="offerDTRight__item offerEdit thin offerSocialAction"
+              <CustomButtonUI
+                customRoot="offerDTRight__item offerEdit thin offerSocialAction"
                 onClick={() => Router.push(`/editPage/${offerID}`)}
               >
                 <span className="offerIcon editIcon" />
                 Редактировать
-              </button>
+              </CustomButtonUI>
 
-              <a href="#" className="offerDTRight__item">
+              <CustomLinkUI href="#" customRoot="offerDTRight__item">
                 <span className="offerIcon binIcon" />
 
                 <CustomButtonUI
@@ -199,7 +202,7 @@ export default function offerArchive({
                 >
                   Удалить
                 </CustomButtonUI>
-              </a>
+              </CustomLinkUI>
             </div>
           </div>
           <div className="offerDescriptionBottomEnd">
