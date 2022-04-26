@@ -86,7 +86,11 @@ const OfferFavorite = ({
   }, [parentCheck, deleteButton]);
 
   return (
-    <CustomLinkUI key={index} customRoot="favoritesContainer boxWrapper">
+    <CustomLinkUI
+      defaultColor={false}
+      key={index}
+      customRoot="favoritesContainer boxWrapper"
+    >
       <div className="favoritesImage">
         <div className="favoritesPubCheck">
           <Checkbox
