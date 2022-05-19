@@ -114,7 +114,7 @@ export default async function handler(req, res) {
                 await pool.query(`UPDATE "payments"."callbacks" SET "error" = $1 WHERE "id" = $2`, ["Не пройдена проверка getOrderStatusExtended", callback_id])
                 throw "err 5"
             }
-            return "OK " + MD5(callback_body_id.toString() + payment_sign)
+            return "OK " + MD5(callback_body_id.toString() + payment_sign).toString()
 
         }
         try {
