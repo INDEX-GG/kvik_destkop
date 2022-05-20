@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import tokenCheck from "components/api/tokenCheck";
 
 const text2Bool = (string) => {
     return (string === 'true') || (string === true);
@@ -6,23 +7,9 @@ const text2Bool = (string) => {
 export default async function handler(req, res) {
     if (req.method === 'POST') {
 
-        const jwt = require("jsonwebtoken");
-        const token = req.headers["x-access-token"];
-        if (!token) {
-            return res.status(403).send("A token is required for authentication");
-        }
-        try {
-            jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-        } catch (err) {
-            return res.status(401).send("Invalid Token");
-        }
-        const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-        if (parseInt(req.body.user_id, 10) !== tokenUser) {
-            return res.status(403).send("Invalid Token");
-        }
-
         const prisma = new PrismaClient();
         const main = async () => {
+            const userId = tokenCheck(req.headers["x-access-token"])
             const communication = {
                 phone: text2Bool(req.body.byphone),
                 message: text2Bool(req.body.bymessages)
@@ -47,7 +34,7 @@ export default async function handler(req, res) {
                         id: req.body.post_id,
                     },
                 data: {
-                    user_id: +req.body.user_id,
+                    user_id: +userId,
                     category_id: alias,
                     title: req.body.title,
                     description: req.body.description,
@@ -102,8 +89,6 @@ export default async function handler(req, res) {
                 }
             }
 
-
-
             return { id: updatePost.id };
         }
         try {
@@ -112,10 +97,16 @@ export default async function handler(req, res) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(response))
         }
-        catch (e) {
-            console.error(`ошибка api setPosts ${e}`)
-            res.json('ошибка api setPosts, ', e)
-            res.status(405).end();
+        catch (error) {
+            console.error(`ошибка api updateFull ${error}`)
+            if (error === "A token is required for authentication") {
+                return res.status(403).send("A token is required for authentication");
+            }
+            if (error === "Invalid Token") {
+                return res.status(401).send("Invalid Token");
+            }
+            // res.status(400).send("ошибка api subscribe: " + error.toString())
+            res.json('ошибка api updateFull, ', error)
         }
         finally {
             await prisma.$disconnect();

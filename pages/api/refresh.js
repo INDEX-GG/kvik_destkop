@@ -1,21 +1,13 @@
 import withSession from '../../lib/session'
 import { sign } from 'jsonwebtoken'
+import refreshTokenCheck from "components/api/refreshTokenCheck";
 export default withSession(async (req, res) => {
     if (req.method === 'GET') {
         const main = async () => {
-            const jwt = require("jsonwebtoken");
             const user = req.session.get('user')
             const token = user.RefreshAuthToken
-            if (!token) {
-                return res.status(403).send("A token is required for authentication");
-            }
-            try {
-                jwt.verify(token, process.env.NEXT_PUBLIC_JWT_REFRESH_SECRET);
-            } catch (err) {
-                return res.status(401).send("Invalid Token");
-            }
-            const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_REFRESH_SECRET).sub
-            const claims = {sub: tokenUser}
+            const UserId = refreshTokenCheck(token)
+            const claims = {sub: UserId}
             const new_jwt = sign(claims, process.env.NEXT_PUBLIC_JWT_SECRET, { expiresIn: 120})
             return { authToken: new_jwt }
         }
@@ -25,10 +17,16 @@ export default withSession(async (req, res) => {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(response))
         }
-        catch (e) {
-            console.error(`ошибка api refresh ${e}`)
-            res.json('ошибка api refresh, ', e)
-            res.status(405).end();
+        catch (error) {
+            console.error(`ошибка api refresh ${error}`)
+            if (error === "A token is required for authentication") {
+                return res.status(403).send("A token is required for authentication");
+            }
+            if (error === "Invalid Token") {
+                return res.status(401).send("Invalid Token");
+            }
+            // res.status(400).send("ошибка api subscribe: " + error.toString())
+            res.json('ошибка api refresh, ', error)
         }
 
     } else {
