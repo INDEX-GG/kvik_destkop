@@ -2,6 +2,7 @@ import {Pool} from "pg"
 import crypto from "crypto";
 import axios from "axios";
 import qs from 'qs';
+let tokenCheck = require('components/api/tokenCheck');
 
 const relevant_actions = {
     2: {
@@ -26,28 +27,13 @@ let payment_source = process.env.STG_PAYMENT_STATUS
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-
-        const jwt = require("jsonwebtoken");
-        const token = req.headers["x-access-token"];
-        if (!token) {
-            return res.status(403).send("A token is required for authentication");
-        }
-        try {
-            jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-        } catch (err) {
-            return res.status(401).send("Invalid Token");
-        }
-        const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-        if (parseInt(req.body.user_id, 10) !== tokenUser) {
-            return res.status(403).send("Invalid Token");
-        }
-
+        const userId = tokenCheck(req.headers["x-access-token"])
         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
 
             let amount = 0
             let description = "Оплата услуг по продвижению на сайте onekvik.ru"
-            let user_id = req.body.user_id
+            let user_id = userId
             let post_id = req.body.post_id
             let now = new Date()
             const randomString = crypto.randomBytes(2).toString("hex");
@@ -101,9 +87,15 @@ export default async function handler(req, res) {
             res.setHeader('Content-Type', 'application/json')
             res.end(JSON.stringify(response))
         }
-        catch (e) {
-            console.error(`ошибка api payment ${e}`)
-            res.status(400).json({ message: 'ошибка api payment'})
+        catch (error) {
+            console.error(`ошибка api pay/promotion ${error}`)
+            if (error === "A token is required for authentication") {
+                return res.status(403).send("A token is required for authentication");
+            }
+            if (error === "Invalid Token") {
+                return res.status(401).send("Invalid Token");
+            }
+            res.status(400).send("ошибка api pay/promotion: " + error.toString())
         }
         finally {
             await pool.end()

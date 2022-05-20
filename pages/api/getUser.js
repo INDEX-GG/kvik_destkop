@@ -1,27 +1,12 @@
 import {Pool} from "pg"
+import tokenCheck from "components/api/tokenCheck";
 
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 
 		const main = async () => {
-			const user_id = req.body.id
-
-			const jwt = require("jsonwebtoken");
-			const token = req.headers["x-access-token"];
-			if (!token) {
-				throw "A token is required for authentication"
-			}
-			try {
-				jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-			} catch (err) {
-				throw "Invalid Token"
-			}
-			const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-			if (parseInt(req.body.id, 10) !== tokenUser) {
-				throw "Invalid Token"
-			}
-
+			const user_id = tokenCheck(req.headers["x-access-token"])
 			let user_obj = await pool.query(`SELECT users."name", users."userPhoto", users."about", users."createdAt", users."phone", users."email", users."raiting", users."location", users."address",
 				(SELECT COUNT(subscription) FROM "public"."subscriptions" WHERE user_id = $1) AS "subscriptions_count",
 				(SELECT COUNT(user_id) FROM "public"."subscriptions" WHERE subscription = $1) AS "subscribers_count",
@@ -41,10 +26,16 @@ export default async function handler(req, res) {
 			res.setHeader('Content-Type', 'application/json');
 			res.end(JSON.stringify(response))
 		}
-		catch (e) {
-			console.error(`ошибка api getUser ${e}`)
-			res.json('ошибка api getUser')
-			res.status(405).end();
+		catch (error) {
+			console.error(`ошибка api getUser ${error}`)
+			if (error === "A token is required for authentication") {
+				return res.status(403).send("A token is required for authentication");
+			}
+			if (error === "Invalid Token") {
+				return res.status(401).send("Invalid Token");
+			}
+			// res.status(400).send("ошибка api subscribe: " + error.toString())
+			res.json('ошибка api getUser, ', error)
 		}
 		finally {
 			await pool.end()

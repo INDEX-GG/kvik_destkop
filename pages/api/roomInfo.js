@@ -1,25 +1,15 @@
 import {PrismaClient} from '@prisma/client';
+import tokenCheck from "components/api/tokenCheck";
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-
-        const jwt = require("jsonwebtoken");
-        const token = req.headers["x-access-token"];
-        if (!token) {
-            return res.status(403).send("A token is required for authentication");
-        }
-        try {
-            jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-        } catch (err) {
-            return res.status(401).send("Invalid Token");
-        }
-        const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
         const prisma = new PrismaClient();
         const main = async () => {
+            const userId = tokenCheck(req.headers["x-access-token"])
             let list = req.body
             let users = []
             let products = []
             for (const val of list) {
-                if (parseInt(val.customer_id, 10) !== tokenUser && parseInt(val.seller_id, 10) !== tokenUser) {
+                if (parseInt(val.customer_id, 10) !== userId && parseInt(val.seller_id, 10) !== userId) {
                     return res.status(403).send("Invalid Token");
                 }
                 if (!(users.includes(val.seller_id))) {
@@ -67,10 +57,16 @@ export default async function handler(req, res) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(response))
         }
-        catch (e) {
-            console.error(`ошибка api roomInfo ${e}`)
-            res.json('ошибка api roomInfo, ', e)
-            res.status(405).end();
+        catch (error) {
+            console.error(`ошибка api roomInfo ${error}`)
+            if (error === "A token is required for authentication") {
+                return res.status(403).send("A token is required for authentication");
+            }
+            if (error === "Invalid Token") {
+                return res.status(401).send("Invalid Token");
+            }
+            // res.status(400).send("ошибка api subscribe: " + error.toString())
+            res.json('ошибка api roomInfo, ', error)
         }
         finally {
             await prisma.$disconnect();

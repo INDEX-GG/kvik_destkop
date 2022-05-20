@@ -33,9 +33,7 @@ export default async function handler(req, res) {
             res.end(JSON.stringify(response))
         }
         catch (error) {
-            console.log(typeof error);
             console.error(`ошибка api subscribe ${error}`)
-            console.log(error)
             if (error === "A token is required for authentication") {
                 return res.status(403).send("A token is required for authentication");
             }

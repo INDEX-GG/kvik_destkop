@@ -1,33 +1,18 @@
 import {Pool} from "pg"
+import tokenCheck from "components/api/tokenCheck";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
 
-
-        const jwt = require("jsonwebtoken");
-        const token = req.headers["x-access-token"];
-        if (!token) {
-            return res.status(403).send("A token is required for authentication");
-        }
-        try {
-            jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-        } catch (err) {
-            return res.status(401).send("Invalid Token");
-        }
-        const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-        if (parseInt(req.body.user_id, 10) !== tokenUser) {
-            return res.status(403).send("Invalid Token");
-        }
-
-
         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
 
-            if (typeof req.body.user_id !== 'number' || typeof req.body.page !== 'number' || typeof req.body.page_limit !== 'number') {
+            const userId = tokenCheck(req.headers["x-access-token"])
+            if (typeof req.body.page !== 'number' || typeof req.body.page_limit !== 'number') {
                 throw "Er"
             }
 
-            const user_id = req.body.user_id
+            const user_id = userId
             const page_limit = req.body.page_limit
             const page = (req.body.page - 1) * page_limit
             let day_in_ms = 1000*60*60*24
@@ -91,10 +76,16 @@ export default async function handler(req, res) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(response))
         }
-        catch (e) {
-            console.error(`ошибка api personalAreaFavorites ${e}`)
-            res.json('ошибка api personalAreaFavorites, ', e)
-            res.status(405).end();
+        catch (error) {
+            console.error(`ошибка api PersonalAreaFavorites ${error}`)
+            if (error === "A token is required for authentication") {
+                return res.status(403).send("A token is required for authentication");
+            }
+            if (error === "Invalid Token") {
+                return res.status(401).send("Invalid Token");
+            }
+            // res.status(400).send("ошибка api subscribe: " + error.toString())
+            res.json('ошибка api PersonalAreaFavorites, ', error)
         }
         finally {
             await pool.end()

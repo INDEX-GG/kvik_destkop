@@ -1,30 +1,18 @@
 import { PrismaClient } from '@prisma/client';
+import tokenCheck from "components/api/tokenCheck";
 export default async function handler(req, res) {
 
     if (req.method === 'POST') {
 
-        const jwt = require("jsonwebtoken");
-        const token = req.headers["x-access-token"];
-        if (!token) {
-            return res.status(403).send("A token is required for authentication");
-        }
-        try {
-            jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-        } catch (err) {
-            return res.status(401).send("Invalid Token");
-        }
-        const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-        if (parseInt(req.body.id, 10) !== tokenUser) {
-            return res.status(403).send("Invalid Token");
-        }
-
         const prisma = new PrismaClient();
         const main = async () => {
-            const { id, address } = req.body
+            const userId = tokenCheck(req.headers["x-access-token"])
+
+            const { address } = req.body
             const obj = {
                 where:
                     {
-                        id: id
+                        id: userId
                     },
                 data: {
                     address: address
@@ -40,10 +28,16 @@ export default async function handler(req, res) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(response))
         }
-        catch (e) {
-            console.error(`ошибка api upAddress ${e}`)
-            res.json('ошибка api upAddress, ', e)
-            res.status(405).end();
+        catch (error) {
+            console.error(`ошибка api settings/upAddress ${error}`)
+            if (error === "A token is required for authentication") {
+                return res.status(403).send("A token is required for authentication");
+            }
+            if (error === "Invalid Token") {
+                return res.status(401).send("Invalid Token");
+            }
+            // res.status(400).send("ошибка api subscribe: " + error.toString())
+            res.json('ошибка api settings/upAddress, ', error)
         }
         finally {
             await prisma.$disconnect();

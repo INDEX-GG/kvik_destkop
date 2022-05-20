@@ -1,4 +1,5 @@
 // import {Pool} from "pg"
+// import tokenCheck from "components/api/tokenCheck";
 //
 // const relevant_actions = {
 //     2: {
@@ -18,26 +19,12 @@
 // export default async function handler(req, res) {
 //     if (req.method === 'POST') {
 //
-//         // const jwt = require("jsonwebtoken");
-//         // const token = req.headers["x-access-token"];
-//         // if (!token) {
-//         //     return res.status(403).send("A token is required for authentication");
-//         // }
-//         // try {
-//         //     jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-//         // } catch (err) {
-//         //     return res.status(401).send("Invalid Token");
-//         // }
-//         // const tokenUser = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET).sub
-//         // if (parseInt(req.body.user_id, 10) !== tokenUser) {
-//         //     return res.status(403).send("Invalid Token");
-//         // }
-//
 //         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 //         const main = async () => {
 //
+//             const userId = tokenCheck(req.headers["x-access-token"])
 //             // let amount = 0
-//             let user_id = req.body.user_id
+//             let user_id = userId
 //             let post_id = req.body.post_id
 //             // let now = new Date()
 //             let actions = [...new Set(req.body.actions)]
@@ -64,8 +51,8 @@
 //             res.end(JSON.stringify(response))
 //         }
 //         catch (e) {
-//             console.error(`ошибка api payment ${e}`)
-//             res.status(400).json({ message: 'ошибка api payment'})
+//             console.error(`ошибка api pay/wallet_pay ${e}`)
+//             res.status(400).json({ message: 'ошибка api pay/wallet_pay'})
 //         }
 //         finally {
 //             await pool.end()
