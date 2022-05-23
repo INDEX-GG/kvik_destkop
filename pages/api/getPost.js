@@ -140,7 +140,7 @@ export default async function handler(req, res) {
 		catch (e) {
 			console.error(`ошибка api getPost ${e}`)
 			if (parseInt(e) === 404) { res.status(404).json({ message: 404}) }
-			else { res.status(400).json({ message: 'ошибка api getPost'}) }
+			else { res.status(400).json({ message: 'ошибка api getPost' + e.toString()}) }
 		}
 		finally {
 			await pool.end();

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 		const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 
 		const main = async () => {
-			const user_id = tokenCheck(req.headers["x-access-token"])
+			const user_id = await tokenCheck(req.headers["x-access-token"])
 			let user_obj = await pool.query(`SELECT users."name", users."userPhoto", users."about", users."createdAt", users."phone", users."email", users."raiting", users."location", users."address",
 				(SELECT COUNT(subscription) FROM "public"."subscriptions" WHERE user_id = $1) AS "subscriptions_count",
 				(SELECT COUNT(user_id) FROM "public"."subscriptions" WHERE subscription = $1) AS "subscribers_count",
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
 				return res.status(401).send("Invalid Token");
 			}
 			// res.status(400).send("ошибка api subscribe: " + error.toString())
-			res.json('ошибка api getUser, ', error)
+			res.json('ошибка api getUser, ' + error.toString())
 		}
 		finally {
 			await pool.end()

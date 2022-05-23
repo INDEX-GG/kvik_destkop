@@ -88,7 +88,7 @@ export default async function handler(req, res) {
         }
         catch (e) {
             console.error(`ошибка api similarPosts ${e}`)
-            res.json('ошибка api similarPosts, ', e)
+            res.json('ошибка api similarPosts, ' + e.toString())
             res.status(405).end();
         }
         finally {

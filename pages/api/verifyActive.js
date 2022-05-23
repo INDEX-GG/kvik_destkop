@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 		const prisma = new PrismaClient();
 
 		const main = async () => {
-			const userId = tokenCheck(req.headers["x-access-token"])
+			const userId = await tokenCheck(req.headers["x-access-token"])
 			let now = new Date()
 			let now_iso = now.toISOString().slice(0, 19).replace('T', ' ');
 			const id = userId
@@ -82,7 +82,7 @@ export default async function handler(req, res) {
 				return res.status(401).send("Invalid Token");
 			}
 			// res.status(400).send("ошибка api subscribe: " + error.toString())
-			res.json('ошибка api verifyActive, ', error)
+			res.json('ошибка api verifyActive, ' + error.toString())
 		}
 		finally {
 			await prisma.$disconnect();

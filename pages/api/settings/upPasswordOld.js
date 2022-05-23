@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         const new_password = req.body.new_pass.toString()
 
         const main = async () => {
-            const userId = tokenCheck(req.headers["x-access-token"])
+            const userId = await tokenCheck(req.headers["x-access-token"])
             function hashing(hashed_text) {
                 return toMD5(globalSalt + hashed_text + globalSalt)
             }

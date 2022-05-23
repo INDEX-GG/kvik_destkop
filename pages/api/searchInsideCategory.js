@@ -65,7 +65,7 @@ export default async function handler(req, res) {
 		}
 		catch (e) {
 			console.error(`ошибка api searchInsideCategory ${e}`)
-			res.json('ошибка api searchInsideCategory, ', e)
+			res.json('ошибка api searchInsideCategory, ' + e.toString())
 			res.status(405).end();
 		}
 		finally {

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
 		const prisma = new PrismaClient();
 		const main = async () => {
-			const userId = tokenCheck(req.headers["x-access-token"])
+			const userId = await tokenCheck(req.headers["x-access-token"])
 			const { email } = req.body
 			const obj = {
 				where:

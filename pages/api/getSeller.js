@@ -42,7 +42,7 @@ export default async function handler(req, res) {
         catch (e) {
             console.error(e)
             console.error(`ошибка api getSeller ${e}`)
-            res.json('ошибка api getSeller, ', e)
+            res.json('ошибка api getSeller, ' + e.toString())
             res.status(405).end();
         }
         finally {

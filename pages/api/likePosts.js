@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {
-            const userId = tokenCheck(req.headers["x-access-token"])
+            const userId = await tokenCheck(req.headers["x-access-token"])
 
             let like_posts = req.body.like_posts
             let unlike_posts = req.body.unlike_posts
@@ -49,7 +49,7 @@ export default async function handler(req, res) {
                 return res.status(401).send("Invalid Token");
             }
             // res.status(400).send("ошибка api subscribe: " + error.toString())
-            res.json('ошибка api likePosts, ', error)
+            res.json('ошибка api likePosts, ' + error.toString())
         }
         finally {
             await pool.end()
