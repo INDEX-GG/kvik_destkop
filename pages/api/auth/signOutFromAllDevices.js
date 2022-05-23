@@ -1,4 +1,3 @@
-import { sign } from "jsonwebtoken"
 import tokenCheck from "#components/api/tokenCheck";
 const {Pool} = require("pg");
 let uuid = require("uuid");
