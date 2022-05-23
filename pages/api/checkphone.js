@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         }
         catch (e) {
             console.error(`ошибка api checkPhone ${e}`)
-            res.json('ошибка api checkPhone, ', e)
+            res.json('ошибка api checkPhone, ' + e.toString())
             res.status(405).end();
         }
         finally {

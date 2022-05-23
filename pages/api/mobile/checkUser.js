@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         catch (error) {
             console.error(`ошибка api mobile/checkUser ${error}`)
             if (parseInt(error) === 403) { res.status(403).json({isset: false}) }
-            res.status(400).json({ message: "ошибка api mobile/checkUser"})
+            res.status(400).json({ message: "ошибка api mobile/checkUser: " + error.toString()})
         }
         finally {
             await prisma.$disconnect()

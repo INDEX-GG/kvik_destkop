@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const prisma = new PrismaClient();
 		const main = async () => {
-			const userId = tokenCheck(req.headers["x-access-token"])
+			const userId = await tokenCheck(req.headers["x-access-token"])
 			const saltedPassword = globalSalt + decrypt(req.body.password) + globalSalt
 			const hashedPassword = toMD5(saltedPassword)
 			const obj = {

@@ -65,7 +65,7 @@ export default async function handler(req, res) {
 				return res.status(401).send("Invalid Token");
 			}
 			// res.status(400).send("ошибка api subscribe: " + error.toString())
-			res.json('ошибка api setApi, ', error)
+			res.json('ошибка api setApi, ' + error.toString())
 		}
 		finally {
 			await prisma.$disconnect();

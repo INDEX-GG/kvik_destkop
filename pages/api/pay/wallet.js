@@ -12,7 +12,7 @@ let payment_source = process.env.STG_PAYMENT_STATUS
 export default async function handler(req, res) {
     if (req.method === 'POST') {
 
-        const userId = tokenCheck(req.headers["x-access-token"])
+        const userId = await tokenCheck(req.headers["x-access-token"])
 
         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
         const main = async () => {

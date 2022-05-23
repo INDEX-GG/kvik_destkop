@@ -22,7 +22,7 @@
 //         const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 //         const main = async () => {
 //
-//             const userId = tokenCheck(req.headers["x-access-token"])
+//             const userId = await tokenCheck(req.headers["x-access-token"])
 //             // let amount = 0
 //             let user_id = userId
 //             let post_id = req.body.post_id

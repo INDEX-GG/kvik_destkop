@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
         const main = async () => {
             const refreshToken = req.body.RefreshAuthToken
-            const userId = refreshTokenCheck(refreshToken)
+            const userId = await refreshTokenCheck(refreshToken)
             const claims = {sub: userId}
             const new_jwt = sign(claims, process.env.NEXT_PUBLIC_JWT_SECRET, { expiresIn: 3600})
             return { authToken: new_jwt }

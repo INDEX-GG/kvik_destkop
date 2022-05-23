@@ -39,7 +39,7 @@ export default withSession(async (req, res) => {
 		}
 		catch (e) {
 			console.error(`ошибка api checkUser ${e}`)
-			res.json('ошибка api checkUser, ', e)
+			res.json('ошибка api checkUser, ' + e.toString())
 			res.status(405).end();
 		}
 		finally {

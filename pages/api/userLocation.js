@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
         const prisma = new PrismaClient();
         const main = async () => {
-            const userId = tokenCheck(req.headers["x-access-token"])
+            const userId = await tokenCheck(req.headers["x-access-token"])
             const obj = {
                 where:
                     {
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
                 return res.status(401).send("Invalid Token");
             }
             // res.status(400).send("ошибка api subscribe: " + error.toString())
-            res.json('ошибка api userLocation, ', error)
+            res.json('ошибка api userLocation, ' + error.toString())
         }
         finally {
             await prisma.$disconnect();

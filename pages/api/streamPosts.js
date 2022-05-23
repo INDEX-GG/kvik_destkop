@@ -49,7 +49,7 @@ export default async function handler(req, res) {
         }
         catch (e) {
             console.error(`ошибка api streamPosts ${e}`)
-            res.json('ошибка api streamPosts, ', e)
+            res.json('ошибка api streamPosts, ' + e.toString())
             res.status(405).end()
         }
         finally {
