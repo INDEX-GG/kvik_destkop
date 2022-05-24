@@ -8,7 +8,6 @@ export default withSession(async (req, res) => {
             const token = user.RefreshAuthToken
             const UserId = await refreshTokenCheck(token)
             const claims = {sub: UserId, remember_token: user.rememberToken}
-            console.log(user);
             const new_jwt = sign(claims, process.env.NEXT_PUBLIC_JWT_SECRET, { expiresIn: 3600})
             return { authToken: new_jwt }
         }

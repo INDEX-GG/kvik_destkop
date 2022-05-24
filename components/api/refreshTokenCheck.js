@@ -16,7 +16,6 @@ let refreshTokenCheck = async function(refreshToken) {
     let user = await pool.query(`SELECT * FROM "public"."users" WHERE "users"."id" = $1`, [tokenUser])
     pool.end()
     user = user.rows[0]
-
     if ((user == null) || (user.remember_token !== tokenData.remember_token)) {
         throw "Invalid Token Data"
     }

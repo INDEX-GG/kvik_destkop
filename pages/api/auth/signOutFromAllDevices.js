@@ -1,4 +1,5 @@
 import tokenCheck from "#components/api/tokenCheck";
+import { sign } from 'jsonwebtoken'
 const {Pool} = require("pg");
 let uuid = require("uuid");
 
@@ -8,10 +9,19 @@ export default async function handler(req, res) {
 
         const main = async () => {
             const userId = await tokenCheck(req.headers["x-access-token"])
-            let random = uuid.v4();
+            const random = uuid.v4();
             await pool.query(`UPDATE "public"."users" SET "remember_token" = $1 WHERE "users"."id" = $2`, [random, userId])
-
-            return {message: "success"}
+            const claims = {sub: userId, remember_token: random}
+            const jwt_refresh = sign(claims, process.env.NEXT_PUBLIC_JWT_REFRESH_SECRET, { expiresIn: '380d'})
+            const session_data = {id: userId, RefreshAuthToken: jwt_refresh, rememberToken: random}
+            try {
+                req.session.set('user', session_data)
+                await req.session.save()
+            } catch (e) {
+                // Ignore malformed lines.
+                }
+            return { "jwt_refresh": jwt_refresh }
+            // return {message: "success"}
         }
         try {
             let response = await main();
