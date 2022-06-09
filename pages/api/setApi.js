@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 
 		const add = async () => {
 			//Заносим в таблицу
+
 			function decrypt(encrypt_text) {
 				return CryptoJS.AES.decrypt(encrypt_text, process.env.NEXT_PUBLIC_MY_SECRET).toString(CryptoJS.enc.Utf8);
 			}
